@@ -201,4 +201,30 @@
         /// </summary>
         public Func<int, int, Color[]> StripUpdateFunction { get; set; }
     }
+
+    /// <summary>
+    /// </summary>
+    public class IndividualLedBlinkPatternParameters : PatternParameters
+
+    {
+        /// <summary>
+        ///     StripOnUpdateFunction takes strip id and led count and returns strip led colors for the off time of the cycle.
+        /// </summary>
+        public Func<int, int, Color[]> StripOnUpdateFunction { get; set; }
+        
+        /// <summary>
+        ///     StripOffUpdateFunction takes strip id and led count and returns strip led colors for the off time of the cycle.
+        /// </summary>
+        public Func<int, int, Color[]> StripOffUpdateFunction { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the on time
+        /// </summary>
+        public int OnTime { get; set; } = 100;
+
+        /// <summary>
+        ///     Gets or sets the off time
+        /// </summary>
+        public int OffTime { get; set; } = 100;
+    }
 }

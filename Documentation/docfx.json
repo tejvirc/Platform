@@ -241,7 +241,7 @@
       "_disableAffix": true,
       "_gitUrlPattern": "github"
     },
-    "template": ["default", "templates/mathew", "plugins/DocFx.Plugins.Monaco/template", "plugins/DocFx.Plugins.PlantUml/template"],
+    "template": ["default", "templates/monaco", "plugins/DocFx.Plugins.Monaco/template", "plugins/DocFx.Plugins.PlantUml/template"],
     "markdownEngineProperties": {
       "plantUml.outputFormat":"svg"
     },

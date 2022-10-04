@@ -56,39 +56,6 @@
         BingoWindow CurrentWindow { get; set; }
 
         /// <summary>
-        ///     Load config data from a file.
-        /// </summary>
-        /// <param name="path">File path</param>
-        void LoadFromFile(string path);
-
-#if !RETAIL
-        /// <summary>
-        ///     Temporarily override help config data.
-        /// </summary>
-        /// <param name="helpAppearance">Config data for help</param>
-        void OverrideHelpAppearance(BingoDisplayConfigurationHelpAppearance helpAppearance);
-
-        /// <summary>
-        ///     Temporarily override config data for one window.
-        /// </summary>
-        /// <param name="window">Which window</param>
-        /// <param name="settings">Config data for one window</param>
-        void OverrideSettings(BingoWindow window, BingoDisplayConfigurationBingoWindowSettings settings);
-
-        /// <summary>
-        ///     Restore original config data for one window.
-        /// </summary>
-        /// <param name="window">Which window</param>
-        void RestoreSettings(BingoWindow window);
-
-        /// <summary>
-        ///     Save config data to a file.
-        /// </summary>
-        /// <param name="path">File path</param>
-        void SaveToFile(string path);
-#endif
-
-        /// <summary>
         ///     Called when the lobby is initialized
         /// </summary>
         void LobbyInitialized();

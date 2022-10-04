@@ -1,44 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />
   <PropertyGroup>
     <RootNamespace>Vgt.Client12.Hardware.TicketContent</RootNamespace>
-    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <AssemblyName>RenderPdl</AssemblyName>
     <TargetFramework>net472</TargetFramework>
     <AssemblyTitle>RenderPdl</AssemblyTitle>
-    <Company>Aristocrat Technologies Inc.</Company>
-    <Product>Monaco</Product>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-	<LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <OutputPath>..\..\..\..\bin\$(Configuration)\Platform\bin</OutputPath>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
     <DocumentationFile>..\..\..\..\bin\$(Configuration)\Platform\bin\RenderPdl.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <OutputPath>..\..\..\..\bin\$(Configuration)\Platform\bin</OutputPath>
     <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <DocumentationFile>..\..\..\..\bin\$(Configuration)\Platform\bin\RenderPdl.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
-    <OutputPath>..\..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
-    <DocumentationFile />
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\..\..\CustomDictionary.xml">

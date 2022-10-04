@@ -240,7 +240,7 @@
                     // if we don't have a PlatformTemplateId then the replace applies to all regions
                     if (regionId == replacement.RegionId)
                     {
-                        var regex = new Regex(Regex.Escape(replacement.Replace));
+                        var regex = new Regex(replacement.IsReplaceRegexString ? replacement.Replace : Regex.Escape(replacement.Replace));
                         regionText = replacement.LeadingText + regex.Replace(regionText, replacement.With, 1);
                     }
                 }

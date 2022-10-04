@@ -7,10 +7,13 @@
     using System.Runtime.InteropServices;
     using System.Windows.Input;
     using Contracts.Input;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Cabinet;
+    using Hardware.Contracts.Display;
     using Kernel;
     using log4net;
+    using Monaco.Localization.Properties;
     using Monaco.UI.Common;
     using MVVM;
 
@@ -45,6 +48,7 @@
             _cabinetDetection = cabinetDetection ?? throw new ArgumentNullException(nameof(cabinetDetection));
 
             _eventBus.Subscribe<OperatorMenuExitedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<DisplayDisconnectedEvent>(this, HandleEvent);
         }
 
         public bool IsCalibrating { get; private set; }
@@ -86,7 +90,7 @@
             MvvmHelper.ExecuteOnUI(() => _activeWindow = _activeWindow?.NextCalibrationTest());
         }
 
-        public void AbortCalibration()
+        public void AbortCalibration(string displayMessage = "")
         {
             if (!IsCalibrating)
             {
@@ -95,7 +99,7 @@
 
             Logger.Info("Aborting touch screen calibration...");
 
-            FinalizeCalibration(true, "Touch calibration aborted.");
+            FinalizeCalibration(true, "Touch calibration aborted.", displayMessage);
         }
 
         private void InitializeCalibration()
@@ -171,7 +175,7 @@
                 });
         }
 
-        private void FinalizeCalibration(bool aborted, string message = "")
+        private void FinalizeCalibration(bool aborted, string message = "", string displayMessage = "")
         {
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -204,7 +208,7 @@
 
                     IsCalibrating = false;
 
-                    _eventBus.Publish(new TouchCalibrationCompletedEvent(!aborted, message));
+                    _eventBus.Publish(new TouchCalibrationCompletedEvent(!aborted, message, displayMessage));
                 });
         }
 
@@ -319,6 +323,14 @@
             Logger.Info("Operator Menu exited -- Touch calibration cancelled.");
 
             FinalizeCalibration(true, "Touch calibration aborted via exit Operator Menu.");
+        }
+
+        private void HandleEvent(DisplayDisconnectedEvent evt)
+        {
+            if (_overlay != null)
+            {
+                AbortCalibration(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchCalibrationDisconnectError));
+            }
         }
     }
 }

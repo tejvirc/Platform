@@ -6,12 +6,10 @@
     using Application.Contracts.Localization;
     using Common;
     using Common.Events;
-    using Events;
     using Gaming.Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using OverlayServer.Data.Bingo;
     using Test.Common;
     using UI.Models;
 
@@ -86,52 +84,6 @@
         public void GetWindow_Fail()
         {
             _target.GetWindow(new BingoWindow());
-        }
-
-        [TestMethod]
-        public void OverrideHelpAppearance_Null()
-        {
-            var current = _target.GetHelpAppearance();
-            _target.OverrideHelpAppearance(null);
-
-            Assert.AreEqual(current, _target.GetHelpAppearance());
-
-            _eventBus.Verify(m => m.Publish(It.IsAny<BingoDisplayHelpAppearanceChangedEvent>()), Times.Never());
-        }
-
-        [TestMethod]
-        public void OverrideHelpAppearance()
-        {
-            var current = _target.GetHelpAppearance();
-            _target.OverrideHelpAppearance(new BingoDisplayConfigurationHelpAppearance());
-
-            Assert.AreNotEqual(current, _target.GetHelpAppearance());
-
-            _eventBus.Verify(m => m.Publish(It.IsAny<BingoDisplayHelpAppearanceChangedEvent>()), Times.Once());
-        }
-
-        [TestMethod]
-        public void OverrideSettings_KeyNotFound()
-        {
-            _target.OverrideSettings(new BingoWindow(), new BingoDisplayConfigurationBingoWindowSettings());
-
-            _eventBus.Verify(m => m.Publish(It.IsAny<BingoDisplayHelpAppearanceChangedEvent>()), Times.Never());
-        }
-
-        [TestMethod]
-        public void OverrideSettings_NullSettings()
-        {
-            _target.OverrideSettings(new BingoWindow(), null);
-
-            _eventBus.Verify(m => m.Publish(It.IsAny<BingoDisplayHelpAppearanceChangedEvent>()), Times.Never());
-        }
-
-        [TestMethod]
-        public void OverrideSettings()
-        {
-            _target.OverrideSettings(BingoWindow.Main, new BingoDisplayConfigurationBingoWindowSettings());
-
-            _eventBus.Verify(m => m.Publish(It.IsAny<BingoDisplayHelpAppearanceChangedEvent>()), Times.Once());
         }
     }
 }

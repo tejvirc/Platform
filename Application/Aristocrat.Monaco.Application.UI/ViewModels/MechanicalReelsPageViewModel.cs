@@ -8,6 +8,7 @@
     using System.Windows.Media;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
+    using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -53,7 +54,8 @@
                 SettingsScreenHidden = false;
             });
 
-            LightTestViewModel = new(ReelController);
+            var edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
+            LightTestViewModel = new(ReelController, edgeLightController);
             ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen);
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
@@ -184,6 +186,12 @@
             }
         }
 
+        protected override void DisposeInternal()
+        {
+            LightTestViewModel.Dispose();
+            base.DisposeInternal();
+        }
+
         protected override void OnLoaded()
         {
             base.OnLoaded();
@@ -197,7 +205,7 @@
 
         protected override void OnUnloaded()
         {
-            LightTestViewModel.Unload();
+            LightTestViewModel.CancelTest();
             EventBus.UnsubscribeAll(this);
             base.OnUnloaded();
         }
@@ -287,7 +295,7 @@
 
         protected override void UpdateWarningMessage()
         {
-            if (!(ReelController?.Connected ?? false) || (bool)ReelController?.DisabledByError)
+            if (!(ReelController?.Connected ?? false) || (ReelController?.DisabledByError ?? false))
             {
                 TestWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TestModeDisabledStatusDevice);
             }
@@ -351,7 +359,7 @@
                         {
                             localizedState = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
                         }
-                    } 
+                    }
                 }
                 else if (activeReel.IsSpinning && state != ReelControllerState.Tilted.ToString())
                 {
@@ -372,7 +380,7 @@
                 else
                 {
                     var reelsStatus = ReelController.ReelsStatus;
-                    
+
                     if (reelsStatus.ContainsKey(reelId))
                     {
                         reelsStatus.TryGetValue(reelId, out var reelStatus);
@@ -388,7 +396,7 @@
                         {
                             localizedState = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LowVoltage);
                         }
-                        else if (reelStatus?.RequestError == true || reelStatus?.FailedHome == true)
+                        else if (reelStatus?.FailedHome == true)
                         {
                             localizedState = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
                         }

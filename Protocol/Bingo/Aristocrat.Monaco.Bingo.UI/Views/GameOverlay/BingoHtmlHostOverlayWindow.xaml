@@ -90,7 +90,7 @@
                     BorderThickness="0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
-                <cefsharp:ChromiumWebBrowser x:Name="BingoHelp" Address="{Binding BingoHelpAddress, Mode=TwoWay}"
+                <cefsharp:ChromiumWebBrowser x:Name="BingoHelpHost" Address="{Binding BingoHelpAddress, Mode=TwoWay}"
                                              WebBrowser="{Binding BingoHelpWebBrowser, Mode=OneWayToSource}" />
             </Border>
 

@@ -25,6 +25,7 @@
         private int _lastReelCount;
         private int _lastLightIdentifiersCount;
         private List<LightData> _lastLightData;
+        private int _systemBrightness = -1;
         private int _lastReelBrightness = -1;
 
         internal class LightData
@@ -164,6 +165,8 @@
                     return;
                 }
 
+                SetSystemBrightness();
+
                 // Convert the strip data to lamp data
                 var reelLampData = new List<ReelLampData>();
                 var reelLampBrightness = new Dictionary<int, int>();
@@ -176,14 +179,13 @@
                     for (var ledIndex = 0; ledIndex < _lightsPerReel; ++ledIndex)
                     {
                         var ledColorBuffer = strip.ColorBuffer[ledIndex];
-                        var isLampOn = ledColorBuffer.R != 0 || ledColorBuffer.G != 0 || ledColorBuffer.B != 0;
+                        var isLampOn = IsLampStateOn(ledColorBuffer);
                         var lightId = (stripIndex * _lightsPerReel) + ledIndex + 1;
                         reelLampBrightness.Add(lightId, strip.Brightness);
                         var lastDataIndex = lightId - 1;
 
                         if (_lastLightData.Count <= lastDataIndex)
                         {
-                            _lastLightData.Add(new LightData { IsLampOn = isLampOn, ArgbColor = ledColorBuffer.ToArgb(), Brightness = strip.Brightness });
                             lampStateMatch = false;
                             colorsMatch = false;
                             brightnessMatch = false;
@@ -193,38 +195,52 @@
                             if (isLampOn != _lastLightData[lastDataIndex].IsLampOn)
                             {
                                 lampStateMatch = false;
-                                _lastLightData[lastDataIndex].IsLampOn = isLampOn;
                             }
 
                             var isBlackColor = ledColorBuffer.R == 0 && ledColorBuffer.G == 0 && ledColorBuffer.B == 0;
                             if (!isBlackColor && ledColorBuffer.ToArgb() != _lastLightData[lastDataIndex].ArgbColor)
                             {
                                 colorsMatch = false;
-                                _lastLightData[lastDataIndex].ArgbColor = ledColorBuffer.ToArgb();
                             }
 
                             if (strip.Brightness != _lastLightData[lastDataIndex].Brightness)
                             {
                                 brightnessMatch = false;
-                                _lastLightData[lastDataIndex].Brightness = strip.Brightness;
                             }
                         }
 
-                        reelLampData.Add(new ReelLampData(
-                            Color.FromArgb(_lastLightData[lastDataIndex].ArgbColor),
-                            _lastLightData[lastDataIndex].IsLampOn,
-                            lightId));
+                        reelLampData.Add(new ReelLampData(ledColorBuffer, isLampOn, lightId));
                     }
                 }
 
                 if (!lampStateMatch || !colorsMatch)
                 {
-                    Controller.SetLights(reelLampData.ToArray()).WaitForCompletion();
+                    if (!Controller.SetLights(reelLampData.ToArray()).WaitForCompletion())
+                    {
+                        return;
+                    }
                 }
 
                 if (!brightnessMatch)
                 {
-                    Controller.SetReelBrightness(reelLampBrightness).WaitForCompletion();
+                    if (!Controller.SetReelBrightness(reelLampBrightness).WaitForCompletion())
+                    {
+                        return;
+                    }
+                }
+
+                if (!brightnessMatch || !lampStateMatch || !colorsMatch)
+                {
+                    _lastLightData = PhysicalStrips
+                        .SelectMany(x => x.ColorBuffer.Select(c => (Color: c, Strip: x)))
+                        .Select(
+                            x => new LightData
+                            {
+                                IsLampOn = IsLampStateOn(x.Color),
+                                Brightness = x.Strip.Brightness,
+                                ArgbColor = x.Color.ToArgb()
+                            })
+                        .ToList();
                 }
             }
         }
@@ -239,14 +255,26 @@
         {
             lock (_lock)
             {
-                if (!IsOpen || !Controller.Enabled || !Controller.Initialized || _lastReelBrightness == brightness)
-                {
-                    return;
-                }
-
-                Controller.SetReelBrightness(brightness).WaitForCompletion();
-                _lastReelBrightness = brightness;
+                _systemBrightness = brightness;
             }
+        }
+
+        private void SetSystemBrightness()
+        {
+            if (!IsOpen || !Controller.Enabled || !Controller.Initialized || _lastReelBrightness == _systemBrightness)
+            {
+                return;
+            }
+
+            if (Controller.SetReelBrightness(_systemBrightness).WaitForCompletion())
+            {
+                _lastReelBrightness = _systemBrightness;
+            }
+        }
+
+        private static bool IsLampStateOn(Color ledColorBuffer)
+        {
+            return ledColorBuffer.R != 0 || ledColorBuffer.G != 0 || ledColorBuffer.B != 0;
         }
     }
 }

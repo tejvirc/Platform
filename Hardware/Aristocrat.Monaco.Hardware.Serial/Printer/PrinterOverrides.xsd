@@ -50,6 +50,7 @@
                               <xs:attribute name="Description" type="xs:string" use="required" />
                               <xs:attribute name="Replace" type="xs:string" use="required" />
                               <xs:attribute name="With" type="xs:string" use="required" />
+                              <xs:attribute name="IsReplaceRegexString" type="xs:boolean" use="required" />
                               <xs:attribute name="LeadingText" type="xs:string" use="optional" default="" />
                             </xs:complexType>
                           </xs:element>

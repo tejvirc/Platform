@@ -1,38 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <AssemblyTitle>Aristocrat.Monaco.Bingo</AssemblyTitle>
-    <Company>Aristocrat Technologies Inc.</Company>
-    <Product>Monaco</Product>
-    <Copyright>Copyright © Aristocrat Technologies Inc. 2021</Copyright>
-    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
     <Configurations>Debug;Release;Retail</Configurations>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
-    <DocumentationFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
     <DebugType>pdbonly</DebugType>
-    <DocumentationFile />
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
     <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

@@ -9,10 +9,11 @@
     public class TouchCalibrationCompletedEvent: BaseEvent
     {
         /// <inheritdoc />
-        public TouchCalibrationCompletedEvent(bool success, string error)
+        public TouchCalibrationCompletedEvent(bool success, string error, string displayMessage = "")
         {
             Success = success;
             Error = error;
+            DisplayMessage = displayMessage;
         }
 
         /// <summary>Gets a value indicating whether or not touch calibration completed successfully.</summary>
@@ -20,5 +21,8 @@
 
         /// <summary>Gets the error message associated with a failed calibration attempt.</summary>
         public string Error { get; }
+
+        /// <summary>Gets the display message associated with a failed calibration attempt.</summary>
+        public string DisplayMessage { get; }
     }
 }

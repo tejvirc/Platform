@@ -1,37 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <AssemblyTitle>Monaco.PackageManifest</AssemblyTitle>
-    <Company>Aristocrat Technologies Inc.</Company>
-    <Product>Monaco</Product>
-    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
-    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	<LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
     <DefineConstants>CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
     <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.PackageManifest.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
     <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.PackageManifest.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
-    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
-    <DocumentationFile />
-    <Optimize>true</Optimize>
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
     <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
   </PropertyGroup>
 </Project>

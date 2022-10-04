@@ -66,6 +66,7 @@
         private double _height;
         private double _width;
         private bool _disposed;
+        private OverlayType? _selectedOverlayType;
 
         private Thickness _helpBoxMargin;
         private bool _isHelpLoading;
@@ -115,7 +116,8 @@
             _overlayServer.ClientDisconnected += OverlayClientDisconnected;
 
             // Bingo Info Events
-            _eventBus.Subscribe<GameConnectedEvent>(this, (_, _) => HandleGameLoaded());
+            _eventBus.Subscribe<GameSelectedEvent>(this, Handle);
+            _eventBus.Subscribe<GameInitializationCompletedEvent>(this, (_, _) => SetInfoVisibility(true));
             _eventBus.Subscribe<GameProcessExitedEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameBallCallEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameNewCardEvent>(this, Handle);
@@ -150,11 +152,10 @@
 
             // Bingo Help Events
             _eventBus.Subscribe<HostConnectedEvent>(this, Handle);
-            _eventBus.Subscribe<GameLoadedEvent>(this, _ => SetHelpVisibility(false));
-            _eventBus.Subscribe<GameExitedNormalEvent>(this, _ => SetHelpVisibility(false));
-            _eventBus.Subscribe<GameFatalErrorEvent>(this, _ => SetHelpVisibility(false));
-            _eventBus.Subscribe<BingoDisplayHelpAppearanceChangedEvent>(this, _ => UpdateAppearance());
-            _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, e => SetHelpVisibility(e.Visible));
+            _eventBus.Subscribe<GameLoadedEvent>(this, (_, _) => SetHelpVisibility(false));
+            _eventBus.Subscribe<GameExitedNormalEvent>(this, (_, _) => SetHelpVisibility(false));
+            _eventBus.Subscribe<GameFatalErrorEvent>(this, (_, _) => SetHelpVisibility(false));
+            _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, (e, _) => SetHelpVisibility(e.Visible));
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, Handle);
         }
 
@@ -232,7 +233,7 @@
 
         public void LoadOverlay()
         {
-            UpdateAppearance();
+            UpdateAppearance().FireAndForget();
         }
 
         public double HelpOpacity
@@ -275,14 +276,34 @@
 
         private static double GetVisibleOpacity(bool visible) => visible ? 1.0 : 0.0;
 
+        private static void OverlayClientDisconnected(object sender, OverlayType overlayType)
+        {
+            Logger.Debug($"Overlay client disconnected: {overlayType}");
+        }
+
+        private static void ReloadBrowser(IWebBrowser browser)
+        {
+            try
+            {
+                browser.Reload(true);
+            }
+            catch (Exception e) // CrefSharp throws Exception and not anything more specific so we must catch a generic exception
+            {
+                Logger.Error("Failed to reload the web browser", e);
+            }
+        }
+
         private void AttractCompleted(object sender, EventArgs e)
         {
-            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+            _dispatcher.ExecuteOnUIThread(() =>
             {
-                return;
-            }
+                if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+                {
+                    return;
+                }
 
-            NavigateToOverlay(OverlayType.BingoOverlay);
+                NavigateToOverlay(OverlayType.BingoOverlay);
+            });
         }
 
         private async Task CancelWaitingForPlayers(CancellationToken token)
@@ -426,19 +447,22 @@
             return string.Format(formatString, formattedCredits);
         }
 
-        private void Handle(AttractModeEntered evt)
+        private async Task Handle(AttractModeEntered evt, CancellationToken token)
         {
-            NavigateToOverlay(OverlayType.Attract);
+            await _dispatcher.ExecuteAndWaitOnUIThread(() => NavigateToOverlay(OverlayType.Attract));
         }
 
-        private void Handle(AttractModeExited evt)
+        private async Task Handle(AttractModeExited evt, CancellationToken token)
         {
-            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+            await _dispatcher.ExecuteAndWaitOnUIThread(() =>
             {
-                return;
-            }
+                if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+                {
+                    return;
+                }
 
-            NavigateToOverlay(OverlayType.BingoOverlay);
+                NavigateToOverlay(OverlayType.BingoOverlay);
+            });
         }
 
         private void Handle(Class2MultipleOutcomeSpinsChangedEvent e)
@@ -452,17 +476,24 @@
             _gameControlledHeight = e.GameControlHeight;
         }
 
-        private void Handle(GameProcessExitedEvent e)
+        private async Task Handle(GameProcessExitedEvent e, CancellationToken token)
         {
-            if (BingoInfoAddress is not null && BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
-            {
-                return;
-            }
-
             _configuredOverrideMessageFormats.Clear();
-            SetInfoVisibility(false);
 
-            NavigateToOverlay(OverlayType.BingoOverlay);
+            await SetInfoVisibility(false);
+            await _dispatcher.ExecuteAndWaitOnUIThread(() =>
+            {
+                if (BingoInfoAddress is null || !BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
+                {
+                    NavigateToOverlay(OverlayType.BingoOverlay);
+                }
+            });
+        }
+
+        private async Task Handle(GameSelectedEvent e, CancellationToken token)
+        {
+            await SetInfoVisibility(false);
+            await InitializeOverlay();
         }
 
         private async Task Handle(BingoGameBallCallEvent e, CancellationToken token)
@@ -715,17 +746,21 @@
             }
         }
 
-        private void Handle(HostConnectedEvent e)
+        private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
-            NavigateToHelp();
+            await _dispatcher.ExecuteAndWaitOnUIThread(NavigateToHelp);
         }
 
-        private void Handle(BankBalanceChangedEvent e)
+        private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)
         {
-            if (IsHelpVisible)
-            {
-                NavigateToOverlay(OverlayType.CreditMeter);
-            }
+            await _dispatcher.ExecuteAndWaitOnUIThread(
+                () =>
+                {
+                    if (IsHelpVisible)
+                    {
+                        NavigateToOverlay(OverlayType.CreditMeter);
+                    }
+                });
         }
 
         private async Task HandleBingoDisplayConfigurationChanged()
@@ -736,14 +771,15 @@
             }
 
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
-            UpdateAppearance();
+            await UpdateAppearance();
             await _overlayServer.StopAsync();
-            await HandleGameLoaded();
+            await InitializeOverlay();
+            await SetInfoVisibility(true);
         }
 
-        private async Task HandleGameLoaded()
+        private async Task InitializeOverlay()
         {
-            UpdateAppearance();
+            await UpdateAppearance();
             LoadPresentationOverrideMessageFormats();
 
             if (!_overlayServer.IsRunning)
@@ -773,8 +809,6 @@
                 Logger.Debug("Starting overlay server");
                 await _overlayServer.StartAsync(currentGame.Folder, new Uri(BingoConstants.BingoOverlayServerUri), staticData);
             }
-
-            SetInfoVisibility(true);
         }
 
         private async Task HandleNoPlayersFound(NoPlayersFoundEvent evt, CancellationToken token)
@@ -784,7 +818,11 @@
 
         private void HandleServerStarted(object sender, EventArgs e)
         {
-            NavigateToOverlay(OverlayType.BingoOverlay);
+            _dispatcher.ExecuteOnUIThread(() =>
+            {
+                NavigateToOverlay(OverlayType.BingoOverlay);
+                ReloadBrowser(BingoInfoWebBrowser);
+            });
         }
 
         private bool IsNewBallCall(IReadOnlyCollection<BingoNumber> incomingBallCall)
@@ -817,13 +855,13 @@
         private void NavigateToHelp()
         {
             var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            if (BingoHelpAddress != helpAddress)
+            if (BingoHelpAddress == helpAddress)
             {
-                IsHelpLoading = true;
-                _dispatcher.ExecuteOnUIThread(() => {
-                    BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-                });
+                return;
             }
+
+            IsHelpLoading = true;
+            BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
         }
 
         private void NavigateToDynamicMessage(string message, string scene, string meterMessage, bool showMessage, bool showMeter)
@@ -840,34 +878,28 @@
 
         private void NavigateToOverlay(OverlayType overlayType)
         {
-            switch (overlayType)
+            Logger.Debug($"Navigating the bingo overlay to {overlayType}");
+            var isCreditOverlayDisplayed = BingoInfoAddress is not null &&
+                                           BingoInfoAddress.Contains(OverlayType.CreditMeter.GetOverlayRoute());
+
+            BingoInfoAddress = overlayType switch
             {
-                case OverlayType.Attract:
-                    if (BingoInfoAddress is not null && BingoInfoAddress.Contains(OverlayType.CreditMeter.GetOverlayRoute()))
-                    {
-                        return;
-                    }
+                OverlayType.Attract when !isCreditOverlayDisplayed => GetAttractOverlay(),
+                OverlayType.BingoOverlay when _selectedOverlayType != OverlayType.BingoOverlay => GetBingoOverlay(),
+                OverlayType.CreditMeter => GetCreditMeterUrl(),
+                _ => BingoInfoAddress
+            };
 
-                    var attractUri =
-                        _legacyAttractProvider.GetLegacyAttractUri(_bingoConfigurationProvider.GetAttractSettings());
-                    if (attractUri is null)
-                    {
-                        return;
-                    }
-
-                    BingoInfoAddress = attractUri.ToString();
-                    return;
-                case OverlayType.BingoOverlay:
-                    BingoInfoAddress = new UriBuilder(BingoConstants.BingoOverlayServerUri)
-                    {
-                        Path = OverlayType.BingoOverlay.GetOverlayRoute()
-                    }.ToString();
-                    return;
-                case OverlayType.CreditMeter:
-                    BingoInfoAddress = GetCreditMeterUrl();
-                    return;
-            }
+            _selectedOverlayType = overlayType;
         }
+
+        private string GetAttractOverlay() =>
+            _legacyAttractProvider.GetLegacyAttractUri(_bingoConfigurationProvider.GetAttractSettings())
+                ?.ToString() ?? BingoInfoAddress;
+
+        private string GetBingoOverlay() =>
+            new UriBuilder(BingoConstants.BingoOverlayServerUri) { Path = OverlayType.BingoOverlay.GetOverlayRoute() }
+                .ToString();
 
         private void OverlayClientConnected(object sender, OverlayType overlayType)
         {
@@ -889,35 +921,6 @@
 #endif
         }
 
-        private void OverlayClientDisconnected(object sender, OverlayType overlayType)
-        {
-            Logger.Debug($"Overlay client disconnected: {overlayType}");
-            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(overlayType.GetOverlayRoute()))
-            {
-                return;
-            }
-
-            _dispatcher.Invoke(ReloadInfoPage);
-        }
-
-        private void ReloadInfoPage()
-        {
-            if (!IsInfoVisible)
-            {
-                return;
-            }
-
-            try
-            {
-                BingoInfoWebBrowser?.Reload();
-            }
-            catch (Exception ex)
-            {
-                // CefSharp throws a general exception for things so we must catch Exception
-                Logger.Warn("Failed to reload the browser", ex);
-            }
-        }
-
         private void SaveDaubState(bool state)
         {
             using var unitOfWork = _unitOfWorkFactory.Create();
@@ -928,35 +931,34 @@
             unitOfWork.SaveChanges();
         }
 
-        private void SetHelpVisibility(bool visible)
+        private async Task SetHelpVisibility(bool visible)
         {
-            NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
-
-            _dispatcher.ExecuteOnUIThread(
+            await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
-                    NavigateToHelp();
                     IsHelpVisible = visible;
+                    NavigateToHelp();
+                    NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
                     HelpOpacity = GetVisibleOpacity(visible);
                 });
         }
 
-        private void SetInfoVisibility(bool visible)
+        private async Task SetInfoVisibility(bool visible)
         {
-            _dispatcher.ExecuteOnUIThread(() =>
+            await _dispatcher.ExecuteAndWaitOnUIThread(() =>
             {
                 IsInfoVisible = visible;
                 InfoOpacity = GetVisibleOpacity(visible);
             });
         }
 
-        private void UpdateAppearance()
+        private async Task UpdateAppearance()
         {
             var window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             var helpAppearance = _bingoConfigurationProvider.GetHelpAppearance();
             _standaloneCreditMeterFormat = helpAppearance.CreditMeterFormat ?? string.Empty;
 
-            _dispatcher.ExecuteOnUIThread(
+            await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
                     Width = window.Width;

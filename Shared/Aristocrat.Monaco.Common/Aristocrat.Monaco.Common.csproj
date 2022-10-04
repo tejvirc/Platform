@@ -1,37 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <AssemblyTitle>Aristocrat.Monaco.Common</AssemblyTitle>
-    <Company>Aristocrat Technologies Inc.</Company>
-    <Product>Monaco</Product>
-    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
-    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-	<LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;CODE_ANALYSIS;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Common.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
     <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Common.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
-    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
     <DocumentationFile />
-    <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />

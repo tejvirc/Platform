@@ -25733,6 +25733,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.Contracts
+        /// </remarks>
+		public static string ReelControllerFaults_RequestError {
+			get {
+				return ResourceManager.GetString("ReelControllerFaults_RequestError", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Reel Controller.
 		/// </summary>
         /// <remarks>
@@ -25789,18 +25801,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReelFaults_ReelTamper {
 			get {
 				return ResourceManager.GetString("ReelFaults_ReelTamper", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Reel Controller Error.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.Contracts
-        /// </remarks>
-		public static string ReelFaults_RequestError {
-			get {
-				return ResourceManager.GetString("ReelFaults_RequestError", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -31465,6 +31465,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchCalibrationDialogTooltip {
 			get {
 				return ResourceManager.GetString("TouchCalibrationDialogTooltip", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrationDisconnectError {
+			get {
+				return ResourceManager.GetString("TouchCalibrationDisconnectError", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -60109,6 +60121,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Reel Controller Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.Contracts
+        /// </remarks>
+		public static string ReelControllerFaults_RequestError {
+			get {
+				return "ReelControllerFaults_RequestError";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Reel Controller.
 		/// </summary>
         /// <remarks>
@@ -60165,18 +60189,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReelFaults_ReelTamper {
 			get {
 				return "ReelFaults_ReelTamper";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Reel Controller Error.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.Contracts
-        /// </remarks>
-		public static string ReelFaults_RequestError {
-			get {
-				return "ReelFaults_RequestError";
 			}
 		}
 
@@ -65841,6 +65853,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchCalibrationDialogTooltip {
 			get {
 				return "TouchCalibrationDialogTooltip";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrationDisconnectError {
+			get {
+				return "TouchCalibrationDisconnectError";
 			}
 		}
 
@@ -83452,6 +83476,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ReelControllerFaults_HardwareError,
 		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.Contracts
+        /// </remarks>
+		ReelControllerFaults_RequestError,
+		/// <summary>
 		///   Looks up a localized string similar to Reel Controller.
 		/// </summary>
         /// <remarks>
@@ -83486,13 +83517,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.Contracts
         /// </remarks>
 		ReelFaults_ReelTamper,
-		/// <summary>
-		///   Looks up a localized string similar to Reel Controller Error.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.Contracts
-        /// </remarks>
-		ReelFaults_RequestError,
 		/// <summary>
 		///   Looks up a localized string similar to Reel {0}.
 		/// </summary>
@@ -86712,6 +86736,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TouchCalibrationDialogTooltip,
+		/// <summary>
+		///   Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TouchCalibrationDisconnectError,
 		/// <summary>
 		///   Looks up a localized string similar to You have {0} touch devices.  Each touch device mus....
 		/// </summary>

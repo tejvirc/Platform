@@ -197,8 +197,6 @@
             builder.AddRange(TclProtocolConstants.CommandSet20_5CharactersPerInch);
             // set 1/8" line spacing
             builder.AddRange(TclProtocolConstants.CommandSetLineSpacing);
-            // set bold font
-            //  builder.AddRange(TclProtocolConstants.CommandSetBoldFont);
 
             // print the header text center aligned
             builder.AddRange(MakeLine(0, Array.Empty<string>(), header, Array.Empty<string>()));

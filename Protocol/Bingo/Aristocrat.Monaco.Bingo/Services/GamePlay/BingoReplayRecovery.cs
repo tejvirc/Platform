@@ -69,6 +69,7 @@
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
 
             _bus.Subscribe<GamePlayInitiatedEvent>(this, _ => ClearGameEndWinMessage());
+            _bus.Subscribe<BankBalanceChangedEvent>(this, Handle);
         }
 
         public Task RecoverDisplay(CancellationToken token)
@@ -236,6 +237,14 @@
 
             _messages.RemoveMessage(_recoveryMessageId);
             _recoveredTransactionId = 0;
+        }
+
+        private void Handle(BankBalanceChangedEvent evt)
+        {
+            if (evt.NewBalance == 0)
+            {
+                ClearGameEndWinMessage();
+            }
         }
     }
 }

@@ -61,10 +61,11 @@
         private long _topAwardValue;
         private bool _progressivesEditable;
         private bool _gameOptionsEnabled;
+        private bool _showGameRtpAsRange;
         private IReadOnlyList<PaytableDisplay> _availablePaytables;
         private PaytableDisplay _selectedPaytable;
 
-        public EditableGameConfiguration(long denom, IReadOnlyList<IGameDetail> games)
+        public EditableGameConfiguration(long denom, IReadOnlyList<IGameDetail> games, bool showGameRtpAsRange)
         {
             var serviceManager = ServiceManager.GetInstance();
             _properties = serviceManager.GetService<IPropertiesManager>();
@@ -74,6 +75,7 @@
 
             BaseDenom = denom;
             AvailableGames = games;
+            _showGameRtpAsRange = showGameRtpAsRange;
 
             // Initial list should include all available RTPs
             _lowestAllowedMinimumRtp = LowestAvailableMinimumRtp = AvailableGames.Min(g => g.MinimumPaybackPercent);
@@ -823,7 +825,7 @@
         {
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
-                .Select(g => new PaytableDisplay(g, BaseDenom)).ToList();
+                .Select(g => new PaytableDisplay(g, BaseDenom, _showGameRtpAsRange)).ToList();
         }
     }
 }
