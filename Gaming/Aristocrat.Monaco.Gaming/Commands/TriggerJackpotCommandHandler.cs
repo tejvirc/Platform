@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Contracts.Diagnostics;
     using Contracts;
     using Contracts.Progressives;
     using Progressives;
@@ -34,15 +35,34 @@
         /// <inheritdoc />
         public void Handle(TriggerJackpot command)
         {
-            if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
+            if (_gameDiagnostics.IsActive)
             {
-                // For replay the triggers come solely from the log
-                var jackpots = context.Arguments.Jackpots.Where(t => command.TransactionIds.Contains(t.TransactionId)).ToList();
-                command.Results = ToResults(jackpots);
+                var jackpots = new List<JackpotInfo>();
 
-                // For replay tell the runtime the jackpot win amount so it can proceed as intended.
-                Task.Run(() => NotifyGameWinAsync(command.PoolName, jackpots));
-                return;
+                if (_gameDiagnostics.Context is ICombinationTestContext)
+                {
+                    var gameProgressiveLevels = _progressiveGame.GetProgressiveLevel(command.PoolName, false);
+                    foreach (var levelId in command.LevelIds)
+                    {
+                        var level = gameProgressiveLevels.FirstOrDefault(x => x.Key == levelId);
+                        jackpots.Add(new JackpotInfo { WinAmount = level.Value, LevelId = levelId, TransactionId = levelId, });
+                    }
+                }
+                else if (_gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
+                {
+                    // For replay the triggers come solely from the log
+                    jackpots = context.Arguments.Jackpots.Where(t => command.TransactionIds.Contains(t.TransactionId)).ToList();
+                }
+
+                if (_gameDiagnostics.Context is ICombinationTestContext ||
+                    _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog>)
+                {
+                    command.Results = ToResults(jackpots);
+
+                    // For Diagnostics, tell the runtime the jackpot win amount so it can proceed as intended.
+                    Task.Run(() => NotifyGameWinAsync(command.PoolName, jackpots));
+                    return;
+                }
             }
 
             command.Results = _progressiveGame.TriggerProgressiveLevel(
