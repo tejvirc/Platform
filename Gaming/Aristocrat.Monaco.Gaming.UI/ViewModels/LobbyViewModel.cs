@@ -2593,6 +2593,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             Logger.Debug("Disabled State Entered");
 
+            if (CashOutDialogState != LobbyCashOutDialogState.Hidden && _systemDisableManager.DisableImmediately)
+            {
+                Logger.Warn("OnDisabled - Clearing cash-out dialog for immediate disable");
+                ClearCashOutDialog(true);
+            }
+
             //VTL-4001 --if We get a lockup during a game load, we need to initiate the game shutdown.  We can't just wait for
             //the game loaded event to do so
             if (_lobbyStateManager.PreviousState == LobbyState.GameLoading && !IsSingleGameMode)
