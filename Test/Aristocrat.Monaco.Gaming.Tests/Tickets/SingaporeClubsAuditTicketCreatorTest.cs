@@ -69,6 +69,8 @@
 
         public string CdsThemeId { get; set; }
 
+        public string CdsTitleId { get; set; }
+
         public long? ProductCode { get; set; }
 
         public IEnumerable<long> ActiveDenominations { get; set; }

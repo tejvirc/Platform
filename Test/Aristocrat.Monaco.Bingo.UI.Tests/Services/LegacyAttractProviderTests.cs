@@ -66,7 +66,7 @@
 
             _denomination.Setup(x => x.Value).Returns(Denom);
             _gameDetail.Setup(x => x.Id).Returns(GameId);
-            _gameDetail.Setup(x => x.CdsThemeId).Returns(TitleId.ToString());
+            _gameDetail.Setup(x => x.CdsTitleId).Returns(TitleId.ToString());
             _gameDetail.Setup(x => x.Denominations).Returns(new[] { _denomination.Object });
             _propertiesManager.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>()))
                 .Returns(GameId);

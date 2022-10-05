@@ -967,6 +967,7 @@
                     gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
                     gameDetail.CentralAllowed = centralAllowed;
                     gameDetail.CdsThemeId = game.CdsThemeId;
+                    gameDetail.CdsTitleId = game.CdsTitleId;
                     gameDetail.ProductCode = game.CentralInfo.FirstOrDefault()?.Upc;
                     gameDetail.WinLevels = Enumerable.Empty<IWinLevel>();
                     gameDetail.BetOptionList = game.BetOptionList;

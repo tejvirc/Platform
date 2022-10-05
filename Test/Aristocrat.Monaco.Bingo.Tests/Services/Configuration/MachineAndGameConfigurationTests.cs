@@ -162,7 +162,7 @@
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.DisplayBingoCardEgm, initialDispBingoCard)).Verifiable();
 
             var mockGame = new Mock<IGameDetail>();
-            mockGame.Setup(x => x.CdsThemeId).Returns("272");
+            mockGame.Setup(x => x.CdsTitleId).Returns("272");
             mockGame.Setup(x => x.SupportedDenominations).Returns(new[] { 1000L, 2000L });
             mockGame.Setup(x => x.ThemeId).Returns(themeId);
             mockGame.Setup(x => x.Active).Returns(true);
@@ -248,7 +248,7 @@
         {
             const string themeId = "TestTheme";
             var mockGame = new Mock<IGameDetail>();
-            mockGame.Setup(x => x.CdsThemeId).Returns("272");
+            mockGame.Setup(x => x.CdsTitleId).Returns("272");
             mockGame.Setup(x => x.SupportedDenominations).Returns(new[] { 1000L, 2000L });
             mockGame.Setup(x => x.ThemeId).Returns(themeId);
             mockGame.Setup(x => x.Active).Returns(true);

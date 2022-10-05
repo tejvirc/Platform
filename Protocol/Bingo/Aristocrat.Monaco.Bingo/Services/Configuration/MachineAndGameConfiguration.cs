@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Common;
+    using Common.Extensions;
     using Common.Storage.Model;
     using Gaming.Contracts;
     using Gaming.Contracts.Configuration;
@@ -117,7 +118,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
             var gameConfigurations = configured.Select(
                     c => (
                         GameDetails: gameDetails.First(
-                            d => d.CdsThemeId == c.GameTitleId.ToString() &&
+                            d => d.GetBingoTitleId() == c.GameTitleId.ToString() &&
                                  d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
                         Settings: c))
                 .GroupBy(x => (x.GameDetails.Id, x.GameDetails.ThemeId));
@@ -219,7 +220,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                 var gameConfigurations = result.Select(
                         c => (
                             GameDetails: gameDetails.FirstOrDefault(
-                                d => d.CdsThemeId == c.GameTitleId.ToString() && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
+                                d => d.GetBingoTitleId() == c.GameTitleId.ToString() && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
                             Settings: c))
                     .GroupBy(x => x.GameDetails?.Id ?? -1);
                 return result.Any() &&

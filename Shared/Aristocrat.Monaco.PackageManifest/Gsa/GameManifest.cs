@@ -139,6 +139,7 @@
                 Denominations = gameInfo.gameDenomList.Select(Map).ToList(),
                 WagerCategories = gameInfo.wagerCategoryList.Select(Map).ToList(),
                 CdsThemeId = gameInfo.cdsInfoList?.themeId,
+                CdsTitleId = gameInfo.cdsInfoList?.titleId,
                 CentralInfo = gameInfo.cdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>(),
                 VariationId = gameInfo.variationId ?? GetVariationFromPaytableId(gameInfo.paytableId),
                 GameType = gameInfo.gameTypeSpecified ? gameInfo.gameType : t_gameType.Slot,
@@ -351,7 +352,7 @@
                 DefaultBetLinePreset = configurationMap.betLinePresetIdList.@default
             };
         }
-        
+
         private static string GetVariationFromPaytableId(string paytableId)
         {
             const string delimiter = "_";

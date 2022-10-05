@@ -8,6 +8,7 @@
     using Application.UI.ConfigWizard;
     using Common;
     using Common.Events;
+    using Common.Extensions;
     using Common.Storage;
     using Common.Storage.Model;
     using Kernel;
