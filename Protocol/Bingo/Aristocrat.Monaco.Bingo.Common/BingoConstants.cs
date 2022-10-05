@@ -125,11 +125,6 @@
         public const string TestingIntervalBeforeCardDisplayMs = "Testing.IntervalBeforeCardDisplayMs";
 
         /// <summary>
-        ///     Used to get the uri for requesting dynamic bingo help
-        /// </summary>
-        public const string BingoHelpUri = "BingoHelpUri";
-
-        /// <summary>
         ///     The default help URI formatted location.
         ///     This string requires two parameters the game title ID and paytable ID
         /// </summary>

@@ -110,10 +110,5 @@
         ///     Indicates using global settings for bingo card display
         /// </summary>
         public const string UseGlobalSettings = "UseGlobal";
-
-        /// <summary>
-        ///     Indicates the uri for requesting dynamic bingo help
-        /// </summary>
-        public const string BingoHelpUri = "BingoHelpUri";
     }
 }

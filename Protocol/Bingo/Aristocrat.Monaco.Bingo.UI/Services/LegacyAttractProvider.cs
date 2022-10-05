@@ -29,6 +29,7 @@
         private const string PatternCycleTimeParameter = "patternCycleMs";
         private const string PatternsUrlFormatParameter = "patternsUrlFormat";
         private const string DefaultAttractPatternJsFile = "scripts/pattern.js";
+        private const string HtmlPageEnding = ".html";
 
         private readonly IPropertiesManager _propertiesManager;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
@@ -37,8 +38,8 @@
             IPropertiesManager propertiesManager,
             IUnitOfWorkFactory unitOfWorkFactory)
         {
-            _propertiesManager = propertiesManager;
-            _unitOfWorkFactory = unitOfWorkFactory;
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
         }
 
         public Uri GetLegacyAttractUri(BingoDisplayConfigurationBingoAttractSettings attractSettings)
@@ -62,17 +63,24 @@
                 ?.FirstOrDefault(c => c.PlatformGameId == game.Id && c.Denomination == denomination.Value);
 
             var numberFormat = CurrencyExtensions.CurrencyCultureInfo.NumberFormat;
-            var helpUri = new UriBuilder(_unitOfWorkFactory.GetHelpUri(_propertiesManager))
+            var helpUrl = _unitOfWorkFactory.GetHelpUri(_propertiesManager);
+            var helpUriBuilder = new UriBuilder(helpUrl);
+
+            if (helpUriBuilder.Path.EndsWith(HtmlPageEnding))
             {
-                Path = string.Empty,
-                Query = string.Empty
-            }.Uri;
+                var htmlPage = helpUriBuilder.Path.Split('/').Last();
+                helpUriBuilder.Path = helpUriBuilder.Path.Replace(htmlPage, string.Empty);
+            }
+
+            var helpPath = helpUriBuilder.Path.TrimEnd('/');
+            helpUriBuilder.Path = string.Empty;
+            helpUriBuilder.Query = string.Empty;
 
             return new Dictionary<string, string>
             {
                 { GameNameParameter, serverSettings?.GameTitleId.ToString() ?? game.ThemeName },
                 { PaytableNameParameter, serverSettings?.PaytableId.ToString() ?? game.PaytableId },
-                { BaseUrlParameter, helpUri.ToString() },
+                { BaseUrlParameter, helpUriBuilder.Uri.ToString() },
                 { MajorUnitSeparatorParameter, numberFormat.CurrencyGroupSeparator },
                 { MinorUnitSeparatorParameter, numberFormat.CurrencyDecimalSeparator },
                 { MinorDigitsParameter, numberFormat.NumberDecimalDigits.ToString() },
@@ -81,7 +89,7 @@
                 { PayAmountFormatParameter, attractSettings.PayAmountFormattingText },
                 { UseCreditsParameter, attractSettings.DisplayAmountsAsCredits.ToString() },
                 { PatternCycleTimeParameter, attractSettings.PatternCycleTimeMilliseconds.ToString() },
-                { PatternsUrlFormatParameter, $"{BingoConstants.DefaultBingoHelpUriFormat}/{DefaultAttractPatternJsFile}" }
+                { PatternsUrlFormatParameter, $"{helpPath}/{DefaultAttractPatternJsFile}" }
             };
         }
     }
