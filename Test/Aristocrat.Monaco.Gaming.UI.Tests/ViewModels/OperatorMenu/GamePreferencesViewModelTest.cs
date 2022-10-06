@@ -2,6 +2,7 @@
 {
     using Gaming.Contracts.Models;
     using System.Collections.Generic;
+    using System.Linq;
     using Application.Contracts.Localization;
     using Contracts;
     using Contracts.Progressives;
@@ -56,8 +57,15 @@
         public void CheckTotalGameStartMethodsMatchesTotalOptionsInXsd()
         {
             var gamePrefViewModel = new GamePreferencesViewModel();
-            var optionsToShow = new List<GameStartMethodOption>{ GameStartMethodOption.Bet, GameStartMethodOption.LineOrReel };
-            Assert.AreEqual(optionsToShow.Count, gamePrefViewModel.GameStartMethods.Count);
+            var optionsToShow = new List<GameStartMethodOption>
+            {
+                GameStartMethodOption.Bet,
+                GameStartMethodOption.LineOrReel,
+                GameStartMethodOption.BetOrMaxBet,
+                GameStartMethodOption.LineReelOrMaxBet
+            };
+
+            Assert.AreEqual(optionsToShow.Count, gamePrefViewModel.GameStartMethods.Count());
         }
 
         [TestMethod]

@@ -164,17 +164,23 @@
             IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
         }
 
-        public List<GameStartMethodInfo> GameStartMethods => new List<GameStartMethodInfo>
+        public IEnumerable<GameStartMethodInfo> GameStartMethods { get; } = new[]
         {
             new GameStartMethodInfo(
                 GameStartMethodOption.Bet,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameStartMethodBetButton)),
             new GameStartMethodInfo(
+                GameStartMethodOption.BetOrMaxBet,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameStartMethodBetOrMaxBetButton)),
+            new GameStartMethodInfo(
                 GameStartMethodOption.LineOrReel,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameStartMethodLineOrReelButton))
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameStartMethodLineOrReelButton)),
+            new GameStartMethodInfo(
+                GameStartMethodOption.LineReelOrMaxBet,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameStartMethodLineReelorMaxBetButton))
         };
 
-        public IEnumerable<ProgressLobbyIndicatorInfo> ProgressLobbyIndicatorOptions => new List<ProgressLobbyIndicatorInfo>
+        public IEnumerable<ProgressLobbyIndicatorInfo> ProgressLobbyIndicatorOptions { get; } = new[]
         {
             new ProgressLobbyIndicatorInfo(
                 ProgressiveLobbyIndicator.ProgressiveLabel,
@@ -184,7 +190,7 @@
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveLobbyIndicatorValue))
         };
 
-        public IEnumerable<VolumeControlLocationInfo> VolumeControlLocationOptions => new List<VolumeControlLocationInfo>
+        public IEnumerable<VolumeControlLocationInfo> VolumeControlLocationOptions { get; } = new[]
         {
             new VolumeControlLocationInfo(
                 VolumeControlLocation.Lobby,

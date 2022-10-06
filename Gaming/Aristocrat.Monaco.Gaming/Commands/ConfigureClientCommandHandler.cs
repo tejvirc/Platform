@@ -288,7 +288,9 @@
                 switch
                 {
                     GameStartMethodOption.None => "",
-                    GameStartMethodOption.LineOrReel => "Line, MaxBet",
+                    GameStartMethodOption.LineOrReel => "Line",
+                    GameStartMethodOption.LineReelOrMaxBet => "Line, MaxBet",
+                    GameStartMethodOption.Bet => "Bet",
                     _ => "Bet, MaxBet"
                 };
 
