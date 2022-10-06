@@ -390,7 +390,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         {
             _homeReelMessageDictionary.Clear();
             SetPollingRate(HarkeyConstants.PollingIntervalMs);
-            SendCommand(new AbortAndSlowSpin { SelectedReels = GetAllReelsSelectedBits() });
+            SendAndReceive<AbortAndSlowSpinResponse>(
+                new AbortAndSlowSpin { SelectedReels = GetAllReelsSelectedBits() });
             _reelsSpinning = false;
         }
 
