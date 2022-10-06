@@ -22,7 +22,9 @@ as follows:
     </Menu>
     <Menu Type="IdentificationMainPageLoader">
         <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" Access="LogicMainZeroCreditsZeroGamesPlayed" />
-        <Page Type="JurisdictionSettingsPageViewModel" PrintButtonEnabled="true" />
+        <Page Type="JurisdictionSettingsPageViewModel" PrintButtonEnabled="true">
+            <Setting Name="ShowAllowedRTP" Value="false" />
+        </Page>
     </Menu>
     <Menu Type="LogsMainPageLoader">
         <Page Type="EventLoggingPageViewModel">
