@@ -288,7 +288,7 @@
                         {
                             if (e.ResourceKey == ResourceKeys.TouchCalibrateModel)
                             {
-                                var message = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftLockMessage)); // Please Wait...
+                                var message = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchCalibrateWait));
                                 _activeCalibration?.Value.ViewModel.UpdateError(message);
                             }
                             else

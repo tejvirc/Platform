@@ -11435,15 +11435,15 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="TouchCalibrateExtendedCommandFailed" xml:space="preserve">
-    <value>Calibrate Extended (CX) command failed with code {0}</value>
+    <value>Calibration failed</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="TouchCalibrateExtendedLowerLeftTargetFailed" xml:space="preserve">
-    <value>Calibrate Extended (CX) lower left target failed with code {0}</value>
+    <value>Calibration of lower left target failed</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="TouchCalibrateExtendedUpperRightTargetFailed" xml:space="preserve">
-    <value>Calibrate Extended (CX) upper right target failed with code {0}</value>
+    <value>Calibration of upper right target failed</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="CalibrationComplete" xml:space="preserve">
@@ -11620,6 +11620,10 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="TouchCalibrationDisconnectError" xml:space="preserve">
     <value>A display was disconnected during calibration.  Please reconnect displays and try again.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TouchCalibrateWait" xml:space="preserve">
+    <value>Please Wait...</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>
