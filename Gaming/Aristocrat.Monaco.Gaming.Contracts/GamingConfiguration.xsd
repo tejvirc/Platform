@@ -463,7 +463,9 @@
   <xs:simpleType name="GameStartMethodOption">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Bet" />
+      <xs:enumeration value="BetOrMaxBet" />
       <xs:enumeration value="LineOrReel" />
+      <xs:enumeration value="LineReelOrMaxBet" />
       <xs:enumeration value="None" />
     </xs:restriction>
   </xs:simpleType>

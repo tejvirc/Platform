@@ -2910,13 +2910,19 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
     public enum GameStartMethodOption {
-        
+
         /// <remarks/>
         Bet,
-        
+
+        /// <remarks/>
+        BetOrMaxBet,
+
         /// <remarks/>
         LineOrReel,
-        
+
+        /// <remarks/>
+        LineReelOrMaxBet,
+
         /// <remarks/>
         None,
     }

@@ -431,8 +431,10 @@
             Assert.IsNotNull(handler);
         }
 
-        [DataRow(GameStartMethodOption.Bet, "Bet, MaxBet")]
-        [DataRow(GameStartMethodOption.LineOrReel, "Line, MaxBet")]
+        [DataRow(GameStartMethodOption.BetOrMaxBet, "Bet, MaxBet")]
+        [DataRow(GameStartMethodOption.LineReelOrMaxBet, "Line, MaxBet")]
+        [DataRow(GameStartMethodOption.Bet, "Bet")]
+        [DataRow(GameStartMethodOption.LineOrReel, "Line")]
         [DataRow(GameStartMethodOption.None, "")]
         [DataTestMethod]
         public void CheckGameStartMethod(GameStartMethodOption param, string expectedResult)

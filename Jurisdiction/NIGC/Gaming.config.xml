@@ -57,4 +57,7 @@ as follows:
 			<ReturnToPlayer GameType="Any" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
+	<PhysicalButtons>
+		<GameStartButtons Method="BetOrMaxBet" />
+	</PhysicalButtons>
 </GamingConfiguration>
