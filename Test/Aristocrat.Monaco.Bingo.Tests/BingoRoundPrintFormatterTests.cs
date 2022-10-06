@@ -214,21 +214,26 @@
             Assert.AreSame(string.Empty, result);
         }
 
-        [DataRow(false, false, 40, DisplayName = "Losing Game in 40 balls")]
-        [DataRow(true, false, 40, DisplayName = "Coverall, no patterns, in 40 balls")]
-        [DataRow(false, true, 40, DisplayName = "Two patterns, no coverall, in 40 balls")]
-        [DataRow(true, true, 75, DisplayName = "Two patterns, coverall, in 75 balls")]
+        [DataRow(true, true, 35, 0, DisplayName = "Winning Game in 35 balls")]
+        [DataRow(false, false, 40, 0, DisplayName = "Losing Game in 40 balls")]
+        [DataRow(true, false, 40, 40, DisplayName = "Coverall, no patterns, in 40 balls")]
+        [DataRow(false, true, 40, 40, DisplayName = "Two patterns, no coverall, in 40 balls")]
+        [DataRow(true, true, 75, 65, DisplayName = "Two patterns, coverall, in 75 balls")]
         [DataTestMethod]
         public void GetFormattedData(
             bool gameEndWinClaimAccepted,
             bool winningGame,
-            int ballCallSize)
+            int ballCallSize,
+            int joinBallIndex)
         {
             var centralTransactions = new List<CentralTransaction> { _centralTransaction };
-            _centralTransaction.Descriptions = new List<BingoGameDescription>
-            {
-                SetupBingoDescription(gameEndWinClaimAccepted, winningGame, ballCallSize)
-            };
+            var bingoDescription = SetupBingoDescription(
+                gameEndWinClaimAccepted,
+                winningGame,
+                ballCallSize,
+                joinBallIndex);
+
+            _centralTransaction.Descriptions = new List<BingoGameDescription> { bingoDescription };
 
             var totalWin = string.Format(
                 TotalWinLabel,
@@ -239,11 +244,15 @@
                     : gameEndWinClaimAccepted
                         ? TotalWinLosingGameCoverall
                         : TotalWinLosingGame);
-            var joinBall = string.Format(JoinBallLabel, _ballCallNumbers.ElementAt(JoinBallIndex));
+            var joiningIndex = joinBallIndex == 0
+                ? Math.Min(BingoConstants.InitialBallDraw, bingoDescription.BallCallNumbers.Count()) - 1
+                : joinBallIndex - 1;
+
+            var joinBall = string.Format(JoinBallLabel, _ballCallNumbers.ElementAt(joiningIndex));
             var coverallPrize = string.Format(CoverallPrizeLabel, CoverallPrize);
             var coverallBall = string.Format(CoverallPrizeBallLabel, _ballCallNumbers.ElementAt(ballCallSize - 1));
             var cardSerial = string.Format(CardSerialLabel, CardSerial);
-            var splitDelimiters = new char[] { '\n', '\v', ',', '\t' };
+            var splitDelimiters = new[] { '\n', '\v', ',', '\t' };
 
             _centralProvider.Setup(x => x.Transactions)
                 .Returns(centralTransactions);
@@ -251,7 +260,8 @@
             var result = _target.GetFormattedData(CentralTransactionLogSequenceNumber);
             var parsedResults = result.Split(splitDelimiters, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => x.Trim(' '))
-                .Where(x => !string.IsNullOrWhiteSpace(x));
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToList();
 
             var resultIndex = 0;
             Assert.AreNotEqual(string.Empty, result);
@@ -271,14 +281,14 @@
             {
                 var ball = _ballCallNumbers[ballIndex].ToString();
 
-                if (ballIndex == JoinBallIndex)
-                {
-                    ball = $"({ball})";
-                }
-
                 if (gameEndWinClaimAccepted && ballIndex == ballCallSize - 1)
                 {
                     ball = $"[{ball}]";
+                }
+
+                if (ballIndex == joiningIndex)
+                {
+                    ball = $"({ball})";
                 }
 
                 Assert.AreEqual(ball, parsedResults.ElementAt(resultIndex++));
@@ -286,9 +296,10 @@
 
             Assert.AreEqual(cardSerial, parsedResults.ElementAt(resultIndex++));
 
-            var parsedOnSpaceResults = string.Join(" ", parsedResults.Skip(resultIndex).Take(int.MaxValue)).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            var parsedOnSpaceResults = string.Join(" ", parsedResults.Skip(resultIndex).Take(int.MaxValue)).Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => x.Trim(' '))
-                .Where(x => !string.IsNullOrWhiteSpace(x));
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToList();
 
             resultIndex = 0;
 
@@ -310,12 +321,13 @@
         private BingoGameDescription SetupBingoDescription(
             bool gameEndWinClaimAccepted = false,
             bool winningGame = false,
-            int ballCallSize = MaxBallCallSize)
+            int ballCallSize = MaxBallCallSize,
+            int joinBallIndex = JoinBallIndex)
         {
             var transaction = new BingoGameDescription
             {
                 GameEndWinClaimAccepted = gameEndWinClaimAccepted,
-                JoinBallIndex = JoinBallIndex + 1,
+                JoinBallIndex = joinBallIndex,
                 BallCallNumbers =
                     _ballCallNumbers.GetRange(0, ballCallSize)
                         .Select(x => new BingoNumber(x, BingoNumberState.BallCallInitial)),

@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Services.GamePlay
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Common;
@@ -30,7 +31,9 @@
         /// <returns>The ball index for what existed at the time of evaluation of the paytable</returns>
         public static int GetGameStartBallIndex(this BingoGameDescription bingoGame)
         {
-            return bingoGame.JoinBallIndex <= 0 ? BingoConstants.InitialBallDraw : bingoGame.JoinBallIndex;
+            var ballCount = bingoGame.BallCallNumbers.Count();
+            var joinIndex = bingoGame.JoinBallIndex <= 0 ? BingoConstants.InitialBallDraw : bingoGame.JoinBallIndex;
+            return Math.Min(joinIndex, ballCount);
         }
     }
 }
