@@ -11150,8 +11150,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Attract</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="BeagleBoneLabel" xml:space="preserve">
-    <value>Beagle Bone</value>
+  <data name="LsEdgeLightsLabel" xml:space="preserve">
+    <value>LS Edge Lights</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="BigWinBeagleBoneLightShowText" xml:space="preserve">
