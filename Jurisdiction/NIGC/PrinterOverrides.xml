@@ -103,6 +103,7 @@ Please update the confluence page when new elements and attributes are added.
         <TextReplace RegionId="125" Description="MachineId" Replace="#:" With="#"/>
         <TextReplace RegionId="106" Description="Title" Replace=".+VOUCHER\sREPRINT" With="DUPLICATE VOUCHER" IsReplaceRegexString="true"/>
         <TextReplace RegionId="106" Description="Title" Replace=".+RECEIPT\sREPRINT" With="DUPLICATE RECEIPT" IsReplaceRegexString="true"/>
+        <TextReplace RegionId="106" Description="Title" Replace="PLAYABLE ONLY REPRINT" With="PLAYABLE REPRINT"/>
       </RegionTextReplace>
       <TextSplitForRegion>
         <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}"/>
