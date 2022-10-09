@@ -370,6 +370,8 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>Q</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
       </Format>
     </Formats>
@@ -388,6 +390,8 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>L</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
       </Format>
     </Formats>
@@ -459,15 +463,9 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
         <DecimalSeparator>.</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
-        <Symbol>DH</Symbol>
-        <MinorUnitSymbol>s</MinorUnitSymbol>
-        <MinorUnits>Centime</MinorUnits>
-        <MinorUnitsPlural>Centimes</MinorUnitsPlural>
-      </Format>
-      <Format id="2">
-        <PositivePattern>0</PositivePattern>
+        <GroupSeparator>,</GroupSeparator>
         <Symbol>MAD</Symbol>
         <MinorUnitSymbol>s</MinorUnitSymbol>
         <MinorUnits>santim</MinorUnits>
@@ -587,6 +585,8 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>C$</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
       </Format>
     </Formats>
@@ -651,7 +651,7 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
-        <MinorUnitSymbol>bani</MinorUnitSymbol>
+        <MinorUnitSymbol>b</MinorUnitSymbol>
         <MinorUnits>ban</MinorUnits>
         <MinorUnitsPlural>bani</MinorUnitsPlural>
       </Format>
@@ -821,10 +821,11 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
         <DecimalSeparator>,</DecimalSeparator>
         <GroupSeparator>.</GroupSeparator>
         <Symbol>UAH</Symbol>
-        <MinorUnitSymbol></MinorUnitSymbol>
+        <MinorUnitSymbol>UAH</MinorUnitSymbol>
         <MinorUnits>Kopiyka</MinorUnits>
         <MinorUnitsPlural>Kopiyky</MinorUnitsPlural>
       </Format>

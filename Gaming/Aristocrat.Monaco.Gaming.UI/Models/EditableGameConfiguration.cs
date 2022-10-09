@@ -461,6 +461,24 @@
             }
         }
 
+        public int MinBetWidth
+        {
+            get
+            {
+                int width = 160;
+                if (CurrencyExtensions.CurrencyCultureInfo!.NumberFormat.CurrencyDecimalDigits > 0 &&
+                    CurrencyExtensions.CurrencyCultureInfo!.NumberFormat.CurrencySymbol!.Length > 1)
+                {
+                    // make the currency decimal updown control a bit wider so that the currency value
+                    // is not too close to plus button. Ideally this should be done in style, unfortunately
+                    // the display value position seems calculated in the runtime as changing margin and
+                    // horizontal content alignment don't have any effect.  
+                    width =  164;
+                }
+                return width;
+            }
+        }
+
         public decimal BetMinimum
         {
             get => _betMinimum;
