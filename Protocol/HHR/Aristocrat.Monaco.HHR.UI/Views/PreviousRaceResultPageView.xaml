@@ -7,6 +7,8 @@
                          xmlns:controls="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
                          xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
                          xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                         lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                         lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                          xmlns:loc="http://monaco.aristocrat.com/localization"
                          xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
                          mc:Ignorable="d"
@@ -50,15 +52,15 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" HorizontalAlignment="Left" Style="{StaticResource HeaderTextStyle}">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}" />
+                    <Run Text="{lex:Loc HhrRaceSet}" />
                     <Run FontWeight="UltraBold" Text=" 1"/>
                 </TextBlock>
 
                 <TextBlock Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource HeaderTextStyle}"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResults}}"/>
+                           Text="{lex:Loc HhrPreviousRaceResults}"/>
 
                 <TextBlock Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource HeaderTextStyle}">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}" />
+                    <Run Text="{lex:Loc HhrRaceSet}" />
                     <Run FontWeight="UltraBold" Text=" 2"/>
                 </TextBlock>
     </Grid>
@@ -125,15 +127,15 @@
                 Once MANUAL HANDICAP has been pressed, the wager is committed and player must manually handicap eight positions in each of ten races for a total of 80 picks.
             -->
             <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" Margin="0 20 0 0" Foreground="GreenYellow">
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart1}}" />
+                <Run Text="{lex:Loc HhrPreviousRaceResultsTextPart1}" />
                 <Run Foreground="Red"
-                     Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart2}}" />:
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart3}}" />
+                     Text="{lex:Loc HhrPreviousRaceResultsTextPart2}" />:
+                <Run Text="{lex:Loc HhrPreviousRaceResultsTextPart3}" />
             </TextBlock>
 
             <TextBlock HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="Underline"
                        Foreground="Red" FontSize="13" FontStyle="Italic"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart4}}" />
+                       Text="{lex:Loc HhrPreviousRaceResultsTextPart4}" />
         </StackPanel>
 
 

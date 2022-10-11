@@ -7,6 +7,8 @@
                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                               d:DataContext="{d:DesignInstance {x:Type viewModels:SerialGatPageViewModel}, IsDesignTimeCreatable=False}"
                               Background="Transparent">
@@ -30,7 +32,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Style="{DynamicResource MonacoLabel}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.VersionText}}" />
+               Content="{lex:Loc VersionText}" />
         <ComboBox Grid.Column="0" Grid.Row="1" Name="VersionComboBox" Style="{DynamicResource MonacoComboBox}"
                   MinWidth="200" Width="Auto"
                   ItemsSource="{Binding Versions}" SelectedItem="{Binding GatVersion}" />

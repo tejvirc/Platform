@@ -1,15 +1,15 @@
 namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
-    using Contracts;
-    using PRNGLib;
+    using Aristocrat.CryptoRng;
+    using Contracts;    
 
     /// <summary>
     ///     Command handler for the <see cref="Shuffle" /> command.
     /// </summary>
     public class ShuffleCommandHandler : ICommandHandler<Shuffle>
     {
-        private readonly IPRNG _prng;
+        private readonly IRandom _prng;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ShuffleCommandHandler" /> class.

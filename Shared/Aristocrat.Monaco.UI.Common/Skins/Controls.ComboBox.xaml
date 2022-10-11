@@ -76,7 +76,7 @@
                             <ContentControl x:Name="PART_FloatingMessageContainer"
                                             Grid.Row="0"
                                             Grid.Column="0"
-                                            Style="{DynamicResource FloatingMessageContainerStyle}">
+                                            Style="{DynamicResource MahApps.Styles.ContentControl.FloatingMessageContainer}">
                                 <TextBlock x:Name="PART_FloatingMessage"
                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -100,7 +100,7 @@
                                     FontSize="{TemplateBinding controls:TextBoxHelper.ButtonFontSize}"
                                     Foreground="{TemplateBinding Foreground}"
                                     IsTabStop="False"
-                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    Style="{DynamicResource MahApps.Styles.Button.Chromeless}"
                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:TextBoxHelper.ClearTextButton), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </Grid>
@@ -116,10 +116,10 @@
                                 <Condition Binding="{Binding Path=(controls:TextBoxHelper.HasText), RelativeSource={RelativeSource Self}}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.ShowFloatingMessage}" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.HideFloatingMessage}" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
 
@@ -131,7 +131,7 @@
                             <Setter TargetName="PART_ClearText" Property="IsEnabled" Value="False" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                             <Setter TargetName="PART_FloatingMessage" Property="Opacity" Value="1" />
                         </Trigger>
                         <Trigger SourceName="PART_ClearText" Property="IsMouseOver" Value="True">
@@ -196,7 +196,7 @@
                                 FontSize="{TemplateBinding controls:TextBoxHelper.ButtonFontSize}"
                                 Foreground="{TemplateBinding Foreground}"
                                 IsTabStop="False"
-                                Style="{DynamicResource ChromelessButtonStyle}"
+                                Style="{DynamicResource MahApps.Styles.Button.Chromeless}"
                                 Visibility="{Binding RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}, Path=(controls:TextBoxHelper.ClearTextButton), Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <Grid x:Name="BtnArrowBackground"
                               Grid.Column="2"
@@ -296,7 +296,7 @@
         <Setter Property="controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MouseOverHighlightBrush}"/>
         <Setter Property="controls:TextBoxHelper.ButtonFontSize" Value="{DynamicResource ClearTextButtonFontSize}"/>
         <Setter Property="controls:TextBoxHelper.ButtonWidth" Value="24"/>
-        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MahApps.Fonts.Family.Control}"/>
         <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush3}"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -425,7 +425,7 @@
                             <ContentControl x:Name="PART_FloatingMessageContainer"
                                             Grid.Row="0"
                                             Grid.Column="0"
-                                            Style="{DynamicResource FloatingMessageContainerStyle}" />
+                                            Style="{DynamicResource MahApps.Styles.ContentControl.FloatingMessageContainer}" />
                             <TextBlock x:Name="PART_FloatingMessage"
                                        Margin="2 2 0 0"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -485,7 +485,7 @@
                                         Height="Auto"
                                         HorizontalAlignment="Stretch"
                                         Background="{DynamicResource DarkBrush1}"
-                                        BorderBrush="{DynamicResource ComboBoxPopupBorderBrush}"
+                                        BorderBrush="{DynamicResource MahApps.Brushes.ComboBox.PopupBorder}"
                                         BorderThickness="{DynamicResource ComboBoxPopupBorderThemeThickness}"
                                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                     <ScrollViewer Padding="{DynamicResource ComboBoxPopupBorderThemePadding}" BorderThickness="0">
@@ -563,10 +563,10 @@
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem, Mode=OneWay, Converter={x:Static converters:IsNullConverter.Instance}}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.ShowFloatingMessage}" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.HideFloatingMessage}" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
 
@@ -610,7 +610,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}"/>
+        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource MahApps.Templates.ValidationError}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
@@ -653,13 +653,13 @@
         <Setter Property="controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MouseOverHighlightBrush}"/>
         <Setter Property="controls:TextBoxHelper.ButtonFontSize" Value="{DynamicResource ClearTextButtonFontSize}"/>
         <Setter Property="controls:TextBoxHelper.ButtonWidth" Value="24"/>
-        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MahApps.Fonts.Family.Control}"/>
         <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush3}"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="ItemContainerStyle" Value="{DynamicResource MonacoTimeZoneComboBoxItem}"/>
         <Setter Property="MaxDropDownHeight" Value="300"/>
-        <Setter Property="MinHeight" Value="26"/>
+        <Setter Property="MinHeight" Value="26"/> 
         <Setter Property="Padding" Value="5 10"/>
         <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
@@ -782,7 +782,7 @@
                             <ContentControl x:Name="PART_FloatingMessageContainer"
                                             Grid.Row="0"
                                             Grid.Column="0"
-                                            Style="{DynamicResource FloatingMessageContainerStyle}" />
+                                            Style="{DynamicResource MahApps.Styles.ContentControl.FloatingMessageContainer}" />
                             <TextBlock x:Name="PART_FloatingMessage"
                                        Margin="2 2 0 0"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -841,7 +841,7 @@
                                         Height="Auto"
                                         HorizontalAlignment="Stretch"
                                         Background="{DynamicResource DarkBrush1}"
-                                        BorderBrush="{DynamicResource ComboBoxPopupBorderBrush}"
+                                        BorderBrush="{DynamicResource MahApps.Brushes.ComboBox.PopupBorder}"
                                         BorderThickness="{DynamicResource ComboBoxPopupBorderThemeThickness}"
                                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                     <ScrollViewer Padding="{DynamicResource ComboBoxPopupBorderThemePadding}" BorderThickness="0">
@@ -919,10 +919,10 @@
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem, Mode=OneWay, Converter={x:Static converters:IsNullConverter.Instance}}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.ShowFloatingMessage}" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.HideFloatingMessage}" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
 
@@ -966,7 +966,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}"/>
+        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource MahApps.Templates.ValidationError}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 

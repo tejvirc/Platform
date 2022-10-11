@@ -53,7 +53,9 @@
 
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(sr.ReadToEnd())))
             {
-                var serializer = new XmlSerializer(typeof(Features));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(Features))
+                                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(Features), theXmlRootAttribute ?? new XmlRootAttribute(nameof(Features)));
                 _features = (Features)serializer.Deserialize(stream);
             }
 

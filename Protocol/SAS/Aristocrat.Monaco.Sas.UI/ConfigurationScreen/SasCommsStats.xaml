@@ -6,6 +6,8 @@
              xmlns:src="clr-namespace:Aristocrat.Monaco.Sas.UI"
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              mc:Ignorable="d">
     <UserControl.Resources>
         <src:CommsStatusToStringConverter x:Key="CommsStatusToStringConverter" />
@@ -23,13 +25,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolVersionLabel}}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc ProtocolVersionLabel}"/>
         <Label Grid.Row="0" Grid.Column="1" Content="{Binding ProtocolVersion}" />
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasHostCommsStatusLabel}}" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc SasHostCommsStatusLabel}" />
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding CommsStatus, Converter={StaticResource CommsStatusToStringConverter}}" />
-        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastLinkUpLabel}}" />
+        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc LastLinkUpLabel}" />
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding LastLinkUp}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastLinkDownLabel}}" />
+        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc LastLinkDownLabel}" />
         <Label Grid.Row="3" Grid.Column="1" Content="{Binding LastLinkDown}" />
     </Grid>
 </UserControl>

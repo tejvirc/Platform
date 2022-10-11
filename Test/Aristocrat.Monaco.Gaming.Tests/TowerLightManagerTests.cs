@@ -958,7 +958,9 @@ namespace Aristocrat.Monaco.Gaming.Tests
         private static TowerLightConfiguration GetConfig(string jurisdiction)
         {
             var xmlPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, $@"..\..\..\..\bin\Debug\Platform\bin\jurisdiction\{jurisdiction}\TowerLight.config.xml"));
-            var serializer = new XmlSerializer(typeof(TowerLightConfiguration));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(TowerLightConfiguration))
+                                                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var serializer = new XmlSerializer(typeof(TowerLightConfiguration), theXmlRootAttribute ?? new XmlRootAttribute(nameof(TowerLightConfiguration)));
             using (var stream = new FileStream(xmlPath, FileMode.Open))
             {
                 return (TowerLightConfiguration)serializer.Deserialize(stream);

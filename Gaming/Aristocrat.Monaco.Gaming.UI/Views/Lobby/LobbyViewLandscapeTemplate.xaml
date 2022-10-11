@@ -10,17 +10,18 @@
     xmlns:common="http://monaco.aristocrat.com/common"
     xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
     xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
-    xmlns:gif="http://wpfanimatedgif.codeplex.com" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:gif="http://wpfanimatedgif.codeplex.com" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
 
     <!-- Apply MahApps.Metro styles to all controls -->
     <ResourceDictionary.MergedDictionaries>
         <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
         <!-- Accent and AppTheme setting -->
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
 
         <ResourceDictionary Source="../../Skins/Styles.xaml" />
         <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
@@ -213,11 +214,11 @@
                                             </Style.Triggers>
                                         </Style>
                                     </commonControls:ImageTransparentPassThrough.Style>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                            <i:InvokeCommandAction Command="{Binding DataContext.GameTabPressedCommand, ElementName=TabsControl}" CommandParameter="{Binding}"  />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="MouseLeftButtonDown" >
+                                            <b:InvokeCommandAction Command="{Binding DataContext.GameTabPressedCommand, ElementName=TabsControl}" CommandParameter="{Binding}"  />
+                                        </b:EventTrigger>
+                                    </b:Interaction.Triggers>
                                 </commonControls:ImageTransparentPassThrough>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -247,11 +248,11 @@
                             <DataTemplate DataType="{x:Type viewModels:SubTabInfoViewModel}">
                                 <Grid Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
                                     <Image Source="{DynamicResource SubTabNormal}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                                <i:InvokeCommandAction Command="{Binding DataContext.SubTabPressedCommand, ElementName=SubTabsControl }" CommandParameter="{Binding}"  />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="MouseLeftButtonDown" >
+                                                <b:InvokeCommandAction Command="{Binding DataContext.SubTabPressedCommand, ElementName=SubTabsControl }" CommandParameter="{Binding}"  />
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
                                     </Image>
                                     <Image common:ImageHelper.SourceResourceKey="{Binding ResourceKey}" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,9,0,0" IsHitTestVisible="False" />
                                 </Grid>
@@ -609,18 +610,18 @@
                                                                    Width="{Binding Source={StaticResource ExtraLargeGameIconDenomIconWidth}}"
                                                                    Height="{Binding Source={StaticResource ExtraLargeGameIconDenomIconHeight}}"
                                                                    Grid.Column="0" Grid.Row="0">
-                                                                <i:Interaction.Triggers>
-                                                                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                                                        <i:InvokeCommandAction Command="{Binding DataContext.DenominationForSpecificGamePressedCommand, ElementName=GameList}">
-                                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <b:Interaction.Triggers>
+                                                                    <b:EventTrigger EventName="MouseLeftButtonDown" >
+                                                                        <b:InvokeCommandAction Command="{Binding DataContext.DenominationForSpecificGamePressedCommand, ElementName=GameList}">
+                                                                            <b:InvokeCommandAction.CommandParameter>
                                                                                 <MultiBinding Converter="{StaticResource MultiParameterCommandConv}">
                                                                                     <Binding Path="Tag" ElementName="GameIconButton"/>
                                                                                     <Binding Path="Denomination"/>
                                                                                 </MultiBinding>
-                                                                            </i:InvokeCommandAction.CommandParameter>
-                                                                        </i:InvokeCommandAction>
-                                                                    </i:EventTrigger>
-                                                                </i:Interaction.Triggers>
+                                                                            </b:InvokeCommandAction.CommandParameter>
+                                                                        </b:InvokeCommandAction>
+                                                                    </b:EventTrigger>
+                                                                </b:Interaction.Triggers>
                                                             </Image>
 							            
                                                             <controls:TextPath Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
@@ -778,11 +779,11 @@
                                    Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
                                    Stretch="Uniform"
                                    Grid.Column="0" Grid.Row="0">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                        <i:InvokeCommandAction Command="{Binding DataContext.DenominationPressedCommand, ElementName=MultiGameDenominationControl }" CommandParameter="{Binding}"  />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="MouseLeftButtonDown" >
+                                        <b:InvokeCommandAction Command="{Binding DataContext.DenominationPressedCommand, ElementName=MultiGameDenominationControl }" CommandParameter="{Binding}"  />
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
                             </Image>
                             <Viewbox MaxWidth="80" Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="0" Grid.Row="0" IsHitTestVisible="False">
                                 <controls:TextPath

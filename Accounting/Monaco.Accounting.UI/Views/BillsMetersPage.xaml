@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                xmlns:common="http://monaco.aristocrat.com/common"
@@ -30,15 +32,15 @@
 			<DataGrid ItemsSource="{Binding Meters, UpdateSourceTrigger=PropertyChanged}" 
                       x:Name="MetersGrid">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denomination}}" 
+                    <DataGridTextColumn Header="{lex:Loc Denomination}" 
                                         Width="200" 
                                         Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}" 
+                    <DataGridTextColumn Header="{lex:Loc Count}" 
                                         Width="500" 
                                         Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}" 
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                    <DataGridTextColumn Header="{lex:Loc Value}" 
                                         Width="500" 
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -53,7 +55,7 @@
                     <ColumnDefinition Width="{Binding ElementName=MetersGrid, Path=Columns[1].ActualWidth}"/>
                     <ColumnDefinition Width="{Binding ElementName=MetersGrid, Path=Columns[2].ActualWidth}"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.Total}}" Margin="5 0"/>
+                <TextBlock Text="{lex:Loc Total}" Margin="5 0"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0" 
                            Text="{Binding TotalCount, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0" 
@@ -63,10 +65,10 @@
 
 		<DataGrid Grid.Row="2" ItemsSource="{Binding RejectionMeters}" Margin="0 30 0 0" x:Name="RejectionMetersGrid">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+				<DataGridTextColumn Header="{lex:Loc Meter}"
                                     Width="200"
                                     Binding="{Binding Name}" />
-				<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}" 
+				<DataGridTextColumn Header="{lex:Loc Count}" 
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
                                     Width="500"
@@ -79,7 +81,7 @@
             <Button Margin="0 0 15 0" 
                     Width="250"
                     Command="{Binding BillClearanceButtonClickedCommand}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearBillsPeriodMeters}}"
+                    Content="{lex:Loc ClearBillsPeriodMeters}"
                     IsEnabled="{Binding BillClearanceButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding BillClearanceEnabled, Converter={StaticResource BoolToVisConverter}}"/>
         </StackPanel>

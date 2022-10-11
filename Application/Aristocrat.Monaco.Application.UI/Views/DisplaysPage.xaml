@@ -7,6 +7,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                mc:Ignorable="d"
                                d:DesignHeight="600" d:DesignWidth="1080"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:DisplaysPageViewModel}}">
@@ -27,7 +29,7 @@
         </Grid.RowDefinitions>
         <ScrollViewer Margin="0,0,0,5" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Grid.Row="0">
             <StackPanel Margin="5">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Detected}}" HorizontalAlignment="Left" />
+                <Label Content="{lex:Loc Detected}" HorizontalAlignment="Left" />
                 <ItemsControl ItemsSource="{Binding DisplaysDetected}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -79,7 +81,7 @@
         <StackPanel MinHeight="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5"
                     Visibility="{Binding IsCabinetThatAllowsChangingBrightness, Converter={StaticResource BoolToVisConverter}}"
                     Grid.Row="1">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.VideoDisplayBrightness}}"
+            <Label Content="{lex:Loc VideoDisplayBrightness}"
                    VerticalAlignment="Bottom" HorizontalAlignment="Left" />
             <Slider Style="{StaticResource MonacoSlider}" MinWidth="400" IsEnabled="{Binding InputEnabled}"
                     TickFrequency="10"
@@ -91,25 +93,25 @@
         
         <Border Grid.Row="2" Margin="0 15 0 0" VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal">
-                <Button Name="EnterTouchScreenPixelBtn" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestTouchScreen}}"
+                <Button Name="EnterTouchScreenPixelBtn" Content="{lex:Loc TestTouchScreen}"
                     Height="50" Width="240"
                     IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
                     Command="{Binding EnterTouchScreenCommand}"
                     CommandParameter="{Binding ElementName=EnterTouchScreenPixelBtn}" 
                     Visibility="{Binding TestTouchScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
                 <Button Name="CalibrateTouchScreenButton"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrateTouchScreen}}" Height="50" Width="240"
+                        Content="{lex:Loc CalibrateTouchScreen}" Height="50" Width="240"
                         IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
                         Command="{Binding EnterCalibrateTouchScreenCommand}"
                         CommandParameter="{Binding ElementName=CalibrateTouchScreenButton}" 
                         Visibility="{Binding CalibrateTouchScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
                 <Button Name="EnterIdentifyScreenBtn"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.IdentifyVideoDisplay}}" Height="50" Width="240"
+                        Content="{lex:Loc IdentifyVideoDisplay}" Height="50" Width="240"
                         IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
                         Command="{Binding EnterIdentifyScreenCommand}"
                         CommandParameter="{Binding ElementName=EnterIdentifyScreenBtn}" />
                 <Button Name="EnterColorTestButton"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterDisplayColorTest}}" Height="50" Width="240"
+                        Content="{lex:Loc EnterDisplayColorTest}" Height="50" Width="240"
                         IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
                         Command="{Binding EnterColorTestCommand}"
                         CommandParameter="{Binding ElementName=EnterColorTestButton}" />

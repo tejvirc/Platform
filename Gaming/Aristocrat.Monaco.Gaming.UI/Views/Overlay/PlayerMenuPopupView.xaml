@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              x:Name="PlayerMenuPopup"
              mc:Ignorable="d" 
              Width="Auto" Height="Auto"
@@ -16,11 +17,11 @@
              Unloaded="PlayerMenuPopupView_OnUnloaded"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown" >
-            <i:InvokeCommandAction Command="{Binding PlayerMenuPopupViewModel.MouseDownOnMenuCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="MouseDown" >
+            <b:InvokeCommandAction Command="{Binding PlayerMenuPopupViewModel.MouseDownOnMenuCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <UserControl.Resources>
         <ResourceDictionary>

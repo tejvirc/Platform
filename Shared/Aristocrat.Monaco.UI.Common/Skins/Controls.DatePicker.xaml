@@ -2,10 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared">
+                    xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.shared.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <LinearGradientBrush  x:Key="BackgroundPressedBrush" StartPoint="1,1" EndPoint="0,0">
@@ -28,7 +29,7 @@
         <Setter Property="controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource FocusBorderBrush}" />
         <Setter Property="controls:TextBoxHelper.ButtonWidth" Value="32" />
         <Setter Property="controls:TextBoxHelper.IsMonitoring" Value="True" />
-        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MahApps.Fonts.Family.Control}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="FontSize" Value="28" />
         <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
@@ -61,13 +62,13 @@
                                     Padding="2 0"
                                     Foreground="{TemplateBinding Foreground}"
                                     IsTabStop="False"
-                                    Style="{DynamicResource ChromelessButtonStyle}">
+                                    Style="{DynamicResource MahApps.Styles.Button.Chromeless}">
                                 <!--  PackIconModern - Calendar14  -->
                                 <ContentControl Width="{Binding Path=(controls:TextBoxHelper.ButtonWidth), RelativeSource={RelativeSource TemplatedParent}}"
                                                 Height="{Binding Path=(controls:TextBoxHelper.ButtonWidth), RelativeSource={RelativeSource TemplatedParent}}"
                                                 Foreground="{DynamicResource LightBrush1}"
                                                 Content="M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z"
-                                                Style="{DynamicResource PathIconContentControlStyle}" 
+                                                Style="{DynamicResource MahApps.Styles.ContentControl.PathIcon}" 
                                                 Margin="10 0 0 0"/>
                             </Button>
 
@@ -84,19 +85,19 @@
                                                Foreground="{TemplateBinding Foreground}"
                                                Background="Transparent"
                                                SelectionBrush="{DynamicResource HighlightBrush1}">
-                                <i:Interaction.Behaviors>
+                                <b:Interaction.Behaviors>
                                     <behaviours:DatePickerTextBoxBehavior />
-                                </i:Interaction.Behaviors>
+                                </b:Interaction.Behaviors>
                             </DatePickerTextBox>
 
                             <ContentControl x:Name="PART_FloatingMessageContainer"
                                             Grid.Row="0"
                                             Grid.Column="0"
-                                            Style="{DynamicResource FloatingMessageContainerStyle}">
+                                            Style="{DynamicResource MahApps.Styles.ContentControl.FloatingMessageContainer}">
                                 <TextBlock x:Name="PART_FloatingMessage"
                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                           Foreground="{DynamicResource AccentColorBrush}"
+                                           Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                            Background="Transparent"                                           
                                            Style="{DynamicResource MonacoAutoCollapsingTextBlock}"
                                            Text="{TemplateBinding controls:TextBoxHelper.Watermark}"
@@ -123,7 +124,7 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="PART_TextBox" Property="IsFocused" Value="True">
-                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                             <Setter TargetName="PART_FloatingMessage" Property="Opacity" Value="1" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
@@ -142,27 +143,27 @@
                                 <Condition Binding="{Binding Path=(controls:TextBoxHelper.HasText), RelativeSource={RelativeSource Self}}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.ShowFloatingMessage}" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.HideFloatingMessage}" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}" />
+        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource MahApps.Templates.ValidationError}" />
     </Style>
 
     <Style x:Key="MonacoDatePickerTextBox" TargetType="{x:Type DatePickerTextBox}">
-        <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.Background}" />
         <Setter Property="ContextMenu" Value="{DynamicResource MonacoTextBoxContextMenu}" />
         <Setter Property="controls:TextBoxHelper.IsMonitoring" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MahApps.Fonts.Family.Control}" />
         <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         

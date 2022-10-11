@@ -8,6 +8,8 @@
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                loc:Localizer.For="Operator"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SystemResetPageViewModel}}"
@@ -36,24 +38,24 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Name="PartialResetText" HorizontalAlignment="Left">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearHeadingText}}" Height="Auto" 
+            <Label Content="{lex:Loc PartialClearHeadingText}" Height="Auto" 
                    FontSize="{StaticResource Heading3FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearSummeryText}}" Height="Auto" 
+            <TextBlock Text="{lex:Loc PartialClearSummeryText}" Height="Auto" 
                        FontSize="{StaticResource ContentFontSize}" Margin="5,0,0,32" TextWrapping="Wrap" />
 
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText1}}" Height="Auto" 
+            <Label Content="{lex:Loc PartialClearDetailsText1}" Height="Auto" 
                    FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText2}}" Margin="5,0,0,32" 
+            <TextBlock Text="{lex:Loc PartialClearDetailsText2}" Margin="5,0,0,32" 
                        FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
 
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText3}}" Height="Auto" 
+            <Label Content="{lex:Loc PartialClearDetailsText3}" Height="Auto" 
                    FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText4}}" Margin="5,0,0,8" 
+            <TextBlock Text="{lex:Loc PartialClearDetailsText4}" Margin="5,0,0,8" 
                        FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
         </StackPanel>
 
         <Button Grid.Row="1" Grid.Column="0" Name="PartialResetButton"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearButtonContent}}"
+                Content="{lex:Loc PartialClearButtonContent}"
                 Command="{Binding PartialResetButtonClickCommand}"
                 IsEnabled="{Binding PartialResetButtonActive}"
                 Margin="5,40,0,0" Width="180" VerticalAlignment="Top" HorizontalAlignment="Left"/>

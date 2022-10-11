@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -24,21 +26,21 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Ack}}" />
+        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Ack}" />
         <Label Grid.Row="0" Grid.Column="1" Content="{Binding Ack}" />
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImpliedNack}}" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc ImpliedNack}" />
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding ImpliedNack}" />
-        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.GeneralPoll}}" />
+        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc GeneralPoll}" />
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding GeneralPoll}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LongPoll}}" />
+        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc LongPoll}" />
         <Label Grid.Row="3" Grid.Column="1" Content="{Binding LongPoll}" />
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SynchronizePoll}}" />
+        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc SynchronizePoll}" />
         <Label Grid.Row="4" Grid.Column="1" Content="{Binding SynchronizePoll}" />
-        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddressedPoll}}" />
+        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc AddressedPoll}" />
         <Label Grid.Row="5" Grid.Column="1" Content="{Binding AddressedPoll}" />
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.OtherAddressedPoll}}" />
+        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc OtherAddressedPoll}" />
         <Label Grid.Row="6" Grid.Column="1" Content="{Binding OtherAddressedPoll}" />
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.UnknownLongPoll}}" />
+        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc UnknownLongPoll}" />
         <Label Grid.Row="7" Grid.Column="1" Content="{Binding UnknownCommand}" />
     </Grid>
 </UserControl>

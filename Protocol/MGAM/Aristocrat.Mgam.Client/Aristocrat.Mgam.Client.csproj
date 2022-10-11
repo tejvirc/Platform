@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Mgam.Client</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -545,8 +546,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Log4Net.Async" Version="2.0.4" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="SharpZipLib" Version="1.2.0" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />

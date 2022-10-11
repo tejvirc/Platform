@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Barkeeper
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
@@ -98,7 +99,9 @@
 
         public static BarkeeperRewardLevels ToRewards(string xml)
         {
-            var xmlSerializer = new XmlSerializer(typeof(BarkeeperRewardLevels));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(BarkeeperRewardLevels))
+                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var xmlSerializer = new XmlSerializer(typeof(BarkeeperRewardLevels), theXmlRootAttribute ?? new XmlRootAttribute(nameof(BarkeeperRewardLevels)));
             using (var stream = new StringReader(xml))
             {
                 return (BarkeeperRewardLevels)xmlSerializer.Deserialize(stream);
@@ -107,7 +110,9 @@
 
         public static string ToXml(this BarkeeperRewardLevels rewardLevels)
         {
-            var xmlSerializer = new XmlSerializer(typeof(BarkeeperRewardLevels));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(BarkeeperRewardLevels))
+                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var xmlSerializer = new XmlSerializer(typeof(BarkeeperRewardLevels), theXmlRootAttribute ?? new XmlRootAttribute(nameof(BarkeeperRewardLevels)));
             using (var stream = new StringWriter())
             {
                 xmlSerializer.Serialize(stream, rewardLevels);

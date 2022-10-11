@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization" 
                                xmlns:converters="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d" >
@@ -27,7 +29,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <GroupBox Grid.Row="0"  Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameStatisticsTitle}}" 
+            <GroupBox Grid.Row="0"  Header="{lex:Loc BaseGameStatisticsTitle}" 
                   Visibility="{Binding BaseStatsCollapsed, Converter={StaticResource BoolToCollapsedConverter}}">
             </GroupBox>
 
@@ -57,10 +59,10 @@
 
                             <DataGrid ItemsSource="{Binding GameFeatureMeters}" >
                                 <DataGrid.Columns>
-                                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                                <DataGridTextColumn Header="{lex:Loc Meter}" 
                                             Width="400"               
                                             Binding="{Binding MeterName}" />
-                                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                                <DataGridTextColumn Header="{lex:Loc Value}" 
                                             Width="500" 
                                             Binding="{Binding Value}" />
                                 </DataGrid.Columns>
@@ -72,7 +74,7 @@
 
             <GroupBox x:Name="MeterGroup" 
                   Grid.Row="4" 
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameStatisticsGambleFeature}}">
+                  Header="{lex:Loc GameStatisticsGambleFeature}">
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -84,10 +86,10 @@
 
                     <DataGrid ItemsSource="{Binding GameGambleMeters}" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                            <DataGridTextColumn Header="{lex:Loc Meter}" 
                                             Width="400" 
                                             Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                            <DataGridTextColumn Header="{lex:Loc Value}" 
                                             Width="500" 
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
                         </DataGrid.Columns>

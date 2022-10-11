@@ -10,9 +10,9 @@
 
 namespace Aristocrat.Monaco.Test.Common
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Reflection;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     ///     This class contains methods to access private variables and methods of a class
@@ -21,6 +21,7 @@ namespace Aristocrat.Monaco.Test.Common
     public static class Accessor
     {
         private static PrivateObject _accessor;
+        //private static object _accessor;
 
         /// <summary>
         ///     Gets or sets the PrivateObject used for reflection

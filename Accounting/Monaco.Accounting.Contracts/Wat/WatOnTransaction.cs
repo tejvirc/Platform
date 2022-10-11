@@ -14,6 +14,7 @@
     ///     Definition of the WatOnTransaction class.  This transaction provides and persists data for
     ///     a single WAT On transaction.
     /// </summary>
+    [Serializable]
     public class WatOnTransaction : BaseTransaction, ITransactionTotal
     {
         /// <summary>

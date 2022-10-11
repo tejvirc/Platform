@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:common="http://monaco.aristocrat.com/common"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
@@ -40,7 +42,7 @@
         </ItemsControl>
         <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Orientation="Horizontal" Name="ControlsPanel" Background="{StaticResource Brush1}">
             <ComboBox Margin="100 10 10 10" ItemsSource="{Binding ColorTests}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTest}" SelectedIndex="0"></ComboBox>
-            <Button Padding="10 0 10 0" Margin="10"  Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Click="OnExitButtonPressed"/>
+            <Button Padding="10 0 10 0" Margin="10"  Content="{lex:Loc ExitText}" Click="OnExitButtonPressed"/>
         </StackPanel>
     </Grid>
 </common:BaseWindow>

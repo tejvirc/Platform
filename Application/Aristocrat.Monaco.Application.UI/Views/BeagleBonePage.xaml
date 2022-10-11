@@ -6,19 +6,21 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                d:DesignHeight="1080" d:DesignWidth="720"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:BeagleBonePageViewModel}}">
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Label  Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestBeagleBoneLightShowLabel}}" HorizontalAlignment="Left"/>
+            <Label  Content="{lex:Loc TestBeagleBoneLightShowLabel}" HorizontalAlignment="Left"/>
             <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding LightShowChoices}"
                       MinWidth="250"
                       SelectedValue="{Binding ShowOverrideSelection}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="10" />
         </StackPanel>
         <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 10 0 0"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SendShowLabel}}"
+                Content="{lex:Loc SendShowLabel}"
                 Command="{Binding SendShowCommand}"/>
     </Grid>
 </operatorMenu:OperatorMenuPage>

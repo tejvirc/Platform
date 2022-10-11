@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+            lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:сontrols="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
@@ -19,7 +21,7 @@
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" MinWidth="300" Margin="20 0 20 0">
         <StackPanel>
             <StackPanel Margin="0 5">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightingBrightnessLabel}}" />
+                <Label Content="{lex:Loc LightingBrightnessLabel}" />
                 <Slider Maximum="100" Minimum="0" SmallChange="1" LargeChange="10"
                         Style="{StaticResource MonacoSlider}" Value="{Binding Brightness}" />
             </StackPanel>
@@ -38,13 +40,13 @@
                 </StackPanel.Resources>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="0 0 10 0">
-                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Strip}}" />
+                        <Label Content="{lex:Loc Strip}" />
                         <ComboBox Name="StripList" SelectedIndex="{Binding SelectedStripIndex}"
                                   ItemsSource="{Binding Strips}" DisplayMemberPath="StripName" Width="300" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 10 0">
-                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}" />
+                        <Label Content="{lex:Loc Color}" />
                         <ComboBox ItemsSource="{Binding StripColors}" SelectedIndex="{Binding SelectedColorIndex}"
                                   Width="300" />
                     </StackPanel>
@@ -64,7 +66,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel>
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightShows}}" />
+                <Label Content="{lex:Loc LightShows}" />
                 <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding LightShows}"
                           DisplayMemberPath="Name"
                           SelectedItem="{Binding SelectedLightShow}"

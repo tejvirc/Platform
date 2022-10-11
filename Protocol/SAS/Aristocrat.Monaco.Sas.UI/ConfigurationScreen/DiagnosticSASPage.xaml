@@ -10,6 +10,8 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:local="clr-namespace:Aristocrat.Monaco.Sas.UI.ConfigurationScreen"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d">
@@ -50,7 +52,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <GroupBox Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasMonitoringFilters}}">
+        <GroupBox Header="{lex:Loc SasMonitoringFilters}">
             <Grid Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -62,35 +64,35 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <controls:ToggleSwitchButton Grid.Column="0"
+                <controls:ToggleSwitch Grid.Column="0"
                                              IsEnabled="{Binding CanMonitorHost1}"
-                                             IsChecked="{Binding MonitoringSasHost}"
+                                             IsOn="{Binding MonitoringSasHost}"
                                              mah:ControlsHelper.CornerRadius="0"
-                                             common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Host1Label}}"
-                                             common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.Host2Label}}"
+                                             common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Host1Label}"
+                                             common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Host2Label}"
                                              HorizontalAlignment="Left" />
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
                     <CheckBox IsChecked="{Binding MonitoringSyncPoll}" />
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Sync}}" VerticalAlignment="Center"/>
+                    <Label Content="{lex:Loc Sync}" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="2">
                     <CheckBox IsChecked="{Binding MonitoringGeneralPoll}" />
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.GeneralPoll}}" VerticalAlignment="Center"/>
+                    <Label Content="{lex:Loc GeneralPoll}" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="3">
                     <CheckBox IsChecked="{Binding MonitoringNoActivity}" />
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowNoActivityLabel}}" VerticalAlignment="Center" />
+                    <Label Content="{lex:Loc ShowNoActivityLabel}" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="4">
                     <CheckBox IsChecked="{Binding MonitoringIncomingPackets}" />
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasIncomingData}}" VerticalAlignment="Center" />
+                    <Label Content="{lex:Loc SasIncomingData}" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="5">
                     <CheckBox IsChecked="{Binding MonitoringOutgoingPackets}" />
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasOutgoingData}}" VerticalAlignment="Center" />
+                    <Label Content="{lex:Loc SasOutgoingData}" VerticalAlignment="Center" />
                 </StackPanel>
                 <Button Content="{Binding MonitorButtonName}" Margin="15 0 0 0" Command="{Binding ToggleMonitoringCommand}" HorizontalAlignment="Right" Grid.Column="6"/>
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Clear}}" Margin="10 0 0 0" Command="{Binding ClearSasDataCommand}" Grid.Column="7"/>
+                <Button Content="{lex:Loc Clear}" Margin="10 0 0 0" Command="{Binding ClearSasDataCommand}" Grid.Column="7"/>
             </Grid>
             </GroupBox>
 
@@ -100,24 +102,24 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <GroupBox Grid.Column="0" Header="{lex:Loc Key={x:Static loc:ResourceKeys.Statistics}}" Margin="0 10"  DataContext="{Binding SelectedSasDiagnostics}">
+            <GroupBox Grid.Column="0" Header="{lex:Loc Statistics}" Margin="0 10"  DataContext="{Binding SelectedSasDiagnostics}">
                 <TabControl Background="Transparent" TabStripPlacement="Top">
-                    <TabItem Header="{lex:Loc Key={x:Static loc:Resources.SasComms}}">
+                    <TabItem Header="{lex:Loc SasComms}">
                         <local:SasCommsStats/>
                     </TabItem>
-                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasGeneral}}">
+                    <TabItem Header="{lex:Loc SasGeneral}">
                         <local:SasGeneralStatistics/>
                     </TabItem>
-                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasPerformance}}">
+                    <TabItem Header="{lex:Loc SasPerformance}">
                         <local:SasPerformanceStats/>
                     </TabItem>
-                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasErrors}}">
+                    <TabItem Header="{lex:Loc SasErrors}">
                         <local:SasErrorStats/>
                     </TabItem>
                 </TabControl>
             </GroupBox>
 
-            <GroupBox Header="{lex:Loc Key={x:Static loc:ResourceKeys.PollData}}" Margin="10 10 0 0" Name="PollDataGroupBox" Grid.Column="1">
+            <GroupBox Header="{lex:Loc PollData}" Margin="10 10 0 0" Name="PollDataGroupBox" Grid.Column="1">
                 <local:SasPollData/>
             </GroupBox>
         </Grid>

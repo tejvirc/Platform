@@ -5,6 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu"
     xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
     xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -58,7 +60,7 @@
 
         <!-- Bingo Game ID -->
         <StackPanel Orientation="Horizontal">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoGameID}}" />
+            <Label Content="{lex:Loc BingoGameID}" />
             <Label 
                 Foreground="{DynamicResource LightBrush4}"
                 Content="{Binding BingoRoundData.RoundId}" />
@@ -69,7 +71,7 @@
             Margin="0"
             FontSize="19"
             HorizontalAlignment="Center"
-            Content="{lex:Loc Key={x:Static loc:ResourceKeys.BallCall}}"
+            Content="{lex:Loc BallCall}"
             FontWeight="Bold"/>
         <Border
             BorderBrush="{DynamicResource Brush3}" 
@@ -129,7 +131,7 @@
             Margin="0,20,0,0"
             FontSize="19"
             HorizontalAlignment="Center"
-            Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoCard}}"
+            Content="{lex:Loc BingoCard}"
             FontWeight="Bold"/>
         <StackPanel 
             HorizontalAlignment="Center"
@@ -140,7 +142,7 @@
                 Visibility="{Binding BingoRoundData.IsMultiCardGame,
                     Converter={StaticResource BoolToVisConverter}}"
                 Command="{Binding DisplayPreviousCardCommand}"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.PreviousButtonText}}"/>
+                Content="{lex:Loc PreviousButtonText}"/>
 
             <!-- Card Information -->
             <Border
@@ -210,7 +212,7 @@
                         Margin="0,5,0,0"
                         VerticalAlignment="Bottom"
                         Orientation="Horizontal">
-                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoCardSerialNumber}}" />
+                        <Label Content="{lex:Loc BingoCardSerialNumber}" />
                         <Label 
                             Foreground="{DynamicResource LightBrush4}"
                             Content="{Binding BingoRoundData.CurrentCard.SerialNumber}" />
@@ -223,13 +225,13 @@
                 Visibility="{Binding BingoRoundData.IsMultiCardGame,
                     Converter={StaticResource BoolToVisConverter}}"
                 Command="{Binding DisplayNextCardCommand}"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
 
         <!-- Pattern Data and Navigation -->
         <Label 
             Margin="0,20,0,0"
-            Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoPatternInformation}}" 
+            Content="{lex:Loc BingoPatternInformation}" 
             HorizontalAlignment="Center"
             FontSize="19"
             FontWeight="Bold"/>
@@ -242,7 +244,7 @@
                 Visibility="{Binding BingoRoundData.HasMultipleWinningPatterns,
                     Converter={StaticResource BoolToVisConverter}}"
                 Command="{Binding DisplayPreviousPatternCommand}"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.PreviousButtonText}}" />
+                Content="{lex:Loc PreviousButtonText}" />
 
             <!-- Pattern Data -->
             <Border
@@ -271,7 +273,7 @@
 
                         <!-- Pattern ID -->
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoPatternID}}" />
+                            <Label Content="{lex:Loc BingoPatternID}" />
                             <Label 
                                 Foreground="{DynamicResource LightBrush4}"
                                 Content="{Binding BingoRoundData.CurrentPattern.Id}" />
@@ -279,7 +281,7 @@
 
                         <!-- Pattern Name -->
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoPatternName}}" />
+                            <Label Content="{lex:Loc BingoPatternName}" />
                             <Label 
                                 Foreground="{DynamicResource LightBrush4}"
                                 Content="{Binding BingoRoundData.CurrentPattern.Name}" />
@@ -287,7 +289,7 @@
 
                         <!-- Pattern Ball Quantity (number of balls called to achieve pattern -->
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoPatternBallQuantity}}" />
+                            <Label Content="{lex:Loc BingoPatternBallQuantity}" />
                             <Label 
                                 Foreground="{DynamicResource LightBrush4}"
                                 Content="{Binding BingoRoundData.CurrentPattern.BallQuantity}" />
@@ -295,7 +297,7 @@
 
                         <!-- Pattern Win Amount -->
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoPatternWinAmount}}" />
+                            <Label Content="{lex:Loc BingoPatternWinAmount}" />
                             <Label 
                                 Foreground="{DynamicResource LightBrush4}"
                                 Content="{Binding BingoRoundData.CurrentPattern.WinAmount}" />
@@ -309,7 +311,7 @@
                 Visibility="{Binding BingoRoundData.HasMultipleWinningPatterns,
                     Converter={StaticResource BoolToVisConverter}}"
                 Command="{Binding DisplayNextPatternCommand}"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
 
         <!-- Disclaimers and Color Key -->
@@ -333,7 +335,7 @@
                     <Label 
                         VerticalAlignment="Center"
                         Margin="5,0,30,0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.DaubedBingoBall}}"/>
+                        Content="{lex:Loc DaubedBingoBall}"/>
                 </StackPanel>
 
                 <!-- Daubed Pattern Key -->
@@ -345,7 +347,7 @@
                     <Label 
                         VerticalAlignment="Center"
                         Margin="5,0,30,0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.DaubedBingoPattern}}"/>
+                        Content="{lex:Loc DaubedBingoPattern}"/>
                 </StackPanel>
 
                 <!-- Undaubed Ball Key -->
@@ -357,7 +359,7 @@
                     <Label 
                         VerticalAlignment="Center"
                         Margin="5,0,0,0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.UndaubedBingoBall}}"/>
+                        Content="{lex:Loc UndaubedBingoBall}"/>
                 </StackPanel>
             </StackPanel>
 
@@ -385,7 +387,7 @@
                 <Label 
                     Margin="5,0"
                     VerticalAlignment="Center"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameEndWinDisclaimer}}"/>
+                    Content="{lex:Loc GameEndWinDisclaimer}"/>
             </StackPanel>
         </StackPanel>
     </StackPanel>

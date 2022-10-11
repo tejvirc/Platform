@@ -6,6 +6,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                mc:Ignorable="d"
@@ -32,10 +34,10 @@
             <DataGrid ItemsSource="{Binding VoucherInMeters}" x:Name="VoucherInGrid"
                       HorizontalAlignment="Left">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="350"
                                         Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}">
@@ -46,7 +48,7 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -64,7 +66,7 @@
                     <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[1].ActualWidth}" />
                     <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[2].ActualWidth}" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherInLabelContent}}" Margin="5 0" />
+                <TextBlock Text="{lex:Loc VoucherInLabelContent}" Margin="5 0" />
                 <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
                            Text="{Binding VoucherInTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
                 <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0"
@@ -76,10 +78,10 @@
             <DataGrid ItemsSource="{Binding VoucherOutMeters}" 
                       x:Name="VoucherOutGrid">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="350"
                                         Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}">
@@ -90,7 +92,7 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -107,7 +109,7 @@
                     <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[1].ActualWidth}" />
                     <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[2].ActualWidth}" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherOutLabelContent}}" Margin="5 0" />
+                <TextBlock Text="{lex:Loc VoucherOutLabelContent}" Margin="5 0" />
                 <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
                            Text="{Binding VoucherOutTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
                 <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0"
@@ -117,10 +119,10 @@
 
 		<DataGrid Grid.Row="4" ItemsSource="{Binding RejectionMeters}" Margin="0 50 0 0" x:Name="RejectionMetersGrid">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+				<DataGridTextColumn Header="{lex:Loc Meter}"
                                     Width="350"
                                     Binding="{Binding Name}" />
-				<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}" 
+				<DataGridTextColumn Header="{lex:Loc Count}" 
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
                                     Width="500"

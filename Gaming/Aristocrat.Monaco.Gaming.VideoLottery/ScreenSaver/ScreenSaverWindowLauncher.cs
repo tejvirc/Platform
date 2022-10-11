@@ -58,6 +58,7 @@ namespace Aristocrat.Monaco.Gaming.VideoLottery.ScreenSaver
                 if (disposing)
                 {
                     Hide();
+                    _windowLauncher.Dispose();
 
                     _eventBus.UnsubscribeAll(this);
                 }

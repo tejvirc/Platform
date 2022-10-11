@@ -496,7 +496,7 @@
             // Forces oxyPlot to update
             MonacoPlotModel?.InvalidatePlot(true);
         }
-
+     
         private void UnInitialize()
         {
             _cancellationToken?.Dispose();
@@ -515,7 +515,9 @@
 
             for (var i = 0; i < axisCount; ++i)
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 MonacoPlotModel.Axes[i].AxisChanged -= OnAxisChanged;
+#pragma warning restore CS0618 // Type or member is obsolete
             }
 
             MonacoPlotModel?.Axes?.Clear();
@@ -541,7 +543,10 @@
 
             for (var i = 0; i < axisCount; ++i)
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 MonacoPlotModel.Axes[i].AxisChanged += OnAxisChanged;
+#pragma warning restore CS0618 // Type or member is obsolete
+
             }
         }
 
@@ -746,11 +751,11 @@
                 Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PerformanceCountersPlotting),
                 TitleFontSize = 25,
                 TitleColor = OxyColors.CornflowerBlue,
-                LegendFontSize = 12,
-                LegendFontWeight = 550,
-                LegendSymbolLength = 30,
-                LegendSymbolMargin = 10,
-                LegendTextColor = OxyColors.White,
+                //LegendFontSize = 12,
+                //LegendFontWeight = 550,
+                //LegendSymbolLength = 30,
+                //LegendSymbolMargin = 10,
+                //LegendTextColor = OxyColors.White,
                 PlotAreaBorderColor = OxyColors.CornflowerBlue,
                 PlotMargins = new OxyThickness(60, 10, 20, 70)
             };

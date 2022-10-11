@@ -1,12 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Monaco_DisableCodeAnalysis>true</Monaco_DisableCodeAnalysis>
-  </PropertyGroup>
-
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
-
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Test.Automation</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
@@ -34,7 +29,7 @@
     <ProjectReference Include="..\..\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>

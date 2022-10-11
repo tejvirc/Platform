@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -36,7 +38,7 @@
             <Style x:Key="SettingValueStyle" 
                    TargetType="TextBlock" 
                    BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="Foreground" Value="{StaticResource WhiteColorBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
@@ -50,7 +52,7 @@
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0" Padding="0 5 0 5">
-                        <Label Content="{Binding Name}" Foreground="{DynamicResource WhiteColorBrush}" />
+                        <Label Content="{Binding Name}" Foreground="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                     </Border>
 
                     <Border Grid.Row="1" Padding="0 14 0 5">
@@ -67,7 +69,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
-            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Text="{lex:Loc {x:Static loc:ResourceKeys.ExportSettingsText}}" />
+            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Text="{lex:Loc ExportSettingsText}" />
         </Border>
         
         <Border Grid.Row="1">
@@ -96,7 +98,7 @@
             <DockPanel LastChildFill="False">
                 <StackPanel  DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 20 0 0" HorizontalAlignment="Left">
                     <Button Width="Auto"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExportMachineSettings}}"
+                            Content="{lex:Loc ExportMachineSettings}"
                             Command="{Binding ExportCommand}" />
                     <Button Margin="0 15 0 0" HorizontalAlignment="Left"
                             Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
@@ -109,14 +111,14 @@
                         </Button.CommandParameter>
                     </Button>
                     <controls:ProgressRing Margin="20 0 0 0" 
-                                           Foreground="{DynamicResource AccentColorBrush}" 
+                                           Foreground="{DynamicResource MahApps.Brushes.Accent}" 
                                            Height="40" 
                                            Width="40" 
                                            IsActive="{Binding IsInProgress}" 
                                            VerticalAlignment="Center" />
                 </StackPanel>
                 <Label  DockPanel.Dock="Top"
-                        Content="{lex:Loc {x:Static loc:ResourceKeys.ExportSettingsErrorText}}"  
+                        Content="{lex:Loc ExportSettingsErrorText}"  
                         Style="{StaticResource MonacoLabel}" 
                         Margin="0 20 0 0"
                         Foreground="{StaticResource RedBrush}"  

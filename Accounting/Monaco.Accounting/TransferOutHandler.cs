@@ -467,7 +467,7 @@ namespace Aristocrat.Monaco.Accounting
             if (disposing)
             {
                 while (_pending.TryDequeue(out _)) { }
-
+                _current.Dispose();
                 UnloadProviders();
                 _providers.Clear();
 

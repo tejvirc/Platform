@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.G2S.Data</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>
@@ -32,8 +32,8 @@
     <ProjectReference Include="..\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.G2S" Version="4.1.35" />
-    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0006" />
+    <PackageReference Include="EntityFramework" Version="6.4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>

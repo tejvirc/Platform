@@ -2,7 +2,9 @@
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <TargetFramework>net472</TargetFramework>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Bingo.UI.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -16,7 +18,7 @@
     <Content Include="www\bingo\ATI_TEST1234\VAR01\page_1.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
@@ -32,6 +34,8 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.0-beta0007" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 </Project>

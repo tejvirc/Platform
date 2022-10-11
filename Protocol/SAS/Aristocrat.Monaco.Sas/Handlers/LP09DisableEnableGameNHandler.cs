@@ -311,7 +311,8 @@
                 });
         }
 
-        private void Dispose(bool disposing)
+        /// IDispose interface
+        protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
             {

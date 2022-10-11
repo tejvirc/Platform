@@ -7,6 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:converters="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:DenomMetersPageViewModel}, IsDesignTimeCreatable=True}">
@@ -39,10 +41,10 @@
                 <DataGrid Grid.Row="0" Grid.Column="0" ItemsSource="{Binding MetersLeftColumn}"
                           Margin="0 -20 0 0" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                        <DataGridTextColumn Header="{lex:Loc Meter}" 
                                             Width="360" 
                                             Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                        <DataGridTextColumn Header="{lex:Loc Value}" 
                                             Width="200" 
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -53,10 +55,10 @@
                 <DataGrid DockPanel.Dock="Top" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding MetersRightColumn}"
                           Margin="120 -20 0 0" Visibility="{Binding MetersRightColumnVisible, Converter={StaticResource BoolToVisConverter}}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                        <DataGridTextColumn Header="{lex:Loc Meter}" 
                                             Width="360" 
                                             Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                        <DataGridTextColumn Header="{lex:Loc Value}" 
                                             Width="200" 
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -71,7 +73,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
+                    Content="{lex:Loc PrevButton}"/>
             <ComboBox Margin="0 0 10 0" 
                       VerticalAlignment="Center" 
                       SelectedValuePath="Id" 
@@ -84,7 +86,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
 
     </Grid>

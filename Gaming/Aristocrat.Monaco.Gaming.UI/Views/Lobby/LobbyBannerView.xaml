@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -102,35 +103,35 @@
                                      Duration="00:01:00" />
                 </Storyboard>
             </Border.Resources>
-            <i:Interaction.Triggers>
-                <ei:DataTrigger Binding="{Binding IsScrollingIdleTextVisible, Mode=OneWay}" 
+            <b:Interaction.Triggers>
+                <b:DataTrigger Binding="{Binding IsScrollingIdleTextVisible, Mode=OneWay}" 
                                 Comparison="Equal"
                                 Value="True">
-                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                    <b:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
                                                 ControlStoryboardOption="Play" />
-                </ei:DataTrigger>
-                <ei:DataTrigger Binding="{Binding IsScrollingIdleTextVisible, Mode=OneWay}" 
+                </b:DataTrigger>
+                <b:DataTrigger Binding="{Binding IsScrollingIdleTextVisible, Mode=OneWay}" 
                                 Comparison="Equal"
                                 Value="False">
-                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                    <b:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
                                                 ControlStoryboardOption="Stop" />
-                </ei:DataTrigger>
-                <ei:DataTrigger Binding="{Binding IsIdleTextPaused, Mode=OneWay}" 
+                </b:DataTrigger>
+                <b:DataTrigger Binding="{Binding IsIdleTextPaused, Mode=OneWay}" 
                                 Comparison="Equal"
                                 Value="True">
-                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                    <b:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
                                                 ControlStoryboardOption="Pause" />
-                </ei:DataTrigger>
-                <ei:DataTrigger Binding="{Binding IsIdleTextPaused, Mode=OneWay}" 
+                </b:DataTrigger>
+                <b:DataTrigger Binding="{Binding IsIdleTextPaused, Mode=OneWay}" 
                                 Comparison="Equal"
                                 Value="False">
-                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                    <b:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
                                                 ControlStoryboardOption="Resume" />
-                </ei:DataTrigger>
-                <ei:StoryboardCompletedTrigger Storyboard="{StaticResource IdleTextScrollingStoryboard}">
-                    <i:InvokeCommandAction Command="{Binding IdleTextScrollingCompletedCommand}" />
-                </ei:StoryboardCompletedTrigger>
-            </i:Interaction.Triggers>
+                </b:DataTrigger>
+                <b:StoryboardCompletedTrigger Storyboard="{StaticResource IdleTextScrollingStoryboard}">
+                    <b:InvokeCommandAction Command="{Binding IdleTextScrollingCompletedCommand}" />
+                </b:StoryboardCompletedTrigger>
+            </b:Interaction.Triggers>
             <Canvas x:Name="canvasIdleText"
                     Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
                 <TextBlock x:Name="txtIdleText" 

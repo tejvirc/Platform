@@ -70,7 +70,7 @@
                     return GetDefaultSequence();
                 }
 
-                var enabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId)
+                var enabledGames = _gameProvider.GetEnabledGames().AsQueryable().DistinctBy(g => g.ThemeId)
                     .OrderBy(g => _gameOrder.GetPositionPriority(g.ThemeId)).ToList();
 
                 var enabledAttract = new List<IAttractInfo>();

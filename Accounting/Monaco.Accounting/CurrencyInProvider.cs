@@ -315,7 +315,9 @@
             {
                 var formatter = new BinaryFormatter();
 
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
                 formatter.Serialize(stream, evt);
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
 
                 return stream.ToArray();
             }
@@ -682,7 +684,9 @@
                     stream.Write(data, 0, data.Length);
                     stream.Position = 0;
 
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
                     if (formatter.Deserialize(stream) is CurrencyEscrowedEvent evt)
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
                     {
                         return evt;
                     }

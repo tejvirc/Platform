@@ -8,11 +8,14 @@
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:loc="http://monaco.aristocrat.com/localization"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
              xmlns:barkeeper="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Barkeeper;assembly=Aristocrat.Monaco.Gaming.Contracts"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              d:DataContext="{d:DesignInstance {x:Type viewModels:BarkeeperConfigurationViewModel}}"
              mc:Ignorable="d">
 
@@ -78,7 +81,7 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   EnableRowVirtualization="True">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}" HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                <DataGridTemplateColumn Header="{lex:Loc Enable}" HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
                             <CheckBox HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="5"
@@ -88,7 +91,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}">
+                <DataGridTemplateColumn Header="{lex:Loc Level}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
                             <Label Content="{Binding Name}" />
@@ -96,7 +99,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Threshold}}">
+                <DataGridTemplateColumn Header="{lex:Loc Threshold}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
                             <helpers:CurrencyTextBox Margin="20 0 0 0" MinWidth="200"
@@ -108,7 +111,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}" IsReadOnly="False">
+                <DataGridTemplateColumn Header="{lex:Loc Color}" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
                             <ComboBox FontSize="14" IsEnabled="{Binding Enabled}"
@@ -119,7 +122,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Alert}}" IsReadOnly="False">
+                <DataGridTemplateColumn Header="{lex:Loc Alert}" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
                             <ComboBox FontSize="14" IsEnabled="{Binding Enabled}"
@@ -134,18 +137,16 @@
         
         <StackPanel Grid.Row="2" Grid.Column="0"  Margin="0 15 0 0" Orientation="Horizontal"
                     Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInRateOfPlay}}" />
+            <Label Content="{lex:Loc CoinInRateOfPlay}" />
             <Button Name="CoinInRateInfoButton" Margin="5 0 0 0"
                     Style="{StaticResource MonacoInfoButton}"
                     Command="{Binding ShowInfoPopupCommand}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="CoinInRateInfoButton" />
-                        <Binding ElementName="CoinInRateInfoButtonProxy" Path="Result" />
+                        <Binding Source="{lex:Loc BarkeeperCoinInRateOfPlayToolTip}"/>
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy x:Name="CoinInRateInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.BarkeeperCoinInRateOfPlayToolTip}" />
             </Button>
         </StackPanel>
 
@@ -154,16 +155,16 @@
             <CheckBox Margin="0,5" Width="46"
                       IsChecked="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Mode=TwoWay}"
                       IsEnabled="{Binding InputEnabledByRuleOverride}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked" >
-                        <i:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Checked" >
+                        <b:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                CommandParameter="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled}"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="Unchecked" >
-                        <i:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="Unchecked" >
+                        <b:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                CommandParameter="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
             </CheckBox>
             <helpers:CurrencyTextBox Margin="20 0 0 0" MinWidth="200"
                                      IsReadOnly="False" PreventNegatives="True" InputScope="Number"
@@ -177,12 +178,12 @@
                 </helpers:CurrencyTextBox.IsEnabled>
             </helpers:CurrencyTextBox>
             <Label Margin="20 0 0 0"
-                   Content="{lex:Loc Key=Disabled}" VerticalAlignment="Center"
+                   Content="{lex:Loc Disabled}" VerticalAlignment="Center"
                    Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 15 0 0">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInMeter}}" VerticalAlignment="Center"
+            <Label Content="{lex:Loc BarkeeperCoinInMeter}" VerticalAlignment="Center"
                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}"/>
             <Label Content="{Binding CoinInSessionMeter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}"/>
@@ -192,13 +193,11 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="CoinInMeterInfoButton" />
-                        <Binding ElementName="CoinInMeterInfoButtonProxy" Path="Result" />
+                        <Binding Source="{lex:Loc BarkeeperCoinInMeterToolTip}"/>
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy Name="CoinInMeterInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.BarkeeperCoinInMeterToolTip}" />
             </Button>
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInDisabled}}"
+            <Label Content="{lex:Loc BarkeeperCoinInDisabled}"
                    Visibility="{Binding CoinInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}" />
         </StackPanel>
         

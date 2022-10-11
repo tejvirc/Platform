@@ -7,7 +7,10 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
                                mc:Ignorable="d" 
@@ -55,8 +58,8 @@
                 <Setter Property="Foreground">
                     <Setter.Value>
                         <LinearGradientBrush StartPoint=".5,1" EndPoint=".5,0" >
-                            <GradientStop Color="{StaticResource Gray5}" Offset="0" />
-                            <GradientStop Color="{StaticResource WhiteColor}" Offset=".5" />
+                            <GradientStop Color="{StaticResource MahApps.Colors.Gray5}" Offset="0" />
+                            <GradientStop Color="{StaticResource MahApps.Colors.ThemeBackground}" Offset=".5" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -81,14 +84,14 @@
     </UserControl.Resources>
 
     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SampleSoundTest}}"/>
+        <Label Content="{lex:Loc SampleSoundTest}"/>
         <StackPanel Orientation="Horizontal">
             <ComboBox ItemsSource="{Binding SoundFiles}"
                       DisplayMemberPath="Name"
                       SelectedIndex="0"
                       SelectedItem="{Binding Sound}"
                       Style="{StaticResource OptionComboStyle}"/>
-            <Button Content="{iconPacks:PackIconMaterial Play, Width=10, Height=10}" 
+            <Button Content="{iconPacks:PackIcon Play, Width=10, Height=10}" 
                     Command="{Binding PlayCommand}">
                 <Button.Style>
                     <Style TargetType="Button"
@@ -97,19 +100,19 @@
                             <DataTrigger Binding="{Binding IsAudioDisabled}"
                                                  Value="True">
                                 <Setter Property="ToolTip"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.ServiceNotAvailableText}}" />
+                                                Value="{lex:BLoc ServiceNotAvailableText}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="{iconPacks:PackIconMaterial Stop, Width=10, Height=10}" 
+            <Button Content="{iconPacks:PackIcon Stop, Width=10, Height=10}" 
                     Command="{Binding StopCommand}"
                     Style="{StaticResource SoundButtonStyle}"
                     RenderTransformOrigin="1.48,0.567"/>
         </StackPanel>
 
-        <Label HorizontalAlignment="Left" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundVolumeTest}}"/>
+        <Label HorizontalAlignment="Left" Margin="0 20 0 0" Content="{lex:Loc SoundVolumeTest}"/>
         <ComboBox ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
                   SelectedIndex="0"
                   DisplayMemberPath="Description"
@@ -117,7 +120,7 @@
                   SelectedValue="{Binding SoundLevel}"
                   Style="{StaticResource OptionComboStyle}"/>
 
-        <Label HorizontalAlignment="Left" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundSpeakerTest}}"/>
+        <Label HorizontalAlignment="Left" Margin="0 20 0 0" Content="{lex:Loc SoundSpeakerTest}"/>
         <GroupBox HorizontalAlignment="Stretch" VerticalAlignment="Top" MinWidth="400" MinHeight="400" Margin="0 5 0 0">
             <Grid Margin="5 0 ">
                 <Grid.RowDefinitions>
@@ -136,7 +139,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" IsEnabled="{Binding FrontLeftSpeaker, Mode=TwoWay}">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FrontLeftText}}"/>
+                    <TextBlock Text="{lex:Loc FrontLeftText}"/>
                     <Button Command="{Binding PlayCommandOnFrontLeftSpeaker}" CommandParameter="{DynamicResource FrontLeft}" >
                         <Button.Style>
                             <Style TargetType="Button"
@@ -145,7 +148,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUp" Height="40" Rotation="90" Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="90" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -156,7 +159,7 @@
                 </StackPanel>
 
                 <StackPanel  Grid.Row="1" Grid.Column="2" IsEnabled="{Binding CenterSpeaker, Mode=TwoWay}">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.CenterText}}"/>
+                    <TextBlock Text="{lex:Loc CenterText}"/>
                     <Button Command="{Binding PlayCommandOnCenterSpeaker}" CommandParameter="{DynamicResource Center}">
                         <Button.Style>
                             <Style TargetType="Button"
@@ -165,7 +168,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUp" Height="40" Rotation="90" Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="90" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -176,7 +179,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="3" IsEnabled="{Binding FrontRightSpeaker, Mode=TwoWay}">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FrontRightText}}"/>
+                    <TextBlock Text="{lex:Loc FrontRightText}"/>
                     <Button Command="{Binding PlayCommandOnFrontRightSpeaker}" CommandParameter="{DynamicResource FrontRight}">
                         <Button.Style>
                             <Style TargetType="Button"
@@ -185,7 +188,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUp" Height="40" Rotation="90" Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="90" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -204,7 +207,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUp" Height="40" Rotation="0" Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="0" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -212,7 +215,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.SideLeftText}}"/>
+                    <TextBlock Text="{lex:Loc SideLeftText}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="4" IsEnabled="{Binding SideRightSpeaker, Mode=TwoWay}">
@@ -224,7 +227,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUp" Height="40" Rotation="180" Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="180" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -232,13 +235,13 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.SideRightText}}"/>
+                    <TextBlock Text="{lex:Loc SideRightText}"/>
                 </StackPanel>
 
                 <Button Grid.Row="3" Grid.Column="2"
                         IsEnabled="{Binding LowFrequencySpeaker, Mode=TwoWay}"
                         Command="{Binding PlayCommandOnLowFrequencySpeaker}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.LowFrequencyText}}" 
+                        Content="{lex:Loc LowFrequencyText}" 
                         CommandParameter="{DynamicResource LowFrequency}" Width="35" Height="20" MinWidth="0" MinHeight="0" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0" Grid.IsSharedSizeScope="True"/>
 
                 <StackPanel Grid.Row="4" Grid.Column="1" IsEnabled="{Binding RearLeftSpeaker, Mode=TwoWay}">
@@ -250,7 +253,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUp" Height="40" Rotation="270" Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="270" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -258,7 +261,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.RearLeftText}}"/>
+                    <TextBlock Text="{lex:Loc RearLeftText}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="4" Grid.Column="3" IsEnabled="{Binding RearRightSpeaker, Mode=TwoWay}">
@@ -270,7 +273,7 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
                                             <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUp" Height="40" Rotation="270" Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="270" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -278,7 +281,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.RearRightText}}"/>
+                    <TextBlock Text="{lex:Loc RearRightText}"/>
                 </StackPanel>
             </Grid>
         </GroupBox>

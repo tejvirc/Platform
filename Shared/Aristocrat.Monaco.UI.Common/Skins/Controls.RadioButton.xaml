@@ -31,7 +31,7 @@
                             <ColumnDefinition x:Name="RightCol" Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid x:Name="PART_CHECKBOX">
-                            <Rectangle Margin="-6 0" Fill="{DynamicResource TransparentWhiteBrush}" />
+                            <Rectangle Margin="-6 0" Fill="{DynamicResource MahApps.Brushes.Transparent}" />
                             <Ellipse x:Name="normal"
                                      Width="25"
                                      Height="25"

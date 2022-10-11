@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.G2S.Client.Configuration
 {
     using System;
-    using System.IdentityModel.Selectors;
+    using CoreWCF.IdentityModel.Selectors;
     using System.Security.Cryptography.X509Certificates;
 
     /// <summary>

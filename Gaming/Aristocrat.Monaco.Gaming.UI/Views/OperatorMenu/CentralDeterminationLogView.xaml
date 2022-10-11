@@ -4,6 +4,8 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
@@ -11,6 +13,7 @@
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance viewModels:CentralDeterminationLogViewModel, IsDesignTimeCreatable=False}">
     <UserControl.Resources>
@@ -106,28 +109,28 @@
                             ItemsSource="{Binding Path=TransactionData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                             SelectedItem="{Binding SelectedRow}"
                             ScrollViewer.CanContentScroll="True" SelectionMode="Single" IsReadOnly="True">
-            <i:Interaction.Triggers>
+            <b:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                     <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
                 </events:RoutedEventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                     Binding="{Binding TransactionDateTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     MinWidth="150"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameIdHeader}}"
+                <DataGridTextColumn Header="{lex:Loc GameIdHeader}"
                                     Binding="{Binding GameId}" ElementStyle="{StaticResource Centered}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenominationShortHeader}}"
+                <DataGridTextColumn Header="{lex:Loc KDenominationShortHeader}"
                                     Binding="{Binding Denomination}" ElementStyle="{StaticResource Centered}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryHeader}}"
+                <DataGridTextColumn Header="{lex:Loc WagerCategoryHeader}"
                                     Binding="{Binding WagerCategory}" ElementStyle="{StaticResource Centered}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wager}}"
+                <DataGridTextColumn Header="{lex:Loc Wager}"
                                     Binding="{Binding WagerAmount}" ElementStyle="{StaticResource Centered}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomesRequestedHeader}}"
+                <DataGridTextColumn Header="{lex:Loc OutcomesRequestedHeader}"
                                     Binding="{Binding OutcomesRequested}" ElementStyle="{StaticResource Centered}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomeStateHeader}}"
+                <DataGridTextColumn Header="{lex:Loc OutcomeStateHeader}"
                                     Binding="{Binding OutcomeState}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomeExceptionHeader}}"
+                <DataGridTextColumn Header="{lex:Loc OutcomeExceptionHeader}"
                                     Binding="{Binding OutcomeException}" />
             </DataGrid.Columns>
         </DataGrid>
@@ -135,7 +138,7 @@
         <StackPanel Grid.Row="1" Orientation ="Vertical" >
             <TextBlock x:Name="TextBlockGameRoundInfo" 
                        Margin="0,0,0,5"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomesHeader}}" 
+                       Text="{lex:Loc OutcomesHeader}" 
                        FontSize="{StaticResource NormalFontSize}" 
                        FontWeight="Bold"/>
             <Border BorderBrush="{DynamicResource Brush3}" 
@@ -148,11 +151,11 @@
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled" CellStyle="{StaticResource OutcomeCellStyle}">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                             <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Setter Property="Foreground" Value="{StaticResource Brush3}"/>
@@ -160,17 +163,17 @@
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameSetIdHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc GameSetIdHeader}"
                                             Binding="{Binding GameSetId}"/>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ReferenceHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc ReferenceHeader}"
                                             Binding="{Binding Reference}"/>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TypeHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc TypeHeader}"
                                             Binding="{Binding Type}" MinWidth="150"/>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ValueHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc ValueHeader}"
                                             Binding="{Binding Value}" MinWidth="100"/>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevelHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc WinLevelHeader}"
                                             Binding="{Binding WinLevelIndex}"/>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LookupDataHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc LookupDataHeader}"
                                             Binding="{Binding LookupData}"/>
                     </DataGrid.Columns>
                 </DataGrid>

@@ -103,8 +103,11 @@
 
             using (TextReader reader = new StringReader(script.CommandData))
             {
-                command.commandStatusList =
-                    (commandStatusList)new XmlSerializer(typeof(commandStatusList)).Deserialize(reader);
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(commandStatusList))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var xmlSerializer = new XmlSerializer(typeof(commandStatusList), theXmlRootAttribute ?? new XmlRootAttribute(nameof(commandStatusList)));
+
+                command.commandStatusList = (commandStatusList)xmlSerializer.Deserialize(reader);
             }
 
             await Task.CompletedTask;

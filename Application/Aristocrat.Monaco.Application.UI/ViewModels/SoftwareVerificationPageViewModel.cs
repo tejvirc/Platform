@@ -20,7 +20,7 @@
     using Monaco.Localization.Properties;
     using System.Security.Cryptography;
 
-   [CLSCompliant(false)]
+    [CLSCompliant(false)]
     public sealed class SoftwareVerificationPageViewModel : OperatorMenuPageViewModelBase
     {
         private readonly IAuthenticationService _authenticationService;
@@ -64,18 +64,21 @@
 
             AlgorithmTypes = new List<AlgorithmInfo>
             {
+                // Disable the warning.
+#pragma warning disable SYSLIB0021
                 new AlgorithmInfo(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmSha1DisplayName), AlgorithmType.Sha1, new SHA1CryptoServiceProvider().HashSize),
                 new AlgorithmInfo(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmHmacSha1DisplayName), AlgorithmType.HmacSha1, new HMACSHA1().HashSize),
                 new AlgorithmInfo(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmSha256DisplayName), AlgorithmType.Sha256, new SHA256Managed().HashSize),
                 new AlgorithmInfo(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmHmacSha256DisplayName), AlgorithmType.HmacSha256, new HMACSHA256().HashSize),
                 new AlgorithmInfo(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmHmacSha512DisplayName), AlgorithmType.HmacSha512, new HMACSHA512().HashSize),
+                // Re-enable the warning.
+#pragma warning restore SYSLIB0021
             };
 
             _defaultAlgorithm = AlgorithmTypes.First();
             ShowMasterResult = (bool)PropertiesManager.GetProperty(
                 ApplicationConstants.ShowMasterResult,
                 false);
-          
         }
 
         public ICommand CalculateCommand { get; set; }
@@ -195,7 +198,7 @@
             IsIdle = true;
 
             FormattedHmacKey = _selectedAlgorithmType.AllZerosKey;
-            
+
             ComponentSet.ToList().ForEach(c => c.ChangeHashResult(_selectedAlgorithmType.AllZerosKey));
             _masterResultAsBinary = null;
             MasterResult = _selectedAlgorithmType.AllZerosKey;
@@ -210,7 +213,7 @@
         }
 
         private bool ValidateHmacString()
-        {         
+        {
             if (FormattedHmacKey.Length != _selectedAlgorithmType.HexHashLength || !OnlyHexInString(FormattedHmacKey))
             {
                 return false;
@@ -232,7 +235,7 @@
             var algorithmType = SelectedAlgorithmType.Type;
             var salt = "";
             if (SelectedAlgorithmType.CanUseHMacKey)
-            {              
+            {
                 if (!ValidateHmacString())
                 {
                     ShowPopup(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidHMACString));

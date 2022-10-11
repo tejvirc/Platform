@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
@@ -32,28 +34,28 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceCaption}}" VerticalAlignment="Stretch"/>
+               Content="{lex:Loc DeviceManagerEditDeviceViewDeviceCaption}" VerticalAlignment="Stretch"/>
         <TextBox Grid.Row="1"
                  Text="{Binding DeviceName}" IsEnabled="False" VerticalAlignment="Stretch" Width="Auto"/>
 
         <Label Margin="0 15 0 0" Grid.Row="2"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceIdCaption}}" VerticalAlignment="Stretch"/>
+               Content="{lex:Loc DeviceManagerEditDeviceViewDeviceIdCaption}" VerticalAlignment="Stretch"/>
         <TextBox Grid.Row="3"
                  Text="{Binding DeviceId}" IsEnabled="False" VerticalAlignment="Stretch" Width="Auto" />
 
         <Label Margin="0 15 0 0" Grid.Row="4"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewOwnerIdCaption}}" VerticalAlignment="Stretch"/>
+               Content="{lex:Loc DeviceManagerEditDeviceViewOwnerIdCaption}" VerticalAlignment="Stretch"/>
         <ComboBox Grid.Row="5"
                   ItemsSource="{Binding Path=HostIds, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=OwnerId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         
         <CheckBox Grid.Row="6" Margin="0 15 0 0" HorizontalAlignment="Left" IsEnabled="False" 
                   IsChecked="{Binding Enabled, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}" 
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewEnabledCaption}}"/>
+                  Content="{lex:Loc DeviceManagerEditDeviceViewEnabledCaption}"/>
 
         <CheckBox Grid.Row="7" Margin="0 15 0 0" HorizontalAlignment="Left"
                   IsChecked="{Binding Active}" 
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewActiveCaption}}" />
+                  Content="{lex:Loc DeviceManagerEditDeviceViewActiveCaption}" />
         <Label Grid.Row="8" Margin="10 0 0 0">
             <Label.Style>
                 <Style BasedOn="{StaticResource MonacoWarningLabel}" TargetType="Label">

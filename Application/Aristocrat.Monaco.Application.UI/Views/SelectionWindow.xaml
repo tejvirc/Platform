@@ -5,6 +5,7 @@
     xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
     xmlns:common="http://monaco.aristocrat.com/common"
     xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     Title="Configuration Wizard" WindowStyle="None"
     Initialized="Window_Initialized" Name="MainWindow"
     Closing="MainWindow_Closing"
@@ -18,10 +19,10 @@
         </ResourceDictionary>
     </common:BaseWindow.Resources>
 
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior/>
         <behaviors:HighDpiWindowBehavior/>
-    </i:Interaction.Behaviors>
+    </b:Interaction.Behaviors>
 
     <views:ConfigSelectionPage x:Name="ConfigPage"/>
 

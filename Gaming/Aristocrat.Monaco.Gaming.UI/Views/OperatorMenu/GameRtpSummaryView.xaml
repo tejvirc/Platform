@@ -8,6 +8,8 @@
                                xmlns:converters="http://monaco.aristocrat.com/common"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                Background="Transparent" 
@@ -51,7 +53,7 @@
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
                Style="{StaticResource MonacoLabel}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllGamesDisabled}}"
+               Content="{lex:Loc AllGamesDisabled}"
                Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
 
         <DataGrid Grid.Column="0"
@@ -60,9 +62,9 @@
                   Margin="0 5 10 0"
                   Padding="0 0 0 0">
             <DataGrid.Columns>
-                <DataGridTextColumn MaxWidth="150" Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameTypeSummary}}" Binding="{Binding Name}"/>
-                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}" Binding="{Binding BlendedRTP}"/>
-                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}" Binding="{Binding BlendedHold}" />
+                <DataGridTextColumn MaxWidth="150" Header="{lex:Loc GameTypeSummary}" Binding="{Binding Name}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc BlendedRTP}" Binding="{Binding BlendedRTP}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc BlendedHold}" Binding="{Binding BlendedHold}" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -71,12 +73,12 @@
                   Visibility="{Binding HasDenomItems, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
                   Margin="0 5 10 0"
                   Padding="30 0 0 0"
-                  BorderBrush="{DynamicResource AccentColorBrush}"
+                  BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
                   BorderThickness="2 0 0 0">
             <DataGrid.Columns>
-                <DataGridTextColumn MaxWidth="150" Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenomSummary}}" Binding="{Binding Name}"/>
-                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}" Binding="{Binding BlendedRTP}"/>
-                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}" Binding="{Binding BlendedHold}" />
+                <DataGridTextColumn MaxWidth="150" Header="{lex:Loc DenomSummary}" Binding="{Binding Name}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc BlendedRTP}" Binding="{Binding BlendedRTP}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc BlendedHold}" Binding="{Binding BlendedHold}" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -87,7 +89,7 @@
                  Visibility="{Binding HasMoreThanOneGameType, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
                  Margin="0"
                  Padding="10 0 0 0"
-                 BorderBrush="{DynamicResource AccentColorBrush}"
+                 BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
                  BorderThickness="2 0 0 0"
                  Height="{Binding ElementName=GamesDenomsGrid, Path=ActualHeight}">
             <ListBox.ItemTemplate>
@@ -102,14 +104,14 @@
                                         <TextBlock Style="{StaticResource TextColumnHeader}" Height="Auto">
                                                 <lex:EnumRun Text="{Binding Path=DataContext.Key, ElementName=DG, Mode=OneWay, Converter={StaticResource LTextCaseConverter}, ConverterParameter=Upper}" PrependType="False"/>
                                                 <LineBreak />
-                                                <Run Text="{Binding Source={lex:Loc Key={x:Static loc:ResourceKeys.Summary}}, Mode=OneWay, Converter={StaticResource TextCaseConverter}, ConverterParameter=Upper}"/>
+                                                <Run Text="{Binding Source={lex:Loc Summary}, Mode=OneWay, Converter={StaticResource TextCaseConverter}, ConverterParameter=Upper}"/>
                                         </TextBlock>
                                     </DataTemplate>
                                 </DataGridTextColumn.HeaderTemplate>
                             </DataGridTextColumn>
-                            <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}" 
+                            <DataGridTextColumn MaxWidth="120" Header="{lex:Loc BlendedRTP}" 
                                                 Binding="{Binding BlendedRTP}"/>
-                            <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}" 
+                            <DataGridTextColumn MaxWidth="120" Header="{lex:Loc BlendedHold}" 
                                                 Binding="{Binding BlendedHold}" />
                         </DataGrid.Columns>
                     </DataGrid>

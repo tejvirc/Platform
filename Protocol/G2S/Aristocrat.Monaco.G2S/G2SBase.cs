@@ -108,8 +108,7 @@
             _container.GetInstance<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
 
             _containerService = new ContainerService(_container);
-            ServiceManager.GetInstance().AddService(_containerService);
-
+            ServiceManager.GetInstance().AddService(_containerService);            
             ModelMappingRules.Initialize();
 
             _container.GetInstance<IPackageManager>().VerifyPackages();

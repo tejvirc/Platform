@@ -45,7 +45,10 @@
         private readonly ITransportStateObserver _transportStateObserver;
         private int _commsDisabledInterval = DefaultCommunicationsInterval;
 
+        #pragma warning disable CA2213 // PlanA: It has been disposed at line 333
         private Timer _commsOnlineTimer;
+        #pragma warning restore CA2213 // PlanA: It has been disposed at line 333
+
         private Timer _commsTimer;
 
         private ICommunicationContext _context;
@@ -326,7 +329,7 @@
                         _commsTimer.Dispose();
                         _commsTimer = null;
                     }
-
+                        
                     if (_commsOnlineTimer != null)
                     {
                         _commsOnlineTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);

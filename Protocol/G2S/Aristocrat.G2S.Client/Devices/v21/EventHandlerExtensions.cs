@@ -180,7 +180,12 @@
 
         private static XmlSerializer GetSerializer<T>()
         {
-            return Serializers.GetOrAdd(typeof(T), _ => new XmlSerializer(typeof(T)));
+            return Serializers.GetOrAdd(typeof(T), _ =>
+            {
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                return new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
+            });
         }
     }
 }

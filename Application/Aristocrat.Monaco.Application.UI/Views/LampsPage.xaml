@@ -9,6 +9,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:LampsPageViewModel}}">
 
@@ -21,12 +23,12 @@
             <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
 
             <Style x:Key="ToggleSwitchButtonStyle"
-                   TargetType="controls:ToggleSwitchButton"
+                   TargetType="controls:ToggleSwitch"
                    BasedOn="{StaticResource MonacoToggleSwitchButton}">
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="Margin" Value="0"/>
-                <Setter Property="ThumbIndicatorWidth" Value="75"/>
+                <!--<Setter Property="ThumbIndicatorWidth" Value="75"/>-->
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Width" Value="150"/>
             </Style>
@@ -44,8 +46,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Grid.Column="0">
-                                    <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"/>
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0">
@@ -97,8 +98,8 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Grid.Column="0">
-                                    <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <controls:ToggleSwitch IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                           Style="{StaticResource ToggleSwitchButtonStyle}"/>
                                 </Border>
 
                                 <Border Grid.Column="1"
@@ -108,10 +109,9 @@
                                             <MultiBinding StringFormat="{}{0} {1}">
                                                 <Binding Path="DataContext" 
                                                          RelativeSource="{RelativeSource TemplatedParent}" />
-                                                <Binding ElementName="MillisecondIntervalTextProxy" Path="Result"/>
+                                                <Binding Source="{lex:Loc MillisecondIntervalText}"/>
                                             </MultiBinding>
                                         </TextBlock.Text>
-                                        <lex:LocProxy x:Name="MillisecondIntervalTextProxy" Source="{x:Static loc:ResourceKeys.MillisecondIntervalText}" />
                                     </TextBlock>
                                 </Border>
                             </Grid>
@@ -160,7 +160,7 @@
         <GroupBox Grid.Row="0" 
                   Grid.Column="0"
                   Margin="0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestButtonLamps}}"
+                  Header="{lex:Loc TestButtonLamps}"
                   IsEnabled="{Binding TestModeEnabled}"
                   Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource BoolToVisConverter}}">
             <StackPanel>
@@ -169,7 +169,7 @@
                          SelectionMode="Single"
                          Style="{StaticResource LampButtonListBoxStyle}"
                          Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource BoolToVisConverter}}" />
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FlashIntervals}}" Margin="0 20 0 10" />
+                <Label Content="{lex:Loc FlashIntervals}" Margin="0 20 0 10" />
                 <ListBox ItemsSource="{Binding Intervals}"
                          SelectedItem="{Binding SelectedInterval}"
                          SelectionMode="Single"
@@ -180,7 +180,7 @@
         <GroupBox Grid.Row="2"
                   Grid.Column="0"
                   IsEnabled="{Binding TestModeEnabled}"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestTowerLights}}"
+                  Header="{lex:Loc TestTowerLights}"
                   Visibility="{Binding TowerLightsEnabled, Converter={StaticResource BoolToVisConverter}}">
             <Grid Margin="4" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
@@ -212,7 +212,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button Grid.Column="2"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.Set}}"
+                        Content="{lex:Loc Set}"
                         Command="{Binding SetTowerLightFlashStateCommand}"
                         MaxHeight="45"
                         Margin="15 0 0 0"/>
@@ -220,7 +220,7 @@
                          ItemsSource="{Binding TowerLights}" 
                          ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}"
                          MinWidth="275"
-                         BorderBrush="{DynamicResource GrayBrush9}"
+                         BorderBrush="{DynamicResource MahApps.Brushes.Gray9}"
                          Style="{StaticResource MonacoListBox}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>

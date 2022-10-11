@@ -18,23 +18,23 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Vertical" VerticalAlignment="Center" >
-        <Button Name="PageTopButton" Click="PageTopButton_OnClick" Style="{StaticResource MonacoGridNavButton}">
-            <iconPacks:PackIconMaterial Kind="PageLast" Rotation="270"/>
+        <Button Name="PageTopButton" Click="PageTopButton_OnClick" >
+            <iconPacks:PackIconMaterial Kind="PageLast" RotationAngle="270"/>
         </Button>
-        <Button Name="PageUpButton" Click="PageUpButton_OnClick"  Style="{StaticResource MonacoGridNavButton}">
+        <Button Name="PageUpButton" Click="PageUpButton_OnClick"  >
             <iconPacks:PackIconMaterial Kind="ChevronDoubleUp" />
         </Button>
-        <Button Name="PreviousButton" Click="PreviousButtonClick"  Style="{StaticResource MonacoGridNavButton}">
+        <Button Name="PreviousButton" Click="PreviousButtonClick"  >
             <iconPacks:PackIconMaterial Kind="ChevronUp" />
         </Button>
-        <Button Name="NextButton" Click="NextButtonClick" IsDefault="True"  Style="{StaticResource MonacoGridNavButton}">
+        <Button Name="NextButton" Click="NextButtonClick" IsDefault="True"  >
             <iconPacks:PackIconMaterial Kind="ChevronDown" />
         </Button>
-        <Button Name="PageDownButton" Click="PageDownButton_OnClick" IsDefault="True"  Style="{StaticResource MonacoGridNavButton}">
+        <Button Name="PageDownButton" Click="PageDownButton_OnClick" IsDefault="True" >
             <iconPacks:PackIconMaterial Kind="ChevronDoubleDown" />
         </Button>
-        <Button Name="PageBottomButton" Click="PageBottomButton_OnClick" IsDefault="True"  Style="{StaticResource MonacoGridNavButton}">
-            <iconPacks:PackIconMaterial Kind="PageLast" Rotation="90" />
+        <Button Name="PageBottomButton" Click="PageBottomButton_OnClick" IsDefault="True" >
+            <iconPacks:PackIconMaterial Kind="PageLast" RotationAngle="90" />
         </Button>
     </StackPanel>
 </UserControl>

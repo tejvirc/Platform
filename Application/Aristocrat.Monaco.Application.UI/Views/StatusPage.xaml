@@ -9,6 +9,8 @@
                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               common:DialogParticipation.Register="{Binding}"
                               mc:Ignorable="d"
                               FocusManager.FocusedElement="{Binding ElementName=Ok}" 
@@ -87,7 +89,7 @@
                 <Button
                         Width="200"
                         HorizontalAlignment="Left" Margin="10 0 0 0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitReserve}}"
+                        Content="{lex:Loc ExitReserve}"
                         Command="{Binding ExitReserveCommand}"
                         Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>

@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AssemblyTitle>Aristocrat.Monaco.Common</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;CODE_ANALYSIS;TRACE</DefineConstants>
@@ -24,8 +25,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
@@ -47,13 +46,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
+    <PackageReference Include="Aristocrat.SQLite.Core" Version="1.0.110-beta0001" />
     <PackageReference Include="FluentValidation" Version="7.4.0" />
     <PackageReference Include="Humanizer" Version="[2.8.27]" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Quartz" Version="3.0.7" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
-    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.110" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />   
+    <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
+    <PackageReference Include="CoreWCF.Primitives" Version="1.1.0" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="1.1.0" />
   </ItemGroup>
 </Project>

@@ -9,6 +9,8 @@
                                xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.CustomSAPView"
                                dialog:DialogParticipation.Register="{Binding}"
@@ -31,15 +33,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <controls:ToggleSwitchButton Grid.Row="0" Grid.Column="0" Margin="0,-10,0,0"
+        <controls:ToggleSwitch Grid.Row="0" Grid.Column="0" Margin="0,-10,0,0"
                                      IsEnabled="True"
-                                     IsChecked="{Binding GameTypeSelect}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
-                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Poker}}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.Keno}}"/>
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Poker}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Keno}"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Margin="0,20,0,0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.CustomSAPConfigSetup}}"/>
+        <Label Grid.Row="1" Grid.Column="0" Margin="0,20,0,0" Content="{lex:Loc CustomSAPConfigSetup}"/>
         <DataGrid ItemsSource="{Binding LevelDetails}"
                   Grid.Row="2" Grid.Column="0"
                   Margin="0 5 0 0"
@@ -59,10 +60,10 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelId}}"
+                    Header="{lex:Loc LevelId}"
                     MaxWidth="60"
                     Binding="{Binding LevelId , UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelNameLabel}}">
+                <DataGridTemplateColumn Header="{lex:Loc LevelNameLabel}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
                             <commonControls:SmartLongNameTextBlock ContentText="{Binding Name}" ContentMaxWidth="310"/>
@@ -70,34 +71,34 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
+                    Header="{lex:Loc CurrentValue}"
                     MaxWidth="200"
                     Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}" 
+                    Header="{lex:Loc InitialValue}" 
                     MaxWidth="200"
                     Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}" 
+                    Header="{lex:Loc BonusInfoOverflowColumn}" 
                     MaxWidth="200"
                     Binding="{Binding OverflowValue , UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}" 
+                    Header="{lex:Loc ResetValue}" 
                     MaxWidth="200"
                     Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+                    Header="{lex:Loc IncrementRate}"
                     MaxWidth="120"
                     Binding="{Binding IncrementRate, StringFormat={}{0:#0.00'%'}, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+                    Header="{lex:Loc MaxValue}"
                     MaxWidth="200"
                     Binding="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
                             <Button Margin="0,5,0,0"
-                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.EditLabel}}"
+                                    Content="{lex:Loc EditLabel}"
                                     CommandParameter="{Binding Path=Name}"
                                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.EditSAPLevelCommand}">
                                 <Button.IsEnabled>
@@ -114,7 +115,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
                             <Button Margin="0,5,0,0"
-                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeleteLabel}}"
+                                    Content="{lex:Loc DeleteLabel}"
                                     CommandParameter="{Binding Path=Name}"
                                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSAPLevelCommand}">
                                 <Button.IsEnabled>
@@ -134,7 +135,7 @@
             <Button HorizontalAlignment="Left"
                     Margin="0 10 10 5" 
                     IsEnabled="{Binding InputEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddSAPLevel}}" 
+                    Content="{lex:Loc AddSAPLevel}" 
                     Command="{Binding AddSAPLevelCommand}"/>
         </StackPanel>
 

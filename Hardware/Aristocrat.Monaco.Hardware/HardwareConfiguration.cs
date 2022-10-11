@@ -341,7 +341,9 @@
 
             using (var reader = XmlReader.Create(SupportedDevicesPath, settings))
             {
-                var serializer = new XmlSerializer(typeof(SupportedDevices));
+                var supportedDevicesXmlRootAttribute = Attribute.GetCustomAttributes(typeof(SupportedDevices))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(SupportedDevices), supportedDevicesXmlRootAttribute ?? new XmlRootAttribute(nameof(SupportedDevices)));
 
                 return (SupportedDevices)serializer.Deserialize(reader);
             }

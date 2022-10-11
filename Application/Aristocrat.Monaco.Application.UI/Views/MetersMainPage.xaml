@@ -11,6 +11,9 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                Background="Transparent"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:MetersMainPageViewModel}}">
@@ -22,10 +25,10 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="MetersToggleSwitchButton"
-                   TargetType="controls:ToggleSwitchButton"
+                   TargetType="controls:ToggleSwitch"
                    BasedOn="{StaticResource MonacoToggleSwitchButton}">
                 <Style.Triggers>
-                    <Trigger Property="IsChecked" Value="False">
+                    <!--<Trigger Property="IsChecked" Value="False">
                         <Setter Property="ThumbIndicatorBrush">
                             <Setter.Value>
                                 <LinearGradientBrush StartPoint="0,.5"
@@ -37,17 +40,17 @@
                                 </LinearGradientBrush>
                             </Setter.Value>
                         </Setter>
-                    </Trigger>
+                    </Trigger>-->
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="IsVisibleChanged">
-            <i:InvokeCommandAction Command="{Binding IsVisibleChangedCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="IsVisibleChanged">
+            <b:InvokeCommandAction Command="{Binding IsVisibleChangedCommand}"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -78,17 +81,16 @@
                 </common:TouchListBox.ItemContainerStyle>
             </common:TouchListBox>
 
-            <controls:ToggleSwitchButton Grid.Column="1" 
+            <controls:ToggleSwitch Grid.Column="1" 
                                          Name="PeriodMasterButton" 
                                          HorizontalAlignment="Right"
                                          Margin="0 0 0 10"
                                          Style="{StaticResource MetersToggleSwitchButton}"
                                          Command="{Binding PeriodMasterButtonClickedCommand}"
-                                         IsChecked="{Binding IsPeriodMasterButtonChecked}"
                                          controls:ControlsHelper.ContentCharacterCasing="Upper"
                                          controls:ControlsHelper.CornerRadius="0"
-                                         common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.PeriodText}}"
-                                         common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.MasterButtonText}}" 
+                                         common:ToggleSwitchButtonHelper.OffContent="{lex:Loc PeriodText}"
+                                         common:ToggleSwitchButtonHelper.OnContent="{lex:Loc MasterButtonText}" 
                                          IsEnabled="{Binding ButtonsEnabled}"/>
         </Grid>
 

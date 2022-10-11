@@ -455,6 +455,12 @@
                 _stateLock.Dispose();
             }
 
+            if (_reelController != null)
+            {
+                _reelController.Dispose();
+                _reelController = null;
+            }
+
             base.Dispose(disposing);
         }
 

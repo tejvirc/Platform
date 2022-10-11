@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Mgam.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                d:DesignHeight="604.982" d:DesignWidth="887.454"
@@ -51,25 +53,25 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DirectoryPort}}" />
+        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc DirectoryPort}" />
         <TextBox Grid.Row="0" Grid.Column="2"  InputScope="Number" IsEnabled="{Binding InputEnabled}" 
                  Text="{Binding DirectoryPort, Mode=TwoWay, NotifyOnValidationError=True, 
             UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, 
             Converter={StaticResource EmptyToDefaultValue}, ConverterParameter=0 }" />
 
 
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ServiceName}}" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc ServiceName}" />
         <TextBox Grid.Row="1" Grid.Column="2"  InputScope="Number" IsEnabled="{Binding InputEnabled}"
                  Text="{Binding ServiceName, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.UseUdpBroadcasting}}" />
+        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc UseUdpBroadcasting}" />
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2">
             <CheckBox  Width="46" IsChecked="{Binding UseUdpBroadcasting, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,0,0,0" IsEnabled="{Binding InputEnabled}"/>
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.UdpBroadcastingNote}}" Margin="15,0,0,0" />
+            <Label Content="{lex:Loc UdpBroadcastingNote}" Margin="15,0,0,0" />
         </StackPanel>
 
 
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DirectoryIpAddress}}" />
+        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc DirectoryIpAddress}" />
         <TextBox Grid.Row="4" Grid.Column="2"  InputScope="Number"
                  Text="{Binding DirectoryIpAddress, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
             <TextBox.IsEnabled>
@@ -80,14 +82,14 @@
             </TextBox.IsEnabled>
         </TextBox>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}" />
+        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc MacAddressLabel}" />
         <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding MacAddress, Mode=OneWay}" IsEnabled="false" />
 
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}" />
+        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc DeviceName}" />
         <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding DeviceName, Mode=OneWay}" IsEnabled="false"
             Width="400" Height="Auto" TextWrapping="Wrap"/>
 
-        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceGuid}}" />
+        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc DeviceGuid}" />
         <TextBox Grid.Row="8" Grid.Column="2" Text="{Binding DeviceId, Mode=OneWay}" Width="400" IsEnabled="false" />
     </Grid>
 

@@ -81,7 +81,7 @@
     <SolidColorBrush x:Key="MonacoDataGrid.HighlightTextBrush" Color="{StaticResource LightColor5}" />
     <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightBrush" Color="#FF0086C4" />
     <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightTextBrush" Color="{StaticResource Color5}" />
-    <SolidColorBrush x:Key="MonacoDataGrid.DisabledHighlightBrush" Color="{DynamicResource Gray7}" />
+    <SolidColorBrush x:Key="MonacoDataGrid.DisabledHighlightBrush" Color="{DynamicResource MahApps.Colors.Gray7}" />
 
     <SolidColorBrush x:Key="ControlsDisabledBrush" Color="{DynamicResource Color2}" />
 

@@ -49,7 +49,9 @@
 
         private void LoadXmlDefinition(Stream stream)
         {
-            var xmlSerializer = new XmlSerializer(typeof(StripCloneMappings));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(StripCloneMappings))
+    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var xmlSerializer = new XmlSerializer(typeof(StripCloneMappings), theXmlRootAttribute ?? new XmlRootAttribute(nameof(StripCloneMappings)));
 
             var mappings = (StripCloneMappings)xmlSerializer.Deserialize(stream);
             var strips = _edgeLightManager.LogicalStrips;

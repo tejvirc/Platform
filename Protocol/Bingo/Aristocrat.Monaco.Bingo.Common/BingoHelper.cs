@@ -53,7 +53,9 @@
         {
             try
             {
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
                 var request = WebRequest.Create(address);
+#pragma warning restore SYSLIB0014 // Type or member is obsolete
                 using var register = token.Register(() => request.Abort());
                 using var response = await request.GetResponseAsync();
                 return response.ContentLength > 0;

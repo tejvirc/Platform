@@ -443,7 +443,9 @@
                     {
                         Logger.Info("Loaded file");
 
-                        var serializer = new XmlSerializer(typeof(Configuration));
+                        var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(Configuration))
+                                                                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                        var serializer = new XmlSerializer(typeof(Configuration), theXmlRootAttribute ?? new XmlRootAttribute(nameof(Configuration)));
 
                         config = (Configuration)serializer.Deserialize(fs);
 
@@ -479,7 +481,10 @@
         public override string ToString()
         {
             string output;
-            var ser = new XmlSerializer(typeof(Configuration));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(Configuration))
+                                                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var ser = new XmlSerializer(typeof(Configuration), theXmlRootAttribute ?? new XmlRootAttribute(nameof(Configuration)));
+
             using (var textWriter = new StringWriter())
             {
                 ser.Serialize(textWriter, this);
@@ -554,7 +559,10 @@
             using (var fs = new FileStream(path, FileMode.Create))
             {
                 Logger.Info("Saved robot configuration.");
-                var ser = new XmlSerializer(typeof(Configuration));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(Configuration))
+                                                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var ser = new XmlSerializer(typeof(Configuration), theXmlRootAttribute ?? new XmlRootAttribute(nameof(Configuration)));
+
                 ser.Serialize(fs, this);
             }
         }

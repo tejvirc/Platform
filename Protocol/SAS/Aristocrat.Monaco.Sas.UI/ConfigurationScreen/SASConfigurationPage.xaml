@@ -9,6 +9,8 @@
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:cs="clr-namespace:Aristocrat.Monaco.Sas.UI.ConfigurationScreen"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SasConfigurationViewModel}}">
@@ -68,19 +70,18 @@
 
         <Label Grid.Column="0" 
                Grid.Row="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DualHost}}"/>
+               Content="{lex:Loc DualHost}"/>
 
-        <controls:ToggleSwitchButton Grid.Row="1" 
+        <controls:ToggleSwitch Grid.Row="1" 
                                      Grid.Column="0"
                                      IsEnabled="{Binding InputEnabled}"
-                                     IsChecked="{Binding DualHostSetup}"
                                      controls:ControlsHelper.CornerRadius="0"
-                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"/>
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
 
         <GroupBox Grid.Column="0" 
                   Grid.Row="2" 
-                  Header="{lex:BLoc Key={x:Static loc:ResourceKeys.PortAssignmentGroupHeader}}" 
+                  Header="{lex:BLoc PortAssignmentGroupHeader}" 
                   Margin="0 20 0 0"
                   IsEnabled="{Binding InputEnabled}">
             <Grid>
@@ -143,14 +144,14 @@
 
                 <Label Grid.Row="0" 
                        Grid.Column ="1" 
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.Host1Label}}" 
+                       Content="{lex:BLoc Host1Label}" 
                        HorizontalContentAlignment="Center"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
 
                 <Label Grid.Row="0" 
                        Grid.Column="2" 
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.Host2Label}}" 
+                       Content="{lex:BLoc Host2Label}" 
                        HorizontalContentAlignment="Center"
                        Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"
                        HorizontalAlignment="Center"
@@ -159,7 +160,7 @@
                 <Label x:Name="AddressLabel" 
                        Grid.Row="1" 
                        Grid.Column ="0" 
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.AddressLabel}}"/>
+                       Content="{lex:BLoc AddressLabel}"/>
  
                 <helpers:AlphaNumericTextBox x:Name="Address1TextBox" 
                                              Grid.Row="1" 
@@ -210,7 +211,7 @@
                        Grid.Row="2" 
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.GeneralControlPortLabel}}"/>
+                       Content="{lex:BLoc GeneralControlPortLabel}"/>
 
                 <RadioButton x:Name="Host1GeneralControlCheck" 
                              Grid.Row="2" 
@@ -232,7 +233,7 @@
                 <Label Grid.Row="3" 
                        Grid.Column="0" 
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.AccountingDenom}}"/>
+                       Content="{lex:BLoc AccountingDenom}"/>
 
                 <ComboBox Grid.Row="3" 
                           Grid.Column ="1"
@@ -269,7 +270,7 @@
                        Grid.Row="4" 
                        Grid.Column ="0" 
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ValidationPortLabel}}"/>
+                       Content="{lex:BLoc ValidationPortLabel}"/>
 
                 <cs:OptionalRadioButton x:Name="Host1ValidationCheck" 
                           Grid.Row="4" Grid.Column ="1"
@@ -289,7 +290,7 @@
                        Grid.Row="5" 
                        Grid.Column="0" 
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.AftPortLabel}}"/>
+                       Content="{lex:BLoc AftPortLabel}"/>
 
                 <cs:OptionalRadioButton x:Name="Host1AftCheck" 
                           Grid.Row="5" 
@@ -310,7 +311,7 @@
                        Grid.Row="6" 
                        Grid.Column="0" 
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.LegacyBonusPortLabel}}"/>
+                       Content="{lex:BLoc LegacyBonusPortLabel}"/>
 
                 <cs:OptionalRadioButton x:Name="Host1LegacyBonusCheck" 
                           Grid.Row="6" 
@@ -331,7 +332,7 @@
                        Grid.Row="7" 
                        Grid.Column ="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.GameStartEndPortLabel}}"/>
+                       Content="{lex:BLoc GameStartEndPortLabel}"/>
 
                 <CheckBox x:Name="Host1GameStartEndCheck" 
                                         Grid.Row="7" 
@@ -350,7 +351,7 @@
                        Grid.Row="8" 
                        Grid.Column ="0" 
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ProgressivePortLabel}}"/>
+                       Content="{lex:BLoc ProgressivePortLabel}"/>
 
                 <cs:OptionalRadioButton x:Name="Host1ProgressiveCheck" 
                                         Grid.Row="8" 
@@ -371,7 +372,7 @@
                        Grid.Row="9" 
                        Grid.Column ="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.NonSasProgressiveHitReportingLabel}}"/>
+                       Content="{lex:BLoc NonSasProgressiveHitReportingLabel}"/>
 
                 <CheckBox x:Name="Host1NonSasProgressiveHitReporting" 
                           Grid.Row="9" 
@@ -402,7 +403,7 @@
             <Label x:Name="ProgGroupId" 
                    Grid.Row="0" 
                    Grid.Column="0" 
-                   Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ProgGroupIdLabel}}" 
+                   Content="{lex:BLoc ProgGroupIdLabel}" 
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
                    Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>

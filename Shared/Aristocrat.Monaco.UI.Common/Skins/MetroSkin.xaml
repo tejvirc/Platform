@@ -9,13 +9,13 @@
         <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
         <!-- Accent and AppTheme setting -->
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
 
         <!-- Overrides -->
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.tabcontrol.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.DatePicker.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -80,26 +80,26 @@
     </Style>
 
     <!-- The default label style. -->
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MetroLabel}">
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MahApps.Styles.Label}">
         <Setter Property="Foreground" Value="{StaticResource OperatorMenuLabelText}" />
         <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
     </Style>
 
     <!-- The default text box style. -->
-    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MahApps.Styles.TextBox}">
         <Setter Property="FontFamily" Value="{StaticResource InputFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource InputFontSize}" />
     </Style>
 
     <!-- The default button style. -->
-    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroButton}">
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button}">
         <Setter Property="FontFamily" Value="{StaticResource ButtonFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
     </Style>
 
     <!-- The default combo box style. -->
-    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MetroComboBox}">
+    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MahApps.Styles.ComboBox}">
         <Setter Property="FontFamily" Value="{StaticResource InputFontFamily}" />
         <Setter Property="FontSize" Value="{StaticResource InputFontSize}" />
     </Style>
@@ -109,7 +109,7 @@
         <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
     </Style>
 
-    <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MetroCheckBox}">
+    <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MahApps.Styles.CheckBox}">
         <Setter Property="Width" Value="40" />
         <Setter Property="Height" Value="40" />
         <Setter Property="Template">
@@ -156,7 +156,7 @@
 
     <!-- Style for tab items -->
     <Style TargetType="{x:Type TabItem}">
-        <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
+        <Setter Property="FontFamily" Value="{StaticResource MahApps.Fonts.Family.Button}" />
         <Setter Property="FontSize" Value="{StaticResource Heading2FontSize}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -258,7 +258,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MetroDatePicker}">
+    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MahApps.Styles.DatePicker}">
         <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
     </Style>
 </ResourceDictionary>

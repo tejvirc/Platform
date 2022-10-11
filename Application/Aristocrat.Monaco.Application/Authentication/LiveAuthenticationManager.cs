@@ -224,7 +224,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             if (files.Count > 0)
             {
                 using (var stream = new DirectoryStream(files))
-                    using (var sha = new SHA1CryptoServiceProvider())
+                    using (var sha = SHA1.Create())
                     {
                         result = Convert.ToBase64String(sha.ComputeHash(stream));
                     }

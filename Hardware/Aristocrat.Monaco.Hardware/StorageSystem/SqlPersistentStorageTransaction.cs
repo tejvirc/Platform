@@ -10,6 +10,7 @@
     using Common.Storage;
     using Contracts.Persistence;
     using log4net;
+    using Microsoft.Data.Sqlite;
     using StorageAdapters;
 
     /// <summary>
@@ -150,9 +151,9 @@
 
             try
             {
-                using (var connection = new SQLiteConnection(_connectionString))
+                using (var connection = new SqliteConnection(_connectionString))
                 {
-                    connection.SetPassword(StorageConstants.DatabasePassword);
+                    //connection.SetPassword(StorageConstants.DatabasePassword);
                     connection.Open();
 
                     using (var update = connection.CreateCommand())
@@ -164,9 +165,9 @@
                         {
                             update.CommandText =
                                 "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
-                            update.Parameters.Add(new SQLiteParameter("@BlockName", block.Name));
-                            update.Parameters.Add(new SQLiteParameter("@FieldName", string.Empty));
-                            update.Parameters.Add(new SQLiteParameter("@Data", DbType.Binary));
+                            update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
+                            update.Parameters.Add(new SqliteParameter("@FieldName", string.Empty));
+                            update.Parameters.Add(new SqliteParameter("@Data", DbType.Binary));
 
                             if (_fields.ContainsKey(block.Name))
                             {
@@ -253,7 +254,7 @@
         }
 
         private static void UpdateField(
-            SQLiteCommand update,
+            SqliteCommand update,
             SqlPersistentStorageAccessor block,
             string blockFieldName,
             object data,

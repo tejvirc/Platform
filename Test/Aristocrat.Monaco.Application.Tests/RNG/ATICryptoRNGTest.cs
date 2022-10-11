@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Aristocrat.CryptoRng;
     using Moq;
-    using PRNGLib;
     using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
     [TestClass]
@@ -18,7 +18,7 @@
         {
             var state = new Mock<IRandomStateProvider>();
 
-            var rng = new ATICryptoRNG(state.Object);
+            var rng = new AtiCryptoRng(state.Object);
 
             var histogram = new SortedDictionary<ulong, uint>();
 
@@ -99,11 +99,11 @@
         {
             var state = new Mock<IRandomStateProvider>();
 
-            var rng = new ATICryptoRNG(state.Object);
+            var rng = new AtiCryptoRng(state.Object);
             RangeTest(rng);
         }
 
-        private static void RangeTest(IPRNG rng)
+        private static void RangeTest(IRandom rng)
         {
             for (var i = 0; i < 64; i++)
             {

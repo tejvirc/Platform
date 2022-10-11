@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Concurrent;
-    using System.IdentityModel.Selectors;
-    using System.IdentityModel.Tokens;
+    using CoreWCF.IdentityModel.Selectors;
+    using CoreWCF.IdentityModel.Tokens;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography.X509Certificates;

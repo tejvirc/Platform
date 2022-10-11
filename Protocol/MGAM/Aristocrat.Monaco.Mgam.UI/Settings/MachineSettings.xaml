@@ -21,7 +21,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="0"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.DirectoryPort}}" />
+                       Text="{lex:Loc DirectoryPort}" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
                        Grid.Row="0"
@@ -30,7 +30,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="1"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.ServiceName}}" />
+                       Text="{lex:Loc ServiceName}" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
                        Grid.Row="1"

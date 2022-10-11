@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"                               
                                mc:Ignorable="d">
 
@@ -27,29 +29,29 @@
                   SelectedItem="{Binding SelectedRow}"
                   ScrollViewer.CanContentScroll="True" SelectionMode="Single" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SequenceNumberHeader}}"
+                <DataGridTextColumn Header="{lex:Loc SequenceNumberHeader}"
                                     IsReadOnly="True" Visibility="Collapsed"
                                     Binding="{Binding SequenceNumber}" Width="200"/>
                 <DataGridTextColumn Header="#"
                                     IsReadOnly="True"
                                     Binding="{Binding VoucherSequence}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding TimeStamp}"
                                     MinWidth="200"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AmountHeader}}"
+                <DataGridTextColumn Header="{lex:Loc AmountHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding Amount}"
                                     MinWidth="160"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TypeOfAccountHeader}}"
+                <DataGridTextColumn Header="{lex:Loc TypeOfAccountHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding TypeOfAccount}"
                                     MinWidth="240"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ValidationNumber}}"
+                <DataGridTextColumn Header="{lex:Loc ValidationNumber}"
                                     IsReadOnly="True"
                                     Binding="{Binding ValidationId}"
                                     MinWidth="280"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
+                <DataGridTextColumn Header="{lex:Loc StatusHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding Status}"/>
             </DataGrid.Columns>
@@ -59,7 +61,7 @@
                     Grid.Row="2"
                     HorizontalAlignment="Left"
                     Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource BoolToVisConverter}}">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReprintButtonText}}"
+            <Button Content="{lex:Loc ReprintButtonText}"
                     Command="{Binding ReprintButtonCommand}" 
                     IsEnabled="{Binding CanReprint}"/>
             <Label Content="{Binding DoorStatusText}"

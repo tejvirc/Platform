@@ -450,7 +450,6 @@
         /// <inheritdoc />
         public Task DoAftToTicket()
         {
-            // TODO: fill this in...
             return Task.CompletedTask;
         }
 

@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Style x:Key="MonacoContextMenu" TargetType="{x:Type ContextMenu}">
-        <Setter Property="Background" Value="{DynamicResource ContextMenuBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ContextMenu.Background}" />
         <Setter Property="Block.TextAlignment" Value="Left" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ContextMenuBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.ContextMenu.Border}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
         <Setter Property="FontSize" Value="{DynamicResource ContextMenuFontSize}" />
@@ -50,7 +50,7 @@
                                                       Direction="315"
                                                       Opacity="0.3"
                                                       ShadowDepth="2"
-                                                      Color="{DynamicResource MenuShadowColor}" />
+                                                      Color="{DynamicResource MahApps.Colors.MenuShadow}" />
                                 </Setter.Value>
                             </Setter>
                             <Setter TargetName="LayoutRoot" Property="Margin" Value="0 0 6 6" />
@@ -64,7 +64,7 @@
     </Style>
 
     <Style x:Key="MonacoMenuItem" TargetType="{x:Type MenuItem}">
-        <Setter Property="Background" Value="{DynamicResource MenuItemBackgroundBrush}" />
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.MenuItem.Background}" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />

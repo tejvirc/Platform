@@ -6,6 +6,8 @@
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               mc:Ignorable="d"
                               d:DataContext="{d:DesignInstance viewModels:JurisdictionSettingsPageViewModel}">
@@ -46,27 +48,27 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionLabel}}" />
+        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc JurisdictionLabel}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_Jurisdiction" Grid.Row="0" Grid.Column="1" Text="{Binding Jurisdiction}" />
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Currency}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_Currency" Grid.Row="1" Grid.Column="1" Text="{Binding Currency}" />
         
-        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedSlotRtp}}" Visibility="{Binding SlotRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
+        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc AllowedSlotRtp}" Visibility="{Binding SlotRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedSlotRtp" Grid.Row="2" Grid.Column="1" Text="{Binding AllowedSlotRtp}" Visibility="{Binding SlotRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedPokerRtp}}" Visibility="{Binding PokerRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
+        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc AllowedPokerRtp}" Visibility="{Binding PokerRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedPokerRtp" Grid.Row="3" Grid.Column="1" Text="{Binding AllowedPokerRtp}" Visibility="{Binding PokerRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedKenoRtp}}" Visibility="{Binding KenoRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
+        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc AllowedKenoRtp}" Visibility="{Binding KenoRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedKenoRtp" Grid.Row="4" Grid.Column="1" Text="{Binding AllowedKenoRtp}" Visibility="{Binding KenoRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
-        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedBlackjackRtp}}" Visibility="{Binding BlackjackRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
+        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc AllowedBlackjackRtp}" Visibility="{Binding BlackjackRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedBlackjackRtp" Grid.Row="5" Grid.Column="1" Text="{Binding AllowedBlackjackRtp}" Visibility="{Binding BlackjackRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedRouletteRtp}}" Visibility="{Binding RouletteRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
+        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc AllowedRouletteRtp}" Visibility="{Binding RouletteRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedRouletteRtp" Grid.Row="6" Grid.Column="1" Text="{Binding AllowedRouletteRtp}" Visibility="{Binding RouletteRtpVisibility, Converter={StaticResource BoolToVisConverter}}" />
 
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalMeter}}" Visibility="{Binding MechanicalMeterVisibility, Converter={StaticResource BoolToVisConverter}}" />
+        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc MechanicalMeter}" Visibility="{Binding MechanicalMeterVisibility, Converter={StaticResource BoolToVisConverter}}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_MechanicalMeter" Grid.Row="7" Grid.Column="1" Text="{Binding MechanicalMeter}" Visibility="{Binding MechanicalMeterVisibility, Converter={StaticResource BoolToVisConverter}}" />
-        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoorOpticSensor}}" />
+        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc DoorOpticSensor}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_DoorOpticSensor" Grid.Row="8" Grid.Column="1"  Text="{Binding DoorOpticSensor}" />
-        <Label Grid.Row="9" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZeroCredit}}" />
+        <Label Grid.Row="9" Grid.Column="0" Content="{lex:Loc ZeroCredit}" />
         <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_ZeroCreditOnOos" Grid.Row="9" Grid.Column="1"  Text="{Binding ZeroCreditOnOos}" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

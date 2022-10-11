@@ -26,7 +26,7 @@
             </Grid.RowDefinitions>
 
             <!-- Time Zone -->
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneLabel}}" Grid.Row="0" />
+            <Label Content="{lex:Loc TimeZoneLabel}" Grid.Row="0" />
 
             <Grid Grid.Row="1">
                 <!-- Hack Alert: This ItemsControl is only used to expand the width of the combobox to the width of the largest item -->
@@ -46,14 +46,14 @@
                             ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"/>
             </Grid>
 
-            <Label Grid.Row="2" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneOffsetLabel}}"
+            <Label Grid.Row="2" Margin="0 20 0 0" Content="{lex:Loc TimeZoneOffsetLabel}"
                    Visibility="{Binding OffsetIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
             <TextBlock Grid.Row="3" Style="{StaticResource MonacoTextBlock}"
                        Text="{Binding TimeZoneOffset, UpdateSourceTrigger=PropertyChanged}"
                        Visibility="{Binding OffsetIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
             <!-- Date -->
-            <Label Grid.Row="4" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Date}}" />
+            <Label Grid.Row="4" Margin="0 20 0 0" Content="{lex:Loc Date}" />
             <DatePicker Grid.Row="5"
                         SelectedDateFormat="Long" SelectedDate="{Binding PickerDate}"
                         DisplayDateStart="1/01/16"
@@ -62,7 +62,7 @@
                         IsEnabled="{Binding InputEnabled}" />
 
             <!-- Time -->
-            <Label Grid.Row="6" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeLabel}}" />
+            <Label Grid.Row="6" Margin="0 20 0 0" Content="{lex:Loc TimeLabel}" />
             <StackPanel Grid.Row="7" Orientation="Horizontal" >
                 <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
                           ItemsSource="{Binding Hours}" 
@@ -106,7 +106,7 @@
             </StackPanel>
 
             <Button Grid.Row="8" Margin="0 30 0 0" HorizontalAlignment="Left" 
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+                    Content="{lex:Loc ApplyLabel}" 
                     IsEnabled="{Binding InputEnabled}"
                     Command="{Binding ApplyCommand}" 
                     Visibility="{Binding ApplyButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>

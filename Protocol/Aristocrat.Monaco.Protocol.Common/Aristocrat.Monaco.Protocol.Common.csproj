@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>Aristocrat.Monaco.Protocol.Common</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <PlatformTarget>x64</PlatformTarget>
+    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
@@ -15,7 +16,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
     <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
@@ -43,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="LinqKit" Version="1.1.17" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="SharpZipLib" Version="1.2.0" />
   </ItemGroup>
 </Project>

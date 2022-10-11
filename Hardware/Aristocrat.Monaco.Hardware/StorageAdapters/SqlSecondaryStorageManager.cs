@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
-    using System.Data.SQLite;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -13,6 +11,7 @@
     using Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Microsoft.Data.Sqlite;
 
     public class SqlSecondaryStorageManager : ISecondaryStorageManager, IService
     {
@@ -197,16 +196,17 @@
             return mirrorPath;
         }
 
-        private static string ConnectionString(string filePath)
+        private static string ConnectionString(string filePath,string password)
         {
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = filePath,
                 Pooling = true,
-                MaxPoolSize = int.MaxValue,
-                ConnectRetryCount = 10,
-                ConnectRetryInterval = 1,
-                ConnectTimeout = 15
+                Password = password
+                //MaxPoolSize = int.MaxValue,
+                //ConnectRetryCount = 10,
+                //ConnectRetryInterval = 1,
+                //ConnectTimeout = 15
             };
 
             return sqlBuilder.ConnectionString + ";FailIfMissing=True;Journal Mode=WAL;Synchronous=FULL;";
@@ -225,7 +225,7 @@
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand("PRAGMA integrity_check(1)", connection))
+                    using (var command = new SqliteCommand("PRAGMA integrity_check(1)", connection))
                     {
                         return command.ExecuteScalar().ToString() == "ok";
                     }
@@ -239,11 +239,11 @@
             }
         }
 
-        private static SQLiteConnection CreateConnection(string filePath, string password)
+        private static SqliteConnection CreateConnection(string filePath, string password)
         {
-            var connection = new SQLiteConnection(ConnectionString(filePath));
+            var connection = new SqliteConnection(ConnectionString(filePath,password));
 
-            connection.SetPassword(password);
+            //connection.SetPassword(password);
 
             return connection;
         }

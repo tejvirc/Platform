@@ -8,6 +8,8 @@
              xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:loc="http://monaco.aristocrat.com/localization"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:gamingConverters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
              loc:Localizer.For="Player"
              mc:Ignorable="d"
@@ -22,10 +24,10 @@
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
             <gamingConverters:ScaleConverter x:Key="ScaleConverter"/>
             <converters:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
@@ -174,7 +176,7 @@
                             Style="{StaticResource MonacoErrorScreenButton}"
                             Margin="0"
                             Background="Transparent">
-                        <Image Width="214" Height="214" Source="{lex:LocImage Key={x:Static loc:ResourceKeys.CashOutImage}}"
+                        <Image Width="214" Height="214" Source="{lex:LocImage CashOutImage}"
                                Stretch="Fill" />
                     </Button>
                 </Grid>

@@ -1,12 +1,11 @@
 ﻿namespace Aristocrat.Mgam.Client.Logging
 {
+    using System.Reflection;
     using log4net;
     using log4net.Appender;
     using log4net.Config;
-    using log4net.Core;
     using log4net.Layout;
     using log4net.Repository.Hierarchy;
-    using Log4Net.Async;
 
     /// <summary>
     /// Utility class for creating logger instances.
@@ -14,7 +13,8 @@
     public class Log4NetLoggerFactory : ILoggerFactory
     {
         private const string RepositoryName = "mgam";
-        private const string AsyncAppenderName = "AsyncForwardingAppender";
+
+        // private const string AsyncAppenderName = "AsyncForwardingAppender";
         private const string LogFilePath = @"..\logs\Log_MGAM.log";
         private const int MaxSizeRollBackups = 100;
         private const int MaxFileSize = 20 * 1024 * 1024;
@@ -25,13 +25,9 @@
 
         private static void ConfigureLogging()
         {
-            var hierarchy = (Hierarchy)LogManager.CreateRepository(RepositoryName);
+            var hierarchy = (Hierarchy) LogManager.CreateRepository(RepositoryName);
 
-            var bufferAppender = new AsyncForwardingAppender
-            {
-                Name = AsyncAppenderName,
-                Fix = FixFlags.Message | FixFlags.Exception
-            };
+            //var bufferAppender = new AsyncForwardingAppender {Name = AsyncAppenderName, Fix = FixFlags.Message | FixFlags.Exception};
 
             var fileAppender = new RollingFileAppender
             {
@@ -57,11 +53,12 @@
             layout.ActivateOptions();
             fileAppender.ActivateOptions();
 
-            ((IAppenderAttachable)bufferAppender).AddAppender(fileAppender);
+            //((IAppenderAttachable)bufferAppender).AddAppender(fileAppender);
+            hierarchy.Root.AddAppender(fileAppender);
+            // bufferAppender.ActivateOptions();
 
-            bufferAppender.ActivateOptions();
-
-            BasicConfigurator.Configure(hierarchy, bufferAppender);
+            //BasicConfigurator.Configure(hierarchy, bufferAppender);
+            BasicConfigurator.Configure(hierarchy);
         }
 
         /// <summary>
@@ -70,7 +67,7 @@
         /// <typeparam name="TCategory">A class that is the category for the logger instance.</typeparam>
         /// <returns><see cref="ILogger{TCategory}"/></returns>
         public static ILogger CreateLogger<TCategory>()
-                where TCategory : class
+            where TCategory : class
         {
             return CreateLogger(typeof(TCategory).Name);
         }
@@ -85,7 +82,7 @@
         private static ILogger CreateLogger(string name)
         {
             Initialize();
-            return new Log4NetLogger(LogManager.GetLogger(name), LogManager.GetLogger(RepositoryName, name));
+            return new Log4NetLogger(LogManager.GetLogger(Assembly.GetCallingAssembly(), name), LogManager.GetLogger(RepositoryName, name));
         }
 
         private static void Initialize()

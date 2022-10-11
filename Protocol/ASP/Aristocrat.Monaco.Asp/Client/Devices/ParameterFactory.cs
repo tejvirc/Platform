@@ -195,7 +195,10 @@
 
         private void LoadXmlDefinition(Stream stream)
         {
-            var xmlSerializer = new XmlSerializer(typeof(Devices));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(Devices))
+                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var xmlSerializer = new XmlSerializer(typeof(Devices), theXmlRootAttribute ?? new XmlRootAttribute(nameof(Devices)));
+
             _devices = (Devices)xmlSerializer.Deserialize(stream);
             DeviceDefinition = _devices;
             var mainDeviceClass = MakeMainDeviceClass(_devices);

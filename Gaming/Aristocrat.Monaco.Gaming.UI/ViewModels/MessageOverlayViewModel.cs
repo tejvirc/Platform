@@ -28,7 +28,7 @@
 
     public class MessageOverlayViewModel : BaseEntityViewModel
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string CashoutDisplayKey = "CashOutImage";
@@ -378,7 +378,7 @@
             {
                 ReserveOverlayViewModel.IsDialogVisible = true;
             }
-            
+
             MessageOverlayData.IsDialogVisible = (IsLockupMessageVisible &&
                                                              ((HardErrorMessages.Count > 1) ||
                                                               (!_systemDisableManager.CurrentDisableKeys.Contains(

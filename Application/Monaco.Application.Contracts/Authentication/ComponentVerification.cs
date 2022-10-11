@@ -7,6 +7,7 @@
     ///     ComponentVerification defines the state of a component's verification.
     /// </summary>
     [CLSCompliant(false)]
+    [Serializable]
     public class ComponentVerification : BaseEntity
     {
         /// <summary>

@@ -7,6 +7,7 @@
     using Kernel;
     using ManagedBink;
     using Gaming.Contracts;
+    using Models;
 
     /// <summary>
     /// Interaction logic for TimerControl.xaml

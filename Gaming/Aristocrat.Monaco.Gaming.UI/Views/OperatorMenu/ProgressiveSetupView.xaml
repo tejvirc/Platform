@@ -9,6 +9,8 @@
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
@@ -45,7 +47,7 @@
 
         <Button Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Right"
                 Visibility="{Binding GenerateCSAPLevelsAllowed, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.GenerateCSAPLevels}}"
+                Content="{lex:Loc GenerateCSAPLevels}"
                 Command="{Binding GenerateCSAPLevelsCommand}"/>
 
         <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
@@ -68,14 +70,14 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.IdLabel}}" 
+                    Header="{lex:Loc IdLabel}" 
                     Binding="{Binding LevelId}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSapOrLP), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevel}}" 
+                    Header="{lex:Loc WinLevel}" 
                     Binding="{Binding LevelName}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveType}}"
+                <DataGridTemplateColumn Header="{lex:Loc ProgressiveType}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveTypeEditable), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate>
@@ -87,14 +89,14 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveType}}"
+                    Header="{lex:Loc ProgressiveType}"
                     Binding="{Binding SelectableLevelType}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveTypeReadOnly), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelName}}" 
+                    Header="{lex:Loc LevelName}" 
                     Binding="{Binding LevelName}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}}"/>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveLevel}}"
+                <DataGridTemplateColumn Header="{lex:Loc ProgressiveLevel}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveLevelEditable), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate DataType="{x:Type models:LevelModel}">
@@ -123,7 +125,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveLevel}}"
+                <DataGridTemplateColumn Header="{lex:Loc ProgressiveLevel}"
                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveLevelReadOnly), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -132,11 +134,11 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.SharedGames}}"
+                    Header="{lex:Loc SharedGames}"
                     Binding="{Binding GameCount}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ShowAssociatedSap), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTemplateColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+                    Header="{lex:Loc InitialValue}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueEditable), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:LevelModel}">
@@ -154,24 +156,24 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
+                    Header="{lex:Loc CurrentValue}"
                     Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+                    Header="{lex:Loc InitialValue}"
                     Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.MinimumRequiredValue}}"
+                    Header="{lex:Loc MinimumRequiredValue}"
                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
                     Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
+                    Header="{lex:Loc ResetValue}"
                     Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
+                <DataGridTemplateColumn Header="{lex:Loc CurrentValue}"
                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectableOrLP), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"
                                         IsReadOnly="false">
                     <DataGridTemplateColumn.CellTemplate>
@@ -183,16 +185,16 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+                    Header="{lex:Loc IncrementRate}"
                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
                     Binding="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#0.00'%'}}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+                    Header="{lex:Loc MaxValue}"
                     Binding="{Binding MaxValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                    Header="{lex:Loc BonusInfoOverflowColumn}"
                     Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource BoolToVisHiddenConverter}, Source={StaticResource Proxy}}"/>
             </DataGrid.Columns>

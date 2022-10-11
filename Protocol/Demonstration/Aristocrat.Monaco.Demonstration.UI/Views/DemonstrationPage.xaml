@@ -6,6 +6,8 @@
                                xmlns:system="clr-namespace:System;assembly=mscorlib"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Demonstration.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -35,18 +37,18 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Name="DemonstrationText" HorizontalAlignment="Left">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.DemonstrationExitSummeryText}}" Height="Auto"
+            <Label Content="{lex:Loc DemonstrationExitSummeryText}" Height="Auto"
                    FontSize="{StaticResource Heading3FontSize}" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.DemonstrationExitDetailsText1}}" Height="Auto"
+            <TextBlock Text="{lex:Loc DemonstrationExitDetailsText1}" Height="Auto"
                        FontSize="{StaticResource HeadingFontSize}" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.DemonstrationExitDetailsText2}}" Height="Auto"
+            <TextBlock Text="{lex:Loc DemonstrationExitDetailsText2}" Height="Auto"
                        FontSize="{StaticResource HeadingFontSize}" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.DemonstrationExitDetailsText3}}"
+            <TextBlock Text="{lex:Loc DemonstrationExitDetailsText3}"
                        FontSize="{StaticResource HeadingFontSize}" />
         </StackPanel>
 
         <Button Grid.Row="0" Grid.Column="1" Name="DemonstrationExitButton"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.DemonstrationExitButtonText}}"
+                Content="{lex:Loc DemonstrationExitButtonText}"
                 Command="{Binding DemonstrationExitButtonClickCommand}"
                 Margin="50,0,0,0" IsEnabled="True" Width="180" VerticalAlignment="Bottom" />
     </Grid>

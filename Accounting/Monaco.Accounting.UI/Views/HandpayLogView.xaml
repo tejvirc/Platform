@@ -5,9 +5,12 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                mc:Ignorable="d" >
 
     <UserControl.Resources>
@@ -30,36 +33,36 @@
                   ItemsSource="{Binding Path=HandpayData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedRow}"
                   ScrollViewer.CanContentScroll="True" SelectionMode="Single" >
-            <i:Interaction.Triggers>
+            <b:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                     <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
                 </events:RoutedEventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SequenceNumberHeader}}"
+                <DataGridTextColumn Header="{lex:Loc SequenceNumberHeader}"
                                         IsReadOnly="True" Visibility="Collapsed"
                                         Binding="{Binding SequenceNumber}" Width="200"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                         IsReadOnly="True"
                                         Binding="{Binding TimeStamp}"
                                         Width="220"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TransactionType}}"
+                <DataGridTextColumn Header="{lex:Loc TransactionType}"
                                         IsReadOnly="True"
                                         Binding="{Binding HandpayType}"
                                         Width="220"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CashableHeader}}"
+                <DataGridTextColumn Header="{lex:Loc CashableHeader}"
                                         IsReadOnly="True"
                                         Binding="{Binding CashableAmount}"
                                         Width="190"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PromoHeader}}"
+                <DataGridTextColumn Header="{lex:Loc PromoHeader}"
                                         IsReadOnly="True"
                                         Binding="{Binding PromoAmount}"
                                         Width="190"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NonCashableHeader}}"
+                <DataGridTextColumn Header="{lex:Loc NonCashableHeader}"
                                         IsReadOnly="True"
                                         Binding="{Binding NonCashAmount}"
                                         Width="190"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"
+                <DataGridTextColumn Header="{lex:Loc State}"
                                         IsReadOnly="True"
                                         Binding="{Binding State}"
                                         Width="140"/>
@@ -82,15 +85,15 @@
             <!--<Button Content="{x:Static loc:Resources.PrintSelectedButtonText}"
                     IsEnabled="{Binding EnablePrintSelectedButton}" Width="200"
                     Command="{Binding PrintSelectedCommand}"-->
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReprintButtonText}}"
+            <Button Content="{lex:Loc ReprintButtonText}"
                     Command="{Binding ReprintButtonCommand}" 
                     IsEnabled="{Binding CanReprint}"
                     Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLast15RecordsButtonText}}"
+            <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
                     IsEnabled="{Binding PrinterButtonsEnabled}" Width="200"
                     Command="{Binding PrintLast15ButtonCommand}"
                     Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintCurrentPageButtonText}}"
+            <Button Content="{lex:Loc PrintCurrentPageButtonText}"
                     IsEnabled="{Binding PrinterButtonsEnabled}" Width="200"
                     Command="{Binding PrintCurrentPageButtonCommand}"
                     Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>

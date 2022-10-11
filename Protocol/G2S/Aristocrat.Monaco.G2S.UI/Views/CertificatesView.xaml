@@ -4,6 +4,8 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
@@ -49,11 +51,11 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="4"  Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateRenewButtonTitle}}" 
+            <Button Grid.Column="4"  Content="{lex:Loc CertificateRenewButtonTitle}" 
                     Command="{Binding RenewCertificateCommand, Mode=OneWay}" 
                     IsEnabled="{Binding Path=RenewEnabled, Converter={StaticResource BoolToVisConverter}}" 
                     VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,5,0,5"  />
-            <Button Grid.Column="5" Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateRemoveButtonTitle}}"  
+            <Button Grid.Column="5" Content="{lex:Loc CertificateRemoveButtonTitle}"  
                     Command="{Binding RemoveCertificateCommand, Mode=OneWay}" 
                     IsEnabled="{Binding Path=RemoveEnabled, Converter={StaticResource BoolToVisConverter}}" 
                     VerticalAlignment="Bottom" HorizontalAlignment="Right"  Margin="5,5,0,5" />
@@ -84,14 +86,14 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificatePreSharedSecretTitle}}" Margin="10,5,0,0"/>
+                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc CertificatePreSharedSecretTitle}" Margin="10,5,0,0"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Name="PreSharedSecret" Width="200"  Margin="5,5,0,0" IsEnabled="{Binding IsScepEnabled, Mode=OneWay}">
                         <TextBox.Text>
                             <Binding Path="PreSharedSecret" UpdateSourceTrigger="PropertyChanged" />
                         </TextBox.Text>
                     </TextBox>
 
-                    <Button Grid.Row="0" Grid.Column="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateEnrollButtonTitle}}" 
+                    <Button Grid.Row="0" Grid.Column="3" Content="{lex:Loc CertificateEnrollButtonTitle}" 
                          Command="{Binding EnrollCertificateCommand, Mode=OneWay}" Margin="5,5,0,0" 
                          VerticalAlignment="Bottom" HorizontalAlignment="Right" >
                         <Button.Style>
@@ -118,13 +120,13 @@
                   SelectedItem="{Binding SelectedCertificate}">
            
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}" Width="Auto" Binding="{Binding CommonName}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateThumbprint}}" Width="Auto" Binding="{Binding Thumbprint}" FontSize="14"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotBefore}}" Width="Auto" Binding="{Binding NotBefore}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotAfter}}" Width="Auto" Binding="{Binding NotAfter}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateVerifyDate}}" Width="Auto" Binding="{Binding VerificationDate}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}" Width="Auto" Binding="{Binding Status}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateOcspOfflineDate}}" Width="Auto" Binding="{Binding OcspOfflineDate}" />
+                <DataGridTextColumn Header="{lex:Loc NameLabel}" Width="Auto" Binding="{Binding CommonName}" />
+                <DataGridTextColumn Header="{lex:Loc CertificateThumbprint}" Width="Auto" Binding="{Binding Thumbprint}" FontSize="14"/>
+                <DataGridTextColumn Header="{lex:Loc CertificateNotBefore}" Width="Auto" Binding="{Binding NotBefore}" />
+                <DataGridTextColumn Header="{lex:Loc CertificateNotAfter}" Width="Auto" Binding="{Binding NotAfter}" />
+                <DataGridTextColumn Header="{lex:Loc CertificateVerifyDate}" Width="Auto" Binding="{Binding VerificationDate}" />
+                <DataGridTextColumn Header="{lex:Loc StatusText}" Width="Auto" Binding="{Binding Status}" />
+                <DataGridTextColumn Header="{lex:Loc CertificateOcspOfflineDate}" Width="Auto" Binding="{Binding OcspOfflineDate}" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -133,10 +135,10 @@
               Visibility="{Binding Path=ShowRequestStatus, Converter={StaticResource BoolToVisConverter}}">
             <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
                 <DockPanel LastChildFill="True">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}" DockPanel.Dock="Top" HorizontalAlignment="Center" />
+                    <Label Content="{lex:Loc StatusText}" DockPanel.Dock="Top" HorizontalAlignment="Center" />
                     <Button DockPanel.Dock="Bottom" 
                             Margin="10" 
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Cancel}}" 
+                            Content="{lex:Loc Cancel}" 
                             Command="{Binding CancelRequestCommand}" 
                             HorizontalAlignment="Center" />
                     <Label DockPanel.Dock="Bottom" 

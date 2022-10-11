@@ -1,12 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />	
   <PropertyGroup>
-    <Monaco_DisableCodeAnalysis>true</Monaco_DisableCodeAnalysis>
-  </PropertyGroup>
-
-  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
-
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.RobotController.Contracts</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>

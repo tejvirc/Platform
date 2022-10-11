@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Application.UI</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
@@ -24,63 +26,15 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web" />
-  </ItemGroup>
-  <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
-    <Content Include="Aristocrat.Monaco.Application.UI.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Aristocrat.Monaco.Application.UI.ConfigWizard.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="CommsPages.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="IdentificationPages.addin.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\Aristocrat_Logo_White_Large.png" />
     <Resource Include="Resources\AristocratLogoPortrait.png" />
-    <Content Include="StatusPages.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="WizardConfiguration.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="MeterPages.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="OperatorMenuConfiguration.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Aristocrat.Monaco.Application.UI.Views.ConfigSelectionPage.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Aristocrat.Monaco.Application.UI.OperatorMenu.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <Resource Include="Resources\Operator_Menu_Background_Strip.png" />
     <Resource Include="Resources\Operator_Menu_Background.png" />
     <Resource Include="Resources\Aristocrat_Logo_White.png" />
     <Resource Include="Resources\Time.png" />
-    <Content Include="Aristocrat.Monaco.Application.UI.Views.HardwareConfigPage.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Aristocrat.Monaco.Application.UI.Views.IOConfigPage.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
@@ -96,19 +50,20 @@
     <ProjectReference Include="..\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
-    <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.10" />
-    <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
-    <PackageReference Include="LiveCharts" Version="0.9.7" />
-    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="MahApps.Metro" Version="1.6.5" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="1.9.1" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
-    <PackageReference Include="OxyPlot.Wpf" Version="1.0.0" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
-    <PackageReference Include="XAMLMarkupExtensions" Version="1.5.1" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0003" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="2.0.0-beta0002" />
+    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Mono.Addins" Version="1.3.14" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.3.14" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>

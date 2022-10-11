@@ -4,6 +4,8 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.G2S.UI.Models"
@@ -50,7 +52,7 @@
 
         <Label Grid.Row="0" 
                Grid.Column="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.EgmId}}" 
+               Content="{lex:Loc EgmId}" 
                VerticalAlignment="Center"/>
 
         <TextBlock Grid.Row="0" 
@@ -61,7 +63,7 @@
 
         <Label Grid.Row="1" 
                Grid.Column="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}" 
+               Content="{lex:Loc MacAddressLabel}" 
                VerticalAlignment="Center"/>
 
         <TextBlock Grid.Row="1" 
@@ -72,7 +74,7 @@
 
         <Label Grid.Row="2" 
                Grid.Column="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}" 
+               Content="{lex:Loc Port}" 
                VerticalAlignment="Center"/>
 
         <TextBox Grid.Row="2" 
@@ -104,13 +106,13 @@
                     <ListView.View>
                         <views:AutoSizedGridView AllowsColumnReorder="False">
                             <GridViewColumn DisplayMemberBinding="{Binding Path=(models:Host.Id)}" 
-                                            Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationIdHeader}}"/>
-                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationUrlHeader}}" 
+                                            Header="{lex:Loc HostConfigurationIdHeader}"/>
+                            <GridViewColumn Header="{lex:Loc HostConfigurationUrlHeader}" 
                                             Width="400"
                                             DisplayMemberBinding="{Binding Path=(models:Host.Address), TargetNullValue='localhost'}" />
-                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"                                     
+                            <GridViewColumn Header="{lex:Loc HostConfigurationRegisteredHeader}"                                     
                                             DisplayMemberBinding="{Binding Path=(models:Host.Registered)}" />
-                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"
+                            <GridViewColumn Header="{lex:Loc RequiredForPlay}"
                                             HeaderContainerStyle="{StaticResource LocalColumnHiderStyle}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -124,7 +126,7 @@
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonEdit}}" 
+                                        <Button Content="{lex:Loc HostConfigurationButtonEdit}" 
                                                 VerticalAlignment="Center"
                                                 Command="{Binding Path=DataContext.EditCommand, 
                                                                   RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
@@ -135,7 +137,7 @@
                             <GridViewColumn HeaderContainerStyle="{DynamicResource MonacoGridViewColumnHeader}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonDelete}}" 
+                                        <Button Content="{lex:Loc HostConfigurationButtonDelete}" 
                                                 VerticalAlignment="Center"
                                                 Command="{Binding Path=DataContext.DeleteCommand, 
                                                                   RelativeSource={RelativeSource FindAncestor, 
@@ -153,7 +155,7 @@
                             HorizontalAlignment="Left" 
                             VerticalAlignment="Bottom"
                             Margin="10"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationAddNewHostTitle}}" 
+                            Content="{lex:Loc HostConfigurationAddNewHostTitle}" 
                             Command="{Binding NewCommand, Mode=OneWay}"
                             IsEnabled="{Binding RegisteredHostsEnabled}"/>
                     <controls:ProgressRing Margin="200 0 0 0" IsActive="{Binding ProgressRingIsActive}"/>

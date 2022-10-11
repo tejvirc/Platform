@@ -43,7 +43,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DualHost}}" />
+                           Text="{lex:Loc  DualHost}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="0"
@@ -52,7 +52,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="1"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.GeneralControlPortLabel}}" />
+                           Text="{lex:Loc  GeneralControlPortLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="1"
@@ -61,7 +61,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="2"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.SasHost}}" />
+                           Text="{lex:Loc  SasHost}" />
                 <DataGrid Grid.Column="1"
                           Grid.Row="2"
                           IsHitTestVisible="False"
@@ -74,16 +74,16 @@
                         <helpers:BindingProxy x:Key="Proxy" Data="{Binding}"/>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.ComPortLabel}}" Binding="{Binding HostComPort}" />
-                        <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.SasAccountingDenom}}" Binding="{Binding AccountingDenomDisplay}" />
-                        <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Address}}" Binding="{Binding SasAddress}"/>
+                        <DataGridTextColumn Header="{lex:Loc  ComPortLabel}" Binding="{Binding HostComPort}" />
+                        <DataGridTextColumn Header="{lex:Loc  SasAccountingDenom}" Binding="{Binding AccountingDenomDisplay}" />
+                        <DataGridTextColumn Header="{lex:Loc  Address}" Binding="{Binding SasAddress}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="3"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationPortLabel}}" />
+                           Text="{lex:Loc  ValidationPortLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="3"
@@ -92,7 +92,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="4"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftPortLabel}}" />
+                           Text="{lex:Loc  AftPortLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="4"
@@ -101,7 +101,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="5"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LegacyBonusPortLabel}}" />
+                           Text="{lex:Loc  LegacyBonusPortLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="5"
@@ -110,7 +110,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="6"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.GameStartEndPortLabel}}" />
+                           Text="{lex:Loc  GameStartEndPortLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="6"
@@ -119,7 +119,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="7"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ProgressivePortLabel}}" />
+                           Text="{lex:Loc  ProgressivePortLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="7"
@@ -128,7 +128,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="8"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ProgGroupIdLabel}}" />
+                           Text="{lex:Loc  ProgGroupIdLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="8"
@@ -137,7 +137,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="9"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftInLabel}}" />
+                           Text="{lex:Loc  AftInLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="9"
@@ -146,7 +146,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="10"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftOutLabel}}" />
+                           Text="{lex:Loc  AftOutLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="10"
@@ -155,7 +155,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="11"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftPartialTransfersAllowedLabel}}" />
+                           Text="{lex:Loc  AftPartialTransfersAllowedLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="11"
@@ -164,7 +164,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="12"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}" />
+                           Text="{lex:Loc  AftBonusingEnabledLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="12"
@@ -173,7 +173,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="13"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftWinAmountToHostTransfersEnabledLabel}}" />
+                           Text="{lex:Loc  AftWinAmountToHostTransfersEnabledLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="13"
@@ -182,7 +182,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="14"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftTransferLimitLabel}}" />
+                           Text="{lex:Loc  AftTransferLimitLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="14"
@@ -191,7 +191,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="15"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationFeatureLabel}}" />
+                           Text="{lex:Loc  ValidationFeatureLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="15"
@@ -200,7 +200,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="16"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.HandpayModeLabel}}" />
+                           Text="{lex:Loc  HandpayModeLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="16"
@@ -209,7 +209,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="17"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ConfigChangeNotification}}" />
+                           Text="{lex:Loc  ConfigChangeNotification}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="17"
@@ -218,7 +218,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="18"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LegacyBonusAllowed}}" />
+                           Text="{lex:Loc  LegacyBonusAllowed}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="18"
@@ -227,7 +227,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="19"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.RequireLP02OnPowerUp}}" />
+                           Text="{lex:Loc  RequireLP02OnPowerUp}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="19"
@@ -236,7 +236,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="20"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EGMDisabledOnHostOfflineLabel}}" />
+                           Text="{lex:Loc  EGMDisabledOnHostOfflineLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="20"
@@ -245,7 +245,7 @@
                 <TextBlock Grid.Column="0"
                            Grid.Row="21"
                            Style="{DynamicResource SettingNameStyle}"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.OverflowText}}" />
+                           Text="{lex:Loc  OverflowText}" />
                 <TextBlock Grid.Column="1"
                            Grid.Row="21"
                            Style="{DynamicResource SettingValueStyle}"

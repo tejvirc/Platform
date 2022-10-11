@@ -11,7 +11,9 @@
     ///     VHD and ISO native methods: https://msdn.microsoft.com/en-us/library/windows/desktop/dd323700(v=vs.85).aspx
     /// </summary>
     [SuppressUnmanagedCodeSecurity]
+#pragma warning disable CA1060 // Move pinvokes to native methods class
     internal static class VirtualDiskNativeMethods
+#pragma warning restore CA1060 // Move pinvokes to native methods class
     {
         /// <summary>
         ///     Contains virtual hard disk (VHD) attach request parameters.
@@ -539,7 +541,9 @@
         /// <returns>true if successful</returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+#pragma warning disable SYSLIB0004 // Type or member is obsolete
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
+#pragma warning restore SYSLIB0004 // Type or member is obsolete
         public static extern bool CloseHandle(IntPtr virtualDiskHandle);
 
         /// <summary>
@@ -655,7 +659,9 @@
             BestFitMapping = false,
             ThrowOnUnmappableChar = true)]
         public static extern IntPtr CreateFile(
+#pragma warning disable CA2101 // Specify marshaling for P/Invoke string arguments
             [MarshalAs(UnmanagedType.LPTStr)] string fileName,
+#pragma warning restore CA2101 // Specify marshaling for P/Invoke string arguments
             GenericAccessRightsFlags desiredAccess,
             FileShareModeFlags shareMode,
             IntPtr securityAttribute,

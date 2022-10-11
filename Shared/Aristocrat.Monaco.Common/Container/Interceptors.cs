@@ -5,8 +5,10 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
-    using System.Runtime.Remoting.Messaging;
-    using System.Runtime.Remoting.Proxies;
+
+    //TODO: Implement it
+    //using System.Runtime.Remoting.Messaging;  //It has been comment temporary
+    //using System.Runtime.Remoting.Proxies;    //It has been comment temporary
     using SimpleInjector;
 
     /// <summary>
@@ -260,10 +262,13 @@
             object realInstance)
         {
             var proxy = new InterceptorProxy(serviceType, realInstance, interceptor);
-            return proxy.GetTransparentProxy();
+            //return proxy.GetTransparentProxy();       //Disabled temporary
+            // TODO: Return Transparent proxy
+            return proxy;
         }
 
-        private sealed class InterceptorProxy : RealProxy
+        //TODO: Disabled temporary
+        private sealed class InterceptorProxy //: RealProxy
         {
             private static readonly MethodBase GetTypeMethod = typeof(object).GetMethod("GetType");
 
@@ -272,12 +277,15 @@
 
             [DebuggerStepThrough]
             public InterceptorProxy(Type classToProxy, object obj, IInterceptor interceptor)
-                : base(classToProxy)
+                //TODO: Disabled temporary
+                //: base(classToProxy)  
             {
                 _realInstance = obj;
                 _interceptor = interceptor;
             }
 
+            //TODO: Disabled temporary
+            /*
             public override IMessage Invoke(IMessage msg)
             {
                 if (msg is IMethodCallMessage message)
@@ -311,12 +319,20 @@
                 var value = msg.MethodBase.Invoke(_realInstance, msg.Args);
                 return new ReturnMessage(value, msg.Args, msg.Args.Length, null, msg);
             }
+            */
 
             private class Invocation : IInvocation
             {
-                public Action Proceeding;
+                //TODO: Disabled temporary
+                //public Action Proceeding;
+
+                //TODO: Redefine it as a simple public variable instead of property as above commented line
+                public Action Proceeding { get; set; }
+
                 public InterceptorProxy Proxy { get; set; }
-                public IMethodCallMessage Message { get; set; }
+
+                //TODO: Disabled temporary
+                //public IMethodCallMessage Message { get; set; }
                 public object[] Arguments { get; set; }
                 public object ReturnValue { get; set; }
                 public object InvocationTarget => Proxy._realInstance;
@@ -328,7 +344,10 @@
 
                 public MethodBase GetConcreteMethod()
                 {
-                    return Message.MethodBase;
+                    //TODO: Disabled temporary
+                    //return Message.MethodBase;
+
+                    return GetTypeMethod;
                 }
             }
         }

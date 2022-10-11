@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"        
         xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors"
         xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
         xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
@@ -14,6 +13,7 @@
         xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
         xmlns:loc="http://monaco.aristocrat.com/localization"
         xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         loc:Localizer.For="Player"
         mc:Ignorable="d" 
         Title="{Binding MainTitle}"
@@ -42,10 +42,8 @@
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
 
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
                 <ResourceDictionary Source="LobbyViewLandscapeTemplate.xaml" />
@@ -60,9 +58,9 @@
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
 
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:ActivateBehavior Activated="{Binding LobbyActivated, Mode=TwoWay}"/>
-    </i:Interaction.Behaviors>
+    </b:Interaction.Behaviors>
 
     <mediaDisplay:LayoutTemplateDockPanel x:Name="LayoutTemplate" ScreenType="Primary">
 

@@ -6,7 +6,7 @@
     /// <summary>
     /// Controller to get the list of all the loaded APIs.
     /// </summary>
-    public class LoadedApiController : ApiController
+    public class LoadedApiController : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         [HttpGet]
         public IEnumerable<string> Get()

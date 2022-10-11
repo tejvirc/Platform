@@ -21,7 +21,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LightingOverrideOnIdleAndZeroCreditsLabel}}" />
+                           Text="{lex:Loc LightingOverrideOnIdleAndZeroCreditsLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="0"
@@ -30,7 +30,7 @@
                 <TextBlock Grid.Column="0"
 						   Style="{DynamicResource SettingNameStyle}"
 						   Grid.Row="1"
-						   Text="{lex:Loc {x:Static loc:ResourceKeys.LightingBrightnessLabel}}" />
+						   Text="{lex:Loc LightingBrightnessLabel}" />
 				<TextBlock Grid.Column="1"
 						   Style="{DynamicResource SettingValueStyle}"
 						   Grid.Row="1"
@@ -39,7 +39,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="2"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.MainDisplayBottomLightingLabel}}" />
+                           Text="{lex:Loc MainDisplayBottomLightingLabel}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="2"

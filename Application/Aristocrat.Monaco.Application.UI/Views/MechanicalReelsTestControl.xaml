@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:loc="http://monaco.aristocrat.com/localization"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
              xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -43,23 +45,23 @@
 
                 <Label Grid.Row="0" Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}"/>
+                    Content="{lex:Loc Enable}"/>
 
                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}" />
+                    <Label Content="{lex:Loc State}" />
                     <Label Content=" / " Margin="5 0 0 0" />
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_StepText}}" Margin="5 0 0 0"/>
+                    <Label Content="{lex:Loc MechanicalReels_StepText}" Margin="5 0 0 0"/>
                 </StackPanel>
 
                 <Button Grid.Row="2" Grid.Column="0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SpinButton}}" 
+                        Content="{lex:Loc SpinButton}" 
                         Command="{Binding SpinCommand}"
                         IsEnabled="{Binding SpinEnabled}"
                         Height="50"
                         Width="150" />
 
                 <Button Grid.Row="3" Grid.Column="0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.NudgeButton}}" 
+                        Content="{lex:Loc NudgeButton}" 
                         Command="{Binding NudgeCommand}"
                         IsEnabled="{Binding NudgeEnabled}"
                         Height="50"
@@ -109,7 +111,7 @@
                                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" Value="">
-                                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                                 <Setter Property="Text" Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -128,7 +130,7 @@
                                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding Step, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" Value="">
-                                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                                 <Setter Property="Text" Value="{Binding Step, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -232,7 +234,7 @@
                 </ItemsControl>
             </Grid>
         </Border>
-        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HomeButton}}"
+        <Button Content="{lex:Loc HomeButton}"
                 Command="{Binding HomeCommand}"
                 IsEnabled="{Binding HomeEnabled}"
                 HorizontalAlignment="Left"

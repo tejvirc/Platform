@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SQLite;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Reflection;
@@ -13,6 +12,7 @@
     using Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Microsoft.Data.Sqlite;
     using StorageSystem;
 
     /// <summary>
@@ -288,31 +288,32 @@
 
         private string ConnectionString()
         {
-            const int retries = 10;
-            const int timeout = 15000;
+            //const int retries = 10;
+            //const int timeout = 15000;
             var fileName = GetFileName();
 
-            var sqlBuilder = new SQLiteConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = fileName,
-                Pooling = true,
-                PrepareRetries = retries,
-                FailIfMissing = true,
-                JournalMode = SQLiteJournalModeEnum.Wal,
-                SyncMode = SynchronizationModes.Full,
-                DefaultIsolationLevel = IsolationLevel.Serializable,
-                BusyTimeout = timeout,
-                ["Max Pool Size"] = int.MaxValue
+                Pooling = true
+                //Password = _databasePassword
+                //PrepareRetries = retries,
+                //FailIfMissing = true,
+                //JournalMode = SQLiteJournalModeEnum.Wal,
+                //SyncMode = SynchronizationModes.Full,
+                //DefaultIsolationLevel = IsolationLevel.Serializable,
+                //BusyTimeout = timeout,
+                //["Max Pool Size"] = int.MaxValue
             };
 
             return $"{sqlBuilder.ConnectionString};";
         }
 
-        private SQLiteConnection CreateConnection()
+        private SqliteConnection CreateConnection()
         {
-            var connection = new SQLiteConnection(ConnectionString());
+            var connection = new SqliteConnection(ConnectionString());
 
-            connection.SetPassword(_databasePassword);
+            //connection.SetPassword(_databasePassword);
 
             return connection;
         }
@@ -334,7 +335,7 @@
             {
                 connection.Open();
 
-                using (var command = new SQLiteCommand(commandText, connection))
+                using (var command = new SqliteCommand(commandText, connection))
                 {
                     command.ExecuteNonQuery();
                 }
@@ -348,7 +349,7 @@
             {
                 connection.Open();
 
-                using (var command = new SQLiteCommand(commandText, connection))
+                using (var command = new SqliteCommand(commandText, connection))
                 {
                     return command.ExecuteScalar();
                 }
@@ -361,7 +362,7 @@
         }
 
         private void CreateStorageBlockEntities(
-            SQLiteTransaction transaction,
+            SqliteTransaction transaction,
             PersistenceLevel level,
             string name,
             int version,
@@ -369,17 +370,17 @@
         {
             const string sql =
                 @"insert into StorageBlock (Name, Level, Version, Count) values (@StorageBlockName, @StorageBlockLevel, @StorageBlockVersion, @StorageBlockCount)";
-            using (var command = new SQLiteCommand(sql, transaction.Connection, transaction))
+            using (var command = new SqliteCommand(sql, transaction.Connection, transaction))
             {
-                command.Parameters.Add("@StorageBlockName", DbType.String).Value = name;
-                command.Parameters.Add("@StorageBlockLevel", DbType.String).Value = level;
-                command.Parameters.Add("@StorageBlockVersion", DbType.Int16).Value = version;
-                command.Parameters.Add("@StorageBlockCount", DbType.Int16).Value = arraySize;
+                command.Parameters.Add("@StorageBlockName", SqliteType.Text).Value = name;
+                command.Parameters.Add("@StorageBlockLevel", SqliteType.Text).Value = level;
+                command.Parameters.Add("@StorageBlockVersion", SqliteType.Integer).Value = version;
+                command.Parameters.Add("@StorageBlockCount", SqliteType.Integer).Value = arraySize;
                 try
                 {
                     command.ExecuteNonQuery();
                 }
-                catch (SQLiteException e)
+                catch (SqliteException e)
                 {
                     Logger.Error(
                         $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
@@ -465,16 +466,7 @@
 
             Logger.Debug($"Data mirror is enabled on {_mirrorRoot}.");
 
-            NativeMethods.set_mirror_dir(_mirrorRoot);
-
-            var mirrorFileName = GetFileName(_mirrorRoot);
-
-            if (File.Exists(mirrorFileName))
-            {
-                return;
-            }
-
-            SQLiteConnection.CreateFile(mirrorFileName);
+            NativeMethods.set_mirror_dir(_mirrorRoot);           
         }
 
         private void InitializeDatabaseFile()
@@ -489,22 +481,20 @@
                     return;
                 }
 
-                SQLiteConnection.CreateFile(GetFileName());
                 using (var connection = CreateConnection())
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(connection))
+                    using (var command = new SqliteCommand(StorageBlockTableCreate, connection))
                     {
                         try
                         {
-                            command.CommandText = StorageBlockTableCreate;
                             command.ExecuteNonQuery();
 
                             command.CommandText = StorageBlockFieldTableCreate;
                             command.ExecuteNonQuery();
                         }
-                        catch (SQLiteException e)
+                        catch (SqliteException e)
                         {
                             Logger.Error(
                                 $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
@@ -529,11 +519,13 @@
                     return;
                 }
 
+                var blockNames = new List<string>();
+
                 using (var connection = CreateConnection())
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(StorageBlockNamesSelect, connection))
+                    using (var command = new SqliteCommand(StorageBlockNamesSelect, connection))
                     {
                         try
                         {
@@ -541,12 +533,11 @@
                             {
                                 while (reader.Read())
                                 {
-                                    var name = reader.GetString(0);
-                                    _accessors[name] = new SqlPersistentStorageAccessor(ConnectionString(), name);
+                                    blockNames.Add(reader.GetString(0));                                    
                                 }
                             }
                         }
-                        catch (SQLiteException e)
+                        catch (SqliteException e)
                         {
                             Logger.Error(
                                 $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
@@ -558,6 +549,11 @@
                             SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
                         }
                     }
+                }
+
+                foreach (var oneBlockName in blockNames)
+                {
+                    _accessors[oneBlockName] = new SqlPersistentStorageAccessor(ConnectionString(), oneBlockName);
                 }
             }
         }
@@ -615,13 +611,13 @@
 
                     SqlPersistentStorageExceptionHandler.ClearFaultedState();
                 }
-                catch (SQLiteException e)
+                catch (SqliteException e)
                 {
                     Logger.Error(
                         $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
 
                     // Remove all handles on the file
-                    new SQLiteConnection(ConnectionString()).Close();
+                    new SqliteConnection(ConnectionString()).Close();
                     GC.Collect();
 
                     // Attempt to delete the file

@@ -349,7 +349,11 @@
         {
             using (TextReader reader = new StringReader(xml))
             {
-                return (T)new XmlSerializer(typeof(T)).Deserialize(reader);
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
+
+                return (T)serializer.Deserialize(reader);
             }
         }
 
@@ -364,7 +368,10 @@
 
             using (var writer = new StringWriter())
             {
-                var serializer = new XmlSerializer(typeof(T));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
+
                 serializer.Serialize(writer, @class);
                 return writer.ToString();
             }

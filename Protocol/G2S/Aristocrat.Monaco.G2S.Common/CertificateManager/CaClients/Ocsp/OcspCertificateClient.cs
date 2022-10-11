@@ -83,7 +83,7 @@
 
                     if (configuration.NoncesEnabled)
                     {
-                        var rng = new RNGCryptoServiceProvider();
+                        var rng = RandomNumberGenerator.Create();
 
                         nonce = new byte[16];
                         rng.GetBytes(nonce);

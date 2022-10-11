@@ -8,6 +8,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:MainMetersPageViewModel}}"
@@ -81,10 +83,10 @@
                 </DataGrid.RowStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                    <DataGridTextColumn Header="{lex:Loc Meter}" 
                                         Width="360"
                                         Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                    <DataGridTextColumn Header="{lex:Loc Value}" 
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -114,10 +116,10 @@
                 </DataGrid.RowStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                    <DataGridTextColumn Header="{lex:Loc Meter}" 
                                         Width="380"
                                         Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                    <DataGridTextColumn Header="{lex:Loc Value}" 
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -133,23 +135,23 @@
             <Button Margin="0 0 15 0" 
                     Width="250"
                     Command="{Binding ClearPeriodCommand}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearPeriodButtonText}}"
+                    Content="{lex:Loc ClearPeriodButtonTex}"
                     IsEnabled="{Binding ClearButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding ClearPeriodMetersButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
             <Button Margin="0 0 15 0" 
                     Width="250"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintVerificationButtonText}}"
+                    Content="{lex:Loc PrintVerificationButtonText}"
                     Command="{Binding PrintVerificationButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
                     Visibility="{Binding PrintVerificationButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
             <Button Margin="0 0 15 0" 
                     Width="250"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintPeriodicResetButtonText}}"
+                    Content="{lex:Loc PrintPeriodicResetButtonText}"
                     Command="{Binding PrintPeriodicResetButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"/>
             <Button Margin="0 0 15 0" 
                     Width="250"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintAuditTicketButtonText}}"
+                    Content="{lex:Loc PrintAuditTicketButtonText}"
                     Command="{Binding PrintAuditTicketButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
                     Visibility="{Binding PrintAuditTicketButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>

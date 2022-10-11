@@ -194,7 +194,8 @@
                 GraphicType = gfxType,
                 Encoding = MapEncodingType(graphicElement.imageEncoding),
                 FileName = graphicElement.fileName,
-                Tags = graphicElement.tags?.ToLower().Split(',').ToHashSet()
+                //Tags = graphicElement.tags?.ToLower().Split(',').ToHashSet()
+                Tags = new HashSet<string>(graphicElement.tags?.ToLower().Split(','))
             };
         }
 

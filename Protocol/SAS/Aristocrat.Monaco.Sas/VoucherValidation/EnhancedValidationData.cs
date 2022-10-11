@@ -133,7 +133,6 @@
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The streaming context</param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("HostSequence", HostSequence);

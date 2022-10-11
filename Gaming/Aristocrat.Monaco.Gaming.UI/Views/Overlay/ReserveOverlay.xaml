@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
@@ -97,7 +99,7 @@
 			<!-- The giant reserved text -->
 			<TextBlock Name="GiantReservedText" Grid.Row="0"
 					Style="{StaticResource GiantReservedLockupTextBlockStyle}"
-					Text="{lex:Loc Key={x:Static loc:ResourceKeys.Reserved}}"
+					Text="{lex:Loc Reserved}"
 					Margin="0 60 0 0"
 					FontSize="300"/>
 			<!-- The remaining time on the countdown timer -->
@@ -133,7 +135,7 @@
 			<!-- Top part of the incorrect pin attempts message -->
 			<TextBlock Name="IncorrectPinText1" 
 					   Style="{StaticResource IncorrectPinTextBlockStyle}"
-			           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText1}}"
+			           Text="{lex:Loc ReserveMachineIncorrectPinWaitText1}"
 					   Margin="0 16 0 0"/>
 			<!-- The time remaining that the player must wait to try again -->
 			<TextBlock Name="IncorrectPinTimeRemainingText" 
@@ -144,7 +146,7 @@
 			<!-- Bottom part of the incorrect pin attempts message -->
 			<TextBlock Name="IncorrectPinText2"
 			           Style="{StaticResource IncorrectPinTextBlockStyle}"
-			           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText2}}"
+			           Text="{lex:Loc ReserveMachineIncorrectPinWaitText2}"
 			           Margin="0 290 0 0"/>
 		</Grid>
 
@@ -190,7 +192,7 @@
 				           Margin="272 91 0 0"/>
 				<!-- The incorrect PIN warning message -->
 				<TextBlock Name="IncorrectPinWarningText"
-				           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinText}}"
+				           Text="{lex:Loc ReserveMachineIncorrectPinText}"
 				           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,
                                Converter={StaticResource BoolToVisHiddenConverter}}"
 				           HorizontalAlignment="Center" VerticalAlignment="Top"

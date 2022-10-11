@@ -12,8 +12,11 @@
                    xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                    xmlns:loc="http://monaco.aristocrat.com/localization"
                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                   lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                   lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                    xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                   xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                    loc:Localizer.For="Operator"
                    mc:Ignorable="d" 
                    d:DataContext="{d:DesignInstance {x:Type viewModels:MenuSelectionViewModel}}"
@@ -26,17 +29,17 @@
                    BorderThickness="1"
                    x:Name="OperatorMenuWindow">
     
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding HandleClosingCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="ContentRendered">
-            <i:InvokeCommandAction Command="{Binding HandleContentRenderedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
+        </b:EventTrigger>
+        <b:EventTrigger EventName="Closing">
+            <b:InvokeCommandAction Command="{Binding HandleClosingCommand}" />
+        </b:EventTrigger>
+        <b:EventTrigger EventName="ContentRendered">
+            <b:InvokeCommandAction Command="{Binding HandleContentRenderedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
     <common:BaseWindow.Resources>
         <ResourceDictionary>
@@ -100,10 +103,10 @@
         </ResourceDictionary>
     </common:BaseWindow.Resources>
 
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
         <behaviors:HighDpiWindowBehavior/>
-    </i:Interaction.Behaviors>
+    </b:Interaction.Behaviors>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -111,14 +114,14 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <i:Interaction.Triggers>
+        <b:Interaction.Triggers>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}" Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
-        </i:Interaction.Triggers>
+        </b:Interaction.Triggers>
 
         <Viewbox Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
             <Image Source="../Resources/AristocratLogoPortrait.png"   />
@@ -175,7 +178,7 @@
                                          Style="{StaticResource MonacoListBox}">
                         <common:TouchListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="0,0,0,0" BorderBrush="{StaticResource AccentColorBrush2}" Background="Transparent">
+                                <Border BorderThickness="0,0,0,0" BorderBrush="{StaticResource MahApps.Brushes.Accent2}" Background="Transparent">
                                     <TextBlock Text="{Binding PageName}" HorizontalAlignment="Left" VerticalAlignment="Center" 
                                                Foreground="{Binding RelativeSource={RelativeSource AncestorType=ListBoxItem, Mode=FindAncestor}, Path=Foreground}"
                                                FontSize="{StaticResource Heading4FontSize}" Margin="50 0 0 0" Padding="0 13 0 13"
@@ -184,7 +187,7 @@
                             </DataTemplate>
                         </common:TouchListBox.ItemTemplate>
                         <common:TouchListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MetroListBoxItem}">
+                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
                                 <Style.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource HighlightColor}"/>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{StaticResource HighlightColor}"/>
@@ -255,7 +258,7 @@
                                     Command="{Binding PrintButtonCommand}" Style="{StaticResource MonacoButton1}"
                                     Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource BoolToCollapsedConverter}}">
                                 <Grid>
-                                    <iconPacks:PackIconFontAwesome Kind="Print" Width="25" Height="25"/>
+                                    <iconPacks:PackIconFontAwesome Kind="PrintSolid"  Width="25" Height="25"/>
                                 </Grid>
                             </Button>
                             <Button Grid.Column="1" Width="65" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
@@ -276,7 +279,7 @@
                                     Command="{Binding PrintButtonCommand}" Style="{StaticResource MonacoButton1}"
                                     Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource BoolToCollapsedConverter}}">
                                 <Grid>
-                                    <iconPacks:PackIconFontAwesome Kind="Print" Width="25" Height="25"/>
+                                    <iconPacks:PackIconFontAwesome Kind="PrintSolid" Width="25" Height="25"/>
                                 </Grid>
                             </Button>
                             <Button Width="90" Height="45" HorizontalAlignment="Center"
@@ -313,11 +316,11 @@
                             <Label Name="OperatorMenuLabel" VerticalAlignment="Center" Content="{Binding OperatorMenuLabelContent}" FontWeight="Bold" FontSize="{StaticResource Heading3FontSize}"/>
                         </StackPanel>
                         <ComboBox Grid.Column="2" Name="LanguageComboBox" ItemsSource="{Binding SupportedLanguages}" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,20,0">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding LanguageChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=LanguageComboBox}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="SelectionChanged">
+                                    <b:InvokeCommandAction Command="{Binding LanguageChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=LanguageComboBox}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
                         </ComboBox>
                         <Label Grid.Column="3" Name="DateTime" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{StaticResource Heading4FontSize}" Content="{Binding CurrentDateTime, Converter={StaticResource DateTimeFormatConverter}}"/>
                         <iconPacks:PackIconMaterial Grid.Column="4" Kind="Clock" Foreground="{DynamicResource OperatorMenuLabelText}" 
@@ -331,7 +334,7 @@
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0,.3"
                                              EndPoint="1,.7">
-                            <GradientStop Color="{StaticResource BlackColor}"
+                            <GradientStop Color="{StaticResource MahApps.Colors.ThemeForeground}"
                                           Offset="0"/>
                             <GradientStop Color="{StaticResource DarkColor1}"
                                           Offset=".1"/>
@@ -365,14 +368,14 @@
                                HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{StaticResource HighlightBrush1}" />
 
                         <TextBlock Margin="0 0 20 0" Visibility="{Binding CanCalibrateTouchScreens,Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
-                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrationText}}"
+                                   Text="{lex:Loc CalibrationText}"
                                    Style="{StaticResource CalibrationTextStyle}" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"
                                    Foreground="{StaticResource HighlightBrush1}"/>
 
                         <TextBlock Margin="0 0 20 0" Visibility="{Binding ShowMainDoorText,Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
-                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrationAccess}}"
+                                   Text="{lex:Loc CalibrationAccess}"
                                    Style="{StaticResource CalibrationTextStyle}" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"

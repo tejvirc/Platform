@@ -26,9 +26,9 @@
             using (var stream = new MemoryStream())
             {
                 var formatter = new BinaryFormatter();
-
+#pragma warning disable SYSLIB0011
                 formatter.Serialize(stream, list);
-
+#pragma warning restore SYSLIB0011
                 return stream.ToArray();
             }
         }
@@ -49,11 +49,12 @@
 
                     stream.Write(data, 0, data.Length);
                     stream.Position = 0;
-
+#pragma warning disable SYSLIB0011
                     if (formatter.Deserialize(stream) is List<T> list)
                     {
                         return list;
                     }
+#pragma warning restore SYSLIB0011
                 }
             }
 

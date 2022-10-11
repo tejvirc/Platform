@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Mgam</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <PlatformTarget>x64</PlatformTarget>
+    <NoWarn>1701;1702;CA1416</NoWarn>    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
@@ -52,7 +53,7 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="FluentFTP" Version="32.4.3" />
     <PackageReference Include="FluentValidation" Version="7.4.0" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="Stateless" Version="4.0.0" />

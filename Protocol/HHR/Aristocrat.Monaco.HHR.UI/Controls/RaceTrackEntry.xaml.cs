@@ -175,7 +175,7 @@
         {
             for (int i = 1; i <= HhrUiConstants.MaxNumberOfHorses; i++)
             {
-                var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+                var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 var imagePath = Path.Combine(new[] { outPutDirectory, HorseGifPath(i) });
                 var imageLocalPath = new Uri(imagePath).LocalPath;
 

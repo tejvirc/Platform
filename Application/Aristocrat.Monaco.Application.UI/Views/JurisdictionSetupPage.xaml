@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
@@ -33,7 +35,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddinJurisdictionSelection}}"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="{lex:Loc AddinJurisdictionSelection}"/>
 
         <ComboBox Grid.Column="0" Grid.Row="1" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding Jurisdictions}" 
@@ -45,12 +47,12 @@
         <CheckBox Grid.Column="0" Grid.Row="2" Margin="0 30 0 0"
                   Visibility="{Binding ShowModeVisible, Converter={StaticResource BoolToVisHiddenConverter}}"
                   IsEnabled="{Binding IsJurisdictionSelectionEnabled}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableShowMode}}"
+                  Content="{lex:Loc EnableShowMode}"
                   IsChecked="{Binding IsShowModeChecked}"/>
 
         <CheckBox Grid.Column="0" Grid.Row="3" Margin="0 10 0 0"
                   IsEnabled="{Binding IsJurisdictionSelectionEnabled}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowGameRules}}"
+                  Content="{lex:Loc ShowGameRules}"
                   IsChecked="{Binding IsGameRulesChecked}"/>
 
         <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Top"
@@ -58,7 +60,7 @@
             <TextBlock TextWrapping="Wrap"
                        Text="{Binding ImportSettingLabel}" />
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImportMachineSettingsLabel}}"
+                <Button Content="{lex:Loc ImportMachineSettingsLabel}"
                         Command="{Binding ImportCommand}" />
             </StackPanel>
         </StackPanel>

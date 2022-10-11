@@ -4,6 +4,8 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -74,46 +76,46 @@
             <Label Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.FloorConfigurationLabel}}" />
+                   Content="{lex:Loc FloorConfigurationLabel}" />
 
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherInLimit}}" />
+                   Content="{lex:Loc VoucherInLimit}" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
                        Text="{Binding VoucherInLimit, Mode=OneWay}" />
 
             <Label Grid.Row="2"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}" />
+                   Content="{lex:Loc BillAcceptanceLimit}" />
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
                        Text="{Binding BillAcceptanceLimit, Mode=OneWay}" />
 
             <Label Grid.Row="3"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TicketReprintLabel}}" />
+                   Content="{lex:Loc TicketReprintLabel}" />
             <TextBlock Grid.Row="3"
                        Grid.Column="1"
                        Text="{Binding TicketReprint, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}" />
 
             <Label Grid.Row="4"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CaptureGameAnalyticsLabel}}" />
+                   Content="{lex:Loc CaptureGameAnalyticsLabel}" />
             <TextBlock Grid.Row="4"
                        Grid.Column="1"
                        Text="{Binding CaptureGameAnalytics, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}" />
 
             <Label Grid.Row="5"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.AlarmConfigurationLabel}}" />
+                   Content="{lex:Loc AlarmConfigurationLabel}" />
             <TextBlock Grid.Row="5"
                        Grid.Column="1"
                        Text="{Binding AlarmConfiguration, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}" />
 
             <Label Grid.Row="6"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlayerMayHideBingoCardLabel}}" 
+                   Content="{lex:Loc PlayerMayHideBingoCardLabel}" 
                    Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}" />
             <TextBlock Grid.Row="6"
                        Grid.Column="1"
@@ -123,25 +125,25 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoSettingsLabel}}" />
+                   Content="{lex:Loc BingoSettingsLabel}" />
 
             <Label Grid.Row="8"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameEndingPrizeLabel}}" />
+                   Content="{lex:Loc GameEndingPrizeLabel}" />
             <TextBlock Grid.Row="8"
                        Grid.Column="1"
                        Text="{Binding GameEndingPrize, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}" />
 
             <Label Grid.Row="9"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlayButtonBehaviorLabel}}" />
+                   Content="{lex:Loc PlayButtonBehaviorLabel}" />
             <TextBlock Grid.Row="9"
                        Grid.Column="1"
                        Text="{Binding PlayButtonBehavior, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}" />
 
             <Label Grid.Row="10"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.DisplayBingoCardLabel}}"
+                   Content="{lex:Loc DisplayBingoCardLabel}"
                    Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
             <TextBlock Grid.Row="10"
                        Grid.Column="1"
@@ -150,7 +152,7 @@
 
             <Label Grid.Row="11"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.HideBingoCardWhenInactiveLabel}}"
+                   Content="{lex:Loc HideBingoCardWhenInactiveLabel}"
                    Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
             <TextBlock Grid.Row="11"
                        Grid.Column="1"
@@ -159,14 +161,14 @@
 
             <Label Grid.Row="12"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoCardPlacementLabel}}" />
+                   Content="{lex:Loc BingoCardPlacementLabel}" />
             <TextBlock Grid.Row="12"
                        Grid.Column="1"
                        Text="{Binding BingoCardPlacement, Mode=OneWay}" />
 
             <Label Grid.Row="13"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.WaitForPlayersLength}}" />
+                   Content="{lex:Loc WaitForPlayersLength}" />
             <TextBlock Grid.Row="13"
                        Grid.Column="1"
                        Text="{Binding WaitForPlayersDuration, Mode=OneWay}" />
@@ -175,18 +177,18 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.AFTTitleLabel}}" />
+                   Content="{lex:Loc AFTTitleLabel}" />
 
             <Label Grid.Row="15"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LegacyBonusAllowed}}" />
+                   Content="{lex:Loc LegacyBonusAllowed}" />
             <TextBlock Grid.Row="15"
                        Grid.Column="1"
                        Text="{Binding LegacyBonusAllowed, Mode=OneWay}" />
 
             <Label Grid.Row="16"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}" />
+                   Content="{lex:Loc AftBonusingEnabledLabel}" />
             <TextBlock Grid.Row="16"
                        Grid.Column="1"
                        Text="{Binding AftBonusingEnabled, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}" />
@@ -220,39 +222,39 @@
             <Label Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.JackpotConfigurationLabel}}" />
+                   Content="{lex:Loc JackpotConfigurationLabel}" />
 
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaximumVoucherValueLabel}}" />
+                   Content="{lex:Loc MaximumVoucherValueLabel}" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
                        Text="{Binding MaximumVoucherValue, Mode=OneWay}" />
 
             <Label Grid.Row="2"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MinimumJackpotValueLabel}}" />
+                   Content="{lex:Loc MinimumJackpotValueLabel}" />
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
                        Text="{Binding MinimumJackpotValue, Mode=OneWay}" />
 
             <Label Grid.Row="3"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.JackpotStrategyLabel}}" />
+                   Content="{lex:Loc JackpotStrategyLabel}" />
             <TextBlock Grid.Row="3"
                        Grid.Column="1"
                        Text="{Binding JackpotStrategy, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}" />
 
             <Label Grid.Row="4"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.JackpotAmountDeterminationLabel}}" />
+                   Content="{lex:Loc JackpotAmountDeterminationLabel}" />
             <TextBlock Grid.Row="4"
                        Grid.Column="1"
                        Text="{Binding JackpotAmountDetermination, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}" />
 
             <Label Grid.Row="5"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintHandpayReceipt}}" />
+                   Content="{lex:Loc PrintHandpayReceipt}" />
             <TextBlock Grid.Row="5"
                        Grid.Column="1"
                        Text="{Binding PrintHandpayReceipt, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}" />
@@ -261,32 +263,32 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.EGMSettingsLabel}}" />
+                   Content="{lex:Loc EGMSettingsLabel}" />
 
             <Label Grid.Row="7"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CreditsStrategyLabel}}" />
+                   Content="{lex:Loc CreditsStrategyLabel}" />
             <TextBlock Grid.Row="7"
                        Grid.Column="1"
                        Text="{Binding CreditsStrategy, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}" />
 
             <Label Grid.Row="8"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZoneId}}" />
+                   Content="{lex:Loc ZoneId}" />
             <TextBlock Grid.Row="8"
                        Grid.Column="1"
                        Text="{Binding ZoneId, Mode=OneWay}" />
 
             <Label Grid.Row="9"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BankId}}" />
+                   Content="{lex:Loc BankId}" />
             <TextBlock Grid.Row="9"
                        Grid.Column="1"
                        Text="{Binding BankId, Mode=OneWay}" />
 
             <Label Grid.Row="10"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PositionText}}" />
+                   Content="{lex:Loc PositionText}" />
             <TextBlock Grid.Row="10"
                        Grid.Column="1"
                        Text="{Binding Position, Mode=OneWay}" />
@@ -295,18 +297,18 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LAPSettingsLabel}}" />
+                   Content="{lex:Loc LAPSettingsLabel}" />
 
             <Label Grid.Row="12"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoType}}" />
+                   Content="{lex:Loc BingoType}" />
             <TextBlock Grid.Row="12"
                        Grid.Column="1"
                        Text="{Binding BingoType, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}" />
 
             <Label Grid.Row="13"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LAPLevelIDsLabel}}" />
+                   Content="{lex:Loc LAPLevelIDsLabel}" />
             <TextBlock Grid.Row="13"
                        Grid.Column="1"
                        Text="{Binding LapLevelIDs, Mode=OneWay}" />
@@ -315,11 +317,11 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoServerInformationTitle}}" />
+                   Content="{lex:Loc BingoServerInformationTitle}" />
 
             <Label Grid.Row="15"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoServerVersionLabel}}" />
+                   Content="{lex:Loc BingoServerVersionLabel}" />
             <TextBlock Grid.Row="15"
                        Grid.Column="1"
                        Text="{Binding ServerVersion, Mode=OneWay}" />

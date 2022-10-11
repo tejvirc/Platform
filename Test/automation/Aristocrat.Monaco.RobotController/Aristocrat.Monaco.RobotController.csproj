@@ -1,12 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Monaco_DisableCodeAnalysis>true</Monaco_DisableCodeAnalysis>
-  </PropertyGroup>
-
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
-  
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.RobotController</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
@@ -38,6 +33,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.XmlSerializer.Generator" Version="6.0.0" />
+    <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>
 </Project>

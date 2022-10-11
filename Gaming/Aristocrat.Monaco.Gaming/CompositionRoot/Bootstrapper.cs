@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
+    using Aristocrat.CryptoRng;
     using Barkeeper;
     using BeagleBone;
     using Bonus;
@@ -24,7 +25,6 @@
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
     using GameRound;
-    using GDKRuntime.Contract;
     using Hardware.Contracts;
     using Kernel;
     using Monitor;
@@ -33,7 +33,6 @@
     using PackageManifest.Gsa;
     using PackageManifest.Models;
     using Payment;
-    using PRNGLib;
     using Progressives;
     using Runtime;
     using Runtime.Client;
@@ -59,7 +58,6 @@
         {
             var container = new Container();
 
-            container.Register<IGameSession, WcfService>(Lifestyle.Singleton);
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);
@@ -73,7 +71,6 @@
                 new[]
                 {
                     Lifestyle.Singleton.CreateRegistration(typeof(SnappServer), container),
-                    Lifestyle.Singleton.CreateRegistration(typeof(WcfServer), container)
                 });
             
             container.Register<IGameService, GameService>(Lifestyle.Singleton);
@@ -186,8 +183,7 @@
             container.Register<IRandomStateProvider, RandomStateProvider>(Lifestyle.Singleton);
             // IPRNG implementations are keyed by PRNGLib.RandomType:
             var rngFactory = new RandomFactory(container);
-            rngFactory.Register<ATICryptoRNG>(RandomType.Gaming, Lifestyle.Singleton);
-            rngFactory.Register<MSCryptoRNG>(RandomType.NonGaming, Lifestyle.Singleton);
+            rngFactory.Register<AtiCryptoRng>(RandomType.Gaming, Lifestyle.Singleton);
             container.Register<IRandomFactory>(() => rngFactory, Lifestyle.Singleton);
 
             var runtimeEventHandlerFactory = new RuntimeEventHandlerFactory(container);

@@ -9,9 +9,12 @@
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameHistoryView"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d" 
@@ -118,20 +121,20 @@
                   ScrollViewer.CanContentScroll="True"
                   Height="Auto"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
-            <i:Interaction.Triggers>
+            <b:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                     <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
                 </events:RoutedEventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" 
                                     Binding="{Binding LogSequenceText}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"
                                     Visibility="{Binding ElementName=EventViewer, Path=DataContext.ShowSequenceNumber, Converter={StaticResource BoolToVisConverter}}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ReferenceNumberText}}" 
+                <DataGridTextColumn Header="{lex:Loc ReferenceNumberText}" 
                                     Binding="{Binding RefNoText}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}" 
+                <DataGridTextColumn Header="{lex:Loc GameNameText}" 
                                     MinWidth="230" Binding="{Binding GameName}" 
                                     HeaderStyle="{StaticResource HeaderStyle}">
                     <DataGridTextColumn.ElementStyle>
@@ -140,37 +143,37 @@
                     </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StartTimeText}}" 
+                <DataGridTextColumn Header="{lex:Loc StartTimeText}" 
                                     Binding="{Binding StartTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndTimeText}}" 
+                <DataGridTextColumn Header="{lex:Loc EndTimeText}" 
                                     Binding="{Binding EndTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AmountIn}}" 
+                <DataGridTextColumn Header="{lex:Loc AmountIn}" 
                                     MinWidth="80" 
                                     Binding="{Binding AmountIn, Converter={StaticResource CurrencyConverter}}" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AmountOut}}" 
+                <DataGridTextColumn Header="{lex:Loc AmountOut}" 
                                     MinWidth="80" 
                                     Binding="{Binding AmountOut, Converter={StaticResource CurrencyConverter}}" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StartCreditsText}}" 
+                <DataGridTextColumn Header="{lex:Loc StartCreditsText}" 
                                     MinWidth="90" 
                                     Binding="{Binding StartCredits, Converter={StaticResource CurrencyConverter}}" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CreditsWageredText}}" 
+                <DataGridTextColumn Header="{lex:Loc CreditsWageredText}" 
                                     MinWidth="95" 
                                     Binding="{Binding CreditsWagered, Converter={StaticResource CurrencyConverter}}" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CreditsWonText}}" 
+                <DataGridTextColumn Header="{lex:Loc CreditsWonText}" 
                                     MinWidth="90" 
                                     Binding="{Binding CreditsWon, Converter={StaticResource CurrencyConverter}}" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndCreditsText}}" 
+                <DataGridTextColumn Header="{lex:Loc EndCreditsText}" 
                                     MinWidth="90" 
                                     Binding="{Binding EndCredits, Converter={StaticResource CurrencyConverter}}" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}" 
+                <DataGridTextColumn Header="{lex:Loc StatusHeader}" 
                                     Binding="{Binding Status}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"/>
             </DataGrid.Columns>
@@ -185,7 +188,7 @@
 				    <ColumnDefinition Width="10"/>
 				    <ColumnDefinition Width="Auto"/>
 			    </Grid.ColumnDefinitions>
-			    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PendingCashInText}}" Grid.Column="0" HorizontalAlignment="Right"/>
+			    <Label Content="{lex:Loc PendingCashInText}" Grid.Column="0" HorizontalAlignment="Right"/>
 			    <Label Grid.Column="2" Content="{Binding PendingCurrencyIn, Converter={StaticResource CurrencyConverter}}" Foreground="{DynamicResource LightBrush4}" HorizontalAlignment="Right"/>
 		    </Grid>
 	    </Border>
@@ -198,7 +201,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock x:Name="TextBlockGameRoundInfo" Grid.Row="0" Visibility="Visible"  IsEnabled="False" 
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameRoundInfoText}}" FontSize="{StaticResource NormalFontSize}" FontWeight="Bold"/>
+                       Text="{lex:Loc GameRoundInfoText}" FontSize="{StaticResource NormalFontSize}" FontWeight="Bold"/>
             <ListBox Grid.Row="2" Visibility="Visible" Height="108" IsEnabled="True" HorizontalAlignment="Stretch"
                      Style="{StaticResource MonacoScrollListBox}"
                      BorderBrush="{StaticResource Brush3}"
@@ -207,51 +210,50 @@
 
 		<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 12 0 0">
             <Button IsEnabled="{Binding ReplayButtonEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReplayText}}" 
+                    Content="{lex:Loc ReplayText}" 
                     Command="{Binding ReplayCommand}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintSelectedButtonText}}"
+            <Button Content="{lex:Loc PrintSelectedButtonText}"
                     IsEnabled="{Binding EnablePrintSelectedButton}"
                     Command="{Binding PrintSelectedButtonCommand}"
                     Visibility="{Binding PrintSelectedButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLast15RecordsButtonText}}"
+            <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
                     IsEnabled="{Binding EnablePrintLast15Button}"
                     Command="{Binding PrintLast15ButtonCommand}"
                     Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintCurrentPageButtonText}}"
+            <Button Content="{lex:Loc PrintCurrentPageButtonText}"
                     IsEnabled="{Binding EnablePrintCurrentPageButton}"
                     Command="{Binding PrintCurrentPageButtonCommand}"
                     Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameProgressiveWin}}"
+            <Button Content="{lex:Loc GameProgressiveWin}"
                     IsEnabled="{Binding GameProgressiveWinButtonEnabled}"
                     Command="{Binding ShowGameProgressiveWinCommand}"
                     Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameMeters}}"
+            <Button Content="{lex:Loc GameMeters}"
                     IsEnabled="{Binding IsMeteredGameSelected}"
                     Command="{Binding ShowGameMetersCommand}"
                     Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameTransactions}}"
+            <Button Content="{lex:Loc GameTransactions}"
                     IsEnabled="{Binding IsHistoryItemSelected}"
                     Command="{Binding ShowGameTransactionsCommand}"
                     Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameEventLogs}}"
+            <Button Content="{lex:Loc GameEventLogs}"
                     IsEnabled="{Binding IsHistoryItemSelected}"
                     Command="{Binding ShowGameEventLogsCommand}"
                     Visibility="{Binding ShowGameEventLogsButton, Converter={StaticResource BoolToVisConverter}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameDetailsText}}"
+            <Button Content="{lex:Loc GameDetailsText}"
                     IsEnabled="{Binding IsGameRoundComplete}"
                     Command="{Binding ShowGameDetailsCommand}"
                     Visibility="{Binding ShowGameDetailsButton, Converter={StaticResource BoolToVisConverter}}"/>
         </StackPanel>
 
 		<StackPanel  Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 -16">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReplayPause}}" VerticalAlignment="Center"/>
-            <controls:ToggleSwitchButton Margin="20 5 0 0"
+            <Label Content="{lex:Loc ReplayPause}" VerticalAlignment="Center"/>
+            <controls:ToggleSwitch Margin="20 5 0 0"
                                          IsEnabled="{Binding ReplayPauseEnabled}"
-                                         IsChecked="{Binding ReplayPauseActive}"
                                          controls:ControlsHelper.ContentCharacterCasing="Upper"
                                          controls:ControlsHelper.CornerRadius="0"
-                                         common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                         common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"/>
+                                         common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                         common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
         </StackPanel>
 
     </Grid>

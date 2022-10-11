@@ -835,7 +835,7 @@
         }
 
         // ReSharper disable UseNullPropagation
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -902,7 +902,7 @@
                 if (_outboundQueue != null)
                 {
                     _outboundQueue.Complete();
-                }
+                }                
             }
 
             _disposed = true;

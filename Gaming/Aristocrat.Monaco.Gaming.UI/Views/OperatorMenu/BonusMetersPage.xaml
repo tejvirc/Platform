@@ -8,6 +8,8 @@
                                xmlns:converters="http://monaco.aristocrat.com/common"
                                xmlns:converters1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:BonusMetersPageViewModel}, IsDesignTimeCreatable=True}">
@@ -38,10 +40,10 @@
                       CanUserResizeRows="False"
                       IsHitTestVisible="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MachinePaidBonusAwardsLabel}}"
+                    <DataGridTextColumn Header="{lex:Loc MachinePaidBonusAwardsLabel}"
                                         Width="460"
                                         Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -58,7 +60,7 @@
                     <ColumnDefinition Width="{Binding ElementName=EgmPaidBonusAwardsGrid, Path=Columns[1].ActualWidth}" />
                     <ColumnDefinition Width="{Binding ElementName=EgmPaidBonusAwardsGrid, Path=Columns[2].ActualWidth}" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.MachinePaidBonusTotalLabel}}" Margin="5 0" />
+                <TextBlock Text="{lex:Loc MachinePaidBonusTotalLabel}" Margin="5 0" />
                 <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
                            Text="{Binding EgmPaidBonusAwardsTotalAmountFormatted, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
@@ -77,10 +79,10 @@
                       CanUserResizeRows="False"
                       IsHitTestVisible="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AttendantPaidBonusAwardsLabel}}"
+                    <DataGridTextColumn Header="{lex:Loc AttendantPaidBonusAwardsLabel}"
                                         Width="460"
                                         Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -97,7 +99,7 @@
                     <ColumnDefinition Width="{Binding ElementName=HandPaidBonusAwardsGrid, Path=Columns[1].ActualWidth}" />
                     <ColumnDefinition Width="{Binding ElementName=HandPaidBonusAwardsGrid, Path=Columns[2].ActualWidth}" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.AttendantPaidBonusTotalLabel}}" Margin="5 0" />
+                <TextBlock Text="{lex:Loc AttendantPaidBonusTotalLabel}" Margin="5 0" />
                 <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
                            Text="{Binding HandPaidBonusAwardsTotalAmountFormatted, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>

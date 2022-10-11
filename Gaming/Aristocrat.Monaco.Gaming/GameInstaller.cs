@@ -287,6 +287,7 @@
             {
                 var formatter = new BinaryFormatter();
 
+                // PlanA: We supressed the SYSLIB0011 warning based on https://docs.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/5.0/binaryformatter-serialization-obsolete#recommended-action
                 formatter.Serialize(stream, packages);
 
                 return stream.ToArray();
@@ -450,6 +451,7 @@
                     stream.Write(rawPackages, 0, rawPackages.Length);
                     stream.Position = 0;
 
+                    // PlanA: We supressed the SYSLIB0011 warning based on https://docs.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/5.0/binaryformatter-serialization-obsolete#recommended-action
                     if (formatter.Deserialize(stream) is List<InstalledPackage> packages)
                     {
                         return packages;

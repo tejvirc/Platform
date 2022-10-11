@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.DetailedGameMeters"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:DetailedGameMetersViewModel}, IsDesignTimeCreatable=True}">
@@ -27,10 +29,10 @@
                   Height = "800"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name}" Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"/>
-                <DataGridTextColumn Binding="{Binding BeforeGameStart}" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BeforeGameStart}}"/>
-                <DataGridTextColumn Binding="{Binding GameEnd}" Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameEnd}}"/>
-                <DataGridTextColumn Binding="{Binding BeforeNextGame}" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BeforeNextGame}}"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="{lex:Loc Meter}"/>
+                <DataGridTextColumn Binding="{Binding BeforeGameStart}" Header="{lex:Loc BeforeGameStart}"/>
+                <DataGridTextColumn Binding="{Binding GameEnd}" Header="{lex:Loc GameEnd}"/>
+                <DataGridTextColumn Binding="{Binding BeforeNextGame}" Header="{lex:Loc BeforeNextGame}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -42,6 +42,7 @@
     using HardwareFaultClearEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent;
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
+    using CoreWCF;
 
     [ServiceBehavior(
         InstanceContextMode = InstanceContextMode.Single,

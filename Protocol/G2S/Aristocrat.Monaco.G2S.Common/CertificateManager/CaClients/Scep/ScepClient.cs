@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Net;
+    using System.Net.Http;
     using System.Security.Cryptography;
     using System.Security.Cryptography.X509Certificates;
     using Models;
@@ -43,7 +44,7 @@
 
             var subject = new X509Name(attributes.Keys.ToList(), attributes);
 
-            using (var client = new WebClient { BaseAddress = configuration.CertificateManagerLocation })
+            using (var client = new HttpClient { BaseAddress = new Uri(configuration.CertificateManagerLocation) })
             {
                 var request = ScepHelper.GeneratePkcs10CertificationRequest(configuration.KeySize, subject, secret);
 
@@ -67,7 +68,7 @@
             var subject =
                 PrincipalUtilities.GetSubjectX509Principal(DotNetUtilities.FromX509Certificate(issuedCertificate));
 
-            using (var client = new WebClient { BaseAddress = configuration.CertificateManagerLocation })
+            using (var client = new HttpClient { BaseAddress = new Uri(configuration.CertificateManagerLocation) })
             {
                 var request = ScepHelper.GeneratePkcs10CertificationRequest(
                     configuration.KeySize,
@@ -90,7 +91,7 @@
             X509Certificate2 signingCertificate,
             PkiConfiguration configuration)
         {
-            using (var client = new WebClient { BaseAddress = configuration.CertificateManagerLocation })
+            using (var client = new HttpClient { BaseAddress = new Uri(configuration.CertificateManagerLocation) })
             {
                 var certificateAuthorityChain =
                     ScepHelper.GetCertificateAuthorityFromServer(client, configuration.ScepCaIdent);
@@ -117,7 +118,7 @@
         /// <returns>the certificate chain.</returns>
         public X509Certificate2Collection GetCaCertificateChain(PkiConfiguration configuration)
         {
-            using (var client = new WebClient { BaseAddress = configuration.CertificateManagerLocation })
+            using (var client = new HttpClient { BaseAddress = new Uri(configuration.CertificateManagerLocation) })
             {
                 return ScepHelper.GetCertificateAuthorityFromServer(client, configuration.ScepCaIdent);
             }
@@ -130,7 +131,7 @@
         /// <returns>Returns certificate authority.</returns>
         public string GetCaCertificateThumbprint(string certificateManagerLocation)
         {
-            using (var client = new WebClient { BaseAddress = certificateManagerLocation })
+            using (var client = new HttpClient { BaseAddress = new Uri(certificateManagerLocation) })
             {
                 var certificateAuthorityChain = ScepHelper.GetCertificateAuthorityFromServer(client);
                 if (certificateAuthorityChain == null)
@@ -154,8 +155,8 @@
             }
         }
 
-        private static CertificateActionResult Enroll(
-            WebClient client,
+        private static CertificateActionResult Enroll(            
+            HttpClient client,
             X509Certificate2 signingCertificate,
             PkiConfiguration configuration,
             string request)

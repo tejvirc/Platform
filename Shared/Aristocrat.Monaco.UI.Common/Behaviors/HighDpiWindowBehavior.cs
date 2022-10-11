@@ -5,13 +5,13 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Forms;
-    using System.Windows.Interactivity;
     using System.Windows.Interop;
     using System.Windows.Media;
     using Application.Contracts;
     using Common;
     using Kernel;
     using log4net;
+    using Microsoft.Xaml.Behaviors;
     using Monaco.Common;
     using DataGrid = System.Windows.Controls.DataGrid;
     using DpiChangedEventArgs = System.Windows.DpiChangedEventArgs;
@@ -26,7 +26,6 @@
     ///         consistent, no matter what the System DPI scaling is set to.
     ///     </remarks>
     /// </summary>
-    /// <seealso cref="Behavior" />
     public class HighDpiWindowBehavior : Behavior<Window>
     {
         private const int TargetResolutionWidth = ApplicationConstants.TargetResolutionWidth;

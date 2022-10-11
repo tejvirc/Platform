@@ -17,9 +17,9 @@
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Converters -->
-    <converters:StringFormatConverter x:Key="UneditedStringConverter" StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusUnedited}}"/>
-    <converters:StringFormatConverter x:Key="EditedStringConverter" StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusEdited}}"/>
-    <converters:StringFormatConverter x:Key="ConflictedStringConverter" StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusConflicted}}"/>
+    <converters:StringFormatConverter x:Key="UneditedStringConverter" StringFormat="{lex:Loc LiveSettingStatusUnedited}"/>
+    <converters:StringFormatConverter x:Key="EditedStringConverter" StringFormat="{lex:Loc LiveSettingStatusEdited}"/>
+    <converters:StringFormatConverter x:Key="ConflictedStringConverter" StringFormat="{lex:Loc LiveSettingStatusConflicted}"/>
 
     <!-- Styles the little triangle that decorates live settings -->
     <SolidColorBrush x:Key="UneditedColor" Color="#4000bfff"></SolidColorBrush>

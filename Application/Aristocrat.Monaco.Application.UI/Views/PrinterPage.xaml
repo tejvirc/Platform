@@ -7,6 +7,8 @@
                                xmlns:printer="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                mc:Ignorable="d" 
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type printer:PrinterViewModel}}">
@@ -70,13 +72,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc ManufacturerLabel}" />
                     <TextBlock Grid.Row="0" Grid.Column="1" Foreground="{Binding ManufacturerForeground}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ManufacturerText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding ManufacturerText, Mode=OneWay}"/>
@@ -84,13 +86,13 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc ModelLabel}" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Foreground="{Binding ModelForeground}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ModelText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding ModelText, Mode=OneWay}"/>
@@ -98,13 +100,13 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc ProtocolLabel}" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{Binding ProtocolForeground}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ProtocolText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding ProtocolText, Mode=OneWay}"/>
@@ -112,7 +114,7 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
+                    <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Port}"
                                    Visibility="{Binding PortVisible, Converter={StaticResource BoolToVisConverter}}"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Foreground="{Binding PortForeground}" 
                                        Visibility="{Binding PortVisible, Converter={StaticResource BoolToVisConverter}}">
@@ -120,7 +122,7 @@
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding PortText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding PortText, Mode=OneWay}"/>
@@ -128,13 +130,13 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}" />
+                    <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc SerialNumberLabel}" />
                     <TextBlock Grid.Row="4" Grid.Column="1" Foreground="{Binding SerialNumberForeground}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding SerialNumberText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding SerialNumberText, Mode=OneWay}"/>
@@ -142,13 +144,13 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}" />
+                    <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc FirmwareVersionLabel}" />
                     <TextBlock Grid.Row="5" Grid.Column="1" Foreground="{Binding FirmwareVersionForeground}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding FirmwareVersionText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding FirmwareVersionText, Mode=OneWay}"/>
@@ -156,13 +158,13 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}" />
+                    <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc FirmwareRevisionLabel}" />
                     <TextBlock Grid.Row="6" Grid.Column="1" Foreground="{Binding FirmwareRevisionForeground}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding FirmwareRevisionText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding FirmwareRevisionText, Mode=OneWay}"/>
@@ -170,13 +172,13 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCRCLabel}}"/>
+                    <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc FirmwareCRCLabel}"/>
                     <TextBlock Grid.Row="7" Grid.Column="1" Foreground="{Binding FirmwareCrcForeground}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding FirmwareCrcText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text" Value="{Binding FirmwareCrcText, Mode=OneWay}"/>
@@ -184,7 +186,7 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ActivationTimeLabel}}" 
+                    <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc ActivationTimeLabel}" 
                            Visibility="{Binding ActivationVisible, Converter={StaticResource BoolToVisConverter}}"/>
                     <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding ActivationTime}"
                                        Foreground="{Binding ActivationForeground}"
@@ -207,10 +209,10 @@
                         <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}" />
+                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc StateLabel}" />
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StateText}" Foreground="{Binding StateForeground}" />
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc SelfTestLabel}" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelfTestText}" Foreground="{Binding SelfTestForeground}" />
 
                     <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="60" VerticalAlignment="Top">
@@ -220,7 +222,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"  />
+                        <Label Grid.Column="0" Content="{lex:Loc StatusLabel}"  />
                         <TextBlock Grid.Column="1" Grid.RowSpan="6" Name="Status" Text="{Binding StatusText}" 
                                    Foreground="{Binding StatusForeground}" />
                     </Grid>
@@ -237,7 +239,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column ="0" Margin="0 5 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLanguage}}"/>
+                            <Label Grid.Row="0" Grid.Column ="0" Margin="0 5 0 0" Content="{lex:Loc PrintLanguage}"/>
                             <CheckBox Name="PrintLanguageOverrideCheckbox" Grid.Row="0" Grid.Column ="1" Margin="27 5 0 5" Width="46"
                                       IsChecked="{Binding PrintLanguageOverrideIsChecked, Mode=TwoWay}"
                                       IsEnabled="{Binding PrintLanguageOverrideIsEnabled}"
@@ -256,21 +258,21 @@
 
         <Border Grid.Row="1" Margin="0 15 0 0" VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.FormFeedButton}}" 
+                <Button Content="{lex:Loc FormFeedButton}" 
                         Command="{Binding FormFeedButtonCommand}"
                         IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintDiagnosticButton}}" 
+                <Button Content="{lex:Loc PrintDiagnosticButton}" 
                         Command="{Binding PrintDiagnosticButtonCommand}"
                         IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}" 
+                <Button Content="{lex:Loc SelfTestLabel}" 
                         Command="{Binding SelfTestButtonCommand}"
                         Visibility="{Binding IsSelfTestVisible, Converter={StaticResource BoolToVisConverter}}" 
                         IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}" 
+                <Button Content="{lex:Loc SelfTestClearNVM}" 
                         Command="{Binding SelfTestClearButtonCommand}"
                         Visibility="{Binding IsSelfTestVisible, Converter={StaticResource BoolToVisConverter}}" 
                         IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintTestTicket}}" 
+                <Button Content="{lex:Loc PrintTestTicket}" 
                         Command="{Binding PrintTestTicketCommand}">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">

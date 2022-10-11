@@ -32,7 +32,7 @@
         private const double MarginSide = 4;
         private const double MarginTop = 6;
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _isOpen;
         private bool _disposed;
@@ -447,7 +447,7 @@
                                 IsOpen = false;
                                 _eventBus.Publish(new InfoBarCloseEvent(e.DisplayTarget));
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {

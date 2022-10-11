@@ -11,16 +11,17 @@
     xmlns:common="http://monaco.aristocrat.com/common"
     xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
     xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
-    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
   <!-- Apply MahApps.Metro styles to all controls -->
   <ResourceDictionary.MergedDictionaries>
     <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
     <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
     <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+     <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
     <!-- Accent and AppTheme setting -->
-    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+    <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+     <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
 
     <ResourceDictionary Source="../../Skins/Styles.xaml" />
 
@@ -154,51 +155,51 @@
                         common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
                         Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
                         Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=0}">
-                  <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                      <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="0"  />
-                    </i:EventTrigger>
-                  </i:Interaction.Triggers>
+                  <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseLeftButtonDown" >
+                      <b:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="0"  />
+                    </b:EventTrigger>
+                  </b:Interaction.Triggers>
                 </commonControls:ImageTransparentPassThrough>
                 <commonControls:ImageTransparentPassThrough x:Name="GameTab2"
                         common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
                         Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
                         Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=1}">
-                  <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                      <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="1"  />
-                    </i:EventTrigger>
-                  </i:Interaction.Triggers>
+                  <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseLeftButtonDown" >
+                      <b:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="1"  />
+                    </b:EventTrigger>
+                  </b:Interaction.Triggers>
                 </commonControls:ImageTransparentPassThrough>
                 <commonControls:ImageTransparentPassThrough x:Name="GameTab3"
                         common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
                         Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
                         Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=2}" >
-                  <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                      <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="2"  />
-                    </i:EventTrigger>
-                  </i:Interaction.Triggers>
+                  <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseLeftButtonDown" >
+                      <b:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="2"  />
+                    </b:EventTrigger>
+                  </b:Interaction.Triggers>
                 </commonControls:ImageTransparentPassThrough>
                 <commonControls:ImageTransparentPassThrough x:Name="GameTab4"
                         common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
                         Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
                         Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=3}" >
-                  <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                      <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="3"  />
-                    </i:EventTrigger>
-                  </i:Interaction.Triggers>
+                  <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseLeftButtonDown" >
+                      <b:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="3"  />
+                    </b:EventTrigger>
+                  </b:Interaction.Triggers>
                 </commonControls:ImageTransparentPassThrough>
                 <commonControls:ImageTransparentPassThrough x:Name="GameTab5"
                         common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
                         Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
                         Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=4}" >
-                  <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                      <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="4"  />
-                    </i:EventTrigger>
-                  </i:Interaction.Triggers>
+                  <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseLeftButtonDown" >
+                      <b:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="4"  />
+                    </b:EventTrigger>
+                  </b:Interaction.Triggers>
                 </commonControls:ImageTransparentPassThrough>
                 <Grid Panel.ZIndex="10" Margin="60,40,60,0">
                   <Grid.ColumnDefinitions>

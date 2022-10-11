@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                Height="400" Width="400"
@@ -29,7 +31,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"/>
+        <Label Content="{lex:Loc StatusLabel}"/>
         <TextBlock Grid.Column="1" Grid.Row="0" Margin="10 0 0 0" VerticalAlignment="Center"
                    Text="{Binding Status}"/>
 

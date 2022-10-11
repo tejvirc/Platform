@@ -12,6 +12,7 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Aristocrat.G2S.Client;
+    using Aristocrat.Monaco.Common.Communications;
     using Aristocrat.G2S.Client.Configuration;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
@@ -158,6 +159,8 @@
 
         private static void ConfigureCommunications(this Container @this)
         {
+            @this.Register<IWcfApplicationRuntime, AspNetCoreWebRuntime>(Lifestyle.Transient);
+
             var egm = EgmFactory.Create(
                 e =>
                 {
@@ -166,7 +169,7 @@
                     e.WithEgmId(
                         ServiceManager.GetInstance().GetService<IPropertiesManager>()
                             .GetValue<string>(Constants.EgmId, null));
-                });
+                }, ServiceManager.GetInstance().GetService<IWcfApplicationRuntime>());
 
             @this.Register<IDeviceFactory, DeviceFactory>(Lifestyle.Singleton);
             @this.Register<IGatComponentFactory, GatComponentFactory>(Lifestyle.Singleton);
@@ -258,7 +261,8 @@
 
             // Adding only Ssl3 suddenly stopped working with a Win10 update, so we're going to forcibly set all required types
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls | SecurityProtocolType.Tls11 |
-                                                    SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+                                                    SecurityProtocolType.Tls12;
+            //| SecurityProtocolType.Ssl3;  //PlanA: This protocol has been deprecated: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5364
 
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
@@ -341,7 +345,7 @@
                     Constants.ResourcePath);
 
                 bindingInfo.Address = clientAddress.Uri;
-                bindingInfo.Certificate = certificate;
+                bindingInfo.Certificate = certificate;      
                 bindingInfo.Validator = new ClientCertificateValidator(certificateService);
 
                 Logger.Debug($"Created endpoint at {clientAddress.Uri} using certificate {certificate.Thumbprint}");

@@ -161,7 +161,9 @@
         }
 
         /// <inheritdoc />
+#pragma warning disable SYSLIB0032 // PLANA: Based on the Microsoft docs: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0032
         [HandleProcessCorruptedStateExceptions]
+#pragma warning restore SYSLIB0032
         public void Draw(int displayIndex, byte[] imageData)
         {
             try

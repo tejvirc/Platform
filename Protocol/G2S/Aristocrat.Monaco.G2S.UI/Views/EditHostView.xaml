@@ -6,6 +6,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                Width="600"
@@ -31,7 +33,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"/>
+               Content="{lex:Loc CommsInfo_HostId}"/>
 
         <TextBox Grid.Row="1"
                  IsReadOnly="False"
@@ -46,7 +48,7 @@
 
         <Label Grid.Row="2" 
                Margin="0 15 0 0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"/>
+               Content="{lex:Loc CommsInfo_Address}"/>
 
         <TextBox Grid.Row="3" 
                  TextWrapping="Wrap" 
@@ -62,14 +64,14 @@
                   HorizontalAlignment="Left" 
                   Margin="0 15 0 0"
                   IsChecked="{Binding Registered}" 
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"/>
+                  Content="{lex:Loc HostConfigurationRegisteredHeader}"/>
 
         <CheckBox Grid.Row="5"
                   HorizontalAlignment="Left"
                   Margin="0 15 0 0"
                   IsChecked="{Binding RequiredForPlay}"
                   Visibility="{Binding IsInWizard, Converter={StaticResource BoolToCollapsedConverter}}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"/>
+                  Content="{lex:Loc RequiredForPlay}"/>
 
     </Grid>
 </operatorMenu:OperatorMenuPage>

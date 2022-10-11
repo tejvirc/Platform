@@ -8,6 +8,7 @@
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                FocusManager.FocusedElement="{Binding ElementName=AcceptButton}"
@@ -25,14 +26,14 @@
     </UserControl.Resources>
 
     <Grid>
-        <i:Interaction.Triggers>
+        <b:Interaction.Triggers>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}" Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
-        </i:Interaction.Triggers>
+        </b:Interaction.Triggers>
 
         <TextBlock 
 	               AutomationProperties.AutomationId="LegalCopyrightPage_TextBlock_TermsAndConditionsText"

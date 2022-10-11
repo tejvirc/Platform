@@ -7,6 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:ServerConfigurationPageViewModel}">
@@ -34,7 +36,7 @@
 
         <Label Grid.Column="0" Grid.Row="0" 
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerIpAddressLabel}}" />
+               Content="{lex:Loc CentralServerIpAddressLabel}" />
         <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
                  Margin="20 0 0 0" 
                  HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -43,7 +45,7 @@
         <Label Grid.Column="0" Grid.Row="1" 
                Margin="0 20 0 0" 
                VerticalAlignment="Center" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerTcpPortNumberLabel}}" />
+               Content="{lex:Loc CentralServerTcpPortNumberLabel}" />
         <helpers:AlphaNumericTextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
                                      Margin="20 20 0 0" 
                                      HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -54,7 +56,7 @@
         <Label Grid.Column="0" Grid.Row="2" 
                Margin="0 20 0 0" 
                VerticalAlignment="Center" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerEncryptionKeyLabel}}" /> 
+               Content="{lex:Loc CentralServerEncryptionKeyLabel}" /> 
         <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
                  Margin="20 20 0 0" 
                  HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -63,7 +65,7 @@
         <Label Grid.Column="0" Grid.Row="3" 
                Margin="0 20 0 0" 
                VerticalAlignment="Center" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerUdpPortNumberLabel}}" />
+               Content="{lex:Loc CentralServerUdpPortNumberLabel}" />
         <helpers:AlphaNumericTextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
                                      Margin="20 20 0 0" 
                                      HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -74,7 +76,7 @@
         <Label Grid.Column="0" Grid.Row="4" 
                Margin="0 20 0 0" 
                VerticalAlignment="Center" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManualHandicapModeLabel}}" />
+               Content="{lex:Loc ManualHandicapModeLabel}" />
         <ComboBox Grid.Column="1" Grid.Row="4" Width="200" 
                   Margin="20 20 0 0" 
                   HorizontalAlignment="Left"
@@ -85,7 +87,7 @@
                     HorizontalAlignment="Left" VerticalAlignment="Top" 
                     Orientation="Horizontal" 
                     Visibility="{Binding IsWizardPage, Converter={StaticResource BoolToCollapsedConverter}}">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+            <Button Content="{lex:Loc ApplyLabel}" 
                     IsEnabled="{Binding IsConfigChanged}" 
                     Command="{Binding ApplyServerConfigurationCommand}"/>
             <Button Margin="0 15 0 0"
@@ -95,11 +97,9 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="ApplyInfoButton" />
-                        <Binding ElementName="ApplyInfoButtonProxy" Path="Result" />
+                        <Binding Source="{lex:Loc RebootWarningMessage}"/>
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy Name="ApplyInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.RebootWarningMessage}" />
             </Button>
         </StackPanel>
     </Grid>

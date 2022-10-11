@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Mgam.UI</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
@@ -40,9 +40,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0001" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
@@ -54,7 +54,6 @@
     <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
     <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
     <ProjectReference Include="..\Aristocrat.Mgam.Client\Aristocrat.Mgam.Client.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.Mgam.Common\Aristocrat.Monaco.Mgam.Common.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Mgam\Aristocrat.Monaco.Mgam.csproj" />
   </ItemGroup>
 </Project>

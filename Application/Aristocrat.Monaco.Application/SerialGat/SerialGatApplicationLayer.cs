@@ -171,7 +171,9 @@
             var ns = new XmlSerializerNamespaces();
             ns.Add(string.Empty, string.Empty);
 
-            var serializer = new XmlSerializer(obj.GetType());
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(obj.GetType())
+                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var serializer = new XmlSerializer(obj.GetType(), theXmlRootAttribute ?? new XmlRootAttribute(obj.GetType().Name));
             serializer.Serialize(xw, obj, ns);
 
             // We use our own XML header definition to avoid the automated creation of

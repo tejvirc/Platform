@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tests.Commands
 {
     using System;
+    using Aristocrat.CryptoRng;
     using Contracts;
     using Gaming.Commands;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
-    using PRNGLib;
+    using Moq;    
 
     [TestClass]
     public class GetRandomNumberCommandHandlerTests
@@ -23,7 +23,7 @@
         public void WhenParamsAreValidExpectSuccess()
         {
             var factory = new Mock<IRandomFactory>();
-            var rng = new Mock<IPRNG>();
+            var rng = new Mock<IRandom>();
 
             factory.Setup(f => f.Create(RandomType.Gaming)).Returns(rng.Object).Verifiable();
 
@@ -39,7 +39,7 @@
             const ulong notSoRandom = 7;
 
             var factory = new Mock<IRandomFactory>();
-            var rng = new Mock<IPRNG>();
+            var rng = new Mock<IRandom>();
 
             rng.Setup(r => r.GetValue(range)).Returns(notSoRandom);
 

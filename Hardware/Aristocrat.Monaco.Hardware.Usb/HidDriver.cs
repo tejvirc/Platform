@@ -4,6 +4,7 @@
     using HidSharp;
     using log4net;
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Reflection;
     using System.Threading;
@@ -11,6 +12,7 @@
 
     /// <summary>A HID driver.</summary>
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.Usb.IHid" />
+    [SuppressMessage("Microsoft.Design", "CA2213", Justification = "_stream is disposed on Close() method")]
     public class HidDriver : IHidDriver
     {
         private const int DefaultExitTimeout = 10000; //milliseconds
@@ -105,7 +107,9 @@
                 _closing = true;
                 if (!_thread.Join(DefaultExitTimeout))
                 {
+#pragma warning disable SYSLIB0006 // Type or member is obsolete
                     _thread.Abort();
+#pragma warning restore SYSLIB0006 // Type or member is obsolete
                 } 
 
                 _thread = null;
@@ -147,7 +151,7 @@
             _thread = new Thread(ReadReports)
             {
                 Name = $"{GetType()}.ReportReader",
-                IsBackground = true
+                IsBackground = true,
             };
             _thread.Start();
             return true;

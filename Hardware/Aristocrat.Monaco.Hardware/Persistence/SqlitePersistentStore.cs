@@ -12,6 +12,7 @@
     using Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Microsoft.Data.Sqlite;
     using Newtonsoft.Json;
 
     /// <summary> A sqlite persistent store. </summary>
@@ -77,9 +78,8 @@
                 using (var connection = CreateConnection())
                 {
                     connection.Open();
-                    using (var command = new SQLiteCommand(connection))
+                    using (var command = new SqliteCommand(CreateTablesCommand, connection))
                     {
-                        command.CommandText = CreateTablesCommand;
                         command.ExecuteNonQuery();
                     }
                 }
@@ -420,10 +420,10 @@
             }
         }
 
-        private SQLiteConnection CreateConnection()
+        private SqliteConnection CreateConnection()
         {
-            var connection = new SQLiteConnection(_connection);
-            connection.SetPassword(_password);
+            var connection = new SqliteConnection(_connection);
+            //connection.SetPassword(_password);
             return connection;
         }
 

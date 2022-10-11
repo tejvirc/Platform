@@ -2,7 +2,8 @@
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <TargetFramework>net472</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Hardware.Serial.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>

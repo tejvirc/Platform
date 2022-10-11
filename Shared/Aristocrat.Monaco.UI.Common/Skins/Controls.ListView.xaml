@@ -135,7 +135,7 @@
                     </Grid>
                     <!--<ControlTemplate.Triggers>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="HeaderBorder" Property="Background" Value="{DynamicResource GrayBrush8}" />
+                            <Setter TargetName="HeaderBorder" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
                             <Setter TargetName="HeaderContent" Property="Margin" Value="1 1 0 0" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
@@ -255,10 +255,10 @@
                                         <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=Foreground}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" />
+                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Value="False">
-                                                <Setter Property="Foreground" Value="{DynamicResource GrayNormalBrush}" />
+                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray}" />
                                             </DataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
@@ -266,7 +266,7 @@
                                                     <Condition Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True" />
                                                 </MultiDataTrigger.Conditions>
                                                 <MultiDataTrigger.Setters>
-                                                    <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" />
+                                                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                                                 </MultiDataTrigger.Setters>
                                             </MultiDataTrigger>
                                         </Style.Triggers>
@@ -286,15 +286,15 @@
                             <Setter TargetName="contentPresenter" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentColorBrush}" />
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource HighlightBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Highlight}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentColorBrush3}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent3}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource GrayNormalBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -302,9 +302,9 @@
                                 <Condition Property="IsSelected" Value="True" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
-                                <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" />
-                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource GrayBrush7}" />
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource GrayBrush7}" />
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray7}" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray7}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         <MultiTrigger>
@@ -312,9 +312,9 @@
                                 <Condition Property="IsSelected" Value="true" />
                                 <Condition Property="Selector.IsSelectionActive" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" />
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentColorBrush2}" />
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource HighlightBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Highlight}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -325,7 +325,7 @@
 
     <!--  Gives the impression that items cannot be selected on the ListView  -->
     <Style x:Key="NonSelectableListViewContainerStyle" TargetType="{x:Type ListViewItem}">
-        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray1}" />
         <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="IsTabStop" Value="False" />
@@ -343,7 +343,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentColorBrush3}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

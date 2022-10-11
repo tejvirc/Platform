@@ -6,6 +6,8 @@
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
              xmlns:helpers="http://monaco.aristocrat.com/common"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
@@ -70,7 +72,7 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   EnableRowVirtualization="True">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}" HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                <DataGridTemplateColumn Header="{lex:Loc Enable}" HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
                             <CheckBox HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="5"
@@ -80,7 +82,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}">
+                <DataGridTemplateColumn Header="{lex:Loc Level}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
                             <Label Content="{Binding Name}" />
@@ -88,7 +90,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Threshold}}">
+                <DataGridTemplateColumn Header="{lex:Loc Threshold}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
                             <helpers:CurrencyTextBox Margin="20 0 0 0" MinWidth="200"
@@ -100,7 +102,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}" IsReadOnly="False">
+                <DataGridTemplateColumn Header="{lex:Loc Color}" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
                             <ComboBox FontSize="14" IsEnabled="{Binding Enabled}"
@@ -111,7 +113,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Alert}}" IsReadOnly="False">
+                <DataGridTemplateColumn Header="{lex:Loc Alert}" IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
                             <ComboBox FontSize="14" IsEnabled="{Binding Enabled}"
@@ -125,11 +127,11 @@
         </DataGrid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 15 0 0">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCashInMeter}}"
+            <Label Content="{lex:Loc BarkeeperCashInMeter}"
                    Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}" />
             <Label Content="{Binding CashInSessionMeter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                    Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}" />
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCashInDisabled}}"
+            <Label Content="{lex:Loc BarkeeperCashInDisabled}"
                    Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}" />
         </StackPanel>
     </Grid>

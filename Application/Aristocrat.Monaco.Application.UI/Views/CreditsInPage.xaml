@@ -7,6 +7,8 @@
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               mc:Ignorable="d" 
                               d:DesignHeight="300" d:DesignWidth="300"
@@ -31,7 +33,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaxCreditsInLabel}}" Margin="0,0,10,0"/>
+        <Label Grid.Column="0" Content="{lex:Loc MaxCreditsInLabel}" Margin="0,0,10,0"/>
         <common:CurrencyTextBox Grid.Column="1"
                                 Width="180" 
                                 IsReadOnly="False" 
@@ -39,11 +41,11 @@
                                 PreventNegatives="True"
                                 Number="{Binding MaxCreditsIn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
         <Button Grid.Column="2" Margin="10,0,0,0" 
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Clear}}" 
+                Content="{lex:Loc Clear}" 
                 MinWidth="100"
                 IsEnabled="{Binding InputEnabled}" Command="{Binding ClearCommand}" />
         <Button Grid.Column="3" Margin="10 0 0 0" 
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+                Content="{lex:Loc ApplyLabel}" 
                 MinWidth="100"
                 IsEnabled="{Binding InputEnabled}" Command="{Binding ApplyCommand}" />
     </Grid>

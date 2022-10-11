@@ -4,10 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:common="http://monaco.aristocrat.com/common"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" x:Name="TouchTestWindow" Height="720" Width="1024" >
     <common:BaseWindow.Resources>
         <ResourceDictionary>
@@ -16,15 +19,15 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
-    </i:Interaction.Behaviors>
+    </b:Interaction.Behaviors>
     <Canvas Name="TouchCanvas" Background="Transparent">
         <Label Canvas.Top="50" Canvas.Left="50"
                Width="{Binding Path=ActualWidth, ElementName=TouchCanvas}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DrawOnTouchableArea}}" />
+               Content="{lex:Loc DrawOnTouchableArea}" />
         <Button Canvas.Bottom="50" Canvas.Left="50" Name="ExitButton" Click="OnExitButtonPressed"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Margin="10" />
+                Content="{lex:Loc ExitText}" Margin="10" />
     </Canvas>
 </common:BaseWindow>
 

@@ -449,7 +449,7 @@
 
         private static bool ValidateFileHash(ZipFile zipFile, ZipEntry isoFile, Image manifest)
         {
-            using (var sha = new SHA1CryptoServiceProvider())
+            using (var sha = SHA1.Create())
             {
                 var isoStream = zipFile.GetInputStream(isoFile);
 

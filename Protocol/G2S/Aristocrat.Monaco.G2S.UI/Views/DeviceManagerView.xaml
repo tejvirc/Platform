@@ -5,6 +5,8 @@
                                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                 xmlns:vm="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                 xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                 xmlns:loc="http://monaco.aristocrat.com/localization"
                                 xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                 xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
@@ -38,23 +40,23 @@
                   SelectedItem="{Binding SelectedDevice}"
                   ScrollViewer.CanContentScroll="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerDeviceName}}"
+                <DataGridTextColumn Header="{lex:Loc DeviceManagerDeviceName}"
                                     IsReadOnly="True"
                                     Binding="{Binding DeviceClass}"
                                     Width="240"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}"
+                <DataGridTextColumn Header="{lex:Loc DeviceId}"
                                     IsReadOnly="True"
                                     Binding="{Binding Id}"
                                     Width="120" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerOwner}}"
+                <DataGridTextColumn Header="{lex:Loc DeviceManagerOwner}"
                                     IsReadOnly="False"
                                     Binding="{Binding Owner}"
                                     Width="120"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerActive}}"
+                <DataGridTextColumn Header="{lex:Loc DeviceManagerActive}"
                                     IsReadOnly="False"
                                     Binding="{Binding Active}"
                                     Width="120" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEnabled}}"
+                <DataGridTextColumn Header="{lex:Loc DeviceManagerEnabled}"
                                     IsReadOnly="True"
                                     Binding="{Binding Enabled}"
                                     Width="120" />
@@ -62,14 +64,14 @@
         </DataGrid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,20,0,0">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeButton}}" Width="150" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding BulkChangesCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeToolTip}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}" Width="150" HorizontalAlignment="Left" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding EditCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveButton}}" Width="150" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding SaveChangesCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveToolTip}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerCancelButton}}" Width="150" Margin="0" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding CancelChangesCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerCancelToolTip}}"/>
+            <Button Content="{lex:Loc DeviceManagerMassChangeButton}" Width="150" IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding BulkChangesCommand}" ToolTip="{lex:Loc DeviceManagerMassChangeToolTip}"/>
+            <Button Content="{lex:Loc EditSelected}" Width="150" HorizontalAlignment="Left" IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding EditCommand}" ToolTip="{lex:Loc EditSelected}"/>
+            <Button Content="{lex:Loc DeviceManagerSaveButton}" Width="150" IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding SaveChangesCommand}" ToolTip="{lex:Loc DeviceManagerSaveToolTip}"/>
+            <Button Content="{lex:Loc DeviceManagerCancelButton}" Width="150" Margin="0" IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding CancelChangesCommand}" ToolTip="{lex:Loc DeviceManagerCancelToolTip}"/>
         </StackPanel>
     </Grid>
 

@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Monaco.Gaming.Contracts</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
@@ -43,7 +44,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
-    <ProjectReference Include="..\..\Shared\PRNG\PRNGLib\PRNGLib.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Barkeeper\BarkeeperRewardLevels.xsd">
@@ -65,12 +65,14 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0003" />
+    <PackageReference Include="Aristocrat.CryptoRng" Version="1.1.0" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0001" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="Mono.Addins" Version="1.3.14" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.3.14" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Diagnostics\" />

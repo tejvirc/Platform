@@ -374,6 +374,11 @@
             }
 
             _disposed = true;
+            // Because of "CA2213: Disposable fields should be disposed" error, we added dispose call
+            if (_printerCancellationTokenSource != null)
+            {
+                _printerCancellationTokenSource.Dispose();
+            }
 
             base.Dispose(disposing);
         }

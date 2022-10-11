@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10 10">
@@ -23,19 +25,19 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastPoll}}" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc LastPoll}" />
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding TotalTimeTakenByLastPoll}" />
-        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalResponseTime20ms}}" />
+        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc TotalResponseTime20ms}" />
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding TotalPollsExceedingReplyTimeThreshold}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGPResponseTime20ms}}" />
+        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc TotalGPResponseTime20ms}" />
         <Label Grid.Row="3" Grid.Column="1" Content="{Binding TotalGpExceedingReplyTimeThreshold}" />
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalLPResponseTime20ms}}" />
+        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc TotalLPResponseTime20ms}" />
         <Label Grid.Row="4" Grid.Column="1" Content="{Binding TotalLpExceedingReplyTimeThreshold}" />
-        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaximumTimeTakenByLP}}" />
+        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc MaximumTimeTakenByLP}" />
         <Label Grid.Row="5" Grid.Column="1" Content="{Binding MaxResponseTimeTakenByLongPoll}" />
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaximumTimeTakenByGP}}" />
+        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc MaximumTimeTakenByGP}" />
         <Label Grid.Row="6" Grid.Column="1" Content="{Binding MaxResponseTimeTakenByGeneralPoll}" />
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalTimeTakenToPopulateDiagnostics}}" />
+        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc TotalTimeTakenToPopulateDiagnostics}" />
         <Label Grid.Row="7" Grid.Column="1" Content="{Binding TotalTimeTakenToPopulateDiagnosticsAsString}" />
     </Grid>
 </UserControl>

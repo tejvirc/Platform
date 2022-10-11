@@ -6,6 +6,8 @@
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               Background="Transparent"
                               mc:Ignorable="d" 
@@ -53,25 +55,25 @@
                 
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}" />
+            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc ManufacturerLabel}" />
             <TextBlock Grid.Row="0" Grid.Column="1" Name="Manufacturer" Text="{Binding ManufacturerText}"/>
 
-            <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}" />
+            <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc ModelLabel}" />
             <TextBlock Grid.Row="1" Grid.Column="1" Name="Model" Text="{Binding ModelText}"/>
 
-            <Label Grid.Row="0" Grid.Column="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}"  />
+            <Label Grid.Row="0" Grid.Column="3" Content="{lex:Loc StateLabel}"  />
             <TextBlock Grid.Row="0" Grid.Column="4" Name="State" Text="{Binding StateText}" Foreground="{Binding StateForegroundBrush}"/>
 
-            <Label Grid.Row="1" Grid.Column="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"  />
+            <Label Grid.Row="1" Grid.Column="3" Content="{lex:Loc StatusLabel}"  />
             <TextBlock Grid.Row="1" Grid.Column="4" Name="Status" Text="{Binding StatusText}" Foreground="{Binding StatusForegroundBrush}"/>
 
-            <Label Grid.Row="2" Grid.Column="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.InputsLabel}}"  />
+            <Label Grid.Row="2" Grid.Column="3" Content="{lex:Loc InputsLabel}"  />
             <TextBlock Grid.Row="2" Grid.Column="4" Name="Inputs" Text="{Binding InputsText}"/>
 
-            <Label Grid.Row="3" Grid.Column="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.OutputsLabel}}"/>
+            <Label Grid.Row="3" Grid.Column="3" Content="{lex:Loc OutputsLabel}"/>
             <TextBlock Grid.Row="3" Grid.Column="4" Name="Outputs" Text="{Binding OutputsText}" />
 
-            <Label Grid.Row="4" Grid.Column="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.IntrusionText}}"/>
+            <Label Grid.Row="4" Grid.Column="3" Content="{lex:Loc IntrusionText}"/>
             <TextBlock Grid.Row="4" Grid.Column="4" Name="Intrusion" Text="{Binding IntrusionText}" />
 
         </Grid>

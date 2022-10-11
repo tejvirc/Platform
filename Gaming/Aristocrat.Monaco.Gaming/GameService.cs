@@ -183,7 +183,7 @@
                     string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UninstallReason))));
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {

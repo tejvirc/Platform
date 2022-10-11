@@ -7,7 +7,10 @@
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                               mc:Ignorable="d"
                               d:DataContext="{d:DesignInstance viewModels:GeneralSettingsPageViewModel}"
                               FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
@@ -30,11 +33,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="VisibilityChanged">
-            <i:InvokeCommandAction Command="{Binding VisibilityChangedCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="VisibilityChanged">
+            <b:InvokeCommandAction Command="{Binding VisibilityChangedCommand}"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -57,18 +60,18 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PropertyNameLabel}}" />
+                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc PropertyNameLabel}" />
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding PropertyName }" />
-                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddressLine1Label}}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc AddressLine1Label}" />
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding AddressLine1 }" />
-                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddressLine2Label}}" />
+                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc AddressLine2Label}" />
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding AddressLine2 }" />
 
-                <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LicenseLabel}}" />
+                <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc LicenseLabel}" />
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding LicenseNumber }" />
-                <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TerminalNumber}}" />
+                <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc TerminalNumber}" />
                 <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TerminalNumber }" />
-                <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}" />
+                <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc SerialNumberLabel}" />
                 <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SerialNumber }" />
             </Grid>
 
@@ -93,28 +96,28 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionLabel}}"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc JurisdictionLabel}"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Jurisdiction}" />
-                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.WindowsVersionLabel}}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc WindowsVersionLabel}" />
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding WindowsVersion}" />
-                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.OSImageVersionLabel}}" />
+                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc OSImageVersionLabel}" />
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding OsImageVersion}" />
-                <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlatformVersionLabel}}" />
+                <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc PlatformVersionLabel}" />
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Version}" />
 
-                <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneLabel}}" />
+                <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc TimeZoneLabel}" />
                 <TextBlock Grid.Row="5" Grid.Column="1"  Text="{Binding TimeZone , UpdateSourceTrigger=PropertyChanged}" />
-                <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneOffsetLabel}}" />
+                <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc TimeZoneOffsetLabel}" />
                 <TextBlock Grid.Row="6" Grid.Column="1"  Text="{Binding TimeZoneOffset , UpdateSourceTrigger=PropertyChanged}" />
 
-                <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.IPAddressesLabel}}" />
+                <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc IPAddressesLabel}" />
                 <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding IPAddress}" />
-                <Label Grid.Row="9" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}"/>
+                <Label Grid.Row="9" Grid.Column="0" Content="{lex:Loc MacAddressLabel}"/>
                 <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding MacAddress}" />
 
-                <Label Grid.Row="11" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardBootTimeLabel}}" />
+                <Label Grid.Row="11" Grid.Column="0" Content="{lex:Loc HardBootTimeLabel}" />
                 <TextBlock Grid.Row="11" Grid.Column="1" Text="{Binding HardBootTime , UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Grid.Row="12" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoftBootTimeLabel}}" />
+                <Label Grid.Row="12" Grid.Column="0" Content="{lex:Loc SoftBootTimeLabel}" />
                 <TextBlock Grid.Row="12" Grid.Column="1" Text="{Binding SoftBootTime , UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </Grid>

@@ -7,6 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                common:DialogParticipation.Register="{Binding}"
@@ -67,10 +69,10 @@
                 <DataGrid Grid.Row="0" Grid.Column="0" ItemsSource="{Binding MetersLeftColumn}"
                           Margin="0 -20 0 0" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                        <DataGridTextColumn Header="{lex:Loc Meter}" 
                                             Width="360" 
                                             Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                        <DataGridTextColumn Header="{lex:Loc Value}" 
                                             Width="200" 
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -81,10 +83,10 @@
                 <DataGrid DockPanel.Dock="Top" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding MetersRightColumn}"
                           Margin="120 -20 0 0" Visibility="{Binding ShowRightColumn, Converter={StaticResource BoolToVisHiddenConverter}}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                        <DataGridTextColumn Header="{lex:Loc Meter}" 
                                             Width="360" 
                                             Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                        <DataGridTextColumn Header="{lex:Loc Value}" 
                                             Width="200" 
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -98,7 +100,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding PreviousGameCommand}"
                     IsEnabled="{Binding PreviousGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
+                    Content="{lex:Loc PrevButton}"/>
             <ComboBox Margin="0 0 10 0" VerticalAlignment="Center" Width="500" MaxWidth="500" SelectedValuePath="Id" ScrollViewer.CanContentScroll="True"
                       ItemsSource="{Binding Games}" 
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
@@ -134,7 +136,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding NextGameCommand}"
                     IsEnabled="{Binding NextGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc NextButtonText}"/>
             <!--<Button Margin="0 0 10 0" HorizontalAlignment="Center" 
                     Command="{Binding PrintSelectedButtonCommand}" 
                     IsEnabled="{Binding PrintSelectedButtonEnabled}"
@@ -143,7 +145,7 @@
                     Command="{Binding DisplayCategoriesCommand}" 
                     IsEnabled="{Binding DisplayCategoriesButtonEnabled}"
                     Visibility="{Binding WagerCategoryMetersVisible, Converter={StaticResource BoolToVisConverter}}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryTitle}}"/>
+                    Content="{lex:Loc WagerCategoryTitle}"/>
         </StackPanel>
         <StackPanel Grid.Row="2"  
                     Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource BoolToVisConverter}}"
@@ -151,7 +153,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
+                    Content="{lex:Loc PrevButton}"/>
             <ComboBox Margin="0 0 10 0" 
                       VerticalAlignment="Center" 
                       SelectedValuePath="Id" 
@@ -164,7 +166,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

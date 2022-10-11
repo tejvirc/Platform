@@ -125,7 +125,9 @@
                     while (inputStream.Position < inputStream.Length)
                     {
                         //deserialize each object in the file
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
                         list.Add((PerformanceCounters)formatter.Deserialize(inputStream));
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
                     }
                 }
                 catch (Exception)
@@ -198,7 +200,9 @@
                 {
                     try
                     {
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
                         formatter.Serialize(outputStream, GetAllCountersData());
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
                     }
                     catch (EndOfStreamException e)
                     {

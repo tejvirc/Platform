@@ -19,7 +19,7 @@
     [CLSCompliant(false)]
     public class DeviceConfigViewModel : BaseViewModel
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
         private readonly List<string> _allPorts;

@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Sas.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:controls="http://monaco.aristocrat.com/common"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -44,7 +46,7 @@
 
         <!-- Aft Section -->
         <GroupBox x:Name="AftGroupBox" 
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.AFTTitleLabel}}" 
+                  Header="{lex:Loc AFTTitleLabel}" 
                   IsEnabled="{Binding InputEnabled}"
                   Visibility="{Binding SasProtocolConfiguration.IsFundTransferHandled, Converter={StaticResource BoolToVisible}}">
             <Grid x:Name="AftGrid">
@@ -66,7 +68,7 @@
                        Grid.Row="0" 
                        Grid.Column="0" 
                        Margin="0 0 0 5"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftInLabel}}" />
+                       Content="{lex:Loc AftInLabel}" />
                 <CheckBox x:Name="AftInCheckBox" 
                           Grid.Row="0" 
                           Grid.Column="1" 
@@ -78,7 +80,7 @@
                 <Label x:Name="AftOutLabel" 
                        Grid.Row="1" 
                        Grid.Column="0" 
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftOutLabel}}" />
+                       Content="{lex:Loc AftOutLabel}" />
                 <CheckBox x:Name="AftOutCheckBox" 
                           Grid.Row="1" 
                           Grid.Column="1"
@@ -89,7 +91,7 @@
                 <Label x:Name="AftPartialTransfersAllowedLabel" 
                        Grid.Row="2" 
                        Grid.Column="0" 
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftPartialTransfersAllowedLabel}}" />
+                       Content="{lex:Loc AftPartialTransfersAllowedLabel}" />
                 <CheckBox x:Name="AftPartialTransfersAllowedCheckbox" 
                           Grid.Row="2" 
                           Grid.Column="1" 
@@ -100,7 +102,7 @@
                 <Label x:Name="AftBonusingEnabledLabel" 
                        Grid.Row="3" 
                        Grid.Column="0" 
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}" />
+                       Content="{lex:Loc AftBonusingEnabledLabel}" />
                 <CheckBox x:Name="AftBonusingEnabledCheckBox" 
                           Grid.Row="3" 
                           Grid.Column="1" 
@@ -111,7 +113,7 @@
                 <Label x:Name="AftWinAmountToHostTransfersEnabledLabel" 
                        Grid.Row="4" 
                        Grid.Column="0" 
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftWinAmountToHostTransfersEnabledLabel}}" />
+                       Content="{lex:Loc AftWinAmountToHostTransfersEnabledLabel}" />
                 <CheckBox x:Name="AftWinAmountToHostTransfersEnabledCheckBox" 
                           Grid.Row="4" 
                           Grid.Column="1" 
@@ -123,7 +125,7 @@
                        Grid.Row="5" 
                        Grid.Column="0" 
                        Margin="0 5 0 0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftTransferLimitLabel}}" />
+                       Content="{lex:Loc AftTransferLimitLabel}" />
                 <StackPanel x:Name="AftTransferLimitStackPanel" 
                             Grid.Row="5" 
                             Grid.Column="1" 
@@ -167,7 +169,7 @@
                                    Grid.Row="0" 
                                    Grid.Column="1" 
                                    Margin="20 14 0 0" 
-                                   Text="{lex:BLoc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                                   Text="{lex:BLoc NoLimit}"
                                    Visibility="{
                                     Binding AftTransferLimitEnabled, 
                                     Converter={StaticResource BoolToHiddenConverter}, 
@@ -179,7 +181,7 @@
 
         <!-- Miscellaneous Section -->
         <GroupBox x:Name="MiscellaneousGroupBox" 
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.MiscellaneousGroupHeader}}" 
+                  Header="{lex:Loc MiscellaneousGroupHeader}" 
                   Margin="15 0 0 0" 
                   Grid.Column="1" 
                   IsEnabled="{Binding InputEnabled}">
@@ -216,7 +218,7 @@
                        Grid.Row="0" 
                        Grid.Column="0" 
                        Margin="0 0 0 5"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.ValidationFeatureLabel}}" />
+                       Content="{lex:Loc ValidationFeatureLabel}" />
                 <ComboBox x:Name="SelectedValidationItemComboBox" 
                           Grid.Row="0" 
                           Grid.Column ="1" 
@@ -228,7 +230,7 @@
                 <Label x:Name="SelectedHandpayModeLabel" 
                        Grid.Row="1" 
                        Grid.Column="0" 
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.HandpayModeLabel}}" />
+                       Content="{lex:Loc HandpayModeLabel}" />
                 <ComboBox x:Name="SelectedHandpayModeComboBox" 
                           Grid.Row="1" 
                           Grid.Column ="1" 
@@ -239,7 +241,7 @@
                 <Label x:Name="HostDisableCashoutActionLabel" 
                        Grid.Row="2" 
                        Grid.Column="0" 
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostDisableCashoutActionLabel}}"
+                       Content="{lex:Loc HostDisableCashoutActionLabel}"
                        Visibility="{Binding IsWizardPage, Converter={StaticResource BoolToCollapsedConverter}}" />
                 <ComboBox x:Name="HostDisableCashoutActionComboBox" 
                           Grid.Row="2" 
@@ -252,7 +254,7 @@
                 <Label x:Name="NotifySasConfigChange" 
                    Grid.Row="3" 
                    Grid.Column="0" 
-                   Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ConfigChangeNotification}}" 
+                   Content="{lex:BLoc ConfigChangeNotification}" 
                    HorizontalAlignment="Left"/>
 
                 <ComboBox Grid.Row="3" 
@@ -269,7 +271,7 @@
                        Grid.Row="4" 
                        Grid.Column="0" 
                        Margin="0 5 0 0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.LegacyBonusAllowed}}" />
+                       Content="{lex:Loc LegacyBonusAllowed}" />
                 <CheckBox x:Name="LegacyBonusAllowedCheckBox" 
                           Grid.Row="4" 
                           Grid.Column="1" 
@@ -282,7 +284,7 @@
                        Grid.Row="5" 
                        Grid.Column="0" 
                        Margin="0 10 0 0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequireLP02OnPowerUp}}" />
+                       Content="{lex:Loc RequireLP02OnPowerUp}" />
                 <CheckBox x:Name="RequireLp02OnPowerUpCheckBox"
                           Grid.Row="5" 
                           Grid.Column="1" 
@@ -295,7 +297,7 @@
                        Grid.Row="6" 
                        Grid.Column="0" 
                        Margin="0 10"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.EGMDisabledOnHostOfflineLabel}}"/>
+                       Content="{lex:Loc EGMDisabledOnHostOfflineLabel}"/>
                 <CheckBox x:Name="EgmDisabledOnHostOfflineIdCheckBox" 
                           Grid.Row="6" 
                           Grid.Column ="1" 

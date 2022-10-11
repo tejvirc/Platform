@@ -35,7 +35,9 @@
             // open file and deserialize xml
             using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
-                var xmlSerializer = new XmlSerializer(typeof(Overrides));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(Overrides))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var xmlSerializer = new XmlSerializer(typeof(Overrides), theXmlRootAttribute ?? new XmlRootAttribute(nameof(Overrides)));
 
                 var contentsOfOverridesXml = (Overrides)xmlSerializer.Deserialize(fs);
 

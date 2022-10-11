@@ -10,9 +10,10 @@
                                xmlns:extensions="clr-namespace:Aristocrat.Monaco.UI.Common.Extensions;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                               xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d" 
                                FocusManager.FocusedElement="{Binding ElementName=NextButton}"
@@ -36,7 +37,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <i:Interaction.Triggers>
+        <b:Interaction.Triggers>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}" 
                                        Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
@@ -44,7 +45,7 @@
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
-        </i:Interaction.Triggers>
+        </b:Interaction.Triggers>
 
         <Viewbox Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
             <Image Source="../Resources/AristocratLogoPortrait.png" />
@@ -59,7 +60,7 @@
 
             <Border Background="{StaticResource ConfigTitleBarBrush}">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconFontAwesome Kind="Cog" 
+                    <iconPacks:PackIconFontAwesome Kind="CogSolid" 
                                                    Width="35" 
                                                    Height="35" 
                                                    VerticalAlignment="Center" 
@@ -82,7 +83,7 @@
                         HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                         Margin="20">
                 <Button Name="BackButton" Command="{Binding BackButtonClicked}" 
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}" 
+                        Content="{lex:Loc BackText}" 
                         IsEnabled="{Binding CanNavigateBackward}" 
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource BoolToVisConverter}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>

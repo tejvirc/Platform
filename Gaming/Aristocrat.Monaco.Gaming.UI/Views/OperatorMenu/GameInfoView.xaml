@@ -9,6 +9,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:GameInfoViewModel, IsDesignTimeCreatable=False}" 
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
@@ -48,11 +50,10 @@
                                 <TextBlock>
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1:p3}">
-                                            <Binding ElementName="TheoPaybackProxy" Path="Result"/>
+                                            <Binding Source="{lex:Loc TheoPaybackPctLabelText}"/>
                                             <Binding Path="TheoPaybackPct"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
-                                    <lex:LocProxy x:Name="TheoPaybackProxy" Source="{x:Static loc:ResourceKeys.TheoPaybackPctLabelText}"/>
                                 </TextBlock>
                             </Label>
                         </StackPanel>
@@ -61,7 +62,7 @@
         </ListBox>
 
         <Button Grid.Row="1" Margin="0 15 0 0"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SetGameOrder}}" 
+                Content="{lex:Loc SetGameOrder}" 
                 Visibility="{Binding SetGameOrderVisible, Converter={StaticResource BoolToVisConverter}}"
                 Command="{Binding SetGameOrderCommand}" Height="50" 
                 VerticalAlignment="Center"

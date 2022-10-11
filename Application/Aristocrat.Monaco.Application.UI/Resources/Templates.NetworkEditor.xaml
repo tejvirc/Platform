@@ -37,18 +37,18 @@
 
                     <RadioButton Grid.Column="0" Grid.Row="1" 
                                  GroupName="ConnectionType" 
-                                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.ObtainIpAddressAutomatically}}" 
+                                 Content="{lex:Loc ObtainIpAddressAutomatically}" 
                                  Margin="5,0,0,0" 
                                  IsChecked="{Binding DhcpEnabled,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                  IsEnabled="{Binding InputEnabled}"/>
                     <RadioButton x:Name="staticIp" 
                                  GroupName="ConnectionType" 
                                  Grid.Column="0" Grid.Row="3" 
-                                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.UseFollowingIpAddress}}" 
+                                 Content="{lex:Loc UseFollowingIpAddress}" 
                                  Margin="5,10,0,0" 
                                  IsChecked="{Binding StaticIp,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                  IsEnabled="{Binding InputEnabled}"/>
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.IpAddress}}" 
+                    <Label Content="{lex:Loc IpAddress}" 
                            Grid.Column="0" Grid.Row="4" 
                            Margin="0 30 0 0" />
                     <TextBox Grid.Column="0" Grid.Row="5" 
@@ -67,7 +67,7 @@
                         </TextBox.IsEnabled>
                     </TextBox>
                     <Label Grid.Column="2" Grid.Row="4" 
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SubnetMask}}" 
+                           Content="{lex:Loc SubnetMask}" 
                            Margin="0 20 0 0" />
                     <TextBox Grid.Column="2" Grid.Row="5" 
                              Width="400" 
@@ -84,7 +84,7 @@
                             </MultiBinding>
                         </TextBox.IsEnabled>
                     </TextBox>
-                    <Label Grid.Column="0" Grid.Row="6" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultGateway}}" 
+                    <Label Grid.Column="0" Grid.Row="6" Content="{lex:Loc DefaultGateway}" 
                            Margin="0 20 0 0" />
                     <TextBox Grid.Column="0" Grid.Row="7" 
                              Width="400" 
@@ -102,7 +102,7 @@
                         </TextBox.IsEnabled>
                     </TextBox>
                     <Label Grid.Column="2" Grid.Row="6" 
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.PreferredDnsServer}}" 
+                           Content="{lex:Loc PreferredDnsServer}" 
                            Margin="0 20 0 0" />
                     <TextBox Grid.Column="2" Grid.Row="7" 
                              Width="400" 
@@ -120,7 +120,7 @@
                         </TextBox.IsEnabled>
                     </TextBox>
                     <Label Grid.Column="0" Grid.Row="10" 
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.AlternateDnsServer}}" 
+                           Content="{lex:Loc AlternateDnsServer}" 
                            Margin="0 20 0 0" />
                     <TextBox Grid.Column="0" Grid.Row="11" 
                              Width="400" 
@@ -140,7 +140,7 @@
                     <Button Grid.Column="0" Grid.Row="12" 
                             Margin="0,30,0,0" 
                             HorizontalAlignment="Left"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
+                            Content="{lex:Loc ApplyLabel}"
                             IsEnabled="{Binding CanApplyChanges, UpdateSourceTrigger=PropertyChanged}"
                             Command="{Binding CommitCommand}" />
                 </Grid>
@@ -151,7 +151,7 @@
                             Opacity=".1" />
                     <Label Margin="10" 
                            DockPanel.Dock="Top" 
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ConfiguringNetwork}}" 
+                           Content="{lex:Loc ConfiguringNetwork}" 
                            VerticalAlignment="Center" 
                            HorizontalAlignment="Center" 
                            Foreground="{DynamicResource YellowBrush}"/>

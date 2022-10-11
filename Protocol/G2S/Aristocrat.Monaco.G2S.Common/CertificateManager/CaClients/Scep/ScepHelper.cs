@@ -7,7 +7,6 @@
     using System.Security.Cryptography;
     using System.Security.Cryptography.Pkcs;
     using System.Security.Cryptography.X509Certificates;
-    using System.Web;
     using Application.Contracts.Localization;
     using log4net;
     using Localization.Properties;
@@ -22,6 +21,7 @@
     using ContentInfo = System.Security.Cryptography.Pkcs.ContentInfo;
     using SignerInfo = System.Security.Cryptography.Pkcs.SignerInfo;
     using X509Extension = System.Security.Cryptography.X509Certificates.X509Extension;
+    using System.Net.Http;
 
     /// <summary>
     ///     Utilities for SCEP protocol.
@@ -74,18 +74,18 @@
         /// <summary>
         ///     Gets certificate authority from server.
         /// </summary>
-        /// <param name="webClient">Web client instance.</param>
+        /// <param name="httpClient">HTTP client instance.</param>
         /// <param name="scepCaIdent">CA-IDENT parameter.</param>
         /// <returns>Returns certificate authority from server.</returns>
         public static X509Certificate2Collection GetCertificateAuthorityFromServer(
-            WebClient webClient,
+            HttpClient httpClient,
             string scepCaIdent = null)
         {
             var url = "?operation=GetCACert";
 
             if (string.IsNullOrEmpty(scepCaIdent) == false)
             {
-                url += "&message=" + HttpUtility.UrlEncode(scepCaIdent);
+                url += "&message=" + System.Web.HttpUtility.UrlEncode(scepCaIdent);
             }
             else
             {
@@ -94,7 +94,7 @@
 
             try
             {
-                var caCertData = webClient.DownloadData(url);
+                var caCertData = httpClient.GetByteArrayAsync(url).GetAwaiter().GetResult();
 
                 var caCertChain = new X509Certificate2Collection();
                 caCertChain.Import(caCertData);
@@ -103,7 +103,7 @@
             }
             catch (Exception ex)
             {
-                Logger.Error("GetCertificateAuthorityFromServer : " + ex.Message + " at url '" + webClient.BaseAddress + "' to download data.");
+                Logger.Error("GetCertificateAuthorityFromServer : " + ex.Message + " at url '" + httpClient.BaseAddress + "' to download data.");
                 return null;
             }
         }
@@ -209,7 +209,7 @@
                 new AsnEncodedData(ScepObjectIdentifiers.MessageType.Id, new DerPrintableString("19").GetEncoded()));
 
             // Transaction ID (transId): https://tools.ietf.org/html/draft-nourse-scep-23#section-3.1.1.1
-            using (var sha = new SHA512Managed())
+            using (var sha = SHA512.Create())
             {
                 var hashedKey = sha.ComputeHash(signingCertificate.GetPublicKey());
                 var hashedKeyString = Convert.ToBase64String(hashedKey);
@@ -244,12 +244,12 @@
         /// <param name="client">Web client instance.</param>
         /// <param name="encryptedAndSignedMessageEnvelope">Encrypted and signed PKCS7 envelope.</param>
         /// <returns>Returns result from certificate authority server.</returns>
-        public static byte[] SubmitRequestToScep(WebClient client, byte[] encryptedAndSignedMessageEnvelope)
+        public static byte[] SubmitRequestToScep(HttpClient client, byte[] encryptedAndSignedMessageEnvelope)
         {
             var message = Convert.ToBase64String(encryptedAndSignedMessageEnvelope);
             var urlEncodedMessage = Uri.EscapeDataString(message);
 
-            return client.DownloadData("?operation=PKIOperation&message=" + urlEncodedMessage);
+            return client.GetByteArrayAsync("?operation=PKIOperation&message=" + urlEncodedMessage).GetAwaiter().GetResult();
         }
 
         /// <summary>

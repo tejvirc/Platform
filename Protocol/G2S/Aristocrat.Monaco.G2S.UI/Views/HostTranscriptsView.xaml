@@ -5,6 +5,8 @@
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
@@ -48,7 +50,7 @@
 
             <Label Grid.Row="0" 
                    Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_EgmId}}"/>
+                   Content="{lex:Loc CommsInfo_EgmId}"/>
 
             <TextBlock Grid.Row="0" 
                        Grid.Column="1" 
@@ -58,7 +60,7 @@
 
             <Label Grid.Row="1" 
                    Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"/>
+                   Content="{lex:Loc CommsInfo_Address}"/>
 
             <TextBlock Grid.Row="1" 
                        Grid.Column="1" 
@@ -71,22 +73,22 @@
             <DataGrid x:Name="CommsDevice"                     
                       ItemsSource="{Binding CommsInfoData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}" 
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_HostId}" 
                                         Width="Auto" 
                                         Binding="{Binding HostId}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}" 
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_Address}" 
                                         Width="Auto" 
                                         Binding="{Binding Address}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_TransportState}}" 
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_TransportState}" 
                                         Width="Auto"  
                                         Binding="{Binding TransportState}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.State}}" 
+                    <DataGridTextColumn Header="{lex:Loc State}" 
                                         Width="Auto"  
                                         Binding="{Binding State}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_OutboundOverflow}}" 
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_OutboundOverflow}" 
                                         Width="Auto" 
                                         Binding="{Binding OutboundOverflow}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_InboundOverflow}}" 
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_InboundOverflow}" 
                                         Width="Auto" 
                                         Binding="{Binding InboundOverflow}" />
                 </DataGrid.Columns>
@@ -98,7 +100,7 @@
         <Button x:Name="HostTranscriptsButton" 
                 Grid.Row="3" 
                 Visibility="Collapsed" 
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsViewDetail}}" 
+                Content="{lex:Loc HostTranscriptsViewDetail}" 
                 Command="{Binding ViewHostTranscriptsCommand, Mode=OneWay}" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left" 
@@ -106,7 +108,7 @@
 
         <Label x:Name="TranscriptsLabel" 
                Grid.Row="4"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Transcripts}}"
+               Content="{lex:Loc Transcripts}"
                Margin="0 0 0 20"/>
 
         <DataGrid x:Name="HostTranscriptViewer" 
@@ -118,28 +120,28 @@
                   ScrollViewer.CanContentScroll="True" >
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDateReceived}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsDateReceived}" 
                                     Width="Auto" 
                                     Binding="{Binding DateReceived, Converter={StaticResource DateTimeFormat}}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsToLocation}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsToLocation}" 
                                     Width="Auto" 
                                     Binding="{Binding ToLocation}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsSessionType}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSessionType}" 
                                     Width="Auto" 
                                     Binding="{Binding SessionType}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsSessionId}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSessionId}" 
                                     Width="Auto" 
                                     Binding="{Binding SessionId}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsCommandId}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsCommandId}" 
                                     Width="Auto" 
                                     Binding="{Binding CommandId}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDevice}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsDevice}" 
                                     Width="Auto" 
                                     Binding="{Binding Device}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsSummary}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSummary}" 
                                     Width="Auto" 
                                     Binding="{Binding Summary}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsErrorCode}}" 
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsErrorCode}" 
                                     Width="Auto" 
                                     Binding="{Binding ErrorCode}" />
             </DataGrid.Columns>
@@ -156,7 +158,7 @@
                 <TextBlock  x:Name="TextBlockGameRoundInfo" 
                             Visibility="Hidden"  
                             IsEnabled="False" 
-                            Text="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsViewTitle}}" />
+                            Text="{lex:Loc HostTranscriptsViewTitle}" />
             </GroupBox.Header>
             <ScrollViewer x:Name="ScrollGameInfo" 
                           Visibility="Hidden" 
@@ -186,11 +188,11 @@
               Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource BoolToVisConverter}}">
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
                 <DockPanel LastChildFill="True">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDetailTitle}}" 
+                    <Label Content="{lex:Loc HostTranscriptsDetailTitle}" 
                            DockPanel.Dock="Top" 
                            HorizontalAlignment="Left" />
                     <Button DockPanel.Dock="Bottom" 
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}" 
+                            Content="{lex:Loc Close}" 
                             Command="{Binding CloseDetailCommand}" 
                             HorizontalAlignment="Right" />
                     <Label Margin="10" 

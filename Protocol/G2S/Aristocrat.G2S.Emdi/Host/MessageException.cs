@@ -52,7 +52,6 @@
         /// <param name="info"></param>
         /// <param name="context"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)

@@ -34,6 +34,7 @@ namespace Aristocrat.Monaco.Gaming
         private readonly object _messageLock = new object();
 
         private Timer _changePropagationTimer;
+
         private string _lastMessage = string.Empty;
         private TimeSpan _currentMessageDisplayTime;
         private bool _disposed;
@@ -164,11 +165,12 @@ namespace Aristocrat.Monaco.Gaming
                             }
                         }
                     }
+
+                    _changePropagationTimer.Dispose();
                 }
 
                 _eventBus.UnsubscribeAll(this);
             }
-
             _changePropagationTimer = null;
 
             _disposed = true;

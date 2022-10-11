@@ -4,6 +4,15 @@
 
     public class DownloadHandler : IDownloadHandler
     {
+        public bool CanDownload(
+            IWebBrowser chromiumWebBrowser,
+            IBrowser browser,
+            string url,
+            string requestMethod)
+        {
+            return false;
+        }
+
 
         public void OnBeforeDownload(
             IWebBrowser chromiumWebBrowser,

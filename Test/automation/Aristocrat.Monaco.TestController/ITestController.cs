@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Net;
-    using System.ServiceModel;
-    using System.ServiceModel.Channels;
-    using System.ServiceModel.Web;
+
+    using CoreWCF;
+    using CoreWCF.Channels;
+    using CoreWCF.Web;
+
     using DataModel;
 
     [ServiceContract]

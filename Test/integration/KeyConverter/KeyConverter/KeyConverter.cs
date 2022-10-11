@@ -168,7 +168,6 @@
             }
         }
 
-        [EnvironmentPermission(SecurityAction.LinkDemand, Unrestricted = true)]
         private IntPtr LowLevelKeyboardProc(int code, IntPtr messageId, IntPtr hookStruct)
         {
             // As stated in the Win32 API documentation, if 'code' is less than zero,
@@ -199,7 +198,6 @@
             return (IntPtr)HandledInput;
         }
 
-        [EnvironmentPermission(SecurityAction.LinkDemand, Unrestricted = true)]
         private IntPtr HighLevelKeyboardProc(int code, IntPtr wParam, IntPtr lParam)
         {
             // As stated in the Win32 API documentation, if 'code' is less than zero,

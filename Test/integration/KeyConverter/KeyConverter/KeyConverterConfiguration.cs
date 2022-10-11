@@ -57,7 +57,6 @@
 
         public IList<Keys> PassThroughKeys { get; set; }
 
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (null == info)

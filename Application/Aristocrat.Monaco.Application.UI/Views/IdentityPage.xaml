@@ -8,6 +8,8 @@
     xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
     xmlns:helpers="http://monaco.aristocrat.com/common"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
     xmlns:loc="http://monaco.aristocrat.com/localization"
     FocusManager.FocusedElement="{Binding ElementName=SerialNumber}"
     Background="Transparent" 
@@ -24,7 +26,7 @@
     </UserControl.Resources>
 
     <StackPanel x:Name="Root" HorizontalAlignment="Left">
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
+        <Label Content="{lex:Loc SerialNumberLabel}"/>
         <helpers:AlphaNumericTextBox
                  MinWidth="300" 
                  IsAlphaNumeric="True"
@@ -33,7 +35,7 @@
                  ErrorText="{Binding SerialNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
                  MaxLength="{Binding SerialNumber.MaxLength, Mode=OneWay}" />
 
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}" />
+        <Label Content="{lex:Loc AssetNumber}" />
         <helpers:AlphaNumericTextBox
                  PreviewTextInput="NumberValidationTextBox"
                  IsReadOnly="False"
@@ -44,7 +46,7 @@
                  MaxLength="{Binding AssetNumber.MaxLength, Mode=OneWay}" />
 
         <!-- Area -->
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AreaLabel}}"
+        <Label Content="{lex:Loc AreaLabel}"
             Visibility="{Binding Area.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
         <ContentControl
             IsTabStop="False"
@@ -52,7 +54,7 @@
             Content="{Binding Area}"/>
 
         <!-- Zone -->
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZoneText}}"
+        <Label Content="{lex:Loc ZoneText}"
                Visibility="{Binding Zone.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
         <ContentControl
             IsTabStop="False"
@@ -60,7 +62,7 @@
             Content="{Binding Zone}"/>
 
         <!-- Bank -->
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BankText}}"
+        <Label Content="{lex:Loc BankText}"
                Visibility="{Binding Bank.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
         <ContentControl
             IsTabStop="False"
@@ -68,7 +70,7 @@
             Content="{Binding Bank}"/>
 
         <!-- Position -->
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PositionText}}"
+        <Label Content="{lex:Loc PositionText}"
                Visibility="{Binding Position.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
         <ContentControl
             IsTabStop="False"
@@ -76,7 +78,7 @@
             Content="{Binding Position}"/>
 
         <!-- Location -->
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Location}}"
+        <Label Content="{lex:Loc Location}"
                Visibility="{Binding Location.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
         <ContentControl
             IsTabStop="False"
@@ -84,7 +86,7 @@
             Content="{Binding Location}"/>
 
         <!-- DeviceName -->
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}"
+        <Label Content="{lex:Loc DeviceName}"
                Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
         <ContentControl
             IsTabStop="False"
@@ -95,7 +97,7 @@
                   IsChecked="{Binding PrintIdentityTicket}" 
                   Style="{DynamicResource MonacoCheckBoxGeneral}" 
                   Visibility="{Binding PrintTicketEnabled, Converter={StaticResource BoolToVisConverter}}"/>
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintIdentityTicketText}}" 
+        <Label Content="{lex:Loc PrintIdentityTicketText}" 
                Focusable="True"  
                Visibility="{Binding PrintTicketEnabled, Converter={StaticResource BoolToVisConverter}}"/>
     </StackPanel>

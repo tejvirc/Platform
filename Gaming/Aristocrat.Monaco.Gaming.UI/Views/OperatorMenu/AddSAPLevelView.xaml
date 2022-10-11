@@ -7,6 +7,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:AddSAPLevelViewModel}, IsDesignTimeCreatable=True}">
@@ -46,7 +48,7 @@
                Grid.Column="0" 
                Margin="20 10 0 0" 
                Foreground="GhostWhite" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.LevelNameLabel}}"/>
+               Content="{lex:Loc LevelNameLabel}"/>
 
         <TextBox x:Name="LevelNameTextBox" 
                  Grid.Row="1" 
@@ -66,7 +68,7 @@
                Grid.Column="0" 
                Margin="20 10 0 0" 
                Foreground="GhostWhite" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"/>
+               Content="{lex:Loc ResetValue}"/>
 
         <helpers:CurrencyTextBox x:Name="ResetValueCurrencyTextBox" 
                                  Grid.Row="2" 
@@ -88,7 +90,7 @@
                Grid.Column="0" 
                Margin="20 10 0 0" 
                Foreground="GhostWhite" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"/>
+               Content="{lex:Loc InitialValue}"/>
 
         <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox" 
                                  Grid.Row="3" 
@@ -110,16 +112,16 @@
                Grid.Column="0" 
                Margin="20 10 0 0" 
                Foreground="GhostWhite" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"/>
+               Content="{lex:Loc IncrementRate}"/>
 
         <helpers:PercentageTextBox x:Name="IncrementRatePercentageTextBox" 
                                    Grid.Row="4" 
                                    Grid.Column ="1" 
                                    Margin="20 10 0 0"
                                    IsReadOnly="False"
-                                   ZeroPercentage="{lex:Loc Key={x:Static loc:ResourceKeys.ZeroPercentage}}"
-                                   EditingFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.PercentageEditingFormatter}}"
-                                   DisplayFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.PercentageDisplayFormatter}}"
+                                   ZeroPercentage="{lex:Loc ZeroPercentage}"
+                                   EditingFormatter="{lex:Loc PercentageEditingFormatter}"
+                                   DisplayFormatter="{lex:Loc PercentageDisplayFormatter}"
                                    PreventNegatives="True"
                                    MaximumValue="{Binding MaximumIncrementRate, Mode=OneWay}"
                                    Number="{
@@ -134,7 +136,7 @@
                Grid.Column="0" 
                Margin="20 10 0 0" 
                Foreground="GhostWhite" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"/>
+               Content="{lex:Loc MaxValue}"/>
 
         <helpers:CurrencyTextBox x:Name="MaxValueCurrencyTextBox"  
                                  Grid.Row="5" 

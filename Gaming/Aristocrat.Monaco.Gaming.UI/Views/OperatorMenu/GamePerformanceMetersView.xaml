@@ -9,6 +9,8 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                common:DialogParticipation.Register="{Binding}"
@@ -41,7 +43,7 @@
         
         <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" 
                    FontSize="{StaticResource LabelFontSize}">
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.Game}}"/>
+                <Run Text="{lex:Loc Game}"/>
                 <Run Text="#" />
                 <Run Text="{Binding GameNumber, Mode=OneWay}" />
                 <Run Text=" | " />
@@ -53,7 +55,7 @@
         </TextBlock>
 
         <TextBlock Grid.Column="2" Grid.Row="1" Margin="0 10 0 0"
-                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryTitle}}"
+                   Text="{lex:Loc WagerCategoryTitle}"
                    FontWeight="Bold" Foreground="{StaticResource Brush3}"/>
         
         <DataGrid Grid.Column="0" Grid.Row="2" 
@@ -62,10 +64,10 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                <DataGridTextColumn Header="{lex:Loc Meter}" 
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                     Binding="{Binding Name}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                <DataGridTextColumn Header="{lex:Loc Value}" 
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}" />
@@ -81,17 +83,17 @@
                 <DataGridTextColumn Header="#" 
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                     Binding="{Binding Id}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RTP}}" 
+                <DataGridTextColumn Header="{lex:Loc RTP}" 
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                     Binding="{Binding RTP, Converter={StaticResource ReturnToPlayerConverter}}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wagered}}" 
+                <DataGridTextColumn Header="{lex:Loc Wagered}" 
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                     Binding="{Binding Wagered, Converter={StaticResource CurrencyConverter}}" />
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Grid.Column="2" Grid.Row="3" Margin="0 10 0 0">                    
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryWeightedAvgCaption}}" 
+            <TextBlock Text="{lex:Loc WagerCategoryWeightedAvgCaption}" 
                        Foreground="{StaticResource Brush3}"
                        FontWeight="Bold"/>
             <TextBlock Margin="0 10 0 0"

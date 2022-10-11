@@ -51,13 +51,14 @@ namespace Aristocrat.Monaco.TestController
     using RobotController.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
+    using System.Reflection;
 
     public partial class TestControllerEngine : ITestController
     {
         private static ILobbyStateManager _lobbyStateManager = null;
         private static ManualResetEvent   _returnedToLobbyEvent = new ManualResetEvent(false);
         private static bool               _logIt = true;
-        private static ILog               _noteAcceptorLogger = LogManager.GetLogger("NoteAcceptorV2");
+        private static ILog               _noteAcceptorLogger = LogManager.GetLogger(Assembly.GetCallingAssembly(), "NoteAcceptorV2");
         private static ManualResetEvent   _printCompleted = new ManualResetEvent(false);
         private static ManualResetEvent   _gameLoaded = new ManualResetEvent(false);
         private static SemaphoreSlim      _oneAPICallAtATime = new SemaphoreSlim(1, 1);

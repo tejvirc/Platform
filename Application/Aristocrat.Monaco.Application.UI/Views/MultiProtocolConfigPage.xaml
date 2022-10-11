@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
@@ -38,7 +40,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MultiProtocolValidationSelection}}"
+        <Label Grid.Row="0" Content="{lex:Loc MultiProtocolValidationSelection}"
                Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
         <ComboBox Grid.Row="1" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding ValidationProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}" 
@@ -46,7 +48,7 @@
                   IsEnabled="{Binding IsValidationComboBoxEnabled}"
                   Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
         <Label Grid.Row="2" Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MultiProtocolFundTransferSelection}}"
+               Content="{lex:Loc MultiProtocolFundTransferSelection}"
                Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
         <ComboBox Grid.Row="3" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding FundTransferProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
@@ -54,7 +56,7 @@
                   IsEnabled="{Binding IsFundTransferComboBoxEnabled}"
                   Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
         <Label Grid.Row="4" Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MultiProtocolProgressiveSelection}}"
+               Content="{lex:Loc MultiProtocolProgressiveSelection}"
                Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
         <ComboBox Grid.Row="5" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding ProgressiveProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
@@ -62,7 +64,7 @@
                   IsEnabled="{Binding IsProgressiveComboBoxEnabled}"
                   Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
         <Label Grid.Row="6" Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralDeterminationSystemSelection}}"
+               Content="{lex:Loc CentralDeterminationSystemSelection}"
                Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
         <ComboBox Grid.Row="7" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding CentralDeterminationSystemProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"

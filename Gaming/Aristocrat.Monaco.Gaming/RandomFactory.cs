@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using Aristocrat.CryptoRng;
     using Contracts;
-    using PRNGLib;
     using SimpleInjector;
 
     /// <summary>
@@ -27,9 +27,9 @@
         }
 
         /// <inheritdoc />
-        public IPRNG Create(RandomType type)
+        public IRandom Create(RandomType type)
         {
-            return (IPRNG)_producers[type].GetInstance();
+            return (IRandom)_producers[type].GetInstance();
         }
 
         /// <summary>
@@ -39,11 +39,11 @@
         /// <param name="type">RandomType - Gaming or NonGaming.</param>
         /// <param name="lifestyle">SimpleInjector Lifestyle - singleton, transient, etc.</param>
         public void Register<TImplementation>(RandomType type, Lifestyle lifestyle)
-            where TImplementation : class, IPRNG
+            where TImplementation : class, IRandom
         {
             lifestyle = lifestyle ?? Lifestyle.Transient;
 
-            var producer = lifestyle.CreateProducer<IPRNG, TImplementation>(_container);
+            var producer = lifestyle.CreateProducer<IRandom, TImplementation>(_container);
             _producers.Add(type, producer);
         }
     }

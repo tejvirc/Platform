@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.G2S.Client.Configuration
 {
     using System;
-    using System.IdentityModel.Selectors;
+    using CoreWCF.IdentityModel.Selectors;
     using System.Linq;
     using System.Net.NetworkInformation;
     using System.Reflection;
@@ -9,6 +9,7 @@
     using Communications;
     using Communicator.ServiceModel;
     using Devices;
+    using Aristocrat.Monaco.Common.Communications;
 
     /// <summary>
     ///     An implementation of <see cref="IEgmFactoryConfigurator" />
@@ -24,13 +25,16 @@
 
         private bool _disposed;
 
+        private IWcfApplicationRuntime _app;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="EgmFactoryConfigurator" /> class.
         /// </summary>
-        public EgmFactoryConfigurator()
+        public EgmFactoryConfigurator(IWcfApplicationRuntime app)
         {
             _messageBuilder = new MessageBuilder();
             _messageBuilder.LoadSecurityNamespace(SchemaVersion.m105, null);
+            _app = app;                 
         }
 
         /// <inheritdoc />
@@ -68,7 +72,8 @@
             var commandDispatcher = new CommandDispatcher(handlerConnector, deviceConnector);
 
             var service = new G2SService(receiveEndpointProvider);
-            var receiver = new ReceiveEndpoint(service, _address, _certificate, _certificateValidator);
+            
+            var receiver = new ReceiveEndpoint(service, _address, _certificate, _certificateValidator, _app);
 
             var messageConsumer = new MessageConsumer(egm);
             receiveEndpointProvider.ConnectConsumer(messageConsumer);

@@ -7,6 +7,8 @@
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:LicenseViewModel, IsDesignTimeCreatable=False}" 
@@ -52,19 +54,19 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LicenseId}}"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc LicenseId}"/>
             <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Id}"/>
 
-            <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LicenseConfiguration}}" />
+            <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc LicenseConfiguration}" />
             <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding LicenseConfiguration}"/>
 
-            <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeRemaining}}" />
+            <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc TimeRemaining}" />
             <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TimeRemaining}"/>
 
-            <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionId}}" />
+            <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc JurisdictionId}" />
             <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="{Binding JurisdictionId}"/>
 
-            <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledGamesLimit}}" />
+            <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc EnabledGamesLimit}" />
             <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Text="{Binding EnabledGamesLimit}"/>
         </Grid>
 
@@ -91,7 +93,7 @@
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SoftwareLicense}}" Binding="{Binding}" />
+                <DataGridTextColumn Header="{lex:Loc SoftwareLicense}" Binding="{Binding}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

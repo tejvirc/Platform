@@ -10,6 +10,8 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:WagerCategoryMetersViewModel}">
@@ -35,23 +37,23 @@
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding Categories, Mode=OneWay}" IsReadOnly="True" ScrollViewer.CanContentScroll="True" MaxHeight="500">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryGameNumberCaption}}"
+                <DataGridTextColumn Header="{lex:Loc WagerCategoryGameNumberCaption}"
                                     MinWidth="100"
                                     Binding="{Binding WagerCategoryId}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RTP}}" 
+                <DataGridTextColumn Header="{lex:Loc RTP}" 
                                     MinWidth="180"
                                     Binding="{Binding Rtp, Converter={StaticResource ReturnToPlayerConverter}, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryWageredCaption}}" 
+                <DataGridTextColumn Header="{lex:Loc WagerCategoryWageredCaption}" 
                                     MinWidth="180"
                                     Binding="{Binding Wagered, Converter={StaticResource CurrencyConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GamesPlayed}}" 
+                <DataGridTextColumn Header="{lex:Loc GamesPlayed}" 
                                     MinWidth="200"
                                     Binding="{Binding GamesPlayed, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryWeightedAvgCaption}}"
+            <Label Content="{lex:Loc WagerCategoryWeightedAvgCaption}"
                    FontWeight="Bold"
                    FontSize="{StaticResource NormalFontSize}"/>
             <TextBlock Margin="10 0 0 0" 

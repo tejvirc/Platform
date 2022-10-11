@@ -12,7 +12,7 @@
     /// </summary>
     public static class CurrencyExtensions
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(CurrencyExtensions).FullName);
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(CurrencyExtensions));
 
         private const string And = " and ";
         private const string Space = " ";

@@ -34,12 +34,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Rectangle x:Name="Border" Fill="{DynamicResource GrayBrush7}" />
+                        <Rectangle x:Name="Border" Fill="{DynamicResource MahApps.Brushes.Gray7}" />
                         <Polygon x:Name="Arrow"
                                  Margin="8 8 3 3"
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Bottom"
-                                 Fill="{DynamicResource GrayBrush1}"
+                                 Fill="{DynamicResource MahApps.Brushes.Gray1}"
                                  Opacity="0.15"
                                  Points="0,10 10,10 10,0"
                                  Stretch="Uniform" />
@@ -79,7 +79,7 @@
     </Style>
 
     <Style x:Key="MonacoRowHeaderGripperStyle" TargetType="{x:Type Thumb}">
-        <Setter Property="Background" Value="{DynamicResource GrayBrush5}" />
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray5}" />
         <Setter Property="Cursor" Value="SizeNS" />
         <Setter Property="Height" Value="40" />
         <Setter Property="FontSize" Value="18"></Setter>
@@ -228,7 +228,7 @@
 
     <Style x:Key="MonacoDataGridRowHeader" TargetType="{x:Type DataGridRowHeader}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush5}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray5}" />
         <Setter Property="BorderThickness" Value="0 0 1 0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Margin" Value="0" />
@@ -279,10 +279,10 @@
 
     <Style x:Key="MonacoDataGridRow" TargetType="{x:Type DataGridRow}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="controls:DataGridRowHelper.SelectionUnit" Value="{Binding Path=SelectionUnit, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+        <Setter Property="controls:DataGridHelper.SelectionUnit" Value="{Binding Path=SelectionUnit, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
         <Setter Property="Margin" Value="0 0 0 0" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
-        <Setter Property="ValidationErrorTemplate" Value="{DynamicResource DefaultRowValidationErrorTemplate}" />
+        <Setter Property="ValidationErrorTemplate" Value="{DynamicResource MahApps.Templates.DataGridRow.ValidationError}" />
         <Setter Property="FontSize" Value="18"></Setter>
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="MinHeight" Value="40"></Setter>
@@ -290,7 +290,7 @@
             <!--  IsSelected  -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                    <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
                     <Condition Property="IsSelected" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
@@ -301,7 +301,7 @@
             <!--  IsSelected and Selector.IsSelectionActive  -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                    <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
                     <Condition Property="IsSelected" Value="True" />
                     <Condition Property="Selector.IsSelectionActive" Value="False" />
                 </MultiTrigger.Conditions>
@@ -323,7 +323,7 @@
             <!--  IsEnabled  -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                    <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
                     <Condition Property="IsEnabled" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
@@ -332,7 +332,7 @@
             <!--  IsEnabled and IsSelected  -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                    <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
                     <Condition Property="IsEnabled" Value="False" />
                     <Condition Property="IsSelected" Value="True" />
                 </MultiTrigger.Conditions>
@@ -359,7 +359,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="controls:DataGridCellHelper.SelectionUnit" Value="{Binding Path=(controls:DataGridRowHelper.SelectionUnit), Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" />
+        <Setter Property="controls:DataGridHelper.SelectionUnit" Value="{Binding Path=(controls:DataGridHelper.SelectionUnit), Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="0 0 15 0" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -391,7 +391,7 @@
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
+                    <!--<Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />-->
                     <Condition Property="IsSelected" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
@@ -401,7 +401,7 @@
             <!--  IsKeyboardFocusWithin  -->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
+                    <!--<Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />-->
                     <Condition Property="IsKeyboardFocusWithin" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.FocusBorderBrush}" />
@@ -417,7 +417,7 @@
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
+                    <!--<Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />-->
                     <Condition Property="IsSelected" Value="True" />
                     <Condition Property="Selector.IsSelectionActive" Value="False" />
                 </MultiTrigger.Conditions>
@@ -450,7 +450,7 @@
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
+                    <!--<Condition Property="controls:DataGridHelper.IsCellOrRowHeader" Value="True" />-->
                     <Condition Property="IsEnabled" Value="False" />
                     <Condition Property="IsSelected" Value="True" />
                 </MultiTrigger.Conditions>
@@ -490,7 +490,7 @@
         <Setter Property="DropLocationIndicatorStyle">
             <Setter.Value>
                 <Style TargetType="Separator">
-                    <Setter Property="Background" Value="{DynamicResource GrayBrush7}" />
+                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray7}" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Separator">
@@ -507,7 +507,7 @@
         <Setter Property="GridLinesVisibility" Value="None" />
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="Height" Value="Auto"/>
-        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource GrayBrush7}" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource MahApps.Brushes.Gray7}" />
         <Setter Property="MinRowHeight" Value="25" />
         <Setter Property="RowHeaderStyle" Value="{StaticResource MonacoDataGridRowHeader}" />
         <Setter Property="RowStyle" Value="{StaticResource MonacoDataGridRow}" />
@@ -576,7 +576,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource GrayBrush7}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource MahApps.Brushes.Gray7}" />
         <Style.Triggers>
             <Trigger Property="IsGrouping" Value="True">
                 <Setter Property="ScrollViewer.CanContentScroll" Value="False" />

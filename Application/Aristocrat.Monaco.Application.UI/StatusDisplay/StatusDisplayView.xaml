@@ -5,9 +5,11 @@
     xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:loc="http://monaco.aristocrat.com/localization"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
     xmlns:behaviors="http://monaco.aristocrat.com/common"
-    Title="{lex:Loc Key={x:Static loc:ResourceKeys.Title}}" 
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    Title="{lex:Loc Title}" 
     WindowStyle="None" 
     Initialized="Window_Initialized" 
     Closing="Window_Closing"
@@ -55,15 +57,15 @@
         </ResourceDictionary>
     </common:BaseWindow.Resources>
 
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:HighDpiWindowBehavior/>  
-    </i:Interaction.Behaviors>
+    </b:Interaction.Behaviors>
 
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,.3"
                                  EndPoint="1,.7">
-                <GradientStop Color="{StaticResource BlackColor}"
+                <GradientStop Color="{StaticResource MahApps.Colors.SystemChromeBlackMedium}"
                               Offset="0"/>
                 <GradientStop Color="{StaticResource DarkColor1}"
                               Offset=".1"/>
@@ -81,16 +83,16 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentStatus}}" Background="Transparent" >
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="{lex:Loc CurrentStatus}" Background="Transparent" >
             <statusDisplay:DisplayBox x:Name="StatusBox"/>
         </GroupBox>
-        <GroupBox Grid.Row="0" Grid.Column="1" Header="{lex:Loc Key={x:Static loc:ResourceKeys.Messages}}" Background="Transparent">
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="{lex:Loc Messages}" Background="Transparent">
             <statusDisplay:DisplayBox x:Name="InformativeBox"/>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="{lex:Loc Key={x:Static loc:ResourceKeys.HardErrors}}" Background="Transparent">
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="{lex:Loc HardErrors}" Background="Transparent">
             <statusDisplay:DisplayBox x:Name="HardErrorBox"/>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="{lex:Loc Key={x:Static loc:ResourceKeys.SoftErrors}}" Background="Transparent">
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="{lex:Loc SoftErrors}" Background="Transparent">
             <statusDisplay:DisplayBox x:Name="SoftErrorBox"/>
         </GroupBox>
     </Grid>

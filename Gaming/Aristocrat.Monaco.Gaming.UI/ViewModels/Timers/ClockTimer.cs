@@ -21,7 +21,7 @@
         private const string TimeResourceKey = "TimeLabel";
         private const string TimeLeftResourceKey = "TimeLeftLabel";
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly object _clockStateLock = new object();
 
         private readonly LobbyConfiguration _config;
@@ -156,7 +156,7 @@
                         DateTime.UtcNow - TimeSpan.FromSeconds(ClockStateTimeoutInSeconds - 1)
                     ) // -1 because event seems to sometimes fire a few milliseconds earlier than expected so need buffer.
                     {
-                        // Timestamp the clock flip and ignore the timer if it comes in earlier than it should.  
+                        // Timestamp the clock flip and ignore the timer if it comes in earlier than it should.
                         // This should prevent double flips caused by lags in communication with the runtime.
                         Logger.Debug(
                             $"Ignoring ChangeClockState: LastClockStateSet:{_lastClockStateSet.Value.ToString("hh: mm:ss.fff", CultureInfo.InvariantCulture)}");
@@ -183,7 +183,7 @@
                         }
                         else
                         {
-                            // Set value properly even though we didn't actually send it.  
+                            // Set value properly even though we didn't actually send it.
                             _lastDisplayingTimeRemainingValue = ClockState == LobbyClockState.ResponsibleGamingSessionTime;
                         }
                     }
@@ -244,7 +244,7 @@
 
         public void RestartClockTimer()
         {
-            //This should only happen if we had a forced cashout while disabled and now we are re-enabling 
+            //This should only happen if we had a forced cashout while disabled and now we are re-enabling
             if (_config.DisplaySessionTimeInClock &&
                 ResponsibleGamingSessionState == ResponsibleGamingSessionState.Stopped &&
                 !ClockStateTimer.IsEnabled)
@@ -295,7 +295,7 @@
 
                         break;
                     case ClockMode.Military:
-                        //we want 24-hour always for Quebec, which is FR-CA culture    
+                        //we want 24-hour always for Quebec, which is FR-CA culture
                         culture = CultureInfo.CreateSpecificCulture(GamingConstants.FrenchCultureCode);
                         format = culture.DateTimeFormat.ShortTimePattern;
                         break;

@@ -8,6 +8,8 @@
                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               mc:Ignorable="d"
                               common:DialogParticipation.Register="{Binding}"
                               d:DesignWidth="1280"
@@ -53,7 +55,7 @@
 
             <StackPanel Grid.Row="0"
                         Orientation="Horizontal" Margin="0 0 0 5">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonTest}}"
+                <Label Content="{lex:Loc ButtonTest}"
                        Foreground="{StaticResource LightBrush4}"/>
                 <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"
@@ -72,7 +74,7 @@
 
             <Label x:Name="ButtonTestInstructionsLabel" 
                    Grid.Row="1" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonTestInstructions}}"
+                   Content="{lex:Loc ButtonTestInstructions}"
                    IsEnabled="{Binding TestModeEnabled}">
                 <Label.Style>
                     <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
@@ -128,13 +130,12 @@
                                                 <Setter Property="Text" 
                                                          Value="{
                                                             Binding Item2, 
-                                                            StringFormat={lex:Loc Key={x:Static loc:ResourceKeys.ButtonText}}}"/>
+                                                            StringFormat={lex:Loc ButtonText}}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
-                                        <Setter Property="Text" Value="{Binding Result, ElementName=ResourceKeyLocProxy}" />
+                                        <Setter Property="Text" Value="{Binding Item1}" />
                                     </Style>
                                 </TextBlock.Style>
-                                <lex:LocProxy x:Name="ResourceKeyLocProxy" Source="{Binding Item1}"/>
                             </TextBlock>
                             <!-- Formatted Button Name Section -->
                             <TextBlock x:Name="FormattedButtonNameTextBlock"
@@ -155,7 +156,7 @@
                             <TextBlock x:Name="PressedTextBlock"
                                        Grid.Column="2"
                                        Margin="0 -3 0 0"
-                                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonPressed}}"/>
+                                       Text="{lex:Loc ButtonPressed}"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -181,12 +182,12 @@
             <Label x:Name="LcdButtonPanelLabel"
                    Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LcdButtonPanel}}" 
+                   Content="{lex:Loc LcdButtonPanel}" 
                    Foreground="{StaticResource LightBrush4}"/>
 
             <!-- Firmware CRC Section -->
             <Label x:Name="FirmwareCrcLabel"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCrc}}"
+                   Content="{lex:Loc FirmwareCrc}"
                    Grid.Row="1"
                    Grid.Column="0"/>
 
@@ -203,7 +204,7 @@
                                     TargetNullValue=''}" 
                                 Value="">
                                 <Setter Property="Content" 
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        Value="{lex:BLoc NotAvailable}"/>
                             </DataTrigger>
                         </Style.Triggers>
                         <Setter Property="Content" Value="{Binding FirmwareCrc, Mode=OneWay}"/>
@@ -213,7 +214,7 @@
 
             <!-- CRC Seed Section -->
             <Label x:Name="CrcSeedLabel"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CrcSeed}}"
+                   Content="{lex:Loc CrcSeed}"
                    Grid.Row="2"
                    Grid.Column="0"/>
 
@@ -230,7 +231,7 @@
                                     TargetNullValue=''}"
                                 Value="">
                                 <Setter Property="Content"
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        Value="{lex:BLoc NotAvailable}"/>
                             </DataTrigger>
                         </Style.Triggers>
                         <Setter Property="Content" Value="{Binding CrcSeed, Mode=OneWay}"/>

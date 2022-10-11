@@ -9,6 +9,8 @@
                               xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                               xmlns:helpers="http://monaco.aristocrat.com/common"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               mc:Ignorable="d" 
                               d:DesignWidth="1080" d:DesignHeight="720" 
@@ -31,7 +33,7 @@
             <StackPanel Name="SettingsPanel" Visibility="{Binding Visibility, ElementName=EnterTestModeButton}">
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
                             Visibility="{Binding ShowOverrideSetting, Converter={StaticResource BoolToVisConverter}}">
-                    <Label  Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightingOverrideOnIdleAndZeroCreditsLabel}}" HorizontalAlignment="Left"/>
+                    <Label  Content="{lex:Loc LightingOverrideOnIdleAndZeroCreditsLabel}" HorizontalAlignment="Left"/>
                     <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding LightingOverrideChoices}" 
                               SelectedValue="{Binding EdgeLightingAttractModeOverrideSelection}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="10" 
                               MinWidth="250"
@@ -39,7 +41,7 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 20 0 0" 
                             Visibility="{Binding IsCabinetThatAllowsEdgeLightBrightnessSetting, Converter={StaticResource BoolToVisConverter}}" >
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightingBrightnessLabel}}" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                    <Label Content="{lex:Loc LightingBrightnessLabel}" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                     <StackPanel  Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Left">
                         <Slider Name="BrightnessSlider" Style="{StaticResource MonacoSlider}" Value="{Binding MaximumAllowedBrightnessValue}" MinWidth="400"
                                 HorizontalAlignment="Left" Minimum="{Binding MinimumBrightnessSetting, Mode=OneWay}"  Maximum="{Binding MaximumBrightnessSetting, Mode=OneWay}"
@@ -47,13 +49,12 @@
                                 IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                     <StackPanel Visibility="{Binding IsCabinetThatAllowsBottomStripToggle, Converter={StaticResource BoolToVisConverter}}">
-                        <Label  Content="{lex:Loc Key={x:Static loc:ResourceKeys.MainDisplayBottomLightingLabel}}" HorizontalAlignment="Left"  Margin="0 15 0 0"/>
-                            <controls:ToggleSwitchButton IsChecked="{Binding BottomEdgeLightingOn}"
-                                                         controls:ControlsHelper.ContentCharacterCasing="Upper"
-                                                         controls:ControlsHelper.CornerRadius="0"
-                                                         helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                                         helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" Margin="10 10 0 0"
-                                                         IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label  Content="{lex:Loc MainDisplayBottomLightingLabel}" HorizontalAlignment="Left"  Margin="0 15 0 0"/>
+                            <controls:ToggleSwitch controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                                   controls:ControlsHelper.CornerRadius="0"
+                                                   helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                                   helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" Margin="10 10 0 0"
+                                                   IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -63,13 +64,13 @@
         </StackPanel>
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Left">
-                <Button Name="EnterTestModeButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestEdgeLightingLabel}}"
+                <Button Name="EnterTestModeButton" Content="{lex:Loc TestEdgeLightingLabel}"
                         IsEnabled="{Binding TestButtonEnabled, UpdateSourceTrigger=PropertyChanged}" 
                         Visibility="{Binding InTestMode, Converter={StaticResource BoolToCollapsedConverter}}"
                         Command="{Binding ToggleTestModeCommand}"/>
                 <Button Name="ExitTestModeButton" Visibility="{Binding InTestMode, Converter={StaticResource BoolToVisConverter}}"
                         Command="{Binding ToggleTestModeCommand}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitEdgeLightingTestLabel}}"/>
+                        Content="{lex:Loc ExitEdgeLightingTestLabel}"/>
                 <Button x:Name="WarningButton" 
                         Style="{StaticResource MonacoWarningButton}"
                         VerticalAlignment="Center"

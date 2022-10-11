@@ -10,6 +10,8 @@
                                 xmlns:lvcwpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                                 xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                 xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                 xmlns:loc="http://monaco.aristocrat.com/localization"
                                 mc:Ignorable="d"
                                 d:DataContext="{d:DesignInstance viewModels:DiagnosticResourcesViewModel}">
@@ -38,7 +40,7 @@
 
                 <!-- graph -->
                 <GroupBox Grid.Row="0" 
-                          Header="{lex:Loc Key={x:Static loc:ResourceKeys.ApplicationPerformance}}" 
+                          Header="{lex:Loc ApplicationPerformance}" 
                           Background="Transparent"
                           Visibility="{Binding Visibility, ElementName=EnterDiagnosticChartModeButton}">
                     <lvcwpf:CartesianChart x:Name="Chart" 

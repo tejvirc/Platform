@@ -7,6 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveMetersPageViewModel}}">
@@ -55,11 +57,11 @@
                                     <Condition Binding="{Binding Path=HasEnabledProgressives, Mode=OneWay}" Value="false"/>
                                     <Condition Binding="{Binding Path=HasProgressives, Mode=OneWay}" Value="false"/>
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="Content" Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}"/>
+                                <Setter Property="Content" Value="{lex:Loc NoProgressiveGamesEnabled}"/>
                                 <Setter Property="Visibility" Value="Visible"/>
                             </MultiDataTrigger>
                             <DataTrigger Binding="{Binding Path=HasProgressives, Mode=OneWay}" Value="false">
-                                <Setter Property="Content" Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}"/>
+                                <Setter Property="Content" Value="{lex:Loc NoProgressiveMeters}"/>
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -74,7 +76,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding PreviousGameCommand}"
                     IsEnabled="{Binding PreviousGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
+                    Content="{lex:Loc PrevButton}"/>
             <ComboBox Margin="0 0 10 0" VerticalAlignment="Center" Width="500" MaxWidth="500" SelectedValuePath="Id" ScrollViewer.CanContentScroll="True"
                       ItemsSource="{Binding Games}" 
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
@@ -114,7 +116,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding NextGameCommand}"
                     IsEnabled="{Binding NextGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3"  
@@ -122,7 +124,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
+                    Content="{lex:Loc PrevButton}"/>
             <ComboBox Margin="0 0 10 0" 
                       VerticalAlignment="Center" 
                       SelectedValuePath="Id" 
@@ -135,7 +137,7 @@
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4"  Visibility="{Binding ViewBetOptionFilter, Converter={StaticResource BoolToVisConverter}}"
@@ -143,7 +145,7 @@
             <Button Margin="0 0 10 0" Width="65"  
                     Command="{Binding PreviousBetOptionCommand}"
                     IsEnabled="{Binding PreviousBetOptionIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
+                    Content="{lex:Loc PrevButton}"/>
             <ComboBox Margin="0 0 10 0" 
                       VerticalAlignment="Center" 
                       SelectedValuePath="Id" 
@@ -155,7 +157,7 @@
             <Button Margin="0 0 10 0" Width="65"  
                     Command="{Binding NextBetOptionCommand}"
                     IsEnabled="{Binding NextBetOptionIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

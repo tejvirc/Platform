@@ -29,6 +29,7 @@
     using PrinterMetrics = Contracts.Gds.Printer.Metrics;
 
     /// <summary>A fake communicator.</summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
     public class FakeCommunicator : VirtualCommunicator
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -39,8 +40,7 @@
         private const string SimWindowNamePartial = "ReelLayout_";
         private const string GamesPath = "/Games";
         private const int LightsPerReel = 3;
-        private const int StepsPerReel = 200;
-
+        private const int StepsPerReel = 200;        
         private readonly Dictionary<int, Note> _noteTable = new Dictionary<int, Note>();
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;

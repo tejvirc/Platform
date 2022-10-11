@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <RootNamespace>Aristocrat.Monaco.HHR</RootNamespace>
     <AssemblyName>Aristocrat.Monaco.HHR</AssemblyName>
@@ -67,17 +67,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0003" />
+    <PackageReference Include="Aristocrat.SQLite.Core" Version="1.0.110-beta0001" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
     <PackageReference Include="Stateless" Version="4.0.0" />
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
   </ItemGroup>
 </Project>

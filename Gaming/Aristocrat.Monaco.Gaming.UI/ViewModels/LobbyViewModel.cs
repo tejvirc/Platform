@@ -43,7 +43,6 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts.Drm;
     using Cabinet.Contracts;
-    using Common;
     using Contracts.Events;
     using Contracts.InfoBar;
     using Contracts.PlayerInfoDisplay;
@@ -53,11 +52,11 @@
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
+    using Vgt.Client12.Testing.Tools;
     using Views.Controls;
     using Views.Lobby;
     using Size = System.Windows.Size;
 #if !(RETAIL)
-    using Vgt.Client12.Testing.Tools;
     using Events;
 #endif
 
@@ -91,7 +90,7 @@
         private const string LobbyIdleTextDefaultResourceKey = "LobbyIdleTextDefault";
         private const string TopperImageDefaultResourceKey = "TopperBackground";
         private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string IdleTextFamilyName = "Segoe UI";
 
         private readonly IBank _bank;
@@ -1809,7 +1808,7 @@
         {
             // we call ChangeLanguageSkin before this is called from LobbyViewModel.xaml.cs
             // So any text that needs to be localized from resources can be updated once
-            // we are here.  
+            // we are here.
             Logger.Debug("Lobby OnLoaded() complete");
             RaisePropertyChanged(nameof(PaidMeterLabel));
         }
@@ -2917,7 +2916,7 @@
                     ReplayRecovery.BackgroundOpacity = _gameDiagnostics.AllowInput ? 0.00 : 0.05;
                 }
             }
-            else //CurrentState == LobbyState.Disabled.  
+            else //CurrentState == LobbyState.Disabled.
             {
                 // VLT-4326: Do not include all Disabled states here because we handle Replay stuff in the above code block
                 ReplayRecovery.BackgroundOpacity = 0.2;
@@ -3143,7 +3142,7 @@
             }
             else if (IsTimeLimitDlgVisible)
             {
-                // VLT-4319: If Responsible Gaming is ALC Mode, always show Blank Graphic in VBD during Responsible Gaming Dialogs.  
+                // VLT-4319: If Responsible Gaming is ALC Mode, always show Blank Graphic in VBD during Responsible Gaming Dialogs.
                 state = (_responsibleGaming.IsSessionLimitHit ||
                         ResponsibleGamingMode == ResponsibleGamingMode.Continuous ||
                         ResponsibleGamingCurrentDialogState == ResponsibleGamingDialogState.PlayBreak1 ||
@@ -3680,7 +3679,7 @@
                 DisplayedGameList.Clear();
 
                 // When the tab is hosting extra large icons (i.e., for Lightning Link), a list of denoms PER game will appear
-                // below the icon for the user to pick. 
+                // below the icon for the user to pick.
                 if (IsExtraLargeGameIconTabActive)
                 {
                     var distinctGameNames = _gameList.Where(g => g.Category == GameCategory.LightningLink)

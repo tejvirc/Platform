@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Windows;
 using System.Windows.Markup;
 
@@ -24,6 +26,9 @@ using System.Windows.Markup;
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
 [assembly: CLSCompliant(true)]
+[assembly: SupportedOSPlatform("windows7.0")]
+
+[assembly: NeutralResourcesLanguage("en-US")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("d89d0319-6cc4-47fd-92ec-9855898f02ff")]

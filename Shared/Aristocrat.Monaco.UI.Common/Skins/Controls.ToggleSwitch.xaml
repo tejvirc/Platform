@@ -7,13 +7,13 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="MonacoToggleSwitchButton"
-           TargetType="controls:ToggleSwitchButton"
+           TargetType="controls:ToggleSwitch"
            BasedOn="{StaticResource Aristocrat.Monaco.UI.Common.Skins.ToggleSwitchButton}">
         <Setter Property="Width" Value="200"/>
         <Setter Property="Height" Value="50"/>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}"/>
-        <Setter Property="ThumbIndicatorBrush">
+        <!--<Setter Property="ThumbIndicatorBrush">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,.5"
                                      EndPoint="1,.5">
@@ -23,26 +23,26 @@
                                   Offset=".3" />
                 </LinearGradientBrush>
             </Setter.Value>
-        </Setter>
-        <Setter Property="OffSwitchBrush">
+        </Setter>-->
+        <!--<Setter Property="OffSwitchBrush">
             <Setter.Value>
                 <SolidColorBrush Color="Transparent" />
             </Setter.Value>
-        </Setter>
-        <Setter Property="OnSwitchBrush">
+        </Setter>-->
+        <!--<Setter Property="OnSwitchBrush">
             <Setter.Value>
                 <SolidColorBrush Color="Transparent" />
             </Setter.Value>
-        </Setter>
-        <Setter Property="ThumbIndicatorWidth"
-                Value="100" />
+        </Setter>-->
+        <!--<Setter Property="ThumbIndicatorWidth"
+                Value="100" />-->
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="BorderBrush"
                 Value="{DynamicResource Brush3}" />
         <Setter Property="controls:ControlsHelper.CornerRadius"
                 Value="3" />
-        <Style.Triggers>
+        <!--<Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="ThumbIndicatorBrush">
                     <Setter.Value>
@@ -56,7 +56,7 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
     </Style>
 
 </ResourceDictionary>

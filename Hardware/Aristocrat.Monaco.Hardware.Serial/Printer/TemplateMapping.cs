@@ -423,7 +423,9 @@
         {
             using (var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
-                var xmlSerializer = new XmlSerializer(typeof(T));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var xmlSerializer = new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
                 var xmlContent = (T)xmlSerializer.Deserialize(fileStream);
 
                 if (xmlContent != null)

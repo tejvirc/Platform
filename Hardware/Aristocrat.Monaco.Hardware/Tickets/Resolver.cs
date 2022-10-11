@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Tickets
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
@@ -73,7 +74,9 @@
 
             using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
-                var xmlSerializer = new XmlSerializer(typeof(dprcollectiontype));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dprcollectiontype))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var xmlSerializer = new XmlSerializer(typeof(dprcollectiontype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dprcollectiontype)));
 
                 var contentsOfRegionsXml = (dprcollectiontype) xmlSerializer.Deserialize(fs);
 
@@ -140,7 +143,9 @@
 
             using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
-                var xmlSerializer = new XmlSerializer(typeof(dptcollectiontype));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dprcollectiontype))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var xmlSerializer = new XmlSerializer(typeof(dprcollectiontype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dprcollectiontype)));
 
                 var contentsOfTemplatesXml = (dptcollectiontype) xmlSerializer.Deserialize(fs);
 

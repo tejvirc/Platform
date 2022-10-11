@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <AssemblyTitle>Aristocrat.Monaco.Bingo.Common.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -9,7 +10,11 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Protocol\Bingo\Aristocrat.Monaco.Bingo.Common\Aristocrat.Monaco.Bingo.Common.csproj" />
-    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SoapFormatter" Version="1.1.9" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
   </ItemGroup>
 </Project>

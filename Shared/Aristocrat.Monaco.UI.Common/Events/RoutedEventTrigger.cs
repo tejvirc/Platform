@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Events
 {
     using System.Windows;
-    using System.Windows.Interactivity;
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     ///     Used to route attached events to command

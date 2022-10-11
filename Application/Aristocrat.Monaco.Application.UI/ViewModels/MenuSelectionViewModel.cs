@@ -1019,6 +1019,7 @@
                 UnsubscribeFromEvents();
 
                 _buttonNavigator.Dispose();
+                _popupTimer.Dispose();
 
                 _dayTimer?.Stop();
 

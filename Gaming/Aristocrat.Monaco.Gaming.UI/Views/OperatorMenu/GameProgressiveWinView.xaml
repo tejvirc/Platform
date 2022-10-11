@@ -8,6 +8,8 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                mc:Ignorable="d" 
@@ -35,26 +37,26 @@
                       Height="Auto"
                       Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                    <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                         Width="200"
                                         Binding="{Binding WinDateTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"/>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}"
+                    <DataGridTextColumn Header="{lex:Loc DeviceId}"
                                         Width="100"
                                         Binding="{Binding DeviceId}"/>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelId}}"
+                    <DataGridTextColumn Header="{lex:Loc LevelId}"
                                         Width="100"
                                         Binding="{Binding LevelId}"/>
-                    <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}">
+                    <DataGridTemplateColumn Header="{lex:Loc Level}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type models:ProgressiveWinModel}">
                                 <commonControls:SmartLongNameTextBlock ContentText="{Binding LevelName}" ContentMaxWidth="150"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Win}}"
+                    <DataGridTextColumn Header="{lex:Loc Win}"
                                         Width="120"
                                         Binding="{Binding WinAmount}"/>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TransactionId}}"
+                    <DataGridTextColumn Header="{lex:Loc TransactionId}"
                                         Width="170"
                                         Binding="{Binding TransactionId}"/>
                 </DataGrid.Columns>

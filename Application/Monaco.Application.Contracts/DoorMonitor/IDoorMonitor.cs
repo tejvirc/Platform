@@ -189,7 +189,12 @@ namespace Aristocrat.Monaco.Application.Contracts
 
                 hash = hash * 23 + DoorId.GetHashCode();
                 hash = hash * 23 + IsOpen.GetHashCode();
-                hash = hash * 23 + Time.GetHashCode();
+#pragma warning disable CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
+                if (Time != null)
+                {
+                    hash = hash * 23 + Time.GetHashCode();
+                }
+#pragma warning restore CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
 
                 hash = hash * 23 + ValidationPassed.GetHashCode();
                 return hash;

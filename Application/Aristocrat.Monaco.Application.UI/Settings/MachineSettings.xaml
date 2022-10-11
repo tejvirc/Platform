@@ -9,25 +9,25 @@
 
     <mvvm:TemplateDictionary x:Key="DayOfWeek">
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Sunday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Sunday}}" />
+            <TextBlock Text="{lex:Loc Sunday}" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Monday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Monday}}" />
+            <TextBlock Text="{lex:Loc Monday}" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Tuesday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Tuesday}}" />
+            <TextBlock Text="{lex:Loc Tuesday}" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Wednesday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Wednesday}}" />
+            <TextBlock Text="{lex:Loc Wednesday}" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Thursday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Thursday}}" />
+            <TextBlock Text="{lex:Loc Thursday}" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Friday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Friday}}" />
+            <TextBlock Text="{lex:Loc Friday}" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Saturday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Saturday}}" />
+            <TextBlock Text="{lex:Loc Saturday}" />
         </DataTemplate>
     </mvvm:TemplateDictionary>
 
@@ -38,77 +38,77 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.JurisdictionLabel}}" />
+                               Text="{lex:Loc JurisdictionLabel}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding Jurisdiction}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.EnableShowMode}}" />
+                               Text="{lex:Loc EnableShowMode}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ShowMode}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ShowGameRules}}" />
+                               Text="{lex:Loc ShowGameRules}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding GameRules}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ProtocolLabel}}" />
+                               Text="{lex:Loc ProtocolLabel}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding Protocols}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.NoteAcceptorEnabled}}" />
+                               Text="{lex:Loc NoteAcceptorEnabled}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding NoteAcceptorEnabled}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.NoteAcceptorManufacturer}}" />
+                               Text="{lex:Loc NoteAcceptorManufacturer}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding NoteAcceptorManufacturer}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.Printer_Enabled}}" />
+                               Text="{lex:Loc Printer_Enabled}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding PrinterEnabled}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PrinterManufacturer}}" />
+                               Text="{lex:Loc PrinterManufacturer}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding PrinterManufacturer}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.IdReaderEnabled}}" />
+                               Text="{lex:Loc IdReaderEnabled}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding IdReaderEnabled}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.IdReaderManufacturer}}" />
+                               Text="{lex:Loc IdReaderManufacturer}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding IdReaderManufacturer}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.HardMetersEnabled}}"
+                               Text="{lex:Loc HardMetersEnabled}"
                                Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMetersEnabled}" 
@@ -117,7 +117,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.HardMetersAvailableMeterMappings}}" 
+                               Text="{lex:Loc HardMetersAvailableMeterMappings}" 
                                Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMeterMapSelectionValue}" 
@@ -126,7 +126,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.HardMeterIncrementValue}}" 
+                               Text="{lex:Loc HardMeterIncrementValue}" 
                                Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMeterTickValueDisplay}" 
@@ -135,28 +135,28 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DoorOpticSensorEnabled}}" />
+                               Text="{lex:Loc DoorOpticSensorEnabled}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DoorOpticSensorEnabled}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.Currency}}" />
+                               Text="{lex:Loc Currency}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding CurrencyDescription}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.RequireZeroCredit}}" />
+                               Text="{lex:Loc RequireZeroCredit}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding RequireZeroCreditsForOutOfService}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledNotes}}" />
+                               Text="{lex:Loc DisabledNotes}" />
                     <DataGrid IsHitTestVisible="False"
                               VerticalAlignment="Top"
                               ItemsSource="{Binding DisabledNotes}"
@@ -165,92 +165,92 @@
                               AutoGenerateColumns="False"
                               Visibility="{Binding DisabledNotesVisible, Converter={StaticResource BoolToVisible}}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Denom}}" Binding="{Binding DenomDisplay}" />
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.IsoCode}}" Binding="{Binding IsoCode}" />
+                            <DataGridTextColumn Header="{lex:Loc Denom}" Binding="{Binding DenomDisplay}" />
+                            <DataGridTextColumn Header="{lex:Loc IsoCode}" Binding="{Binding IsoCode}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.BillAcceptanceLimit}}" />
+                               Text="{lex:Loc BillAcceptanceLimit}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding MaxCreditsInDisplay}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ExcessiveRejectDisable}}" />
+                               Text="{lex:Loc ExcessiveRejectDisable}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ExcessiveRejectDisable}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}" />
+                               Text="{lex:Loc MasterSoundVolumeLabel}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DefaultVolumeLevelDisplay}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.VolumeControlLocationTitle}}" />
+                               Text="{lex:Loc VolumeControlLocationTitle}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding VolumeControlLocation}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.AllowVoucherIn}}" />
+                               Text="{lex:Loc AllowVoucherIn}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding VoucherIn}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.BarcodeType}}" />
+                               Text="{lex:Loc BarcodeType}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding BarcodeType}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationLength}}" />
+                               Text="{lex:Loc ValidationLength}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ValidationLength}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.LayoutType}}" />
+                               Text="{lex:Loc LayoutType}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding LayoutType}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PropertyName}}" />
+                               Text="{lex:Loc PropertyName}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding TicketTextLine1}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PropertyAddressLine1}}" />
+                               Text="{lex:Loc PropertyAddressLine1}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding TicketTextLine2}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PropertyAddressLine2}}" />
+                               Text="{lex:Loc PropertyAddressLine2}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding TicketTextLine3}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.OperatingHours}}" />
+                               Text="{lex:Loc OperatingHours}" />
                     <DataGrid IsHitTestVisible="False"
                               VerticalAlignment="Top"
                               ItemsSource="{Binding OperatingHours}"
@@ -258,61 +258,61 @@
                               IsReadOnly="True"
                               AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Day}}" CellTemplateSelector="{mvvm:TemplateSelector Property=Day, TemplateDictionary={StaticResource DayOfWeek}}" />
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Time}}" Binding="{Binding Time}" />
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Enabled}}" Binding="{Binding Enabled}" />
+                            <DataGridTemplateColumn Header="{lex:Loc Day}" CellTemplateSelector="{mvvm:TemplateSelector Property=Day, TemplateDictionary={StaticResource DayOfWeek}}" />
+                            <DataGridTextColumn Header="{lex:Loc Time}" Binding="{Binding Time}" />
+                            <DataGridTextColumn Header="{lex:Loc Enabled}" Binding="{Binding Enabled}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DemonstrationMode}}" />
+                               Text="{lex:Loc DemonstrationMode}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DemonstrationMode}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DeletePackageAfterInstall}}" />
+                               Text="{lex:Loc DeletePackageAfterInstall}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DeletePackageAfterInstall}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ScreenBrightness}}" />
+                               Text="{lex:Loc ScreenBrightness}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ScreenBrightness}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.MediaDisplayEnabled}}" />
+                               Text="{lex:Loc MediaDisplayEnabled}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding MediaDisplayEnabled}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.RebootWhilePrinting}}" />
+                               Text="{lex:Loc RebootWhilePrinting}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding RebootWhilePrintingBehavior}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReserveGamingMachine}}" />
+                               Text="{lex:Loc ReserveGamingMachine}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ReserveServiceEnabled}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReserveMachineDuration}}" />
+                               Text="{lex:Loc ReserveMachineDuration}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}">
                         <Run Text="{Binding ReserveServiceTimeoutInMinutes, Mode=OneWay}"/>
-                        <Run Text="{lex:Loc {x:Static loc:ResourceKeys.Minutes}}"/>
+                        <Run Text="{lex:Loc Minutes}"/>
                     </TextBlock>
                 </StackPanel>
             </StackPanel>

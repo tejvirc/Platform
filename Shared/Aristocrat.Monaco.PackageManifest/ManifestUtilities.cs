@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.PackageManifest
 {
     using System;
+    using System.Linq;
     using System.Collections.Concurrent;
     using System.IO;
     using System.Xml;
@@ -33,7 +34,13 @@
 
             using (var reader = XmlReader.Create(file, settings))
             {
-                var serializer = Serializers.GetOrAdd(typeof(T), t => new XmlSerializer(t));
+                var serializer = Serializers.GetOrAdd(typeof(T), t =>
+                {
+                    var theXmlRootAttribute = Attribute.GetCustomAttributes(t.GetType())
+                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                    var serializer = new XmlSerializer(t.GetType(), theXmlRootAttribute ?? new XmlRootAttribute(t.GetType().Name));
+                    return serializer;
+                });
 
                 return (T)serializer.Deserialize(reader);
             }
@@ -54,7 +61,13 @@
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            var serializer = Serializers.GetOrAdd(typeof(T), t => new XmlSerializer(t));
+            var serializer = Serializers.GetOrAdd(typeof(T), t =>
+            {
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(t.GetType())
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(t.GetType(), theXmlRootAttribute ?? new XmlRootAttribute(t.GetType().Name));
+                return serializer;
+            });
 
             return (T)serializer.Deserialize(stream);
         }

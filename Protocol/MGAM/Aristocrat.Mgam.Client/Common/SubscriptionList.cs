@@ -33,7 +33,8 @@
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
+        ///  <inheritdoc />
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {

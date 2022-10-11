@@ -8,6 +8,8 @@
         xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
         xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+        lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
         xmlns:loc="http://monaco.aristocrat.com/localization"
         mc:Ignorable="d" 
         Background="Transparent"
@@ -27,7 +29,7 @@
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
                Style="{StaticResource MonacoLabel}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}"
+               Content="{lex:Loc NoProgressiveGamesEnabled}"
                Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
 
         <DataGrid Margin="0"
@@ -51,7 +53,7 @@
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveLevel}}">
+                <DataGridTemplateColumn Header="{lex:Loc ProgressiveLevel}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="models:ProgressiveSummaryModel">
                             <commonControls:SmartLongNameTextBlock ContentText="{Binding ProgressiveLevel}" ContentMaxWidth="350"/>
@@ -59,13 +61,13 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
+                    Header="{lex:Loc CurrentValue}"
                     Binding="{Binding CurrentValue}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.ConfiguredGame}}"
+                    Header="{lex:Loc ConfiguredGame}"
                     Binding="{Binding ConfiguredGame}"/>
                 <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevel}}" 
+                    Header="{lex:Loc WinLevel}" 
                     Binding="{Binding WinLevel}"/>
             </DataGrid.Columns>
         </DataGrid>

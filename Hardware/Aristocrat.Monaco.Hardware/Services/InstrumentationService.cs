@@ -88,7 +88,7 @@
             }
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -206,7 +206,7 @@
         private static bool GetLoggerPath(out string logFolder)
         {
             logFolder = string.Empty;
-            var rootAppender = ((Hierarchy)LogManager.GetRepository())
+            var rootAppender = ((Hierarchy)LogManager.GetRepository(Assembly.GetEntryAssembly()))
                 .Root.Appenders.OfType<FileAppender>()
                 .FirstOrDefault();
 

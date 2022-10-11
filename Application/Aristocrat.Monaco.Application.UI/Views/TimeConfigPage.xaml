@@ -6,6 +6,10 @@
                               mc:Ignorable="d"
                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                               Background="Transparent"
                               d:DataContext="{d:DesignInstance {x:Type viewModels:TimeConfigPageViewModel}}">
 

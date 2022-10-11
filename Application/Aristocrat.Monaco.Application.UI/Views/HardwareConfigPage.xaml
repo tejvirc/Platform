@@ -10,6 +10,8 @@
                               xmlns:common="http://monaco.aristocrat.com/common"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               mc:Ignorable="d"
                               d:DesignHeight="400" d:DesignWidth="1420"
                               Background="Transparent" 
@@ -64,7 +66,7 @@
                 <Style.Triggers>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
-                            <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
                             <Condition Property="IsSelected" Value="True" />
                         </MultiTrigger.Conditions>
                         <Setter Property="Background" Value="Transparent" />
@@ -72,7 +74,7 @@
                     </MultiTrigger>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
-                            <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
                             <Condition Property="IsSelected" Value="True" />
                             <Condition Property="Selector.IsSelectionActive" Value="False" />
                         </MultiTrigger.Conditions>
@@ -110,11 +112,11 @@
                   RowStyle="{StaticResource RowStyle}"
                   IsEnabled="{Binding InputEnabled}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceLabel}}" 
+                <DataGridTextColumn Header="{lex:Loc DeviceLabel}" 
                                     MinWidth="200" FontSize="{StaticResource LabelFontSize}"
                                     Binding="{Binding DeviceName}"
                                     CellStyle="{StaticResource CellStyle}"/>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledLabel}}"
+                <DataGridTemplateColumn Header="{lex:Loc EnabledLabel}"
                                         IsReadOnly="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -130,7 +132,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
+                <DataGridTemplateColumn Header="{lex:Loc ManufacturerLabel}"
                                         IsReadOnly="False"
                                         MinWidth="300"
                                         CellStyle="{StaticResource MakeCellStyle}">
@@ -149,11 +151,11 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}" 
+                <DataGridTextColumn Header="{lex:Loc ProtocolLabel}" 
                                     MinWidth="110"
                                     CellStyle="{StaticResource ProtocolCellStyle}"
                                     Binding="{Binding Protocol}"/>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
+                <DataGridTemplateColumn Header="{lex:Loc Port}"
                                         IsReadOnly="False"
                                         MinWidth="110"
                                         CellStyle="{StaticResource PortCellStyle}">
@@ -165,7 +167,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}" 
+                <DataGridTextColumn Header="{lex:Loc StatusLabel}" 
                                     FontSize="{StaticResource SmallLabelFontSize}"
                                     Binding="{Binding Status}"
                                     CellStyle="{StaticResource StatusCellStyle}"/>
@@ -188,7 +190,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMetersLabel}}"/>
+                   Content="{lex:Loc HardMetersLabel}"/>
             <CheckBox Grid.Row="0" Grid.Column="1" Name="HardMeterEnabled"
                       IsChecked="{Binding Path=HardMetersEnabled, Mode=TwoWay}"
                       IsEnabled="{Binding ConfigurableHardMeters}"
@@ -198,7 +200,7 @@
             <StackPanel Grid.Row="0" Grid.Column="2"
                         Orientation="Horizontal"
                         Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AvailableMeterMappings}}"/>
+                <Label Content="{lex:Loc AvailableMeterMappings}"/>
                 <ComboBox Style="{StaticResource MonacoComboBox}"
                           SelectedValue="{Binding HardMeterMapSelection, Mode=TwoWay}"
                           ItemsSource="{Binding HardMeterMapNames}"
@@ -209,7 +211,7 @@
             <StackPanel Grid.Row="1" Grid.Column="2"
                         Orientation="Horizontal"
                         Visibility="{Binding TickValueVisible, Converter={StaticResource BoolToVisConverter}}">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMeterTickValue}}"/>
+                <Label Content="{lex:Loc HardMeterTickValue}"/>
                 <ComboBox ItemsSource="{Binding TickValues}"
                           DisplayMemberPath="Cents"
                           SelectedItem="{Binding TickValue}"
@@ -230,7 +232,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoorOpticSensor}}"
+                   Content="{lex:Loc DoorOpticSensor}"
                    Margin="4 8 0 0"/>
             <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Path=EnabledDoorOpticSensor, Mode=TwoWay}"
                       Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
@@ -255,7 +257,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BellyPanelDoor}}"
+                   Content="{lex:Loc BellyPanelDoor}"
                    Margin="4 0 0 0"/>
             <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Path=BellyPanelDoorEnabled, Mode=TwoWay}"
                       Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
@@ -273,7 +275,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BellLabel}}"
+                   Content="{lex:Loc BellLabel}"
                    Margin="4 8 0 0"/>
             <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Path=BellEnabled, Mode=TwoWay}"
                       Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
@@ -292,7 +294,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TowerLightTierType}}"/>
+                   Content="{lex:Loc TowerLightTierType}"/>
 
             <ComboBox Grid.Row="0" Grid.Column="1"
                       Style="{StaticResource MonacoComboBox}"
@@ -306,10 +308,10 @@
         </Grid>
 
         <StackPanel Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="5 20 0 0">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Validate}}"
+            <Button Content="{lex:Loc Validate}"
                     Visibility="{Binding ShowValidateButton, Converter={StaticResource BoolToVisConverter}}"
                     Command="{Binding ValidateCommand}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+            <Button Content="{lex:Loc ApplyLabel}" 
                     Visibility="{Binding ShowApplyButton, Converter={StaticResource BoolToVisConverter}}"
                     Command="{Binding ApplyHardwareSettingsCommand}"/>
             <Button Margin="0 15 0 0"
@@ -320,11 +322,9 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="ApplyInfoButton" />
-                        <Binding ElementName="ApplyInfoButtonProxy" Path="Result" />
+                        <Binding Source="{lex:Loc RebootWarningMessage}" />
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy Name="ApplyInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.RebootWarningMessage}" />
             </Button>
             <Label Content="{Binding ValidationStatus}"
                    Style="{StaticResource MonacoWarningLabel}"

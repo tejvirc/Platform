@@ -9,7 +9,10 @@
              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance viewModels:CombinationTestViewModel, IsDesignTimeCreatable=True}" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -30,11 +33,11 @@
         </Grid.RowDefinitions>
 
         <DataGrid Grid.Row="0" ItemsSource="{Binding Games}" SelectedItem="{Binding SelectedGame}" ScrollViewer.CanContentScroll="True" Width="{Binding ElementName=Root, Path=ActualWidth}">
-            <i:Interaction.Triggers>
+            <b:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                     <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
                 </events:RoutedEventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Triggers>
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
@@ -50,16 +53,16 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding UniqueId}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}" Binding="{Binding PaytableId}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}" Binding="{Binding Denomination, Converter={StaticResource CurrencyConverter}}" />
+                <DataGridTextColumn Header="{lex:Loc GameName}" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="{lex:Loc PaytableId}" Binding="{Binding PaytableId}" />
+                <DataGridTextColumn Header="{lex:Loc Denom}" Binding="{Binding Denomination, Converter={StaticResource CurrencyConverter}}" />
             </DataGrid.Columns>
 
         </DataGrid>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Margin="0 0 10 0" 
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.StartCombinationTest}}"
+                    Content="{lex:Loc StartCombinationTest}"
                     Command="{Binding ComboTestCommand}" />
         </StackPanel>
     </Grid>

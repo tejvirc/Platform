@@ -1,10 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
+    using Aristocrat.GdkRuntime.V1;
+    using Aristocrat.Monaco.Gaming.Runtime.Server;
+    using Contracts;
+    using Kernel;
     using System;
     using System.Timers;
-    using Contracts;
-    using GDKRuntime.Contract;
-    using Kernel;
 
     /// <summary>
     ///     A service that will occasionally call for generation of a random number, so that if a
@@ -18,7 +19,7 @@
         private const int MaximumExtraCycleTimeMs = 800;
 
         private readonly IPropertiesManager _properties;
-        private readonly IGameSession _gameSession;
+        private readonly IGameServiceCallback _gameSession;
 
         private Timer _cycleTimer;
         private bool _disposed;
@@ -28,9 +29,9 @@
         ///     to get random numbers for game outcomes.
         /// </summary>
         /// <param name="properties">The property manager, for settings.</param>
-        /// <param name="gameSession">The RPC object, for the RNG.</param>
+        /// <param name="gameSession">The SnappService instance, for the RNG.</param>
         public RngCyclingService(IPropertiesManager properties,
-                                 IGameSession gameSession)
+                                 SnappService gameSession)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _gameSession = gameSession ?? throw new ArgumentNullException(nameof(gameSession));
@@ -38,7 +39,8 @@
 
         private void CycleTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
-            _cycleTimer.Interval = _gameSession.GetRandomNumberU64(MaximumExtraCycleTimeMs) + MinimumCycleTimeMs;
+            var req = new GetRandomNumber64Request() { Range = MaximumExtraCycleTimeMs };
+            _cycleTimer.Interval = _gameSession.GetRandomNumber64(req).Value + MinimumCycleTimeMs;
         }
 
         /// <summary>
@@ -69,7 +71,7 @@
             Dispose(true);
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {

@@ -5,6 +5,8 @@
                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                          xmlns:common="http://monaco.aristocrat.com/common"
                          xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                         lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                         lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                          xmlns:loc="http://monaco.aristocrat.com/localization"
                          xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
                          xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
@@ -62,7 +64,7 @@
             <!--   <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
                        Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}', Converter={StaticResource CurrencyConverter}}" /> -->
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}" />
+                       Text="{lex:Loc WagerStringFormat}" />
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="0,0,0,0"
                        Text="{Binding CurrentWinningPattern.Wager}" />
 
@@ -144,12 +146,12 @@
             <Image Source="../Resources/Help/CombinationPrize.png" Height="30" Margin="60,0,0,0"/>
             <DockPanel Margin="20,20,0,0">
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.IncludesProgressiveResetValues}}" 
+                           Text="{lex:Loc IncludesProgressiveResetValues}" 
                            Visibility="{Binding CurrentWinningPattern.IncludesProgressiveResetValues, Converter={StaticResource BoolToVisible}}" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Left"
-                           Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.GuaranteedCreditsStringFormat}}'}" />
+                           Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc GuaranteedCreditsStringFormat}'}" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Right"
-                           Text="{Binding CurrentWinningPattern.ExtraWinnings, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.ExtraWinningsStringFormat}}', Converter={StaticResource CurrencyConverter}}" 
+                           Text="{Binding CurrentWinningPattern.ExtraWinnings, StringFormat='{lex:Loc ExtraWinningsStringFormat}', Converter={StaticResource CurrencyConverter}}" 
                            Visibility="{Binding CurrentWinningPattern.ExtraWinnings, Converter={StaticResource NumberToVisible}, ConverterParameter=0.0}" />
             </DockPanel>
         </StackPanel>

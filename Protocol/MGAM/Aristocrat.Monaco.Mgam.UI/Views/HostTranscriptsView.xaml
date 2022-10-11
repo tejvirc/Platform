@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Mgam.UI.ViewModels"
                                xmlns:common="http://monaco.aristocrat.com/common"
@@ -59,7 +61,7 @@
 
         <Label Grid.Row="0" 
                Grid.Column="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.EgmIdLabel}}"/>
+               Content="{lex:Loc EgmIdLabel}"/>
         <TextBlock Grid.Row="0" 
                    Grid.Column="1" 
                    Margin="20 0 0 0" 
@@ -69,7 +71,7 @@
         <Label Grid.Row="1" 
                Grid.Column="0" 
                Margin="0 10 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"/>
+               Content="{lex:Loc State}"/>
         <TextBlock Grid.Row="1" 
                    Grid.Column="1" 
                    Margin="20 0 0 0"
@@ -77,10 +79,10 @@
             <TextBlock.Style>
                 <Style TargetType="TextBlock"
                        BasedOn="{StaticResource {x:Type TextBlock}}">
-                    <Setter Property="Text" Value="{lex:BLoc {x:Static loc:ResourceKeys.Offline}}" />
+                    <Setter Property="Text" Value="{lex:BLoc Offline}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Online}" Value="True">
-                            <Setter Property="Text" Value="{lex:BLoc {x:Static loc:ResourceKeys.Online}}" />
+                            <Setter Property="Text" Value="{lex:BLoc Online}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -90,37 +92,37 @@
         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                Margin="0 20 0 0"
                HorizontalAlignment="Left"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.RegisteredInstance}}"/>
+               Content="{lex:Loc RegisteredInstance}"/>
 
         <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderBrush="{StaticResource MahApps.Brushes.Accent}"
                 BorderThickness="0 0 0 2">
             <DataGrid ColumnWidth="*"
                       VerticalAlignment="Stretch"
                       ItemsSource="{Binding RegisteredInstances, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
-                         Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}" 
+                         Header="{lex:Loc DateAndTime}" 
                          Width="Auto" 
                          Binding="{Binding Timestamp, Converter={StaticResource DateTimeFormatConverter}}">
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Address}}" 
+                    <DataGridTextColumn Header="{lex:Loc Address}" 
                                         Width="Auto" 
                                         Binding="{Binding Address}"
                                         CellStyle="{StaticResource DataGridCellCenter}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}" 
+                    <DataGridTextColumn Header="{lex:Loc DeviceId}" 
                                         Width="Auto" 
                                         Binding="{Binding DeviceId}"
                                         CellStyle="{StaticResource DataGridCellCenter}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InstanceId}}" 
+                    <DataGridTextColumn Header="{lex:Loc InstanceId}" 
                                         Width="Auto" 
                                         Binding="{Binding InstanceId}"
                                         CellStyle="{StaticResource DataGridCellCenter}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SiteId}}" 
+                    <DataGridTextColumn Header="{lex:Loc SiteId}" 
                                         Width="Auto" 
                                         Binding="{Binding SiteId}"
                                         CellStyle="{StaticResource DataGridCellCenter}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Description}}" 
+                    <DataGridTextColumn Header="{lex:Loc Description}" 
                                         Width="Auto" 
                                         Binding="{Binding Description}" />
                 </DataGrid.Columns>
@@ -131,11 +133,11 @@
                   Margin="0 20 0 0"
                   HorizontalAlignment="Right"
                   IsChecked="{Binding IncludeKeepAliveMessages}"
-                  Content="{lex:Loc {x:Static loc:ResourceKeys.ShowHeartbeat}}" />
+                  Content="{lex:Loc ShowHeartbeat}" />
         <Label Grid.Row="4" Grid.Column="0"
                Margin="0 20 0 0"
                HorizontalAlignment="Left"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Transcripts}}"/>
+               Content="{lex:Loc Transcripts}"/>
 
         <DataGrid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                   VerticalAlignment="Stretch"
@@ -146,20 +148,20 @@
                   ScrollViewer.CanContentScroll="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}" 
+                    Header="{lex:Loc DateAndTime}" 
                     Width="Auto" 
                     Binding="{Binding Timestamp, Converter={StaticResource DateTimeFormatConverter}}">
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}" 
+                <DataGridTextColumn Header="{lex:Loc NameLabel}" 
                                     Width="Auto" 
                                     Binding="{Binding Name}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Source}}" 
+                <DataGridTextColumn Header="{lex:Loc Source}" 
                                     Width="Auto" 
                                     Binding="{Binding Source}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Destination}}" 
+                <DataGridTextColumn Header="{lex:Loc Destination}" 
                                     Width="Auto" 
                                     Binding="{Binding Destination}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResponseCode}}" 
+                <DataGridTextColumn Header="{lex:Loc ResponseCode}" 
                                     Width="Auto" 
                                     Binding="{Binding ResponseCode}"
                                     CellStyle="{StaticResource DataGridCellCenter}" />
@@ -168,7 +170,7 @@
 
         <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                 Visibility="Collapsed" 
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsViewDetail}}" 
+                Content="{lex:Loc HostTranscriptsViewDetail}" 
                 Command="{Binding ViewHostTranscriptsCommand, Mode=OneWay}" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left" 
@@ -178,11 +180,11 @@
               Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource BoolToVisConverter}}">
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
                 <DockPanel LastChildFill="True">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDetailTitle}}" 
+                    <Label Content="{lex:Loc HostTranscriptsDetailTitle}" 
                            DockPanel.Dock="Top" 
                            HorizontalAlignment="Left" />
                     <Button DockPanel.Dock="Bottom" 
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}" 
+                            Content="{lex:Loc Close}" 
                             Command="{Binding CloseDetailCommand}" 
                             HorizontalAlignment="Right" />
                     <Label Margin="10" 

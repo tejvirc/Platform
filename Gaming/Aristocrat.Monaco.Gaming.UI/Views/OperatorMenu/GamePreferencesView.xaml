@@ -9,6 +9,8 @@
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
                                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                                mc:Ignorable="d" 
@@ -73,9 +75,9 @@
                           Orientation="Vertical"
                           IsEnabled="{Binding AttractOptionsEnabled}">
                   <TextBlock
-                      Text="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModeOptions}}"/>
+                      Text="{lex:Loc AttractModeOptions}"/>
                   <CheckBox
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAttractCheckBoxText}}"
+                      Content="{lex:Loc EnableAttractCheckBoxText}"
                       IsChecked="{Binding AttractEnabled, Mode=TwoWay}"
                       IsEnabled="{Binding Path=InputEnabled}"/>
                   <StackPanel x:Name="AttractModeButtons"
@@ -83,11 +85,11 @@
                               Margin="10 10 0 0"
                               IsEnabled="{Binding AttractEnabled}">
                       <Button x:Name="AttractModeCustomizeButton"
-                              Content="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModeCustomizeButtonText}}"
+                              Content="{lex:Loc AttractModeCustomizeButtonText}"
                               Command="{Binding AttractModeCustomizeCommand}"
                               IsEnabled="{Binding Path=InputEnabled}"/>
                       <Button x:Name="AttractModePreviewButton"
-                              Content="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModePreviewButtonText}}"
+                              Content="{lex:Loc AttractModePreviewButtonText}"
                               Command="{Binding AttractModePreviewCommand}"
                               IsEnabled="{Binding Path=InputEnabled}"/>
                   </StackPanel>
@@ -96,12 +98,12 @@
                 <!-- Game Censorship Options Section -->
                 <TextBlock x:Name="GameCensorshipOptionsTextBlock"
                        Margin="0 30 0 0"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameCensorshipOptions}}"
+                       Text="{lex:Loc GameCensorshipOptions}"
                        Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}"/>
 
                 <!-- Censor Violent Content Section -->
                 <CheckBox x:Name="CensorViolentContentCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorViolentContent}}"
+                      Content="{lex:Loc CensorViolentContent}"
                       IsChecked="{Binding CensorViolentContent}"
                       Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
                     <CheckBox.IsEnabled>
@@ -114,7 +116,7 @@
 
                 <!-- Censor Drug Use Content Section -->
                 <CheckBox x:Name="CensorDrugUseContentCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorDrugUseContent}}"
+                      Content="{lex:Loc CensorDrugUseContent}"
                       IsChecked="{Binding CensorDrugUseContent}"
                       Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
                     <CheckBox.IsEnabled>
@@ -127,7 +129,7 @@
 
                 <!-- Censor Sexual Content Section -->
                 <CheckBox x:Name="CensorSexualContentCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorSexualContent}}"
+                      Content="{lex:Loc CensorSexualContent}"
                       IsChecked="{Binding CensorSexualContent}"
                       Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
                     <CheckBox.IsEnabled>
@@ -140,7 +142,7 @@
 
                 <!-- Censor Offensive Language Section -->
                 <CheckBox x:Name="CensorOffensiveLanguageCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorOffensiveLanguage}}"
+                      Content="{lex:Loc CensorOffensiveLanguage}"
                       IsChecked="{Binding CensorOffensiveContent}"
                       Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
                     <CheckBox.IsEnabled>
@@ -154,14 +156,14 @@
                 <!-- Button Behavior Options Section -->
                 <TextBlock x:Name="ButtonBehaviorOptionsTextBlock"
                        Margin="0 30 0 0"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonBehaviorOptions}}"/>
+                       Text="{lex:Loc ButtonBehaviorOptions}"/>
 
                 <!-- Button Continuous Play Section -->
                 <StackPanel x:Name="ContinuousPlaySectionStackPanel" 
                         Orientation="Horizontal"
                         Visibility="Collapsed">
                     <CheckBox x:Name="ContinuousPlayCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonContinuousPlay}}"
+                          Content="{lex:Loc ButtonContinuousPlay}"
                           IsChecked="{Binding IsButtonContinuousPlayChecked, Mode=TwoWay}">
                         <CheckBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -177,11 +179,9 @@
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="ContinuousPlayCheckBox"/>
-                                <Binding ElementName="ContinuousPlayButtonInfoProxy" Path="Result"/>
+                                <Binding Source="{lex:Loc ButtonContinuousPlayButtonInfo}"/>
                             </MultiBinding>
                         </Button.CommandParameter>
-                        <lex:LocProxy x:Name="ContinuousPlayButtonInfoProxy"
-                                  Source="{x:Static loc:ResourceKeys.ButtonContinuousPlayButtonInfo}"/>
                     </Button>
                 </StackPanel>
 
@@ -190,7 +190,7 @@
                             Orientation="Horizontal">
                     <Label x:Name="GameRoundTimeSettingLabel"
                            Margin="0 10 20 0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameRoundTimeSettingLabel}}"
+                           Content="{lex:Loc GameRoundTimeSettingLabel}"
                            VerticalAlignment="Center"/>
                     <xctk:IntegerUpDown Minimum="{Binding MinimumGameRoundDuration}"
                                         Maximum="{Binding MaximumGameRoundDuration}"
@@ -206,7 +206,7 @@
                 <StackPanel x:Name="DoubleTapForceReelStopSectionStackPanel" 
                         Orientation="Horizontal">
                     <CheckBox x:Name="DoubleTapReelStopCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoubleTapForcesGameRoundStop}}"
+                          Content="{lex:Loc DoubleTapForcesGameRoundStop}"
                           IsChecked="{Binding IsDoubleTapForceReelStopChecked, Mode=TwoWay}">
                         <CheckBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -222,11 +222,9 @@
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="DoubleTapReelStopCheckBox"/>
-                                <Binding ElementName="DoubleTapForceReelStopProxy" Path="Result"/>
+                                <Binding Source="{lex:Loc DoubleTapForcesGameRoundStopButtonInfo}"/>
                             </MultiBinding>
                         </Button.CommandParameter>
-                        <lex:LocProxy x:Name="DoubleTapForceReelStopProxy" 
-                                  Source="{x:Static loc:ResourceKeys.DoubleTapForcesGameRoundStopButtonInfo}"/>
                     </Button>
                 </StackPanel>
 
@@ -238,7 +236,7 @@
                     <Label x:Name="GameStartMethodLabel"
                        Margin="0 10 0 0"
                        VerticalAlignment="Bottom"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameStartMethod}}"/>
+                       Content="{lex:Loc GameStartMethod}"/>
                     <ComboBox x:Name="GameStartMethodComboBox"
                           HorizontalAlignment="Left"
                           DisplayMemberPath="Description"
@@ -257,12 +255,12 @@
                 <!-- Show Program Options Section -->
                 <TextBlock x:Name="ShowProgramOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramOptionsLabel}}"
+                           Text="{lex:Loc ShowProgramOptionsLabel}"
                            Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}"/> 
 
                 <!-- Enable Show Program PIN Section -->
                 <CheckBox x:Name="ShowProgramPinRequiredCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramEnableShowProgramPin}}" 
+                          Content="{lex:Loc ShowProgramEnableShowProgramPin}" 
                           IsChecked="{Binding ShowProgramPinRequired}"
                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}">
                     <CheckBox.IsEnabled>
@@ -295,12 +293,12 @@
                     <Label x:Name="ShowProgramPinLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramPin}}"/>
+                           Content="{lex:Loc ShowProgramPin}"/>
                 </StackPanel>
 
                 <!-- Show Program Enable Reset Credits Section -->
                 <CheckBox x:Name="ShowProgramEnableResetCreditsCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramEnableResetCredits}}"
+                          Content="{lex:Loc ShowProgramEnableResetCredits}"
                           IsChecked="{Binding ShowProgramEnableResetCredits}"
                           IsEnabled="{Binding FieldAccessEnabled}" 
                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}"/>
@@ -313,7 +311,7 @@
 
                 <!-- Game UI / Lobby Options Section -->
                 <TextBlock x:Name="LobbyOptionsTextBlock"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameUILobbyOptions}}"/>
+                       Text="{lex:Loc GameUILobbyOptions}"/>
 
                 <!-- Volume Control Location Section -->
                 <StackPanel Orientation="Horizontal"
@@ -326,18 +324,18 @@
                               IsEnabled="{Binding Path=InputEnabled}"/>
                     <Label Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.VolumeControlLocationTitle}}"/>
+                           Content="{lex:Loc VolumeControlLocationTitle}"/>
                 </StackPanel>
 
                 <!-- Show Service Section -->
                 <CheckBox x:Name="ShowServiceCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowService}}" 
+                      Content="{lex:Loc ShowService}" 
                       IsChecked="{Binding ShowServiceButton}"
                       IsEnabled="{Binding Path=InputEnabled}"/>
 
                 <!-- Show Top Picks Banners -->
                 <CheckBox x:Name="ShowTopPickBannersCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowTopPickBanners}}" 
+                      Content="{lex:Loc ShowTopPickBanners}" 
                       Visibility="{Binding ShowTopPickBannersVisible, Converter={StaticResource BoolToVisConverter}}"
                       IsChecked="{Binding ShowTopPickBanners}"
                       IsEnabled="{Binding Path=InputEnabled}"/>
@@ -357,7 +355,7 @@
                     <Label x:Name="LobbyVolumeLevelLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"/>
+                       Content="{lex:Loc RelativeVolume}"/>
                 </StackPanel>
 
                 <!-- Enable once lobby work is done -->
@@ -378,17 +376,17 @@
                     </ComboBox>
                     <Label Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveLobbyIndicatorSelection}}"/>
+                           Content="{lex:Loc ProgressiveLobbyIndicatorSelection}"/>
                 </StackPanel>
 
                 <!-- Slot Game Options Section -->
                 <TextBlock x:Name="SlotGameOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.SlotGamesOptions}}"/>
+                           Text="{lex:Loc SlotGamesOptions}"/>
 
                 <!-- Slot Enable Auto Play Section -->
                 <CheckBox x:Name="SlotEnableAutoPlayCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAutoPlay}}" 
+                      Content="{lex:Loc EnableAutoPlay}" 
                       IsChecked="{Binding SlotEnableAutoPlay}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -419,17 +417,17 @@
                     <Label x:Name="SlotVolumeLevelLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"/>
+                       Content="{lex:Loc RelativeVolume}"/>
                 </StackPanel>
 
                 <!-- Keno Games Option Section -->
                 <TextBlock x:Name="KenoGamesTextBlock" 
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.KenoGamesOptions}}"/>
+                           Text="{lex:Loc KenoGamesOptions}"/>
 
                 <!-- Keno Enable Auto Play Section -->
                 <CheckBox x:Name="KenoEnableAutoPlayCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAutoPlay}}" 
+                      Content="{lex:Loc EnableAutoPlay}" 
                       IsChecked="{Binding KenoEnableAutoPlay}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -441,7 +439,7 @@
 
                 <!-- Keno Show Player Speed Section -->
                 <CheckBox x:Name="KenoShowPlayerSpeedCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowPlayerSpeedButton}}" 
+                      Content="{lex:Loc ShowPlayerSpeedButton}" 
                       IsChecked="{Binding KenoShowPlayerSpeedButton}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -470,7 +468,7 @@
                     <Label x:Name="KenoSpeedLevelLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.SpeedLevel}}"/>
+                       Content="{lex:Loc SpeedLevel}"/>
                 </StackPanel>
 
                 <!-- Keno Default Player Speed Section -->
@@ -492,7 +490,7 @@
                     <Label x:Name="KenoDefaultPlayerSpeedLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultPlayerSpeed}}"/>
+                       Content="{lex:Loc DefaultPlayerSpeed}"/>
                 </StackPanel>
 
                 <!-- Keno Volume Section -->
@@ -516,7 +514,7 @@
                     <Label x:Name="KenoVolumeLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"/>
+                       Content="{lex:Loc RelativeVolume}"/>
                 </StackPanel>
             </StackPanel>
 
@@ -527,11 +525,11 @@
 
                 <!-- Poker Game Options Section -->
                 <TextBlock x:Name="PokerGameOptionsTextBlock"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.PokerGamesOptions}}"/>
+                       Text="{lex:Loc PokerGamesOptions}"/>
 
                 <!-- Poker Enable Auto Hold Section -->
                 <CheckBox x:Name="PokerEnableAutoHoldCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAutoHold}}" 
+                      Content="{lex:Loc EnableAutoHold}" 
                       IsChecked="{Binding PokerEnableAutoHold}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -544,7 +542,7 @@
 
                 <!-- Poker Show Player Speed Section -->
                 <CheckBox x:Name="PokerShowPlayerSpeedCheckBox"
-                      Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowPlayerSpeedButton}}" 
+                      Content="{lex:Loc ShowPlayerSpeedButton}" 
                       IsChecked="{Binding PokerShowPlayerSpeedButton}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -573,7 +571,7 @@
                     <Label x:Name="PokerSpeedLevelLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.SpeedLevel}}"/>
+                       Content="{lex:Loc SpeedLevel}"/>
                 </StackPanel>
 
                 <!-- Poker Default Player Speed Section -->
@@ -596,7 +594,7 @@
                     <Label x:Name="PokerDefaultPlayerSpeedLabel" 
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultPlayerSpeed}}"/>
+                       Content="{lex:Loc DefaultPlayerSpeed}"/>
                 </StackPanel>
 
                 <!-- Poker Volume Level Section -->
@@ -621,7 +619,7 @@
                     <Label x:Name="PokerVolumeLevelLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"/>
+                       Content="{lex:Loc RelativeVolume}"/>
                 </StackPanel>
 
                 <!-- Poker Background color Section -->
@@ -644,16 +642,16 @@
                         <Label x:Name="PokerColorLabel"
                                Margin="5 5 0 0"
                                VerticalAlignment="Center"
-                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackgroundColor}}"/>
+                               Content="{lex:Loc BackgroundColor}"/>
                     </StackPanel>
                     <Button Margin="10 10 0 10" HorizontalAlignment="Right" IsEnabled="{Binding BackgroundPreviewAvailable}"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModePreviewButtonText}}" Command="{Binding PreviewBackgroundCommand}" />
+                            Content="{lex:Loc AttractModePreviewButtonText}" Command="{Binding PreviewBackgroundCommand}" />
                 </StackPanel>
 
                 <!-- Blackjack Game Options Section -->
                 <TextBlock x:Name="BlackjackGameOptionsTextBlock" 
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.BlackjackGamesOptions}}"/>
+                           Text="{lex:Loc BlackjackGamesOptions}"/>
 
                 <!-- Blackjack Volume Level Section -->
                 <StackPanel x:Name="BlackjackVolumeLevelStackPanel"
@@ -677,13 +675,13 @@
                     <Label x:Name="BlackjackVolumeLevelLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"/>
+                       Content="{lex:Loc RelativeVolume}"/>
                 </StackPanel>
 
                 <!-- Roulette Game Options Section -->
                 <TextBlock x:Name="RouletteGameOptionsTextBlock" 
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.RouletteGamesOptions}}"/>
+                           Text="{lex:Loc RouletteGamesOptions}"/>
 
                 <!-- Roulette Volume Level Section -->
                 <StackPanel x:Name="RouletteVolumeLevelStackPanel"
@@ -706,7 +704,7 @@
                     <Label x:Name="RouletteVolumeLevelLabel" 
                            Margin="5 5 0 0" 
                            VerticalAlignment="Center" 
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"/>
+                           Content="{lex:Loc RelativeVolume}"/>
                 </StackPanel>
             </StackPanel>
 
@@ -714,7 +712,7 @@
             <Button x:Name="ChangeGameLobbyLayoutButton" 
                 Grid.Column="4" 
                 Grid.Row="3" 
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ChangeGameLobbyLayout}}"
+                Content="{lex:Loc ChangeGameLobbyLayout}"
                 HorizontalAlignment="Left" 
                 Margin="5"
                 Visibility="Hidden"

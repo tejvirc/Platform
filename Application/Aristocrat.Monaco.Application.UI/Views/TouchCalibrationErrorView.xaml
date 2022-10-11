@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d" 
                                Height="Auto" Width="Auto"
@@ -27,7 +29,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="{Binding ErrorText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Label Grid.Row="1" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TouchCalibrationErrorText2}}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Label Grid.Row="1" Content="{lex:Loc TouchCalibrationErrorText2}" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 
 </operatorMenu:OperatorMenuPage>

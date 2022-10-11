@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SQLite;
     using System.Reflection;
     using Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Microsoft.Data.Sqlite;
     using StorageAdapters;
 
     /// <summary>
@@ -54,7 +54,7 @@
                     bus?.Publish(new StorageErrorEvent(StorageError.InvalidHandle));
                     break;
                 case ArgumentException _:
-                case SQLiteException _:
+                case SqliteException _:
                 case InvalidOperationException _:
                     bus?.Publish(new StorageErrorEvent(eventType));
                     break;

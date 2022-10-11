@@ -11,6 +11,8 @@
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors"
                                mc:Ignorable="d" 
@@ -58,7 +60,7 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
                         Margin="0 0 20 0"
                         Visibility="{Binding HasMultipleGames, Converter={StaticResource BoolToVisConverter}}">
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameType}}" VerticalAlignment="Center"
+                <TextBlock Text="{lex:Loc GameType}" VerticalAlignment="Center"
                            Margin="0 0 5 0"
                            FontSize="16"/>
                 <ComboBox VerticalAlignment="Center" MinWidth="150" 
@@ -77,7 +79,7 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
 
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameText}}" VerticalAlignment="Center"
+                <TextBlock Text="{lex:Loc GameText}" VerticalAlignment="Center"
                            Margin="20 0 5 0"
                            FontSize="16"/>
                 <ComboBox MinWidth="250"
@@ -100,7 +102,7 @@
 
             <StackPanel Margin="0 0 20 0" Orientation="Horizontal" VerticalAlignment="Center"
                         Visibility="{Binding HasTopAward, Converter={StaticResource BoolToVisConverter}}">
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.MachineTopAward}}"
+                <TextBlock Text="{lex:Loc MachineTopAward}"
                            Margin="0 0 5 0"
                            FontSize="16"/>
                 <TextBlock MinWidth="200" 
@@ -119,7 +121,7 @@
                 <TextBlock Grid.Row="0" Style="{StaticResource TextBlockStyle}" Text="{Binding ThemePlusOptions}" />
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource BoolToVisConverter}}">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PackageLabel}}" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="16" />
+                    <TextBlock Text="{lex:Loc PackageLabel}" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="16" />
                     <ComboBox MinWidth="250" MinHeight="40"
                               DisplayMemberPath="Name"
                               ItemsSource="{Binding ValidRestrictions, Mode=OneWay}"
@@ -169,7 +171,7 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                        <DataGridTemplateColumn Header="{lex:Loc Denom}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
@@ -184,7 +186,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableRTP}}"
+                        <DataGridTemplateColumn Header="{lex:Loc PaytableRTP}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
@@ -207,7 +209,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BetOption}}"
+                        <DataGridTemplateColumn Header="{lex:Loc BetOption}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -228,7 +230,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LineOption}}"
+                        <DataGridTemplateColumn Header="{lex:Loc LineOption}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -248,7 +250,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusBet}}"
+                        <DataGridTemplateColumn Header="{lex:Loc BonusBet}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsPokerGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -270,7 +272,7 @@
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
-                                        <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                        <TextBlock Text="{lex:Loc NotAvailable}"
                                                    VerticalAlignment="Center"
                                                    Width="80"
                                                    Visibility="{Binding BonusBetAvailable, Converter={StaticResource BoolToCollapsedConverter}}">
@@ -280,7 +282,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}" 
+                        <DataGridTextColumn Header="{lex:Loc MaxBet}" 
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}"
                                             MaxWidth="120"
@@ -292,7 +294,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}"
+                        <DataGridTextColumn Header="{lex:Loc TopAward}"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}"
                                             MaxWidth="120"
@@ -331,7 +333,7 @@
                         </DataGridTemplateColumn>
 
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMinBet}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -348,7 +350,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMinBet}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -365,7 +367,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetInside}}"
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMaxBetInside}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -382,7 +384,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetOutside}}"
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMaxBetOutside}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -417,7 +419,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveColumnHeader}}" 
+                        <DataGridTemplateColumn Header="{lex:Loc ProgressiveColumnHeader}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -432,13 +434,13 @@
                                                 Visibility="{Binding ProgressiveSetupVisibility, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                 IsEnabled="{Binding ProgressiveSetupEnabled}"/>
                                         <Button Name="ProgressiveViewButton" Margin="2 0 0 0"
-                                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveViewButtonText}}"
+                                                Content="{lex:Loc ProgressiveViewButtonText}"
                                                 Command="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.ProgressiveViewCommand), Source={StaticResource PageModel}}"
                                                 CommandParameter="{Binding}"
                                                 Width="55"
                                                 FontSize="14"
                                                 Visibility="{Binding ProgressiveViewVisibility, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                        <TextBlock Text="{lex:Loc NotAvailable}"
                                                    VerticalAlignment="Center"
                                                    Visibility="{Binding ProgressivesEnabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
@@ -472,7 +474,7 @@
                     Command="{Binding CancelCommand, Mode=OneWay}"
                     Visibility="{Binding ShowCancelButtonOverride, Converter={StaticResource BoolToVisConverter}}"
                     Width="Auto"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReconfigureGames}}"
+            <Button Content="{lex:Loc ReconfigureGames}"
                     Command="{Binding ConfigCommand, Mode=OneWay}"
                     IsEnabled="{Binding InputEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding ConfigureVisible, Converter={StaticResource BoolToVisConverter}}"
@@ -480,7 +482,7 @@
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding ImportVisibleOverride, Converter={StaticResource BoolToVisConverter}}">
                 <Button x:Name="ImportBtn"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImportGameSettings}}"
+                        Content="{lex:Loc ImportGameSettings}"
                         Command="{Binding ImportCommand}"
                         Width="Auto" />
                 <Button Name="ImportInfoButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
@@ -489,16 +491,14 @@
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="ImportInfoButton" />
-                            <Binding ElementName="GameSetupEKeyImportVerified" Path="Result" />
+                            <Binding Source="{lex:Loc GameSetupEKeyImportVerified}" />
                         </MultiBinding>
                     </Button.CommandParameter>
-                    <lex:LocProxy x:Name="GameSetupEKeyImportVerified"
-                                  Source="{x:Static loc:ResourceKeys.GameSetupEKeyImportVerified}" />
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding ExportVisibleOverride, Converter={StaticResource BoolToVisConverter}}">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExportGameSettings}}" 
+                <Button Content="{lex:Loc ExportGameSettings}" 
                         Command="{Binding ExportCommand}"
                         Width="Auto"/>
                 <Button Name="ExportInfoButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
@@ -508,18 +508,16 @@
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="ExportInfoButton" />
-                            <Binding ElementName="GameSetupEKeyExportVerified" Path="Result" />
+                            <Binding Source="{lex:Loc GameSetupEKeyExportVerified}" />
                         </MultiBinding>
                     </Button.CommandParameter>
-                    <lex:LocProxy x:Name="GameSetupEKeyExportVerified"
-                                  Source="{x:Static loc:ResourceKeys.GameSetupEKeyExportVerified}" />
                 </Button>
             </StackPanel>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewRTPSummary}}"
+            <Button Content="{lex:Loc ViewRTPSummary}"
                     Command="{Binding ShowRtpSummaryCommand}"
                     Visibility="{Binding ShowSummaryButtons, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewProgressiveSummary}}"
+            <Button Content="{lex:Loc ViewProgressiveSummary}"
                     Command="{Binding ShowProgressiveSummaryCommand}"
                     Visibility="{Binding ShowSummaryButtons, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"/>

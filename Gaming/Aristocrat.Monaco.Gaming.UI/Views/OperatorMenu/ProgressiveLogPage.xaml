@@ -7,6 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                common:DialogParticipation.Register="{Binding}">
@@ -28,35 +30,35 @@
                   RowHeight="26"
                   ScrollViewer.CanContentScroll="True" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding TransactionDateTime}"
                                     MinWidth="200"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AmountHeader}}"
+                <DataGridTextColumn Header="{lex:Loc AmountHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding Amount}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelId}}"
+                <DataGridTextColumn Header="{lex:Loc LevelId}"
                                     IsReadOnly="True"
                                     Binding="{Binding LevelId}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveId}}"
+                <DataGridTextColumn Header="{lex:Loc ProgressiveId}"
                                     IsReadOnly="True"
                                     Binding="{Binding ProgressiveId}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}"
+                <DataGridTextColumn Header="{lex:Loc GameName}"
                                     IsReadOnly="True"
                                     Binding="{Binding GameName}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameId}}"
+                <DataGridTextColumn Header="{lex:Loc GameId}"
                                     IsReadOnly="True"
                                     Binding="{Binding GameId}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenomId}}"
+                <DataGridTextColumn Header="{lex:Loc DenomId}"
                                     IsReadOnly="True"
                                     Binding="{Binding DenomId}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+                <DataGridTextColumn Header="{lex:Loc IncrementRate}"
                                     IsReadOnly="True"
                                     Binding="{Binding IncrementRate}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
+                <DataGridTextColumn Header="{lex:Loc ResetValue}"
                                     IsReadOnly="True"
                                     Binding="{Binding ResetValue}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+                <DataGridTextColumn Header="{lex:Loc MaxValue}"
                                     IsReadOnly="True"
                                     Binding="{Binding MaxValue}"/>
             </DataGrid.Columns>

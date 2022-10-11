@@ -119,7 +119,7 @@
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -143,7 +143,11 @@
 
             _transaction = null;
             _scope = null;
-            _context = null;
+            if (_context != null)
+            {
+                _context.Dispose();
+                _context = null;
+            }
 
             _disposed = true;
         }

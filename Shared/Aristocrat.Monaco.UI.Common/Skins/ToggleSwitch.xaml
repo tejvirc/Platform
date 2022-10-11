@@ -3,7 +3,7 @@
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:helpers="clr-namespace:Aristocrat.Monaco.UI.Common.Controls.Helpers">
 
-    <Style x:Key="Aristocrat.Monaco.UI.Common.Skins.ToggleSwitchButton" TargetType="{x:Type controls:ToggleSwitchButton}">
+    <Style x:Key="Aristocrat.Monaco.UI.Common.Skins.ToggleSwitchButton" TargetType="{x:Type controls:ToggleSwitch}">
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Height" Value="35" />
         <Setter Property="IsTabStop" Value="False" />
@@ -11,7 +11,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:ToggleSwitchButton}">
+                <ControlTemplate TargetType="{x:Type controls:ToggleSwitch}">
                     <Grid>
                         <Grid x:Name="PART_SwitchTrack">
                             <Border x:Name="normal"
@@ -20,12 +20,12 @@
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid Margin="{TemplateBinding Padding}" ClipToBounds="True">
-                                    <Rectangle Fill="{TemplateBinding OnSwitchBrush}" />
-                                    <Rectangle Fill="{TemplateBinding OffSwitchBrush}" RenderTransformOrigin="0.5,0.5">
+                                    <!--<Rectangle Fill="{TemplateBinding OnSwitchBrush}" />-->
+                                    <!--<Rectangle Fill="{TemplateBinding OffSwitchBrush}" RenderTransformOrigin="0.5,0.5">
                                         <Rectangle.RenderTransform>
                                             <TranslateTransform x:Name="PART_BackgroundTranslate" />
                                         </Rectangle.RenderTransform>
-                                    </Rectangle>
+                                    </Rectangle>-->
                                 </Grid>
                             </Border>
                             <Border x:Name="disabled"
@@ -36,9 +36,9 @@
                                     CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                             </Border>
                             <Border x:Name="PART_ThumbIndicator"
-                                    Width="{TemplateBinding ThumbIndicatorWidth}"
+                                    Width="{TemplateBinding Width}"
                                     HorizontalAlignment="Left"
-                                    Background="{TemplateBinding ThumbIndicatorBrush}"
+                                    Background="{TemplateBinding BorderBrush}"
                                     CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                                 <Border.RenderTransform>
                                     <TranslateTransform x:Name="PART_ThumbTranslate" />
@@ -96,20 +96,20 @@
                             <Setter TargetName="PART_OnContent" Property="Opacity" Value="0.55" />
                             <Setter TargetName="PART_OffContent" Property="Opacity" Value="0.55" />
                         </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
+                        <!--<Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="PART_OnContent" Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
                             <Setter TargetName="PART_OffContent" Property="Foreground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="False">
+                        </Trigger>-->
+                        <!--<Trigger Property="IsChecked" Value="False">
                             <Setter TargetName="PART_OnContent" Property="Foreground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
                             <Setter TargetName="PART_OffContent" Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
-                        </Trigger>
+                        </Trigger>-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ThumbIndicatorBrush" Value="{DynamicResource BlackBrush}" />
-        <Setter Property="ThumbIndicatorWidth" Value="13" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+        <Setter Property="Width" Value="13" />
         <Setter Property="Width" Value="70" />
     </Style>
 </ResourceDictionary>

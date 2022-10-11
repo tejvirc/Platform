@@ -11,7 +11,7 @@
     public static class ToggleSwitchButtonHelper
     {
         /// <summary>
-        ///     Dependency property for setting the Off content of the <see cref="ToggleSwitchButton" />
+        ///     Dependency property for setting the Off content />
         /// </summary>
         public static readonly DependencyProperty OffContentProperty =
             DependencyProperty.RegisterAttached(
@@ -25,7 +25,7 @@
                     OnOffContentChanged));
 
         /// <summary>
-        ///     Dependency property for setting the On content of the <see cref="ToggleSwitchButton" />
+        ///     Dependency property for setting the On content of the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         public static readonly DependencyProperty OnContentProperty =
             DependencyProperty.RegisterAttached(
@@ -69,7 +69,7 @@
         /// </summary>
         /// <param name="element"></param>
         /// <returns>The content</returns>
-        [AttachedPropertyBrowsableForType(typeof(ToggleSwitchButton))]
+        [AttachedPropertyBrowsableForType(typeof(ToggleSwitch))]
         public static object GetOffContent(UIElement element)
         {
             return element.GetValue(OffContentProperty);
@@ -147,41 +147,41 @@
 
         private static void OnOffContentChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var button = sender as ToggleSwitchButton;
+            var button = sender as ToggleSwitch;
             if (button == null)
             {
                 throw new InvalidOperationException(
-                    $"The property 'OffContent' may only be set on {nameof(ToggleSwitchButton)} elements.");
+                    $"The property 'OffContent' may only be set on {nameof(ToggleSwitch)} elements.");
             }
         }
 
         private static void OnOnContentChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var button = sender as ToggleSwitchButton;
+            var button = sender as ToggleSwitch;
             if (button == null)
             {
                 throw new InvalidOperationException(
-                    $"The property 'OnContent' may only be set on {nameof(ToggleSwitchButton)} elements.");
+                    $"The property 'OnContent' may only be set on {nameof(ToggleSwitch)} elements.");
             }
         }
 
         private static void OnOffBrushChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var button = sender as ToggleSwitchButton;
+            var button = sender as ToggleSwitch;
             if (button == null)
             {
                 throw new InvalidOperationException(
-                    $"The property 'OffBrush' may only be set on {nameof(ToggleSwitchButton)} elements.");
+                    $"The property 'OffBrush' may only be set on {nameof(ToggleSwitch)} elements.");
             }
         }
 
         private static void OnOnBrushChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var button = sender as ToggleSwitchButton;
+            var button = sender as ToggleSwitch;
             if (button == null)
             {
                 throw new InvalidOperationException(
-                    $"The property 'OnBrush' may only be set on {nameof(ToggleSwitchButton)} elements.");
+                    $"The property 'OnBrush' may only be set on {nameof(ToggleSwitch)} elements.");
             }
         }
     }

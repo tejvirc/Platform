@@ -6,6 +6,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
@@ -39,7 +41,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Address}}" />
+               Content="{lex:Loc Address}" />
         <common:AlphaNumericTextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
                                     Margin="20 0 0 0"
                                     HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -51,7 +53,7 @@
         <Label Grid.Column="0" Grid.Row="1"
                Margin="0 20 0 0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}" />
+               Content="{lex:Loc Port}" />
         <common:AlphaNumericTextBox Grid.Column="1" Grid.Row="1" MinWidth="200"
                                     Margin="20 20 0 0"
                                     HorizontalAlignment="Left" VerticalAlignment="Center"

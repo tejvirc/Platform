@@ -7,6 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance viewModels:AlteredMediaLogViewModel, IsDesignTimeCreatable=False}">
@@ -32,19 +34,19 @@
             RowHeight="26"
             ScrollViewer.CanContentScroll="True" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTime}"
                                     IsReadOnly="True" 
                                     Binding="{Binding TimeStamp, Converter={StaticResource DateTimeFormatConverter}}" 
                                     Width="300"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MediaType2}}"
+                <DataGridTextColumn Header="{lex:Loc MediaType2}"
                                     IsReadOnly="True"
                                     Binding="{Binding MediaType}"
                                     Width="200"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Reason}}"
+                <DataGridTextColumn Header="{lex:Loc Reason}"
                                     IsReadOnly="True"
                                     Binding="{Binding ReasonForChange}"
                                     Width="300"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AuthenticationInformation}}"
+                <DataGridTextColumn Header="{lex:Loc AuthenticationInformation}"
                                     IsReadOnly="True"
                                     Binding="{Binding Authentication}"
                                     Width="400"/>

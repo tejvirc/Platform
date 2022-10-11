@@ -8,6 +8,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:CompletionPageViewModel}}">
     <UserControl.Resources>
@@ -15,8 +17,8 @@
     </UserControl.Resources>
     
     <StackPanel Orientation="Vertical" Margin="10">
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ConfigComplete}}"/>
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameSetupMessage}}" Margin="0 20 0 0"
+        <Label Content="{lex:Loc ConfigComplete}"/>
+        <Label Content="{lex:Loc GameSetupMessage}" Margin="0 20 0 0"
                Visibility="{Binding ShowGameSetupMessage, Converter={StaticResource BoolToVisConverter}}"/>
     </StackPanel>
 </operatorMenu:OperatorMenuPage>

@@ -6,6 +6,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                Width="600"
@@ -45,34 +47,34 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderPagedMemory}}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc HeaderPagedMemory}"/>
         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding PagedMemorySize64}"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderPeakPagedMemory}}"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc HeaderPeakPagedMemory}"/>
         <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding PeakPagedMemorySize64}"/>
 
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderVirtualMemorySize}}"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc HeaderVirtualMemorySize}"/>
         <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding VirtualMemorySize64}"/>
 
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderPrivateMemorySize}}"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc HeaderPrivateMemorySize}"/>
         <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding PrivateMemorySize64}"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderWorkingSet}}"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc HeaderWorkingSet}"/>
         <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding WorkingSet64}"/>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderPeakWorkingSet}}"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc HeaderPeakWorkingSet}"/>
         <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding PeakWorkingSet64}"/>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderPagedSystemMemorySize}}"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc HeaderPagedSystemMemorySize}"/>
         <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding PagedSystemMemorySize64}"/>
 
-        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderNonpagedSystemMemorySize}}"/>
+        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc HeaderNonpagedSystemMemorySize}"/>
         <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding NonPagedSystemMemorySize64}"/>
 
-        <Label Grid.Row="9" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderThreadCount}}"/>
+        <Label Grid.Row="9" Grid.Column="0" Content="{lex:Loc HeaderThreadCount}"/>
         <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding ThreadCount}"/>
 
-        <Label Grid.Row="10" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderHandleCount}}"/>
+        <Label Grid.Row="10" Grid.Column="0" Content="{lex:Loc HeaderHandleCount}"/>
         <TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding HandleCount}"/>
     </Grid>
 </operatorMenu:OperatorMenuPage>

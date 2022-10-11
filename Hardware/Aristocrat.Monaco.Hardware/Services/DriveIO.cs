@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Runtime.InteropServices;
 
-    public class DriveIO : Stream, IDisposable
+    public class DriveIO : Stream
     {
         private const long SectorSize = 512;
 
