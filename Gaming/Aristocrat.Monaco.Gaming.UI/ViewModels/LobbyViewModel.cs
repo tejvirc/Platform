@@ -2059,7 +2059,8 @@
                                   ThemeId = game.ThemeId,
                                   IsNew = GameIsNew(game.GameTags),
                                   Category = game.Category,
-                                  SubCategory = game.SubCategory
+                                  SubCategory = game.SubCategory,
+                                  RequiresMechanicalReels = game.MechanicalReels > 0
                               }).ToList();
 
             return new ObservableCollection<GameInfo>(
@@ -5132,7 +5133,8 @@
                 UseSmallIcons = UseSmallIcons,
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
-                IsNew = GameIsNew(game.GameTags)
+                IsNew = GameIsNew(game.GameTags),
+                RequiresMechanicalReels = game.MechanicalReels > 0
             };
         }
 

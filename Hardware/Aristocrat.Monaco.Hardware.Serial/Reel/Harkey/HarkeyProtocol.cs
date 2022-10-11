@@ -663,14 +663,15 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
             _homeReelMessageDictionary.TryUpdate(reel, (response.SequenceId, true), (response.SequenceId, false));
 
-            if (_homeReelMessageDictionary.All(x => x.Value.responseReceived))
-            {
-                _homeReelMessageDictionary.Clear();
-            }
-
             bool postInitialized;
             lock (_sequenceLock)
             {
+                if (_homeReelMessageDictionary.All(x => x.Value.responseReceived))
+                {
+                    _homeReelMessageDictionary.Clear();
+                    _reelsSpinning = false;
+                }
+
                 if (_isInitialized)
                 {
                     return;
@@ -856,6 +857,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             byte sequenceId;
             lock (_sequenceLock)
             {
+                _reelsSpinning = true;
+                SetPollingRate(HarkeyConstants.SpinningPollingIntervalMs);
                 sequenceId = NextSequenceId();
                 _homeReelMessageDictionary.TryAdd(reelId, (sequenceId, false));
             }
