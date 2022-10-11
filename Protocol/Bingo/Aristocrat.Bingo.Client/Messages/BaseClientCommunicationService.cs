@@ -19,23 +19,29 @@
             _endpointProvider = endpointProvider ?? throw new ArgumentNullException(nameof(endpointProvider));
         }
 
-        protected async Task<TResult> Invoke<TResult>(
+        protected Task<TResult> Invoke<TResult>(
             Func<ClientApi.ClientApiClient, Task<TResult>> action,
             IAsyncPolicy policy = null) =>
-            await Invoke(async (c, _) => await action(c), CancellationToken.None, policy);
+            Invoke(async (c, _) => await action(c).ConfigureAwait(false), CancellationToken.None, policy);
 
         protected async Task<TResult> Invoke<TResult>(
             Func<ClientApi.ClientApiClient, CancellationToken, Task<TResult>> action,
             CancellationToken token,
             IAsyncPolicy policy = null)
         {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
             var client = GetClient();
             if (policy is null)
             {
-                return await action(client, token);
+                return await action(client, token).ConfigureAwait(false);
             }
 
-            return await policy.ExecuteAsync(async t => await action(client, t), token);
+            return await policy.ExecuteAsync(async t => await action(client, t).ConfigureAwait(false), token)
+                .ConfigureAwait(false);
         }
 
         protected static IAsyncPolicy CreatePolicy(int retryCount = RetryCount, Func<int, TimeSpan> delay = null)
@@ -54,6 +60,11 @@
             Func<ClientApi.ClientApiClient, CancellationToken, AsyncDuplexStreamingCall<TInput, TOutput>> action,
             CancellationToken token)
         {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
             var client = GetClient();
             return action(client, token);
         }
@@ -66,6 +77,11 @@
             Func<ClientApi.ClientApiClient, CancellationToken, AsyncServerStreamingCall<TOutput>> action,
             CancellationToken token)
         {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
             var client = GetClient();
             return action(client, token);
         }

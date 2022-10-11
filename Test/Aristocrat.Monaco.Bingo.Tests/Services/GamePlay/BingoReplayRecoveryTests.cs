@@ -75,6 +75,7 @@
             },
             123,
             54321,
+            54321,
             false);
 
         private BingoReplayRecovery _target;

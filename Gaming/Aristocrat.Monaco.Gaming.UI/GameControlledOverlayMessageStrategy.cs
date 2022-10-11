@@ -80,6 +80,12 @@
                     break;
             }
 
+            if (LastCashOutAmount <= 0)
+            {
+                Logger.Warn($"HandleMessageOverlayCashOut {cashOutState} - LastCashOutAmount {LastCashOutAmount}, presentation not overriden");
+                return data;
+            }
+
             if (overriddenPresentations.Any())
             {
                 var gameDrivenData = new MessageOverlayData();

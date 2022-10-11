@@ -128,7 +128,7 @@
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _keyboardService = keyboardService ?? throw new ArgumentNullException(nameof(keyboardService));
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
-            _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, "");
+            _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
             DigitClickedCommand = new ActionCommand<object>(ConcatenateReservePin);
 
@@ -638,8 +638,11 @@
 
         private void PlayButtonClickSound()
         {
-            var soundVolume = (byte)_propertiesManager.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
-            _audioService.Play(_touchSoundFile, soundVolume);
+            if (!string.IsNullOrWhiteSpace(_touchSoundFile))
+            {
+                var soundVolume = (byte)_propertiesManager.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+                _audioService.Play(_touchSoundFile, soundVolume);
+            }
         }
     }
 }

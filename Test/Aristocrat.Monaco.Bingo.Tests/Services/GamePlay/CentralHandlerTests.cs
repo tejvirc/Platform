@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
@@ -126,29 +127,21 @@
 
             _bingCardProvider.Setup(x => x.GetCardBySerial((int)CardSerial)).Returns(_bingoCard);
 
-            await _target.ProcessGameOutcome(
-                new GameOutcome(
-                    ResponseCode.Ok,
-                    "1234",
-                    0,
-                    "",
-                    123,
-                    123,
-                    123,
-                    1,
-                    gameSerial,
-                    string.Empty,
-                    true,
-                    "Test Paytable",
-                    0,
-                    new List<CardPlayed> { new(CardSerial, int.MaxValue, true) },
-                    ballCall,
-                    new List<WinResult>
-                    {
-                        new(12345, winAmount, 30, int.MaxValue, 1234, "4 Corners", (int)CardSerial, false, 3)
-                    },
-                    false),
-                source.Token);
+            var bingoDetails = new GameOutcomeBingoDetails(
+                0,
+                new CardPlayed[] { new(CardSerial, int.MaxValue, true) },
+                ballCall,
+                0);
+            var gameDetails = new GameOutcomeGameDetails(0, 123, 123, 1, "Test Paytable", gameSerial);
+            var winDetails = new GameOutcomeWinDetails(
+                winAmount,
+                string.Empty,
+                new WinResult[]
+                {
+                    new(12345, winAmount, 30, int.MaxValue, 1234, "4 Corners", (int)CardSerial, false, 3)
+                });
+            var outcome = new GameOutcome(ResponseCode.Ok, winDetails, gameDetails, bingoDetails, true, false);
+            await _target.ProcessGameOutcome(outcome, source.Token);
 
             _eventBus.Verify();
         }
@@ -197,30 +190,22 @@
             _gamePlayState.Setup(x => x.InGameRound).Returns(true);
 
             using var source = new CancellationTokenSource();
+            var bingoDetails = new GameOutcomeBingoDetails(
+                0,
+                new CardPlayed[] { new(CardSerial, int.MaxValue, true) },
+                ballCall,
+                0);
+            var gameDetails = new GameOutcomeGameDetails(0, 123, 123, 1, "Test Paytable", gameSerial);
+            var winDetails = new GameOutcomeWinDetails(
+                winAmount,
+                string.Empty,
+                new WinResult[]
+                {
+                    new(12345, winAmount, 30, int.MaxValue, 1234, "4 Corners", (int)CardSerial, false, 3)
+                });
+            var outcome = new GameOutcome(ResponseCode.Ok, winDetails, gameDetails, bingoDetails, true, false);
 
-            Task<bool> playTask = _target.ProcessGameOutcome(
-                new GameOutcome(
-                    ResponseCode.Ok,
-                    "1234",
-                    0,
-                    "",
-                    123,
-                    123,
-                    123,
-                    1,
-                    gameSerial,
-                    string.Empty,
-                    false,
-                    "Test Paytable",
-                    0,
-                    new List<CardPlayed> { new(CardSerial, int.MaxValue, true) },
-                    ballCall,
-                    new List<WinResult>
-                    {
-                        new(12345, winAmount, 30, int.MaxValue, 1234, "4 Corners", (int)CardSerial, false, 2)
-                    },
-                    false),
-                source.Token);
+            var playTask = _target.ProcessGameOutcome(outcome, source.Token);
 
             await playTask;
 
@@ -348,7 +333,7 @@
                 return;
             }
 
-            _bingoCard = new BingoCard { SerialNumber = CardSerial };
+            _bingoCard = new BingoCard(CardSerial);
 
             for (var i = 0; i < BingoConstants.BingoCardDimension; i++)
             {
@@ -394,29 +379,22 @@
                         }
                     });
 
-            await _target.ProcessGameOutcome(
-                new GameOutcome(
-                    ResponseCode.Ok,
-                    "1234",
-                    gewWinAmount,
-                    "",
-                    123,
-                    123,
-                    123,
-                    1,
-                    gameSerial,
-                    string.Empty,
-                    true,
-                    "Test Paytable",
-                    0,
-                    new List<CardPlayed> { new(CardSerial, int.MaxValue, true) },
-                    ballCall,
-                    new List<WinResult>
-                    {
-                        new(12345, gewWinAmount, 50, int.MaxValue, 1234, "GEW Pattern", (int)CardSerial, true, 1)
-                    },
-                    false),
-                token);
+            var bingoDetails = new GameOutcomeBingoDetails(
+                0,
+                new CardPlayed[] { new(CardSerial, int.MaxValue, true) },
+                ballCall.ToList(),
+                0);
+            var gameDetails = new GameOutcomeGameDetails(0, 123, 123, 1, "Test Paytable", gameSerial);
+            var winDetails = new GameOutcomeWinDetails(
+                gewWinAmount,
+                string.Empty,
+                new WinResult[]
+                {
+                    new(12345, gewWinAmount, 50, int.MaxValue, 1234, "GEW Pattern", (int)CardSerial, true, 1)
+                });
+            var outcome = new GameOutcome(ResponseCode.Ok, winDetails, gameDetails, bingoDetails, true, false);
+
+            await _target.ProcessGameOutcome(outcome, token);
         }
     }
 }

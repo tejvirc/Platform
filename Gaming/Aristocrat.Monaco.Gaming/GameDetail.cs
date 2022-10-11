@@ -62,6 +62,8 @@
 
         public string CdsThemeId { get; set; }
 
+        public string CdsTitleId { get; set; }
+
         public string Folder { get; set; }
 
         public IEnumerable<long> ActiveDenominations => Denominations.Where(d => d.Active).Select(d => d.Value);

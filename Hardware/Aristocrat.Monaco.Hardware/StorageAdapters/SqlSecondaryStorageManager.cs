@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Management;
     using System.Reflection;
+    using System.Text.RegularExpressions;
     using Cabinet.Contracts;
     using Contracts.Persistence;
     using Kernel;
@@ -17,14 +18,13 @@
     {
         private const string TempFileName = "test.tmp";
         private const string G2SDbFileName = @"protocol.sqlite";
+        private const string ProtocolDatabaseFiles = @"Database_.*\.sqlite";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly Regex PlatformDatabaseRegex = new(
+            $"^{ProtocolDatabaseFiles}$|^{Regex.Escape(G2SDbFileName)}$|^{Regex.Escape(StorageConstants.DatabaseFileName)}$",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline);
 
-        private readonly Dictionary<string, string> _expectedDatabaseFiles = new Dictionary<string, string>
-        {
-            { StorageConstants.DatabaseFileName, StorageConstants.DatabasePassword },
-            { G2SDbFileName, StorageConstants.DatabasePassword }
-        };
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private string _primaryPath;
         private string _secondaryPath;
@@ -221,15 +221,14 @@
 
             try
             {
-                using (var connection = CreateConnection(filePath, password))
-                {
-                    connection.Open();
+                using var connection = CreateConnection(filePath, password);
+                connection.Open();
 
-                    using (var command = new SqliteCommand("PRAGMA integrity_check(1)", connection))
-                    {
-                        return command.ExecuteScalar().ToString() == "ok";
-                    }
-                }
+                // This command is used to verify that the SQL lite file is valid and does not have errors
+                const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
+                const string successfulCommandResponse = "ok";
+                using var command = new SQLiteCommand(verifySqlFileIsValidCommand, connection);
+                return command.ExecuteScalar().ToString() == successfulCommandResponse;
             }
             catch (Exception e)
             {
@@ -258,7 +257,7 @@
                 return true;
             }
 
-            if (VerifySqlFiles(first, second) || VerifySqlFiles(second, first))
+            if (ValidateSqlFiles(first, second) || ValidateSqlFiles(second, first))
             {
                 return true;
             }
@@ -267,11 +266,11 @@
 
             return false;
 
-            bool VerifySqlFiles(FileSystemInfo primary, FileSystemInfo secondary)
+            bool ValidateSqlFiles(FileSystemInfo primary, FileSystemInfo secondary)
             {
                 if (!IsValidSqlFile(
                     primary.FullName,
-                    _expectedDatabaseFiles[primary.Name]))
+                    StorageConstants.DatabasePassword))
                 {
                     return false;
                 }
@@ -311,10 +310,18 @@
             }
 
             var result = false;
+            var allowedDatabases = Directory.GetFiles(_primaryPath)
+                .Select(Path.GetFileName)
+                .Where(x => PlatformDatabaseRegex.IsMatch(x))
+                .Concat(Directory.GetFiles(_secondaryPath)
+                    .Select(Path.GetFileName)
+                    .Where(x => PlatformDatabaseRegex.IsMatch(x)))
+                .Distinct()
+                .ToList();
 
             try
             {
-                result = _expectedDatabaseFiles.All(x => VerifySqlFiles(x.Key));
+                result = allowedDatabases.All(VerifySqlFiles);
             }
             catch (Exception ex)
             {
@@ -323,8 +330,9 @@
                 return result;
             }
 
-            var unexpectedFiles = Directory.GetFiles(_primaryPath).Select(Path.GetFileName)
-                .Except(_expectedDatabaseFiles.Keys).ToArray();
+            var unexpectedFiles = Directory.GetFiles(_primaryPath)
+                .Select(Path.GetFileName)
+                .Except(allowedDatabases).ToList();
 
             if (unexpectedFiles.Any())
             {
@@ -355,10 +363,8 @@
 
             private static IEnumerable<string> RunQuery(string query, string field)
             {
-                using (var searcher = new ManagementObjectSearcher(query))
-                {
-                    return searcher.Get().Cast<ManagementObject>().Select(x => x[field].ToString());
-                }
+                using var searcher = new ManagementObjectSearcher(query);
+                return searcher.Get().Cast<ManagementObject>().Select(x => x[field].ToString());
             }
 
             private static IEnumerable<string> GetPhysicalDevices()

@@ -15,10 +15,11 @@
     {
         private const int TransactionId = 123;
         private const string TestBarcode = "TestBarcode";
-        private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _endpointProvider =
-            new Mock<IClientEndpointProvider<ClientApi.ClientApiClient>>(MockBehavior.Default);
 
-        private readonly ReportTransactionMessage _message = new ReportTransactionMessage(
+        private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _endpointProvider =
+            new(MockBehavior.Default);
+
+        private readonly ReportTransactionMessage _message = new(
             "123",
             DateTime.UtcNow,
             100,
@@ -64,6 +65,41 @@
                 .Returns(fakeCall);
 
             var result = await _target.ReportTransaction(_message, CancellationToken.None);
+            Assert.AreEqual(TransactionId, result.TransactionId);
+            Assert.IsTrue(result.Succeeded);
+        }
+
+        [TestMethod]
+        public async Task ReportNullBarcodeEventTest()
+        {
+            var message = new ReportTransactionMessage(
+                "123",
+                DateTime.UtcNow,
+                100,
+                123,
+                1234,
+                TransactionId,
+                12345,
+                1000,
+                1,
+                null);
+            var client = new Mock<ClientApi.ClientApiClient>(MockBehavior.Default);
+            _endpointProvider.Setup(x => x.IsConnected).Returns(true);
+            _endpointProvider.Setup(x => x.Client).Returns(client.Object);
+            var fakeCall = TestCalls.AsyncUnaryCall(
+                Task.FromResult(new ReportTransactionAck { TransactionId = TransactionId, Succeeded = true }),
+                Task.FromResult(new Metadata()),
+                () => Status.DefaultSuccess,
+                () => new Metadata(),
+                () => { });
+            client.Setup(x => x.ReportTransactionAsync(
+                    It.IsAny<TransactionReport>(),
+                    It.IsAny<Metadata>(),
+                    It.IsAny<DateTime?>(),
+                    It.IsAny<CancellationToken>()))
+                .Returns(fakeCall);
+
+            var result = await _target.ReportTransaction(message, CancellationToken.None);
             Assert.AreEqual(TransactionId, result.TransactionId);
             Assert.IsTrue(result.Succeeded);
         }

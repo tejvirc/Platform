@@ -84,6 +84,7 @@
         private double _infoOpacity;
         private double _gameControlledHeight;
         private double _dynamicMessageOpacity;
+        private IGameDetail _lastSelectedGame; 
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -267,8 +268,8 @@
                 _overlayServer.AttractCompleted -= AttractCompleted;
                 _overlayServer.ClientConnected -= OverlayClientConnected;
                 _overlayServer.ClientDisconnected -= OverlayClientDisconnected;
-                _overlayServer.Dispose();
                 _eventBus.UnsubscribeAll(this);
+                _overlayServer.Dispose();
             }
 
             _disposed = true;
@@ -492,8 +493,9 @@
 
         private async Task Handle(GameSelectedEvent e, CancellationToken token)
         {
+            _lastSelectedGame = _gameProvider.GetGame(e.GameId);
             await SetInfoVisibility(false);
-            await InitializeOverlay();
+            await InitializeOverlay(_lastSelectedGame);
         }
 
         private async Task Handle(BingoGameBallCallEvent e, CancellationToken token)
@@ -719,13 +721,16 @@
             SaveDaubState(false);
         }
 
-        private void Handle(PresentationOverrideDataChangedEvent e)
+        private async Task Handle(PresentationOverrideDataChangedEvent e, CancellationToken token)
         {
             var data = e.PresentationOverrideData;
             if (data == null || data.Count == 0)
             {
-                DynamicMessageOpacity = GetVisibleOpacity(false);
-                NavigateToDynamicMessage(string.Empty, BingoConstants.DefaultInitialOverlayScene, string.Empty, false, false);
+                await _dispatcher.ExecuteAndWaitOnUIThread(() =>
+                {
+                    DynamicMessageOpacity = GetVisibleOpacity(false);
+                    NavigateToDynamicMessage(string.Empty, BingoConstants.DefaultInitialOverlayScene, string.Empty, false, false);
+                });
             }
             else
             {
@@ -740,9 +745,11 @@
                 var meterMessage = GetFormattedCreditBalance(configuration.MeterFormat, _playerBank.Balance);
                 var showDynamicMessage = !message.IsEmpty();
                 var showMeter = !meterMessage.IsEmpty();
-
-                NavigateToDynamicMessage(message, configuration.MessageScene, meterMessage, showDynamicMessage, showMeter);
-                DynamicMessageOpacity = GetVisibleOpacity(true);
+                await _dispatcher.ExecuteAndWaitOnUIThread(() =>
+                {
+                    NavigateToDynamicMessage(message, configuration.MessageScene, meterMessage, showDynamicMessage, showMeter);
+                    DynamicMessageOpacity = GetVisibleOpacity(true);
+                });
             }
         }
 
@@ -770,19 +777,25 @@
                 return;
             }
 
+            var (game, _) = _propertiesManager.GetActiveGame();
+            if (game != null)
+            {
+                _lastSelectedGame = game;
+            }
+
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
             await UpdateAppearance();
             await _overlayServer.StopAsync();
-            await InitializeOverlay();
+            await InitializeOverlay(_lastSelectedGame);
             await SetInfoVisibility(true);
         }
 
-        private async Task InitializeOverlay()
+        private async Task InitializeOverlay(IGameDetail detail)
         {
             await UpdateAppearance();
             LoadPresentationOverrideMessageFormats();
 
-            if (!_overlayServer.IsRunning)
+            if (!_overlayServer.IsRunning && detail is not null)
             {
                 var windowName = _bingoConfigurationProvider.CurrentWindow;
                 _currentBingoSettings = _bingoConfigurationProvider.GetSettings(windowName);
@@ -805,9 +818,8 @@
                     PatternCycleTime = _currentBingoSettings.PatternCyclePeriod
                 };
 
-                var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
                 Logger.Debug("Starting overlay server");
-                await _overlayServer.StartAsync(currentGame.Folder, new Uri(BingoConstants.BingoOverlayServerUri), staticData);
+                await _overlayServer.StartAsync(detail.Folder, new Uri(BingoConstants.BingoOverlayServerUri), staticData);
             }
         }
 

@@ -87,6 +87,11 @@
         string CdsThemeId { get; }
 
         /// <summary>
+        ///     Gets the CdsTitleId
+        /// </summary>
+        string CdsTitleId { get; }
+
+        /// <summary>
         ///     Gets a unique product code.  The product code is not guaranteed to be unique across game profiles
         /// </summary>
         long? ProductCode { get; }

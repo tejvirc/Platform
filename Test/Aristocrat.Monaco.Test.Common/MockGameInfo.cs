@@ -116,6 +116,8 @@
 
         public string CdsThemeId { get; set; }
 
+        public string CdsTitleId { get; set; }
+
         public long? ProductCode { get; set; }
 
         public string Folder { get; set; }
@@ -190,7 +192,7 @@
         {
             var gameDetail = new List<IGameDetail>();
 
-            
+
             foreach (var (item1, item2, item3, item4, item5, _) in GameDetails)
             {
                 var localeGraphics = new Dictionary<string, ILocaleGameGraphics>();
@@ -202,7 +204,7 @@
                      BottomAttractVideo = "en_Bottom_Attract_Video",
                  };
                  localeGraphics.Add(gameGraphics.LocaleCode, gameGraphics);
-                 
+
                 gameDetail.Add(
                     new MockGameInfo
                     {
@@ -234,7 +236,7 @@
         {
             var locales = MockLocalGraphics;
             var gameGraphics = new Dictionary<string, ILocaleGameGraphics>();
-            
+
             foreach (var locale in locales)
             {
                 var graphics = new MockLocalGameGraphics
@@ -246,7 +248,7 @@
                 };
                 gameGraphics.Add(locale, graphics);
             }
-            
+
             return gameGraphics;
         }
 

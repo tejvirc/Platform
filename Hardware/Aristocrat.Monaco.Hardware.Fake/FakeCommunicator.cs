@@ -399,6 +399,8 @@
                                 _simWindow.SetReelBrightness(brightness.ReelId, brightness.Brightness);
                             }
                         }
+
+                        OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
                         break;
                     case GdsConstants.ReportId.ReelControllerSetOffsets:
                         if (message is SetOffsets offsets)
@@ -431,6 +433,8 @@
                                     lampData.IsLampOn ? lampData.BlueIntensity : (byte)0);
                             }
                         }
+
+                        OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
                         break;
                 }
             }

@@ -103,6 +103,7 @@ Please update the confluence page when new elements and attributes are added.
         <TextReplace RegionId="125" Description="MachineId" Replace="#:" With="#"/>
         <TextReplace RegionId="106" Description="Title" Replace=".+VOUCHER\sREPRINT" With="DUPLICATE VOUCHER" IsReplaceRegexString="true"/>
         <TextReplace RegionId="106" Description="Title" Replace=".+RECEIPT\sREPRINT" With="DUPLICATE RECEIPT" IsReplaceRegexString="true"/>
+        <TextReplace RegionId="106" Description="Title" Replace="PLAYABLE ONLY REPRINT" With="PLAYABLE REPRINT"/>
       </RegionTextReplace>
       <TextSplitForRegion>
         <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}"/>
@@ -151,11 +152,7 @@ Please update the confluence page when new elements and attributes are added.
     </PrinterTemplateMappings>
   </Override>
 
-  <Override Protocol="Nanoptix TCL" FirmwareBase="PAY-6.10D">
-    <Replacements>
-      <GlobalRegionTextReplace>
-        <GlobalReplace Replace="\n" With="\n\n" OnlyFirstOccurrencePerLine="true"/>
-      </GlobalRegionTextReplace>
-    </Replacements>
+  <Override Protocol="Nanoptix TCL" FirmwareBase="PAY-6.">
+    <AuditTickets PlatformTemplateIds="101 105"/>
   </Override>
 </Overrides>

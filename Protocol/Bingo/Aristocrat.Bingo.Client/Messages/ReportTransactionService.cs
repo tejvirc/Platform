@@ -28,10 +28,13 @@
                 PaytableId = message.PaytableId,
                 Denomination = message.DenominationId,
                 TransactionType = message.TransactionType,
-                Barcode = message.Barcode
+                Barcode = message.Barcode ?? string.Empty
             };
 
-            var result = await Invoke(async x => await x.ReportTransactionAsync(request, null, null, token));
+            var result = await Invoke(
+                    async (x, c) => await x.ReportTransactionAsync(request, null, null, c).ConfigureAwait(false),
+                    token)
+                .ConfigureAwait(false);
 
             return new ReportTransactionAck(result);
         }

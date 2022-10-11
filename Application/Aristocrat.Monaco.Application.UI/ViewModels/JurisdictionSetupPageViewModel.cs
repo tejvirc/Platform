@@ -32,6 +32,7 @@
         private string _selectedJurisdiction;
         private bool _isShowModeChecked;
         private bool _isGameRulesChecked;
+        private bool _gameRulesEditable;
 
         private bool _isEKeyVerified;
         private bool _isEKeyDriveFound;
@@ -43,6 +44,7 @@
         private readonly IConfigurationSettingsManager _settingsManager;
         private readonly IDialogService _dialogService;
         private CancellationTokenSource _cancellation;
+        private bool _gameRulesVisible;
 
         public JurisdictionSetupPageViewModel() : base(true)
         {
@@ -78,7 +80,8 @@
             ShowModeVisible = licensedJurisdictionId == ShowModeJurisdictionId;
 #endif
             _isShowModeChecked = licensedJurisdictionId == ShowModeJurisdictionId;
-            _isGameRulesChecked = true;
+            _gameRulesVisible = ShowModeVisible;
+            _isGameRulesChecked = !_isShowModeChecked;
             _isJurisdictionSelectionEnabled = true;
 
             _settingsManager = serviceManager.GetService<IConfigurationSettingsManager>();
@@ -165,12 +168,53 @@
             set
             {
                 _isShowModeChecked = value;
+                GameRulesEditable = _isShowModeChecked;
                 RaisePropertyChanged(nameof(IsShowModeChecked));
 
                 PropertiesManager.SetProperty(ApplicationConstants.ShowMode, _isShowModeChecked);
             }
         }
 
+        /// <summary>
+        /// Whether or not the game rules should be shown.
+        /// </summary>
+        public bool GameRulesVisible
+        {
+            get => _gameRulesVisible;
+
+            set
+            {
+                _gameRulesVisible = value;
+                RaisePropertyChanged(nameof(GameRulesVisible));
+            }
+        }
+
+        /// <summary>
+        /// Whether or not the game rules should be allowed to be edited.
+        /// </summary>
+        public bool GameRulesEditable
+        {
+            get => _gameRulesEditable;
+
+            set
+            {
+                if (value && IsJurisdictionSelectionEnabled)
+                {
+                    _gameRulesEditable = true;
+                    IsGameRulesChecked = false;
+                }
+                else
+                {
+                    _gameRulesEditable = false;
+                    IsGameRulesChecked = true;
+                }
+                RaisePropertyChanged(nameof(GameRulesEditable));
+            }
+        }
+
+        /// <summary>
+        /// The game rules should be enabled if show mode is off.
+        /// </summary>
         public bool IsGameRulesChecked
         {
             get => _isGameRulesChecked;

@@ -127,6 +127,8 @@
 
         public Action UpdateLobbyUI { get; set; }
 
+        public Action UpdateLamps { get; set; }
+
         public Func<AgeWarningCheckResult> CheckForAgeWarning { get; set; }
 
         /// <summary>
@@ -264,6 +266,7 @@
                     CashOutStarted();
                     break;
             }
+
             UpdateLobbyUI();
         }
 
@@ -284,6 +287,7 @@
                     }
                     break;
             }
+
             UpdateLobbyUI();
         }
 
@@ -666,6 +670,7 @@
         {
             Logger.Debug($"CashOut Finished. Success: {success}");
             CallStateExit(LobbyState.CashOut);
+            UpdateLamps();
         }
 
         private void CashInStarted(CashInType cashInType)

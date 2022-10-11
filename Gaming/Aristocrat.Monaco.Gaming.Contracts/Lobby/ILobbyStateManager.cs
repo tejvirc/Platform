@@ -103,6 +103,13 @@
         Action UpdateLobbyUI { get; set; }
 
         /// <summary>
+        ///     Callback method that the Lobby State Manager
+        ///     should call when it needs to update the button lamps
+        ///     outside of a state transition
+        /// </summary>
+        Action UpdateLamps { get; set; }
+
+        /// <summary>
         ///     Callback to see if we need to put up an Age Warning dialog
         ///     immediately after initial cash in
         /// </summary>

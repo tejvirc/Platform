@@ -101,6 +101,11 @@
         public string CdsThemeId { get; set; }
 
         /// <summary>
+        ///     Gets or sets the CDS title id
+        /// </summary>
+        public string CdsTitleId { get; set; }
+
+        /// <summary>
         ///     Gets or sets the central information
         /// </summary>
         public IEnumerable<CentralInfo> CentralInfo { get; set; }

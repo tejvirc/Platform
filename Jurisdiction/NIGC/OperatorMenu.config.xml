@@ -22,7 +22,9 @@ as follows:
     </Menu>
     <Menu Type="IdentificationMainPageLoader">
         <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" Access="LogicMainZeroCreditsZeroGamesPlayed" />
-        <Page Type="JurisdictionSettingsPageViewModel" PrintButtonEnabled="true" />
+        <Page Type="JurisdictionSettingsPageViewModel" PrintButtonEnabled="true">
+            <Setting Name="ShowAllowedRTP" Value="false" />
+        </Page>
     </Menu>
     <Menu Type="LogsMainPageLoader">
         <Page Type="EventLoggingPageViewModel">
@@ -114,7 +116,7 @@ as follows:
             <Setting Name="ShowGameInfoButtons" Value="true" />
             <Setting Name="PrintGameRoundInfo" Value="true" />
         </Page>
-        <Page Type="GamePreferencesViewModel" Access="GameIdleZeroCredits" FieldAccess="MainLogicZeroCreditsGameIdle"/>
+        <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false"/>
         <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
         <Page TabType="CombinationTestViewLoader" Visible="false"/>
         <Page TabType="GamePerformanceViewLoader" Visible="false" />

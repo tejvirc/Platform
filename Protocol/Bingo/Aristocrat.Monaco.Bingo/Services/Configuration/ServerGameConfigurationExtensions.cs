@@ -19,7 +19,8 @@
                 EvaluationTypePaytable = configuration.EvaluationTypePaytable,
                 PlatformGameId = gameDetail.Id,
                 QuickStopMode = configuration.QuickStopMode,
-                ThemeSkinId = configuration.ThemeSkinId
+                ThemeSkinId = configuration.ThemeSkinId,
+                HelpUrl = configuration.HelpUrl
             };
         }
     }

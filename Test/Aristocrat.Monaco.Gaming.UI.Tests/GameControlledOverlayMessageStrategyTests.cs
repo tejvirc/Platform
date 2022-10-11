@@ -66,11 +66,57 @@
                 .Callback<IList<PresentationOverrideData>>(y => actualOverriddenPresentations = (List<PresentationOverrideData>)y);
 
             var gameOverlayStrategy = new GameControlledOverlayMessageStrategy(_overlayMessageStrategyController.Object, _presentationService.Object);
-
+            gameOverlayStrategy.LastCashOutAmount = 1000; 
             gameOverlayStrategy.HandleMessageOverlayCashOut(overlayMessageData, lastCashOutForcedByMaxBank, cashOutState);
 
             Assert.AreEqual(expectedOverriddenPresentations[0].Message, actualOverriddenPresentations[0].Message);
             Assert.AreEqual(expectedOverriddenPresentations[0].Type, actualOverriddenPresentations[0].Type);
+        }
+
+        [TestMethod]
+        public void HandleMessageOverlayCashOutWithZeroLastCashoutAmountTest()
+        {
+            var lastCashOutForcedByMaxBank = false;
+            var cashOutState = LobbyCashOutState.Voucher;
+            var expectedPresentation = PresentationOverrideTypes.PrintingCashoutTicket;
+
+            var registeredPresentations = new List<PresentationOverrideTypes>()
+            {
+                PresentationOverrideTypes.PrintingCashoutTicket,
+            };
+
+            var fallbackStrategy = new Mock<IOverlayMessageStrategy>(MockBehavior.Default);
+            _overlayMessageStrategyController.Setup(x => x.FallBackStrategy).Returns(fallbackStrategy.Object);
+            _overlayMessageStrategyController.Setup(x => x.GameRegistered).Returns(true);
+            _overlayMessageStrategyController.Setup(x => x.RegisteredPresentations).Returns(registeredPresentations);
+
+            var expectedMessageData = new MessageOverlayData()
+            {
+                Text = "Text",
+                SubText = "SubText",
+                SubText2 = "SubText2"
+            };
+
+            var overlayMessageData = new MessageOverlayData();
+            fallbackStrategy.Setup(x => x.HandleMessageOverlayCashOut(It.IsAny<MessageOverlayData>(), lastCashOutForcedByMaxBank, cashOutState)).Returns(expectedMessageData);
+
+            var expectedOverride = new PresentationOverrideData("Text\nSubText\nSubText2", expectedPresentation);
+
+            var expectedOverriddenPresentations = new List<PresentationOverrideData>()
+            {
+                expectedOverride
+            };
+
+            var actualOverriddenPresentations = new List<PresentationOverrideData>();
+
+            _presentationService.Setup(x => x.PresentOverriddenPresentation(It.IsAny<IList<PresentationOverrideData>>()))
+                .Callback<IList<PresentationOverrideData>>(y => actualOverriddenPresentations = (List<PresentationOverrideData>)y);
+
+            var gameOverlayStrategy = new GameControlledOverlayMessageStrategy(_overlayMessageStrategyController.Object, _presentationService.Object);
+            gameOverlayStrategy.LastCashOutAmount = 0; 
+            gameOverlayStrategy.HandleMessageOverlayCashOut(overlayMessageData, lastCashOutForcedByMaxBank, cashOutState);
+
+            Assert.AreEqual(0, actualOverriddenPresentations.Count);
         }
 
         [DataRow(false,

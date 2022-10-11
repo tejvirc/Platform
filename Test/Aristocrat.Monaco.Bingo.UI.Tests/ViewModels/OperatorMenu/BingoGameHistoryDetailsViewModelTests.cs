@@ -384,19 +384,19 @@
 
             if (losingCard)
             {
-                _losingCard = new BingoCard(numbers, CardSerialNumberNoPatterns, 0, false);
+                _losingCard = new BingoCard(numbers, CardSerialNumberNoPatterns, 0, 0, false);
                 _cards.Add(_losingCard);
             }
 
             if (singlePatternCard)
             {
-                _singlePatternCard = new BingoCard(numbers, CardSerialNumberOnePattern, 0001, false);
+                _singlePatternCard = new BingoCard(numbers, CardSerialNumberOnePattern, 0001, 0001, false);
                 _cards.Add(_singlePatternCard);
             }
 
             if (multiPatternCard)
             {
-                _multiPatternCard = new BingoCard(numbers, CardSerialNumberAllPatterns, 0011, false);
+                _multiPatternCard = new BingoCard(numbers, CardSerialNumberAllPatterns, 0011, 0011, false);
                 _cards.Add(_multiPatternCard);
             }
         }
