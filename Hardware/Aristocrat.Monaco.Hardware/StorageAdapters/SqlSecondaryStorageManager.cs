@@ -227,7 +227,7 @@
                 // This command is used to verify that the SQL lite file is valid and does not have errors
                 const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
                 const string successfulCommandResponse = "ok";
-                using var command = new SQLiteCommand(verifySqlFileIsValidCommand, connection);
+                using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
                 return command.ExecuteScalar().ToString() == successfulCommandResponse;
             }
             catch (Exception e)
