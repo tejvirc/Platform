@@ -48,7 +48,7 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
             RegisteredPresentations = new List<PresentationOverrideTypes>();
-            
+
             SetOverlayMessageStrategy();
 
             _eventBus.Subscribe<GameProcessExitedEvent>(this, HandleEvent);
@@ -116,8 +116,17 @@
             _presentationService.PresentOverriddenPresentation(new List<PresentationOverrideData>());
         }
 
+        private static void UpdateNewStrategy(IOverlayMessageStrategy previous, IOverlayMessageStrategy newStrategy)
+        {
+            newStrategy.HandpayAmount = previous.HandpayAmount;
+            newStrategy.LargeWinWager = previous.LargeWinWager;
+            newStrategy.LastHandpayType = previous.LastHandpayType;
+            newStrategy.LastCashOutAmount = previous.LastCashOutAmount;
+        }
+
         private void SetOverlayMessageStrategy()
         {
+            var previous = OverlayStrategy;
             var isEnhanced = _properties.GetValue(ApplicationConstants.PlatformEnhancedDisplayEnabled, true);
             var fallbackStrategy =
                 isEnhanced ? OverlayMessageStrategyOptions.Enhanced : OverlayMessageStrategyOptions.Basic;
@@ -126,6 +135,11 @@
 
             OverlayStrategy = _overlayMessageStrategyFactory.Create(strategy);
             FallBackStrategy = _overlayMessageStrategyFactory.Create(fallbackStrategy);
+            if (previous is not null)
+            {
+                UpdateNewStrategy(previous, OverlayStrategy);
+                UpdateNewStrategy(previous, FallBackStrategy);
+            }
         }
 
         private void HandleEvent(GameProcessExitedEvent evt)
