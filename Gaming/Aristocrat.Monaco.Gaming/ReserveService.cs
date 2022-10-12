@@ -91,9 +91,7 @@
 
         public bool ExitReserveMachine()
         {
-            if (!(bool)_propertiesManager.GetProperty(
-                ApplicationConstants.ReserveServiceLockupPresent,
-                false))
+            if (!IsReserveServiceLockupPresent)
             {
                 return false;
             }
@@ -121,9 +119,6 @@
                 ApplicationConstants.ReserveServiceAllowed,
                 true);
 
-            var lockUpOnStartup = (bool)_propertiesManager.GetProperty(
-                ApplicationConstants.ReserveServiceLockupPresent,
-                false);
 
             _reserveServiceSupported =
                 (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceEnabled, true);
@@ -142,19 +137,19 @@
 
             // If we have a lockup and the reserve is not allowed or enabled, clear up lockup.
             // This should not happen in the first place
-            if ((!_reserveServiceSupported || !_reserveServiceAllowed) && lockUpOnStartup)
+            if ((!_reserveServiceSupported || !_reserveServiceAllowed) && IsReserveServiceLockupPresent)
             {
                 RemoveLockup();
             }
 
             //If the reserve is not allowed, enabled or there's no lockup on start, no need to do anything else.
-            if (!lockUpOnStartup || !_reserveServiceSupported || !_reserveServiceAllowed)
+            if (!IsReserveServiceLockupPresent || !_reserveServiceSupported || !_reserveServiceAllowed)
             {
                 return;
             }
 
             CreateLockup(true);
-            _eventBus?.Subscribe<GameInitializationCompletedEvent>(this, HandleEvent);
+            _eventBus?.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleEvent);
         }
 
         private void Dispose(bool disposing)
@@ -247,11 +242,20 @@
             }
         }
 
-        private void HandleEvent(GameInitializationCompletedEvent evt)
+        private void HandleEvent(OverlayWindowVisibilityChangedEvent evt)
         {
-            _eventBus.Unsubscribe<GameInitializationCompletedEvent>(this);
-            _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            if (!evt.IsVisible)
+                return;
+
+            _eventBus.Unsubscribe<OverlayWindowVisibilityChangedEvent>(this);
+
+            if (IsReserveServiceLockupPresent)
+            {
+                _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            }
         }
+
+        private bool IsReserveServiceLockupPresent => (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false);
 
         private bool CreateLockup(bool lockupOnStartup = false)
         {
