@@ -82,11 +82,6 @@
         public const string BadCountThreshold = "BadCountThreshold";
 
         /// <summary>
-        ///     Sets the max voucher in value allowed
-        /// </summary>
-        public const string MaxVoucherIn = "MaxVoucherIn";
-
-        /// <summary>
         ///     Binary File Receiver
         /// </summary>
         public const string BinaryFileReceiver = "BinaryFileReceiver";

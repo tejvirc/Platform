@@ -13,8 +13,81 @@
     using Monaco.Common;
     using Sas.Contracts.SASProperties;
 
-    public class SystemConfiguration : BaseConfiguration
+    public sealed class SystemConfiguration : BaseConfiguration
     {
+        private static readonly IReadOnlyDictionary<string, Func<string, bool>> InvalidSettingsHandlers =
+            new Dictionary<string, Func<string, bool>>
+            {
+                {
+                    SystemConfigurationConstants.MinJackpotValue,
+                    value => !long.TryParse(value, out var result) || result <= 0
+                },
+                {
+                    SystemConfigurationConstants.MinHandpayValue,
+                    value => !long.TryParse(value, out var result) || result <= 0
+                },
+                {
+                    SystemConfigurationConstants.TransferLimit,
+                    value => !long.TryParse(value, out var result) || result < 0
+                },
+                {
+                    SystemConfigurationConstants.VoucherThreshold,
+                    value => !long.TryParse(value, out var result) || result < 0
+                },
+                {
+                    SystemConfigurationConstants.Gen8MaxVoucherIn,
+                    value => !long.TryParse(value, out var result) || result < 0
+                },
+                {
+                    SystemConfigurationConstants.BadCountThreshold,
+                    value => !int.TryParse(value, out var result) || result < 0
+                },
+                {
+                    SystemConfigurationConstants.JackpotHandlingStrategy,
+                    value => !Enum.TryParse<JackpotStrategy>(value, out var jackpotStrategy) ||
+                             jackpotStrategy is <= JackpotStrategy.CreditJackpotWin
+                                 or >= JackpotStrategy.MaxJackpotStrategy
+                },
+                {
+                    SystemConfigurationConstants.JackpotAmountDetermination,
+                    value => !Enum.TryParse<JackpotDetermination>(value, out var jackpotStrategy) ||
+                             jackpotStrategy is <= JackpotDetermination.Unknown
+                                 or >= JackpotDetermination.MaxJackpotDetermination
+                },
+                {
+                    SystemConfigurationConstants.CreditsStrategy,
+                    value => !Enum.TryParse<CreditsStrategy>(value, out var creditsStrategy) ||
+                             creditsStrategy != CreditsStrategy.Sas
+                },
+                { SystemConfigurationConstants.AudibleAlarmSetting, value => !IsBooleanValue(value) },
+                { SystemConfigurationConstants.TicketReprint, value => !IsBooleanValue(value) },
+                { SystemConfigurationConstants.HandpayReceipt, value => !IsBooleanValue(value) },
+                { SystemConfigurationConstants.AftBonusing, value => !IsBooleanValue(value) },
+                { SystemConfigurationConstants.SasAft, value => !IsBooleanValue(value) },
+                { SystemConfigurationConstants.RecordGamePlay, value => !IsBooleanValue(value) },
+                { SystemConfigurationConstants.CashOutButton, value => !IsBooleanValue(value) },
+                { SystemConfigurationConstants.TransferWin2Host, value => !IsBooleanValue(value) }
+            };
+
+        private readonly IReadOnlyDictionary<string, Action<BingoServerSettingsModel, IPropertiesManager, string>>
+            _additionalConfigurationHandler = new Dictionary<string, Action<BingoServerSettingsModel, IPropertiesManager, string>>
+            {
+                { SystemConfigurationConstants.Gen8MaxVoucherIn, (model, _, value) => model.VoucherInLimit = long.Parse(value) },
+                { SystemConfigurationConstants.HandpayReceipt, (model, _, value) => model.PrintHandpayReceipt = StringToBool(value) },
+                { SystemConfigurationConstants.TicketReprint, (model, _, value) => model.TicketReprint = StringToBool(value) },
+                { SystemConfigurationConstants.Gen8MaxCashIn, (model, _, value) => model.BillAcceptanceLimit = long.Parse(value) },
+                { SystemConfigurationConstants.VoucherThreshold, (model, _, value) => model.MaximumVoucherValue = long.Parse(value) },
+                { SystemConfigurationConstants.MinJackpotValue, (model, _, value) => model.MinimumJackpotValue = long.Parse(value) },
+                { SystemConfigurationConstants.AudibleAlarmSetting, (model, _, value) => model.AlarmConfiguration = StringToBool(value) },
+                { SystemConfigurationConstants.RecordGamePlay, (model, _, value) => model.CaptureGameAnalytics = StringToBool(value) },
+                { SystemConfigurationConstants.CaptureGameAnalytics, (model, _, value) => model.CaptureGameAnalytics = StringToBool(value) },
+                { SystemConfigurationConstants.JackpotHandlingStrategy, HandleJackpotHandlingStrategy },
+                { SystemConfigurationConstants.CreditsStrategy, (model, _, value) => model.CreditsStrategy = value.ToEnumeration<CreditsStrategy>() },
+                { SystemConfigurationConstants.JackpotAmountDetermination, (model, _, value) => model.JackpotAmountDetermination = value.ToEnumeration<JackpotDetermination>() },
+                { SystemConfigurationConstants.AftBonusing, (model, _, value) => model.AftBonusingEnabled = StringToBool(value) },
+                { SystemConfigurationConstants.SasLegacyBonusing, (model, _, value) => model.LegacyBonusAllowed = value }
+            };
+
         public SystemConfiguration(
             IPropertiesManager propertiesManager,
             IMultiProtocolConfigurationProvider protocolConfiguration,
@@ -30,7 +103,7 @@
                 new Dictionary<string, (string, Func<string, object>)>
                 {
                     {
-                        SystemConfigurationConstants.MaxVoucherIn,
+                        SystemConfigurationConstants.Gen8MaxVoucherIn,
                         (AccountingConstants.VoucherInLimit, val => long.Parse(val).CentsToMillicents())
                     },
                     {
@@ -59,18 +132,18 @@
                     },
                     {
                         SystemConfigurationConstants.AftBonusing, (SasProperties.SasFeatureSettings,
-                            val => SetSASFeature(x => x.AftBonusAllowed = StringToBool(val)))
+                            val => SetSasFeature(x => x.AftBonusAllowed = StringToBool(val)))
                     },
                     {
                         SystemConfigurationConstants.SasLegacyBonusing, (SasProperties.SasFeatureSettings,
-                            val => SetSASFeature(x => x.LegacyBonusAllowed = StringToBool(val)))
+                            val => SetSasFeature(x => x.LegacyBonusAllowed = StringToBool(val)))
                     }
                 };
 
             RequiredSettings =
                 new HashSet<string>
                 {
-                    SystemConfigurationConstants.MaxVoucherIn,
+                    SystemConfigurationConstants.Gen8MaxVoucherIn,
                     SystemConfigurationConstants.HandpayReceipt,
                     SystemConfigurationConstants.TicketReprint,
                     SystemConfigurationConstants.Gen8MaxCashIn,
@@ -86,91 +159,25 @@
 
             if (!protocolConfiguration.MultiProtocolConfiguration.Select(x => x.Protocol).Contains(CommsProtocol.SAS))
             {
-                RequiredSettings.RemoveWhere(x => x.Equals(SystemConfigurationConstants.AftBonusing) ||
-                    x.Equals(SystemConfigurationConstants.SasLegacyBonusing));
+                RequiredSettings.RemoveWhere(x => x.Equals(SystemConfigurationConstants.AftBonusing, StringComparison.Ordinal) ||
+                    x.Equals(SystemConfigurationConstants.SasLegacyBonusing, StringComparison.Ordinal));
             }
         }
 
         protected override void AdditionalConfiguration(BingoServerSettingsModel model, string name, string value)
         {
-            switch (name)
+            if (!_additionalConfigurationHandler.TryGetValue(name, out var handler))
             {
-                case SystemConfigurationConstants.MaxVoucherIn:
-                    model.VoucherInLimit = long.Parse(value);
-                    break;
-                case SystemConfigurationConstants.HandpayReceipt:
-                    model.PrintHandpayReceipt = StringToBool(value);
-                    break;
-                case SystemConfigurationConstants.TicketReprint:
-                    model.TicketReprint = StringToBool(value);
-                    break;
-                case SystemConfigurationConstants.Gen8MaxCashIn:
-                    model.BillAcceptanceLimit = long.Parse(value);
-                    break;
-                case SystemConfigurationConstants.VoucherThreshold:
-                    model.MaximumVoucherValue = long.Parse(value);
-                    break;
-                case SystemConfigurationConstants.MinJackpotValue:
-                    model.MinimumJackpotValue = long.Parse(value);
-                    break;
-                case SystemConfigurationConstants.AudibleAlarmSetting:
-                    model.AlarmConfiguration = StringToBool(value);
-                    break;
-                case SystemConfigurationConstants.RecordGamePlay:
-                case SystemConfigurationConstants.CaptureGameAnalytics:
-                    model.CaptureGameAnalytics = StringToBool(value);
-                    break;
-                case SystemConfigurationConstants.JackpotHandlingStrategy:
-                    model.JackpotStrategy = value.ToEnumeration<JackpotStrategy>();
-                    PropertiesManager.ConfigureLargeWinStrategy(model.JackpotStrategy);
-                    break;
-                case SystemConfigurationConstants.CreditsStrategy:
-                    model.CreditsStrategy = value.ToEnumeration<CreditsStrategy>();
-                    break;
-                case SystemConfigurationConstants.JackpotAmountDetermination:
-                    model.JackpotAmountDetermination = value.ToEnumeration<JackpotDetermination>();
-                    break;
-                case SystemConfigurationConstants.AftBonusing:
-                    model.AftBonusingEnabled = StringToBool(value);
-                    break;
-                case SystemConfigurationConstants.SasLegacyBonusing:
-                    model.LegacyBonusAllowed = value;
-                    break;
-                default:
-                    LogUnhandledSetting(name, value);
-                    break;
+                LogUnhandledSetting(name, value);
+                return;
             }
+
+            handler(model, PropertiesManager, value);
         }
 
         protected override bool IsSettingInvalid(string name, string value)
         {
-            return name switch
-            {
-                SystemConfigurationConstants.MinJackpotValue => !long.TryParse(value, out var result) || result <= 0,
-                SystemConfigurationConstants.MinHandpayValue => !long.TryParse(value, out var result) || result <= 0,
-                SystemConfigurationConstants.TransferLimit => !long.TryParse(value, out var result) || result < 0,
-                SystemConfigurationConstants.VoucherThreshold => !long.TryParse(value, out var result) || result < 0,
-                SystemConfigurationConstants.MaxVoucherIn => !long.TryParse(value, out var result) || result < 0,
-                SystemConfigurationConstants.BadCountThreshold => !int.TryParse(value, out var result) || result < 0,
-                SystemConfigurationConstants.JackpotHandlingStrategy =>
-                    !Enum.TryParse<JackpotStrategy>(value, out var jackpotStrategy) ||
-                    jackpotStrategy is <= JackpotStrategy.CreditJackpotWin or >= JackpotStrategy.MaxJackpotStrategy,
-                SystemConfigurationConstants.JackpotAmountDetermination =>
-                    !Enum.TryParse<JackpotDetermination>(value, out var jackpotStrategy) ||
-                    jackpotStrategy is <= JackpotDetermination.Unknown or >= JackpotDetermination.MaxJackpotDetermination,
-                SystemConfigurationConstants.CreditsStrategy =>
-                    !Enum.TryParse<CreditsStrategy>(value, out var creditsStrategy) ||
-                    creditsStrategy != CreditsStrategy.Sas,
-                SystemConfigurationConstants.AudibleAlarmSetting => !IsBooleanValue(value),
-                SystemConfigurationConstants.TicketReprint => !IsBooleanValue(value),
-                SystemConfigurationConstants.HandpayReceipt => !IsBooleanValue(value),
-                SystemConfigurationConstants.AftBonusing => !IsBooleanValue(value),
-                SystemConfigurationConstants.SasAft => !IsBooleanValue(value),
-                SystemConfigurationConstants.RecordGamePlay => !IsBooleanValue(value),
-                SystemConfigurationConstants.CashOutButton => !IsBooleanValue(value),
-                SystemConfigurationConstants.TransferWin2Host => !IsBooleanValue(value),
-                _ => false
-            };
+            return InvalidSettingsHandlers.TryGetValue(name, out var handler) && handler(value);
         }
 
         protected override bool SettingChangedThatRequiresNvRamClear(string name, string value, BingoServerSettingsModel model)
@@ -195,7 +202,16 @@
             };
         }
 
-        private SasFeatures SetSASFeature(Action<SasFeatures> action)
+        private static void HandleJackpotHandlingStrategy(
+            BingoServerSettingsModel model,
+            IPropertiesManager propertiesManager,
+            string value)
+        {
+            model.JackpotStrategy = value.ToEnumeration<JackpotStrategy>();
+            propertiesManager.ConfigureLargeWinStrategy(model.JackpotStrategy);
+        }
+
+        private SasFeatures SetSasFeature(Action<SasFeatures> action)
         {
             var features = (SasFeatures)PropertiesManager.GetValue(
                 SasProperties.SasFeatureSettings,
