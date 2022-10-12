@@ -473,9 +473,10 @@
             _multipleSpins = e.Triggered;
         }
 
-        private void Handle(GameControlSizeChangedEvent e)
+        private async Task Handle(GameControlSizeChangedEvent e, CancellationToken token)
         {
             _gameControlledHeight = e.GameControlHeight;
+            await UpdateAppearance().ConfigureAwait(false);
         }
 
         private async Task Handle(GameProcessExitedEvent e, CancellationToken token)
