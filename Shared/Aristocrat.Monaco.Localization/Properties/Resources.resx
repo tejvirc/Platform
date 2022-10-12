@@ -4559,7 +4559,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="InvalidBetRangeForDenom" xml:space="preserve">
-    <value>Invalid min/max bet range, min must be smaller than max, and max must be smaller than outside max.</value>
+    <value>Invalid min/max bet range, min bet must be smaller than inside max, and inside max must be smaller than or equal to outside max.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="NoKenoGames" xml:space="preserve">

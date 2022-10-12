@@ -16253,7 +16253,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Invalid min/max bet range, min must be smaller tha....
+		///   Looks up a localized string similar to Invalid min/max bet range, min bet must be smaller....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -50662,7 +50662,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Invalid min/max bet range, min must be smaller tha....
+		///		Looks up a localized string similar to Invalid min/max bet range, min bet must be smaller....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -78093,7 +78093,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InvalidBetAmountForDenom,
 		/// <summary>
-		///   Looks up a localized string similar to Invalid min/max bet range, min must be smaller tha....
+		///   Looks up a localized string similar to Invalid min/max bet range, min bet must be smaller....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
