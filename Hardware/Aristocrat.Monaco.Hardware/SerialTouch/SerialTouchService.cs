@@ -829,8 +829,13 @@
                 var result = await Task.WhenAny(portReadTask, queueTask);
                 if (result == portReadTask)
                 {
-                    ProcessNewData(await result);
-                    _checkDisconnectAttempts = 0;
+                    var data = await result;
+                    if (data.Any())
+                    {
+                        ProcessNewData(data);
+                        _checkDisconnectAttempts = 0;
+                    }
+
                     portReadTask = HandlePortReads(token);
                 }
 
