@@ -138,9 +138,9 @@
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
         }
 
-        public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
+        public delegate void ViewInjectionEventHandler(ViewInjectionEvent ev);
 
-        public event CustomViewChangedEventHandler CustomEventViewChangedEvent;
+        public event ViewInjectionEventHandler HandleViewInjectionEvent;
 
         private void HandleEvent(ViewInjectionEvent evt)
         {
@@ -155,7 +155,7 @@
                 () =>
                 {
                     HandleMessageOverlayText();
-                    OnCustomEventViewChangedEvent(evt);
+                    OnViewInjectionEvent(evt);
                 });
         }
 
@@ -1378,9 +1378,9 @@
                 });
         }
 
-        protected virtual void OnCustomEventViewChangedEvent(ViewInjectionEvent evt)
+        protected virtual void OnViewInjectionEvent(ViewInjectionEvent evt)
         {
-            CustomEventViewChangedEvent?.Invoke(evt);
+            HandleViewInjectionEvent?.Invoke(evt);
         }
 
         private void HandleEvent(TransferEnableOnOverlayEvent evt)

@@ -48,32 +48,24 @@
             ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
         private readonly IEventBus _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
         private readonly IPropertiesManager _properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-        private readonly List<Window> _lobbyWindows = new List<Window>();
-        private readonly List<ResourceDictionary> _skins = new List<ResourceDictionary>();
 
         private TestToolView _testToolView;
+
+        private readonly OverlayManager _overlayManager;
 
         ////private readonly TimeLimitDialog _timeLimitDlg;
         ////private readonly MessageOverlay _msgOverlay;
         private readonly LobbyTopView _topView;
         private readonly LobbyTopperView _topperView;
-        private LayoutOverlayWindow _mediaDisplayWindow;
-        private LayoutOverlayWindow _topMediaDisplayWindow;
-        private LayoutOverlayWindow _topperMediaDisplayWindow;
 
-        private int _activeSkinIndex;
 
         private VirtualButtonDeckOverlayView _vbdOverlay;
         private ButtonDeckSimulatorView _buttonDeckSimulator;
 
-        private DisableCountdownWindow _disableCountdownWindow;
-        private InfoWindow _infoWindow;
-        private OverlayWindow _overlayWindow;
-        private ResponsibleGamingWindow _responsibleGamingWindow;
         private VirtualButtonDeckView _vbd;
         private bool _vbdLoaded;
 
-        private Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)> _customOverlays;
+        //private Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)> _customOverlays;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="LobbyView" /> class
@@ -95,13 +87,6 @@
             Logger.Debug("Initializing GUI");
             InitializeComponent();
 
-            // Pre-load all the skins and cache them to support changing at runtime.
-            Logger.Debug("Caching skins");
-            var config = (LobbyConfiguration)properties.GetProperty(GamingConstants.LobbyConfig, null);
-            foreach (var skinFilename in config.SkinFilenames)
-            {
-                _skins.Add(SkinLoader.Load(skinFilename));
-            }
 
             ////_timeLimitDlg.IsVisibleChanged += OnChildWindowIsVisibleChanged;
             ////_msgOverlay.IsVisibleChanged += OnChildWindowIsVisibleChanged;
@@ -126,58 +111,15 @@
                 _topperView = new LobbyTopperView();
             }
 
-            Logger.Debug("Creating overlay view");
-            _overlayWindow = new OverlayWindow(this);
-
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();
-            ViewModel.CustomEventViewChangedEvent += ViewModelOnCustomEventViewChangedEvent;
-            ViewModel.PropertyChanged += ViewModel_OnPropertyChanged;
-
-            if (ViewModel.Config.ResponsibleGamingTimeLimitEnabled)
+            _overlayManager = new OverlayManager(ViewModel)
             {
-                Logger.Debug("Creating RG window");
-                _responsibleGamingWindow = new ResponsibleGamingWindow { ViewModel = ViewModel };
-            }
-
-            _lobbyWindows.Add(this);
-            if (_topView != null)
-            {
-                _lobbyWindows.Add(_topView);
-            }
-
-            if (_topperView != null)
-            {
-                _lobbyWindows.Add(_topperView);
-            }
-
-            _lobbyWindows.Add(_overlayWindow);
-
-            if (_responsibleGamingWindow != null)
-            {
-                _lobbyWindows.Add(_responsibleGamingWindow);
-            }
-
-            if (mediaEnabled)
-            {
-                Logger.Debug("Creating media display");
-                _mediaDisplayWindow = new LayoutOverlayWindow(ScreenType.Primary) { Title = "Primary Overlay" };
-                _mediaDisplayWindow.Loaded += MediaDisplayWindow_OnLoaded;
-                ShowWithTouch(_mediaDisplayWindow);
-
-                _lobbyWindows.Add(_mediaDisplayWindow);
-                if (_topView != null)
-                {
-                    _topMediaDisplayWindow = _topView.GetMediaDisplayWindow();
-                    _lobbyWindows.Add(_topMediaDisplayWindow);
-                }
-
-                if (_topperView != null)
-                {
-                    _topperMediaDisplayWindow = _topperView.GetMediaDisplayWindow();
-                    _lobbyWindows.Add(_topperMediaDisplayWindow);
-                }
-            }
+                MainView = this,
+                TopView = _topView,
+                TopperView = _topperView
+            };
+            //ViewModel.PropertyChanged += ViewModel_OnPropertyChanged;
 
             // BinkGpuControl can't deal with having its size set by binding to anything other than Root height/width initially (timing issue maybe)
             // Bind to Root in xaml and then update it to the proper size here when the LayoutTemplate size is set later
@@ -186,8 +128,6 @@
                 GameAttract.Height = args.NewSize.Height;
                 GameAttract.Width = args.NewSize.Width;
             };
-
-            InitializeCustomOverlays();
 
             _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleOverlayWindowVisibilityChanged);
         }
@@ -200,7 +140,7 @@
                 {
                     if (e.IsVisible)
                     {
-                        ShowOverlayWindow();
+                        //ShowOverlayWindow();
                     }
 
                     SetOverlayWindowTransparent(!e.IsVisible);
@@ -210,167 +150,6 @@
                     Logger.Error(ex);
                 }
             });
-        }
-
-        private void InitializeCustomOverlays()
-        {
-            _customOverlays = new Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)>();
-
-            if (_cabinetDetectionService.Family == HardwareFamily.Unknown ||
-                _cabinetDetectionService.IsDisplayExpected(DisplayRole.Top))
-            {
-                Logger.Debug("Initializing top overlay");
-                _customOverlays.Add(DisplayRole.Top, (
-                    (element) =>
-                    {
-                        if (_topView == null)
-                        {
-                            Logger.Debug("Top view is null");
-                            return;
-                        }
-
-                        if (_topMediaDisplayWindow == null)
-                        {
-                            _topView.SetupMediaDisplayWindow();
-                            _topMediaDisplayWindow = _topView.GetMediaDisplayWindow();
-                        }
-
-                        // Insert the control under a grid instead of the canvas, this let the
-                        // child ViewBox (if present) expand as needed for the screen resolution
-                        var grid = _topMediaDisplayWindow.Content as Grid ?? new Grid();
-                        if (grid.Children.Contains(element))
-                        {
-                            Logger.Warn(
-                                $"Trying to add twice the custom view {element.GetType().FullName} to Top Screen, hash: {element.GetHashCode()}");
-                        }
-                        else
-                        {
-                            grid.Children.Add(element);
-                            _topMediaDisplayWindow.Content = grid;
-                            _topMediaDisplayWindow.Show();
-                            Logger.Debug(
-                                $"Added the custom view {element.GetType().FullName} to Top Screen, hash: {element.GetHashCode()}");
-                        }
-                    },
-                    (element) =>
-                    {
-                        if (_topMediaDisplayWindow != null)
-                        {
-                            var grid = _topMediaDisplayWindow.Content as Grid;
-                            if (grid?.Children.Count > 0)
-                            {
-                                if (element != null)
-                                {
-                                    grid.Children.Remove(element);
-                                    Logger.Debug($"Cleared the custom view {element.GetType().FullName} from Top Screen, hash: {element.GetHashCode()}");
-                                }
-                                else
-                                {
-                                    grid.Children.Clear();
-                                    _topMediaDisplayWindow.Content = null;
-                                    Logger.Debug("Cleared all custom views from Top Screen");
-                                }
-                            }
-                        }
-                    }
-                ));
-            }
-
-            if (_cabinetDetectionService.Family == HardwareFamily.Unknown ||
-                _cabinetDetectionService.IsDisplayExpected(DisplayRole.Topper))
-            {
-                Logger.Debug("Initializing topper overlay");
-                _customOverlays.Add(DisplayRole.Topper, (
-                    (element) =>
-                    {
-                        if (_topperView == null)
-                        {
-                            Logger.Debug("Topper view is null");
-                            return;
-                        }
-
-                        if (_topperMediaDisplayWindow == null)
-                        {
-                            _topperView.SetupMediaDisplayWindow();
-                            _topperMediaDisplayWindow = _topperView.GetMediaDisplayWindow();
-                        }
-
-                        // Insert the control under a grid instead of the canvas, this let the
-                        // child ViewBox (if present) expand as needed for the screen resolution
-                        var grid = _topperMediaDisplayWindow.Content as Grid ?? new Grid();
-                        if (grid.Children.Contains(element))
-                        {
-                            Logger.Warn(
-                                $"Trying to add twice the custom view {element.GetType().FullName} to Topper Screen, hash: {element.GetHashCode()}");
-                        }
-                        else
-                        {
-                            grid.Children.Add(element);
-                            _topperMediaDisplayWindow.Content = grid;
-                            _topperMediaDisplayWindow.Show();
-                            Logger.Debug($"Added the custom view {element.GetType().FullName} to Topper Screen, hash: {element.GetHashCode()}");
-                        }
-                    },
-                    (element) =>
-                    {
-                        if (_topperMediaDisplayWindow != null)
-                        {
-                            var grid = _topperMediaDisplayWindow.Content as Grid;
-                            if (grid?.Children.Count > 0)
-                            {
-                                if (element != null)
-                                {
-                                    grid.Children.Remove(element);
-                                    Logger.Debug($"Cleared the custom view {element.GetType().FullName} from Topper Screen, hash: {element.GetHashCode()}");
-                                }
-                                else
-                                {
-                                    grid.Children.Clear();
-                                    _topperMediaDisplayWindow.Content = null;
-                                    Logger.Debug("Cleared all custom views from Topper Screen");
-                                }
-                            }
-                        }
-                    }
-                ));
-            }
-
-            Logger.Debug("Initializing main overlay");
-            _customOverlays.Add(DisplayRole.Main, (
-                (element) =>
-                {
-                    Grid grid = _overlayWindow.FindName("ViewInjectionRoot") as Grid;
-                    if (grid != null && grid.Children.Contains(element))
-                    {
-                        Logger.Warn(
-                            $"Trying to add twice the custom view {element.GetType().FullName} to Main Screen, hash: {element.GetHashCode()}");
-                    }
-                    else
-                    {
-                        grid?.Children.Add(element);
-                        Logger.Debug(
-                            $"Added the custom view {element.GetType().FullName} to Main Screen, hash: {element.GetHashCode()}");
-                    }
-                },
-                (element) =>
-                {
-                    Grid grid = _overlayWindow.FindName("ViewInjectionRoot") as Grid;
-                    if (grid?.Children.Count > 0)
-                    {
-                        if (element != null)
-                        {
-                            grid.Children.Remove(element);
-                            Logger.Debug(
-                                $"Removing the custom view model {element.GetType().FullName} from Main Screen, hash: {element.GetHashCode()}");
-                        }
-                        else
-                        {
-                            grid.Children.Clear();
-                            Logger.Debug($"Cleared all custom views from Main Screen");
-                        }
-                    }
-                }
-            ));
         }
 
         /// <summary>
@@ -392,13 +171,7 @@
                 {
                     _topperView.DataContext = value;
                 }
-                _overlayWindow.ViewModel = ViewModel;
-                AddOverlayBindings(_overlayWindow, ViewModel);
 
-                if (_responsibleGamingWindow != null)
-                {
-                    _responsibleGamingWindow.ViewModel = ViewModel;
-                }
                 ////_timeLimitDlg.DataContext = value;
                 ////_msgOverlay.DataContext = value;
             }
@@ -407,176 +180,18 @@
         /// <summary>
         /// Binds miscellaneous properties from the overlay window to its associated lobby viewmodel.
         /// </summary>
-        private static void AddOverlayBindings(OverlayWindow view, LobbyViewModel vm)
-        {
-            WpfUtil.Bind(view, OverlayWindow.ReplayNavigationBarHeightProperty, vm, nameof(vm.ReplayNavigationBarHeight), BindingMode.OneWayToSource);
-            WpfUtil.Bind(view, OverlayWindow.IsDialogFadingOutProperty, vm.MessageOverlayDisplay.MessageOverlayData, nameof(vm.MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut), BindingMode.OneWayToSource);
-        }
-
-        /// <summary>
-        ///     Creates and shows the overlay window.
-        /// </summary>
-        public void CreateAndShowInfoWindow()
-        {
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_infoWindow != null)
-                    {
-                        ShowWithTouch(_infoWindow);
-                    }
-                    else
-                    {
-                        _infoWindow = new InfoWindow(this) { Owner = this };
-                        _infoWindow.IsVisibleChanged += OnChildWindowIsVisibleChanged;
-
-                        SetStylusSettings(_infoWindow);
-                        _lobbyWindows.Add(_infoWindow);
-
-                        ShowWithTouch(_infoWindow);
-                    }
-                });
-        }
-
-        /// <summary>
-        ///     Hides the info window.
-        /// </summary>
-        public void HideInfoWindow()
-        {
-            Dispatcher?.Invoke(() => _infoWindow?.Hide());
-        }
-
-        /// <summary>
-        ///     Closes the info window.
-        /// </summary>
-        public void CloseInfoWindow()
-        {
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_infoWindow != null)
-                    {
-                        _lobbyWindows.Remove(_infoWindow);
-                        _infoWindow.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
-                        _infoWindow.Close();
-                        _infoWindow = null;
-                    }
-                });
-        }
-
-        /// <summary>
-        ///     Creates and shows the overlay window.
-        /// </summary>
-        public void ShowOverlayWindow()
-        {
-            Dispatcher?.Invoke(() => ShowWithTouch(_overlayWindow));
-        }
-
-        /// <summary>
-        ///     Hides the overlay window.
-        /// </summary>
-        public void HideOverlayWindow()
-        {
-            Dispatcher?.Invoke(() => _overlayWindow?.Hide());
-        }
-
-        /// <summary>
-        ///     Closes the overlay window.
-        /// </summary>
-        public void CloseOverlayWindow()
-        {
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_overlayWindow != null)
-                    {
-                        _lobbyWindows.Remove(_overlayWindow);
-                        _overlayWindow.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
-                        _overlayWindow.Close();
-                        _overlayWindow = null;
-                    }
-                });
-        }
-
-        /// <summary>
-        /// Closes the layout overlay window.
-        /// </summary>
-        public void CloseLayoutOverlayWindow()
-        {
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_mediaDisplayWindow != null)
-                    {
-                        _lobbyWindows.Remove(_mediaDisplayWindow);
-                        _mediaDisplayWindow.Close();
-                        _mediaDisplayWindow = null;
-                    }
-                });
-        }
-
-        /// <summary>
-        /// Closes the top layout overlay window.
-        /// </summary>
-        private void CloseTopLayoutOverlayWindow()
-        {
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_topMediaDisplayWindow != null)
-                    {
-                        _lobbyWindows.Remove(_topMediaDisplayWindow);
-                        _topMediaDisplayWindow.Close();
-                        _topMediaDisplayWindow = null;
-                    }
-                });
-        }
-
-        public void CloseResponsibleGamingWindow()
-        {
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_responsibleGamingWindow != null)
-                    {
-                        _lobbyWindows.Remove(_responsibleGamingWindow);
-                        _responsibleGamingWindow.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
-                        _responsibleGamingWindow.Close();
-                        _responsibleGamingWindow = null;
-                    }
-                });
-        }
+        //private static void AddOverlayBindings(OverlayWindow view, LobbyViewModel vm)
+        //{
+        //    WpfUtil.Bind(view, OverlayWindow.ReplayNavigationBarHeightProperty, vm, nameof(vm.ReplayNavigationBarHeight), BindingMode.OneWayToSource);
+        //    WpfUtil.Bind(view, OverlayWindow.IsDialogFadingOutProperty, vm.MessageOverlayDisplay.MessageOverlayData, nameof(vm.MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut), BindingMode.OneWayToSource);
+        //}
 
         /// <summary>
         ///     Creates and shows the DisableCountdown window.
         /// </summary>
         public void CreateAndShowDisableCountdownWindow()
         {
-            Logger.Debug("Showing DisabledCountdownWindow");
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_disableCountdownWindow != null)
-                    {
-                        _disableCountdownWindow.Show();
-                    }
-                    else
-                    {
-                        _disableCountdownWindow = new DisableCountdownWindow
-                        {
-                            Owner = this,
-                            DataContext = DataContext,
-                            Top = Top,
-                            Left = Left,
-                            Width = Width,
-                            Height = Height
-                        };
-
-                        _lobbyWindows.Add(_disableCountdownWindow);
-
-                        _disableCountdownWindow.Show();
-                    }
-                });
+            _overlayManager.CreateAndShowDisableCountdownWindow();
         }
 
         /// <summary>
@@ -584,23 +199,13 @@
         /// </summary>
         public void CloseDisableCountdownWindow()
         {
-            Logger.Debug("Closing DisabledCountdownWindow");
-            Dispatcher?.Invoke(
-                () =>
-                {
-                    if (_disableCountdownWindow != null)
-                    {
-                        _lobbyWindows.Remove(_disableCountdownWindow);
-                        _disableCountdownWindow.Close();
-                        _disableCountdownWindow = null;
-                    }
-                });
+            _overlayManager.CloseDisableCountdownWindow();
         }
 
         public void SetOverlayWindowTransparent(bool transparent)
         {
-            var hWnd = new WindowInteropHelper(_overlayWindow).Handle;
-            WindowsServices.SetWindowExTransparent(hWnd, transparent);
+            //var hWnd = new WindowInteropHelper(_overlayWindow).Handle;
+            //WindowsServices.SetWindowExTransparent(hWnd, transparent);
         }
 
         private void OnChildWindowIsVisibleChanged(
@@ -647,11 +252,11 @@
             GameBottomWindowCtrl.Width = (int)GameLayout.ActualWidth;
             GameBottomWindowCtrl.Height = (int)GameLayout.ActualHeight;
 
-            if (_mediaDisplayWindow != null)
-            {
-                _mediaDisplayWindow.Width = ActualWidth;
-                _mediaDisplayWindow.Height = ActualHeight;
-            }
+            //if (_mediaDisplayWindow != null)
+            //{
+            //    _mediaDisplayWindow.Width = ActualWidth;
+            //    _mediaDisplayWindow.Height = ActualHeight;
+            //}
         }
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
@@ -671,14 +276,12 @@
             ViewModel.LanguageChanged += OnLanguageChanged;
             ViewModel.DisplayChanged += ViewModel_OnDisplayChanged;
 
-            if (_responsibleGamingWindow != null)
-            {
-                _responsibleGamingWindow.Owner = this;
-                _responsibleGamingWindow.IsVisibleChanged += OnChildWindowIsVisibleChanged;
-                SetStylusSettings(_responsibleGamingWindow);
-            }
-
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            //if (_responsibleGamingWindow != null)
+            //{
+            //    _responsibleGamingWindow.Owner = this;
+            //    _responsibleGamingWindow.IsVisibleChanged += OnChildWindowIsVisibleChanged;
+            //    SetStylusSettings(_responsibleGamingWindow);
+            //}
 
             _windowToScreenMapper.MapWindow(this);
 
@@ -687,7 +290,7 @@
             ShowMinButton = !_windowToScreenMapper.IsFullscreen;
             ShowMaxRestoreButton = !_windowToScreenMapper.IsFullscreen;
 
-            var simulateLcdButtonDeck = properties.GetValue(
+            var simulateLcdButtonDeck = _properties.GetValue(
                 HardwareConstants.SimulateLcdButtonDeck,
                 Constants.False);
             simulateLcdButtonDeck = simulateLcdButtonDeck.ToUpperInvariant();
@@ -703,7 +306,7 @@
                 }
             }
 
-            var simulateVirtualButtonDeck = properties.GetValue(
+            var simulateVirtualButtonDeck = _properties.GetValue(
                 HardwareConstants.SimulateVirtualButtonDeck,
                 Constants.False);
             Debug.Assert(
@@ -716,7 +319,7 @@
                 LoadVbd();
             }
 
-            var showTestTool = (string)properties.GetProperty(
+            var showTestTool = (string)_properties.GetProperty(
                 Constants.ShowTestTool,
                 Constants.False);
             showTestTool = showTestTool.ToUpperInvariant();
@@ -733,9 +336,7 @@
 
             ShowWithTouch(_testToolView);
 
-            CreateAndShowInfoWindow();
-
-            ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected);
+            _overlayManager.ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected);
 
             ViewModel.OnLoaded();
 
@@ -747,20 +348,8 @@
             // now show the Lobby TopView window here to address defect VLT-2584.
             _topView?.Show();
             _topperView?.Show();
-            ShowWithTouch(_responsibleGamingWindow);
 
-            if (_mediaDisplayWindow != null)
-            {
-                _overlayWindow.Owner = _mediaDisplayWindow;
-                _mediaDisplayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
-            }
-            else
-            {
-                _overlayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
-            }
-
-            _overlayWindow.IsVisibleChanged += OnChildWindowIsVisibleChanged;
-            SetStylusSettings(_overlayWindow);
+            _overlayManager.ShowAndPositionOverlays();
         }
 
         private bool HostMachineIsNotAnEGM()
@@ -780,12 +369,12 @@
             {
                 _vbd = new VirtualButtonDeckView { ViewModel = ViewModel };
                 SetStylusSettings(_vbd);
-                _lobbyWindows.Add(_vbd);
+                //_lobbyWindows.Add(_vbd);
                 ShowWithTouch(_vbd);
 
                 _vbdOverlay = new VirtualButtonDeckOverlayView(_vbd) { ViewModel = ViewModel };
                 SetStylusSettings(_vbdOverlay);
-                _lobbyWindows.Add(_vbdOverlay);
+                //_lobbyWindows.Add(_vbdOverlay);
                 ShowWithTouch(_vbdOverlay);
             }
 
@@ -794,13 +383,19 @@
 
         private void ViewModel_OnDisplayChanged(object sender, EventArgs e)
         {
-            Dispatcher?.Invoke(() =>
-            {
-                _windowToScreenMapper.MapWindow(this);
-                _windowToScreenMapper.MapWindow(_mediaDisplayWindow);
-                _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
-                _windowToScreenMapper.MapWindow(_overlayWindow);
-            });
+            //Dispatcher?.Invoke(() =>
+            //{
+            //    _windowToScreenMapper.MapWindow(this);
+            //    _windowToScreenMapper.MapWindow(_mediaDisplayWindow);
+            //    _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
+            //    _windowToScreenMapper.MapWindow(_overlayWindow);
+            //});
+
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    _overlayManager.ShowAndPositionOverlays();
+                });
         }
 
         private void MediaDisplayWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -810,39 +405,21 @@
             WindowTools.AssignWindowToPrimaryScreen(sender as Window, isFullscreen);
         }
 
-        private void ViewModelOnCustomEventViewChangedEvent(ViewInjectionEvent ev)
-        {
-            if (!(ev.Element is UIElement element))
-            {
-                Logger.Error($"element {ev.Element?.GetType()} passed cannot be cast as UIElement");
-                return;
-            }
 
-            if (ev.Action == ViewInjectionEvent.ViewAction.Add)
-            {
-                _customOverlays[ev.DisplayRole].entryAction(element);
-            }
-            else
-            {
-                _customOverlays[ev.DisplayRole].exitAction(element);
-            }
-
-        }
-
-        private void ViewModel_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsOverlayWindowVisible")
-            {
-                if (ViewModel.MessageOverlayDisplay.IsOverlayWindowVisible)
-                {
-                    ShowOverlayWindow();
-                }
-                else
-                {
-                    HideOverlayWindow();
-                }
-            }
-        }
+        //private void ViewModel_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == "IsOverlayWindowVisible")
+        //    {
+        //        if (ViewModel.MessageOverlayDisplay.IsOverlayWindowVisible)
+        //        {
+        //            ShowOverlayWindow();
+        //        }
+        //        else
+        //        {
+        //            HideOverlayWindow();
+        //        }
+        //    }
+        //}
 
         private void LobbyView_OnClosed(object sender, EventArgs e)
         {
@@ -855,41 +432,7 @@
             _topView?.Close();
             _topperView?.Close();
 
-            if (_overlayWindow != null)
-            {
-                Logger.Debug("Closing OverlayWindow");
-                CloseOverlayWindow();
-            }
-
-            if (_responsibleGamingWindow != null)
-            {
-                Logger.Debug("Closing ResponsibleGamingWindow");
-                CloseResponsibleGamingWindow();
-            }
-
-            if (_infoWindow != null)
-            {
-                Logger.Debug("Closing InfoWindow");
-                CloseInfoWindow();
-            }
-
-            if (_disableCountdownWindow != null)
-            {
-                Logger.Debug("Closing Disable Countdown Window");
-                CloseDisableCountdownWindow();
-            }
-
-            if (_mediaDisplayWindow != null)
-            {
-                Logger.Debug("Closing LayoutOverlayWindow");
-                CloseLayoutOverlayWindow();
-            }
-
-            if (_topMediaDisplayWindow != null)
-            {
-                Logger.Debug("Closing TopLayoutOverlayWindow");
-                CloseTopLayoutOverlayWindow();
-            }
+            _overlayManager.CloseAllOverlays();
 
             /*
             if (_timeLimitDlg != null)
@@ -933,7 +476,7 @@
 
             LayoutTemplate?.Dispose();
 
-            _lobbyWindows.Clear();
+            //_lobbyWindows.Clear();
 
             GameBottomWindowCtrl.MouseDown -= GameBottomWindowCtrl_MouseDown;
             GameBottomWindowCtrl.MouseUp -= GameBottomWindowCtrl_MouseUp;
@@ -951,21 +494,7 @@
 
         private void OnLanguageChanged(object sender, EventArgs e)
         {
-            Dispatcher?.Invoke(() => ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected));
-        }
-
-        private void ChangeLanguageSkin(bool primaryLanguageSkin)
-        {
-            _activeSkinIndex = primaryLanguageSkin ? 0 : 1;
-
-            var tmpResource = new ResourceDictionary();
-            tmpResource.MergedDictionaries.Add(_skins[_activeSkinIndex]);
-            foreach (var wnd in _lobbyWindows)
-            {
-                wnd.Resources = tmpResource;
-            }
-
-            // Resources.Culture = new CultureInfo(ViewModel.ActiveLocaleCode);
+            MvvmHelper.ExecuteOnUI(() => _overlayManager.ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected));
         }
 
         private void LobbyRoot_OnMouseDown(object sender, MouseButtonEventArgs e)
@@ -991,10 +520,10 @@
         {
             Logger.Debug("LobbyView_OnContentRendered");
             Logger.Debug($"Original ViewBox Main Size Width:{GameLayout.ActualWidth} Height:{GameLayout.ActualHeight}");
-            if (_responsibleGamingWindow != null)
-            {
-                _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
-            }
+            //if (_responsibleGamingWindow != null)
+            //{
+            //    _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
+            //}
         }
 
         private void GameLayout_OnSizeChanged(object sender, SizeChangedEventArgs e)

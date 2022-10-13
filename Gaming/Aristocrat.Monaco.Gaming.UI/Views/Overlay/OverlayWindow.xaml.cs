@@ -10,38 +10,16 @@
     /// </summary>
     public partial class OverlayWindow
     {
-        private readonly MetroWindow _parent;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="OverlayWindow" /> class.
         /// </summary>
-        /// <param name="parent">Parent window</param>
-        public OverlayWindow(MetroWindow parent)
+        public OverlayWindow()
         {
             InitializeComponent();
 
             // MetroApps issue--need to set in code behind after InitializeComponent.
             AllowsTransparency = true;
-
-            _parent = parent;
-
-            IsVisibleChanged += MessageOverlay_IsVisibleChanged;
-        }
-
-        /// <summary>
-        /// Dependency property for <see cref="IsDialogFadingOut"/>.
-        /// </summary>
-        public static readonly DependencyProperty IsDialogFadingOutProperty =
-            DependencyProperty.Register(nameof(IsDialogFadingOut), typeof(bool), typeof(OverlayWindow),
-                new PropertyMetadata(false));
-
-        /// <summary>
-        /// Is this dialog in its fade-out animation?
-        /// </summary>
-        public bool IsDialogFadingOut
-        {
-            get => (bool)GetValue(IsDialogFadingOutProperty);
-            private set => SetValue(IsDialogFadingOutProperty, value);
+            Topmost = true;
         }
 
         /// <summary>
@@ -70,29 +48,24 @@
             set => DataContext = value;
         }
 
-        private void MessageOverlay_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var isVisible = (bool)e.NewValue;
-            if (isVisible)
-            {
-                Top = _parent.Top;
-                Left = _parent.Left;
+        //private void MessageOverlay_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    var isVisible = (bool)e.NewValue;
+        //    if (isVisible)
+        //    {
+        //        Top = _parent.Top;
+        //        Left = _parent.Left;
 
-                Width = _parent.Width;
-                Height = _parent.Height;
+        //        Width = _parent.Width;
+        //        Height = _parent.Height;
 
-                WindowState = _parent.WindowState;
-            }
-        }
+        //        WindowState = _parent.WindowState;
+        //    }
+        //}
 
         private void FadeOutStoryboard_OnCompleted(object sender, EventArgs e)
         {
-            if (!ViewModel.MessageOverlayDisplay.IsOverlayWindowVisible)
-            {
-                Hide();
-            }
-
-            IsDialogFadingOut = false;
+            //ViewModel.IsMessageOverlayDlgFadingOut = false;
         }
 
         /// <summary>
