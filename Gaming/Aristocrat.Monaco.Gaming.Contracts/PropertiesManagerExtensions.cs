@@ -65,6 +65,24 @@
         }
 
         /// <summary>
+        ///     An <see cref="IPropertiesManager" /> extension method that gets the selected game.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+        /// <param name="this">The @this to act on.</param>
+        /// <returns>The active game if found; otherwise null.</returns>
+        public static (IGameDetail game, IDenomination denomination) GetSelectedGame(this IPropertiesManager @this)
+        {
+            if (@this == null)
+            {
+                throw new ArgumentNullException(nameof(@this));
+            }
+
+            var game = @this.GetGame(@this.GetValue(GamingConstants.SelectedGameId, 0));
+            var denom = game?.Denominations.Single(d => d.Value == @this.GetValue(GamingConstants.SelectedDenom, 0L));
+            return (game, denom);
+        }
+
+        /// <summary>
         ///     An <see cref="IPropertiesManager" /> extension method that gets the specified game.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
