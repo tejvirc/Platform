@@ -268,6 +268,7 @@
                 { GamingConstants.PlayerInformationDisplay.GameRulesScreenEnabled, (playerInformationDisplayOptions?.GameRulesScreen?.Enabled ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
+                { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) }
             };
 

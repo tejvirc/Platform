@@ -448,6 +448,7 @@
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="KenoOptionsEnabled"/>
                             <Binding Path="InputEnabled"/>
+                            <Binding Path="KenoPlayerSpeedButtonEnabled" />
                         </MultiBinding>
                     </CheckBox.IsEnabled>
                 </CheckBox>
@@ -551,6 +552,7 @@
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="PokerOptionsEnabled"/>
                             <Binding Path="InputEnabled"/>
+                            <Binding Path="PokerPlayerSpeedButtonEnabled" />
                         </MultiBinding>
                     </CheckBox.IsEnabled>
                 </CheckBox>

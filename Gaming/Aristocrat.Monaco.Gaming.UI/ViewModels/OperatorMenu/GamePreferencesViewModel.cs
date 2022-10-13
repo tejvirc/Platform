@@ -97,18 +97,23 @@
             var autoPlayAllowed =
                 PropertiesManager.GetValue(GamingConstants.AutoPlayAllowed, true); //jurisdiction allow auto play or not
 
+            var playerSpeedButtonEnabled =
+                PropertiesManager.GetValue(GamingConstants.ShowPlayerSpeedButtonEnabled, true);
+
             SlotOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Slot) &&
                                  PropertiesManager.GetValue(GamingConstants.ReelStopConfigurable, true);
             SlotAllowedAutoPlay = SlotOptionsEnabled && autoPlayAllowed;
 
             KenoOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Keno);
             KenoAllowedAutoPlay = KenoOptionsEnabled && autoPlayAllowed;
+            KenoPlayerSpeedButtonEnabled = KenoOptionsEnabled && playerSpeedButtonEnabled;
             var pokerGames = gameProvider.GetAllGames().Where(a => a.GameType == GameType.Poker).ToList();
             PokerOptionsEnabled = pokerGames.Any();
             LoadPokerBackgroundColors();
             LoadBackgroundPreviewFiles();
             BlackjackOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Blackjack);
             RouletteOptionsEnabled = gameProvider.GetAllGames().Any(game => game.GameType == GameType.Roulette);
+            PokerPlayerSpeedButtonEnabled = PokerOptionsEnabled && playerSpeedButtonEnabled;
 
             ProgressiveOptionsEnabled = progressiveConfiguration.ViewProgressiveLevels()
                 .Any(x => x.LevelType != ProgressiveLevelType.Sap);
@@ -224,6 +229,10 @@
         public bool SlotAllowedAutoPlay { get; }
 
         public bool KenoAllowedAutoPlay { get; }
+
+        public bool KenoPlayerSpeedButtonEnabled { get; }
+
+        public bool PokerPlayerSpeedButtonEnabled { get; }
 
         public bool ProgressiveOptionsEnabled { get; }
 
