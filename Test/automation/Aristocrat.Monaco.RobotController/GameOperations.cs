@@ -404,7 +404,7 @@
 
         private bool IsExitToLobbyWhenIdleValid()
         {
-            return !_sc.IsAllowSingleGameAutoLaunch && _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle;
+            return !_sc.IsAllowSingleGameAutoLaunch && _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle && !_forceGameExitIsInProgress;
         }
 
         private void BalanceCheckWithDelay(int milliseconds)
