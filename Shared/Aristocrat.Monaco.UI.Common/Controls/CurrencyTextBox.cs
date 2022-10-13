@@ -70,6 +70,18 @@
         }
 
         /// <summary>
+        ///     Constructor adds an event handler for Loaded so we can re-render the currency
+        ///     and amount each time the control is displayed.
+        /// </summary>
+        public CurrencyTextBox()
+        {
+            Loaded += (_, _) =>
+            {
+                UpdateFormattedNumber();
+            };
+        }
+
+        /// <summary>
         ///     Number holds the value displayed in the Currency Text Box
         /// </summary>
         public decimal Number
