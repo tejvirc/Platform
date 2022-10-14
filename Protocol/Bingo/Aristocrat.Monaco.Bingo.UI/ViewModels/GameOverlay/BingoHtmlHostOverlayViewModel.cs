@@ -143,6 +143,7 @@
             _eventBus.Subscribe<WaitingForPlayersEvent>(this, Handle);
             _eventBus.Subscribe<NoPlayersFoundEvent>(this, HandleNoPlayersFound);
             _eventBus.Subscribe<PlayersFoundEvent>(this, (_, token) => CancelWaitingForPlayers(token));
+            _eventBus.Subscribe<WaitingForPlayersCanceledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<GamePlayDisabledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
             _eventBus.Subscribe<ClearBingoDaubsEvent>(this, Handle);
