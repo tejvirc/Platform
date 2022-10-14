@@ -2055,8 +2055,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             var distinctThemeGames = games.GroupBy(p => p.ThemeId).Select(g => g.FirstOrDefault(e => e.Active)).ToList();
 
-            _gameOrderSettings.SetGameOrderFromConfig(distinctThemeGames.Select(g => (new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId }) as IGameInfo).ToList(),
-                Config.DefaultGameDisplayOrderByThemeId.ToList());
+            var lightningLinkEnabled = distinctThemeGames.Any(g => g.EgmEnabled && g.Enabled && g.Category == GameCategory.LightningLink);
+
+            var lightningLinkOrder = lightningLinkEnabled
+                                         ? Config.DefaultGameOrderLightningLinkEnabled
+                                         : Config.DefaultGameOrderLightningLinkDisabled;
+
+            var defaultList = lightningLinkOrder ?? Config.DefaultGameDisplayOrderByThemeId;
+            
+            _gameOrderSettings.SetGameOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
+                                                      defaultList);
         }
 
         /// <summary>

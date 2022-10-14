@@ -29,6 +29,7 @@
 
         private List<IAttractInfo> _attractInfo;
         private List<IGameDetail> _gameDetail;
+        private LobbyConfiguration _lobbyConfiguration;
 
         private AttractConfigurationProvider _target;
 
@@ -248,7 +249,6 @@
         [TestMethod]
         public void WhenNewGamesAreEnabledEnsureTheyAreAddedToAttractInfoForDisplay()
         {
-
             var attractSequence = GetAttractFromEnabledGames(_gameDetail).ToList();
 
             // Simulate storage block
@@ -412,6 +412,210 @@
             Assert.IsTrue(expectedSavedAttractSequence.SequenceEqual(newSequence, new AttractComparer()));
 
             _eventBus.Verify();
+        }
+
+        [TestMethod]
+        public void DefaultSequenceFollowsLightningLinkDisableOrderWhenGamesNotPresent()
+        {
+            SetupMockLobbyConfig(null, new string[] { "ThemeID-6", "ThemeID-5", "ThemeID-4", "ThemeID-3", "ThemeID-2", "ThemeID-1" });
+
+            _target = CreateProvider();
+
+            _target.Initialize();
+
+            // Ensure no Lightning Link games
+            Assert.IsTrue(_gameDetail.All(game => game.Category != GameCategory.LightningLink));
+
+            _gameDetail.Reverse();
+
+            var expectedSequence = GetAttractFromEnabledGames(_gameDetail).ToList();
+
+            var givenSequence = _target.GetAttractSequence().ToList();
+
+            Assert.IsTrue(givenSequence.SequenceEqual(expectedSequence, new AttractComparer()));
+        }
+
+        [TestMethod]
+        public void DefaultSequenceFollowsLightningLinkDisableOrderWhenGamesPresentButDisabled()
+        {
+            SetupMockLobbyConfig(null, new string[] { "ThemeID-6", "ThemeID-5", "ThemeID-4", "ThemeID-3", "ThemeID-2", "ThemeID-1" });
+
+            _target = CreateProvider();
+
+            _target.Initialize();
+
+            var lightningGame = new MockGameInfo
+            {
+                ThemeId = "ThemeID-7",
+                Category = GameCategory.LightningLink,
+            };
+
+            var lightningAttract = new AttractInfo
+            {
+                ThemeId = lightningGame.ThemeId,
+                GameType = lightningGame.GameType
+            };
+
+            _attractInfo.Add(lightningAttract);
+            _gameDetail.Add(lightningGame);
+
+            // Ensure the game is present
+            Assert.IsTrue(_gameDetail.Any(game => game.Id == lightningGame.Id && game.Category == GameCategory.LightningLink));
+
+            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(_gameDetail.Where(g => g.Enabled).ToList());
+
+            _gameDetail.Reverse();
+
+            var expectedSequence = GetAttractFromEnabledGames(_gameDetail).ToList();
+
+            // Ensure the game is not in the expected sequence
+            Assert.IsTrue(!expectedSequence.Contains(lightningAttract));
+
+            var givenSequence = _target.GetAttractSequence().ToList();
+
+            Assert.IsTrue(givenSequence.SequenceEqual(expectedSequence, new AttractComparer()));
+        }
+
+        [TestMethod]
+        public void DefaultSequenceFollowsLightningLinkEnabledOrderWhenGameEnabled()
+        {
+            SetupMockLobbyConfig(new string[] { "ThemeID-7", "ThemeID-6", "ThemeID-5", "ThemeID-4", "ThemeID-3", "ThemeID-2", "ThemeID-1" }, null);
+
+            _target = CreateProvider();
+
+            _target.Initialize();
+
+            var lightningGame = new MockGameInfo
+            {
+                ThemeId = "ThemeID-7",
+                Category = GameCategory.LightningLink,
+                Active = true
+            };
+
+            var lightningAttract = new AttractInfo
+            {
+                ThemeId = lightningGame.ThemeId,
+                GameType = lightningGame.GameType,
+                IsSelected = true
+            };
+
+            _attractInfo.Add(lightningAttract);
+            _gameDetail.Add(lightningGame);
+
+            // Ensure the game is present
+            Assert.IsTrue(_gameDetail.Any(game => game.Id == lightningGame.Id && game.Category == GameCategory.LightningLink));
+
+            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(_gameDetail.Where(g => g.Enabled).ToList());
+
+            _gameDetail.Reverse();
+
+            var expectedSequence = GetAttractFromEnabledGames(_gameDetail).ToList();
+
+            // Ensure the game is present in the expected sequence
+            Assert.IsTrue(expectedSequence.Contains(lightningAttract));
+
+            var givenSequence = _target.GetAttractSequence().ToList();
+
+            Assert.IsTrue(givenSequence.SequenceEqual(expectedSequence, new AttractComparer()));
+        }
+
+        [TestMethod]
+        public void DefaultSequenceLightningLinkDuplicatesAllowed()
+        {
+            SetupMockLobbyConfig(new string[] { "ThemeID-7", "ThemeID-7", "ThemeID-7", "ThemeID-7", "ThemeID-1" }, null);
+
+            _target = CreateProvider();
+
+            _target.Initialize();
+
+            var lightingGame = new MockGameInfo
+            {
+                ThemeId = "ThemeID-7",
+                Category = GameCategory.LightningLink,
+                Active = true
+            };
+
+            _gameDetail.Add(lightingGame);
+
+            // Ensure the game is present
+            Assert.IsTrue(_gameDetail.Any(game => game.Id == lightingGame.Id && game.Category == GameCategory.LightningLink));
+
+            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(_gameDetail.Where(g => g.Enabled).ToList());
+
+            var givenSequence = _target.GetAttractSequence().ToList();
+
+            Assert.IsTrue(givenSequence.Where(g => g.ThemeId == lightingGame.ThemeId).Count() > 1);
+            Assert.IsTrue(givenSequence.Last().ThemeId != lightingGame.ThemeId);
+        }
+
+        [TestMethod]
+        public void DefaultSequenceUpdatedWhenLightningLinkGamesBecomePresent()
+        {
+            SetupMockLobbyConfig(new string[] { "ThemeID-1", "ThemeID-2" }, new string[] { "ThemeID-2", "ThemeID-1" });
+
+            _target = CreateProvider();
+
+            _target.Initialize();
+
+            // Ensure no Lightning Link games are present
+            Assert.IsTrue(_gameDetail.Any(g => g.Category != GameCategory.LightningLink));
+
+            var givenDisabledSequence = _target.GetAttractSequence().ToList();
+
+            var lightningGame = new MockGameInfo
+            {
+                ThemeId = "DummyID",
+                Category = GameCategory.LightningLink,
+                Active = true
+            };
+
+            _gameDetail.Add(lightningGame);
+
+            // Ensure the game is present
+            Assert.IsTrue(_gameDetail.Any(game => game.Id == lightningGame.Id && game.Category == GameCategory.LightningLink));
+
+            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(_gameDetail.Where(g => g.Enabled).ToList());
+
+            var givenEnabledSequence = _target.GetAttractSequence().ToList();
+
+            Assert.IsTrue(!givenDisabledSequence.SequenceEqual(givenEnabledSequence, new AttractComparer()));
+        }
+
+        [TestMethod]
+        public void DefaultSequenceUpdatedWhenLightningLinkGamesBecomeAbsent()
+        {
+            SetupMockLobbyConfig(new string[] { "ThemeID-1", "ThemeID-2" }, new string[] { "ThemeID-2", "ThemeID-1" });
+
+            _target = CreateProvider();
+
+            _target.Initialize();
+
+            var lightningLink = new MockGameInfo
+            {
+                ThemeId = "DummyID",
+                Category = GameCategory.LightningLink,
+                Active = true
+            };
+
+            _gameDetail.Add(lightningLink);
+
+            // Ensure the game is present
+            Assert.IsTrue(_gameDetail.Any(game => game.Id == lightningLink.Id && game.Category == GameCategory.LightningLink));
+
+            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(_gameDetail.Where(g => g.Enabled).ToList());
+
+            var givenEnabledSequence = _target.GetAttractSequence().ToList();
+
+            _gameDetail.Remove(lightningLink);
+
+            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(_gameDetail.Where(g => g.Enabled).ToList());
+
+            // Ensure no Lightning Link games are present
+            Assert.IsTrue(_gameDetail.All(g => g.Category != GameCategory.LightningLink));
+
+            var givenDisabledSequence = _target.GetAttractSequence().ToList();
+
+            Assert.IsTrue(!givenDisabledSequence.SequenceEqual(givenEnabledSequence, new AttractComparer()));
         }
 
         [TestMethod]
@@ -647,6 +851,16 @@
                 _storageTransaction.SetupSet(st => st[currentIndex, "AttractGame.GameIsSelected"] = selected);
                 ++index;
             }
+        }
+
+        private void SetupMockLobbyConfig(string[] lightningEnabledOrder, string[] lightningDisabledOrder)
+        {
+            _lobbyConfiguration = new LobbyConfiguration
+            {
+                DefaultGameOrderLightningLinkEnabled = lightningEnabledOrder,
+                DefaultGameOrderLightningLinkDisabled = lightningDisabledOrder
+            };
+            _propertiesManager.Setup(p => p.GetProperty(GamingConstants.LobbyConfig, null)).Returns(_lobbyConfiguration);
         }
 
         private AttractConfigurationProvider CreateProvider(

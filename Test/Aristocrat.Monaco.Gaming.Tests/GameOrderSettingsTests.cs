@@ -15,6 +15,7 @@
         private const string GameB = "bbb";
         private const string GameC = "ccc";
         private const string GameD = "ddd";
+        private const string WasOperatorChangedField = "WasOperatorChanged";
 
         private IList<IGameInfo> _baseGames;
         // Note: Many of these tests expect a NullReferenceException because they call SaveGameOrder.
@@ -32,6 +33,7 @@
 
             var blockName = typeof(GameOrderSettings).FullName + ".Data";
 
+            accessor.Setup(m => m[WasOperatorChangedField]).Returns(false);
             storage.Setup(m => m.BlockExists(blockName)).Returns(true);
             storage.Setup(m => m.GetBlock(typeof(GameOrderSettings).FullName + ".Data")).Returns(accessor.Object);
 
@@ -68,6 +70,29 @@
             Assert.AreEqual(_gameOrderSettings.Order[0], GameB);
             Assert.AreEqual(_gameOrderSettings.Order[1], GameC);
             Assert.AreEqual(_gameOrderSettings.Order[2], GameA);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void SetGameOrderFromConfigTwice_Success()
+        {
+            var config = new List<string> { GameB, GameC, GameA };
+
+            _gameOrderSettings.Order = new List<string>();
+            _gameOrderSettings.SetGameOrderFromConfig(_baseGames, config);
+
+            Assert.AreEqual(_gameOrderSettings.Order[0], GameB);
+            Assert.AreEqual(_gameOrderSettings.Order[1], GameC);
+            Assert.AreEqual(_gameOrderSettings.Order[2], GameA);
+
+            config = new List<string> { GameC, GameA, GameB };
+
+            _gameOrderSettings.Order = new List<string>();
+            _gameOrderSettings.SetGameOrderFromConfig(_baseGames, config);
+
+            Assert.AreEqual(_gameOrderSettings.Order[0], GameC);
+            Assert.AreEqual(_gameOrderSettings.Order[1], GameA);
+            Assert.AreEqual(_gameOrderSettings.Order[2], GameB);
         }
 
         [TestMethod]

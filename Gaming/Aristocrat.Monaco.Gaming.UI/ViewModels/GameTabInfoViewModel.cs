@@ -77,11 +77,11 @@
             var tabIndex = 0;
             var categoryTabOrder = new List<GameCategory>
             {
+                GameCategory.LightningLink,
+                GameCategory.Slot,
                 GameCategory.Poker,
                 GameCategory.MultiDrawPoker,
                 GameCategory.Keno,
-                GameCategory.LightningLink,
-                GameCategory.Slot,
                 GameCategory.Table
             };
 

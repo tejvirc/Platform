@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,7 @@
     public class GameOrderSettings : IGameOrderSettings
     {
         private const string GameOrderBlobField = @"GameOrderBlob";
+        private const string WasOperatorChangedField = @"WasOperatorChanged";
         private const PersistenceLevel BlockGameOrderDataLevel = PersistenceLevel.Critical;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -26,6 +27,8 @@
         private readonly object _sync = new object();
 
         private IList<string> _gameOrder = new List<string>();
+        private IList<string> _gameOrderConfig = new List<string>();
+        private bool _wasOperatorChanged;
 
         public GameOrderSettings(IPersistentStorageManager storageManager, IEventBus eventBus)
         {
@@ -72,13 +75,18 @@
 
         public void SetGameOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
         {
-            // Load from saved game order if it exists
-            if (Order.Any() || games == null || !games.Any())
+            if (_wasOperatorChanged || games == null || !games.Any())
             {
                 return;
             }
 
-            // Load from config order list the first time
+            // No need to update the order if we're already using it
+            if (_gameOrderConfig.SequenceEqual(gameOrderConfig) && Order.Any())
+            {
+                return;
+            }
+
+            // Load from config order list
             if (gameOrderConfig.Any())
             {
                 var gamesInConfig = games.Where(o => gameOrderConfig.Contains(o.ThemeId)).ToList();
@@ -116,6 +124,9 @@
 
                 // Then we order everything else by the jurisdictional config file
                 gameIdList.AddRange(gamesInConfigSorted);
+
+                // Finally, keep track of which order we're using so we can skip this if we've already loaded it
+                _gameOrderConfig = gameOrderConfig;
 
                 SetGameOrder(gameIdList, false);
             }
@@ -229,6 +240,7 @@
                 using (var transaction = _gameOrderAccessor.StartTransaction())
                 {
                     transaction[GameOrderBlobField] = byteArray;
+                    transaction[WasOperatorChangedField] = operatorChanged;
                     transaction.Commit();
                 }
 
@@ -240,6 +252,7 @@
 
         private void LoadGameOrder()
         {
+            _wasOperatorChanged = (bool)_gameOrderAccessor[WasOperatorChangedField];
             var byteArray = (byte[])_gameOrderAccessor[GameOrderBlobField];
             if (byteArray != null)
             {

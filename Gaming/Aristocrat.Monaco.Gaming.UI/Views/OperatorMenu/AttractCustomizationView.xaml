@@ -100,7 +100,7 @@
                 <DataGrid
                     x:Name="GameListDataGrid"
                     MaxWidth="800"
-                    MaxHeight="700"
+                    MaxHeight="800"
                     ItemsSource="{Binding ConfiguredAttractInfo}"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
