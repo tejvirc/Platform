@@ -55,6 +55,7 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
         private readonly object _lock = new();
 
         private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _gewCancellationTokenSource;
         private long _currentGameTransactionId;
         private bool _disposed;
         private Task _currentGamePlayTask;
@@ -126,13 +127,13 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
             return true;
         }
 
-        public async Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token)
+        public Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token)
         {
             Logger.Debug($"Received a claim win response with Accepted={claim.Accepted}");
 
             if (!claim.Accepted)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             if (!_gameState.InGameRound)
@@ -155,22 +156,7 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
                 Logger.Debug("Game is active, provide claim win");
             }
 
-            var winStrategy =
-                _unitOfWorkFactory.Invoke(
-                        x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())
-                    ?.GameEndingPrize ?? GameEndWinStrategy.BonusCredits;
-            var accepted = await _gewStrategyFactory.Create(winStrategy)
-                .ProcessWin(gewPattern.WinAmount.CentsToMillicents(), token);
-
-            lock (_lock)
-            {
-                var description = GameDescription ?? new BingoGameDescription();
-                description.GameEndWinClaimAccepted = accepted;
-                _centralProvider.UpdateOutcomeDescription(
-                    transactionId,
-                    new List<IOutcomeDescription> { description });
-                return description.GameEndWinClaimAccepted;
-            }
+            return HandleClaimResults(gewPattern, transactionId);
         }
 
         /// <inheritdoc />
@@ -182,6 +168,7 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
             }
 
             _cancellationTokenSource?.Cancel();
+            _gewCancellationTokenSource?.Cancel();
             var lastGame = _currentGamePlayTask ?? Task.CompletedTask;
             await lastGame.ContinueWith(
                 t =>
@@ -195,7 +182,8 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
                     t.Exception?.Handle(_ => true);
                 });
 
-            await (_currentGamePlayTask = HandleOutcomeRequest(transaction));
+            var task = _currentGamePlayTask = HandleOutcomeRequest(transaction);
+            await task.ConfigureAwait(false);
         }
 
         public void Dispose()
@@ -216,10 +204,19 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
                 _eventBus.UnsubscribeAll(this);
                 _centralProvider.Clear(ProtocolNames.Bingo);
                 _waitingForPlayersTask?.TrySetCanceled();
+
+                _cancellationTokenSource?.Cancel(true);
                 if (_cancellationTokenSource != null)
                 {
                     _cancellationTokenSource.Dispose();
                     _cancellationTokenSource = null;
+                }
+
+                _gewCancellationTokenSource?.Cancel(true);
+                if (_gewCancellationTokenSource != null)
+                {
+                    _gewCancellationTokenSource.Dispose();
+                    _gewCancellationTokenSource = null;
                 }
             }
 
@@ -247,6 +244,36 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
         private static IEnumerable<WinResult> GetOrderedWinResults(GameOutcome outcome)
         {
             return outcome.WinResults.OrderBy(x => x, DefaultWinResultComparer);
+        }
+
+        private async Task<bool> HandleClaimResults(BingoPattern gewPattern, long transactionId)
+        {
+            using var source = new CancellationTokenSource();
+            _gewCancellationTokenSource = source;
+
+            try
+            {
+                var serverSettingsModel = _unitOfWorkFactory.Invoke(
+                    x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault());
+                var winStrategy = serverSettingsModel?.GameEndingPrize ?? GameEndWinStrategy.BonusCredits;
+                var gameEndWinStrategy = _gewStrategyFactory.Create(winStrategy);
+                var winAmount = gewPattern.WinAmount.CentsToMillicents();
+                var accepted = await gameEndWinStrategy.ProcessWin(winAmount, source.Token).ConfigureAwait(false);
+
+                lock (_lock)
+                {
+                    var description = GameDescription ?? new BingoGameDescription();
+                    description.GameEndWinClaimAccepted = accepted;
+                    _centralProvider.UpdateOutcomeDescription(
+                        transactionId,
+                        new List<IOutcomeDescription> { description });
+                    return description.GameEndWinClaimAccepted;
+                }
+            }
+            finally
+            {
+                _gewCancellationTokenSource = null;
+            }
         }
 
         private async Task HandleBingoOutcomes(GameOutcome outcome, CancellationToken token)
