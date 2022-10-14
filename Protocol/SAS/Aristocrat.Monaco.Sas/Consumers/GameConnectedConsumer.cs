@@ -41,6 +41,13 @@
                 var selectedGameId = _propertiesManager.GetValue(GamingConstants.SelectedGameId, DefaultSelectedGame);
                 var selectedDenom = _propertiesManager.GetValue(GamingConstants.SelectedDenom, 0L);
                 var gameId = (int)(_gameProvider.GetGameId(selectedGameId, selectedDenom) ?? DefaultSelectedGame);
+                var lastGameId = _propertiesManager.GetValue(SasProperties.PreviousSelectedGameId, 0);
+
+                if (gameId == lastGameId)
+                {
+                    return;
+                }
+
                 _exceptionHandler.ReportException(new GameSelectedExceptionBuilder(gameId));
                 _propertiesManager.SetProperty(SasProperties.PreviousSelectedGameId, gameId);
             }

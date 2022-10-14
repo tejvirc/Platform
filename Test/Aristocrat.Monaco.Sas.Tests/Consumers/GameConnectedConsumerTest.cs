@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Aristocrat.Monaco.Sas.Contracts.SASProperties;
     using Aristocrat.Sas.Client;
     using Gaming.Contracts;
     using Kernel;
@@ -102,6 +103,9 @@
                 .Returns(gameId);
             _propertiesManagerMock.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, It.IsAny<long>()))
                 .Returns(denom);
+
+            _propertiesManagerMock.Setup(p => p.GetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()))
+                .Returns(0);
 
             var @event = new GameConnectedEvent(false);
 
