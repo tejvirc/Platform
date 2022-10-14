@@ -53,9 +53,9 @@
             </Style>
 
             <converters:CentsToDecimalConverter x:Key="CurrencyConverter" />
-
         </ResourceDictionary>
     </UserControl.Resources>
+
     <Grid Margin="15 15 0 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -131,9 +131,9 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
+
         <StackPanel Grid.Row="2" Grid.Column="0"  Margin="0 15 0 0" Orientation="Horizontal"
-                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
+                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInRateOfPlay}}" />
             <Button Name="CoinInRateInfoButton" Margin="5 0 0 0"
                     Style="{StaticResource MonacoInfoButton}"
@@ -150,7 +150,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" 
-                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
+                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <CheckBox Margin="0,5" Width="46"
                       IsChecked="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Mode=TwoWay}"
                       IsEnabled="{Binding InputEnabledByRuleOverride}">
@@ -168,7 +168,7 @@
             <helpers:CurrencyTextBox Margin="20 0 0 0" MinWidth="200"
                                      IsReadOnly="False" PreventNegatives="True" InputScope="Number"
                                      Number="{Binding RewardLevels.CoinInStrategy.CoinInRate.Amount, Converter={StaticResource CurrencyConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                                     Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                                     Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}">
                 <helpers:CurrencyTextBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                         <Binding Path="InputEnabledByRuleOverride" />
@@ -178,17 +178,17 @@
             </helpers:CurrencyTextBox>
             <Label Margin="20 0 0 0"
                    Content="{lex:Loc Key=Disabled}" VerticalAlignment="Center"
-                   Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                   Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource TrueCollapsedFalseVisible}, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 15 0 0">
             <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInMeter}}" VerticalAlignment="Center"
-                   Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}"/>
+                   Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Label Content="{Binding CoinInSessionMeter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
-                   Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}"/>
+                   Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Name="CoinInMeterInfoButton" Margin="5 0 0 0"
                     Style="{StaticResource MonacoInfoButton}" Command="{Binding ShowInfoPopupCommand}"
-                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
+                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="CoinInMeterInfoButton" />
@@ -199,8 +199,7 @@
                               Source="{x:Static loc:ResourceKeys.BarkeeperCoinInMeterToolTip}" />
             </Button>
             <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInDisabled}}"
-                   Visibility="{Binding CoinInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}" />
+                   Visibility="{Binding CoinInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}" />
         </StackPanel>
-        
     </Grid>
 </UserControl>

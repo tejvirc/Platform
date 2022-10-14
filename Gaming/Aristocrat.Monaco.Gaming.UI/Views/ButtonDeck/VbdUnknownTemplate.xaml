@@ -48,7 +48,7 @@
             </Viewbox.RenderTransform>
 
             <Grid Background="Black"
-                  Visibility="{Binding IsLobbyVbdVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
+                  Visibility="{Binding IsLobbyVbdVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
                 <!--Lobby Background Image Animation-->
                 <bink:BinkGpuControl
                     x:Name="BinkControl"
@@ -104,7 +104,7 @@
                 </Image>
 
                 <Image x:Name="ImageGameLoadFlickerFix" Stretch="Fill" Source="{DynamicResource VBD_Helix_Blank}"
-                       Visibility="{Binding IsGameLoading, Converter={StaticResource BoolToVisible}}" />
+                       Visibility="{Binding IsGameLoading, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 <!--ContentControl selects the buttons template.-->
                 <ContentControl
                     x:Name="ButtonContentControl"
@@ -113,7 +113,7 @@
                 <!--Displays the confirmation dialog for cash out. Confirmation for service occurs in VirtualButtonDeckOverlayView-->
                 <Viewbox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="Fill">
                     <buttonDeck1:VbdCashOutDlg
-                        Visibility="{Binding IsVbdCashOutDialogVisible, Converter={StaticResource BoolToVisible}}" />
+                        Visibility="{Binding IsVbdCashOutDialogVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 </Viewbox>
                 <!-- Rectangle to give screen a disabled look if message overlay is visible -->
                 <Rectangle Fill="Black">
@@ -166,7 +166,7 @@
                          Width="1280"
                          Height="400">
                     <buttonDeck1:VbdServiceDlg
-                        Visibility="{Binding IsVbdServiceDialogVisible, Converter={StaticResource BoolToVisible}}" />
+                        Visibility="{Binding IsVbdServiceDialogVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 </Viewbox>
 
                 <Viewbox VerticalAlignment="Top"
@@ -180,7 +180,7 @@
                     <buttonDeck1:VbdMalfunctionOverlay
                         Width="1280"
                         Height="400"
-                        Visibility="{Binding IsVbdMalfunctionOverlayVisible, Converter={StaticResource BoolToVisible}}" />
+                        Visibility="{Binding IsVbdMalfunctionOverlayVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 </Viewbox>
             </Grid>
         </Border>

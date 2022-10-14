@@ -14,8 +14,10 @@
              d:DesignHeight="300" d:DesignWidth="808">
 
     <UserControl.Resources>
-
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModels:ManualHandicapHelpPageViewModel}">
                 <views:ManualHandicapHelpPageView/>
@@ -52,8 +54,6 @@
             <DataTemplate DataType="{x:Type menu:HhrPageCommand}">
                 <controls:HHRButton ></controls:HHRButton>
             </DataTemplate>
-
-            <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Hidden" />
 
         </ResourceDictionary>
 
@@ -112,14 +112,14 @@
 
                                 <Grid Name="FooterImage" Grid.Row="1" VerticalAlignment="Top" Margin="0 20 0 0">
                                     <Image Source="../Resources/footerInfo.png" Height="24" 
-                                               Visibility="{Binding SelectedViewModel.ShowFooterText, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                               Visibility="{Binding SelectedViewModel.ShowFooterText, Converter={StaticResource TrueVisibleFalseHidden}}"/>
                                 </Grid>
                             </Grid>
 
                             <!-- Timer -->
 
                             <controls:TimerControl x:Name="MyTimerControl" VerticalAlignment="Top" HorizontalAlignment="Right"
-                                Visibility="{Binding SelectedViewModel.TimerInfo.IsVisible, Converter={StaticResource BoolToVisibilityConverter},FallbackValue=Hidden}" 
+                                Visibility="{Binding SelectedViewModel.TimerInfo.IsVisible, Converter={StaticResource TrueVisibleFalseHidden},FallbackValue=Hidden}" 
                                 TimerEnabled="{Binding SelectedViewModel.TimerInfo.IsEnabled}"
                                 Timeout="{Binding SelectedViewModel.TimerInfo.Timeout}"
                                 IsQuickPickTextVisible="{Binding SelectedViewModel.TimerInfo.IsQuickPickTextVisible}"

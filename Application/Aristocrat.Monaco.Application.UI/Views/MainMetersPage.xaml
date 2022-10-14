@@ -101,7 +101,7 @@
                       ItemsSource="{Binding MetersRightColumn}" 
                       Margin="60 -20 0 0"
                       Width="650"
-                      Visibility="{Binding ShowRightColumn, Converter={StaticResource BoolToVisHiddenConverter}}" >
+                      Visibility="{Binding ShowRightColumn, Converter={StaticResource TrueVisibleFalseHidden}}" >
 
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MonacoDataGridRow}">
@@ -135,13 +135,13 @@
                     Command="{Binding ClearPeriodCommand}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearPeriodButtonText}}"
                     IsEnabled="{Binding ClearButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding ClearPeriodMetersButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ClearPeriodMetersButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Margin="0 0 15 0" 
                     Width="250"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintVerificationButtonText}}"
                     Command="{Binding PrintVerificationButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
-                    Visibility="{Binding PrintVerificationButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding PrintVerificationButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Margin="0 0 15 0" 
                     Width="250"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintPeriodicResetButtonText}}"
@@ -152,7 +152,7 @@
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintAuditTicketButtonText}}"
                     Command="{Binding PrintAuditTicketButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
-                    Visibility="{Binding PrintAuditTicketButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding PrintAuditTicketButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
             <Label HorizontalAlignment="Left" 
                    VerticalAlignment="Center"

@@ -162,13 +162,13 @@
                   Margin="0"
                   Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestButtonLamps}}"
                   IsEnabled="{Binding TestModeEnabled}"
-                  Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource BoolToVisConverter}}">
+                  Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <StackPanel>
                 <ListBox ItemsSource="{Binding ButtonLamps}"
                          SelectedItem="{Binding SelectedButtonLamp}"
                          SelectionMode="Single"
                          Style="{StaticResource LampButtonListBoxStyle}"
-                         Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource BoolToVisConverter}}" />
+                         Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FlashIntervals}}" Margin="0 20 0 10" />
                 <ListBox ItemsSource="{Binding Intervals}"
                          SelectedItem="{Binding SelectedInterval}"
@@ -181,7 +181,7 @@
                   Grid.Column="0"
                   IsEnabled="{Binding TestModeEnabled}"
                   Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestTowerLights}}"
-                  Visibility="{Binding TowerLightsEnabled, Converter={StaticResource BoolToVisConverter}}">
+                  Visibility="{Binding TowerLightsEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Grid Margin="4" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

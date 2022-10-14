@@ -117,7 +117,7 @@
                                         <TextBlock Text="{Binding Path=(models:Host.RequiredForPlay), Mode=OneWay}" 
                                                    Visibility="{Binding Path=Data.IsWizardPage,
                                                         Source={StaticResource Proxy},
-                                                        Converter={StaticResource BoolToCollapsedConverter}}"/>
+                                                        Converter={StaticResource TrueCollapsedFalseVisible}}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

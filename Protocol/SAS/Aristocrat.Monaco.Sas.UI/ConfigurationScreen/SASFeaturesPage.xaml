@@ -14,9 +14,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <controls:BoolToVisibilityConverter x:Key="BoolToVisible"/>
 
             <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
                 <Setter Property="Margin" Value="0 5"/>
@@ -46,7 +45,7 @@
         <GroupBox x:Name="AftGroupBox" 
                   Header="{lex:Loc Key={x:Static loc:ResourceKeys.AFTTitleLabel}}" 
                   IsEnabled="{Binding InputEnabled}"
-                  Visibility="{Binding SasProtocolConfiguration.IsFundTransferHandled, Converter={StaticResource BoolToVisible}}">
+                  Visibility="{Binding SasProtocolConfiguration.IsFundTransferHandled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Grid x:Name="AftGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -159,8 +158,8 @@
                                                     ValidatesOnDataErrors=True, 
                                                     NotifyOnValidationError=True}"
                                                   Visibility="{
-                                                    Binding AftTransferLimitEnabled, 
-                                                    Converter={StaticResource BoolToVisHiddenConverter}, 
+                                                    Binding AftTransferLimitEnabled,
+                                                    Converter={StaticResource TrueVisibleFalseHidden},
                                                     UpdateSourceTrigger=PropertyChanged}" />
                         
                         <TextBlock x:Name="AftTransferLimitTextBlock" 
@@ -169,8 +168,8 @@
                                    Margin="20 14 0 0" 
                                    Text="{lex:BLoc Key={x:Static loc:ResourceKeys.NoLimit}}"
                                    Visibility="{
-                                    Binding AftTransferLimitEnabled, 
-                                    Converter={StaticResource BoolToHiddenConverter}, 
+                                    Binding AftTransferLimitEnabled,
+                                    Converter={StaticResource TrueHiddenFalseVisible},
                                     UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </StackPanel>
@@ -240,14 +239,14 @@
                        Grid.Row="2" 
                        Grid.Column="0" 
                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostDisableCashoutActionLabel}}"
-                       Visibility="{Binding IsWizardPage, Converter={StaticResource BoolToCollapsedConverter}}" />
+                       Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}" />
                 <ComboBox x:Name="HostDisableCashoutActionComboBox" 
                           Grid.Row="2" 
                           Grid.Column ="1" 
                           ItemsSource="{Binding HostDisableCashoutActionItems}" 
                           SelectedItem="{Binding SelectedHostDisableCashoutActionItem}"
                           IsEnabled="{Binding HostDisableCashoutActionConfigurable}"
-                          Visibility="{Binding IsWizardPage, Converter={StaticResource BoolToCollapsedConverter}}" />
+                          Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}" />
 
                 <Label x:Name="NotifySasConfigChange" 
                    Grid.Row="3" 

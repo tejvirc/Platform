@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -163,7 +164,7 @@
                     <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Path=CertificateStatusLocation, ValidatesOnDataErrors=True, Mode=TwoWay}" IsEnabled="{Binding Path=RenewalEnabled}" InputScope="Url" Margin="5,5,0,0"/>
                     <Label Grid.Column="1" Grid.Row="2" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_RequiredText}}" 
                            VerticalAlignment="Center" Foreground="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_RequiredForegroundColor}}"
-                           Visibility="{Binding Path=RenewalEnabled, Converter={StaticResource BoolToVisConverter}}" />
+                           Visibility="{Binding Path=RenewalEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
 
                     <Label Grid.Column="0" Grid.Row="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_MaxPeriodOffline}}" />
                     <TextBox Grid.Column="0" Grid.Row="4" Text="{Binding OfflinePeriod, ValidatesOnDataErrors=True, Mode=TwoWay}" IsEnabled="{Binding Path=RenewalEnabled}" InputScope="Number" Margin="5,5,0,0"/>
@@ -190,7 +191,7 @@
             </TabItem>
         </controls:MetroTabControl>
 
-        <Grid Margin="-20,-200,-20,0" Visibility="{Binding Path=ShowSCEPRequestStatus, Converter={StaticResource BoolToVisConverter}}" >
+        <Grid Margin="-20,-200,-20,0" Visibility="{Binding Path=ShowSCEPRequestStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
             <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,368,0,176" >
                 <DockPanel LastChildFill="True">
                     <Label DockPanel.Dock="Top" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"  HorizontalAlignment="Center" />
@@ -200,7 +201,7 @@
             </Border>
         </Grid>
 
-        <Grid Margin="-20,-200,-20,0" Visibility="{Binding Path=ShowOSCPRequestStatus, Converter={StaticResource BoolToVisConverter}}" >
+        <Grid Margin="-20,-200,-20,0" Visibility="{Binding Path=ShowOSCPRequestStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
             <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,368,0,176" >
                 <DockPanel LastChildFill="True">
                     <Label DockPanel.Dock="Top" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"  HorizontalAlignment="Center" />
@@ -209,7 +210,7 @@
             </Border>
         </Grid>
         
-        <Grid Margin="-20,-320,-20,0" Visibility="{Binding Path=ShowThumbprint, Converter={StaticResource BoolToVisConverter}}" >
+        <Grid Margin="-20,-320,-20,0" Visibility="{Binding Path=ShowThumbprint, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
             <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
                 <DockPanel LastChildFill="True">
                     <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_Thumbprint}}" DockPanel.Dock="Top" HorizontalAlignment="Center" />
@@ -219,7 +220,7 @@
             </Border>
         </Grid>
 
-        <Grid Margin="-20,-35,-20,0" Visibility="{Binding Path=ShowInvalidServerResponse, Converter={StaticResource BoolToVisConverter}}" >
+        <Grid Margin="-20,-35,-20,0" Visibility="{Binding Path=ShowInvalidServerResponse, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
             <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,468,0,126" >
                 <DockPanel LastChildFill="True">
                     <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}" DockPanel.Dock="Top" HorizontalAlignment="Center" />
@@ -229,7 +230,7 @@
             </Border>
         </Grid>
 
-        <Grid Margin="-20,-35,-20,0" Visibility="{Binding Path=ShowInvalidCertStatusLocation, Converter={StaticResource BoolToVisConverter}}" >
+        <Grid Margin="-20,-35,-20,0" Visibility="{Binding Path=ShowInvalidCertStatusLocation, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
             <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,468,0,126" >
                 <DockPanel LastChildFill="True">
                     <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}" DockPanel.Dock="Top" HorizontalAlignment="Center" />

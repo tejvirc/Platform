@@ -17,10 +17,10 @@
 
         <ResourceDictionary Source="../../Skins/Styles.xaml" />
 
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
         <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
     </ResourceDictionary.MergedDictionaries>
 
-    <converters:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden" />
     <converters:InverseBooleanConverter x:Key="InverseBool"/>
 
     <DataTemplate x:Key="StandardTemplate">
@@ -55,7 +55,7 @@
                     Width="Auto"
                     Height="Auto"
                     Style="{StaticResource stlFlatButton}"
-                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource BoolToVisible}}" >
+                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}" >
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image Name="cashImage" Stretch="None" Source="{DynamicResource VBD_MoneyNormal}"/>
@@ -135,7 +135,7 @@
                     Width="Auto"
                     Height="Auto"
                     Style="{StaticResource stlFlatButton}"
-                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource BoolToVisible}}" >
+                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}" >
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image Name="cashImage" Stretch="None" Source="{DynamicResource VBD_MoneyNormal}"/>

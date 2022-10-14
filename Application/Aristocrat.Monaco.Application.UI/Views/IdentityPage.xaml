@@ -45,7 +45,7 @@
 
         <!-- Area -->
         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AreaLabel}}"
-            Visibility="{Binding Area.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+            Visibility="{Binding Area.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
@@ -53,7 +53,7 @@
 
         <!-- Zone -->
         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZoneText}}"
-               Visibility="{Binding Zone.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+               Visibility="{Binding Zone.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
@@ -61,7 +61,7 @@
 
         <!-- Bank -->
         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BankText}}"
-               Visibility="{Binding Bank.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+               Visibility="{Binding Bank.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
@@ -69,7 +69,7 @@
 
         <!-- Position -->
         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PositionText}}"
-               Visibility="{Binding Position.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+               Visibility="{Binding Position.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
@@ -77,7 +77,7 @@
 
         <!-- Location -->
         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Location}}"
-               Visibility="{Binding Location.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+               Visibility="{Binding Location.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
@@ -85,7 +85,7 @@
 
         <!-- DeviceName -->
         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}"
-               Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+               Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
@@ -94,10 +94,10 @@
         <CheckBox HorizontalAlignment="Left" 
                   IsChecked="{Binding PrintIdentityTicket}" 
                   Style="{DynamicResource MonacoCheckBoxGeneral}" 
-                  Visibility="{Binding PrintTicketEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+                  Visibility="{Binding PrintTicketEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintIdentityTicketText}}" 
                Focusable="True"  
-               Visibility="{Binding PrintTicketEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+               Visibility="{Binding PrintTicketEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
     </StackPanel>
 </operatorMenu:OperatorMenuPage>
 

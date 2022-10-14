@@ -13,6 +13,10 @@
                          d:DataContext="{d:DesignInstance viewModels:WinningCombinationPageViewModel, IsDesignTimeCreatable=False}">
     <UserControl.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
             <Style x:Key="BorderStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Width" Value="122" />
@@ -37,7 +41,6 @@
             </Style>
 
             <common:NumberToVisibilityConverter x:Key="NumberToVisible" />
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible"  TrueValue="Visible" FalseValue="Hidden"/>
             <common:CurrencyConverter x:Key="CurrencyConverter" />
             <converters:ByteToBitsConverter x:Key="ByteToBitsConverter" />
 
@@ -145,7 +148,7 @@
             <DockPanel Margin="20,20,0,0">
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
                            Text="{lex:Loc Key={x:Static loc:ResourceKeys.IncludesProgressiveResetValues}}" 
-                           Visibility="{Binding CurrentWinningPattern.IncludesProgressiveResetValues, Converter={StaticResource BoolToVisible}}" />
+                           Visibility="{Binding CurrentWinningPattern.IncludesProgressiveResetValues, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Left"
                            Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.GuaranteedCreditsStringFormat}}'}" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Right"

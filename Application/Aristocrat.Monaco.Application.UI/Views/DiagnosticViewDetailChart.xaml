@@ -33,11 +33,11 @@
             <TextBlock Style="{StaticResource MonacoTextBlock}" Grid.ZIndex="2"
                        Text="{Binding Text}" FontSize="30" MinWidth="300" Margin="0 50 0 0"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
-                       Visibility="{Binding TextEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}"/>
+                       Visibility="{Binding TextEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
             <controls:ProgressRing Height="100" Width="100" IsLarge="True" IsActive="True" Grid.ZIndex="1"
                                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Visibility="{Binding IsLoadingChart, Converter={StaticResource BoolToVisConverter}}" />
+                                   Visibility="{Binding IsLoadingChart, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
 
         </Grid>
 
@@ -95,7 +95,7 @@
                     <Button x:Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
                             VerticalAlignment="Center" Margin="10 0 0 0"
                             Command="{Binding ShowInfoPopupCommand}"
-                            Visibility="{Binding TextEnabled, Converter={StaticResource BoolToVisHiddenConverter}}">
+                            Visibility="{Binding TextEnabled, Converter={StaticResource TrueVisibleFalseHidden}}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="WarningButton"/>

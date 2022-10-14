@@ -18,7 +18,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="CertificateNavButton" TargetType="Button" BasedOn="{StaticResource MonacoButton1}" >
@@ -51,11 +52,11 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="4"  Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateRenewButtonTitle}}" 
                     Command="{Binding RenewCertificateCommand, Mode=OneWay}" 
-                    IsEnabled="{Binding Path=RenewEnabled, Converter={StaticResource BoolToVisConverter}}" 
+                    IsEnabled="{Binding Path=RenewEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                     VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,5,0,5"  />
             <Button Grid.Column="5" Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateRemoveButtonTitle}}"  
                     Command="{Binding RemoveCertificateCommand, Mode=OneWay}" 
-                    IsEnabled="{Binding Path=RemoveEnabled, Converter={StaticResource BoolToVisConverter}}" 
+                    IsEnabled="{Binding Path=RemoveEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                     VerticalAlignment="Bottom" HorizontalAlignment="Right"  Margin="5,5,0,5" />
             <Button Grid.Column="2"  
                     Command="{Binding RollUpCommand, Mode=OneWay}" 
@@ -72,7 +73,7 @@
                     Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}" />
             </Button>
             <StackPanel Margin="10" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"  
-                        Visibility="{Binding Path=EnrollEnabled, Converter={StaticResource BoolToVisConverter}}" >
+                        Visibility="{Binding Path=EnrollEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -130,7 +131,7 @@
 
         <Grid Grid.Row="1" 
               Grid.RowSpan="3"
-              Visibility="{Binding Path=ShowRequestStatus, Converter={StaticResource BoolToVisConverter}}">
+              Visibility="{Binding Path=ShowRequestStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
                 <DockPanel LastChildFill="True">
                     <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}" DockPanel.Dock="Top" HorizontalAlignment="Center" />

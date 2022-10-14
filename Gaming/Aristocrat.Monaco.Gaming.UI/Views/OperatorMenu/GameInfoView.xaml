@@ -18,7 +18,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -62,7 +63,7 @@
 
         <Button Grid.Row="1" Margin="0 15 0 0"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.SetGameOrder}}" 
-                Visibility="{Binding SetGameOrderVisible, Converter={StaticResource BoolToVisConverter}}"
+                Visibility="{Binding SetGameOrderVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding SetGameOrderCommand}" Height="50" 
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"/>

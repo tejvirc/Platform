@@ -29,7 +29,7 @@
                  SelectedItem="{Binding SelectedPage}"
                  Style="{StaticResource TabButtonListBoxStyle}" 
                  PreviewKeyDown="ListBox_OnKeyDown"
-                 Visibility="{Binding ShowSelectionButtons, Converter={StaticResource BoolToVisConverter}}">
+                 Visibility="{Binding ShowSelectionButtons, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <common:TouchListBox.Resources>
                 <DataTemplate x:Key="TabHeaderDataTemplateKey" DataType="{x:Type operatorMenu:IOperatorMenuPageLoader}">
                     <ContentPresenter Content="{Binding PageName}"  loc:Localizer.LocalizationAware="True" />

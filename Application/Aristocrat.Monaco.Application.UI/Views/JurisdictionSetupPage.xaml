@@ -43,14 +43,14 @@
                   MaxDropDownHeight="350"/>
 
         <CheckBox Grid.Column="0" Grid.Row="2" Margin="0 30 0 0"
-                  Visibility="{Binding ShowModeVisible, Converter={StaticResource BoolToVisHiddenConverter}}"
+                  Visibility="{Binding ShowModeVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
                   IsEnabled="{Binding IsJurisdictionSelectionEnabled}"
                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableShowMode}}"
                   IsChecked="{Binding IsShowModeChecked}"/>
 
         <CheckBox Grid.Column="0" Grid.Row="3" Margin="0 10 0 0"
                   IsEnabled="{Binding GameRulesEditable}"
-                  Visibility="{Binding GameRulesVisible, Converter={StaticResource BoolToVisHiddenConverter}}"
+                  Visibility="{Binding GameRulesVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowGameRules}}"
                   IsChecked="{Binding IsGameRulesChecked}"/>
 

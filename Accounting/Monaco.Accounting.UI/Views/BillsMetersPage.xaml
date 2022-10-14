@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border>
-			<DataGrid ItemsSource="{Binding Meters, UpdateSourceTrigger=PropertyChanged}" 
+            <DataGrid ItemsSource="{Binding Meters, UpdateSourceTrigger=PropertyChanged}" 
                       x:Name="MetersGrid">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denomination}}" 
@@ -61,18 +61,18 @@
             </Grid>
         </Border>
 
-		<DataGrid Grid.Row="2" ItemsSource="{Binding RejectionMeters}" Margin="0 30 0 0" x:Name="RejectionMetersGrid">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+        <DataGrid Grid.Row="2" ItemsSource="{Binding RejectionMeters}" Margin="0 30 0 0" x:Name="RejectionMetersGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
                                     Width="200"
                                     Binding="{Binding Name}" />
-				<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}" 
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}" 
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
                                     Width="500"
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-			</DataGrid.Columns>
-		</DataGrid>
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Grid.Row="3" 
                     Orientation="Horizontal" 
                     Margin="0 0 0 0">
@@ -81,8 +81,7 @@
                     Command="{Binding BillClearanceButtonClickedCommand}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearBillsPeriodMeters}}"
                     IsEnabled="{Binding BillClearanceButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding BillClearanceEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding BillClearanceEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

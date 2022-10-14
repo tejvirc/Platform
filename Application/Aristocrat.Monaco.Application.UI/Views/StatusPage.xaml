@@ -89,7 +89,7 @@
                         HorizontalAlignment="Left" Margin="10 0 0 0"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitReserve}}"
                         Command="{Binding ExitReserveCommand}"
-                        Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                        Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </StackPanel>
     </Grid>

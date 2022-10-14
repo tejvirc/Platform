@@ -77,7 +77,7 @@
         </ScrollViewer>
 
         <StackPanel MinHeight="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5"
-                    Visibility="{Binding IsCabinetThatAllowsChangingBrightness, Converter={StaticResource BoolToVisConverter}}"
+                    Visibility="{Binding IsCabinetThatAllowsChangingBrightness, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Grid.Row="1">
             <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.VideoDisplayBrightness}}"
                    VerticalAlignment="Bottom" HorizontalAlignment="Left" />
@@ -96,13 +96,13 @@
                     IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
                     Command="{Binding EnterTouchScreenCommand}"
                     CommandParameter="{Binding ElementName=EnterTouchScreenPixelBtn}" 
-                    Visibility="{Binding TestTouchScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding TestTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <Button Name="CalibrateTouchScreenButton"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrateTouchScreen}}" Height="50" Width="240"
                         IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
                         Command="{Binding EnterCalibrateTouchScreenCommand}"
                         CommandParameter="{Binding ElementName=CalibrateTouchScreenButton}" 
-                        Visibility="{Binding CalibrateTouchScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                        Visibility="{Binding CalibrateTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <Button Name="EnterIdentifyScreenBtn"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.IdentifyVideoDisplay}}" Height="50" Width="240"
                         IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
@@ -115,7 +115,7 @@
                         CommandParameter="{Binding ElementName=EnterColorTestButton}" />
                 <Button Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="WarningButton" />

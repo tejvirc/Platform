@@ -152,7 +152,7 @@
                        Grid.Column="2" 
                        Content="{lex:BLoc Key={x:Static loc:ResourceKeys.Host2Label}}" 
                        HorizontalContentAlignment="Center"
-                       Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"
+                       Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
 
@@ -204,7 +204,7 @@
                                                 UpdateSourceTrigger=PropertyChanged}"
                                              IsEnabled="{Binding AddressHost2Editable}"
                                              MaxLength="{Binding CommunicationAddress2MaxLength, Mode=OneWay}"
-                                             Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                             Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="GeneralControlPortLabel" 
                        Grid.Row="2" 
@@ -227,7 +227,7 @@
                              VerticalAlignment="Center"
                              IsEnabled="{Binding GeneralControlEditable}"
                              IsChecked="{Binding GeneralControlOnHost2, Mode=TwoWay}" 
-                             Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                             Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Grid.Row="3" 
                        Grid.Column="0" 
@@ -251,7 +251,7 @@
                 <Grid Grid.Row="3" 
                       Grid.Column ="2"
                       VerticalAlignment="Center"
-                      Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}">
+                      Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}">
 
                     <ComboBox ItemsSource="{Binding AccountingDenoms}"
                               SelectedIndex="{Binding AccountingDenom2Index, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -283,7 +283,7 @@
                           GroupName="Validation"
                           VerticalAlignment="Center"
                           IsChecked="{Binding ValidationOnHost2, Mode=TwoWay}"
-                          Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                          Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="AftPortLabel" 
                        Grid.Row="5" 
@@ -304,7 +304,7 @@
                           GroupName="Aft"
                           VerticalAlignment="Center"
                           IsChecked="{Binding AftOnHost2, Mode=TwoWay}"
-                          Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                          Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="LegacyBonusingPortLabel" 
                        Grid.Row="6" 
@@ -325,7 +325,7 @@
                           GroupName="Bonus"
                           VerticalAlignment="Center"
                           IsChecked="{Binding LegacyBonusOnHost2, Mode=TwoWay}"
-                          Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                          Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="GameStartEndPortLabel" 
                        Grid.Row="7" 
@@ -344,7 +344,7 @@
                                         Grid.Column="2"
                                         VerticalAlignment="Center"
                                         IsChecked="{Binding GameStartEndOnHost2, Mode=TwoWay}" 
-                                        Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                        Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="ProgressivePortLabel" 
                        Grid.Row="8" 
@@ -365,7 +365,7 @@
                                         GroupName="ProgHost"
                                         VerticalAlignment="Center"
                                         IsChecked="{Binding ProgressiveOnHost2, Mode=TwoWay}" 
-                                        Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                        Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="NonSasProgressiveHitReportingLabel" 
                        Grid.Row="9" 
@@ -384,7 +384,7 @@
                           Grid.Column="2"
                           VerticalAlignment="Center"
                           IsChecked="{Binding NonSasProgressiveHitReportingHost2, Mode=TwoWay}" 
-                          Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                          Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </GroupBox>
 
@@ -405,7 +405,7 @@
                    Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ProgGroupIdLabel}}" 
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
-                   Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                   Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
 
             <helpers:AlphaNumericTextBox x:Name="ProgGroupIdTextBox" 
                                          Grid.Row="1" 
@@ -429,9 +429,9 @@
                                                 Binding ProgressiveGroupIdErrorText, 
                                                 Mode=TwoWay, 
                                                 UpdateSourceTrigger=PropertyChanged}"
-                                         IsEnabled="{Binding InputEnabled}"                                                
+                                         IsEnabled="{Binding InputEnabled}"
                                          MaxLength="{Binding ProgressiveGroupIdMaxLength, Mode=OneWay}"
-                                         Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                         Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Grid>
 </operatorMenu:OperatorMenuPage>

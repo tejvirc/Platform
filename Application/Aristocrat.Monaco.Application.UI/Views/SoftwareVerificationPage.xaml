@@ -82,7 +82,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" Orientation="Horizontal" Visibility="{Binding ShowMasterResult, Converter={StaticResource BoolToVisConverter}}">
+        <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" Orientation="Horizontal" Visibility="{Binding ShowMasterResult, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Label Width="Auto" MinWidth="200" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterResultText}}"/>
             <Label>
                 <Label.Content>

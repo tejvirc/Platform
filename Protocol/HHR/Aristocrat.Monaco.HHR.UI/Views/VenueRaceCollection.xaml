@@ -6,13 +6,14 @@
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:common="http://monaco.aristocrat.com/common"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:VenueRaceCollectionViewModel, IsDesignTimeCreatable=False}">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <common:BoolToVisibilityConverter x:Key="BoolToVisHiddenConverter" TrueValue="Visible" FalseValue="Hidden"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="RaceSetTextBlockStyle" TargetType="TextBlock">
                 <Style.Setters>
                     <Setter Property="Foreground" Value="Green" />
@@ -30,8 +31,8 @@
 
     <Viewbox x:Name="Root"
              VerticalAlignment="Top" Margin="0 30 30 0"
-			 IsVisibleChanged="Root_OnIsVisibleChanged"
-             Visibility="{Binding IsAnimationVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
+             IsVisibleChanged="Root_OnIsVisibleChanged"
+             Visibility="{Binding IsAnimationVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
 
         <Grid>
 

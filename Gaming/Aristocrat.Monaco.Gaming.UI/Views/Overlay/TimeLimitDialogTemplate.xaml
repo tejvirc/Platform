@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-                    xmlns:converters1="http://monaco.aristocrat.com/common"
                     xmlns:uicommon="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,11 +17,9 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
         <ResourceDictionary Source="../../Skins/Styles.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <converters1:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden" />
-    <converters1:BoolToVisibilityConverter x:Key="BoolToHidden" TrueValue="Hidden" FalseValue="Visible" />
-    <converters1:BoolToVisibilityConverter x:Key="BoolToCollapsed" TrueValue="Collapsed" FalseValue="Visible" />
     <converters:TimeLimitDialogVisibilityConverter x:Key="TimeLimitDialogConverter" />
 
     <!-- Expected DataContext is LobbyViewModel -->
@@ -31,10 +28,10 @@
             <!-- Toggle background image based on whether lobby or game is visible -->
             <Image Stretch="Fill" 
                Source="{DynamicResource TimeLimitLobbyBackground}"
-               Visibility="{Binding IsInLobby, Converter={StaticResource BoolToVisible}}"/>
+               Visibility="{Binding IsInLobby, Converter={StaticResource TrueVisibleFalseHidden}}"/>
 
             <Rectangle Stretch="Fill" Fill="Black" Opacity="0.5"
-                   Visibility="{Binding IsInLobby, Converter={StaticResource BoolToHidden}}"/>
+                   Visibility="{Binding IsInLobby, Converter={StaticResource TrueHiddenFalseVisible}}"/>
 
             <Grid x:Name="TimePromptGrid">
                 <Image Stretch="None" 
@@ -135,10 +132,10 @@
             <!-- Toggle background image based on whether lobby or game is visible --> 
             <Image Stretch="Fill" 
                Source="{DynamicResource TimeLimitLobbyBackground}"
-               Visibility="{Binding IsInLobby, Converter={StaticResource BoolToVisible}}"/>
+               Visibility="{Binding IsInLobby, Converter={StaticResource TrueVisibleFalseHidden}}"/>
 
             <Rectangle Stretch="Fill" Fill="Black" Opacity="0.5"
-                   Visibility="{Binding IsInLobby, Converter={StaticResource BoolToHidden}}"/>
+                   Visibility="{Binding IsInLobby, Converter={StaticResource TrueHiddenFalseVisible}}"/>
 
             <Grid x:Name="AlcGrid">
                 <Image Stretch="None" 
@@ -217,7 +214,7 @@
     <DataTemplate x:Key="TimeLimitManitobaDialogTemplate">
         <Grid Width="1920" Height="1080">
             <!-- Toggle background image based on whether lobby or game is visible -->
-            <Grid Visibility="{Binding IsInLobby, Converter={StaticResource BoolToVisible}}">
+            <Grid Visibility="{Binding IsInLobby, Converter={StaticResource TrueVisibleFalseHidden}}">
 
                 <Image Stretch="Fill" Source="{DynamicResource TimeLimitLobbyBackground}"
                        Visibility="{Binding ResponsibleGamingCurrentDialogState, Converter={StaticResource TimeLimitDialogConverter},ConverterParameter='StandardDialog'}"/>
@@ -228,7 +225,7 @@
             </Grid>
 
             <Rectangle Stretch="Fill" Fill="Black" Opacity="0.5"
-                   Visibility="{Binding IsInLobby, Converter={StaticResource BoolToHidden}}"/>
+                   Visibility="{Binding IsInLobby, Converter={StaticResource TrueHiddenFalseVisible}}"/>
 
             <Grid Width="1920" Height="1080">
                 <Grid.RowDefinitions>
@@ -489,7 +486,7 @@
                     </Grid>
                 
                 <Grid x:Name="TimePrompInGameButtons" Grid.Row="2" Margin="0 26 0 0" VerticalAlignment="Top"
-                      Visibility="{Binding IsInLobby, Converter={StaticResource BoolToCollapsed}}">
+                      Visibility="{Binding IsInLobby, Converter={StaticResource TrueCollapsedFalseVisible}}">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -560,7 +557,7 @@
     <DataTemplate x:Key="TimeLimitAlbertaDialogTemplate">
         <Grid Width="1920" Height="1080">
             <!-- Toggle background image based on whether lobby or game is visible -->
-            <Grid Visibility="{Binding IsInLobby, Converter={StaticResource BoolToVisible}}">
+            <Grid Visibility="{Binding IsInLobby, Converter={StaticResource TrueVisibleFalseHidden}}">
 
                 <Image Stretch="Fill" Source="{DynamicResource TimeLimitLobbyBackground}"
                        Visibility="{Binding ResponsibleGamingCurrentDialogState, Converter={StaticResource TimeLimitDialogConverter},ConverterParameter='StandardDialog'}"/>
@@ -571,7 +568,7 @@
             </Grid>
 
             <Rectangle Stretch="Fill" Fill="Black" Opacity="0.5"
-                       Visibility="{Binding IsInLobby, Converter={StaticResource BoolToHidden}}"/>
+                       Visibility="{Binding IsInLobby, Converter={StaticResource TrueHiddenFalseVisible}}"/>
 
             <Grid Width="1920" Height="1080">
                 <Grid.RowDefinitions>

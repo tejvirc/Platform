@@ -1,12 +1,8 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Tests
 {
-    #region Using
-
     using System.Windows;
     using Converters;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    #endregion
 
     /// <summary>
     ///     Tests for the BoolToVisibilityConverter class
