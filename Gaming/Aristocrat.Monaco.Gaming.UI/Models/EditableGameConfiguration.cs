@@ -461,23 +461,9 @@
             }
         }
 
-        public int MinBetWidth
-        {
-            get
-            {
-                int width = 160;
-                if (CurrencyExtensions.CurrencyCultureInfo!.NumberFormat.CurrencyDecimalDigits > 0 &&
-                    CurrencyExtensions.CurrencyCultureInfo!.NumberFormat.CurrencySymbol!.Length > 1)
-                {
-                    // make the currency decimal updown control a bit wider so that the currency value
-                    // is not too close to plus button. Ideally this should be done in style, unfortunately
-                    // the display value position seems calculated in the runtime as changing margin and
-                    // horizontal content alignment don't have any effect.  
-                    width =  164;
-                }
-                return width;
-            }
-        }
+        public int MinBetWidth => GetBetWidth(ForcedMinBet);
+
+        public int MaxBetWidth => GetBetWidth(ForcedMaxBet);
 
         public decimal BetMinimum
         {
@@ -842,6 +828,29 @@
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
                 .Select(g => new PaytableDisplay(g, BaseDenom)).ToList();
+        }
+
+        private static int GetBetWidth(decimal betAmount)
+        {
+            const int defaultBetWidth = 162;
+
+            const int currencyDigitWidth = 4;
+
+            var format = CurrencyExtensions.CurrencyCultureInfo?.NumberFormat;
+
+            if (format == null)
+            {
+                return defaultBetWidth;
+            }
+
+            var padding = format.CurrencyDecimalDigits +
+                          format.CurrencyDecimalSeparator.Length +
+                          format.CurrencySymbol.Length;
+
+            var textLength =
+                betAmount.FormattedCurrencyString().Length - padding;
+
+            return defaultBetWidth + Math.Max(textLength, 1) * currencyDigitWidth;
         }
     }
 }
