@@ -490,7 +490,9 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
-        <DecimalDigits>0</DecimalDigits>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
         <Symbol>MKD</Symbol>
       </Format>
     </Formats>
@@ -501,7 +503,7 @@ as follows:
       <Format id="1">
         <PositivePattern>0</PositivePattern>
         <DecimalDigits>0</DecimalDigits>
-        <GroupSeparator> </GroupSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
         <Symbol>UM</Symbol>
       </Format>
     </Formats>
@@ -822,8 +824,8 @@ as follows:
       <Format id="1">
         <PositivePattern>0</PositivePattern>
         <DecimalDigits>2</DecimalDigits>
-        <DecimalSeparator>,</DecimalSeparator>
-        <GroupSeparator>.</GroupSeparator>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
         <Symbol>UAH</Symbol>
         <MinorUnitSymbol>UAH</MinorUnitSymbol>
         <MinorUnits>Kopiyka</MinorUnits>
@@ -882,13 +884,13 @@ as follows:
       <Format id="1">
         <PositivePattern>1</PositivePattern>
         <DecimalDigits>0</DecimalDigits>
-        <GroupSeparator> </GroupSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
         <Symbol>CFA</Symbol>
       </Format>
       <Format id="2">
         <PositivePattern>0</PositivePattern>
         <DecimalDigits>0</DecimalDigits>
-        <GroupSeparator> </GroupSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
         <Symbol>CFA</Symbol>
       </Format>
     </Formats>
@@ -899,13 +901,13 @@ as follows:
       <Format id="1">
         <PositivePattern>1</PositivePattern>
         <DecimalDigits>0</DecimalDigits>
-        <GroupSeparator> </GroupSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
         <Symbol>CFA</Symbol>
       </Format>
       <Format id="2">
         <PositivePattern>0</PositivePattern>
         <DecimalDigits>0</DecimalDigits>
-        <GroupSeparator> </GroupSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
         <Symbol>CFA</Symbol>
       </Format>
     </Formats>
