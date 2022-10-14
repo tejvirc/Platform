@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.Services.GamePlay
+namespace Aristocrat.Monaco.Bingo.Services.GamePlay
 {
     using System;
     using System.Collections.Generic;
@@ -34,6 +34,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
+        private static readonly IComparer<WinResult> DefaultWinResultComparer = new WinResultComparer();
 
         private static readonly IReadOnlyCollection<Guid> AllowedGameDisables = new[]
         {
@@ -243,6 +244,11 @@
             return transferredAmount > 0;
         }
 
+        private static IEnumerable<WinResult> GetOrderedWinResults(GameOutcome outcome)
+        {
+            return outcome.WinResults.OrderBy(x => x, DefaultWinResultComparer);
+        }
+
         private async Task HandleBingoOutcomes(GameOutcome outcome, CancellationToken token)
         {
             var outcomeTasks = new List<Task>();
@@ -256,8 +262,9 @@
                 var outcomes = new List<Outcome>();
                 if (outcome.WinResults.Any() || newCard)
                 {
+                    var orderedPayOut = GetOrderedWinResults(outcome);
                     outcomeTasks.AddRange(
-                        outcome.WinResults.Select(
+                        orderedPayOut.Select(
                             winResult => ProcessWins(outcome, winResult, outcomes, description, token)));
                     if (outcomes.Any())
                     {

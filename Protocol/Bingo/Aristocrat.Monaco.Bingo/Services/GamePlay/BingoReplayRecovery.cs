@@ -155,7 +155,7 @@
             {
                 var bingoPatterns = bingoGame.Patterns.ToList();
                 Logger.Debug($"Recovering the bingo patterns: {string.Join(Environment.NewLine, bingoPatterns)}");
-                _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded));
+                _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded && isRecovery));
             }
 
             // Recover GEW message, if any
