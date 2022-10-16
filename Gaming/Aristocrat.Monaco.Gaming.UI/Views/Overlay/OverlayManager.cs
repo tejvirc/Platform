@@ -1,19 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Views.Overlay
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Forms;
     using Application.Contracts;
     using Application.Contracts.Media;
     using Cabinet.Contracts;
-    using CefSharp.DevTools.Runtime;
     using Common;
     using Contracts;
     using Hardware.Contracts.Cabinet;
@@ -23,9 +12,12 @@
     using MahApps.Metro.Controls;
     using MediaDisplay;
     using Monaco.UI.Common;
-    using Monaco.UI.Common.Controls;
     using MVVM;
-    using Utils;
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Windows;
+    using System.Windows.Controls;
     using ViewModels;
 
     public class OverlayManager
