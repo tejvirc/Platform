@@ -9,6 +9,7 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:common="http://monaco.aristocrat.com/common"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SoftwareVerificationPageViewModel}, IsDesignTimeCreatable=False}"
                                Background="Transparent" >
 
@@ -51,7 +52,7 @@
                   MinWidth="300" HorizontalAlignment="Left"/>
 
         <WrapPanel Grid.Column="2" Grid.Row="2" Margin="0" IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}">
-            <TextBox x:Name="HmacTextBox" Style="{DynamicResource MonacoTextBox}" CommandManager.PreviewCanExecute="HandleCanExecute" MaxWidth="830" TextWrapping="Wrap"
+            <common:TouchTextBox x:Name="HmacTextBox" Style="{DynamicResource MonacoTextBox}" CommandManager.PreviewCanExecute="HandleCanExecute" MaxWidth="830" TextWrapping="Wrap"
                      Text="{Binding Path=FormattedHmacKey, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ShaConverter}}"
                      IsEnabled="{Binding Path=CanUseHmacKey}" CharacterCasing="Upper"
                      PreviewTextInput="HmacTextBox_PreviewTextInput" InputScope="AlphanumericFullWidth" FontFamily="Consolas" 
