@@ -67,15 +67,25 @@
                 }
                 else
                 {
-                    if (progressive.LevelType == ProgressiveLevelType.Selectable && progressive.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.CustomSap)
+                    if (progressive.AssignedProgressiveId.AssignedProgressiveType ==
+                        AssignableProgressiveType.AssociativeSap ||
+                        progressive.LevelType == ProgressiveLevelType.Selectable &&
+                        progressive.AssignedProgressiveId.AssignedProgressiveType ==
+                        AssignableProgressiveType.CustomSap)
                     {
-                        var sharedSapLevel = progressiveProvider.ViewSharedSapLevels().FirstOrDefault(x => x.LevelAssignmentKey == progressive.AssignedProgressiveId.AssignedProgressiveKey);
+                        var sharedSapLevel = progressiveProvider.ViewSharedSapLevels().FirstOrDefault(
+                            x => x.LevelAssignmentKey == progressive.AssignedProgressiveId.AssignedProgressiveKey);
 
                         currentValue = sharedSapLevel.CurrentValue.MillicentsToDollars().FormattedCurrencyString() ??
                                        TicketLocalizer.GetString(ResourceKeys.NotAvailable);
                         resetValue = sharedSapLevel.ResetValue.MillicentsToDollars().FormattedCurrencyString();
-                        incrementRate = (sharedSapLevel.IncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
-                        hiddenIncrementRate = (sharedSapLevel.HiddenIncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
+                        incrementRate = (sharedSapLevel.IncrementRate.ToPercentage() / 100M).ToString(
+                            "P",
+                            TicketLocalizer.CurrentCulture);
+                        hiddenIncrementRate =
+                            (sharedSapLevel.HiddenIncrementRate.ToPercentage() / 100M).ToString(
+                                "P",
+                                TicketLocalizer.CurrentCulture);
                         hiddenValue = sharedSapLevel.HiddenValue.MillicentsToDollars().FormattedCurrencyString();
                         overflow = sharedSapLevel.Overflow.MillicentsToDollars().FormattedCurrencyString();
                         overflowTotal = sharedSapLevel.OverflowTotal.MillicentsToDollars().FormattedCurrencyString();
@@ -83,8 +93,13 @@
                     else
                     {
                         resetValue = progressive.ResetValue.MillicentsToDollars().FormattedCurrencyString();
-                        incrementRate = (progressive.IncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
-                        hiddenIncrementRate = (progressive.HiddenIncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
+                        incrementRate = (progressive.IncrementRate.ToPercentage() / 100M).ToString(
+                            "P",
+                            TicketLocalizer.CurrentCulture);
+                        hiddenIncrementRate =
+                            (progressive.HiddenIncrementRate.ToPercentage() / 100M).ToString(
+                                "P",
+                                TicketLocalizer.CurrentCulture);
                         hiddenValue = progressive.HiddenValue.MillicentsToDollars().FormattedCurrencyString();
                         overflow = progressive.Overflow.MillicentsToDollars().FormattedCurrencyString();
                         overflowTotal = progressive.OverflowTotal.MillicentsToDollars().FormattedCurrencyString();

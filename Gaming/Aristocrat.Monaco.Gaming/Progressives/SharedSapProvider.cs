@@ -19,6 +19,8 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly ConcurrentDictionary<Guid, SharedSapLevel> _sharedSapIndex;
+        private readonly IDictionary<SharedSapLevel, IList<ProgressiveLevel>> _associatedLevels =
+            new Dictionary<SharedSapLevel, IList<ProgressiveLevel>>();
         private readonly IEventBus _eventBus;
         private readonly IPersistentBlock _saveBlock;
         private readonly IProgressiveCalculatorFactory _calculatorFactory;
@@ -232,18 +234,41 @@
                         level.OverflowTotal = sharedSapLevel.OverflowTotal;
                         level.MaximumValue = sharedSapLevel.MaximumValue;
 
+                        var hiddenTotalMeter = _meters.GetMeter(
+                            level.DeviceId,
+                            level.LevelId,
+                            ProgressiveMeters.ProgressiveLevelHiddenTotal);
+
                         calculator?.Increment(
                             level,
                             wager,
                             ante,
-                            _meters.GetMeter(
-                                level.DeviceId,
-                                level.LevelId,
-                                ProgressiveMeters.ProgressiveLevelHiddenTotal));
-
+                            hiddenTotalMeter);
+                        
                         sharedSapLevel.CanEdit = false; // Once we update we can no longer edit the level ever again
 
                         UpdateSharedSapLevel(level, sharedSapLevel);
+
+                        foreach (var associatedLevel in _associatedLevels[sharedSapLevel])
+                        {
+                            if (level.DeviceId == associatedLevel.LevelId)
+                            {
+                                continue;
+                            }
+
+                            if (_meters.IsMeterProvided(
+                                associatedLevel.DeviceId,
+                                associatedLevel.LevelId,
+                                ProgressiveMeters.ProgressiveLevelHiddenTotal))
+                            {
+                                var meter = _meters.GetMeter(
+                                    associatedLevel.DeviceId,
+                                    associatedLevel.LevelId,
+                                    ProgressiveMeters.ProgressiveLevelHiddenTotal);
+                                var increment = hiddenTotalMeter.Lifetime - meter.Lifetime;
+                                meter.Increment(increment);
+                            }
+                        }
 
                         break;
                     }
@@ -254,6 +279,32 @@
             }
 
             Save();
+        }
+
+        public void AssociateLevels(IList<ProgressiveLevel> levels)
+        {
+            foreach (var level in levels)
+            {
+                var assignmentIdType = level.AssignedProgressiveId.AssignedProgressiveType;
+                var levelKey = level.AssignedProgressiveId.AssignedProgressiveKey;
+
+                switch (level.LevelType)
+                {
+                    case ProgressiveLevelType.Sap when assignmentIdType == AssignableProgressiveType.AssociativeSap:
+                    case ProgressiveLevelType.Selectable when assignmentIdType == AssignableProgressiveType.CustomSap:
+                    {
+                        var calculator = _calculatorFactory.Create(SapFundingType.Standard);
+                        var sharedSapLevel = GetLevelByKey(levelKey);
+
+                        if (!_associatedLevels.ContainsKey(sharedSapLevel))
+                        {
+                            _associatedLevels[sharedSapLevel] = new List<ProgressiveLevel>();
+                        }
+
+                        _associatedLevels[sharedSapLevel].Add(level); break;
+                    }
+                }
+            }
         }
 
         public void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction)
@@ -292,6 +343,7 @@
         {
             return _sharedSapIndex.Values.AsEnumerable();
         }
+
 
         private static void UpdateSharedSapLevel(IViewableProgressiveLevel level, SharedSapLevel sharedSapLevel)
         {
