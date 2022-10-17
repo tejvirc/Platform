@@ -204,8 +204,7 @@
 
         public void SetOverlayWindowTransparent(bool transparent)
         {
-            //var hWnd = new WindowInteropHelper(_overlayWindow).Handle;
-            //WindowsServices.SetWindowExTransparent(hWnd, transparent);
+            //_overlayManager.SetOverlayWindowTransparent(transparent);
         }
 
         private void OnChildWindowIsVisibleChanged(

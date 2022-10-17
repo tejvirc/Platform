@@ -8,8 +8,6 @@
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance {x:Type viewModels:InfoOverlayViewModel}}"
         WindowStartupLocation="Manual"
-        ResizeMode="NoResize"
-        WindowStyle="None"
         Title="InfoWindow"
         ShowInTaskbar="False"
         Width="1920" Height="1080">

@@ -18,8 +18,8 @@
             InitializeComponent();
 
             // MetroApps issue--need to set in code behind after InitializeComponent.
-            AllowsTransparency = true;
-            Topmost = true;
+            //AllowsTransparency = true;
+            //Topmost = true;
         }
 
         /// <summary>

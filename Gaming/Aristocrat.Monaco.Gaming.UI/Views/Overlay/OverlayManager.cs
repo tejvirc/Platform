@@ -18,6 +18,7 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Interop;
     using ViewModels;
 
     public class OverlayManager
@@ -45,8 +46,8 @@
                 new Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)>();
 
         private readonly bool _windowed;
-        private bool _compositeDisplay = false;
-        private bool _arrangeDisplay = true;
+        private bool _compositeDisplay;
+        private bool _arrangeDisplay;
 
         private readonly List<ResourceDictionary> _skins = new List<ResourceDictionary>();
         private int _activeSkinIndex;
@@ -323,6 +324,7 @@
             // now show the Lobby TopView window here to address defect VLT-2584.
             foreach (var displayAndWindow in _lobbyWindows)
             {
+                Logger.Debug($"Showing {displayAndWindow.window.GetType()} for display {displayAndWindow.display}");
                 ShowOverlay(displayAndWindow.window, GetViewForDisplay(displayAndWindow.display));
             }
         }
@@ -361,6 +363,7 @@
                 window.ShowInTaskbar = false;
             }
 
+            Logger.Debug($"overlay window style is {window.WindowStyle} and allows transparency is {window.AllowsTransparency}");
             window.Show();
 
             // Arrange again because WPF is shit.
@@ -407,6 +410,12 @@
                         _disableCountdownWindow = null;
                     }
                 });
+        }
+
+        public void SetOverlayWindowTransparent(bool transparent)
+        {
+            var hWnd = new WindowInteropHelper(_overlayWindow).Handle;
+            WindowsServices.SetWindowExTransparent(hWnd, transparent);
         }
 
         public void ChangeLanguageSkin(bool primaryLanguageSkin)
