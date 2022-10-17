@@ -368,8 +368,7 @@
 
         public int TotalEnabledGames => _gamesMapping.Values
             .SelectMany(m => m)
-            .SelectMany(p => p.GameConfigurations)
-            .Count(c => c.Enabled);
+            .Count(m => m.Enabled);
 
         public string SaveWarningText
         {
