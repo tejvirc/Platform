@@ -428,6 +428,10 @@
             {
                 displayAndWindow.window.Resources = tmpResource;
             }
+
+            MainView.Resources = tmpResource;
+            TopView.Resources = tmpResource;
+            TopperView.Resources = tmpResource;
         }
 
         public void CloseAllOverlays()
