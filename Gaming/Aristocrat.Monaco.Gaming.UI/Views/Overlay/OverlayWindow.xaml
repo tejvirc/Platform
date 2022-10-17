@@ -11,7 +11,7 @@
                    d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
                    WindowStartupLocation="Manual"
                    Title="OverlayWindow"
-                   ShowInTaskbar="False"
+                   ShowInTaskbar="True"
                    Width="600" Height="400">
 
     <Window.Resources>
