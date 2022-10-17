@@ -335,8 +335,7 @@
 
             ShowWithTouch(_testToolView);
 
-            _overlayManager.ShowAndPositionOverlays();
-
+            
             _overlayManager.ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected);
 
             ViewModel.OnLoaded();
@@ -349,6 +348,8 @@
             // now show the Lobby TopView window here to address defect VLT-2584.
             _topView?.Show();
             _topperView?.Show();
+
+            _overlayManager.ShowAndPositionOverlays();
         }
 
         private bool HostMachineIsNotAnEGM()
