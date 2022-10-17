@@ -327,7 +327,7 @@ as follows:
     <CurrencyCode>GHS</CurrencyCode>
     <Formats>
       <Format id="1">
-        <Symbol>GHC</Symbol>
+        <Symbol>GHS</Symbol>
         <MinorUnitSymbol>Gp</MinorUnitSymbol>
         <MinorUnits>Pesewa</MinorUnits>
         <MinorUnitsPlural>Pesewas</MinorUnitsPlural>
@@ -358,10 +358,23 @@ as follows:
     </Formats>
   </CurrencyInfo>
   <CurrencyInfo>
+    <CurrencyCode>DKK</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>Kr</Symbol>
+        <MinorUnitSymbol>øre</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
     <CurrencyCode>GNF</CurrencyCode>
     <Formats>
       <Format id="1">
-       <PositivePattern>0</PositivePattern>
+        <Symbol>GNF</Symbol>
+        <PositivePattern>0</PositivePattern>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -438,6 +451,9 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>L$</Symbol>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
