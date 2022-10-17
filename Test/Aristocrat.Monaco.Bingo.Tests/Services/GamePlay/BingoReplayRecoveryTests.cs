@@ -472,12 +472,15 @@
             await _target.Replay(history.Object, isFinalized, CancellationToken.None);
             foreach (var card in description.Cards)
             {
-                _eventBus.Verify(x => x.Publish(It.Is<BingoGameNewCardEvent>(e => e.BingoCard == card)));
+                _eventBus.Verify(
+                    x => x.Publish(It.Is<BingoGameNewCardEvent>(e => e.BingoCard == card)),
+                    isFinalized ? Times.Never() : Times.Once());
             }
 
-            _eventBus.Setup(
-                x => x.Publish(It.Is<BingoGamePatternEvent>(e => description.Patterns.SequenceEqual(e.Patterns))));
-            _eventBus.Setup(
+            _eventBus.Verify(
+                x => x.Publish(It.Is<BingoGamePatternEvent>(e => !e.StartPatternCycle && description.Patterns.SequenceEqual(e.Patterns))),
+                isFinalized ? Times.Never() : Times.Once());
+            _eventBus.Verify(
                 x => x.Publish(
                     It.Is<BingoGameBallCallEvent>(
                         e => isFinalized
