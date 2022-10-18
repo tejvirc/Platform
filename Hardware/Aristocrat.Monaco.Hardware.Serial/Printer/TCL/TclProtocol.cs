@@ -293,9 +293,9 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                     {
                         PaperInChute = !_isPrinting && status.HasFlag(TclProtocolConstants.TclStatus.PaperInPath), // Paper In Chute only matters when not printing.
                         PaperLow = status.HasFlag(TclProtocolConstants.TclStatus.PaperLow),
-                        // The printer will continue to print in this conditions.
-                        // Wait for validation number to be sent before setting fault to prevent a handpay for a valid ticket.
-                        ChassisOpen = (!_isPrinting || _isPrinting && !_isValidationCompleteReported)
+                        // The printer will continue to print when the chassis is open, we only flag the chasis open if we are not
+                        // printing or printing and not waiting for a region of interest. 
+                        ChassisOpen = (!_isPrinting || _isPrinting && !_waitForRegionOfInterest)
                                       && status.HasFlag(TclProtocolConstants.TclStatus.ChassisIsOpen),
                         PrintHeadOpen = status.HasFlag(TclProtocolConstants.TclStatus.HeadIsUp),
                         PaperJam = status.HasFlag(TclProtocolConstants.TclStatus.PaperJam),
@@ -309,8 +309,15 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                                     !status.HasFlag(TclProtocolConstants.TclStatus.HeadError)
                     };
 
-                    if (HasDisablingFault)
+                    if (_isPrinting && HasDisablingFault)
                     {
+                        Logger.Warn($"RequestStatus - HasDisablingFault - _waitForRegionOfInterest {_waitForRegionOfInterest}");
+                        if (_waitForRegionOfInterest)
+                        {
+                            Logger.Debug($"RequestStatus - HasDisablingFault - sending abort barcode print command");
+                            SendMessage(TclProtocolConstants.AbortBarcodePrintCommand);
+                        }
+
                         _isPrinting = false;
                     }
                 }
