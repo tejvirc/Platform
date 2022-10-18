@@ -58,6 +58,7 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
+            _automator.EnableCashOut(true);
             _eventBus.UnsubscribeAll(this);
             _actionCashoutTimer?.Dispose();
         }
@@ -125,18 +126,12 @@
                  {
                      _automator.EnableCashOut(false);
                  });
-            _eventBus.Subscribe<SystemDisableAddedEvent>(
+            _eventBus.Subscribe<GameProcessExitedEvent>(
                  this,
-                 _ =>
+                 evt =>
                  {
-                     _automator.EnableCashOut(false);
+                     _automator.EnableCashOut(true);
                  });
-            _eventBus.Subscribe<OperatingHoursExpiredEvent>(
-                this,
-                _ =>
-                {
-                    _automator.EnableCashOut(false);
-                });
         }
 
         private void RequestCashOut()

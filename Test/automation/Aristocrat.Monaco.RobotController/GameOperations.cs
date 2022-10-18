@@ -106,7 +106,6 @@
             _RgTimer?.Dispose();
             _forceGameExitTimer?.Dispose();
             _automator.EnableExitToLobby(true);
-            _automator.EnableCashOut(true);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -236,7 +235,6 @@
                      if (evt.IsLastPrompt)
                      {
                          _exitWhenIdle = true;
-                         _automator.EnableCashOut(true);
                      }
                  });
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
@@ -315,7 +313,7 @@
                          _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                          _goToNextGame = true;
                      }
-                     _automator.EnableExitToLobby(false);
+                     _automator.EnableExitToLobby(true);
                      LoadGameWithDelay(Constants.loadGameDelayDuration);
                  });
             _eventBus.Subscribe<GameFatalErrorEvent>(
@@ -387,7 +385,6 @@
                     return;
                 }
                 _logger.Info($"ExitToLobby Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                _automator.EnableExitToLobby(true);
                 _automator.RequestGameExit();
                 _exitWhenIdle = false;
                 //GameProcessExitedEvent gets trigered
