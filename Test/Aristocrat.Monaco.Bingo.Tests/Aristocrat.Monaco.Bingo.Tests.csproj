@@ -26,7 +26,6 @@
     <ProjectReference Include="..\..\Protocol\Bingo\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
     <ProjectReference Include="..\..\Protocol\SAS\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.4" />

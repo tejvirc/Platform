@@ -36,6 +36,5 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.0-beta0007" />
     <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 </Project>

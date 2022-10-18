@@ -23,9 +23,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="JurisdictionAddinConfiguration.xsd">
       <SubType>Designer</SubType>
     </None>

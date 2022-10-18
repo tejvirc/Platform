@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -26,9 +26,56 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Aristocrat.Monaco.Application.UI.addin.xml" />
+    <None Remove="Aristocrat.Monaco.Application.UI.ConfigWizard.addin.xml" />
+    <None Remove="Aristocrat.Monaco.Application.UI.OperatorMenu.addin.xml" />
+    <None Remove="Aristocrat.Monaco.Application.UI.Views.ConfigSelectionPage.xml" />
+    <None Remove="Aristocrat.Monaco.Application.UI.Views.HardwareConfigPage.xml" />
+    <None Remove="Aristocrat.Monaco.Application.UI.Views.IOConfigPage.xml" />
+    <None Remove="CommsPages.addin.xml" />
+    <None Remove="IdentificationPages.addin.xml" />
+    <None Remove="MeterPages.addin.xml" />
+    <None Remove="OperatorMenuConfiguration.addin.xml" />
+    <None Remove="StatusPages.addin.xml" />
+    <None Remove="WizardConfiguration.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
+    <Content Include="Aristocrat.Monaco.Application.UI.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.UI.ConfigWizard.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.UI.OperatorMenu.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.UI.Views.ConfigSelectionPage.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.UI.Views.IOConfigPage.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommsPages.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="IdentificationPages.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MeterPages.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="OperatorMenuConfiguration.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StatusPages.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WizardConfiguration.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Aristocrat_Logo_White_Large.png" />
     <Resource Include="Resources\AristocratLogoPortrait.png" />
     <Resource Include="Resources\Operator_Menu_Background_Strip.png" />

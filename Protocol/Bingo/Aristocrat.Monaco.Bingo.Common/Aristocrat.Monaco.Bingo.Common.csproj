@@ -23,11 +23,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.IdentityModel" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Storage\Model\Host.Configuration.cs">
       <DependentUpon>Host.cs</DependentUpon>
     </Compile>
