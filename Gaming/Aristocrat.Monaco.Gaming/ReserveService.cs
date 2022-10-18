@@ -32,7 +32,6 @@
         private Timer _reserveServiceLockupTimer;
         private int _remainingSeconds;
         private int _timeoutInSeconds;
-        private bool _isGambleFeatureActive;
         private const int DefaultTimeOutInMinutes = 5;
 
         /// <summary>
@@ -60,8 +59,8 @@
         }
 
         private bool IsReserveCondition =>
-            (_gamePlay.CurrentState == PlayState.Idle || _isGambleFeatureActive) &&
-        _bank.Balance > 0 &&
+            _gamePlay.CurrentState == PlayState.Idle &&
+            _bank.Balance > 0 &&
             (!_systemDisableManager.CurrentDisableKeys.Any() || _systemDisableManager.CurrentDisableKeys.Count == 1 && _systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.WaitingForInputDisableKey));
 
         /// <inheritdoc />
@@ -130,7 +129,6 @@
 
             _eventBus?.Subscribe<ExitReserveButtonPressedEvent>(this, HandleEvent);
             _eventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
-            _eventBus?.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
 
             SetupReserveServiceTimer();
 
@@ -219,11 +217,6 @@
         private void HandleEvent(ExitReserveButtonPressedEvent evt)
         {
             ExitReserveMachine();
-        }
-
-        private void HandleEvent(GambleFeatureActiveEvent evt)
-        {
-            _isGambleFeatureActive = evt.Active;
         }
 
         private void HandleEvent(PropertyChangedEvent evt)
