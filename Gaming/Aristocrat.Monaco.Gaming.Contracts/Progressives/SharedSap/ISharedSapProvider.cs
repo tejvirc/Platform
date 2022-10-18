@@ -68,11 +68,5 @@
         /// </summary>
         /// <returns>The levels that were successfully saved</returns>
         IEnumerable<IViewableSharedSapLevel> Save();
-
-        /// <summary>
-        ///     Associate levels to shared level
-        /// </summary>
-        /// <param name="levels">The levels to associate</param>
-        void AssociateLevels(IList<ProgressiveLevel> levels);
     }
 }

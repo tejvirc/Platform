@@ -32,7 +32,7 @@
         public override void Consume(GameSelectedEvent theEvent)
         {
             var lastGameId = _propertiesManager.GetValue(SasProperties.PreviousSelectedGameId, 0);
-            if (theEvent.GameId == lastGameId )
+            if (theEvent.GameId == lastGameId)
             {
                 return;
             }

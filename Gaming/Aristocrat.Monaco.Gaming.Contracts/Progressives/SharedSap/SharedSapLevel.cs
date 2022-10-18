@@ -68,6 +68,11 @@
         public long HiddenValue { get; set; }
 
         /// <summary>
+        ///     Gets or sets the accumulated hidden amount
+        /// </summary>
+        public long HiddenTotal { get; set; }
+
+        /// <summary>
         ///     Gets or sets the residual or fractional amount
         /// </summary>
         public long Residual { get; set; }
@@ -81,7 +86,7 @@
         ///     Gets or sets the accumulated overflow amount
         /// </summary>
         public long OverflowTotal { get; set; }
-
+        
         /// <summary>
         ///     Gets or set the current error status
         /// </summary>
@@ -121,6 +126,7 @@
                    $"CurrentValue={CurrentValue}," +
                    $"IncrementRate={IncrementRate}, " +
                    $"HiddenIncrementRate={HiddenIncrementRate}," +
+                   $"HiddenTotal={HiddenTotal}" +
                    $"MaxValue={MaximumValue}, " +
                    $"CurrentErrorStatus={CurrentErrorStatus}, " +
                    $"CanEdit={CanEdit}, " +

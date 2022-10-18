@@ -306,6 +306,8 @@
                     // 3. Store the meters in the list from 1. and expose it to be consumed by the GUI.
                     foreach (var progressiveLevel in progressiveLevels)
                     {
+                        var sharedHiddenTotal = 0L;
+
                         if (_sharedSap.ViewSharedSapLevel(
                             progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey,
                             out var sharedLevel))
@@ -316,12 +318,13 @@
                             progressiveLevel.OverflowTotal = sharedLevel.OverflowTotal;
                             progressiveLevel.HiddenIncrementRate = sharedLevel.HiddenIncrementRate;
                             progressiveLevel.HiddenValue = sharedLevel.HiddenValue;
+                            sharedHiddenTotal = sharedLevel.HiddenTotal;
                         }
 
                         var collectionOfMeters = new ObservableCollection<DisplayMeter>();
                         foreach (var meterNode in MeterNodes)
                         {
-                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents));
+                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents, sharedHiddenTotal));
                         }
                         ProgressiveDetailMeters.Add(new ProgressiveDisplayMeter(progressiveLevel.ProgressivePackName, ShowLifetime, collectionOfMeters));
                     }

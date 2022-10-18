@@ -72,8 +72,6 @@
                             detail,
                             gameDetails.WagerCategories.ToList()));
                 }
-
-                _sharedSapProvider.AssociateLevels(_levels);
             }
         }
 

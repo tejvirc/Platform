@@ -100,6 +100,13 @@
         IMeter GetMeter(Guid sharedLevelId, string meterName);
 
         /// <summary>
+        ///     Gets the meter.
+        /// </summary>
+        /// <param name="meterName">The name of the meter. </param>
+        /// <returns>An IMeter object representing that meter. </returns>
+        IMeter GetMeter(string meterName);
+
+        /// <summary>
         ///     Gets the named meter for the given progressive.
         /// </summary>
         /// <param name="deviceId">The progressive device identifier.</param>
@@ -131,6 +138,13 @@
         /// <param name="meterName">The name of the meter. </param>
         /// <returns>An IMeter object representing that meter. </returns>
         bool IsMeterProvided(int deviceId, string meterName);
+
+        /// <summary>
+        ///     Returns whether or not a meter with the given name is provided.
+        /// </summary>
+        /// <param name="meterName">The name of the meter. </param>
+        /// <returns>An IMeter object representing that meter. </returns>
+        bool IsMeterProvided(string meterName);
 
         /// <summary>
         ///     Returns whether or not a meter with the given name is provided.
