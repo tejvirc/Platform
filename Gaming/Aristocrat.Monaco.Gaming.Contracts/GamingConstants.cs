@@ -1138,6 +1138,11 @@
         public const string UseRngCycling = @"RngCycling.Enabled";
 
         /// <summary>
+        ///     Flag will control whether the player speed button will be enabled or disabled
+        /// </summary>
+        public const string ShowPlayerSpeedButtonEnabled = @"ShowPlayerSpeedButton.Enabled";
+
+        /// <summary>
         ///     Requesting game exit for the game menu button when using a multi-game setup
         /// </summary>
         public const string RequestExitGame = "RequestExitGame";
