@@ -430,8 +430,16 @@
             }
 
             MainView.Resources = tmpResource;
-            TopView.Resources = tmpResource;
-            TopperView.Resources = tmpResource;
+
+            if (TopView != null)
+            {
+                TopView.Resources = tmpResource;
+            }
+
+            if (TopperView != null)
+            {
+                TopperView.Resources = tmpResource;
+            }
         }
 
         public void CloseAllOverlays()
