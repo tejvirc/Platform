@@ -69,7 +69,7 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
-    <PackageReference Include="CefSharp.Wpf" Version="92.0.260" />
+    <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
