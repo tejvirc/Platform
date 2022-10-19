@@ -88,7 +88,20 @@
         public Task Replay(IGameHistoryLog log, bool finalizeReplay, CancellationToken token)
         {
             var transaction = _centralProvider.Transactions.FirstOrDefault(x => x.AssociatedTransactions.Contains(log.TransactionId));
-            RecoverBingoDisplay(transaction, !finalizeReplay,  true, false);
+            if (finalizeReplay)
+            {
+                if (transaction?.Descriptions?.FirstOrDefault() is not BingoGameDescription bingoGame)
+                {
+                    return Task.CompletedTask;
+                }
+
+                RecoverBallCall(false, true, false, bingoGame);
+            }
+            else
+            {
+                RecoverBingoDisplay(transaction, true, true, false);
+            }
+
             return Task.CompletedTask;
         }
 
@@ -140,28 +153,43 @@
                 return;
             }
 
-            foreach (var card in bingoGame.Cards)
-            {
-                Logger.Debug($"Recovering the bingo card: {card}");
-                _bus.Publish(new BingoGameNewCardEvent(card));
-            }
-
-            var cardDaubs = showDaubs ? GetDaubs(bingoGame.Cards.First(), initialBallCall) : 0;
-            var bingoNumbers = (initialBallCall ? bingoGame.GetJoiningBalls() : bingoGame.BallCallNumbers).ToList();
-            Logger.Debug($"Recovering the ball call: {string.Join(", ", bingoNumbers)}");
-            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), cardDaubs, isRecovery));
-
-            if (showDaubs)
-            {
-                var bingoPatterns = bingoGame.Patterns.ToList();
-                Logger.Debug($"Recovering the bingo patterns: {string.Join(Environment.NewLine, bingoPatterns)}");
-                _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded));
-            }
+            RecoverBingoCards(bingoGame);
+            RecoverBallCall(initialBallCall, showDaubs, isRecovery, bingoGame);
+            RecoverPatterns(showDaubs, isRecovery, bingoGame);
 
             // Recover GEW message, if any
             if (isRecovery)
             {
                 RecoverGameEndWinMessage(transaction);
+            }
+        }
+
+        private void RecoverPatterns(bool showDaubs, bool isRecovery, BingoGameDescription bingoGame)
+        {
+            if (!showDaubs)
+            {
+                return;
+            }
+
+            var bingoPatterns = bingoGame.Patterns.ToList();
+            Logger.Debug($"Recovering the bingo patterns: {string.Join(Environment.NewLine, bingoPatterns)}");
+            _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded && isRecovery));
+        }
+
+        private void RecoverBallCall(bool initialBallCall, bool showDaubs, bool isRecovery, BingoGameDescription bingoGame)
+        {
+            var cardDaubs = showDaubs ? GetDaubs(bingoGame.Cards.First(), initialBallCall) : 0;
+            var bingoNumbers = (initialBallCall ? bingoGame.GetJoiningBalls() : bingoGame.BallCallNumbers).ToList();
+            Logger.Debug($"Recovering the ball call: {string.Join(", ", bingoNumbers)}");
+            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), cardDaubs, isRecovery));
+        }
+
+        private void RecoverBingoCards(BingoGameDescription bingoGame)
+        {
+            foreach (var card in bingoGame.Cards)
+            {
+                Logger.Debug($"Recovering the bingo card: {card}");
+                _bus.Publish(new BingoGameNewCardEvent(card));
             }
         }
 

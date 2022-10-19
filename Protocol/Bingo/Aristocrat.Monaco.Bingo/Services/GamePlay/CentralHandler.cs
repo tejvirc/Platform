@@ -34,6 +34,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
+        private static readonly IComparer<WinResult> DefaultWinResultComparer = new WinResultComparer();
 
         private static readonly IReadOnlyCollection<Guid> AllowedGameDisables = new[]
         {
@@ -212,6 +213,11 @@
             return transferredAmount > 0;
         }
 
+        private static IEnumerable<WinResult> GetOrderedWinResults(GameOutcomeWinDetails windDetails)
+        {
+            return windDetails.WinResults.OrderBy(x => x, DefaultWinResultComparer);
+        }
+
         private async Task RequestOutcomesInternal(CentralTransaction transaction)
         {
             _cancellationTokenSource?.Cancel();
@@ -273,8 +279,9 @@
                 var outcomes = new List<Outcome>();
                 if (outcome.WinDetails.WinResults.Any() || newCard)
                 {
+                    var orderedPayout = GetOrderedWinResults(outcome.WinDetails);
                     outcomeTasks.AddRange(
-                        outcome.WinDetails.WinResults.Select(
+                        orderedPayout.Select(
                             winResult => ProcessWins(outcome, winResult, outcomes, description, token)));
                     if (outcomes.Any())
                     {
