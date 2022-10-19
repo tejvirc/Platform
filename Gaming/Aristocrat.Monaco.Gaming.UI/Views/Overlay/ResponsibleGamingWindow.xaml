@@ -10,13 +10,9 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
         WindowStartupLocation="Manual"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        Title="Responsible Gaming"
-        ShowInTaskbar="False"
-        Width="1920" Height="1080"
-        Left="0" Top="0"
-        Name="Root">
+        Title="ResponsibleGaming"
+        ShowInTaskbar="True"
+        Width="600" Height="400">
 
     <Window.Resources>
         <ResourceDictionary>

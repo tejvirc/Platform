@@ -335,7 +335,6 @@
 
             ShowWithTouch(_testToolView);
 
-            
             _overlayManager.ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected);
 
             ViewModel.OnLoaded();

@@ -10,8 +10,8 @@
         Width="{Binding WindowWidth, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
         Height="{Binding WindowHeight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
         Background="{x:Null}"
-        Name="Root"
         Title="Media"
+        ShowInTaskbar="True"
         Closed="LayoutOverlayWindow_OnClosed">
     <Canvas x:Name="OverlayCanvas" 
             Width="{Binding ElementName=Root, Path=ActualWidth}"

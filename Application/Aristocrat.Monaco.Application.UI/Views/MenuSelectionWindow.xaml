@@ -24,6 +24,7 @@
                    Background="{DynamicResource OperatorMenuDark}"
                    BorderBrush="Black"
                    BorderThickness="1"
+                   Topmost="True"
                    x:Name="OperatorMenuWindow">
 
     <i:Interaction.Triggers>

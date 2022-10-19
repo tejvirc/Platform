@@ -358,9 +358,9 @@
                 window.ResizeMode = ResizeMode.NoResize;
                 window.WindowStyle = WindowStyle.None;
                 window.AllowsTransparency = true;
-                window.Topmost = true;
+                window.Topmost = !_windowed;
                 window.BorderThickness = new Thickness(0.0);
-                window.ShowInTaskbar = false;
+                window.ShowInTaskbar = _windowed;
             }
 
             Logger.Debug($"overlay window style is {window.WindowStyle} and allows transparency is {window.AllowsTransparency}");
