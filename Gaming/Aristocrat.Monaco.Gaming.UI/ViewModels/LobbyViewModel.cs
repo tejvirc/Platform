@@ -50,6 +50,7 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
+    using LobbyClock;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
@@ -122,6 +123,8 @@
         private readonly IAttractConfigurationProvider _attractInfoProvider;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
         private readonly IReserveService _reserveService;
+
+        private readonly ILobbyClockService _lobbyClockService;
         // Broadcasting platform messages to a game
 
         private readonly DisplayableMessage _disableCountdownMessage;
@@ -348,6 +351,7 @@
             _runtime = containerService.Container.GetInstance<IRuntimeFlagHandler>();
             _gameStorage = containerService.Container.GetInstance<IGameStorage>();
             _gameState = containerService.Container.GetInstance<IGamePlayState>();
+            _lobbyClockService = containerService.Container.GetInstance<ILobbyClockService>();
             _gameOrderSettings = containerService.Container.GetInstance<IGameOrderSettings>();
             _commandFactory = containerService.Container.GetInstance<ICommandHandlerFactory>();
             _gameService = containerService.Container.GetInstance<IGameService>();
@@ -452,6 +456,10 @@
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
+            if (IsLobbyClockEnabled())
+            {
+                LobbyClockViewModel = new LobbyClockViewModel();
+            }
 
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
@@ -1709,6 +1717,8 @@
         public PlayerInfoDisplayMenuViewModel PlayerInfoDisplayMenuViewModel { get; }
 
         public LobbyVolumeViewModel Volume { get; }
+
+        public LobbyClockViewModel LobbyClockViewModel { get; }
 
         public bool IsInOperatorMenu => _operatorMenu.IsShowing;
 
@@ -3017,6 +3027,7 @@
             RaisePropertyChanged(nameof(IsServiceRequested));
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            RaisePropertyChanged(nameof(LobbyClockViewModel));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -3046,6 +3057,10 @@
                     RaisePropertiesChanged();
                     break;
             }
+        }
+        private bool IsLobbyClockEnabled()
+        {
+            return _properties.GetValue(ApplicationConstants.ClockEnabled, false);
         }
 
         private void HandleIdleText()

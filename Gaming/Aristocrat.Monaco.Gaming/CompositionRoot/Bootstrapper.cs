@@ -128,6 +128,7 @@
             container.Register<IProgressiveConfigurationProvider, ProgressiveConfigurationProvider>(Lifestyle.Singleton);
             container.Register<IProgressiveLevelProvider, ProgressiveLevelProvider>(Lifestyle.Singleton);
             container.Register<IProgressiveErrorProvider, ProgressiveErrorProvider>(Lifestyle.Singleton);
+            container.Register<ILobbyClockService, LobbyClockService>(Lifestyle.Singleton);
             container.Register<ISharedSapProvider, SharedSapProvider>(Lifestyle.Singleton);
             container.Register<ILinkedProgressiveProvider, LinkedProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IProgressiveBroadcastTimer, ProgressiveBroadcastTimer>(Lifestyle.Singleton);

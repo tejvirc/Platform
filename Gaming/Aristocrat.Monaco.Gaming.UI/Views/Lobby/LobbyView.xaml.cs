@@ -33,6 +33,7 @@
     using Overlay;
     using Utils;
     using ViewModels;
+    using ViewModels.LobbyClock;
     using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
     using TouchAction = Hardware.Contracts.Touch.TouchAction;
 
@@ -65,7 +66,6 @@
 
         private VirtualButtonDeckOverlayView _vbdOverlay;
         private ButtonDeckSimulatorView _buttonDeckSimulator;
-
         private DisableCountdownWindow _disableCountdownWindow;
         private InfoWindow _infoWindow;
         private OverlayWindow _overlayWindow;

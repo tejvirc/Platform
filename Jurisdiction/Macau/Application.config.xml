@@ -95,5 +95,6 @@ as follows:
     <string>SoftwareChange</string>
     <string>Progressive</string>
   </LogTypesAllowedForDisplay>
+  <Clock Enabled ="true" Flash="true" FlashDuration="500" Format ="12"/>
   <MultiGame DefaultBetAfterSwitch="false" />
 </ApplicationConfiguration>

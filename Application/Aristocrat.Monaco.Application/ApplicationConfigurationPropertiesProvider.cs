@@ -569,10 +569,45 @@
                         false)
                 },
                 {
+                    ApplicationConstants.ClockHideInCombinationTest,
+                    Tuple.Create(
+                        (object)configuration.Clock?.HideInCombinationTest ?? false,
+                        ApplicationConstants.ClockHideInCombinationTest,
+                        false)
+                },
+                {
+                    ApplicationConstants.ClockHideInReplay,
+                    Tuple.Create(
+                        (object)configuration.Clock?.HideInReplay ?? false,
+                        ApplicationConstants.ClockHideInReplay,
+                        false)
+                },
+                {
                     ApplicationConstants.ClockFormat,
                     Tuple.Create(
                         (object)configuration.Clock?.Format ?? 12,
                         ApplicationConstants.ClockFormat,
+                        false)
+                },
+                {
+                    ApplicationConstants.ClockFlash,
+                    Tuple.Create(
+                        (object)configuration.Clock?.Flash ?? false,
+                        ApplicationConstants.ClockFlash,
+                        false)
+                },
+                {
+                    ApplicationConstants.ClockFlashDuration,
+                    Tuple.Create(
+                        (object)configuration.Clock?.FlashDuration ?? 500,
+                        ApplicationConstants.ClockFlashDuration,
+                        false)
+                },
+                {
+                    ApplicationConstants.ClockLocation,
+                    Tuple.Create(
+                        (object)configuration.Clock?.Location ?? "bottomRight",
+                        ApplicationConstants.ClockLocation,
                         false)
                 },
                 {
