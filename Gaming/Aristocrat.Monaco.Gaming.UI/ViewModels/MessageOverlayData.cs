@@ -29,6 +29,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private string _buttonString = string.Empty;
         private bool _isButtonVisible;
         private ICommand _buttonCommand;
+        private bool _gameHandlesHandPayPresentation;
+
+        public bool GameHandlesHandPayPresentation
+        {
+            get => _gameHandlesHandPayPresentation;
+            set => SetProperty(ref _gameHandlesHandPayPresentation, value);
+        }
 
         public string Text
         {
@@ -163,6 +170,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
+        public double FinalOpacity
+        {
+            get => GameHandlesHandPayPresentation ? 0.0 : Opacity;
+        }
+
         public bool IsScalingNeeded => !string.IsNullOrEmpty(_displayImageResourceKey) && DisplayForEvents;
 
 
@@ -206,6 +218,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             DisplayForPopUp = false;
             DisplayImageResourceKey = string.Empty;
             ReplayText = string.Empty;
+            GameHandlesHandPayPresentation = false;
         }
     }
 }
