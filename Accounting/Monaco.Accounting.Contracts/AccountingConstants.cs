@@ -492,6 +492,11 @@
         public const string HandpayPendingExitEnabled = "Handpay.HandpayPendingExitEnabled";
 
         /// <summary>
+        ///     Indicates whether or not handpay receipts are required to be printed before marking a handpay completed
+        /// </summary>
+        public const string HandpayReceiptsRequired = "Handpay.HandpayReceiptsRequired";
+
+        /// <summary>
         ///     Title printed on game win and bonus pay receipts.
         /// </summary>
         public const string TitleJackpotReceipt = "Handpay.TitleJackpotReceipt";
