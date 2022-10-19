@@ -1,21 +1,20 @@
 ﻿namespace Aristocrat.Monaco.Sas.Tests.Consumers
 {
+    using Aristocrat.Monaco.Sas.Contracts.SASProperties;
     using Aristocrat.Sas.Client;
     using Gaming.Contracts;
     using Kernel;
-    using Sas.Consumers;
-    using Sas.Contracts.SASProperties;
-    using Sas.Exceptions;
-    using Test.Common;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Sas.Consumers;
+    using Sas.Exceptions;
+    using Test.Common;
 
     [TestClass]
     public class DenominationSelectedConsumerTests
     {
         private Mock<ISasExceptionHandler> _exceptionHandlerMock;
         private Mock<IPropertiesManager> _propertiesManagerMock;
-
         private DenominationSelectedConsumer _target;
 
         [TestInitialize]
@@ -34,7 +33,7 @@
         public void WhenNewId_SendException()
         {
             _propertiesManagerMock.Setup(p => p.SetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()));
-            _propertiesManagerMock.Setup(p => p.GetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>())).Returns(1);
+            _propertiesManagerMock.Setup(p => p.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(0L);
 
             GameSelectedExceptionBuilder actual = null;
             _exceptionHandlerMock.Setup(m => m.ReportException(It.IsAny<GameSelectedExceptionBuilder>()))
@@ -48,21 +47,19 @@
             _exceptionHandlerMock.Verify(m => m.ReportException(It.IsAny<GameSelectedExceptionBuilder>()));
 
             CollectionAssert.AreEquivalent(new GameSelectedExceptionBuilder(123), actual);
-            _propertiesManagerMock.Verify(m => m.SetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()));
         }
 
         [TestMethod]
         public void WhenSameId_NoException()
         {
-            _propertiesManagerMock.Setup(p => p.SetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()));
-            _propertiesManagerMock.Setup(p => p.GetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>())).Returns(123);
+            _propertiesManagerMock.Setup(p => p.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(0L);
 
             GameSelectedExceptionBuilder actual = null;
             _exceptionHandlerMock.Setup(m => m.ReportException(It.IsAny<GameSelectedExceptionBuilder>()))
                 .Callback((ISasExceptionCollection a) => actual = a as GameSelectedExceptionBuilder)
                 .Verifiable();
 
-            _target.Consume(new DenominationSelectedEvent(123, 10L));
+            _target.Consume(new DenominationSelectedEvent(123, 0L));
 
             Assert.IsNull(actual);
         }
