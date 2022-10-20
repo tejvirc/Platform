@@ -113,12 +113,7 @@
 
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();
-            _overlayManager = new OverlayManager(ViewModel)
-            {
-                MainView = this,
-                TopView = _topView,
-                TopperView = _topperView
-            };
+            _overlayManager = new OverlayManager(ViewModel, this, _topView, _topperView);
             //ViewModel.PropertyChanged += ViewModel_OnPropertyChanged;
 
             // BinkGpuControl can't deal with having its size set by binding to anything other than Root height/width initially (timing issue maybe)
