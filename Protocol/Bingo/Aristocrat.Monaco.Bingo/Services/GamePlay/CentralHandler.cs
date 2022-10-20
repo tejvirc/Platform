@@ -130,6 +130,7 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
         public Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token)
         {
             Logger.Debug($"Received a claim win response with Accepted={claim.Accepted}");
+            token.ThrowIfCancellationRequested();
 
             if (!claim.Accepted)
             {
@@ -156,7 +157,7 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
                 Logger.Debug("Game is active, provide claim win");
             }
 
-            return HandleClaimResults(gewPattern, transactionId);
+            return HandleClaimResults(gewPattern, transactionId, token);
         }
 
         /// <inheritdoc />
@@ -246,7 +247,7 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
             return outcome.WinResults.OrderBy(x => x, DefaultWinResultComparer);
         }
 
-        private async Task<bool> HandleClaimResults(BingoPattern gewPattern, long transactionId)
+        private async Task<bool> HandleClaimResults(BingoPattern gewPattern, long transactionId, CancellationToken token)
         {
             using var source = new CancellationTokenSource();
             _gewCancellationTokenSource = source;
@@ -258,6 +259,7 @@ namespace Aristocrat.Monaco.Bingo.Services.GamePlay
                 var winStrategy = serverSettingsModel?.GameEndingPrize ?? GameEndWinStrategy.BonusCredits;
                 var gameEndWinStrategy = _gewStrategyFactory.Create(winStrategy);
                 var winAmount = gewPattern.WinAmount.CentsToMillicents();
+                token.ThrowIfCancellationRequested();
                 var accepted = await gameEndWinStrategy.ProcessWin(winAmount, source.Token).ConfigureAwait(false);
 
                 lock (_lock)
