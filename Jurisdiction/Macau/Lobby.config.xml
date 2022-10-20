@@ -118,5 +118,4 @@
 	<string>ATI_Blackjack</string>
   </DefaultGameDisplayOrderByThemeId>
   <NonCashCashoutFailureMessageEnabled>true</NonCashCashoutFailureMessageEnabled>
-  <UpiTemplate>MacauUpiTemplate</UpiTemplate>
 </LobbyConfiguration>
