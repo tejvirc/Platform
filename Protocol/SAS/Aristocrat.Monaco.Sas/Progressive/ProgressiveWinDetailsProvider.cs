@@ -16,6 +16,7 @@
     /// <inheritdoc />
     public class ProgressiveWinDetailsProvider : IProgressiveWinDetailsProvider
     {
+        private const long MaxProgressiveAmount = 9_999_9999_99;
         private const int MaxNonProgressiveHits = 30;
         private const int MaxSentCount = 8;
         private const byte Client1 = 0;
@@ -252,7 +253,12 @@
                         break;
                 }
             }
-            var win = new NonSasProgressiveWinData(controllerType, controllerId, levelId, jackpotTransaction.ValueAmount.MillicentsToCents(), level.ResetValue.MillicentsToCents(), level.Overflow.MillicentsToCents());
+
+            var amount = jackpotTransaction.ValueAmount.MillicentsToCents() <= MaxProgressiveAmount
+                ? jackpotTransaction.ValueAmount.MillicentsToCents()
+                : MaxProgressiveAmount;
+            
+            var win = new NonSasProgressiveWinData(controllerType, controllerId, levelId, amount, level.ResetValue.MillicentsToCents(), level.Overflow.MillicentsToCents());
             lock (_nonSasProgressiveLock)
             {
                 if (_host1NonSasReporting)
