@@ -430,15 +430,11 @@
                 displayAndWindow.window.Resources = tmpResource;
             }
 
-<<<<<<< HEAD
             // TODO: This is temporary code which will be removed once SingleWindow is created.
-            if (MainView != null)
+            if (_mainView != null)
             {
-                MainView.Resources = tmpResource;
+                _mainView.Resources = tmpResource;
             }
-=======
-            _mainView.Resources = tmpResource;
->>>>>>> a85fc76b (Change lobby views to private members)
 
             if (_topView != null)
             {
