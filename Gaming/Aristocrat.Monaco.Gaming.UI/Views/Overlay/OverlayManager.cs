@@ -358,15 +358,14 @@
                 window.ResizeMode = ResizeMode.NoResize;
                 window.WindowStyle = WindowStyle.None;
                 window.AllowsTransparency = true;
-                window.Topmost = !_windowed;
+                window.Topmost = true;
                 window.BorderThickness = new Thickness(0.0);
                 window.ShowInTaskbar = _windowed;
             }
 
-            Logger.Debug($"overlay window style is {window.WindowStyle} and allows transparency is {window.AllowsTransparency}");
             window.Show();
 
-            // Arrange again because WPF is shit.
+            // Arrange again after showing because WPF will move things once they are displayed.
             if (_arrangeDisplay)
             {
                 var tl = view.PointToScreen(new Point(0, 0));

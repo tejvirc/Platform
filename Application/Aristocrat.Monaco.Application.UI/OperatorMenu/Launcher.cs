@@ -4,7 +4,10 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     using Monaco.UI.Common;
     using System;
     using System.Reflection;
+    using System.Runtime.InteropServices;
+    using System.Windows.Interop;
     using log4net;
+    using MVVM;
     using Vgt.Client12.Application.OperatorMenu;
     using Views;
 
@@ -78,10 +81,17 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 }
                 else
                 {
+                    _windowLauncher.Show(WindowName, true);
                     Logger.Debug("Attempting to show existing Operator Menu");
-                    var topmost = _properties.GetValue("display", string.Empty) != "windowed";
-                    _windowLauncher.Show(WindowName, topmost);
                 }
+
+                // TODO: This is temporary code that will go away once SingleWindow is done.
+                MvvmHelper.ExecuteOnUI(
+                    () =>
+                    {
+                        _windowLauncher.GetWindow(WindowName).Topmost = false;
+                        _windowLauncher.GetWindow(WindowName).Topmost = true;
+                    });
             }
         }
 
