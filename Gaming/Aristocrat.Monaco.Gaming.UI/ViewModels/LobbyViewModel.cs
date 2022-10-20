@@ -3617,7 +3617,6 @@
         private void CashoutFromPlayerPopUpMenu(object obj)
         {
             Logger.Debug("Cashout Button Pressed from player pop up menu");
-            PlayAudioFile(Sound.Touch);
             PlayerMenuPopupViewModel.IsMenuVisible = false;
             _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Collect));
         }
