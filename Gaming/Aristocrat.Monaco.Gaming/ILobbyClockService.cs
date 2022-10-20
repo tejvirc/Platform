@@ -1,9 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
+    using System;
+
     public interface ILobbyClockService
     {
         public bool FlashingEnabled { get; set; }
-        //public delegate void ShowClockEventHandler(object sender, bool shouldShow);
-        public event LobbyClockService.ShowClockEventHandler Notify;
+
+        public event EventHandler<bool> Notify;
     }
 }
