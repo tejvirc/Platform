@@ -283,6 +283,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
             _eventBus.Subscribe<ConnectedEvent>(this, (_, _) => Disconnected(false));
             _eventBus.Subscribe<ReelConnectedEvent>(this, ReelsConnected);
+            _eventBus.Subscribe<ReelDisconnectedEvent>(this, ReelDisconnected);
             _eventBus.Subscribe<DisconnectedEvent>(this, (_, _) => Disconnected(true));
             _eventBus.Subscribe<EnabledEvent>(this, _ => SetBinary(DisabledKey, false));
             _eventBus.Subscribe<DisabledEvent>(this, _ => HandleDisableEvent());
@@ -393,6 +394,22 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             await TiltReels(true);
             ValidateReelMismatch();
+
+            if (!ReelsShouldTilt)
+            {
+                await HomeReels();
+            }
+        }
+
+        private async Task ReelDisconnected(ReelDisconnectedEvent disconnectedEvent, CancellationToken token)
+        {
+            await TiltReels(true);
+            ValidateReelMismatch();
+
+            if (!ReelsShouldTilt)
+            {
+                await HomeReels();
+            }
         }
 
         private void ValidateReelMismatch()
@@ -460,7 +477,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 guid => IsReelFault(guid) ||
                 guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                 guid == ApplicationConstants.OperatorKeyNotRemovedDisableKey ||
-                guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
                 guid == GamingConstants.ReelsNeedHomingGuid ||
                 guid == GamingConstants.ReelsTiltedGuid);
         }
@@ -469,7 +485,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             var homeReels = disableKeys.All(guid =>
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
-                 guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
                  guid == GamingConstants.ReelsNeedHomingGuid ||
                  guid == GamingConstants.ReelsTiltedGuid);
 
