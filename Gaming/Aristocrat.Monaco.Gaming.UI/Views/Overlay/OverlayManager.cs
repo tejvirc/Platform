@@ -429,9 +429,21 @@
                 displayAndWindow.window.Resources = tmpResource;
             }
 
-            MainView.Resources = tmpResource;
-            TopView.Resources = tmpResource;
-            TopperView.Resources = tmpResource;
+            // TODO: This is temporary code which will be removed once SingleWindow is created.
+            if (MainView != null)
+            {
+                MainView.Resources = tmpResource;
+            }
+
+            if (TopView != null)
+            {
+                TopView.Resources = tmpResource;
+            }
+
+            if (TopperView != null)
+            {
+                TopperView.Resources = tmpResource;
+            }
         }
 
         public void CloseAllOverlays()
