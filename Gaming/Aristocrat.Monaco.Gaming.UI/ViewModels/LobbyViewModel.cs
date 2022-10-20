@@ -1568,6 +1568,14 @@
         public bool IsLobbyVbdVisible => IsInLobby && !IsVbdRenderingDisabled;
 
         /// <summary>
+        ///     Gets or sets a value indicating whether the Message Overlay Dialog is currently fading out
+        /// </summary>
+        public bool IsMessageOverlayDlgFadingOut
+        {
+            set => MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut = value;
+        }
+
+        /// <summary>
         ///     Determines if the Responsible Gaming Info Button is visible.  Value received from config file
         /// </summary>
         public bool IsResponsibleGamingInfoVisible { get; }

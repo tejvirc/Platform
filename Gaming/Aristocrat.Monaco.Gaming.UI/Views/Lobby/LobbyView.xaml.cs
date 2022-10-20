@@ -166,20 +166,8 @@
                 {
                     _topperView.DataContext = value;
                 }
-
-                ////_timeLimitDlg.DataContext = value;
-                ////_msgOverlay.DataContext = value;
             }
         }
-
-        /// <summary>
-        /// Binds miscellaneous properties from the overlay window to its associated lobby viewmodel.
-        /// </summary>
-        //private static void AddOverlayBindings(OverlayWindow view, LobbyViewModel vm)
-        //{
-        //    WpfUtil.Bind(view, OverlayWindow.ReplayNavigationBarHeightProperty, vm, nameof(vm.ReplayNavigationBarHeight), BindingMode.OneWayToSource);
-        //    WpfUtil.Bind(view, OverlayWindow.IsDialogFadingOutProperty, vm.MessageOverlayDisplay.MessageOverlayData, nameof(vm.MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut), BindingMode.OneWayToSource);
-        //}
 
         /// <summary>
         ///     Creates and shows the DisableCountdown window.

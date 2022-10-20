@@ -61,7 +61,7 @@
 
         private void FadeOutStoryboard_OnCompleted(object sender, EventArgs e)
         {
-            //ViewModel.IsMessageOverlayDlgFadingOut = false;
+            ViewModel.IsMessageOverlayDlgFadingOut = false;
         }
 
         /// <summary>
