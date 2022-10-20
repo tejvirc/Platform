@@ -19,6 +19,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Interop;
+    using Application.UI.Views;
     using ViewModels;
 
     public class OverlayManager
@@ -29,6 +30,9 @@
         private readonly ICabinetDetectionService _cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
 
         private LobbyViewModel _viewModel;
+        private LobbyView _mainView;
+        private LobbyTopView _topView;
+        private LobbyTopperView _topperView;
 
         private InfoWindow _infoWindow;
         private OverlayWindow _overlayWindow;
@@ -52,9 +56,12 @@
         private readonly List<ResourceDictionary> _skins = new List<ResourceDictionary>();
         private int _activeSkinIndex;
 
-        public OverlayManager(LobbyViewModel lobbyViewModel)
+        public OverlayManager(LobbyViewModel lobbyViewModel, LobbyView mainView, LobbyTopView topView, LobbyTopperView topperView)
         {
             ViewModel = lobbyViewModel ?? throw new ArgumentNullException(nameof(lobbyViewModel));
+            _mainView = mainView ?? throw new ArgumentNullException(nameof(mainView));
+            _topView = topView;
+            _topperView = topperView;
 
             Logger.Debug("Checking Fullscreen");
             var display = (string)_properties.GetProperty(
@@ -136,12 +143,6 @@
             }
         }
 
-        public LobbyView MainView { get; set; }
-
-        public LobbyTopView TopView { get; set; }
-
-        public LobbyTopperView TopperView { get; set; }
-
         private void InitializeCustomOverlays()
         {
             // NOTE: We create the overlay windows even if a device isn't present, because it may
@@ -197,7 +198,7 @@
                                 _topMediaDisplayWindow =
                                     new LayoutOverlayWindow(ScreenType.Glass) { Title = "Top Media" };
                                 _lobbyWindows.Add((DisplayRole.Top, _topMediaDisplayWindow));
-                                ShowOverlay(_topMediaDisplayWindow, TopView);
+                                ShowOverlay(_topMediaDisplayWindow, _topView);
                             }
 
                             // Insert the control under a gird instead of the canvas, this let the
@@ -252,7 +253,7 @@
                         {
                             _topperMediaDisplayWindow = new LayoutOverlayWindow(ScreenType.Glass) { Title = "Topper Media" };
                             _lobbyWindows.Add((DisplayRole.Topper, _topperMediaDisplayWindow));
-                            ShowOverlay(_topperMediaDisplayWindow, TopperView);
+                            ShowOverlay(_topperMediaDisplayWindow, _topperView);
                         }
 
                         // Insert the control under a grid instead of the canvas, this let the
@@ -333,9 +334,9 @@
         {
             return display switch
             {
-                DisplayRole.Main => MainView,
-                DisplayRole.Top => TopView,
-                DisplayRole.Topper => TopperView,
+                DisplayRole.Main => _mainView,
+                DisplayRole.Top => _topView,
+                DisplayRole.Topper => _topperView,
                 _ => null,
             };
         }
@@ -366,7 +367,7 @@
             Logger.Debug($"overlay window style is {window.WindowStyle} and allows transparency is {window.AllowsTransparency}");
             window.Show();
 
-            // Arrange again because WPF is shit.
+            //Arrange again because WPF is shit.
             if (_arrangeDisplay)
             {
                 var tl = view.PointToScreen(new Point(0, 0));
@@ -392,7 +393,7 @@
                     {
                         _disableCountdownWindow = new DisableCountdownWindow { DataContext = _viewModel };
                         _lobbyWindows.Add((DisplayRole.Main, _disableCountdownWindow));
-                        ShowOverlay(_disableCountdownWindow, MainView);
+                        ShowOverlay(_disableCountdownWindow, _mainView);
                     }
                 });
         }
@@ -429,20 +430,24 @@
                 displayAndWindow.window.Resources = tmpResource;
             }
 
+<<<<<<< HEAD
             // TODO: This is temporary code which will be removed once SingleWindow is created.
             if (MainView != null)
             {
                 MainView.Resources = tmpResource;
             }
+=======
+            _mainView.Resources = tmpResource;
+>>>>>>> a85fc76b (Change lobby views to private members)
 
-            if (TopView != null)
+            if (_topView != null)
             {
-                TopView.Resources = tmpResource;
+                _topView.Resources = tmpResource;
             }
 
-            if (TopperView != null)
+            if (_topperView != null)
             {
-                TopperView.Resources = tmpResource;
+                _topperView.Resources = tmpResource;
             }
         }
 
