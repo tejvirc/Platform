@@ -1436,6 +1436,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 return new GameGridMarginInputs(
                     gameCount,
                     IsTabView,
+                    GameTabInfo.SelectedSubTab?.IsVisible ?? false,
                     DisplayedGameList?.Reverse().Take(rows <= 0 ? 0 : gameCount - ((rows - 1) * cols))
                         .Any(x => x.HasProgressiveLabelDisplay) ?? false,
                     GameControlHeight,

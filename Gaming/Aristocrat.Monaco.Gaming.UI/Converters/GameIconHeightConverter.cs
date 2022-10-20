@@ -36,6 +36,13 @@
                     var size = inputs.GameCount > GameCountSize || inputs.TabView ? SmallIconHeight : LargeIconHeight;
                     double scaleBy = inputs.ScreenHeight / BaseScreenHeight;
                     result = size * scaleBy;
+
+                    if (inputs.GameCount > GameCountSize && inputs.SubTabVisible)
+                    {
+                        // If there are sub tabs, it means we will have less space on the screen
+                        // so we have to reduce the image height a bit
+                        result -= 30;
+                    }
                 }
 
                 return result;

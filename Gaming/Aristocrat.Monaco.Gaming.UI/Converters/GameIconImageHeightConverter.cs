@@ -20,6 +20,12 @@
                     ? inputs.ExtraLargeIconLayout
                         ? inputs.GameIconSize.Height : IconHeight * scaleBy 
                     : double.NaN;
+                if (inputs.GameCount > 8 && inputs.SubTabVisible)
+                {
+                    // If there are sub tabs, it means we will have less space on the screen
+                    // so we have to reduce the image height a bit
+                    size -= 30;
+                }
                 return size;
             }
 
