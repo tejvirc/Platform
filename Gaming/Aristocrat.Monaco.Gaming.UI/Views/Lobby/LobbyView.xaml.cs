@@ -476,7 +476,14 @@
 
         private void OnLanguageChanged(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() => _overlayManager.ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected));
+            var primaryLanguageSelected = ViewModel.IsPrimaryLanguageSelected;
+
+            MvvmHelper.ExecuteOnUI(() =>
+                {
+                    _overlayManager.ChangeLanguageSkin(primaryLanguageSelected);
+                    _overlayManager.ChangeOverlayLanguageSkin(_vbd, primaryLanguageSelected);
+                    _overlayManager.ChangeOverlayLanguageSkin(_vbdOverlay, primaryLanguageSelected);
+                });
         }
 
         private void LobbyRoot_OnMouseDown(object sender, MouseButtonEventArgs e)

@@ -446,6 +446,15 @@
             }
         }
 
+        public void ChangeOverlayLanguageSkin(Window window, bool primaryLanguageSkin)
+        {
+            _activeSkinIndex = primaryLanguageSkin ? 0 : 1;
+
+            var tmpResource = new ResourceDictionary();
+            tmpResource.MergedDictionaries.Add(_skins[_activeSkinIndex]);
+            window.Resources = tmpResource;
+        }
+
         public void CloseAllOverlays()
         {
 
