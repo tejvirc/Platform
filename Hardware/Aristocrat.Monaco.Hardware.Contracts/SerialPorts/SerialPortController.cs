@@ -196,11 +196,11 @@
         }
 
         /// <inheritdoc />
-        public bool FlushInputAndOutput()
+        public void FlushInputAndOutput()
         {
             if (!IsOpen)
             {
-                return false;
+                return;
             }
 
             try
@@ -213,10 +213,7 @@
             catch (IOException e)
             {
                 Logger.Debug($"Exception: {e}");
-                return false;
             }
-
-            return true;
         }
 
         /// <inheritdoc />

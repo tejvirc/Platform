@@ -270,8 +270,10 @@
             // as long as this object exists.  This is how we detect Attached/Detached.
             lock (_lock)
             {
-                return ResetMessageIn();
+                ResetMessageIn();
             }
+            
+            return IsOpen;
         }
 
         /// <inheritdoc/>
@@ -281,8 +283,10 @@
             // as long as this object exists.  This is how we detect Attached/Detached.
             lock (_lock)
             {
-                return ResetMessageIn();
+                ResetMessageIn();
             }
+
+            return IsOpen;
         }
 
         /// <inheritdoc/>
@@ -662,7 +666,7 @@
             return 0;
         }
 
-        protected bool ResetMessageIn(bool flushBuffer = true)
+        protected void ResetMessageIn(bool flushBuffer = true)
         {
             lock (_lock)
             {
@@ -681,10 +685,8 @@
 
                 if (flushBuffer)
                 {
-                    return _physicalLayer?.FlushInputAndOutput() ?? false;
+                    _physicalLayer?.FlushInputAndOutput();
                 }
-
-                return true;
             }
         }
 
