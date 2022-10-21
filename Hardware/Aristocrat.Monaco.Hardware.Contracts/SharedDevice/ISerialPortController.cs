@@ -58,6 +58,6 @@
         /// <summary>
         ///     Flush any remaining bytes in the port's receive buffer.
         /// </summary>
-        void FlushInputAndOutput();
+        bool FlushInputAndOutput();
     }
 }
