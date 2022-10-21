@@ -286,7 +286,7 @@
                 ResetMessageIn();
             }
 
-            return IsOpen;
+            return !IsOpen;
         }
 
         /// <inheritdoc/>
