@@ -81,8 +81,8 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 }
                 else
                 {
-                    _windowLauncher.Show(WindowName, true);
                     Logger.Debug("Attempting to show existing Operator Menu");
+                    _windowLauncher.Show(WindowName, true);
                 }
 
                 // TODO: This is temporary code that will go away once SingleWindow is done.

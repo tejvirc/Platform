@@ -87,10 +87,6 @@
             Logger.Debug("Initializing GUI");
             InitializeComponent();
 
-
-            ////_timeLimitDlg.IsVisibleChanged += OnChildWindowIsVisibleChanged;
-            ////_msgOverlay.IsVisibleChanged += OnChildWindowIsVisibleChanged;
-
             GameBottomWindowCtrl.MouseDown += GameBottomWindowCtrl_MouseDown;
             GameBottomWindowCtrl.MouseUp += GameBottomWindowCtrl_MouseUp;
 
@@ -135,7 +131,8 @@
                 {
                     if (e.IsVisible)
                     {
-                        //ShowOverlayWindow();
+                        // TODO: 
+                        //_overlayManager.
                     }
 
                     SetOverlayWindowTransparent(!e.IsVisible);
@@ -188,15 +185,6 @@
         public void SetOverlayWindowTransparent(bool transparent)
         {
             //_overlayManager.SetOverlayWindowTransparent(transparent);
-        }
-
-        private void OnChildWindowIsVisibleChanged(
-            object sender,
-            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-        {
-            // This is a fix for VLT-1450.  When hiding a child window, the parent window seems to lose
-            // focus and another window comes to the foreground.
-            Activate();
         }
 
         private void GameBottomWindowCtrl_MouseUp(object sender, MouseEventArgs e)
@@ -258,13 +246,6 @@
             ViewModel.LanguageChanged += OnLanguageChanged;
             ViewModel.DisplayChanged += ViewModel_OnDisplayChanged;
 
-            //if (_responsibleGamingWindow != null)
-            //{
-            //    _responsibleGamingWindow.Owner = this;
-            //    _responsibleGamingWindow.IsVisibleChanged += OnChildWindowIsVisibleChanged;
-            //    SetStylusSettings(_responsibleGamingWindow);
-            //}
-
             _windowToScreenMapper.MapWindow(this);
 
             ShowTitleBar = !_windowToScreenMapper.IsFullscreen;
@@ -296,7 +277,7 @@
                 simulateVirtualButtonDeck.ToUpperInvariant() != Constants.True,
                 $"{nameof(simulateLcdButtonDeck)} and {nameof(simulateVirtualButtonDeck)} are mutually exclusive.");
 
-            if (HostMachineIsNotAnEGM())
+            if (HostMachineHasVbd())
             {
                 LoadVbd();
             }
@@ -318,7 +299,7 @@
 
             ShowWithTouch(_testToolView);
 
-            _overlayManager.ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected);
+            OnLanguageChanged(null, null);
 
             ViewModel.OnLoaded();
 
@@ -334,7 +315,7 @@
             _overlayManager.ShowAndPositionOverlays();
         }
 
-        private bool HostMachineIsNotAnEGM()
+        private bool HostMachineHasVbd()
         {
             var ioService = ServiceManager.GetInstance().TryGetService<IIO>();  // used to check for laptop usage
             if (HardwareHelpers.CheckForVirtualButtonDeckHardware() || ioService?.LogicalState == IOLogicalState.Disabled)
@@ -368,9 +349,6 @@
             //Dispatcher?.Invoke(() =>
             //{
             //    _windowToScreenMapper.MapWindow(this);
-            //    _windowToScreenMapper.MapWindow(_mediaDisplayWindow);
-            //    _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
-            //    _windowToScreenMapper.MapWindow(_overlayWindow);
             //});
 
             MvvmHelper.ExecuteOnUI(
@@ -415,20 +393,6 @@
             _topperView?.Close();
 
             _overlayManager.CloseAllOverlays();
-
-            /*
-            if (_timeLimitDlg != null)
-            {
-                _timeLimitDlg.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
-                _timeLimitDlg.Close();
-            }
-      
-            if (_msgOverlay != null)
-            {
-                _msgOverlay.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
-                _msgOverlay.Close();
-            }
-            */
 
             Logger.Debug("Closing VirtualButtonDeckView");
             _vbd?.Close();

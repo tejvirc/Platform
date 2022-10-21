@@ -417,12 +417,6 @@
                 });
         }
 
-        public void SetOverlayWindowTransparent(bool transparent)
-        {
-            var hWnd = new WindowInteropHelper(_overlayWindow).Handle;
-            WindowsServices.SetWindowExTransparent(hWnd, transparent);
-        }
-
         public void ChangeLanguageSkin(bool primaryLanguageSkin)
         {
             _activeSkinIndex = primaryLanguageSkin ? 0 : 1;

@@ -28,5 +28,11 @@
             get => DataContext as InfoOverlayViewModel;
             set => DataContext = value;
         }
+
+        private void OnClosed(object sender, EventArgs e)
+        {
+            ViewModel?.Dispose();
+            ViewModel = null;
+        }
     }
 }
