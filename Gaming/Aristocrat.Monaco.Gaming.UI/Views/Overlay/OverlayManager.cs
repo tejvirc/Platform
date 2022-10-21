@@ -341,7 +341,7 @@
             };
         }
 
-        private void ShowOverlay(Window window, MetroWindow view)
+        private void ShowOverlay(Window window, MetroWindow view, bool withTouch = true)
         {
             if (_arrangeDisplay)
             {
@@ -366,6 +366,11 @@
 
             window.Show();
 
+            if (withTouch)
+            {
+                WpfWindowLauncher.DisableStylus(window);
+            }
+ 
             // Arrange again after showing because WPF will move things once they are displayed.
             if (_arrangeDisplay)
             {
