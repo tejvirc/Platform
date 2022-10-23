@@ -18,4 +18,3 @@
             Height="{Binding ElementName=Root, Path=ActualHeight}"
             Background="{x:Null}"/>
 </common:BaseWindow>
-
