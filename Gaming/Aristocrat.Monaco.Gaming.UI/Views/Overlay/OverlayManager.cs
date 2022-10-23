@@ -308,7 +308,6 @@
             _vbdView = vbdView;
             _vbdOverlay = new VirtualButtonDeckOverlayView() { ViewModel = _viewModel };
             _lobbyWindows.Add((DisplayRole.VBD, _vbdOverlay));
-            //ShowOverlay(_vbdOverlay, GetViewForDisplay(DisplayRole.VBD)); TODO: remove if working
         }
 
         private void ViewInjectionEventHandler(ViewInjectionEvent ev)

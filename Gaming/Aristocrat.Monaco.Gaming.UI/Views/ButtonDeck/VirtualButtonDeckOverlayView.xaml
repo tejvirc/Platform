@@ -44,5 +44,7 @@
                         Content="{Binding}"
                         ContentTemplateSelector="{StaticResource VbdViewOverlaySelector}">
         </ContentControl>
+
+        <Label Background="Cyan" Foreground="Magenta" FontSize="72" Width="200" Height="90">GARY</Label>
     </Grid>
 </Window>
