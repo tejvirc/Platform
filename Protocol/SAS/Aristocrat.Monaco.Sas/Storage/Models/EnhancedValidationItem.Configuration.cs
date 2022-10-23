@@ -1,20 +1,21 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for <see cref="EnhancedValidationItem"/>
     /// </summary>
-    public class EnhancedValidationItemConfiguration : EntityTypeConfiguration<EnhancedValidationItem>
+    public class EnhancedValidationItemConfiguration : IEntityTypeConfiguration<EnhancedValidationItem>
     {
         /// <summary>
         ///     Creates an instance of <see cref="EnhancedValidationItemConfiguration"/>
         /// </summary>
-        public EnhancedValidationItemConfiguration()
+        public void Configure(EntityTypeBuilder<EnhancedValidationItem> builder)
         {
-            ToTable(nameof(EnhancedValidationItem));
-            HasKey(x => x.Id);
-            Property(x => x.EnhancedValidationDataLog);
+            builder.ToTable(nameof(EnhancedValidationItem));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.EnhancedValidationDataLog);
         }
     }
 }

@@ -37,7 +37,7 @@
         {
             var result = _installerService.UninstallSoftwarePackage(parameter.ModuleEntity.PackageId);
 
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 var module = _moduleRepository.GetModuleByModuleId(context, parameter.ModuleEntity.ModuleId);
                 _moduleRepository.Delete(context, module);

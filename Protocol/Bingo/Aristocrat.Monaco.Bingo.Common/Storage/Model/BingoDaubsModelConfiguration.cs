@@ -1,20 +1,21 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The <see cref="BingoDaubsModel"/> configuration for persistence
     /// </summary>
-    public class BingoDaubsModelConfiguration : EntityTypeConfiguration<BingoDaubsModel>
+    public class BingoDaubsModelConfiguration : IEntityTypeConfiguration<BingoDaubsModel>
     {
         /// <summary>
         ///     Creates an instance of <see cref="BingoDaubsModelConfiguration"/>
         /// </summary>
-        public BingoDaubsModelConfiguration()
+        public void Configure(EntityTypeBuilder<BingoDaubsModel> builder)
         {
-            ToTable(nameof(BingoDaubsModel));
-            HasKey(x => x.Id);
-            Property(x => x.CardIsDaubed).IsRequired();
+            builder.ToTable(nameof(BingoDaubsModel));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.CardIsDaubed).IsRequired();
         }
     }
 }

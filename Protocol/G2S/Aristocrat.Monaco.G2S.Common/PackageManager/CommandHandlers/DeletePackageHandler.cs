@@ -8,7 +8,7 @@
     using Storage;
     using Data.Model;
     using Data.Packages;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     ///     Delete package command handler implementation.
@@ -47,7 +47,7 @@
         /// <inheritdoc />
         public void Execute(DeletePackageArgs parameter)
         {
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 if (parameter == null)
                 {

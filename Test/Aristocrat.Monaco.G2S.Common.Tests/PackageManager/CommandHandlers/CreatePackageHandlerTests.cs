@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Tests.PackageManager.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
-        using Common.PackageManager.CommandHandlers;
+    using Microsoft.EntityFrameworkCore;
+    using Common.PackageManager.CommandHandlers;
     using Common.PackageManager.Storage;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

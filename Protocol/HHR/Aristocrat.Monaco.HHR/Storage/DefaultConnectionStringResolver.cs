@@ -38,8 +38,7 @@
 
             var sqlBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, DatabaseFileName),
-                Password = DatabasePassword
+                DataSource = Path.Combine(path, DatabaseFileName)
             };
 
             _connectionString = sqlBuilder.ConnectionString;

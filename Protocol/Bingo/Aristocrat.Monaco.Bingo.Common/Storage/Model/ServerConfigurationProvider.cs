@@ -16,7 +16,7 @@
 
         public BingoServerSettingsModel GetServerConfiguration()
         {
-            using (var context = _factory.Create())
+            using (var context = _factory.CreateDbContext())
             {
                 return _model.GetSingle(context) ?? new BingoServerSettingsModel();
             }

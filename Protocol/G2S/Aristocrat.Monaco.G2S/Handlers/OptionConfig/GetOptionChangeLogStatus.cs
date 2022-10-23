@@ -41,7 +41,7 @@
         {
             var response = command.GenerateResponse<optionChangeLogStatus>();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 response.Command.totalEntries = _repository.Count(context);
                 response.Command.lastSequence = response.Command.totalEntries > 0

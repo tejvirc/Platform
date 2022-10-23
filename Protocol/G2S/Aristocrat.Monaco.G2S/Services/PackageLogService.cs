@@ -45,7 +45,7 @@
         {
             get
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     return _packageLogs.Count(context);
                 }
@@ -57,7 +57,7 @@
         {
             get
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     return _packageLogs.GetAll(context).Max(x => (long?)x.Id) ?? 0;
                 }
@@ -67,7 +67,7 @@
         /// <inheritdoc />
         public IEnumerable<PackageLog> GetLogs()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _packageLogs.GetAll(context).ToList();
             }

@@ -1,46 +1,119 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity;
-    using System.Data.SQLite;
-    using Common.Storage;
+    using System.Reflection;
+    using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
 
     /// <summary>
     ///     The Sas database context
     /// </summary>
-    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public class SasContext : DbContext
     {
+        private readonly string _connectionString;
+
         /// <summary>
         ///     Creates an instance of <see cref="SasContext"/>
         /// </summary>
         /// <param name="connectionStringResolver">An instance of <see cref="IConnectionStringResolver"/></param>
-        public SasContext(
-            IConnectionStringResolver connectionStringResolver)
-            : base(new SQLiteConnection(connectionStringResolver.Resolve()), true)
+        public SasContext(IConnectionStringResolver connectionStringResolver)
         {
-            Configuration.LazyLoadingEnabled = false;
-            Configuration.ProxyCreationEnabled = false;
+            _connectionString = connectionStringResolver.Resolve();
+            Database.EnsureCreated();
         }
 
-        /// <inheritdoc />
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        /// <summary>
+        ///     Gets a set of AftHistoryItems.
+        /// </summary>
+        public DbSet<AftHistoryItem> AftHistoryItem { get; set; }
+
+        /// <summary>
+        ///     Gets a set of AftRegistration.
+        /// </summary>
+        public DbSet<AftRegistration> AftRegistration { get; set; }
+
+        /// <summary>
+        ///     Gets a set of AftRegistration.
+        /// </summary>
+        public DbSet<AftTransferOptions> AftTransferOptions { get; set; }
+        /// <summary>
+        ///     Gets a set of EnhancedValidationItem.
+        /// </summary>
+        public DbSet<EnhancedValidationItem> EnhancedValidationItem { get; set; }
+        /// <summary>
+        ///     Gets a set of ExceptionQueue.
+        /// </summary>
+        public DbSet<ExceptionQueue> ExceptionQueue { get; set; }
+
+        /// <summary>
+        ///     Gets a set of HandpayReportData.
+        /// </summary>
+        public DbSet<HandpayReportData> HandpayReportData { get; set; }
+        /// <summary>
+        ///     Gets a set of Host.
+        /// </summary>
+        public DbSet<Host> Host { get; set; }
+
+        /// <summary>
+        ///     Gets a set of PortAssignment.
+        /// </summary>
+        public DbSet<PortAssignment> PortAssignment { get; set; }
+
+        /// <summary>
+        ///     Gets a set of SasDisableInformation.
+        /// </summary>
+        public DbSet<SasDisableInformation> SasDisableInformation { get; set; }
+
+        /// <summary>
+        ///     Gets a set of SasFeatures.
+        /// </summary>
+        public DbSet<Contracts.SASProperties.SasFeatures> SasFeatures { get; set; }
+        /// <summary>
+        ///     Gets a set of SasNoteAcceptorDisableInformation.
+        /// </summary>
+        public DbSet<SasNoteAcceptorDisableInformation> SasNoteAcceptorDisableInformation { get; set; }
+        /// <summary>
+        ///     Gets a set of TicketStorageData.
+        /// </summary>
+        public DbSet<TicketStorageData> TicketStorageData { get; set; }
+        /// <summary>
+        ///     Gets a set of ValidationInformation.
+        /// </summary>
+        public DbSet<ValidationInformation> ValidationInformation { get; set; }
+
+        /// <summary>
+        ///     override method
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(_connectionString, options =>
+            {
+                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+            });
+
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        /// <summary>
+        ///     override method
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.Add(new AftHistoryItemConfiguration());
-            modelBuilder.Configurations.Add(new ValidationInformationConfiguration());
-            modelBuilder.Configurations.Add(new TicketStorageDataConfiguration());
-            modelBuilder.Configurations.Add(new AftTransferOptionsConfiguration());
-            modelBuilder.Configurations.Add(new HostConfiguration());
-            modelBuilder.Configurations.Add(new PortAssignmentConfiguration());
-            modelBuilder.Configurations.Add(new ExceptionQueueConfiguration());
-            modelBuilder.Configurations.Add(new HandpayReportDataConfiguration());
-            modelBuilder.Configurations.Add(new SasDisableInformationConfiguration());
-            modelBuilder.Configurations.Add(new SasNoteAcceptorDisableInformationConfiguration());
-            modelBuilder.Configurations.Add(new SasFeaturesConfiguration());
-            modelBuilder.Configurations.Add(new AftRegistrationConfiguration());
-            modelBuilder.Configurations.Add(new EnhancedValidationItemConfiguration());
-            Database.SetInitializer(new SasContextInitializer(modelBuilder));
+            modelBuilder.ApplyConfiguration(new AftHistoryItemConfiguration());
+            modelBuilder.ApplyConfiguration(new AftRegistrationConfiguration());
+            modelBuilder.ApplyConfiguration(new AftTransferOptionsConfiguration());
+            modelBuilder.ApplyConfiguration(new EnhancedValidationItemConfiguration());
+            modelBuilder.ApplyConfiguration(new ExceptionQueueConfiguration());
+            modelBuilder.ApplyConfiguration(new HandpayReportDataConfiguration());
+            modelBuilder.ApplyConfiguration(new HostConfiguration());
+            modelBuilder.ApplyConfiguration(new PortAssignmentConfiguration());
+            modelBuilder.ApplyConfiguration(new SasDisableInformationConfiguration());
+            modelBuilder.ApplyConfiguration(new SasFeaturesConfiguration());
+            modelBuilder.ApplyConfiguration(new SasNoteAcceptorDisableInformationConfiguration());
+            modelBuilder.ApplyConfiguration(new TicketStorageDataConfiguration());
+            modelBuilder.ApplyConfiguration(new ValidationInformationConfiguration());
         }
     }
 }

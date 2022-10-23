@@ -1,43 +1,45 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using CommConfig;
+    using System.Reflection.Emit;
 
     /// <summary>
     ///     Configuration for the <see cref="CommHostConfigDevice" /> entity
     /// </summary>
-    public class CommHostConfigDeviceMap : EntityTypeConfiguration<CommHostConfigDevice>
+    public class CommHostConfigDeviceMap : IEntityTypeConfiguration<CommHostConfigDevice>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CommHostConfigDeviceMap" /> class.
         /// </summary>
-        public CommHostConfigDeviceMap()
+        public void Configure(EntityTypeBuilder<CommHostConfigDevice> builder)
         {
-            ToTable("CommHostConfigDevice");
+            builder.ToTable(nameof(CommHostConfigDevice));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.DeviceType)
+            builder.Property(t => t.DeviceType)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.DeviceClass)
+            builder.Property(t => t.DeviceClass)
                 .IsRequired();
 
-            Property(t => t.IsDeviceActive)
+            builder.Property(t => t.IsDeviceActive)
                 .IsRequired();
 
-            Property(t => t.CanModActiveRemote)
+            builder.Property(t => t.CanModActiveRemote)
                 .IsRequired();
 
-            Property(t => t.CanModOwnerRemote)
+            builder.Property(t => t.CanModOwnerRemote)
                 .IsRequired();
 
-            Property(t => t.CanModConfigRemote)
-                .IsRequired();
+            builder.Property(t => t.CanModConfigRemote)
+            .IsRequired();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Tests.PackageManager.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.IO;
     using System.Threading;
     using Common.PackageManager.CommandHandlers;

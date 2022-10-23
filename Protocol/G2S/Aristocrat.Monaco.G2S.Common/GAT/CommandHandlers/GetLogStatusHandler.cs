@@ -34,7 +34,7 @@
         /// <returns>GAT log</returns>
         public GetLogStatusResult Execute()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var verificationRequestsCount = _verificationRequestRepository.Count(context);
                 var maxLastSequence = verificationRequestsCount != 0

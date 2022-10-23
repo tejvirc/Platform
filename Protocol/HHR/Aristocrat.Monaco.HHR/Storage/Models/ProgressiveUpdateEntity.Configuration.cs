@@ -1,20 +1,20 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Configuration for the <see cref="ProgressiveUpdateEntity" /> entity
     /// </summary>
-    public class ProgressiveUpdateEntityConfiguration : EntityTypeConfiguration<ProgressiveUpdateEntity>
+    public class ProgressiveUpdateEntityConfiguration : IEntityTypeConfiguration<ProgressiveUpdateEntity>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveUpdateEntityConfiguration"/> class.
         /// </summary>
-        public ProgressiveUpdateEntityConfiguration()
+        public void Configure(EntityTypeBuilder<ProgressiveUpdateEntity> builder)
         {
-            ToTable(nameof(ProgressiveUpdateEntity));
-
-            HasKey(t => t.Id);
+            builder.ToTable(nameof(ProgressiveUpdateEntity));
+            builder.HasKey(t => t.Id);
         }
     }
 }

@@ -69,7 +69,7 @@
                 Register(ComponentType.Module, runtimePackages.Path, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RuntimePackageDescription));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var modules = _moduleRepository.GetAll(context).ToList();
 

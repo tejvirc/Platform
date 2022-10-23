@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.Common;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Storage;
     using Monaco.Common.Storage;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
@@ -20,7 +20,7 @@
 
         private Scope _scope;
         private DbContext _context;
-        private DbTransaction _transaction;
+        private IDbContextTransaction _transaction;
 
         private bool _disposed;
 
@@ -67,9 +67,9 @@
         /// <inheritdoc />
         public int? CommandTimeout
         {
-            get => _context.Database.CommandTimeout;
+            get => _context.Database.GetCommandTimeout();
 
-            set => _context.Database.CommandTimeout = value;
+            set => _context.Database.SetCommandTimeout(value);
         }
 
         /// <inheritdoc />
@@ -78,12 +78,12 @@
         /// <inheritdoc />
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
         {
-            if (_context.Database.Connection.State != ConnectionState.Open)
+            if (_context.Database.GetDbConnection().State != ConnectionState.Open)
             {
-                _context.Database.Connection.Open();
+                _context.Database.GetDbConnection().Open();
             }
 
-            _transaction = _context.Database.BeginTransaction(isolationLevel).UnderlyingTransaction;
+            _transaction = _context.Database.BeginTransaction(isolationLevel);
         }
 
         /// <inheritdoc />

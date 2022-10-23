@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.GAT.Storage
 {
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using Monaco.Common.Storage;
 

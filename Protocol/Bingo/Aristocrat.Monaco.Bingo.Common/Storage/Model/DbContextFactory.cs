@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Threading;
     using Kernel;
     using Monaco.Common.Storage;
@@ -31,7 +31,7 @@
             GC.SuppressFinalize(this);
         }
 
-        public DbContext Create()
+        public DbContext CreateDbContext()
         {
             _exclusiveLock.Wait();
             return new BingoContext(_connectionStringResolver);

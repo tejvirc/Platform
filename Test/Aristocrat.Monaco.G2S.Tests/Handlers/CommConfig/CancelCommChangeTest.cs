@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers.CommConfig
 {
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Threading.Tasks;
     using Aristocrat.G2S;

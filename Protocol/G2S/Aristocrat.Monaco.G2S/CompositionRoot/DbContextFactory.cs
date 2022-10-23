@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Data.SqlClient;
     using System.IO;
     using System.Threading;
@@ -39,7 +39,7 @@
                 throw new ArgumentNullException(nameof(pathMapper));
             }
 
-            _connectionString = ConnectionString(pathMapper, Constants.DatabasePassword);
+            _connectionString = ConnectionString(pathMapper);
         }
 
         /// <inheritdoc />
@@ -50,10 +50,9 @@
         }
 
         /// <inheritdoc />
-        public DbContext Create()
+        public DbContext CreateDbContext()
         {
             _exclusiveLock.Wait();
-
             return new MonacoContext(_connectionString);
         }
 
@@ -106,15 +105,16 @@
             _disposed = true;
         }
 
-        private static string ConnectionString(IPathMapper pathMapper, string password)
+        private static string ConnectionString(IPathMapper pathMapper)
         {
             var dir = pathMapper.GetDirectory(Constants.DataPath);
             var path = Path.GetFullPath(dir.FullName);
 
+            
+
             var sqlBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, Constants.DatabaseFileName),
-                Password = password
+                DataSource = Path.Combine(path, Constants.DatabaseFileName)
             };
 
             return sqlBuilder.ConnectionString;

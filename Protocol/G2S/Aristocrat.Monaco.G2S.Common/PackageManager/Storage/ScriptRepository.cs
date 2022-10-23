@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.PackageManager.Storage
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using Monaco.Common.Storage;
 

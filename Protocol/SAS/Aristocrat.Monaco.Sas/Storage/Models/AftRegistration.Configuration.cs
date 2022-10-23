@@ -1,25 +1,26 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The configuration for the Aft Registration table
     /// </summary>
-    public class AftRegistrationConfiguration : EntityTypeConfiguration<AftRegistration>
+    public class AftRegistrationConfiguration : IEntityTypeConfiguration<AftRegistration>
     {
         /// <summary>
         ///     Creates an instance of <see cref="AftRegistrationConfiguration"/>
         /// </summary>
-        public AftRegistrationConfiguration()
+        public void Configure(EntityTypeBuilder<AftRegistration> builder)
         {
-            ToTable(nameof(AftRegistration));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(AftRegistration));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.RegistrationStatus)
+            builder.Property(x => x.RegistrationStatus)
                 .IsRequired();
-            Property(x => x.PosId)
+            builder.Property(x => x.PosId)
                 .IsRequired();
-            Property(x => x.AftRegistrationKey)
+            builder.Property(x => x.AftRegistrationKey)
                 .IsRequired()
                 .IsFixedLength();
         }

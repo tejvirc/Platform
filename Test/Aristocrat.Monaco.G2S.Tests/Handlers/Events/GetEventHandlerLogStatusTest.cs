@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers.Events
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
@@ -96,8 +95,8 @@
             var contextFactory = EventsUtiliites.CreateMonacoContextFactory();
             var repo = new Mock<IEventHandlerLogRepository>();
 
-            repo.Setup(a => a.Count(contextFactory.Create())).Returns(0);
-            repo.Setup(a => a.GetMaxLastSequence<EventHandlerLog>(contextFactory.Create())).Returns(0);
+            repo.Setup(a => a.Count(contextFactory.CreateDbContext())).Returns(0);
+            repo.Setup(a => a.GetMaxLastSequence<EventHandlerLog>(contextFactory.CreateDbContext())).Returns(0);
 
             queue.SetupGet(q => q.TimeToLiveBehavior).Returns(TimeToLiveBehavior.Strict);
             eventDevice.SetupGet(evt => evt.Queue).Returns(queue.Object);
@@ -128,8 +127,8 @@
             var contextFactory = EventsUtiliites.CreateMonacoContextFactory();
             var repo = new Mock<IEventHandlerLogRepository>();
 
-            repo.Setup(a => a.Count(contextFactory.Create(), It.IsAny<Expression<Func<EventHandlerLog, bool>>>())).Returns(1);
-            repo.Setup(a => a.GetMaxLastSequence<EventHandlerLog>(contextFactory.Create(), It.IsAny<Expression<Func<EventHandlerLog, bool>>>())).Returns(1);
+            repo.Setup(a => a.Count(contextFactory.CreateDbContext(), It.IsAny<Expression<Func<EventHandlerLog, bool>>>())).Returns(1);
+            repo.Setup(a => a.GetMaxLastSequence<EventHandlerLog>(contextFactory.CreateDbContext(), It.IsAny<Expression<Func<EventHandlerLog, bool>>>())).Returns(1);
 
             var queue = new Mock<ICommandQueue>();
 

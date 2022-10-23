@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Threading;
     using Common.Storage;
     using Kernel;
@@ -36,7 +36,7 @@
         }
 
         /// <inheritdoc />
-        public DbContext Create()
+        public DbContext CreateDbContext()
         {
             _exclusiveLock.Wait();
             return new SasContext(_connectionStringResolver);

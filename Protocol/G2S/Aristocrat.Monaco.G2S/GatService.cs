@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Reflection;
     using Application.Contracts;
@@ -100,7 +100,7 @@
         /// <inheritdoc />
         public bool HasVerificationId(long verificationId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _gatVerificationRequestRepository.GetByVerificationId(context, verificationId) != null;
             }
@@ -109,7 +109,7 @@
         /// <inheritdoc />
         public bool HasTransactionId(long transactionId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _gatVerificationRequestRepository.GetByTransactionId(context, transactionId) != null;
             }
@@ -118,7 +118,7 @@
         /// <inheritdoc />
         public GatVerificationRequest GetVerificationRequestById(long verificationId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _gatVerificationRequestRepository.GetByVerificationId(context, verificationId);
             }
@@ -208,7 +208,7 @@
         /// <inheritdoc />
         public GatVerificationRequest GetLogForTransactionId(long transactionId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _gatVerificationRequestRepository.GetByTransactionId(context, transactionId);
             }
@@ -237,7 +237,7 @@
         /// <inheritdoc />
         public GatComponentVerification GetGatComponentVerificationEntity(string componentId, long verificationId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var request = _gatVerificationRequestRepository.GetByVerificationId(context, verificationId);
 
@@ -251,7 +251,7 @@
         /// <inheritdoc />
         public void UpdateGatComponentVerificationEntity(GatComponentVerification entity)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 _gatComponentVerificationRepository.Update(context, entity);
             }
@@ -293,7 +293,7 @@
 
             try
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     results = _gatVerificationRequestRepository.GetAll(context).Include(a => a.ComponentVerifications).ToList();
                 }
@@ -325,7 +325,7 @@
                         UpdateGatComponentVerificationEntity(req);
                     }
 
-                    using (var context = _contextFactory.Create())
+                    using (var context = _contextFactory.CreateDbContext())
                     {
                         _gatVerificationRequestRepository.Update(context, result);
                     }
@@ -347,7 +347,7 @@
         {
             GatVerificationRequest log;
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 log = _gatVerificationRequestRepository.GetByTransactionId(context, transactionId);
             }

@@ -49,7 +49,7 @@
                 throw new ArgumentException(nameof(command.scriptId));
             }
 
-            var script = _repository.GetScriptByScriptId(_contextFactory.Create(), command.scriptId);
+            var script = _repository.GetScriptByScriptId(_contextFactory.CreateDbContext(), command.scriptId);
             if (script != null)
             {
                 command.scriptId = script.ScriptId;

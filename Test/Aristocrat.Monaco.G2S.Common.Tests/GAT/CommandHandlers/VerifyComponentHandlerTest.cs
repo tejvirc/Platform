@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Tests.GAT.CommandHandlers
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Threading;
     using Application.Contracts.Authentication;
     using Common.GAT.CommandHandlers;

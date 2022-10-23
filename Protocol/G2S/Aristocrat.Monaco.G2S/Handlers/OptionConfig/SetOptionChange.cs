@@ -186,7 +186,7 @@
 
         private OptionChangeLog AddNewChangeLog(int deviceId, setOptionChange command)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var optionChangeLog = Mapper.Map<setOptionChange, OptionChangeLog>(command);
                 optionChangeLog.DeviceId = deviceId;

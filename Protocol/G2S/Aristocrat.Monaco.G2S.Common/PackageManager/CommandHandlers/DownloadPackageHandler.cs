@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.IO;
     using System.Reflection;
     using System.Text;
@@ -89,7 +89,7 @@
                 throw new ArgumentNullException(nameof(parameter.ChangeStatusCallback));
             }
 
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 var packageEntity = parameter.PackageLogEntity;
 
@@ -201,7 +201,7 @@
             transferEntity.State = TransferState.Failed;
             var errorCode = transferEntity.Exception == 0 ? 7 : transferEntity.Exception;
             transferEntity.Exception = errorCode;
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 _transferRepository.Update(context, transferEntity);
             }

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Monaco.Common.CommandHandlers;
     using Monaco.Common.Storage;
     using Protocol.Common.Installer;
@@ -48,7 +48,7 @@
                 throw new ArgumentNullException(nameof(parameter.PackageLogEntity));
             }
 
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 var result = _installerService.BundleSoftwarePackage(parameter.ModuleEntity.PackageId, parameter.Overwrite, parameter.Format);
 

@@ -61,7 +61,7 @@
 
             var temp = _pathMapper.GetDirectory(TemporaryDirectoryPath);
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var packages = _packageRepository.GetAll(context).ToList();
 

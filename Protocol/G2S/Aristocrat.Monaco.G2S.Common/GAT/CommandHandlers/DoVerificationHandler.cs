@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Threading.Tasks;
     using Application.Contracts;
@@ -66,7 +66,7 @@
         {
             _parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 if (_parameter.VerificationId != 0)
                 {
@@ -217,7 +217,7 @@
 
         private void VerificationComplete(long requestId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var gatVerificationRequest = _verificationRequestRepository.Get(context, requestId);
                 if (gatVerificationRequest != null)

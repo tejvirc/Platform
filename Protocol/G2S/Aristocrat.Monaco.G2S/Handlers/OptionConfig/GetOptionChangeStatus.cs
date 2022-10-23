@@ -34,7 +34,7 @@
             // If the transactionId included in the getOptionChangeStatus command references a change request that is
             // not associated with the device identified in the class-level element of the command,
             // the EGM SHOULD include error code G2S_OCX005 Invalid Transaction Identifier in its response
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var optionChangeLog = _changeLogRepository.GetByTransactionId(context, command.Command.transactionId);
 

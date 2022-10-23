@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Common.Storage
 {
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     ///     Provides a mechanism to create a Monaco DB Context

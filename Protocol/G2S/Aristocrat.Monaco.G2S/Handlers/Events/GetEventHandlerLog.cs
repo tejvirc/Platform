@@ -57,7 +57,7 @@
 
                 var response = command.GenerateResponse<eventHandlerLogList>();
 
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     var logEntries = _repository.Get(context, l => l.HostId == command.HostId);
                     response.Command.eventHandlerLog = logEntries.AsEnumerable()

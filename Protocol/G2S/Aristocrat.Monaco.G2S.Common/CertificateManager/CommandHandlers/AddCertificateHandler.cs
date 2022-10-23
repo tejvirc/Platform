@@ -52,7 +52,7 @@
                 throw new ArgumentNullException(nameof(parameter));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var existing = _certificateRepository.Get(context, c => c.Thumbprint == parameter.Thumbprint)
                     .FirstOrDefault();
@@ -91,7 +91,7 @@
                 return null;
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 _certificateRepository.Add(context, certificate);
             }

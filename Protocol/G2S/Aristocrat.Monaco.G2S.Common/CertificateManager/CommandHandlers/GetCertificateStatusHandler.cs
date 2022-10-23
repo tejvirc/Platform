@@ -64,7 +64,7 @@
                     : GetCertificateStatus(_certificate);
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var currentCertificate = _certificateRepository.Get(context, c => c.Default).SingleOrDefault();
                 if (currentCertificate == null)
@@ -120,7 +120,7 @@
 
         private GetCertificateStatusResult UpdateStatus(Certificate certificate)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var result = GetCertificateStatus(certificate);
 
@@ -132,7 +132,7 @@
 
         private GetCertificateStatusResult GetCertificateStatus(Certificate certificate)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var configuration = _certificateConfigurationRepository.GetSingle(context);
 

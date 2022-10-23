@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Linq.Expressions;
     using Application.Contracts;
@@ -67,7 +67,7 @@
             var supportedEvents = new List<SupportedEvent> { supportedEvent };
             var eventSubscriptions = new List<EventSubscription> { eventSubscription, forcedSubscription };
 
-            _contextFactoryMock.Setup(a => a.Create()).Returns(new DbContext("TestConnection"));
+            _contextFactoryMock.Setup(a => a.CreateDbContext()).Returns(new MonacoContext("TestConnection"));
             _eventHandlerLogRepoMock.Setup(a => a.Get(It.IsAny<DbContext>(), 1, 1))
                 .Returns(log);
             _supportedEventsRepoMock.Setup(a => a.Get(It.IsAny<DbContext>(), EventCode.G2S_APE001, 1))
@@ -190,7 +190,7 @@
                 _supportedEventsRepoMock.Object,
                 _idProvider.Object);
             eventPersistence.RemoveSupportedEvents(1, EventCode.G2S_APE001);
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _supportedEventsRepoMock.Verify(a => a.Delete(It.IsAny<DbContext>(), EventCode.G2S_APE001, 1));
         }
 
@@ -204,7 +204,7 @@
                 _supportedEventsRepoMock.Object,
                 _idProvider.Object);
             eventPersistence.AddDefaultEvents(1);
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _eventSubscriptionRepoMock.Verify(
                 a => a.Get(It.IsAny<DbContext>(), It.IsAny<string>(), 1, 1, EventSubscriptionType.Permanent));
             _eventSubscriptionRepoMock.Verify(a => a.Add(It.IsAny<DbContext>(), It.IsAny<EventSubscription>()));
@@ -230,7 +230,7 @@
                     }
                 },
                 1);
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _eventSubscriptionRepoMock.Verify(a => a.GetAll(It.IsAny<DbContext>()));
         }
 
@@ -268,7 +268,7 @@
                 },
                 1,
                 35);
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _eventHandlerLogRepoMock.Verify(a => a.Add(It.IsAny<DbContext>(), It.IsAny<EventHandlerLog>()));
         }
 
@@ -302,7 +302,7 @@
                 new forcedSubscription { deviceClass = "G2S_test", deviceId = 2, eventCode = EventCode.G2S_APE001 },
                 1,
                 2);
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
 
             _eventSubscriptionRepoMock.Verify(
                 a => a.Get(
@@ -325,7 +325,7 @@
                 _supportedEventsRepoMock.Object,
                 _idProvider.Object);
             eventPersistence.AddSupportedEvents("G2S_test", 2, EventCode.G2S_APE001);
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
 
             _supportedEventsRepoMock.Verify(a => a.Get(It.IsAny<DbContext>(), It.IsAny<string>(), It.IsAny<int>()));
             _supportedEventsRepoMock.Verify(a => a.Add(It.IsAny<DbContext>(), It.IsAny<SupportedEvent>()));
@@ -363,7 +363,7 @@
                     }
                 },
                 1);
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
 
             _eventSubscriptionRepoMock.Verify(
                 a => a.DeleteAll(It.IsAny<DbContext>(), It.IsAny<IEnumerable<EventSubscription>>()));

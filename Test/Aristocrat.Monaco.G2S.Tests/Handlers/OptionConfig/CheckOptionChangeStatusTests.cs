@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers.OptionConfig
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;

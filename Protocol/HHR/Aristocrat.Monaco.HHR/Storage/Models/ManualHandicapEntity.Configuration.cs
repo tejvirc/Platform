@@ -1,17 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class ManualHandicapEntityConfiguration : EntityTypeConfiguration<ManualHandicapEntity>
+    public class ManualHandicapEntityConfiguration : IEntityTypeConfiguration<ManualHandicapEntity>
     {
-        public ManualHandicapEntityConfiguration()
+        public void Configure(EntityTypeBuilder<ManualHandicapEntity> builder)
         {
-            ToTable(nameof(ManualHandicapEntity));
+            builder.ToTable(nameof(ManualHandicapEntity));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.IsCompleted)
-                .IsRequired();
+            builder.Property(t => t.IsCompleted).IsRequired();
         }
     }
 }

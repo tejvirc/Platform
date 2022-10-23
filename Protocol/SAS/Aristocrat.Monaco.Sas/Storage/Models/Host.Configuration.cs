@@ -1,25 +1,26 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for <see cref="Host"/>
     /// </summary>
-    public class HostConfiguration : EntityTypeConfiguration<Host>
+    public class HostConfiguration : IEntityTypeConfiguration<Host>
     {
         /// <summary>
         ///     Creates an instance of <see cref="HostConfiguration"/>
         /// </summary>
-        public HostConfiguration()
+        public void Configure(EntityTypeBuilder<Host> builder)
         {
-            ToTable(nameof(Host));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(Host));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.ComPort)
+            builder.Property(x => x.ComPort)
                 .IsRequired();
-            Property(x => x.SasAddress)
+            builder.Property(x => x.SasAddress)
                 .IsRequired();
-            Property(x => x.AccountingDenom)
+            builder.Property(x => x.AccountingDenom)
                 .IsRequired();
         }
     }

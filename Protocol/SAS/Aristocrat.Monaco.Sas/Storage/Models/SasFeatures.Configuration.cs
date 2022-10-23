@@ -1,64 +1,65 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Contracts.SASProperties;
 
     /// <summary>
     ///     The database configuration for <see cref="SasFeatures"/> entity
     /// </summary>
-    public class SasFeaturesConfiguration : EntityTypeConfiguration<SasFeatures>
+    public class SasFeaturesConfiguration : IEntityTypeConfiguration<SasFeatures>
     {
         /// <summary>
         ///     Creates an instance of <see cref="SasFeaturesConfiguration"/>
         /// </summary>
-        public SasFeaturesConfiguration()
+        public void Configure(EntityTypeBuilder<SasFeatures> builder)
         {
-            ToTable(nameof(SasFeatures));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(SasFeatures));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.HandpayReportingType)
+            builder.Property(x => x.HandpayReportingType)
                 .IsRequired();
-            Property(x => x.TransferLimit)
+            builder.Property(x => x.TransferLimit)
                 .IsRequired();
-            Property(x => x.MaxAllowedTransferLimits)
+            builder.Property(x => x.MaxAllowedTransferLimits)
                 .IsRequired();
-            Property(x => x.PartialTransferAllowed)
+            builder.Property(x => x.PartialTransferAllowed)
                 .IsRequired();
-            Property(x => x.TransferInAllowed)
+            builder.Property(x => x.TransferInAllowed)
                 .IsRequired();
-            Property(x => x.TransferOutAllowed)
+            builder.Property(x => x.TransferOutAllowed)
                 .IsRequired();
-            Property(x => x.AftBonusAllowed)
+            builder.Property(x => x.AftBonusAllowed)
                 .IsRequired();
-            Property(x => x.WinTransferAllowed)
+            builder.Property(x => x.WinTransferAllowed)
                 .IsRequired();
-            Property(x => x.LegacyBonusAllowed)
+            builder.Property(x => x.LegacyBonusAllowed)
                 .IsRequired();
-            Property(x => x.ValidationType)
+            builder.Property(x => x.ValidationType)
                 .IsRequired();
-            Property(x => x.ConfigNotification)
+            builder.Property(x => x.ConfigNotification)
                 .IsRequired();
-            Property(x => x.ConfigNotification)
+            builder.Property(x => x.ConfigNotification)
                 .IsRequired();
-            Property(x => x.DisableOnDisconnect)
+            builder.Property(x => x.DisableOnDisconnect)
                 .IsRequired();
-            Property(x => x.NonSasProgressiveHitReporting)
+            builder.Property(x => x.NonSasProgressiveHitReporting)
                 .IsRequired();
-            Property(x => x.DisabledOnPowerUp)
+            builder.Property(x => x.DisabledOnPowerUp)
                 .IsRequired();
-            Property(x => x.DisableOnDisconnectConfigurable)
+            builder.Property(x => x.DisableOnDisconnectConfigurable)
                 .IsRequired();
-            Property(x => x.GeneralControlEditable)
+            builder.Property(x => x.GeneralControlEditable)
                 .IsRequired();
-            Property(x => x.AddressConfigurableOnlyOnce)
+            builder.Property(x => x.AddressConfigurableOnlyOnce)
                 .IsRequired();
-            Property(x => x.BonusTransferStatusEditable)
+            builder.Property(x => x.BonusTransferStatusEditable)
                 .IsRequired();
-            Property(x => x.ProgressiveGroupId)
+            builder.Property(x => x.ProgressiveGroupId)
                 .IsRequired();
-            Property(x => x.DebitTransfersAllowed)
+            builder.Property(x => x.DebitTransfersAllowed)
                 .IsRequired();
-            Property(x => x.TransferToTicketAllowed)
+            builder.Property(x => x.TransferToTicketAllowed)
                 .IsRequired();
         }
     }

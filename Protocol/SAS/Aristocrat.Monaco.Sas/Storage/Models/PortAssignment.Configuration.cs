@@ -1,37 +1,38 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for <see cref="PortAssignment"/>
     /// </summary>
-    public class PortAssignmentConfiguration : EntityTypeConfiguration<PortAssignment>
+    public class PortAssignmentConfiguration : IEntityTypeConfiguration<PortAssignment>
     {
         /// <summary>
         ///     Creates an instance of <see cref="PortAssignmentConfiguration"/>
         /// </summary>
-        public PortAssignmentConfiguration()
+        public void Configure(EntityTypeBuilder<PortAssignment> builder)
         {
-            ToTable(nameof(PortAssignment));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(PortAssignment));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.IsDualHost)
+            builder.Property(x => x.IsDualHost)
                 .IsRequired();
-            Property(x => x.AftPort)
+            builder.Property(x => x.AftPort)
                 .IsRequired();
-            Property(x => x.GeneralControlPort)
+            builder.Property(x => x.GeneralControlPort)
                 .IsRequired();
-            Property(x => x.LegacyBonusPort)
+            builder.Property(x => x.LegacyBonusPort)
                 .IsRequired();
-            Property(x => x.ProgressivePort)
+            builder.Property(x => x.ProgressivePort)
                 .IsRequired();
-            Property(x => x.ValidationPort)
+            builder.Property(x => x.ValidationPort)
                 .IsRequired();
-            Property(x => x.GameStartEndHosts)
+            builder.Property(x => x.GameStartEndHosts)
                 .IsRequired();
-            Property(x => x.Host1NonSasProgressiveHitReporting)
+            builder.Property(x => x.Host1NonSasProgressiveHitReporting)
                 .IsRequired();
-            Property(x => x.Host2NonSasProgressiveHitReporting)
+            builder.Property(x => x.Host2NonSasProgressiveHitReporting)
                 .IsRequired();
         }
     }

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers.CommConfig
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Aristocrat.G2S.Client.Devices.v21;
     using Data.CommConfig;
     using Data.Model;

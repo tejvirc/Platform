@@ -35,7 +35,7 @@
         /// <inheritdoc />
         public IEnumerable<Host> GetAll()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _hostRepository.GetAll(context).ToList();
             }
@@ -56,7 +56,7 @@
 
             var hostList = hosts as IList<Host> ?? hosts.ToList();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var currentList = _hostRepository.GetAll(context).ToList();
 

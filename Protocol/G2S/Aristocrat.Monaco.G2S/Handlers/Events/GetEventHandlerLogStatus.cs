@@ -46,7 +46,7 @@
         {
             var response = command.GenerateResponse<eventHandlerLogStatus>();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 response.Command.totalEntries = _repository.Count(context, l => l.HostId == command.HostId);
                 response.Command.lastSequence = response.Command.totalEntries > 0

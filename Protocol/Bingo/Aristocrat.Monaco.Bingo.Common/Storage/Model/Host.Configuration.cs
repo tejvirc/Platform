@@ -1,17 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class HostConfiguration : EntityTypeConfiguration<Host>
+    public class HostConfiguration : IEntityTypeConfiguration<Host>
     {
-        public HostConfiguration()
+        public void Configure(EntityTypeBuilder<Host> builder)
         {
-            ToTable(nameof(Host));
-            HasKey(x => x.Id);
-            Property(x => x.HostName)
-                .IsRequired();
-            Property(x => x.Port)
-                .IsRequired();
+            builder.ToTable(nameof(Host));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.HostName).IsRequired();
+            builder.Property(x => x.Port).IsRequired();
         }
     }
 }

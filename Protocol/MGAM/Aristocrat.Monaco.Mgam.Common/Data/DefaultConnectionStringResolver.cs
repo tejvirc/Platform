@@ -24,8 +24,7 @@
 
             var sqlBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, MgamConstants.DatabaseFileName),
-                Password = MgamConstants.DatabasePassword
+                DataSource = Path.Combine(path, MgamConstants.DatabaseFileName)
             };
 
             _connectionString = sqlBuilder.ConnectionString;

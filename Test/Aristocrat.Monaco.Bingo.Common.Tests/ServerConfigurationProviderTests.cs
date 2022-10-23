@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Tests
 {
     using System;
-    using System.Data.Entity;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Storage;
     using Moq;
@@ -48,8 +47,8 @@
             var model = foundValues ? new BingoServerSettingsModel { VoucherInLimit = 1234 } : null;
 
             _target = new ServerConfigurationProvider(_factory.Object, _modelRepo.Object);
-            _factory.Setup(m => m.Create()).Returns(It.IsAny<DbContext>());
-            _modelRepo.Setup(m => m.GetSingle(It.IsAny<DbContext>())).Returns(model);
+            _factory.Setup(m => m.CreateDbContext()).Returns(It.IsAny<BingoContext>());
+            _modelRepo.Setup(m => m.GetSingle(It.IsAny<BingoContext>())).Returns(model);
 
             // Test
             var resultModel = _target.GetServerConfiguration();

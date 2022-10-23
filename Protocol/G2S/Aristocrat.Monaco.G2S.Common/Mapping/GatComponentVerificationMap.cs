@@ -1,45 +1,46 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using GAT.Storage;
 
     /// <summary>
     ///     Configuration for the <see cref="GatComponentVerification" /> entity
     /// </summary>
-    public class GatComponentVerificationMap : EntityTypeConfiguration<GatComponentVerification>
+    public class GatComponentVerificationMap : IEntityTypeConfiguration<GatComponentVerification>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="GatComponentVerificationMap" /> class.
         /// </summary>
-        public GatComponentVerificationMap()
+        public void Configure(EntityTypeBuilder<GatComponentVerification> builder)
         {
-            ToTable("ComponentVerification");
+            builder.ToTable("ComponentVerification");
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.AlgorithmType)
+            builder.Property(t => t.AlgorithmType)
                 .IsRequired();
 
-            Property(t => t.Seed)
+            builder.Property(t => t.Seed)
                 .IsRequired();
 
-            Property(t => t.Salt)
+            builder.Property(t => t.Salt)
                 .IsRequired();
 
-            Property(t => t.StartOffset)
+            builder.Property(t => t.StartOffset)
                 .IsRequired();
 
-            Property(t => t.EndOffset)
+            builder.Property(t => t.EndOffset)
                 .IsRequired();
 
-            Property(t => t.State)
+            builder.Property(t => t.State)
                 .IsRequired();
 
-            Property(t => t.Result)
+            builder.Property(t => t.Result)
                 .IsRequired();
 
-            Property(t => t.GatExec)
+            builder.Property(t => t.GatExec)
                 .IsRequired();
         }
     }

@@ -42,7 +42,6 @@
         /// <value>
         ///     The verification request entity.
         /// </value>
-        [ForeignKey("RequestId")]
         public virtual GatVerificationRequest VerificationEntity { get; set; }
     }
 }

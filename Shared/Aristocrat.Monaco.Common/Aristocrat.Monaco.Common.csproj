@@ -47,10 +47,12 @@
     <PackageReference Include="FluentValidation" Version="7.4.0" />
     <PackageReference Include="Humanizer" Version="[2.8.27]" />
     <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.8" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.8" />
     <PackageReference Include="Quartz" Version="3.0.7" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />   
-    <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
     <PackageReference Include="CoreWCF.Primitives" Version="1.1.0" />
     <PackageReference Include="CoreWCF.NetTcp" Version="1.1.0" />

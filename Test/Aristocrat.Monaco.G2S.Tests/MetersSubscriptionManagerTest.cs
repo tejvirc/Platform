@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using Application.Contracts;
     using Aristocrat.G2S.Client;
@@ -37,7 +37,7 @@
         [TestInitialize]
         public void TestInitialization()
         {
-            _contextFactoryMock.Setup(a => a.Create()).Returns(new DbContext("TestConnection"));
+            _contextFactoryMock.Setup(a => a.CreateDbContext()).Returns(new MonacoContext("TestConnection"));
         }
 
         [TestMethod]
@@ -257,7 +257,7 @@
             manager.HandleMeterReport(1);
             manager.HandleMeterReport(2);
 
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _meterSubscriptionRepositoryMock.Verify(a => a.Get(It.IsAny<DbContext>(), 1));
             _meterSubscriptionRepositoryMock.Verify(a => a.Get(It.IsAny<DbContext>(), 2));
             _taskSchedulerMock.Verify(
@@ -302,7 +302,7 @@
 
             manager.SendEndOfDayMeters(true, true);
 
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _meterSubscriptionRepositoryMock.Verify(a => a.GetAll(It.IsAny<DbContext>()));
             _egmMock.Verify(a => a.GetDevice<IMetersDevice>(1));
             _meterManagerMock.Verify(a => a.CreateSnapshot());
@@ -356,7 +356,7 @@
 
             manager.Start();
 
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _meterSubscriptionRepositoryMock.Verify(a => a.GetAll(It.IsAny<DbContext>()));
             _taskSchedulerMock.Verify(
                 a => a.ScheduleTask(It.IsAny<MeterReportJob>(), It.IsAny<string>(), It.IsAny<DateTime>()));
@@ -449,7 +449,7 @@
 
             manager.GetMeterSub(1, MetersSubscriptionType.EndOfDay);
 
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _meterSubscriptionRepositoryMock.Verify(a => a.GetAll(It.IsAny<DbContext>()));
         }
 
@@ -501,7 +501,7 @@
 
             manager.ClearSubscriptions(1, MetersSubscriptionType.EndOfDay);
 
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _meterSubscriptionRepositoryMock.Verify(a => a.GetAll(It.IsAny<DbContext>()));
             _meterSubscriptionRepositoryMock.Verify(
                 a => a.Delete(It.IsAny<DbContext>(), It.IsAny<MeterSubscription>()));
@@ -586,7 +586,7 @@
                         PeriodInterval = 100
                     }
                 });
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _meterSubscriptionRepositoryMock.Verify(a => a.GetAll(It.IsAny<DbContext>()));
             _meterSubscriptionRepositoryMock.Verify(
                 a => a.Delete(It.IsAny<DbContext>(), It.IsAny<MeterSubscription>()));
@@ -627,7 +627,7 @@
 
             manager.HandleMeterReport(1);
 
-            _contextFactoryMock.Verify(a => a.Create());
+            _contextFactoryMock.Verify(a => a.CreateDbContext());
             _meterSubscriptionRepositoryMock.Verify(a => a.Get(It.IsAny<DbContext>(), 1));
             _taskSchedulerMock.Verify(
                 a => a.ScheduleTask(It.IsAny<MeterReportJob>(), It.IsAny<string>(), It.IsAny<DateTime>()));

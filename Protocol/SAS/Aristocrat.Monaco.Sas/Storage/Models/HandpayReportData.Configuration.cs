@@ -1,23 +1,24 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for <see cref="HandpayReportData"/>
     /// </summary>
-    public class HandpayReportDataConfiguration : EntityTypeConfiguration<HandpayReportData>
+    public class HandpayReportDataConfiguration : IEntityTypeConfiguration<HandpayReportData>
     {
         /// <summary>
         ///     Creates an instance of <see cref="HandpayReportDataConfiguration"/>
         /// </summary>
-        public HandpayReportDataConfiguration()
+        public void Configure(EntityTypeBuilder<HandpayReportData> builder)
         {
-            ToTable(nameof(HandpayReportData));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(HandpayReportData));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.ClientId)
+            builder.Property(x => x.ClientId)
                 .IsRequired();
-            Property(x => x.Queue)
+            builder.Property(x => x.Queue)
                 .IsRequired();
         }
     }

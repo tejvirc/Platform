@@ -45,7 +45,7 @@
         /// <inheritdoc />
         public void Execute(TaskSchedulerContext context)
         {
-            using (var dbContext = _contextFactory.Create())
+            using (var dbContext = _contextFactory.CreateDbContext())
             {
                 var log = _changeLogRepository.GetPendingByTransactionId(dbContext, TransactionId);
                 if (log == null)

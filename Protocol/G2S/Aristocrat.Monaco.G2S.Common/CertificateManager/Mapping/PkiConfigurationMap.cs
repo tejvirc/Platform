@@ -1,73 +1,72 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.CertificateManager.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Models;
 
     /// <summary>
     ///     Configuration for the <see cref="PkiConfiguration" /> entity
     /// </summary>
-    public class PkiConfigurationMap : EntityTypeConfiguration<PkiConfiguration>
+    public class PkiConfigurationMap : IEntityTypeConfiguration<PkiConfiguration>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="PkiConfigurationMap" /> class.
         /// </summary>
-        public PkiConfigurationMap()
+        public void Configure(EntityTypeBuilder<PkiConfiguration> builder)
         {
-            ToTable("PkiConfiguration");
+            builder.ToTable(nameof(PkiConfiguration));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.ScepEnabled)
+            builder.Property(t => t.ScepEnabled)
                 .IsRequired();
 
-            Property(t => t.CertificateManagerLocation)
+            builder.Property(t => t.CertificateManagerLocation)
                 .HasMaxLength(256);
 
-            Property(t => t.ScepCaIdent)
-                .HasMaxLength(256)
-                .IsOptional();
-
-            Property(t => t.ScepUsername)
+            builder.Property(t => t.ScepCaIdent)
                 .HasMaxLength(256);
 
-            Property(t => t.KeySize)
-                .IsRequired();
-
-            Property(t => t.ScepManualPollingInterval)
-                .IsRequired();
-
-            Property(t => t.OcspEnabled)
-                .IsRequired();
-
-            Property(t => t.CertificateStatusLocation)
+            builder.Property(t => t.ScepUsername)
                 .HasMaxLength(256);
 
-            Property(t => t.OcspMinimumPeriodForOffline)
+            builder.Property(t => t.KeySize)
                 .IsRequired();
 
-            Property(t => t.OcspReAuthenticationPeriod)
+            builder.Property(t => t.ScepManualPollingInterval)
                 .IsRequired();
 
-            Property(t => t.OcspAcceptPreviouslyGoodCertificatePeriod)
+            builder.Property(t => t.OcspEnabled)
                 .IsRequired();
 
-            Property(t => t.OcspNextUpdate)
-                .IsOptional();
+            builder.Property(t => t.CertificateStatusLocation)
+                .HasMaxLength(256);
 
-            Property(t => t.OfflineMethod)
+            builder.Property(t => t.OcspMinimumPeriodForOffline)
                 .IsRequired();
 
-            Property(t => t.NoncesEnabled)
+            builder.Property(t => t.OcspReAuthenticationPeriod)
                 .IsRequired();
 
-            Property(t => t.ValidateDomain)
+            builder.Property(t => t.OcspAcceptPreviouslyGoodCertificatePeriod)
                 .IsRequired();
 
-            Property(t => t.CommonName)
+            builder.Property(t => t.OcspNextUpdate);
+
+            builder.Property(t => t.OfflineMethod)
                 .IsRequired();
 
-            Property(t => t.OrganizationUnit)
+            builder.Property(t => t.NoncesEnabled)
+                .IsRequired();
+
+            builder.Property(t => t.ValidateDomain)
+                .IsRequired();
+
+            builder.Property(t => t.CommonName)
+                .IsRequired();
+
+            builder.Property(t => t.OrganizationUnit)
                 .IsRequired();
         }
     }

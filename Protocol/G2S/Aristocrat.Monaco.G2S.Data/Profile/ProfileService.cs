@@ -37,7 +37,7 @@
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var data = _repository.Get(context, profile.DeviceClass, profile.Id);
 
@@ -63,7 +63,7 @@
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _repository.Get(context, profile.DeviceClass, profile.Id) != null;
             }
@@ -72,7 +72,7 @@
         /// <inheritdoc />
         public IEnumerable<ProfileData> GetAll()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _repository.GetAll(context).ToList();
             }
@@ -87,7 +87,7 @@
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var json = JsonConvert.SerializeObject(profile);
                 var data = _repository.Get(context, profile.DeviceClass, profile.Id);
@@ -115,7 +115,7 @@
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var data = _repository.Get(context, profile.DeviceClass, profile.Id);
                 if (data != null)

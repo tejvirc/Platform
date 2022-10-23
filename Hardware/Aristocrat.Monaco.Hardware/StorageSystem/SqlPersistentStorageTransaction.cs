@@ -3,20 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.Entity;
-    using System.Data.SQLite;
     using System.Globalization;
     using System.Reflection;
-    using Common.Storage;
     using Contracts.Persistence;
     using log4net;
     using Microsoft.Data.Sqlite;
-    using StorageAdapters;
 
     /// <summary>
     ///     Definition of the SqlPersistentStorageTransaction class
     /// </summary>
-    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public class SqlPersistentStorageTransaction : IPersistentStorageTransaction
     {
         private static readonly ILog Logger =

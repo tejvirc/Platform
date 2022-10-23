@@ -1,7 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Aristocrat.Monaco.Mgam.Common
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Aristocrat.Monaco.Protocol.Common.Storage;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Aristocrat.Monaco.Protocol.Common.Storage.Repositories;

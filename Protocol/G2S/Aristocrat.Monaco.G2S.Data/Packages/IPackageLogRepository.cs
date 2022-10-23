@@ -2,7 +2,7 @@
 {
     using Common.Storage;
     using Model;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     ///     Repository interface for <see cref="PackageLog" />

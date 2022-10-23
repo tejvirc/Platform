@@ -1,22 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Configuration for <see cref="TransactionRequests"/> model.
     /// </summary>
-    public class TransactionRequestsConfiguration : EntityTypeConfiguration<TransactionRequests>
+    public class TransactionRequestsConfiguration : IEntityTypeConfiguration<TransactionRequests>
     {
         /// <summary>
         ///     Initializes an instance of the <see cref="TransactionRequestsConfiguration"/> class.
         /// </summary>
-        public TransactionRequestsConfiguration()
+        public void Configure(EntityTypeBuilder<TransactionRequests> builder)
         {
-            ToTable(nameof(TransactionRequests));
+            builder.ToTable(nameof(TransactionRequests));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.Requests)
+            builder.Property(t => t.Requests)
                 .IsRequired();
         }
     }

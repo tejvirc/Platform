@@ -1,14 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class ReportTransactionModelConfiguration : EntityTypeConfiguration<ReportTransactionModel>
+    public class ReportTransactionModelConfiguration : IEntityTypeConfiguration<ReportTransactionModel>
     {
-        public ReportTransactionModelConfiguration()
+        public void Configure(EntityTypeBuilder<ReportTransactionModel> builder)
         {
-            ToTable(nameof(ReportTransactionModel));
-            HasKey(x => x.Id);
-            Property(x => x.Report).IsRequired();
+            builder.ToTable(nameof(ReportTransactionModel));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Report).IsRequired();
         }
     }
 }

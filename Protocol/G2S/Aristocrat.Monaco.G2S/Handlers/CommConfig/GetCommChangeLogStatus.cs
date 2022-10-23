@@ -46,7 +46,7 @@
         {
             var response = command.GenerateResponse<commChangeLogStatus>();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 response.Command.totalEntries = _repository.Count(context);
                 response.Command.lastSequence = _repository.GetMaxLastSequence<CommChangeLog>(context);

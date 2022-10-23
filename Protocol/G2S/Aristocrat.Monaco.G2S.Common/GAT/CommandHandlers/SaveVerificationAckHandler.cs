@@ -47,7 +47,7 @@
                 throw new ArgumentNullException(nameof(parameter));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var request = _verificationRequestRepository.Get(
                     context,

@@ -50,7 +50,7 @@
             string certificateManagerLocation,
             string certificateStatusLocation)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var current = _repository.Get(context, c => c.Default).Single();
                 var certificate = current.ToX509Certificate2();
@@ -71,7 +71,7 @@
             string certificateStatusLocation,
             X509Certificate2 certificate)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var configuration = _pkiConfiguration.GetSingle(context);
 

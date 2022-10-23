@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Tests
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using Common.Storage;
     using Data.Model;

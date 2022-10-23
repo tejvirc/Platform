@@ -1,34 +1,50 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
-    using System.Data.Entity;
-    using System.Data.SQLite;
-    using Monaco.Common.Storage;
+    using System.Reflection;
+    using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
 
-    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public class BingoContext : DbContext
     {
-        /// <summary>
-        ///     Gets a set of <see cref="Certificate"/> items.
-        /// </summary>
-        public DbSet<Certificate> Certificates { get; set; }
+        private readonly string _connectionString;        
 
         public BingoContext(IConnectionStringResolver connectionStringResolver)
-            : base(new SQLiteConnection(connectionStringResolver.Resolve()), true)
         {
+            _connectionString = connectionStringResolver.Resolve();
+            Database.EnsureCreated();
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        /// <summary>
+        ///     Gets a set of <see cref="BingoServerSettingsModel"/> items.
+        /// </summary>
+        public DbSet<BingoServerSettingsModel> BingoServerSettingsModel { get; set; }
+        public DbSet<Host> Host { get; set; }
+        public DbSet<ReportTransactionModel> ReportTransactionModel { get; set; }
+        public DbSet<ReportEventModel> ReportEventModel { get; set; }
+        public DbSet<WinResultModel> WinResultModel { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<BingoDaubsModel> BingoDaubsModel { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(_connectionString, options =>
+            {
+                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+            });
+
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.Add(new BingoServerSettingsModelConfiguration());
-            modelBuilder.Configurations.Add(new HostConfiguration());
-            modelBuilder.Configurations.Add(new ReportTransactionModelConfiguration());
-            modelBuilder.Configurations.Add(new ReportEventModelConfiguration());
-            modelBuilder.Configurations.Add(new WinResultModelConfiguration());
-            modelBuilder.Configurations.Add(new CertificateConfiguration());
-            modelBuilder.Configurations.Add(new BingoDaubsModelConfiguration());
-            Database.SetInitializer(new BingoContextInitializer(modelBuilder));
+            modelBuilder.ApplyConfiguration(new BingoServerSettingsModelConfiguration());
+            modelBuilder.ApplyConfiguration(new HostConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportTransactionModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportEventModelConfiguration());
+            modelBuilder.ApplyConfiguration(new WinResultModelConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificateConfiguration());
+            modelBuilder.ApplyConfiguration(new BingoDaubsModelConfiguration());
         }
     }
 }

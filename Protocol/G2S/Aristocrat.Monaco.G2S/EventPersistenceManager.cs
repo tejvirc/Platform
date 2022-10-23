@@ -55,7 +55,7 @@
         {
             get
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 { 
                     return _supportedEventRepository.GetAll(context).ToList();
                 }
@@ -65,7 +65,7 @@
         /// <inheritdoc />
         public IEnumerable<eventHostSubscription> GetRegisteredEvents(int hostId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var result =
                     _eventSubscriptionRepository.GetAll(context).Where(
@@ -78,7 +78,7 @@
         /// <inheritdoc />
         public void RegisteredEvents(IEnumerable<eventHostSubscription> subscriptions, int hostId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var currentSubscriptions = _eventSubscriptionRepository.GetAll(context)
                     .Where(e => e.HostId == hostId && e.SubType == EventSubscriptionType.Host).ToList();
@@ -124,7 +124,7 @@
         /// <inheritdoc />
         public void RemoveRegisteredEventSubscriptions(IEnumerable<eventHostSubscription> subscriptions, int hostId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var currentSubscriptions = _eventSubscriptionRepository.GetAll(context)
                     .Where(e => e.HostId == hostId && e.SubType == EventSubscriptionType.Host).ToList();
@@ -139,7 +139,7 @@
         /// <inheritdoc />
         public forcedSubscription GetForcedEvent(string eventCode, int hostId, int deviceId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 forcedSubscription result = null;
                 var sub = _eventSubscriptionRepository.GetAll(context).FirstOrDefault(
@@ -157,7 +157,7 @@
         /// <inheritdoc />
         public void AddForcedEvent(string eventCode, forcedSubscription subscription, int hostId, int deviceId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var sub = _eventSubscriptionRepository.Get(
                     context,
@@ -201,7 +201,7 @@
         /// <inheritdoc />
         public IEnumerable<object> GetAllEventSubscriptions(int hostId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var result = _eventSubscriptionRepository.GetAll(context).Where(e => e.HostId == hostId).ToList();
 
@@ -256,7 +256,7 @@
         /// <inheritdoc />
         public void AddSupportedEvents(string deviceClass, int deviceId, string eventCode)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var se = _supportedEventRepository.Get(context, eventCode, deviceId);
 
@@ -277,7 +277,7 @@
         /// <inheritdoc />
         public void RemoveSupportedEvents(int deviceId, string eventCode)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 _supportedEventRepository.Delete(context, eventCode, deviceId);
             }
@@ -286,7 +286,7 @@
         /// <inheritdoc />
         public void AddEventLog(eventReport log, int hostId, int maxEntries)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 lock (_addUpdateLock)
                 {
@@ -306,7 +306,7 @@
         /// <inheritdoc />
         public void UpdateEventLog(eventReport report, int hostId, bool hostAck)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 lock (_addUpdateLock)
                 {
@@ -327,7 +327,7 @@
         /// <inheritdoc />
         public IReadOnlyCollection<eventReport> GetUnsentEvents(int hostId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _eventHandlerLogRepository.Get(context, e => e.HostId == hostId && !e.EventAck)
                     .ToList().Select(ToEventReport).ToList();
@@ -357,7 +357,7 @@
             var forcedEvents = AllForcedEventSubs(deviceId).ToList();
             var registered = AllRegisteredEventSubs(deviceId).ToList();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 foreach (var supportedEvent in _supportedEventRepository.GetAll(context).ToList())
                 {
@@ -414,7 +414,7 @@
 
         private void AddPermanentEvent(string eventCode, string deviceClass, bool forcePersist, int hostId, int deviceId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var sub = _eventSubscriptionRepository.Get(
                     context,
@@ -441,7 +441,7 @@
 
         private IEnumerable<EventSubscription> AllRegisteredEventSubs(int hostId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _eventSubscriptionRepository.GetAll(context)
                     .Where(e => e.HostId == hostId && e.SubType == EventSubscriptionType.Host).ToList();
@@ -451,7 +451,7 @@
 
         private IEnumerable<EventSubscription> AllForcedEventSubs(int hostId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _eventSubscriptionRepository.GetAll(context).Where(
                         e => e.HostId == hostId &&

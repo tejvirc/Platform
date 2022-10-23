@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.EventHandler
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Common.Storage;
     using Model;
 

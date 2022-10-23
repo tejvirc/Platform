@@ -1,94 +1,115 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity;
-    using System.Data.Entity.ModelConfiguration.Conventions;
-    using System.Data.SQLite;
-    using Monaco.Common.Storage;
+    using Microsoft.EntityFrameworkCore;
+    using System.Reflection;
     using Protocol.Common.Storage;
 
     /// <summary>
     ///     
     /// </summary>
-    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public class MgamContext : DbContext
     {
-        /// <summary>
-        ///     Gets a set of <see cref="Host"/> items.
-        /// </summary>
-        public DbSet<Host> Hosts { get; set; }
-
-        /// <summary>
-        ///     Gets a set of <see cref="Device"/> items.
-        /// </summary>
-        public DbSet<Device> Devices { get; set; }
-
-        /// <summary>
-        ///     Gets a set of <see cref="Application"/> items.
-        /// </summary>
-        public DbSet<Application> Applications { get; set; }
-
-        /// <summary>
-        ///     Gets a set of <see cref="Installation"/> items.
-        /// </summary>
-        public DbSet<Installation> Installations { get; set; }
-
-        /// <summary>
-        ///     Gets a set of <see cref="Checksum"/> items.
-        /// </summary>
-        public DbSet<Checksum> Checksums { get; set; }
-
-        /// <summary>
-        ///     Gets a set of <see cref="Notification"/> items.
-        /// </summary>
-        public DbSet<Notification> Notifications { get; set; }
-
-        /// <summary>
-        ///     Gets a set of <see cref="Certificate"/> items.
-        /// </summary>
-        public DbSet<Certificate> Certificates { get; set; }
+        private readonly string _connectionString;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="MgamContext" /> class.
         /// </summary>
         /// <param name="connectionStringResolver">Connection string.</param>
         public MgamContext(IConnectionStringResolver connectionStringResolver)
-            : base(new SQLiteConnection(connectionStringResolver.Resolve()), true)
         {
-            Configuration.LazyLoadingEnabled = false;
-            Configuration.ProxyCreationEnabled = false;
+            _connectionString = connectionStringResolver.Resolve();
+            Database.EnsureCreated();
         }
 
-        /// <inheritdoc />
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        /// <summary>
+        ///     Gets a set of <see cref="Hosts"/> items.
+        /// </summary>
+        public DbSet<Host> Hosts { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Devices"/> items.
+        /// </summary>
+        public DbSet<Device> Devices { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Applications"/> items.
+        /// </summary>
+        public DbSet<Application> Applications { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Installations"/> items.
+        /// </summary>
+        public DbSet<Installation> Installations { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Checksums"/> items.
+        /// </summary>
+        public DbSet<Checksum> Checksums { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Notifications"/> items.
+        /// </summary>
+        public DbSet<Notification> Notifications { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Certificates"/> items.
+        /// </summary>
+        public DbSet<Certificate> Certificates { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Session"/> items.
+        /// </summary>
+        public DbSet<Session> Session { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="Voucher"/> items.
+        /// </summary>
+        public DbSet<Voucher> Voucher { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="PendingJackpotAwards"/> items.
+        /// </summary>
+        public DbSet<PendingJackpotAwards> PendingJackpotAwards { get; set; }
+
+        /// <summary>
+        ///     Gets a set of <see cref="TransactionRequests"/> items.
+        /// </summary>
+        public DbSet<TransactionRequests> TransactionRequests { get; set; }
+
+        /// <summary>
+        ///     override method
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(_connectionString, options =>
+            {
+                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+            });
+
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        /// <summary>
+        ///     override method
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Conventions
-                .Remove<PluralizingTableNameConvention>();
+            modelBuilder.ApplyConfiguration(new HostConfiguration());
+            modelBuilder.ApplyConfiguration(new DeviceConfiguration());
+            modelBuilder.ApplyConfiguration(new ApplicationConfiguration());
+            modelBuilder.ApplyConfiguration(new InstallationConfiguration());
+            modelBuilder.ApplyConfiguration(new ChecksumConfiguration());
+            modelBuilder.ApplyConfiguration(new NotificationConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificateConfiguration());
 
-            modelBuilder.Configurations.Add(new HostConfiguration());
-
-            modelBuilder.Configurations.Add(new CertificateConfiguration());
-
-            modelBuilder.Configurations.Add(new DeviceConfiguration());
-
-            modelBuilder.Configurations.Add(new ApplicationConfiguration());
-
-            modelBuilder.Configurations.Add(new InstallationConfiguration());
-
-            modelBuilder.Configurations.Add(new SessionConfiguration());
-
-            modelBuilder.Configurations.Add(new VoucherConfiguration());
-
-            modelBuilder.Configurations.Add(new ChecksumConfiguration());
-
-            modelBuilder.Configurations.Add(new NotificationConfiguration());
-
-            modelBuilder.Configurations.Add(new PendingJackpotAwardsConfiguration());
-
-            modelBuilder.Configurations.Add(new TransactionRequestsConfiguration());
-
-            Database.SetInitializer(new MgamContextInitializer(modelBuilder));
+            modelBuilder.ApplyConfiguration(new SessionConfiguration());
+            modelBuilder.ApplyConfiguration(new VoucherConfiguration());
+            modelBuilder.ApplyConfiguration(new PendingJackpotAwardsConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionRequestsConfiguration());
         }
     }
 }

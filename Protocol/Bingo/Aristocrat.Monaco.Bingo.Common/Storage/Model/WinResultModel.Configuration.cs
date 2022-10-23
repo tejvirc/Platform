@@ -1,14 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class WinResultModelConfiguration : EntityTypeConfiguration<WinResultModel>
+    public class WinResultModelConfiguration : IEntityTypeConfiguration<WinResultModel>
     {
-        public WinResultModelConfiguration()
+        public void Configure(EntityTypeBuilder<WinResultModel> builder)
         {
-            ToTable(nameof(WinResultModel));
-            HasKey(x => x.Id);
-            Property(x => x.IsTotalWinMismatched).IsRequired();
+            builder.ToTable(nameof(WinResultModel));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.IsTotalWinMismatched).IsRequired();
         }
     }
 }

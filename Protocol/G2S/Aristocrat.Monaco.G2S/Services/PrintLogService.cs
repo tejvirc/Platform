@@ -73,7 +73,7 @@
         {
             get
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     return _printLogs.Count(context);
                 }
@@ -85,7 +85,7 @@
         {
             get
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     return _printLogs.GetAll(context).Max(x => (long?)x.Id) ?? 0;
                 }
@@ -95,7 +95,7 @@
         /// <inheritdoc />
         public IEnumerable<PrintLog> GetLogs()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _printLogs.GetAll(context).ToList();
             }
@@ -125,7 +125,7 @@
 
         private void HandleRequested(PrintRequestedEvent theEvent)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var last = _printLogs.GetAll(context).OrderByDescending(l => l.Id).FirstOrDefault();
 
@@ -167,7 +167,7 @@
 
         private void HandleCompleted(PrintCompletedEvent theEvent)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = _printLogs.GetAll(context).OrderByDescending(l => l.Id).FirstOrDefault();
 

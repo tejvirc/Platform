@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Linq.Expressions;
 
@@ -20,7 +20,7 @@
 
             context.SaveChanges();
 
-            return result;
+            return result as T;
         }
 
         /// <inheritdoc />
@@ -121,7 +121,7 @@
         {
             var sql = $"SELECT * FROM {context.GetTableName<T>()} ORDER BY [Id] ASC LIMIT @p0 OFFSET @p1";
 
-            return context.Set<T>().SqlQuery(sql, totalEntries, lastSequence).AsQueryable();
+            return context.Set<T>().FromSqlRaw(sql, totalEntries, lastSequence).AsQueryable();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Tests.CertificateManager.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Common.CertificateManager.CommandHandlers;
     using Common.CertificateManager.Models;
     using Common.CertificateManager.Validators;

@@ -94,7 +94,7 @@
         {
             GatVerificationRequest verificationRequest;
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 verificationRequest =
                     _verificationRequestRepository.Get(
@@ -151,7 +151,7 @@
         /// <returns>Verification status</returns>
         protected VerificationStatusResult CreateResult(GatVerificationRequest verificationRequest)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 if (verificationRequest.Completed)
                 {

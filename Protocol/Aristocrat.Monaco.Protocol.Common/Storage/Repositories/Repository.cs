@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Linq.Expressions;
     using LinqKit;
@@ -53,7 +53,7 @@
         /// <inheritdoc />
         public virtual IQueryable<TEntity> SelectQuery(string query, params object[] parameters)
         {
-            return Entities.SqlQuery(query, parameters).AsQueryable();
+            return Entities.FromSqlRaw(query, parameters).AsQueryable();
         }
 
         /// <inheritdoc />
@@ -97,7 +97,7 @@
 
         public void ClearTable()
         {
-            Context.Database.ExecuteSqlCommand($"Delete from [{typeof(TEntity).Name}]");
+            Context.Database.ExecuteSqlRaw($"Delete from [{typeof(TEntity).Name}]");
             Context.SaveChanges();
         }
 

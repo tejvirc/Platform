@@ -57,7 +57,7 @@
 
             var response = command.GenerateResponse<scriptLogList>();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var logEntries = _repository.GetAll(context);
 

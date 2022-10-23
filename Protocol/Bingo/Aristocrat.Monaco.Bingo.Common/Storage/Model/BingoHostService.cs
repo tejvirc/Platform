@@ -16,13 +16,13 @@
 
         public Host GetHost()
         {
-            using var context = _factory.Create();
+            using var context = _factory.CreateDbContext();
             return _repository.GetSingle(context) ?? new Host { HostName = string.Empty, Port = 5080 };
         }
 
         public void SaveHost(Host host)
         {
-            using var context = _factory.Create();
+            using var context = _factory.CreateDbContext();
             var current = _repository.GetSingle(context);
 
             var add = current is null || current.Id != host.Id;

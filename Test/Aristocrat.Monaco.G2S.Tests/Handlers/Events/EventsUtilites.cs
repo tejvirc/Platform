@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers.Events
 {
-    using System.Data.Entity;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
@@ -17,8 +16,8 @@
         public static IMonacoContextFactory CreateMonacoContextFactory()
         {
             var contextFactory = new Mock<IMonacoContextFactory>();
-            var context = new DbContext("fake");
-            contextFactory.Setup(a => a.Create()).Returns(context);
+            var context = new MonacoContext("fake");
+            contextFactory.Setup(a => a.CreateDbContext()).Returns(context);
 
             return contextFactory.Object;
         }
