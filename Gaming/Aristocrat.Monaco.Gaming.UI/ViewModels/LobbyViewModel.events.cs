@@ -356,7 +356,7 @@
                     {
                         // In case 'DisableCountdownWindow' is still visible, we need to remove it as the message is going to be shown
                         // by broadcasting the 'Disable Countdown' message to the game
-                        LobbyView.CloseDisableCountdownWindow();
+                        LobbyView.HideDisableCountdownWindow();
                         BroadcastInitialDisableCountdownMessage();
                         _broadcastDisableCountdownMessagePending = false;
                     }

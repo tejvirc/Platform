@@ -9,7 +9,7 @@
                    Width="1040"
                    Height="320"
                    IgnoreTaskbarOnMaximize="True"
-                   Title="LCD Button Deck"
+                   Title="ButtonDeck"
                    ShowTitleBar="True"
                    ShowIconOnTitleBar="True"
                    ShowCloseButton="False"

@@ -7,12 +7,9 @@
         xmlns:common="http://monaco.aristocrat.com/common"
         mc:Ignorable="d"
         WindowStartupLocation="Manual"
-        ResizeMode="NoResize"
-        WindowStyle="None"
         Title="DisableCountdownWindow"
-        ShowInTaskbar="False"
-        AllowsTransparency="True"
-        Width="1920" Height="1080">
+        ShowInTaskbar="True"
+        Width="640" Height="400">
 
     <Window.Resources>
         <ResourceDictionary>

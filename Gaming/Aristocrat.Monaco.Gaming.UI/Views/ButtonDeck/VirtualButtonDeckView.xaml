@@ -10,7 +10,7 @@
                       xmlns:controls2="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
-                      Title="{Binding VbdTitle}"
+                      Title="VbdScreen"
                       ShowTitleBar="False"
                       ShowIconOnTitleBar="False"
                       ShowCloseButton="False"

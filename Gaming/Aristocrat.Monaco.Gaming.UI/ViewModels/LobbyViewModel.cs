@@ -551,14 +551,6 @@
             Logger.Debug("Lobby initialization complete");
         }
 
-        public string TopperTitle => GamingConstants.TopperWindowTitle;
-
-        public string TopTitle => GamingConstants.TopWindowTitle;
-
-        public string MainTitle => GamingConstants.MainWindowTitle;
-
-        public string VbdTitle => GamingConstants.VbdWindowTitle;
-
         public bool IsTabView => _lobbyStateManager?.IsTabView ?? false;
 
         /// <summary>
@@ -1861,7 +1853,8 @@
             _disabledOnStartup = _systemDisableManager.IsDisabled;
             _recoveryOnStartup = _gameHistory.IsRecoveryNeeded;
             IsDisableCountdownMessageSuppressed = _recoveryOnStartup;
-            //gotta recover BEFORE we load properties from responsible gaming
+
+            // We must recover BEFORE we load properties from responsible gaming
             if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
             {
                 if (_properties.GetValue(GamingConstants.AutocompleteSet, false))
@@ -1869,7 +1862,7 @@
                     _properties.SetProperty(GamingConstants.AutocompleteExpired, true);
                     DisableCountdownTimeRemaining = TimeSpan.Zero;
 
-                    LobbyView.CreateAndShowDisableCountdownWindow();
+                    LobbyView.ShowDisableCountdownWindow();
                     _broadcastDisableCountdownMessagePending = true;
                 }
 
@@ -3492,7 +3485,7 @@
                     _properties.SetProperty(GamingConstants.AutocompleteExpired, true);
                     DisableCountdownTimeRemaining = TimeSpan.Zero;
 
-                    LobbyView.CreateAndShowDisableCountdownWindow();
+                    LobbyView.ShowDisableCountdownWindow();
                     _broadcastDisableCountdownMessagePending = true;
                 }
 
@@ -4191,7 +4184,7 @@
                 }
                 else
                 {
-                    LobbyView.CreateAndShowDisableCountdownWindow();
+                    LobbyView.ShowDisableCountdownWindow();
                     // In case the 'disable countdown' timer starts in the lobby and someone manages to start the game
                     // we can pick up the countdown with platform messages to the game
                     _broadcastDisableCountdownMessagePending = true;
@@ -4214,7 +4207,7 @@
             // because it shouldn't matter even in case the window was already closed
             if (!GameReady)
             {
-                LobbyView.CloseDisableCountdownWindow();
+                LobbyView.HideDisableCountdownWindow();
             }
         }
 

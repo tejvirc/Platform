@@ -10,6 +10,7 @@
     using Common;
     using Events;
     using Gaming.Contracts;
+    using Gaming.UI.Views.Lobby;
     using Kernel;
     using Localization.Properties;
     using Models;
@@ -167,15 +168,12 @@
             _dispatcher.ExecuteOnUIThread(
                 () =>
                 {
+                    // TODO: This will have to be re-examined for SingleWindow
                     foreach (Window window in Application.Current.Windows)
                     {
-                        switch (window.Title)
+                        if (window is LobbyView lobby)
                         {
-                            case GamingConstants.MainWindowTitle:
-                                _windowMap[BingoWindow.Main] = window;
-                                break;
-                            default:
-                                continue;
+                            _windowMap[BingoWindow.Main] = lobby;
                         }
                     }
 

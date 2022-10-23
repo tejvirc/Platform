@@ -42,7 +42,7 @@
     public partial class LobbyView
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly WindowToScreenMapper _windowToScreenMapper = new WindowToScreenMapper(DisplayRole.Main);
+        private readonly WindowToScreenMapper _windowToScreenMapper = new(DisplayRole.Main);
 
         private readonly ICabinetDetectionService _cabinetDetectionService =
             ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
@@ -53,19 +53,10 @@
 
         private readonly OverlayManager _overlayManager;
 
-        ////private readonly TimeLimitDialog _timeLimitDlg;
-        ////private readonly MessageOverlay _msgOverlay;
         private readonly LobbyTopView _topView;
         private readonly LobbyTopperView _topperView;
-
-
-        private VirtualButtonDeckOverlayView _vbdOverlay;
-        private ButtonDeckSimulatorView _buttonDeckSimulator;
-
-        private VirtualButtonDeckView _vbd;
-        private bool _vbdLoaded;
-
-        //private Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)> _customOverlays;
+        private VirtualButtonDeckView _vbdView;
+        private ButtonDeckSimulatorView _buttonView;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="LobbyView" /> class
@@ -167,19 +158,19 @@
         }
 
         /// <summary>
-        ///     Creates and shows the DisableCountdown window.
+        ///     Shows the DisableCountdown window.
         /// </summary>
-        public void CreateAndShowDisableCountdownWindow()
+        public void ShowDisableCountdownWindow()
         {
-            _overlayManager.CreateAndShowDisableCountdownWindow();
+            _overlayManager.ShowDisableCountdownWindow();
         }
 
         /// <summary>
         ///     Closes the DisableCountdown window.
         /// </summary>
-        public void CloseDisableCountdownWindow()
+        public void HideDisableCountdownWindow()
         {
-            _overlayManager.CloseDisableCountdownWindow();
+            _overlayManager.HideDisableCountdownWindow();
         }
 
         public void SetOverlayWindowTransparent(bool transparent)
@@ -264,8 +255,8 @@
                 // Do we not have a hardware button deck?
                 if (buttonDeckService != null && buttonDeckService.DisplayCount == 0)
                 {
-                    _buttonDeckSimulator = new ButtonDeckSimulatorView();
-                    _buttonDeckSimulator.Show();
+                    _buttonView = new ButtonDeckSimulatorView();
+                    _buttonView.Show();
                 }
             }
 
@@ -328,20 +319,10 @@
 
         private void LoadVbd()
         {
-            if (!_vbdLoaded)
-            {
-                _vbd = new VirtualButtonDeckView { ViewModel = ViewModel };
-                SetStylusSettings(_vbd);
-                //_lobbyWindows.Add(_vbd);
-                ShowWithTouch(_vbd);
-
-                _vbdOverlay = new VirtualButtonDeckOverlayView(_vbd) { ViewModel = ViewModel };
-                SetStylusSettings(_vbdOverlay);
-                //_lobbyWindows.Add(_vbdOverlay);
-                ShowWithTouch(_vbdOverlay);
-            }
-
-            _vbdLoaded = true;
+            _vbdView = new VirtualButtonDeckView { ViewModel = ViewModel };
+            SetStylusSettings(_vbdView);
+            ShowWithTouch(_vbdView);
+            _overlayManager.LoadVbdOverlay(_vbdView);
         }
 
         private void ViewModel_OnDisplayChanged(object sender, EventArgs e)
@@ -395,10 +376,9 @@
             _overlayManager.CloseAllOverlays();
 
             Logger.Debug("Closing VirtualButtonDeckView");
-            _vbd?.Close();
-            _vbdOverlay?.Close();
+            _vbdView?.Close();
             Logger.Debug("Closing ButtonDeckSimulatorView");
-            _buttonDeckSimulator?.Close();
+            _buttonView?.Close();
             Logger.Debug("Closing TestToolView");
             _testToolView?.Close();
 
@@ -445,8 +425,6 @@
             MvvmHelper.ExecuteOnUI(() =>
                 {
                     _overlayManager.ChangeLanguageSkin(primaryLanguageSelected);
-                    _overlayManager.ChangeOverlayLanguageSkin(_vbd, primaryLanguageSelected);
-                    _overlayManager.ChangeOverlayLanguageSkin(_vbdOverlay, primaryLanguageSelected);
                 });
         }
 

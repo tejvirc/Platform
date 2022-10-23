@@ -1062,30 +1062,14 @@
         public const string HandpayPresentationOverride = @"HandpayPresentationOverride";
 
         /// <summary>
-        ///     Topper lobby/game window title, when title bar is visible.
-        /// </summary>
-        public const string TopperWindowTitle = @"Topper Lobby";
-
-        /// <summary>
-        ///     Top lobby/game window title, when title bar is visible.
-        /// </summary>
-        public const string TopWindowTitle = @"Top Lobby";
-
-        /// <summary>
         ///     Main lobby/game window title, when title bar is visible.
         /// </summary>
-        public const string MainWindowTitle = @"Shell";
-
-        /// <summary>
-        ///     VBD window title, when title bar is visible.
-        /// </summary>
-        public const string VbdWindowTitle = @"VirtualButtonDeckView";
+        public const string MainWindowTitle = @"MainScreen";
 
         /// <summary>
         ///     True value of this flag will indicate the game can be initiated even if lockup with priority:Normal is there
         /// </summary>
         public const string AdditionalInfoGameInProgress = @"AdditionalInfoGameInProgress";
-
 
         /// <summary>
         ///     Flag will indicate the value of AwaitingPlayerSelection sent to runtime

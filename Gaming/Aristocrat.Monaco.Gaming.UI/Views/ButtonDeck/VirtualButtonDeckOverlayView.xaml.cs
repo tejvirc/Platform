@@ -16,24 +16,17 @@
     /// </summary>
     public partial class VirtualButtonDeckOverlayView
     {
-        private readonly MetroWindow _parent;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="VirtualButtonDeckOverlayView" /> class.
         /// </summary>
-        /// <param name="parent">The parent.</param>
-        public VirtualButtonDeckOverlayView(MetroWindow parent)
+        public VirtualButtonDeckOverlayView()
         {
             InitializeComponent();
-
-            // MetroApps issue--need to set in code behind after InitializeComponent.
-            AllowsTransparency = true;
-
-            _parent = parent;
 
             // VLT-9338 : After a DisplayReconnectEvent in the vbd remap the overlay boundaries to parent(vbd), since the vbd
             // properties were moved upon disconnect. This has to be done after the DisplayReconnectEvent is handled in vbd
             // since it momentarily is behind the lobby until it is repositioned
+            // TODO: Can this actually happen and will it matter with single window?
             ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<ResetVbdBoundariesEvent>(
                 this,
                 evt => MvvmHelper.ExecuteOnUI(SetBoundaries));
@@ -59,7 +52,7 @@
 
         private void SetBoundaries()
         {
-            Top = _parent.Top;
+/*            Top = _parent.Top;
             Left = _parent.Left;
 
             Width = _parent.Width;
@@ -75,7 +68,7 @@
             {
                 var infoBarHeight = Math.Max(InfoBarViewModel.BarHeightMinimum, visibleArea.Value.Height * InfoBarViewModel.BarHeightFraction);
                 ServiceManager.GetInstance().GetService<IEventBus>().Publish(new InfoBarSetHeightEvent(infoBarHeight, DisplayRole.VBD));
-            }
+            }*/
         }
 
         private void OnClosed(object sender, EventArgs e)

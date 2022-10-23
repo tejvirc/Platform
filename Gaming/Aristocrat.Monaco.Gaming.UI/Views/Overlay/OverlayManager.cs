@@ -20,6 +20,7 @@
     using System.Windows.Controls;
     using System.Windows.Interop;
     using Application.UI.Views;
+    using ButtonDeck;
     using ViewModels;
 
     public class OverlayManager
@@ -30,30 +31,31 @@
         private readonly ICabinetDetectionService _cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
 
         private LobbyViewModel _viewModel;
-        private LobbyView _mainView;
-        private LobbyTopView _topView;
-        private LobbyTopperView _topperView;
 
-        private InfoWindow _infoWindow;
-        private OverlayWindow _overlayWindow;
-        private ResponsibleGamingWindow _responsibleGamingWindow;
-        private DisableCountdownWindow _disableCountdownWindow;
+        private readonly LobbyView _mainView;
+        private readonly LobbyTopView _topView;
+        private readonly LobbyTopperView _topperView;
+        private VirtualButtonDeckView _vbdView;
+
+        private readonly InfoWindow _infoWindow;
+        private readonly OverlayWindow _overlayWindow;
+        private readonly ResponsibleGamingWindow _responsibleGamingWindow;
+        private readonly DisableCountdownWindow _disableCountdownWindow;
+        private VirtualButtonDeckOverlayView _vbdOverlay;
 
         private LayoutOverlayWindow _mediaDisplayWindow;
         private LayoutOverlayWindow _topMediaDisplayWindow;
         private LayoutOverlayWindow _topperMediaDisplayWindow;
 
-        private readonly List<(DisplayRole display, Window window)> _lobbyWindows = new List<(DisplayRole display, Window window)>();
+        private readonly List<(DisplayRole display, Window window)> _lobbyWindows = new();
 
-        private readonly Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)>
-            _customOverlays =
-                new Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)>();
+        private readonly Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)> _customOverlays = new();
 
         private readonly bool _windowed;
         private bool _compositeDisplay;
         private bool _arrangeDisplay;
 
-        private readonly List<ResourceDictionary> _skins = new List<ResourceDictionary>();
+        private readonly List<ResourceDictionary> _skins = new();
         private int _activeSkinIndex;
 
         public OverlayManager(LobbyViewModel lobbyViewModel, LobbyView mainView, LobbyTopView topView, LobbyTopperView topperView)
@@ -89,9 +91,12 @@
 
             if (lobbyViewModel.Config.ResponsibleGamingTimeLimitEnabled)
             {
-                Logger.Debug("Creating RG window");
+                Logger.Debug("Creating RG windows");
                 _responsibleGamingWindow = new ResponsibleGamingWindow { ViewModel = lobbyViewModel };
                 _lobbyWindows.Add((DisplayRole.Main, _responsibleGamingWindow));
+
+                _disableCountdownWindow = new DisableCountdownWindow { DataContext = lobbyViewModel };
+                _lobbyWindows.Add((DisplayRole.Main, _disableCountdownWindow));
             }
 
             Logger.Debug("Checking CEF");
@@ -298,6 +303,14 @@
             }
         }
 
+        internal void LoadVbdOverlay(VirtualButtonDeckView vbdView)
+        {
+            _vbdView = vbdView;
+            _vbdOverlay = new VirtualButtonDeckOverlayView() { ViewModel = _viewModel };
+            _lobbyWindows.Add((DisplayRole.VBD, _vbdOverlay));
+            //ShowOverlay(_vbdOverlay, GetViewForDisplay(DisplayRole.VBD)); TODO: remove if working
+        }
+
         private void ViewInjectionEventHandler(ViewInjectionEvent ev)
         {
             if (ev.Element == null && ev.Action == ViewInjectionEvent.ViewAction.Remove)
@@ -337,6 +350,7 @@
                 DisplayRole.Main => _mainView,
                 DisplayRole.Top => _topView,
                 DisplayRole.Topper => _topperView,
+                DisplayRole.VBD => _vbdView,
                 _ => null,
             };
         }
@@ -383,38 +397,20 @@
             }
         }
 
-        public void CreateAndShowDisableCountdownWindow()
+        /// <summary>
+        ///     Shows the DisableCountdown window.
+        /// </summary>
+        public void ShowDisableCountdownWindow()
         {
-            Logger.Debug("Showing DisableCountdownWindow");
-            MvvmHelper.ExecuteOnUI(
-                () =>
-                {
-                    if (_disableCountdownWindow != null)
-                    {
-                        _disableCountdownWindow.Show();
-                    }
-                    else
-                    {
-                        _disableCountdownWindow = new DisableCountdownWindow { DataContext = _viewModel };
-                        _lobbyWindows.Add((DisplayRole.Main, _disableCountdownWindow));
-                        ShowOverlay(_disableCountdownWindow, _mainView);
-                    }
-                });
+            _disableCountdownWindow.Show();
         }
 
-        public void CloseDisableCountdownWindow()
+        /// <summary>
+        ///     Closes the DisableCountdown window.
+        /// </summary>
+        public void HideDisableCountdownWindow()
         {
-            Logger.Debug("Closing DisableCountdownWindow");
-            MvvmHelper.ExecuteOnUI(
-                () =>
-                {
-                    if (_disableCountdownWindow != null)
-                    {
-                        _lobbyWindows.Remove((DisplayRole.Main, _disableCountdownWindow));
-                        _disableCountdownWindow.Close();
-                        _disableCountdownWindow = null;
-                    }
-                });
+            _disableCountdownWindow.Hide();
         }
 
         public void ChangeLanguageSkin(bool primaryLanguageSkin)
@@ -443,20 +439,29 @@
             {
                 _topperView.Resources = tmpResource;
             }
-        }
 
-        public void ChangeOverlayLanguageSkin(Window window, bool primaryLanguageSkin)
-        {
-            _activeSkinIndex = primaryLanguageSkin ? 0 : 1;
-
-            var tmpResource = new ResourceDictionary();
-            tmpResource.MergedDictionaries.Add(_skins[_activeSkinIndex]);
-            window.Resources = tmpResource;
+            if (_vbdView != null)
+            {
+                _vbdView.Resources = tmpResource;
+            }
         }
 
         public void CloseAllOverlays()
         {
+            foreach (var displayAndWindow in _lobbyWindows)
+            {
+                displayAndWindow.window.Close();
+            }
 
+/*      _infoWindow;
+        _overlayWindow;
+        _responsibleGamingWindow;
+        _disableCountdownWindow;
+        _vbdOverlay;
+
+        _mediaDisplayWindow;
+        _topMediaDisplayWindow;
+        _topperMediaDisplayWindow;*/
         }
     }
 }

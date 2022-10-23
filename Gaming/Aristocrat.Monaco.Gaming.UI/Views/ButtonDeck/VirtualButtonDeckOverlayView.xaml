@@ -10,11 +10,9 @@
         Closed="OnClosed"
         IsVisibleChanged="OnIsVisibleChanged"
         WindowStartupLocation="Manual"
-        ResizeMode="NoResize"
-        WindowStyle="None"
         Title="VbdOverlayWindow"
-        ShowInTaskbar="False"
-        Topmost="True">
+        ShowInTaskbar="True"
+        Width="640" Height="400">
 
     <Window.Resources>
         <ResourceDictionary>

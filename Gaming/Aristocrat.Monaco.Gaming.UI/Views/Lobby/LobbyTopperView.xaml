@@ -9,7 +9,7 @@
                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
-                   Title="{Binding TopperTitle}"
+                   Title="TopperScreen"
                    Width="1440"
                    Height="810"
                    ShowTitleBar="False"
