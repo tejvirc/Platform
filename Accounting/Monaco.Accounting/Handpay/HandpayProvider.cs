@@ -677,33 +677,33 @@
 
         private async Task<bool> IssueReceipt(IPrinter printer, HandpayTransaction transaction)
         {
+            var handpayTransaction = _transactions.RecallTransactions<HandpayTransaction>()
+                .First(t => t.TransactionId == transaction.TransactionId);
+
             // Give this ticket a sequence number now, which will remain even if we fail to print,
             // and more importantly will be changed if we do later print it again.
             using (var scope = _storage.ScopedTransaction())
             {
-                var handpayTransaction = _transactions.RecallTransactions<HandpayTransaction>()
-                    .First(t => t.TransactionId == transaction.TransactionId);
-
                 handpayTransaction.ReceiptSequence = GetTicketSequence(_idProvider.GetNextLogSequence<IHandpayTicketCreator>());
                 _transactions.UpdateTransaction(handpayTransaction);
                 scope.Complete();
             }
 
-            if (printer != null && transaction.PrintTicket)
+            if (printer != null && handpayTransaction.PrintTicket)
             {
-                if (!await printer.Print(GetTicket(transaction), Commit) &&
+                if (!await printer.Print(GetTicket(handpayTransaction), Commit) &&
                     _properties.GetValue(AccountingConstants.HandpayReceiptsRequired, false))
                 {
-                    Logger.Error($"Failed to print ticket: {transaction}");
+                    Logger.Error($"Failed to print ticket: {handpayTransaction}");
 
                     if (!printer.Enabled)
                     {
                         _handpayPrintRetry.Reset();
                         _bus.Subscribe<Hardware.Contracts.Printer.EnabledEvent>(this, async (_, token) =>
                         {
-                            if (printer.Enabled && await FinishPrintingHandpay(transaction, token))
+                            if (printer.Enabled && await FinishPrintingHandpay(handpayTransaction, token))
                             {
-                                Logger.Info($"Handpay completed after printer reconnected: {transaction}");
+                                Logger.Info($"Handpay completed after printer reconnected: {handpayTransaction}");
 
                                 _bus.Unsubscribe<Hardware.Contracts.Printer.EnabledEvent>(this);
 
@@ -718,17 +718,17 @@
                     }
 
                     await Task.Delay(PrintRetryDelay);
-                    return await FinishPrintingHandpay(transaction, CancellationToken.None);
+                    return await FinishPrintingHandpay(handpayTransaction, CancellationToken.None);
                 }
 
                 Task Commit()
                 {
-                    var handpayTransaction = _transactions.RecallTransactions<HandpayTransaction>()
+                    var currentTransaction = _transactions.RecallTransactions<HandpayTransaction>()
                         .First(t => t.TransactionId == transaction.TransactionId);
 
-                    handpayTransaction.Printed = true;
-                    _transactions.UpdateTransaction(handpayTransaction);
-                    _bus.Publish(new HandpayReceiptPrintEvent(handpayTransaction));
+                    currentTransaction.Printed = true;
+                    _transactions.UpdateTransaction(currentTransaction);
+                    _bus.Publish(new HandpayReceiptPrintEvent(currentTransaction));
 
                     return Task.CompletedTask;
                 }
