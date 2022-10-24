@@ -144,16 +144,16 @@
                 return;
             }
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
-            _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
             _forceGameExitIsInProgress = true;
             _exitWhenIdle = false;
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
+            _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
         }
 
         private bool IsRequestForceExitToLobbyValid(bool skipTestRecovery)
         {
-            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
+            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
+            var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && !_exitWhenIdle &&(_robotController.Config.Active.TestRecovery || skipTestRecovery));
             return !isBlocked && isGeneralRule;
         }
 
