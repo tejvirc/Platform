@@ -17,7 +17,7 @@
         public const int Acknowledged20 = 0x20;
         public const int PollingIntervalMs = 1000;
         public const int SpinningPollingIntervalMs = 3000;
-        public const int ExpectedResponseTime = 50;
+        public const int ExpectedResponseTime = 200;
         public const int LightsPerReel = 3;
         public const int MaxLightId = MaxReelId * LightsPerReel;
         public const int NumberOfMotorSteps = 200;

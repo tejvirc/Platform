@@ -301,6 +301,19 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExited, evt => evt.Unexpected);
+        }
+
+        private async Task GameProcessExited(GameProcessExitedEvent evt, CancellationToken token)
+        {
+            var homeReels = !ReelsShouldTilt;
+            Logger.Debug($"Titling reels because the game process exited.  Will home immediately after: {homeReels}");
+
+            await TiltReels(true).ConfigureAwait(false);
+            if (homeReels)
+            {
+                await HomeReels().ConfigureAwait(false);
+            }
         }
 
         private async Task HandleOperatorMenuExited()
