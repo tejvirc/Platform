@@ -767,6 +767,8 @@
                 _audio.Stop();
             }
 
+            MessageOverlayDisplay.MessageOverlayData.GameHandlesHandPayPresentation = false;
+
             SetEdgeLighting();
         }
 
