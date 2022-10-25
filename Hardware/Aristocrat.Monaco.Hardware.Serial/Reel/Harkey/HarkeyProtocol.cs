@@ -147,7 +147,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 }
 
                 // Clear unsolicited tamper detected fault
-                OnMessageReceived(new FailureStatusClear { ReelId = reelIndex, TamperDetected = true, StallDetected = true, ComponentError = true });
+                OnMessageReceived(new FailureStatusClear { ReelId = reelIndex, TamperDetected = true, StallDetected = true, ComponentError = true, LowVoltageDetected = true});
             }
 
             // It doesn't support this
