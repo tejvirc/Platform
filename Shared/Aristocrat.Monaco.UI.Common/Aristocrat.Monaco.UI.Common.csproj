@@ -26,6 +26,14 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="PlatformCommandLineArguments.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PlatformCommandLineArguments.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Translations.cs">
       <DependentUpon>Translations.xsd</DependentUpon>
     </Compile>

@@ -25,6 +25,9 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Aristocrat.Monaco.SAS.Client.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Storage\Models\AftRegistration.Configuration.cs">
       <DependentUpon>AftRegistration.cs</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
     </Content>
     <Content Include="Aristocrat.Monaco.SAS.BonusProvider.addin.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.SAS.Client.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Aristocrat.Monaco.SAS.Configuration.addin.xml">
       <SubType>Designer</SubType>
