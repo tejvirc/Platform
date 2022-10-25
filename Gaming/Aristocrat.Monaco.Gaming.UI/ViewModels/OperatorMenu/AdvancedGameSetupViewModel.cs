@@ -144,6 +144,7 @@
                 HandlePropertyChangedEvent,
                 evt =>
                     evt.PropertyName is ApplicationConstants.EKeyVerified or ApplicationConstants.EKeyDrive);
+
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
@@ -482,6 +483,9 @@
             _editMode = _canEdit && !InitialConfigComplete;
 
             SetEditMode();
+
+            AutoEnableGames();
+            UpdateSaveWarning();
         }
 
         protected override void OnUnloaded()
@@ -1814,6 +1818,18 @@
                 this,
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSummaryTitle));
+        }
+
+        private void AutoEnableGames()
+        {
+            foreach (var game in _gamesMapping.Values.SelectMany(profile => profile)
+                       .Where(profile => !profile.OriginalRestriction?.RestrictionDetails.Editable ?? false))
+            {
+                foreach (var config in game.GameConfigurations)
+                {
+                    config.Enabled = true;
+                }
+            }
         }
 
         private class GamesGrouping
