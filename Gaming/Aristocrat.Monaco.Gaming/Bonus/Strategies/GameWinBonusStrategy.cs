@@ -128,7 +128,9 @@
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            return RecoverInternal(transaction, transactionId);
+            return transaction.State != BonusState.Pending
+                ? Task.CompletedTask
+                : RecoverInternal(transaction, transactionId);
         }
 
         protected override void CompletePayment(
