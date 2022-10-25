@@ -580,7 +580,7 @@
 
                     result.action = package.packageId.StartsWith(
                         GamingConstants.PlatformPackagePrefix,
-                        StringComparison.InvariantCultureIgnoreCase) ? ExitAction.Reboot : ExitAction.Restart;
+                        StringComparison.InvariantCultureIgnoreCase) ? ExitAction.RebootDevice : ExitAction.RestartPlatform;
                 }
 
                 if (result.action.HasValue)

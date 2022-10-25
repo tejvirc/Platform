@@ -15,7 +15,7 @@
 
         private bool _disposed;
 
-        private StatusDisplay _statusDisplay;
+        private StatusDisplayMessageHandler _statusDisplayMessageHandler;
         private IEventBus _eventBus;
 
         public StatusDisplayView()
@@ -30,7 +30,7 @@
                 { DisplayableMessageClassification.Diagnostic, InformativeBox }
             };
 
-            _statusDisplay = new StatusDisplay(this);
+            _statusDisplayMessageHandler = new StatusDisplayMessageHandler(this);
         }
 
         public void Dispose()
@@ -42,10 +42,10 @@
                     return;
                 }
 
-                if (_statusDisplay != null)
+                if (_statusDisplayMessageHandler != null)
                 {
-                    _statusDisplay.Dispose();
-                    _statusDisplay = null;
+                    _statusDisplayMessageHandler.Dispose();
+                    _statusDisplayMessageHandler = null;
                 }
 
                 _eventBus?.UnsubscribeAll(this);
@@ -146,7 +146,6 @@
             }
         }
 
-
         private void Window_Initialized(object sender, EventArgs e)
         {
             RestoreWindowPlacement();
@@ -161,10 +160,10 @@
         {
             lock (_mutex)
             {
-                if (_statusDisplay != null)
+                if (_statusDisplayMessageHandler != null)
                 {
-                    _statusDisplay.Dispose();
-                    _statusDisplay = null;
+                    _statusDisplayMessageHandler.Dispose();
+                    _statusDisplayMessageHandler = null;
                 }
             }
         }

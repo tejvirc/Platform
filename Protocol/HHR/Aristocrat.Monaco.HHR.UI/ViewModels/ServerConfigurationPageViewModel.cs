@@ -236,7 +236,7 @@
             EventBus.Publish(new OperatorMenuSettingsChangedEvent());
             SetHhrProperties();
             _operatorMenuLauncher?.Close();
-            EventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+            EventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
         }
 
         protected override void SaveChanges()

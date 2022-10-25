@@ -15,43 +15,31 @@
         /// <inheritdoc />
         public void CreateAndShow()
         {
-            var windowLauncher = ServiceManager.GetInstance().GetService<IWpfWindowLauncher>();
-            windowLauncher.CreateWindow<StatusDisplayView>(WindowName);
+            ServiceManager.GetInstance().GetService<IWpfWindowLauncher>().CreateWindow<StatusDisplayView>(WindowName);
         }
 
         /// <inheritdoc />
         public void Close()
         {
-            var windowLauncher = ServiceManager.GetInstance().GetService<IWpfWindowLauncher>();
-            windowLauncher.Close(WindowName);
+            ServiceManager.GetInstance().GetService<IWpfWindowLauncher>().Close(WindowName);
         }
 
         /// <inheritdoc />
         public void Show()
         {
-            var windowLauncher = ServiceManager.GetInstance().GetService<IWpfWindowLauncher>();
-            windowLauncher.Show(WindowName);
+            ServiceManager.GetInstance().GetService<IWpfWindowLauncher>().Show(WindowName);
         }
 
         /// <inheritdoc />
         public void Hide()
         {
-            var windowLauncher = ServiceManager.GetInstance().GetService<IWpfWindowLauncher>();
-            windowLauncher.Hide(WindowName);
+            ServiceManager.GetInstance().GetService<IWpfWindowLauncher>().Hide(WindowName);
         }
 
         /// <inheritdoc />
         public void Shutdown(bool closeApplication)
         {
-            var windowLauncher = ServiceManager.GetInstance().GetService<IWpfWindowLauncher>();
             Close();
-            if (closeApplication)
-            {
-                // This effectively controls the Application instance.
-                // We need to explicity close the application at exit, but in the event of a soft reboot (due to a RAM clear, etc.)
-                //   we can't shut it down or we risk failiing due to trying to create more than one application in the current app domain.
-                windowLauncher.Shutdown();
-            }
         }
 
         /// <inheritdoc />

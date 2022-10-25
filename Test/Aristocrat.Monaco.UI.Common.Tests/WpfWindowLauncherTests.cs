@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.InteropServices;
     using System.Threading;
     using System.Windows;
     using System.Windows.Threading;
+    using Aristocrat.Monaco.Bootstrap;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -14,6 +16,8 @@
     public class WpfWindowLauncherTests
     {
         private WpfWindowLauncher _target;
+        private Thread _uiThread;
+        private ManualResetEvent _waitForAppCreated;
 
         /// <summary>Gets or sets the test context</summary>
         public TestContext TestContext { get; set; }
@@ -24,6 +28,11 @@
         [TestInitialize]
         public void Initialize()
         {
+            if (Application.Current == null)
+            {
+                CreateAppDomain();
+            }
+
             _target = new WpfWindowLauncher();
         }
 
@@ -34,6 +43,12 @@
         public void CleanUp()
         {
             _target.Dispose();
+
+            if (_waitForAppCreated != null)
+            {
+                _waitForAppCreated.Close();
+                _waitForAppCreated = null;
+            }
         }
 
         /// <summary>
@@ -294,6 +309,37 @@
             string actualName = null;
             window.Dispatcher.Invoke(() => actualName = window.Name);
             return actualName;
+        }
+
+        private void CreateAppDomain()
+        {
+            Assert.IsNull(Application.Current);
+            _waitForAppCreated = new ManualResetEvent(false);
+
+            if (_uiThread == null)
+            {
+                _uiThread = new Thread(
+                    () =>
+                    {
+                        if (Application.Current == null)
+                        {
+                            var app = new App { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+
+                            _waitForAppCreated.Set();
+
+                            app.Run();
+                        }
+                    })
+                {
+                    Name = "UI Thread",
+                    CurrentCulture = Thread.CurrentThread.CurrentCulture,
+                    CurrentUICulture = Thread.CurrentThread.CurrentUICulture
+                };
+
+                _uiThread.SetApartmentState(ApartmentState.STA);
+                _uiThread.Start();
+                _waitForAppCreated.WaitOne();
+            }
         }
     }
 }

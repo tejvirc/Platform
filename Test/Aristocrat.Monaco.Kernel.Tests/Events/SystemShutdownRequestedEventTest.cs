@@ -22,7 +22,7 @@
         [TestMethod]
         public void SystemShutdownRequestedEventConstructorTest()
         {
-            var target = new ExitRequestedEvent(ExitAction.ShutDown);
+            var target = new ExitRequestedEvent(ExitAction.Shutdown);
             Assert.IsNotNull(target);
             Assert.IsInstanceOfType(target, typeof(ExitRequestedEvent));
         }

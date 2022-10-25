@@ -260,7 +260,7 @@ namespace Aristocrat.Monaco.Hardware
             {
                 Logger.Debug("Posting SoftRebootEvent");
                 _waitingOnPersistentStorageClearedEvent = false;
-                ServiceManager.GetInstance().GetService<IEventBus>().Publish(new ExitRequestedEvent(ExitAction.Restart));
+                ServiceManager.GetInstance().GetService<IEventBus>().Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
             }
             else
             {

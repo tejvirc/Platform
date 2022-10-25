@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -9,9 +9,9 @@
     using Contracts.Models;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
+    using Toolkit.Mvvm.Extensions;
 
-    public class GameTabInfoViewModel : BaseViewModel
+    public class GameTabInfoViewModel : BaseObservableObject
     {
         private const double SubTabsTopMargin = 158;
         private readonly double[] _subTabsLeftMargin = { 350, 650, 950, 1250, 855, 1145 };
@@ -280,17 +280,17 @@
 
         private void UpdateTabInfo()
         {
-            RaisePropertyChanged(nameof(Tabs));
-            RaisePropertyChanged(nameof(TabCount));
-            RaisePropertyChanged(nameof(SelectedTabIndex));
-            RaisePropertyChanged(nameof(SubTabs));
-            RaisePropertyChanged(nameof(SubTabsMargin));
-            RaisePropertyChanged(nameof(SelectedCategory));
-            RaisePropertyChanged(nameof(GameTypes));
+            OnPropertyChanged(nameof(Tabs));
+            OnPropertyChanged(nameof(TabCount));
+            OnPropertyChanged(nameof(SelectedTabIndex));
+            OnPropertyChanged(nameof(SubTabs));
+            OnPropertyChanged(nameof(SubTabsMargin));
+            OnPropertyChanged(nameof(SelectedCategory));
+            OnPropertyChanged(nameof(GameTypes));
         }
     }
 
-    public class GameTabInfo : BaseViewModel
+    public class GameTabInfo : BaseObservableObject
     {
         private const string TabResourceKeyPrefix = "GameTab";
         private const string LabelResourceKeyPrefix = "Tab";
@@ -314,9 +314,9 @@
                 }
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
-                RaisePropertyChanged(nameof(LabelResourceKey));
-                RaisePropertyChanged(nameof(TabResourceKey));
+                OnPropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(LabelResourceKey));
+                OnPropertyChanged(nameof(TabResourceKey));
             }
         }
 

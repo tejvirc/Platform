@@ -478,7 +478,7 @@
             if (SerialTouchService.PendingCalibration)
             {
                 Logger.Info("Requesting reboot with pending serial touch calibration.");
-                EventBus.Publish(new ExitRequestedEvent(ExitAction.Reboot));
+                EventBus.Publish(new ExitRequestedEvent(ExitAction.RebootDevice));
                 return;
             }
 

@@ -1199,7 +1199,7 @@
             if (e.Success)
             {
                 Log.Info("Restarting System now that touch calibration is complete.");
-                _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+                _eventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
             }
             else if (!string.IsNullOrEmpty(e.Error))
             {
@@ -1214,7 +1214,7 @@
             if (_serialTouchService.PendingCalibration)
             {
                 Log.Info("Requesting reboot with pending serial touch calibration.");
-                _eventBus.Publish(new ExitRequestedEvent(ExitAction.Reboot));
+                _eventBus.Publish(new ExitRequestedEvent(ExitAction.RebootDevice));
                 return;
             }
 
@@ -1222,7 +1222,7 @@
             _touchErrorDialog?.CancelCommand.Execute(null);
 
             Log.Info("Restarting System now that serial touch calibration is complete.");
-            _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+            _eventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
         }
 
         private void HandleEvent(OffEvent theEvent)

@@ -65,7 +65,7 @@
 
         public bool DeviceChanged => true;
 
-        public ExitAction? ExitAction => Kernel.Contracts.ExitAction.ShutDown;
+        public ExitAction? ExitAction => Kernel.Contracts.ExitAction.Shutdown;
 
         /// <inheritdoc />
         public event EventHandler UninstallStartedEventHandler;

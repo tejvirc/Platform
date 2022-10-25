@@ -12,9 +12,9 @@
     using log4net;
     using Kernel;
     using MVVM;
-    using MVVM.ViewModel;
+    using Toolkit.Mvvm.Extensions;
 
-    public class InfoBarViewModel : BaseViewModel, IDisposable
+    public class InfoBarViewModel : BaseObservableObject, IDisposable
     {
         private class InfoBarMessageData
         {
@@ -32,7 +32,7 @@
         private const double MarginSide = 4;
         private const double MarginTop = 6;
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _isOpen;
         private bool _disposed;

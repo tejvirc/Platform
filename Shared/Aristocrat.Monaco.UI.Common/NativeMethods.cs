@@ -96,7 +96,7 @@
         /// <param name="uMode"></param>
         /// <returns></returns>
         [DllImport("kernel32.dll")]
-        internal static extern ErrorModes SetErrorMode(ErrorModes uMode);
+        public static extern ErrorModes SetErrorMode(ErrorModes uMode);
 
         /// <summary>
         ///     mouse_event

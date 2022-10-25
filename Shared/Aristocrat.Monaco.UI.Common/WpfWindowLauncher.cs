@@ -11,23 +11,18 @@
     using Hardware.Contracts.Touch;
     using Kernel;
     using log4net;
-    using MahApps.Metro.Controls;
 
     /// <summary>
     ///     The services for creating windows on a single UI thread.
     /// </summary>
     public sealed class WpfWindowLauncher : IWpfWindowLauncher
     {
-        private const string UiThreadName = "UiThread";
-
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly object _lock = new object();
-        private readonly ManualResetEvent _waitForAppCreated = new ManualResetEvent(false);
         private readonly Dictionary<string, WindowInfo> _windows = new Dictionary<string, WindowInfo>();
 
         private bool _disposed;
-        private Thread _uiThread;
 
         /// <inheritdoc />
         public void Dispose()
@@ -37,9 +32,7 @@
                 return;
             }
 
-            Shutdown(false);
-
-            _waitForAppCreated.Close();
+            CloseAllWindows();
 
             Logger.Debug("Disposed");
 
@@ -55,8 +48,7 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            CreateUiThread();
-            Application.Current.Dispatcher.Invoke(() => DisableWPFTabletSupport());
+            Application.Current.Dispatcher.Invoke(DisableWPFTabletSupport);
         }
 
         /// <inheritdoc />
@@ -255,53 +247,6 @@
             }
         }
 
-        /// <inheritdoc />
-        public void Shutdown()
-        {
-            Logger.Debug("Shutdown invoked");
-
-            Shutdown(true);
-        }
-
-        private void CreateUiThread()
-        {
-            if (Application.Current != null)
-            {
-                Logger.Info("Application instance already exists");
-                return;
-            }
-
-            if (_uiThread == null)
-            {
-                _uiThread = new Thread(
-                    () =>
-                    {
-                        if (Application.Current == null)
-                        {
-                            Logger.Info("Creating new Application instance...");
-
-                            var app = new MonacoApplication { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-
-                            _waitForAppCreated.Set();
-
-                            app.Run();
-                        }
-                    })
-                {
-                    Name = UiThreadName,
-                    CurrentCulture = Thread.CurrentThread.CurrentCulture,
-                    CurrentUICulture = Thread.CurrentThread.CurrentUICulture
-                };
-
-                _uiThread.SetApartmentState(ApartmentState.STA);
-                _uiThread.Start();
-
-                _waitForAppCreated.WaitOne();
-
-                Logger.Debug($"Started UI window thread with ID: {_uiThread.ManagedThreadId}");
-            }
-        }
-
         private void InternalCreateWindow<T>(WindowInfo windowInfo)
             where T : Window, new()
         {
@@ -356,7 +301,8 @@
             }
         }
 
-        private void Shutdown(bool closeApplication)
+        /// <inheritdoc />
+        public void CloseAllWindows()
         {
             lock (_lock)
             {
@@ -365,12 +311,6 @@
                 {
                     Close(keyValuePair.Key);
                 }
-            }
-
-            if (closeApplication && Application.Current != null)
-            {
-                Logger.Info("Shutting down the the WPF Application");
-                Application.Current.Invoke(() => Application.Current.Shutdown());
             }
         }
 

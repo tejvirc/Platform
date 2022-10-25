@@ -39,7 +39,7 @@
         {
             if (!_playerTracking.IsSessionActive && _lockup.IsLockedByHost)
             {
-                _eventBus.Publish(new ExitRequestedEvent(ExitAction.ShutDown));
+                _eventBus.Publish(new ExitRequestedEvent(ExitAction.Shutdown));
             }
             else
             {

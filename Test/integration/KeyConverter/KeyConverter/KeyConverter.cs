@@ -557,7 +557,7 @@
                 { Keys.U, (type: typeof(DisableCountdownTimerEvent), args: new List<object> { true, TimeSpan.FromSeconds(5) }) },
                 { Keys.I, (type: typeof(DisableCountdownTimerEvent), args: new List<object> {false }) },
                 { Keys.Z, (type: typeof(RobotControllerEnableEvent), args: new List<object>()) },
-                { Keys.Escape, (type: typeof(ExitRequestedEvent), args: new List<object> { ExitAction.ShutDown }) },
+                { Keys.Escape, (type: typeof(ExitRequestedEvent), args: new List<object> { ExitAction.Shutdown }) },
                 { Keys.F11, (type: typeof(TerminateGameProcessEvent), args: new List<object> { true }) },
                 { Keys.F12, (type: typeof(TerminateGameProcessEvent), args: new List<object> { false }) },
                 { Keys.Add, (type: typeof(DebugAnyCreditEvent), args: new List<object> {20, AccountType.Promo}) },

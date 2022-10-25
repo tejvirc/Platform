@@ -77,8 +77,8 @@
         void SetWindowState(string name, WindowState state);
 
         /// <summary>
-        ///     Explicitly shuts down the presentation layer
+        ///     Explicitly closes all windows except for the <see cref="Application.MainWindow"/>.
         /// </summary>
-        void Shutdown();
+        void CloseAllWindows();
     }
 }

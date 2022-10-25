@@ -12,16 +12,16 @@
     using log4net;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Models;
-    using MVVM.ViewModel;
+    using Toolkit.Mvvm.Extensions;
 
-    public class ClockTimer : BaseViewModel
+    public class ClockTimer : BaseObservableObject
     {
         private const int ClockStateTimeoutInSeconds = 30;
         private const double DayTimerIntervalSeconds = 1.0;
         private const string TimeResourceKey = "TimeLabel";
         private const string TimeLeftResourceKey = "TimeLeftLabel";
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly object _clockStateLock = new object();
 
         private readonly LobbyConfiguration _config;
@@ -86,7 +86,7 @@
                     _clockState = value;
                     _lastClockStateSet = DateTime.UtcNow;
                     Logger.Debug($"Setting Lobby Clock State: {_clockState}");
-                    RaisePropertyChanged(nameof(ClockState));
+                    OnPropertyChanged(nameof(ClockState));
                     UpdateTime();
                 }
             }
@@ -108,7 +108,7 @@
                 if (_currentTime != value)
                 {
                     _currentTime = value;
-                    RaisePropertyChanged(nameof(CurrentTime));
+                    OnPropertyChanged(nameof(CurrentTime));
                 }
             }
         }
@@ -276,7 +276,7 @@
 
         public void UpdateTime()
         {
-            RaisePropertyChanged(nameof(IsSessionOverLabelVisible));
+            OnPropertyChanged(nameof(IsSessionOverLabelVisible));
             if (_clockState == LobbyClockState.Clock)
             {
                 var culture = new CultureInfo(ActiveLocaleCode);
@@ -308,7 +308,7 @@
                 CurrentTime = SessionTimeText;
             }
 
-            RaisePropertyChanged(nameof(TimeLabelResourceKey));
+            OnPropertyChanged(nameof(TimeLabelResourceKey));
         }
 
         private void DayTimer_Tick(object sender, EventArgs e)

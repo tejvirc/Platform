@@ -107,7 +107,7 @@
 
                     _eventLift.Report(cabinet, EventCode.G2S_CBE401);
 
-                    _bus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+                    _bus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
                 });
         }
     }

@@ -989,7 +989,7 @@
 
                         break;
                     case t_operSystem.G2S_resetEgm:
-                        exitAction = ExitAction.Restart;
+                        exitAction = ExitAction.RestartPlatform;
                         break;
                 }
             }

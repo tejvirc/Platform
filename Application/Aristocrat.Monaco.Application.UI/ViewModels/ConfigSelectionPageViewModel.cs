@@ -401,7 +401,7 @@
                     _cabinetDetectionService?.MapTouchscreens();
                 }
 
-                EventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+                EventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
             }
         }
 
@@ -595,7 +595,7 @@
             if (_serialTouchService.PendingCalibration)
             {
                 Logger.Info("Requesting reboot with pending serial touch calibration.");
-                EventBus.Publish(new ExitRequestedEvent(ExitAction.Reboot));
+                EventBus.Publish(new ExitRequestedEvent(ExitAction.RebootDevice));
                 return;
             }
 

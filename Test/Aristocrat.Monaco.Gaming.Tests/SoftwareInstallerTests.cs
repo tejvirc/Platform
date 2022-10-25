@@ -137,7 +137,7 @@
         [TestMethod]
         public void ExitActionTest()
         {
-            Assert.AreEqual(ExitAction.ShutDown, _softwareInstaller.ExitAction);
+            Assert.AreEqual(ExitAction.Shutdown, _softwareInstaller.ExitAction);
         }
 
         [TestMethod]

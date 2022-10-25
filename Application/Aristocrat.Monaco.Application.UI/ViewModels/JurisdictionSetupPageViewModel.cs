@@ -139,7 +139,7 @@
 
                     if (!result ?? false)
                     {
-                        EventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+                        EventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
                         return;
                     }
 

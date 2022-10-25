@@ -343,7 +343,7 @@
 
                 Egm.Stop();
 
-                Bus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+                Bus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
             }
         }
 

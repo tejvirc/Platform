@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bootstrap
+namespace Aristocrat.Monaco.Bootstrap
 {
     using System;
     using System.Collections.Generic;
@@ -7,8 +7,10 @@
     using System.Linq;
     using System.Net;
     using System.Reflection;
+    using System.Windows;
     using System.Runtime.InteropServices;
     using System.Security.Permissions;
+    using System.Text;
     using System.Threading.Tasks;
     using Kernel;
     using Kernel.Contracts;
@@ -44,7 +46,7 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static readonly bool CrashDumpRegistered =
+        public static readonly bool CrashDumpRegistered =
             Environment.GetCommandLineArgs().Any(x => x.Equals(GenerateCrashDumpArg)) ||
             Environment.GetEnvironmentVariable(GenerateCrashDumpArg) != null;
 
@@ -55,18 +57,33 @@
 
         private IRunnable _extender;
         private IService _assemblyResolver;
-
+        private TextWriter _debugConsole;
         private DateTime _hardBootTime;
         private DateTime _softBootTime;
-        private ExitAction _exitAction;
 
+        /// <summary>
+        ///     Prevents a default instance of the <see cref="Bootstrap" /> class from being created.
+        ///     Use the static <see cref="Run" /> method instead.
+        /// </summary>
         private Bootstrap()
         {
         }
 
-        public static int Main(string[] args)
+        /// <summary>
+        ///     Entry-point for initiating the Monaco boot-up sequence.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Application exit code.</returns>
+        public static void Run(string[] args)
         {
-            return CrashDumpRegistered ? InternalStart(args) : StartWithExceptionHandling(args);
+            if (CrashDumpRegistered)
+            {
+                InternalStart(args);
+            }
+            else
+            {
+                StartWithExceptionHandling(args);
+            }
         }
 
         public void SetWorkingDirectory()
@@ -78,8 +95,12 @@
             }
         }
 
-        public int Start(string[] args)
+        public void Start(string[] args)
         {
+#if DEBUG
+            SpawnDebugConsoleWindow();
+#endif
+
             SetWorkingDirectory();
 
             ConfigureLogging();
@@ -88,6 +109,7 @@
             SetUnobservedTaskExceptionHandler();
             NativeMethods.SetErrorMode(
                 NativeMethods.ErrorModes.SemFailCriticalErrors | NativeMethods.ErrorModes.SemNoGpFaultErrorBox);
+
             if (!CrashDumpRegistered)
             {
                 NativeMethods.SetCrashHandlerLogger(Logger.Fatal);
@@ -102,7 +124,9 @@
 
             if (ParseCommandLineArguments(args))
             {
-                return (int)AppExitCode.Ok;
+                Environment.ExitCode = (int)AppExitCode.Error;
+                ExitApplication();
+                return;
             }
 
             NativeMethods.DisableProcessWindowsGhosting();
@@ -132,10 +156,30 @@
             Logger.Debug($"_hardBootTime: {_hardBootTime} kind:{_softBootTime.Kind}");
 
             LoadKernel();
+
+            // Thread does not return from this method until application shutdown is triggered
             RunBootExtender();
+
+            // Logger will be unloaded and unavailable after this call
+            Shutdown();
+        }
+
+        private void SpawnDebugConsoleWindow()
+        {
+            NativeMethods.AllocConsole();
+            _debugConsole = new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true };
+            Console.SetOut(_debugConsole);
+        }
+
+        /// <summary>
+        ///     Unloads and cleans up Bootstrap. After this method is called, logging facilities will have also unloaded.
+        ///     Which means the logger will not log anymore.
+        /// </summary>
+        private void Shutdown()
+        {
             UnloadKernel(false);
 
-            Logger.Info($"Shutting down ({_exitAction})...");
+            Logger.Info($"Shutting down...");
 
             ShutdownAddinManager();
 
@@ -148,15 +192,28 @@
 
             LogManager.Shutdown();
 
-            switch (_exitAction)
-            {
-                case ExitAction.ShutDown:
-                    return (int)AppExitCode.Shutdown;
-                case ExitAction.Reboot:
-                    return (int)AppExitCode.Reboot;
-            }
+#if DEBUG
+            CloseDebugConsoleWindow();
+#endif
 
-            return (int)AppExitCode.Ok;
+            ExitApplication();
+        }
+
+        private void CloseDebugConsoleWindow()
+        {
+            _debugConsole.Close();
+            _debugConsole.Dispose();
+            NativeMethods.FreeConsole();
+        }
+
+        private void ExitApplication()
+        {
+            // This is a standard soft exit.
+            if (Application.Current != null)
+            {
+                Logger.Info("Shutting down the WPF Application");
+                Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown());
+            }
         }
 
         private static void ConfigureLogging()
@@ -171,23 +228,22 @@
             XmlConfigurator.Configure(loggingConfig);
         }
 
-        private static int InternalStart(string[] args)
+        private static void InternalStart(string[] args)
         {
             var bootstrap = new Bootstrap();
 
-            return bootstrap.Start(args);
+            bootstrap.Start(args);
         }
 
-        private static int StartWithExceptionHandling(string[] args)
+        private static void StartWithExceptionHandling(string[] args)
         {
             try
             {
-                return InternalStart(args);
+                InternalStart(args);
             }
             catch (Exception ex)
             {
                 Crash(ex);
-                return (int)AppExitCode.Error;
             }
         }
 
@@ -278,11 +334,13 @@
             Console.WriteLine(exception);
             if (!CrashDumpRegistered)
             {
+                // This is a Hard exit. It bypasses some .NET cleanup tasks. See documentation.
+                // https://learn.microsoft.com/en-us/dotnet/api/system.environment.exit
                 Environment.Exit((int)AppExitCode.Error);
             }
         }
 
-        private static void UnobservedTaskExceptionHandler(object sender, UnobservedTaskExceptionEventArgs args)
+        private static void TaskScheduler_OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs args)
         {
             foreach (var exception in args.Exception.Flatten().InnerExceptions)
             {
@@ -322,20 +380,20 @@
         private void SetUnobservedTaskExceptionHandler()
         {
             Logger.Info("Setting Unobserved Task Exception Handler...");
-            TaskScheduler.UnobservedTaskException += UnobservedTaskExceptionHandler;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_OnUnobservedTaskException;
             Logger.Info("Done.");
         }
 
         private bool ParseCommandLineArguments(string[] args)
         {
-            // if there weren't any arguments just return
+            // If there weren't any arguments just return
             if (args.Length == 0)
             {
                 Logger.Debug("No arguments found");
                 return false;
             }
 
-            // check to see if we want a list of all the available command line arguments
+            // Check to see if we want a list of all the available command line arguments
             if (args[0].Equals("/?"))
             {
                 CommandLineHelp.DiscoverAndDisplayCommandLineArguments();
@@ -352,7 +410,7 @@
                 }
                 else if (tokens.Length == 1)
                 {
-                    // treat single token args as boolean properties with default value of true
+                    // Treat single token args as boolean properties with default value of true
                     _pendingProperties.Add(tokens[0], true);
                 }
             }
@@ -404,7 +462,6 @@
                 serviceManager.AddServiceAndInitialize(service);
                 _optionalServices.Add(service);
             }
-
             Logger.Info("Done.");
 
             OutputStatus("Loading Kernel Runnables");
@@ -422,22 +479,20 @@
             _runnablesManager.StopRunnables();
             Logger.Info("Done.");
 
-            OutputStatus("Unloading Kernel Services");
+            OutputStatus("Unloading Optional Kernel Services");
             foreach (var service in _optionalServices)
             {
                 serviceManager.RemoveService(service);
             }
-
             Logger.Info("Done.");
 
             _optionalServices.Clear();
 
             (_assemblyResolver as IDisposable)?.Dispose();
 
-            serviceManager.TryGetService<IPlatformDisplay>()?.Shutdown(!softReboot);
             foreach (var service in _requiredServices)
             {
-                OutputStatus("Unloading " + service.Name);
+                OutputStatus("Unloading Required Kernel Service: " + service.Name);
                 serviceManager.RemoveService(service);
                 Logger.Info("Done.");
             }
@@ -450,15 +505,16 @@
             Logger.Info("Kernel unloaded");
         }
 
-        private void HandleEvent(ExitRequestedEvent @event)
+        private void HandleEvent(ExitRequestedEvent e)
         {
-            Logger.Debug($"Exit requested with action: {@event.ExitAction}");
-
-            _exitAction = @event.ExitAction;
+            Logger.Debug($"Exit requested with action: {e.ExitAction}");
 
             _extender?.Stop();
         }
 
+        /// <summary>
+        ///     Begins loading the next layer of the Monaco Platform
+        /// </summary>
         private void RunBootExtender()
         {
             var typeExtensionNode =
@@ -467,18 +523,12 @@
             _extender.Initialize();
 
             Logger.Debug("Running boot extender...");
+
             _extender.Run();
+            
             Logger.Debug("Boot extender exited");
 
             _extender = null;
-        }
-
-        private enum AppExitCode
-        {
-            Reboot = -2,
-            Shutdown = -1,
-            Ok,
-            Error = 1
         }
     }
 }

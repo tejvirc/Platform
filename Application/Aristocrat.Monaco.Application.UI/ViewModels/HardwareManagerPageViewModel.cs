@@ -116,7 +116,7 @@
                 EventBus.Publish(new OperatorMenuSettingsChangedEvent());
                 SaveCurrentHardwareConfig();
                 _operatorMenuLauncher.Close();
-                EventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+                EventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
             }
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,13 +16,13 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM.ViewModel;
     using PackageManifest.Models;
     using Progressives;
+    using Toolkit.Mvvm.Extensions;
 
-    public class EditableGameConfiguration : BaseViewModel, IDisposable
+    public class EditableGameConfiguration : BaseObservableObject, IDisposable
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IProgressiveConfigurationProvider _progressives;
         private readonly IPropertiesManager _properties;
@@ -115,7 +115,7 @@
                     return;
                 }
 
-                RaisePropertyChanged(nameof(Game));
+                OnPropertyChanged(nameof(Game));
                 LoadBetOptions();
                 LoadLineOptions();
                 LoadBonusBets(SelectedBetOption);
@@ -173,7 +173,7 @@
                 }
 
                 _selectedBetOption = value;
-                RaisePropertyChanged(nameof(SelectedBetOption));
+                OnPropertyChanged(nameof(SelectedBetOption));
                 LoadBonusBets(SelectedBetOption);
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
@@ -206,7 +206,7 @@
                 }
 
                 _selectedLineOption = value;
-                RaisePropertyChanged(nameof(SelectedLineOption));
+                OnPropertyChanged(nameof(SelectedLineOption));
                 ConfigurationMinBet();
                 TopAwardValue = RecalculateTopAward();
             }
@@ -262,21 +262,21 @@
                 }
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
-                RaisePropertyChanged(nameof(CanEdit));
-                RaisePropertyChanged(nameof(WarningTextHidden));
-                RaisePropertyChanged(nameof(CanEditAndEnabled));
-                RaisePropertyChanged(nameof(CanEditAndEnableGamble));
-                RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
-                RaisePropertyChanged(nameof(ProgressivesAllowed));
-                RaisePropertyChanged(nameof(ProgressivesEnabled));
-                RaisePropertyChanged(nameof(ProgressiveSetupEnabled));
-                RaisePropertyChanged(nameof(ProgressiveSetupVisibility));
-                RaisePropertyChanged(nameof(ProgressiveViewVisibility));
-                RaisePropertyChanged(nameof(BetOptionEnabled));
-                RaisePropertyChanged(nameof(LineOptionEnabled));
-                RaisePropertyChanged(nameof(BonusBetEnabled));
-                RaisePropertyChanged(nameof(SelectedPaytable));
+                OnPropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(CanEdit));
+                OnPropertyChanged(nameof(WarningTextHidden));
+                OnPropertyChanged(nameof(CanEditAndEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(ProgressivesAllowed));
+                OnPropertyChanged(nameof(ProgressivesEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupVisibility));
+                OnPropertyChanged(nameof(ProgressiveViewVisibility));
+                OnPropertyChanged(nameof(BetOptionEnabled));
+                OnPropertyChanged(nameof(LineOptionEnabled));
+                OnPropertyChanged(nameof(BonusBetEnabled));
+                OnPropertyChanged(nameof(SelectedPaytable));
             }
         }
 
@@ -318,7 +318,7 @@
                     return;
                 }
 
-                RaisePropertyChanged(
+                OnPropertyChanged(
                     nameof(CanEditAndEnabled),
                     nameof(CanEditAndEnableGamble),
                     nameof(CanEditAndEnableLetItRide),
@@ -359,7 +359,7 @@
                 }
 
                 _maxDenomEntriesReached = value;
-                RaisePropertyChanged(
+                OnPropertyChanged(
                     nameof(CanToggleEnabled),
                     nameof(CanEditAndEnabled),
                     nameof(CanEditAndEnableGamble),
@@ -596,12 +596,12 @@
 
         public void RaiseEnabledByHostChanged()
         {
-            RaisePropertyChanged(nameof(EnabledByHost));
-            RaisePropertyChanged(nameof(WarningTextHidden));
-            RaisePropertyChanged(nameof(CanEdit));
-            RaisePropertyChanged(nameof(CanEditAndEnabled));
-            RaisePropertyChanged(nameof(CanEditAndEnableGamble));
-            RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
+            OnPropertyChanged(nameof(EnabledByHost));
+            OnPropertyChanged(nameof(WarningTextHidden));
+            OnPropertyChanged(nameof(CanEdit));
+            OnPropertyChanged(nameof(CanEditAndEnabled));
+            OnPropertyChanged(nameof(CanEditAndEnableGamble));
+            OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
         }
 
         public void SetAllowedRtpRange(decimal? lowestAllowed, decimal? highestAllowed)
@@ -622,7 +622,7 @@
                 SelectedPaytable = AvailablePaytables.FirstOrDefault();
             }
 
-            RaisePropertyChanged(nameof(CanToggleEnabled));
+            OnPropertyChanged(nameof(CanToggleEnabled));
             Logger.Debug(
                 AvailablePaytables.Aggregate(
                     $"Denom {Denom} available minimum RTPs: ",
@@ -675,7 +675,7 @@
             ProgressiveSetupConfigured = ViewProgressiveLevels
                 .Any(p => p.CurrentState != ProgressiveLevelState.Init);
             ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
-            RaisePropertyChanged(nameof(UseImportedLevels));
+            OnPropertyChanged(nameof(UseImportedLevels));
         }
 
         public void SetWarningText()
@@ -813,7 +813,7 @@
             // Raise this in case we change variation while editing and we have different bonus bets. Note
             // that if someone actually does want to do this, you need to enforce that the game's various
             // ati:betOption manifest entries have unique names. Otherwise they just get coalesced.
-            RaisePropertyChanged(nameof(SelectedBonusBet), nameof(BonusBets), nameof(BonusBetAvailable));
+            OnPropertyChanged(nameof(SelectedBonusBet), nameof(BonusBets), nameof(BonusBetAvailable));
         }
 
         private long RecalculateTopAward()

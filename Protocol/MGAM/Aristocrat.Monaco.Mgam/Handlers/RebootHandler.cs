@@ -50,7 +50,7 @@
             Task.Run(() => _commandFactory.Execute(new UnregisterInstance()))
                 .FireAndForget(ex => _logger.LogError(ex.Message));
 
-            _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+            _eventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
 
             return Task.FromResult(Ok<RebootResponse>());
         }

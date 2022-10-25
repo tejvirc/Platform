@@ -41,7 +41,7 @@
 
         public bool DeviceChanged => true;
 
-        public ExitAction? ExitAction => Kernel.Contracts.ExitAction.Reboot;
+        public ExitAction? ExitAction => Kernel.Contracts.ExitAction.RebootDevice;
 
         public event EventHandler UninstallStartedEventHandler;
 

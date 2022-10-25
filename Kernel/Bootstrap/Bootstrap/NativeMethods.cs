@@ -48,5 +48,13 @@
 
         [DllImport("kernel32.dll")]
         public static extern ErrorModes SetErrorMode(ErrorModes uMode);
+
+        [DllImport("kernel32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AllocConsole();
+
+        [DllImport("Kernel32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool FreeConsole();
     }
 }

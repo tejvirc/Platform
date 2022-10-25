@@ -224,7 +224,7 @@
                     {
                         _activeCalibration?.Value.ViewModel.UpdateError(string.Empty);
                         StopTimer();
-                        _eventBus.Publish(new ExitRequestedEvent(ExitAction.Reboot));
+                        _eventBus.Publish(new ExitRequestedEvent(ExitAction.RebootDevice));
                     }
                     else
                     {

@@ -468,7 +468,7 @@
         private void HandleExitRequested(ExitRequestedEvent e)
         {
             // Did we handle an exit request to restart and we are pending calibration?
-            if (e.ExitAction != ExitAction.Restart || !PendingCalibration)
+            if (e.ExitAction != ExitAction.RestartPlatform || !PendingCalibration)
             {
                 return;
             }
@@ -608,7 +608,7 @@
                         Thread.Sleep(CalibrationDelayMs);
                     }
 
-                    _eventBus.Publish(new ExitRequestedEvent(ExitAction.Reboot));
+                    _eventBus.Publish(new ExitRequestedEvent(ExitAction.RebootDevice));
                 }
                 else
                 {

@@ -94,7 +94,7 @@
                 return;
             }
             _logger.Info("RequestSoftReboot Received!", GetType().Name);
-            _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+            _eventBus.Publish(new ExitRequestedEvent(ExitAction.RestartPlatform));
         }
 
         private void RequestHardReboot()
