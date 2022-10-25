@@ -12,7 +12,7 @@
     /// <summary>
     /// ViewModel for LobbyClockOverlayWindow
     /// </summary>
-    public sealed class LobbyClockViewModel : BaseEntityViewModel
+    public sealed class LobbyClockViewModel : BaseEntityViewModel, IDisposable
     {
 
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -21,6 +21,7 @@
         private bool _flashingEnabled;
         private readonly ILobbyClockService _lobbyClockService;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IEventBus _eventBus;
 
         public bool FlashingEnabled
         {
@@ -39,27 +40,31 @@
 
         public LobbyClockViewModel() : this(
             ServiceManager.GetInstance().TryGetService<ILobbyClockService>(),
-            ServiceManager.GetInstance().TryGetService<IPropertiesManager>())
+            ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
+            ServiceManager.GetInstance().TryGetService<IEventBus>())
         {
         }
 
-        public LobbyClockViewModel(ILobbyClockService lobbyClockService, IPropertiesManager propertiesManager)
+        public LobbyClockViewModel(ILobbyClockService lobbyClockService, IPropertiesManager propertiesManager, IEventBus eventBus)
         {
             _lobbyClockService = lobbyClockService ?? throw new ArgumentNullException(nameof(lobbyClockService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _lobbyClockService.Notify += EnableFlash;
-            this.PropertyChanged += Changed;
+
             IsVisible = _propertiesManager.GetValue(ApplicationConstants.ClockEnabled, false);
 
         }
 
-        private void Changed(object sender, PropertyChangedEventArgs e)
-        {
-            Logger.Debug($"ViewModel Class Flashing Property changed to {FlashingEnabled}");
-        }
         private void EnableFlash(object sender, bool flashEnable)
         {
             FlashingEnabled = flashEnable;
+        }
+
+        public void Dispose()
+        {
+            _lobbyClockService.Notify -= EnableFlash;
+            
         }
     }
 }

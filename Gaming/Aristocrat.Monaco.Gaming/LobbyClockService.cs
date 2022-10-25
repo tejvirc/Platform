@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading;
-    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -19,6 +18,10 @@
 
     public class LobbyClockService : ILobbyClockService, IService, IDisposable
     {
+
+        private const int NumberOfFlashes = 5;
+        private const int TimeBetweenFlashes = 1000;
+
         // Time interval in Milliseconds
         private const double GamePlayingIntervalInMilliseconds = 600_000d;
         private const double GameIdleIntervalInMilliseconds = 25_000d;
@@ -86,6 +89,7 @@
             _gameIdleTimer.Elapsed += GameIdleTimer_Tick;
 
             _noCreditTimer =  new Timer { Interval = NoCreditIntervalInMilliseconds };
+            Logger.Debug($"Class Thread: - {Thread.CurrentThread.ManagedThreadId}");
             //_noCreditTimer.Elapsed += NoCreditTimer_Tick;
 
         }
@@ -115,31 +119,100 @@
 
         private void TriggerTimeFlashing()
         {
-            int i = 0;
-            while (i < 10)
+            int flashIndex = 0;
+            while (_lobbyStateManager.CurrentState == LobbyState.GameLoading)
             {
-                Thread.Sleep(1000);
-                PeriodicAsync();
-                i++;
+                Thread.Sleep(TimeBetweenFlashes);
+            }
+
+            if (RuntimeStateIsOkToFlash())
+            {
+                while (flashIndex < NumberOfFlashes)
+                {
+                    // Check we have not changed state
+                    if (LobbyStateIsOkToFlash())
+                    {
+                        flashIndex = PlatformFlash(flashIndex);
+                        continue;
+                    }
+
+                    flashIndex = RuntimeFlash(flashIndex);
+                }
+            }
+
+            if (LobbyStateIsOkToFlash())
+            {
+                while (flashIndex < NumberOfFlashes)
+                {
+                    // Check the state has not changed
+                    if (RuntimeStateIsOkToFlash())
+                    {
+                        flashIndex = RuntimeFlash(flashIndex);
+                        continue;
+
+                    }
+
+                    flashIndex = PlatformFlash(flashIndex);
+                }
             }
         }
 
-        public void PeriodicAsync()
+        private int RuntimeFlash(int numberOfFlashesComplete)
         {
-
-            if (_lobbyStateManager.CurrentState == LobbyState.Game)
+            Thread.Sleep(TimeBetweenFlashes);
+            // Have we changed states since, waiting?
+            if (RuntimeStateIsOkToFlash())
             {
-                Logger.Debug($"Send Flash to Game: {DateTime.Now.ToString("hh:mm:ss tt")}");
-                //await delayTask;
-                //Thread.Sleep(1000);
+                _runtime.OnSessionTickFlashClock();
+                Logger.Debug($"Send Flash to Game: {DateTime.Now.ToString("hh:mm:ss tt")} - {numberOfFlashesComplete} - ThreadId {Thread.CurrentThread.ManagedThreadId}");
+                return numberOfFlashesComplete + 1;
             }
+
+            return numberOfFlashesComplete;
+        }
+
+        private int PlatformFlash(int numberOfFlashesComplete)
+        {
+            Thread.Sleep(TimeBetweenFlashes/2);
 
             if (FlashingEnabled)
             {
                 FlashingEnabled = false;
-                return;
+                return numberOfFlashesComplete;
             }
-            FlashingEnabled = true;
+
+            // Have we changed states since, waiting?
+            if (LobbyStateIsOkToFlash())
+            { 
+                Logger.Debug($"Send Flash to Platform: {DateTime.Now.ToString("hh:mm:ss tt")} - {numberOfFlashesComplete}- ThreadId {Thread.CurrentThread.ManagedThreadId} - LobbyState - {_lobbyStateManager.CurrentState.ToString()}");
+                FlashingEnabled = true;
+                return numberOfFlashesComplete + 1;
+            }
+
+            return numberOfFlashesComplete;
+        }
+
+        private bool LobbyStateIsOkToFlash()
+        {
+            if (_lobbyStateManager.CurrentState != LobbyState.Game &&
+                _lobbyStateManager.CurrentState != LobbyState.GameLoading &&
+                _lobbyStateManager.CurrentState != LobbyState.GameDiagnostics)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool RuntimeStateIsOkToFlash()
+        {
+            if (_lobbyStateManager.CurrentState == LobbyState.Game &&
+                _lobbyStateManager.CurrentState != LobbyState.GameLoading &&
+                _lobbyStateManager.CurrentState != LobbyState.GameDiagnostics &&
+                _lobbyStateManager.CurrentState != LobbyState.Chooser)
+            {
+                return true;
+            }
+            return false;
         }
         public void Dispose()
         {
