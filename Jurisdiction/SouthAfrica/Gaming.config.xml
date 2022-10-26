@@ -25,6 +25,9 @@ as follows:
     <LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
 	<GameCategory ApplyGameCategorySettings="true" />
 	<ContinuousPlaySupport Mode="Toggle" Configurable="true" />
+	<PhysicalButtons>
+		<CashOutButton ReportToHostWithZeroCredit="true"/>
+	</PhysicalButtons>
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

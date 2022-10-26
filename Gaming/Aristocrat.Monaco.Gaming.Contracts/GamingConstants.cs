@@ -782,6 +782,11 @@
         public const string GameStartMethodConfigurable = @"GameStartMethod.Configurable";
 
         /// <summary>
+        ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
+        /// </summary>
+        public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
+
+        /// <summary>
         ///     Determines whether "Way to Start game" option is visible or not
         ///     Note : In some cases the way to start game is just play button. In those cases, the setting should be hidden
         ///     And a fixed value for the settings is used.

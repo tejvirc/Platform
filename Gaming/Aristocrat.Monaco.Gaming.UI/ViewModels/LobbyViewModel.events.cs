@@ -283,23 +283,39 @@
                         return;
                     }
 
-                    if (IsLobbyVisible && platformEvent.Enabled)
+                    if (platformEvent.Enabled)
                     {
-                        if (!IsResponsibleGamingInfoFullScreen)
+                        if (IsLobbyVisible)
                         {
-                            ExitResponsibleGamingInfoDialog();
-                        }
-
-                        if (IsInState(LobbyState.Chooser))
-                        {
-                            if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
+                            if (!IsResponsibleGamingInfoFullScreen)
                             {
-                                HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
+                                ExitResponsibleGamingInfoDialog();
                             }
+
+                            if (IsInState(LobbyState.Chooser))
+                            {
+                                if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
+                                {
+                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0)
+                                    {
+                                        HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
+                                    }
+                                }
+                            }
+                            OnUserInteraction();
                         }
 
-                        OnUserInteraction();
+                        if ((bool)_properties.GetProperty(GamingConstants.ReportCashoutButtonPressWithZeroCredit, false)
+                        && Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId)
+                        && (LcdButtonDeckLobby) platformEvent.LogicalId == LcdButtonDeckLobby.CashOut
+                        && _bank.QueryBalance() == 0
+                        && _gameState.Idle)
+                        {
+                            HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby.CashOut);
+                        }
+
                     }
+                    
 
                     if (MessageOverlayDisplay.ShowProgressiveGameDisabledNotification)
                     {
