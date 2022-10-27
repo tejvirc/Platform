@@ -16,7 +16,8 @@
             IViewableProgressiveLevel progressiveLevel,
             MeterNode meterNode,
             bool showLifetime,
-            long denomMillicents)
+            long denomMillicents,
+            long sharedHiddenTotal)
         {
             switch (meterNode.Name)
             {
@@ -69,6 +70,15 @@
                         prog => prog.HiddenValue.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
                 case ProgressiveMeters.ProgressiveLevelHiddenTotal:
+                    if(sharedHiddenTotal > 0)
+                    {
+                        return new ProxyDisplayMeter<long>(
+                            meterNode.DisplayName,
+                            sharedHiddenTotal,
+                            v => v.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
+                            meterNode.Order);
+                    }
+
                     return CreateValueDisplayMeter(
                         progressiveManager,
                         progressiveLevel,
