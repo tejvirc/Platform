@@ -2,15 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Drawing;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Windows.Input;
+
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using Utils;
     using Contracts;
     using Contracts.Lobby;
     using Contracts.Models;
@@ -19,7 +23,6 @@
     using Hardware.Contracts.Audio;
     using Kernel;
     using Localization.Properties;
-    using Models;
     using Monaco.UI.Common.Extensions;
     using MVVM.Command;
     using Progressives;
@@ -34,6 +37,8 @@
         private readonly GameType _currentSelectedGameType;
         private readonly IDialogService _dialogService;
         private readonly IAudio _audio;
+        private readonly IPlayerCultureProvider _playerCultureProvider;
+        private readonly IGameProvider _gameProvider;
 
         private bool _censorViolentContent;
         private bool _censorDrugUseContent;
@@ -86,29 +91,40 @@
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
 
-            var gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
+            var containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
+            var lobbyStateManager = containerService.Container
+                ?.GetInstance<ILobbyStateManager>();
+            IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+
+            _playerCultureProvider = //containerService.Container?.GetInstance<IPlayerCultureProvider>() ??
+                ServiceManager.GetInstance().GetService<ILocalization>()?.GetProvider(CultureFor.Player) as
+                    IPlayerCultureProvider ??
+                throw new ArgumentNullException(nameof(_playerCultureProvider));
+            _gameProvider = containerService.Container?.GetInstance<IGameProvider>() ??
+                            throw new ArgumentNullException(nameof(_gameProvider));
+
             var progressiveConfiguration = ServiceManager.GetInstance().GetService<IProgressiveConfigurationProvider>();
             _gameCategory = ServiceManager.GetInstance().GetService<IGameCategoryService>();
             var selectedGameId = PropertiesManager.GetValue(GamingConstants.SelectedGameId, -1);
             _audio = ServiceManager.GetInstance().GetService<IAudio>();
 
-            _currentSelectedGameType = gameProvider.GetGame(selectedGameId)?.GameType ?? GameType.Undefined;
+            _currentSelectedGameType = _gameProvider.GetGame(selectedGameId)?.GameType ?? GameType.Undefined;
 
             var autoPlayAllowed =
                 PropertiesManager.GetValue(GamingConstants.AutoPlayAllowed, true); //jurisdiction allow auto play or not
 
-            SlotOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Slot) &&
+            SlotOptionsEnabled = _gameProvider.GetAllGames().Any(a => a.GameType == GameType.Slot) &&
                                  PropertiesManager.GetValue(GamingConstants.ReelStopConfigurable, true);
             SlotAllowedAutoPlay = SlotOptionsEnabled && autoPlayAllowed;
 
-            KenoOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Keno);
+            KenoOptionsEnabled = _gameProvider.GetAllGames().Any(a => a.GameType == GameType.Keno);
             KenoAllowedAutoPlay = KenoOptionsEnabled && autoPlayAllowed;
-            var pokerGames = gameProvider.GetAllGames().Where(a => a.GameType == GameType.Poker).ToList();
+            var pokerGames = _gameProvider.GetAllGames().Where(a => a.GameType == GameType.Poker).ToList();
             PokerOptionsEnabled = pokerGames.Any();
             LoadPokerBackgroundColors();
             LoadBackgroundPreviewFiles();
-            BlackjackOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Blackjack);
-            RouletteOptionsEnabled = gameProvider.GetAllGames().Any(game => game.GameType == GameType.Roulette);
+            BlackjackOptionsEnabled = _gameProvider.GetAllGames().Any(a => a.GameType == GameType.Blackjack);
+            RouletteOptionsEnabled = _gameProvider.GetAllGames().Any(game => game.GameType == GameType.Roulette);
 
             ProgressiveOptionsEnabled = progressiveConfiguration.ViewProgressiveLevels()
                 .Any(x => x.LevelType != ProgressiveLevelType.Sap);
@@ -116,11 +132,6 @@
                 GamingConstants.ProgressiveLobbyIndicatorType,
                 ProgressiveLobbyIndicator.Disabled) != ProgressiveLobbyIndicator.Disabled;
 
-            LanguageOptions = new List<LanguageOption>();
-            // TODO Get all language options -- these are just placeholders
-            AddLanguage(new LanguageOption("English", true, true, true));
-            AddLanguage(new LanguageOption("Spanish", true, true, false));
-            AddLanguage(new LanguageOption("Chinese", true, false, false));
 
             IsButtonContinuousPlayConfigurable = PropertiesManager.GetValue(
                 GamingConstants.ContinuousPlayModeConfigurable,
@@ -131,7 +142,7 @@
             EditableCensorship = PropertiesManager.GetValue(GamingConstants.CensorshipEditable, false);
             CensorshipEnforced = PropertiesManager.GetValue(GamingConstants.CensorshipEnforced, false);
             DemoModeEnabled = PropertiesManager.GetValue(ApplicationConstants.ShowMode, false);
-            AttractOptionsEnabled = gameProvider.GetEnabledGames().Any();
+            AttractOptionsEnabled = _gameProvider.GetEnabledGames().Any();
             AttractEnabled = PropertiesManager.GetValue(GamingConstants.AttractModeEnabled, true);
 
             AutoHoldConfigurable = PokerOptionsEnabled &&
@@ -159,9 +170,9 @@
             MinimumGameRoundDuration = PropertiesManager.GetValue(GamingConstants.MinimumGameRoundDuration, GamingConstants.DefaultMinimumGameRoundDurationMs);
             MaximumGameRoundDuration = PropertiesManager.GetValue(GamingConstants.MaximumGameRoundDuration, GamingConstants.DefaultMaximumGameRoundDurationMs);
 
-            var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container
-                ?.GetInstance<ILobbyStateManager>();
-            IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+            // initialize language options
+            LanguageOptions = new ObservableCollection<LanguageOptionViewModel>();
+            InitializeLanguageOptions();
         }
 
         public List<GameStartMethodInfo> GameStartMethods => new List<GameStartMethodInfo>
@@ -910,7 +921,7 @@
             }
         }
 
-        public List<LanguageOption> LanguageOptions { get; set; }
+        public ObservableCollection<LanguageOptionViewModel> LanguageOptions { get; } = new ObservableCollection<LanguageOptionViewModel>();
 
         public GameStartMethodOption GameStartMethod
         {
@@ -1158,6 +1169,42 @@
             }
         }
 
+        private void InitializeLanguageOptions()
+        {
+            var languageOptions = _playerCultureProvider.LanguageOptions.ToList();
+            var mandatoryLanguages = (from l in languageOptions where l.IsMandatory select l.Locale).ToArray();
+
+            var gameLocalesCollection = (from g in _gameProvider.GetAllGames() where DoesGameSupportAllMandatoryLanguages(mandatoryLanguages, g.LocaleGraphics?.Keys.AsEnumerable()) select g.LocaleGraphics.Keys.AsEnumerable()).ToList();
+            if (gameLocalesCollection.Any())
+            {
+                var config = PropertiesManager.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
+                gameLocalesCollection.Add(config.LocaleCodes);
+            }
+
+            var gameLocales = LocaleHelper.GetCommonLocales(gameLocalesCollection);
+
+            var staleLanguages = (from l in languageOptions where !l.IsMandatory && !LocaleHelper.Includes(gameLocales, l.Locale) select l).ToList();
+            staleLanguages.ForEach(l => languageOptions.Remove(l));
+
+            var gameLanguageOptions = (from l in gameLocales
+                                       where !languageOptions.Any(s => string.Equals(s.Locale, l, StringComparison.CurrentCultureIgnoreCase))
+                                       select new LanguageOption { Locale = l, Enabled = false, IsMandatory = false }).ToArray();
+
+            languageOptions.AddRange(gameLanguageOptions);
+
+            var languageOptionViewModels = new List<LanguageOptionViewModel>();
+            languageOptions.ForEach(l => languageOptionViewModels.Add(new LanguageOptionViewModel(new CultureInfo(l.Locale), l.IsMandatory || l.Enabled, l.IsMandatory)));
+
+            var defaultLanguageOption =
+                languageOptionViewModels.FirstOrDefault(l => l.CultureInfo.Equals(_playerCultureProvider.DefaultCulture)) ??
+                languageOptionViewModels.FirstOrDefault() ?? throw new Exception("Empty language list.");
+            defaultLanguageOption.IsDefault = true;
+
+            languageOptionViewModels.ForEach(AddLanguage);
+
+            bool DoesGameSupportAllMandatoryLanguages(IEnumerable<string> jurisdictionMandatoryLanguages, IEnumerable<string> gameSupportedLanguages) => gameSupportedLanguages != null && jurisdictionMandatoryLanguages.All(l => gameSupportedLanguages.Any(k => string.Equals(k, l, StringComparison.InvariantCultureIgnoreCase)));
+        }
+
         private void PlayVolumeChangeSound(string soundFilePath, float fVolumeScale)
         {
             if (!string.IsNullOrEmpty(soundFilePath))
@@ -1195,7 +1242,7 @@
             }
         }
 
-        private void AddLanguage(LanguageOption language)
+        private void AddLanguage(LanguageOptionViewModel language)
         {
             language.PropertyChanged += Language_OnPropertyChanged;
             LanguageOptions.Add(language);
@@ -1203,14 +1250,35 @@
 
         private void Language_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (sender is LanguageOption language && language.IsDefault)
+            if (sender is LanguageOptionViewModel option)
             {
-                foreach (var l in LanguageOptions)
+                if (!LanguageOptions.Any(l => l.IsDefault))
                 {
-                    if (l != language)
+                    var defaultLanguage = this.LanguageOptions.FirstOrDefault(l => l.IsEnabled && l.IsMandatoryLanguage) ?? throw new Exception("No enabled mandatory language is found.");
+                    defaultLanguage.IsDefault = true;
+                }
+
+                switch (e.PropertyName)
+                {
+                    case nameof(option.IsDefault):
+                        break;
+                }
+                if (e.PropertyName == nameof(option.IsDefault) && option.IsDefault)
+                {
+                    _playerCultureProvider.DefaultCulture = option.CultureInfo;
+                    PropertiesManager.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, option.CultureInfo.Name);
+                }
+                else if (e.PropertyName == nameof(option.IsEnabled))
+                {
+                    if (option.IsEnabled)
                     {
-                        l.IsDefault = false;
+                        _playerCultureProvider.AddCultures(option.CultureInfo);
                     }
+                    else
+                    {
+                        _playerCultureProvider.RemoveCultures(option.CultureInfo);
+                    }
+
                 }
             }
         }
