@@ -285,6 +285,7 @@
 
                     if (platformEvent.Enabled)
                     {
+                        var reportCashoutButtonPress = (bool)_properties.GetProperty(GamingConstants.ReportCashoutButtonPressWithZeroCredit, false);
                         if (IsLobbyVisible)
                         {
                             if (!IsResponsibleGamingInfoFullScreen)
@@ -296,7 +297,7 @@
                             {
                                 if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
                                 {
-                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0)
+                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0 || reportCashoutButtonPress)
                                     {
                                         HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
                                     }
@@ -304,8 +305,7 @@
                             }
                             OnUserInteraction();
                         }
-
-                        if ((bool)_properties.GetProperty(GamingConstants.ReportCashoutButtonPressWithZeroCredit, false)
+                        else if (reportCashoutButtonPress
                         && Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId)
                         && (LcdButtonDeckLobby) platformEvent.LogicalId == LcdButtonDeckLobby.CashOut
                         && _bank.QueryBalance() == 0
@@ -313,9 +313,7 @@
                         {
                             HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby.CashOut);
                         }
-
                     }
-                    
 
                     if (MessageOverlayDisplay.ShowProgressiveGameDisabledNotification)
                     {
