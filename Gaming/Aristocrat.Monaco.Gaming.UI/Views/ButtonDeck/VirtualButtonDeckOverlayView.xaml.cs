@@ -52,15 +52,8 @@
 
         private void SetBoundaries()
         {
-/*            Top = _parent.Top;
-            Left = _parent.Left;
-
-            Width = _parent.Width;
-            Height = _parent.Height;
-
-            WindowState = _parent.WindowState;
-            Cursor = _parent.Cursor;
-
+            // TODO: what does this do?
+/* 
             var visibleArea = ServiceManager.GetInstance().GetService<ICabinetDetectionService>()
                 ?.GetDisplayDeviceByItsRole(DisplayRole.VBD)
                 ?.VisibleArea;

@@ -1062,11 +1062,6 @@
         public const string HandpayPresentationOverride = @"HandpayPresentationOverride";
 
         /// <summary>
-        ///     Main lobby/game window title, when title bar is visible.
-        /// </summary>
-        public const string MainWindowTitle = @"MainScreen";
-
-        /// <summary>
         ///     True value of this flag will indicate the game can be initiated even if lockup with priority:Normal is there
         /// </summary>
         public const string AdditionalInfoGameInProgress = @"AdditionalInfoGameInProgress";

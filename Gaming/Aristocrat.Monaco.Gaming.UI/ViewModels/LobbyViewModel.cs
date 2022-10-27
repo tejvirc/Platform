@@ -1809,9 +1809,9 @@
         /// </summary>
         public void OnLoaded()
         {
-            // we call ChangeLanguageSkin before this is called from LobbyViewModel.xaml.cs
-            // So any text that needs to be localized from resources can be updated once
-            // we are here.  
+            // We call ChangeLanguageSkin before this is called from LobbyViewModel.xaml.cs
+            // so any text that needs to be localized from resources can be updated once
+            // we are here.
             Logger.Debug("Lobby OnLoaded() complete");
             RaisePropertyChanged(nameof(PaidMeterLabel));
         }

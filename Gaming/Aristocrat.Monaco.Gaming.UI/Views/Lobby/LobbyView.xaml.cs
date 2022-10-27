@@ -1,23 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Diagnostics;
     using System.Reflection;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
     using System.Windows.Forms;
     using System.Windows.Input;
-    using System.Windows.Interop;
     using Application.Contracts;
     using Application.Contracts.Media;
     using Application.UI.Views;
     using ButtonDeck;
     using Cabinet.Contracts;
     using Common;
-    using Contracts;
     using Contracts.Events;
     using Hardware.Contracts;
     using Hardware.Contracts.ButtonDeck;
@@ -31,7 +25,6 @@
     using Monaco.UI.Common;
     using MVVM;
     using Overlay;
-    using Utils;
     using ViewModels;
     using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
     using TouchAction = Hardware.Contracts.Touch.TouchAction;
@@ -273,6 +266,8 @@
                 LoadVbd();
             }
 
+            _overlayManager.ShowAndPositionOverlays();
+
             var showTestTool = (string)_properties.GetProperty(
                 Constants.ShowTestTool,
                 Constants.False);
@@ -280,15 +275,8 @@
             if (showTestTool == Constants.True)
             {
                 _testToolView = new TestToolView();
+                ShowWithTouch(_testToolView);
             }
-
-            // Set owners so _customOverlays appear on top of parent window (we have to do this
-            // in OnHwndLoaded, not constructor).  This means we do not have to use Topmost
-            // which caused other issues (audit screen appearing behind overlay).
-            ////_timeLimitDlg.Owner = this;
-            ////_msgOverlay.Owner = this;
-
-            ShowWithTouch(_testToolView);
 
             OnLanguageChanged(null, null);
 
@@ -302,8 +290,6 @@
             // now show the Lobby TopView window here to address defect VLT-2584.
             _topView?.Show();
             _topperView?.Show();
-
-            _overlayManager.ShowAndPositionOverlays();
         }
 
         private bool HostMachineHasVbd()
@@ -451,10 +437,6 @@
         {
             Logger.Debug("LobbyView_OnContentRendered");
             Logger.Debug($"Original ViewBox Main Size Width:{GameLayout.ActualWidth} Height:{GameLayout.ActualHeight}");
-            //if (_responsibleGamingWindow != null)
-            //{
-            //    _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
-            //}
         }
 
         private void GameLayout_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -464,11 +446,6 @@
 
         private void ShowWithTouch(Window window)
         {
-            if (window == null)
-            {
-                return;
-            }
-
             window.Show();
             WpfWindowLauncher.DisableStylus(window);
         }

@@ -303,13 +303,6 @@
             }
         }
 
-        internal void LoadVbdOverlay(VirtualButtonDeckView vbdView)
-        {
-            _vbdView = vbdView;
-            _vbdOverlay = new VirtualButtonDeckOverlayView() { ViewModel = _viewModel };
-            _lobbyWindows.Add((DisplayRole.VBD, _vbdOverlay));
-        }
-
         private void ViewInjectionEventHandler(ViewInjectionEvent ev)
         {
             if (ev.Element == null && ev.Action == ViewInjectionEvent.ViewAction.Remove)
@@ -443,6 +436,11 @@
             {
                 _vbdView.Resources = tmpResource;
             }
+
+            if (_vbdOverlay != null)
+            {
+                _vbdOverlay.Resources = tmpResource;
+            }
         }
 
         public void CloseAllOverlays()
@@ -461,6 +459,14 @@
         _mediaDisplayWindow;
         _topMediaDisplayWindow;
         _topperMediaDisplayWindow;*/
+        }
+
+        public void LoadVbdOverlay(VirtualButtonDeckView vbdView)
+        {
+            _vbdView = vbdView;
+            _vbdOverlay = new VirtualButtonDeckOverlayView() { ViewModel = _viewModel };
+            _lobbyWindows.Add((DisplayRole.VBD, _vbdOverlay));
+            //_vbdOverlay.Show();
         }
     }
 }

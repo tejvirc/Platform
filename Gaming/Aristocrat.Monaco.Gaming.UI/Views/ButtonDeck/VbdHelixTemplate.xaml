@@ -185,7 +185,8 @@
                     <Viewbox.RenderTransform>
                         <TranslateTransform X="4" Y="95" />
                     </Viewbox.RenderTransform>
-                    <buttonDeck1:VbdServiceDlg Visibility="{Binding IsVbdServiceDialogVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
+                    <buttonDeck1:VbdServiceDlg 
+                        Visibility="{Binding IsVbdServiceDialogVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 </Viewbox>
 
                 <Viewbox Grid.Row="0" 

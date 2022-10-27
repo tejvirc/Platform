@@ -10,7 +10,7 @@
         Closed="OnClosed"
         IsVisibleChanged="OnIsVisibleChanged"
         WindowStartupLocation="Manual"
-        Title="VbdOverlayWindow"
+        Title="VbdOverlay"
         ShowInTaskbar="True"
         Width="640" Height="400">
 
@@ -44,7 +44,5 @@
                         Content="{Binding}"
                         ContentTemplateSelector="{StaticResource VbdViewOverlaySelector}">
         </ContentControl>
-
-        <Label Background="Cyan" Foreground="Magenta" FontSize="72" Width="200" Height="90">GARY</Label>
     </Grid>
 </Window>

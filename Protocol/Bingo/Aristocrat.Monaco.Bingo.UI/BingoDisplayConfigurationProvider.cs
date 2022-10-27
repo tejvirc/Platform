@@ -10,7 +10,6 @@
     using Common;
     using Events;
     using Gaming.Contracts;
-    using Gaming.UI.Views.Lobby;
     using Kernel;
     using Localization.Properties;
     using Models;
@@ -171,9 +170,14 @@
                     // TODO: This will have to be re-examined for SingleWindow
                     foreach (Window window in Application.Current.Windows)
                     {
-                        if (window is LobbyView lobby)
+                        switch (window.Title)
                         {
-                            _windowMap[BingoWindow.Main] = lobby;
+                            // TODO: This will be replaced with SingleWindow user control
+                            case "MainScreen":
+                                _windowMap[BingoWindow.Main] = window;
+                                break;
+                            default:
+                                continue;
                         }
                     }
 
