@@ -40,10 +40,17 @@
 
         private bool _configured;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="LocalizationService"/> class.
-        /// </summary>
-        public LocalizationService()
+        private readonly string[] _culturePropertyNames = 
+        {
+            nameof(ICultureProvider.CurrentCulture),
+            nameof(IPlayerCultureProvider.DefaultCulture),
+            nameof(IPlayerCultureProvider.LanguageOptions)
+        };
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="LocalizationService"/> class.
+    /// </summary>
+    public LocalizationService()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>())
@@ -408,17 +415,16 @@
 
         private void OnProviderPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
-            if (args.PropertyName != nameof(ICultureProvider.CurrentCulture))
+            if (_culturePropertyNames.Any(n => n == args.PropertyName))
             {
-                return;
+                // if any of these property is changed, save them
+                CommitToStorage();
             }
-
-            CommitToStorage();
         }
 
         private void CommitToStorage()
         {
-            if (_propertiesProvider == null)
+            if (_propertiesProvider == null || !_providers.Any())
             {
                 return;
             }
@@ -443,14 +449,12 @@
             try
             {
                 var json = (string)_propertiesProvider?.GetProperty(ApplicationConstants.LocalizationState);
-
                 if (string.IsNullOrWhiteSpace(json))
                 {
                     return;
                 }
 
                 var state = JsonConvert.DeserializeObject<LocalizationState>(json);
-
                 if (state == null)
                 {
                     return;

@@ -2,7 +2,9 @@
 {
     using System.Configuration;
     using System.Linq;
+    using Application.Contracts.Localization;
     using Application.Contracts.Media;
+    using Application.Localization;
     using Common.Container;
     using Contracts;
     using Contracts.Lobby;
@@ -22,6 +24,8 @@
             container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
             container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
             container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
+            //container.Register<IPlayerCultureProvider, PlayerCultureProvider>(Lifestyle.Singleton);
+            container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
             container.AddOverlayMessageStrategies();
 
             // we have to register in UI level dues to PlayerInfoDisplayManagerFactory and PlayerInfoDisplayFeatureProvider
@@ -33,6 +37,7 @@
             // This is just a stub since the core gaming layer currently has dependencies on IResponsibleGaming.  It needs to be re-factored out
             container.Register<IResponsibleGaming, ResponsibleGaming>(Lifestyle.Singleton);
 
+            
             // Additional registrations go here
 
             container.RegisterManyForOpenGeneric(
