@@ -240,6 +240,12 @@
                     FirmwareCrc = UnknownCrc;
 
                     _physicalLayer.IsEnabled = true;
+                    if (!_physicalLayer.IsOpen)
+                    {
+                        Logger.Error($"Error opening port for {GetType()}");
+                        IsOpen = false;
+                        return true;
+                    }
                     ResetMessageIn();
 
                     GetDeviceInformation();
