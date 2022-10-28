@@ -16,6 +16,7 @@
     /// <inheritdoc />
     public class ProgressiveWinDetailsProvider : IProgressiveWinDetailsProvider
     {
+        private const long MaxProgressiveAmount = 9_999_9999_99;
         private const int MaxNonProgressiveHits = 30;
         private const int MaxSentCount = 8;
         private const byte Client1 = 0;
@@ -223,72 +224,21 @@
         public void AddNonSasProgressiveLevelWin(IViewableProgressiveLevel level, JackpotTransaction jackpotTransaction)
         {
             var sapLevels = _progressiveLevelProvider.GetProgressiveLevels().Count(l => l.LevelType == ProgressiveLevelType.Sap);
-            int levelId;
-            int controllerType;
-            var controllerId = 0;
+            var levelValues = LevelValues(level, sapLevels);
+
+            var amount = jackpotTransaction.ValueAmount.MillicentsToCents() <= MaxProgressiveAmount
+                ? jackpotTransaction.ValueAmount.MillicentsToCents()
+                : MaxProgressiveAmount;
             
-            if (level.LevelId < sapLevels)
-            {
-                // SAP levels are always first thus this level matches reported level plus one for SAS
-                levelId =  + 1;
-
-                controllerType = (int)ProgressiveControllerType.SAP; // Standalone protocol (gaming machine internal)
-            }
-            else
-            {
-                // SAP levels are always first thus this all other progressives must subtract off the SAP levels first and reported level plus one for SAS
-                levelId = level.LevelId - sapLevels + 1;
-
-                switch (_progressiveController)
-                {
-                    case CommsProtocol.G2S:
-                        controllerType = (int)ProgressiveControllerType.G2S; // G2S protocol
-                        // TODO: G2S Progressives not implemented yet
-                        // According to the protocol for G2S controllers the device Id should be used for the Controller Id
-                        controllerId = 1;
-                        break;
-                    default:
-                        controllerType = (int)ProgressiveControllerType.OtherLinked; // Other link protocol
-                        break;
-                }
-            }
-            var win = new NonSasProgressiveWinData(controllerType, controllerId, levelId, jackpotTransaction.ValueAmount.MillicentsToCents(), level.ResetValue.MillicentsToCents(), level.Overflow.MillicentsToCents());
+            var win = new NonSasProgressiveWinData(levelValues.controllerType, levelValues.controllerId, levelValues.levelId, amount, level.ResetValue.MillicentsToCents(), level.Overflow.MillicentsToCents());
             lock (_nonSasProgressiveLock)
             {
-                if (_host1NonSasReporting)
-                {
-                    _nonSasProgressiveWinDataControl.Host1Wins.Add(win);
-
-                    if (_nonSasProgressiveWinDataControl.Host1Wins.Count > MaxNonProgressiveHits)
-                    {
-                        _nonSasProgressiveWinDataControl.Host1Wins.RemoveAt(0);
-
-                        if (_nonSasProgressiveWinDataControl.Host1SentCount > 0)
-                        {
-                            _nonSasProgressiveWinDataControl.Host1SentCount--;
-                        }
-                    }
-                }
-
-                if (_host2NonSasReporting)
-                {
-                    _nonSasProgressiveWinDataControl.Host2Wins.Add(win);
-
-                    if (_nonSasProgressiveWinDataControl.Host2Wins.Count > MaxNonProgressiveHits)
-                    {
-                        _nonSasProgressiveWinDataControl.Host2Wins.RemoveAt(0);
-
-                        if (_nonSasProgressiveWinDataControl.Host2SentCount > 0)
-                        {
-                            _nonSasProgressiveWinDataControl.Host2SentCount--;
-                        }
-                    }
-                }
+                AddToHostQueues(win);
 
                 SaveNonSasProgressiveWinDataControl();
             }
         }
-
+        
         /// <inheritdoc />
         public bool HasNonSasProgressiveWinData(byte clientNumber)
         {
@@ -341,6 +291,76 @@
                 if (update)
                 {
                     SaveNonSasProgressiveWinDataControl();
+                }
+            }
+        }
+
+        private (int levelId, int controllerType, int controllerId) LevelValues(
+            IViewableProgressiveLevel level,
+            int sapLevels)
+        {
+            int levelId;
+            int controllerType;
+            var controllerId = 0;
+
+            if (level.LevelId < sapLevels)
+            {
+                // SAP levels are always first thus this level matches reported level plus one for SAS
+                levelId = +1;
+
+                controllerType = (int)ProgressiveControllerType.SAP; // Standalone protocol (gaming machine internal)
+            }
+            else
+            {
+                // SAP levels are always first thus this all other progressives must subtract off the SAP levels first and reported level plus one for SAS
+                levelId = level.LevelId - sapLevels + 1;
+
+                switch (_progressiveController)
+                {
+                    case CommsProtocol.G2S:
+                        controllerType = (int)ProgressiveControllerType.G2S; // G2S protocol
+                        // TODO: G2S Progressives not implemented yet
+                        // According to the protocol for G2S controllers the device Id should be used for the Controller Id
+                        controllerId = 1;
+                        break;
+                    default:
+                        controllerType = (int)ProgressiveControllerType.OtherLinked; // Other link protocol
+                        break;
+                }
+            }
+
+            return (levelId, controllerType, controllerId);
+        }
+
+        private void AddToHostQueues(NonSasProgressiveWinData win)
+        {
+            if (_host1NonSasReporting)
+            {
+                _nonSasProgressiveWinDataControl.Host1Wins.Add(win);
+
+                if (_nonSasProgressiveWinDataControl.Host1Wins.Count > MaxNonProgressiveHits)
+                {
+                    _nonSasProgressiveWinDataControl.Host1Wins.RemoveAt(0);
+
+                    if (_nonSasProgressiveWinDataControl.Host1SentCount > 0)
+                    {
+                        _nonSasProgressiveWinDataControl.Host1SentCount--;
+                    }
+                }
+            }
+
+            if (_host2NonSasReporting)
+            {
+                _nonSasProgressiveWinDataControl.Host2Wins.Add(win);
+
+                if (_nonSasProgressiveWinDataControl.Host2Wins.Count > MaxNonProgressiveHits)
+                {
+                    _nonSasProgressiveWinDataControl.Host2Wins.RemoveAt(0);
+
+                    if (_nonSasProgressiveWinDataControl.Host2SentCount > 0)
+                    {
+                        _nonSasProgressiveWinDataControl.Host2SentCount--;
+                    }
                 }
             }
         }
