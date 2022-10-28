@@ -325,6 +325,8 @@
                             OnMessageReceived(new ReelStatus { ReelId = reelNum + 1, Connected = true });
                             OnMessageReceived(new ReelSpinningStatus { ReelId = reelNum + 1, IdleAtStop = true });
                         }
+
+                        OnMessageReceived(new ControllerInitializedStatus());
                     }
                     break;
                 default:
@@ -382,6 +384,8 @@
                         {
                             _simWindow.TiltReel(id);
                         }
+
+                        OnMessageReceived(new TiltReelsResponse());
                         break;
                     case GdsConstants.ReportId.ReelControllerSetReelBrightness:
                         if (message is SetBrightness brightness)

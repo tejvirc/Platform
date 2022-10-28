@@ -90,7 +90,7 @@
             <StackPanel x:Name="SessionTrackingSection"
                         HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Visibility="{Binding PlayerMenuPopupViewModel.IsSessionTrackingSectionVisible,
-                        Converter={StaticResource BoolToVisConverter}}">
+                        Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Grid x:Name="SessionTrackingValuesGrid"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Top"
@@ -143,7 +143,7 @@
             <StackPanel x:Name="ReserveMachineSection"
                         HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Visibility="{Binding PlayerMenuPopupViewModel.IsReserveMachineSectionVisible,
-                            Converter={StaticResource BoolToVisConverter}}">
+                            Converter={StaticResource TrueVisibleFalseCollapsed}}">
 
                 <!-- PIN entry box -->
                 <TextBox x:Name="FourDigitPinBox"
@@ -492,7 +492,7 @@
                                 Click="HandleNonClosingPress"
                                 Command="{Binding Volume.VolumeCommand}"
                                 Visibility="{Binding PlayerMenuPopupViewModel.IsVolumeButtonVisible,
-                                    Converter={StaticResource BoolToVisConverter}}"
+                                    Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                 Margin="0 0 20 0">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">

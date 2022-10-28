@@ -4559,7 +4559,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="InvalidBetRangeForDenom" xml:space="preserve">
-    <value>Invalid min/max bet range, min must be smaller than max, and max must be smaller than outside max.</value>
+    <value>Invalid min/max bet range, min bet must be smaller than inside max, and inside max must be smaller than or equal to outside max.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="NoKenoGames" xml:space="preserve">
@@ -11512,8 +11512,9 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communication.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
-  <data name="ValidatingHandpay" xml:space="preserve">
-    <value>Validating Handpay...</value>
+  <data name="ReceiptPrintingFailed" xml:space="preserve">
+    <value>Receipt Printing Failed</value>
+    <comment>Monaco.Accounting</comment>
   </data>
   <data name="ReelController_IdleUnknown" xml:space="preserve">
     <value>Idle Unknown</value>
@@ -11621,6 +11622,10 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="TouchCalibrationDisconnectError" xml:space="preserve">
     <value>A display was disconnected during calibration.  Please reconnect displays and try again.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ReceiptPrintingFailedInfo" xml:space="preserve">
+    <value>Open Main Door, check the printer device and remove any paper jams.  You may need to disconnect and reconnect the printer.</value>
+    <comment>Monaco.Accounting</comment>
   </data>
   <data name="TouchCalibrateWait" xml:space="preserve">
     <value>Please Wait...</value>

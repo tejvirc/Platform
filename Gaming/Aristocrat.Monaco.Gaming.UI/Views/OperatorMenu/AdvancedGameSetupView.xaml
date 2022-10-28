@@ -59,7 +59,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
                         Margin="0 0 20 0"
-                        Visibility="{Binding HasMultipleGames, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding HasMultipleGames, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <TextBlock Text="{lex:Loc GameType}" VerticalAlignment="Center"
                            Margin="0 0 5 0"
                            FontSize="16"/>
@@ -101,7 +101,7 @@
             </StackPanel>
 
             <StackPanel Margin="0 0 20 0" Orientation="Horizontal" VerticalAlignment="Center"
-                        Visibility="{Binding HasTopAward, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding HasTopAward, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <TextBlock Text="{lex:Loc MachineTopAward}"
                            Margin="0 0 5 0"
                            FontSize="16"/>
@@ -120,7 +120,7 @@
 
                 <TextBlock Grid.Row="0" Style="{StaticResource TextBlockStyle}" Text="{Binding ThemePlusOptions}" />
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource BoolToVisConverter}}">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <TextBlock Text="{lex:Loc PackageLabel}" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="16" />
                     <ComboBox MinWidth="250" MinHeight="40"
                               DisplayMemberPath="Name"
@@ -129,7 +129,7 @@
                               IsEnabled="{Binding GameOptionsEnabled}"/>
                 </StackPanel>
 
-                <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource BoolToVisConverter}}" Text="{Binding SelectedDenoms}" />
+                <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource TrueVisibleFalseCollapsed}}" Text="{Binding SelectedDenoms}" />
 
                 <DataGrid Grid.Row="2" Margin="0 -15 0 0" 
                           ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
@@ -211,7 +211,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc BetOption}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <ComboBox Width="100"
@@ -232,7 +232,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc LineOption}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <ComboBox Width="100"
@@ -252,13 +252,13 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc BonusBet}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsPokerGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsPokerGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                                         <ComboBox Width="80"
                                                   ItemsSource="{Binding BonusBets}"
-                                                  Visibility="{Binding BonusBetAvailable, Converter={StaticResource BoolToVisConverter}}"
+                                                  Visibility="{Binding BonusBetAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                   SelectedValue="{Binding SelectedBonusBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                   IsEnabled="{Binding BonusBetEnabled}">
                                             <ComboBox.ItemsPanel>
@@ -275,7 +275,7 @@
                                         <TextBlock Text="{lex:Loc NotAvailable}"
                                                    VerticalAlignment="Center"
                                                    Width="80"
-                                                   Visibility="{Binding BonusBetAvailable, Converter={StaticResource BoolToCollapsedConverter}}">
+                                                   Visibility="{Binding BonusBetAvailable, Converter={StaticResource TrueCollapsedFalseVisible}}">
                                         </TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
@@ -284,7 +284,7 @@
 
                         <DataGridTextColumn Header="{lex:Loc MaxBet}" 
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
-                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
                                             Binding="{Binding MaxBet, Mode=OneWay}">
                             <DataGridTextColumn.ElementStyle>
@@ -296,7 +296,7 @@
 
                         <DataGridTextColumn Header="{lex:Loc TopAward}"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
-                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
                                             Binding="{Binding TopAwardValue, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}">
                             <DataGridTextColumn.ElementStyle>
@@ -308,7 +308,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Gamble}}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <CheckBox HorizontalAlignment="Center"
@@ -321,7 +321,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LetItRide}}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <CheckBox HorizontalAlignment="Center"
@@ -335,7 +335,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc ForcedMinBet}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <helpers:SelectableCurrencyDecimalUpDown Width="160" FontSize="14"
@@ -352,7 +352,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc ForcedMinBet}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <helpers:CurrencyDecimalUpDown Width="160" FontSize="14"
@@ -369,7 +369,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc ForcedMaxBetInside}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <helpers:CurrencyDecimalUpDown Width="160" FontSize="14"
@@ -386,7 +386,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc ForcedMaxBetOutside}"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <helpers:CurrencyDecimalUpDown Width="160" FontSize="14"
@@ -407,7 +407,7 @@
                                     <Button Name="WarningButton" 
                                             Style="{StaticResource MonacoWarningButton}"
                                             Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            Visibility="{Binding WarningTextHidden, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}" >
+                                            Visibility="{Binding WarningTextHidden, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}" >
                                         <Button.CommandParameter>
                                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                                 <Binding ElementName="WarningButton"/>
@@ -421,7 +421,7 @@
 
                         <DataGridTemplateColumn Header="{lex:Loc ProgressiveColumnHeader}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
-                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <StackPanel Orientation="Horizontal">
@@ -431,7 +431,7 @@
                                                 CommandParameter="{Binding}"
                                                 Width="55"
                                                 FontSize="14"
-                                                Visibility="{Binding ProgressiveSetupVisibility, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                Visibility="{Binding ProgressiveSetupVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                                                 IsEnabled="{Binding ProgressiveSetupEnabled}"/>
                                         <Button Name="ProgressiveViewButton" Margin="2 0 0 0"
                                                 Content="{lex:Loc ProgressiveViewButtonText}"
@@ -439,10 +439,10 @@
                                                 CommandParameter="{Binding}"
                                                 Width="55"
                                                 FontSize="14"
-                                                Visibility="{Binding ProgressiveViewVisibility, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                                Visibility="{Binding ProgressiveViewVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
                                         <TextBlock Text="{lex:Loc NotAvailable}"
                                                    VerticalAlignment="Center"
-                                                   Visibility="{Binding ProgressivesEnabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                                   Visibility="{Binding ProgressivesEnabled, Converter={StaticResource TrueCollapsedFalseVisible}, UpdateSourceTrigger=PropertyChanged}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -457,11 +457,11 @@
                 <Button Content="{Binding SaveButtonText, UpdateSourceTrigger=PropertyChanged}"
                         Command="{Binding SaveCommand, Mode=OneWay}"
                         IsEnabled="{Binding CanSave, UpdateSourceTrigger=PropertyChanged}"
-                        Visibility="{Binding ShowSaveButtonOverride, Converter={StaticResource BoolToVisConverter}}"
+                        Visibility="{Binding ShowSaveButtonOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Width="Auto"/>
                 <Button Name="SaveWarningButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding Path=SaveWarningEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding Path=SaveWarningEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="SaveWarningButton" />
@@ -472,22 +472,22 @@
             </StackPanel>
             <Button Content="{Binding CancelButtonText, UpdateSourceTrigger=PropertyChanged}"
                     Command="{Binding CancelCommand, Mode=OneWay}"
-                    Visibility="{Binding ShowCancelButtonOverride, Converter={StaticResource BoolToVisConverter}}"
+                    Visibility="{Binding ShowCancelButtonOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Width="Auto"/>
             <Button Content="{lex:Loc ReconfigureGames}"
                     Command="{Binding ConfigCommand, Mode=OneWay}"
                     IsEnabled="{Binding InputEnabled, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding ConfigureVisible, Converter={StaticResource BoolToVisConverter}}"
+                    Visibility="{Binding ConfigureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Width="Auto"/>
             <StackPanel Orientation="Horizontal"
-                        Visibility="{Binding ImportVisibleOverride, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding ImportVisibleOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Button x:Name="ImportBtn"
                         Content="{lex:Loc ImportGameSettings}"
                         Command="{Binding ImportCommand}"
                         Width="Auto" />
                 <Button Name="ImportInfoButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding Path=CanExecuteImportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}">
+                        Visibility="{Binding Path=CanExecuteImportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="ImportInfoButton" />
@@ -497,12 +497,12 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
-                        Visibility="{Binding ExportVisibleOverride, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding ExportVisibleOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Button Content="{lex:Loc ExportGameSettings}" 
                         Command="{Binding ExportCommand}"
                         Width="Auto"/>
                 <Button Name="ExportInfoButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
-                        Visibility="{Binding Path=CanExecuteExportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}"
+                        Visibility="{Binding Path=CanExecuteExportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"
                         Command="{Binding ShowInfoPopupCommand}">
 
                     <Button.CommandParameter>
@@ -515,16 +515,16 @@
             </StackPanel>
             <Button Content="{lex:Loc ViewRTPSummary}"
                     Command="{Binding ShowRtpSummaryCommand}"
-                    Visibility="{Binding ShowSummaryButtons, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding ShowSummaryButtons, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"/>
             <Button Content="{lex:Loc ViewProgressiveSummary}"
                     Command="{Binding ShowProgressiveSummaryCommand}"
-                    Visibility="{Binding ShowSummaryButtons, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding ShowSummaryButtons, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"/>
         </StackPanel>
 
         <controls:ProgressRing Grid.RowSpan="3" Height="100" Width="100" IsLarge="True" IsActive="True"
                                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Visibility="{Binding IsLoadingData, Converter={StaticResource BoolToVisConverter}}" />
+                                   Visibility="{Binding IsLoadingData, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

@@ -11,8 +11,8 @@
     ///     In particular, you can use this to invert the default behavior to
     ///     make something collapsed when true.
     ///     Xaml usage:
-    ///     converters:BoolToVisibilityConverter x:Key="BoolToCollapsed" TrueValue="Collapsed" FalseValue="Visible"
-    ///     Grid x:Name="GameTopScreenRoot" Visibility="{Binding IsLobbyVisible, Converter={StaticResource BoolToCollapsed}}"
+    ///     converters:TabIndexToVisibilityConverter x:Key="TabIndexConverter"
+    ///     Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=0}"
     /// </summary>
     public class TabIndexToVisibilityConverter : IValueConverter
     {

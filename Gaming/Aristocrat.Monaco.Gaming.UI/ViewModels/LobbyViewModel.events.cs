@@ -408,6 +408,16 @@
             {
                 Logger.Debug($"GameProcessExitedEvent received.  Unexpected: {platformEvent.Unexpected}");
 
+                var lastGameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
+                var lastGameDenom = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
+                var game = GameList.FirstOrDefault(g => g.GameId == lastGameId && g.Denomination == lastGameDenom);
+                if (unexpected && (game?.RequiresMechanicalReels ?? false))
+                {
+                    Logger.Warn("Waiting for mechanical reels to be processed before re-launching");
+                    SendTrigger(LobbyTrigger.GameUnexpectedExit);
+                    return;
+                }
+
                 // Moving check for recovery outside of check for unexpected.  We sometimes shut
                 // down the game process ourselves and get an "expected" game process exited event,
                 // but still need to do recovery.
@@ -756,6 +766,8 @@
                 _playCollectSound = false;
                 _audio.Stop();
             }
+
+            MessageOverlayDisplay.MessageOverlayData.GameHandlesHandPayPresentation = false;
 
             SetEdgeLighting();
         }

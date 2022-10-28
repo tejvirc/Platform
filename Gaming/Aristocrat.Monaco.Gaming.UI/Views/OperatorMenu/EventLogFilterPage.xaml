@@ -23,7 +23,8 @@
     <UserControl.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <converter:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
@@ -72,7 +73,7 @@
                                             VerticalAlignment="Center"
                                             Margin="5 0 0 0"
                                             Command="{Binding DataContext.ShowAdditionalInfoCommand, ElementName=EventViewer}"
-                                            Visibility="{Binding HasAdditionalInfo, Converter={StaticResource BoolToVisConverter}}"/>
+                                            Visibility="{Binding HasAdditionalInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -83,20 +84,20 @@
             <StackPanel Grid.Row="1" Margin="0 10 0 0 " Orientation="Horizontal">
                 <Button Content="{lex:Loc PrintSelectedButtonText}"
                         Height="45" Width="200" Margin="0 0 20 0"
-                        Visibility="{Binding PrintSelectedButtonVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Visibility="{Binding PrintSelectedButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding PrintSelectedButtonEnabled}" 
                         Command="{Binding PrintSelectedButtonCommand}"/>
                 <Button Content="{lex:Loc PrintCurrentPageButtonText}"
                         Height="45" Width="200" Margin="0 0 20 0"
-                        Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding MainPrintButtonEnabled}"
                         Command="{Binding PrintCurrentPageButtonCommand}"/>
                 <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
                         Height="45" Width="200" Margin="0 0 20 0"
                         IsEnabled="{Binding MainPrintButtonEnabled}"
                         Command="{Binding PrintLast15ButtonCommand}"
-                        Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
-                <StackPanel Visibility="{Binding SubscriptionTextVisible, Converter={StaticResource BoolToVisConverter}, FallbackValue=Collapsed}"
+                        Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                <StackPanel Visibility="{Binding SubscriptionTextVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Collapsed}"
                             Orientation="Horizontal" VerticalAlignment="Center">
                     <Label FontSize="{StaticResource NormalFontSize}" Content="{Binding SubscriptionStatus}" HorizontalAlignment="Left" />
                     <Label FontSize="{StaticResource NormalFontSize}" Content="{Binding EventCount}" HorizontalAlignment="Left" />
@@ -104,7 +105,7 @@
             </StackPanel>
             <controls:ProgressRing Height="100" Width="100" IsLarge="True" IsActive="True"
                                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Visibility="{Binding IsReloadingEventHistory, Converter={StaticResource BoolToVisConverter}}" />
+                                   Visibility="{Binding IsReloadingEventHistory, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         </Grid>
 
         <Grid Grid.Column="1">

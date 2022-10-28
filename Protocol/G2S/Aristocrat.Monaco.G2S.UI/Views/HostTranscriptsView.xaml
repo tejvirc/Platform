@@ -18,7 +18,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <converters:DateTimeFormatConverter x:Key="DateTimeFormat"/>
@@ -185,7 +186,7 @@
         </GroupBox>
 
         <Grid Grid.Row="7" 
-              Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource BoolToVisConverter}}">
+              Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
                 <DockPanel LastChildFill="True">
                     <Label Content="{lex:Loc HostTranscriptsDetailTitle}" 

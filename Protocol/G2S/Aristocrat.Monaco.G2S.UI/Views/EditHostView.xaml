@@ -70,7 +70,7 @@
                   HorizontalAlignment="Left"
                   Margin="0 15 0 0"
                   IsChecked="{Binding RequiredForPlay}"
-                  Visibility="{Binding IsInWizard, Converter={StaticResource BoolToCollapsedConverter}}"
+                  Visibility="{Binding IsInWizard, Converter={StaticResource TrueCollapsedFalseVisible}}"
                   Content="{lex:Loc RequiredForPlay}"/>
 
     </Grid>

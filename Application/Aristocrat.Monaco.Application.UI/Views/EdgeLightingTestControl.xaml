@@ -62,7 +62,7 @@
                     </Viewbox>
                     <Label Content="{Binding SelectedLedCount}"
                            Visibility="{Binding ElementName=LedRangeSlider, Path=IsEnabled, 
-                        Converter={StaticResource BoolToVisHiddenConverter}}" />
+                        Converter={StaticResource TrueVisibleFalseHidden}}" />
                 </StackPanel>
             </StackPanel>
             <StackPanel>

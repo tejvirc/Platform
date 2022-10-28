@@ -30,12 +30,11 @@
                  <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
             <gamingConverters:ScaleConverter x:Key="ScaleConverter"/>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <UserControl.Background>
-        <SolidColorBrush Color="Black" Opacity="{Binding MessageOverlayDisplay.MessageOverlayData.Opacity}" />
+        <SolidColorBrush Color="Black" Opacity="{Binding MessageOverlayDisplay.MessageOverlayData.FinalOpacity}" />
     </UserControl.Background>
 
 	<Viewbox VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -44,7 +43,7 @@
                Stretch="Uniform"
                converters:ImageHelper.SourceResourceKey="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayImageResourceKey}"
                VerticalAlignment="Center" HorizontalAlignment="Center"
-               Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForEvents, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+               Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForEvents, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
         <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
             <Viewbox.Style>
                 <Style TargetType="Viewbox">
@@ -64,7 +63,7 @@
                 </Style>
             </Viewbox.Style>
             <StackPanel Orientation="Vertical" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                        Visibility="{Binding IsInOperatorMenu, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}">
+                        Visibility="{Binding IsInOperatorMenu, Converter={StaticResource TrueCollapsedFalseVisible}, UpdateSourceTrigger=PropertyChanged}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock HorizontalAlignment="Center"
                                        MaxWidth="{Binding ElementName=OuterGrid, Path=ActualWidth}"
@@ -72,12 +71,12 @@
                                        Margin="0 140 0 0" Foreground="Gold"
                                        FontSize="65" FontFamily="Arial" FontWeight="ExtraBold"
                                        Text="{Binding MessageOverlayDisplay.MessageOverlayData.Text}" TextAlignment="Center" TextWrapping="Wrap"
-                                       Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForPopUp, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                       Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForPopUp, Converter={StaticResource TrueCollapsedFalseVisible}, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Border BorderBrush="Gold" BorderThickness="5" CornerRadius="28" HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="0"
-                            Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForPopUp , Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                            Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForPopUp , Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}">
                         <Border.Background>
                             <SolidColorBrush Color="Black" Opacity="0.5" />
                         </Border.Background>
@@ -93,7 +92,7 @@
                                    FontFamily="Arial" FontWeight="ExtraBold"
                                    Fill="Gold" Stroke="Black" StrokeThickness="1.0"
                                    Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText}"
-                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubTextVisible, Converter={StaticResource BoolToVisConverter}}">
+                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubTextVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <controls:TextPath.Style>
                         <Style TargetType="controls:TextPath">
                             <Style.Triggers>
@@ -112,7 +111,7 @@
                                    VerticalAlignment="Center"
                                    FontSize="30" FontFamily="Arial" FontWeight="ExtraBold"
                                    Fill="Gold" Stroke="Black" StrokeThickness="1.0"
-                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText2Visible, Converter={StaticResource BoolToVisible}}"
+                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText2Visible, Converter={StaticResource TrueVisibleFalseHidden}}"
                                    Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText2}">
                     <controls:TextPath.Style>
                         <Style TargetType="controls:TextPath">
@@ -132,7 +131,7 @@
                                    VerticalAlignment="Center"
                                    FontSize="30" FontFamily="Arial" FontWeight="ExtraBold"
                                    Fill="Gold" Stroke="Black" StrokeThickness="1.0"
-                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText3Visible, Converter={StaticResource BoolToVisible}}"
+                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText3Visible, Converter={StaticResource TrueVisibleFalseHidden}}"
                                    Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText3}">
                     <controls:TextPath.Style>
                         <Style TargetType="controls:TextPath">
@@ -151,7 +150,7 @@
                     <Border BorderBrush="Gold" BorderThickness="5" CornerRadius="28" HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Margin="0 0 0 -100"
-                        Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsButtonVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                        Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}">
                     <Border.Background>
                         <SolidColorBrush Color="Black" Opacity="0.5" />
                     </Border.Background>
@@ -160,7 +159,7 @@
                             FontFamily="Arial" FontWeight="ExtraBold"
                             Style="{StaticResource MonacoButton2}"
                             Command="{Binding MessageOverlayDisplay.MessageOverlayData.ButtonCommand}"
-                            Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsButtonVisible, Converter={StaticResource BoolToVisConverter}}">
+                            Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"
                                    FontSize="30" FontFamily="Arial" FontWeight="ExtraBold"
                                    Foreground="Gold" TextAlignment="Center"
@@ -168,7 +167,7 @@
                     </Button>
                 </Border>
 
-                <Grid Visibility="{Binding CanCashoutInLockup, Converter={StaticResource BoolToVisConverter}}" Height="447"
+                <Grid Visibility="{Binding CanCashoutInLockup, Converter={StaticResource TrueVisibleFalseCollapsed}}" Height="447"
                       Width="481" VerticalAlignment="Top" Margin="0 -80 0 0">
                     <Image Source="{DynamicResource CashOutButtonFrame}" Height="447" Width="481" />
                     <Button Name="CashoutOldPresentation" HorizontalAlignment="Center"

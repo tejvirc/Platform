@@ -4,8 +4,11 @@
                     xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Settings"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com"
                     xmlns:loc="http://monaco.aristocrat.com/localization"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:helpers="http://monaco.aristocrat.com/common">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <mvvm:TemplateDictionary x:Key="DayOfWeek">
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Sunday}">
@@ -30,8 +33,6 @@
             <TextBlock Text="{lex:Loc Saturday}" />
         </DataTemplate>
     </mvvm:TemplateDictionary>
-
-    <helpers:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Collapsed"/>
 
     <DataTemplate DataType="{x:Type local:MachineSettings}">
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -109,28 +110,28 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc HardMetersEnabled}"
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMetersEnabled}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc HardMetersAvailableMeterMappings}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMeterMapSelectionValue}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc HardMeterIncrementValue}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMeterTickValueDisplay}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource BoolToVisible}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -163,7 +164,7 @@
                               ColumnWidth="*"
                               IsReadOnly="True"
                               AutoGenerateColumns="False"
-                              Visibility="{Binding DisabledNotesVisible, Converter={StaticResource BoolToVisible}}">
+                              Visibility="{Binding DisabledNotesVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{lex:Loc Denom}" Binding="{Binding DenomDisplay}" />
                             <DataGridTextColumn Header="{lex:Loc IsoCode}" Binding="{Binding IsoCode}" />

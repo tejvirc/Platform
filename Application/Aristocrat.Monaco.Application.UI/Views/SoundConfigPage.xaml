@@ -52,7 +52,7 @@
         <StackPanel  Grid.Row="1" Margin="0 10"
                      VerticalAlignment="Top" 
                      HorizontalAlignment="Left"
-                     Visibility="{Binding IsAlertConfigurable, Converter={StaticResource BoolToVisConverter}}">
+                     Visibility="{Binding IsAlertConfigurable, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Label Content="{lex:Loc AlertVolumeLabel}" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" />
             <Slider x:Name="AlertSlider" 
@@ -72,7 +72,7 @@
             <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled,UpdateSourceTrigger=PropertyChanged , Converter={StaticResource BoolToCollapsedConverter}}">
+                        Visibility="{Binding TestModeEnabled,UpdateSourceTrigger=PropertyChanged , Converter={StaticResource TrueCollapsedFalseVisible}}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="WarningButton"/>

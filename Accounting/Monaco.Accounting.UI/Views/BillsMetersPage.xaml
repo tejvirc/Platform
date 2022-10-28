@@ -29,7 +29,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border>
-			<DataGrid ItemsSource="{Binding Meters, UpdateSourceTrigger=PropertyChanged}" 
+            <DataGrid ItemsSource="{Binding Meters, UpdateSourceTrigger=PropertyChanged}" 
                       x:Name="MetersGrid">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Denomination}" 
@@ -73,8 +73,8 @@
                                     CellStyle="{StaticResource DataGridCellRight}"
                                     Width="500"
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-			</DataGrid.Columns>
-		</DataGrid>
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Grid.Row="3" 
                     Orientation="Horizontal" 
                     Margin="0 0 0 0">
@@ -83,8 +83,7 @@
                     Command="{Binding BillClearanceButtonClickedCommand}"
                     Content="{lex:Loc ClearBillsPeriodMeters}"
                     IsEnabled="{Binding BillClearanceButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding BillClearanceEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding BillClearanceEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

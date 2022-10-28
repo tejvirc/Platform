@@ -86,13 +86,13 @@
             <Button HorizontalAlignment="Left" 
                     Content="View Memory" 
                     Command="{Binding ViewMemoryCommand}"
-                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
             <Button Name="EnterDiagnosticChartModeButton" 
                     Content="View Performance Details" 
                     HorizontalAlignment="Center"
-                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource BoolToCollapsedConverter}}"
+                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     Command="{Binding ToggleDiagnosticChartViewModeCommand}"/>
-            <Button Name="ExitDiagnosticChartModeButton" Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource BoolToVisConverter}}"
+            <Button Name="ExitDiagnosticChartModeButton" Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ToggleDiagnosticChartViewModeCommand}"
                     Content="End Performance Details"
                     HorizontalAlignment="Center"/>

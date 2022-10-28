@@ -9,7 +9,6 @@
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance viewModels:MultiProtocolConfigPageViewModel, IsDesignTimeCreatable=True}">
@@ -19,8 +18,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <common:BoolToVisibilityConverter x:Key="BoolToCollapsed" TrueValue="Collapsed" FalseValue="Visible" />
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden" />
             <converters:ProtocolNameToDisplayNameConverter x:Key="ProtocolNameToDisplayNameConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -41,36 +38,36 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="{lex:Loc MultiProtocolValidationSelection}"
-               Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+               Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         <ComboBox Grid.Row="1" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding ValidationProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}" 
                   SelectedItem="{Binding ValidationProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}" 
                   IsEnabled="{Binding IsValidationComboBoxEnabled}"
-                  Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+                  Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         <Label Grid.Row="2" Margin="0 20 0 0"
                Content="{lex:Loc MultiProtocolFundTransferSelection}"
-               Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+               Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         <ComboBox Grid.Row="3" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding FundTransferProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   SelectedItem="{Binding FundTransferProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}" 
                   IsEnabled="{Binding IsFundTransferComboBoxEnabled}"
-                  Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+                  Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         <Label Grid.Row="4" Margin="0 20 0 0"
                Content="{lex:Loc MultiProtocolProgressiveSelection}"
-               Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+               Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         <ComboBox Grid.Row="5" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding ProgressiveProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   SelectedItem="{Binding ProgressiveProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   IsEnabled="{Binding IsProgressiveComboBoxEnabled}"
-                  Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+                  Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         <Label Grid.Row="6" Margin="0 20 0 0"
                Content="{lex:Loc CentralDeterminationSystemSelection}"
-               Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+               Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         <ComboBox Grid.Row="7" Width="Auto" MinWidth="300"
                   ItemsSource="{Binding CentralDeterminationSystemProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   SelectedItem="{Binding CentralDeterminationSystemProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsEnabled="{Binding IsCentralDeterminationSystemComboBoxEnabled}"
-                  Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource BoolToCollapsed}}"/>
+                  Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
     </Grid>
 </operatorMenu:OperatorMenuPage>
 

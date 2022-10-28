@@ -60,7 +60,7 @@
         <GroupBox Grid.Row="1" 
                   Margin="0"
                   Header="{lex:Loc TestBellLabel}"
-                  Visibility="{Binding ShowToggle, Converter={StaticResource BoolToHiddenConverter}}">
+                  Visibility="{Binding ShowToggle, Converter={StaticResource TrueHiddenFalseVisible}}">
             <StackPanel Orientation="Horizontal">
                 <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"
                                              IsEnabled="{Binding IsToggleEnabled}"
@@ -72,7 +72,7 @@
                         Margin="10,0,0,0"/>
                 <Button Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled, Converter={StaticResource BoolToHiddenConverter}}"
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}"
                         Margin="10,0,0,0">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
@@ -87,7 +87,7 @@
         <GroupBox Grid.Row="2" 
                   Margin="0"
                   Header="{lex:Loc InitialBellRingLabel}"
-                  Visibility="{Binding ShowToggle, Converter={StaticResource BoolToHiddenConverter}}">
+                  Visibility="{Binding ShowToggle, Converter={StaticResource TrueHiddenFalseVisible}}">
             <helpers:CurrencyTextBox MinWidth="200"
                                      IsReadOnly="False" PreventNegatives="True" InputScope="Number"
                                      IsEnabled="{Binding InputEnabled}"
@@ -96,7 +96,7 @@
         <GroupBox Grid.Row="3" 
                   Margin="0"
                   Header="{lex:Loc IntervalBellRingLabel}"
-                  Visibility="{Binding ShowToggle, Converter={StaticResource BoolToHiddenConverter}}">
+                  Visibility="{Binding ShowToggle, Converter={StaticResource TrueHiddenFalseVisible}}">
             <helpers:CurrencyTextBox MinWidth="200"
                                      IsReadOnly="False" PreventNegatives="True" InputScope="Number"
                                      IsEnabled="{Binding InputEnabled}"

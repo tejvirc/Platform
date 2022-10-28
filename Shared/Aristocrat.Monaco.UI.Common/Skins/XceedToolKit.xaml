@@ -31,14 +31,14 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition x:Name="firstContentColumn" Width="Auto" />
                                 <ColumnDefinition x:Name="secondContentColumn" Width="*"/>
-                                <ColumnDefinition x:Name="thirdContentColumn" Width="Auto" />                                
+                                <ColumnDefinition x:Name="thirdContentColumn" Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <ContentPresenter x:Name="contentPresenter"
                                               Focusable="False"
                                               Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />   
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                            
                             <Grid x:Name="gridDecreaseButton"
                                   Grid.Column="0"
@@ -64,7 +64,7 @@
                                               Margin="-40 0 0 0">
                                     <iconPacks:PackIconMaterial Kind="Plus" />
                                 </RepeatButton>
-                            </Grid>                            
+                            </Grid>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -75,8 +75,8 @@
                         <Trigger Property="ButtonSpinnerLocation" Value="Left">
                             <Setter TargetName="firstContentColumn" Property="Width" Value="Auto" />
                             <Setter TargetName="secondContentColumn" Property="Width" Value="*" />
-                            <Setter TargetName="thirdContentColumn" Property="Width" Value="Auto" />                            
-                            <Setter TargetName="gridDecreaseButton" Property="Grid.Column" Value="0" />   
+                            <Setter TargetName="thirdContentColumn" Property="Width" Value="Auto" />
+                            <Setter TargetName="gridDecreaseButton" Property="Grid.Column" Value="0" />
                             <Setter TargetName="contentPresenter" Property="Grid.Column" Value="1" />
                             <Setter TargetName="gridIncreaseButton" Property="Grid.Column" Value="2" />
                         </Trigger>

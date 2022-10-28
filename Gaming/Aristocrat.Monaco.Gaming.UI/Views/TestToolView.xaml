@@ -4,7 +4,6 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      xmlns:converters="http://monaco.aristocrat.com/common"
                       xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance {x:Type viewModels:TestToolViewModel}}"
@@ -22,9 +21,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
                  <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
 
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden" />
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
 
@@ -121,7 +119,7 @@
                                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TimeLimit4,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
                                 <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding TimeLimit4Set}" Margin="10,0,0,0"/>
                             </Grid>
-                            <Grid Grid.Column="4" Visibility="{Binding TimeLimit5Visible, Converter={StaticResource BoolToVisible}}">
+                            <Grid Grid.Column="4" Visibility="{Binding TimeLimit5Visible, Converter={StaticResource TrueVisibleFalseHidden}}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -190,7 +188,7 @@
                                 </Button.ToolTip>
                             </Button>
                         </Grid>
-                        <Grid Grid.Row="4" Visibility="{Binding PlayBreaksVisible, Converter={StaticResource BoolToVisible}}">
+                        <Grid Grid.Row="4" Visibility="{Binding PlayBreaksVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
                             <StackPanel>
                                 <TextBlock Foreground="#41B1E1" FontWeight="Bold">Play Breaks</TextBlock>
                                 <Grid Margin="0,5,0,0">
@@ -301,7 +299,7 @@
                             </Button>
                             <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{Binding ResponsibleGamingDialogTimeoutSet}" Margin="10,5,0,0" />
                         </StackPanel>
-                        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" Margin="69,0,0,0" Visibility="{Binding SessionCountVisible, Converter={StaticResource BoolToVisible}}">
+                        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" Margin="69,0,0,0" Visibility="{Binding SessionCountVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
                             <TextBlock Text="Session Count:" Margin="0,0,5,0" VerticalAlignment="Center"/>
                             <TextBox Text="{Binding SessionCount, UpdateSourceTrigger=PropertyChanged}" Width="60" />
 
@@ -313,7 +311,7 @@
                                         <StackPanel>
                                             <TextBlock FontWeight="Bold">Set Dialog Timeout</TextBlock>
                                             <TextBlock TextWrapping="Wrap" Width="300">
-                                                Sets the Session Count Value for the Responible Gaming Dialog.
+                                                Sets the Session Count Value for the Responsible Gaming Dialog.
                                             </TextBlock>
                                         </StackPanel>
                                     </ToolTip>

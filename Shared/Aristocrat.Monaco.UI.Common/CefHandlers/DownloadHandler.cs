@@ -1,9 +1,13 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers
+﻿namespace Aristocrat.Monaco.UI.Common.CefHandlers
 {
+    using System;
     using CefSharp;
 
+    /// <inheritdoc />
+    [CLSCompliant(false)]
     public class DownloadHandler : IDownloadHandler
     {
+        /// <inheritdoc />
         public bool CanDownload(
             IWebBrowser chromiumWebBrowser,
             IBrowser browser,
@@ -13,7 +17,7 @@
             return false;
         }
 
-
+        /// <inheritdoc />
         public void OnBeforeDownload(
             IWebBrowser chromiumWebBrowser,
             IBrowser browser,
@@ -22,6 +26,7 @@
         {
         }
 
+        /// <inheritdoc />
         public void OnDownloadUpdated(
             IWebBrowser chromiumWebBrowser,
             IBrowser browser,

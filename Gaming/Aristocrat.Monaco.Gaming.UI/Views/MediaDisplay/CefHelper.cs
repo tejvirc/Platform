@@ -50,6 +50,7 @@
 #endif
                 //Locale = ViewModel.ActiveLocaleCode, // Is this needed?
                 CachePath = directory.FullName,
+                WindowlessRenderingEnabled = true,
                 IgnoreCertificateErrors = true
             };
 

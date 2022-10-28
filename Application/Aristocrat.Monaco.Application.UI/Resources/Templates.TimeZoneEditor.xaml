@@ -47,10 +47,10 @@
             </Grid>
 
             <Label Grid.Row="2" Margin="0 20 0 0" Content="{lex:Loc TimeZoneOffsetLabel}"
-                   Visibility="{Binding OffsetIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                   Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <TextBlock Grid.Row="3" Style="{StaticResource MonacoTextBlock}"
                        Text="{Binding TimeZoneOffset, UpdateSourceTrigger=PropertyChanged}"
-                       Visibility="{Binding OffsetIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                       Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
             <!-- Date -->
             <Label Grid.Row="4" Margin="0 20 0 0" Content="{lex:Loc Date}" />
@@ -109,7 +109,7 @@
                     Content="{lex:Loc ApplyLabel}" 
                     IsEnabled="{Binding InputEnabled}"
                     Command="{Binding ApplyCommand}" 
-                    Visibility="{Binding ApplyButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ApplyButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

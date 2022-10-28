@@ -79,7 +79,10 @@
             WireDesignerData();
 
 #if !(RETAIL)
-            CreateTempHosts();
+            if (isWizardPage)
+            {
+                CreateTempHosts();
+            }
 #endif
             CopyCurrentHostList();
         }

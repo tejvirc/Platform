@@ -140,7 +140,7 @@
             <!-- Previous Card Button -->
             <Button 
                 Visibility="{Binding BingoRoundData.IsMultiCardGame,
-                    Converter={StaticResource BoolToVisConverter}}"
+                    Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding DisplayPreviousCardCommand}"
                 Content="{lex:Loc PreviousButtonText}"/>
 
@@ -161,7 +161,7 @@
                         VerticalAlignment="Center"
                         Content="{Binding CardNote}"
                         Visibility="{Binding BingoRoundData.IsMultiCardGame,
-                            Converter={StaticResource BoolToVisConverter}}"/>
+                            Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
                     <!-- Bingo Number Display -->
                     <ItemsControl 
@@ -223,7 +223,7 @@
             <!-- Next Card Button -->
             <Button 
                 Visibility="{Binding BingoRoundData.IsMultiCardGame,
-                    Converter={StaticResource BoolToVisConverter}}"
+                    Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding DisplayNextCardCommand}"
                 Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
@@ -242,7 +242,7 @@
             <!-- Previous Pattern Button -->
             <Button 
                 Visibility="{Binding BingoRoundData.HasMultipleWinningPatterns,
-                    Converter={StaticResource BoolToVisConverter}}"
+                    Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding DisplayPreviousPatternCommand}"
                 Content="{lex:Loc PreviousButtonText}" />
 
@@ -269,7 +269,7 @@
                     <StackPanel 
                         Orientation="Vertical"
                         Visibility="{Binding BingoRoundData.IsLosingCard, 
-                                    Converter={StaticResource BoolToCollapsedConverter}}">
+                                    Converter={StaticResource TrueCollapsedFalseVisible}}">
 
                         <!-- Pattern ID -->
                         <StackPanel Orientation="Horizontal">
@@ -309,7 +309,7 @@
             <!-- Next Pattern Button -->
             <Button 
                 Visibility="{Binding BingoRoundData.HasMultipleWinningPatterns,
-                    Converter={StaticResource BoolToVisConverter}}"
+                    Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding DisplayNextPatternCommand}"
                 Content="{lex:Loc NextButtonText}"/>
         </StackPanel>

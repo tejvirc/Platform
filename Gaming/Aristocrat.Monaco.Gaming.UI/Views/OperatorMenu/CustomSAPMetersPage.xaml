@@ -18,6 +18,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -31,7 +32,7 @@
                   VirtualizingPanel.ScrollUnit="Pixel"
                   Height="Auto"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
-                  Visibility="{Binding Path=HasEnabledCustomSAPLevels, Converter={StaticResource BoolToVisHiddenConverter}}">
+                  Visibility="{Binding Path=HasEnabledCustomSAPLevels, Converter={StaticResource TrueVisibleFalseHidden}}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="{lex:Loc Level}">
                     <DataGridTemplateColumn.CellTemplate>

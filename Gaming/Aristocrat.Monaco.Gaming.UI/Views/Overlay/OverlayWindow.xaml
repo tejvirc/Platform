@@ -30,9 +30,9 @@
                  <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
 
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
 
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
             <Storyboard x:Key="FadeInStoryboard" x:Shared="false">
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" 
@@ -72,9 +72,9 @@
 
         <Grid x:Name="ViewInjectionRoot"/>
 
-        <overlay:AgeWarningDialog x:Name="AgeWarningView" Visibility="{Binding MessageOverlayDisplay.IsAgeWarningDlgVisible, Converter={StaticResource BoolToVisible}}"/>
+        <overlay:AgeWarningDialog x:Name="AgeWarningView" Visibility="{Binding MessageOverlayDisplay.IsAgeWarningDlgVisible, Converter={StaticResource TrueVisibleFalseHidden}}"/>
 
-        <overlay:RGInfo Visibility="{Binding MessageOverlayDisplay.IsResponsibleGamingInfoOverlayDlgVisible, Converter={StaticResource BoolToVisible}}"/>
+        <overlay:RGInfo Visibility="{Binding MessageOverlayDisplay.IsResponsibleGamingInfoOverlayDlgVisible, Converter={StaticResource TrueVisibleFalseHidden}}"/>
 
         <overlay:ReserveOverlay Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible}">
             <overlay:ReserveOverlay.Style>

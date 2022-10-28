@@ -215,17 +215,17 @@
                                     Binding="{Binding TheoreticalRtp, Converter={StaticResource RtpToHoldConverter}}" 
                                     SortMemberPath="TheoreticalRtp.Item1" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}, Mode=OneWay}" />
+                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}, Mode=OneWay}" />
                 <DataGridTextColumn Header="{lex:Loc TheoreticalHoldMin}" 
                                     Binding="{Binding TheoreticalRtp.Item2, Converter={StaticResource RtpToHoldConverter}}" 
                                     SortMemberPath="TheoreticalRtp.Item2" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}, Mode=OneWay}" />
+                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}" />
                 <DataGridTextColumn Header="{lex:Loc TheoreticalHoldMax}" 
                                     Binding="{Binding TheoreticalRtp.Item1, Converter={StaticResource RtpToHoldConverter}}" 
                                     SortMemberPath="TheoreticalRtp.Item1" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}, Mode=OneWay}" />
+                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}" />
                 <DataGridTextColumn Header="{lex:Loc ActualHold}" 
                                     Binding="{Binding ActualRtp, Converter={StaticResource RtpToHoldConverter}}" 
                                     SortMemberPath="ActualHold" 

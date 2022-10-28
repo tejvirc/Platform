@@ -20,7 +20,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
@@ -99,13 +100,13 @@
                 <TextBlock x:Name="GameCensorshipOptionsTextBlock"
                        Margin="0 30 0 0"
                        Text="{lex:Loc GameCensorshipOptions}"
-                       Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}"/>
+                       Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
                 <!-- Censor Violent Content Section -->
                 <CheckBox x:Name="CensorViolentContentCheckBox"
                       Content="{lex:Loc CensorViolentContent}"
                       IsChecked="{Binding CensorViolentContent}"
-                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
+                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="EditableCensorship"/>
@@ -118,7 +119,7 @@
                 <CheckBox x:Name="CensorDrugUseContentCheckBox"
                       Content="{lex:Loc CensorDrugUseContent}"
                       IsChecked="{Binding CensorDrugUseContent}"
-                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
+                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="EditableCensorship"/>
@@ -131,7 +132,7 @@
                 <CheckBox x:Name="CensorSexualContentCheckBox"
                       Content="{lex:Loc CensorSexualContent}"
                       IsChecked="{Binding CensorSexualContent}"
-                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
+                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="EditableCensorship"/>
@@ -144,7 +145,7 @@
                 <CheckBox x:Name="CensorOffensiveLanguageCheckBox"
                       Content="{lex:Loc CensorOffensiveLanguage}"
                       IsChecked="{Binding CensorOffensiveContent}"
-                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource BoolToVisConverter}}">
+                      Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="EditableCensorship"/>
@@ -230,7 +231,7 @@
 
                 <!--Game Start Method Section -->
                 <StackPanel x:Name="GameStartMethodSectionStackPanel"
-                        Visibility="{Binding IsGameStartMethodSettingVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Visibility="{Binding IsGameStartMethodSettingVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Orientation="Vertical"
                         Margin="0 5 0 15">
                     <Label x:Name="GameStartMethodLabel"
@@ -256,13 +257,13 @@
                 <TextBlock x:Name="ShowProgramOptionsTextBlock"
                            Margin="0 30 0 0"
                            Text="{lex:Loc ShowProgramOptionsLabel}"
-                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}"/> 
+                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/> 
 
                 <!-- Enable Show Program PIN Section -->
                 <CheckBox x:Name="ShowProgramPinRequiredCheckBox"
                           Content="{lex:Loc ShowProgramEnableShowProgramPin}" 
                           IsChecked="{Binding ShowProgramPinRequired}"
-                          Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}">
+                          Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="FieldAccessEnabled"/>
@@ -275,7 +276,7 @@
                 <StackPanel x:Name="ShowProgramPinStackPanel"
                             Orientation="Horizontal"
                             Margin="5 15 0 0"
-                            Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}">
+                            Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <TextBox x:Name="ShowProgramPinTextBox"
                               HorizontalAlignment="Left"
                               PreviewTextInput="PreviewShowProgramPinInput"
@@ -301,7 +302,7 @@
                           Content="{lex:Loc ShowProgramEnableResetCredits}"
                           IsChecked="{Binding ShowProgramEnableResetCredits}"
                           IsEnabled="{Binding FieldAccessEnabled}" 
-                          Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+                          Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             </StackPanel>
 
             <!-- Middle Grid Section -->
@@ -336,7 +337,7 @@
                 <!-- Show Top Picks Banners -->
                 <CheckBox x:Name="ShowTopPickBannersCheckBox"
                       Content="{lex:Loc ShowTopPickBanners}" 
-                      Visibility="{Binding ShowTopPickBannersVisible, Converter={StaticResource BoolToVisConverter}}"
+                      Visibility="{Binding ShowTopPickBannersVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                       IsChecked="{Binding ShowTopPickBanners}"
                       IsEnabled="{Binding Path=InputEnabled}"/>
 
@@ -360,7 +361,7 @@
 
                 <!-- Enable once lobby work is done -->
                 <StackPanel Orientation="Horizontal"
-                            Visibility="{Binding ProgressiveOptionsVisible, Converter={StaticResource BoolToVisConverter}}"
+                            Visibility="{Binding ProgressiveOptionsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                             Margin="0 5 0 0">
                     <ComboBox HorizontalAlignment="Left"
                               DisplayMemberPath="Description"
@@ -445,6 +446,7 @@
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="KenoOptionsEnabled"/>
                             <Binding Path="InputEnabled"/>
+                            <Binding Path="KenoPlayerSpeedButtonEnabled" />
                         </MultiBinding>
                     </CheckBox.IsEnabled>
                 </CheckBox>
@@ -548,6 +550,7 @@
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="PokerOptionsEnabled"/>
                             <Binding Path="InputEnabled"/>
+                            <Binding Path="PokerPlayerSpeedButtonEnabled" />
                         </MultiBinding>
                     </CheckBox.IsEnabled>
                 </CheckBox>

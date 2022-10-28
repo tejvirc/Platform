@@ -111,7 +111,7 @@
                         Visibility="{
                             Binding SerialNumberWarningEnabled, 
                             Mode=OneWay, 
-                            Converter={StaticResource BoolToVisConverter}}">
+                            Converter={StaticResource TrueVisibleFalseCollapsed}}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="SerialNumberWarningButton"/>
@@ -148,7 +148,7 @@
                         Visibility="{
                             Binding AssetNumberWarningEnabled, 
                             Mode=OneWay, 
-                            Converter={StaticResource BoolToVisConverter}}">
+                            Converter={StaticResource TrueVisibleFalseCollapsed}}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="AssetNumberWarningButton"/>
@@ -165,7 +165,7 @@
                     Grid.Column="0" 
                     Margin="{StaticResource LabelMargin}"
                     Content="{lex:Loc AreaLabel}"
-                    Visibility="{Binding Area.IsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding Area.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <ContentControl Grid.Row="2" Grid.Column="1" IsTabStop="False"
                     ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
                     Content="{Binding Area}"/>
@@ -176,7 +176,7 @@
                     Grid.Column="0" 
                     Margin="{StaticResource LabelMargin}"
                     Content="{lex:Loc ZoneText}" 
-                    Visibility="{Binding Zone.IsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding Zone.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <ContentControl Grid.Row="3" Grid.Column="1" IsTabStop="False"
                     ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
                     Content="{Binding Zone}"/>
@@ -187,7 +187,7 @@
                     Grid.Column="0" 
                     Margin="{StaticResource LabelMargin}"
                     Content="{lex:Loc BankText}" 
-                    Visibility="{Binding Bank.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                    Visibility="{Binding Bank.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 <ContentControl Grid.Row="4" Grid.Column="1" IsTabStop="False"
                     ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
                     Content="{Binding Bank}"/>
@@ -198,7 +198,7 @@
                     Grid.Column="0" 
                     Margin="{StaticResource LabelMargin}"
                     Content="{lex:Loc PositionText}" 
-                    Visibility="{Binding Position.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                    Visibility="{Binding Position.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 <ContentControl Grid.Row="5" Grid.Column="1" IsTabStop="False"
                     ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
                     Content="{Binding Position}"/>
@@ -209,7 +209,7 @@
                     Grid.Column="0" 
                     Margin="{StaticResource LabelMargin}"
                     Content="{lex:Loc Location}" 
-                    Visibility="{Binding Location.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                    Visibility="{Binding Location.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 <ContentControl Grid.Row="6" Grid.Column="1" IsTabStop="False"
                     ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
                     Content="{Binding Location}"/>
@@ -220,7 +220,7 @@
                     Grid.Column="0" 
                     Margin="{StaticResource LabelMargin}"
                     Content="{lex:Loc DeviceName}" 
-                    Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                    Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 <ContentControl Grid.Row="7" Grid.Column="1" IsTabStop="False"
                     ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
                     Content="{Binding DeviceName}"/>

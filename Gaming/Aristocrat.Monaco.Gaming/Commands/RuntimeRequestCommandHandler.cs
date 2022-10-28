@@ -16,7 +16,7 @@
     [CounterDescription("Runtime Request", PerformanceCounterType.AverageTimer32)]
     public class RuntimeRequestCommandHandler : ICommandHandler<RuntimeRequest>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBell _bell;
         private readonly IEventBus _eventBus;
@@ -52,6 +52,9 @@
             _mediaProvider = mediaProvider ?? throw new ArgumentNullException(nameof(mediaProvider));
             _transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
         }
+
+        private bool AllowGamePlayOnNormalLockup =>
+            _properties.GetValue(GamingConstants.AdditionalInfoGameInProgress, false);
 
         public void Handle(RuntimeRequest command)
         {
@@ -137,6 +140,7 @@
         {
             return !_transactions.IsTransactionActive &&
                    !_systemDisableManager.DisableImmediately &&
+                   (!_systemDisableManager.IsDisabled || AllowGamePlayOnNormalLockup) &&
                    !_resizeManager.IsResizing &&
                    !_mediaProvider.IsPrimaryOverlayVisible &&
                    _responsibleGaming.CanSpinReels();

@@ -21,7 +21,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -47,23 +48,23 @@
                     <CheckBox Content="{Binding SlotTextLabel}"
                               Margin="5 10 0 0"
                               IsChecked="{Binding SlotAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Visibility="{Binding SlotAttractOptionEnabled, Converter={StaticResource BoolToVisConverter}}" />
+                              Visibility="{Binding SlotAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <CheckBox Content="{lex:Loc Poker}"
                               Margin="5 10 0 0"
                               IsChecked="{Binding PokerAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Visibility="{Binding PokerAttractOptionEnabled, Converter={StaticResource BoolToVisConverter}}" />
+                              Visibility="{Binding PokerAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <CheckBox Content="{lex:Loc Keno}"
                               Margin="5 10 0 0"
                               IsChecked="{Binding KenoAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Visibility="{Binding KenoAttractOptionEnabled, Converter={StaticResource BoolToVisConverter}}" />
+                              Visibility="{Binding KenoAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <CheckBox Content="{lex:Loc Blackjack}"
                               Margin="5 10 0 0"
                               IsChecked="{Binding BlackjackAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Visibility="{Binding BlackjackAttractOptionEnabled, Converter={StaticResource BoolToVisConverter}}" />
+                              Visibility="{Binding BlackjackAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <CheckBox Content="{lex:Loc Roulette}"
                               Margin="5 10 0 0"
                               IsChecked="{Binding RouletteAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Visibility="{Binding RouletteAttractOptionEnabled, Converter={StaticResource BoolToVisConverter}}" />
+                              Visibility="{Binding RouletteAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 </StackPanel>
             </Border>
             <Border Grid.Row="1" BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}" Margin="0 20 0 0">

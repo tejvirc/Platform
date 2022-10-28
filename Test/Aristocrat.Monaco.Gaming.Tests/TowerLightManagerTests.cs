@@ -18,6 +18,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using TowerLight;
+    using Vgt.Client12.Application.OperatorMenu;
 
     [TestClass]
     public class TowerLightManagerTests
@@ -31,6 +32,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
         private Mock<IMessageDisplay> _messageDisplay;
         private Mock<IEdgeLightingStateManager> _edgeLightingStateManager;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
         private Action<OpenEvent> _handlerOpenEvent;
         private Action<ClosedEvent> _handlerCloseEvent;
         private Action<GameEndedEvent> _handlerGameEndedEvent;
@@ -58,6 +60,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             _logicalDoors = new Mock<Dictionary<int, LogicalDoor>>();
             _edgeLightingStateManager = new Mock<IEdgeLightingStateManager>();
             _propertiesManager = new Mock<IPropertiesManager>();
+            _operatorMenuLauncher = new Mock<IOperatorMenuLauncher>();
 
             _systemDisableManager.SetupGet(m => m.CurrentDisableKeys).Returns(new List<Guid>());
 
@@ -109,7 +112,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestCleanup]
@@ -137,7 +141,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                     }
                 }
             };
-            
+
             _configUtility.Setup(c => c.GetConfiguration(It.IsAny<string>(), It.IsAny<Func<TowerLightConfiguration>>()))
                 .Returns(towerLightConfig);
         }
@@ -147,7 +151,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             return new OperationalConditionType
             {
                 condition = new[] { "Idle" },
-                DoorCondition = new []
+                DoorCondition = new[]
                 {
                     new DoorConditionType
                     {
@@ -209,7 +213,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             return new OperationalConditionType
             {
                 condition = new[] { "SoftError" },
-                DoorCondition = new []
+                DoorCondition = new[]
                 {
                     new DoorConditionType
                     {
@@ -271,7 +275,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             return new OperationalConditionType
             {
                 condition = new[] { "Tilt" },
-                DoorCondition = new []
+                DoorCondition = new[]
                 {
                     new DoorConditionType
                     {
@@ -333,7 +337,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             return new OperationalConditionType
             {
                 condition = new[] { "Handpay" },
-                DoorCondition = new []
+                DoorCondition = new[]
                 {
                     new DoorConditionType
                     {
@@ -481,10 +485,10 @@ namespace Aristocrat.Monaco.Gaming.Tests
         [DataRow("", 2)] //TwoTier should be selected if no defined
         public void GivenTierTypeWhenInitializeThenSignalDefinitionSelected(string selectedTier, int count)
         {
-                var towerLightConfig = new TowerLightConfiguration
+            var towerLightConfig = new TowerLightConfiguration
+            {
+                SignalDefinitions = new[]
                 {
-                    SignalDefinitions = new[]
-                    {
                         new SignalDefinitionsType()
                         {
                             Tier = "TwoTier",
@@ -558,15 +562,15 @@ namespace Aristocrat.Monaco.Gaming.Tests
                             }
                         }
                     }
-                };
+            };
 
-                _configUtility.Setup(c => c.GetConfiguration(It.IsAny<string>(), It.IsAny<Func<TowerLightConfiguration>>()))
-                    .Returns(towerLightConfig);
+            _configUtility.Setup(c => c.GetConfiguration(It.IsAny<string>(), It.IsAny<Func<TowerLightConfiguration>>()))
+                .Returns(towerLightConfig);
 
-                _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.TowerLightTierTypeSelection
-                        , Application.Contracts.TowerLight.TowerLightTierTypes.Undefined.ToString()))
-                    .Returns(selectedTier)
-                    .Verifiable();
+            _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.TowerLightTierTypeSelection
+                    , Application.Contracts.TowerLight.TowerLightTierTypes.Undefined.ToString()))
+                .Returns(selectedTier)
+                .Verifiable();
 
             using (var underTest = new TowerLightManager(
                 _eventBus.Object,
@@ -576,7 +580,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object))
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object))
             {
                 var result = underTest.ConfiguredLightTiers.ToArray();
                 Assert.AreEqual(count, result.Length);
@@ -586,10 +591,10 @@ namespace Aristocrat.Monaco.Gaming.Tests
         [TestMethod]
         public void GivenTierTypeWhenInitializeNotConfiguredThenSignalDefinitionEmpty()
         {
-                var towerLightConfig = new TowerLightConfiguration
+            var towerLightConfig = new TowerLightConfiguration
+            {
+                SignalDefinitions = new[]
                 {
-                    SignalDefinitions = new[]
-                    {
                         new SignalDefinitionsType()
                         {
                             Tier = "TwoTier",
@@ -622,15 +627,15 @@ namespace Aristocrat.Monaco.Gaming.Tests
                             }
                         }
                     }
-                };
+            };
 
-                _configUtility.Setup(c => c.GetConfiguration(It.IsAny<string>(), It.IsAny<Func<TowerLightConfiguration>>()))
-                    .Returns(towerLightConfig);
+            _configUtility.Setup(c => c.GetConfiguration(It.IsAny<string>(), It.IsAny<Func<TowerLightConfiguration>>()))
+                .Returns(towerLightConfig);
 
-                _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.TowerLightTierTypeSelection
-                        , Application.Contracts.TowerLight.TowerLightTierTypes.Undefined.ToString()))
-                    .Returns(Application.Contracts.TowerLight.TowerLightTierTypes.FourTier.ToString())
-                    .Verifiable();
+            _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.TowerLightTierTypeSelection
+                    , Application.Contracts.TowerLight.TowerLightTierTypes.Undefined.ToString()))
+                .Returns(Application.Contracts.TowerLight.TowerLightTierTypes.FourTier.ToString())
+                .Verifiable();
 
             using (var underTest = new TowerLightManager(
                 _eventBus.Object,
@@ -640,7 +645,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object))
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object))
             {
                 var result = underTest.ConfiguredLightTiers;
                 Assert.IsFalse(result.Any());
@@ -704,7 +710,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object))
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object))
             {
                 _towerLight.ResetCalls();
                 SetupMainDoorOpen();
@@ -771,7 +778,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                         It.IsAny<LightTier>(),
                         It.IsAny<FlashState>(),
                         Timeout.InfiniteTimeSpan, false))
-                .Callback<LightTier,FlashState,TimeSpan,bool>(
+                .Callback<LightTier, FlashState, TimeSpan, bool>(
                     (lightTier, flashState, duration, test) =>
                     {
                         flashStateDic[lightTier] = flashState;
@@ -784,7 +791,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object))
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object))
             {
                 // open door, idle: DoorOpen
                 SetupMainDoorOpen();
@@ -819,7 +827,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier4]);
 
                 // game started. idle: AllClosed | DoorWasOpenBeforeResetEndGame
-                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1,1,"bla", Mock.Of<IGameHistoryLog>()));
+                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1, 1, "bla", Mock.Of<IGameHistoryLog>()));
                 Assert.AreEqual(FlashState.SlowFlash, flashStateDic[LightTier.Tier1]);
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier3]);
@@ -876,7 +884,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 SetupAllDoorClosed();
                 _handlerCloseEvent?.Invoke(new ClosedEvent(1, "Bla"));
                 // start game
-                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1,1,"bla", Mock.Of<IGameHistoryLog>()));
+                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1, 1, "bla", Mock.Of<IGameHistoryLog>()));
                 //end game
                 _handlerGameEndedEvent?.Invoke(new GameEndedEvent(1, 1, "bla", Mock.Of<IGameHistoryLog>()));
                 // idle: AllClosed
@@ -989,7 +997,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                         It.IsAny<LightTier>(),
                         It.IsAny<FlashState>(),
                         Timeout.InfiniteTimeSpan, false))
-                .Callback<LightTier,FlashState,TimeSpan,bool>(
+                .Callback<LightTier, FlashState, TimeSpan, bool>(
                     (lightTier, flashState, duration, test) =>
                     {
                         flashStateDic[lightTier] = flashState;
@@ -1002,7 +1010,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object))
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object))
             {
                 // open door, idle: DoorOpen
                 SetupMainDoorOpen();
@@ -1028,7 +1037,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier2]);
 
                 // game started. idle: AllClosed | DoorWasOpenBeforeResetEndGame
-                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1,1,"bla", Mock.Of<IGameHistoryLog>()));
+                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1, 1, "bla", Mock.Of<IGameHistoryLog>()));
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier1]);
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier2]);
 
@@ -1071,7 +1080,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 SetupAllDoorClosed();
                 _handlerCloseEvent?.Invoke(new ClosedEvent(1, "Bla"));
                 // start game
-                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1,1,"bla", Mock.Of<IGameHistoryLog>()));
+                _handlerPrimaryGameStartedEvent?.Invoke(new PrimaryGameStartedEvent(1, 1, "bla", Mock.Of<IGameHistoryLog>()));
                 //end game
                 _handlerGameEndedEvent?.Invoke(new GameEndedEvent(1, 1, "bla", Mock.Of<IGameHistoryLog>()));
                 // idle: AllClosed
@@ -1219,7 +1228,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object))
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object))
             {
                 _towerLight.ResetCalls();
                 SetupMainDoorOpen();
@@ -1318,7 +1328,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object))
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object))
             {
                 _towerLight.ResetCalls();
                 SetupMainDoorOpen();
@@ -1360,7 +1371,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestMethod]
@@ -1375,7 +1387,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestMethod]
@@ -1390,7 +1403,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestMethod]
@@ -1405,7 +1419,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestMethod]
@@ -1420,7 +1435,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 null,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestMethod]
@@ -1435,7 +1451,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 null,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestMethod]
@@ -1450,7 +1467,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 null,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
         }
 
         [TestMethod]
@@ -1464,7 +1482,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 _towerLight.Object,
                 _messageDisplay.Object,
                 _edgeLightingStateManager.Object,
-                _propertiesManager.Object);
+                _propertiesManager.Object,
+                _operatorMenuLauncher.Object);
             Assert.IsNotNull(_target);
         }
 
@@ -1585,7 +1604,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             _towerLight.Verify(
                 m => m.SetFlashState(
                     It.Is<LightTier>(x => x == LightTier.Tier2),
-                    It.Is<FlashState>(x => x == FlashState.SlowFlash), Timeout.InfiniteTimeSpan,  false));
+                    It.Is<FlashState>(x => x == FlashState.SlowFlash), Timeout.InfiniteTimeSpan, false));
         }
 
         [TestMethod]

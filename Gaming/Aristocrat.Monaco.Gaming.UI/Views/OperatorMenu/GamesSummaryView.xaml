@@ -14,7 +14,6 @@
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
-                               xmlns:controls="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamesSummaryViewModel}}"
                                common:DialogParticipation.Register="{Binding}">
@@ -27,7 +26,6 @@
 
             <sharedConverters:ToUpperConverter x:Key="ToUpperConverter"/>
             <converters:FormattedCurrencyConverter x:Key="CurrencyConverter"/>
-
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -49,8 +47,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc GamePackHashesID}" Visibility="{Binding IsHashComponentVisible, Converter={StaticResource BoolToVisConverter}}"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding HashesComponentId}" Visibility="{Binding IsHashComponentVisible, Converter={StaticResource BoolToVisConverter}}"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc GamePackHashesID}" Visibility="{Binding IsHashComponentVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding HashesComponentId}" Visibility="{Binding IsHashComponentVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
             <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc NumberOfGamesEnabled}"/>
             <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding EnabledGamesCount}"/>
@@ -123,17 +121,17 @@
                 
                 <DataGridTextColumn Header="{lex:Loc BaseGameRTP}" 
                                     Binding="{Binding BaseGameRTP}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}"/>
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn Header="{lex:Loc BaseGameRTPMin}" 
                                     Binding="{Binding BaseGameRTPMin}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}}"/>
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn Header="{lex:Loc BaseGameRTPMax}" 
                                     Binding="{Binding BaseGameRTPMax}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}}"/>
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
 
                 <DataGridTemplateColumn Header="{lex:Loc ProgressiveResetRTP}"
                                         Width="120"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}">
+                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
                             <Viewbox VerticalAlignment="Center" 
@@ -154,7 +152,7 @@
 
                 <DataGridTemplateColumn Header="{lex:Loc ProgressiveResetRTPMin}"
                                         Width="100"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}">
+                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
                             <Viewbox VerticalAlignment="Center" 
@@ -175,7 +173,7 @@
 
                 <DataGridTemplateColumn Header="{lex:Loc ProgressiveResetRTPMax}"
                                         Width="100"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}">
+                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
                             <Viewbox VerticalAlignment="Center" 
@@ -196,7 +194,7 @@
 
                 <DataGridTemplateColumn Header="{lex:Loc ProgressiveIncrementRTP}" 
                                         Width="120"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}">
+                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
                             <Viewbox VerticalAlignment="Center" HorizontalAlignment="Left" StretchDirection="DownOnly" Stretch="Uniform">
@@ -214,7 +212,7 @@
 
                 <DataGridTemplateColumn Header="{lex:Loc ProgressiveIncrementRTPMin}" 
                                     Width="100"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}">
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
                             <Viewbox VerticalAlignment="Center" 
@@ -235,7 +233,7 @@
 
                 <DataGridTemplateColumn Header="{lex:Loc ProgressiveIncrementRTPMax}" 
                                         Width="100"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}">
+                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
                             <Viewbox VerticalAlignment="Center" 
@@ -255,7 +253,7 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn Binding="{Binding TotalJurisdictionalRTP}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}}">
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -277,11 +275,11 @@
 
                 <DataGridTextColumn Header="{lex:Loc TotalGameRTPMin}"
                                     Binding="{Binding TotalJurisdictionalRTPMin}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}}"/>
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn Header="{lex:Loc TotalGameRTPMax}"
                                     Binding="{Binding TotalJurisdictionalRTPMax}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource BoolToHiddenConverter}, Source={StaticResource Proxy}}">
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
+                <DataGridTextColumn Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

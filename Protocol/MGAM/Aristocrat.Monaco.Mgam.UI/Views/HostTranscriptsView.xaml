@@ -17,10 +17,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <common:TextCaseConverter x:Key="TextCaseConverter" />
 
             <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
                 <Setter Property="VerticalAlignment" Value="Center" />
@@ -177,7 +176,7 @@
                 Margin="5 5 5 0" />
 
         <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
-              Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource BoolToVisConverter}}">
+              Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Border HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
                 <DockPanel LastChildFill="True">
                     <Label Content="{lex:Loc HostTranscriptsDetailTitle}" 

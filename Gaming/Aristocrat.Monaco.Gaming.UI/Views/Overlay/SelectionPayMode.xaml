@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converters="http://monaco.aristocrat.com/common"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-             xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:loc="http://monaco.aristocrat.com/localization"
              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
@@ -31,12 +29,7 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.TextBlock.xaml"/>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden" />
-            <converters:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" TrueValue="Collapsed"
-                                                  FalseValue="Visible" />
-            <converters:BoolToVisibilityConverter x:Key="ButtonBoolToVisible" TrueValue="Visible"
-                                                  FalseValue="Collapsed" />
-            <converters:BitmapToImageSourceConverter x:Key="BitmapToImageConverter" />
+
             <Style x:Key="LocalListBoxStyle" 
                    TargetType="{x:Type ListBox}"
                    BasedOn="{StaticResource MonacoListBox}">
@@ -72,7 +65,7 @@
 
     <Grid>
         <GroupBox VerticalAlignment="Center" Margin="0" Width="1200" Height="300" 
-                  Visibility="{Binding IsInOperatorMenu, Converter={StaticResource BoolToCollapsedConverter}}" 
+                  Visibility="{Binding IsInOperatorMenu, Converter={StaticResource TrueCollapsedFalseVisible}}" 
                   Style="{StaticResource MonacoGroupBox}">
             <Grid>
                 <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Bottom" 
@@ -101,6 +94,3 @@
         </GroupBox>
     </Grid>
 </UserControl>
-
-
-

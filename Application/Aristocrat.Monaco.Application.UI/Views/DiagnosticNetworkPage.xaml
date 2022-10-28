@@ -92,7 +92,7 @@
                     <Label Grid.Column="1" Grid.Row="0" Content="{lex:Loc PingResultText}" Margin="15 0 0 0" />
                     <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="15,5,0,0" Text="{Binding PingResult}" TextWrapping="Wrap" IsReadOnly="True" MinHeight="100" MinWidth="250" IsHitTestVisible="False"/>
 
-                    <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="15,5,0,0" Visibility="{Binding Path=ShowStatus, Converter={StaticResource BoolToVisConverter}}">
+                    <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="15,5,0,0" Visibility="{Binding Path=ShowStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                         <Border Background="{DynamicResource DarkBrush1}" Opacity=".1" />
                         <Label Margin="10" Content="{lex:Loc PingingNetworkText}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource YellowBrush}"/>
                     </Grid>

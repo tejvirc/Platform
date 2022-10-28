@@ -89,7 +89,7 @@
             {
                 new ConfigurationResponse.Types.ClientAttribute
                 {
-                    Value = initialVoucherMaxVoucherIn, Name = SystemConfigurationConstants.MaxVoucherIn
+                    Value = initialVoucherMaxVoucherIn, Name = SystemConfigurationConstants.Gen8MaxVoucherIn
                 }
             };
 
@@ -465,8 +465,9 @@
         [DataRow(SystemConfigurationConstants.TransferLimit, "-1", DisplayName = "InvalidSetting TransferLimit < 0")]
         [DataRow(SystemConfigurationConstants.VoucherThreshold, "", DisplayName = "InvalidSetting VoucherThreshold Empty")]
         [DataRow(SystemConfigurationConstants.VoucherThreshold, "-1", DisplayName = "InvalidSetting VoucherThreshold < 0")]
-        [DataRow(SystemConfigurationConstants.MaxVoucherIn, "", DisplayName = "InvalidSetting MaxVoucherIn Empty")]
-        [DataRow(SystemConfigurationConstants.MaxVoucherIn, "-1", DisplayName = "InvalidSetting MaxVoucherIn < 0")]
+        [DataRow(SystemConfigurationConstants.Gen8MaxVoucherIn, "", DisplayName = "InvalidSetting MaxVoucherIn Empty")]
+        [DataRow(SystemConfigurationConstants.Gen8MaxVoucherIn, "Invalid Int", DisplayName = "InvalidSetting MaxVoucherIn Not an integer")]
+        [DataRow(SystemConfigurationConstants.Gen8MaxVoucherIn, "-1", DisplayName = "InvalidSetting MaxVoucherIn < 0")]
         [DataRow(SystemConfigurationConstants.BadCountThreshold, "", DisplayName = "InvalidSetting BadCountThreshold Empty")]
         [DataRow(SystemConfigurationConstants.BadCountThreshold, "-1", DisplayName = "InvalidSetting BadCountThreshold < 0")]
         [DataRow(SystemConfigurationConstants.JackpotHandlingStrategy, "", DisplayName = "InvalidSetting JackpotHandlingStrategy Empty")]

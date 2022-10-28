@@ -28,13 +28,10 @@
                  <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
 
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
-                
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <converters:EqualityVisibilityConverter x:Key="EqualToVisible"></converters:EqualityVisibilityConverter>
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible" />
-
-            <common:BoolToVisibilityConverter x:Key="BoolToVisibleInverted" TrueValue="Collapsed" FalseValue="Visible" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -83,8 +80,8 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
- 
-        <Image Stretch="None" Grid.Row="1" Grid.Column="1" Margin="4" Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource BoolToVisibleInverted}}">
+
+        <Image Stretch="None" Grid.Row="1" Grid.Column="1" Margin="4" Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource TrueCollapsedFalseVisible}}">
             <Image.Style>
                 <Style TargetType="Image">
                     <Setter Property="Source" Value="{DynamicResource RGInfoPressToReturn}" />
@@ -98,7 +95,7 @@
         </Image>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="10,0,0,30" VerticalAlignment="Center" 
-                    Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource BoolToVisible}}">
+                    Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Grid>
                 <Grid.Style>
                     <Style TargetType="Grid">
@@ -184,7 +181,7 @@
                 Grid.Column="0" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Visibility="{Binding ResponsibleGaming.IsBackButtonVisible, Converter={StaticResource BoolToVisible}}"
+                Visibility="{Binding ResponsibleGaming.IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 IsEnabled="{Binding ResponsibleGaming.IsBackButtonEnabled}"
                 Command="{Binding Path=ResponsibleGaming.LeftInfoPageNavigationCommand}"
                 Style="{StaticResource stlFlatButton}">
@@ -204,7 +201,7 @@
                 Grid.Column="2" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Visibility="{Binding ResponsibleGaming.IsForwardButtonVisible, Converter={StaticResource BoolToVisible}}"
+                Visibility="{Binding ResponsibleGaming.IsForwardButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding Path=ResponsibleGaming.RightInfoPageNavigationCommand}"
                 Style="{StaticResource stlFlatButton}">
             <Button.Template>

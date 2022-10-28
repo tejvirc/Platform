@@ -19,9 +19,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Lobby.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter"/>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisible" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -41,7 +40,7 @@
 
         <Border Grid.Row="1"
                 SizeChanged="OnNavigationBarSizeChanged"
-                Visibility="{Binding Path=ReplayRecovery.IsReplayNavigationVisible, Converter={StaticResource BoolToVisible}}">
+                Visibility="{Binding Path=ReplayRecovery.IsReplayNavigationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Grid>
                 <Border Background="{StaticResource Brush2}" Opacity=".9" />
                 <Border Margin="5">
@@ -157,7 +156,7 @@
                                 FontWeight="Bold"
                                 Foreground="White" 
                                 VerticalAlignment="Center"
-                                Visibility="{Binding Path=ReplayRecovery.CanReplayContinue, Converter={StaticResource BoolToVisible}}"
+                                Visibility="{Binding Path=ReplayRecovery.CanReplayContinue, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                 Cursor="Hand">
                             <Button.Style>
                                 <Style TargetType="Button">

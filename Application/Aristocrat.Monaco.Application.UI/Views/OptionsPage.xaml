@@ -23,7 +23,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemContainerStyle>
             <Style d:DataContext="{d:DesignInstance operatorMenu:OperatorMenuPage}">
-                <Setter Property="Control.Visibility" Value="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                <Setter Property="Control.Visibility" Value="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             </Style>
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>

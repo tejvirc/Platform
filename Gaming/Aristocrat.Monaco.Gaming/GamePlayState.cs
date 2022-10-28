@@ -208,7 +208,8 @@
             }
         }
 
-        private bool AllowGamePlayOnNormalLockup => _properties.GetValue(GamingConstants.AdditionalInfoGameInProgress, false);
+        private bool AllowGamePlayOnNormalLockup =>
+            _properties.GetValue(GamingConstants.AdditionalInfoGameInProgress, false);
 
         /// <inheritdoc />
         public void Initialize()
@@ -656,6 +657,7 @@
         private void OnGameIdleHeld()
         {
             // Handle unlock and handle bonuses
+            _faulted = false;
             _handlerFactory.Create<PresentationIdle>().Handle(new PresentationIdle());
             HandleBonusEvents(Trigger.GameIdle);
         }

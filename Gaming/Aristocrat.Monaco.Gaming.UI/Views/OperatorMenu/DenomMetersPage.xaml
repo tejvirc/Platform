@@ -5,7 +5,6 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
-                               xmlns:converters="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -16,7 +15,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -53,7 +53,7 @@
                 </DataGrid>
 
                 <DataGrid DockPanel.Dock="Top" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding MetersRightColumn}"
-                          Margin="120 -20 0 0" Visibility="{Binding MetersRightColumnVisible, Converter={StaticResource BoolToVisConverter}}">
+                          Margin="120 -20 0 0" Visibility="{Binding MetersRightColumnVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc Meter}" 
                                             Width="360" 
@@ -88,7 +88,5 @@
                     IsEnabled="{Binding NextDenomIsEnabled}"
                     Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
-
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

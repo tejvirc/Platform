@@ -123,7 +123,7 @@
                         Margin="0 20 0 0"
                         Foreground="{StaticResource RedBrush}"  
                         FontSize="{StaticResource NormalFontSize}" 
-                        Visibility="{Binding IsError, Converter={StaticResource BoolToVisConverter}}" />
+                        Visibility="{Binding IsError, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             </DockPanel>
         </Border>
     </Grid>

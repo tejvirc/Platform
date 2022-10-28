@@ -5,7 +5,6 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
-                               xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -29,7 +28,7 @@
     </UserControl.Resources>
     
     <Grid x:Name="MainGrid" 
-          Visibility="{Binding Path=HasEnabledProgressives, Converter={StaticResource BoolToVisConverter}}">
+          Visibility="{Binding Path=HasEnabledProgressives, Converter={StaticResource TrueVisibleFalseCollapsed}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -82,7 +81,7 @@
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
                       MaxDropDownHeight="240"
-                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource BoolToVisConverter}}">
+                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Height="24">
@@ -98,7 +97,7 @@
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
                       MaxDropDownHeight="240"
-                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource BoolToCollapsedConverter}}">
+                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueCollapsedFalseVisible}}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Height="24">
@@ -140,7 +139,7 @@
                     Content="{lex:Loc NextButtonText}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="4"  Visibility="{Binding ViewBetOptionFilter, Converter={StaticResource BoolToVisConverter}}"
+        <StackPanel Grid.Row="4"  Visibility="{Binding ViewBetOptionFilter, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 30 0 0">
             <Button Margin="0 0 10 0" Width="65"  
                     Command="{Binding PreviousBetOptionCommand}"

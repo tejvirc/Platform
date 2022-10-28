@@ -15,7 +15,7 @@
         Title="Responsible Gaming"
         ShowInTaskbar="False"
         Width="1920" Height="1080"
-        Left="0" Top="0"        
+        Left="0" Top="0"
         Name="Root">
 
     <Window.Resources>
@@ -32,8 +32,6 @@
 
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
 
             <Storyboard x:Key="FadeInStoryboard" x:Shared="false">
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" 

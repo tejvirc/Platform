@@ -34,7 +34,7 @@
         <DataGrid Grid.Column="0"
                   Grid.Row="0"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch"                  
+                  VerticalAlignment="Stretch"
                   ItemsSource="{Binding MetersLeftColumn}"
                   Margin="0 -20 0 0" >
             <DataGrid.Columns>
@@ -56,7 +56,7 @@
                   ItemsSource="{Binding MetersRightColumn}" 
                   Margin="60 -20 0 0" 
                   Width="650"
-                  Visibility="{Binding ShowRightColumn, Converter={StaticResource BoolToVisHiddenConverter}}">
+                  Visibility="{Binding ShowRightColumn, Converter={StaticResource TrueVisibleFalseHidden}}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Meter}" 
                                     Width="380" 

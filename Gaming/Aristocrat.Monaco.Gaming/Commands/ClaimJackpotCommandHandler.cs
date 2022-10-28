@@ -2,9 +2,11 @@
 {
     using System;
     using System.Linq;
+    using Contracts.Diagnostics;
     using Contracts;
     using Contracts.Progressives;
     using Progressives;
+    using System.Collections.Generic;
 
     /// <summary>
     ///     Claim jackpot command handler
@@ -26,15 +28,32 @@
         /// <inheritdoc />
         public void Handle(ClaimJackpot command)
         {
-            if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
+            if (_gameDiagnostics.IsActive)
             {
-                // For replay we're going to pull solely from the game history
-                command.Results =
-                    context.Arguments
-                        .Jackpots.Where(j => command.TransactionIds.Contains(j.TransactionId))
-                        .Select(j => new ClaimResult { LevelId = j.LevelId, WinAmount = j.WinAmount });
+                if (_gameDiagnostics.Context is ICombinationTestContext)
+                {
+                    var claimResults = new List<ClaimResult>();
+                    var gameProgressiveLevels = _progressiveGame.GetProgressiveLevel(command.PoolName, false);
 
-                return;
+                    foreach (var transactionId in command.TransactionIds)
+                    {
+                        var level = gameProgressiveLevels.FirstOrDefault(x => x.Key == transactionId);
+                        claimResults.Add(new ClaimResult { WinAmount = level.Value, LevelId = level.Key });
+                    }
+                    command.Results = claimResults;
+                    return;
+                }
+
+                if (_gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
+                {
+                    // For replay we're going to pull solely from the game history
+                    command.Results =
+                        context.Arguments
+                            .Jackpots.Where(j => command.TransactionIds.Contains(j.TransactionId))
+                            .Select(j => new ClaimResult { LevelId = j.LevelId, WinAmount = j.WinAmount });
+
+                    return;
+                }
             }
 
             command.Results = _progressiveGame.ClaimProgressiveLevel(command.PoolName, command.TransactionIds);

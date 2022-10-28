@@ -32,7 +32,7 @@
         <StackPanel>
             <StackPanel Name="SettingsPanel" Visibility="{Binding Visibility, ElementName=EnterTestModeButton}">
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
-                            Visibility="{Binding ShowOverrideSetting, Converter={StaticResource BoolToVisConverter}}">
+                            Visibility="{Binding ShowOverrideSetting, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <Label  Content="{lex:Loc LightingOverrideOnIdleAndZeroCreditsLabel}" HorizontalAlignment="Left"/>
                     <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding LightingOverrideChoices}" 
                               SelectedValue="{Binding EdgeLightingAttractModeOverrideSelection}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="10" 
@@ -40,7 +40,7 @@
                               IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 20 0 0" 
-                            Visibility="{Binding IsCabinetThatAllowsEdgeLightBrightnessSetting, Converter={StaticResource BoolToVisConverter}}" >
+                            Visibility="{Binding IsCabinetThatAllowsEdgeLightBrightnessSetting, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
                     <Label Content="{lex:Loc LightingBrightnessLabel}" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                     <StackPanel  Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Left">
                         <Slider Name="BrightnessSlider" Style="{StaticResource MonacoSlider}" Value="{Binding MaximumAllowedBrightnessValue}" MinWidth="400"
@@ -48,7 +48,7 @@
                                 TickFrequency="10" IsSnapToTickEnabled="True" 
                                 IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
-                    <StackPanel Visibility="{Binding IsCabinetThatAllowsBottomStripToggle, Converter={StaticResource BoolToVisConverter}}">
+                    <StackPanel Visibility="{Binding IsCabinetThatAllowsBottomStripToggle, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                         <Label  Content="{lex:Loc MainDisplayBottomLightingLabel}" HorizontalAlignment="Left"  Margin="0 15 0 0"/>
                             <controls:ToggleSwitch controls:ControlsHelper.ContentCharacterCasing="Upper"
                                                    controls:ControlsHelper.CornerRadius="0"
@@ -66,16 +66,16 @@
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Left">
                 <Button Name="EnterTestModeButton" Content="{lex:Loc TestEdgeLightingLabel}"
                         IsEnabled="{Binding TestButtonEnabled, UpdateSourceTrigger=PropertyChanged}" 
-                        Visibility="{Binding InTestMode, Converter={StaticResource BoolToCollapsedConverter}}"
+                        Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                         Command="{Binding ToggleTestModeCommand}"/>
-                <Button Name="ExitTestModeButton" Visibility="{Binding InTestMode, Converter={StaticResource BoolToVisConverter}}"
+                <Button Name="ExitTestModeButton" Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Command="{Binding ToggleTestModeCommand}"
                         Content="{lex:Loc ExitEdgeLightingTestLabel}"/>
                 <Button x:Name="WarningButton" 
                         Style="{StaticResource MonacoWarningButton}"
                         VerticalAlignment="Center"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="WarningButton"/>

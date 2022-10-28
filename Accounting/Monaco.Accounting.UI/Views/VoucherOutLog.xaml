@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -60,13 +61,13 @@
         <StackPanel Orientation="Horizontal" Margin="0 10 0 0"
                     Grid.Row="2"
                     HorizontalAlignment="Left"
-                    Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource BoolToVisConverter}}">
+                    Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Button Content="{lex:Loc ReprintButtonText}"
                     Command="{Binding ReprintButtonCommand}" 
                     IsEnabled="{Binding CanReprint}"/>
             <Label Content="{Binding DoorStatusText}"
                    Style="{StaticResource MonacoWarningLabel}"
-                   Visibility="{Binding ReprintDisabledDueToDoor, Converter={StaticResource BoolToVisConverter}}"/>
+                   Visibility="{Binding ReprintDisabledDueToDoor, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

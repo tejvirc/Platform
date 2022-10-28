@@ -16,8 +16,8 @@
         ShowInTaskbar="False"
         Topmost="True">
 
-	<Window.Resources>
-	    <ResourceDictionary>
+    <Window.Resources>
+        <ResourceDictionary>
         <!-- Apply MahApps.Metro styles to all controls -->
         <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="../../Skins/Styles.xaml" />
@@ -28,25 +28,23 @@
         <buttonDeck1:VbdViewOverlaySelector x:Key="VbdViewOverlaySelector" />
 
       </ResourceDictionary>
-	</Window.Resources>
+    </Window.Resources>
 
-	<Window.Background>
-	    <SolidColorBrush Color="Transparent"/>
-	</Window.Background>
+    <Window.Background>
+        <SolidColorBrush Color="Transparent"/>
+    </Window.Background>
 
-
-  <Grid x:Name="VbdOverlayRoot">
+    <Grid x:Name="VbdOverlayRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-	  <ContentControl
-            Grid.Row="0"
-            Grid.RowSpan="2"
-		  x:Name="VbdOverlayControl"
-		  Content="{Binding}"
-            ContentTemplateSelector="{StaticResource VbdViewOverlaySelector}">
+        <ContentControl Grid.Row="0"
+                        Grid.RowSpan="2"
+                        x:Name="VbdOverlayControl"
+                        Content="{Binding}"
+                        ContentTemplateSelector="{StaticResource VbdViewOverlaySelector}">
         </ContentControl>
-  </Grid>
+    </Grid>
 </Window>

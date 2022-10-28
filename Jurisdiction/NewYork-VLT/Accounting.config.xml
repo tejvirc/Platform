@@ -71,7 +71,7 @@ as follows:
        "|" = Requiring multiple doors can be accomplished by combining, for example "Main|Logic" will require both Main and Logic door to be open.
 -->
   <ReprintLoggedVoucher Behavior="None" TitleOverride="false" DoorOpenRequirement="None"/>
-  <Handpay>
+  <Handpay HandpayReceiptsRequired="true">
     <PrintHandpayReceipt Enabled="true"/>
   </Handpay>
 </AccountingConfiguration>

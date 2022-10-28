@@ -28,7 +28,7 @@
                    BorderBrush="Black"
                    BorderThickness="1"
                    x:Name="OperatorMenuWindow">
-    
+
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
@@ -78,7 +78,7 @@
             </Style>
 
             <DataTemplate x:Key="SinglePageTemplate" DataType="{x:Type ContentControl}">
-                <GroupBox Header="{Binding DataContext.SelectedItem.PageName, ElementName=OperatorMenuWindow}" 
+                <GroupBox Header="{Binding DataContext.SelectedItem.PageName, ElementName=OperatorMenuWindow}"
                           Margin="20" loc:Localizer.LocalizationAware="True">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -89,10 +89,10 @@
                         <ContentControl Grid.Row="0" Content="{Binding DataContext.SelectedItem.Page, ElementName=OperatorMenuWindow}"/>
 
                         <TextBlock Grid.Row="1"
-                                   HorizontalAlignment="Right" 
+                                   HorizontalAlignment="Right"
                                    VerticalAlignment="Bottom"
                                    TextWrapping="Wrap"
-                                   Style="{StaticResource MonacoWarningTextBlock}" 
+                                   Style="{StaticResource MonacoWarningTextBlock}"
                                    Text="{Binding DataContext.WarningMessageText, ElementName=OperatorMenuWindow, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </GroupBox>
@@ -241,7 +241,7 @@
                     </common:TouchListBox>
 
                     <Grid Grid.Row="1" Margin="0,20,0,0">
-                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource BoolToVisConverter}}">
+                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -256,7 +256,7 @@
 
                             <Button IsEnabled="{Binding PrintButtonEnabled}" Grid.Column="1" Width="65" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
                                     Command="{Binding PrintButtonCommand}" Style="{StaticResource MonacoButton1}"
-                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource BoolToCollapsedConverter}}">
+                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueCollapsedFalseVisible}}">
                                 <Grid>
                                     <iconPacks:PackIconFontAwesome Kind="PrintSolid"  Width="25" Height="25"/>
                                 </Grid>
@@ -264,20 +264,20 @@
                             <Button Grid.Column="1" Width="65" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
                                     IsEnabled="{Binding CancelButtonEnabled}"
                                     Command="{Binding PrintButtonCommand}" Style="{StaticResource MonacoButton1}" 
-                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource BoolToVisConverter}}">
+                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                                 <Grid>
                                     <iconPacks:PackIconModern Kind="Cancel" Width="25" Height="25"/>
                                 </Grid>
                             </Button>
                         </Grid>
-                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource BoolToCollapsedConverter}}">
+                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource TrueCollapsedFalseVisible}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <Button IsEnabled="{Binding PrintButtonEnabled}" Width="90" Height="45" HorizontalAlignment="Center"
                                     Command="{Binding PrintButtonCommand}" Style="{StaticResource MonacoButton1}"
-                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource BoolToCollapsedConverter}}">
+                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueCollapsedFalseVisible}}">
                                 <Grid>
                                     <iconPacks:PackIconFontAwesome Kind="PrintSolid" Width="25" Height="25"/>
                                 </Grid>
@@ -285,7 +285,7 @@
                             <Button Width="90" Height="45" HorizontalAlignment="Center"
                                     IsEnabled="{Binding CancelButtonEnabled}"
                                     Command="{Binding PrintButtonCommand}" Style="{StaticResource MonacoButton1}" 
-                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource BoolToVisConverter}}">
+                                    Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                                 <Grid>
                                     <iconPacks:PackIconModern Kind="Cancel" Width="25" Height="25"/>
                                 </Grid>
@@ -294,7 +294,7 @@
                     </Grid>
 
                     <Border Grid.Row="3" HorizontalAlignment="Center" Background="{StaticResource MenuHighlightBrush}" Margin="0,25,0,20" 
-                            Visibility="{Binding CreditBalanceVisible, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}">
+                            Visibility="{Binding CreditBalanceVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Hidden}">
                         <Label Margin="10" VerticalAlignment="Center" Name="CreditBalance" Content="{Binding CreditBalanceContent}" Foreground="{StaticResource OperatorMenuDark}"/>
                     </Border>
 
@@ -310,7 +310,7 @@
                             <ColumnDefinition Width="55"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="../Resources/Audit.png" Stretch="None" Grid.Column="0" Margin="30 0 20 0"/>
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Height="100" VerticalAlignment="Center" Visibility="{Binding IsPageTitleVisible, Converter={StaticResource BoolToVisConverter}}">
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Height="100" VerticalAlignment="Center" Visibility="{Binding IsPageTitleVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <Label Name="PageTitle" VerticalAlignment="Center" Content="{Binding PageTitleContent}" FontWeight="Bold" FontSize="{StaticResource Heading3FontSize}"/>
                             <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="/" FontSize="{StaticResource Heading3FontSize}" />
                             <Label Name="OperatorMenuLabel" VerticalAlignment="Center" Content="{Binding OperatorMenuLabelContent}" FontWeight="Bold" FontSize="{StaticResource Heading3FontSize}"/>
@@ -358,7 +358,7 @@
                     </ContentControl>
                     <controls:ProgressRing Height="100" Width="100" IsLarge="True" IsActive="True" 
                                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                                           Visibility="{Binding IsLoadingData, Converter={StaticResource BoolToVisConverter}}" />
+                                           Visibility="{Binding IsLoadingData, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <views:OperatorMenuPopup/>
                 </Grid>
 
@@ -367,14 +367,14 @@
                         <Label Name="PrintStatus"  Content="{Binding PrintStatusText}" Margin="20 0 0 0" FontSize="{StaticResource Heading5FontSize}" FontWeight="Bold"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{StaticResource HighlightBrush1}" />
 
-                        <TextBlock Margin="0 0 20 0" Visibility="{Binding CanCalibrateTouchScreens,Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                        <TextBlock Margin="0 0 20 0" Visibility="{Binding CanCalibrateTouchScreens,Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                    Text="{lex:Loc CalibrationText}"
                                    Style="{StaticResource CalibrationTextStyle}" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"
                                    Foreground="{StaticResource HighlightBrush1}"/>
 
-                        <TextBlock Margin="0 0 20 0" Visibility="{Binding ShowMainDoorText,Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                        <TextBlock Margin="0 0 20 0" Visibility="{Binding ShowMainDoorText,Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                    Text="{lex:Loc CalibrationAccess}"
                                    Style="{StaticResource CalibrationTextStyle}" 
                                    VerticalAlignment="Center"

@@ -256,14 +256,14 @@
 
                 <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc SelfTestLabel}"/>
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelfTestText}" 
-                           Visibility="{Binding SelfTestStatusVisible, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}" 
+                           Visibility="{Binding SelfTestStatusVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Hidden}" 
                            Foreground="{Binding SelfTestForeground}"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc ActivationTimeLabel}"  
-                       Visibility="{Binding ActivationVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                       Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ActivationTime}" 
                            Foreground="{Binding ActivationForeground}"
-                           Visibility="{Binding ActivationVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                           Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
                 <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc StatusLabel}" VerticalAlignment="Top"/>
                 <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding StatusText}"  VerticalAlignment="Top" 
@@ -273,9 +273,9 @@
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding VoucherInEnabledText}"
                            Foreground="{Binding VoucherInEnabledTextForeground}"/>
 
-                <Label Grid.Row="7" Grid.Column="0" Margin="0,20,10,0" Content="{lex:Loc BillAcceptanceLimit}" Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                <Label Grid.Row="7" Grid.Column="0" Margin="0,20,10,0" Content="{lex:Loc BillAcceptanceLimit}" Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
                 <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal"  Margin="0,0,10,0"  HorizontalAlignment="Left"
-                        Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource BoolToCollapsedConverter}}">
+                        Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource TrueCollapsedFalseVisible}}">
                     <CheckBox IsChecked="{Binding BillAcceptanceLimitIsChecked, Mode=TwoWay}" VerticalAlignment="Center">
                         <CheckBox.IsEnabled >
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -288,7 +288,7 @@
                                          Margin="0 10 0 0"
                                          Width="200" VerticalAlignment="Center"
                                          PreventNegatives="True"
-                                         Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}" >
+                                         Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" >
                         <helpers:CurrencyTextBox.IsEnabled >
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                 <Binding Path="InputEnabled"/>
@@ -299,13 +299,13 @@
                     <TextBlock Margin="0 30 0 20"
                            VerticalAlignment="Center"
                            Text="{lex:Loc NoLimit}"
-                           Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                           Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <Label Grid.Row="8" Grid.Column="0" Margin="0 15 10 0" Content="{lex:Loc ExcessiveRejectDisable}"
-                       Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                       Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <controls:ToggleSwitch Grid.Row="8" Grid.Column="1" Margin="0 15 0 0"
-                                             Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource BoolToVisConverter}}"
+                                             Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                              controls:ControlsHelper.ContentCharacterCasing="Upper"
                                              controls:ControlsHelper.CornerRadius="0"
                                              helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
@@ -342,7 +342,7 @@
                 </CheckBox>
                 <ListBox Grid.Row="2" ItemsSource="{Binding Denominations}" 
                          Style="{StaticResource MonacoListBox}"
-                         Visibility="{Binding IsChecked, ElementName=CheckBoxAllDenomsSelection, Converter={StaticResource BoolToVisConverter}, FallbackValue=Collapsed}"
+                         Visibility="{Binding IsChecked, ElementName=CheckBoxAllDenomsSelection, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Collapsed}"
                          Margin="0 10 0 0"
                          ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}">
                     <ListBox.ItemsPanel>
@@ -353,7 +353,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <CheckBox HorizontalAlignment="Center" 
-                                      Visibility="{Binding Visible, Converter={StaticResource BoolToVisConverter}, FallbackValue=Collapsed}" 
+                                      Visibility="{Binding Visible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Collapsed}" 
                                       IsChecked="{Binding Selected}"
                                       Content="{Binding DisplayValue}">
                                 <CheckBox.IsEnabled>
@@ -383,30 +383,30 @@
                 
                 <Button Grid.Row="0" Grid.Column="0" Name="SelfTestButton"
                         Content="{lex:Loc SelfTestLabel}"
-                        Visibility="{Binding SelfTestButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                        Visibility="{Binding SelfTestButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         IsEnabled="{Binding SelfTestButtonEnabled}" 
                         Command="{Binding SelfTestButtonCommand}"/>
                 <Button Grid.Row="0" Grid.Column="1" 
                         Content="{lex:Loc SelfTestClearNVM}" 
-                        Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                        Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         IsEnabled="{Binding SelfTestButtonEnabled}" 
                         Command="{Binding SelfTestClearButtonCommand}" />
 
                 <Button Grid.Row="1" Grid.Column="0"
                         Content="{lex:Loc InspectButton}"
-                        Visibility="{Binding InspectButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                        Visibility="{Binding InspectButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         extensions:FocusExtension.IsFocused="{Binding InspectButtonFocused}"
                         Command="{Binding InspectButtonCommand}" />
 
                 <Button Grid.Row="2" Grid.Column="0" 
                         IsEnabled="{Binding ReturnButtonEnabled}" 
                         Content="{lex:Loc ReturnButton}"
-                        Visibility="{Binding ReturnButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                        Visibility="{Binding ReturnButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         Command="{Binding ReturnButtonCommand}" />
                 <Button Grid.Row="2" Grid.Column="1" 
                         IsEnabled="{Binding StackButtonEnabled}" 
                         Command="{Binding StackButtonCommand}"
-                        Visibility="{Binding StackButtonVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Visibility="{Binding StackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Content="{lex:Loc StackButton}" />
 
                 <Button Grid.Row="3" Grid.Column="0" Content="{lex:Loc NoteAcceptorTest}" 
@@ -415,7 +415,7 @@
                 <Button Grid.Row="3" Grid.Column="1" Margin="0 15 0 0" HorizontalAlignment="Left"
                         Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeToolTipDisabled, Converter={StaticResource BoolToHiddenConverter}}">
+                        Visibility="{Binding TestModeToolTipDisabled, Converter={StaticResource TrueHiddenFalseVisible}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="WarningButton"/>

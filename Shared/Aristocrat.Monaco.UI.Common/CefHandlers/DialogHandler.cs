@@ -1,10 +1,14 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers
+﻿namespace Aristocrat.Monaco.UI.Common.CefHandlers
 {
+    using System;
     using System.Collections.Generic;
     using CefSharp;
 
-    internal class DialogHandler : IDialogHandler
+    /// <inheritdoc />
+    [CLSCompliant(false)]
+    public class DialogHandler : IDialogHandler
     {
+        /// <inheritdoc />
         public bool OnFileDialog(
             IWebBrowser chromiumWebBrowser,
             IBrowser browser,

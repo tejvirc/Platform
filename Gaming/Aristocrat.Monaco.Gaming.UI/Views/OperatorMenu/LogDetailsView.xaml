@@ -4,7 +4,6 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
-                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
@@ -16,9 +15,10 @@
                                d:DataContext="{d:DesignInstance {x:Type local:LogDetailsViewModel}}">
 
     <UserControl.Resources>
-        <ResourceDictionary >
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:HmacDisplayBlockSizeConverter x:Key="HmacDisplayConverter"/>
             <common:LocalizedTextCaseConverter x:Key="LocalizedTextCaseConverter"/>
@@ -27,7 +27,7 @@
     <StackPanel Orientation="Vertical">
 
         <ListBox Margin="0,20"
-                 ItemsSource="{Binding AdditionalInfoItems}" 
+                 ItemsSource="{Binding AdditionalInfoItems}"
                  ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -47,13 +47,13 @@
 
         <StackPanel Orientation="Horizontal" Margin="0 10 0 0"
                     HorizontalAlignment="Left"
-                    Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource BoolToVisConverter}}">
+                    Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Button Content="{lex:Loc ReprintButtonText}"
-                    Command="{Binding ReprintButtonCommand}" 
+                    Command="{Binding ReprintButtonCommand}"
                     IsEnabled="{Binding CanReprint}"/>
             <Label Content="{Binding DoorStatusText}"
                    Style="{StaticResource MonacoWarningLabel}"
-                   Visibility="{Binding ReprintDisabledDueToDoor, Converter={StaticResource BoolToVisConverter}}"/>
+                   Visibility="{Binding ReprintDisabledDueToDoor, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
     </StackPanel>
 </operatorMenu1:OperatorMenuPage>

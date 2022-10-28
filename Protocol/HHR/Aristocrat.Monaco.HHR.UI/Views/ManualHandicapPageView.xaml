@@ -10,7 +10,6 @@
                          xmlns:local="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
                          xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
                          xmlns:converters="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
-                         xmlns:common="http://monaco.aristocrat.com/common"
                          xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
                          xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
                          mc:Ignorable="d"
@@ -19,9 +18,11 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
             <converters:HorseNumberToVisibilityConverter x:Key="HorseNumToVisibilityConverter"/>
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
-            <common:BoolToVisibilityConverter x:Key="BoolToHidden" TrueValue="Hidden" FalseValue="Visible"/>
 
             <SolidColorBrush x:Key="HeaderColor1" Color="GreenYellow"/>
 
@@ -33,7 +34,6 @@
                 <Setter Property="HorizontalAlignment" Value="Center"/>
             </Style>
         </ResourceDictionary>
-
     </UserControl.Resources>
 
     <Grid HorizontalAlignment="Center" Width="Auto" VerticalAlignment="Top">
@@ -155,7 +155,7 @@
                                     HorseNumber="{Binding HorseNumber}"
                                     Position="{Binding HorsePosition}"
                                     HorseNumberVisible="{Binding PositionSelected,
-                                        Converter={StaticResource BoolToVisible}, 
+                                        Converter={StaticResource TrueVisibleFalseHidden},
                                         Mode=OneWay,
                                         UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
@@ -278,14 +278,14 @@
                    Text="{lex:Loc HhrManualHandicapDisclaimerMessage}" 
                    FontSize="12" HorizontalAlignment="Center" TextAlignment="Center"
                    Foreground="{StaticResource HeaderColor1}"
-                   Visibility="{Binding IsQuickPick, Converter={StaticResource BoolToVisible},
+                   Visibility="{Binding IsQuickPick, Converter={StaticResource TrueVisibleFalseHidden},
                                         Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0"
                    Text="{lex:Loc HhrManualHandicapDisclaimerMessageAuto}" 
                    FontSize="12" HorizontalAlignment="Center" TextAlignment="Center"
                    Foreground="{StaticResource HeaderColor1}" 
-                   Visibility="{Binding IsQuickPick, Converter={StaticResource BoolToHidden},
+                   Visibility="{Binding IsQuickPick, Converter={StaticResource TrueHiddenFalseVisible},
                                         Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 

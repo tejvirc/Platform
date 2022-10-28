@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                    xmlns:converters="http://monaco.aristocrat.com/common"
                     xmlns:loc="http://monaco.aristocrat.com/localization"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com">
 
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-    <converters:LogicalAndConverter x:Key="BoolAndConverter"/>
-    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <DataTemplate x:Key="NetworkEditorTemplate" DataType="{x:Type viewModels:NetworkConfigPageViewModel}">
         <Grid>
             <Border>
@@ -51,17 +51,17 @@
                     <Label Content="{lex:Loc IpAddress}" 
                            Grid.Column="0" Grid.Row="4" 
                            Margin="0 30 0 0" />
-                    <TextBox Grid.Column="0" Grid.Row="5" 
-                             Width="400" 
-                             Margin="5,0,0,0" 
-                             HorizontalAlignment="Left" 
-                             Text="{Binding IpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" 
+                    <TextBox Grid.Column="0" Grid.Row="5"
+                             Width="400"
+                             Margin="5,0,0,0"
+                             HorizontalAlignment="Left"
+                             Text="{Binding IpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}"
                              InputScope="Number">
                         <TextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp" 
+                                <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}" 
+                                <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
                             </MultiBinding>
                         </TextBox.IsEnabled>
@@ -69,34 +69,34 @@
                     <Label Grid.Column="2" Grid.Row="4" 
                            Content="{lex:Loc SubnetMask}" 
                            Margin="0 20 0 0" />
-                    <TextBox Grid.Column="2" Grid.Row="5" 
-                             Width="400" 
-                             HorizontalAlignment="Left" 
-                             Margin="5,0,0,0" 
-                             Text="{Binding SubnetMask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" 
+                    <TextBox Grid.Column="2" Grid.Row="5"
+                             Width="400"
+                             HorizontalAlignment="Left"
+                             Margin="5,0,0,0"
+                             Text="{Binding SubnetMask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}"
                              InputScope="Number">
                         <TextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp" 
+                                <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}" 
+                                <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
                             </MultiBinding>
                         </TextBox.IsEnabled>
                     </TextBox>
                     <Label Grid.Column="0" Grid.Row="6" Content="{lex:Loc DefaultGateway}" 
                            Margin="0 20 0 0" />
-                    <TextBox Grid.Column="0" Grid.Row="7" 
-                             Width="400" 
-                             HorizontalAlignment="Left" 
-                             Margin="5,0,0,0" 
+                    <TextBox Grid.Column="0" Grid.Row="7"
+                             Width="400"
+                             HorizontalAlignment="Left"
+                             Margin="5,0,0,0"
                              Text="{Binding Gateway, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}"
                              InputScope="Number" >
                         <TextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp" 
+                                <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}" 
+                                <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
                             </MultiBinding>
                         </TextBox.IsEnabled>
@@ -104,17 +104,17 @@
                     <Label Grid.Column="2" Grid.Row="6" 
                            Content="{lex:Loc PreferredDnsServer}" 
                            Margin="0 20 0 0" />
-                    <TextBox Grid.Column="2" Grid.Row="7" 
-                             Width="400" 
-                             HorizontalAlignment="Left" 
-                             Margin="5,0,0,0" 
-                             Text="{Binding DnsServer1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}" 
+                    <TextBox Grid.Column="2" Grid.Row="7"
+                             Width="400"
+                             HorizontalAlignment="Left"
+                             Margin="5,0,0,0"
+                             Text="{Binding DnsServer1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}"
                              InputScope="Number" >
                         <TextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp" 
+                                <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}" 
+                                <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
                             </MultiBinding>
                         </TextBox.IsEnabled>
@@ -122,32 +122,32 @@
                     <Label Grid.Column="0" Grid.Row="10" 
                            Content="{lex:Loc AlternateDnsServer}" 
                            Margin="0 20 0 0" />
-                    <TextBox Grid.Column="0" Grid.Row="11" 
+                    <TextBox Grid.Column="0" Grid.Row="11"
                              Width="400" 
-                             HorizontalAlignment="Left" 
-                             Margin="5,0,0,0" 
-                             Text="{Binding DnsServer2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}" 
+                             HorizontalAlignment="Left"
+                             Margin="5,0,0,0"
+                             Text="{Binding DnsServer2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}"
                              InputScope="Number">
                         <TextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp" 
+                                <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}" 
+                                <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
                             </MultiBinding>
                         </TextBox.IsEnabled>
                     </TextBox>
-                    <Button Grid.Column="0" Grid.Row="12" 
-                            Margin="0,30,0,0" 
+                    <Button Grid.Column="0" Grid.Row="12"
+                            Margin="0,30,0,0"
                             HorizontalAlignment="Left"
                             Content="{lex:Loc ApplyLabel}"
                             IsEnabled="{Binding CanApplyChanges, UpdateSourceTrigger=PropertyChanged}"
                             Command="{Binding CommitCommand}" />
                 </Grid>
             </Border>
-            <Border Visibility="{Binding Path=ShowStatus, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Visibility="{Binding Path=ShowStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Grid>
-                    <Border Background="{DynamicResource DarkBrush1}" 
+                    <Border Background="{DynamicResource DarkBrush1}"
                             Opacity=".1" />
                     <Label Margin="10" 
                            DockPanel.Dock="Top" 

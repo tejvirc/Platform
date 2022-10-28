@@ -60,7 +60,7 @@
                 <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled, Converter={StaticResource BoolToCollapsedConverter}}"
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}"
                         Margin="10 0 0 0">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
@@ -167,7 +167,7 @@
               Grid.Column="0"
               Grid.ColumnSpan="2"
               loc:Localizer.For="Operator"
-              Visibility="{Binding IsLcdPanelEnabled, Converter={StaticResource BoolToVisHiddenConverter}}">
+              Visibility="{Binding IsLcdPanelEnabled, Converter={StaticResource TrueVisibleFalseHidden}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

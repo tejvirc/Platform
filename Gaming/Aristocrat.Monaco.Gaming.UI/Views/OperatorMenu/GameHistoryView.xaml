@@ -7,7 +7,6 @@
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -96,7 +95,7 @@
                                             <common:DataGridUpDownScrollButtons HorizontalAlignment="Right"
                                                                                   VerticalAlignment="Center"
                                                                                   ScrollGrid="{Binding ElementName=LB_ScrollViewer}"
-                                                                                  Visibility="{Binding CanContentScroll, Converter={StaticResource BoolToVisConverter}, RelativeSource={RelativeSource Self}}"/>
+                                                                                  Visibility="{Binding CanContentScroll, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource Self}}"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </Grid>
@@ -116,7 +115,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-		<DataGrid SelectedItem="{Binding SelectedGameItem, Mode=TwoWay}"
+        <DataGrid SelectedItem="{Binding SelectedGameItem, Mode=TwoWay}"
                   ItemsSource="{Binding GameHistory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.CanContentScroll="True"
                   Height="Auto"
@@ -130,7 +129,7 @@
                 <DataGridTextColumn Header="#" 
                                     Binding="{Binding LogSequenceText}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"
-                                    Visibility="{Binding ElementName=EventViewer, Path=DataContext.ShowSequenceNumber, Converter={StaticResource BoolToVisConverter}}" />
+                                    Visibility="{Binding ElementName=EventViewer, Path=DataContext.ShowSequenceNumber, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 <DataGridTextColumn Header="{lex:Loc ReferenceNumberText}" 
                                     Binding="{Binding RefNoText}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"/>
@@ -194,7 +193,7 @@
 	    </Border>
 
         <Grid Grid.Row="1" Margin="0 10 0 0"
-              Visibility="{Binding ShowGameRoundInfo, Converter={StaticResource BoolToVisConverter}}">
+              Visibility="{Binding ShowGameRoundInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="4" />
@@ -208,45 +207,45 @@
                      ItemsSource="{Binding SelectedGameRoundTextList}" />
         </Grid>
 
-		<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 12 0 0">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 12 0 0">
             <Button IsEnabled="{Binding ReplayButtonEnabled}"
                     Content="{lex:Loc ReplayText}" 
                     Command="{Binding ReplayCommand}"/>
             <Button Content="{lex:Loc PrintSelectedButtonText}"
                     IsEnabled="{Binding EnablePrintSelectedButton}"
                     Command="{Binding PrintSelectedButtonCommand}"
-                    Visibility="{Binding PrintSelectedButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding PrintSelectedButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
                     IsEnabled="{Binding EnablePrintLast15Button}"
                     Command="{Binding PrintLast15ButtonCommand}"
-                    Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc PrintCurrentPageButtonText}"
                     IsEnabled="{Binding EnablePrintCurrentPageButton}"
                     Command="{Binding PrintCurrentPageButtonCommand}"
-                    Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc GameProgressiveWin}"
                     IsEnabled="{Binding GameProgressiveWinButtonEnabled}"
                     Command="{Binding ShowGameProgressiveWinCommand}"
-                    Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc GameMeters}"
                     IsEnabled="{Binding IsMeteredGameSelected}"
                     Command="{Binding ShowGameMetersCommand}"
-                    Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc GameTransactions}"
                     IsEnabled="{Binding IsHistoryItemSelected}"
                     Command="{Binding ShowGameTransactionsCommand}"
-                    Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc GameEventLogs}"
                     IsEnabled="{Binding IsHistoryItemSelected}"
                     Command="{Binding ShowGameEventLogsCommand}"
-                    Visibility="{Binding ShowGameEventLogsButton, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ShowGameEventLogsButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc GameDetailsText}"
                     IsEnabled="{Binding IsGameRoundComplete}"
                     Command="{Binding ShowGameDetailsCommand}"
-                    Visibility="{Binding ShowGameDetailsButton, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ShowGameDetailsButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
 
-		<StackPanel  Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 -16">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 -16">
             <Label Content="{lex:Loc ReplayPause}" VerticalAlignment="Center"/>
             <controls:ToggleSwitch Margin="20 5 0 0"
                                          IsEnabled="{Binding ReplayPauseEnabled}"
@@ -255,7 +254,6 @@
                                          common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
                                          common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
         </StackPanel>
-
     </Grid>
 </operatorMenu:OperatorMenuPage>
 

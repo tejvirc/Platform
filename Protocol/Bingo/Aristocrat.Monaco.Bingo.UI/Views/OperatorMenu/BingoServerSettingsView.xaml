@@ -116,11 +116,11 @@
             <Label Grid.Row="6"
                    Grid.Column="0"
                    Content="{lex:Loc PlayerMayHideBingoCardLabel}" 
-                   Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}" />
+                   Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}" />
             <TextBlock Grid.Row="6"
                        Grid.Column="1"
                        Text="{Binding PlayerMayHideBingoCard, Mode=OneWay, Converter={StaticResource PreferredEnabledDisabled}}"
-                       Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"  />
+                       Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"  />
             <Label Grid.Row="7"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
@@ -144,20 +144,20 @@
             <Label Grid.Row="10"
                    Grid.Column="0"
                    Content="{lex:Loc DisplayBingoCardLabel}"
-                   Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                   Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
             <TextBlock Grid.Row="10"
                        Grid.Column="1"
                        Text="{Binding DisplayBingoCard, Mode=OneWay}"
-                       Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                       Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
 
             <Label Grid.Row="11"
                    Grid.Column="0"
                    Content="{lex:Loc HideBingoCardWhenInactiveLabel}"
-                   Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                   Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
             <TextBlock Grid.Row="11"
                        Grid.Column="1"
                        Text="{Binding HideBingoCardWhenInactive, Mode=OneWay}"
-                       Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                       Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
 
             <Label Grid.Row="12"
                    Grid.Column="0"

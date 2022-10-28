@@ -15,12 +15,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Visibility="{Binding Visibility, Converter={StaticResource BoolToVisHiddenConverter}}">
+    <Grid Visibility="{Binding Visibility, Converter={StaticResource TrueVisibleFalseHidden}}">
         <Viewbox Stretch="None"> 
             <Grid VerticalAlignment="Center"> 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />                    
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label Content="{Binding Status}" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,10,0,0"/>
                 <Label Content="{Binding Error}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,10,0,0"/>

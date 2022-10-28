@@ -17,8 +17,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
@@ -106,7 +106,7 @@
                     <helpers:CurrencyTextBox Grid.Row="0" Grid.Column="1" MinWidth="200"
                                           IsReadOnly="False" PreventNegatives="True" InputScope="Number"
                                           Number="{Binding VoucherInLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                                          Visibility="{Binding VoucherInLimitEnabledChecked, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}">
+                                          Visibility="{Binding VoucherInLimitEnabledChecked, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}">
                         <helpers:CurrencyTextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                 <Binding Path="AllowVoucherIn"/>
@@ -115,7 +115,7 @@
                         </helpers:CurrencyTextBox.IsEnabled>
                     </helpers:CurrencyTextBox>
                     <TextBlock Grid.Row="0" Grid.Column="1" Margin="0 14 0 0" Text="{lex:Loc NoLimit}"
-                           Visibility="{Binding VoucherInLimitEnabledChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                           Visibility="{Binding VoucherInLimitEnabledChecked, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </StackPanel>
 
@@ -137,7 +137,7 @@
                 <Button Margin="10 10 0 0" HorizontalAlignment="Left"
                     Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
                     Command="{Binding ShowInfoPopupCommand}"
-                    Visibility="{Binding PrinterEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                    Visibility="{Binding PrinterEnabled, Converter={StaticResource TrueHiddenFalseVisible}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="WarningButton"/>
@@ -172,7 +172,7 @@
                     <helpers:CurrencyTextBox Grid.Row="0" Grid.Column="1" MinWidth="200"
                                          IsReadOnly="False" PreventNegatives="True" InputScope="Number"
                                          Number="{Binding VoucherOutLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                                         Visibility="{Binding VoucherOutLimitEnabledChecked, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}">
+                                         Visibility="{Binding VoucherOutLimitEnabledChecked, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}">
                         <helpers:CurrencyTextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                 <Binding Path="AllowVoucherOut"/>
@@ -181,20 +181,20 @@
                         </helpers:CurrencyTextBox.IsEnabled>
                     </helpers:CurrencyTextBox>
                     <TextBlock Grid.Row="0" Grid.Column="1" Margin="0 14 0 0" Text="{lex:Loc NoLimit}"
-                           Visibility="{Binding VoucherOutLimitEnabledChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                           Visibility="{Binding VoucherOutLimitEnabledChecked, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </StackPanel>
 
             <!-- Allow Non-Cashable Voucher Out -->
             <Label Grid.Row="8" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc AllowNonCashableVoucherOut}" 
-                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}" />
+                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             <StackPanel Grid.Row="9" Grid.Column ="0" Orientation="Horizontal">
                 <controls:ToggleSwitch 
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
                                          helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
                                          helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"
-                                         Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}">
+                                         Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <controls:ToggleSwitch.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="InputEnabledByRuleOverride"/>
@@ -205,7 +205,7 @@
                 <Button Margin="10 10 0 0" HorizontalAlignment="Left"
                     Name="NonCashWarningButton" Style="{StaticResource MonacoWarningButton}"
                     Command="{Binding ShowInfoPopupCommand}"
-                    Visibility="{Binding PrinterEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                    Visibility="{Binding PrinterEnabled, Converter={StaticResource TrueHiddenFalseVisible}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="NonCashWarningButton"/>
@@ -235,7 +235,7 @@
                 <Button Margin="10 10 0 0" HorizontalAlignment="Left"
                     Name="PrintReceiptWarningButton" Style="{StaticResource MonacoWarningButton}"
                     Command="{Binding ShowInfoPopupCommand}"
-                    Visibility="{Binding PrinterEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                    Visibility="{Binding PrinterEnabled, Converter={StaticResource TrueHiddenFalseVisible}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="PrintReceiptWarningButton"/>
@@ -266,13 +266,13 @@
                   SelectedItem="{Binding SelectedLayoutType}" />
 
             <Label Grid.Row="6" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc VoucherCashExpiration}" 
-                   Visibility="{Binding IsCashableVoucherExpirationVisible, Converter={StaticResource BoolToVisConverter}}" />
+                   Visibility="{Binding IsCashableVoucherExpirationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             <helpers:ExpirationTextBox Grid.Row="7" Grid.Column="2"
                                    IsReadOnly="False"
                                    NeverExpires="{lex:Loc NeverExpires}"
                                    DaysFormatter="{lex:Loc DaysFormatter}"
                                    MaxExpirationDays="365"
-                                   Visibility="{Binding IsCashableVoucherExpirationVisible, Converter={StaticResource BoolToVisConverter}}"
+                                   Visibility="{Binding IsCashableVoucherExpirationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                    Number="{Binding VoucherExpirationDays, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
                 <helpers:ExpirationTextBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -283,14 +283,14 @@
             </helpers:ExpirationTextBox>
 
             <Label Grid.Row="8" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc VoucherNonCashExpiration}" 
-                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}" />
+                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             <helpers:ExpirationTextBox Grid.Row="9" Grid.Column="2"
                                    IsReadOnly="False"
                                    NeverExpires="{lex:Loc NeverExpires}"
                                    DaysFormatter="{lex:Loc DaysFormatter}"
                                    MaxExpirationDays="365"
                                    Number="{Binding NonCashVoucherExpirationDays, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}">
+                                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <helpers:ExpirationTextBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                         <Binding Path="InputEnabledByRuleOverride"/>
