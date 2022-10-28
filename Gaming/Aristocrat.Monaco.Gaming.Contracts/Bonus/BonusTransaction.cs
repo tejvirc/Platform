@@ -268,6 +268,24 @@
             : 0;
 
         /// <summary>
+        ///    Get the last Authorized Cashable Amount for recovery
+        ///    This is being used in WagerMatch bonus recovery
+        /// </summary>
+        public long LastAuthorizedCashableAmount { get; set; }
+
+        /// <summary>
+        ///    Get the last Authorized NonCash Amount for recovery
+        ///    This is being used in WagerMatch bonus recovery
+        /// </summary>
+        public long LastAuthorizedNonCashAmount { get; set; }
+
+        /// <summary>
+        ///    Get the last Authorized Promo Amount for recovery
+        ///    This is being used in WagerMatch bonus recovery
+        /// </summary>
+        public long LastAuthorizedPromoAmount { get; set; }
+
+        /// <summary>
         ///     Gets and sets the related protocol
         /// </summary>
         public CommsProtocol Protocol { get; set; }
@@ -353,6 +371,9 @@
                 JackpotNumber = JackpotNumber,
                 AssociatedTransactions = AssociatedTransactions.ToList(),
                 Protocol = Protocol,
+                LastAuthorizedNonCashAmount = LastAuthorizedNonCashAmount,
+                LastAuthorizedCashableAmount = LastAuthorizedCashableAmount,
+                LastAuthorizedPromoAmount = LastAuthorizedPromoAmount
             };
         }
 
@@ -397,6 +418,9 @@
             MessageDuration = TimeSpan.FromTicks((long)values["MessageDuration"]);
             JackpotNumber = (int)values[nameof(JackpotNumber)];
             SourceID = (string)values[nameof(SourceID)];
+            LastAuthorizedCashableAmount= (long)values["LastAuthorizedCashableAmount"];
+            LastAuthorizedNonCashAmount = (long)values["LastAuthorizedNonCashAmount"];
+            LastAuthorizedPromoAmount = (long)values["LastAuthorizedPromoAmount"];
 
             var displayMessageId = values["DisplayMessageId"];
             if (displayMessageId != null)
@@ -457,6 +481,9 @@
                 transaction[element, nameof(JackpotNumber)] = JackpotNumber;
                 transaction[element, nameof(SourceID)] = SourceID;
                 transaction[element, nameof(Protocol)] = (int)Protocol;
+                transaction[element, "LastAuthorizedCashableAmount"] = LastAuthorizedCashableAmount;
+                transaction[element, "LastAuthorizedNonCashAmount"] = LastAuthorizedNonCashAmount;
+                transaction[element, "LastAuthorizedPromoAmount"] = LastAuthorizedPromoAmount;
                 transaction.Commit();
             }
         }
@@ -465,7 +492,27 @@
         public override string ToString()
         {
             return
-                $"{GetType()} [DeviceId={DeviceId}, LogSequence={LogSequence}, DateTime={TransactionDateTime}, TransactionId={TransactionId}, BonusId={BonusId}, Mode={Mode}, PayMethod={PayMethod}, State={State}, CashableAmount={CashableAmount}, NonCashAmount={NonCashAmount}, PromoAmount={PromoAmount}, PayMethod={PayMethod}, PaidAmount={PaidAmount}, PaidDateTime={PaidDateTime}, DisplayMessageId={DisplayMessageId}, SourceID={SourceID}, JackpotNumber={JackpotNumber}, Protocol={Protocol}]";
+                $"{GetType()} [DeviceId={DeviceId}, " +
+                $"LogSequence={LogSequence}, " +
+                $"DateTime={TransactionDateTime}, " +
+                $"TransactionId={TransactionId}, " +
+                $"BonusId={BonusId}, " +
+                $"Mode={Mode}, " +
+                $"PayMethod={PayMethod}, " +
+                $"State={State}, " +
+                $"CashableAmount={CashableAmount}, " +
+                $"NonCashAmount={NonCashAmount}, " +
+                $"PromoAmount={PromoAmount}, " +
+                $"PayMethod={PayMethod}, " +
+                $"PaidAmount={PaidAmount}, " +
+                $"PaidDateTime={PaidDateTime}, " +
+                $"DisplayMessageId={DisplayMessageId}, " +
+                $"SourceID={SourceID}, " +
+                $"JackpotNumber={JackpotNumber}, " +
+                $"Protocol={Protocol}, " +
+                $"LastAuthorizedCashableAmount={LastAuthorizedCashableAmount}, " +
+                $"LastAuthorizedNonCashAmount={LastAuthorizedNonCashAmount}, " +
+                $"LastAuthorizedPromoAmount={LastAuthorizedPromoAmount}]";
         }
 
         /// <inheritdoc />
