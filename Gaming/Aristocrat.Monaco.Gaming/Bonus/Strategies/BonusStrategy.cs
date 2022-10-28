@@ -550,15 +550,6 @@
         {
             var traceId = Guid.NewGuid();
 
-            _history.AppendCashOut(
-                new CashOutInfo
-                {
-                    Amount = cashableAmount + nonCashAmount + promoAmount,
-                    Reason = reason,
-                    TraceId = traceId,
-                    AssociatedTransactions = new[] { transaction.TransactionId }
-                });
-
             if (!_transferHandler.TransferOutWithContinuation<T>(
                 transactionId,
                 cashableAmount,
