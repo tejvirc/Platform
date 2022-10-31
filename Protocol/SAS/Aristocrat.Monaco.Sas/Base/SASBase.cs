@@ -97,8 +97,6 @@
 
                 _sasHost = Container.GetInstance<ISasHost>();
 
-                Bootstrapper.EnableServices(Container);
-
                 var validationHandlerFactory = Container.GetInstance<SasValidationHandlerFactory>();
                 var validationHandler = validationHandlerFactory.GetValidationHandler();
 
@@ -115,6 +113,8 @@
                 var configuration = Container.GetInstance<IUnitOfWorkFactory>()
                     .Invoke(x => x.Repository<Host>().GetConfiguration());
                 _sasHost.SetConfiguration(configuration);
+
+                Bootstrapper.EnableServices(Container);
 
                 // TODO: Moving after SAS progressive creation, otherwise providerId for it will NOT be set.
                 // TODO : Move this to a central location after all protocols are initialized when multiple protocols are supported.
