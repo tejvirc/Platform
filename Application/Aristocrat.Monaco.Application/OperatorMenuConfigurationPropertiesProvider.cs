@@ -334,7 +334,9 @@ namespace Aristocrat.Monaco.Application
 
             try
             {
-                var serializer = new XmlSerializer(typeof(OperatorMenuConfiguration));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(OperatorMenuConfiguration))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(OperatorMenuConfiguration), theXmlRootAttribute ?? new XmlRootAttribute(nameof(OperatorMenuConfiguration)));
                 using (var reader = new StreamReader(configurationFileName))
                 {
                     configuration = serializer.Deserialize(reader) as OperatorMenuConfiguration;

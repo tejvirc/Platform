@@ -28,7 +28,6 @@
         public XmlValidator()
         {
             _settings = new XmlReaderSettings { ValidationType = ValidationType.Schema };
-
             _settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
             _settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessSchemaLocation;
             _settings.ValidationFlags |= XmlSchemaValidationFlags.ReportValidationWarnings;
@@ -59,9 +58,15 @@
         /// <param name="args">The event args.</param>
         private static void ValidationHandler(object sender, ValidationEventArgs args)
         {
-            Logger.Error(sender, args.Exception);
-
-            _valid = false;
+            if (args.Severity == XmlSeverityType.Warning)
+            {
+                Logger.Warn(sender, args.Exception);
+            }
+            else if (args.Severity == XmlSeverityType.Error)
+            {
+                Logger.Error(sender, args.Exception);
+                _valid = false;
+            }
         }
     }
 }

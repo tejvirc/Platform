@@ -143,9 +143,9 @@
 
             using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
-                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dprcollectiontype))
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dptcollectiontype))
                     .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
-                var xmlSerializer = new XmlSerializer(typeof(dprcollectiontype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dprcollectiontype)));
+                var xmlSerializer = new XmlSerializer(typeof(dptcollectiontype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dptcollectiontype)));
 
                 var contentsOfTemplatesXml = (dptcollectiontype) xmlSerializer.Deserialize(fs);
 
