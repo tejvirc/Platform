@@ -59,7 +59,7 @@
         public void CreateProgressiveDisplayMeterSuccess(string meterName, string displayName, string expectedValue)
         {
             SetupFactoryObjects(meterName, displayName);
-            CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000), displayName, expectedValue);
+            CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000, 0), displayName, expectedValue);
         }
         
         [TestMethod]
@@ -67,7 +67,7 @@
         {
             _progressiveLevel.SetupGet(p => p.CreationType).Returns(LevelCreationType.Default);
             SetupFactoryObjects(ProgressiveMeters.WagerBetLevelsDisplayMeter, "WagerBetLevelsDisplayName");
-            CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000), "WagerBetLevelsDisplayName", "$0.00");
+            CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000, 0), "WagerBetLevelsDisplayName", "$0.00");
         }
 
         [DataRow(ProgressiveMeters.ProgressiveLevelWageredAmount, "ProgressiveLevelWageredAmountDisplayName", "$10.00", true, true)]
@@ -83,7 +83,7 @@
         {
             SetupFactoryObjects(meterName, displayName);
             SetupProgressiveIMeter(1000000, meterShouldExist, currencyClassNeeded);
-            CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000), displayName, expectedValue);
+            CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000, 0), displayName, expectedValue);
         }
 
         [ExpectedException(typeof(ArgumentException))]
@@ -91,7 +91,7 @@
         public void CreateUnknownProgressiveDisplayMeterFailed()
         {
             SetupFactoryObjects("Unknown", "Unknown");
-            var result = ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000);
+            var result = ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000, 0);
         }
 
         private void CheckValues(DisplayMeter result, string expectedName, string expectedValue)

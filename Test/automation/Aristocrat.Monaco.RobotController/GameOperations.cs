@@ -134,7 +134,6 @@
             _forceGameExitTimer?.Halt();
 
             _automator.EnableExitToLobby(true);
-            _automator.EnableCashOut(true);
         }
 
         private void RequestForceExitToLobby(bool skipTestRecovery = false)
@@ -236,7 +235,6 @@
                      if (evt.IsLastPrompt)
                      {
                          _exitWhenIdle = true;
-                         _automator.EnableCashOut(true);
                      }
                  });
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
@@ -316,7 +314,7 @@
                          _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                          _goToNextGame = true;
                      }
-                     _automator.EnableExitToLobby(false);
+                     _automator.EnableExitToLobby(true);
                      LoadGameWithDelay(Constants.loadGameDelayDuration);
                  });
             _eventBus.Subscribe<GameFatalErrorEvent>(
@@ -394,7 +392,6 @@
                     return;
                 }
                 _logger.Info($"ExitToLobby Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                _automator.EnableExitToLobby(true);
                 _automator.RequestGameExit();
                 _exitWhenIdle = false;
                 //GameProcessExitedEvent gets trigered
@@ -403,7 +400,7 @@
 
         private bool IsExitToLobbyWhenIdleValid()
         {
-            return !_sc.IsAllowSingleGameAutoLaunch && _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle;
+            return !_sc.IsAllowSingleGameAutoLaunch && _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle && !_forceGameExitIsInProgress;
         }
 
         private void BalanceCheckWithDelay(int milliseconds)

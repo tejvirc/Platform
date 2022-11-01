@@ -31,8 +31,9 @@
         /// <inheritdoc />
         public override void Consume(DenominationSelectedEvent theEvent)
         {
-            var lastGameId = _propertiesManager.GetValue(SasProperties.PreviousSelectedGameId, 0);
-            if (theEvent.GameId != lastGameId)
+            var selectedDenom = _propertiesManager.GetValue(GamingConstants.SelectedDenom, 0L);
+
+            if (theEvent.Denomination != selectedDenom)
             {
                 _exceptionHandler.ReportException(new GameSelectedExceptionBuilder(theEvent.GameId));
                 _propertiesManager.SetProperty(SasProperties.PreviousSelectedGameId, theEvent.GameId);

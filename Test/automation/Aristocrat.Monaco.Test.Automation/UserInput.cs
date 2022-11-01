@@ -124,6 +124,7 @@
         public void RequestGameExit()
         {
             Log("Requesting game exit");
+            EnableExitToLobby(true);
             _eventBus.Publish(new GameRequestExitEvent());
         }
 

@@ -15,6 +15,7 @@
     using Contracts;
     using Contracts.Meters;
     using Contracts.Progressives;
+    using Contracts.Progressives.SharedSap;
     using Contracts.Tickets;
     using Factories;
     using Hardware.Contracts.Ticket;
@@ -29,6 +30,7 @@
     {
         private readonly IProgressiveLevelProvider _progressiveProvider;
         private readonly IProgressiveMeterManager _progressiveMeterManager;
+        private readonly ISharedSapProvider _sharedSap;
         private readonly bool _displayLpProgressives;
         private readonly bool _displaySapProgressives;
         private IGameDetail _selectedGame;
@@ -47,6 +49,9 @@
             var serviceManager = ServiceManager.GetInstance();
             _progressiveProvider = serviceManager.GetService<IContainerService>()
                 .Container.GetInstance<IProgressiveLevelProvider>();
+
+            _sharedSap = serviceManager.GetService<IContainerService>()
+                .Container.GetInstance<ISharedSapProvider>();
 
             _progressiveMeterManager = serviceManager.GetService<IProgressiveMeterManager>();
 
@@ -301,10 +306,25 @@
                     // 3. Store the meters in the list from 1. and expose it to be consumed by the GUI.
                     foreach (var progressiveLevel in progressiveLevels)
                     {
+                        var sharedHiddenTotal = 0L;
+
+                        if (_sharedSap.ViewSharedSapLevel(
+                            progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey,
+                            out var sharedLevel))
+                        {
+                            progressiveLevel.CurrentValue = sharedLevel.CurrentValue;
+                            progressiveLevel.Residual = sharedLevel.Residual;
+                            progressiveLevel.Overflow = sharedLevel.Overflow;
+                            progressiveLevel.OverflowTotal = sharedLevel.OverflowTotal;
+                            progressiveLevel.HiddenIncrementRate = sharedLevel.HiddenIncrementRate;
+                            progressiveLevel.HiddenValue = sharedLevel.HiddenValue;
+                            sharedHiddenTotal = sharedLevel.HiddenTotal;
+                        }
+
                         var collectionOfMeters = new ObservableCollection<DisplayMeter>();
                         foreach (var meterNode in MeterNodes)
                         {
-                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents));
+                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents, sharedHiddenTotal));
                         }
                         ProgressiveDetailMeters.Add(new ProgressiveDisplayMeter(progressiveLevel.ProgressivePackName, ShowLifetime, collectionOfMeters));
                     }

@@ -253,8 +253,6 @@
                                 Enabled = false;
                                 return;
                             }
-                            _automator.EnableExitToLobby(false);
-                            _automator.EnableCashOut(false);
                             _eventBus.Publish(new BalanceCheckEvent());
                         }
                     }
@@ -265,8 +263,6 @@
                         () =>
                         {
                             _automator.ExitLockup();
-                            _automator.EnableExitToLobby(false);
-                            _automator.EnableCashOut(false);
                             _eventBus.Publish(new GameLoadRequestEvent());
                         }
                     }
@@ -277,8 +273,6 @@
                         () =>
                         {
                             _automator.ExitLockup();
-                            _automator.EnableExitToLobby(false);
-                            _automator.EnableCashOut(false);
                             _eventBus.Publish(new GameLoadRequestEvent());
                         }
                     }

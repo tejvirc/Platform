@@ -11,7 +11,7 @@ as follows:
 -->
 <ConfiguredDevices>
   <Defaults>
-    <Device Name="MEI USB GDS" />
+    <Device Name="JCM IVizion USB GDS"/>
     <Device Name="JCM Gen5 Serial TCL"/>
     <Device Name="UNIFORM USB GDS"/>
   </Defaults>
@@ -19,7 +19,12 @@ as follows:
   <Included>
     <Device Name="MEI USB GDS" Enabled="false"/>
     <Device Name="JCM IVizion USB GDS" Enabled="false"/>
+    <Device Name="JCM UBA500 USB GDS" Enabled="false"/>
     <Device Name="JCM Gen5 Serial TCL" Enabled="false" />
+    <Device Name="TransAct Epic Edge USB GDS" Enabled="false" />
+    <Device Name="Nanoptix Inc. NextGen USB GDS" Enabled="false"/>
+    <Device Name="TransAct EpicEdge Serial EpicTTL" Enabled="false" />
+    <Device Name="Nanoptix Inc. NextGen Serial TCL" Enabled="false"/>
     <Device Name="UNIFORM USB GDS" Enabled="false" />
   </Included>
 
