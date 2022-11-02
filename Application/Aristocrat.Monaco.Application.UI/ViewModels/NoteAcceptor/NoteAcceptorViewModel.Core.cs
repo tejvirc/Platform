@@ -22,7 +22,6 @@
     using MVVM.Command;
     using OperatorMenu;
 
-
 #pragma warning disable 2214
 
     /// <summary>
@@ -32,6 +31,8 @@
     [CLSCompliant(false)]
     public partial class NoteAcceptorViewModel : DeviceViewModel
     {
+        private readonly Dictionary<NoteAcceptorFaultTypes, string> _faultTexts = new();
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="NoteAcceptorViewModel" /> class.
         /// </summary>
@@ -40,25 +41,25 @@
             Logger.Debug("Start Note Acceptor (MVVM)");
 
             // Set configurable text strings to coordinate with display message overlay.
-            NoteAcceptorEventsDescriptor.FaultTexts[NoteAcceptorFaultTypes.OtherFault] =
+            _faultTexts[NoteAcceptorFaultTypes.OtherFault] =
                 Resources.NoteAcceptorFaultTypes_OtherFault;
-            NoteAcceptorEventsDescriptor.FaultTexts[NoteAcceptorFaultTypes.StackerJammed] =
+            _faultTexts[NoteAcceptorFaultTypes.StackerJammed] =
                 (string)PropertiesManager.GetProperty(
                     ApplicationConstants.NoteAcceptorErrorBillStackerJamText,
                     string.Empty);
-            NoteAcceptorEventsDescriptor.FaultTexts[NoteAcceptorFaultTypes.StackerFault] =
+            _faultTexts[NoteAcceptorFaultTypes.StackerFault] =
                 (string)PropertiesManager.GetProperty(
                     ApplicationConstants.NoteAcceptorErrorBillStackerErrorText,
                     string.Empty);
-            NoteAcceptorEventsDescriptor.FaultTexts[NoteAcceptorFaultTypes.StackerFull] =
+            _faultTexts[NoteAcceptorFaultTypes.StackerFull] =
                 (string)PropertiesManager.GetProperty(
                     ApplicationConstants.NoteAcceptorErrorBillStackerFullText,
                     string.Empty);
-            NoteAcceptorEventsDescriptor.FaultTexts[NoteAcceptorFaultTypes.StackerDisconnected] =
+            _faultTexts[NoteAcceptorFaultTypes.StackerDisconnected] =
                 (string)PropertiesManager.GetProperty(
                     ApplicationConstants.NoteAcceptorErrorCashBoxRemovedText,
                     string.Empty);
-            NoteAcceptorEventsDescriptor.FaultTexts[NoteAcceptorFaultTypes.NoteJammed] =
+            _faultTexts[NoteAcceptorFaultTypes.NoteJammed] =
                 (string)PropertiesManager.GetProperty(
                     ApplicationConstants.NoteAcceptorErrorBillJamText,
                     string.Empty);
@@ -377,9 +378,9 @@
 
             foreach (NoteAcceptorFaultTypes fault in Enum.GetValues(typeof(NoteAcceptorFaultTypes)))
             {
-                if (NoteAcceptorEventsDescriptor.FaultTexts.ContainsKey(fault) && NoteAcceptor.Faults.HasFlag(fault))
+                if (_faultTexts.ContainsKey(fault) && NoteAcceptor.Faults.HasFlag(fault))
                 {
-                    faults.Add(NoteAcceptorEventsDescriptor.FaultTexts[fault]);
+                    faults.Add(_faultTexts[fault]);
                 }
             }
 
