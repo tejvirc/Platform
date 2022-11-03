@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Storage.Models
 {
+    using System;
+    using System.IO;
     using System.Reflection;
     using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
@@ -18,7 +20,6 @@
         public HHRContext(IConnectionStringResolver connectionStringResolver)
         {
             _connectionString = connectionStringResolver.Resolve();
-            Database.EnsureCreated();
         }
 
         public DbSet<ProgressiveUpdateEntity> ProgressiveUpdateEntity { get; set; }
@@ -29,18 +30,17 @@
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(_connectionString, options =>
-            {               
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            });
-            base.OnConfiguring(optionsBuilder);
+            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
+            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
+            {
+                using (var fs = File.Create(sqliteFile)) { }
+            }
+            optionsBuilder.UseSqlite(_connectionString);
         }
 
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.ApplyConfiguration(new ProgressiveUpdateEntityConfiguration());
             modelBuilder.ApplyConfiguration(new PrizeInformationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new GamePlayEntityConfiguration());

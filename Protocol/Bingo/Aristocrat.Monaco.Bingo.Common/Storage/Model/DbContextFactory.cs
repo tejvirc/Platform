@@ -23,6 +23,7 @@
         {
             _connectionStringResolver = connectionStringResolver ??
                                         throw new ArgumentNullException(nameof(connectionStringResolver));
+            new BingoContext(_connectionStringResolver).Database.EnsureCreated();
         }
 
         public void Dispose()

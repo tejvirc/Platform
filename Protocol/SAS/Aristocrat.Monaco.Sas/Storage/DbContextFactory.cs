@@ -26,6 +26,7 @@
         {
             _connectionStringResolver = connectionStringResolver ??
                                         throw new ArgumentNullException(nameof(connectionStringResolver));
+            new SasContext(_connectionStringResolver).Database.EnsureCreated();
         }
 
         /// <inheritdoc />

@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S
 {
     using System;
+    using System.IO;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -25,7 +26,6 @@
         public MonacoContext(string connectionString)
         {
             _connectionString = connectionString;
-            Database.EnsureCreated();
         }
 
         public DbSet<Data.Model.Host> Host { get; set; }
@@ -61,17 +61,16 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(_connectionString, options =>
+            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
+            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
             {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            });
-
-            base.OnConfiguring(optionsBuilder);
+                using (var fs = File.Create(sqliteFile)) { }
+            }
+            optionsBuilder.UseSqlite(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new HostMap());
             modelBuilder.ApplyConfiguration(new ProfileDataMap());
             modelBuilder.ApplyConfiguration(new EventHandlerLogMap());

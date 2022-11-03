@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
+    using System;
+    using System.IO;
     using System.Reflection;
     using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
@@ -11,7 +13,6 @@
         public BingoContext(IConnectionStringResolver connectionStringResolver)
         {
             _connectionString = connectionStringResolver.Resolve();
-            Database.EnsureCreated();
         }
 
         /// <summary>
@@ -27,17 +28,17 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(_connectionString, options =>
+            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
+            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
             {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            });
+                using (var fs = File.Create(sqliteFile)) { }
+            }
 
-            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlite(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new BingoServerSettingsModelConfiguration());
             modelBuilder.ApplyConfiguration(new HostConfiguration());
             modelBuilder.ApplyConfiguration(new ReportTransactionModelConfiguration());

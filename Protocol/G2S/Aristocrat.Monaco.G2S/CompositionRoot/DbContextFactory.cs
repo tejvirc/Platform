@@ -8,6 +8,7 @@
     using System.Threading;
     using Kernel;
     using Monaco.Common.Storage;
+    using Aristocrat.Monaco.Protocol.Common.Storage;
 
     /// <summary>
     ///     An implementation of <see cref="IMonacoContextFactory" />
@@ -40,6 +41,7 @@
             }
 
             _connectionString = ConnectionString(pathMapper);
+            new MonacoContext(_connectionString).Database.EnsureCreated();
         }
 
         /// <inheritdoc />

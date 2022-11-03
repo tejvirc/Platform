@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
+    using System;
+    using System.IO;
     using Microsoft.EntityFrameworkCore;
     using System.Reflection;
     using Protocol.Common.Storage;
@@ -18,7 +20,6 @@
         public MgamContext(IConnectionStringResolver connectionStringResolver)
         {
             _connectionString = connectionStringResolver.Resolve();
-            Database.EnsureCreated();
         }
 
         /// <summary>
@@ -82,12 +83,12 @@
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(_connectionString, options =>
+            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
+            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
             {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            });
-
-            base.OnConfiguring(optionsBuilder);
+                using (var fs = File.Create(sqliteFile)) { }
+            }
+            optionsBuilder.UseSqlite(_connectionString);
         }
 
         /// <summary>
@@ -96,8 +97,6 @@
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.ApplyConfiguration(new HostConfiguration());
             modelBuilder.ApplyConfiguration(new DeviceConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicationConfiguration());
