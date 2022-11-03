@@ -27,6 +27,11 @@
         public override void Consume(VoucherRejectedEvent theEvent)
         {
             var transaction = theEvent.Transaction;
+            if (transaction is null)
+            {
+                return;
+            }
+
             switch (transaction.Exception)
             {
                 case (int)VoucherInExceptionCode.VoucherInLimitExceeded:
