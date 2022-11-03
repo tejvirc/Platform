@@ -27,7 +27,7 @@ as follows:
     <ProtocolsAllowed>
         <Protocol Name="DACOM"/>
         <Protocol Name="G2S"/>
-        <Protocol Name="SAS" IsMandatory="true"/>
+        <Protocol Name="SAS" IsMandatory="false"/>
         <Protocol Name="Test"/>
     </ProtocolsAllowed>
     <ExclusiveProtocols>

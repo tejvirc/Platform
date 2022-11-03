@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+                    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters">
+
+    <!-- Used to customize lobby for different jurisdictions -->
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://siteOfOrigin:,,,/../Skins/DefaultClass3UI.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <BitmapImage x:Key="ShowMultiLanguagePopup" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/ZH-CN/Show_MultiLanguage_Popup.png" />
+    
+    <BitmapImage x:Key="TabSlot" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ZH-CN/TabSlots.png" />
+
+    <BitmapImage x:Key="MultiLanguageUpiBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/ZH-CN/ConsoleBackground.png" />
+    <BitmapImage x:Key="ServiceNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/ZH-CN/Service_Normal.png" />
+    <BitmapImage x:Key="ServicePressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/ZH-CN/Service_Selected.png" />
+
+    <BitmapImage x:Key="CashOutNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/MultiLanguage/ZH-CN/CashOut_Normal.png" />
+    <BitmapImage x:Key="CashOutPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/MultiLanguage/ZH-CN/CashOut_Selected.png" />
+    <BitmapImage x:Key="CashOutDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/ZH-CN/CashOut_Dark.png" />
+</ResourceDictionary>

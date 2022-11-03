@@ -14,21 +14,15 @@
 
     <!-- Apply MahApps.Metro styles to all controls -->
     <ResourceDictionary.MergedDictionaries>
-        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-        <!-- Accent and AppTheme setting -->
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="../../Skins/LobbyView/LobbyViewStyles.xaml" />
 
-        <ResourceDictionary Source="../../Skins/Styles.xaml" />
         <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
 
         <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
     </ResourceDictionary.MergedDictionaries>
 
     <common:LogicalOrConverter x:Key="LogicalOrConverter" />
+    <common:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     <converters:AttractActiveToVisibilityConverter x:Key="AttractToVisibilityConv" />
     <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
@@ -489,7 +483,7 @@
                                                    gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}" />
                                             <ItemsControl
                                                 FocusVisualStyle="{x:Null}"
-                                                Margin="0 44 0 0"
+                                                Margin="0 38 0 0"
                                                 ItemsSource="{Binding Path=ProgressiveIndicatorText}"
                                                 HorizontalAlignment="Center" VerticalAlignment="Top">
                                                 <ItemsControl.ItemsPanel>
@@ -728,7 +722,7 @@
                            gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}" />
                     <ItemsControl
                         FocusVisualStyle="{x:Null}"
-                        Margin="0 44 0 0"
+                        Margin="0 38 0 0"
                         ItemsSource="{Binding Path=ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoAmount}"
                         HorizontalAlignment="Center" VerticalAlignment="Top">
                         <ItemsControl.ItemsPanel>
