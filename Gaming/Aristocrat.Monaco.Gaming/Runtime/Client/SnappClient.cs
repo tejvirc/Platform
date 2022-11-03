@@ -150,6 +150,11 @@
             Invoke(client => client.UpdateVolume(new VolumeUpdateNotification { Volume = level }));
         }
 
+        public void OnSessionTickFlashClock()
+        {
+            Invoke(client => client.OnSessionTickFlashClock(new Empty()));
+        }
+
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)
         {
             Invoke(

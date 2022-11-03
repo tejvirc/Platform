@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Tests.Runtime
+﻿/*namespace Aristocrat.Monaco.Gaming.Tests.Runtime
 {
     using System;
     using Contracts;
@@ -210,4 +210,4 @@
                 nullProcess ? null : _process.Object);
         }
     }
-}
+}*/

@@ -2647,7 +2647,6 @@
 
             // TODO: Not sure if we should clear in lockup.Maybe just clear when audit menu is visible.
             // Lockup should just pause everything.
-
             UpdateLcdButtonDeckDisableSetting(true);
             _buttonLamps.DisableLamps();
             UpdateLcdButtonDeckRenderSetting(!IsGameRenderingToLcdButtonDeck() && !IsInOperatorMenu);

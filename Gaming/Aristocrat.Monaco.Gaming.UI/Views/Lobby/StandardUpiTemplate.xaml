@@ -690,7 +690,7 @@
         <DataTemplate.Resources>
             <Style x:Key="FlashText" TargetType="{x:Type Label}">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding LobbyClockViewModel.FlashingEnabled}" Value="True">
+                    <DataTrigger Binding="{Binding LobbyClockViewModel.Flash}" Value="True">
                         <DataTrigger.EnterActions>
                             <BeginStoryboard Name="BeginStoryboard">
                                 <Storyboard >

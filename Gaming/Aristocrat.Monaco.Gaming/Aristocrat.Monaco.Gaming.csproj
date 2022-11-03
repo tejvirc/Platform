@@ -23,7 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aristocrat.GdkRuntime.Contract">
-      <HintPath>..\Aristocrat.GdkRuntime.Contract\bin\$(Configuration)\Aristocrat.GdkRuntime.Contract.dll</HintPath>
+      <HintPath>..\..\..\gdk-runtime-contract-wcf\src\Aristocrat.GdkRuntime.Contract\bin\Release\Aristocrat.GdkRuntime.Contract.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ServiceModel" />
@@ -172,9 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.GdkRuntime.Contract" Version="1.0.8" />
-    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.9" />
-    <PackageReference Include="Aristocrat.Snapp" Version="0.1.9" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="1.0.0" />
+    <PackageReference Include="Aristocrat.Snapp" Version="1.0.0" />
     <PackageReference Include="Google.Protobuf" Version="3.19.4" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />

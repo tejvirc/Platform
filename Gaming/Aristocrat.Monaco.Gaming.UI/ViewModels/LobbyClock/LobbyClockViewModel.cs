@@ -5,12 +5,14 @@
     using System.Reflection;
     using System.Windows;
     using Application.Contracts;
+    using Contracts.Events;
     using Kernel;
     using log4net;
+    using MVVM;
     using MVVM.ViewModel;
 
     /// <summary>
-    /// ViewModel for LobbyClockOverlayWindow
+    /// ViewModel for Controlling the flashing behavior of the LobbyClock found in StandardUPITemplate.xaml
     /// </summary>
     public sealed class LobbyClockViewModel : BaseEntityViewModel, IDisposable
     {
@@ -18,20 +20,26 @@
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _isVisible;
-        private bool _flashingEnabled;
-        private readonly ILobbyClockService _lobbyClockService;
+        private bool _flash;
+        private bool _isDisposed;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IEventBus _eventBus;
 
-        public bool FlashingEnabled
+        /// <summary>
+        /// Trigger clock flashing behavior
+        /// </summary>
+        public bool Flash
         {
-            get => _flashingEnabled;
+            get => _flash;
             set {
                     Logger.Debug($"Flashing Property changed to {value}");
-                    SetProperty(ref _flashingEnabled, value);
+                    SetProperty(ref _flash, value);
             }
         }
 
+        /// <summary>
+        /// Display lobby clock or not
+        /// </summary>
         public bool IsVisible
         {
             get => _isVisible;
@@ -39,32 +47,42 @@
         }
 
         public LobbyClockViewModel() : this(
-            ServiceManager.GetInstance().TryGetService<ILobbyClockService>(),
             ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
             ServiceManager.GetInstance().TryGetService<IEventBus>())
         {
         }
 
-        public LobbyClockViewModel(ILobbyClockService lobbyClockService, IPropertiesManager propertiesManager, IEventBus eventBus)
+        public LobbyClockViewModel(IPropertiesManager propertiesManager, IEventBus eventBus)
         {
-            _lobbyClockService = lobbyClockService ?? throw new ArgumentNullException(nameof(lobbyClockService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _lobbyClockService.Notify += EnableFlash;
+
+            _eventBus.Subscribe<LobbyClockFlashChangedEvent>(this, Handler);
 
             IsVisible = _propertiesManager.GetValue(ApplicationConstants.ClockEnabled, false);
 
         }
 
-        private void EnableFlash(object sender, bool flashEnable)
+        private void Handler(LobbyClockFlashChangedEvent @event)
         {
-            FlashingEnabled = flashEnable;
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    Flash = false;
+                    Flash = true;
+                });
         }
 
         public void Dispose()
         {
-            _lobbyClockService.Notify -= EnableFlash;
-            
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+
+            _isDisposed = true;
         }
     }
 }

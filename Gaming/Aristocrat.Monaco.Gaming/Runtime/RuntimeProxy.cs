@@ -52,6 +52,11 @@
             _serviceProvider.Client?.JackpotNotification();
         }
 
+        public void OnSessionTickFlashClock()
+        {
+            _serviceProvider.Client?.OnSessionTickFlashClock();
+        }
+
         public void JackpotWinNotification(string poolName, IDictionary<int, long> winLevels)
         {
             _serviceProvider.Client?.JackpotWinNotification(poolName, winLevels);
