@@ -52,7 +52,7 @@
         private const long CheckStateInMilliseconds = 250;
 
         // Time interval in Milliseconds
-        private const long GamePlayingIntervalInMilliseconds = 600_000; // 10 minutes
+        private const long GamePlayingIntervalInMilliseconds = 20_000; // 10 minutes
         private const long GameIdleIntervalInMilliseconds = 25_000;
         private const long NoCreditIntervalInMilliseconds = 30_000;
 
@@ -143,7 +143,7 @@
             _eventBus.Subscribe<CashOutButtonPressedEvent>(this, HandleEvent);
             _lobbyClockFlashTimer.Elapsed += LobbyFlashCheckState;
             //Debug
-            //_lobbyClockFlashTimer.Start();
+            _lobbyClockFlashTimer.Start();
             //_state.Fire(FlashStateTriggers.SessionStarted);
         }
 
@@ -158,7 +158,7 @@
         private void OnSessionStarted()
         {
             // Start the StopWatch
-            _timeSinceLastGameCountdown.Reset();
+            _timeSinceLastGameCountdown.Restart();
 
             if (!_sessionFlashesCountdown.IsRunning)
             {
@@ -241,7 +241,10 @@
 
         private void HandleEvent(PrimaryGameStartedEvent evt)
         {
-            _state.Fire(FlashStateTriggers.SessionStarted);
+            if (_state.IsInState(FlashStates.Idle))
+            {
+                _state.Fire(FlashStateTriggers.SessionStarted);
+            }
         }
 
         private void HandleEvent(GameEndedEvent evt)
@@ -281,6 +284,7 @@
         private void HandleEvent(CashOutButtonPressedEvent evt)
         {
             EndSession();
+            _insufficientCreditCountdown.Reset();
         }
 
         private void EndSession()
@@ -334,7 +338,7 @@
             stateMachine.OnUnhandledTrigger(
                 (state, trigger) =>
                 {
-                    Logger.Error($"Invalid NoteAcceptor State Transition. State : {state} Trigger : {trigger}");
+                    Logger.Error($"Invalid State Transition. State : {state} Trigger : {trigger}");
                 });
 
             stateMachine.OnTransitioned(
