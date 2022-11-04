@@ -330,7 +330,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             _lobbyClockService.LobbyFlashCheckState(_lobbyClockService, new EventArgs() as ElapsedEventArgs);
 
             _insufficientCreditCountdown.Verify(t => t.Start(), Times.Once);
-            _timeSinceLastGameCountdown.Verify(t => t.Reset(), Times.Exactly(3));
+            _timeSinceLastGameCountdown.Verify(t => t.Reset(), Times.Exactly(2));
             _timeBetweenFlashesCountdown.Verify(t => t.Reset(), Times.Once);
             _sessionFlashesCountdown.Verify(t => t.Reset(), Times.Once);
         }

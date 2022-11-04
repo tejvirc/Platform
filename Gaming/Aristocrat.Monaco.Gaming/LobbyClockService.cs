@@ -130,6 +130,7 @@
             }
 
             _eventBus.UnsubscribeAll(this);
+            _lobbyClockFlashTimer.Stop();
             _lobbyClockFlashTimer.Elapsed -= LobbyFlashCheckState;
 
             _isDisposed = true;
@@ -147,6 +148,8 @@
             //_state.Fire(FlashStateTriggers.SessionStarted);
         }
 
+        // reset Stops and clears
+        // Restart clears and starts again
         private void OnSessionIdle()
         {
             _timeSinceLastGameCountdown.Reset();
@@ -158,10 +161,11 @@
         private void OnSessionStarted()
         {
             // Start the StopWatch
-            _timeSinceLastGameCountdown.Restart();
+            
 
             if (!_sessionFlashesCountdown.IsRunning)
             {
+                _timeSinceLastGameCountdown.Restart();
                 _sessionFlashesCountdown.Start();
                 _timeBetweenFlashesCountdown.Start();
                 _state.Fire(FlashStateTriggers.StartFlashing);
@@ -241,6 +245,7 @@
 
         private void HandleEvent(PrimaryGameStartedEvent evt)
         {
+            _timeSinceLastGameCountdown.Restart();
             if (_state.IsInState(FlashStates.Idle))
             {
                 _state.Fire(FlashStateTriggers.SessionStarted);
