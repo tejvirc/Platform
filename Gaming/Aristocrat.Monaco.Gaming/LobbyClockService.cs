@@ -3,28 +3,20 @@
     using Kernel;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
     using System.Timers;
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Application.Contracts.OperatorMenu;
     using Common;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
     using Contracts.Models;
-    using Hardware.Contracts.TowerLight;
     using log4net;
-    using MVVM;
     using Runtime;
-    using Timer = System.Timers.Timer;
     using Stateless;
-    using UI.Common;
 
     public enum FlashStates
     {
@@ -46,9 +38,8 @@
     public class LobbyClockService : ILobbyClockService, IService, IDisposable
     {
 
-        private const int AmountOfFlashes = 5;
+        private const int AmountOfFlashesLeft = 5;
         private const long TimeBetweenFlashesInMilliseconds = 1500;
-
         private const long CheckStateInMilliseconds = 250;
 
         // Time interval in Milliseconds
@@ -57,13 +48,13 @@
         private const long NoCreditIntervalInMilliseconds = 30_000;
 
         private int _flashesDone = 0;
-        private IEventBus _eventBus;
-        private IPropertiesManager _propertiesManager;
-        private ISystemDisableManager _disableManager;
-        private IBank _bank;
-        private IGameProvider _gameProvider;
-        private IRuntime _runtime;
-        private ILobbyStateManager _lobbyStateManager;
+        private readonly IEventBus _eventBus;
+        private readonly IPropertiesManager _propertiesManager;
+        private readonly ISystemDisableManager _disableManager;
+        private readonly IBank _bank;
+        private readonly IGameProvider _gameProvider;
+        private readonly IRuntime _runtime;
+        private readonly ILobbyStateManager _lobbyStateManager;
         private readonly StateMachine<FlashStates, FlashStateTriggers> _state;
 
         private ISystemTimerWrapper _lobbyClockFlashTimer;
@@ -216,7 +207,7 @@
             if (_state.IsInState(FlashStates.Flashing) &&
                 _timeBetweenFlashesCountdown.ElapsedMilliseconds >= TimeBetweenFlashesInMilliseconds)
             {
-                if (_flashesDone < AmountOfFlashes)
+                if (_flashesDone < AmountOfFlashesLeft)
                 {
                     Flash();
                     return;
@@ -245,7 +236,6 @@
 
         private void HandleEvent(PrimaryGameStartedEvent evt)
         {
-            _timeSinceLastGameCountdown.Restart();
             if (_state.IsInState(FlashStates.Idle))
             {
                 _state.Fire(FlashStateTriggers.SessionStarted);
@@ -259,6 +249,10 @@
 
         private void HandleEvent(BankBalanceChangedEvent evt)
         {
+            if (_state.IsInState(FlashStates.Idle))
+            {
+                return;
+            }
             CheckCredit();
         }
 
@@ -277,13 +271,13 @@
         private void StartIdleTimer()
         {
             _insufficientCreditCountdown.Reset();
-            _timeSinceLastGameCountdown.Start();
+            _timeSinceLastGameCountdown.Restart();
         }
 
         private void StartNoCreditTimer()
         {
             _timeSinceLastGameCountdown.Reset();
-            _insufficientCreditCountdown.Start();
+            _insufficientCreditCountdown.Restart();
         }
 
         private void HandleEvent(CashOutButtonPressedEvent evt)

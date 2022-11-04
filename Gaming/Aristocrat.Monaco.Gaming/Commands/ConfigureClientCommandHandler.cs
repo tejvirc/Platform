@@ -171,7 +171,7 @@
                 { "/Runtime/Clock&flashTime", _properties.GetValue(ApplicationConstants.ClockFlashDuration, 500).ToString() },
                 { "/Runtime/Clock&hideInCombinTest", _properties.GetValue(ApplicationConstants.ClockHideInCombinationTest, false).ToString() },
                 { "/Runtime/Clock&hideInReplay", _properties.GetValue(ApplicationConstants.ClockHideInReplay, false).ToString() },
-                //{ "/Runtime/Clock&Location", _properties.GetValue(ApplicationConstants.ClockLocation, false).ToString() },
+                { "/Runtime/Clock&Location", _properties.GetValue(ApplicationConstants.ClockLocation, ClockLocation.bottomRight).ToString() },
                 { "/Runtime/DefaultBetInAttract", ApplicationConstants.DefaultBetInAttract.ToString() },
                 { "/Runtime/DenomPatch", ApplicationConstants.DefaultAllowDenomPatch.ToString() },
                 { "/Runtime/Gamble&maxRounds", GamingConstants.MaxRounds.ToString() },
