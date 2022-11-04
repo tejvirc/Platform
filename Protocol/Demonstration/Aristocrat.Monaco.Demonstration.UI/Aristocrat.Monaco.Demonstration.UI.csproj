@@ -39,7 +39,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Demonstration\Aristocrat.Monaco.Demonstration.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
 </Project>

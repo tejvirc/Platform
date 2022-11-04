@@ -52,7 +52,7 @@
     <ProjectReference Include="..\Monaco.Accounting\Monaco.Accounting.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />

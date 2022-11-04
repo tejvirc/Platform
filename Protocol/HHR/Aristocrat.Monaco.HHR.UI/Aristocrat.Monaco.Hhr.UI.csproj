@@ -92,7 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0003" />
-    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0012" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
