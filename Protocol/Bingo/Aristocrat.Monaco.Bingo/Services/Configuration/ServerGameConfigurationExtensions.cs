@@ -21,7 +21,8 @@
                 QuickStopMode = configuration.QuickStopMode,
                 ThemeSkinId = configuration.ThemeSkinId,
                 HelpUrl = configuration.HelpUrl,
-                CrossGameProgressiveEnabled = configuration.CrossGameProgressiveEnabled
+                CrossGameProgressiveEnabled = configuration.CrossGameProgressiveEnabled,
+                SideBetGames = configuration.SideBetGames
             };
         }
     }
