@@ -182,6 +182,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                    newSetting.GameTitleId == oldSetting.GameTitleId &&
                    newSetting.ThemeSkinId == oldSetting.ThemeSkinId &&
                    newSetting.EvaluationTypePaytable == oldSetting.EvaluationTypePaytable &&
+                   newSetting.CrossGameProgressiveEnabled == oldSetting.CrossGameProgressiveEnabled &&
                    oldSetting.Bets != null && newSetting.Bets != null &&
                    newSetting.Bets.SequenceEqual(oldSetting.Bets);
         }

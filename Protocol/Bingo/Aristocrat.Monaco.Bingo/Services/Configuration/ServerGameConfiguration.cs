@@ -32,5 +32,8 @@
 
         [JsonProperty("HelpUrl")]
         public string HelpUrl { get; set; }
+
+        [JsonProperty("CrossGameProgressiveEnabled")]
+        public bool CrossGameProgressiveEnabled { get; set; }
     }
 }

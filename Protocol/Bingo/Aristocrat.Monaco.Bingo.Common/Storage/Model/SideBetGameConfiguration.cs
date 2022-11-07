@@ -6,13 +6,10 @@
     using Newtonsoft.Json.Converters;
 
     [Serializable]
-    public class BingoGameConfiguration
+    public class SideBetGameConfiguration
     {
         [JsonProperty("GameTitleId")]
         public long GameTitleId { get; set; }
-
-        [JsonProperty("ThemeSkinId")]
-        public long ThemeSkinId { get; set; }
 
         [JsonProperty("PaytableId")]
         public long PaytableId { get; set; }
@@ -23,20 +20,14 @@
         [JsonProperty("Bets")]
         public IReadOnlyCollection<long> Bets { get; set; } = Array.Empty<long>();
 
-        [JsonProperty("QuickStopMode")]
-        public bool QuickStopMode { get; set; }
-
         [JsonProperty("EvaluationTypePaytable")]
         [JsonConverter(typeof(StringEnumConverter))]
         public PaytableEvaluation EvaluationTypePaytable { get; set; }
 
-        [JsonProperty("HelpUrl")]
-        public string HelpUrl { get; set; }
-
-        [JsonProperty("PlatformGameId")]
-        public long PlatformGameId { get; set; }
-
         [JsonProperty("CrossGameProgressiveEnabled")]
         public bool CrossGameProgressiveEnabled { get; set; }
+
+        [JsonProperty("Progressive")]
+        public int Progressive { get; set; }
     }
 }

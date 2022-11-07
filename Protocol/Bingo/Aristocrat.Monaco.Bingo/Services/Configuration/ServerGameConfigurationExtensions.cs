@@ -20,7 +20,8 @@
                 PlatformGameId = gameDetail.Id,
                 QuickStopMode = configuration.QuickStopMode,
                 ThemeSkinId = configuration.ThemeSkinId,
-                HelpUrl = configuration.HelpUrl
+                HelpUrl = configuration.HelpUrl,
+                CrossGameProgressiveEnabled = configuration.CrossGameProgressiveEnabled
             };
         }
     }
