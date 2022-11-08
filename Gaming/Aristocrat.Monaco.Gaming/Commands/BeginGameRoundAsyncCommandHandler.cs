@@ -126,7 +126,14 @@
             }
             else
             {
-                SetWagerCategory();
+                var wagerCategory =
+                    game?.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
+                if (wagerCategory == null)
+                {
+                    Failed($"Unable to find a valid wager category id {command.WagerCategoryId} for game id {game?.Id}");
+                    return;
+                }
+                SetWagerCategory(wagerCategory);
 
                 // This is required for the game round to continue.  BeginGameRoundResponse will be invoked when the outcome request completes
                 Notify(Enumerable.Empty<Outcome>());
