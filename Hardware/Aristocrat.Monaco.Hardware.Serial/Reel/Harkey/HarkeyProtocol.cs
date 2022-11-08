@@ -910,7 +910,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 _reelsSpinning = true;
             }
 
-            SendCommand(new SpinReelsToGoal
+            SendAndReceive<SpinReelsToGoalResponse>(new SpinReelsToGoal
             {
                 Direction = directions,
                 Goal1 = stops[0],
@@ -1282,7 +1282,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             where TMessage : HarkeySerializableMessage
         {
             var delay = Task.Delay(waitTime, token);
-            var result = await Task.WhenAny(delay, messageWaiter);
+            var result = await Task.WhenAny(delay, messageWaiter).ConfigureAwait(false);
             if (result == messageWaiter)
             {
                 return await messageWaiter;
