@@ -466,7 +466,6 @@
             var logicalState = printer?.LogicalState ?? PrinterLogicalState.Disabled;
 
             StateText = logicalState.ToString();
-            TestModeEnabled = false;
 
             switch (logicalState)
             {
@@ -488,7 +487,6 @@
                     break;
                 default:
                     StateCurrentMode = StateMode.Normal;
-                    TestModeEnabled = true;
                     break;
             }
 
