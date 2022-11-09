@@ -9,7 +9,7 @@
     using CoreWCF.Description;
     using CoreWCF.IdentityModel.Selectors;
     using CoreWCF.Security;
-    using Aristocrat.Monaco.Common.Communications;
+    using Aristocrat.G2S.Client.Communications;
 
     /// <summary>
     ///     Defines an instance of an IReceiveEndpoint.

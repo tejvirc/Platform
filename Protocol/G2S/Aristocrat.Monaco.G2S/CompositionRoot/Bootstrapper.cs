@@ -12,7 +12,7 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Aristocrat.G2S.Client;
-    using Aristocrat.Monaco.Common.Communications;
+    using Aristocrat.G2S.Client.Communications;
     using Aristocrat.G2S.Client.Configuration;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;

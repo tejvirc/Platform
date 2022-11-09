@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Aristocrat.Monaco.Common.Communications;
+    using Aristocrat.G2S.Client.Communications;
     using System.Threading.Tasks;
     using System;
     using CoreWCF;

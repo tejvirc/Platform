@@ -9,7 +9,6 @@
     using Communications;
     using Communicator.ServiceModel;
     using Devices;
-    using Aristocrat.Monaco.Common.Communications;
 
     /// <summary>
     ///     An implementation of <see cref="IEgmFactoryConfigurator" />

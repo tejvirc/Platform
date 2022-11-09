@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.G2S.Client
 {
     using System;
-    using Aristocrat.Monaco.Common.Communications;
+    using Aristocrat.G2S.Client.Communications;
     using Configuration;
 
     /// <summary>

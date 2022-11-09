@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Common.Communications
+﻿namespace Aristocrat.G2S.Client.Communications
 {
     using System;
     using System.Threading.Tasks;

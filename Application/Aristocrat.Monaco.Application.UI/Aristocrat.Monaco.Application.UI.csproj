@@ -110,7 +110,4 @@
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
 </Project>
