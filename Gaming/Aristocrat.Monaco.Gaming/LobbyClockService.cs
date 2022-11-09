@@ -40,14 +40,14 @@
 
         private const int AmountOfFlashesLeft = 5;
         private const long TimeBetweenFlashesInMilliseconds = 1500;
-        private const long CheckStateInMilliseconds = 250;
+        private const long CheckStateInMilliseconds = 100;
 
         // Time interval in Milliseconds
         private const long GamePlayingIntervalInMilliseconds = 20_000; // 10 minutes
         private const long GameIdleIntervalInMilliseconds = 25_000;
         private const long NoCreditIntervalInMilliseconds = 30_000;
 
-        private int _flashesDone = 0;
+        private int _flashesDone;
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISystemDisableManager _disableManager;
@@ -65,6 +65,7 @@
 
         private readonly decimal _denomMultiplier;
 
+        private bool _gameLoaded;
         private bool _isDisposed;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -130,13 +131,15 @@
         public void Initialize()
         {
             _eventBus.Subscribe<PrimaryGameStartedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameInitializationCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<TerminateGameProcessEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameExitedNormalEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameEndedEvent>(this, HandleEvent);
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<CashOutButtonPressedEvent>(this, HandleEvent);
             _lobbyClockFlashTimer.Elapsed += LobbyFlashCheckState;
             //Debug
             _lobbyClockFlashTimer.Start();
-            //_state.Fire(FlashStateTriggers.SessionStarted);
         }
 
         // reset Stops and clears
@@ -152,8 +155,6 @@
         private void OnSessionStarted()
         {
             // Start the StopWatch
-            
-
             if (!_sessionFlashesCountdown.IsRunning)
             {
                 _timeSinceLastGameCountdown.Restart();
@@ -179,7 +180,7 @@
                 return;
             }
 
-            if (_lobbyStateManager.IsInState(LobbyState.Game))
+            if (_lobbyStateManager.IsInState(LobbyState.Game) && _gameLoaded)
             {
                 _runtime.OnSessionTickFlashClock();
                 _timeBetweenFlashesCountdown.Restart();
@@ -187,7 +188,7 @@
                 return;
             }
 
-            if (_lobbyStateManager.IsInState(LobbyState.Chooser))
+            if (_lobbyStateManager.IsInState(LobbyState.Chooser) && !_gameLoaded)
             {
                 _eventBus.Publish(new LobbyClockFlashChangedEvent());
                 _timeBetweenFlashesCountdown.Restart();
@@ -280,6 +281,27 @@
             _insufficientCreditCountdown.Restart();
         }
 
+        private void HandleEvent(GameInitializationCompletedEvent evt)
+        {
+            _timeBetweenFlashesCountdown.Restart();
+            _gameLoaded = true;
+            AddExtraFlash();
+        }
+
+        private void HandleEvent(TerminateGameProcessEvent evt)
+        {
+            _timeBetweenFlashesCountdown.Restart();
+            _gameLoaded = false;
+            AddExtraFlash();
+        }
+
+        private void HandleEvent(GameExitedNormalEvent evt)
+        {
+            _timeBetweenFlashesCountdown.Restart();
+            _gameLoaded = false;
+            AddExtraFlash();
+        }
+
         private void HandleEvent(CashOutButtonPressedEvent evt)
         {
             EndSession();
@@ -293,6 +315,17 @@
             _timeSinceLastGameCountdown.Stop();
             _flashesDone = 0;
             _state.Fire(FlashStateTriggers.End);
+        }
+
+        // For the Corner case where the lobby or game is exited right at the time a new
+        // flash is started. Here if we change state, there might be an extra flash.
+        // Ensures flashes >= 5
+        private void AddExtraFlash()
+        {
+            if (_state.IsInState(FlashStates.Flashing))
+            {
+                _flashesDone -= 1;
+            }
         }
 
         private bool IsCreditSufficient()
