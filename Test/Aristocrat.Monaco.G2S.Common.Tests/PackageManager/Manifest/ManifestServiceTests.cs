@@ -17,7 +17,7 @@
         public void SetUp()
         {
             _manifest = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
+                AppContext.BaseDirectory,
                 "PackageManager/TestData/ATI_Wild_Panda_Gold.manifest");
 
             _subject = new ImageManifest();

@@ -204,7 +204,7 @@
                 .Verifiable();
             _propertiesManager.Setup(m => m.SetProperty("System.HardBoot.Time", It.IsAny<DateTime>())).Verifiable();
             _propertiesManager.Setup(m => m.SetProperty("System.SoftBoot.Time", It.IsAny<DateTime>())).Verifiable();
-            var version = Assembly.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bootstrap.exe"))
+            var version = Assembly.LoadFile(Path.Combine(AppContext.BaseDirectory, "bootstrap.exe"))
                 .GetName()
                 .Version.ToString();
             _propertiesManager.Setup(m => m.SetProperty("System.Version", version)).Verifiable();

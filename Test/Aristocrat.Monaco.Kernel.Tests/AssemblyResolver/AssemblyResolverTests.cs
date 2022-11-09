@@ -1,13 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests.AssemblyResolver
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Mono.Addins;
+    using Moq;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Mono.Addins;
-    using Moq;
+    using System.Runtime.Loader;
     using Test.Common;
     using AssemblyResolver = Kernel.AssemblyResolver;
 
@@ -37,14 +38,14 @@
         public void TestFinalize()
         {
             MoqServiceManager.RemoveInstance();
-            var resolveEventHandler = GetResolveEventHandler(AppDomain.CurrentDomain);
+            var resolveEventHandler = GetResolveEventHandler(AssemblyLoadContext.Default);
             var invocationList = resolveEventHandler.GetInvocationList();
             foreach (var del in invocationList)
             {
                 if (del.Method.Name == "AssemblyResolveHandler")
                 {
-                    var eventInfo = AppDomain.CurrentDomain.GetType().GetEvent("AssemblyResolve");
-                    eventInfo.RemoveEventHandler(AppDomain.CurrentDomain, del);
+                    var eventInfo = AssemblyLoadContext.Default.GetType().GetEvent("Resolving");
+                    eventInfo.RemoveEventHandler(AssemblyLoadContext.Default, del);
                 }
             }
 
@@ -137,9 +138,9 @@
 
         private static bool VerifyDelegateIsPresent(AssemblyResolver resolver)
         {
-            var resolveEventHandler = GetResolveEventHandler(AppDomain.CurrentDomain);
+            var resolveEventHandler = GetResolveEventHandler(AssemblyLoadContext.Default);
             var del = Delegate.CreateDelegate(
-                typeof(ResolveEventHandler),
+                typeof(Func<AssemblyLoadContext, AssemblyName, Assembly>),
                 resolver,
                 "AssemblyResolveHandler",
                 false);
