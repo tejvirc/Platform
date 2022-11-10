@@ -8,6 +8,7 @@
     using Kernel.Contracts.Events;
     using Monaco.Common;
     using Monaco.Common.Container;
+    using Services.GamePlay;
     using SimpleInjector;
 
     public static class Bootstrapper
@@ -30,7 +31,15 @@
                 .RegisterClient(Assembly.GetExecutingAssembly())
                 .AddInternalServices()
                 .WithGrpcLogging(loggingEnabled == Constants.True)
+                .ConfigureServices()
                 .ConfigureConsumers();
+        }
+
+        private static Container ConfigureServices(this Container container)
+        {
+            container.RegisterSingleton<IProgressiveController, ProgressiveController>();
+
+            return container;
         }
 
         private static Container ConfigureConsumers(this Container container)
@@ -43,6 +52,7 @@
                 typeof(IAsyncConsumer<>),
                 true,
                 Assembly.GetExecutingAssembly());
+
             return container;
         }
     }

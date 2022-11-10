@@ -15,6 +15,7 @@
     using Gaming.Contracts.Central;
     using Gaming.Contracts.Meters;
     using Gaming.Contracts.Payment;
+    using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Tickets;
     using Hardware.Contracts.Cabinet;
     using Kernel;
@@ -64,6 +65,8 @@
             _serviceWaiter.AddServiceToWaitFor<IPaymentDeterminationProvider>();
             _serviceWaiter.AddServiceToWaitFor<IGameMeterManager>();
             _serviceWaiter.AddServiceToWaitFor<IBonusHandler>();
+            _serviceWaiter.AddServiceToWaitFor<IProtocolLinkedProgressiveAdapter>();
+
             if (!_serviceWaiter.WaitForServices())
             {
                 return;
