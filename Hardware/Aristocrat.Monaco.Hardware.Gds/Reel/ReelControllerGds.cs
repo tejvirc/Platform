@@ -21,7 +21,7 @@
     {
         private const int WaitForReportTime = 30000;
 
-        private const int RequestGatReportWaitTimeout = 30000;
+        private const int InitializationWaitTimeout = 30000;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -417,13 +417,18 @@
                 return false;
             }
 
-            if (string.IsNullOrEmpty(await RequestGatReport(RequestGatReportWaitTimeout)))
+            if (string.IsNullOrEmpty(await RequestGatReport()))
             {
                 Logger.Warn("Reset - RequestGatReport failed");
                 return false;
             }
 
-            var result = await WaitForReport<ControllerInitializedStatus>();
+            var result = await WaitForReport<ControllerInitializedStatus>(InitializationWaitTimeout);
+            if (result is null)
+            {
+                Logger.Warn("Reel Controller Failed to Initialize");
+            }
+
             return result is not null;
         }
 
