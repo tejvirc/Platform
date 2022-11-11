@@ -12,7 +12,7 @@
             {
                 BallCall = string.Join(",", message.BallCall),
                 Paytable = message.Paytable,
-                ReportType = BingoGameOutcomeMeta.Types.ReportType.End,
+                ReportType = ReportType.End,
                 GameEndWinEligibility = message.GameEndWinEligibility,
                 JoinBallNumber = message.JoinBall
             };

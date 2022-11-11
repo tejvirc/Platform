@@ -15,9 +15,8 @@
     using Gaming.Contracts.Progressives.Linked;
     using Hardware.Contracts.Persistence;
     using Kernel;
-    using Newtonsoft.Json;
-    using Protocol.Common.Storage.Entity;
     using log4net;
+    using Protocol.Common.Storage.Entity;
 
     /// <summary>
     ///     Implements <see cref="IProgressiveController" />.
@@ -34,14 +33,10 @@
         private readonly IGameHistory _gameHistory;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
-        private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives =
-            new ConcurrentDictionary<string, IList<ProgressiveInfo>>();
-
+        private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
-
-        private readonly HashSet<string> _progressiveMessageAttributes =
-            new HashSet<string>();
-        private readonly object _pendingAwardsLock = new object();
+        private readonly HashSet<string> _progressiveMessageAttributes = new();
+        private readonly object _pendingAwardsLock = new();
         //private IList<(string poolName, long amountInPennies)> _pendingAwards;
         private string _updateProgressiveMeter;
         private bool _disposed;
@@ -387,8 +382,8 @@
         {
             //_logger.LogInfo($"Received PendingLinkedProgressivesHitEvent {evt}");
 
-            lock (_pendingAwardsLock)
-            {
+            //lock (_pendingAwardsLock)
+            //{
                 //foreach (var level in evt.LinkedProgressiveLevels)
                 //{
                 //    var poolName = GetPoolName(level.LevelName);
@@ -401,7 +396,7 @@
 
                 //    UpdatePendingAwards();
                 //}
-            }
+            //}
         }
 
         private void Handle(WaitingForPlayerInputStartedEvent evt)
@@ -415,21 +410,21 @@
         {
             if (evt.CurrentState == PlayState.PayGameResults)
             {
-                //lock(_pendingAwardsLock)
-                //{
-                //    if (_pendingAwards != null && _pendingAwards.Count != 0)
-                //    {
-                //        _pendingAwards.Clear();
-                //        UpdatePendingAwards();
-                //    }
-                //}
-
-                if (_progressiveRecovery)
+                lock (_pendingAwardsLock)
                 {
-                    UpdateProgressiveValues();
-                }
+                    //if (_pendingAwards != null && _pendingAwards.Count != 0)
+                    //{
+                    //    _pendingAwards.Clear();
+                    //    UpdatePendingAwards();
+                    //}
 
-                _progressiveRecovery = false;
+                    if (_progressiveRecovery)
+                    {
+                        UpdateProgressiveValues();
+                    }
+
+                    _progressiveRecovery = false;
+                }
             }
         }
 

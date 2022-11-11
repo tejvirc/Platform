@@ -227,5 +227,16 @@
         ///     The disable key for when game history report queue is almost full
         /// </summary>
         public static readonly Guid GameHistoryQueueDisableKey = new("{E8B1A368-EA55-4C80-8297-852D156ED314}");
+
+        /// <summary>
+        ///     Indicates if side bet games are enabled
+        /// </summary>
+        public const string SideBetEnabled = "SideBetEnabled";
+
+        /// <summary>
+        ///     key to use for SideBetEnabled property
+        /// </summary>
+        public const string SideBetEnabledKey = "SideBetEnabled";
+
     }
 }
