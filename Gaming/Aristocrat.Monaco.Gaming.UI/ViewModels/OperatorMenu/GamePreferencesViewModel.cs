@@ -99,6 +99,8 @@
 
             var playerSpeedButtonEnabled =
                 PropertiesManager.GetValue(GamingConstants.ShowPlayerSpeedButtonEnabled, true);
+            var playerSpeedButtonDefaultValue = playerSpeedButtonEnabled
+                                                && PropertiesManager.GetValue(GamingConstants.ShowPlayerSpeedButtonDefault, true);
 
             SlotOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Slot) &&
                                  PropertiesManager.GetValue(GamingConstants.ReelStopConfigurable, true);
@@ -107,6 +109,7 @@
             KenoOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Keno);
             KenoAllowedAutoPlay = KenoOptionsEnabled && autoPlayAllowed;
             KenoPlayerSpeedButtonEnabled = KenoOptionsEnabled && playerSpeedButtonEnabled;
+            KenoShowPlayerSpeedButton = playerSpeedButtonDefaultValue;
             var pokerGames = gameProvider.GetAllGames().Where(a => a.GameType == GameType.Poker).ToList();
             PokerOptionsEnabled = pokerGames.Any();
             LoadPokerBackgroundColors();
@@ -114,6 +117,7 @@
             BlackjackOptionsEnabled = gameProvider.GetAllGames().Any(a => a.GameType == GameType.Blackjack);
             RouletteOptionsEnabled = gameProvider.GetAllGames().Any(game => game.GameType == GameType.Roulette);
             PokerPlayerSpeedButtonEnabled = PokerOptionsEnabled && playerSpeedButtonEnabled;
+            PokerShowPlayerSpeedButton = playerSpeedButtonDefaultValue;
 
             ProgressiveOptionsEnabled = progressiveConfiguration.ViewProgressiveLevels()
                 .Any(x => x.LevelType != ProgressiveLevelType.Sap);

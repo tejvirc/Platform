@@ -13,7 +13,7 @@
 // 
 namespace Aristocrat.Monaco.Gaming.Contracts {
     using System.Xml.Serialization;
-
+    
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
     /// <remarks/>
@@ -3373,8 +3373,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private bool enabledField;
         
+        private bool defaultValueField;
+        
         public GamingConfigurationShowPlayerSpeedButton() {
             this.enabledField = true;
+            this.defaultValueField = true;
         }
         
         /// <remarks/>
@@ -3386,6 +3389,18 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.enabledField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool DefaultValue {
+            get {
+                return this.defaultValueField;
+            }
+            set {
+                this.defaultValueField = value;
             }
         }
     }
