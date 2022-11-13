@@ -35,7 +35,10 @@
         End
     }
 
-    public class LobbyClockService : ILobbyClockService, IService, IDisposable
+    /// <summary>
+    /// This class is responsible for flashing the Lobby clock and sending commands to runtime to flash the clock in the game.
+    /// </summary>
+    public class LobbyClockService : IService, IDisposable
     {
 
         private const int AmountOfFlashesLeft = 5;
@@ -74,7 +77,7 @@
         public string Name => GetType().Name;
 
         /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(ILobbyClockService) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(LobbyClockService) };
 
         public LobbyClockService(
             IEventBus eventBus,
@@ -137,8 +140,8 @@
             _eventBus.Subscribe<GameEndedEvent>(this, HandleEvent);
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<CashOutButtonPressedEvent>(this, HandleEvent);
+
             _lobbyClockFlashTimer.Elapsed += LobbyFlashCheckState;
-            //Debug
             _lobbyClockFlashTimer.Start();
         }
 

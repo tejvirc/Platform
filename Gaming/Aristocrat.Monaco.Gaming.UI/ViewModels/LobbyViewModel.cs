@@ -124,7 +124,7 @@
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
         private readonly IReserveService _reserveService;
 
-        private readonly ILobbyClockService _lobbyClockService;
+        private readonly LobbyClockService _lobbyClockService;
         // Broadcasting platform messages to a game
 
         private readonly DisplayableMessage _disableCountdownMessage;
@@ -351,7 +351,7 @@
             _runtime = containerService.Container.GetInstance<IRuntimeFlagHandler>();
             _gameStorage = containerService.Container.GetInstance<IGameStorage>();
             _gameState = containerService.Container.GetInstance<IGamePlayState>();
-            _lobbyClockService = containerService.Container.GetInstance<ILobbyClockService>();
+            _lobbyClockService = containerService.Container.GetInstance<LobbyClockService>();
             _gameOrderSettings = containerService.Container.GetInstance<IGameOrderSettings>();
             _commandFactory = containerService.Container.GetInstance<ICommandHandlerFactory>();
             _gameService = containerService.Container.GetInstance<IGameService>();

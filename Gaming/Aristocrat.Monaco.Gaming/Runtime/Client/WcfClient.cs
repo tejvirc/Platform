@@ -94,6 +94,7 @@
         {
             Invoke(runtime => runtime.OnSessionTickFlashClock());
         }
+
         public void JackpotWinNotification(string poolName, IDictionary<int, long> winLevels)
         {
             Invoke(
