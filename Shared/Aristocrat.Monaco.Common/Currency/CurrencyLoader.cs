@@ -30,7 +30,7 @@
 
                     if (!string.IsNullOrEmpty(currencyCode) && !currencyList.ContainsKey(currencyCode))
                     {
-                        currencyList[currencyCode] = culture;
+                        currencyList[currencyCode] = (CultureInfo) culture.Clone();
                     }
                 }
             }
