@@ -459,13 +459,9 @@
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
+            LobbyClockViewModel = new LobbyClockViewModel();
 
-            if (IsLobbyClockEnabled())
-            {
-                LobbyClockViewModel = new LobbyClockViewModel();
-            }
-
-            MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
+                MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
             LoadGameInfo();
@@ -3132,11 +3128,6 @@
                    baseState == LobbyState.Recovery ||
                    baseState == LobbyState.GameLoading) &&
                    !_lobbyStateManager.ContainsAnyState(LobbyState.GameDiagnostics);
-        }
-
-        private bool IsLobbyClockEnabled()
-        {
-            return _properties.GetValue(ApplicationConstants.ClockEnabled, false);
         }
 
         private bool CanLaunchReplayOrRecovery()
