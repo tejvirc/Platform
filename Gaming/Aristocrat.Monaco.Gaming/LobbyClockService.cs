@@ -46,8 +46,8 @@
         private const long CheckStateInMilliseconds = 100;
 
         // Time interval in Milliseconds
-        private const long GamePlayingIntervalInMilliseconds = 20_000; // 10 minutes
-        private const long GameIdleIntervalInMilliseconds = 25_000;
+        private const long GamePlayingIntervalInMilliseconds = 600_000; // 10 minutes
+        private const long GameIdleIntervalInMilliseconds = 60_000;
         private const long NoCreditIntervalInMilliseconds = 30_000;
 
         private int _flashesDone;
@@ -169,7 +169,7 @@
 
         private void OnFlashingStarted()
         {
-            // Flash Here
+
             _flashesDone = 0;
             _sessionFlashesCountdown.Restart();
             Flash();
@@ -177,7 +177,6 @@
 
         private void Flash()
         {
-            // Have a look
             if (_timeBetweenFlashesCountdown.ElapsedMilliseconds < TimeBetweenFlashesInMilliseconds)
             {
                 return;
