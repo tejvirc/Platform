@@ -1117,19 +1117,12 @@
         ///     Flag will control the background cycling of the RNG by the platform
         /// </summary>
         public const string UseRngCycling = @"RngCycling.Enabled";
-
-
+        
         /// <summary>
         ///     Flag will control whether the player speed button will be enabled or disabled
         /// </summary>
         public const string ShowPlayerSpeedButtonEnabled = @"ShowPlayerSpeedButton.Enabled";
-
-
-        /// <summary>
-        ///     Flag will control whether the player speed button will be defaulted to enabled or disabled
-        /// </summary>
-        public const string ShowPlayerSpeedButtonDefault = @"ShowPlayerSpeedButton.DefaultValue";
-
+        
         /// <summary>
         ///     Requesting game exit for the game menu button when using a multi-game setup
         /// </summary>

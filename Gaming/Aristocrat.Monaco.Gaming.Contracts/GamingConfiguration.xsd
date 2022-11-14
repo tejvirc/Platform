@@ -401,7 +401,6 @@
         <xs:element minOccurs="0" maxOccurs="1" name="ShowPlayerSpeedButton">
           <xs:complexType>
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
-            <xs:attribute name="DefaultValue" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>
