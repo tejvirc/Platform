@@ -37,6 +37,8 @@
 
         void JackpotNotification();
 
+        void OnSessionTickFlashClock();
+
         void JackpotWinNotification(string poolName, IDictionary<int, long> winLevels);
 
         void BeginGameRoundResponse(BeginGameRoundResult result, IEnumerable<Outcome> outcomes, CancellationTokenSource cancellationTokenSource = null);

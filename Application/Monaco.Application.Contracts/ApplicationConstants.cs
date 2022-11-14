@@ -394,6 +394,21 @@
         /// <summary>Property manager key for ClockFormat flag.</summary>
         public const string ClockFormat = "Clock.Format";
 
+        /// <summary>Property manager key for ClockHideInCombinationTest flag. Do not show clock in combination test</summary>
+        public const string ClockHideInCombinationTest = "Clock.HideInCombinationTest";
+
+        /// <summary>Property manager key for ClockHideInReplay flag. Do not show clock in replay</summary>
+        public const string ClockHideInReplay = "Clock.HideInReplay";
+
+        /// <summary>Property manager key for ClockFlash flag.</summary>
+        public const string ClockFlash = "Clock.Flash";
+
+        /// <summary>Property manager key for ClockFlashDuration flag. This is in milliseconds</summary>
+        public const string ClockFlashDuration = "Clock.FlashDuration";
+
+        /// <summary>Property manager key for ClockLocation flag.</summary>
+        public const string ClockLocation = "Clock.Location";
+
         /// <summary>Property manager key for CashoutClearWins flag.</summary>
         public const string CashoutClearWins = "Cashout.ClearWins";
 

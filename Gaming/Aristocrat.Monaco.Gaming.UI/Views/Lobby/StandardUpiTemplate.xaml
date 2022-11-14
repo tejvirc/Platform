@@ -687,6 +687,24 @@
     </DataTemplate>
 
     <DataTemplate x:Key="StandardUpiTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
+        <DataTemplate.Resources>
+            <Style x:Key="FlashText" TargetType="{x:Type Label}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding LobbyClockViewModel.Flash}" Value="True">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Name="BeginStoryboard">
+                                <Storyboard >
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.250"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <StopStoryboard BeginStoryboardName="BeginStoryboard"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </DataTemplate.Resources>
         <Grid Width="1880">
             <Image Source="{DynamicResource UpiBackground}">
                 <Image.Style>
@@ -827,6 +845,9 @@
                         </Button.Template>
                     </Button>
                 </Grid>
+
+                <Label Style="{StaticResource FlashText}" Visibility="{Binding LobbyClockViewModel.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Canvas.Left="1200" Canvas.Top="44" Content="{Binding ClockTimer.CurrentTime}" FontSize="44" FontFamily="Impact" 
+                       Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
                 <Button x:Name="btnService"
                     Canvas.Left = "285"

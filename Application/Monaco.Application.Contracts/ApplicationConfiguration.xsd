@@ -412,6 +412,11 @@
           <xs:complexType>
             <xs:attribute default="false" name="Enabled" type="xs:boolean" />
             <xs:attribute default="12" name="Format" type="xs:int" />
+            <xs:attribute default="false" name="HideInCombinationTest" type="xs:boolean" />
+            <xs:attribute default="false" name="HideInReplay" type="xs:boolean" />
+            <xs:attribute default="false" name="Flash" type="xs:boolean" />
+            <xs:attribute default="500" name="FlashDuration" type="xs:int" />
+            <xs:attribute default="bottomRight" name="Location" type="ClockLocation" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="Cashout">
@@ -515,6 +520,14 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="Hard" />
       <xs:enumeration value="Soft" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ClockLocation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="bottomRight" />
+      <xs:enumeration value="bottomLeft" />
+      <xs:enumeration value="topRight" />
+      <xs:enumeration value="topLeft" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="BarcodeTypeOptions">

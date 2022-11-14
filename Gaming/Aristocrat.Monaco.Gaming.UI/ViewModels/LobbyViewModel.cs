@@ -126,6 +126,7 @@
         private readonly IAttractConfigurationProvider _attractInfoProvider;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
         private readonly IReserveService _reserveService;
+        private readonly LobbyClockService _lobbyClockService;
         // Broadcasting platform messages to a game
 
         private readonly DisplayableMessage _disableCountdownMessage;
@@ -350,6 +351,7 @@
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameHistory = containerService.Container.GetInstance<IGameHistory>();
             _buttonLamps = containerService.Container.GetInstance<IButtonLamps>();
+            _lobbyClockService = containerService.Container.GetInstance<LobbyClockService>();
             _runtime = containerService.Container.GetInstance<IRuntimeFlagHandler>();
             _gameStorage = containerService.Container.GetInstance<IGameStorage>();
             _gameState = containerService.Container.GetInstance<IGamePlayState>();
@@ -457,6 +459,11 @@
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
+
+            if (IsLobbyClockEnabled())
+            {
+                LobbyClockViewModel = new LobbyClockViewModel();
+            }
 
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
@@ -1710,6 +1717,8 @@
         public GameTabInfoViewModel GameTabInfo { get; } = new GameTabInfoViewModel();
 
         public PlayerMenuPopupViewModel PlayerMenuPopupViewModel { get; }
+
+        public LobbyClockViewModel LobbyClockViewModel { get; }
 
         public PlayerInfoDisplayMenuViewModel PlayerInfoDisplayMenuViewModel { get; }
 
@@ -3035,6 +3044,7 @@
             RaisePropertyChanged(nameof(IsServiceRequested));
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            RaisePropertyChanged(nameof(LobbyClockViewModel));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -3122,6 +3132,11 @@
                    baseState == LobbyState.Recovery ||
                    baseState == LobbyState.GameLoading) &&
                    !_lobbyStateManager.ContainsAnyState(LobbyState.GameDiagnostics);
+        }
+
+        private bool IsLobbyClockEnabled()
+        {
+            return _properties.GetValue(ApplicationConstants.ClockEnabled, false);
         }
 
         private bool CanLaunchReplayOrRecovery()

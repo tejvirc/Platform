@@ -136,6 +136,7 @@
             container.Register<IHandpayRuntimeFlagsHelper, HandpayRuntimeFlagsHelper>(Lifestyle.Singleton);
             container.Register<IReplayRuntimeEventHandler, ReplayRuntimeEventHandler>(Lifestyle.Singleton);
             container.Register<ReelControllerMonitor>(Lifestyle.Singleton);
+            container.Register<LobbyClockService>(Lifestyle.Singleton);
 
             var progressiveCalculatorFactory = new ProgressiveCalculatorFactory(container);
             progressiveCalculatorFactory.Register<StandardCalculator>(SapFundingType.Standard);

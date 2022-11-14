@@ -246,6 +246,7 @@
             serviceManager.AddService(_container.GetInstance<IHardwareHelper>());
             serviceManager.AddService(_container.GetInstance<IButtonLamps>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IBonusHandler>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<LobbyClockService>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<ISoftwareInstaller>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameOrderSettings>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPlayerSessionHistory>() as IService);
