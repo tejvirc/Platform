@@ -24,9 +24,10 @@
         public const string GamesPath = "/Games";
 
         /// <summary>
-        ///     The default value for the MaxRounds flag
+        ///     The default value for the MaxRounds flag, setting the maximum number of gamble
+        ///     rounds that can be played. A value of 0 means unlimited rounds.
         /// </summary>
-        public const int MaxRounds = 5;
+        public const int MaxRounds = 0;
 
         /// <summary>
         ///     The default value for the ReelSpeed flag

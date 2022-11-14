@@ -513,9 +513,21 @@ namespace Aristocrat.Monaco.Accounting
                 return CurrentTransaction.TraceId;
             }
 
+            // Don't re-persist since this transaction is already started we re-create
+            // We need to state we are recovering
+            _current = new TransferOutTransaction(new CancellationTokenSource())
+            {
+                TraceId = _current.TraceId,
+                OwnedTransaction = _current.OwnedTransaction,
+                TransactionId = _current.TransactionId
+            };
+
             // Check each provider to see if there is anything to recover
             if (!_providers.Any(provider => provider.instance.CanRecover(CurrentTransaction.TransactionId)))
             {
+                Logger.Warn(
+                    $"Failed to recover the current transaction.  TransactionId={CurrentTransaction.TransactionId}, TraceId={CurrentTransaction.TraceId}");
+
                 // If providers have nothing to recover we need to abandon the transaction
                 ClearTransaction();
                 return Guid.Empty;

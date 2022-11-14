@@ -493,9 +493,13 @@
         /// </summary>
         private void CancelButtonPressed()
         {
-            if (State == ReserveMachineDisplayState.Confirm || State == ReserveMachineDisplayState.None)
+            if (State == ReserveMachineDisplayState.Confirm)
             {
                 PlayButtonClickSound();
+            }
+
+            if (State == ReserveMachineDisplayState.Confirm || State == ReserveMachineDisplayState.None)
+            {
                 IsDialogVisible = false;
                 _propertiesManager.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
                 RemovePreReserveLockup();

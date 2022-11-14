@@ -8,6 +8,7 @@
              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance {x:Type viewModels:MechanicalReelsLightTestViewModel}}">
     <UserControl.Resources>
@@ -17,8 +18,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" MinWidth="300" Margin="20 0 20 0">
 
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" MinWidth="300" Margin="20 0 20 0">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -33,21 +34,22 @@
             <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc MechanicalReels_Light}" VerticalAlignment="Center" />
             <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc ColorText}" VerticalAlignment="Center" Margin="0 10 0 0" />
 
-            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                    Content="{lex:Loc MechanicalReels_FlashReelLightsLabel}" 
-                    Command="{Binding FlashReelLightsCommand}"
-                    IsEnabled="{Binding ButtonEnabled}"
-                    Margin="0 10 0 0" Width="200" Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" />
-
             <ComboBox Grid.Row="0" Grid.Column="1"
+                      IsEnabled="{Binding TestActive, Converter={StaticResource InverseBoolConverter}}"
                       ItemsSource="{Binding ReelLightIdNames}" 
                       SelectedIndex="{Binding SelectedReelLightIdIndex}"
-                      Margin="10 0 0 0" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                      Margin="10 0 0 0" Width="120" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
             <ComboBox  Grid.Row="1" Grid.Column="1"
+                       IsEnabled="{Binding TestActive, Converter={StaticResource InverseBoolConverter}}"
                        ItemsSource="{Binding ReelLightColors}"
                        SelectedIndex="{Binding SelectedReelLightColorIndex}"
-                       Margin="10 10 0 0" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                       Margin="10 10 0 0" Width="120" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+            <controls:ToggleSwitchButton Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                         IsEnabled="{Binding Initialized}"
+                                         Margin="0 10 0 0" 
+                                         IsChecked="{Binding TestActive, Mode=TwoWay}"/>
 
         </Grid>
     </StackPanel>

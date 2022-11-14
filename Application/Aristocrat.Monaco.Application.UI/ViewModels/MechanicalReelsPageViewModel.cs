@@ -46,12 +46,14 @@
                 LightTestScreenHidden = true;
                 ReelTestScreenHidden = false;
                 SettingsScreenHidden = true;
+                LightTestViewModel?.CancelTest();
             });
             ShowSettingsCommand = new ActionCommand<object>(_ =>
             {
                 LightTestScreenHidden = true;
                 ReelTestScreenHidden = true;
                 SettingsScreenHidden = false;
+                LightTestViewModel?.CancelTest();
             });
 
             var edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
@@ -184,12 +186,6 @@
                 _selfTestEnabled = value;
                 RaisePropertyChanged(nameof(SelfTestEnabled));
             }
-        }
-
-        protected override void DisposeInternal()
-        {
-            LightTestViewModel.Dispose();
-            base.DisposeInternal();
         }
 
         protected override void OnLoaded()

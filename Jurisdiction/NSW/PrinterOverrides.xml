@@ -32,11 +32,9 @@ Please update the confluence page when new elements and attributes are added.
   xsi:noNamespaceSchemaLocation="../../bin/Printer/PrinterOverrides.xsd">
   <Override Protocol="JCM TCL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
     <Replacements>
-      <RegionTextReplace>
-        <TextSplitForRegion>
-          <Split RegionId="110" NewRegionId="1" Description="Date time" FormatString="dd MMM yyyy hh:mm:ss tt" />
-        </TextSplitForRegion>
-      </RegionTextReplace>
+      <TextSplitForRegion>
+        <Split RegionId="110" NewRegionId="1" Description="Date time" FormatString="dd MMM yyyy hh:mm:ss tt" />
+      </TextSplitForRegion>
     </Replacements>
 
     <PrinterTemplateMappings>

@@ -26,13 +26,13 @@
         /// <summary>The expected inter-bytes delay in MS</summary>
         private const int InterBytesDelay = 10;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         private Timer _pollTimer;
         private ISerialPortController _physicalLayer;
-        private bool _isAttached;
+        private bool _isAttached = true;
         private byte[] _messageUnderConstruction;
         private int _bytesInSoFar;
         private int _elementsSoFar;

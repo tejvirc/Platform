@@ -203,11 +203,11 @@
                 throw new ArgumentNullException(nameof(region));
             }
 
-            SendCommand(new DefineRegion { Data = region });
+            SendCommand<TransferStatus>(new DefineRegion { Data = region });
             var report = await WaitForReport<TransferStatus>();
             if (report == null || !report.RegionCode)
             {
-                Logger.Debug($"report null is {report is null}");
+                Logger.Debug($"DefineRegion: report null is {report is null} report is {report}");
                 return false;
             }
 
@@ -224,11 +224,11 @@
                 throw new ArgumentNullException(nameof(template));
             }
 
-            SendCommand(new DefineTemplate { Data = template });
+            SendCommand<TransferStatus>(new DefineTemplate { Data = template });
             var report = await WaitForReport<TransferStatus>();
             if (report == null || !report.TemplateCode)
             {
-                Logger.Debug($"report null is {report is null} report is {report}");
+                Logger.Debug($"DefineTemplate: report null is {report is null} report is {report}");
                 return false;
             }
 

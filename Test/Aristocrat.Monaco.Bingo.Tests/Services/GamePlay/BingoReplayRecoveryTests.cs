@@ -38,7 +38,7 @@
         private readonly Mock<GameEndWinFactory> _gameEndWinFactory = new();
         private readonly Mock<IBonusHandler> _bonusHandler = new();
         private readonly Mock<ITransactionHistory> _transactionHistory = new();
-
+        private readonly Mock<IGamePlayState> _gamePlayState = new();
 
         private Action<GameLoadedEvent> _gameLoadedConsumer;
         private Action<GamePlayInitiatedEvent> _gamePlayInitiatedConsumer;
@@ -498,7 +498,8 @@
             bool nullUnitOfWOrk = false,
             bool nullGewFactory = false,
             bool nullBonusHandler = false,
-            bool nulltransactionHistory = false)
+            bool nulltransactionHistory = false,
+            bool nullGamePlayState = false)
         {
             return new BingoReplayRecovery(
                 nullEvent ? null : _eventBus.Object,
@@ -510,7 +511,8 @@
                 nullUnitOfWOrk ? null : _unitOfWorkFactory.Object,
                 nullGewFactory ? null : _gameEndWinFactory.Object,
                 nullBonusHandler ? null : _bonusHandler.Object,
-                nulltransactionHistory ? null : _transactionHistory.Object);
+                nulltransactionHistory ? null : _transactionHistory.Object,
+                nullGamePlayState ? null : _gamePlayState.Object);
         }
     }
 }

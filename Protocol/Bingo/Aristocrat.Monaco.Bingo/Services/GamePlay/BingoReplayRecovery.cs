@@ -39,6 +39,7 @@
         private readonly GameEndWinFactory _gewFactory;
         private readonly IBonusHandler _bonusHandler;
         private readonly ITransactionHistory _transactionHistory;
+        private readonly IGamePlayState _gamePlayState;
 
         private Guid _recoveryMessageId;
         private long _recoveredTransactionId;
@@ -55,7 +56,8 @@
             IUnitOfWorkFactory unitOfWork,
             GameEndWinFactory gewFactory,
             IBonusHandler bonusHandler,
-            ITransactionHistory transactionHistory)
+            ITransactionHistory transactionHistory,
+            IGamePlayState gamePlayState)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _centralProvider = centralProvider ?? throw new ArgumentNullException(nameof(centralProvider));
@@ -67,6 +69,7 @@
             _gewFactory = gewFactory ?? throw new ArgumentNullException(nameof(gewFactory));
             _bonusHandler = bonusHandler ?? throw new ArgumentNullException(nameof(bonusHandler));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
+            _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
 
             _bus.Subscribe<GamePlayInitiatedEvent>(this, _ => ClearGameEndWinMessage());
             _bus.Subscribe<BankBalanceChangedEvent>(this, Handle);
@@ -205,14 +208,24 @@
             var machineSerial = _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty);
             if (log is not null && !bingoGame.GameEndWinClaimAccepted && bingoGame.Patterns.Any(p => p.IsGameEndWin))
             {
-                var strategy =
-                    _unitOfWork.Invoke(
-                        x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault()?.GameEndingPrize) ??
-                    GameEndWinStrategy.Unknown;
-                var result = await (_gewFactory.Create(strategy)?.Recover(log.TransactionId, token) ?? Task.FromResult(false));
-                bingoGame.GameEndWinClaimAccepted = result;
-                _centralProvider.UpdateOutcomeDescription(transaction.TransactionId, transaction.Descriptions);
-                Logger.Debug($"Recovered game end win result={result}");
+                try
+                {
+                    _gamePlayState.SetGameEndHold(true);
+                    var strategy =
+                        _unitOfWork.Invoke(
+                            x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault()
+                                ?.GameEndingPrize) ??
+                        GameEndWinStrategy.Unknown;
+                    var result = await (_gewFactory.Create(strategy)?.Recover(log.TransactionId, token) ??
+                                        Task.FromResult(false));
+                    bingoGame.GameEndWinClaimAccepted = result;
+                    _centralProvider.UpdateOutcomeDescription(transaction.TransactionId, transaction.Descriptions);
+                    Logger.Debug($"Recovered game end win result={result}");
+                }
+                finally
+                {
+                    _gamePlayState.SetGameEndHold(false);
+                }
             }
 
             await _commandFactory.Execute(new BingoGameEndedCommand(machineSerial, transaction, log), token);

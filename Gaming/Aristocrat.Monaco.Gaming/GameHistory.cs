@@ -381,19 +381,6 @@
             Logger.Debug($"[Game Results {CurrentLogIndex}] Game Win Bonus {win}");
         }
 
-        public void PresentationFinished()
-        {
-            if (_gameDiagnostics.IsActive)
-            {
-                return;
-            }
-
-            var log = _currentLog;
-            log.PlayState = PlayState.PresentationIdle;
-            log.LastUpdate = DateTime.UtcNow;
-            Persist(log);
-        }
-
         /// <inheritdoc />
         public void PayResults()
         {
