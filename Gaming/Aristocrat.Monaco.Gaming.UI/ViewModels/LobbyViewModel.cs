@@ -461,7 +461,7 @@
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
             LobbyClockViewModel = new LobbyClockViewModel();
 
-                MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
+            MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
             LoadGameInfo();
