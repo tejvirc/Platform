@@ -50,6 +50,9 @@ namespace Aristocrat.Monaco.Gaming.Tests
         private Action<GameEndedEvent> _gameEndedEvent;
         private Action<BankBalanceChangedEvent> _bankBalanceChangedEvent;
         private Action<CashOutButtonPressedEvent> _cashOutButtonPressedEvent;
+        private Action<GameInitializationCompletedEvent> _gameInitializationCompletedEvent;
+        private Action<TerminateGameProcessEvent> _terminateGameProcessEvent;
+        private Action<GameExitedNormalEvent> _gameExitedNormalEvent;
 
         [TestInitialize]
         public void TestInitialize()
@@ -75,6 +78,13 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 .Callback<object, Action<BankBalanceChangedEvent>>((p, s) => _bankBalanceChangedEvent = s);
             _eventBus.Setup(f => f.Subscribe(It.IsAny<LobbyClockService>(), It.IsAny<Action<CashOutButtonPressedEvent>>()))
                 .Callback<object, Action<CashOutButtonPressedEvent>>((p, s) => _cashOutButtonPressedEvent = s);
+            _eventBus.Setup(f => f.Subscribe(It.IsAny<LobbyClockService>(), It.IsAny<Action<GameInitializationCompletedEvent>>()))
+                .Callback<object, Action<GameInitializationCompletedEvent>>((p, s) => _gameInitializationCompletedEvent = s);
+            _eventBus.Setup(f => f.Subscribe(It.IsAny<LobbyClockService>(), It.IsAny<Action<TerminateGameProcessEvent>>()))
+                .Callback<object, Action<TerminateGameProcessEvent>>((p, s) => _terminateGameProcessEvent = s);
+            _eventBus.Setup(f => f.Subscribe(It.IsAny<LobbyClockService>(), It.IsAny<Action<GameExitedNormalEvent>>()))
+                .Callback<object, Action<GameExitedNormalEvent>>((p, s) => _gameExitedNormalEvent = s);
+
             Setup();
         }
 
@@ -136,7 +146,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
             _lobbyClockService.Initialize();
             _timeBetweenFlashesCountdown.Setup(x => x.ElapsedMilliseconds).Returns(1500);
-
+            _gameInitializationCompletedEvent.Invoke(new GameInitializationCompletedEvent());
             // LobbyClockService is now InSession
             _primaryGameStartedEventHandler.Invoke(new PrimaryGameStartedEvent(1, 2, "test", new GameHistoryLog(3)));
 
@@ -202,11 +212,12 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
             // LobbyClockService is now InSession
             _primaryGameStartedEventHandler.Invoke(new PrimaryGameStartedEvent(1, 2, "test", new GameHistoryLog(3)));
-
+            _gameInitializationCompletedEvent.Invoke(new GameInitializationCompletedEvent());
             _lobbyClockService.LobbyFlashCheckState(_lobbyClockService, new EventArgs() as ElapsedEventArgs);
             _lobbyStateManager.Setup(t => t.IsInState(LobbyState.Game)).Returns(true);
             _lobbyClockService.LobbyFlashCheckState(_lobbyClockService, new EventArgs() as ElapsedEventArgs);
             _lobbyClockService.LobbyFlashCheckState(_lobbyClockService, new EventArgs() as ElapsedEventArgs);
+            _gameExitedNormalEvent.Invoke(new GameExitedNormalEvent());
             _lobbyStateManager.Setup(t => t.IsInState(LobbyState.Game)).Returns(false);
             _lobbyStateManager.Setup(t => t.IsInState(LobbyState.Chooser)).Returns(true);
             _lobbyClockService.LobbyFlashCheckState(_lobbyClockService, new EventArgs() as ElapsedEventArgs);
@@ -275,6 +286,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                                       _timeBetweenFlashesCountdown.Object);
 
             _lobbyClockService.Initialize();
+            _gameInitializationCompletedEvent.Invoke(new GameInitializationCompletedEvent());
             _timeBetweenFlashesCountdown.Setup(x => x.ElapsedMilliseconds).Returns(1500);
             _primaryGameStartedEventHandler.Invoke(new PrimaryGameStartedEvent(1, 2, "test", new GameHistoryLog(3)));
             _lobbyClockService.LobbyFlashCheckState(_lobbyClockService, new EventArgs() as ElapsedEventArgs);
@@ -295,7 +307,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
         {
             // Set Lobby State
             _lobbyStateManager.Setup(t => t.IsInState(LobbyState.Chooser)).Returns(true);
-
+            
             _sessionFlashesCountdown.Setup(t => t.Reset()).Verifiable();
             _insufficientCreditCountdown.Setup(t => t.Reset()).Verifiable();
             _insufficientCreditCountdown.Setup(t => t.Start()).Verifiable();
@@ -321,13 +333,17 @@ namespace Aristocrat.Monaco.Gaming.Tests
             _sessionFlashesCountdown.Setup(t => t.IsRunning).Returns(true);
             _timeBetweenFlashesCountdown.Setup(x => x.ElapsedMilliseconds).Returns(1500);
             CreateInsufficientFundsForNextGame();
+
             _primaryGameStartedEventHandler.Invoke(new PrimaryGameStartedEvent(1, 2, "test", new GameHistoryLog(3)));
             _bankBalanceChangedEvent.Invoke(new BankBalanceChangedEvent(1L, 2L, new Guid()));
 
             _insufficientCreditCountdown.Setup(x => x.ElapsedMilliseconds).Returns(NoCreditIntervalInMilliseconds + 1);
             _lobbyClockService.LobbyFlashCheckState(_lobbyClockService, new EventArgs() as ElapsedEventArgs);
 
-            _insufficientCreditCountdown.Verify(t => t.Start(), Times.Once);
+            // Has the correct Timer started
+            _insufficientCreditCountdown.Verify(t => t.Restart(), Times.Once);
+
+            // Are the other stop watches Reset
             _timeSinceLastGameCountdown.Verify(t => t.Reset(), Times.Exactly(2));
             _timeBetweenFlashesCountdown.Verify(t => t.Reset(), Times.Once);
             _sessionFlashesCountdown.Verify(t => t.Reset(), Times.Once);
@@ -356,60 +372,3 @@ namespace Aristocrat.Monaco.Gaming.Tests
         }
     }
 }
-/*
-    [TestMethod]
-    public void PrimaryGameStartedEventHandlerTest()
-    {
-        var systemDisableManager = new Mock<ISystemDisableManager>();
-        var bank = new Mock<IBank>();
-        var gameProvider = new Mock<IGameProvider>();
-        var lobbyStateManager = new Mock<ILobbyStateManager>();
-        var runtime = new Mock<IRuntime>();
-        runtime.Setup(t => t.OnSessionTickFlashClock()).Verifiable();
-        lobbyStateManager.Setup(t => t.CurrentState).Returns(LobbyState.Game);
-        _lobbyClockService =
-            new LobbyClockService(_eventBus.Object,
-                                  _propertiesManager.Object,
-                                  systemDisableManager.Object,
-                                  bank.Object, gameProvider.Object,
-                                  lobbyStateManager.Object,
-                                  runtime.Object);
-        _lobbyClockService.Initialize();
-        Task.Run(() => _primaryGameStartedEventHandler.Invoke(new PrimaryGameStartedEvent(1, 2, "test", new GameHistoryLog(3))));
-        Thread.Sleep(3200);
-        lobbyStateManager.Setup(t => t.CurrentState).Returns(LobbyState.GameLoading);
-        Thread.Sleep(1500);
-        lobbyStateManager.Setup(t => t.CurrentState).Returns(LobbyState.Chooser);
-        Thread.Sleep(5000);
-        runtime.Verify(t => t.OnSessionTickFlashClock(), Times.Exactly(3));
-        _eventBus.Verify(t => t.Publish(It.IsAny<LobbyClockFlashChangedEvent>()), Times.Exactly(2));
-        //_eventBus.Verify(t => t.Publish(It.IsAny<LobbyClockFlashChangedEvent>()), Times.Exactly(5));
-    }
-    [TestMethod]
-    public void PrimaryGameStartedEventCallbackTest()
-    {
-        var systemDisableManager = new Mock<ISystemDisableManager>();
-        var bank = new Mock<IBank>();
-        var gameProvider = new Mock<IGameProvider>();
-        var runtime = new Mock<IRuntime>();
-        runtime.Setup(t => t.OnSessionTickFlashClock()).Verifiable();
-
-        _lobbyClockService =
-            new LobbyClockService(_eventBus.Object,
-                                  _propertiesManager.Object,
-                                  systemDisableManager.Object,
-                                  bank.Object, gameProvider.Object,
-                                  _lobbyStateManager.Object,
-                                  runtime.Object);
-        _lobbyClockService.Initialize();
-        var value = Task.Run(() => _primaryGameStartedEventHandler.Invoke(new PrimaryGameStartedEvent(1, 2, "test", new GameHistoryLog(3))));
-        //lobbyStateManager.SetupSequence(t => t.CurrentState).Returns(queue.Dequeue()).Verifiable();
-        Task.WaitAll(value);
-        _lobbyStateManager.Verify(t => t.CurrentState, Times.Exactly(13));
-        //runtime.Verify(t => t.OnSessionTickFlashClock(), Times.Exactly(4));
-        _eventBus.Verify(t => t.Publish(It.IsAny<LobbyClockFlashChangedEvent>()), Times.Exactly(5));
-        //_eventBus.Verify(t => t.Publish(It.IsAny<LobbyClockFlashChangedEvent>()), Times.Exactly(1));
-        //_eventBus.Verify(t => t.Publish(It.IsAny<LobbyClockFlashChangedEvent>()), Times.Exactly(5));
-    }
-}
-}*/
