@@ -46,10 +46,10 @@
                        SelectedIndex="{Binding SelectedReelLightColorIndex}"
                        Margin="10 10 0 0" Width="120" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-            <controls:ToggleSwitchButton Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            <controls:ToggleSwitch Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                          IsEnabled="{Binding Initialized}"
-                                         Margin="0 10 0 0" 
-                                         IsChecked="{Binding TestActive, Mode=TwoWay}"/>
+                                         Margin="0 10 0 0"
+                                         IsOn ="{Binding TestActive, Mode=TwoWay}"/>
 
         </Grid>
     </StackPanel>
