@@ -39,7 +39,7 @@
         }
 
         /// <summary>
-        /// Display lobby clock or not
+        /// Display lobby clock property in StandardUpiTemplate.xaml
         /// </summary>
         public bool IsVisible
         {
@@ -66,6 +66,7 @@
 
         private void Handler(LobbyClockFlashChangedEvent @event)
         {
+            // If this is not run on UIthread it will not display sometimes.
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
