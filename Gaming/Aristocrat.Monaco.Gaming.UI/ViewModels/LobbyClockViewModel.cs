@@ -66,6 +66,7 @@
 
         private void Handler(LobbyClockFlashChangedEvent @event)
         {
+            // Trigger Flash Animation
             // If this is not run on UIthread it will not display sometimes.
             MvvmHelper.ExecuteOnUI(
                 () =>
