@@ -280,6 +280,7 @@
                     (long)request.Denomination,
                     (long)request.BetAmount,
                     (int)details.BetLinePreset,
+                    (int)request.WagerCategoryId,
                     request.Data.ToByteArray(),
                     outcomeRequest);
 

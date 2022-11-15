@@ -153,7 +153,7 @@
                     denom,
                     betAmount,
                     (int)details.BetLinePreset,
-                    wagerCategoryId,
+                    (int)wagerCategoryId,
                     data,
                     outcomeRequest);
 

@@ -37,6 +37,7 @@
             _gameDiagnostics = new Mock<IGameDiagnostics>();
             _gameHistory = new Mock<IGameHistory>();
             _progressiveGameProvider = new Mock<IProgressiveGameProvider>();
+            _gameStartConditionProvider = new Mock<IGameStartConditionProvider>();
             _underTest = new BeginGameRoundAsyncCommandHandler(
                 _runtime.Object,
                 _recovery.Object,
@@ -57,7 +58,7 @@
                 1,
                 1,
                 1,
-                wagerCategoryId,
+                (int)wagerCategoryId,
                 new byte[] { 1 },
                 null
             );

@@ -20,16 +20,16 @@
             long denom,
             long wager,
             int betLinePresetId,
-            uint wagerCategoryId,
+            int wagerCategoryId,
             byte[] data,
             IOutcomeRequest request)
         {
             Denom = denom;
             Wager = wager;
             BetLinePresetId = betLinePresetId;
+            WagerCategoryId = wagerCategoryId;
             Data = data;
             Request = request;
-            WagerCategoryId = wagerCategoryId;
         }
 
         /// <summary>
@@ -48,6 +48,11 @@
         public int BetLinePresetId { get; }
 
         /// <summary>
+        ///     Gets the wager category id
+        /// </summary>
+        public int WagerCategoryId { get; }
+
+        /// <summary>
         ///     Gets the recovery blob associated with beginning of the game round
         /// </summary>
         public byte[] Data { get; }
@@ -56,10 +61,5 @@
         ///     Gets the outcome request
         /// </summary>
         public IOutcomeRequest Request { get; }
-
-        /// <summary>
-        ///     Gets the wager category id
-        /// </summary>
-        public uint WagerCategoryId { get; }
     }
 }
