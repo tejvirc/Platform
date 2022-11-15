@@ -68,6 +68,7 @@
 
         private readonly decimal _denomMultiplier;
 
+        private bool _gameLoaded;
         private bool _isDisposed;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -181,7 +182,7 @@
                 return;
             }
 
-            if (_lobbyStateManager.IsInState(LobbyState.Game))
+            if (_lobbyStateManager.IsInState(LobbyState.Game) && _gameLoaded)
             {
                 _runtime.OnSessionTickFlashClock();
                 _timeBetweenFlashesCountdown.Restart();
@@ -189,7 +190,7 @@
                 return;
             }
 
-            if (_lobbyStateManager.IsInState(LobbyState.Chooser))
+            if (_lobbyStateManager.IsInState(LobbyState.Chooser) && !_gameLoaded)
             {
                 _eventBus.Publish(new LobbyClockFlashChangedEvent());
                 _timeBetweenFlashesCountdown.Restart();
@@ -285,18 +286,21 @@
         private void HandleEvent(GameInitializationCompletedEvent evt)
         {
             _timeBetweenFlashesCountdown.Restart();
+            _gameLoaded = true;
             AddExtraFlash();
         }
 
         private void HandleEvent(TerminateGameProcessEvent evt)
         {
             _timeBetweenFlashesCountdown.Restart();
+            _gameLoaded = false;
             AddExtraFlash();
         }
 
         private void HandleEvent(GameExitedNormalEvent evt)
         {
             _timeBetweenFlashesCountdown.Restart();
+            _gameLoaded = false;
             AddExtraFlash();
         }
 
