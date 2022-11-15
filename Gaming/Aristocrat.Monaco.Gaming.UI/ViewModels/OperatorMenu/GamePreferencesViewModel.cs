@@ -581,7 +581,7 @@
             get => _kenoShowPlayerSpeedButton;
             set
             {
-                if (_kenoShowPlayerSpeedButton == value)
+                if (_kenoShowPlayerSpeedButton == value && _gameCategory[GameType.Keno].ShowPlayerSpeedButton == value)
                 {
                     return;
                 }
@@ -697,7 +697,7 @@
             get => _pokerShowPlayerSpeedButton;
             set
             {
-                if (_pokerShowPlayerSpeedButton == value)
+                if (_pokerShowPlayerSpeedButton == value && _gameCategory[GameType.Poker].ShowPlayerSpeedButton == value)
                 {
                     return;
                 }
