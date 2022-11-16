@@ -382,20 +382,12 @@
 
                 foreach (var entity in _packageManager.TransferEntityList)
                 {
-                    if (entity.State is not (TransferState.InProgress or TransferState.Pending
-                            or TransferState.Completed) ||
-                        _packageManager.PackageTaskAbortTokens.ContainsKey(entity.PackageId))
+                    if ((entity.State == TransferState.InProgress || entity.State == TransferState.Pending)
+                        && !_packageManager.PackageTaskAbortTokens.ContainsKey(entity.PackageId))
                     {
-                        continue;
+                        _installerService.DeleteSoftwarePackage(entity.PackageId);
+                        _downloadProcessor.Post(entity);
                     }
-
-                    _installerService.DeleteSoftwarePackage(entity.PackageId);
-                    if (entity.State == TransferState.Completed)
-                    {
-                        entity.State = TransferState.Pending;
-                        _packageManager.UpdateTransferEntity(entity);
-                    }
-                    _downloadProcessor.Post(entity);
                 }
             }
         }
