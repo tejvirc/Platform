@@ -789,7 +789,7 @@
                                     Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
                                     HorizontalAlignment="Center"
                                     FontFamily="Impact" FontWeight="Bold"
-                                    StrokeThickness="2.0"
+                                    StrokeThickness="0.1"
                                     Text="{Binding DenomText}">
                                     <controls:TextPath.FontSize>
                                         <MultiBinding Converter="{StaticResource DenomIconFontSizeConv}">
