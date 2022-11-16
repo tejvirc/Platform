@@ -6,7 +6,7 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>

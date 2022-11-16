@@ -6,7 +6,7 @@
     <AssemblyTitle>Aristocrat.Monaco.Application.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
     <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>
   </PropertyGroup>
   <ItemGroup>

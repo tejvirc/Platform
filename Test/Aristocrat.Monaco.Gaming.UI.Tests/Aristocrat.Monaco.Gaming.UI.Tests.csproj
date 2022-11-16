@@ -5,7 +5,7 @@
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <AssemblyTitle>Aristocrat.Monaco.Gaming.UI.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
