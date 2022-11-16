@@ -339,7 +339,7 @@
             return from c in CultureInfo.GetCultures(CultureTypes.AllCultures)
                    join d in directory.EnumerateDirectories() on c.IetfLanguageTag equals d.Name
                    where d.EnumerateFiles(fileName).Any()
-                   select c;
+                   select (CultureInfo)c.Clone();
         }
 
         private object GetResource(string key, DependencyObject target, CultureInfo culture)
