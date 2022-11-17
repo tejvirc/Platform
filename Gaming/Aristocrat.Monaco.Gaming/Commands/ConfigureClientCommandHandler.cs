@@ -8,6 +8,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Cabinet.Contracts;
     using Common;
     using Consumers;
@@ -113,13 +114,22 @@
                         _ => "play"
                     });
 
+            //TODO, change to DI
+            var localization = ServiceManager.GetInstance().GetService<ILocalization>();
+            var playerCultureProvider = localization.GetProvider(CultureFor.Player) as
+                                         IPlayerCultureProvider;
+            string enabledLanguages = string.Join(",", playerCultureProvider?.AvailableCultures.Select(c => c.Name) ?? new string[] {});
+            var defaultLanguage = _properties.GetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ApplicationConstants.DefaultCultureCode);
+
             var parameters = new Dictionary<string, string>
             {
                 { "/Runtime/Variation/SelectedID", currentGame.VariationId },
                 { "/Runtime/Denomination", denomination.Value.MillicentsToCents().ToString() },
                 { "/Runtime/ActiveDenominations", string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToCents())) },
                 { "/Runtime/Flags&RequireGameStartPermission", "true" },
-                { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us") },
+                { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, ApplicationConstants.DefaultCultureCode) },
+                { "/Runtime/Localization/EnabledLanguages", enabledLanguages },
+                { "/Runtime/Localization/DefaultLanguage", defaultLanguage as string },
                 { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencySymbol },
                 { "/Runtime/Localization/Currency&minorSymbol", CurrencyExtensions.MinorUnitSymbol },
                 { "/Runtime/Localization/Currency&positivePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyPositivePattern.ToString() },

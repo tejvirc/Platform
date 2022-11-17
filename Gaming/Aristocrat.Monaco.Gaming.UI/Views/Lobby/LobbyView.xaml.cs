@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Linq;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
@@ -60,8 +61,6 @@
         private LayoutOverlayWindow _mediaDisplayWindow;
         private LayoutOverlayWindow _topMediaDisplayWindow;
         private LayoutOverlayWindow _topperMediaDisplayWindow;
-
-        private int _activeSkinIndex;
 
         private VirtualButtonDeckOverlayView _vbdOverlay;
         private ButtonDeckSimulatorView _buttonDeckSimulator;
@@ -735,7 +734,7 @@
 
             CreateAndShowInfoWindow();
 
-            ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected);
+            ChangeLanguageSkin(ViewModel.LocaleCodeIndex);
 
             ViewModel.OnLoaded();
 
@@ -951,21 +950,35 @@
 
         private void OnLanguageChanged(object sender, EventArgs e)
         {
-            Dispatcher?.Invoke(() => ChangeLanguageSkin(ViewModel.IsPrimaryLanguageSelected));
+            Dispatcher?.Invoke(() => ChangeLanguageSkin(ViewModel.LocaleCodeIndex));
         }
 
-        private void ChangeLanguageSkin(bool primaryLanguageSkin)
+        private void ChangeLanguageSkin(int localeCodeIndex)
         {
-            _activeSkinIndex = primaryLanguageSkin ? 0 : 1;
+            var resource = _skins.ElementAtOrDefault(localeCodeIndex);
+            if (resource == null)
+            {
+                return;
+            }
 
+            if (localeCodeIndex != 0)
+            {
+                // The first skin resource is the default, which contains all required resources
+                var defaultResource = _skins[0];
+                foreach (var resKey in defaultResource.Keys)
+                {
+                    if (!resource.Contains(resKey))
+                    {
+                        resource.Add(resKey, defaultResource[resKey]);
+                    }
+                }
+            }
             var tmpResource = new ResourceDictionary();
-            tmpResource.MergedDictionaries.Add(_skins[_activeSkinIndex]);
+            tmpResource.MergedDictionaries.Add(resource);
             foreach (var wnd in _lobbyWindows)
             {
                 wnd.Resources = tmpResource;
             }
-
-            // Resources.Culture = new CultureInfo(ViewModel.ActiveLocaleCode);
         }
 
         private void LobbyRoot_OnMouseDown(object sender, MouseButtonEventArgs e)

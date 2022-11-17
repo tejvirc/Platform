@@ -60,6 +60,7 @@
         Running = 12,
         Normal = 12,
         Reconfigure = 13,
+        LanguageUpdate = 14,
         Shutdown = 100,
         Restart = 101,
         Abort = 1000,

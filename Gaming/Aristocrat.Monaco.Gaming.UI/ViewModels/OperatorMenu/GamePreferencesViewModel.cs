@@ -37,6 +37,7 @@
         private readonly GameType _currentSelectedGameType;
         private readonly IDialogService _dialogService;
         private readonly IAudio _audio;
+        private readonly ILocalization _localization;
         private readonly IPlayerCultureProvider _playerCultureProvider;
         private readonly IGameProvider _gameProvider;
 
@@ -96,10 +97,10 @@
                 ?.GetInstance<ILobbyStateManager>();
             IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
 
-            _playerCultureProvider = //containerService.Container?.GetInstance<IPlayerCultureProvider>() ??
-                ServiceManager.GetInstance().GetService<ILocalization>()?.GetProvider(CultureFor.Player) as
-                    IPlayerCultureProvider ??
-                throw new ArgumentNullException(nameof(_playerCultureProvider));
+            _localization = ServiceManager.GetInstance().GetService<ILocalization>();
+            _playerCultureProvider = _localization.GetProvider(CultureFor.Player) as
+                                         IPlayerCultureProvider ??
+                                     throw new ArgumentNullException(nameof(_playerCultureProvider));
             _gameProvider = containerService.Container?.GetInstance<IGameProvider>() ??
                             throw new ArgumentNullException(nameof(_gameProvider));
 
@@ -1182,6 +1183,7 @@
             var languageOptions = _playerCultureProvider.LanguageOptions.ToList();
             var mandatoryLanguages = (from l in languageOptions where l.IsMandatory select l.Locale).ToArray();
 
+            // get all the languages configured in the jurisdiction and installed games
             var gameLocalesCollection = (from g in _gameProvider.GetAllGames() where DoesGameSupportAllMandatoryLanguages(mandatoryLanguages, g.LocaleGraphics?.Keys.AsEnumerable()) select g.LocaleGraphics.Keys.AsEnumerable()).ToList();
             if (gameLocalesCollection.Any())
             {
@@ -1189,12 +1191,13 @@
                 gameLocalesCollection.Add(config.LocaleCodes);
             }
 
-            var gameLocales = LocaleHelper.GetCommonLocales(gameLocalesCollection);
+            var supportedLangs = LocaleHelper.GetAllSupportedLocales(gameLocalesCollection, _localization, Logger);
+            Logger.Debug($"Supported languages by platform: {string.Join(",", supportedLangs)}");
 
-            var staleLanguages = (from l in languageOptions where !l.IsMandatory && !LocaleHelper.Includes(gameLocales, l.Locale) select l).ToList();
+            var staleLanguages = (from l in languageOptions where !l.IsMandatory && !LocaleHelper.Includes(supportedLangs, l.Locale) select l).ToList();
             staleLanguages.ForEach(l => languageOptions.Remove(l));
 
-            var gameLanguageOptions = (from l in gameLocales
+            var gameLanguageOptions = (from l in supportedLangs
                                        where !languageOptions.Any(s => string.Equals(s.Locale, l, StringComparison.CurrentCultureIgnoreCase))
                                        select new LanguageOption { Locale = l, Enabled = false, IsMandatory = false }).ToArray();
 
@@ -1266,11 +1269,7 @@
                     defaultLanguage.IsDefault = true;
                 }
 
-                switch (e.PropertyName)
-                {
-                    case nameof(option.IsDefault):
-                        break;
-                }
+                
                 if (e.PropertyName == nameof(option.IsDefault) && option.IsDefault)
                 {
                     _playerCultureProvider.DefaultCulture = option.CultureInfo;

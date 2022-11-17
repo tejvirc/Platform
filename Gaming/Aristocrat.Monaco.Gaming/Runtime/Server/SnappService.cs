@@ -241,6 +241,7 @@
             return EmptyResult;
         }
 
+
         public override BeginGameRoundResponse BeginGameRound(BeginGameRoundRequest request)
         {
             Logger.Debug($"BeginGameRound({request})");
@@ -647,6 +648,13 @@
                 (int)request.BetLinePresetId);
 
             _handlerFactory.Create<UpdateBetOptions>().Handle(betOptions);
+
+            return EmptyResult;
+        }
+
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            _handlerFactory.Create<UpdateLanguage>().Handle(new UpdateLanguage(request.Language));
 
             return EmptyResult;
         }

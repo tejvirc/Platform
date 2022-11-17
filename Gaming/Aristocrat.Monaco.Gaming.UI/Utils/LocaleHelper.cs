@@ -2,7 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
+    using Application.Contracts.Localization;
+    using log4net;
 
     internal static class LocaleHelper
     {
@@ -34,6 +37,21 @@
             }
 
             return Enumerable.Empty<string>();
+        }
+
+        public static List<string> GetAllSupportedLocales(IEnumerable<IEnumerable<string>> collections, ILocalization localization, ILog logger)
+        {
+            if (collections == null)
+            {
+                return new List<string>();
+            }
+
+            var languages = collections.SelectMany(x => x).Distinct().ToArray();
+            logger.Debug($"Available languages in jurisdiction and installed games: {string.Join(",", languages)}");
+
+            var supportedLangs = languages.Where(l => localization.IsCultureSupported(new CultureInfo(l)));
+            
+            return supportedLangs.ToList();
         }
     }
 }

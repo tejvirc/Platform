@@ -355,6 +355,8 @@
         /// </summary>
         public const string SelectedLocaleCode = "Cabinet.SelectedLocaleCode";
 
+
+
         /// <summary>
         ///     Culture code for French-Canada
         /// </summary>

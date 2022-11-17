@@ -3,14 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:uicommon="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-             xmlns:controls1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
-             xmlns:common="http://monaco.aristocrat.com/common"
+             xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -26,173 +20,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
 
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
+                <ResourceDictionary Source="MultiLanguageUpiTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <converters:IntToBoolConverter x:Key="IntToBool"/>
-            <converters:MarginConverter x:Key="MarginConverter"/>
-            <common:BitmapToImageSourceConverter x:Key="BitmapToImageConverter" />
-
-            <system:Int32 x:Key="AllDenom">-1</system:Int32>
-            <system:Int32 x:Key="DenomA">1</system:Int32>
-            <system:Int32 x:Key="DenomB">5</system:Int32>
-            <system:Int32 x:Key="DenomC">25</system:Int32>
+            <lobby:MultiLanguageUpiTemplateSelector x:Key="MultiLanguageUpiTemplateSelector" />
 
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="UpiGrid" Width="1881">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".102*"/>
-            <ColumnDefinition Width=".142*"/>
-            <ColumnDefinition Width=".168*"/>
-            <ColumnDefinition Width=".419*"/>
-            <ColumnDefinition Width=".168*"/>
-        </Grid.ColumnDefinitions>
-        <Image Grid.ColumnSpan="5" Grid.Column="0" Source="{DynamicResource UpiBackground}"/>
-
-        <Label Grid.Column="0" 
-               Content="{Binding ClockTimer.CurrentTime}" 
-               Margin="0 30 0 0" 
-               FontSize="28" 
-               Foreground="Gold" 
-               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Image Grid.Column="1" 
-               Source="{DynamicResource BankImage}" Stretch="None" 
-               Margin="{Binding ActiveLocaleCode, Converter={StaticResource MarginConverter}}" 
-               HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" 
-               Content="{Binding FormattedCredits}" 
-               Margin="0 10 0 0" 
-               FontSize="44" FontFamily="Impact" 
-               Foreground="White" 
-               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <ContentControl x:Name="CashOutWrapper" 
-                        Grid.Column="2" 
-                        controls1:MouseEvents.MouseDown="{Binding CashOutWrapperMouseDownCommand}">
-            <Button x:Name="btnCashOut"
-                    Margin="38 0 24 0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsEnabled="{Binding Path=CashOutEnabled}"
-                    Command="{Binding Path=CashOutCommand}"
-                    Style="{StaticResource stlFlatButton}">
-                <!-- Ex: Jurisdiction resources
-                <Image>
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Setter Property="Source" Value="{lex:BLoc Key=CashOutNormal, Converter={StaticResource BitmapToImageConverter}}" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=btnCashOut, Path=IsEnabled}" Value="False">
-                                    <Setter Property="Source" Value="{lex:BLoc Key=CashOutDisabled, Converter={StaticResource BitmapToImageConverter}}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>-->
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Image Name="cashOutImage" Source="{DynamicResource CashOutNormal}"/>
-                        <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=btnCashOut, Path=IsEnabled}" Value="False">
-                                <Setter TargetName="cashOutImage" Property="Source" Value="{DynamicResource CashOutDisabled}" />
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </ContentControl>
-
-        <StackPanel x:Name="DenomPanel" 
-                    Grid.Column="3" 
-                    Orientation="Horizontal" 
-                    Margin="15" 
-                    HorizontalAlignment="Center" 
-                    controls1:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
-                         Margin="0 0 12 0" 
-                         Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource AllDenom}}">
-                <RadioButton.Template>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="AllDenomImage" Source="{DynamicResource AllDenomOff}"/>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="AllDenomImage" Property="Source" Value="{DynamicResource AllDenomOn}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </RadioButton.Template>
-            </RadioButton>
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
-                         Margin="0 0 12 0"
-                         Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource DenomA}}">
-                <RadioButton.Template>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="DenomAImage" Source="{DynamicResource Denom1CentOff}"/>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="DenomAImage" Property="Source" Value="{DynamicResource Denom1CentOn}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </RadioButton.Template>
-            </RadioButton>
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
-                         Command="{Binding Path=DenomFilterPressedCommand}"
-                         Margin="0 0 12 0" 
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource DenomB}}">
-                <RadioButton.Template>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="DenomBImage" Source="{DynamicResource Denom5CentOff}"/>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="DenomBImage" Property="Source" Value="{DynamicResource Denom5CentOn}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </RadioButton.Template>
-            </RadioButton>
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
-                         Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource DenomC}}">
-                <RadioButton.Template>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="DenomCImage" Source="{DynamicResource Denom25CentOff}"/>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="DenomCImage" Property="Source" Value="{DynamicResource Denom25CentOn}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </RadioButton.Template>
-            </RadioButton>
-        </StackPanel>
-
-        <ToggleButton x:Name="LanguageButton"
-                      Style="{StaticResource stlFlatToggleButton}"
-                      IsChecked="{Binding IsPrimaryLanguageSelected}"
-                      controls1:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}"
-                      controls1:MouseEvents.MouseDown="{Binding UserInteractionCommand}"
-                      Grid.Column="4"
-                      Margin="24 0 38 0"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center">
-            <ToggleButton.Template>
-                <ControlTemplate TargetType="ToggleButton">
-                    <!-- Show language not selected.  So if, for example, we are in french, display English text.-->
-                    <Image Name="LanguageImage" uicommon:ImageHelper.SourceResourceKey="{Binding LanguageButtonResourceKey}"/>
-                </ControlTemplate>
-            </ToggleButton.Template>
-        </ToggleButton>
+    <Grid>
+        <ContentControl 
+            Content="{Binding}"
+            ContentTemplateSelector="{StaticResource MultiLanguageUpiTemplateSelector}"  />
     </Grid>
 </UserControl>
