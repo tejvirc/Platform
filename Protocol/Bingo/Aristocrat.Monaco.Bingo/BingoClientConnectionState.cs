@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -26,7 +27,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
-        private readonly IClient _client;
+        private readonly IEnumerable<IClient> _clients;
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly ICommandService _commandService;
         private readonly IPropertiesManager _propertiesManager;
@@ -47,14 +48,14 @@
 
         public BingoClientConnectionState(
             IEventBus eventBus,
-            IClient client,
+            IEnumerable<IClient> clients,
             ICommandHandlerFactory commandFactory,
             ICommandService commandService,
             IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisable)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _client = client ?? throw new ArgumentNullException(nameof(client));
+            _clients = clients ?? throw new ArgumentNullException(nameof(clients));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
@@ -98,9 +99,12 @@
             {
                 _eventBus.UnsubscribeAll(this);
                 _registrationState.Deactivate();
-                _client.Disconnected -= OnClientDisconnected;
-                _client.Connected -= OnClientConnected;
-                _client.MessageReceived -= OnMessageReceived;
+                foreach(var client in _clients)
+                {
+                    client.Disconnected -= OnClientDisconnected;
+                    client.Connected -= OnClientConnected;
+                    client.MessageReceived -= OnMessageReceived;
+                }
                 _timeoutTimer.Elapsed -= TimeoutOccurred;
                 _timeoutTimer.Dispose();
                 var tokenSource = _tokenSource;
@@ -243,7 +247,11 @@
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
             _tokenSource = null;
-            await _client.Stop();
+
+            foreach (var client in _clients)
+            {
+                await client.Stop();
+            }
         }
 
         private void OnRegisteringExit(StateMachine<State, Trigger>.Transition t)
@@ -374,15 +382,21 @@
         private async Task ConnectClient(CancellationToken token)
         {
             SetupFirewallRule();
-            while (!await _client.Start() && !token.IsCancellationRequested)
+            foreach (var client in _clients)
             {
+                while (!await client.Start() && !token.IsCancellationRequested)
+                {
+                }
             }
         }
 
         private void SetupFirewallRule()
         {
             const string firewallRuleName = "Platform.Bingo.Server";
-            Firewall.AddRule(firewallRuleName, (ushort)_client.Configuration.Address.Port, Firewall.Direction.Out);
+            foreach (var client in _clients)
+            {
+                Firewall.AddRule(firewallRuleName, (ushort)client.Configuration.Address.Port, Firewall.Direction.Out);
+            }
         }
 
         private void RegisterEventListeners()
@@ -394,9 +408,12 @@
                     string.Equals(ApplicationConstants.MachineId, evt.PropertyName) ||
                     string.Equals(ApplicationConstants.SerialNumber, evt.PropertyName));
             _eventBus.Subscribe<ForceReconnectionEvent>(this, HandleRestartingEvent);
-            _client.Connected += OnClientConnected;
-            _client.Disconnected += OnClientDisconnected;
-            _client.MessageReceived += OnMessageReceived;
+            foreach (var client in _clients)
+            {
+                client.Connected += OnClientConnected;
+                client.Disconnected += OnClientDisconnected;
+                client.MessageReceived += OnMessageReceived;
+            }
         }
 
         private async Task HandleRestartingEvent<TEvent>(TEvent evt, CancellationToken token)

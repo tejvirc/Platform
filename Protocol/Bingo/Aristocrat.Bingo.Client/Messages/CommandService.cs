@@ -12,7 +12,7 @@
     using ServerApiGateway;
 
     public class CommandService :
-        BaseClientCommunicationService,
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
         ICommandService,
         IDisposable
     {

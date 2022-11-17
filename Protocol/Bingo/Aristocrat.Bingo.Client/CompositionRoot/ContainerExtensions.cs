@@ -41,10 +41,13 @@
         private static Container RegisterClient(this Container container)
         {
             var clientRegistration = Lifestyle.Singleton.CreateRegistration<BingoClient>(container);
-            container.AddRegistration<IClient>(clientRegistration);
-            container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
-            container.RegisterSingleton<BingoClientInterceptor>();
+            var progressiveClientRegistration = Lifestyle.Singleton.CreateRegistration<ProgressiveClient>(container);
+            container.Collection.Register<IClient>(new Registration[] { clientRegistration, progressiveClientRegistration });
 
+            container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
+            container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
+
+            container.RegisterSingleton<BingoClientInterceptor>();
             container.RegisterSingleton<IRegistrationService, RegistrationService>();
             container.RegisterSingleton<IAuthorizationProvider, BingoAuthorizationProvider>();
 
@@ -56,6 +59,9 @@
 
             var configuration = Lifestyle.Singleton.CreateRegistration<ConfigurationService>(container);
             container.AddRegistration<IConfigurationService>(configuration);
+
+            var progressive = Lifestyle.Singleton.CreateRegistration<ProgressiveService>(container);
+            container.AddRegistration<IProgressiveService>(progressive);
 
             return container;
         }

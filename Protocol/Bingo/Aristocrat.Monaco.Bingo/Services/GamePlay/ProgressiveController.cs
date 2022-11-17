@@ -7,8 +7,8 @@
     using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Commands;
     using Common;
-    using Common.Data.Models;
     using Common.Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
@@ -134,8 +134,6 @@
         /// <inheritdoc />
         public void Configure()
         {
-            Logger.Debug("SGL ProgressiveController Configure");
-
             _progressives.Clear();
             _activeProgressiveInfos.Clear();
             //if (_pendingAwards == null)
@@ -150,8 +148,6 @@
 
             //    CheckProgressiveRecovery();
             //}
-
-            Logger.Debug($"SGL ViewProgressiveLevels count = {_protocolLinkedProgressiveAdapter.ViewProgressiveLevels().Count()}");
 
             var pools =
                 (from level in _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
@@ -168,8 +164,6 @@
                     into pool
                     orderby pool.Key.GameId, pool.Key.PackName, pool.Key.ProgId, pool.Key.LevelId
                     select pool).ToArray();
-
-            Logger.Debug($"SGL progressive pools count = {pools.Length}");
 
             foreach (var pool in pools)
             {
@@ -209,15 +203,11 @@
 
                 _progressives[valueAttributeName].Add(progressive);
 
-                Logger.Debug("SGL calling UpdateLinkedProgressiveLevels");
-
                 var linkedLevel = UpdateLinkedProgressiveLevels(
                     pool.Key.ProgId,
                     pool.Key.LevelId,
                     resetValue.MillicentsToCents(),
                     true);
-
-                Logger.Debug("SGL calling _protocolLinkedProgressiveAdapter.AssignLevelsToGame");
 
                 _protocolLinkedProgressiveAdapter.AssignLevelsToGame(
                     pool.Select(
@@ -362,7 +352,6 @@
 
         private void Handle(ProtocolsInitializedEvent evt)
         {
-            Logger.Debug("SGL Handle ProtocolsInitializedEvent, configuring...");
             Configure();
         }
 
