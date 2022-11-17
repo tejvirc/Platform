@@ -273,7 +273,7 @@
                 nonCashAmount = 0L;
             }
 
-            var validator = _validationProvider.GetHandPayValidator();
+            var validator = _validationProvider.GetHandPayValidator(true);
             if (validator == null)
             {
                 Logger.Info($"No validator or validation is currently not allowed - {transactionId}");
