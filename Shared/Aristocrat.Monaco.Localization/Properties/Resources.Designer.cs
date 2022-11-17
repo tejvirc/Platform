@@ -23159,6 +23159,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Pending Acceptance.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string PendingAcceptedText {
+			get {
+				return ResourceManager.GetString("PendingAcceptedText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Pending Cash In:.
 		/// </summary>
         /// <remarks>
@@ -57568,6 +57580,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Pending Acceptance.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string PendingAcceptedText {
+			get {
+				return "PendingAcceptedText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Pending Cash In:.
 		/// </summary>
         /// <remarks>
@@ -82043,6 +82067,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		Pending,
+		/// <summary>
+		///   Looks up a localized string similar to Pending Acceptance.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		PendingAcceptedText,
 		/// <summary>
 		///   Looks up a localized string similar to Pending Cash In:.
 		/// </summary>
