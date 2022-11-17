@@ -71,4 +71,23 @@
       <Field DataType="UnboundedString" FieldName="Descriptions" />
     </Fields>
   </BlockFormat>
+  <BlockFormat version="5" name="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int32" FieldName="OutcomeState" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="Denomination" />
+      <Field DataType="String" Size="32" FieldName="WagerCategory" />
+      <Field DataType="String" Size="32" FieldName="TemplateId" />
+      <Field DataType="Int64" FieldName="WagerAmount" />
+      <Field DataType="Int32" FieldName="OutcomesRequested" />
+      <Field DataType="UnboundedString" FieldName="Outcomes" />
+      <Field DataType="Int32" FieldName="Exception" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="UnboundedString" FieldName="Descriptions" />
+    </Fields>
+  </BlockFormat>
 </ArrayOfBlockFormat>

@@ -21,11 +21,19 @@
         /// <param name="gameId">The unique game Id</param>
         /// <param name="denomination">The selected denomination</param>
         /// <param name="wagerCategory">The associated wager category</param>
+        /// <param name="templateId">The associated templateId</param>
         /// <param name="wager">The wager amount</param>
         /// <param name="request">The outcome request</param>
         /// <param name="recovering">true, if the request is occurring during recovery</param>
         /// <returns>true, if the request was successful</returns>
-        bool RequestOutcomes(int gameId, long denomination, string wagerCategory, long wager, IOutcomeRequest request, bool recovering);
+        bool RequestOutcomes(
+            int gameId,
+            long denomination,
+            string wagerCategory,
+            string templateId,
+            long wager,
+            IOutcomeRequest request,
+            bool recovering);
 
         /// <summary>
         ///     Called when the outcomes are received from the central determinant host
@@ -34,7 +42,11 @@
         /// <param name="outcomes">The list of outcomes</param>
         /// <param name="exception">The exception, None if successful</param>
         /// <param name="descriptions">The outcome descriptions for this transaction</param>
-        void OutcomeResponse(long transactionId, IEnumerable<Outcome> outcomes, OutcomeException exception, IEnumerable<IOutcomeDescription> descriptions);
+        void OutcomeResponse(
+            long transactionId,
+            IEnumerable<Outcome> outcomes,
+            OutcomeException exception,
+            IEnumerable<IOutcomeDescription> descriptions);
 
         /// <summary>
         ///     Sets the <see cref="CentralTransaction" /> using the specified transaction identifier as acknowledged

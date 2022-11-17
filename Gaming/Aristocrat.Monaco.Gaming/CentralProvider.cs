@@ -20,7 +20,7 @@
     {
         private const int DeviceId = 1;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ITransactionHistory _transactionHistory;
         private readonly IGameHistory _gameHistory;
@@ -83,6 +83,7 @@
             int gameId,
             long denomination,
             string wagerCategory,
+            string templateId,
             long wager,
             IOutcomeRequest request,
             bool recovering)
@@ -134,6 +135,7 @@
                     gameId,
                     denomination,
                     wagerCategory,
+                    templateId,
                     wager,
                     request.Quantity)
                 {

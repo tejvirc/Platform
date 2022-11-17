@@ -45,7 +45,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new (0, DateTime.UtcNow, 1, 1000, string.Empty, 1000, 1)
+                new (0, DateTime.UtcNow, 1, 1000, string.Empty, string.Empty, 1000, 1)
                 {
                     Descriptions = new List<IOutcomeDescription>
                     {
@@ -199,7 +199,7 @@
             const int denominationId = 3;
             var transaction = new List<CentralTransaction>
             {
-                new (0, DateTime.UtcNow, 1, 1000, string.Empty, 1000, 1)
+                new (0, DateTime.UtcNow, 1, 1000, string.Empty, string.Empty, 1000, 1)
                 {
                     Descriptions = new List<IOutcomeDescription>
                     {
@@ -249,7 +249,7 @@
             var paytableId = 44;
             var transaction = new List<CentralTransaction>
             {
-                new (0, DateTime.UtcNow, 1, 1000, string.Empty, 1000, 1)
+                new (0, DateTime.UtcNow, 1, 1000, string.Empty, string.Empty, 1000, 1)
                 {
                     Descriptions = new List<IOutcomeDescription>
                     {
