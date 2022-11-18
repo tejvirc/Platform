@@ -100,6 +100,7 @@
             base.Dispose(disposing);
             if (disposing)
             {
+                Config = null;
                 if (_sanityChecker is not null)
                 {
                     _sanityChecker.Dispose();

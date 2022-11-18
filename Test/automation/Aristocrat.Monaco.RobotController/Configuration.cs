@@ -55,6 +55,11 @@
         public int BottomRightY { get; set; }
     }
 
+    [CollectionDataContract(ItemName = "Actions")]
+    public class RobotActions : HashSet<Actions>
+    {
+    }
+
     [CollectionDataContract(ItemName = "Index")]
     public class BetLevels : List<int>
     {
@@ -78,27 +83,6 @@
         {
             GameName = string.Empty;
             Type = GameType.Reel;
-            MinimumBalanceCents = 1000;
-            BetLevels = new BetLevels
-            {
-                1,
-                2,
-                3,
-                4,
-                5
-            };
-            LineSettings = new LineSettings
-            {
-                1,
-                2,
-                3,
-                4,
-                5
-            };
-            RobotActions = new HashSet<Actions>
-            {
-                Actions.BetLevel, Actions.BetMax, Actions.LineLevel, Actions.SpinRequest
-            };
             ExtraMainTouchAreas = new List<TouchBoxes>();
             ExtraVbdTouchAreas = new List<TouchBoxes>();
             MainTouchDeadZones = new List<TouchBoxes>();
@@ -108,7 +92,7 @@
         [XmlElement]
         public GameType Type { get; set; }
 
-        [XmlElement]
+        [XmlElement(ElementName = "MinimumBalanceCents")]
         public int MinimumBalanceCents { get; set; }
 
         [XmlElement]
@@ -123,7 +107,7 @@
         public LineSettings LineSettings { get; set; }
 
         [XmlArray]
-        [XmlArrayItem("Action")]
+        [XmlArrayItem("Actions")]
         public HashSet<Actions> RobotActions { get; set; }
 
         [XmlArray]
@@ -406,8 +390,6 @@
             GameScreen = new Screen { Width = width, Height = height };
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
             CurrentGame = "";
-            CurrentGameProfile = new GameProfile();
-            GameProfiles = new List<GameProfile>();
         }
 
         [XmlElement]
@@ -529,30 +511,34 @@
 
         public List<int> GetBetIndices()
         {
-            return CurrentGameProfile != null
-                ? CurrentGameProfile.BetLevels
-                : new List<int>
-                {
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                };
+            if (CurrentGameProfile?.BetLevels?.Count > 0)
+            {
+                return CurrentGameProfile.BetLevels;
+            }
+            return new List<int>
+            {
+                1,
+                2,
+                3,
+                4,
+                5
+            };
         }
 
         public List<int> GetLineIndices()
         {
-            return CurrentGameProfile != null
-                ? CurrentGameProfile.LineSettings
-                : new List<int>
-                {
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                };
+            if (CurrentGameProfile?.LineSettings?.Count > 0)
+            {
+                return CurrentGameProfile.LineSettings;
+            }
+            return new List<int>
+            {
+                1,
+                2,
+                3,
+                4,
+                5
+            };
         }
 
         public HashSet<Actions> GetRobotActions()
@@ -660,7 +646,6 @@
             Modes = new List<Mode> { new Mode() };
             GameScreen = new Screen { Width = 2560, Height = 1560 };
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
-            CurrentGameProfile = new GameProfile();
             CurrentGame = "";
         }
 
