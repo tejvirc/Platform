@@ -735,9 +735,6 @@
         public void UpdateLanguage(LanguageRequest languageRequest)
         {
             _handlerFactory.Create<UpdateLanguage>().Handle(new UpdateLanguage(languageRequest.Language));
-
-
-            // run state(LanguageUpdate)
         }
     }
 }
