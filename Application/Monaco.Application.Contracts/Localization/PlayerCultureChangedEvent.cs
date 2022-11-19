@@ -14,16 +14,17 @@
         /// </summary>
         /// <param name="oldCulture">The old culture.</param>
         /// <param name="newCulture">The new culture.</param>
-        /// <param name="isPrimary">Indicates whether the new culture is the primary culture</param>
-        public PlayerCultureChangedEvent(CultureInfo oldCulture, CultureInfo newCulture, bool isPrimary)
-            : base(oldCulture, newCulture)
+        public PlayerCultureChangedEvent(CultureInfo oldCulture, CultureInfo newCulture)
+            : base(oldCulture, newCulture) 
         {
-            IsPrimary = isPrimary;
         }
 
         /// <summary>
-        ///     Gets a value that indicates whether the new culture is the primary culture.
+        ///     Initializes a new instance of the <see cref="PlayerCultureChangedEvent"/> class.
         /// </summary>
-        public bool IsPrimary { get; }
+        public PlayerCultureChangedEvent(string oldCulture, string newCulture)
+            : base(new CultureInfo(oldCulture), new CultureInfo(newCulture))
+        {
+        }
     }
 }

@@ -47,6 +47,7 @@
         private readonly IConfigurationSettingsManager _settingsManager;
         private readonly IGameService _gameService;
         private readonly IDigitalRights _digitalRights;
+        private readonly IPlayerCultureProvider _playerCultureProvider;
 
         private readonly double _denomMultiplier;
         private readonly bool _enableRtpScaling;
@@ -124,13 +125,19 @@
             _linkedProgressiveProvider = ServiceManager.GetInstance().GetService<ILinkedProgressiveProvider>();
             _gameConfiguration = ServiceManager.GetInstance().GetService<IGameConfigurationProvider>();
             _restrictionProvider = ServiceManager.GetInstance().GetService<IConfigurationProvider>();
+            var localization = ServiceManager.GetInstance().GetService<ILocalization>();
+            _playerCultureProvider = localization.GetProvider(CultureFor.Player) as
+                                         IPlayerCultureProvider ??
+                                     throw new ArgumentNullException(nameof(_playerCultureProvider));
 
             _digitalRights = ServiceManager.GetInstance().GetService<IDigitalRights>();
 
             _cachedConfigProgressiveLevels = new List<IViewableProgressiveLevel>();
             _cachedConfigSharedSapLevels = new List<(IViewableSharedSapLevel, ProgressiveSharedLevelSettings)>();
 
-            var games = _gameProvider.GetGames().OrderBy(g => g.ThemeName);
+            var games = _gameProvider.GetGames().OrderBy(g => g.ThemeName).ToList();
+
+            VerifyGamesWithEnabledLanguages(games);
 
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
@@ -298,7 +305,7 @@
             .Where(c => c.Active)
             .OrderBy(c => c.Denom);
 
-        public string ThemePlusOptions => $"{SelectedGame.ThemeName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOptions)} {ReadOnlyStatus}";
+        public string ThemePlusOptions => $"{SelectedGame?.ThemeName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOptions)} {ReadOnlyStatus}";
 
         public bool HasTopAward => _topAwardValue > 0;
 
@@ -550,6 +557,22 @@
             _editMode = false;
             _pendingImportSettings.Clear();
             SetEditMode();
+        }
+
+        private void VerifyGamesWithEnabledLanguages(List<IGameDetail> games)
+        {
+            var supportedLocales = _playerCultureProvider.AvailableCultures.Select(c => c.Name).ToList();
+
+            foreach (var game in games)
+            {
+                var locales = game.LocaleGraphics?.Keys;
+                var anySupported = locales?.Intersect(supportedLocales).Any();
+                if (anySupported != null && !anySupported.Value)
+                {
+                    // game doesn't support the enabled languages, this game can't be configured.
+                    //game.Enabled = false;
+                }
+            }
         }
 
         private static bool IsGameRecoveryNeeded()
