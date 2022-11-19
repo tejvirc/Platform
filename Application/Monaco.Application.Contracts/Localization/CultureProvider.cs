@@ -70,6 +70,11 @@
         public IReadOnlyCollection<CultureInfo> AvailableCultures => _availableCultures;
 
         /// <summary>
+        ///     Fire PropertyChanged event of the passed in property name.
+        /// </summary>
+        public void RaisePropertyChangedEvent(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        /// <summary>
         ///     Perform initialization logic.
         /// </summary>
         protected virtual void OnInitialize()

@@ -733,5 +733,10 @@
             return command.Result;
 
         }
+
+        public void UpdateLanguage(LanguageRequest languageRequest)
+        {
+            
+        }
     }
 }

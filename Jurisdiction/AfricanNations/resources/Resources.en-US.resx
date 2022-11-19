@@ -119,6 +119,6 @@
   </resheader>
   <data name="ClearLockupExcessiveDocumentReject" xml:space="preserve">
     <value>Check if the Note or Voucher being inserted by the player is valid. Turn Jackpot key on, then off, to re-enable Note Acceptor device and clear the lockup.</value>
-    <comment>Jurisdiction override</comment>
+    <comment>Jurisdiction override </comment>
   </data>
 </root>

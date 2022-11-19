@@ -13,4 +13,10 @@ as follows:
   <PlayerTicket Locale="en-US" DateFormat="M/d/yyyy" />
   <OperatorTicket Locale="en-US" DateFormat="M/d/yyyy"/>
   <Operator DateFormat="M/d/yyyy"/>
+  <Player Primary="en-US">
+    <Available>
+      <string>en-US</string>
+      <string>zh-CN</string>
+    </Available>
+  </Player>
 </LocaleConfiguration>

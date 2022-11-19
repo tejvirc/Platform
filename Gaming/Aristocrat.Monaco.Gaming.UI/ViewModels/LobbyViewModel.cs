@@ -126,6 +126,7 @@
         private readonly IAttractConfigurationProvider _attractInfoProvider;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
         private readonly IReserveService _reserveService;
+        private readonly IPlayerCultureProvider _playerCultureProvider;
         // Broadcasting platform messages to a game
 
         private readonly DisplayableMessage _disableCountdownMessage;
@@ -169,7 +170,6 @@
         private bool _isInLobby = true;
         private bool _isLobbyVisible = true;
         private bool _isVbdMalfunctionOverlayVisible;
-        private bool _isPrimaryLanguageSelected = true;
         private bool _mainInfoBarOpenRequested;
         private bool _isResponsibleGamingInfoDlgVisible;
         private bool _isShowingAlternateTopImage;
@@ -268,6 +268,7 @@
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
+        private int _localeCodeIndex;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -358,6 +359,7 @@
             _gameService = containerService.Container.GetInstance<IGameService>();
             _cashableLockupProvider = containerService.Container.GetInstance<ICashableLockupProvider>();
             _reserveService = containerService.Container.GetInstance<IReserveService>();
+            _playerCultureProvider = ServiceManager.GetInstance().GetService<ILocalization>()?.GetProvider(CultureFor.Player) as IPlayerCultureProvider ?? throw new Exception("PlayerCultureProvider is not found.");
 
             PlayerInfoDisplayMenuViewModel = new PlayerInfoDisplayMenuViewModel(containerService.Container.GetInstance<IPlayerInfoDisplayFeatureProvider>());
             var factory = containerService.Container.GetInstance<IPlayerInfoDisplayManagerFactory>();
@@ -379,7 +381,7 @@
 
             Config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
             LargeGameIconsEnabled = Config.LargeGameIconsEnabled;
-            MultiLanguageEnabled = Config.MultiLanguageEnabled;
+            MultiLanguageEnabled = Config.MultiLanguageEnabled && Config.LocaleCodes.Length > 1; 
             GameLoadingScreenPath = "pack://siteOfOrigin:,,,/" + Config.DefaultLoadingScreenFilename;
             _gamesPerPage = Config.MaxDisplayedGames;
 
@@ -395,27 +397,21 @@
                 _responsibleGaming.OnForcePendingCheck += ForcePendingResponsibleGamingCheck;
             }
 
-            ClockTimer = new ClockTimer(Config, _responsibleGaming, _runtime, _lobbyStateManager);
-
             if (MultiLanguageEnabled)
             {
-                var localeCode = _properties.GetValue(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode)
-                    .ToUpperInvariant();
-
-                if (string.IsNullOrEmpty(localeCode) || Config.LocaleCodes.Length == 1 ||
-                    localeCode == Config.LocaleCodes[0].ToUpperInvariant())
-                {
-                    _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
-                }
-                else
-                {
-                    IsPrimaryLanguageSelected = false;
-                }
+                InitializeMultiLanguages();
             }
             else
             {
                 _properties.SetProperty(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode);
             }
+
+            string locale = _properties.GetValue(
+                GamingConstants.SelectedLocaleCode,
+                ApplicationConstants.DefaultCultureCode);
+            LocaleCodeIndex = GetLocaleIndex(locale);
+
+            ClockTimer = new ClockTimer(locale, Config, _responsibleGaming, _runtime, _lobbyStateManager);
 
             if (buttonDeckDisplay.DisplayCount != 0 || buttonDeckDisplay.IsSimulated)
             {
@@ -1280,23 +1276,24 @@
         }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether the primary language is selected.
+        ///     Gets or sets the index of the current locale code in the Config.LocaleCodes. Changing of
+        /// this index will change all the displayed messages and assets to its associated language in the lobby.
         /// </summary>
-        public bool IsPrimaryLanguageSelected
+        public int LocaleCodeIndex
         {
-            get => _isPrimaryLanguageSelected;
-
+            get => _localeCodeIndex;
             set
             {
-                if (_isPrimaryLanguageSelected != value)
+                if (_localeCodeIndex != value && value >= 0)
                 {
-                    Logger.Debug($"Setting Language.  Primary: {value}");
-                    _isPrimaryLanguageSelected = value;
-                    ClockTimer.IsPrimaryLanguageSelected = value;
+                    Logger.Debug($"Setting Locale Code Index: {value}");
+                    _localeCodeIndex = value;
+                    ClockTimer.ActiveLocaleCode = ActiveLocaleCode;
 
                     if (Config.MultiLanguageEnabled)
                     {
                         _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
+                        _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
                     }
 
                     LanguageChanged?.Invoke(this, EventArgs.Empty);
@@ -1305,9 +1302,12 @@
 
                     RaisePropertyChanged(nameof(IsPrimaryLanguageSelected));
                     RaisePropertyChanged(nameof(ActiveLocaleCode));
+                    RaisePropertyChanged(
+                        nameof(DisplayLanguageToggleButton),
+                        nameof(LanguageToggleButtonResourceKey)
+                    );
                     RaisePropertyChanged(nameof(FormattedCredits));
                     RaisePropertyChanged(nameof(DisableCountdownMessage));
-                    RaisePropertyChanged(nameof(LanguageButtonResourceKey));
                     RaisePropertyChanged(nameof(PaidMeterLabel));
 
                     UpdateLcdButtonDeckVideo();
@@ -1317,9 +1317,88 @@
         }
 
         /// <summary>
+        ///     Gets or sets a value indicating whether the primary language is selected.
+        /// </summary>
+        public bool IsPrimaryLanguageSelected
+        {
+            get => string.Equals(this.ActiveLocaleCode, _playerCultureProvider.DefaultCulture.Name, StringComparison.InvariantCultureIgnoreCase);
+
+            set
+            {
+                var enabledLanguages = _playerCultureProvider.LanguageOptions;
+                var defaultLanguageOption = enabledLanguages.FirstOrDefault(
+                    l => string.Equals(l.Locale,
+                        _playerCultureProvider.DefaultCulture.Name,
+                        StringComparison.InvariantCultureIgnoreCase));
+                var language = value ? defaultLanguageOption : enabledLanguages.Except(new [] { defaultLanguageOption }).FirstOrDefault();
+                SetLanguage(language?.Locale);
+            }
+        }
+
+        /// <summary>
+        ///     Gets the available locale codes.
+        /// </summary>
+        public string[] AvaliableLocales
+        {
+            get
+            {
+                var locales = _playerCultureProvider.AvailableCultures!.Select(c => c.Name).ToArray();
+                if (locales!.Length == 0)
+                {
+                    locales = Config.LocaleCodes;
+                }
+
+                return locales;
+            }
+        }
+
+        /// <summary>
         ///     Gets the active locale code.
         /// </summary>
-        public string ActiveLocaleCode => IsPrimaryLanguageSelected ? Config.LocaleCodes[0] : Config.LocaleCodes[1];
+        public string ActiveLocaleCode => AvaliableLocales[LocaleCodeIndex];
+
+        /// <summary>
+        ///     Gets a value indicating whether to display the language toggle button, if there are only
+        /// two enabled languages of player culture provider, which is defined in the operator menu.
+        /// </summary>
+        public bool DisplayLanguageToggleButton => MultiLanguageEnabled && _playerCultureProvider.LanguageOptions.Count() == 2;
+
+        public ObservableCollection<CultureInfo> Languages { get; } = new ObservableCollection<CultureInfo>();
+
+        private bool _isLanguageSelectionViewVisible;
+
+
+        public bool IsLanguageSelectionViewVisible
+        {
+            get => _isLanguageSelectionViewVisible;
+
+            set
+            {
+                if (_isLanguageSelectionViewVisible == value)
+                {
+                    return;
+                }
+
+                _isLanguageSelectionViewVisible = value;
+                if (_isLanguageSelectionViewVisible)
+                {
+                    InitializeLanguageCollection();
+                }
+
+                RaisePropertyChanged(nameof(IsLanguageSelectionViewVisible));
+            }
+        }
+
+        public CultureInfo SelectedLanguage
+        {
+            get => null;
+
+            set
+            {
+                IsLanguageSelectionViewVisible = false;
+                SetLanguage(value?.Name);
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether the cash out button is enabled.
@@ -1593,7 +1672,7 @@
 
         public bool IsPaidMeterVisible => PaidMeterValue != string.Empty;
 
-        public string LanguageButtonResourceKey => GetCurrentLanguageButtonResourceKey();
+        public string LanguageToggleButtonResourceKey => GetCurrentLanguageToggleButtonResourceKey();
 
         public string TopImageResourceKey
         {
@@ -1731,6 +1810,26 @@
             Dispose(true);
 
             GC.SuppressFinalize(this);
+        }
+
+        private void InitializeMultiLanguages()
+        {
+            var localeCode = _properties.GetValue(
+                    GamingConstants.SelectedLocaleCode,
+                    GamingConstants.EnglishCultureCode)
+                .ToUpperInvariant();
+
+            if (string.IsNullOrEmpty(localeCode))
+            {
+                _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
+            }
+        }
+
+        private void InitializeLanguageCollection()
+        {
+            Languages.Clear();
+            var names = from l in _playerCultureProvider.LanguageOptions select new CultureInfo(l.Locale);
+            Languages.AddRange(names);
         }
 
         public void DisplayMessage(DisplayableMessage displayableMessage)
@@ -2429,7 +2528,6 @@
 
             PlayerMenuPopupViewModel.IsMenuVisible = false;
 
-            IsPrimaryLanguageSelected = true;
             UpdateLcdButtonDeckRenderSetting(true);
             UpdateLcdButtonDeckDisableSetting(false);
             SetAttractVideos();
@@ -4361,17 +4459,29 @@
             MessageOverlayDisplay.IsCashingInDlgVisible = false;
         }
 
-        private string GetCurrentLanguageButtonResourceKey()
+        private string GetCurrentLanguageToggleButtonResourceKey()
         {
-            Logger.Debug("GetCurrentLanguageButtonResourceKey entered");
-            if (!Config.MultiLanguageEnabled)
+            Logger.Debug("GetCurrentLanguageToggleButtonResourceKey entered");
+            var languageOptions = (from l in _playerCultureProvider.LanguageOptions select l.Locale).ToArray();
+            if (!Config.MultiLanguageEnabled || languageOptions.Length != 2)
             {
                 return string.Empty;
             }
 
-            // return the opposite language of whatever is selected, since we show the language the button will switch you TO.
-            // Note:  This will need to be updated to support more than 2 languages.
-            return Config.LanguageButtonResourceKeys[IsPrimaryLanguageSelected ? 1 : 0];
+            return Config.LanguageButtonResourceKeys[GetLocaleCodesIndex() ?? 0];
+
+            int? GetLocaleCodesIndex()
+            {
+                for (var i = 0; i < AvaliableLocales.Length; i++)
+                {
+                    if (LocaleHelper.Includes(languageOptions, AvaliableLocales[i]) && LocaleCodeIndex == i)
+                    {
+                        return i;
+                    }
+                }
+
+                return null;
+            }
         }
 
         private void SetVbdGameInput(bool cashingOut, bool validatingBill, bool displayResponsibleGamingDialog, bool displayOverlay)
@@ -4757,14 +4867,26 @@
             if (string.IsNullOrWhiteSpace(localeCode))
                 return;
 
+            var languageIndex = GetLocaleIndex(localeCode);
+            if (languageIndex != -1)
+            {
+                //IsPrimaryLanguageSelected = languageIndex == 0;
+                LocaleCodeIndex = languageIndex;
+            }
+        }
+
+        private int GetLocaleIndex(string localeCode)
+        {
             //G2S uses _ instead of - in their Locale Codes
             localeCode = localeCode.Replace('_', '-');
 
             int languageIndex = -1;
 
-            for (int i = 0; i < Config.LocaleCodes.Length && languageIndex == -1; i++)
+            var enabledCultures = _playerCultureProvider.AvailableCultures.ToArray();
+
+            for (int i = 0; i < enabledCultures.Length && languageIndex == -1; i++)
             {
-                if (string.Compare(Config.LocaleCodes[i], localeCode, StringComparison.InvariantCultureIgnoreCase) == 0)
+                if (string.Compare(enabledCultures[i].Name, localeCode, StringComparison.InvariantCultureIgnoreCase) == 0)
                 {
                     languageIndex = i;
                 }
@@ -4773,20 +4895,16 @@
             if (languageIndex == -1)
             {
                 // couldn't find the language.  Search TwoLetterISOLanguageName
-                for (int i = 0; i < Config.LocaleCodes.Length && languageIndex == -1; i++)
+                for (int i = 0; i < enabledCultures.Length && languageIndex == -1; i++)
                 {
-                    var culture = new CultureInfo(Config.LocaleCodes[i]);
-                    if (string.Compare(culture.TwoLetterISOLanguageName, localeCode, StringComparison.InvariantCultureIgnoreCase) == 0)
+                    if (string.Compare(enabledCultures[i].TwoLetterISOLanguageName, localeCode, StringComparison.InvariantCultureIgnoreCase) == 0)
                     {
                         languageIndex = i;
                     }
                 }
             }
 
-            if (languageIndex != -1)
-            {
-                IsPrimaryLanguageSelected = languageIndex == 0;
-            }
+            return languageIndex;
         }
 
         private void ShowVbdServiceConfirmationDialog(bool show)
@@ -5020,19 +5138,20 @@
         {
             if (_lobbyButtonDeckRenderer != null)
             {
-                if (HasZeroCredits && IsPrimaryLanguageSelected)
+                var defaultLanguageSelected = LocaleCodeIndex == 0;
+                if (HasZeroCredits && defaultLanguageSelected)
                 {
                     _lobbyButtonDeckRenderer.VideoFilename = Config.LcdInsertMoneyVideoLanguage1;
                 }
-                else if (!HasZeroCredits && IsPrimaryLanguageSelected)
+                else if (!HasZeroCredits && defaultLanguageSelected)
                 {
                     _lobbyButtonDeckRenderer.VideoFilename = Config.LcdChooseVideoLanguage1;
                 }
-                else if (HasZeroCredits && !IsPrimaryLanguageSelected)
+                else if (HasZeroCredits && !defaultLanguageSelected)
                 {
                     _lobbyButtonDeckRenderer.VideoFilename = Config.LcdInsertMoneyVideoLanguage2;
                 }
-                else if (!HasZeroCredits && !IsPrimaryLanguageSelected)
+                else if (!HasZeroCredits && !defaultLanguageSelected)
                 {
                     _lobbyButtonDeckRenderer.VideoFilename = Config.LcdChooseVideoLanguage2;
                 }

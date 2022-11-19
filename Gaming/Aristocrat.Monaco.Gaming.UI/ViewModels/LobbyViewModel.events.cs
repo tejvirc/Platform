@@ -116,7 +116,9 @@
             _eventBus.Subscribe<HandpayKeyOffPendingEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandpayCompletedEvent>(this, HandleEvent);
             _eventBus.Subscribe<SessionInfoEvent>(this, HandleEvent);
-            _eventBus.Subscribe<CultureChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<PlayerCultureChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<PlayerCultureAdded>(this, HandleEvent);
+            _eventBus.Subscribe<PlayerCultureRemoved>(this, HandleEvent);
             _eventBus.Subscribe<LobbySettingsChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<CashoutNotificationEvent>(this, HandleEvent);
             _eventBus.Subscribe<CurrencyCultureChangedEvent>(this, HandleEvent);
@@ -1292,7 +1294,7 @@
             if (evt.Identity == null)
             {
                 // logging out
-                MvvmHelper.ExecuteOnUI(() => IsPrimaryLanguageSelected = true);
+                MvvmHelper.ExecuteOnUI(() => LocaleCodeIndex = 0);
             }
             else
             {
@@ -1353,16 +1355,19 @@
             }
         }
 
-        private void HandleEvent(CultureChangedEvent evt)
+        private void HandleEvent(LocalizationEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
                 HandleMessageOverlayText();
 
-                if (evt is PlayerCultureChangedEvent)
+                if (evt is PlayerCultureChangedEvent playerCultureChanged)
                 {
-                    // todo let player culture provider manage multi-language support for lobby
-                    // IsPrimaryLanguageSelected = playerCultureChanged.IsPrimary;
+                    SetLanguage(playerCultureChanged.NewCulture?.Name);
+                }
+                else if (evt is PlayerCultureAdded || evt is PlayerCultureRemoved)
+                {
+                    RaisePropertyChanged(nameof(DisplayLanguageToggleButton));
                 }
             });
         }

@@ -40,6 +40,7 @@
         private string _sessionTimeText;
 
         public ClockTimer(
+            string localeCode,
             LobbyConfiguration config,
             IResponsibleGaming responsible,
             IRuntimeFlagHandler runtime,
@@ -49,6 +50,7 @@
             _lobbyStateManager = stateManager;
             _responsibleGaming = responsible;
             _runtime = runtime;
+            ActiveLocaleCode = localeCode;
 
             ClockStateTimer =
                 new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(ClockStateTimeoutInSeconds) };
@@ -115,7 +117,7 @@
 
         public bool IsInLobby { get; set; } = true;
 
-        public bool IsPrimaryLanguageSelected { get; set; } = true;
+        //public int LocaleCodeIndex { get; set; }
 
         public bool IsResponsibleGamingSessionOver => _responsibleGaming.RemainingSessionTime.TotalSeconds <= 0;
 
@@ -138,7 +140,7 @@
             }
         }
 
-        private string ActiveLocaleCode => IsPrimaryLanguageSelected ? _config.LocaleCodes[0] : _config.LocaleCodes[1];
+        public string ActiveLocaleCode { get; set; } // => _config.LocaleCodes[LocaleCodeIndex];
 
         public string TimeLabelResourceKey =>
             ClockState == LobbyClockState.Clock ? TimeResourceKey : TimeLeftResourceKey;
