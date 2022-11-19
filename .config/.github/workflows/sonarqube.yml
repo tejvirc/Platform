@@ -1,0 +1,135 @@
+name: SonarQube
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+    - main
+    - release/*
+
+  pull_request:
+    branches:
+    - main
+    - release/*
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.REGISTRY_TOKEN}}
+      with:
+        dotnet-version: '5.x'
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+    - name: Setup msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1.0.5
+      with:
+        nuget-version: '5.x'
+    - name: Cache NuGet Packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.nuget/packages
+        key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
+    - name: Setup VSTest Path
+      uses: darenm/setup-vstest@v1
+    - name: Setup OpenCover
+      run: |
+        nuget install OpenCover -Version 4.7.1221 -OutputDirectory .\packages
+        echo "${{ github.workspace }}\packages\OpenCover.4.7.1221\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    - name: Setup GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - name: Determine Version
+      id:   gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+        additionalArguments: '/updateassemblyinfo'
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.11
+    - name: Cache SonarQube packages
+      uses: actions/cache@v1
+      with:
+        path: ~\sonar\cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+    - name: Cache SonarQube scanner
+      id: cache-sonar-scanner
+      uses: actions/cache@v1
+      with:
+        path: .\.sonar\scanner
+        key: ${{ runner.os }}-sonar-scanner
+        restore-keys: ${{ runner.os }}-sonar-scanner
+    - name: Install SonarQube scanner
+      if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+      shell: powershell
+      run: |
+        New-Item -Path .\.sonar\scanner -ItemType Directory -Force
+        dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+    - name: Begin scan
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: powershell
+      run: >
+        .\.sonar\scanner\dotnet-sonarscanner begin
+        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
+        /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+        /d:sonar.cs.vstest.reportsPaths="**/*.trx"
+        /d:sonar.cs.opencover.reportsPaths="**/coverage.*.xml"
+    - name: Restore
+      run: |
+        nuget restore .\Monaco.sln
+    - name: Build - Debug
+      run: |
+        msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
+    - name: Test
+      run: >
+        OpenCover.Console.exe
+        -register:user
+        -mergebyhash
+        -skipautoprops
+        -hideskipped:All
+        -coverbytest:*.Tests.dll
+        -excludebyfile:"*.generated.cs"
+        -filter:"+[Aristocrat.*]* +[Monaco.*]* +[Bootstrap]* +[PRNGLib]* -[*.Tests]* -[Aristocrat.Monaco.Test.Common]* -[Humanizer]*"
+        -output:coverage.opencover.xml
+        -target:"$((Get-command vstest.console.exe).Path)"
+        -targetargs:"**\bin\Debug\*.Tests.dll --platform:x64 --logger:trx --resultsDirectory:TestResults"
+        || true
+    - name: End Scan
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      shell: powershell
+      run: |
+        .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+    - name: Quality Gate check
+      id: quality-gate-check
+      uses: sonarsource/sonarqube-quality-gate-action@master
+      timeout-minutes: 10
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: sonar-artifacts
+        path: .sonarqube/out/.sonar/report-task.txt
+        retention-days: 7
+        if-no-files-found: error
+    - name: Quality Gate Status value
+      run: echo "The Quality Gate status is ${{ steps.quality-gate-check.outputs.quality-gate-status }}"
