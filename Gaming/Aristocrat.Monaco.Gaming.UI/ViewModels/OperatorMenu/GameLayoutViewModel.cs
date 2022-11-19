@@ -1,6 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
+    using System;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Contracts;
     using Kernel;
     using MVVM.Command;
@@ -23,9 +26,9 @@
 
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             var games = properties.GetValues<IGameDetail>(GamingConstants.Games).Where(g => g.Enabled).ToList();
+
+            var activeLocaleCode = GetActiveLocale(properties);
             
-            var config = (LobbyConfiguration)properties.GetProperty(GamingConstants.LobbyConfig, null);
-            var activeLocaleCode = config.LocaleCodes[0];
 
             Games = new ObservableCollection<GameLayoutItem>(
                 games.OrderBy(GameOrder).Select(g => new GameLayoutItem(g, activeLocaleCode)));
@@ -96,6 +99,21 @@
                 Games.Add(layoutItem);
             }
             RaisePropertyChanged(nameof(Games));
+        }
+
+        private string GetActiveLocale(IPropertiesManager properties)
+        {
+            var activeLocaleCode = properties.GetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ApplicationConstants.DefaultLanguage) as string;
+            if (string.IsNullOrEmpty(activeLocaleCode))
+            {
+                var playerCultureProvider =
+                    ServiceManager.GetInstance().GetService<ILocalization>()?.GetProvider(CultureFor.Player) as
+                        IPlayerCultureProvider ?? throw new Exception("PlayerCultureProvider is not found."); ;
+
+                activeLocaleCode = playerCultureProvider.DefaultCulture.Name;
+            }
+
+            return activeLocaleCode;
         }
 
         public class GameLayoutItem

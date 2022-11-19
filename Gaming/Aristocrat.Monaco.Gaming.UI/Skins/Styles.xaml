@@ -17,6 +17,22 @@
         </Border>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="TplFlatToggleButton" TargetType="{x:Type ToggleButton}">
+        <Border Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                              TextElement.Foreground="{TemplateBinding Foreground}"
+                              TextElement.FontFamily="{TemplateBinding FontFamily}"
+                              TextElement.FontSize="{TemplateBinding FontSize}"
+                              TextElement.FontStretch="{TemplateBinding FontStretch}"
+                              TextElement.FontWeight="{TemplateBinding FontWeight}"/>
+        </Border>
+    </ControlTemplate>
+
     <!-- null FocusVisualStyle fixes the dotted line border around focused buttons -->
     <Style x:Key="stlFlatButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{x:Null}" />
@@ -28,12 +44,12 @@
     </Style>
 
     <!-- null FocusVisualStyle fixes the dotted line border around focused buttons -->
-    <Style x:Key="stlFlatToggleButton" TargetType="{x:Type ToggleButton}">
+    <Style x:Key="StlFlatToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Template" Value="{StaticResource tplFlatButton}" />
+        <Setter Property="Template" Value="{StaticResource TplFlatToggleButton}" />
         <Setter Property="ClickMode" Value="Press" />
     </Style>
 

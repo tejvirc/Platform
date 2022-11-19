@@ -89,7 +89,7 @@
             <StackPanel Name="DenomPanel" Grid.Column="3" Orientation="Horizontal" 
                     Margin="24 15 0 15" HorizontalAlignment="Left"
                     >
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
                             ConverterParameter={StaticResource AllDenom}}">
@@ -105,7 +105,7 @@
                     </RadioButton.Template>
                 </RadioButton>
 
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
                             ConverterParameter={StaticResource DenomA}}">
@@ -120,7 +120,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
                             ConverterParameter={StaticResource DenomB}}">
@@ -135,7 +135,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
                             ConverterParameter={StaticResource DenomC}}">
@@ -200,7 +200,7 @@
 
             <StackPanel x:Name="DenomPanel" Grid.Column="3" Orientation="Horizontal" 
                         Margin="15" HorizontalAlignment="Center" controls:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Margin="0 0 10 0" 
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
@@ -217,7 +217,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -233,7 +233,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -321,7 +321,7 @@
 
             <StackPanel x:Name="DenomPanel" Grid.Column="3" Orientation="Horizontal" 
                         Margin="15" HorizontalAlignment="Center" controls:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Margin="0 0 10 0" 
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
@@ -338,7 +338,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -354,7 +354,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -370,7 +370,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -427,7 +427,7 @@
 
             <StackPanel x:Name="DenomPanel" Grid.Column="3" Orientation="Horizontal" 
                         Margin="0,15,27,15" HorizontalAlignment="Center" controls:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Margin="0 0 10 0" 
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
@@ -444,7 +444,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -460,7 +460,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -524,7 +524,7 @@
 
             <StackPanel x:Name="DenomPanel" Grid.Column="3" Orientation="Horizontal" 
                         Margin="15" HorizontalAlignment="Center" controls:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Margin="0 0 10 0" 
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
@@ -541,7 +541,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -557,7 +557,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -633,7 +633,7 @@
 
             <StackPanel x:Name="DenomPanel" Grid.Column="3" Orientation="Horizontal" 
                         Margin="0,15,27,15" HorizontalAlignment="Center" controls:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Margin="0 0 10 0" 
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
@@ -650,7 +650,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0" IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
@@ -666,7 +666,7 @@
                         </ControlTemplate>
                     </RadioButton.Template>
                 </RadioButton>
-                <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                <RadioButton Style="{StaticResource StlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              IsChecked="{Binding DenomFilter,
                             Converter={StaticResource IntToBool}, 
