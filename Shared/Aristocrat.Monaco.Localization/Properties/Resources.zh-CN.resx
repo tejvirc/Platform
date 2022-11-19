@@ -1,0 +1,1233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AudioConnected" xml:space="preserve">
+    <value>#中Audio Connected - Restart Required#</value>
+  </data>
+  <data name="AudioDisconnect" xml:space="preserve">
+    <value>#中Audio Device Disconnected#</value>
+  </data>
+  <data name="BellyDoorClosed" xml:space="preserve">
+    <value>#中Belly Door Closed#</value>
+  </data>
+  <data name="BellyDoorIsOpen" xml:space="preserve">
+    <value>#中Belly Door is Open#</value>
+  </data>
+  <data name="ButtonDeckDisconnected" xml:space="preserve">
+    <value>#中Button Deck Disconnected#</value>
+  </data>
+  <data name="CancelCreditPending" xml:space="preserve">
+    <value>等待人工支付 - 联系服务生</value>
+  </data>
+  <data name="CashDoorClosed" xml:space="preserve">
+    <value>#中Stacker Door Closed#</value>
+  </data>
+  <data name="CashDoorIsOpen" xml:space="preserve">
+    <value>#中Stacker Door is Open#</value>
+  </data>
+  <data name="CashOutHandpayKeyedOff" xml:space="preserve">
+    <value>#支付直接取现 {0}#</value>
+  </data>
+  <data name="CashWinPresentationVoucher" xml:space="preserve">
+    <value>#中CASH WIN VOUCHER#</value>
+  </data>
+  <data name="CasOutHandPayPresentationText" xml:space="preserve">
+    <value>#取现#</value>
+  </data>
+  <data name="DeviceSignatureMismatchText" xml:space="preserve">
+    <value>#中CRC Signature Mismatch for: {0}#</value>
+  </data>
+  <data name="DisableCountdownMessage" xml:space="preserve">
+    <value>#中Machine will be disabled:#</value>
+  </data>
+  <data name="DiskSpaceBelowThresholdMessage" xml:space="preserve">
+    <value>#中Error: Disk Space Below Threshold.#</value>
+  </data>
+  <data name="DisplayDisconnected" xml:space="preserve">
+    <value>#中Display Disconnected#</value>
+  </data>
+  <data name="DropDoorClosed" xml:space="preserve">
+    <value>#中Drop Door Closed#</value>
+  </data>
+  <data name="ErrorInfoSecondaryStorageMediaConnected" xml:space="preserve">
+    <value>#中Secondary storage media connected#</value>
+  </data>
+  <data name="ErrorInfoSecondaryStorageMediaNotConnected" xml:space="preserve">
+    <value>#中ErrorInfoSecondaryStorageMediaNotConnected#</value>
+  </data>
+  <data name="ExcessiveDocumentRejectMessage" xml:space="preserve">
+    <value>超额纸币/代用券被拒</value>
+  </data>
+  <data name="GameDisabledProgressiveError" xml:space="preserve">
+    <value>游戏无法运行 - 出现累积奖错误\r\n\r\n请选择其他游戏\r\n或寻求服务生的帮助。\r\n\r\n按下任何实体按键\r\n返回游戏大厅</value>
+  </data>
+  <data name="HandPayPaidPresentationText" xml:space="preserve">
+    <value>#现金支付#</value>
+  </data>
+  <data name="HandpayPresentationText" xml:space="preserve">
+    <value>#现金取现#</value>
+  </data>
+  <data name="HardMeterDisabled" xml:space="preserve">
+    <value>#中Hard Meters Disabled#</value>
+  </data>
+  <data name="IdleTextDefault" xml:space="preserve">
+    <value>#中INSERT MONEY TO PLAY#</value>
+  </data>
+  <data name="IntegrityCheckFailed" xml:space="preserve">
+    <value>#中Integrity Check Failed#</value>
+  </data>
+  <data name="JackPotPresentationText" xml:space="preserve">
+    <value>#中YOU HAVE WON A JACKPOT#</value>
+  </data>
+  <data name="KeyLeftInEgmLockupMessage" xml:space="preserve">
+    <value>#中Remove Operator Key#</value>
+  </data>
+  <data name="LogicDoorClosed" xml:space="preserve">
+    <value>#逻辑门关闭#</value>
+  </data>
+  <data name="LogicDoorIsOpen" xml:space="preserve">
+    <value>#逻辑门没有关闭#</value>
+  </data>
+  <data name="LogicSealIsBroken" xml:space="preserve">
+    <value>#逻辑封印破损#</value>
+  </data>
+  <data name="MainDoorClosed" xml:space="preserve">
+    <value>#主门已关闭#</value>
+  </data>
+  <data name="MainDoorIsOpen" xml:space="preserve">
+    <value>#主门已打开#</value>
+  </data>
+  <data name="MainDoorMismatch" xml:space="preserve">
+    <value>#主门不匹配#</value>
+  </data>
+  <data name="NonCashableCreditsFailedMessage" xml:space="preserve">
+    <value>#中NON-CASHABLE CREDIT\r\n\r\nA non-cashable amount of {0:C}\r\nstill exists on this machine.\r\nYou cannot cash this money out.\r\nYou can only wager this money.\r\n\r\nPress any physical button to\r\ndismiss this notification#</value>
+  </data>
+  <data name="PaidMeterLabel" xml:space="preserve">
+    <value>#付:#</value>
+  </data>
+  <data name="PlayOnText" xml:space="preserve">
+    <value>#中Play On#</value>
+  </data>
+  <data name="PowerResets" xml:space="preserve">
+    <value>#断电重启2#</value>
+  </data>
+  <data name="PowerResetText" xml:space="preserve">
+    <value>#断电重启#</value>
+  </data>
+  <data name="PrintingPresentationVoucher" xml:space="preserve">
+    <value>#中Printing {0} Voucher...#</value>
+  </data>
+  <data name="PrintingTicket" xml:space="preserve">
+    <value>正在打印代用券……</value>
+  </data>
+  <data name="ReadOnlyMediaFault" xml:space="preserve">
+    <value>#中Read-Only Configuration Error#</value>
+  </data>
+  <data name="StorageFault" xml:space="preserve">
+    <value>#中Critical Storage Fault#</value>
+  </data>
+  <data name="SubstantialWinHandpay" xml:space="preserve">
+    <value>#中Substantial Win Pending - Call Attendant#</value>
+  </data>
+  <data name="TopBoxDoorClosed" xml:space="preserve">
+    <value>#TopBox门关闭了#</value>
+  </data>
+  <data name="TopBoxDoorIsOpen" xml:space="preserve">
+    <value>#顶门打开了#</value>
+  </data>
+  <data name="TouchDisplayDisconnected" xml:space="preserve">
+    <value>#中Touch Display Disconnected - Reconnect the display and Powercycle#</value>
+  </data>
+  <data name="TouchDisplayReconnected" xml:space="preserve">
+    <value>#中Touch Display Connected - Restart Required#</value>
+  </data>
+  <data name="VerifyingCRCSignaturesLockupText" xml:space="preserve">
+    <value>#中Verifying CRC Signatures#</value>
+  </data>
+  <data name="VerifyingSignaturesText" xml:space="preserve">
+    <value>#验证签名#</value>
+  </data>
+  <data name="VoucherNotification" xml:space="preserve">
+    <value>#中VOUCHER NOTIFICATION\r\n\r\nPlease remove voucher from printer\r\nor call attendant for assistance\r\nif paper is jammed or missing.\r\n\r\nPress any physical button to\r\ndismiss this notification#</value>
+  </data>
+  <data name="HandpayKeyedOff" xml:space="preserve">
+    <value>已人工支付金额：</value>
+  </data>
+  <data name="HandpayStartedText" xml:space="preserve">
+    <value>等待人工支付金额：</value>
+  </data>
+  <data name="JackpotHandpayTransactionName" xml:space="preserve">
+    <value>累积奖/多宝奖人工支付</value>
+  </data>
+  <data name="HandpayTransactionName" xml:space="preserve">
+    <value>人工支付</value>
+  </data>
+  <data name="TransferOutFailedText" xml:space="preserve">
+    <value>转出失败金额：</value>
+  </data>
+  <data name="OfflinePrefix" xml:space="preserve">
+    <value>离线 </value>
+  </data>
+  <data name="VoucherIn" xml:space="preserve">
+    <value>代用券存入</value>
+  </data>
+  <data name="VoucherOut" xml:space="preserve">
+    <value>代用券提取</value>
+  </data>
+  <data name="WatOnTransactionName" xml:space="preserve">
+    <value>转入</value>
+  </data>
+  <data name="WatOffTransactionName" xml:space="preserve">
+    <value>转出</value>
+  </data>
+  <data name="MetersBills" xml:space="preserve">
+    <value>纸币</value>
+  </data>
+  <data name="MetersHandpay" xml:space="preserve">
+    <value>人工支付</value>
+  </data>
+  <data name="MetersVouchers" xml:space="preserve">
+    <value>代用券</value>
+  </data>
+  <data name="CashoutTicket" xml:space="preserve">
+    <value>兑现代用券</value>
+  </data>
+  <data name="DocumentRejected" xml:space="preserve">
+    <value>纸币或代用券被拒</value>
+  </data>
+  <data name="BillRejected" xml:space="preserve">
+    <value>纸币被拒</value>
+  </data>
+  <data name="BillAccepted" xml:space="preserve">
+    <value>纸币已接受 -</value>
+  </data>
+  <data name="Cashable" xml:space="preserve">
+    <value>可兑现</value>
+  </data>
+  <data name="CashablePromotion" xml:space="preserve">
+    <value>可兑现推广券</value>
+  </data>
+  <data name="NonCashablePromotional" xml:space="preserve">
+    <value>不可兑现推广券</value>
+  </data>
+  <data name="VoucherRejected" xml:space="preserve">
+    <value>代用券被拒</value>
+  </data>
+  <data name="LessThanOrEqualErrorMessage" xml:space="preserve">
+    <value>无效值。值应少于或等于 {0}。</value>
+  </data>
+  <data name="MaxCreditsInInvalid" xml:space="preserve">
+    <value>现金存入限额必须为有效值</value>
+  </data>
+  <data name="OutOfService" xml:space="preserve">
+    <value>停止服务</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_DocumentCheck" xml:space="preserve">
+    <value>验钞机文档检查</value>
+  </data>
+  <data name="OutsideOperatingHours" xml:space="preserve">
+    <value>不在服务时间内</value>
+  </data>
+  <data name="PaperFullText" xml:space="preserve">
+    <value>纸量已满</value>
+  </data>
+  <data name="PaperLowText" xml:space="preserve">
+    <value>纸量低</value>
+  </data>
+  <data name="PaperOutText" xml:space="preserve">
+    <value>纸量已用完</value>
+  </data>
+  <data name="PaperJamText" xml:space="preserve">
+    <value>卡纸</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>以及</value>
+  </data>
+  <data name="CentralTransactionName" xml:space="preserve">
+    <value>中部</value>
+  </data>
+  <data name="LimitPageTitleText" xml:space="preserve">
+    <value>限额</value>
+  </data>
+  <data name="PrintHandPayText" xml:space="preserve">
+    <value>正在打印收据……</value>
+  </data>
+  <data name="WatOutText" xml:space="preserve">
+    <value>正在转账……</value>
+  </data>
+  <data name="HandPayText" xml:space="preserve">
+    <value>人工支付</value>
+  </data>
+  <data name="ProgressiveLobbyError" xml:space="preserve">
+    <value>累积奖错误</value>
+  </data>
+  <data name="ProgressiveLobbyLabel" xml:space="preserve">
+    <value>累积奖</value>
+  </data>
+  <data name="BonusAwardTitle" xml:space="preserve">
+    <value>红利奖励 -</value>
+  </data>
+  <data name="LiabilityCheckFailed" xml:space="preserve">
+    <value>责任检查结果为失败。请联系服务生。</value>
+  </data>
+  <data name="LegitimacyCheckFailed" xml:space="preserve">
+    <value>合法性检查结果为失败。请联系服务生。</value>
+  </data>
+  <data name="GameHelpText_PaidByVoucher" xml:space="preserve">
+    <value>所有派彩将以打印代金券支付。</value>
+  </data>
+  <data name="GameHelpText_PaidByAttendantRatio" xml:space="preserve">
+    <value>任何奖额（不包括原始投注额）大于或等于{0}或{1}倍投注的派彩</value>
+  </data>
+  <data name="GameHelpText_PaidByAttendant2" xml:space="preserve">
+    <value>将由服务生派发。</value>
+  </data>
+  <data name="GameHelpText_PaidByAttendant" xml:space="preserve">
+    <value>任何大于或等于 {0} 的派彩</value>
+  </data>
+  <data name="MalfunctionVoids" xml:space="preserve">
+    <value>如遇机件或任何故障，所有派彩及游戏一律作废</value>
+  </data>
+  <data name="DisclaimerAllPrizes" xml:space="preserve">
+    <value>所有奖额均只基于宾果图形</value>
+  </data>
+  <data name="DisclaimerReelsAre" xml:space="preserve">
+    <value>转轮仅供娱乐</value>
+  </data>
+  <data name="WaitingForPlayersText" xml:space="preserve">
+    <value>等待玩家</value>
+  </data>
+  <data name="NoPlayersFoundText" xml:space="preserve">
+    <value>未找到玩家</value>
+  </data>
+  <data name="BonusLimitExceeded" xml:space="preserve">
+    <value>超出红利限额</value>
+  </data>
+  <data name="WagerMatchExitText" xml:space="preserve">
+    <value>投注匹配完成</value>
+  </data>
+  <data name="HhrRaceSet1" xml:space="preserve">
+    <value>比赛组 1</value>
+  </data>
+  <data name="HhrRaceSet2" xml:space="preserve">
+    <value>比赛组 2</value>
+  </data>
+  <data name="GamePlaySuspended" xml:space="preserve">
+    <value>游戏暂停</value>
+  </data>
+  <data name="PatronAccountLabel" xml:space="preserve">
+    <value>账户：</value>
+  </data>
+  <data name="DataUnavailable" xml:space="preserve">
+    <value>无法获取数据</value>
+  </data>
+  <data name="VoidDemoTicket" xml:space="preserve">
+    <value>无效演示</value>
+  </data>
+  <data name="PlayableOnly" xml:space="preserve">
+    <value>仅供游戏使用</value>
+  </data>
+  <data name="PlayableOnlyReprint" xml:space="preserve">
+    <value>仅供游戏使用 重新打印</value>
+  </data>
+  <data name="Validating" xml:space="preserve">
+    <value>正在验证……</value>
+  </data>
+  <data name="JackpotPending" xml:space="preserve">
+    <value>{0} 累积奖/多宝奖，请联系服务生</value>
+  </data>
+  <data name="CancelCreditsHandpayReprintTicket" xml:space="preserve">
+    <value>{0} 重新打印</value>
+  </data>
+  <data name="JackpotHandpayTicket" xml:space="preserve">
+    <value>累积奖/多宝奖收据</value>
+  </data>
+  <data name="ReprintLabel" xml:space="preserve">
+    <value>重新打印</value>
+  </data>
+  <data name="JackpotHandpayReprintTicket" xml:space="preserve">
+    <value>累积奖/多宝奖收据重新打印</value>
+  </data>
+  <data name="NoCashValue" xml:space="preserve">
+    <value>*** 无现金价值 ***</value>
+  </data>
+  <data name="VoucherAccepted" xml:space="preserve">
+    <value>代用券已接受 -</value>
+  </data>
+  <data name="VoucherIssued" xml:space="preserve">
+    <value>代用券已打印 -</value>
+  </data>
+  <data name="HandpayReceipt" xml:space="preserve">
+    <value>兑现收据</value>
+  </data>
+  <data name="AccountBalanceLabel" xml:space="preserve">
+    <value>账户余额</value>
+  </data>
+  <data name="InHouse1" xml:space="preserve">
+    <value>包间1</value>
+  </data>
+  <data name="InHouse2" xml:space="preserve">
+    <value>包间2</value>
+  </data>
+  <data name="InHouse3" xml:space="preserve">
+    <value>包间3</value>
+  </data>
+  <data name="InHouse4" xml:space="preserve">
+    <value>包间4</value>
+  </data>
+  <data name="TransactionFeeLabel" xml:space="preserve">
+    <value>转账费用</value>
+  </data>
+  <data name="TotalDebitLabel" xml:space="preserve">
+    <value>Total 账额</value>
+  </data>
+  <data name="Debit1" xml:space="preserve">
+    <value>账额1</value>
+  </data>
+  <data name="Debit2" xml:space="preserve">
+    <value>账额2</value>
+  </data>
+  <data name="Debit3" xml:space="preserve">
+    <value>账额3</value>
+  </data>
+  <data name="Debit4" xml:space="preserve">
+    <value>账额4</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="Address1" xml:space="preserve">
+    <value>地址1</value>
+  </data>
+  <data name="Address2" xml:space="preserve">
+    <value>地址2</value>
+  </data>
+  <data name="AssetNumberLabel" xml:space="preserve">
+    <value>EGM</value>
+  </data>
+  <data name="TransferToGame" xml:space="preserve">
+    <value>转至游戏</value>
+  </data>
+  <data name="CashInText" xml:space="preserve">
+    <value>现金存入</value>
+  </data>
+  <data name="PromoIn" xml:space="preserve">
+    <value>推广券存入</value>
+  </data>
+  <data name="CashTicket" xml:space="preserve">
+    <value>现金代用券</value>
+  </data>
+  <data name="PromoTicket" xml:space="preserve">
+    <value>推广代用券</value>
+  </data>
+  <data name="DebitCardWithdrawal" xml:space="preserve">
+    <value>银行卡提取</value>
+  </data>
+  <data name="DebitIn" xml:space="preserve">
+    <value>账额存入</value>
+  </data>
+  <data name="DebitTicket" xml:space="preserve">
+    <value>账额代用劵</value>
+  </data>
+  <data name="TransferFromGame" xml:space="preserve">
+    <value>从游戏转出</value>
+  </data>
+  <data name="CashOutText" xml:space="preserve">
+    <value>兑现</value>
+  </data>
+  <data name="PromoOut" xml:space="preserve">
+    <value>推广券提取</value>
+  </data>
+  <data name="AcceptingText" xml:space="preserve">
+    <value>#中Accepting#</value>
+  </data>
+  <data name="AllGamesDisabled" xml:space="preserve">
+    <value>#中No Games Enabled#</value>
+  </data>
+  <data name="AlreadyRedeemed" xml:space="preserve">
+    <value>#中Already Redeemed#</value>
+  </data>
+  <data name="AnotherTransferInProgress" xml:space="preserve">
+    <value>#中Another Transfer In Progress#</value>
+  </data>
+  <data name="BackupBattery1Low" xml:space="preserve">
+    <value>#中Backup Battery #1 Low#</value>
+  </data>
+  <data name="BackupBattery2Low" xml:space="preserve">
+    <value>#中Backup Battery #2 Low#</value>
+  </data>
+  <data name="BashButtonText" xml:space="preserve">
+    <value>#中Play#</value>
+  </data>
+  <data name="BatteryLowTilt" xml:space="preserve">
+    <value>#中Battery Low#</value>
+  </data>
+  <data name="BellyDoorDiscrepancy" xml:space="preserve">
+    <value>#中Belly Door Discrepancy#</value>
+  </data>
+  <data name="BingoConfigurationChangeNVRamClearRequired" xml:space="preserve">
+    <value>#中Configuration changed by the AMC. NVRAM clear required#</value>
+  </data>
+  <data name="BingoConfigurationChangeNVRamClearRequiredHelp" xml:space="preserve">
+    <value>#中NVRAM clear the EGM#</value>
+  </data>
+  <data name="BingoHostDisconnected" xml:space="preserve">
+    <value>#中Bingo Host Disconnected#</value>
+  </data>
+  <data name="BingoHostDisconnectedHelp" xml:space="preserve">
+    <value>#中Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communcation.#</value>
+  </data>
+  <data name="BingoHostRegistrationFailed" xml:space="preserve">
+    <value>#中Bingo Host Registration Failed#</value>
+  </data>
+  <data name="BingoHostRegistrationFailedHelp" xml:space="preserve">
+    <value>#中Ensure the EGM is enabled and added on the AMC.  Reboot the machine  to reestablish communcation.#</value>
+  </data>
+  <data name="BingoInvalidConfiguration" xml:space="preserve">
+    <value>#中Invalid Configuration Information#</value>
+  </data>
+  <data name="BingoInvalidConfigurationHelp" xml:space="preserve">
+    <value>#中Correct the configuration information for this EGM on the AMC#</value>
+  </data>
+  <data name="BoardRemovalCashoutMessage" xml:space="preserve">
+    <value>#中Call Attendant - Cashout {0:C} required\r\nafter logic board removal#</value>
+  </data>
+  <data name="BonusCmdFailedHelpMsg" xml:space="preserve">
+    <value>#中Unable to send bonus award message to Central Server. Further diagnostics required to know why that happened. Toggle the Jackpot key to clear this lockup.#</value>
+  </data>
+  <data name="BonusCmdFailedMsg" xml:space="preserve">
+    <value>#中Failed to notify bonus award#</value>
+  </data>
+  <data name="Button10Text" xml:space="preserve">
+    <value>#中Bet 3#</value>
+  </data>
+  <data name="Button11Text" xml:space="preserve">
+    <value>#中Bet 4#</value>
+  </data>
+  <data name="Button12Text" xml:space="preserve">
+    <value>#中Bet 5#</value>
+  </data>
+  <data name="Button2Text" xml:space="preserve">
+    <value>#中Line 1#</value>
+  </data>
+  <data name="Button3Text" xml:space="preserve">
+    <value>#中Line 2#</value>
+  </data>
+  <data name="Button4Text" xml:space="preserve">
+    <value>#中Line 3#</value>
+  </data>
+  <data name="Button5Text" xml:space="preserve">
+    <value>#中Line 4#</value>
+  </data>
+  <data name="Button6Text" xml:space="preserve">
+    <value>#中Line 5#</value>
+  </data>
+  <data name="Button7Text" xml:space="preserve">
+    <value>#中Service#</value>
+  </data>
+  <data name="Button8Text" xml:space="preserve">
+    <value>#中Bet 1#</value>
+  </data>
+  <data name="Button9Text" xml:space="preserve">
+    <value>#中Bet 2#</value>
+  </data>
+  <data name="CallAttendantText" xml:space="preserve">
+    <value>#中Call the attendant#</value>
+  </data>
+  <data name="CannotChangeGameDuringPlay" xml:space="preserve">
+    <value>#中Cannot change game(s) while in game play#</value>
+  </data>
+  <data name="CannotMixNonCashableCredits" xml:space="preserve">
+    <value>#中Cannot Mix Non-cashable Credits#</value>
+  </data>
+  <data name="CannotMixNonCashableExpired" xml:space="preserve">
+    <value>#中Cannot Mix Non-cashable Expired#</value>
+  </data>
+  <data name="CashingOutText" xml:space="preserve">
+    <value>#中Printing Ticket...#</value>
+  </data>
+  <data name="CashOut" xml:space="preserve">
+    <value>#中CashOut#</value>
+  </data>
+  <data name="Cent" xml:space="preserve">
+    <value>#中Cent#</value>
+  </data>
+  <data name="ClearLockupWithEmployeeCard" xml:space="preserve">
+    <value>#中Clear Lockup with Employee Card#</value>
+  </data>
+  <data name="ClearPrizeCalculationError" xml:space="preserve">
+    <value>#中Prize calculation mismatch between central server and the game,  to recover this lockup an NVRAM Clear required#</value>
+  </data>
+  <data name="ClosingGame" xml:space="preserve">
+    <value>#中Closing Game#</value>
+  </data>
+  <data name="ConfiguringGames" xml:space="preserve">
+    <value>#中Configuring Games#</value>
+  </data>
+  <data name="ConnectedReelsNeeded" xml:space="preserve">
+    <value>#中Connected Reels: {0}  Needed Reels: {1}#</value>
+  </data>
+  <data name="CreditInCmdFailedHelpMsg" xml:space="preserve">
+    <value>#中Unable to send Transfer In message to Central Server. Further diagnostics required to know why that happened. Toggle the Jackpot key to clear this lockup.
+    #</value>
+  </data>
+  <data name="CreditInCmdFailedMsg" xml:space="preserve">
+    <value>#中Failed to notify Credit In#</value>
+  </data>
+  <data name="CreditInLimitExceeded" xml:space="preserve">
+    <value>#中Credit In Limit Exceeded#</value>
+  </data>
+  <data name="CreditLimitExceeded" xml:space="preserve">
+    <value>#中Credit Limit Exceeded#</value>
+  </data>
+  <data name="CreditOutCmdFailedHelpMsg" xml:space="preserve">
+    <value>#中Unable to send Transfer out message to Central Server. Further diagnostics required to know why that happened. Toggle the Jackpot key to clear this lockup.
+#</value>
+  </data>
+  <data name="CreditOutCmdFailedMsg" xml:space="preserve">
+    <value>#中Failed to notify Credit Out#</value>
+  </data>
+  <data name="DemoModeInfoButtonText" xml:space="preserve">
+    <value>#中Demo Mode info button text goes here#</value>
+  </data>
+  <data name="DemoModeText" xml:space="preserve">
+    <value>#中Demo Mode#</value>
+  </data>
+  <data name="DemonstrationExitButtonText" xml:space="preserve">
+    <value>#中Exit Demonstration#</value>
+  </data>
+  <data name="DemonstrationExitConfirmMessage" xml:space="preserve">
+    <value>#中Exit Demonstration Mode?#</value>
+  </data>
+  <data name="DemonstrationExitDetailsText1" xml:space="preserve">
+    <value>#中#NAME?#</value>
+  </data>
+  <data name="DemonstrationExitDetailsText2" xml:space="preserve">
+    <value>#中#NAME?#</value>
+  </data>
+  <data name="DemonstrationExitDetailsText3" xml:space="preserve">
+    <value>#中#NAME?#</value>
+  </data>
+  <data name="DemonstrationExitingMessage" xml:space="preserve">
+    <value>#中Exiting from Demonstration Mode#</value>
+  </data>
+  <data name="DemonstrationExitSummeryText" xml:space="preserve">
+    <value>#中Exit Demonstration Mode#</value>
+  </data>
+  <data name="DemonstrationPage" xml:space="preserve">
+    <value>#中Demonstration#</value>
+  </data>
+  <data name="DemonstrationPageTitle" xml:space="preserve">
+    <value>#中Demonstration Mode#</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>#中Disabled#</value>
+  </data>
+  <data name="DisabledByBingoHost" xml:space="preserve">
+    <value>#中Disabled by Bingo Host#</value>
+  </data>
+  <data name="DisabledByDevice" xml:space="preserve">
+    <value>#中Disabled by the {0}[{1}] device#</value>
+  </data>
+  <data name="DisabledByHost" xml:space="preserve">
+    <value>#中Disabled by Host#</value>
+  </data>
+  <data name="DisabledByHost0" xml:space="preserve">
+    <value>#中Shutdown/Lock Out Commanded (SAS Host 0)#</value>
+  </data>
+  <data name="DisabledByHost1" xml:space="preserve">
+    <value>#中Shutdown/Lock Out Commanded (SAS Host 1)#</value>
+  </data>
+  <data name="DisabledByHost2" xml:space="preserve">
+    <value>#中Shutdown/Lock Out Commanded (SAS Host 2)#</value>
+  </data>
+  <data name="DisabledByText" xml:space="preserve">
+    <value>#中Disabled By #</value>
+  </data>
+  <data name="DisabledDuringInitialization" xml:space="preserve">
+    <value>#中Initializing#</value>
+  </data>
+  <data name="DisabledHost0CommunicationsOffline" xml:space="preserve">
+    <value>#中Communications Offline (SAS Host 0)#</value>
+  </data>
+  <data name="DisabledHost1CommunicationsOffline" xml:space="preserve">
+    <value>#中Communications Offline (SAS Host 1)#</value>
+  </data>
+  <data name="DisabledHost2CommunicationsOffline" xml:space="preserve">
+    <value>#中Communications Offline (SAS Host 2)#</value>
+  </data>
+  <data name="DisabledMaintenanceMode" xml:space="preserve">
+    <value>#中This Machine Is Out Of Order#</value>
+  </data>
+  <data name="DisabledProgressivesNotSupported" xml:space="preserve">
+    <value>#中Progressives Not Supported/Full NVRAM Clear Needed#</value>
+  </data>
+  <data name="DisabledValidationIdNeeded" xml:space="preserve">
+    <value>#中Validation Device Is Not Set#</value>
+  </data>
+  <data name="DisableEGM" xml:space="preserve">
+    <value>#中Out of Service Mode#</value>
+  </data>
+  <data name="DisbaledValidationQueueFull" xml:space="preserve">
+    <value>#中The Machine's Validation Queue Is Full#</value>
+  </data>
+  <data name="DropDoorIsOpen" xml:space="preserve">
+    <value>#中Drop Door is Open#</value>
+  </data>
+  <data name="DropDoorName" xml:space="preserve">
+    <value>#中Drop Door#</value>
+  </data>
+  <data name="DropMode" xml:space="preserve">
+    <value>#中Drop Mode#</value>
+  </data>
+  <data name="EKeyDetected" xml:space="preserve">
+    <value>#中EKey Detected#</value>
+  </data>
+  <data name="ErrorInfoCancelCredit" xml:space="preserve">
+    <value>#中Complete any relevant paperwork, and then insert and turn Attendant Reset key to clear the handpay lockup, or perform remote handpay reset from the host system.#</value>
+  </data>
+  <data name="ErrorInfoG2SHostDisabled" xml:space="preserve">
+    <value>#中This lockup can only be cleared by the host system by sending enable command or completing host-related settings.#</value>
+  </data>
+  <data name="ErrorInfoGameConfigurationNotSupported" xml:space="preserve">
+    <value>#中Ensure that the correct game is present and reboot machine#</value>
+  </data>
+  <data name="ExcessiveMeterIncrementError" xml:space="preserve">
+    <value>#中Excessive Meter Increment#</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>#中Expired#</value>
+  </data>
+  <data name="ExtraWinningsStringFormat" xml:space="preserve">
+    <value>#中 + {0} Extra Winnings#</value>
+  </data>
+  <data name="GameConfigurationNotSupported" xml:space="preserve">
+    <value>#中Game configuration contains duplicate bet amounts for game id {0}#</value>
+  </data>
+  <data name="GameEndWinAward" xml:space="preserve">
+    <value>#中Game-End Pattern Wins {0}!#</value>
+  </data>
+  <data name="GameHelpText_PaidByAttendant1" xml:space="preserve">
+    <value>#中Any wins greater than or equal to {0:C2}#</value>
+  </data>
+  <data name="GameWinTransactionCmdFailedHelpMsg" xml:space="preserve">
+    <value>#中Unable to send game win message to Central Server. Further diagnostics required to know why that happened. Toggle the Jackpot key to clear this lockup.#</value>
+  </data>
+  <data name="GameWinTransactionCmdFailedMsg" xml:space="preserve">
+    <value>#中Failed to notify game win transaction#</value>
+  </data>
+  <data name="GreaterThanErrorMessage" xml:space="preserve">
+    <value>#中Invalid value.  The value needs to be greater than {0}.#</value>
+  </data>
+  <data name="GreaterThanOrEqualErrorMessage" xml:space="preserve">
+    <value>#中Invalid value.  The value needs to be greater than or equal to {0}.#</value>
+  </data>
+  <data name="GuaranteedCreditsStringFormat" xml:space="preserve">
+    <value>#中{0} Guaranteed Credits#</value>
+  </data>
+  <data name="HandpayTransactionCmdFailedHelpMsg" xml:space="preserve">
+    <value>#中Unable to send handpay message to Central Server. Further diagnostics required to know why that happened. Toggle the Jackpot key to clear this lockup.#</value>
+  </data>
+  <data name="HandpayTransactionCmdFailedMsg" xml:space="preserve">
+    <value>#中Failed to notify handpay transaction#</value>
+  </data>
+  <data name="HardCashLockMessage" xml:space="preserve">
+    <value>#中Host Cashout Failure#</value>
+  </data>
+  <data name="HHRCentralServerOffline" xml:space="preserve">
+    <value>#中Central Server Offline#</value>
+  </data>
+  <data name="HhrGamePlayRequestFailed" xml:space="preserve">
+    <value>#中Game Play Request Failed#</value>
+  </data>
+  <data name="HhrGamePlayRequestFailedHelpMessage" xml:space="preserve">
+    <value>#中Unable to get a response from server for Game Play Request. Further diagnostics required to know why that happened. Toggle the Jackpot key to clear this lockup.#</value>
+  </data>
+  <data name="HhrGameSelectionMismatch" xml:space="preserve">
+    <value>#中Game Selection Mismatch#</value>
+  </data>
+  <data name="HhrGameSelectionMismatchHelpMessage" xml:space="preserve">
+    <value>#中One or more selected games are not available on the determinant server.#</value>
+  </data>
+  <data name="HhrHorseTitle" xml:space="preserve">
+    <value>#中Horses#</value>
+  </data>
+  <data name="HhrManualHandicapDisclaimerMessage" xml:space="preserve">
+    <value>#中The player must correctly choose the official outcome of each race. There are ten races to handicap with at least eight runners in each race.
+Positions are picked one at a time, in order, from 1st through 8th place by pressing the number of the horse for each position.
+RACE STATS shows the handicap data for the current race being manually handicapped. The handicap data will only be available once and for a limited time for each race.
+RESET will clear all picks for the current race. Once all picks for a race are completed, press NEXT RACE to continue manually handicapping.
+IF TIME RUNS OUT, all manual selections will be cleared and picks will be randomly assigned to all 10 races.#</value>
+  </data>
+  <data name="HhrPreviousRaceResults" xml:space="preserve">
+    <value>#中Previous Race Results#</value>
+  </data>
+  <data name="HhrPreviousRaceResultsTextPart1" xml:space="preserve">
+    <value>#中To#</value>
+  </data>
+  <data name="HhrPreviousRaceResultsTextPart2" xml:space="preserve">
+    <value>#中MANUALLY HANDICAP#</value>
+  </data>
+  <data name="HhrPreviousRaceResultsTextPart3" xml:space="preserve">
+    <value>#中Use the BET +/- to set BET, then press MANUAL HANDICAP to commit wager and begin manual handicapping.#</value>
+  </data>
+  <data name="HhrPreviousRaceResultsTextPart4" xml:space="preserve">
+    <value>#中Once MANUAL HANDICAP has been pressed, the wager is committed and player must manually handicap eight positions in each of ten races for a total of 80 picks.#</value>
+  </data>
+  <data name="HHRProtocolInitializationFailed" xml:space="preserve">
+    <value>#中Protocol Initialization Failed#</value>
+  </data>
+  <data name="HHRProtocolInitializationInProgress" xml:space="preserve">
+    <value>#中Protocol Initialization In Progress#</value>
+  </data>
+  <data name="HhrRaceSet" xml:space="preserve">
+    <value>#中Race Set#</value>
+  </data>
+  <data name="HhrRemainingRacesToHandicapTitle" xml:space="preserve">
+    <value>#中Remaining Races to Handicap#</value>
+  </data>
+  <data name="HhrYourPicksTitle" xml:space="preserve">
+    <value>#中Your Picks#</value>
+  </data>
+  <data name="HostDisconnected" xml:space="preserve">
+    <value>#中Host Disconnected#</value>
+  </data>
+  <data name="HostLocked" xml:space="preserve">
+    <value>#中Locked by the G2S host#</value>
+  </data>
+  <data name="Identification_CardRemoved" xml:space="preserve">
+    <value>#中Card Removed#</value>
+  </data>
+  <data name="Identification_InvalidCard" xml:space="preserve">
+    <value>#中Invalid Card#</value>
+  </data>
+  <data name="Identification_ReadError" xml:space="preserve">
+    <value>#中Please re-insert card#</value>
+  </data>
+  <data name="Identification_ValidEmpCard" xml:space="preserve">
+    <value>#中VALID EMP CARD...Access granted#</value>
+  </data>
+  <data name="IdleTextTitle" xml:space="preserve">
+    <value>#中Idle Text#</value>
+  </data>
+  <data name="IncludesProgressiveResetValues" xml:space="preserve">
+    <value>#中Includes Progressive(s) Reset Values#</value>
+  </data>
+  <data name="IncorrectPlayer" xml:space="preserve">
+    <value>#中Incorrect Player#</value>
+  </data>
+  <data name="InProcessAtAnotherLocation" xml:space="preserve">
+    <value>#中In Process At Another Location#</value>
+  </data>
+  <data name="InsertingBillText" xml:space="preserve">
+    <value>#中Validating Bill...#</value>
+  </data>
+  <data name="InsertingVoucherText" xml:space="preserve">
+    <value>#中Validating Voucher...#</value>
+  </data>
+  <data name="InvalidBill" xml:space="preserve">
+    <value>#中Invalid Bill#</value>
+  </data>
+  <data name="InvalidNoteAcceptorFirmware" xml:space="preserve">
+    <value>#中Invalid Note Acceptor Firmware Detected ISO {0}#</value>
+  </data>
+  <data name="InvalidVoucher" xml:space="preserve">
+    <value>#中Invalid Voucher#</value>
+  </data>
+  <data name="JackpotToCreditsKeyedOff" xml:space="preserve">
+    <value>#中Paid {0} to Credit Meter#</value>
+  </data>
+  <data name="LicenseFileMissing" xml:space="preserve">
+    <value>#中Missing License File#</value>
+  </data>
+  <data name="LicenseFileParsingError" xml:space="preserve">
+    <value>#中Invalid License File#</value>
+  </data>
+  <data name="LicenseFileValidationError" xml:space="preserve">
+    <value>#中Invalid License File#</value>
+  </data>
+  <data name="LockedByHost" xml:space="preserve">
+    <value>#中Locked by Host#</value>
+  </data>
+  <data name="MainOpticDoorClosed" xml:space="preserve">
+    <value>#中Main Optic Door Closed#</value>
+  </data>
+  <data name="MainOpticDoorIsOpen" xml:space="preserve">
+    <value>#中Main Optic Door is Open#</value>
+  </data>
+  <data name="ManifestVerificationFailed" xml:space="preserve">
+    <value>#中Manifest Error#</value>
+  </data>
+  <data name="ManualHandicapWinHelpText" xml:space="preserve">
+    <value>#中Manual Handicap Win occurred. Toggle the Jackpot Key to remove this lockup.#</value>
+  </data>
+  <data name="ManualHandicapWinText" xml:space="preserve">
+    <value>#中Manual Handicap Win - Call Attendant#</value>
+  </data>
+  <data name="MaximumValueReachedCashOutText1" xml:space="preserve">
+    <value>#中Maximum value has been reached.#</value>
+  </data>
+  <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
+    <value>#中A cash out ticket is being produced.#</value>
+  </data>
+  <data name="MechanicalMeterDoorClosed" xml:space="preserve">
+    <value>#中Mechanical Meter Door Closed#</value>
+  </data>
+  <data name="MechanicalMeterDoorIsOpen" xml:space="preserve">
+    <value>#中Mechanical Meter Door is Open#</value>
+  </data>
+  <data name="MenuTitleRoleAdmin" xml:space="preserve">
+    <value>#中Retailer#</value>
+  </data>
+  <data name="MenuTitleRoleTechnician" xml:space="preserve">
+    <value>#中Technician#</value>
+  </data>
+  <data name="NoBonusHost" xml:space="preserve">
+    <value>#中Bonus host not available#</value>
+  </data>
+  <data name="NoteAcceptor_Disconnected" xml:space="preserve">
+    <value>#中Note Acceptor Disconnected#</value>
+  </data>
+  <data name="NoteAcceptorFailure" xml:space="preserve">
+    <value>#中Note Acceptor Failure#</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_NoteJammed" xml:space="preserve">
+    <value>#中Note Acceptor Note Jammed#</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_OtherFault" xml:space="preserve">
+    <value>#中Note Acceptor Unspecified Fault#</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerDisconnected" xml:space="preserve">
+    <value>#中Note Acceptor Stacker Disconnected#</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerFault" xml:space="preserve">
+    <value>#中Note Acceptor Stacker Fault#</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerFull" xml:space="preserve">
+    <value>#中Note Acceptor Error#</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerJammed" xml:space="preserve">
+    <value>#中Note Acceptor Stacker Jammed#</value>
+  </data>
+  <data name="OperatorResetRequiredMessage" xml:space="preserve">
+    <value>#中Operator Reset Required#</value>
+  </data>
+  <data name="PlayerCardMustBeInserted" xml:space="preserve">
+    <value>#中Player Card Must Be Inserted#</value>
+  </data>
+  <data name="PowerOffText" xml:space="preserve">
+    <value>#中Power Off#</value>
+  </data>
+  <data name="PowerUpDisabledByHost0" xml:space="preserve">
+    <value>#中PowerUp Disabled (SAS Host 0)#</value>
+  </data>
+  <data name="PowerUpDisabledByHost1" xml:space="preserve">
+    <value>#中PowerUp Disabled (SAS Host 1)#</value>
+  </data>
+  <data name="PresentationNotFound" xml:space="preserve">
+    <value>#中Presentation not found - Call Attendant#</value>
+  </data>
+  <data name="PrinterError" xml:space="preserve">
+    <value>#中Printer Error#</value>
+  </data>
+  <data name="PrinterFaultTypes_ChassisOpen" xml:space="preserve">
+    <value>#中Printer Chassis Open#</value>
+  </data>
+  <data name="PrinterFaultTypes_FirmwareFault" xml:space="preserve">
+    <value>#中Printer Firmware Fault#</value>
+  </data>
+  <data name="PrinterFaultTypes_NvmFault" xml:space="preserve">
+    <value>#中Printer NVM Fault#</value>
+  </data>
+  <data name="PrinterFaultTypes_OtherFault" xml:space="preserve">
+    <value>#中Printer Miscellaneous Fault#</value>
+  </data>
+  <data name="PrinterFaultTypes_PaperEmpty" xml:space="preserve">
+    <value>#中Printer Paper Empty#</value>
+  </data>
+  <data name="PrinterFaultTypes_PaperJam" xml:space="preserve">
+    <value>#中Printer Paper Jam#</value>
+  </data>
+  <data name="PrinterFaultTypes_PaperNotTopOfForm" xml:space="preserve">
+    <value>#中Printer Paper not at Top of Form#</value>
+  </data>
+  <data name="PrinterFaultTypes_PrintHeadDamaged" xml:space="preserve">
+    <value>#中Printer Head Damaged#</value>
+  </data>
+  <data name="PrinterFaultTypes_PrintHeadOpen" xml:space="preserve">
+    <value>#中Printer Head Open#</value>
+  </data>
+  <data name="PrinterFaultTypes_TemperatureFault" xml:space="preserve">
+    <value>#中Printer Temperature Fault#</value>
+  </data>
+  <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
+    <value>#中Printer Paper Low#</value>
+  </data>
+  <data name="PrizeCalculationError" xml:space="preserve">
+    <value>#中Prize Calculation Error#</value>
+  </data>
+  <data name="ProgressiveDisable" xml:space="preserve">
+    <value>#中Progressive Disable#</value>
+  </data>
+  <data name="ProgressiveDisconnectText" xml:space="preserve">
+    <value>#中Progressive Disconnected#</value>
+  </data>
+  <data name="ProgressiveFaultTypes_MinimumThresholdNotReached" xml:space="preserve">
+    <value>#中Minimum Progressive Value Error#</value>
+  </data>
+  <data name="ProgressiveFaultTypes_ProgCommitTimeout" xml:space="preserve">
+    <value>#中Progressive Commit Failed#</value>
+  </data>
+  <data name="ProgressiveFaultTypes_ProgDisconnected" xml:space="preserve">
+    <value>#中Progressive Disconnected#</value>
+  </data>
+  <data name="ProgressiveFaultTypes_ProgUpdateTimeout" xml:space="preserve">
+    <value>#中Progressive Update Not Received#</value>
+  </data>
+  <data name="ProgressiveInitializationFailedMsg" xml:space="preserve">
+    <value>#中Failed to initialize Progressives#</value>
+  </data>
+  <data name="ProgressiveLevelMismatchText" xml:space="preserve">
+    <value>#中Progressive Level Mismatched#</value>
+  </data>
+  <data name="RecoveringText" xml:space="preserve">
+    <value>#中Recovering#</value>
+  </data>
+  <data name="ReelControllerDisconnected" xml:space="preserve">
+    <value>#中Reel Controller Disconnected#</value>
+  </data>
+  <data name="ReplayText" xml:space="preserve">
+    <value>#中Replay#</value>
+  </data>
+  <data name="ReportEventQueueAlmostFull" xml:space="preserve">
+    <value>#中Report Event queue is almost full#</value>
+  </data>
+  <data name="Reserved" xml:space="preserve">
+    <value>#中RESERVED#</value>
+  </data>
+  <data name="ReservedMachine" xml:space="preserve">
+    <value>#中Machine Reserved#</value>
+  </data>
+  <data name="ReserveMachineIncorrectPinText" xml:space="preserve">
+    <value>#中INCORRECT PIN#</value>
+  </data>
+  <data name="ReserveMachineIncorrectPinWaitText1" xml:space="preserve">
+    <value>#中Max PIN entry attempts reached, wait for#</value>
+  </data>
+  <data name="ReserveMachineIncorrectPinWaitText2" xml:space="preserve">
+    <value>#中to try again.#</value>
+  </data>
+  <data name="ResetProcessor" xml:space="preserve">
+    <value>#中Restarting...#</value>
+  </data>
+  <data name="SecondaryCashDoorClosed" xml:space="preserve">
+    <value>#中Secondary Stacker Door Closed#</value>
+  </data>
+  <data name="SecondaryCashDoorIsOpen" xml:space="preserve">
+    <value>#中Secondary Stacker Door is Open#</value>
+  </data>
+  <data name="SelectPayModeText" xml:space="preserve">
+    <value>#中Select Pay Mode#</value>
+  </data>
+  <data name="SelfAuditError" xml:space="preserve">
+    <value>#中Self Audit Error#</value>
+  </data>
+  <data name="SelfAuditErrorHelpText" xml:space="preserve">
+    <value>#中Self audit error occurred. RAM clear is required to release this lockup.#</value>
+  </data>
+  <data name="SessionLimitReached" xml:space="preserve">
+    <value>#中Session Limit Reached#</value>
+  </data>
+  <data name="SmartCardExpired" xml:space="preserve">
+    <value>#中Smart Card Expired#</value>
+  </data>
+  <data name="SmartCardMissing" xml:space="preserve">
+    <value>#中Smart Card Not Present#</value>
+  </data>
+  <data name="SmartCardRemoved" xml:space="preserve">
+    <value>#中Smart Card Removed#</value>
+  </data>
+  <data name="TicketingDisabled" xml:space="preserve">
+    <value>#中Ticketing Disabled#</value>
+  </data>
+  <data name="TimedOut" xml:space="preserve">
+    <value>#中Timed Out#</value>
+  </data>
+  <data name="TopBoxDoorMismatch" xml:space="preserve">
+    <value>#中Top Box Door Mismatch#</value>
+  </data>
+  <data name="TopBoxOpticDoorClosed" xml:space="preserve">
+    <value>#中Top Box Optic Door Closed#</value>
+  </data>
+  <data name="TopBoxOpticDoorIsOpen" xml:space="preserve">
+    <value>#中Top Box Optic Door is Open#</value>
+  </data>
+  <data name="TransactionReportingQueueAlmostFull" xml:space="preserve">
+    <value>#中Transaction Reporting queue is almost full#</value>
+  </data>
+  <data name="TransactionRequestPendingHelpText" xml:space="preserve">
+    <value>#中Transaction request is pending with Central Server. This should clear itself when transaction request is acknowledged.#</value>
+  </data>
+  <data name="TransactionRequestPendingText" xml:space="preserve">
+    <value>#中Transaction Request Pending#</value>
+  </data>
+  <data name="TransferedInComplete" xml:space="preserve">
+    <value>#中Transferred In -#</value>
+  </data>
+  <data name="TransferedOutComplete" xml:space="preserve">
+    <value>#中Transferred Out -#</value>
+  </data>
+  <data name="TransferStatusErrorText" xml:space="preserve">
+    <value>#中Transfer Status Error#</value>
+  </data>
+  <data name="UniversalInterfaceBoxDoorClosed" xml:space="preserve">
+    <value>#中Universal Interface Box Door Closed#</value>
+  </data>
+  <data name="UniversalInterfaceBoxDoorIsOpen" xml:space="preserve">
+    <value>#中Universal Interface Box Door is Open#</value>
+  </data>
+  <data name="UniversalInterfaceBoxDoorMismatch" xml:space="preserve">
+    <value>#中Universal Interface Box Door Mismatch#</value>
+  </data>
+  <data name="ValidationFailed" xml:space="preserve">
+    <value>#中Validation Failed#</value>
+  </data>
+  <data name="VerificationFailedText" xml:space="preserve">
+    <value>#中Verification Failed - {0}#</value>
+  </data>
+  <data name="VLTCommunicationError" xml:space="preserve">
+    <value>#中VLT Communication Error#</value>
+  </data>
+  <data name="VoucherLimitExceeded" xml:space="preserve">
+    <value>#中Voucher Limit Exceeded#</value>
+  </data>
+  <data name="WagerStringFormat" xml:space="preserve">
+    <value>#中Wager:#</value>
+  </data>
+  <data name="WaitingForRaceInfo" xml:space="preserve">
+    <value>#中Requesting Race Information From Server#</value>
+  </data>
+  <data name="WatOnText" xml:space="preserve">
+    <value>#中Transferring...#</value>
+  </data>
+  <data name="ZeroAmount" xml:space="preserve">
+    <value>#中Zero Amount#</value>
+  </data>
+</root>

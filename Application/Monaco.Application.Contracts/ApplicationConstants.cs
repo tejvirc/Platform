@@ -1426,5 +1426,10 @@
         ///     True if re-directing topper overlay to top screen
         /// </summary>
         public const string IsTopperOverlayRedirecting = @"Application.IsTopperOverlayRedirecting";
+
+        /// <summary>
+        ///     The default culture locale is US English
+        /// </summary>
+        public const string DefaultCultureCode = "en-US";
     }
 }

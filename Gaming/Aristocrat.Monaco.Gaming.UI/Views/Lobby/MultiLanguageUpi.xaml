@@ -109,7 +109,7 @@
                     Margin="15" 
                     HorizontalAlignment="Center" 
                     controls1:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
+            <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          Margin="0 0 12 0" 
                          Command="{Binding Path=DenomFilterPressedCommand}"
                          IsChecked="{Binding DenomFilter,
@@ -126,7 +126,7 @@
                     </ControlTemplate>
                 </RadioButton.Template>
             </RadioButton>
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
+            <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          Margin="0 0 12 0"
                          Command="{Binding Path=DenomFilterPressedCommand}"
                          IsChecked="{Binding DenomFilter,
@@ -143,7 +143,7 @@
                     </ControlTemplate>
                 </RadioButton.Template>
             </RadioButton>
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
+            <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          Command="{Binding Path=DenomFilterPressedCommand}"
                          Margin="0 0 12 0" 
                          IsChecked="{Binding DenomFilter,
@@ -160,7 +160,7 @@
                     </ControlTemplate>
                 </RadioButton.Template>
             </RadioButton>
-            <RadioButton Style="{StaticResource stlFlatToggleButton}"
+            <RadioButton Style="{StaticResource StlFlatToggleButton}"
                          Command="{Binding Path=DenomFilterPressedCommand}"
                          IsChecked="{Binding DenomFilter,
                                     Converter={StaticResource IntToBool}, 
@@ -179,7 +179,7 @@
         </StackPanel>
 
         <ToggleButton x:Name="LanguageButton"
-                      Style="{StaticResource stlFlatToggleButton}"
+                      Style="{StaticResource StlFlatToggleButton}"
                       IsChecked="{Binding IsPrimaryLanguageSelected}"
                       controls1:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}"
                       controls1:MouseEvents.MouseDown="{Binding UserInteractionCommand}"
