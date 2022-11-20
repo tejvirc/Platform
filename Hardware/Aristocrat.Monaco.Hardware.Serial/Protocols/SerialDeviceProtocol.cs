@@ -32,7 +32,7 @@
 
         private Timer _pollTimer;
         private ISerialPortController _physicalLayer;
-        private bool _isAttached;
+        private bool _isAttached = true;
         private byte[] _messageUnderConstruction;
         private int _bytesInSoFar;
         private int _elementsSoFar;
