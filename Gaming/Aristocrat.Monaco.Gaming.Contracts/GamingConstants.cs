@@ -366,6 +366,11 @@
         public const string EnglishCultureCode = "EN-US";
 
         /// <summary>
+        ///     The default culture locale is English-US
+        /// </summary>
+        public const string DefaultCultureCode = EnglishCultureCode;
+
+        /// <summary>
         ///     Determines if autocomplete is current in effect
         /// </summary>
         public const string AutocompleteSet = @"GamePlay.AutocompleteSet";
