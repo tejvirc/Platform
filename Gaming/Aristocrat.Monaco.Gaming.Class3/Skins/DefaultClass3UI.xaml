@@ -112,6 +112,15 @@
     <BitmapImage x:Key="Denom25CentOn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/Standard/25c_Selected.png" />
 
     <!-- **MULTILANGUAGE UPI** -->
+    <BitmapImage x:Key="SimplifiedChineseOff" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/ZH_CN_Language_Normal.png" />
+    <BitmapImage x:Key="EnglishOff" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/EN_Language_Normal.png" />
+    <BitmapImage x:Key="ShowMultiLanguagePopup" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/Show_MultiLanguage_Popup.png" />
+
+    <BitmapImage x:Key="MultiLanguageUpiBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/MultiLanguage/ConsoleBackground.png" />
+    <BitmapImage x:Key="MultiLanguageUpiBackgroundNoService" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/MultiLanguage/ConsoleBackgroundNoService.png" />
+    <BitmapImage x:Key="MultiLanguageUpiBackgroundNoVolume" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/MultiLanguage/ConsoleBackgroundNoVolume.png" />
+    <BitmapImage x:Key="MultiLanguageUpiBackgroundNoVolumeNoService" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/MultiLanguage/ConsoleBackgroundNoVolumeNoService.png" />
+
 
     <!-- **TIME LIMIT DIALOG -->
     <BitmapImage x:Key="TimeLimitLobbyBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayTime/DarkenedBackground_CashOut.png" />
