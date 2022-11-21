@@ -182,6 +182,7 @@
         private bool _isVbdCashOutDialogVisible;
         private bool _isVbdServiceDialogVisible;
         private bool _isVbdRenderingDisabled = true;
+        private bool _isOverlayWindowVisible;
         private bool _largeGameIconsEnabled;
         private bool _lobbyActivated;
         private bool _multiLanguageEnabled;
@@ -269,7 +270,7 @@
         private bool _isSelectPayModeVisible;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
-        private int _localeCodeIndex;
+        private int _localeCodeIndex = -1;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -398,22 +399,10 @@
                 _responsibleGaming.OnForcePendingCheck += ForcePendingResponsibleGamingCheck;
             }
 
-            if (MultiLanguageEnabled)
-            {
-                InitializeMultiLanguages();
-            }
-            else
-            {
-                _properties.SetProperty(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode);
-            }
+            InitializeLanguages();
 
-            string locale = _properties.GetValue(
-                GamingConstants.SelectedLocaleCode,
-                ApplicationConstants.DefaultCultureCode);
-            LocaleCodeIndex = GetLocaleIndex(locale);
-
-            ClockTimer = new ClockTimer(locale, Config, _responsibleGaming, _runtime, _lobbyStateManager);
-
+            ClockTimer = new ClockTimer(ActiveLocaleCode, Config, _responsibleGaming, _runtime, _lobbyStateManager);
+            
             if (buttonDeckDisplay.DisplayCount != 0 || buttonDeckDisplay.IsSimulated)
             {
                 _lobbyButtonDeckRenderer = new LobbyButtonDeckRenderer(
@@ -454,6 +443,7 @@
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
+            ShowLanguageSelectionViewCommand = new ActionCommand<object>(ShowLanguageSelectionViewPressed);
 
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
@@ -567,6 +557,11 @@
         ///     Is the current tab hosting extra large game icons
         /// </summary>
         public bool IsExtraLargeGameIconTabActive => GameTabInfo.SelectedCategory == GameCategory.LightningLink;
+
+        /// <summary>
+        ///     Gets the language selected command
+        /// </summary>
+        public ICommand ShowLanguageSelectionViewCommand { get; }
 
         /// <summary>
         ///     Gets the game selected command
@@ -713,6 +708,8 @@
                     RefreshAttractGameList();
 
                     _gameList.CollectionChanged += GameList_CollectionChanged;
+
+                    LoadGameLocaleGraphics();
 
                     RaisePropertyChanged(nameof(GameList));
                     RaisePropertyChanged(nameof(MarginInputs));
@@ -1129,6 +1126,24 @@
         public bool IsVbdInfoBarVisible => VbdInfoBarOpenRequested && !IsBottomLoadingScreenVisible && !IsBottomAttractVisible && !MessageOverlayDisplay.IsReplayRecoveryDlgVisible;
 
         /// <summary>
+        ///     Gets or sets a value indicating whether the overlay window is visible.
+        /// </summary>
+        public bool IsOverlayWindowVisible
+        {
+            get => _isOverlayWindowVisible;
+
+            set
+            {
+                if (_isOverlayWindowVisible != value)
+                {
+                    _isOverlayWindowVisible = value;
+                    //OnOverlayWindowVisibleChanged();
+                    //RaisePropertyChanged(nameof(IsOverlayWindowVisible));
+                }
+            }
+        }
+
+        /// <summary>
         ///     Gets or sets the Paid meter's text
         /// </summary>
         public string PaidMeterValue
@@ -1289,7 +1304,6 @@
                 {
                     Logger.Debug($"Setting Locale Code Index: {value}");
                     _localeCodeIndex = value;
-                    ClockTimer.ActiveLocaleCode = ActiveLocaleCode;
 
                     if (Config.MultiLanguageEnabled)
                     {
@@ -1397,6 +1411,7 @@
             set
             {
                 IsLanguageSelectionViewVisible = false;
+                IsOverlayWindowVisible = false;
                 SetLanguage(value?.Name);
             }
         }
@@ -1820,6 +1835,29 @@
             Dispose(true);
 
             GC.SuppressFinalize(this);
+        }
+
+        private void InitializeLanguages()
+        {
+            string defaultLocale = _playerCultureProvider.DefaultCulture.Name;
+
+            if (string.IsNullOrEmpty(defaultLocale))
+            {
+                // if default is not set yet, get the first locale from config
+                defaultLocale = Config.LocaleCodes[0] ?? GamingConstants.DefaultCultureCode;
+                _playerCultureProvider.DefaultCulture = new CultureInfo(defaultLocale);
+            }
+
+            if (MultiLanguageEnabled)
+            {
+                InitializeMultiLanguages();
+            }
+            else
+            {
+                _properties.SetProperty(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode);
+            }
+
+            LocaleCodeIndex = GetLocaleIndex(defaultLocale);
         }
 
         private void InitializeMultiLanguages()
@@ -3982,9 +4020,19 @@
 
         private void OnLanguageChanged()
         {
-            // Fixed defect VLT-3714.  Do not need to LoadGameInfo (takes along long time) when toggling between the languages.
-            // We just need to change what is needed the currency format and the icon.  This way it will be fast.
-            foreach (var game in GameList)
+            LoadGameLocaleGraphics();
+
+            if (ClockTimer != null)
+            {
+                ClockTimer.ActiveLocaleCode = ActiveLocaleCode;
+            }
+            
+            Application.Current.Dispatcher.Invoke(new Action(() => SendLanguageChangedEvent()));
+        }
+
+        private void LoadGameLocaleGraphics()
+        {
+            foreach(var game in GameList)
             {
                 game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination);
                 ProgressiveLabelDisplay.UpdateGameProgressiveText(game);
@@ -3993,16 +4041,13 @@
                     ProgressiveLabelDisplay.UpdateGameAssociativeSapText(game);
                 }
 
-                game.SelectLocaleGraphics(ActiveLocaleCode);
+                game.SelectLocaleGraphics(ActiveLocaleCode.ToUpper());
             }
 
             if (IsExtraLargeGameIconTabActive)
             {
                 ProgressiveLabelDisplay.UpdateMultipleGameAssociativeSapText();
             }
-
-            ClockTimer.UpdateTime();
-            SendLanguageChangedEvent();
         }
 
         private void GameList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -4549,6 +4594,12 @@
                 MvvmHelper.ExecuteOnUI(() => GameTabInfo.SelectSubTab(subTabInfo));
             }
             PlayAudioFile(Sound.Touch);
+        }
+
+        private void ShowLanguageSelectionViewPressed(object _)
+        {
+            IsLanguageSelectionViewVisible = true;
+            IsOverlayWindowVisible = true;
         }
 
         private bool CanPrintHelplineMessage(object obj)
