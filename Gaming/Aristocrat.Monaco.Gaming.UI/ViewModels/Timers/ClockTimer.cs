@@ -38,6 +38,7 @@
         private bool? _lastDisplayingTimeRemainingValue;
         private string _lastTimeRemainingValue;
         private string _sessionTimeText;
+        private string _activeLocaleCode;
 
         public ClockTimer(
             string localeCode,
@@ -50,7 +51,7 @@
             _lobbyStateManager = stateManager;
             _responsibleGaming = responsible;
             _runtime = runtime;
-            ActiveLocaleCode = localeCode;
+            _activeLocaleCode = localeCode;
 
             ClockStateTimer =
                 new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(ClockStateTimeoutInSeconds) };
@@ -140,7 +141,15 @@
             }
         }
 
-        public string ActiveLocaleCode { get; set; } // => _config.LocaleCodes[LocaleCodeIndex];
+        public string ActiveLocaleCode
+        {
+            get => _activeLocaleCode;
+            set
+            {
+                _activeLocaleCode = value;
+                UpdateTime();
+            }
+        } 
 
         public string TimeLabelResourceKey =>
             ClockState == LobbyClockState.Clock ? TimeResourceKey : TimeLeftResourceKey;
