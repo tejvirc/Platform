@@ -4036,7 +4036,7 @@
             }
 
             ClockTimer.UpdateTime();
-            SendLanguageChangedEvent();
+            Application.Current.Dispatcher.Invoke(new Action(() => SendLanguageChangedEvent()));
         }
 
         private void GameList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
