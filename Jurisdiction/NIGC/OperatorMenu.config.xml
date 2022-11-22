@@ -112,6 +112,12 @@ as follows:
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
     <Menu Type="GamesMainPageLoader">
+        <Page Type="AdvancedGameSetupViewModel" Access="ReadOnly">
+            <Setting Name="AllowImportExport" Value="false" />
+            <Setting Name="ShowGlobalOptions" Value="true" />
+            <Setting Name="EnableAdvancedConfig" Value="false" />
+            <Setting Name="EnableQuickConfig" Value="false" />
+        </Page>
         <Page Type="GameHistoryViewModel" Access="LogicDoor" PrintButtonEnabled="true">
             <Setting Name="ShowGameInfoButtons" Value="true" />
             <Setting Name="PrintGameRoundInfo" Value="true" />
