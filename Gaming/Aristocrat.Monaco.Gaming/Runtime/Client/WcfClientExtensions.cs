@@ -31,6 +31,8 @@
                     return GDKRuntime.Contract.RuntimeState.RenderOnly;
                 case RuntimeState.Running:
                     return GDKRuntime.Contract.RuntimeState.Running;
+                case RuntimeState.LanguageUpdate:
+                    return GDKRuntime.Contract.RuntimeState.LanguageUpdate;
                 case RuntimeState.Shutdown:
                     return GDKRuntime.Contract.RuntimeState.Shutdown;
                 case RuntimeState.Restart:
@@ -72,6 +74,8 @@
                     return RuntimeState.RenderOnly;
                 case GDKRuntime.Contract.RuntimeState.Running:
                     return RuntimeState.Running;
+                case GDKRuntime.Contract.RuntimeState.LanguageUpdate:
+                    return RuntimeState.LanguageUpdate;
                 case GDKRuntime.Contract.RuntimeState.Shutdown:
                     return RuntimeState.Shutdown;
                 case GDKRuntime.Contract.RuntimeState.Restart:

@@ -1871,6 +1871,18 @@
             {
                 _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
             }
+
+            // subscribe the language changed event from game
+            _eventBus.Subscribe<GameLanguageChangedEvent>(
+                this,
+                e =>
+                {
+                    int localeIndex = GetLocaleIndex(e.LocaleCode);
+                    if (localeIndex != -1 && LocaleCodeIndex != localeIndex)
+                    {
+                        LocaleCodeIndex = localeIndex;
+                    }
+                });
         }
 
         private void InitializeLanguageCollection()
