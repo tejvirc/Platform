@@ -212,6 +212,26 @@
             return mapping.Item1;
         }
 
+        public DisplayRole? GetDisplayRoleMappedToTouchDevice(ITouchDevice touchDevice)
+        {
+            var touchDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.TouchDevice>();
+            var displayDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.DisplayDevice>();
+
+            // DisplayDevice has the VID PID of the touch device it's mapped to
+            var mappings = displayDevices.Select(displayDevice => (
+                    Display: displayDevice,
+                    Touch: touchDevices.FirstOrDefault(touchDevice =>
+                        touchDevice.ProductId == displayDevice.TouchProductId &&
+                        touchDevice.VendorId == displayDevice.TouchVendorId)))
+                .Where(mapping => mapping.Touch != null && mapping.Display != null)
+                .Distinct()
+                .ToList();
+
+            var result = mappings.FirstOrDefault(x => x.Touch == (Aristocrat.Cabinet.TouchDevice)touchDevice);
+
+            return result.Display?.Role;
+        }
+
         public ITouchDevice GetTouchDeviceMappedToDisplay(IDisplayDevice displayDevice)
         {
             var mapping = _displayToTouchMappings.FirstOrDefault(
