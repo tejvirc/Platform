@@ -20,7 +20,6 @@
     public sealed class CabinetDetectionService : IService, ICabinetDetectionService
     {
         private const string CabinetXmlField = "CabinetXML";
-        private const string CabinetTypeRegexLs = "^LS";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly ICabinetManager _cabinetManager;
@@ -136,19 +135,19 @@
         public bool IsDisplayConnectedOrNotExpected(DisplayRole role)
         {
             var display = GetDisplayDeviceByItsRole(role);
-            return (display == null || display.Status == DeviceStatus.Connected);
+            return display == null || display.Status == DeviceStatus.Connected;
         }
 
         public bool IsDisplayExpectedAndDisconnected(DisplayRole role)
         {
             var display = GetDisplayDeviceByItsRole(role);
-            return (display != null && display.Status != DeviceStatus.Connected);
+            return display != null && display.Status != DeviceStatus.Connected;
         }
 
         public bool IsDisplayExpectedAndConnected(DisplayRole role)
         {
             var display = GetDisplayDeviceByItsRole(role);
-            return (display != null && display.Status == DeviceStatus.Connected);
+            return display != null && display.Status == DeviceStatus.Connected;
         }
 
         public CabinetType Type
@@ -177,6 +176,12 @@
             }
         }
 
+        public bool IsCabinetType(string cabinetType)
+        {
+            var match = Regex.Match(Type.ToString(), cabinetType, RegexOptions.None);
+            return match.Success;
+        }
+
         public bool IsTouchVbd()
         {
             var simulateVirtualButtonDeck = _propertiesManager.GetValue(
@@ -198,13 +203,24 @@
 
         public bool TouchscreensMapped { get; private set; }
 
-        public IDisplayDevice GetDisplayMappedToTouchDevice(ITouchDevice touchDevice)
+        public DisplayRole? GetDisplayRoleMappedToTouchDevice(ITouchDevice touchDevice)
         {
-            var mapping = _displayToTouchMappings.FirstOrDefault(entry =>
-                entry.Item2.ProductId == touchDevice.ProductId &&
-                entry.Item2.VendorId == touchDevice.VendorId);
+            var touchDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.TouchDevice>();
+            var displayDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.DisplayDevice>();
 
-            return mapping.Item1;
+            // DisplayDevice has the VID PID of the touch device it's mapped to
+            var mappings = displayDevices.Select(displayDevice => (
+                    Display: displayDevice,
+                    Touch: touchDevices.FirstOrDefault(touchDevice =>
+                        touchDevice.ProductId == displayDevice.TouchProductId &&
+                        touchDevice.VendorId == displayDevice.TouchVendorId)))
+                .Where(mapping => mapping.Touch != null && mapping.Display != null)
+                .Distinct()
+                .ToList();
+
+            var result = mappings.FirstOrDefault(x => x.Touch == (Aristocrat.Cabinet.TouchDevice)touchDevice);
+
+            return result.Display?.Role;
         }
 
         public ITouchDevice GetTouchDeviceMappedToDisplay(IDisplayDevice displayDevice)
@@ -226,12 +242,11 @@
                 var serialTouchName = "?";
                 var serialTouchProductString = "?";
                 var serialTouchVersionNumber = 0;
-                var match = Regex.Match(_cabinet.CabinetType.ToString(), CabinetTypeRegexLs, RegexOptions.None);
 
                 Logger.Debug($"MapTouchscreens - ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}");
 
                 // Is this an LS cabinet and we have not disabled serial touch via command line?
-                if (match.Success && _propertiesManager.GetValue(HardwareConstants.SerialTouchDisabled, "false") == "false")
+                if (IsCabinetType(HardwareConstants.CabinetTypeRegexLs) && _propertiesManager.GetValue(HardwareConstants.SerialTouchDisabled, "false") == "false")
                 {
                     // No, add the main display device with serial touch
                     var expectedDisplayDevicesWithSerialTouch = new List<IDisplayDevice>();
