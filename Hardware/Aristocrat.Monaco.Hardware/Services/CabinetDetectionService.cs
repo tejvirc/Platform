@@ -198,13 +198,24 @@
 
         public bool TouchscreensMapped { get; private set; }
 
-        public IDisplayDevice GetDisplayMappedToTouchDevice(ITouchDevice touchDevice)
+        public DisplayRole? GetDisplayRoleMappedToTouchDevice(ITouchDevice touchDevice)
         {
-            var mapping = _displayToTouchMappings.FirstOrDefault(entry =>
-                entry.Item2.ProductId == touchDevice.ProductId &&
-                entry.Item2.VendorId == touchDevice.VendorId);
+            var touchDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.TouchDevice>();
+            var displayDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.DisplayDevice>();
 
-            return mapping.Item1;
+            // DisplayDevice has the VID PID of the touch device it's mapped to
+            var mappings = displayDevices.Select(displayDevice => (
+                    Display: displayDevice,
+                    Touch: touchDevices.FirstOrDefault(touchDevice =>
+                        touchDevice.ProductId == displayDevice.TouchProductId &&
+                        touchDevice.VendorId == displayDevice.TouchVendorId)))
+                .Where(mapping => mapping.Touch != null && mapping.Display != null)
+                .Distinct()
+                .ToList();
+
+            var result = mappings.FirstOrDefault(x => x.Touch == (Aristocrat.Cabinet.TouchDevice)touchDevice);
+
+            return result.Display?.Role;
         }
 
         public ITouchDevice GetTouchDeviceMappedToDisplay(IDisplayDevice displayDevice)
