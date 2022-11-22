@@ -83,7 +83,7 @@
                 .Setup(a => a.CreateBlock(It.IsAny<PersistenceLevel>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(blockAccessor.Object);
 
-            var totalGameTypes = Enum.GetValues(typeof(GameType)).Length * 2;
+            var totalGameTypes = Enum.GetValues(typeof(GameType)).Length * 3;
             var count = 0;
             properties.Setup(a => a.GetProperty(It.IsAny<string>(), It.IsAny<object>())).Returns(
                 () =>
