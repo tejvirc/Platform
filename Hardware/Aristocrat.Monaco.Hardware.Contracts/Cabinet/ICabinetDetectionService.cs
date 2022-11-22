@@ -76,7 +76,7 @@
         IDisplayDevice GetDisplayMappedToTouchDevice(ITouchDevice touchDevice);
 
         /// <summary>
-        /// 
+        /// Gets the <see cref="DisplayRole"/> mapped to the given <see cref="ITouchDevice"/>.
         /// </summary>
         /// <param name="touchDevice"></param>
         /// <returns></returns>
