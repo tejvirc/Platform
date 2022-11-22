@@ -159,6 +159,12 @@
             }
         }
 
+        public bool IsSelectPayModeVisible
+        {
+            get => _isSelectPayModeVisible;
+            set => SetProperty(ref _isSelectPayModeVisible, value);
+        }
+
         /// <summary>
         ///     Gets or sets a value indicating whether the overlay window is visible.
         /// </summary>
@@ -191,6 +197,8 @@
 
         public readonly ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages =
             new ConcurrentDictionary<string, DisplayableMessage>();
+
+        private bool _isSelectPayModeVisible;
 
         public void UpdateCashoutButtonState(bool state)
         {
@@ -378,32 +386,29 @@
             {
                 ReserveOverlayViewModel.IsDialogVisible = true;
             }
-            
-            MessageOverlayData.IsDialogVisible = (IsLockupMessageVisible &&
-                                                             ((HardErrorMessages.Count > 1) ||
-                                                              (!_systemDisableManager.CurrentDisableKeys.Contains(
-                                                                   ApplicationConstants.ReserveDisableKey) &&
-                                                               HardErrorMessages.Count >= 1))) ||
-                                                            IsCashingOutDlgVisible ||
-                                                            IsCashingInDlgVisible ||
-                                                            IsNonCashOverlayDlgVisible ||
-                                                            ShowProgressiveGameDisabledNotification ||
-                                                            ShowVoucherNotification;
+
+            MessageOverlayData.IsDialogVisible =
+                !IsPresentationOverridden() &&
+                (IsLockupMessageVisible &&
+                 (HardErrorMessages.Count > 1 ||
+                  !_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.ReserveDisableKey) &&
+                  HardErrorMessages.Count >= 1) || IsCashingOutDlgVisible || IsCashingInDlgVisible ||
+                 IsNonCashOverlayDlgVisible || ShowProgressiveGameDisabledNotification || ShowVoucherNotification);
 
             if (MessageOverlayData.IsDialogVisible)
             {
                 ReserveOverlayViewModel.IsDialogVisible = false;
             }
 
-            IsOverlayWindowVisible = !IsPresentationOverridden()  &&
-                                     (IsReplayRecoveryDlgVisible ||
-                                      IsAgeWarningDlgVisible ||
-                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                      MessageOverlayData.IsDialogVisible ||
-                                      ReserveOverlayViewModel.IsDialogVisible ||
-                                      _playerMenuPopup.IsMenuVisible ||
-                                      _playerInfoDisplayManager.IsActive() ||
-                                      CustomMainViewElementVisible);
+            IsOverlayWindowVisible = IsReplayRecoveryDlgVisible ||
+                                     IsAgeWarningDlgVisible ||
+                                     IsSelectPayModeVisible ||
+                                     IsResponsibleGamingInfoOverlayDlgVisible ||
+                                     MessageOverlayData.IsDialogVisible ||
+                                     ReserveOverlayViewModel.IsDialogVisible ||
+                                     _playerMenuPopup.IsMenuVisible ||
+                                     _playerInfoDisplayManager.IsActive() ||
+                                     CustomMainViewElementVisible;
         }
 
         private string BuildLockupMessageText()
