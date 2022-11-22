@@ -956,7 +956,10 @@
                         gameDetail.Status |= GameStatus.GameFilesNotFound;
                     }
 
-                    gameDetail.PaytableName = game.PaytableId.TrimStart(AtiPrefix.ToArray());
+                    var prefixIndex = game.PaytableId.IndexOf(AtiPrefix, StringComparison.Ordinal);
+                    gameDetail.PaytableName = prefixIndex < 0
+                        ? game.PaytableId
+                        : game.PaytableId.Remove(prefixIndex, AtiPrefix.Length);
                     gameDetail.VariationId = game.VariationId;
                     gameDetail.MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent);
                     gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
@@ -1101,14 +1104,20 @@
                         continue;
                     }
 
+                    var paytableId = (string)gameInfo[GamePayTableIdField];
+                    var prefixIndex = paytableId.IndexOf(AtiPrefix, StringComparison.Ordinal);
+                    var paytableName = prefixIndex < 0
+                        ? paytableId
+                        : paytableId.Remove(prefixIndex, AtiPrefix.Length);
+
                     _games.Add(
                         new GameDetail
                         {
                             Id = (int)gameInfo[GameIdField],
                             ThemeId = (string)gameInfo[GameThemeIdField],
                             ThemeName = (string)gameInfo[GameThemeNameField],
-                            PaytableId = (string)gameInfo[GamePayTableIdField],
-                            PaytableName = ((string)gameInfo[GamePayTableIdField]).TrimStart(AtiPrefix.ToArray()),
+                            PaytableId = paytableId,
+                            PaytableName = paytableName,
                             Version = (string)gameInfo[GameVersionField],
                             Status = (GameStatus)gameInfo[GameStatusField],
                             Denominations =
