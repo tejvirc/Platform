@@ -8,6 +8,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Localization;
     using Cabinet.Contracts;
     using Common;
     using Consumers;
@@ -44,6 +45,8 @@
         private readonly IHardwareHelper _hardwareHelper;
         private readonly IAttendantService _attendantService;
         private readonly IGameConfigurationProvider _gameConfiguration;
+        private readonly ILocalization _localization;
+        private readonly IPlayerCultureProvider _playerCultureProvider;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigureClientCommandHandler" /> class.
@@ -63,7 +66,8 @@
             IGameHelpTextProvider gameHelpTextProvider,
             IHardwareHelper hardwareHelper,
             IAttendantService attendantService,
-            IGameConfigurationProvider gameConfiguration)
+            IGameConfigurationProvider gameConfiguration,
+            ILocalization localization)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
@@ -80,6 +84,8 @@
             _hardwareHelper = hardwareHelper ?? throw new ArgumentNullException(nameof(hardwareHelper));
             _attendantService = attendantService ?? throw new ArgumentNullException(nameof(attendantService));
             _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration));
+            _localization = localization ?? throw new ArgumentNullException(nameof(localization));
+            _playerCultureProvider = localization.GetProvider(CultureFor.Player) as IPlayerCultureProvider ?? throw new ArgumentNullException(nameof(_playerCultureProvider));
         }
 
         /// <inheritdoc />
@@ -113,13 +119,18 @@
                         _ => "play"
                     });
 
+            string enabledLanguages = string.Join(",", _playerCultureProvider?.AvailableCultures.Select(c => c.Name) ?? new string[] { GamingConstants.DefaultCultureCode });
+            var defaultLanguage = _properties.GetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, GamingConstants.DefaultCultureCode);
+
             var parameters = new Dictionary<string, string>
             {
                 { "/Runtime/Variation/SelectedID", currentGame.VariationId },
                 { "/Runtime/Denomination", denomination.Value.MillicentsToCents().ToString() },
                 { "/Runtime/ActiveDenominations", string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToCents())) },
                 { "/Runtime/Flags&RequireGameStartPermission", "true" },
-                { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us") },
+                { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, GamingConstants.DefaultCultureCode) },
+                { "/Runtime/Localization/EnabledLanguages", enabledLanguages },
+                { "/Runtime/Localization/DefaultLanguage", defaultLanguage as string },
                 { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencySymbol },
                 { "/Runtime/Localization/Currency&minorSymbol", CurrencyExtensions.MinorUnitSymbol },
                 { "/Runtime/Localization/Currency&positivePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyPositivePattern.ToString() },

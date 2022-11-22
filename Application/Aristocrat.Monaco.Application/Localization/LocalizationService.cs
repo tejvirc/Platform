@@ -47,10 +47,10 @@
             nameof(IPlayerCultureProvider.LanguageOptions)
         };
 
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="LocalizationService"/> class.
-    /// </summary>
-    public LocalizationService()
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="LocalizationService"/> class.
+        /// </summary>
+        public LocalizationService()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>())

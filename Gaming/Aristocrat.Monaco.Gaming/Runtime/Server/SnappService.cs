@@ -650,5 +650,12 @@
 
             return EmptyResult;
         }
+
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            _handlerFactory.Create<UpdateLanguage>().Handle(new UpdateLanguage(request.Language));
+
+            return EmptyResult;
+        }
     }
 }
