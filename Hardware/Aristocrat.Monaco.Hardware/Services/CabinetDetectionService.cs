@@ -203,15 +203,6 @@
 
         public bool TouchscreensMapped { get; private set; }
 
-        public IDisplayDevice GetDisplayMappedToTouchDevice(ITouchDevice touchDevice)
-        {
-            var mapping = _displayToTouchMappings.FirstOrDefault(entry =>
-                entry.Item2.ProductId == touchDevice.ProductId &&
-                entry.Item2.VendorId == touchDevice.VendorId);
-
-            return mapping.Item1;
-        }
-
         public DisplayRole? GetDisplayRoleMappedToTouchDevice(ITouchDevice touchDevice)
         {
             var touchDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.TouchDevice>();
