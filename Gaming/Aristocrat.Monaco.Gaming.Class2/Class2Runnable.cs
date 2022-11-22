@@ -3,6 +3,8 @@
     using System.Configuration;
     using System.Linq;
     using Application.Contracts.Media;
+    using Application.Contracts.Localization;
+    using Application.Localization;
     using Common.Container;
     using Contracts;
     using Contracts.Lobby;
@@ -22,6 +24,7 @@
             container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
             container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
             container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
+            container.Register<ILocalization, LocalizationService>(Lifestyle.Singleton);
             container.AddOverlayMessageStrategies();
 
             // This is just a stub since the core gaming layer currently has dependencies on IResponsibleGaming.  It needs to be re-factored out

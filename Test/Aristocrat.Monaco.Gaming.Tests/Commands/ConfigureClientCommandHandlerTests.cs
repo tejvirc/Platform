@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Localization;
     using Aristocrat.Monaco.Gaming.Contracts.Configuration;
     using Contracts;
     using Contracts.Lobby;
@@ -34,6 +35,7 @@
         private Mock<IHardwareHelper> _hardwareHelper;
         private Mock<IAttendantService> _attendantService;
         private Mock<IGameConfigurationProvider> _gameConfiguration;
+        private Mock<ILocalization> _localization;
 
         [TestInitialize]
         public virtual void TestInitialize()
@@ -53,6 +55,7 @@
             _runtime = new Mock<IRuntime>();
             _attendantService = new Mock<IAttendantService>();
             _gameConfiguration = new Mock<IGameConfigurationProvider>();
+            _localization = new Mock<ILocalization>();
             _attendantService.Setup(attendant => attendant.IsServiceRequested).Returns(true);
             _propertiesManager.Setup(manager => manager.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
                 .Returns<string, object>((s, o) => o);
@@ -69,6 +72,8 @@
             _lobbyStateManager.Setup(m => m.AllowSingleGameAutoLaunch).Returns(false);
             _cabinetDetectionService.Setup(m => m.ButtonDeckType).Returns(It.IsAny<string>());
 
+            _localization.Setup(l => l.GetProvider(It.IsAny<string>())).Returns(new Mock<IPlayerCultureProvider>().Object);
+
             CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
         }
 
@@ -77,6 +82,7 @@
         public void WhenRuntimeServiceIsNullExpectException()
         {
             var handler = new ConfigureClientCommandHandler(
+                null,
                 null,
                 null,
                 null,
@@ -115,6 +121,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -127,6 +134,7 @@
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
                 _gameHistory.Object,
+                null,
                 null,
                 null,
                 null,
@@ -163,6 +171,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -177,6 +186,7 @@
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
+                null,
                 null,
                 null,
                 null,
@@ -211,6 +221,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -227,6 +238,7 @@
                 _gameDiagnostic.Object,
                 _lobbyStateManager.Object,
                 _propertiesManager.Object,
+                null,
                 null,
                 null,
                 null,
@@ -259,6 +271,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -277,6 +290,7 @@
                 _propertiesManager.Object,
                 _playerBank.Object,
                 _audio.Object,
+                null,
                 null,
                 null,
                 null,
@@ -307,6 +321,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -327,6 +342,7 @@
                 _audio.Object,
                 _gameProvider.Object,
                 _gameCategoryService.Object,
+                null,
                 null,
                 null,
                 null,
@@ -355,6 +371,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -377,6 +394,7 @@
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
                 _helpTextProvider.Object,
+                null,
                 null,
                 null,
                 null);
@@ -403,6 +421,7 @@
                 _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -426,7 +445,8 @@
                 _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
-                _gameConfiguration.Object);
+                _gameConfiguration.Object,
+                _localization.Object);
 
             Assert.IsNotNull(handler);
         }
@@ -460,7 +480,8 @@
                 _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
-                _gameConfiguration.Object);
+                _gameConfiguration.Object,
+                _localization.Object);
 
             Assert.IsNotNull(handler);
 
@@ -501,7 +522,8 @@
                 _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
-                _gameConfiguration.Object);
+                _gameConfiguration.Object,
+                _localization.Object);
 
             Assert.IsNotNull(handler);
 
@@ -546,7 +568,8 @@
                 _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
-                _gameConfiguration.Object);
+                _gameConfiguration.Object,
+                _localization.Object);
 
 
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.PlayerInformationDisplay.Enabled, false)).Returns(value)
@@ -588,7 +611,8 @@
                 _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
-                _gameConfiguration.Object);
+                _gameConfiguration.Object,
+                _localization.Object);
 
 
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.PlayerInformationDisplay.RestrictedModeUse, false)).Returns(value)
