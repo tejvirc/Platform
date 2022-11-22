@@ -61,7 +61,7 @@
             _eventBus.Setup(x => x.Publish(It.IsAny<OperatorCultureAdded>()))
                 .Verifiable();
 
-            _target = new LocalizationService();
+            _target = new LocalizationService(_eventBus.Object, _properties.Object);
 
             _target.Initialize();
 

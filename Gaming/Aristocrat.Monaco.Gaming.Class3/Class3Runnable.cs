@@ -25,6 +25,7 @@
             container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
             container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
             container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
+            container.RegisterInstance<ILocalization>(ServiceManager.GetInstance().GetService<ILocalization>());
             container.AddOverlayMessageStrategies();
 
             // we have to register in UI level dues to PlayerInfoDisplayManagerFactory and PlayerInfoDisplayFeatureProvider
