@@ -57,19 +57,14 @@
     <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="10" />
     <MeterNode Page="Hardware" Name="PowerReset" DisplayName="Power Reset" Order="11" />
     <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="12" />
-    <MeterNode Page="Hardware" Name="VideoDisplay1Disconnect" DisplayName="Video Display 1 Disconnect" Order="13" />
-    <MeterNode Page="Hardware" Name="VideoDisplay2Disconnect" DisplayName="Video Display 2 Disconnect" Order="14" />
-    <MeterNode Page="Hardware" Name="VideoDisplay3Disconnect" DisplayName="Video Display 3 Disconnect" Order="15" />
-    <MeterNode Page="Hardware" Name="VideoDisplay4Disconnect" DisplayName="Video Display 4 Disconnect" Order="16" />
-    <MeterNode Page="Hardware" Name="VideoDisplay5Disconnect" DisplayName="Video Display 5 Disconnect" Order="17" />
-    <MeterNode Page="Hardware" Name="VideoDisplay6Disconnect" DisplayName="Video Display 6 Disconnect" Order="18" />
-    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="19" />
-    <MeterNode Page="Hardware" Name="TouchScreen1Disconnect" DisplayName="Touch Screen 1 Disconnect" Order="20" />
-    <MeterNode Page="Hardware" Name="TouchScreen2Disconnect" DisplayName="Touch Screen 2 Disconnect" Order="21" />
-    <MeterNode Page="Hardware" Name="TouchScreen3Disconnect" DisplayName="Touch Screen 3 Disconnect" Order="22" />
-    <MeterNode Page="Hardware" Name="TouchScreen4Disconnect" DisplayName="Touch Screen 4 Disconnect" Order="23" />
-    <MeterNode Page="Hardware" Name="TouchScreen5Disconnect" DisplayName="Touch Screen 5 Disconnect" Order="24" />
-    <MeterNode Page="Hardware" Name="TouchScreen6Disconnect" DisplayName="Touch Screen 6 Disconnect" Order="25" />
+    <MeterNode Page="Hardware" Name="TopTouchScreenDisconnect" DisplayName="Top Touch Screen Disconnect" Order="13" />
+    <MeterNode Page="Hardware" Name="MainTouchScreenDisconnect" DisplayName="Main Touch Screen Disconnect" Order="14" />
+    <MeterNode Page="Hardware" Name="VBDTouchScreenDisconnect" DisplayName="VBD Touch Screen Disconnect" Order="15" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="16" />
+    <MeterNode Page="Hardware" Name="TopperVideoDisplayDisconnect" DisplayName="Topper Video Display Disconnect" Order="17" />
+    <MeterNode Page="Hardware" Name="TopVideoDisplayDisconnect" DisplayName="Top Video Display Disconnect" Order="18" />
+    <MeterNode Page="Hardware" Name="MainVideoDisplayDisconnect" DisplayName="Main Video Display Disconnect" Order="19" />
+    <MeterNode Page="Hardware" Name="VBDVideoDisplayDisconnect" DisplayName="VBD Video Display Disconnect" Order="20" />
     <MeterNode Page="Hardware" Name="ProgressiveDisconnect" DisplayName="Progressive Disconnect" Order="101" />
     <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="102" />
     <MeterNode Page="Hardware" Name="SmartCardError" DisplayName="Smartcard Error" Order="103" />
