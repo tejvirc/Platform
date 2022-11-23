@@ -140,19 +140,6 @@
 
                 ServiceManager.GetInstance().GetService<IMeterManager>().CreateSnapshot();
 
-                Container.GetInstance<IEventBus>().Subscribe<CreditLimitUpdatedEvent>(this,
-                    _ =>
-                    {
-                        var creditLimit = propertiesManager.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue).MillicentsToDollars();
-                        var features = propertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
-                        if (features.TransferLimit.CentsToDollars() > creditLimit)
-                        {
-                            features.TransferLimit = creditLimit.DollarsToCents();
-                            propertiesManager.SetProperty(SasProperties.SasFeatureSettings, features);
-                            OnStop();
-                        }
-                    });
-
                 if (RunState == RunnableState.Running)
                 {
                     // Handle all saved startup events
