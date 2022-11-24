@@ -464,6 +464,12 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
+                    if (PlayerMenuPopupViewModel.IsMenuVisible)
+                    {
+                        PlayerMenuPopupViewModel.IsMenuVisible = false;
+                        HandleMessageOverlayVisibility();
+                    }
+
                     Credits = OverlayMessageUtils.ToCredits(platformEvent.NewBalance);
                     CheckForExitGame();
                     OnUserInteraction();
