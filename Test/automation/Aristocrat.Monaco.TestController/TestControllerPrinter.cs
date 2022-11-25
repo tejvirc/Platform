@@ -11,6 +11,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
 
     public partial class TestControllerEngine
@@ -19,7 +20,9 @@
 
         private const string PrinterDisconnectMessage = "PrinterDisconnect";
 
-        public CommandResult PrinterConnect(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Connect")]
+        public ActionResult<CommandResult> PrinterConnect([FromRoute] string id)
         {
             bool result = false;
             var printer = ServiceManager.GetInstance().GetService<IPrinter>();
@@ -44,7 +47,9 @@
             };
         }
 
-        public CommandResult PrinterDisconnect(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Disconnect")]
+        public ActionResult<CommandResult> PrinterDisconnect([FromRoute] string id)
         {
             bool result = false;
             var printer = ServiceManager.GetInstance().GetService<IPrinter>();
@@ -68,7 +73,9 @@
             };
         }
 
-        public CommandResult PrinterJam(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Jam")]
+        public ActionResult<CommandResult> PrinterJam([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperJam = true });
 
@@ -80,7 +87,9 @@
             };
         }
 
-        public CommandResult PrinterEmpty(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Paper/Out")]
+        public ActionResult<CommandResult> PrinterEmpty([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperEmpty = true });
 
@@ -92,7 +101,9 @@
             };
         }
 
-        public CommandResult PrinterPaperInChute(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Paper/PaperInChute")]
+        public ActionResult<CommandResult> PrinterPaperInChute([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperInChute = true });
 
@@ -104,7 +115,9 @@
             };
         }
 
-        public CommandResult PrinterStatus(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Status")]
+        public ActionResult<CommandResult> PrinterStatus([FromRoute] string id)
         {
             var faults = Enum.GetValues(typeof(PrinterFaultTypes)).Cast<PrinterFaultTypes>()
                 .Where(val => (val & _printerFaults) != 0).ToList();
@@ -123,7 +136,9 @@
             };
         }
 
-        public CommandResult PrinterPaperStatus(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Paper/Status")]
+        public ActionResult<CommandResult> PrinterPaperStatus([FromRoute] string id)
         {
             var faults = Enum.GetValues(typeof(PrinterFaultTypes)).Cast<PrinterFaultTypes>()
                 .Where(val => (val & _printerFaults) != 0).ToList();
@@ -141,7 +156,9 @@
             };
         }
 
-        public CommandResult PrinterChassisOpen(string id)
+        [HttpPost]
+        [Route("Printer/{id}/ChassisOpen")]
+        public ActionResult<CommandResult> PrinterChassisOpen([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { ChassisOpen = true });
 
@@ -153,7 +170,9 @@
             };
         }
 
-        public CommandResult PrinterPaperLow(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Paper/Low")]
+        public ActionResult<CommandResult> PrinterPaperLow([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperLow = true });
 
@@ -165,7 +184,9 @@
             };
         }
 
-        public CommandResult PrinterPaperFill(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Paper/Fill")]
+        public ActionResult<CommandResult> PrinterPaperFill([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperLow = false, PaperEmpty = false });
 
@@ -177,7 +198,9 @@
             };
         }
 
-        public CommandResult PrinterGetTicketList(string id, string count)
+        [HttpGet]
+        [Route("Printer/{id}/Ticket/Read/{count=1}")]
+        public ActionResult<CommandResult> PrinterGetTicketList([FromRoute] string id, [FromRoute] string count = "1")
         {
             if (!int.TryParse(count, out var requestCount))
             {
@@ -221,7 +244,9 @@
             };
         }
 
-        public CommandResult PrinterTicketRemove(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Ticket/Remove")]
+        public ActionResult<CommandResult> PrinterTicketRemove([FromRoute]string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperInChute = false });
 
@@ -233,7 +258,9 @@
             };
         }
 
-        public CommandResult PrinterHeadLift(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Head/Lift")]
+        public ActionResult<CommandResult> PrinterHeadLift([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PrintHeadOpen = true });
 
@@ -245,7 +272,9 @@
             };
         }
 
-        public CommandResult PrinterHeadLower(string id)
+        [HttpPost]
+        [Route("Printer/{id}/Head/Lower")]
+        public ActionResult<CommandResult> PrinterHeadLower([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PrintHeadOpen = false });
 

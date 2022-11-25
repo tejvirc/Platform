@@ -52,8 +52,10 @@ namespace Aristocrat.Monaco.TestController
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
     using System.Reflection;
+    using Aristocrat.Monaco.TestController.Models.Request;
+    using Microsoft.AspNetCore.Mvc;
 
-    public partial class TestControllerEngine : ITestController
+    public partial class TestControllerEngine
     {
         private static ILobbyStateManager _lobbyStateManager = null;
         private static ManualResetEvent   _returnedToLobbyEvent = new ManualResetEvent(false);
@@ -614,7 +616,9 @@ namespace Aristocrat.Monaco.TestController
      
         }
 
-        public CommandResult GetAvailableGamesV2(string test_name)
+        [HttpPost]
+        [Route("Platform/GetAvailableGamesV2")]
+        public ActionResult<CommandResult> GetAvailableGamesV2([FromBody]GetAvailableGamesV2Request request)
         {
             CommandResult commandResult = null;
 
@@ -630,7 +634,7 @@ namespace Aristocrat.Monaco.TestController
                         ["response-to"] = "/Platform/GetAvailableGamesV2",
                         ["status"] = "SUCCESS:",
                         ["location-in-code"] = "GetAvailableGamesV2(1)",
-                        ["test-name"] = $"{test_name}",
+                        ["test-name"] = $"{request.TestName}",
                         ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                         ["number_of_games"] = games.Count
                     },
@@ -686,7 +690,7 @@ namespace Aristocrat.Monaco.TestController
                         ["response-to"] = "/Platform/GetAvailableGamesV2",
                         ["status"] = "ERRORMESSAGE:",
                         ["location-in-code"] = "GetAvailableGamesV2(1)",
-                        ["test-name"] = $"{test_name}",
+                        ["test-name"] = $"{request.TestName}",
                         ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                         ["error-message"] = $"Could not get access to the method (The wait timed out).  Please try again. "
                     },
@@ -704,7 +708,9 @@ namespace Aristocrat.Monaco.TestController
             return commandResult;
         }
 
-        public CommandResult TryLoadGameV2(string gameName, string denomination, string test_name)
+        [HttpPost]
+        [Route("Platform/LoadGameV2")]
+        public ActionResult<CommandResult> TryLoadGameV2([FromBody] TryLoadGameV2Request request)
         {
 
             CommandResult commandResult = null;
@@ -782,7 +788,7 @@ namespace Aristocrat.Monaco.TestController
                             // the service is expecting the denomination to be in the form of 0.01 and so forth
                             // this is consistent with the older version
                             //
-                            if (decimal.TryParse(denomination, out decimal denom))
+                            if (decimal.TryParse(request.Denomination, out decimal denom))
                             {
                                 // E.g.  (0.01 * 100000M) gets it into 1000 millipennies
                                 denom *= 100000M;
@@ -792,7 +798,7 @@ namespace Aristocrat.Monaco.TestController
                                 if (null != games)
                                 {
 
-                                    var gameInfo = games.FirstOrDefault(g => g.ThemeName == gameName && g.EgmEnabled && g.ActiveDenominations.Contains(Convert.ToInt64(denom)));
+                                    var gameInfo = games.FirstOrDefault(g => g.ThemeName == request.GameName && g.EgmEnabled && g.ActiveDenominations.Contains(Convert.ToInt64(denom)));
 
                                     if (null != gameInfo)
                                     {
@@ -813,13 +819,13 @@ namespace Aristocrat.Monaco.TestController
                                                     ["response-to"] = "/Platform/LoadGameV2",
                                                     ["status"] = "SUCCESS:",
                                                     ["location-in-code"] = "TryLoadGameV2(1)",
-                                                    ["test-name"] = $"{test_name}",
+                                                    ["test-name"] = $"{request.TestName}",
                                                     ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                                     ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                                     ["load-time"] = _gameLoadingStopwatch.ElapsedMilliseconds.ToString() + " ms."
                                                 },
                                                 Result = true,
-                                                Info = $"SUCCESS: TryLoadGameV2() Game ({gameName}) Loaded Successfully."
+                                                Info = $"SUCCESS: TryLoadGameV2() Game ({request.GameName}) Loaded Successfully."
                                             };
 
                                             _displayDebugText($"{commandResult.Info}", _logIt);
@@ -839,7 +845,7 @@ namespace Aristocrat.Monaco.TestController
                                                     ["response-to"] = "/Platform/LoadGameV2",
                                                     ["status"] = "ERRORMESSAGE:",
                                                     ["location-in-code"] = "TryLoadGameV2(2)",
-                                                    ["test-name"] = $"{test_name}",
+                                                    ["test-name"] = $"{request.TestName}",
                                                     ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                                     ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                                     ["load-time"] = "0 ms."
@@ -866,7 +872,7 @@ namespace Aristocrat.Monaco.TestController
                                                 ["response-to"] = "/Platform/LoadGameV2",
                                                 ["status"] = "ERRORMESSAGE:",
                                                 ["location-in-code"] = "TryLoadGameV2(3)",
-                                                ["test-name"] = $"{test_name}",
+                                                ["test-name"] = $"{request.TestName}",
                                                 ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                                 ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                                 ["load-time"] = "0 ms."
@@ -892,7 +898,7 @@ namespace Aristocrat.Monaco.TestController
                                             ["response-to"] = "/Platform/LoadGameV2",
                                             ["status"] = "ERRORMESSAGE:",
                                             ["location-in-code"] = "TryLoadGameV2(4)",
-                                            ["test-name"] = $"{test_name}",
+                                            ["test-name"] = $"{request.TestName}",
                                             ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                             ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                             ["load-time"] = "0 ms."
@@ -917,13 +923,13 @@ namespace Aristocrat.Monaco.TestController
                                         ["response-to"] = "/Platform/LoadGameV2",
                                         ["status"] = "ERRORMESSAGE:",
                                         ["location-in-code"] = "TryLoadGameV2(5)",
-                                        ["test-name"] = $"{test_name}",
+                                        ["test-name"] = $"{request.TestName}",
                                         ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                         ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                         ["load-time"] = "0 ms."
                                     },
                                     Result = false,
-                                    Info = $"ERRORMESSAGE: TryLoadGameV2() failed. The denomination ({denomination}) would not parse into a decimal value."
+                                    Info = $"ERRORMESSAGE: TryLoadGameV2() failed. The denomination ({request.Denomination}) would not parse into a decimal value."
                                 };
 
                                 _displayDebugText($"{commandResult.Info}", _logIt);
@@ -941,7 +947,7 @@ namespace Aristocrat.Monaco.TestController
                                     ["response-to"] = "/Platform/LoadGameV2",
                                     ["status"] = "ERRORMESSAGE:",
                                     ["location-in-code"] = "TryLoadGameV2(6)",
-                                    ["test-name"] = $"{test_name}",
+                                    ["test-name"] = $"{request.TestName}",
                                     ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                     ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                     ["load-time"] = "0 ms."
@@ -966,7 +972,7 @@ namespace Aristocrat.Monaco.TestController
                                 ["response-to"] = "/Platform/LoadGameV2",
                                 ["status"] = "ERRORMESSAGE:",
                                 ["location-in-code"] = "TryLoadGameV2(1)",
-                                ["test-name"] = $"{test_name}",
+                                ["test-name"] = $"{request.TestName}",
                                 ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                 ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                 ["load-time"] = "0 ms."
@@ -992,7 +998,7 @@ namespace Aristocrat.Monaco.TestController
                             ["response-to"] = "/Platform/LoadGameV2",
                             ["status"] = "ERRORMESSAGE:",
                             ["location-in-code"] = "TryLoadGameV2(1)",
-                            ["test-name"] = $"{test_name}",
+                            ["test-name"] = $"{request.TestName}",
                             ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                             ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                             ["load-time"] = "0 ms."
@@ -1001,7 +1007,7 @@ namespace Aristocrat.Monaco.TestController
                         Info = $"ERRORMESSAGE: TryLoadGameV2() Failed with Internal Error - Return to Lobby Event never fired."
                     };
 
-                    _displayDebugText($"({test_name}) reports {commandResult.Info}", _logIt);
+                    _displayDebugText($"({request.TestName}) reports {commandResult.Info}", _logIt);
 
                 }
 
@@ -1017,7 +1023,7 @@ namespace Aristocrat.Monaco.TestController
                         ["response-to"] = "/Platform/LoadGameV2",
                         ["status"] = "ERRORMESSAGE:",
                         ["location-in-code"] = "TryLoadGameV2(7)",
-                        ["test-name"] = $"{test_name}",
+                        ["test-name"] = $"{request.TestName}",
                         ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                         ["elapsed-time"] = "0 ms.",
                         ["load-time"] = "0 ms."
@@ -1043,7 +1049,9 @@ namespace Aristocrat.Monaco.TestController
 
         }
 
-        public CommandResult RequestSpinV2(string test_name)
+        [HttpPost]
+        [Route("Runtime/RequestSpinV2")]
+        public ActionResult<CommandResult> RequestSpinV2([FromBody] RequestSpinV2Request request)
         {
 
             CommandResult commandResult = null;
@@ -1088,7 +1096,7 @@ namespace Aristocrat.Monaco.TestController
                             ["response-to"]         = "/Runtime/RequestSpinV2",
                             ["status"]              = "SUCCESS:",
                             ["location-in-code"]    = "RequestSpinV2(1)",
-                            ["test-name"]           = $"{test_name}",
+                            ["test-name"]           = $"{request.TestName}",
                             ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                             ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                             ["game_play_initiated"] = "true",
@@ -1119,7 +1127,7 @@ namespace Aristocrat.Monaco.TestController
                         {
                             ["response-to"]         = "/Runtime/RequestSpinV2",
                             ["status"]              = "ERRORMESSAGE:",
-                            ["test_name"]           = $"{test_name}",
+                            ["test_name"]           = $"{request.TestName}",
                             ["location-in-code"]    = "RequestSpinV2(2)",
                             ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                             ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
@@ -1152,7 +1160,7 @@ namespace Aristocrat.Monaco.TestController
                     {
                         ["response-to"]         = "/Runtime/RequestSpinV2",
                         ["status"]              = "ERRORMESSAGE:",
-                        ["test_name"]           = $"{test_name}",
+                        ["test_name"]           = $"{request.TestName}",
                         ["location-in-code"]    = "RequestSpinV2(3)",
                         ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                         ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
@@ -1188,7 +1196,9 @@ namespace Aristocrat.Monaco.TestController
         /// <param name="test_name"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CommandResult RequestBNAStatusV2(string test_name, string id)
+        [HttpPost]
+        [Route("BNA/{id}/StatusV2")]
+        public ActionResult<CommandResult> RequestBNAStatusV2([FromRoute] int id, [FromBody] RequestBNAStatusV2 request)
         {
             CommandResult commandResult = null;
 
@@ -1386,7 +1396,7 @@ namespace Aristocrat.Monaco.TestController
                             ["status"] = "ERRORMESSAGE:",
                             ["is-faulted"] = isFaulted.ToString(),
                             ["number-of-faults"] = numFaults.ToString(),
-                            ["test_name"] = $"{test_name}",
+                            ["test_name"] = $"{request.TestName}",
                             ["location-in-code"] = "RequestBNAStatusV2(1)",
                             ["error-message"] = $"Fake Note Acceptor is not connected or enabled",
                             ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
@@ -1449,7 +1459,7 @@ namespace Aristocrat.Monaco.TestController
                             ["status"] = "ERRORMESSAGE:",
                             ["is-faulted"] = isFaulted.ToString(),
                             ["number-of-faults"] = numFaults.ToString(),
-                            ["test_name"] = $"{test_name}",
+                            ["test_name"] = $"{request.TestName}",
                             ["location-in-code"] = "RequestBNAStatusV2(2)",
                             ["error-message"] = $"Fake Note Acceptor is not connected or enabled",
                             ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
@@ -1510,7 +1520,7 @@ namespace Aristocrat.Monaco.TestController
                         data = new Dictionary<string, object>
                         {
                             ["response-to"] = $"/BNA/{id}/StatusV2",
-                            ["test-name"] = $"{test_name}",
+                            ["test-name"] = $"{request.TestName}",
                             ["status"] = isFaulted ? "ERRORMESSAGE:" : "SUCCESS:",
                             ["error-message"] = isFaulted ? $"There are {numFaults} active faults" : string.Empty,
                             ["is-faulted"] = isFaulted.ToString(),
@@ -1578,7 +1588,7 @@ namespace Aristocrat.Monaco.TestController
                     data = new Dictionary<string, object>
                     {
                         ["response-to"] = $"/BNA/{id}/StatusV2",
-                        ["test-name"] = $"{test_name}",
+                        ["test-name"] = $"{request.TestName}",
                         ["status"] = "ERRORMESSAGE:",
                         ["error-message"] = "",
                         ["is-faulted"] = "False",
@@ -1689,7 +1699,9 @@ namespace Aristocrat.Monaco.TestController
         /// </summary>
         /// <param name="test_name">The name of the calling test</param>
         /// <returns>A populated JSON object that is returned to the calling REST client</returns>
-        public CommandResult RequestCashOutV2(string test_name)
+        [HttpPost]
+        [Route("Platform/CashoutV2/Request")]
+        public ActionResult<CommandResult> RequestCashOutV2([FromBody] RequestCashOutV2 request)
         {
             CommandResult commandResult = null;
 
@@ -1714,7 +1726,7 @@ namespace Aristocrat.Monaco.TestController
                     // get the beginning known event state setup
                     //
                     ResetLocalManualResetEvents();
-                    EnableCashOut(true);
+                    EnableCashOut(new EnableCashOutRequest{ Enable = true });
                     _eventBus.Publish(new CashOutButtonPressedEvent());
 
                     //
@@ -1748,7 +1760,7 @@ namespace Aristocrat.Monaco.TestController
                                         ["response-to"] = "/Platform/CashoutV2/Request",
                                         ["status"] = "SUCCESS:",
                                         ["location-in-code"] = "RequestCashOutV2(1)",
-                                        ["test-name"] = $"{test_name}",
+                                        ["test-name"] = $"{request.TestName}",
                                         ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                         ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                         ["starting-balance"] = creditMeterValue.ToString(),
@@ -1774,7 +1786,7 @@ namespace Aristocrat.Monaco.TestController
                                     {
                                         ["response-to"] = "/Platform/CashoutV2/Request",
                                         ["status"] = "ERRORMESSAGE:",
-                                        ["test-name"] = $"{test_name}",
+                                        ["test-name"] = $"{request.TestName}",
                                         ["error-message"] = $"[Unknown Internal Error].",
                                         ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                         ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
@@ -1815,7 +1827,7 @@ namespace Aristocrat.Monaco.TestController
                             {
                                 ["response-to"]             = "/Platform/CashoutV2/Request",
                                 ["status"]                  = "ERRORMESSAGE:",
-                                ["test-name"]               = $"{test_name}",
+                                ["test-name"]               = $"{request.TestName}",
                                 ["time-stamp"]              = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                 ["elapsed-time"]            = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                                 ["location-in-code"]        = "RequestCashOutV2(3)",
@@ -1851,7 +1863,7 @@ namespace Aristocrat.Monaco.TestController
                         {
                             ["response-to"] = "/Platform/CashoutV2/Request",
                             ["status"] = "SUCCESS:",
-                            ["test-name"] = $"{test_name}",
+                            ["test-name"] = $"{request.TestName}",
                             ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                             ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                             ["location-in-code"] = "RequestCashOutV2(4)",
@@ -1878,7 +1890,7 @@ namespace Aristocrat.Monaco.TestController
                     {
                         ["response-to"]         = "/Platform/CashoutV2/Request",
                         ["status"]              = "ERRORMESSAGE:",
-                        ["test-name"]           = $"{test_name}",
+                        ["test-name"]           = $"{request.TestName}",
                         ["error-message"]       = $"Could not get access to the method [The wait timed out].  Please try again. ",
                         ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                         ["elapsed-time"]        = "0 ms.",
@@ -1928,9 +1940,11 @@ namespace Aristocrat.Monaco.TestController
         ///     The "Info" member will always have information about the request and activity
         ///     
         /// </returns>
-        public CommandResult InsertCreditsV2(int bill_value, string test_name, string id)
+        [HttpPost]
+        [Route("BNA/{id}/Bill/InsertV2")]
+        public ActionResult<CommandResult> InsertCreditsV2([FromRoute]string id, [FromBody]InsertCreditsV2Request request)
         {
-            string testName = test_name;
+            string testName = request.TestName;
 
             CommandResult commandResult = null;
 
@@ -1949,7 +1963,7 @@ namespace Aristocrat.Monaco.TestController
                 //
                 // make sure it is a bill we recognize
                 //
-                if (!_validBills.Contains(bill_value))
+                if (!_validBills.Contains(request.BillValue))
                 {
 
                     _stopWatch.Stop();
@@ -1963,11 +1977,11 @@ namespace Aristocrat.Monaco.TestController
                             ["test_name"]           = $"{testName}",
                             ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                             ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",          
-                            ["error-message"]       = $"Bill Value ({bill_value}) is invalid.",
+                            ["error-message"]       = $"Bill Value ({request.BillValue}) is invalid.",
                             ["location-in-code"]    = "InsertCreditsV2(1)"
                         },
                         Result = false,
-                        Info = $"Attempt to insert {bill_value} dollar bill failed!",
+                        Info = $"Attempt to insert {request.BillValue} dollar bill failed!",
 
                     };
 
@@ -1995,12 +2009,11 @@ namespace Aristocrat.Monaco.TestController
                             ["location-in-code"]    = "InsertCreditsV2(2)"
                         },
                         Result = false,
-                        Info = $"Attempt to insert {bill_value} dollar bill failed!",
+                        Info = $"Attempt to insert {request.BillValue} dollar bill failed!",
 
                     };
 
                     _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
 
                 } // else if (!int.TryParse(id, out int deviceId))
                 else
@@ -2029,7 +2042,7 @@ namespace Aristocrat.Monaco.TestController
                         {
                             ReportId        = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,
                             TransactionId   = _bnaNoteTransactionId,
-                            NoteId          = GetNoteId(bill_value)
+                            NoteId          = GetNoteId(request.BillValue)
                         }
                     });
 
@@ -2044,7 +2057,6 @@ namespace Aristocrat.Monaco.TestController
                     //
                     if (WaitHandle.WaitAll(_insertCreditsEvents, TimeSpan.FromSeconds(25)))
                     {
-
                         _stopWatch.Stop();
 
                         //
@@ -2059,14 +2071,14 @@ namespace Aristocrat.Monaco.TestController
                                 {
                                     ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
                                     ["status"]              = "ERRORMESSAGE:",
-                                    ["test_name"]           = $"{testName}",
+                                    ["test_name"]           = $"{request.TestName}",
                                     ["location-in-code"]    = "InsertCreditsV2(3)",
                                     ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                     ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
-                                    ["error-message"]       = $"{bill_value} dollars was returned"
+                                    ["error-message"]       = $"{request.BillValue} dollars was returned"
                                 },
                                 Result = false,
-                                Info = $"Failed to insert {bill_value} dollars. The bill was returned"
+                                Info = $"Failed to insert {request.BillValue} dollars. The bill was returned"
                             };
 
                             _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
@@ -2086,23 +2098,20 @@ namespace Aristocrat.Monaco.TestController
                                 {
                                     ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
                                     ["location-in-code"]    = "InsertCreditsV2(4)",
-                                    ["test_name"]           = $"{testName}",
+                                    ["test_name"]           = $"{request.TestName}",
                                     ["status"]              = "SUCCESS:",
                                     ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                     ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
                                 },
                                 Result = true,
-                                Info = $"Inserted {bill_value} dollars."
+                                Info = $"Inserted {request.BillValue} dollars."
                             };
 
                             _displayDebugText($"SUCCESS: At-{commandResult.data["location-in-code"]} {commandResult.Info}", _logIt);
-
-
                         }
                     } //if (WaitHandle.WaitAll(_insertCreditsEvents, TimeSpan.FromSeconds(25)))
                     else
                     {
-
                         //
                         //  if we got here then the required events did not happen
                         //  before the wait timed out.  So, we report the error
@@ -2129,11 +2138,11 @@ namespace Aristocrat.Monaco.TestController
                                 {
                                     ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
                                     ["status"]              = "ERRORMESSAGE:",
-                                    ["test_name"]           = $"{testName}",
+                                    ["test_name"]           = $"{request.TestName}",
                                     ["location-in-code"]    = "InsertCreditsV2(5)",
                                     ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                                     ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
-                                    ["error-message"]       = $"{bill_value} dollars was returned",
+                                    ["error-message"]       = $"{request.BillValue} dollars was returned",
 
                                     //
                                     // a,b,c are declared just above - see that code
@@ -2144,7 +2153,7 @@ namespace Aristocrat.Monaco.TestController
 
                                 },
                                 Result = false,
-                                Info = $"Failed to insert {bill_value} dollars. The bill was returned Check Limit Settings."
+                                Info = $"Failed to insert {request.BillValue} dollars. The bill was returned Check Limit Settings."
                             };
 
                             _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
@@ -2188,21 +2197,16 @@ namespace Aristocrat.Monaco.TestController
 
                                 },
                                 Result = false,
-                                Info = $"Attempt to insert {bill_value} dollar bill failed! The state of the Bank is now unknown."
+                                Info = $"Attempt to insert {request.BillValue} dollar bill failed! The state of the Bank is now unknown."
                             };
 
                             _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
                         }
-
                     }
-
                 }
-
             }  // if (_oneInsertCreditsAtATime.Wait(TimeSpan.FromSeconds(35)))
             else
             {
-
                 _stopWatch.Stop();
                 
                 commandResult = new CommandResult()
@@ -2218,7 +2222,7 @@ namespace Aristocrat.Monaco.TestController
                         ["error-message"]       = $"Could not get access to the method (The wait timed out).  Please try again. "
                     },
                     Result = false,
-                    Info = $"Attempt to insert {bill_value} dollar bill failed! The synchronization semaphore wait just timed out?"
+                    Info = $"Attempt to insert {request.BillValue} dollar bill failed! The synchronization semaphore wait just timed out?"
                 };
 
                 _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
@@ -2232,9 +2236,6 @@ namespace Aristocrat.Monaco.TestController
             _oneAPICallAtATime.Release();
 
             return commandResult;
-
         }
-
     }
-
 }

@@ -42,13 +42,14 @@
     using HardwareFaultClearEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent;
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
-    using CoreWCF;
+    using Microsoft.AspNetCore.Mvc;
+    using Aristocrat.Monaco.TestController.Models.Request;
+    using Aristocrat.Linq;
 
-    [ServiceBehavior(
-        InstanceContextMode = InstanceContextMode.Single,
-        AddressFilterMode = AddressFilterMode.Any
-        )]
-    public partial class TestControllerEngine : ITestController
+    [ApiController]
+    [Route("PlatformTestController")]
+    [Route("VLTTestController")]
+    public partial class TestControllerEngine : ControllerBase
     {
         private const string ResponseTo = "response-to";
 
@@ -154,7 +155,9 @@
 
         }
 
-        public CommandResult ClosePlatform()
+        [HttpPost]
+        [Route("Platform/Close")]
+        public ActionResult<CommandResult> ClosePlatform()
         {
             _eventBus.Publish(new ExitRequestedEvent(ExitAction.ShutDown));
             return new CommandResult()
@@ -165,7 +168,9 @@
             };
         }
 
-        public CommandResult GetEventLogs(string eventType)
+        [HttpGet]
+        [Route("Platform/Logs/{eventType}")]
+        public ActionResult<CommandResult> GetEventLogs([FromRoute]string eventType = null)
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"/Platform/Logs/{eventType}" };
             var events = new List<EventDescription>(_tiltLogger.GetEvents(eventType));
@@ -186,9 +191,11 @@
             };
         }
 
-        public CommandResult AuditMenu(bool open)
+        [HttpPost]
+        [Route("Platform/OperatorMenu")]
+        public ActionResult<CommandResult> AuditMenu([FromBody]AuditMenuRequest request)
         {
-            if (open)
+            if (request.Open)
             {
                 _automata.LoadAuditMenu();
             }
@@ -201,13 +208,15 @@
             {
                 data = new Dictionary<string, object> { { "response-to", "/Platform/AuditMenu" } },
                 Result = true,
-                Info = (open ? "Entering" : "Exiting") + " audit menu."
+                Info = (request.Open ? "Entering" : "Exiting") + " audit menu."
             };
         }
 
-        public CommandResult SelectMenuTab(string name)
+        [HttpPost]
+        [Route("Platform/OperatorMenu/Tab")]
+        public ActionResult<CommandResult> SelectMenuTab([FromBody]SelectMenuTabRequest request)
         {
-            WindowHelper.GetAuditPage("Views", Test.Automation.Constants.OperatorWindowName, name);
+            WindowHelper.GetAuditPage("Views", Test.Automation.Constants.OperatorWindowName, request.Name);
 
             return new CommandResult()
             {
@@ -217,7 +226,9 @@
             };
         }
 
-        public CommandResult ToggleRobotMode()
+        [HttpPost]
+        [Route("Platform/ToggleRobotMode")]
+        public ActionResult<CommandResult> ToggleRobotMode()
         {
             _eventBus.Publish(new RobotControllerEnableEvent());
             return new CommandResult()
@@ -228,7 +239,9 @@
             };
         }
 
-        public CommandResult GetPlatformStatus()
+        [HttpGet]
+        [Route("Platform/Platform/State")]
+        public ActionResult<CommandResult> GetPlatformStatus()
         {
             return new CommandResult()
             {
@@ -242,19 +255,21 @@
             };
         }
 
-        public CommandResult RequestGame(string GameName, long Denomination)
+        [HttpPost]
+        [Route("Platform/LoadGame")]
+        public ActionResult<CommandResult> RequestGame([FromBody] RequestGameRequest request)
         {
             var gameFound = false;
 
             var games = _pm.GetValues<IGameDetail>(GamingConstants.Games).ToList();
 
-            var gameInfo = games.FirstOrDefault(g => g.ThemeName == GameName && g.EgmEnabled && g.ActiveDenominations.Contains(Denomination));
+            var gameInfo = games.FirstOrDefault(g => g.ThemeName == request.GameName && g.EgmEnabled && g.ActiveDenominations.Contains(request.Denomination));
 
             if (gameInfo != null)
             {
-                Log($"Requesting game {gameInfo.ThemeName} with Denom {Denomination} be loaded.");
-                _eventBus.Publish(new DenominationSelectedEvent(gameInfo.Id, Denomination));
-                Task.Delay(1000).ContinueWith(_ => { _eventBus.Publish(new GameLoadRequestedEvent() { GameId = gameInfo.Id, Denomination = Denomination }); });       
+                Log($"Requesting game {gameInfo.ThemeName} with Denom {request.Denomination} be loaded.");
+                _eventBus.Publish(new DenominationSelectedEvent(gameInfo.Id, request.Denomination));
+                Task.Delay(1000).ContinueWith(_ => { _eventBus.Publish(new GameLoadRequestedEvent() { GameId = gameInfo.Id, Denomination = request.Denomination }); });       
                 gameFound = true;
             }
 
@@ -263,12 +278,14 @@
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/GameLoad" },
                 Result = gameFound,
                 Info = gameFound
-                    ? $"Test Controller requesting game {GameName} {Denomination}"
-                    : $"Test Controller could not find {GameName}"
+                    ? $"Test Controller requesting game {request.GameName} {request.Denomination}"
+                    : $"Test Controller could not find {request.GameName}"
             };
         }
 
-        public CommandResult RequestGameExit()
+        [HttpPost]
+        [Route("Platform/ExitGame")]
+        public ActionResult<CommandResult> RequestGameExit()
         {
             _eventBus.Publish(new GameRequestedLobbyEvent(false));
             return new CommandResult()
@@ -279,7 +296,9 @@
             };
         }
 
-        public CommandResult ForceGameExit()
+        [HttpPost]
+        [Route("Platform/ForceGameExit")]
+        public ActionResult<CommandResult> ForceGameExit()
         {
             var killProcess = false;
 
@@ -300,20 +319,25 @@
             };
         }
 
-        public CommandResult EnableCashOut(bool enable)
+        [HttpPost]
+        [Route("Platform/EnableCashout")]
+        public ActionResult<CommandResult> EnableCashOut([FromBody] EnableCashOutRequest request)
         {
-            _pm.SetProperty("Automation.HandleCashOut", enable);
+            _pm.SetProperty("Automation.HandleCashOut", request.Enable);
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/EnableCashout" },
                 Result = true,
-                Info = $"Test Controller allowing cash out: {enable.ToString()}"
+                Info = $"Test Controller allowing cash out: {request.Enable}"
             };
         }
 
-        public CommandResult RequestCashOut()
+        [HttpPost]
+        [Route("Platform/Cashout/Request")]
+
+        public ActionResult<CommandResult> RequestCashOut()
         {
-            EnableCashOut(true);
+            EnableCashOut(new EnableCashOutRequest { Enable = true });
             _eventBus.Publish(new CashOutButtonPressedEvent());
             return new CommandResult()
             {
@@ -323,24 +347,30 @@
             };
         }
 
-        public CommandResult HandleRG(bool enable)
+        [HttpPost]
+        [Route("Platform/HandleRg")]
+        public ActionResult<CommandResult> HandleRG([FromBody]HandleRGRequest request)
         {
-            _handleRg = enable;
+            _handleRg = request.Enable;
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/HandleRg" },
                 Result = true,
-                Info = $"Test Controller will handle Responsible Gaming dialog: {enable.ToString()}"
+                Info = $"Test Controller will handle Responsible Gaming dialog: {request.Enable}"
             };
         }
 
-        public CommandResult SetRgDialogOptions(string[] buttonNames)
+        [HttpPost]
+        [Route("Platform/ResponsibleGaming/Dialog/Options/Set")]
+        public ActionResult<CommandResult> SetRgDialogOptions([FromBody]SetRgDialogOptionsRequest request)
         {
-            _mouse.TimeLimitButtons = buttonNames.ToList();
+            _mouse.TimeLimitButtons = request.ButtonNames.ToList();
             return new CommandResult();
         }
 
-        public CommandResult RequestSpin()
+        [HttpPost]
+        [Route("Runtime/RequestSpin")]
+        public ActionResult<CommandResult> RequestSpin()
         {
             _eventBus.Publish(new InputEvent(22, true));
             return new CommandResult()
@@ -351,30 +381,36 @@
             };
         }
 
-        public CommandResult SetBetLevel(int index)
+        [HttpPost]
+        [Route("Runtime/BetLevel/Set")]
+        public ActionResult<CommandResult> SetBetLevel([FromBody] SetBetLevelRequest request)
         {
-            _eventBus.Publish(new InputEvent(22 + index, true));
+            _eventBus.Publish(new InputEvent(22 + request.Index, true));
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Runtime/BetLevel/Set" },
                 Result = true,
-                Info = $"Request line index {index}."
+                Info = $"Request line index {request.Index}."
             };
         }
 
-        public CommandResult SetLineLevel(int index)
+        [HttpPost]
+        [Route("Runtime/LineLevel/Set")]
+        public ActionResult<CommandResult> SetLineLevel([FromBody] SetLineLevelRequest request)
         {
-            _eventBus.Publish(new InputEvent(29 + index, true));
+            _eventBus.Publish(new InputEvent(29 + request.Index, true));
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Runtime/LineLevel/Set" },
                 Result = true,
-                Info = $"Request line index {index}."
+                Info = $"Request line index {request.Index}."
             };
         }
 
-        public CommandResult SetBetMax()
+        [HttpPost]
+        [Route("Runtime/BetMax/Set")]
+        public ActionResult<CommandResult> SetBetMax()
         {
             _eventBus.Publish(new UpEvent((int)ButtonLogicalId.MaxBet));
 
@@ -386,7 +422,14 @@
             };
         }
 
-        public CommandResult GetMeter(string name, string category, string type, string game, string denom)
+        [HttpPost]
+        [Route("Platform/Meters/{category}/{name}/{type}/Get/{game}/{denom}")]
+        public ActionResult<CommandResult> GetMeter(
+            [FromRoute] string name,
+            [FromRoute] string category,
+            [FromRoute] string type,
+            [FromRoute] string game = "0",
+            [FromRoute] string denom = "0")
         {
             var response = new Dictionary<string, object>();
 
@@ -407,7 +450,9 @@
             };
         }
 
-        public CommandResult GetUpiMeters()
+        [HttpGet]
+        [Route("Platform/Meters/Upi/Get")]
+        public ActionResult<CommandResult> GetUpiMeters()
         {
             var response = new Dictionary<string, object>
             {
@@ -426,7 +471,9 @@
             };
         }
 
-        public CommandResult GetRuntimeState()
+        [HttpGet]
+        [Route("Runtime/State")]
+        public ActionResult<CommandResult> GetRuntimeState()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/State" } };
 
@@ -442,7 +489,9 @@
             };
         }
 
-        public CommandResult RuntimeLoaded()
+        [HttpPost]
+        [Route("Runtime/Running")]
+        public ActionResult<CommandResult> RuntimeLoaded()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/Running" } };
 
@@ -458,7 +507,9 @@
             };
         }
 
-        public CommandResult GetRuntimeMode()
+        [HttpGet]
+        [Route("Runtime/Mode")]
+        public ActionResult<CommandResult> GetRuntimeMode()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/Mode" } };
 
@@ -472,43 +523,51 @@
             };
         }
 
-        public CommandResult SendInput(int input)
+        [HttpPost]
+        [Route("Platform/SendInput")]
+        public ActionResult<CommandResult> SendInput([FromBody]SendInputRequest request)
         {
-            _eventBus.Publish(new InputEvent(input, false));
+            _eventBus.Publish(new InputEvent(request.Input, false));
 
             return new CommandResult()
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Platform/SendInput/{input}" },
+                data = new Dictionary<string, object> { ["response-to"] = $"/Platform/SendInput/{request.Input}" },
                 Result = true,
-                Info = $"Sending input {input}"
+                Info = $"Sending input {request.Input}"
             };
         }
 
-        public CommandResult SendTouchGame(int x, int y)
+        [HttpPost]
+        [Route("TouchScreen/0/Touch")]
+        public ActionResult<CommandResult> SendTouchGame([FromBody]SendTouchGameRequest request)
         {
-            _mouse.ClickGame(x, y);
+            _mouse.ClickGame(request.X, request.Y);
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/TouchScreen/0/Touch" },
                 Result = true,
-                Info = $"Clicking main window at x: {x} y: {y} "
+                Info = $"Clicking main window at x: {request.X} y: {request.Y} "
             };
         }
 
-        public CommandResult SendTouchVBD(int x, int y)
+        [HttpPost]
+        [Route("TouchScreen/2/Touch")]
+        public ActionResult<CommandResult> SendTouchVBD([FromBody]SendTouchVBDRequest request)
         {
-            _mouse.ClickVirtualButtonDeck(x, y);
+            _mouse.ClickVirtualButtonDeck(request.X, request.Y);
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/TouchScreen/2/Touch" },
                 Result = true,
-                Info = $"Clicking VBD at x: {x} y: {y} "
+                Info = $"Clicking VBD at x: {request.X} y: {request.Y} "
             };
         }
 
-        public CommandResult InsertCredits(int bill_value, string id)
+        [HttpPost]
+        [Route("BNA/{id}/Bill/Insert")]
+        public ActionResult<CommandResult> InsertCredits([FromRoute] string id, [FromBody] InsertCreditsRequest request)
         {
             if (!int.TryParse(id, out int deviceId))
             {
@@ -516,7 +575,7 @@
                 {
                     data = new Dictionary<string, object>() { ["response-to"] = $"/BNA/{id}/Bill/Insert", ["Error"] = $"Could not cast {id} to a valid id." },
                     Result = false,
-                    Info = $"Failed to insert {bill_value} for device {id}"
+                    Info = $"Failed to insert {request.BillValue} for device {id}"
                 };
             }
             CreateTable();
@@ -537,7 +596,7 @@
                 {
                     ReportId = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,
                     TransactionId = _bnaNoteTransactionId,
-                    NoteId = GetNoteId(bill_value)
+                    NoteId = GetNoteId(request.BillValue)
                 }
             });
 
@@ -545,13 +604,17 @@
             {
                 data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Bill/Insert" },
                 Result = true,
-                Info = $"Inserting {bill_value} dollars"
+                Info = $"Inserting {request.BillValue} dollars"
             };
 
             return result;
         }
 
-		public CommandResult InsertTicket(string validation_id, string id)	 	 
+        [HttpPost]
+        [Route("BNA/{id}/Ticket/Insert")]
+        public ActionResult<CommandResult> InsertTicket(
+            [FromRoute] string id,
+            [FromBody] InsertTicketRequest request)	 	 
 		{	 	 
             try	 	 
 		    {	 	 
@@ -566,10 +629,10 @@
 		    {	 	 
 		        Message = new TicketValidated	 	 
 		        {	 	 
-		                ReportId = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,	 	 
-		            TransactionId = _bnaTicketTransactionID,	 	 
-		                Code = validation_id	 	 
-		        }	 	 
+		            ReportId = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,	 	 
+		            TransactionId = _bnaTicketTransactionID,	 	 
+		            Code = request.ValidationId
+                }	 	 
 		    });	 	 
 		 
 		    var result = new CommandResult()	 	 
@@ -581,40 +644,46 @@
 		 
 		    return result;	 	 
 		}
-		
-        public CommandResult PlayerCardEvent(bool inserted, string data)
+
+        [HttpPost]
+        [Route("CardReaders/0/Event")]
+        public ActionResult<CommandResult> PlayerCardEvent([FromBody]PlayerCardEventRequest request)
         {
-            _automata.CardEvent(inserted, data);
+            _automata.CardEvent(request.Inserted, request.Data);
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/CardReaders/0/Event" },
                 Result = true,
-                Info = $"Card was requested {(inserted ? "inserted" : "removed")} with data: {data}"
+                Info = $"Card was requested {(request.Inserted ? "inserted" : "removed")} with data: {request.Data}"
             };
         }
 
-        public CommandResult ServiceButton(bool pressed)
+        [HttpPost]
+        [Route("Platform/Service/Request")]
+        public ActionResult<CommandResult> ServiceButton([FromBody]ServiceButtonRequest request)
         {
             var attendantService = ServiceManager.GetInstance().GetService<IAttendantService>();
-            attendantService.IsServiceRequested = pressed;
+            attendantService.IsServiceRequested = request.Pressed;
             //attendantService.OnServiceButtonPressed();
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/Service/Request" },
                 Result = true,
-                Info = $"Service button {(pressed ? "pressed" : "cleared")}"
+                Info = $"Service button {(request.Pressed ? "pressed" : "cleared")}"
             };
         }
 
-        public CommandResult Lockup(LockupTypeEnum type, bool state)
+        [HttpPost]
+        [Route("Platform/Lockup")]
+        public ActionResult<CommandResult> Lockup([FromBody]LockupRequest request)
         {
             BaseEvent evt = null;
 
             try
             {
-                evt = MapLockup(type, state);
+                evt = MapLockup(request.Type, request.Clear);
 
                 if (evt != null)
                 {
@@ -652,23 +721,27 @@
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/Lockup" },
                 Result = evt != null,
-                Info = $"Lockup of type {type} was requested {(state ? "entered" : "cleared")}"
+                Info = $"Lockup of type {request.Type} was requested {(request.Clear ? "entered" : "cleared")}"
             };
         }
 
-        public CommandResult SetMaxWinLimitOverride(int maxWinLimitOverrideMillicents)
+        [HttpPost]
+        [Route("Platform/MaxWinLimitOverride")]
+        public ActionResult<CommandResult> SetMaxWinLimitOverride([FromBody] SetMaxWinLimitOverrideRequest request)
         {
-            _automata.SetMaxWinLimit(maxWinLimitOverrideMillicents);
+            _automata.SetMaxWinLimit(request.MaxWinLimitOverrideMillicents);
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/MaxWinLimitOverride" },
                 Result = true,
-                Info = $"Max Win Limit overridden to {maxWinLimitOverrideMillicents}"
+                Info = $"Max Win Limit overridden to {request.MaxWinLimitOverrideMillicents}"
             };
         }
 
-        public CommandResult RequestHandPay(long amount, TransferOutType type, Account accountType)
+        [HttpPost]
+        [Route("Platform/HandpayRequest")]
+        public ActionResult<CommandResult> RequestHandPay([FromBody] RequestHandPayRequest request)
         {
             //var playerBank = ServiceManager.GetInstance().TryGetService<IPlayerBank>();
             //playerBank.ForceHandpay(Guid.NewGuid(), amount, Accounting.Contracts.TransferOut.TransferOutReason.LargeWin, -1);
@@ -677,19 +750,21 @@
 
             _eventBus.Publish(new CashOutStartedEvent(false, true));
 
-            transferOutHandler.TransferOut<IHandpayProvider>(accountType.ToType(), amount, type.ToReason());
+            transferOutHandler.TransferOut<IHandpayProvider>(request.AccountType.ToType(), request.Amount, request.Type.ToReason());
 
-            Log($"Transfer out requested.  Amount: {amount}, Type: {type}, AccountType: {accountType}");
+            Log($"Transfer out requested.  Amount: {request.Amount}, Type: {request.Type}, AccountType: {request.AccountType}");
 
             return new CommandResult
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/HandpayRequest" },
                 Result = true,
-                Info = $"Transfer out requested.  Amount: {amount}, Type: {type}, AccountType: {accountType}"
+                Info = $"Transfer out requested.  Amount: {request.Amount}, Type: {request.Type}, AccountType: {request.AccountType}"
             };
         }
 
-        public CommandResult RequestKeyOff()
+        [HttpPost]
+        [Route("Platform/KeyOff")]
+        public ActionResult<CommandResult> RequestKeyOff()
         {
             _automata.JackpotKeyoff();
 
@@ -701,7 +776,9 @@
             };
         }
 
-        public CommandResult GetCurrentLockups()
+        [HttpGet]
+        [Route("Lockups/Get")]
+        public ActionResult<CommandResult> GetCurrentLockups()
         {
             return new CommandResult
             {
@@ -710,7 +787,9 @@
             };
         }
 
-        public CommandResult GetGameMessages()
+        [HttpGet]
+        [Route("Game/Messages/Lockup/GetGameScreenMessages")]
+        public ActionResult<CommandResult> GetGameMessages()
         {
             return new CommandResult
             {
@@ -719,7 +798,9 @@
             };
         }
 
-        public CommandResult GetNumberOfGameHistoryEntires()
+        [HttpGet]
+        [Route("Game/History/NumberOfEntries")]
+        public ActionResult<CommandResult> GetNumberOfGameHistoryEntires()
         {
             var gameHistory = ServiceManager.GetInstance().TryGetService<IGameHistory>();
 
@@ -738,8 +819,10 @@
             };
         }
 
+        [HttpGet]
+        [Route("Game/History/{count}")]
 
-        public CommandResult GetGameHistory(string count)
+        public ActionResult<CommandResult> GetGameHistory([FromRoute]string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"/Game/History/{count}" };
 
@@ -787,7 +870,9 @@
 
         }
 
-        public CommandResult GetHandPayLog(string count)
+        [HttpGet]
+        [Route("Platform/Logs/HandPay/{count}")]
+        public ActionResult<CommandResult> GetHandPayLog([FromRoute]string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/HandPay/{count}" };
 
@@ -815,7 +900,9 @@
 
         }
 
-        public CommandResult GetTransferOutLog(string count)
+        [HttpGet]
+        [Route("Platform/Logs/TransferOut/{count}")]
+        public ActionResult<CommandResult> GetTransferOutLog([FromRoute] string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/TransferOut/{count}" };
 
@@ -844,7 +931,9 @@
 
         }
 
-        public CommandResult GetTransferInLog(string count)
+        [HttpGet]
+        [Route("Platform/Logs/TransferIn/{count}")]
+        public ActionResult<CommandResult> GetTransferInLog([FromRoute] string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/TransferIn/{count}" };
 
@@ -869,12 +958,13 @@
                 Result = true,
                 Info = $"Test Controller returning {collectedCount} entries in TransferIn log"
             };
-
         }
 
-        public CommandResult GetGameLineMessages()
+        [HttpGet]
+        [Route("Game/Messages/Get")]
+        public ActionResult<CommandResult> GetGameLineMessages()
         {
-            string messages = "";            
+            string messages = string.Empty;            
             foreach (DisplayableMessage message in _gameLineMessages)
             {
                 messages = messages + message.Message + "\n";
@@ -886,7 +976,9 @@
             };
         }
 
-        public CommandResult GetGameOverlayMessage()
+        [HttpGet]
+        [Route("Game/OverlayMessage/Get")]
+        public ActionResult<CommandResult> GetGameOverlayMessage()
         {
             string message = string.Empty;
 
@@ -908,10 +1000,12 @@
             };
         }
 
-        public CommandResult GetInfo(List<PlatformInfoEnum> info)
+        [HttpPost]
+        [Route("Platform/Info")]
+        public ActionResult<CommandResult> GetInfo([FromBody] GetInfoRequest request)
         {
-            var desiredInfo = "";
-            var desiredInfoCollective = "";
+            var desiredInfo = string.Empty;
+            var desiredInfoCollective = string.Empty;
             var desiredInfoFound = false;
 
             var data = new StringBuilder();
@@ -920,7 +1014,7 @@
 
             try
             {
-                foreach (var type in info)
+                foreach (var type in request.Info)
                 {
                     switch (type)
                     {
@@ -1006,13 +1100,13 @@
                         }
                         case PlatformInfoEnum.Jurisdiction:
                         {
-                            desiredInfo = _pm.GetProperty(ApplicationConstants.JurisdictionKey, "").ToString();
+                            desiredInfo = _pm.GetProperty(ApplicationConstants.JurisdictionKey, string.Empty).ToString();
                             desiredInfoFound = true;
                             break;
                         }
                         case PlatformInfoEnum.Protocol:
                         {
-                            desiredInfo = _pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString();
+                            desiredInfo = _pm.GetProperty(ApplicationConstants.ActiveProtocol, string.Empty).ToString();
                             desiredInfoFound = true;
                             break;
                         }
@@ -1070,7 +1164,7 @@
 
                             dataMulti.Add(PlatformInfoEnum.Jurisdiction, _pm.GetProperty(ApplicationConstants.JurisdictionKey, "").ToString());
 
-                            data.AppendLine($"Protocol: {_pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString()}");
+                            data.AppendLine($"Protocol: {_pm.GetProperty(ApplicationConstants.ActiveProtocol, string.Empty)}");
                             dataMulti.Add(PlatformInfoEnum.Protocol, _pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString());
 
                             var games = _pm.GetValues<IGameProfile>(GamingConstants.Games).ToList();
@@ -1111,9 +1205,11 @@
             };
         }
 
-        public CommandResult GetProgressives(string gameName)
+        [HttpPost]
+        [Route("Platform/Progressives/Get")]
+        public ActionResult<CommandResult> GetProgressives([FromBody] GetProgressivesRequest request)
         {
-            var info = _automata.GetPools(gameName);
+            var info = _automata.GetPools(request.GameName);
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/Progressives/Get", ["progressives"] = info },
@@ -1122,7 +1218,9 @@
             };
         }
 
-        public CommandResult GetConfigOption(string option)
+        [HttpPost]
+        [Route("Config/Read")]
+        public ActionResult<CommandResult> GetConfigOption([FromBody] GetConfigOptionRequest request)
         {
             var desiredInfo = "";
             var desiredInfoFound = false;
@@ -1130,7 +1228,7 @@
             try
             {
                 //foreach (string type in option)
-                    ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), option);
+                    ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), request.Option);
 
                     switch (optName)
                     {
@@ -1304,25 +1402,27 @@
 
         }
 
-        public CommandResult SetConfigOption(string option, object value)
+        [HttpPost]
+        [Route("Config/Write")]
+        public ActionResult<CommandResult> SetConfigOption([FromBody] SetConfigOptionRequest request)
         {
             try
             {
                 //foreach (string type in option)
                 {
-                    ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), option);
+                    ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), request.Option);
 
                     switch (optName)
                     {
                         case ConfigOptionInfo.CreditLimit:
                             {
-                                _pm.SetProperty(AccountingConstants.MaxCreditMeter, Convert.ToDecimal(value).DollarsToMillicents());
+                                _pm.SetProperty(AccountingConstants.MaxCreditMeter, Convert.ToDecimal(request.Value).DollarsToMillicents());
                                 break;
                             }
                         case ConfigOptionInfo.EftAftTransferLimit:
                             {
                                 var features = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures());
-                                features.TransferLimit = Convert.ToDecimal(value).DollarsToCents();
+                                features.TransferLimit = Convert.ToDecimal(request.Value).DollarsToCents();
                                 _pm.SetProperty(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, features);
                                 break;
                             }
@@ -1354,12 +1454,12 @@
                         case ConfigOptionInfo.VoucherOutLimit:
                             {
                                 //get VoucherOutLimit
-                                _pm.SetProperty(AccountingConstants.VoucherOutLimit, Convert.ToDecimal(value).DollarsToMillicents());                                
+                                _pm.SetProperty(AccountingConstants.VoucherOutLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
                                 break;                               
                             }
                         case ConfigOptionInfo.PrintPromoTickets:
                             {
-                                bool allowVoucherOutNonCash = Equals(value,"true");
+                                bool allowVoucherOutNonCash = Equals(request.Value, "true");
                                 _pm.SetProperty(AccountingConstants.VoucherOutNonCash, allowVoucherOutNonCash);
                                 break;
                             }
@@ -1405,28 +1505,27 @@
                             }
                         case ConfigOptionInfo.HostCashoutAction:
                             {
-                                Enum.TryParse(value.ToString(), out CashableLockupStrategy strategy);
+                                _ = Enum.TryParse(request.Value.ToString(), out CashableLockupStrategy strategy);
                                 _pm.SetProperty(GamingConstants.LockupBehavior, strategy);
                                 break;
                             }
                         case ConfigOptionInfo.ZoneId:
                             {
-                                
                                 break;
                             }
                         case ConfigOptionInfo.LargeWinLimit:
                             {
-                               _pm.SetProperty(AccountingConstants.LargeWinLimit, Convert.ToDecimal(value).DollarsToMillicents());                                
+                               _pm.SetProperty(AccountingConstants.LargeWinLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
                                 break;
                             }
                         case ConfigOptionInfo.HandpayLimit:
                             {
-                                _pm.SetProperty(AccountingConstants.HandpayLimit, Convert.ToDecimal(value).DollarsToMillicents());                                
+                                _pm.SetProperty(AccountingConstants.HandpayLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
                                 break;
                             }
                         case ConfigOptionInfo.PrintHandpayReceipt:
                             {
-                                bool allowPrintHandpay = Equals(value, "true");
+                                bool allowPrintHandpay = Equals(request.Value, "true");
                                 _pm.SetProperty(AccountingConstants.EnableReceipts, allowPrintHandpay);
                                 break;
                             }
@@ -1449,17 +1548,19 @@
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Config/Write" },
                 Result = true,
-                Info = $"Set Property {option}"
+                Info = $"Set Property {request.Option}"
             };
         }
 
-        public CommandResult Wait(string evt, int timeout)
+        [HttpPost]
+        [Route("Event/Wait")]
+        public ActionResult<CommandResult> Wait([FromBody]WaitRequest request)
         {
             ClearWaits();
 
-            if (Enum.TryParse<WaitEventEnum>(evt, true, out var wait))
+            if (Enum.TryParse<WaitEventEnum>(request.EventType, true, out var wait))
             {
-                _waitStrategy = new WaitSingle(wait, timeout);
+                _waitStrategy = new WaitSingle(wait, request.Timeout);
                 _waitStrategy.Start();
             }
 
@@ -1467,43 +1568,49 @@
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait" },
                 Result = true,
-                Info = $"Waiting for {evt}"
+                Info = $"Waiting for {request.EventType}"
             };
         }
 
-        public CommandResult WaitAll(string[] events, int timeout)
+        [HttpPost]
+        [Route("Event/Wait/All")]
+        public ActionResult<CommandResult> WaitAll([FromBody] WaitAllRequest request)
         {
-            var waits = events.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
+            var waits = request.EventType.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
 
-            _waitStrategy = new WaitAll(waits, timeout);
+            _waitStrategy = new WaitAll(waits, request.Timeout);
             _waitStrategy.Start();
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/All" },
                 Result = true,
-                Info = $"Waiting for all of {string.Join(" ", events)}"
+                Info = $"Waiting for all of {string.Join(" ", request.EventType)}"
             };
         }
 
-        public CommandResult WaitAny(string[] events, int timeout)
+        [HttpPost]
+        [Route("Event/Wait/Any")]
+        public ActionResult<CommandResult> WaitAny([FromBody] WaitAnyRequest request)
         {
-            var waits = events.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
+            var waits = request.EventType.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
 
-            _waitStrategy = new WaitAny(waits, timeout);
+            _waitStrategy = new WaitAny(waits, request.Timeout);
             _waitStrategy.Start();
 
             return new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Any" },
                 Result = true,
-                Info = $"Waiting for any of {string.Join(" ", events)}"
+                Info = $"Waiting for any of {string.Join(" ", request.EventType)}"
             };
         }
 
-        public CommandResult CancelWait(string evtType)
+        [HttpPost]
+        [Route("Event/Wait/Cancel")]
+        public ActionResult<CommandResult> CancelWait([FromBody] CancelWaitRequest request)
         {
-            Enum.TryParse(evtType, out WaitEventEnum wait);
+            _ = Enum.TryParse(request.EventType, out WaitEventEnum wait);
 
             _waitStrategy?.CancelWait(wait);
 
@@ -1511,11 +1618,13 @@
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Cancel" },
                 Result = true,
-                Info = $"Canceling wait for {evtType}"
+                Info = $"Canceling wait for {request.EventType}"
             };
         }
 
-        public CommandResult ClearWaits()
+        [HttpPost]
+        [Route("Event/Wait/Clear")]
+        public ActionResult<CommandResult> ClearWaits()
         {
             _waitStrategy?.ClearWaits();
 
@@ -1527,7 +1636,9 @@
             };
         }
 
-        public CommandResult CheckWaitStatus()
+        [HttpGet]
+        [Route("Event/Wait/Status")]
+        public ActionResult<CommandResult> CheckWaitStatus()
         {
             var response = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Status" };
 
@@ -1562,19 +1673,26 @@
             _waitStrategy?.EventPublished(foundEnum);
         }
 
-        public object GetProperty(string property)
+        [HttpPost]
+        [Route("Platform/Property")]
+        public ActionResult<object> GetProperty([FromBody] GetPropertyRequest request)
         {
-            return _pm.GetProperty(property, null);
+            return _pm.GetProperty(request.Property, null);
         }
 
-        public void SetProperty(string property, object value, bool isConfig)
+        [HttpPost]
+        [Route("Platform/Property/Set")]
+        public ActionResult SetProperty([FromBody] SetPropertyRequest request)
         {
-            _pm.SetProperty(property, value, isConfig);
+            _pm.SetProperty(request.Property, request.Value, request.IsConfig);
+            return new EmptyResult();
         }
 
-        public CommandResult SetIo(string input, bool status)
+        [HttpPost]
+        [Route("IO/Set")]
+        public ActionResult<CommandResult> SetIo([FromBody] SetIoRequest request)
         {
-            _io.SetInput(input, status);
+            _io.SetInput(request.Index, request.Status);
 
             return new CommandResult
             {
@@ -1583,7 +1701,9 @@
             };
         }
 
-        public CommandResult GetIo()
+        [HttpPost]
+        [Route("IO/Get")]
+        public ActionResult<CommandResult> GetIo()
         {
             var inputs = _io.GetInputs();
 
@@ -1699,7 +1819,9 @@
 
         #region Hardware
 
-        public CommandResult TouchScreenConnect(string id)
+        [HttpPost]
+        [Route("TouchScreen/{id}/Connect")]
+        public ActionResult<CommandResult> TouchScreenConnect([FromRoute] string id)
         {
             return new CommandResult()
             {
@@ -1709,7 +1831,9 @@
             };
         }
 
-        public CommandResult TouchScreenDisconnect(string id)
+        [HttpPost]
+        [Route("TouchScreen/{id}/Disconnect")]
+        public ActionResult<CommandResult> TouchScreenDisconnect([FromRoute] string id)
         {
             return new CommandResult()
             {
@@ -1747,15 +1871,14 @@
 		
         private class RecoveryCompletePlaceHolder
         {
-
         }
     }
 
-    class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
+    public class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
     {
         public bool Equals(DisplayableMessage x, DisplayableMessage y)
         {
-            return x.Message.Trim().ToLower().Equals(y.Message.Trim().ToLower());
+            return string.Compare(x.Message.Trim(), y.Message.Trim(), true) == 0;
         }
 
         public int GetHashCode(DisplayableMessage obj)

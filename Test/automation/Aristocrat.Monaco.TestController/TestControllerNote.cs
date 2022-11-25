@@ -7,7 +7,7 @@
     using Application.Contracts;
     using Aristocrat.Monaco.Common.Currency;
 
-    public partial class TestControllerEngine : ITestController
+    public partial class TestControllerEngine
     {
         private readonly Dictionary<string, List<int>> Currencies = new Dictionary<string, List<int>>();
         private readonly List<int> _standardDenominations = new List<int>

@@ -11,16 +11,19 @@
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
+    using Microsoft.AspNetCore.Mvc;
+    using Aristocrat.Monaco.TestController.Models.Request;
 
-    public partial class TestControllerEngine : ITestController
+    public partial class TestControllerEngine
     {
         private const string NoteAcceptorConnectMessage = "NoteAcceptorConnect";
 
         private const string NoteAcceptorDisconnectMessage = "NoteAcceptorDisconnect";
 
-        public CommandResult NoteAcceptorStatus(string id)
+        [HttpGet]
+        [Route("BNA/{id}/Status")]
+        public ActionResult<CommandResult> NoteAcceptorStatus([FromRoute] string id)
         {
-
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
             return new CommandResult
@@ -33,7 +36,9 @@
             };
         }
 
-        public CommandResult NoteAcceptorGetMask(string id)
+        [HttpGet]
+        [Route("BNA/{id}/Bill/Mask/Get")]
+        public ActionResult<CommandResult> NoteAcceptorGetMask([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
@@ -78,11 +83,13 @@
             };
         }
 
-        public CommandResult NoteAcceptorSetMask(string id, string mask)
+        [HttpPost]
+        [Route("BNA/{id}/Bill/Mask/Set")]
+        public ActionResult<CommandResult> NoteAcceptorSetMask([FromRoute] string id, [FromBody] NoteAcceptorSetMaskRequest request)
         {
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
-            Int32.TryParse(mask, out int value);
+            Int32.TryParse(request.Mask, out int value);
 
             if (bna == null)
             {
@@ -109,7 +116,9 @@
             };
         }
 
-        public CommandResult NoteAcceptorGetNotes(string id)
+        [HttpGet]
+        [Route("BNA/{id}/Bill/Notes/Get")]
+        public ActionResult<CommandResult> NoteAcceptorGetNotes([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
@@ -146,7 +155,9 @@
 
         }
 
-        public CommandResult NoteAcceptorCheat(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Cheat")]
+        public ActionResult<CommandResult> NoteAcceptorCheat([FromRoute] string id)
         {
             _eventBus.Publish(new FakeNoteAcceptorEvent { Cheat = true });
 
@@ -158,7 +169,9 @@
             };
         }
 
-        public CommandResult NoteAcceptorConnect(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Connect")]
+        public ActionResult<CommandResult> NoteAcceptorConnect([FromRoute] string id)
         {
             bool result = false;
             var noteAcceptor = ServiceManager.GetInstance().GetService<INoteAcceptor>();
@@ -183,7 +196,9 @@
             };
         }
 
-        public CommandResult NoteAcceptorDisconnect(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Disconnect")]
+        public ActionResult<CommandResult> NoteAcceptorDisconnect([FromRoute] string id)
         {
             bool result = false;
             var noteAcceptor = ServiceManager.GetInstance().GetService<INoteAcceptor>();
@@ -207,7 +222,9 @@
             };
         }
 
-        public CommandResult NoteAcceptorGetFirmware(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Firmware/Get")]
+        public ActionResult<CommandResult> NoteAcceptorGetFirmware([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<INoteAcceptor>();
 
@@ -224,7 +241,11 @@
             };
         }
 
-        public CommandResult NoteAcceptorSetFirmware(string contents, string id)
+        [HttpPost]
+        [Route("BNA/{id}/Firmware/Set")]
+        public ActionResult<CommandResult> NoteAcceptorSetFirmware(
+            [FromRoute] string id,
+            [FromBody] NoteAcceptorSetFirmwareRequest request)
         {
             return new CommandResult
             {
@@ -236,7 +257,9 @@
             };
         }
 
-        public CommandResult NoteAcceptorAttachStacker(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Stacker/Attach")]
+        public ActionResult<CommandResult> NoteAcceptorAttachStacker([FromRoute] string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Disconnect = false, Full = false });
             return new CommandResult{
@@ -247,7 +270,9 @@
                 Command = "NoteAcceptorAttachStacker", Result = true};
         }
 
-        public CommandResult NoteAcceptorStackerFull(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Stacker/Full")]
+        public ActionResult<CommandResult> NoteAcceptorStackerFull([FromRoute] string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Full = true });
             return new CommandResult {
@@ -258,7 +283,9 @@
                 Command = "NoteAcceptorStackerFull", Result = true };
         }
 
-        public CommandResult NoteAcceptorStackerRemove(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Stacker/Remove")]
+        public ActionResult<CommandResult> NoteAcceptorStackerRemove([FromRoute] string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Disconnect = true });
             return new CommandResult {
@@ -287,7 +314,9 @@
             };
         }
 
-        public CommandResult NoteAcceptorEscrowStatus(string id)
+        [HttpPost]
+        [Route("BNA/{id}/Escrow/Status")]
+        public ActionResult<CommandResult> NoteAcceptorEscrowStatus([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<INoteAcceptor>();
 

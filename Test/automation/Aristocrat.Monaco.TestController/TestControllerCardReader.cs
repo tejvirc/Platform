@@ -3,13 +3,15 @@
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.IdReader;
     using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.TestController.Models.Request;
     using DataModel;
     using Hardware.Contracts.CardReader;
     using Hardware.Contracts.IO;
+    using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
 
-    public partial class TestControllerEngine : ITestController
+    public partial class TestControllerEngine
     {
         private TrackData _selectedMagneticCard;
         private string _track1Data;
@@ -70,9 +72,11 @@
 
         //PMC::private FakeCardReaderEvent _cardReaderEvents = new List<Card
 
-        public CommandResult InsertCard(string CardName)
+        [HttpPost]
+        [Route("CardReaders/0/InsertCard")]
+        public ActionResult<CommandResult> InsertCard([FromBody] InsertCardRequest request)
         {
-            string idName = CardName;
+            string idName = request.CardName;
             //check for null or invalid string
             if (idName == null)
             {
@@ -124,8 +128,9 @@
             };
         }
 
-
-        public CommandResult RemoveCard()
+        [HttpPost]
+        [Route("CardReaders/0/RemoveCard")]
+        public ActionResult<CommandResult> RemoveCard()
         {
             _eventBus.Publish(new FakeCardReaderEvent(0, string.Empty, false));
             CardStatusText = "Card Removed";
@@ -136,11 +141,11 @@
                     ["response-to"] = $"/CardReaders/0/RemoveCard"
                 },
                 Command = $"{Track1Data} Removed",  Result = true };
-
-
         }
 
-        public CommandResult CardReaderDisconnect()
+        [HttpPost]
+        [Route("CardReaders/0/Disconnect")]
+        public ActionResult<CommandResult> CardReaderDisconnect()
         {
             var idReader = ServiceManager.GetInstance().TryGetService<IIdReaderProvider>().Adapters.FirstOrDefault();
             
@@ -152,7 +157,7 @@
 
             if (idReader != null)
             {
-                _eventBus.Publish(new Hardware.Contracts.IdReader.DisconnectedEvent(idReader.IdReaderId));
+                _eventBus.Publish(new DisconnectedEvent(idReader.IdReaderId));
                 response.Result = true;
             }
             else
@@ -164,7 +169,9 @@
             return response;
         }
 
-        public CommandResult CardReaderConnect()
+        [HttpPost]
+        [Route("CardReaders/0/Connect")]
+        public ActionResult<CommandResult> CardReaderConnect()
         {
             var idReader = ServiceManager.GetInstance().TryGetService<IIdReaderProvider>().Adapters.FirstOrDefault();
 
@@ -176,7 +183,7 @@
 
             if (idReader != null)
             {
-                _eventBus.Publish(new Hardware.Contracts.IdReader.ConnectedEvent(idReader.IdReaderId));
+                _eventBus.Publish(new ConnectedEvent(idReader.IdReaderId));
                 response.Result = true;
             }
             else

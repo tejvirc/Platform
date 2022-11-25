@@ -15,7 +15,7 @@
     using Aristocrat.Monaco.Gaming.UI.Events;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
 
-    public partial class TestControllerEngine : ITestController
+    public partial class TestControllerEngine
     {
         public void SubscribeToEvents()
         {
