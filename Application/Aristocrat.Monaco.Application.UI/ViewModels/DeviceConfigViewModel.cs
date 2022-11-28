@@ -52,7 +52,7 @@
 
             _allPorts = new List<string>();
 
-            Manufacturers = new ObservableCollection<string>();
+            DeviceNames = new ObservableCollection<string>();
             Ports = new ObservableCollection<string>();
             Ports.CollectionChanged += Ports_OnCollectionChanged;
         }
@@ -66,7 +66,7 @@
 
         public bool IsVisible => _readOnly || _platformConfigs.Any(c => c.Enabled);
 
-        public string DeviceName
+        public string DeviceTypeName
         {
             get
             {
@@ -97,34 +97,34 @@
 
                 var message = DeviceType + (value ? " enabled" : " disabled");
                 Logger.DebugFormat(message);
-                RaisePropertyChanged(nameof(ManufacturerEnabled));
+                RaisePropertyChanged(nameof(DeviceEnabled));
                 RaisePropertyChanged(nameof(PortEnabled));
                 RaisePropertyChanged(nameof(ProtocolEnabled));
                 RaisePropertyChanged(nameof(StatusEnabled));
 
-                if (string.IsNullOrEmpty(Manufacturer))
+                if (string.IsNullOrEmpty(DeviceName))
                 {
-                    Manufacturer = Manufacturers.FirstOrDefault();
+                    DeviceName = DeviceNames.FirstOrDefault();
                 }
             }
         }
 
-        public bool ManufacturerEnabled => Enabled && Manufacturers.Any();
+        public bool DeviceEnabled => Enabled && DeviceNames.Any();
 
-        public string Manufacturer
+        public string DeviceName
         {
-            get => _config.Manufacturer;
+            get => _config.DeviceName;
             set
             {
-                if (_config.Manufacturer != value)
+                if (_config.DeviceName != value)
                 {
                     Status = string.Empty;
                 }
 
-                _config.Manufacturer = value ?? string.Empty;
-                RaisePropertyChanged(nameof(Manufacturer));
+                _config.DeviceName = value ?? string.Empty;
+                RaisePropertyChanged(nameof(DeviceName));
 
-                Logger.DebugFormat($"{DeviceType} Manufacturer {value} selected");
+                Logger.DebugFormat($"{DeviceType} DeviceName {value} selected");
                 RaisePropertyChanged(nameof(PortEnabled));
                 RaisePropertyChanged(nameof(ProtocolEnabled));
 
@@ -133,10 +133,10 @@
             }
         }
 
-        public ObservableCollection<string> Manufacturers { get; set; }
+        public ObservableCollection<string> DeviceNames { get; set; }
 
-        public bool ProtocolEnabled => Enabled && !Manufacturer.Contains(ApplicationConstants.Fake) &&
-                                       !string.IsNullOrEmpty(Manufacturer);
+        public bool ProtocolEnabled => Enabled && !DeviceName.Contains(ApplicationConstants.Fake) &&
+                                       !string.IsNullOrEmpty(DeviceName);
 
         public string Protocol
         {
@@ -157,8 +157,8 @@
             }
         }
 
-        public bool PortEnabled => Enabled && !Manufacturer.Contains(ApplicationConstants.Fake) &&
-                                   !string.IsNullOrEmpty(Manufacturer);
+        public bool PortEnabled => Enabled && !DeviceName.Contains(ApplicationConstants.Fake) &&
+                                   !string.IsNullOrEmpty(DeviceName);
 
         public string Port
         {
@@ -212,16 +212,16 @@
                 IsRequired = isRequired;
                 CanChange = canChange;
                 _platformConfigs.Add(config);
-                AddManufacturer(config.Name);
+                AddDeviceName(config.Name);
 
                 if (defaultConfig)
                 {
-                    if (!string.IsNullOrEmpty(Manufacturer))
+                    if (!string.IsNullOrEmpty(DeviceName))
                     {
-                        Logger.Warn($"Multiple default configurations found for {DeviceType} -- using first default");
+                        Logger.Warn($"Multiple default configurations found for {DeviceType} -- using last default");
                     }
 
-                    Manufacturer = config.Name;
+                    DeviceName = config.Name;
                     Enabled = enabled;
                 }
             }
@@ -229,17 +229,17 @@
             RaisePropertyChanged(nameof(IsVisible));
         }
 
-        private void AddManufacturer(string manufacturer)
+        private void AddDeviceName(string deviceName)
         {
-            if (string.IsNullOrEmpty(manufacturer))
+            if (string.IsNullOrEmpty(deviceName))
             {
                 return;
             }
 
-            manufacturer = manufacturer.Trim();
-            if (!Manufacturers.Contains(manufacturer))
+            deviceName = deviceName.Trim();
+            if (!DeviceNames.Contains(deviceName))
             {
-                Manufacturers.Add(manufacturer);
+                DeviceNames.Add(deviceName);
             }
         }
 
@@ -263,13 +263,13 @@
 
         private void ResetProtocols()
         {
-            if (Manufacturer.Contains(ApplicationConstants.Fake))
+            if (DeviceName.Contains(ApplicationConstants.Fake))
             {
                 Protocol = ApplicationConstants.Fake;
             }
             else
             {
-                var config = _platformConfigs.FirstOrDefault(c => c.Name == Manufacturer);
+                var config = _platformConfigs.FirstOrDefault(c => c.Name == DeviceName);
                 if (config != null)
                 {
                     var protocolExists = _deviceAddInPaths.ContainsKey(DeviceType) &&
@@ -285,7 +285,7 @@
         private void ResetPortSelections()
         {
             Ports.Clear();
-            if (Manufacturer.Contains(ApplicationConstants.Fake))
+            if (DeviceName.Contains(ApplicationConstants.Fake))
             {
                 Port = ApplicationConstants.Fake;
             }
@@ -318,7 +318,7 @@
 
         private void SetPortToConfigOption(bool addToPortsList)
         {
-            var config = _platformConfigs.FirstOrDefault(c => c.Name == Manufacturer);
+            var config = _platformConfigs.FirstOrDefault(c => c.Name == DeviceName);
             if (config != null)
             {
                 if (addToPortsList && !Ports.Contains(config.Port))

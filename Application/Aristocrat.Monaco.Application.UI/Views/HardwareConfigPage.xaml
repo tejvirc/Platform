@@ -33,7 +33,7 @@
 
             <Style x:Key="MakeCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}" 
                    d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
-                <Setter Property="Visibility" Value="{Binding ManufacturerEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="Visibility" Value="{Binding DeviceEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
             </Style>
 
             <Style x:Key="ProtocolCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}"
@@ -112,7 +112,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceLabel}}" 
                                     MinWidth="200" FontSize="{StaticResource LabelFontSize}"
-                                    Binding="{Binding DeviceName}"
+                                    Binding="{Binding DeviceTypeName}"
                                     CellStyle="{StaticResource CellStyle}"/>
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledLabel}}"
                                         IsReadOnly="False">
@@ -136,8 +136,8 @@
                                         CellStyle="{StaticResource MakeCellStyle}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
-                            <ComboBox ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturers), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
-                                      SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturer), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
+                            <ComboBox ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.DeviceNames), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                      SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.DeviceName), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
                                       IsSynchronizedWithCurrentItem="True">
                                 <ComboBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">

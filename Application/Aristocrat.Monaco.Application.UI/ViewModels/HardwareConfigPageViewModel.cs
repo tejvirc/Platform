@@ -103,9 +103,9 @@
             if (enabled)
             {
                 var make = string.Empty;
-                if (AutoConfigurator.GetValue(type + "Make", ref make) && device.Manufacturers.Contains(make))
+                if (AutoConfigurator.GetValue(type + "Make", ref make) && device.DeviceNames.Contains(make))
                 {
-                    device.Manufacturer = make;
+                    device.DeviceName = make;
                 }
 
                 if (!make.Contains(ApplicationConstants.Fake))
@@ -125,7 +125,7 @@
             }
 
             // All three fields must be set for auto config to succeed for this type
-            return (configured || enabled) && !string.IsNullOrEmpty(device.Manufacturer) && !string.IsNullOrEmpty(device.Protocol) &&
+            return (configured || enabled) && !string.IsNullOrEmpty(device.DeviceName) && !string.IsNullOrEmpty(device.Protocol) &&
                 !string.IsNullOrEmpty(device.Port) || !device.Enabled && !enabled;
         }
     }

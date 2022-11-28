@@ -132,7 +132,7 @@
                     var device = new DeviceConfigViewModel(setting.DeviceType, true)
                     {
                         Enabled = setting.Enabled,
-                        Manufacturer = setting.Manufacturer,
+                        DeviceName = setting.DeviceName,
                         Protocol = setting.Protocol,
                         Port = setting.Port
                     };
@@ -153,7 +153,7 @@
                     if (modifiedDevice != null)
                     {
                         modifiedDevice.Enabled = device.Enabled;
-                        modifiedDevice.Manufacturer = device.Manufacturer;
+                        modifiedDevice.DeviceName = device.DeviceName;
                         modifiedDevice.Protocol = device.Protocol;
                         modifiedDevice.Port = device.Port;
                     }
@@ -178,7 +178,7 @@
                     {
                         // Protocol/Port will be disabled for Fake so don't check those
                         if (modifiedDevice.Enabled != device.Enabled ||
-                            modifiedDevice.Manufacturer != device.Manufacturer ||
+                            modifiedDevice.DeviceName != device.DeviceName ||
                             modifiedDevice.ProtocolEnabled && modifiedDevice.Protocol != device.Protocol ||
                             modifiedDevice.PortEnabled && modifiedDevice.Port != device.Port)
                         {

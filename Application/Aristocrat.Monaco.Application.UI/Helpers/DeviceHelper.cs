@@ -48,7 +48,7 @@
         {
             return config != null
                 ? Application.Helpers.DeviceHelper.GetDeviceStatus(
-                    config.Manufacturer,
+                    config.DeviceName,
                     string.Empty,
                     config.Protocol,
                     config.Port,

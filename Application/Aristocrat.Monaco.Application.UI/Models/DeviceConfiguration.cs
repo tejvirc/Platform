@@ -7,17 +7,17 @@
         ///     Initializes a new instance of the <see cref="DeviceConfiguration" /> class.
         /// </summary>
         /// <param name="enabled">Enabled value.</param>
-        /// <param name="manufacturer">Manufacturer value.</param>
+        /// <param name="deviceName">DeviceName value.</param>
         /// <param name="protocol">Protocol value.</param>
         /// <param name="port">Port value.</param>
         public DeviceConfiguration(
             bool enabled,
-            string manufacturer,
+            string deviceName,
             string protocol,
             int port)
         {
             Enabled = enabled;
-            Manufacturer = manufacturer;
+            DeviceName = deviceName;
             Protocol = protocol;
             Port = port;
         }
@@ -26,7 +26,7 @@
         public bool Enabled { get; set; }
 
         /// <summary>Gets or sets a value indicating protocol.</summary>
-        public string Manufacturer { get; set; }
+        public string DeviceName { get; set; }
 
         /// <summary>Gets or sets a value indicating protocol.</summary>
         public string Protocol { get; set; }

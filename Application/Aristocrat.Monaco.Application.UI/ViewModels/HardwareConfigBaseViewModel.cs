@@ -432,14 +432,14 @@
                     continue;
                 }
 
-                var make = device.Manufacturer ?? string.Empty;
+                var make = device.DeviceName ?? string.Empty;
                 if (!string.IsNullOrEmpty(make))
                 {
                     config.Add(
                         new ConfigurationData(
                             device.DeviceType,
                             device.Enabled,
-                            device.Manufacturer ?? string.Empty,
+                            device.DeviceName ?? string.Empty,
                             device.Protocol ?? string.Empty,
                             device.Port ?? string.Empty));
                     if (device.Enabled)
@@ -449,22 +449,22 @@
                             case DeviceType.NoteAcceptor:
                                 _propertiesManager.SetProperty(
                                     ApplicationConstants.NoteAcceptorManufacturer,
-                                    device.Manufacturer ?? string.Empty);
+                                    device.DeviceName ?? string.Empty);
                                 break;
                             case DeviceType.Printer:
                                 _propertiesManager.SetProperty(
                                     ApplicationConstants.PrinterManufacturer,
-                                    device.Manufacturer ?? string.Empty);
+                                    device.DeviceName ?? string.Empty);
                                 break;
                             case DeviceType.IdReader:
                                 _propertiesManager.SetProperty(
                                     ApplicationConstants.IdReaderManufacturer,
-                                    device.Manufacturer ?? string.Empty);
+                                    device.DeviceName ?? string.Empty);
                                 break;
                             case DeviceType.ReelController:
                                 _propertiesManager.SetProperty(
                                     ApplicationConstants.ReelControllerManufacturer,
-                                    device.Manufacturer ?? string.Empty);
+                                    device.DeviceName ?? string.Empty);
                                 break;
                         }
                     }
@@ -851,7 +851,7 @@
 
                 if (deviceAdapterStatus && _deviceConfigurationDictionary.TryGetValue(deviceType, out var deviceConfig))
                 {
-                    _deviceLastValidated[deviceType] = deviceConfig.Manufacturer;
+                    _deviceLastValidated[deviceType] = deviceConfig.DeviceName;
                 }
                 else
                 {
@@ -886,7 +886,7 @@
 
             if (validated)
             {
-                _deviceLastValidated[type] = deviceConfig?.Manufacturer;
+                _deviceLastValidated[type] = deviceConfig?.DeviceName;
             }
 
             CheckValidatedStatus();
@@ -926,7 +926,7 @@
         private bool CheckHardware(DeviceConfigViewModel config, ref IDevice device)
         {
             if (!_deviceLastValidated[config.DeviceType].Equals(string.Empty) &&
-                !_deviceLastValidated[config.DeviceType].Equals(config.Manufacturer))
+                !_deviceLastValidated[config.DeviceType].Equals(config.DeviceName))
             {
                 _deviceDiscoveryStatus[config.DeviceType] = false;
                 return false;
@@ -936,23 +936,23 @@
 
             void ValidateDevice(IDevice iDevice)
             {
-                if (config.Manufacturer.Contains(ApplicationConstants.Fake) &&
+                if (config.DeviceName.Contains(ApplicationConstants.Fake) &&
                     iDevice != null &&
                     iDevice.Manufacturer.Contains(ApplicationConstants.Fake))
                 {
                     return;
                 }
 
-                if (config.Manufacturer.Contains(ApplicationConstants.Fake) ||
+                if (config.DeviceName.Contains(ApplicationConstants.Fake) ||
                     iDevice == null ||
-                    !config.Manufacturer.ToLower().Contains(iDevice.Manufacturer.ToLower()) ||
+                    !config.DeviceName.ToLower().Contains(iDevice.Manufacturer.ToLower()) ||
                     !iDevice.Protocol.ToLower().Contains(config.Protocol.ToLower()) ||
                     !iDevice.PortName.ToLower().Contains(config.Port.ToLower()))
                 {
                     _deviceDiscoveryStatus[config.DeviceType] = false;
                 }
 
-                if (_deviceLastValidated[config.DeviceType].Equals(config.Manufacturer))
+                if (_deviceLastValidated[config.DeviceType].Equals(config.DeviceName))
                 {
                     _deviceDiscoveryStatus[config.DeviceType] = true;
                 }
@@ -1081,7 +1081,7 @@
                     if (config.Enabled && !config.Type.Contains(ApplicationConstants.Fake))
                     {
                         var deviceDefault = configuredDevices.Defaults.FirstOrDefault(d => d.Name == config.Name);
-                        var hasDefaults = deviceDefault != null;
+                        var isDefault = deviceDefault != null;
                         var isEnabled = deviceDefault?.Enabled ?? false;
                         var isRequired = false;
                         var canChange = true;
@@ -1155,7 +1155,7 @@
                             }
                         }
 
-                        device.AddPlatformConfiguration(config, hasDefaults, isEnabled, isRequired, canChange);
+                        device.AddPlatformConfiguration(config, isDefault, isEnabled, isRequired, canChange);
                     }
                 }
             }
@@ -1222,14 +1222,15 @@
                     ? canReconfigureBellyPanelDoor
                     : configurableBellyPanelDoor;
 
-#if !(RETAIL)
+#if !RETAIL
             // Add Fake options last
             foreach (var device in Devices)
             {
-                if (!device.Manufacturers.Contains(ApplicationConstants.Fake))
+                if (!device.DeviceNames.Contains(ApplicationConstants.Fake))
                 {
-                    Logger.Debug($"adding fake manufacturer for device {device.DeviceType} {device.DeviceName} with protocol {device.Protocol}");
-                    device.Manufacturers.Add(ApplicationConstants.Fake);
+                    Logger.Debug($"adding fake manufacturer for device {device.DeviceType} {device.DeviceTypeName} with protocol {device.Protocol}");
+                    device.DeviceNames.Add(ApplicationConstants.Fake);
+                    device.DeviceName = ApplicationConstants.Fake;
                 }
 
                 if (string.IsNullOrEmpty(device.Protocol))
@@ -1244,6 +1245,7 @@
                 }
             }
 #endif
+
             if (!IsWizardPage || _propertiesManager.GetValue(
                 ApplicationConstants.MachineSettingsImported,
                 ImportMachineSettings.None) == ImportMachineSettings.None)
@@ -1256,19 +1258,19 @@
                 switch (device.DeviceType)
                 {
                     case DeviceType.NoteAcceptor:
-                        device.Manufacturer =
-                            device.Manufacturers.FirstOrDefault(m => m.Equals(_noteAcceptorManufacturer));
+                        device.DeviceName =
+                            device.DeviceNames.FirstOrDefault(m => m.Equals(_noteAcceptorManufacturer));
                         break;
                     case DeviceType.Printer:
-                        device.Manufacturer = device.Manufacturers.FirstOrDefault(m => m.Equals(_printerManufacturer));
+                        device.DeviceName = device.DeviceNames.FirstOrDefault(m => m.Equals(_printerManufacturer));
                         break;
                     case DeviceType.IdReader:
-                        device.Manufacturer = device.Manufacturers.FirstOrDefault(m => m.Equals(_idReaderManufacturer));
+                        device.DeviceName = device.DeviceNames.FirstOrDefault(m => m.Equals(_idReaderManufacturer));
                         break;
                     case DeviceType.ReelController:
-                        device.Manufacturer =
-                            device.Manufacturers.FirstOrDefault(m => m.Equals(_reelControllerManufacturer));
-                        Logger.Debug($"Reel controller manufacturer set to {device.Manufacturer}");
+                        device.DeviceName =
+                            device.DeviceNames.FirstOrDefault(m => m.Equals(_reelControllerManufacturer));
+                        Logger.Debug($"Reel controller manufacturer set to {device.DeviceName}");
                         break;
                 }
             }
@@ -1357,7 +1359,7 @@
                 }
 
                 device.Enabled = config.Enabled;
-                device.Manufacturer = config.Make;
+                device.DeviceName = config.Make;
                 device.Protocol = config.Model;
                 device.Port = config.Port;
             }
