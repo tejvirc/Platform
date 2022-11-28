@@ -30,7 +30,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Item1, Converter={StaticResource LocalizedTextCaseConverter}, ConverterParameter=Upper}" Width="250"
+                        <TextBlock Text="{Binding Item1, Converter={StaticResource LocalizedTextCaseConverter}, ConverterParameter=Upper}" Width="350"
                                FontWeight="Bold"
                                Foreground="{StaticResource Brush3}"
                                Style="{StaticResource MonacoTextBlock}"/>
