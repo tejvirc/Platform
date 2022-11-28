@@ -1230,7 +1230,9 @@
                 {
                     Logger.Debug($"adding fake manufacturer for device {device.DeviceType} {device.DeviceTypeName} with protocol {device.Protocol}");
                     device.DeviceNames.Add(ApplicationConstants.Fake);
+#if DEBUG
                     device.DeviceName = ApplicationConstants.Fake;
+#endif
                 }
 
                 if (string.IsNullOrEmpty(device.Protocol))
