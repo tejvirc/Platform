@@ -1453,7 +1453,6 @@
             _isGambleFeatureActive = evt.Active;
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
-            RaisePropertyChanged(nameof(ReserveMachineAllowed));
         }
 
         private void HandleMessageOverlayVisibility()
