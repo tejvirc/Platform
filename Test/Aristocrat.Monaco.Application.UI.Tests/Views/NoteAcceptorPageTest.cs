@@ -1,27 +1,22 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Tests.Views
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Threading;
     using Accounting.Contracts;
     using Contracts;
     using Contracts.OperatorMenu;
-    using Contracts.Tickets;
-    using Events;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.SharedDevice;
-    using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
     using Moq;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Test.Common;
     using UI.ViewModels.NoteAcceptor;
     using UI.Views;
@@ -228,9 +223,7 @@
         private void EventSubscriptionMocks()
         {
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<SystemEnabledEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<SystemEnabledEvent>>()));
             _eventBus.Setup(
                 m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<DisabledEvent>>()));
             _eventBus.Setup(
@@ -238,69 +231,37 @@
             _eventBus.Setup(
                 m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<InspectedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<DisconnectedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<DisconnectedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<ConnectedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<ConnectedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<HardwareFaultEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<HardwareFaultEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<HardwareFaultClearEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<HardwareFaultClearEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<InspectionFailedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<InspectionFailedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<DocumentRejectedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<DocumentRejectedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<CurrencyReturnedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<CurrencyReturnedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<VoucherReturnedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<VoucherReturnedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<CurrencyStackedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<CurrencyStackedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<CurrencyEscrowedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<CurrencyEscrowedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<VoucherEscrowedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<VoucherEscrowedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<SelfTestPassedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<SelfTestPassedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<SelfTestFailedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<SelfTestFailedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<PrintButtonClickedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<PrintButtonClickedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<Printer.PrintCompletedEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<Printer.PrintCompletedEvent>>()));
             _eventBus.Setup(
-                m => m.Subscribe(
-                    It.IsAny<NoteAcceptorViewModel>(),
-                    It.IsAny<Action<OperatorMenuExitingEvent>>()));
+                m => m.Subscribe(It.IsAny<NoteAcceptorViewModel>(), It.IsAny<Action<OperatorMenuExitingEvent>>()));
         }
     }
 }
