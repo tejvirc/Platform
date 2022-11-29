@@ -93,10 +93,10 @@
         public GameType Type { get; set; }
 
         [XmlElement(ElementName = "MinimumBalanceCents")]
-        public int MinimumBalanceCents { get; set; }
+        public int MinimumBalanceCents { get; set; } = 500000;
 
         [XmlElement]
-        public int InsertedDollars { get; set; } = 20;
+        public int InsertedDollars { get; set; } = 100;
 
         [XmlArray]
         [XmlArrayItem("Index")]
@@ -652,7 +652,7 @@
         internal void SetCurrentActiveGame(string currentGame)
         {
             CurrentGame = currentGame;
-            CurrentGameProfile = GameProfiles.FirstOrDefault(g => g.GameName == currentGame) ?? new GameProfile();
+            CurrentGameProfile = GameProfiles?.FirstOrDefault(g => g.GameName == currentGame) ?? new GameProfile();
         }
     }
 }
