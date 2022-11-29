@@ -4,24 +4,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              x:Name="PlayerMenuPopup"
              mc:Ignorable="d" 
-             Width="Auto" Height="Auto"
-             Margin="10 0 0 166"
-             HorizontalAlignment="Left"
-             VerticalAlignment="Bottom"
              VerticalContentAlignment="Bottom"
              IsVisibleChanged="PlayerMenuPopupView_OnIsVisibleChanged"
-             Unloaded="PlayerMenuPopupView_OnUnloaded"
+             Background="#01000000"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown" >
-            <i:InvokeCommandAction Command="{Binding PlayerMenuPopupViewModel.MouseDownOnMenuCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -57,8 +47,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="Root"
-          HorizontalAlignment="Center" VerticalAlignment="Bottom"
+    <Grid x:Name="Root" Margin="10 0 0 166"
+          VerticalAlignment="Bottom" HorizontalAlignment="Left"
           Width="{DynamicResource OneSectionBackgroundImage.Width}">
         <Grid.Style>
             <Style TargetType="Grid">
@@ -89,7 +79,7 @@
             <StackPanel x:Name="SessionTrackingSection"
                         HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Visibility="{Binding PlayerMenuPopupViewModel.IsSessionTrackingSectionVisible,
-                        Converter={StaticResource BoolToVisConverter}}">
+                        Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Grid x:Name="SessionTrackingValuesGrid"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Top"
@@ -142,7 +132,7 @@
             <StackPanel x:Name="ReserveMachineSection"
                         HorizontalAlignment="Center" VerticalAlignment="Bottom"
                         Visibility="{Binding PlayerMenuPopupViewModel.IsReserveMachineSectionVisible,
-                            Converter={StaticResource BoolToVisConverter}}">
+                            Converter={StaticResource TrueVisibleFalseCollapsed}}">
 
                 <!-- PIN entry box -->
                 <TextBox x:Name="FourDigitPinBox"
@@ -491,7 +481,7 @@
                                 Click="HandleNonClosingPress"
                                 Command="{Binding Volume.VolumeCommand}"
                                 Visibility="{Binding PlayerMenuPopupViewModel.IsVolumeButtonVisible,
-                                    Converter={StaticResource BoolToVisConverter}}"
+                                    Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                 Margin="0 0 20 0">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">

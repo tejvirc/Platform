@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +21,7 @@
     using Kernel;
     using Localization.Properties;
     using Models;
+    using Monaco.Common;
     using MVVM;
     using MVVM.Command;
     using Views;
@@ -79,7 +80,10 @@
             WireDesignerData();
 
 #if !(RETAIL)
-            CreateTempHosts();
+            if (isWizardPage)
+            {
+                CreateTempHosts();
+            }
 #endif
             CopyCurrentHostList();
         }
@@ -494,7 +498,7 @@
             var context = editContext ?? addContext;
 
             // VLT-9870 : spin a thread to prevent UI from hanging while protocol restarts
-            Task.Factory.StartNew(() => egm.Restart(new List<IStartupContext> { context ?? new StartupContext() }));
+            Task.Run(() => egm.Restart(new List<IStartupContext> { context ?? new StartupContext() })).FireAndForget(ex => Logger.Error($"Return: Exception occurred {ex}", ex));
 
             ResetEditState();
 
@@ -558,7 +562,8 @@
                     context = new StartupContext { HostId = host.Id };
                 }
 
-                hostFactory.Update(host);
+                //Spin a new thread to not lock the UI if address does not exist
+                Task.Run(() => hostFactory.Update(host)).FireAndForget(ex => Logger.Error($"Return: Exception occurred {ex}", ex));
             }
 
             return context;

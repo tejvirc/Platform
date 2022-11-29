@@ -82,7 +82,7 @@
     <!-- A text box that edits a live string setting -->
     <DataTemplate x:Key="LiveStringSettingTextBoxEditor" DataType="models:LiveStringSetting">
         <Grid Width="300" MinWidth="300" HorizontalAlignment="Left"
-            Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}">
+            Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <local:AlphaNumericTextBox
                 TextWrapping="Wrap"
                 Width="300" MinWidth="300" HorizontalAlignment="Left"
@@ -105,7 +105,7 @@
                 </local:AlphaNumericTextBox.ToolTip>
             </local:AlphaNumericTextBox>
             <Polygon Style="{StaticResource LiveSettingStatusDecorator}"
-                Visibility="{Binding IsQuiet, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                Visibility="{Binding IsQuiet, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

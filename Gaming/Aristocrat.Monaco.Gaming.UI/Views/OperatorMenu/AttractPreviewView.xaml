@@ -18,14 +18,14 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters1:BoolToVisibilityConverter x:Key="BoolToVisible" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid MaxHeight="{Binding MaxHeight}">
         <StackPanel Orientation="Vertical">
             <Grid x:Name="TopperAttractScreen"
-                        Visibility="{Binding IsTopperAttractVisible, Converter={StaticResource BoolToVisible}}">
+                        Visibility="{Binding IsTopperAttractVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}">
                     <bink:BinkGpuControl
                             x:Name="TopperAttractVideo"
@@ -51,7 +51,7 @@
             </Grid>
 
             <Grid x:Name="TopAttractScreen"
-                        Visibility="{Binding IsTopAttractVisible, Converter={StaticResource BoolToVisible}}">
+                        Visibility="{Binding IsTopAttractVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}" Margin="0 2 0 0">
                     <bink:BinkGpuControl
                             x:Name="TopAttractVideo"

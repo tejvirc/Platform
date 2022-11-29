@@ -4,12 +4,10 @@
         xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl" 
         xmlns:uicommon="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
         xmlns:controls1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
         xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-        xmlns:converters2="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
         Title="{Binding TopTitle}"
@@ -40,29 +38,6 @@
 
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <converters2:ScaleConverter x:Key="ScaleConv"/>
-            <sys:Double x:Key="LogoScaleFactor">0.52</sys:Double>
-
-            <Storyboard x:Key="AttractFadeInStoryboard">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                 From="0.0" To="1.0" Duration="0:0:0.1" BeginTime="0:0:0"
-                                                     AutoReverse="False">
-                    <DoubleAnimation.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-            </Storyboard>
-            <Storyboard x:Key="AttractFadeOutStoryboard">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
-                                 From="1.0" To="0.0" Duration="0:0:0.1" BeginTime="0:0:0"
-                                                     AutoReverse="False">
-                    <DoubleAnimation.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-            </Storyboard>
-
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
 
@@ -73,13 +48,13 @@
               Background="Black">
             <Grid x:Name="TopScreenGameRoot">
                 <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded" x:Name="GameTopScreenRoot"
-                                            Visibility="{Binding IsGameTopScreenVisible, Converter={StaticResource BoolToVisConverter}}"
+                                            Visibility="{Binding IsGameTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             VerticalAlignment="Stretch"
                                             HorizontalAlignment="Stretch">
                 <controls1:NativeFormsControl x:Name="GameTopWindowCtrl" BackColor="Black" Dock="Fill"></controls1:NativeFormsControl>
                 </controls1:ExtendedWindowsFormsHost>
             </Grid>
-            <Grid x:Name="LobbyTopScreenRoot" Visibility="{Binding IsLobbyTopScreenVisible, Converter={StaticResource BoolToVisConverter}}">
+            <Grid x:Name="LobbyTopScreenRoot" Visibility="{Binding IsLobbyTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
 
                 <Image Stretch="Uniform" uicommon:ImageHelper.SourceResourceKey="{Binding TopImageResourceKey}" />
 
@@ -87,7 +62,7 @@
                         x:Name="GameAttract"
                         Filename="{Binding TopAttractVideoPath}"
                         LoopVideo="False"
-                        Visibility="{Binding IsTopAttractFeaturePlaying, Converter={StaticResource BoolToVisHiddenConverter}}"
+                        Visibility="{Binding IsTopAttractFeaturePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
                         ShowFirstFrameOnLoad="True"
                         VideoCompleted="GameAttract_VideoCompleted">
                     <bink:BinkGpuControl.Style>
@@ -109,7 +84,7 @@
                         x:Name="LobbyTopVideo"
                         Filename="{Binding TopperLobbyVideoPath}"
                         LoopVideo="True"
-                        Visibility="{Binding IsTopAttractFeaturePlaying, Converter={StaticResource BoolToHiddenConverter}}"
+                        Visibility="{Binding IsTopAttractFeaturePlaying, Converter={StaticResource TrueHiddenFalseVisible}}"
                         ShowFirstFrameOnLoad="True">
                 <bink:BinkGpuControl.Style>
                         <Style TargetType="bink:BinkGpuControl">
@@ -130,13 +105,11 @@
                 </bink:BinkGpuControl>
             <!-- Some jurisdictions do not have a top loading screen -->
                 <Image Stretch="Uniform" Source="{DynamicResource TopLoading}"  
-                   Visibility="{Binding IsTopLoadingScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                   Visibility="{Binding IsTopLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             </Grid>
-            <Grid Visibility="{Binding IsTopScreenRenderingDisabled, Converter={StaticResource BoolToVisConverter}}">
+            <Grid Visibility="{Binding IsTopScreenRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Image Stretch="Uniform" Source="{DynamicResource TopDisabled}"/>
             </Grid>
         </Grid>
     <!--</local:LayoutTemplateDockPanel>-->
 </metro:MetroWindow>
-        
-        

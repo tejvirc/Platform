@@ -297,12 +297,16 @@
                     traceId));
             }
 
-            var (cashable, promo, nonCash) = _transactions.RecallTransactions().OfType<ITransactionContext>()
+            var transactionAmounts = _transactions.RecallTransactions().OfType<ITransactionContext>()
                 .Where(
                     x => (x as ITransactionConnector)?.AssociatedTransactions.Contains(transaction.TransactionId) ?? false)
-                .Select(x => x.GetTransactionAmounts()).Aggregate(
+                .Select(x => x.GetTransactionAmounts()).ToList();
+
+            var (cashable, promo, nonCash) = transactionAmounts.Any()
+                ? transactionAmounts.Aggregate(
                     (current, next) => (current.cashable + next.cashable, current.promo + next.promo,
-                        current.nonCash + next.nonCash));
+                        current.nonCash + next.nonCash))
+                : (0L, 0L, 0L);
             var remainingCashable = cashableAmount - cashable;
             var remainingPromo = promoAmount - promo;
             var remainingNonCash = nonCashAmount - nonCash;
@@ -549,15 +553,6 @@
             where T : ITransferOutProvider
         {
             var traceId = Guid.NewGuid();
-
-            _history.AppendCashOut(
-                new CashOutInfo
-                {
-                    Amount = cashableAmount + nonCashAmount + promoAmount,
-                    Reason = reason,
-                    TraceId = traceId,
-                    AssociatedTransactions = new[] { transaction.TransactionId }
-                });
 
             if (!_transferHandler.TransferOutWithContinuation<T>(
                 transactionId,

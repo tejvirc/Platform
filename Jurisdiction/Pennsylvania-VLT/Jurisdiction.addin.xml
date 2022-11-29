@@ -15,7 +15,7 @@
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.VideoLottery.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
-    <SelectableJurisdiction name="Pennsylvania VLT" description="Top level PennsylvaniaVLT jurisdiction group" id="JUR000050,JUR000998,JUR000999,JUR000033">
+    <SelectableJurisdiction name="Pennsylvania VLT" description="Top level PennsylvaniaVLT jurisdiction group" id="JUR000998,JUR000999,JUR000033">
       <AddinConfigurationGroupReference name="BaseOperatorMenus" />
       <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
       <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">

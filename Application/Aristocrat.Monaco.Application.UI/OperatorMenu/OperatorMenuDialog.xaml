@@ -43,12 +43,12 @@
                    Text="{Binding WindowTitle}"/>
 
         <ContentControl Grid.Row="1" x:Name="DialogContent" Height="Auto" VerticalAlignment="Top"
-                        Visibility="{Binding ShowTextOnly, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                        Visibility="{Binding ShowTextOnly, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
 
         <Label Grid.Row="1" Content="{Binding WindowText}" 
                MinHeight="100"
                HorizontalAlignment="Center" VerticalAlignment="Center"
-               Visibility="{Binding ShowTextOnly, Converter={StaticResource BoolToVisConverter}}"/>
+               Visibility="{Binding ShowTextOnly, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
         <TextBlock Grid.Row="2" Text="{Binding WindowInfoText}" TextAlignment="Center" Margin="0 10 0 0"
                    Style="{StaticResource MonacoWarningTextBlock}" />
@@ -57,11 +57,11 @@
             <Button Content="{Binding SaveButtonText}"
                     Command="{Binding SaveCommand, Mode=OneWay}"
                     IsEnabled="{Binding CanSave, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding ShowSaveButton, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ShowSaveButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{Binding CancelButtonText}"
                     Command="{Binding CancelCommand, Mode=OneWay}"
                     IsEnabled="{Binding CanCancel, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding ShowCancelButton, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding ShowCancelButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
     </Grid>
 </ContentControl>

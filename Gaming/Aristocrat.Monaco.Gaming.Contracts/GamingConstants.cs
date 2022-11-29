@@ -24,9 +24,10 @@
         public const string GamesPath = "/Games";
 
         /// <summary>
-        ///     The default value for the MaxRounds flag
+        ///     The default value for the MaxRounds flag, setting the maximum number of gamble
+        ///     rounds that can be played. A value of 0 means unlimited rounds.
         /// </summary>
-        public const int MaxRounds = 5;
+        public const int MaxRounds = 0;
 
         /// <summary>
         ///     The default value for the ReelSpeed flag
@@ -781,6 +782,11 @@
         public const string AutoPlayActive = "AutoPlayActive";
 
         /// <summary>
+        ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
+        /// </summary>
+        public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
+        
+        /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
         public const string DisplayVoucherIssuedMessage = @"Messages.VoucherIssued.Display";
@@ -1136,6 +1142,11 @@
         ///     Flag will control the background cycling of the RNG by the platform
         /// </summary>
         public const string UseRngCycling = @"RngCycling.Enabled";
+
+        /// <summary>
+        ///     Flag will control whether the player speed button will be enabled or disabled
+        /// </summary>
+        public const string ShowPlayerSpeedButtonEnabled = @"ShowPlayerSpeedButton.Enabled";
 
         /// <summary>
         ///     Requesting game exit for the game menu button when using a multi-game setup

@@ -58,6 +58,11 @@
         bool DisplayForEvents { get; set; }
 
         /// <summary>
+        ///     Whether the game is handling presentation of a handpay
+        /// </summary>
+        bool GameHandlesHandPayPresentation { get; set; }
+
+        /// <summary>
         ///     Text to appear on buttons
         /// </summary>
         string ButtonText { get; set; }
@@ -91,6 +96,11 @@
         ///     Opacity of element
         /// </summary>
         double Opacity { get; set; }
+
+        // <summary>
+        ///     Opacity used for the black background, if GameHandlesHandPayPresentation is true then this will be 0
+        /// </summary>
+        double FinalOpacity { get; }
 
         /// <summary>
         ///     Whether scaling needs to occur or not

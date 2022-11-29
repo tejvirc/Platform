@@ -109,8 +109,8 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Label Grid.Row="3" Grid.Column="0" Name="PortLabel" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}" Visibility="{Binding PortVisible, Converter={StaticResource BoolToVisConverter}}" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" Name="Port" VerticalAlignment="Center" Foreground="{Binding PortForeground}" Visibility="{Binding PortVisible, Converter={StaticResource BoolToVisConverter}}">
+                    <Label Grid.Row="3" Grid.Column="0" Name="PortLabel" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}" Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Name="Port" VerticalAlignment="Center" Foreground="{Binding PortForeground}" Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
                                 <Style.Triggers>
@@ -222,12 +222,12 @@
                         Margin="0 0 20 0" 
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}" 
                         Command="{Binding SelfTestButtonCommand}" 
-                        Visibility="{Binding PortVisible, Converter={StaticResource BoolToVisConverter}}" 
+                        Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         IsEnabled="{Binding SelfTestButtonEnabled}" />
                 <Button Name="SelfTestClearNvmButton"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}" 
                         Command="{Binding SelfTestClearButtonCommand}" 
-                        Visibility="{Binding PortVisible, Converter={StaticResource BoolToVisConverter}}" 
+                        Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         IsEnabled="{Binding SelfTestButtonEnabled}" />
             </StackPanel>
         </Border>

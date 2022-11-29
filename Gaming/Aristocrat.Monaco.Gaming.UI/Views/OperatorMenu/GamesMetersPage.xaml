@@ -17,7 +17,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -79,7 +80,7 @@
                 </DataGrid>
 
                 <DataGrid DockPanel.Dock="Top" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding MetersRightColumn}"
-                          Margin="120 -20 0 0" Visibility="{Binding ShowRightColumn, Converter={StaticResource BoolToVisHiddenConverter}}">
+                          Margin="120 -20 0 0" Visibility="{Binding ShowRightColumn, Converter={StaticResource TrueVisibleFalseHidden}}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
                                             Width="360" 
@@ -103,7 +104,7 @@
                       ItemsSource="{Binding Games}" 
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
-                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource BoolToCollapsedConverter}}"
+                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueCollapsedFalseVisible}}"
                       MaxDropDownHeight="240">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -123,7 +124,7 @@
                       ItemsSource="{Binding Games}" 
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
-                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource BoolToVisConverter}}"
+                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                       MaxDropDownHeight="240">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -142,11 +143,11 @@
             <Button HorizontalAlignment="Center" 
                     Command="{Binding DisplayCategoriesCommand}" 
                     IsEnabled="{Binding DisplayCategoriesButtonEnabled}"
-                    Visibility="{Binding WagerCategoryMetersVisible, Converter={StaticResource BoolToVisConverter}}"
+                    Visibility="{Binding WagerCategoryMetersVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryTitle}}"/>
         </StackPanel>
         <StackPanel Grid.Row="2"  
-                    Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource BoolToVisConverter}}"
+                    Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 30 0 0">
             <Button Margin="0 0 10 0" Width="65" 
                     Command="{Binding PreviousDenomCommand}"

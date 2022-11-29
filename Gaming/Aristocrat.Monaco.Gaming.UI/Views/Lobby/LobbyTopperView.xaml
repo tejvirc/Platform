@@ -4,9 +4,7 @@
                    xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                   xmlns:sys="clr-namespace:System;assembly=mscorlib"
                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
-                   xmlns:converters1="http://monaco.aristocrat.com/common"
                    xmlns:controls1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
                    mc:Ignorable="d"
@@ -24,9 +22,9 @@
                    Closed="LobbyTopperView_OnClosed"
                    BorderThickness="0"
                    Name="Root">
+
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
-
             <!-- Apply MahApps.Metro styles to all controls -->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -39,30 +37,6 @@
 
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <converters1:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
-
-            <sys:Double x:Key="LogoScaleFactor">0.52</sys:Double>
-
-            <Storyboard x:Key="AttractFadeInStoryboard">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                 From="0.0" To="1.0" Duration="0:0:0.1" BeginTime="0:0:0"
-                                 AutoReverse="False">
-                    <DoubleAnimation.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut" />
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-            </Storyboard>
-            <Storyboard x:Key="AttractFadeOutStoryboard">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                 From="1.0" To="0.0" Duration="0:0:0.1" BeginTime="0:0:0"
-                                 AutoReverse="False">
-                    <DoubleAnimation.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut" />
-                    </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-            </Storyboard>
-
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
 
@@ -73,13 +47,13 @@
           Background="Black"
           SizeChanged="LobbyTopperView_SizeChanged">
         <Grid x:Name="TopperScreenGameRoot"
-              Visibility="{Binding IsGameTopperScreenVisible, Converter={StaticResource BoolToVisConverter}}">
+              Visibility="{Binding IsGameTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded" x:Name="GameTopperScreenRoot">
                 <controls1:NativeFormsControl x:Name="GameTopperWindowCtrl" BackColor="Black" Dock="Fill" />
             </controls1:ExtendedWindowsFormsHost>
         </Grid>
         <Grid x:Name="LobbyTopperScreenRoot"
-              Visibility="{Binding IsLobbyTopperScreenVisible, Converter={StaticResource BoolToVisConverter}}">
+              Visibility="{Binding IsLobbyTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <bink:BinkGpuControl
                 x:Name="LobbyTopperVideo"
                 LoopVideo="True">
@@ -106,9 +80,9 @@
             </bink:BinkGpuControl>
             <!-- Some jurisdictions do not have a topper loading screen -->
             <Image Stretch="Uniform" Source="{DynamicResource TopperLoading}"
-                   Visibility="{Binding IsTopperLoadingScreenVisible, Converter={StaticResource BoolToVisConverter}}" />
+                   Visibility="{Binding IsTopperLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         </Grid>
-        <Grid Visibility="{Binding IsTopperScreenRenderingDisabled, Converter={StaticResource BoolToVisConverter}}">
+        <Grid Visibility="{Binding IsTopperScreenRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Image Stretch="Uniform" Source="{DynamicResource TopperDisabled}" />
         </Grid>
     </Grid>

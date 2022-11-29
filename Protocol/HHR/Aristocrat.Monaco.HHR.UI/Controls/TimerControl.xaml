@@ -10,7 +10,9 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Hidden" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -42,12 +44,12 @@
                Width="128" Height="31" 
                Margin="0 -5 0 0" 
                Source="../Resources/ExpireQuickPick.png"
-               Visibility="{Binding IsQuickPickTextVisible, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden, ElementName=Timer}"/>
+               Visibility="{Binding IsQuickPickTextVisible, Converter={StaticResource TrueVisibleFalseHidden}, FallbackValue=Hidden, ElementName=Timer}"/>
 
         <Image Grid.Row="1" 
                Width="128" Height="31" 
                Margin="0 -5 0 0" 
                Source="../Resources/ExpireAutoPick.png"
-               Visibility="{Binding IsAutoPickTextVisible, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden, ElementName=Timer}"/>
+               Visibility="{Binding IsAutoPickTextVisible, Converter={StaticResource TrueVisibleFalseHidden}, FallbackValue=Hidden, ElementName=Timer}"/>
     </Grid>
 </UserControl>

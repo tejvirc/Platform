@@ -102,7 +102,7 @@ as follows:
 		<Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle"/>
 		<Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
 		<Page Type="BarkeeperConfigurationViewModel" Access="MainZeroCreditsGameIdle"/>
-		<Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCredits"/>
+		<Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCreditsGameIdle"/>
 		<Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
 	</Menu>
 	<Menu Type="GamesMainPageLoader">
@@ -184,6 +184,11 @@ as follows:
 			<Rule DeviceName="MainOptic" />
 			<Rule Restriction="GameIdle" />
 		</AccessRuleSet>
+    <AccessRuleSet Name="LogicZeroCreditsGameIdle">
+      <Rule Restriction="GameIdle" />
+      <Rule Restriction="ZeroCredits" />
+      <Rule DeviceName="Logic" />
+    </AccessRuleSet>
 		<AccessRuleSet Name="MainZeroCreditsGameIdle">
 			<Rule Restriction="GameIdle" />
 			<Rule Restriction="ZeroCredits" />

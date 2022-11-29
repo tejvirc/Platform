@@ -5,7 +5,6 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
-                      xmlns:converters="http://monaco.aristocrat.com/common"
                       xmlns:buttonDeck1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
                       xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
                       xmlns:controls2="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
@@ -22,43 +21,42 @@
                       Closed="VirtualButtonDeckView_OnClosed"
                       BorderThickness="0">
 
-	<controls:MetroWindow.Resources>
-		<ResourceDictionary>
-			<!-- Apply MahApps.Metro styles to all controls -->
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="../../Skins/Styles.xaml" />
-				<ResourceDictionary Source="VbdMarsXTemplate.xaml" />
-				<ResourceDictionary Source="VbdHelixTemplate.xaml" />
-				<ResourceDictionary Source="VbdHelixXtTemplate.xaml" />
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <!-- Apply MahApps.Metro styles to all controls -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Skins/Styles.xaml" />
+                <ResourceDictionary Source="VbdMarsXTemplate.xaml" />
+                <ResourceDictionary Source="VbdHelixTemplate.xaml" />
+                <ResourceDictionary Source="VbdHelixXtTemplate.xaml" />
                 <ResourceDictionary Source="VbdUnknownTemplate.xaml" />
                 <ResourceDictionary Source="VbdBartopTemplate.xaml" />
-				<ResourceDictionary Source="VirtualButtonDeckButtonTemplate.xaml" />
-			</ResourceDictionary.MergedDictionaries>
-			<buttonDeck1:VbdViewTemplateSelector x:Key="VbdViewTemplateSelector" />
-			<buttonDeck1:VbdViewDisableSelector x:Key="VbdViewDisableSelector" />
-			<converters:BoolToVisibilityConverter x:Key="BoolToVisible" />
-		</ResourceDictionary>
-	</controls:MetroWindow.Resources>
-	<Viewbox Stretch="None" x:Name="RootScaling">
-		<Grid x:Name="LayoutRoot" Background="Black">
-			<Grid>
-				<ContentControl
-					x:Name="VbdViewControl"
-					Content="{Binding}"
-					PreviewMouseDown="VbdContentControl_OnPreviewMouseDown"
-					ContentTemplateSelector="{StaticResource VbdViewTemplateSelector}" />
-			</Grid>
-			<Grid x:Name="VbdGameRoot" Visibility="{Binding IsGameVbdVisible, Converter={StaticResource BoolToVisible}}">
-				<controls2:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded">
-					<forms:Control x:Name="GameVirtualButtonDeckWindowCtrl" BackColor="Black" Dock="Fill"></forms:Control>
-				</controls2:ExtendedWindowsFormsHost>
-			</Grid>
-			<Grid Visibility="{Binding IsVbdRenderingDisabled, Converter={StaticResource BoolToVisible}}">
-				<ContentControl
-					x:Name="VbdViewDisableControl"
-					Content="{Binding}"
-					ContentTemplateSelector="{StaticResource VbdViewDisableSelector}" />
-			</Grid>
-		</Grid>
-	</Viewbox>
+                <ResourceDictionary Source="VirtualButtonDeckButtonTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <buttonDeck1:VbdViewTemplateSelector x:Key="VbdViewTemplateSelector" />
+            <buttonDeck1:VbdViewDisableSelector x:Key="VbdViewDisableSelector" />
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+    <Viewbox Stretch="None" x:Name="RootScaling">
+        <Grid x:Name="LayoutRoot" Background="Black">
+            <Grid>
+                <ContentControl
+                    x:Name="VbdViewControl"
+                    Content="{Binding}"
+                    PreviewMouseDown="VbdContentControl_OnPreviewMouseDown"
+                    ContentTemplateSelector="{StaticResource VbdViewTemplateSelector}" />
+            </Grid>
+            <Grid x:Name="VbdGameRoot" Visibility="{Binding IsGameVbdVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                <controls2:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded">
+                    <forms:Control x:Name="GameVirtualButtonDeckWindowCtrl" BackColor="Black" Dock="Fill"></forms:Control>
+                </controls2:ExtendedWindowsFormsHost>
+            </Grid>
+            <Grid Visibility="{Binding IsVbdRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                <ContentControl
+                    x:Name="VbdViewDisableControl"
+                    Content="{Binding}"
+                    ContentTemplateSelector="{StaticResource VbdViewDisableSelector}" />
+            </Grid>
+        </Grid>
+    </Viewbox>
 </controls:MetroWindow>

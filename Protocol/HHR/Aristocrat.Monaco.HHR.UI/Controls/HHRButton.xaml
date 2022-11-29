@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:common="http://monaco.aristocrat.com/common"
              xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <common:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Hidden"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
             <!--Button Template for HHR button -->
             <ControlTemplate x:Key = "ButtonTemplate" TargetType = "Button">
@@ -47,7 +48,7 @@
                 <Setter Property="Margin" Value="10 0 0 0" />
                 <Setter Property="CommandParameter" Value="{Binding Command}"/>
                 <Setter Property="Command" Value="{Binding}"/>
-                <Setter Property="Visibility" Value="{Binding Visibility, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Setter Property="Visibility" Value="{Binding Visibility, Converter={StaticResource TrueVisibleFalseHidden}}"/>
                 <Style.Triggers>
 
                     <DataTrigger Binding="{Binding Command}" Value = "Help">

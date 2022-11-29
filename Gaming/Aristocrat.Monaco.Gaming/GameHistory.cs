@@ -381,19 +381,6 @@
             Logger.Debug($"[Game Results {CurrentLogIndex}] Game Win Bonus {win}");
         }
 
-        public void PresentationFinished()
-        {
-            if (_gameDiagnostics.IsActive)
-            {
-                return;
-            }
-
-            var log = _currentLog;
-            log.PlayState = PlayState.PresentationIdle;
-            log.LastUpdate = DateTime.UtcNow;
-            Persist(log);
-        }
-
         /// <inheritdoc />
         public void PayResults()
         {
@@ -906,7 +893,7 @@
             log.LogSequence = sequenceNumber;
             log.StartDateTime = startTime;
 
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _properties.GetSelectedGame();
             log.GameId = game.Id;
             log.DenomId = denomination.Value;
             log.StartCredits = _bank.QueryBalance();

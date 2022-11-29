@@ -15,6 +15,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:DataTableValueVisibilityConverter x:Key="DataTableValueVisibilityConverter" />
         </ResourceDictionary>
@@ -28,7 +29,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Left"
-                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource BoolToVisConverter}}">
+                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <DataGrid ItemsSource="{Binding VoucherInMeters}" x:Name="VoucherInGrid"
                       HorizontalAlignment="Left">
                 <DataGrid.Columns>
@@ -57,7 +58,7 @@
 
         <Border Grid.Row="1" Margin="0,10,0,30" BorderThickness="0 1 0 0" BorderBrush="{StaticResource Brush3}"
                 HorizontalAlignment="Left"
-                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource BoolToVisConverter}}">
+                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Grid Margin="0 10 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[0].ActualWidth}" />

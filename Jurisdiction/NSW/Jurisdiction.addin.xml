@@ -17,7 +17,7 @@
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
-    <SelectableJurisdiction name="NSW" description="Top level NSW jurisdiction group" id="JUR000090,JUR000998,JUR000999,JUR000033">
+    <SelectableJurisdiction name="NSW" description="Top level NSW jurisdiction group" id="JUR000998,JUR000999,JUR000033">
       <AddinConfigurationGroupReference name="BaseOperatorMenus" />
       <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
       <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">

@@ -368,8 +368,7 @@
 
         public int TotalEnabledGames => _gamesMapping.Values
             .SelectMany(m => m)
-            .SelectMany(p => p.GameConfigurations)
-            .Count(c => c.Enabled);
+            .Count(m => m.Enabled);
 
         public string SaveWarningText
         {
@@ -481,6 +480,8 @@
             _editMode = _canEdit && !InitialConfigComplete;
 
             SetEditMode();
+            AutoEnableGames();
+            UpdateSaveWarning();
         }
 
         protected override void InitializeData()
@@ -1822,6 +1823,17 @@
                 this,
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSummaryTitle));
+        }
+
+        private void AutoEnableGames()
+        {
+            foreach (var config in _gamesMapping.Values
+                .SelectMany(profile => profile)
+                .Where(profile => !profile.OriginalRestriction?.RestrictionDetails.Editable ?? false)
+                .SelectMany(profile => profile.GameConfigurations))
+            {
+                config.Enabled = true;
+            }
         }
 
         private class GamesGrouping

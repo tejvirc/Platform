@@ -93,6 +93,7 @@
         private readonly object _lock = new object();
 
         private bool _isPrinting;
+        private bool _isPrintStarted;
         private bool _isValNumCompleteDetected;
         private bool _selfTestDone;
 
@@ -209,11 +210,7 @@
         {
             lock (_lock)
             {
-                Logger.Debug("send RequestStatus");
-                var response = SendMessage(
-                    EpicTTLProtocolConstants.CommandRequestCombinedPrinterStatus,
-                    EpicTTLProtocolConstants.CommandRequestCombinedPrinterStatus,
-                    EpicTTLProtocolConstants.CommandRequestCombinedPrinterStatus.Length + 2);
+                var response = AskForPrinterStatus();
 
                 if (response == null)
                 {
@@ -222,64 +219,92 @@
 
                 // Each status bit corresponds to some standardized fault, warning, or normal state.
                 const int statusOffset = 2;
-                var status =
-                    (EpicTTLProtocolConstants.EpicTTLStatus)ConvertEndianBytesToInt(response, 2, true, statusOffset);
 
-                if (_isPrinting &&
-                    !_isValNumCompleteDetected &&
-                    status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.ValidationCompleted))
-                {
-                    _isValNumCompleteDetected = true;
-                    TicketPrintStatus = new TicketPrintStatus
-                    {
-                        FieldOfInterest1 = true, PrintInProgress = _isPrinting
-                    };
-                }
+                var status = GenerateStatusFromResponse(response, statusOffset);
 
-                if (_selfTestDone)
-                {
-                    PrinterStatus = new PrinterStatus
-                    {
-                        PaperInChute =
-                            !_isPrinting &&
-                            status.HasFlag(
-                                EpicTTLProtocolConstants.EpicTTLStatus
-                                    .PaperInPath), // Paper In Chute only matters when not printing.
-                        PaperLow = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.PaperLow),
-                        ChassisOpen = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.ChassisIsOpen),
-                        PrintHeadOpen = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.HeadIsUp),
-                        PaperJam = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.PaperJam),
-                        PaperEmpty = !_isPrinting &&
-                                     !status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.ChassisIsOpen) &&
-                                     !status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.HeadIsUp) &&
-                                     status.HasFlag(
-                                         EpicTTLProtocolConstants.EpicTTLStatus
-                                             .OutOfPaper), // Paper Out only matters when not printing.
-                        TopOfForm = _isPrinting ||
-                                    status.HasFlag(
-                                        EpicTTLProtocolConstants.EpicTTLStatus
-                                            .TopOfForm) || // Top-of-form only matters at certain times.
-                                    status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.OutOfPaper) ||
-                                    !status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.NotPrinting)
-                    };
+                GenerateTicketPrintStatus(status);
 
-                    if (HasDisablingFault)
-                    {
-                        _isPrinting = false;
-                    }
-                }
+                GeneratePrinterStatus(status);
 
-                if (_isPrinting &&
-                    status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.NotPrinting))
-                {
-                    _isPrinting = false;
-                    TicketPrintStatus = new TicketPrintStatus { PrintComplete = true };
-                    UpdatePollingRate(PollingIntervalMs);
-                    ResetToDefault(); // to clear the "completed" bits
-                }
+                CheckIfPrintIsStarted(status);
+
+                CheckIfPrintIsCompleted(status);
 
                 return true;
             }
+        }
+
+        private void CheckIfPrintIsStarted(EpicTTLProtocolConstants.EpicTTLStatus status)
+        {
+            if (!_isPrintStarted)
+            {
+                // Printing has started as soon as we indicate we are printing and not at top of form.
+                _isPrintStarted = _isPrinting && !status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.TopOfForm);
+            }
+        }
+
+        private void CheckIfPrintIsCompleted(EpicTTLProtocolConstants.EpicTTLStatus status)
+        {
+            // Are we currently printing and the printer status indicates are no longer printing and the print has started?
+            if (_isPrinting && status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.NotPrinting) && _isPrintStarted)
+            {
+                _isPrinting = false;
+                _isPrintStarted = false;
+                TicketPrintStatus = new TicketPrintStatus { PrintInProgress = false, PrintComplete = true };
+                UpdatePollingRate(PollingIntervalMs);
+                ResetToDefault(); // to clear the "completed" bits
+            }
+        }
+
+        private void GeneratePrinterStatus(EpicTTLProtocolConstants.EpicTTLStatus status)
+        {
+            if (_selfTestDone)
+            {
+                PrinterStatus = new PrinterStatus
+                {
+                    PaperInChute = !_isPrinting && // Paper In Chute only matters when not printing.
+                                   status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.PaperInPath),
+                    PaperLow = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.PaperLow),
+                    ChassisOpen = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.ChassisIsOpen),
+                    PrintHeadOpen = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.HeadIsUp),
+                    PaperJam = status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.PaperJam),
+                    PaperEmpty = !_isPrinting && // Paper Empty (out) only matters when not printing.
+                                 !status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.ChassisIsOpen) &&
+                                 !status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.HeadIsUp) &&
+                                 status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.OutOfPaper),
+                    TopOfForm = _isPrinting ||
+                                status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.TopOfForm) || // Top-of-form only matters at certain times.
+                                status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.OutOfPaper) ||
+                                !status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.NotPrinting)
+                };
+            }
+        }
+
+        private void GenerateTicketPrintStatus(EpicTTLProtocolConstants.EpicTTLStatus status)
+        {
+            if (_isPrinting &&
+                !_isValNumCompleteDetected &&
+                status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.ValidationCompleted))
+            {
+                _isValNumCompleteDetected = true;
+                TicketPrintStatus = new TicketPrintStatus { FieldOfInterest1 = true, PrintInProgress = true };
+            }
+        }
+
+        private EpicTTLProtocolConstants.EpicTTLStatus GenerateStatusFromResponse(byte[] response, int statusOffset)
+        {
+            var status = (EpicTTLProtocolConstants.EpicTTLStatus)ConvertEndianBytesToInt(response, 2, true, statusOffset);
+            return status;
+        }
+
+        private byte[] AskForPrinterStatus()
+        {
+            Logger.Debug("send RequestStatus");
+            var response = SendMessage(
+                EpicTTLProtocolConstants.CommandRequestCombinedPrinterStatus,
+                EpicTTLProtocolConstants.CommandRequestCombinedPrinterStatus,
+                EpicTTLProtocolConstants.CommandRequestCombinedPrinterStatus.Length + 2);
+            return response;
         }
 
         protected override void SpecialCaseCharacterReplacement(ref string line)
@@ -332,6 +357,7 @@
                 {
                     Logger.Debug("send ResetPrinter");
                     _isPrinting = false;
+                    _isPrintStarted = false;
 
                     SendMessage(EpicTTLProtocolConstants.CommandAbortPrint, EpicTTLProtocolConstants.ResponseEmpty, 0);
                     UpdatePollingRate(PollingIntervalMs);
@@ -533,6 +559,7 @@
             lock (_lock)
             {
                 _isPrinting = true;
+                _isPrintStarted = false;
                 SendMessage(new[] { EpicTTLProtocolConstants.Ff }, EpicTTLProtocolConstants.ResponseEmpty, 0);
             }
 
@@ -736,6 +763,7 @@
                 }
 
                 _isPrinting = true;
+                _isPrintStarted = false;
                 _isValNumCompleteDetected = false;
                 TicketPrintStatus = new TicketPrintStatus { PrintInProgress = true };
 
@@ -811,6 +839,7 @@
                 }
 
                 _isPrinting = true;
+                _isPrintStarted = false;
                 _isValNumCompleteDetected = false;
                 TicketPrintStatus = new TicketPrintStatus { PrintInProgress = true };
 
@@ -933,6 +962,7 @@
             SendMessage(EpicTTLProtocolConstants.CommandResetToDefaults, EpicTTLProtocolConstants.ResponseEmpty, 0);
 
             _isPrinting = true;
+            _isPrintStarted = false;
             _isValNumCompleteDetected = false;
             TicketPrintStatus = new TicketPrintStatus { PrintInProgress = true };
 

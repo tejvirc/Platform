@@ -50,4 +50,5 @@ as follows:
 	<AutoPlay Allowed="false" />
 	<GameRoundDurationMs Minimum="3000" Maximum="10000" />
 	<AttendantServiceTimeoutSupport Enabled="true" />
+  <ShowPlayerSpeedButton Enabled="false" />
 </GamingConfiguration>

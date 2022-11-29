@@ -9,7 +9,6 @@
              xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:common="http://monaco.aristocrat.com/common"
              mc:Ignorable="d" d:DesignWidth="800"
              Loaded="ControlLoaded"
              d:DataContext="{d:DesignInstance {x:Type viewModels:MechanicalReelsTestViewModel}}">
@@ -18,13 +17,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Collapsed"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" MinWidth="300" Margin="0">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                    Visibility="{Binding ReelsVisible, Converter={StaticResource BoolToVisible}}">
+                    Visibility="{Binding ReelsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <Border Name="ReelsWrapper" Width="800" Height="360" Margin="0,-20,0,5" />
         </StackPanel>
 
@@ -171,7 +169,7 @@
                                            Width="32"
                                            Height="32"
                                            Margin="5 0 5 0" 
-                                           Visibility="{Binding DirectionToSpin, Converter={StaticResource BoolToVisConverter}}"/>
+                                           Visibility="{Binding DirectionToSpin, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                                     <iconPacks:PackIconMaterial Kind="ArrowUp"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
@@ -179,7 +177,7 @@
                                            Width="32"
                                            Height="32"
                                            Margin="5 0 5 0" 
-                                           Visibility="{Binding DirectionToSpin, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                                           Visibility="{Binding DirectionToSpin, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
                                 </StackPanel>
 
                                 <!-- Nudge Steps/Direction -->
@@ -216,7 +214,7 @@
                                            Width="32"
                                            Height="32"
                                            Margin="5 0 5 0" 
-                                           Visibility="{Binding DirectionToNudge, Converter={StaticResource BoolToVisConverter}}"/>
+                                           Visibility="{Binding DirectionToNudge, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                                     <iconPacks:PackIconMaterial Kind="ArrowUp"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
@@ -224,7 +222,7 @@
                                            Width="32"
                                            Height="32"
                                            Margin="5 0 5 0" 
-                                           Visibility="{Binding DirectionToNudge, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                                           Visibility="{Binding DirectionToNudge, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>

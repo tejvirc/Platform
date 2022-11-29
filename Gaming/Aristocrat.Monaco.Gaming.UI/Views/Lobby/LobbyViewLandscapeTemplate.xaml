@@ -170,7 +170,7 @@
 
             <!--**** HEADER ****-->
 
-            <Viewbox Grid.Row="0" Grid.Column="1" Visibility="{Binding IsTabView, Converter={StaticResource BoolToCollapsedConverter}}">
+            <Viewbox Grid.Row="0" Grid.Column="1" Visibility="{Binding IsTabView, Converter={StaticResource TrueCollapsedFalseVisible}}">
                 <Image Stretch="None" Source="{DynamicResource SelectAGame}"
                        HorizontalAlignment="Center" VerticalAlignment="Top"
                        RenderTransformOrigin="0.5 0.5">
@@ -185,7 +185,7 @@
                     Margin="0 40 40 0"
                     Style="{StaticResource stlFlatButton}"
                     Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
-                    Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource BoolToVisConverter}}">
+                    Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Image Source="{DynamicResource ResponsibleGaming}" Stretch="None"/>
             </Button>
 
@@ -193,7 +193,7 @@
             <Viewbox Stretch="Uniform" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3"
                      Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
                      Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}" >
-                <Grid Width="1920" Height="1080" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsTabView, Converter={StaticResource BoolToVisConverter}}">
+                <Grid Width="1920" Height="1080" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsTabView, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <commonControls:CustomItemsControl x:Name="TabsControl" ItemsSource="{Binding GameTabInfo.Tabs}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -245,7 +245,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:SubTabInfoViewModel}">
-                                <Grid Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
+                                <Grid Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                                     <Image Source="{DynamicResource SubTabNormal}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown" >
@@ -308,21 +308,21 @@
                                                HorizontalAlignment="Center" />
                                         <Image Stretch="None" Source="{DynamicResource ProgressiveBackground}"
                                                RenderOptions.BitmapScalingMode="HighQuality"
-                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToCollapsedConverter}}"
+                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource TrueCollapsedFalseVisible}}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center" />
                                         <Image Stretch="None" Source="{DynamicResource ProgressiveSelectedBackground}"
                                                RenderOptions.BitmapScalingMode="HighQuality"
-                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToVisConverter}}"
+                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center" />
                                         <Image Stretch="None" Source="{DynamicResource GameSelectedWithProgressivesOverlay}"
                                                RenderOptions.BitmapScalingMode="HighQuality"
-                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToVisConverter}}"
+                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center" />
                                         <TextBlock Text="{Binding ProgressiveIndicatorText}"
-                                                   Visibility="{Binding HasProgressiveLabelDisplay, Converter={StaticResource BoolToVisConverter}}"
+                                                   Visibility="{Binding HasProgressiveLabelDisplay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                    FontFamily="Verdana"
                                                    Margin="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlayText}"
                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -516,7 +516,7 @@
                                              HorizontalAlignment="Center" VerticalAlignment="Top"
                                              MaxWidth="{Binding Source={StaticResource ExtraLargeGameIconDenomPanelMaxWidth}, Converter={StaticResource ScaleByResolutionConv}}"
                                              MaxHeight="{Binding Source={StaticResource ExtraLargeGameIconDenomPanelMaxHeight}, Converter={StaticResource ScaleByResolutionConv}}"
-                                             Visibility="{Binding Path=DataContext.IsExtraLargeGameIconTabActive, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource BoolToVisConverter}}">
+                                             Visibility="{Binding Path=DataContext.IsExtraLargeGameIconTabActive, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                                         <Viewbox.Margin>
                                             <MultiBinding Converter="{StaticResource DenomPanelMarginConv}">
                                                 <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
@@ -602,7 +602,7 @@
                                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                                             <Image common:ImageHelper.SourceResourceKey="{Binding DenomBackground2}"
                                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                   Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
+                                                                   Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                                    RenderOptions.BitmapScalingMode="HighQuality"
                                                                    Margin="{StaticResource ExtraLargeGameIconDenomIconMargin}"
                                                                    Stretch="Fill"
@@ -623,7 +623,7 @@
                                                                 </i:Interaction.Triggers>
                                                             </Image>
 							            
-                                                            <controls:TextPath Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
+                                                            <controls:TextPath Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                                FontFamily="Impact" FontWeight="Light"
                                                                                StrokeThickness="2.0"
@@ -753,7 +753,7 @@
             <Viewbox Stretch="Uniform" Grid.Row="1" Grid.Column="1"
                      Width="{Binding ElementName=TouchScreenToMakeSelectionImage, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}"
                      VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                     Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource BoolToVisConverter}}">
+                     Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Image x:Name="TouchScreenToMakeSelectionImage" common:ImageHelper.SourceResourceKey="TouchScreenToMakeSelection"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Margin="0 6 0 -18"/>
@@ -764,7 +764,7 @@
                           ItemsSource="{Binding GameTabInfo.Denominations}" 
                           Height="{Binding GameControlHeight, Converter={StaticResource DenomIconHeightConv}}"
                           VerticalAlignment="Bottom" HorizontalAlignment="Center" 
-                          Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource BoolToCollapsedConverter}}"
+                          Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource TrueCollapsedFalseVisible}}"
                           Margin="{Binding Path=MarginInputs, Converter={StaticResource MarginConverter}, ConverterParameter=DenomLargeScreenLayout}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -775,7 +775,7 @@
                     <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
                         <Grid>
                             <Image common:ImageHelper.SourceResourceKey="{Binding DenomBackground}"
-                                   Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
+                                   Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                    Stretch="Uniform"
                                    Grid.Column="0" Grid.Row="0">
                                 <i:Interaction.Triggers>
@@ -786,7 +786,7 @@
                             </Image>
                             <Viewbox MaxWidth="80" Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="0" Grid.Row="0" IsHitTestVisible="False">
                                 <controls:TextPath
-                                    Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
+                                    Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                     HorizontalAlignment="Center"
                                     FontFamily="Impact" FontWeight="Bold"
                                     StrokeThickness="0.1"
@@ -830,7 +830,7 @@
                             BorderThickness="0"
                             CornerRadius="10"
                             Padding="8,4,8,4"
-                            Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
+                            Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
                         <StackPanel Orientation="Horizontal">
                             <Label Content="{Binding PaidMeterLabel}"
                                    FontSize="30"
@@ -855,7 +855,7 @@
                             CornerRadius="6"
                             Margin="0,4,0,4"
                             Padding="4,0,4,0"
-                            Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
+                            Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
                         <Label Content="{Binding CurrentNotificationText}"
                                FontSize="16"
                                FontFamily="Impact"
@@ -890,8 +890,8 @@
             <!--Setting Margin to match old UPI sizing for Responsible Gaming Overlays-->
             <Viewbox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="19 2 19 0">
                 <Grid>
-                    <lobby:StandardUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                    <lobby:MultiLanguageUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+                    <lobby:StandardUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                    <lobby:MultiLanguageUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 </Grid>
             </Viewbox>
         </Grid>

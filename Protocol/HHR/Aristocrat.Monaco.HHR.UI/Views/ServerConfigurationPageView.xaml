@@ -84,7 +84,7 @@
         <StackPanel Grid.Column="0" Grid.Row="5" Margin="5 20 0 0"
                     HorizontalAlignment="Left" VerticalAlignment="Top" 
                     Orientation="Horizontal" 
-                    Visibility="{Binding IsWizardPage, Converter={StaticResource BoolToCollapsedConverter}}">
+                    Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}">
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
                     IsEnabled="{Binding IsConfigChanged}" 
                     Command="{Binding ApplyServerConfigurationCommand}"/>

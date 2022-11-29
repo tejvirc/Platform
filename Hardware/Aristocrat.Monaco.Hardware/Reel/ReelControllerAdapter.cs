@@ -894,13 +894,11 @@
                     i =>
                     {
                         PostEvent(new ReelConnectedEvent(i, ReelControllerId));
-                        SetInitialReelBrightness(e.ReelId);
                         return CreateReelStateMachine();
                     },
                     (i, s) =>
                     {
                         Fire(ReelControllerTrigger.Connected, i, new ReelConnectedEvent(i, ReelControllerId), false);
-                        SetInitialReelBrightness(e.ReelId);
                         return s;
                     });
             }
@@ -1160,11 +1158,6 @@
 
                 PostEvent(new HardwareReelFaultClearEvent(ReelControllerId, value));
             }
-        }
-
-        private void SetInitialReelBrightness(int reelId)
-        {
-            SetReelBrightness(new Dictionary<int, int> { { reelId, DefaultReelBrightness } });
         }
 
         private void ReadOrCreateOptions()

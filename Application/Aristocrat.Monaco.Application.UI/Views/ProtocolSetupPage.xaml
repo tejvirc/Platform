@@ -17,7 +17,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
             <common:EqualityToBoolConverter x:Key="EqualityToBool"/>
             <converters:ProtocolNameToDisplayNameConverter x:Key="ProtocolNameToDisplayNameConverter" />
         </ResourceDictionary>
@@ -90,13 +89,13 @@
                    TextWrapping="Wrap"
                    Style="{StaticResource MonacoWarningTextBlock}" 
                    Text="{lex:Loc {x:Static loc:ResourceKeys.ProtocolSetupWarningMessage}}"
-                   Visibility="{Binding WarningMessageVisible, Converter={StaticResource BoolToVisible}, UpdateSourceTrigger=PropertyChanged}"/>
+                   Visibility="{Binding WarningMessageVisible, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock Grid.Row="3"
                    VerticalAlignment="Bottom"
                    TextWrapping="Wrap"
                    Style="{StaticResource MonacoWarningTextBlock}" 
                    Text="{Binding  RequiredFunctionalityProtocolSelectionMessage}"
-                   Visibility="{Binding IsDisplayRequiredFunctionalityProtocolSelectionMessage, Converter={StaticResource BoolToVisible}, UpdateSourceTrigger=PropertyChanged}"/>
+                   Visibility="{Binding IsDisplayRequiredFunctionalityProtocolSelectionMessage, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </operatorMenu:OperatorMenuPage>
 

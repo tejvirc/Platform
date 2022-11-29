@@ -142,11 +142,6 @@
         void AddGameWinBonus(long win);
 
         /// <summary>
-        ///     Used to signify the presentation has completed
-        /// </summary>
-        void PresentationFinished();
-
-        /// <summary>
         ///     Used to signify the final win has been paid.
         /// </summary>
         void PayResults();

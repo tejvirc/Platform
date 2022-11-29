@@ -36,6 +36,11 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Printer
         Initialized,
 
         /// <summary>
+        ///     Initializing Trigger.
+        /// </summary>
+        Initializing,
+
+        /// <summary>
         ///     Printing Trigger.
         /// </summary>
         Printing,
@@ -64,6 +69,9 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Printer
 
         /// <summary>Indicates printer logical state inspecting.</summary>
         Inspecting,
+
+        /// <summary>Indicates printer logical state initializing.</summary>
+        Initializing,
 
         /// <summary>Indicates printer logical state idle.</summary>
         Idle,

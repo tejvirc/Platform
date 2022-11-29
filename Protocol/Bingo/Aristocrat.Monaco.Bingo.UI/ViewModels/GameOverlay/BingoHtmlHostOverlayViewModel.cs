@@ -69,7 +69,6 @@
         private OverlayType? _selectedOverlayType;
 
         private Thickness _helpBoxMargin;
-        private bool _isHelpLoading;
         private bool _isHelpVisible;
         private bool _isInfoVisible;
         private string _bingoHelpAddress;
@@ -143,6 +142,7 @@
             _eventBus.Subscribe<WaitingForPlayersEvent>(this, Handle);
             _eventBus.Subscribe<NoPlayersFoundEvent>(this, HandleNoPlayersFound);
             _eventBus.Subscribe<PlayersFoundEvent>(this, (_, token) => CancelWaitingForPlayers(token));
+            _eventBus.Subscribe<WaitingForPlayersCanceledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<GamePlayDisabledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
             _eventBus.Subscribe<ClearBingoDaubsEvent>(this, Handle);
@@ -200,12 +200,6 @@
         {
             get => _helpBoxMargin;
             private set => SetProperty(ref _helpBoxMargin, value);
-        }
-
-        public bool IsHelpLoading
-        {
-            get => _isHelpLoading;
-            set => SetProperty(ref _isHelpLoading, value);
         }
 
         public bool IsHelpVisible
@@ -472,9 +466,10 @@
             _multipleSpins = e.Triggered;
         }
 
-        private void Handle(GameControlSizeChangedEvent e)
+        private async Task Handle(GameControlSizeChangedEvent e, CancellationToken token)
         {
             _gameControlledHeight = e.GameControlHeight;
+            await UpdateAppearance().ConfigureAwait(false);
         }
 
         private async Task Handle(GameProcessExitedEvent e, CancellationToken token)
@@ -755,7 +750,8 @@
 
         private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
-            await _dispatcher.ExecuteAndWaitOnUIThread(NavigateToHelp);
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+            await _dispatcher.ExecuteAndWaitOnUIThread(() => BingoHelpAddress = helpAddress);
         }
 
         private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)
@@ -864,18 +860,6 @@
             }
         }
 
-        private void NavigateToHelp()
-        {
-            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            if (BingoHelpAddress == helpAddress)
-            {
-                return;
-            }
-
-            IsHelpLoading = true;
-            BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-        }
-
         private void NavigateToDynamicMessage(string message, string scene, string meterMessage, bool showMessage, bool showMeter)
         {
             var formattedQueryString = string.Format(
@@ -946,11 +930,12 @@
 
         private async Task SetHelpVisibility(bool visible)
         {
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
                     IsHelpVisible = visible;
-                    NavigateToHelp();
+                    BingoHelpAddress = helpAddress;
                     NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
                     HelpOpacity = GetVisibleOpacity(visible);
                 });

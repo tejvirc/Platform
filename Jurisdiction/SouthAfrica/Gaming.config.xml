@@ -51,4 +51,7 @@ as follows:
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 	<AttendantServiceTimeoutSupport Enabled="true" />
+	<PhysicalButtons>
+		<CashOutButton ReportToHostWithZeroCredit="true"/>
+	</PhysicalButtons>
 </GamingConfiguration>

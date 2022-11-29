@@ -80,6 +80,11 @@
         long OverflowTotal { get; }
 
         /// <summary>
+        ///     The total accumulated value of the hidden amounts over the life of the machine (in millicents)
+        /// </summary>
+        long HiddenTotal { get; }
+
+        /// <summary>
         ///     Gets the current error status
         /// </summary>
         ProgressiveErrors CurrentErrorStatus { get; }

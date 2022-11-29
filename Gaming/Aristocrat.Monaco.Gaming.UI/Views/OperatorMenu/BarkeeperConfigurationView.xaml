@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
@@ -75,7 +76,7 @@
                                      helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
                                      helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" Grid.ColumnSpan="2" />
 
-        <TabControl Grid.Row="2" Margin="0 20" Background="Transparent" TabStripPlacement="Top" Visibility="{Binding RewardLevelsEnabled, Converter={StaticResource BoolToVisConverter}}">
+        <TabControl Grid.Row="2" Margin="0 20" Background="Transparent" TabStripPlacement="Top" Visibility="{Binding RewardLevelsEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <TabItem Header="Cash-In Reward">
                 <local:BarkeeperCashInReward/>
             </TabItem>

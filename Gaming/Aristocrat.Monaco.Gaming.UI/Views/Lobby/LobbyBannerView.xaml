@@ -8,10 +8,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:NegatingConverter x:Key="NegatingConverter" />
             <converters:FontSizeConverter x:Key="FontSizeConverter"/>
@@ -66,7 +67,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <StackPanel RenderTransformOrigin="0.5 0.5" Visibility="{Binding IsBlinkingIdleTextVisible , Converter={StaticResource BoolToVisConverter}}" >
+        <StackPanel RenderTransformOrigin="0.5 0.5" Visibility="{Binding IsBlinkingIdleTextVisible , Converter={StaticResource TrueVisibleFalseCollapsed}}" >
             <TextBlock HorizontalAlignment="Center" MaxWidth="1920" Style="{StaticResource IdleTextStyle}" />
             <StackPanel.RenderTransform>
                 <ScaleTransform></ScaleTransform>
@@ -93,7 +94,7 @@
                 </Style>
             </StackPanel.Style>
         </StackPanel>
-        <Border x:Name="pnlIdleText" ClipToBounds="True" Visibility="{Binding IsScrollingIdleTextEnabled, Converter={StaticResource BoolToVisHiddenConverter}}">
+        <Border x:Name="pnlIdleText" ClipToBounds="True" Visibility="{Binding IsScrollingIdleTextEnabled, Converter={StaticResource TrueVisibleFalseHidden}}">
             <Border.Resources>
                 <Storyboard x:Key="IdleTextScrollingStoryboard" TargetName="txtIdleText">
                     <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)" 
@@ -136,7 +137,7 @@
                 <TextBlock x:Name="txtIdleText" 
                            Style="{StaticResource IdleTextStyle}"
                            FontSize="{Binding ElementName=pnlIdleText, Path=ActualHeight, Converter={StaticResource FontSizeConverter}, UpdateSourceTrigger=PropertyChanged}"
-                           Visibility="{Binding IsScrollingIdleTextVisible, Converter={StaticResource BoolToVisHiddenConverter}}" >
+                           Visibility="{Binding IsScrollingIdleTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}" >
                     <TextBlock.RenderTransform>
                         <TranslateTransform />
                     </TextBlock.RenderTransform>

@@ -93,6 +93,10 @@
         private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string IdleTextFamilyName = "Segoe UI";
+        private const double OpacityNone = 0.0;
+        private const double OpacityFifth = 0.2;
+        private const double OpacityHalf = 0.5;
+        private const double OpacityFull = 1.0;
 
         private readonly IBank _bank;
         private readonly IButtonDeckFilter _buttonDeckFilter;
@@ -201,6 +205,8 @@
         private bool _volumeButtonVisible;
         private string _bottomAttractVideoPath;
         private double _chooseGameOffsetY;
+        private double _cashoutDialogOpacity;
+        private bool _cashoutDialogHidden;
         private GameInfo _selectedGame;
         private bool _isInitialStartup = true;
 
@@ -1358,7 +1364,7 @@
         /// <summary>
         ///     Controls whether the machine can be put into reserve
         /// </summary>
-        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress
+        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && !_gameHistory.IsRecoveryNeeded && _gameState.Idle && !_transferOutHandler.InProgress
                                              && !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
 
         /// <summary>
@@ -2059,7 +2065,8 @@
                                   ThemeId = game.ThemeId,
                                   IsNew = GameIsNew(game.GameTags),
                                   Category = game.Category,
-                                  SubCategory = game.SubCategory
+                                  SubCategory = game.SubCategory,
+                                  RequiresMechanicalReels = game.MechanicalReels > 0
                               }).ToList();
 
             return new ObservableCollection<GameInfo>(
@@ -2631,6 +2638,8 @@
                 _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
             }
 
+            CheckHideCashoutDialog();
+
             UpdateUI();
 
             PlayerMenuPopupViewModel.IsMenuVisible = false;
@@ -2663,6 +2672,8 @@
             {
                 Logger.Debug("Disabled State Exited");
 
+                CheckRestoreCashoutDialog();
+
                 UpdateLcdButtonDeckDisableSetting(false);
                 UpdateLcdButtonDeckRenderSetting(!IsGameRenderingToLcdButtonDeck() && !IsInOperatorMenu);
                 UpdateLamps();
@@ -2684,6 +2695,24 @@
                 }
 
                 ClockTimer.RestartClockTimer();
+            }
+        }
+
+        private void CheckHideCashoutDialog()
+        {
+            if (MessageOverlayDisplay.IsCashingOutDlgVisible && _systemDisableManager.DisableImmediately)
+            {
+                _cashoutDialogHidden = true;
+                _cashoutDialogOpacity = MessageOverlayDisplay.MessageOverlayData.Opacity;
+            }
+        }
+
+        private void CheckRestoreCashoutDialog()
+        {
+            if (_cashoutDialogHidden && !_systemDisableManager.DisableImmediately)
+            {
+                _cashoutDialogHidden = false;
+                MessageOverlayDisplay.MessageOverlayData.Opacity = _cashoutDialogOpacity;
             }
         }
 
@@ -2880,8 +2909,8 @@
             //Don't change the underlying state of these things when we shift to Disabled
             if (CurrentState != LobbyState.Disabled)
             {
-                MessageOverlayDisplay.MessageOverlayData.Opacity = 0.5;
-                ReplayRecovery.BackgroundOpacity = 0.2;
+                MessageOverlayDisplay.MessageOverlayData.Opacity = OpacityHalf;
+                ReplayRecovery.BackgroundOpacity = OpacityFifth;
 
                 if (Config.RotateTopImage)
                 {
@@ -2919,15 +2948,15 @@
 
                 if (CurrentState == LobbyState.GameLoadingForDiagnostics || CurrentState == LobbyState.GameDiagnostics)
                 {
-                    MessageOverlayDisplay.MessageOverlayData.Opacity = 0.0; // VLT-2919: Override opacity so not so dark
-                    ReplayRecovery.BackgroundOpacity = _gameDiagnostics.AllowInput ? 0.00 : 0.05;
+                    MessageOverlayDisplay.MessageOverlayData.Opacity = OpacityNone; // VLT-2919: Override opacity so not so dark
+                    ReplayRecovery.BackgroundOpacity = _gameDiagnostics.AllowInput ? OpacityNone : 0.05;
                 }
             }
             else //CurrentState == LobbyState.Disabled.  
             {
                 // VLT-4326: Do not include all Disabled states here because we handle Replay stuff in the above code block
-                ReplayRecovery.BackgroundOpacity = 0.2;
-                MessageOverlayDisplay.MessageOverlayData.Opacity = _gameHistory.IsGameFatalError ? 1.0 : 0.5;
+                ReplayRecovery.BackgroundOpacity = OpacityFifth;
+                MessageOverlayDisplay.MessageOverlayData.Opacity = _gameHistory.IsGameFatalError || _cashoutDialogHidden ? OpacityFull : OpacityHalf;
                 _rotateTopImageTimer?.Stop();
                 _rotateTopperImageTimer?.Stop();
                 IsVbdCashOutDialogVisible = false;
@@ -3617,7 +3646,6 @@
         private void CashoutFromPlayerPopUpMenu(object obj)
         {
             Logger.Debug("Cashout Button Pressed from player pop up menu");
-            PlayAudioFile(Sound.Touch);
             PlayerMenuPopupViewModel.IsMenuVisible = false;
             _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Collect));
         }
@@ -5139,7 +5167,8 @@
                 UseSmallIcons = UseSmallIcons,
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
-                IsNew = GameIsNew(game.GameTags)
+                IsNew = GameIsNew(game.GameTags),
+                RequiresMechanicalReels = game.MechanicalReels > 0
             };
         }
 

@@ -175,6 +175,11 @@
                 {
                     AccountingConstants.CanKeyOffWhileInLockUp,
                     Tuple.Create((object)configuration.Handpay?.CanKeyOffWhileInLockUp ?? true, false)
+                },
+                {
+                    AccountingConstants.HandpayReceiptsRequired,
+                    Tuple.Create((object)configuration.Handpay?.HandpayReceiptsRequired ?? false, false)
+
                 }
             };
 

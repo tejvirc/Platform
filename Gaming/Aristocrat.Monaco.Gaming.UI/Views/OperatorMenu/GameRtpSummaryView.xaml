@@ -17,7 +17,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <converters:TextCaseConverter x:Key="TextCaseConverter"/>
@@ -52,11 +53,11 @@
                VerticalContentAlignment="Center"
                Style="{StaticResource MonacoLabel}"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllGamesDisabled}}"
-               Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
+               Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
 
         <DataGrid Grid.Column="0"
                   ItemsSource="{Binding GameTypeItems}"
-                  Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                  Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   Margin="0 5 10 0"
                   Padding="0 0 0 0">
             <DataGrid.Columns>
@@ -68,7 +69,7 @@
 
         <DataGrid Grid.Column="1" 
                   ItemsSource="{Binding DenomItems}" 
-                  Visibility="{Binding HasDenomItems, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                  Visibility="{Binding HasDenomItems, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   Margin="0 5 10 0"
                   Padding="30 0 0 0"
                   BorderBrush="{DynamicResource AccentColorBrush}"
@@ -84,7 +85,7 @@
                  SelectionMode="Single"
                  ItemsSource="{Binding GameItemsByType}"
                  ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}"
-                 Visibility="{Binding HasMoreThanOneGameType, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                 Visibility="{Binding HasMoreThanOneGameType, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                  Margin="0"
                  Padding="10 0 0 0"
                  BorderBrush="{DynamicResource AccentColorBrush}"

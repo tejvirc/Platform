@@ -99,7 +99,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.IsChooser;
+            return !isBlocked && (_sc.IsChooser || _sc.IsAllowSingleGameAutoLaunch);
         }
     }
 }

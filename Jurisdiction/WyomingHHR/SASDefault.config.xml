@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!--
-*NOTE* When adding or removing elements to this file, you will need to 
+*NOTE* When adding or removing elements to this file, you will need to
 change the corresponding xsd schema file and generate a new class definition
 as follows:
 
@@ -17,6 +17,6 @@ as follows:
 			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
 		-->
 		<TransferLimit Default="10000" />
-		<EGMDisabledOnHostOffline Enabled="false" />
+		<EGMDisabledOnHostOffline Enabled="true" />
 	</SASHostPage>
 </SASDefaultConfiguration>

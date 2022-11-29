@@ -28,7 +28,7 @@
                VerticalContentAlignment="Center"
                Style="{StaticResource MonacoLabel}"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}"
-               Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
+               Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
 
         <DataGrid Margin="0"
                   HorizontalAlignment="Center"
@@ -43,7 +43,7 @@
                   AutoGenerateColumns="False"
                   Height="Auto"
                   IsEnabled="True"
-                  Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}">
+                  Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">

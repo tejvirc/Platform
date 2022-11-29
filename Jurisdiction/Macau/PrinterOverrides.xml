@@ -32,10 +32,8 @@ Please update the confluence page when new elements and attributes are added.
   xsi:noNamespaceSchemaLocation="../../bin/Printer/PrinterOverrides.xsd">
   <Override Protocol="JCM TCL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
     <AuditTickets PlatformTemplateIds="101 105" />
-    
-    <ChangeRegionCase RegionId="125" Description="MachineId" />
-    
     <Replacements>
+      <ChangeRegionCase RegionId="125" Description="MachineId" />
       <TextSplitForRegion>
         <Split RegionId="110" NewRegionId="1" Description="Date" FormatString="dd/MM/yyyy" />
         <Split RegionId="110" NewRegionId="2" Description="Time" FormatString="HH:mm:ss" />
@@ -50,7 +48,7 @@ Please update the confluence page when new elements and attributes are added.
       <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="1" Regions="0 121 123 0 0 114 116 0 1 2 142 0 107 0 118 126 117" />
     </PrinterTemplateMappings>
   </Override>
-  
+
   <Override Protocol="EpicTTL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
     <AuditTickets PlatformTemplateIds="101 105" />
     <Replacements>

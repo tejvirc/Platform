@@ -235,7 +235,7 @@
                                     <controls:DataGridScrollButtons HorizontalAlignment="Right"
                                                                                   VerticalAlignment="Center"
                                                                                   ScrollGrid="{Binding ElementName=LB_ScrollViewer}"
-                                                                                  Visibility="{Binding CanContentScroll, Converter={StaticResource BoolToVisConverter}, RelativeSource={RelativeSource Self}}"
+                                                                                  Visibility="{Binding CanContentScroll, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource Self}}"
                                                                                   Margin="5 25 0 0"/>
 
                                 </StackPanel>

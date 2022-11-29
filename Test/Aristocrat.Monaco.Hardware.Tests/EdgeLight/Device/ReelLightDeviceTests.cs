@@ -51,6 +51,7 @@
             _reelController.Setup(x => x.Connected).Returns(true);
             _reelController.Setup(x => x.Enabled).Returns(true);
             _reelController.Setup(x => x.Initialized).Returns(true);
+            _reelController.Setup(x => x.DefaultReelBrightness).Returns(100);
 
             _connectionChangedCallbackCalled = false;
             _stripsChangedCallbackCalled = false;
@@ -271,26 +272,6 @@
             _device.RenderAllStripData();
 
             _reelController.Verify(x => x.SetReelBrightness(brightness), Times.Once());
-        }
-
-        [TestMethod]
-        public async Task SetSystemBrightnessTwiceDifferentValueTest()
-        {
-            Assert.IsNotNull(_connectedAction);
-            await _reelConnectedAction(new ReelConnectedEvent(1), CancellationToken.None);
-            Assert.IsFalse(_connectionChangedCallbackCalled);
-            Assert.IsTrue(_stripsChangedCallbackCalled);
-            Assert.AreEqual(5, _device.PhysicalStrips.Count);
-            _reelController.Setup(x => x.SetReelBrightness(It.IsAny<int>())).ReturnsAsync(true);
-
-            // Method being tested
-            _device.SetSystemBrightness(100);
-            _device.RenderAllStripData();
-            _device.SetSystemBrightness(50);
-            _device.RenderAllStripData();
-
-            _reelController.Verify(x => x.SetReelBrightness(100), Times.Once());
-            _reelController.Verify(x => x.SetReelBrightness(50), Times.Once());
         }
 
         private void EdgeLightDevice_ConnectionChanged(object sender, EventArgs e)

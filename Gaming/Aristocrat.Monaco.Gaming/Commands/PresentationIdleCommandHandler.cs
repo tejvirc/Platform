@@ -37,7 +37,6 @@
         {
             var checkBalance = new CheckBalance();
 
-            _history.PresentationFinished();
             _commandFactory.Create<CheckBalance>().Handle(checkBalance);
             _operatorMenu.EnableKey(GamingConstants.OperatorMenuDisableKey);
 

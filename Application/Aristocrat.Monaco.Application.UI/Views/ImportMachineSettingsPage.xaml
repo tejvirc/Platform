@@ -61,7 +61,7 @@
 
     <Grid x:Name="MainGrid" VerticalAlignment="Top" HorizontalAlignment="Left">
 
-        <Border Visibility="{Binding IsSuccess, Converter={StaticResource BoolToVisConverter}}"
+        <Border Visibility="{Binding IsSuccess, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Padding="10 20 10 10">
             <controls:FlipView ItemsSource="{Binding ConfigurationSettings}"
                                ItemTemplate="{StaticResource SettingsViewer}"
@@ -75,7 +75,7 @@
             </controls:FlipView>
         </Border>
 
-        <Border Visibility="{Binding IsSuccess, Converter={StaticResource BoolToCollapsedConverter}}">
+        <Border Visibility="{Binding IsSuccess, Converter={StaticResource TrueCollapsedFalseVisible}}">
             <StackPanel Orientation="Vertical">
                 <TextBlock TextWrapping="Wrap"
                            Text="{lex:Loc {x:Static loc:ResourceKeys.ImportSettingsText}}" />
@@ -95,7 +95,7 @@
                        Style="{StaticResource MonacoLabel}" 
                        Foreground="{StaticResource RedBrush}"  
                        FontSize="{StaticResource NormalFontSize}" 
-                       Visibility="{Binding IsError, Converter={StaticResource BoolToVisConverter}}" />
+                       Visibility="{Binding IsError, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             </StackPanel>
         </Border>
     </Grid>

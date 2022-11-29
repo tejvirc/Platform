@@ -5,20 +5,15 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows.Input;
     using Aristocrat.Monaco.Localization.Properties;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
-    public class MechanicalReelsLightTestViewModel : INotifyPropertyChanged, IDisposable
+    public class MechanicalReelsLightTestViewModel : INotifyPropertyChanged
     {
         private const int FlashIntervalMs = 100;
-        private const int TestDurationMs = 3000;
 
         private static readonly Color OffColor = Color.Black;
 
@@ -46,9 +41,7 @@
         private bool _initialized;
         private List<int> _reelLightIdentifiers;
         private int _lightsPerReel;
-        private bool _buttonEnabled;
-        private bool _disposed;
-        private CancellationTokenSource _cancellationTokenSource = new();
+        private bool _testActive;
         
         public MechanicalReelsLightTestViewModel(
             IReelController reelController,
@@ -59,28 +52,50 @@
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
 
-            FlashReelLightsCommand = new ActionCommand<object>(_ => Task.Run(FlashReelLights));
             InitializeLightIdList();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool ButtonEnabled
+        public bool Initialized
         {
-            get => _buttonEnabled;
-            set
+            get => _initialized;
+            private set
             {
-                if (_buttonEnabled == value)
+                if (_initialized == value)
                 {
                     return;
                 }
 
-                _buttonEnabled = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ButtonEnabled)));
+                _initialized = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Initialized)));
             }
         }
 
-        public ICommand FlashReelLightsCommand { get; }
+        public bool TestActive
+        {
+            get => _testActive;
+
+            set
+            {
+                if (_testActive == value)
+                {
+                    return;
+                }
+
+                _testActive = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TestActive)));
+
+                if (value)
+                {
+                    StartTest();
+                }
+                else
+                {
+                    CancelTest();
+                }
+            }
+        }
 
         public IReadOnlyCollection<string> ReelLightColors { get; } = new[]
         {
@@ -97,37 +112,9 @@
         
         public void CancelTest()
         {
-            if (_cancellationTokenSource == null)
-            {
-                return;
-            }
-
-            _cancellationTokenSource.Cancel(true);
-            _cancellationTokenSource.Dispose();
-            _cancellationTokenSource = new();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                CancelTest();
-                _cancellationTokenSource.Dispose();
-                _cancellationTokenSource = null;
-            }
-
-            _disposed = true;
+            ClearPattern(ref _pattenToken);
+            ClearPattern(ref _offToken);
+            TestActive = false;
         }
 
         private void ClearPattern(ref IEdgeLightToken token)
@@ -141,23 +128,9 @@
             token = null;
         }
 
-        private async Task FlashReelLights()
-        {
-            if (!_reelController.Connected)
-            {
-                return;
-            }
-
-            ButtonEnabled = false;
-
-            TurnLightsOff();
-            StartFlashing();
-            await WaitForTestComplete();
-        }
-
         private async void InitializeLightIdList()
         {
-            if (!_reelController.Connected || _initialized)
+            if (!_reelController.Connected || Initialized)
             {
                 return;
             }
@@ -177,8 +150,7 @@
             }
 
             SelectedReelLightIdIndex = 0;
-            ButtonEnabled = true;
-            _initialized = true;
+            Initialized = true;
         }
 
         private Color[] GetStripOnColors(int stripId, int ledCount)
@@ -228,31 +200,21 @@
             _pattenToken = _edgeLightingController.AddEdgeLightRenderer(pattern);
         }
 
+        private void StartTest()
+        {
+            if (!_reelController.Connected)
+            {
+                return;
+            }
+
+            TurnLightsOff();
+            StartFlashing();
+        }
+
         private void TurnLightsOff()
         {
             ClearPattern(ref _offToken);
             _offToken = _edgeLightingController.AddEdgeLightRenderer(_solidBlackPattern);
-        }
-
-        private async Task WaitForTestComplete()
-        {
-            try
-            {
-                var token = _cancellationTokenSource.Token;
-                token.ThrowIfCancellationRequested();
-                await Task.Delay(TestDurationMs, token);
-            }
-            catch (OperationCanceledException)
-            {
-                // Do nothing
-            }
-            finally
-            {
-                ClearPattern(ref _pattenToken);
-                ClearPattern(ref _offToken);
-
-                ButtonEnabled = true;
-            }
         }
 
         private static Color[] GetStripOffColors(int stripId, int ledCount)

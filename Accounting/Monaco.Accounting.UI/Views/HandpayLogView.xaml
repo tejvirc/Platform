@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -85,18 +86,18 @@
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReprintButtonText}}"
                     Command="{Binding ReprintButtonCommand}" 
                     IsEnabled="{Binding CanReprint}"
-                    Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLast15RecordsButtonText}}"
                     IsEnabled="{Binding PrinterButtonsEnabled}" Width="200"
                     Command="{Binding PrintLast15ButtonCommand}"
-                    Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintCurrentPageButtonText}}"
                     IsEnabled="{Binding PrinterButtonsEnabled}" Width="200"
                     Command="{Binding PrintCurrentPageButtonCommand}"
-                    Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                    Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Label Content="{Binding DoorStatusText}"
                    Style="{StaticResource MonacoWarningLabel}"
-                   Visibility="{Binding ReprintDisabledDueToDoor, Converter={StaticResource BoolToVisConverter}}"/>
+                   Visibility="{Binding ReprintDisabledDueToDoor, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

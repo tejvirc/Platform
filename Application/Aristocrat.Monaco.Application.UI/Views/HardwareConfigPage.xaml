@@ -33,25 +33,25 @@
 
             <Style x:Key="MakeCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}" 
                    d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
-                <Setter Property="Visibility" Value="{Binding ManufacturerEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="Visibility" Value="{Binding ManufacturerEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
             </Style>
 
             <Style x:Key="ProtocolCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}"
                    d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
                 <Setter Property="FontSize" Value="{StaticResource SmallLabelFontSize}"/>
-                <Setter Property="Visibility" Value="{Binding ProtocolEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="Visibility" Value="{Binding ProtocolEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
             </Style>
 
             <Style x:Key="PortCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}"
                    d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
-                <Setter Property="Visibility" Value="{Binding PortEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="Visibility" Value="{Binding PortEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
             </Style>
 
             <Style x:Key="StatusCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}"
                    d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
                 <Setter Property="FontSize" Value="{StaticResource SmallLabelFontSize}"/>
                 <Setter Property="Foreground" Value="{Binding Status, Converter={StaticResource BrushConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                <Setter Property="Visibility" Value="{Binding StatusEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="Visibility" Value="{Binding StatusEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
                         <Setter Property="Foreground" Value="{Binding Status, Converter={StaticResource BrushConverter}, UpdateSourceTrigger=PropertyChanged}" />
@@ -172,7 +172,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="1" Visibility="{Binding ShowHardMeters, Converter={StaticResource BoolToVisConverter}}"
+        <Grid Grid.Row="1" Visibility="{Binding ShowHardMeters, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               IsEnabled="{Binding InputEnabled}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -197,7 +197,7 @@
 
             <StackPanel Grid.Row="0" Grid.Column="2"
                         Orientation="Horizontal"
-                        Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AvailableMeterMappings}}"/>
                 <ComboBox Style="{StaticResource MonacoComboBox}"
                           SelectedValue="{Binding HardMeterMapSelection, Mode=TwoWay}"
@@ -208,7 +208,7 @@
 
             <StackPanel Grid.Row="1" Grid.Column="2"
                         Orientation="Horizontal"
-                        Visibility="{Binding TickValueVisible, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding TickValueVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMeterTickValue}}"/>
                 <ComboBox ItemsSource="{Binding TickValues}"
                           DisplayMemberPath="Cents"
@@ -219,7 +219,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2" Visibility="{Binding VisibleDoorOpticSensor, Converter={StaticResource BoolToVisConverter}}"
+        <Grid Grid.Row="2" Visibility="{Binding VisibleDoorOpticSensor, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               IsEnabled="{Binding InputEnabled}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -244,7 +244,7 @@
             </CheckBox>
         </Grid>
 
-        <Grid Grid.Row="3" Visibility="{Binding VisibleBellyPanelDoor, Converter={StaticResource BoolToVisConverter}}"
+        <Grid Grid.Row="3" Visibility="{Binding VisibleBellyPanelDoor, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               IsEnabled="{Binding InputEnabled}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -262,7 +262,7 @@
                       Margin="8 4 0 10" IsEnabled="{Binding ConfigurableBellyPanelDoor}"/>
         </Grid>
 
-        <Grid Grid.Row="4" Visibility="{Binding VisibleBell, Converter={StaticResource BoolToVisConverter}}"
+        <Grid Grid.Row="4" Visibility="{Binding VisibleBell, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               IsEnabled="{Binding InputEnabled}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -281,7 +281,7 @@
                       IsEnabled="{Binding ConfigurableBell}"/>
         </Grid>
 
-        <Grid Grid.Row="5" Visibility="{Binding VisibleTowerLightTierTypes, Converter={StaticResource BoolToVisConverter}}"
+        <Grid Grid.Row="5" Visibility="{Binding VisibleTowerLightTierTypes, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               IsEnabled="{Binding InputEnabled}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -307,16 +307,16 @@
 
         <StackPanel Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="5 20 0 0">
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Validate}}"
-                    Visibility="{Binding ShowValidateButton, Converter={StaticResource BoolToVisConverter}}"
+                    Visibility="{Binding ShowValidateButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ValidateCommand}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
-                    Visibility="{Binding ShowApplyButton, Converter={StaticResource BoolToVisConverter}}"
+                    Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ApplyHardwareSettingsCommand}"/>
             <Button Margin="0 15 0 0"
                     Style="{StaticResource MonacoWarningButton}"
                     Name="ApplyInfoButton"
                     Command="{Binding ShowInfoPopupCommand}"
-                    Visibility="{Binding ShowApplyButton, Converter={StaticResource BoolToVisConverter}}">
+                    Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="ApplyInfoButton" />

@@ -208,6 +208,7 @@
                 { GamingConstants.GameStartMethod, (InitFromStorage(GamingConstants.GameStartMethod), true) },
                 { GamingConstants.GameStartMethodConfigurable, (configuration.PhysicalButtons?.GameStartButtons?.Configurable ?? false, false) },
                 { GamingConstants.GameStartMethodSettingVisible, (configuration.PhysicalButtons?.GameStartButtons?.SettingsVisible ?? true, false) },
+                { GamingConstants.ReportCashoutButtonPressWithZeroCredit, (configuration.PhysicalButtons?.CashOutButton?.ReportToHostWithZeroCredit ?? false, false) },
                 { GamingConstants.OperatorMenuPerformancePageDeselectedGameThemes, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageDeselectedGameThemes), true) },
                 { GamingConstants.OperatorMenuPerformancePageHideNeverActive, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageHideNeverActive), true) },
                 { GamingConstants.OperatorMenuPerformancePageHidePreviouslyActive, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageHidePreviouslyActive), true) },
@@ -267,6 +268,7 @@
                 { GamingConstants.PlayerInformationDisplay.GameRulesScreenEnabled, (playerInformationDisplayOptions?.GameRulesScreen?.Enabled ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
+                { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) }
             };
