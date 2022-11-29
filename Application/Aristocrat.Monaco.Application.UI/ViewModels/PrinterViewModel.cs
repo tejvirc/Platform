@@ -161,6 +161,8 @@
 
         public bool DiagnosticsEnabled { get; set; }
 
+        public override bool TestModeEnabledSupplementary => Printer is { Faults: PrinterFaultTypes.None, Connected: true };
+
         public ICommand FormFeedButtonCommand { get; }
 
         public ICommand PrintDiagnosticButtonCommand { get; }
