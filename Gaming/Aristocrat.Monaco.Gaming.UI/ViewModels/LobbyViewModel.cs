@@ -1378,12 +1378,9 @@
         public ObservableCollection<CultureInfo> Languages { get; } = new ObservableCollection<CultureInfo>();
 
         private bool _isLanguageSelectionViewVisible;
-
-
         public bool IsLanguageSelectionViewVisible
         {
             get => _isLanguageSelectionViewVisible;
-
             set
             {
                 if (_isLanguageSelectionViewVisible == value)
@@ -1398,18 +1395,6 @@
                 }
 
                 RaisePropertyChanged(nameof(IsLanguageSelectionViewVisible));
-            }
-        }
-
-        public CultureInfo SelectedLanguage
-        {
-            get => null;
-
-            set
-            {
-                IsLanguageSelectionViewVisible = false;
-                IsOverlayWindowVisible = false;
-                SetLanguage(value?.Name);
             }
         }
 
@@ -4528,7 +4513,7 @@
             {
                 for (var i = 0; i < AvaliableLocales.Length; i++)
                 {
-                    if (LocaleHelper.Includes(languageOptions, AvaliableLocales[i]) && LocaleCodeIndex == i)
+                    if (LocaleHelper.Contains(languageOptions, AvaliableLocales[i]) && LocaleCodeIndex == i)
                     {
                         return i;
                     }

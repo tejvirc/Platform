@@ -1196,7 +1196,7 @@
             var supportedLanguages = LocaleHelper.GetAllSupportedLocales(gameLocalesCollection, _localization, Logger);
             Logger.Debug($"Supported languages by platform: {string.Join(",", supportedLanguages)}");
 
-            var staleLanguages = (from l in languageOptions where !l.IsMandatory && !LocaleHelper.Includes(supportedLanguages, l.Locale) select l).ToList();
+            var staleLanguages = (from l in languageOptions where !l.IsMandatory && !LocaleHelper.Contains(supportedLanguages, l.Locale) select l).ToList();
             staleLanguages.ForEach(l => languageOptions.Remove(l));
 
             var gameLanguageOptions = (from l in supportedLanguages

@@ -1,9 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Events
 {
     using System;
-
     using Kernel;
-
 
     /// <summary>
     ///     The GameLanguageChangedEvent is posted when the player changes the language in the game.

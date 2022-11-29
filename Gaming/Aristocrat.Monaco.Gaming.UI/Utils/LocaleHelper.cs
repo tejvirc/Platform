@@ -12,7 +12,7 @@
         /// <summary>
         /// Check if the item is in the list, using passed in StringComparison when comparing.
         /// </summary>
-        public static bool Includes(IEnumerable<string> list, string item, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase) => list.Any(l => string.Equals(l, item, comparison));
+        public static bool Contains(IEnumerable<string> list, string item, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase) => list.Any(l => string.Equals(l, item, comparison));
 
         /// <summary>
         /// Given an array of items, return the common elements present in all the items.
