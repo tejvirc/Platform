@@ -9,12 +9,12 @@
     /// <summary>
     ///     Command handler for the <see cref="UpdateLanguage" /> command.
     /// </summary>
-    public class UpdateLanguageRequestCommandHandler : ICommandHandler<UpdateLanguage>
+    public class UpdateLanguageCommandHandler : ICommandHandler<UpdateLanguage>
     {
         private readonly IEventBus _eventBus;
 
 
-        public UpdateLanguageRequestCommandHandler(IEventBus eventBus)
+        public UpdateLanguageCommandHandler(IEventBus eventBus)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
