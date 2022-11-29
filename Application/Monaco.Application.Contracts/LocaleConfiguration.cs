@@ -189,7 +189,7 @@ public partial class Player {
     
     private string[] availableField;
     
-    private string primaryField;
+    private string defaultField;
     
     /// <remarks/>
     public string[] Available {
@@ -203,12 +203,12 @@ public partial class Player {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Primary {
+    public string Default {
         get {
-            return this.primaryField;
+            return this.defaultField;
         }
         set {
-            this.primaryField = value;
+            this.defaultField = value;
         }
     }
 }

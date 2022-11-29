@@ -1315,10 +1315,7 @@
                     _localeCodeIndex = value;
                     ClockTimer.LocaleCodeIndex = value;
 
-                    if (Config.MultiLanguageEnabled)
-                    {
-                        _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
-                    }
+                    _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
 
                     LanguageChanged?.Invoke(this, EventArgs.Empty);
 
@@ -4825,7 +4822,6 @@
                 Logger.Debug($"Publishing PlayerLanguageChangedEvent with LocaleCode:  {ActiveLocaleCode}");
                 _eventBus.Publish(new PlayerLanguageChangedEvent(ActiveLocaleCode));
 
-                // todo let player culture provider manage multi-language support for lobby
                 _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
             }
             

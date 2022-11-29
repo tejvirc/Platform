@@ -119,7 +119,7 @@
             var playerCultureProvider = localization.GetProvider(CultureFor.Player) as
                                          IPlayerCultureProvider;
             string enabledLanguages = string.Join(",", playerCultureProvider?.AvailableCultures.Select(c => c.Name) ?? new string[] {});
-            var defaultLanguage = _properties.GetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ApplicationConstants.DefaultCultureCode);
+            var defaultLanguage = _properties.GetProperty(ApplicationConstants.LocalizationPlayerDefault, ApplicationConstants.DefaultCultureCode);
 
             var parameters = new Dictionary<string, string>
             {
