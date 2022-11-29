@@ -787,6 +787,11 @@
         public const string AutoPlayActive = "AutoPlayActive";
 
         /// <summary>
+        ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
+        /// </summary>
+        public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
+        
+        /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
         public const string DisplayVoucherIssuedMessage = @"Messages.VoucherIssued.Display";
