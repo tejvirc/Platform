@@ -1798,6 +1798,8 @@
 
         private int UniqueThemeIds => (GameList?.Where(g => g.Enabled).Select(o => o.ThemeId).Distinct().Count() ?? 0);
 
+        public Thickness LightningLinkMajorBannerImageMargin => MultiLanguageEnabled ? new Thickness(0, 38, 0, 0) : new Thickness(0, 44, 0, 0);
+        
         /// <summary>
         ///     Dispose
         /// </summary>
