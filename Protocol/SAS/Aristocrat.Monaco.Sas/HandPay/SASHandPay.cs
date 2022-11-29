@@ -70,6 +70,13 @@
         }
 
         /// <inheritdoc />
+        public Task HandpayKeyedOff(HandpayTransaction transaction)
+        {
+            _handPayCommittedHandler.HandPayReset(transaction);
+            return Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
         public bool AllowLocalHandpay => true;
 
         /// <inheritdoc />
