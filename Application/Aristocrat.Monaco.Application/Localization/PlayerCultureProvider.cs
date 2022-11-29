@@ -126,7 +126,11 @@
         private IEnumerable<string> GetLanguageLocales()
         {
             var playerLocales = (string[])_properties.GetProperty(ApplicationConstants.LocalizationPlayerAvailable, new[] { CultureInfo.CurrentCulture.Name });
-            var defaultLocale = (string) _properties.GetProperty(ApplicationConstants.LocalizationPlayerDefault, playerLocales.First() ?? ApplicationConstants.DefaultLanguage);
+            var defaultLocale = (string) _properties.GetProperty(ApplicationConstants.LocalizationPlayerDefault, playerLocales.FirstOrDefault() ?? ApplicationConstants.DefaultLanguage);
+            if (string.IsNullOrEmpty(defaultLocale))
+            {
+                defaultLocale = playerLocales.FirstOrDefault() ?? ApplicationConstants.DefaultLanguage;
+            }
             if (playerLocales.All(x => !string.Equals(x, defaultLocale, StringComparison.CurrentCultureIgnoreCase)))
             {
                 throw new LocalizationException($"Configuration error Player default locale not supported, {defaultLocale} not in ({string.Join(",", playerLocales)})");

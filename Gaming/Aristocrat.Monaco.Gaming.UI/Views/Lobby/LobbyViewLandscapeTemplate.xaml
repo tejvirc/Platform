@@ -487,7 +487,7 @@
                                                    gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}" />
                                             <ItemsControl
                                                 FocusVisualStyle="{x:Null}"
-                                                Margin="0 38 0 0"
+                                                Margin="{Binding Path=DataContext.LightningLinkMajorBannerImageMargin, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 ItemsSource="{Binding Path=ProgressiveIndicatorText}"
                                                 HorizontalAlignment="Center" VerticalAlignment="Top">
                                                 <ItemsControl.ItemsPanel>
@@ -726,7 +726,7 @@
                            gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}" />
                     <ItemsControl
                         FocusVisualStyle="{x:Null}"
-                        Margin="0 38 0 0"
+                        Margin="{Binding Path=DataContext.LightningLinkMajorBannerImageMargin, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                         ItemsSource="{Binding Path=ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoAmount}"
                         HorizontalAlignment="Center" VerticalAlignment="Top">
                         <ItemsControl.ItemsPanel>
