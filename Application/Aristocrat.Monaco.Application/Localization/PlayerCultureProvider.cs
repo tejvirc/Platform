@@ -29,10 +29,6 @@
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
         }
         
-
-        [JsonProperty]
-        public CultureInfo PrimaryCulture { get; private set; }
-
         [JsonProperty]
         public CultureInfo DefaultCulture
         {
@@ -66,7 +62,7 @@
 
             AddCultures(locales.Select(CultureInfo.GetCultureInfo).ToArray());
 
-            SetCurrentCulture(CurrentCulture ?? PrimaryCulture);
+            SetCurrentCulture(CurrentCulture ?? DefaultCulture);
 
             _eventBus.Subscribe<SetValidationEvent>(this, Handle);
         }
@@ -130,11 +126,10 @@
         private IEnumerable<string> GetLanguageLocales()
         {
             var playerLocales = (string[])_properties.GetProperty(ApplicationConstants.LocalizationPlayerAvailable, new[] { CultureInfo.CurrentCulture.Name });
-            var playerPrimaryLocale = (string)_properties.GetProperty(ApplicationConstants.LocalizationPlayerPrimary, playerLocales.First());
-
-            if (playerLocales.All(x => !string.Equals(x, playerPrimaryLocale, StringComparison.CurrentCultureIgnoreCase)))
+            var defaultLocale = (string) _properties.GetProperty(ApplicationConstants.LocalizationPlayerDefault, playerLocales.First() ?? ApplicationConstants.DefaultLanguage);
+            if (playerLocales.All(x => !string.Equals(x, defaultLocale, StringComparison.CurrentCultureIgnoreCase)))
             {
-                throw new LocalizationException($"Configuration error Player primary locale not supported, {playerPrimaryLocale} not in ({string.Join(",", playerLocales)})");
+                throw new LocalizationException($"Configuration error Player default locale not supported, {defaultLocale} not in ({string.Join(",", playerLocales)})");
             }
 
             if (!LanguageOptions.Any(l => l.IsMandatory))
@@ -143,9 +138,7 @@
                 Array.ForEach(playerLocales, l => LanguageOptions.Add(new LanguageOption { Locale = l, IsMandatory = true }));
             }
 
-            PrimaryCulture ??= CultureInfo.GetCultureInfo(playerPrimaryLocale);
-
-            DefaultCulture ??= PrimaryCulture ?? (LanguageOptions.Any() ? new CultureInfo(LanguageOptions.First().Locale) : new CultureInfo(ApplicationConstants.DefaultLanguage));
+            DefaultCulture ??= CultureInfo.GetCultureInfo(defaultLocale) ?? (LanguageOptions.Any() ? new CultureInfo(LanguageOptions.First().Locale) : new CultureInfo(ApplicationConstants.DefaultLanguage));
 
             return from l in LanguageOptions select l.Locale;
         }
@@ -166,7 +159,7 @@
             SetCurrentCulture(
                 !string.IsNullOrWhiteSpace(evt.Identity?.LocaleId)
                     ? CultureInfo.GetCultureInfo(evt.Identity.LocaleId)
-                    : CurrentCulture ?? PrimaryCulture);
+                    : CurrentCulture ?? DefaultCulture);
         }
     }
 }

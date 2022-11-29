@@ -1274,7 +1274,7 @@
                 if (e.PropertyName == nameof(option.IsDefault) && option.IsDefault)
                 {
                     _playerCultureProvider.DefaultCulture = option.CultureInfo;
-                    PropertiesManager.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, option.CultureInfo.Name);
+                    PropertiesManager.SetProperty(ApplicationConstants.LocalizationPlayerDefault, option.CultureInfo.Name);
                 }
                 else if (e.PropertyName == nameof(option.IsEnabled))
                 {

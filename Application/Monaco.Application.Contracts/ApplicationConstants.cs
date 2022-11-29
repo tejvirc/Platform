@@ -784,14 +784,14 @@
         public const string LocalizationOperatorAvailable = "Localization.Operator.Available";
 
         /// <summary>
-        ///     Property manager key for LocalizationPlayerPrimary.
-        /// </summary>
-        public const string LocalizationPlayerPrimary = "Localization.Player.Primary";
-
-        /// <summary>
         ///     Property manager key for LocalizationPlayerAvailable.
         /// </summary>
         public const string LocalizationPlayerAvailable = "Localization.Player.Available";
+
+        /// <summary>
+        ///     Property manager key for LocalizationPlayerDefault.
+        /// </summary>
+        public const string LocalizationPlayerDefault = "Localization.Player.Default";
 
         /// <summary>
         ///     Property manager key for LocalizationOperatorDateFormat
@@ -1431,5 +1431,10 @@
         ///     True if re-directing topper overlay to top screen
         /// </summary>
         public const string IsTopperOverlayRedirecting = @"Application.IsTopperOverlayRedirecting";
+
+        /// <summary>
+        ///     The default culture locale is US English
+        /// </summary>
+        public const string DefaultCultureCode = "en-US";
     }
 }
