@@ -1304,11 +1304,9 @@
                     Logger.Debug($"Setting Locale Code Index: {value}");
                     _localeCodeIndex = value;
 
-                    if (Config.MultiLanguageEnabled)
-                    {
-                        _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
-                        _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
-                    }
+                    _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
+                    _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
+                    
 
                     LanguageChanged?.Invoke(this, EventArgs.Empty);
 
@@ -4837,7 +4835,6 @@
                 Logger.Debug($"Publishing PlayerLanguageChangedEvent with LocaleCode:  {ActiveLocaleCode}");
                 _eventBus.Publish(new PlayerLanguageChangedEvent(ActiveLocaleCode));
 
-                // todo let player culture provider manage multi-language support for lobby
                 _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
             }
 

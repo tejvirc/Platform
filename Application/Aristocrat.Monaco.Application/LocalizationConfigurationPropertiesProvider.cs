@@ -85,7 +85,6 @@
             var operatorDefault = config.Operator?.Default ?? operatorAvailable.First();
 
             var playerAvailable = config.Player?.Available ?? new[] { ApplicationConstants.DefaultLanguage };
-            var playerPrimary = config.Player?.Primary ?? playerAvailable.First();
 
             var overridePaths = GetLocaleOverridePaths();
 
@@ -137,8 +136,8 @@
                     Tuple.Create((object)playerAvailable, false)
                 },
                 {
-                    ApplicationConstants.LocalizationPlayerPrimary,
-                    Tuple.Create((object)playerPrimary, false)
+                    ApplicationConstants.LocalizationPlayerDefault,
+                    Tuple.Create(InitFromStorage(ApplicationConstants.LocalizationPlayerDefault), true)
                 },
                 {
                     ApplicationConstants.LocalizationOperatorDateFormat,

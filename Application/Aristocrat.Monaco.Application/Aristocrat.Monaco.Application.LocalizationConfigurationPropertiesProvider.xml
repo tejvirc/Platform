@@ -13,4 +13,12 @@
       <Field DataType="String" FieldName="Localization.PlayerTicket.DateFormat" Size="16" />
     </Fields>
   </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Application.LocalizationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="Localization.PlayerTicket.Override" />
+      <Field DataType="String" FieldName="Localization.PlayerTicket.Locale" Size="16" />
+      <Field DataType="String" FieldName="Localization.PlayerTicket.DateFormat" Size="16" />
+      <Field DataType="String" FieldName="Localization.Player.Default" Size="16" />
+    </Fields>
+  </BlockFormat>
 </ArrayOfBlockFormat>
