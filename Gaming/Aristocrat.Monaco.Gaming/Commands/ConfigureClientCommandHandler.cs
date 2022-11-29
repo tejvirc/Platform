@@ -119,8 +119,12 @@
                         _ => "play"
                     });
 
-            string enabledLanguages = string.Join(",", _playerCultureProvider?.AvailableCultures.Select(c => c.Name) ?? new string[] { GamingConstants.DefaultCultureCode });
-            var defaultLanguage = _properties.GetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, GamingConstants.DefaultCultureCode);
+            //TODO, change to DI
+            var localization = ServiceManager.GetInstance().GetService<ILocalization>();
+            var playerCultureProvider = localization.GetProvider(CultureFor.Player) as
+                                         IPlayerCultureProvider;
+            string enabledLanguages = string.Join(",", playerCultureProvider?.AvailableCultures.Select(c => c.Name) ?? new string[] {});
+            var defaultLanguage = _properties.GetProperty(ApplicationConstants.LocalizationPlayerDefault, ApplicationConstants.DefaultCultureCode);
 
             var parameters = new Dictionary<string, string>
             {
@@ -128,7 +132,7 @@
                 { "/Runtime/Denomination", denomination.Value.MillicentsToCents().ToString() },
                 { "/Runtime/ActiveDenominations", string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToCents())) },
                 { "/Runtime/Flags&RequireGameStartPermission", "true" },
-                { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, GamingConstants.DefaultCultureCode) },
+                { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, ApplicationConstants.DefaultCultureCode) },
                 { "/Runtime/Localization/EnabledLanguages", enabledLanguages },
                 { "/Runtime/Localization/DefaultLanguage", defaultLanguage as string },
                 { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencySymbol },
