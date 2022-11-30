@@ -51,9 +51,12 @@
         private void StartWebApiEndpoints()
         {
             var webApiBuilder = WebApplication.CreateBuilder();
-            webApiBuilder.WebHost.ConfigureServices(services => { services.AddControllers(); });
-            webApiBuilder.WebHost.UseUrls($"{HostUrl}")
-            .ConfigureKestrel((context, option) =>
+            webApiBuilder.WebHost.ConfigureServices(services =>
+            {
+                services.AddControllers().AddApplicationPart(typeof(TestControllerEngine).Assembly);
+            });
+
+            webApiBuilder.WebHost.UseUrls($"{HostUrl}").ConfigureKestrel((context, option) =>
             {
                 option.AllowSynchronousIO = true;
             });
