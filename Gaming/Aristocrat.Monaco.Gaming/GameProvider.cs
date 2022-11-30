@@ -961,7 +961,7 @@
                         gameDetail.Status |= GameStatus.GameFilesNotFound;
                     }
 
-                    gameDetail.PaytableName = game.PaytableId.TrimStart(AtiPrefix.ToArray());
+                    gameDetail.PaytableName = GetPaytableName(game.PaytableId);
                     gameDetail.VariationId = game.VariationId;
                     gameDetail.MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent);
                     gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
@@ -1113,7 +1113,7 @@
                             ThemeId = (string)gameInfo[GameThemeIdField],
                             ThemeName = (string)gameInfo[GameThemeNameField],
                             PaytableId = (string)gameInfo[GamePayTableIdField],
-                            PaytableName = ((string)gameInfo[GamePayTableIdField]).TrimStart(AtiPrefix.ToArray()),
+                            PaytableName = GetPaytableName((string)gameInfo[GamePayTableIdField]),
                             Version = (string)gameInfo[GameVersionField],
                             Status = (GameStatus)gameInfo[GameStatusField],
                             Denominations =
@@ -1139,6 +1139,14 @@
                         });
                 }
             }
+        }
+
+        private static string GetPaytableName(string paytableId)
+        {
+            var prefixIndex = paytableId.IndexOf(AtiPrefix, StringComparison.Ordinal);
+            return prefixIndex < 0
+                ? paytableId
+                : paytableId.Remove(prefixIndex, AtiPrefix.Length);
         }
 
         private GameDetail GetOrAddGame(
