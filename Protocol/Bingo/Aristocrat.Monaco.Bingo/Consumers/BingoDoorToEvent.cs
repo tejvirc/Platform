@@ -28,7 +28,7 @@
                 },
                 {
                     DoorLogicalId.DropDoor,
-                    new BingoDoorToEvent(ReportableEvent.StackerDoorOpened, ReportableEvent.StackerDoorClosed)
+                    new BingoDoorToEvent(ReportableEvent.CashDoorOpened, ReportableEvent.CashDoorClosed) // Drop door is what the server calls the cash door
                 },
                 {
                     DoorLogicalId.Logic,
@@ -36,7 +36,7 @@
                 },
                 {
                     DoorLogicalId.CashBox,
-                    new BingoDoorToEvent(ReportableEvent.CashDoorOpened, ReportableEvent.CashDoorClosed)
+                    new BingoDoorToEvent(ReportableEvent.StackerDoorOpened, ReportableEvent.StackerDoorClosed) // CashBox is the stack door
                 },
                 {
                     DoorLogicalId.Belly,

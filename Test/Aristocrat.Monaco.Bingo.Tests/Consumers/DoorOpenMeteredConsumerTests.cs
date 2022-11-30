@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests.Consumers
 {
     using System;
-    using Aristocrat.Monaco.Bingo.Common;
-    using Aristocrat.Monaco.Bingo.Services.Reporting;
-    using Aristocrat.Monaco.Hardware.Contracts.Door;
     using Bingo.Consumers;
+    using Bingo.Services.Reporting;
+    using Common;
+    using Hardware.Contracts.Door;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -14,10 +14,8 @@
     {
         private DoorOpenMeteredConsumer _target;
         private readonly Mock<IEventBus> _eventBus = new (MockBehavior.Loose);
-        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Strict);
+        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Default);
         private readonly Mock<ISharedConsumer> _sharedConsumer = new(MockBehavior.Default);
-
-        private readonly DoorOpenMeteredEvent _event = new DoorOpenMeteredEvent((int)DoorLogicalId.Main, false, false, "Main Door");
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -35,17 +33,19 @@
                 eventBusNull ? null : _eventBus.Object,
                 _sharedConsumer.Object,
                 reportingNull ? null : _reportingService.Object);
-
         }
 
-        [TestMethod]
-        public void ConsumesTest()
+        [DataTestMethod]
+        [DataRow(DoorLogicalId.CashBox, ReportableEvent.StackerDoorOpened)]
+        [DataRow(DoorLogicalId.Main, ReportableEvent.MainDoorOpened)]
+        [DataRow(DoorLogicalId.TopBox, ReportableEvent.LcdDoorOpened)]
+        [DataRow(DoorLogicalId.DropDoor, ReportableEvent.CashDoorOpened)]
+        [DataRow(DoorLogicalId.Logic, ReportableEvent.LogicDoorOpened)]
+        [DataRow(DoorLogicalId.Belly, ReportableEvent.BellyDoorOpened)]
+        public void ConsumesTest(DoorLogicalId doorId, ReportableEvent expectedEvent)
         {
-            _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.MainDoorOpened)).Verifiable();
-
-            _target.Consume(_event);
-
-            _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.MainDoorOpened), Times.Once());
+            _target.Consume(new DoorOpenMeteredEvent((int)doorId, false, false, "TestDoor"));
+            _reportingService.Verify(m => m.AddNewEventToQueue(expectedEvent), Times.Once());
         }
     }
 }
