@@ -3,7 +3,6 @@
     using System;
     using System.Diagnostics;
     using System.Runtime.CompilerServices;
-    using log4net;
 
     /// <summary>
     ///     A class that is used for measuring timing metrics for a particular scope
@@ -17,7 +16,7 @@
     ///
     ///         public void MyTestMethod()
     ///         {
-    ///             using (var _ = new ScopedMethodTimer(Logger))
+    ///             using (var _ = new ScopedMethodTimer(Logger.DebugMethodLogger))
     ///             {
     ///                 // Calls to trace timing metric for
     ///             }
@@ -26,7 +25,7 @@
     /// </remarks>
     public sealed class ScopedMethodTimer : IDisposable
     {
-        private readonly ILog _logger;
+        private readonly MethodLogger _logger;
         private readonly string _message;
         private readonly Stopwatch _stopwatch;
         private bool _disposed;
@@ -38,7 +37,7 @@
         /// <param name="caller">The calling method.  By default this will be populated with the calling class and method name</param>
         /// <exception cref="ArgumentException">Thrown when the caller is null or an empty string</exception>
         /// <exception cref="ArgumentNullException">Thrown when the logger is null</exception>
-        public ScopedMethodTimer(ILog logger, [CallerMemberName] string caller = "")
+        public ScopedMethodTimer(MethodLogger logger, [CallerMemberName] string caller = "")
         {
             if (string.IsNullOrEmpty(caller))
             {
@@ -60,7 +59,7 @@
             }
 
             _stopwatch.Stop();
-            _logger.DebugFormat("{0} - Elapsed Time: {1}ms.", _message, _stopwatch.ElapsedMilliseconds);
+            _logger("{0} - Elapsed Time: {1}ms.", _message, _stopwatch.Elapsed.TotalMilliseconds);
 
             _disposed = true;
         }
