@@ -142,6 +142,27 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
+                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReelControllerEnabled}}" />
+                    <TextBlock Style="{DynamicResource SettingValueStyle}"
+                               Text="{Binding ReelControllerEnabled}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource SettingNameStyle}"
+                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReelControllerManufacturer}}" />
+                    <TextBlock Style="{DynamicResource SettingValueStyle}"
+                               Text="{Binding ReelControllerManufacturer}" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource SettingNameStyle}"
+                               Text="{lex:Loc {x:Static loc:ResourceKeys.BellEnabled}}" />
+                    <TextBlock Style="{DynamicResource SettingValueStyle}"
+                               Text="{Binding BellEnabled}" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc {x:Static loc:ResourceKeys.Currency}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding CurrencyDescription}" />

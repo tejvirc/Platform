@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
+    using Common.Cryptography;
     using Contracts.Gds;
     using Contracts.Gds.Reel;
     using Contracts.Reel;
@@ -192,8 +193,11 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
         protected override void CalculateCrc()
         {
-            // This device does not support CRC
-            FirmwareCrc = UnknownCrc;
+            // This device does not support CRC just use the version and has that
+            using var crc = new Crc32();
+            FirmwareCrc = string.IsNullOrEmpty(FirmwareVersion)
+                ? UnknownCrc
+                : BitConverter.ToInt32(crc.ComputeHash(FirmwareVersion.ToByteArray()), 0);
         }
 
         protected override void Enable(bool enable)
