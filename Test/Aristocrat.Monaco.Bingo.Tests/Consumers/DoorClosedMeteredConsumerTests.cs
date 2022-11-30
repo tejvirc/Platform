@@ -13,9 +13,8 @@
     public class DoorClosedMeteredConsumerTests
     {
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Loose);
-        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Strict);
-        private readonly Mock<ISharedConsumer> _sharedConsumer = new(MockBehavior.Strict);
-        private readonly DoorClosedMeteredEvent _event = new DoorClosedMeteredEvent((int)DoorLogicalId.Main, "Main Door");
+        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Default);
+        private readonly Mock<ISharedConsumer> _sharedConsumer = new(MockBehavior.Default);
         private DoorClosedMeteredConsumer _target;
 
         [TestInitialize]
@@ -37,14 +36,17 @@
                 reportingNull ? null : _reportingService.Object);
         }
 
-        [TestMethod]
-        public void ConsumesTest()
+        [DataTestMethod]
+        [DataRow(DoorLogicalId.CashBox, ReportableEvent.StackerDoorClosed)]
+        [DataRow(DoorLogicalId.Main, ReportableEvent.MainDoorClosed)]
+        [DataRow(DoorLogicalId.TopBox, ReportableEvent.LcdDoorClosed)]
+        [DataRow(DoorLogicalId.DropDoor, ReportableEvent.CashDoorClosed)]
+        [DataRow(DoorLogicalId.Logic, ReportableEvent.LogicDoorClosed)]
+        [DataRow(DoorLogicalId.Belly, ReportableEvent.BellyDoorClosed)]
+        public void ConsumesTest(DoorLogicalId doorId, ReportableEvent expectedEvent)
         {
-            _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.MainDoorClosed)).Verifiable();
-
-            _target.Consume(_event);
-
-            _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.MainDoorClosed), Times.Once());
+            _target.Consume(new DoorClosedMeteredEvent((int)doorId, "Test Door"));
+            _reportingService.Verify(m => m.AddNewEventToQueue(expectedEvent), Times.Once());
         }
     }
 }
