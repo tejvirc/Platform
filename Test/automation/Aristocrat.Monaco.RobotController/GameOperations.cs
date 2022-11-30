@@ -444,7 +444,7 @@
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _robotController.Config.CurrentGame && g.Enabled);
             if (gameInfo != null)
             {
-                var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
+                var denom = gameInfo.Denominations.Where(d => d.Active == true).RandomElement().Value;
                 _logger.Info($"Requesting game {gameInfo.ThemeName} with denom {denom} be loaded.", GetType().Name);
                 if (gameInfo.GameType is not (Gaming.Contracts.Models.GameType)GameType.Reel)
                 {
