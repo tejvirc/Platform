@@ -78,7 +78,7 @@
                 gameDetails,
                 bingoDetails,
                 gamePlayOutcome.Status,
-                gamePlayOutcome.ReportType == ReportType.End);
+                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End);
 
             Logger.Warn("Outcome response rejected");
             return outcome;
@@ -137,7 +137,7 @@
                 gameDetails,
                 bingoDetails,
                 gamePlayOutcome.Status,
-                gamePlayOutcome.ReportType == ReportType.End);
+                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End);
         }
 
         private async Task<bool> RequestGameInternal(RequestGameOutcomeMessage message, CancellationToken token)

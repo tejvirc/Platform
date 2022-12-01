@@ -5,9 +5,9 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using log4net;
     using Progressives;
     using ServerApiGateway;
-    using log4net;
 
     public class ProgressiveService :
         BaseClientCommunicationService<ProgressiveApi.ProgressiveApiClient>,
@@ -35,11 +35,23 @@
                 GameTitleId = message.GameTitleId
             };
 
-            var result = await Invoke(async x => await x.RequestProgressiveInfoAsync(request, null, null, token));
+            var result = await Invoke(
+                    async x => await x.RequestProgressiveInfoAsync(request, null, null, token));
 
             var size = result.ProgressiveLevel.Count;
-            var progressiveLevels = new string[size];
-            result.ProgressiveLevel.CopyTo(progressiveLevels, 0);
+            Logger.Debug($"RequestProgressiveInfoAsync response, size of response array={result.ProgressiveLevel.Count}");
+
+            var progressiveLevels = new ProgressiveLevelInfo[size];
+            var index = 0;
+            foreach (var progressiveMapping in result.ProgressiveLevel)
+            {
+                Logger.Debug($"ProgressiveLevelInfo added, index={index}, level={progressiveMapping.ProgressiveLevel}, sequence={progressiveMapping.SequenceNumber}");
+
+                progressiveLevels[index] = new ProgressiveLevelInfo(
+                    progressiveMapping.ProgressiveLevel,
+                    progressiveMapping.SequenceNumber);
+                ++index;
+            }
 
             Logger.Debug($"RequestProgressiveInfoAsync response, GameTitleId={result.GameTitleId}, Progressives={progressiveLevels.ToList()}");
 

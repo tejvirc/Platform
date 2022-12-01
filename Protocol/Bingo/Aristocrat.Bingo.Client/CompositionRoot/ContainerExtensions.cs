@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using Logging;
     using Messages;
     using Messages.Commands;
     using Messages.Interceptor;
@@ -11,7 +12,7 @@
 
     public static class ContainerExtensions
     {
-        public static Container RegisterClient(this Container container, params Assembly[] assemblies)
+        public static Container RegisterClient(this Container container, Action<LoggerConfiguration> loggerConfig, params Assembly[] assemblies)
         {
             /*
              * Set the DNS Resolution to native the default does not always resolve host names correctly.
@@ -22,6 +23,7 @@
 
             return container.RegisterClient()
                 .AddCommandProcessors()
+                .AddLogging(loggerConfig)
                 .RegisterMessageHandlers(assemblies.Append(Assembly.GetExecutingAssembly()).ToArray());
         }
 
@@ -80,6 +82,18 @@
             factory.Register<DisableCommandProcessor>(DisableCommand.Descriptor, Lifestyle.Transient);
             factory.Register<PingCommandProcessor>(PingCommand.Descriptor, Lifestyle.Transient);
             container.RegisterInstance<ICommandProcessorFactory>(factory);
+            return container;
+        }
+
+        private static Container AddLogging(this Container container, Action<LoggerConfiguration> configure)
+        {
+            var config = new LoggerConfiguration();
+            configure?.Invoke(config);
+
+            container.RegisterInstance(config);
+            container.RegisterSingleton<ILoggerFactory, Log4NetLoggerFactory>();
+            container.RegisterConditional(typeof(ILogger<>), typeof(Logger<>), Lifestyle.Singleton, _ => true);
+
             return container;
         }
     }

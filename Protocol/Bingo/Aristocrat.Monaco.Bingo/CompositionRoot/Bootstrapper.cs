@@ -1,11 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Bingo.CompositionRoot
 {
+    using System;
     using System.Reflection;
     using Aristocrat.Bingo.Client.CompositionRoot;
     using Common;
     using Common.CompositionRoot;
     using Kernel;
     using Kernel.Contracts.Events;
+    using Aristocrat.Bingo.Client.Logging;
     using Monaco.Common;
     using Monaco.Common.Container;
     using Services.GamePlay;
@@ -28,7 +30,15 @@
                 propertiesManager.GetValue(BingoConstants.EnableGrpcLogging, Constants.False).ToUpper();
             return container.AddExternalServices()
                 .AddPersistenceStorage()
-                .RegisterClient(Assembly.GetExecutingAssembly())
+                .RegisterClient(
+                    c =>
+                    {
+#if !RETAIL
+                        c.MinimumLevel = LogLevel.Debug;
+#else
+                        c.MinimumLevel = LogLevel.Debug;
+#endif
+                    }, Assembly.GetExecutingAssembly())
                 .AddInternalServices()
                 .WithGrpcLogging(loggingEnabled == Constants.True)
                 .ConfigureServices()

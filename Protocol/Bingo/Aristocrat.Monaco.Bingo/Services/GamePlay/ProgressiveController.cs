@@ -4,9 +4,9 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Bingo.Client.Logging;
     using Commands;
     using Common;
     using Common.Events;
@@ -15,7 +15,6 @@
     using Gaming.Contracts.Progressives.Linked;
     using Hardware.Contracts.Persistence;
     using Kernel;
-    using log4net;
     using Protocol.Common.Storage.Entity;
 
     /// <summary>
@@ -23,8 +22,6 @@
     /// </summary>
     public sealed class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
@@ -32,6 +29,9 @@
         private readonly IPersistentStorageManager _storage;
         private readonly IGameHistory _gameHistory;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IPropertiesManager _propertiesManager;
+        private readonly ICommandHandlerFactory _commandFactory;
+        private readonly ILogger<ProgressiveController> _logger;
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
@@ -42,6 +42,7 @@
         private bool _disposed;
         private IEnumerable<IViewableLinkedProgressiveLevel> _currentLinkedProgressiveLevelsHit;
         private bool _progressiveRecovery;
+        //private CancellationTokenSource _cancellationTokenSource;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveController" /> class.
@@ -53,15 +54,21 @@
         /// <param name="gameHistory"><see cref="IGameHistory" />.</param>
         /// <param name="unitOfWorkFactory"><see cref="IUnitOfWorkFactory" />.</param>
         /// <param name="multiProtocolEventBusRegistry"><see cref="IProtocolProgressiveEventsRegistry" />.</param>
+        /// <param name="propertiesManager"><see cref="IPropertiesManager" />.</param>
         public ProgressiveController(
+            ILogger<ProgressiveController> logger,
             IEventBus eventBus,
             IGameProvider gameProvider,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
             IPersistentStorageManager storage,
             IGameHistory gameHistory,
             IUnitOfWorkFactory unitOfWorkFactory,
-            IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry)
+            IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry,
+            IPropertiesManager propertiesManager,
+            ICommandHandlerFactory commandFactory
+            )
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ??
@@ -72,6 +79,8 @@
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _multiProtocolEventBusRegistry = multiProtocolEventBusRegistry ??
                                              throw new ArgumentNullException(nameof(multiProtocolEventBusRegistry));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
 
             SubscribeToEvents();
         }
@@ -85,6 +94,8 @@
         /// <inheritdoc />
         public void AwardJackpot(string poolName, long amountInPennies)
         {
+            throw new Exception("AwardJackpot not implemented");
+
             //if (_gameHistory?.CurrentLog.PlayState == PlayState.Idle)
             //{
             //    return;
@@ -132,7 +143,7 @@
         }
 
         /// <inheritdoc />
-        public void Configure()
+        public async void Configure()
         {
             _progressives.Clear();
             _activeProgressiveInfos.Clear();
@@ -219,6 +230,17 @@
                             level.ResetValue)).ToList(),
                     ProtocolNames.Bingo);
             }
+
+            var isCrossGameProgressiveEnabled = _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
+
+            _logger.LogInfo($"Cross Game Progressive Enabled for main game = {isCrossGameProgressiveEnabled}");
+
+            if (isCrossGameProgressiveEnabled)
+            {
+                var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
+
+                await _commandFactory.Execute(new ProgressiveInfoRequestCommand(machineSerial, 1));
+            }
         }
 
         /// <inheritdoc />
@@ -264,7 +286,7 @@
             {
                 using (var scope = _storage.ScopedTransaction())
                 {
-                    //_logger.LogInfo($"AwardJackpot {levelName} amountInPennies {amountInPennies}");
+                    _logger.LogInfo($"AwardJackpot {levelName} amountInPennies {amountInPennies}");
                     _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(
                         levelName,
                         ProtocolNames.Bingo);
@@ -369,7 +391,7 @@
 
         private void Handle(PendingLinkedProgressivesHitEvent evt)
         {
-            //_logger.LogInfo($"Received PendingLinkedProgressivesHitEvent {evt}");
+            _logger.LogInfo($"Received PendingLinkedProgressivesHitEvent {evt}");
 
             //lock (_pendingAwardsLock)
             //{
@@ -552,8 +574,8 @@
                     ProtocolNames.Bingo);
             }
 
-            //_logger.LogInfo(
-            //    $"Updated linked progressive level: ProtocolName={linkedLevel.ProtocolName} ProgressiveGroupId={linkedLevel.ProgressiveGroupId} LevelName={linkedLevel.LevelName} LevelId={linkedLevel.LevelId} Amount={linkedLevel.Amount} ClaimStatus={linkedLevel.ClaimStatus} CurrentErrorStatus={linkedLevel.CurrentErrorStatus} Expiration={linkedLevel.Expiration}");
+            _logger.LogInfo(
+                $"Updated linked progressive level: ProtocolName={linkedLevel.ProtocolName} ProgressiveGroupId={linkedLevel.ProgressiveGroupId} LevelName={linkedLevel.LevelName} LevelId={linkedLevel.LevelId} Amount={linkedLevel.Amount} ClaimStatus={linkedLevel.ClaimStatus} CurrentErrorStatus={linkedLevel.CurrentErrorStatus} Expiration={linkedLevel.Expiration}");
 
             return linkedLevel;
         }

@@ -40,6 +40,17 @@
                    Uri.IsWellFormedUriString(helpUrl, UriKind.RelativeOrAbsolute);
         }
 
+        public static bool IsCrossGameProgressiveEnabledForMainGame(this IUnitOfWorkFactory unitOfWorkFactory, IPropertiesManager propertiesManager)
+        {
+            var (gameDetail, denomination) = propertiesManager.GetActiveGame();
+            var serverSettings = unitOfWorkFactory.Invoke(
+                    x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())?.GamesConfigured
+                ?.FirstOrDefault(
+                    c => gameDetail is null || denomination is null ||
+                         c.PlatformGameId == gameDetail.Id && c.Denomination == denomination.Value);
+            return unitOfWorkFactory.GetCrossGameProgressiveEnabledForMainGame(serverSettings);
+        }
+
         private static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, BingoGameConfiguration serverSettings)
         {
             var helpUrl = serverSettings.HelpUrl;
@@ -63,6 +74,16 @@
             }
 
             return uriBuilder.Uri;
+        }
+
+        private static bool GetCrossGameProgressiveEnabledForMainGame(this IUnitOfWorkFactory unitOfWorkFactory, BingoGameConfiguration serverSettings)
+        {
+            if (serverSettings is null)
+            {
+                return false;
+            }
+
+            return serverSettings.CrossGameProgressiveEnabled;
         }
     }
 }

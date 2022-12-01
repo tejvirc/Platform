@@ -289,7 +289,7 @@
                     BallCall = string.Empty
                 }),
                 Status = true,
-                ReportType = ReportType.End
+                ReportType = GamePlayResponse.Types.ReportType.End
             };
 
             var handledResponse = new GameOutcomeResponse(ResponseCode.Ok);
@@ -336,7 +336,7 @@
                     BallCall = string.Empty
                 }),
                 Status = true,
-                ReportType = ReportType.Update,
+                ReportType = GamePlayResponse.Types.ReportType.Update,
             };
 
             var handledResponse = new GameOutcomeResponse(ResponseCode.Rejected);

@@ -12,12 +12,12 @@
             ResponseCode code,
             bool accepted,
             int gameTitleId,
-            string[] progressiveLevels)
+            ProgressiveLevelInfo[] progressiveLevels)
         {
             ResponseCode = code;
             Accepted = accepted;
             GameTitleId = gameTitleId;
-            ProgressiveLevels = new string[progressiveLevels.Length];
+            ProgressiveLevels = new ProgressiveLevelInfo[progressiveLevels.Length];
             progressiveLevels.CopyTo(ProgressiveLevels, 0);
         }
 
@@ -27,6 +27,6 @@
 
         public int GameTitleId { get; }
 
-        public string[] ProgressiveLevels { get; }
+        public ProgressiveLevelInfo[] ProgressiveLevels { get; }
     }
 }

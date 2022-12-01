@@ -16,7 +16,7 @@
         }
 
         /// <inheritdoc />
-        public async Task Handle(ProgressiveInfoRequestCommand command, CancellationToken token)
+        public async Task Handle(ProgressiveInfoRequestCommand command, CancellationToken token = default)
         {
             var message = new ProgressiveInfoRequestMessage(
                 command.MachineSerial,
