@@ -4,9 +4,9 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Aristocrat.Bingo.Client.Logging;
     using Commands;
     using Common;
     using Common.Events;
@@ -16,12 +16,15 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Protocol.Common.Storage.Entity;
+    using log4net;
 
     /// <summary>
     ///     Implements <see cref="IProgressiveController" />.
     /// </summary>
     public sealed class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
@@ -31,11 +34,10 @@
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ICommandHandlerFactory _commandFactory;
-        private readonly ILogger<ProgressiveController> _logger;
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
-        private readonly HashSet<string> _progressiveMessageAttributes = new();
+        //private readonly HashSet<string> _progressiveMessageAttributes = new();
         private readonly object _pendingAwardsLock = new();
         //private IList<(string poolName, long amountInPennies)> _pendingAwards;
         private string _updateProgressiveMeter;
@@ -55,8 +57,8 @@
         /// <param name="unitOfWorkFactory"><see cref="IUnitOfWorkFactory" />.</param>
         /// <param name="multiProtocolEventBusRegistry"><see cref="IProtocolProgressiveEventsRegistry" />.</param>
         /// <param name="propertiesManager"><see cref="IPropertiesManager" />.</param>
+        /// <param name="commandFactory"><see cref="ICommandHandlerFactory" />.</param>
         public ProgressiveController(
-            ILogger<ProgressiveController> logger,
             IEventBus eventBus,
             IGameProvider gameProvider,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
@@ -68,7 +70,6 @@
             ICommandHandlerFactory commandFactory
             )
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ??
@@ -190,7 +191,7 @@
 
                 var valueAttributeName = $"ins{poolName}_Value";
                 var messageAttributeName = $"ins{poolName}_Message";
-                _progressiveMessageAttributes.Add(messageAttributeName);
+                //_progressiveMessageAttributes.Add(messageAttributeName);
 
                 var progressive = new ProgressiveInfo(
                     pool.Key.PackName,
@@ -233,7 +234,7 @@
 
             var isCrossGameProgressiveEnabled = _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
 
-            _logger.LogInfo($"Cross Game Progressive Enabled for main game = {isCrossGameProgressiveEnabled}");
+            Logger.Debug($"Cross Game Progressive Enabled for main game = {isCrossGameProgressiveEnabled}");
 
             if (isCrossGameProgressiveEnabled)
             {
@@ -256,10 +257,10 @@
             _disposed = true;
         }
 
-        private void UpdatePendingAwards()
-        {
-            using (var unitOfWork = _unitOfWorkFactory.Create())
-            {
+        //private void UpdatePendingAwards()
+        //{
+            //using (var unitOfWork = _unitOfWorkFactory.Create())
+            //{
                 //var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault() ??
                 //                      new PendingJackpotAwards();
 
@@ -267,9 +268,9 @@
 
                 //unitOfWork.Repository<PendingJackpotAwards>().AddOrUpdate(pendingJackpots);
 
-                unitOfWork.SaveChanges();
-            }
-        }
+                //unitOfWork.SaveChanges();
+            //}
+        //}
 
         private void AwardJackpotLevel(
             long amountInPennies,
@@ -286,7 +287,7 @@
             {
                 using (var scope = _storage.ScopedTransaction())
                 {
-                    _logger.LogInfo($"AwardJackpot {levelName} amountInPennies {amountInPennies}");
+                    Logger.Info($"AwardJackpot {levelName} amountInPennies {amountInPennies}");
                     _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(
                         levelName,
                         ProtocolNames.Bingo);
@@ -391,7 +392,7 @@
 
         private void Handle(PendingLinkedProgressivesHitEvent evt)
         {
-            _logger.LogInfo($"Received PendingLinkedProgressivesHitEvent {evt}");
+            Logger.Info($"Received PendingLinkedProgressivesHitEvent {evt}");
 
             //lock (_pendingAwardsLock)
             //{
@@ -574,26 +575,26 @@
                     ProtocolNames.Bingo);
             }
 
-            _logger.LogInfo(
+            Logger.Info(
                 $"Updated linked progressive level: ProtocolName={linkedLevel.ProtocolName} ProgressiveGroupId={linkedLevel.ProgressiveGroupId} LevelName={linkedLevel.LevelName} LevelId={linkedLevel.LevelId} Amount={linkedLevel.Amount} ClaimStatus={linkedLevel.ClaimStatus} CurrentErrorStatus={linkedLevel.CurrentErrorStatus} Expiration={linkedLevel.Expiration}");
 
             return linkedLevel;
         }
 
-        private string GetPoolName(string levelName)
-        {
-#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
-            foreach (var progressive in _progressives)
-#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
-            {
-                if(progressive.Value.Any(i => LevelName(i).Equals(levelName)))
-                {
-                    return progressive.Key;
-                }
-            }
+//        private string GetPoolName(string levelName)
+//        {
+//#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
+//            foreach (var progressive in _progressives)
+//#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
+//            {
+//                if(progressive.Value.Any(i => LevelName(i).Equals(levelName)))
+//                {
+//                    return progressive.Key;
+//                }
+//            }
 
-            return string.Empty;
-        }
+//            return string.Empty;
+//        }
 
         private static LinkedProgressiveLevel LinkedProgressiveLevel(int progId, int levelId, long valueInCents)
         {
@@ -610,9 +611,9 @@
             return linkedLevel;
         }
 
-        private static string LevelName(ProgressiveInfo info)
-        {
-            return $"{ProtocolNames.Bingo}, Level Id: {info.LevelId}, Progressive Group Id: {info.ProgId}";
-    }
+        //private static string LevelName(ProgressiveInfo info)
+        //{
+        //    return $"{ProtocolNames.Bingo}, Level Id: {info.LevelId}, Progressive Group Id: {info.ProgId}";
+        //}
     }
 }
