@@ -47,8 +47,6 @@
                 progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevel, progressiveMapping.SequenceNumber));
             }
 
-            Logger.Debug($"RequestProgressiveInfoAsync response, GameTitleId={result.GameTitleId}, Progressives={progressiveLevels}");
-
             return new ProgressiveInfoResults(ResponseCode.Ok, true, result.GameTitleId, progressiveLevels);
         }
     }
