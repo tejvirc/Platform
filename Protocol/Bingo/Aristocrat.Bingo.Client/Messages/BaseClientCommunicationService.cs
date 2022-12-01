@@ -27,8 +27,9 @@
             var client = GetClient();
             if (policy is null)
             {
-                return await action(client, token);
+                return await action(client, token).ConfigureAwait(false);
             }
+
             return await policy.ExecuteAsync(async t => await action(client, t), token);
         }
         protected static IAsyncPolicy CreatePolicy(int retryCount = RetryCount, Func<int, TimeSpan> delay = null)

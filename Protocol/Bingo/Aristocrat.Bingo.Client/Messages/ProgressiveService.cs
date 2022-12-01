@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -38,26 +39,17 @@
             var result = await Invoke(
                     async x => await x.RequestProgressiveInfoAsync(request, null, null, token));
 
-            var size = result.ProgressiveLevel.Count;
             Logger.Debug($"RequestProgressiveInfoAsync response, size of response array={result.ProgressiveLevel.Count}");
 
-            var progressiveLevels = new ProgressiveLevelInfo[size];
-            var index = 0;
+            var progressiveLevels = new List<ProgressiveLevelInfo>();
             foreach (var progressiveMapping in result.ProgressiveLevel)
             {
-                Logger.Debug($"ProgressiveLevelInfo added, index={index}, level={progressiveMapping.ProgressiveLevel}, sequence={progressiveMapping.SequenceNumber}");
-
-                progressiveLevels[index] = new ProgressiveLevelInfo(
-                    progressiveMapping.ProgressiveLevel,
-                    progressiveMapping.SequenceNumber);
-                ++index;
+                Logger.Debug($"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevel}, sequence={progressiveMapping.SequenceNumber}");
+                progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevel, progressiveMapping.SequenceNumber));
             }
 
-            Logger.Debug($"RequestProgressiveInfoAsync response, GameTitleId={result.GameTitleId}, Progressives={progressiveLevels.ToList()}");
+            Logger.Debug($"RequestProgressiveInfoAsync response, GameTitleId={result.GameTitleId}, Progressives={progressiveLevels}");
 
-            // TODO the response has no response code to check so how is failure detected and handled?
-            // TODO this new class has to have response code and accepted to be an IResponse type.
-            // TODO but there is no response code and accepted variables so just hard coding
             return new ProgressiveInfoResults(ResponseCode.Ok, true, result.GameTitleId, progressiveLevels);
         }
     }

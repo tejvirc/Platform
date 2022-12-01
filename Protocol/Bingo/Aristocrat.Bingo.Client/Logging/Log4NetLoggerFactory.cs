@@ -13,9 +13,9 @@
     /// </summary>
     public class Log4NetLoggerFactory : ILoggerFactory
     {
-        private const string RepositoryName = "mgam";
+        private const string RepositoryName = "bingo";
         private const string AsyncAppenderName = "AsyncForwardingAppender";
-        private const string LogFilePath = @"..\logs\Log_MGAM.log";
+        private const string LogFilePath = @"..\logs\Log_Bingo.log";
         private const int MaxSizeRollBackups = 100;
         private const int MaxFileSize = 20 * 1024 * 1024;
         private const int CountDirection = 1;

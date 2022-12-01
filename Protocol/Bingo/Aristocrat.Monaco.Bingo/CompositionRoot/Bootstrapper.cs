@@ -33,11 +33,7 @@
                 .RegisterClient(
                     c =>
                     {
-#if !RETAIL
                         c.MinimumLevel = LogLevel.Debug;
-#else
-                        c.MinimumLevel = LogLevel.Debug;
-#endif
                     }, Assembly.GetExecutingAssembly())
                 .AddInternalServices()
                 .WithGrpcLogging(loggingEnabled == Constants.True)

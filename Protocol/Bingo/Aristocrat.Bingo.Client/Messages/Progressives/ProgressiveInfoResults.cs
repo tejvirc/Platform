@@ -1,24 +1,19 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Progressives
 {
-    using System.Diagnostics.CodeAnalysis;
+    using System.Collections.Generic;
 
-    [SuppressMessage(
-        "ReSharper",
-        "UnusedAutoPropertyAccessor.Global",
-        Justification = "This gets set when created from server message and could be used by message handler in the future")]
     public class ProgressiveInfoResults : IResponse
     {
         public ProgressiveInfoResults(
             ResponseCode code,
             bool accepted,
             int gameTitleId,
-            ProgressiveLevelInfo[] progressiveLevels)
+            IEnumerable<ProgressiveLevelInfo> progressiveLevels)
         {
             ResponseCode = code;
             Accepted = accepted;
             GameTitleId = gameTitleId;
-            ProgressiveLevels = new ProgressiveLevelInfo[progressiveLevels.Length];
-            progressiveLevels.CopyTo(ProgressiveLevels, 0);
+            ProgressiveLevels = new List<ProgressiveLevelInfo>(progressiveLevels);
         }
 
         public ResponseCode ResponseCode { get; }
@@ -27,6 +22,6 @@
 
         public int GameTitleId { get; }
 
-        public ProgressiveLevelInfo[] ProgressiveLevels { get; }
+        public IReadOnlyCollection<ProgressiveLevelInfo> ProgressiveLevels { get; }
     }
 }
