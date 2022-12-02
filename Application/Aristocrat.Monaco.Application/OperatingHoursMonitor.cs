@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common;
     using Contracts;
     using Contracts.Localization;
     using Contracts.Operations;
@@ -22,7 +23,7 @@
         private const int Tolerance = 100;
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
@@ -89,7 +90,7 @@
             _eventBus.Subscribe<PropertyChangedEvent>(this, Handle, e => e.PropertyName == ApplicationConstants.OperatingHours);
             _eventBus.Subscribe<TimeUpdatedEvent>(this, Handle);
 
-            EvaluateOperatingHours();
+            MonitorOperatingHoursAsync().FireAndForget();
         }
 
         /// <summary>
@@ -109,12 +110,8 @@
             if (disposing)
             {
                 _eventBus.UnsubscribeAll(this);
-
-                if (_monitorCancellationToken != null)
-                {
-                    _monitorCancellationToken.Cancel(false);
-                    _monitorCancellationToken.Dispose();
-                }
+                _monitorCancellationToken?.Cancel(false);
+                _monitorCancellationToken?.Dispose();
             }
 
             _monitorCancellationToken = null;
@@ -163,69 +160,63 @@
 
         private void Handle(PropertyChangedEvent evt)
         {
-            EvaluateOperatingHours();
+            MonitorOperatingHoursAsync().FireAndForget();
         }
 
         private void Handle(TimeUpdatedEvent evt)
         {
-            EvaluateOperatingHours();
+            MonitorOperatingHoursAsync().FireAndForget();
         }
 
-        private void EvaluateOperatingHours()
+        private async Task MonitorOperatingHoursAsync()
         {
             _monitorCancellationToken?.Cancel(false);
-            _monitorCancellationToken?.Dispose();
-            _monitorCancellationToken = null;
-
-            var operatingHours =
-                _properties.GetValues<OperatingHours>(ApplicationConstants.OperatingHours)
-                    .OrderBy(h => h.Day)
-                    .ThenBy(h => h.Time)
-                    .ToList();
-
-            if (!operatingHours.Any())
+            using var source = _monitorCancellationToken = new CancellationTokenSource();
+            try
             {
-                SetState(true);
-
-                return;
+                await MonitorOperatingHoursAsync(source.Token);
             }
+            finally
+            {
+                _monitorCancellationToken = null;
+            }
+        }
 
+        private async Task MonitorOperatingHoursAsync(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                var operatingHours =
+                    _properties.GetValues<OperatingHours>(ApplicationConstants.OperatingHours)
+                        .OrderBy(h => h.Day)
+                        .ThenBy(h => h.Time)
+                        .ToList();
+
+                if (!operatingHours.Any())
+                {
+                    SetState(true);
+                    return;
+                }
+
+                var delay = CalculateNextDelay(operatingHours);
+                await Task.Delay(delay, token);
+            }
+        }
+
+        private TimeSpan CalculateNextDelay(ICollection<OperatingHours> operatingHours)
+        {
             var now = _time.GetLocationTime();
-
             SetState(GetCurrentState(now, operatingHours));
-
             var nextState = GetNextState(now, operatingHours);
-
             var nextCheck = GetNextWeekday(now.Date.AddMilliseconds(nextState.Time), nextState.Day);
-
             Logger.Info($"Next operating hours change occurs @ {nextCheck} - enabled: {nextState.Enabled}");
-
             var delay = (nextCheck - _time.GetLocationTime()).TotalMilliseconds + Tolerance;
-            if (delay < 0)
+            return delay switch
             {
-                // Ensure we don't wait indefinitely
-                delay = MinimumDelay;
-            }
-            else if (delay > int.MaxValue)
-            {
-                delay = int.MaxValue;
-            }
-
-            _monitorCancellationToken = new CancellationTokenSource();
-            Task.Delay((int)delay, _monitorCancellationToken.Token)
-                .ContinueWith(
-                    task =>
-                    {
-                        if (!task.IsCanceled)
-                        {
-                            EvaluateOperatingHours();
-                        }
-                        else
-                        {
-                            Logger.Info(
-                                $"Cancelled operating hours check @ {nextCheck} - enabled: {nextState.Enabled}");
-                        }
-                    });
+                < 0 => TimeSpan.FromMilliseconds(MinimumDelay), 
+                > int.MaxValue => TimeSpan.FromMilliseconds(int.MaxValue),
+                _ => TimeSpan.FromMilliseconds(delay)
+            };
         }
 
         private void SetState(OperatingHours operatingHours)
