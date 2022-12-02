@@ -50,6 +50,7 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
+    using Kernel.Contracts;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using Accounting.Contracts;
@@ -94,13 +95,22 @@
 
             var denomination = currentGame.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
 
+            var volumeLevel = (VolumeLevel)_properties.GetProperty(Kernel.Contracts.PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var useGameTypeVolume = _properties.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
+            var gameTypeVolumeScalar = useGameTypeVolume ? _audio.GetVolumeScalar(_gameCategoryService.SelectedGameCategorySetting.VolumeScalar) : 1.0f;
+
+            //var maxVolumeLevel = gameTypeVolumeScalar * _audio.GetVolume(volumeLevel);
+
             var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
                 ApplicationConstants.VolumeControlLocationKey,
                 ApplicationConstants.VolumeControlLocationDefault);
 
             var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
 
-            var maxVolumeLevel = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
+            var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
+            var volume = File.ReadAllText("MaxVolumeLevel.txt").Trim();
+            var maxVolumeLevel = float.Parse(volume) > 0
+                ? float.Parse(volume) : gameTypeVolumeScalar * _audio.GetVolume(volumeLevel) * (!showVolumeControlInLobbyOnly ? playerVolumeScalar : 1.0f);
 
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
             var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
@@ -256,7 +266,6 @@
 
             if (showVolumeControlInLobbyOnly)
             {
-                var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
                 parameters["/Runtime/Audio&playerVolumeScalar"] = playerVolumeScalar.ToString(CultureInfo.InvariantCulture);
             }
 
