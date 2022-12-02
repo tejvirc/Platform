@@ -40,5 +40,10 @@
         ///     The client's configuration.
         /// </summary>
         ClientConfigurationOptions Configuration { get; }
+
+        /// <summary>
+        ///     The client's unique firewall rule name.
+        /// </summary>
+        string FirewallRuleName { get; }
     }
 }

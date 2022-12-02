@@ -8,11 +8,8 @@
     using Messages.Interceptor;
     using ClientApi = ServerApiGateway.ClientApi.ClientApiClient;
 
-    public class BingoClient : BaseClient, IClientEndpointProvider<ClientApi>
+    public class BingoClient : BaseClient<ClientApi>, IClientEndpointProvider<ClientApi>
     {
-        private readonly object _clientLock = new();
-        private ClientApi _client;
-
         public BingoClient(
             IClientConfigurationProvider configurationProvider,
             BingoClientInterceptor communicationInterceptor)
@@ -20,44 +17,27 @@
         {
         }
 
-        public ClientApi Client
-        {
-            get
-            {
-                lock (_clientLock)
-                {
-                    return _client;
-                }
-            }
-            set
-            {
-                lock (_clientLock)
-                {
-                    _client = value;
-                }
-            }
-        }
+        public override string FirewallRuleName => "Platform.Bingo.Server";
 
-        public override void CreateChannel()
+        public override Channel CreateChannel()
         {
             var configuration = ConfigurationProvider.Configuration;
             var credentials = configuration.Certificates.Any()
                 ? new SslCredentials(
                     string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
                 : ChannelCredentials.Insecure;
-            Channel = new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
+            return new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
         }
 
-        public override void CreateClient(CallInvoker callInvoker)
+        public override ClientApi CreateClient(CallInvoker callInvoker)
         {
-            Client = new ClientApi(callInvoker);
+            return new (callInvoker);
         }
 
         public override async Task<bool> Stop()
         {
             Client = null;
-            var result = await base.Stop();
-            return result;
+            return await base.Stop();
         }
     }
 }

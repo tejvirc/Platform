@@ -392,10 +392,9 @@
 
         private void SetupFirewallRule()
         {
-            const string firewallRuleName = "Platform.Bingo.Server";
             foreach (var client in _clients)
             {
-                Firewall.AddRule(firewallRuleName, (ushort)client.Configuration.Address.Port, Firewall.Direction.Out);
+                Firewall.AddRule(client.FirewallRuleName, (ushort)client.Configuration.Address.Port, Firewall.Direction.Out);
             }
         }
 

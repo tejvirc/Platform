@@ -9,14 +9,15 @@
     using log4net;
     using Messages.Interceptor;
 
-    public abstract class BaseClient : IClient
+    public abstract class BaseClient<TClientApi> : IClient
     {
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
-
+        protected readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         protected readonly IClientConfigurationProvider ConfigurationProvider;
         protected readonly BingoClientInterceptor CommunicationInterceptor;
 
-        protected Channel Channel;
+        private readonly object _clientLock = new();
+        private Channel _channel;
+        private TClientApi _client;
         private bool _disposed;
 
         protected BaseClient(
@@ -31,34 +32,54 @@
             CommunicationInterceptor.MessageReceived += OnMessageReceived;
         }
 
+        public abstract string FirewallRuleName { get; }
+
+        public TClientApi Client
+        {
+            get
+            {
+                lock (_clientLock)
+                {
+                    return _client;
+                }
+            }
+            set
+            {
+                lock (_clientLock)
+                {
+                    _client = value;
+                }
+            }
+        }
+
         public event EventHandler<ConnectedEventArgs> Connected;
 
         public event EventHandler<DisconnectedEventArgs> Disconnected;
 
         public event EventHandler<EventArgs> MessageReceived;
 
-        public bool IsConnected => Channel?.State is ChannelState.Ready or ChannelState.Idle;
+        public bool IsConnected => _channel?.State is ChannelState.Ready or ChannelState.Idle;
 
         public ClientConfigurationOptions Configuration => ConfigurationProvider.Configuration;
 
-        public abstract void CreateChannel();
+        public abstract Channel CreateChannel();
 
-        public abstract void CreateClient(CallInvoker callInvoker);
+        public abstract TClientApi CreateClient(CallInvoker callInvoker);
 
         public async Task<bool> Start()
         {
             try
             {
                 await Stop();
-                CreateChannel();
+                _channel = CreateChannel();
                 var configuration = ConfigurationProvider.Configuration;
-                var callInvoker = Channel.Intercept(CommunicationInterceptor);
+                var callInvoker = _channel.Intercept(CommunicationInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
-                    await Channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout);
+                    await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout);
                 }
 
-                CreateClient(callInvoker);
+                Client = CreateClient(callInvoker);
                 MonitorConnection();
                 Connected?.Invoke(this, new ConnectedEventArgs());
             }
@@ -85,8 +106,8 @@
         {
             try
             {
-                var channel = Channel;
-                Channel = null;
+                var channel = _channel;
+                _channel = null;
 
                 if (channel != null)
                 {
@@ -145,12 +166,12 @@
 
         private async Task MonitorConnectionAsync()
         {
-            if (Channel is null)
+            if (_channel is null)
             {
                 return;
             }
 
-            await Channel.WaitForStateChangedAsync(ChannelState.Ready);
+            await _channel.WaitForStateChangedAsync(ChannelState.Ready);
             await Stop();
         }
     }
