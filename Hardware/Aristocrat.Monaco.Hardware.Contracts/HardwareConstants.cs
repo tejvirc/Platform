@@ -159,5 +159,14 @@
         ///     Array of Display Properties
         /// </summary>
         public static readonly string[] Displays = { Display1, Display2, Display3, Display4, Display5 };
+
+        /// <summary>
+        ///     Key used to get the preset volume level
+        /// </summary>
+        public const string VolumePreset = "VolumePreset";
+        /// <summary>
+        ///     Key used to get the preset volume level
+        /// </summary>
+        public const string VolumeScalarPreset = "VolumeScalarPreset";
     }
 }
