@@ -236,13 +236,17 @@
         /// <inheritdoc />
         public float GetVolume(VolumeLevel preset)
         {
-            return _volumePresets.TryGetValue(preset, out var volume) ? volume : 1.0f;
+            var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+
+            return volumePresets.TryGetValue(preset, out var volume) ? volume : 1.0f;
         }
 
         /// <inheritdoc />
         public float GetVolumeScalar(VolumeScalar preset)
         {
-            return _volumeScalars.TryGetValue(preset, out var volume) ? volume : 1.0f;
+            var volumeScalars = _properties.GetValue(HardwareConstants.VolumeScalarPreset, _volumeScalars);
+
+            return volumeScalars.TryGetValue(preset, out var volume) ? volume : 1.0f;
         }
 
         public IVolume GetVolumeControl(int processId)
