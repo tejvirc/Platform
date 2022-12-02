@@ -134,13 +134,11 @@
 
             LoadKernel();
             RunBootExtender();
-            UnloadKernel(false);
 
             Logger.Info($"Shutting down ({_exitAction})...");
-
-            ShutdownAddinManager();
-
             Logger.Info($"Application version {GetVersion()} exiting...");
+            ShutdownAddinManager();
+            UnloadKernel(false);
 
             if (!CrashDumpRegistered)
             {
@@ -402,7 +400,7 @@
             eventBus.Subscribe<ExitRequestedEvent>(this, HandleEvent);
 
             OutputStatus("Loading Kernel Services");
-            foreach (TypeExtensionNode node in AddinManager.GetExtensionNodes(ServicesExtensionPath))
+            foreach (TypeExtensionNode node in AddinManager.GetExtensionNodes<TypeExtensionNode>(ServicesExtensionPath))
             {
                 var service = (IService) node.CreateInstance();
                 serviceManager.AddServiceAndInitialize(service);

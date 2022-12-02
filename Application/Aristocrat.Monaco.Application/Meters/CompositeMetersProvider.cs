@@ -74,7 +74,7 @@ namespace Aristocrat.Monaco.Application.Meters
         private static IReadOnlyCollection<CompositeMeterNode> GetCompositeMeterNodes()
         {
             var compositeMeterNodes = new List<CompositeMeterNode>();
-            foreach (CompositeMeterNode node in AddinManager.GetExtensionNodes(CompositeMetersExtensionPoint))
+            foreach (CompositeMeterNode node in AddinManager.GetExtensionNodes<CompositeMeterNode>(CompositeMetersExtensionPoint))
             {
                 node.Initialize();
                 compositeMeterNodes.Add(node);

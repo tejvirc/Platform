@@ -69,7 +69,7 @@ namespace Aristocrat.Monaco.Kernel
         {
             get
             {
-                var nodes = AddinManager.GetExtensionNodes(SelectableAddinConfigurationExtensionPoint);
+                var nodes = AddinManager.GetExtensionNodes<SelectableAddinConfigurationNode>(SelectableAddinConfigurationExtensionPoint);
                 var orderedNodes = new List<SelectableAddinConfigurationNode>();
                 foreach (SelectableAddinConfigurationNode node in nodes)
                 {
@@ -241,9 +241,9 @@ namespace Aristocrat.Monaco.Kernel
 
             try
             {
-                if (node.ChildNodes != null)
+                if (node.GetChildNodes() != null)
                 {
-                    foreach (var child in node.ChildNodes.OfType<T>())
+                    foreach (var child in node.GetChildNodes().OfType<T>())
                     {
                         result.Add(child);
                     }
