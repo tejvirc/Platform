@@ -55,6 +55,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.ComponentModel;
+    using Runtime;
 #if !(RETAIL)
     using Events;
 #endif
@@ -110,6 +111,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly ITransferOutHandler _transferOutHandler;
         private readonly IRuntimeFlagHandler _runtime;
+        private readonly IRuntime _runtimeService;
+        private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameService _gameService;
         private readonly ISessionInfoService _sessionInfoService;
         private readonly IAttendantService _attendant;
@@ -351,6 +354,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _gameHistory = containerService.Container.GetInstance<IGameHistory>();
             _buttonLamps = containerService.Container.GetInstance<IButtonLamps>();
             _runtime = containerService.Container.GetInstance<IRuntimeFlagHandler>();
+            _runtimeService = containerService.Container.GetInstance<IRuntime>();
+            _gameCategoryService = containerService.Container.GetInstance<IGameCategoryService>();
             _gameStorage = containerService.Container.GetInstance<IGameStorage>();
             _gameState = containerService.Container.GetInstance<IGamePlayState>();
             _gameOrderSettings = containerService.Container.GetInstance<IGameOrderSettings>();
@@ -560,6 +565,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             LoadSoundFiles();
 
+            // Initialize the volume 5-level button on the player menu to be the current volume level
+            Volume.PlayerVolumeScalar = (VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar);
+
             Logger.Debug("Lobby initialization complete");
         }
 
@@ -709,6 +717,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ///     Command to cashout from player menu pop up
         /// </summary>
         public ICommand CashOutFromPlayerMenuPopupCommand { get; set; }
+
+        /// <summary>
+        ///     Command to handle the pressing of the volume button on the Player Menu
+        /// </summary>
+        public ICommand PlayerMenuPopupVolumeCommand { get; set; }
 
         /// <summary>
         ///     Gets the object that handles RG info logic.
@@ -3819,6 +3832,30 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             Logger.Debug("Cashout Button Pressed from player pop up menu");
             PlayerMenuPopupViewModel.IsMenuVisible = false;
             _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Collect));
+        }
+        private void PlayerMenuPopupVolumePressed(object obj)
+        {
+            PlayerMenuPopupViewModel.ResetCloseDelay();
+
+            var currentPlayerVolumeLevel = (VolumeScalar)_properties.GetValue(
+                ApplicationConstants.PlayerVolumeScalarKey,
+                ApplicationConstants.PlayerVolumeScalar);
+
+            var nextVolumeLevel = currentPlayerVolumeLevel == VolumeScalar.Scale100
+                ? VolumeScalar.Scale20
+                : currentPlayerVolumeLevel + 1;
+
+            _properties.SetProperty(ApplicationConstants.PlayerVolumeScalarKey, nextVolumeLevel);
+
+            Volume.PlayerVolumeScalar = nextVolumeLevel;
+
+            var useGameTypeVolume = _properties.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
+            var gameTypeVolumeScalar = useGameTypeVolume ? _audio.GetVolumeScalar(_gameCategoryService.SelectedGameCategorySetting.VolumeScalar) : 1.0f;
+            var masterVolumeLevel = (VolumeLevel)_properties.GetProperty(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var playerVolumeScalar = _audio.GetVolumeScalar(nextVolumeLevel);
+
+            var outputVolume = _audio.GetVolume(masterVolumeLevel) * gameTypeVolumeScalar * playerVolumeScalar;
+            _runtimeService.UpdateVolume(outputVolume);
         }
 
         private void RefreshDisplayedGameList(bool generateDenominationList = true, bool generateSubTabList = true)
