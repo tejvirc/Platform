@@ -126,7 +126,6 @@
             container.RegisterSingleton<IManualHandicapEntityHelper, ManualHandicapEntityHelper>();
             container.RegisterSingleton<IProgressiveUpdateEntityHelper, ProgressiveUpdateEntityHelper>();
             container.RegisterSingleton<ITransactionIdProvider, TransactionIdProvider>();
-            container.RegisterSingleton<GameWinService>();
         }
 
         private static void AddClientServices(this Container container)

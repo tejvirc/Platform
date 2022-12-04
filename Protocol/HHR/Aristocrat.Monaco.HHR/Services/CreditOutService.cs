@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
-    using Accounting.Contracts.TransferOut;
     using Accounting.Contracts.Wat;
     using Client.Messages;
     using Client.WorkFlow;
@@ -124,7 +123,8 @@
         private async void Handle(HandpayKeyedOffEvent evt)
         {
             // right now handling only the canceled credits as per section 9 of the messaging pdf.
-            // todo: Add for GameWin later
+
+            Logger.Debug($"Handling HandpayKeyedOffEvent for {evt.Transaction.TransactionAmount}");
             if (evt.Transaction.HandpayType != Accounting.Contracts.Handpay.HandpayType.CancelCredit)
             {
                 return;
@@ -139,14 +139,9 @@
         //Todo: Need to add support for ForcedCashOut when GameWin happens
         private async void Handle(VoucherIssuedEvent evt)
         {
+            // NOTE: This doesn't occur for game wins, only for cashing out.
+            Logger.Debug($"Handling VoucherIssuedEvent for {evt.Transaction.TransactionAmount}");
             if (evt.Transaction.Amount == 0)
-            {
-                return;
-            }
-
-            // This occurs when game win goes over credit limit and voucher gets issued.
-            // The appropriate message will get sent from GameWinService
-            if (evt.Transaction.Reason == TransferOutReason.CashWin)
             {
                 return;
             }
@@ -176,6 +171,8 @@
 
         private async void Handle(WatTransferCommittedEvent evt)
         {
+            Logger.Debug($"Handling WatTransferCommittedEvent for {evt.Transaction.TransactionAmount}");
+
             if (evt.Transaction.TransactionAmount == 0) return;
 
             if (evt.Transaction.TransferredNonCashAmount > 0)
@@ -196,8 +193,6 @@
 
             if (evt.Transaction.TransferredCashableAmount > 0)
             {
-                Logger.Debug($"Notify Credit In transaction : ({evt.Transaction.TransactionId})");
-
                 await TrySend(
                     CommandTransactionType.AftOutCashable,
                     evt.Transaction.TransferredCashableAmount,

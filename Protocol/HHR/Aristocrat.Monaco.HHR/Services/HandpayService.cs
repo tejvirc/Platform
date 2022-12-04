@@ -219,12 +219,13 @@
                     return;
                 }
 
-                // If the win is greater than the Credit Limit but less than the IRS limit, don't send game win message from here
-                // because the GameWinService will handle the sending of the appropriate message to the HHR server.
-                if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
+                // As discussed with the Ainsworth team, send GameWinToCreditMeter transaction even Current Credit + Win  > Credit Limit, the extra credit
+                //would be either canceled credit or Cashed out and the appropriate message would be sent to the HHR Server in CreditOutService.
+
+                /* if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
                 {
                     return;
-                }
+                }*/
 
                 // Send the game win to credit meter message for the "non large" win.
                 ctx.CurrentCreditMeterCents += ctx.RaceSet1TotalWinCents;
@@ -330,12 +331,13 @@
                     return;
                 }
 
-                // If the win is greater than the Credit Limit but less than the IRS limit, don't send game win message from here
-                // because the GameWinService will handle the sending of the appropriate message to the HHR server.
-                if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
+                // As discussed with the Ainsworth team, send GameWinToCreditMeter transaction even Current Credit + Win  > Credit Limit, the extra credit
+                //would be either canceled credit or Cashed out and the appropriate message would be sent to the HHR Server in CreditOutService.
+
+                /*if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
                 {
                     return;
-                }
+                }*/
 
                 // Send the game win to credit meter message for the "non large" wins we had
                 if (ctx.RaceSet2NonProgressiveTotalWinCents > 0)
