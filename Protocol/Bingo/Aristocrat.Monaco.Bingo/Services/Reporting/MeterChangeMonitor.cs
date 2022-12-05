@@ -77,8 +77,7 @@
         private void SendTransactionReport(long amount, TransactionType transaction)
         {
             if (amount == 0 ||
-                _centralProvider.Transactions.OrderBy(t => t.TransactionId).FirstOrDefault()?.Descriptions
-                    .FirstOrDefault() is not BingoGameDescription lastBingoDescription)
+             _centralProvider.Transactions.OrderBy(t => t.TransactionId).LastOrDefault()?.Descriptions.FirstOrDefault() is not BingoGameDescription lastBingoDescription)
             {
                 return;
             }
@@ -89,7 +88,7 @@
                 lastBingoDescription.GameTitleId,
                 lastBingoDescription.DenominationId,
                 lastBingoDescription.GameSerial,
-                lastBingoDescription.Patterns.Select(x => x.PaytableId).FirstOrDefault());
+                int.TryParse(lastBingoDescription.Paytable, out var paytable) ? paytable : 0);
         }
 
         private void OnGamesWonChanged(object sender, MeterChangedEventArgs e)
