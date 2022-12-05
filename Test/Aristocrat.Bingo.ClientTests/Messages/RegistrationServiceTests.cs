@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Aristocrat.ServerApiGateway;
@@ -107,7 +108,7 @@
         {
             return new RegistrationService(
                 nullEnpoint ? null : _clientEnpointProvider.Object,
-                nullClient ? null : _client.Object,
+                nullClient ? null : new List<IClient> { _client.Object },
                 nullAuthorize ? null : _authorizationProvider.Object);
         }
     }

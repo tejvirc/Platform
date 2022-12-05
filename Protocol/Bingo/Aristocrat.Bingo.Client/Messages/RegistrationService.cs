@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -9,25 +10,29 @@
     using ServerApiGateway;
 
     public class RegistrationService :
-        BaseClientCommunicationService,
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
         IRegistrationService,
         IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IClient _client;
+        private readonly IEnumerable<IClient> _clients;
         private readonly IAuthorizationProvider _authorization;
 
         private bool _disposed;
 
         public RegistrationService(
             IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider,
-            IClient client,
+            IEnumerable<IClient> clients,
             IAuthorizationProvider authorization)
             : base(endpointProvider)
         {
-            _client = client ?? throw new ArgumentNullException(nameof(client));
+            _clients = clients ?? throw new ArgumentNullException(nameof(clients));
             _authorization = authorization ?? throw new ArgumentNullException(nameof(authorization));
-            _client.Disconnected += OnClientDisconnected;
+
+            foreach (var client in _clients)
+            {
+                client.Disconnected += OnClientDisconnected;
+            }
         }
 
         public async Task<RegistrationResults> RegisterClient(RegistrationMessage message, CancellationToken token)
@@ -66,7 +71,11 @@
 
             if (disposing)
             {
-                _client.Disconnected -= OnClientDisconnected;
+                foreach (var client in _clients)
+                {
+                    client.Disconnected -= OnClientDisconnected;
+                }
+
                 _authorization.AuthorizationData = null;
             }
 

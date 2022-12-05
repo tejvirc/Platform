@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading;
@@ -49,9 +50,10 @@
                         It.IsAny<Func<PropertyChangedEvent, CancellationToken, Task>>(),
                         It.IsAny<Predicate<PropertyChangedEvent>>()));
 
+            var clients = new List<IClient> { _client.Object };
             _target = new BingoClientConnectionState(
                 _eventBus.Object,
-                _client.Object,
+                clients,
                 _commandFactory.Object,
                 _commandService.Object,
                 _propertiesManager.Object,
@@ -83,7 +85,7 @@
         {
             _target = new BingoClientConnectionState(
                 eventBusNull ? null : _eventBus.Object,
-                clientNull ? null : _client.Object,
+                clientNull ? null : new List<IClient> { _client.Object },
                 commandFactoryNull ? null : _commandFactory.Object,
                 commandServiceNull ? null : _commandService.Object,
                 propertiesManagerNull ? null : _propertiesManager.Object,

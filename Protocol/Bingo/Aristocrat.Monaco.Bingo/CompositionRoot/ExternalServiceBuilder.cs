@@ -9,6 +9,7 @@
     using Gaming.Contracts.Configuration;
     using Gaming.Contracts.Meters;
     using Gaming.Contracts.Payment;
+    using Gaming.Contracts.Progressives;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -44,6 +45,8 @@
             container.RegisterInstance(serviceManager.GetService<IGameDiagnostics>());
             container.RegisterInstance(serviceManager.GetService<IGameConfigurationProvider>());
             container.RegisterInstance(serviceManager.GetService<IConfigurationProvider>());
+            container.RegisterInstance(serviceManager.GetService<IProtocolLinkedProgressiveAdapter>());
+            container.RegisterInstance(serviceManager.GetService<IProtocolProgressiveEventsRegistry>());
             return container;
         }
     }

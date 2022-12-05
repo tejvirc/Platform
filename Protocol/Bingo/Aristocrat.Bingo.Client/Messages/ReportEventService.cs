@@ -6,7 +6,7 @@
     using ServerApiGateway;
 
     public class ReportEventService :
-        BaseClientCommunicationService,
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
         IReportEventService
     {
         public ReportEventService(IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider)

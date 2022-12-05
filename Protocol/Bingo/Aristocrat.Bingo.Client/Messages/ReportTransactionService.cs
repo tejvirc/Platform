@@ -6,7 +6,7 @@
     using ServerApiGateway;
 
     public class ReportTransactionService :
-        BaseClientCommunicationService,
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
         IReportTransactionService
     {
         public ReportTransactionService(

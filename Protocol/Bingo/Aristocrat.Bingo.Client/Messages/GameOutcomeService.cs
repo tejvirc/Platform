@@ -11,7 +11,9 @@
     using ServerApiGateway;
     using GameOutcome = GamePlay.GameOutcome;
 
-    public class GameOutcomeService : BaseClientCommunicationService, IGameOutcomeService
+    public class GameOutcomeService :
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
+        IGameOutcomeService
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const char BallCallDelimiter = ',';
