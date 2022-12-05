@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using System.Threading.Tasks;
     using Configuration;
     using Grpc.Core;
     using Messages.Interceptor;
@@ -33,12 +32,6 @@
         public override ClientApi CreateClient(CallInvoker callInvoker)
         {
             return new (callInvoker);
-        }
-
-        public override async Task<bool> Stop()
-        {
-            Client = null;
-            return await base.Stop();
         }
     }
 }

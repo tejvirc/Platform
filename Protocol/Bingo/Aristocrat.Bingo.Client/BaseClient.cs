@@ -85,17 +85,17 @@
             }
             catch (RpcException rpcException)
             {
-                Logger.Error("Failed to connect the progressive client", rpcException);
+                Logger.Error($"Failed to connect the {GetType().Name}", rpcException);
                 return false;
             }
             catch (OperationCanceledException operationCanceled)
             {
-                Logger.Error("Failed to connect the progressive client", operationCanceled);
+                Logger.Error($"Failed to connect the {GetType().Name}", operationCanceled);
                 return false;
             }
             catch (Exception ex)
             {
-                Logger.Error("Failed to connect to the progressive client", ex);
+                Logger.Error($"Failed to connect to the {GetType().Name}", ex);
                 return false;
             }
 
@@ -106,6 +106,7 @@
         {
             try
             {
+                Client = default;
                 var channel = _channel;
                 _channel = null;
 
@@ -117,7 +118,7 @@
             }
             catch (RpcException rpcException)
             {
-                Logger.Error("Failed to shutdown the progressive client", rpcException);
+                Logger.Error($"Failed to shutdown the {GetType().Name}", rpcException);
                 return false;
             }
 
@@ -146,7 +147,7 @@
             {
                 CommunicationInterceptor.MessageReceived -= OnMessageReceived;
                 Stop().ContinueWith(
-                    _ => Logger.Error("Stopping client failed while disposing"),
+                    _ => Logger.Error($"Stopping {GetType().Name} failed while disposing"),
                     TaskContinuationOptions.OnlyOnFaulted);
             }
 
@@ -158,7 +159,7 @@
             Task.Run(async () => await MonitorConnectionAsync()).ContinueWith(
                 async _ =>
                 {
-                    Logger.Error("Monitor Connection Failed Forcing a disconnect");
+                    Logger.Error($"Monitor connection for {GetType().Name} failed forcing a disconnect");
                     await Stop();
                 },
                 TaskContinuationOptions.OnlyOnFaulted);

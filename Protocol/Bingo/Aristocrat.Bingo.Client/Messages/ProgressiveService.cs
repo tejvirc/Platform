@@ -14,15 +14,11 @@
         IProgressiveService
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IMessageHandlerFactory _messageHandlerFactory;
 
         public ProgressiveService(
-            IMessageHandlerFactory messageHandlerFactory,
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider)
             : base(endpointProvider)
         {
-            _messageHandlerFactory =
-                messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
         }
 
         public async Task<ProgressiveInfoResults> RequestProgressiveInfo(ProgressiveInfoRequestMessage message, CancellationToken token)
