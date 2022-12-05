@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts
 {
     using System;
-    using Kernel;
+    using Kernel.Contracts.MessageDisplay;
 
     /// <summary>
     ///     ErrorGuidAttribute

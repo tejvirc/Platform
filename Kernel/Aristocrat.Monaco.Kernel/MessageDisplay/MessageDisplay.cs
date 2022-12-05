@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Kernel
+﻿namespace Aristocrat.Monaco.Kernel.MessageDisplay
 {
     using System;
     using System.Collections.Concurrent;
@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts.MessageDisplay;
     using Contracts.ErrorMessage;
     using log4net;
 
@@ -23,7 +24,7 @@
 
         private List<MessageDisplayReasonNode> _configuredDisplayNodes = new List<MessageDisplayReasonNode>();
         private ConcurrentStack<IMessageDisplayHandler> _handlers = new ConcurrentStack<IMessageDisplayHandler>();
-        private Collection<DisplayableMessage> _messages = new Collection<DisplayableMessage>();
+        private Collection<IDisplayableMessage> _messages = new Collection<IDisplayableMessage>();
         private List<ObservedMessage> _observedMessages = new List<ObservedMessage>();
         private IEventBus _eventBus;
         private IErrorMessageMapping _mapping;
@@ -110,7 +111,7 @@
         }
 
         /// <inheritdoc />
-        public void DisplayMessage(DisplayableMessage displayableMessage)
+        public void DisplayMessage(IDisplayableMessage displayableMessage)
         {
             var mappedMessage = MapMessage(displayableMessage);
 
@@ -170,16 +171,16 @@
         }
 
         /// <inheritdoc />
-        public void DisplayMessage(DisplayableMessage displayableMessage, int timeout)
+        public void DisplayMessage(IDisplayableMessage displayableMessage, int timeout)
         {
             DisplayMessage(displayableMessage);
 
             Task.Delay(timeout).ContinueWith(_ => RemoveMessage(displayableMessage));
         }
 
-        private void RemoveMessageInternal(DisplayableMessage displayableMessage, bool explicitRemove = false)
+        private void RemoveMessageInternal(IDisplayableMessage displayableMessage, bool explicitRemove = false)
         {
-            DisplayableMessage mappedMessage = null;
+            IDisplayableMessage mappedMessage = null;
             if (!explicitRemove)
             {
                 mappedMessage = MapMessage(displayableMessage);
@@ -206,7 +207,7 @@
                 }
 
                 var messagesToRemove = explicitRemove
-                    ? new List<DisplayableMessage> { displayableMessage }
+                    ? new List<IDisplayableMessage> { displayableMessage }
                     : _messages.Where(o => mappedMessage.IsMessageEquivalent(o)).ToList();
                     
                 foreach (var message in messagesToRemove)
@@ -230,7 +231,7 @@
         }
 
         /// <inheritdoc />
-        public void RemoveMessage(DisplayableMessage displayableMessage)
+        public void RemoveMessage(IDisplayableMessage displayableMessage)
         {
             Logger.Debug($"Removing message - {displayableMessage?.Message ?? string.Empty}");
 
@@ -402,7 +403,7 @@
 
         private void ReceiveEvent(IEvent data)
         {
-            var removeMessages = new List<DisplayableMessage>();
+            var removeMessages = new List<IDisplayableMessage>();
             List<ObservedMessage> observedMessages;
 
             lock (_messageLock)
@@ -447,7 +448,7 @@
             }
         }
 
-        private DisplayableMessage MapMessage(DisplayableMessage message)
+        private IDisplayableMessage MapMessage(IDisplayableMessage message)
         {
             if (_mapping == null)
             {
@@ -476,7 +477,7 @@
             /// <summary>
             ///     Gets or sets a message being displayed.
             /// </summary>
-            public DisplayableMessage Message { get; set; }
+            public IDisplayableMessage Message { get; set; }
 
             /// <summary>
             ///     Gets or sets the configured node associated with this message.

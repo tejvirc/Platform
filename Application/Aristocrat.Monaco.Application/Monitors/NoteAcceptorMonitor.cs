@@ -16,6 +16,8 @@
     using Kernel;
     using log4net;
     using Monaco.Localization.Properties;
+    using Kernel.MessageDisplay;
+    using Kernel.Contracts.MessageDisplay;
     using Util;
     using Audio = Hardware.Contracts.Audio;
 

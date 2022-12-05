@@ -3,6 +3,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Protocol;
+    using Kernel.Contracts.MessageDisplay;
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
     using Gaming.Contracts.Central;

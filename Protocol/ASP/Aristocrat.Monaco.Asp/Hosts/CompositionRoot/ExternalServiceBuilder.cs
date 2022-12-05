@@ -3,6 +3,7 @@
     using System;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
+    using Kernel.Contracts.MessageDisplay;
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
     using Gaming.Contracts.Meters;

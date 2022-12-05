@@ -7,6 +7,8 @@
     using Hardware.Contracts.IdReader;
     using Kernel;
     using log4net;
+    using Kernel.MessageDisplay;
+    using Kernel.Contracts.MessageDisplay;
     using Monaco.Localization.Properties;
 
     public sealed class IdReaderMonitor : IService, IDisposable
@@ -19,7 +21,7 @@
         private readonly IMessageDisplay _messageDisplay;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly DisplayableMessage _disconnectedMessage;
+        private readonly IDisplayableMessage _disconnectedMessage;
         private bool _disposed;
         private bool _initialized;
 

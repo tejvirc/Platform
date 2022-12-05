@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Gaming
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Kernel;
     using log4net;
@@ -29,7 +30,7 @@ namespace Aristocrat.Monaco.Gaming
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly IEventBus _eventBus;
         private readonly IMessageDisplay _messageDisplay;
-        private readonly List<DisplayableMessage> _displayMessages = new List<DisplayableMessage>();
+        private readonly List<IDisplayableMessage> _displayMessages = new();
         private readonly bool _showMessages;
         private readonly object _messageLock = new object();
 
@@ -75,7 +76,7 @@ namespace Aristocrat.Monaco.Gaming
         }
 
         /// <inheritdoc />
-        public void DisplayMessage(DisplayableMessage displayableMessage)
+        public void DisplayMessage(IDisplayableMessage displayableMessage)
         {
             if (!_showMessages || _gameDiagnostics.IsActive || displayableMessage == null ||
                 (displayableMessage.Classification != DisplayableMessageClassification.SoftError &&
@@ -100,7 +101,7 @@ namespace Aristocrat.Monaco.Gaming
         }
 
         /// <inheritdoc />
-        public void RemoveMessage(DisplayableMessage displayableMessage)
+        public void RemoveMessage(IDisplayableMessage displayableMessage)
         {
             Logger.Debug("Removing messages");
 
