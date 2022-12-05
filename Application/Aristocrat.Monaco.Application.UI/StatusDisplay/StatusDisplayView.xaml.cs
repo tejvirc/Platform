@@ -7,6 +7,7 @@
     using System.Windows;
     using System.Windows.Forms;
     using Hardware.Contracts.Display;
+    using Kernel.Contracts.MessageDisplay;
 
     public sealed partial class StatusDisplayView : IDisposable
     {
@@ -63,7 +64,7 @@
             }
         }
 
-        public void DisplayMessage(DisplayableMessage message)
+        public void DisplayMessage(IDisplayableMessage message)
         {
             lock (_mutex)
             {
@@ -85,7 +86,7 @@
             }
         }
 
-        public void RemoveMessage(DisplayableMessage message)
+        public void RemoveMessage(IDisplayableMessage message)
         {
             lock (_mutex)
             {

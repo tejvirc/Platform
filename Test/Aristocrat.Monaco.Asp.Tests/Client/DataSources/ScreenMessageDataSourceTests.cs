@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Asp.Tests.Client.DataSources
 {
     using Asp.Client.DataSources;
-    using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using System;
@@ -50,13 +50,13 @@
             _dataSource.SetMemberValue(Screen_Message_One, Screen_Message_One_Value);
             _dataSource.SetMemberValue(Screen_Message_Two, Screen_Message_Two_Value);
 
-            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<DisplayableMessage>(b => b.Message == Screen_Message_One_Value &&
+            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<IDisplayableMessage>(b => b.Message == Screen_Message_One_Value &&
                                                                                                 b.Priority == DisplayableMessagePriority.Immediate &&
                                                                                                 b.Classification == DisplayableMessageClassification.Informative)
                                                                                             ),
                                                                                             Times.Once);
 
-            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<DisplayableMessage>(b => b.Message == Screen_Message_Two_Value &&
+            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<IDisplayableMessage>(b => b.Message == Screen_Message_Two_Value &&
                                                                                                 b.Priority == DisplayableMessagePriority.Immediate &&
                                                                                                 b.Classification == DisplayableMessageClassification.Informative)
                                                                                             ),
@@ -72,19 +72,19 @@
             _dataSource.SetMemberValue(Screen_Message_One, "");
             _dataSource.SetMemberValue(Screen_Message_One, Screen_Message_One_Value);
 
-            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<DisplayableMessage>(b => b.Message == Screen_Message_One_Value &&
+            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<IDisplayableMessage>(b => b.Message == Screen_Message_One_Value &&
                                                                                                 b.Priority == DisplayableMessagePriority.Immediate &&
                                                                                                 b.Classification == DisplayableMessageClassification.Informative)
                                                                                             ),
                                                                                             Times.Exactly(2));
 
-            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<DisplayableMessage>(b => b.Message == "" &&
+            _messageDisplayService.Verify(v => v.DisplayMessage(It.Is<IDisplayableMessage>(b => b.Message == "" &&
                                                                                                 b.Priority == DisplayableMessagePriority.Immediate &&
                                                                                                 b.Classification == DisplayableMessageClassification.Informative)
                                                                                             ),
                                                                                             Times.Never);
 
-            _messageDisplayService.Verify(v => v.RemoveMessage(It.IsAny<DisplayableMessage>()), Times.Once);
+            _messageDisplayService.Verify(v => v.RemoveMessage(It.IsAny<IDisplayableMessage>()), Times.Once);
         }
 
         [TestMethod]

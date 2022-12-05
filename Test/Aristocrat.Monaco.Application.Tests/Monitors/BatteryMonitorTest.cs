@@ -2,6 +2,7 @@
 {
     using System;
     using Application.Monitors;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.Battery;
     using Hardware.Contracts.Door;
@@ -37,7 +38,7 @@
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Strict);
 
             _meterManager.Setup(m => m.GetMeter(It.IsAny<string>()).Increment(1));
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()));
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()));
             _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<Guid>()));
 
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
@@ -76,7 +77,7 @@
             _target.Initialize();
 
             _meterManager.Verify(m => m.GetMeter(It.IsAny<string>()).Increment(1), Times.Exactly(2));
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(2));
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(2));
             _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<Guid>()), Times.Never());
             _eventBus.Verify(m => m.Publish(It.IsAny<BatteryLowEvent>()), Times.Exactly(2));
         }
@@ -90,7 +91,7 @@
             _target.Initialize();
 
             _meterManager.Verify(m => m.GetMeter(It.IsAny<string>()).Increment(1), Times.Never());
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Never());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Never());
             _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<Guid>()), Times.Exactly(2));
             _eventBus.Verify(m => m.Publish(It.IsAny<BatteryLowEvent>()), Times.Never());
         }
@@ -104,7 +105,7 @@
             _target.Initialize();
 
             _meterManager.Verify(m => m.GetMeter(It.IsAny<string>()).Increment(1), Times.Never());
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Never());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Never());
             _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<Guid>()), Times.Exactly(2));
             _eventBus.Verify(m => m.Publish(It.IsAny<BatteryLowEvent>()), Times.Never());
         }
@@ -118,7 +119,7 @@
             _target.Initialize();
 
             _meterManager.Verify(m => m.GetMeter(It.IsAny<string>()).Increment(1), Times.Never());
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(2));
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(2));
             _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<Guid>()), Times.Never());
             _eventBus.Verify(m => m.Publish(It.IsAny<BatteryLowEvent>()), Times.Exactly(2));
         }
