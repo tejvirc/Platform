@@ -3,7 +3,7 @@
     using System;
     using System.IO;
     using System.Threading.Tasks;
-    using Kernel.Contracts.MessageDisplay;
+    using Kernel;
 
     /// <summary>A bit-field of flags for specifying printer fault types.</summary>
     [Flags]

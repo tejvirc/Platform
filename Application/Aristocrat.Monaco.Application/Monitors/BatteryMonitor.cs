@@ -11,11 +11,9 @@
     using Hardware.Contracts.Door;
     using Kernel;
     using log4net;
-    using Kernel.MessageDisplay;
     using Monaco.Localization.Properties;
-    using Kernel.Contracts.MessageDisplay;
     using Timer = System.Timers.Timer;
-    
+
     public class BatteryMonitor : IService, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);

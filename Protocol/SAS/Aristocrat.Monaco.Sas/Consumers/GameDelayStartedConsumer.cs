@@ -3,7 +3,7 @@
     using System;
     using Contracts.Client;
     using Gaming.Contracts;
-    using Kernel.Contracts.MessageDisplay;
+    using Kernel;
 
     /// <summary>
     ///     Handles the <see cref="GameDelayStartedEvent"/> event.

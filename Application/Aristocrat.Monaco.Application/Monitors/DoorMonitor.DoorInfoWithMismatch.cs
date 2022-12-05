@@ -2,8 +2,7 @@
 {
     using Contracts.Localization;
     using Hardware.Contracts.Door;
-    using Kernel.MessageDisplay;
-    using Kernel.Contracts.MessageDisplay;
+    using Kernel;
     using Monaco.Localization.Properties;
 
     public partial class DoorMonitor
@@ -68,7 +67,7 @@
             /// <summary>
             ///     The displayable message for door mismatch.
             /// </summary>
-            public IDisplayableMessage DoorMismatchMessage { get; }
+            public DisplayableMessage DoorMismatchMessage { get; }
         }
     }
 }

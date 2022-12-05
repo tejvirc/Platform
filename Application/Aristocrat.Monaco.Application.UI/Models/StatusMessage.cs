@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using Kernel.Contracts.MessageDisplay;
+    using Kernel;
     using MVVM.Model;
 
     [CLSCompliant(false)]
     public class StatusMessage : BaseNotify
     {
-        private readonly IDisplayableMessage _displayableMessage;
+        private readonly DisplayableMessage _displayableMessage;
 
-        public StatusMessage(IDisplayableMessage displayableMessage, string additionalInfo)
+        public StatusMessage(DisplayableMessage displayableMessage, string additionalInfo)
         {
             _displayableMessage = displayableMessage;
             AdditionalInfo = additionalInfo;

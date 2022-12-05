@@ -7,10 +7,8 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Kernel;
-    using Kernel.MessageDisplay;
     using Localization.Properties;
     using Quartz.Util;
 
@@ -60,7 +58,7 @@
             }
         }
 
-        private static IDisplayableMessage GetTickerMessage(HandpayTransaction transaction)
+        private static DisplayableMessage GetTickerMessage(HandpayTransaction transaction)
         {
             if (transaction.TransactionAmount <= 0)
             {
@@ -78,7 +76,7 @@
                                 : ResourceKeys.JackpotHandpayKeyedOff),
                         transaction.TransactionAmount);
                 case HandpayType.CancelCredit:
-                    IDisplayableMessage displayableMessage = AlternativeCancelCreditMessageIsUsed()
+                    DisplayableMessage displayableMessage = AlternativeCancelCreditMessageIsUsed()
                         ? GetAlternativeCancelCreditTickerMessage()
                         : GenerateDisplayableMessage(
                             Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.CashOutHandpayKeyedOff),
@@ -109,9 +107,9 @@
                 .OrderByDescending(t => t.TransactionDateTime).ToList();
         }
 
-        private static IDisplayableMessage GetAlternativeCancelCreditTickerMessage()
+        private static DisplayableMessage GetAlternativeCancelCreditTickerMessage()
         {
-            IDisplayableMessage displayableMessage;
+            DisplayableMessage displayableMessage;
             var messageContent = Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.CashOutHandpayKeyedOff);
             var orderedTransactions = GetAllCancelCreditTransactionsSinceLastPlayedTime();
             if (orderedTransactions.Sum(t => t.TransactionAmount) <= 0)
@@ -138,9 +136,9 @@
             return displayableMessage;
         }
 
-        private static IDisplayableMessage GenerateDisplayableMessage(string message, long transactionAmount)
+        private static DisplayableMessage GenerateDisplayableMessage(string message, long transactionAmount)
         {
-            return new DisplayableMessage(
+            return new(
                 () => string.Format(
                     message,
                     transactionAmount.MillicentsToDollars().FormattedCurrencyString()),
@@ -149,11 +147,11 @@
                 typeof(HandpayKeyedOffEvent));
         }
 
-        private static IDisplayableMessage GenerateCancelCreditDisplayableMessageWithGuid(
+        private static DisplayableMessage GenerateCancelCreditDisplayableMessageWithGuid(
             string message,
             long transactionAmount)
         {
-            return new DisplayableMessage(
+            return new(
                 () => string.Format(
                     message,
                     transactionAmount.MillicentsToDollars().FormattedCurrencyString()),
@@ -163,12 +161,12 @@
                 AccountingConstants.AlternativeCancelCreditTickerMessageGuid);
         }
 
-        private static IDisplayableMessage GenerateCancelCreditDisplayableMessageWithGuid(
+        private static DisplayableMessage GenerateCancelCreditDisplayableMessageWithGuid(
             string message,
             long transactionAmount,
             long totalAmount)
         {
-            return new DisplayableMessage(
+            return new(
                 () => string.Format(
                     message,
                     transactionAmount.MillicentsToDollars().FormattedCurrencyString(),

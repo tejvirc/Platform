@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Reel
 {
     using System;
-    using Kernel.Contracts.MessageDisplay;
+    using Kernel;
 
     /// <summary>
     ///     The different types of faults that can occur on a reel for a reel controller
