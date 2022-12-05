@@ -12,8 +12,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Localization.Properties;
-    using Kernel.Contracts.MessageDisplay;
-    using Kernel.MessageDisplay;
 
     /// <summary>
     ///     Handles wager account transfer (WAT) transactions

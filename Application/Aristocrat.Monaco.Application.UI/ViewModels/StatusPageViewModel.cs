@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Windows.Input;
     using Accounting.Contracts;
-    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.Authentication;
     using Contracts.Localization;
@@ -212,7 +211,7 @@
         private IMessageDisplay MessageDisplay
             => ServiceManager.GetInstance().GetService<IMessageDisplay>();
 
-        public void DisplayMessage(IDisplayableMessage displayableMessage)
+        public void DisplayMessage(DisplayableMessage displayableMessage)
         {
             // only show hard errors
             if (displayableMessage?.Classification == DisplayableMessageClassification.HardError
@@ -258,7 +257,7 @@
             }
         }
 
-        public void RemoveMessage(IDisplayableMessage displayableMessage)
+        public void RemoveMessage(DisplayableMessage displayableMessage)
         {
             if (displayableMessage != null)
             {

@@ -7,8 +7,6 @@ namespace Aristocrat.Monaco.Sas.Base
     using System.Threading.Tasks;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
-    using Kernel.MessageDisplay;
     using Common;
     using Contracts.Client;
     using Contracts.SASProperties;

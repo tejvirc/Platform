@@ -11,7 +11,6 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.TowerLight;
-    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Contracts;
     using Contracts.TowerLight;
@@ -44,7 +43,7 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
         private readonly object _lockObject = new object();
 
         private readonly IList<TowerLightSignalDefinition> _signalDefinitions = new List<TowerLightSignalDefinition>();
-        private readonly ISet<IDisplayableMessage> _displayableMessages = new HashSet<IDisplayableMessage>();
+        private readonly ISet<DisplayableMessage> _displayableMessages = new HashSet<DisplayableMessage>();
         private ISet<Guid> _disabledKeys = new HashSet<Guid>();
         private DoorConditions _doorConditionFlags;
         private OperationalConditions _operationalConditionFlags;
@@ -137,7 +136,7 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
             }
         }
 
-        public void DisplayMessage(IDisplayableMessage displayableMessage)
+        public void DisplayMessage(DisplayableMessage displayableMessage)
         {
             if (TowerLightsDisabled)
             {
@@ -160,7 +159,7 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
             Logger.Debug("Displayed messages");
         }
 
-        public void RemoveMessage(IDisplayableMessage displayableMessage)
+        public void RemoveMessage(DisplayableMessage displayableMessage)
         {
             if (TowerLightsDisabled)
             {

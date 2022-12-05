@@ -6,9 +6,8 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Kernel.Contracts.MessageDisplay;
     using Gaming.Contracts.Session;
-    using Kernel.MessageDisplay;
+    using Kernel;
 
     [ProhibitWhenDisabled]
     public class SetBonusMessage : ICommandHandler<bonus, setBonusMessage>

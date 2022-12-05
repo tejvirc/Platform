@@ -7,8 +7,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
-    using Kernel.MessageDisplay;
     using Contracts;
     using Contracts.Lobby;
     using Hardware.Contracts;

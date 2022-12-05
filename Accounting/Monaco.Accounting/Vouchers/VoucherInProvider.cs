@@ -8,7 +8,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.Vouchers;
     using Hardware.Contracts.NoteAcceptor;
@@ -17,7 +16,6 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
-    using Kernel.MessageDisplay;
 
     public class VoucherInProvider : TransferInProviderBase, IService, IDisposable
     {
@@ -38,8 +36,8 @@
         private readonly IMessageDisplay _messageDisplay;
         private readonly IValidationProvider _validationProvider;
 
-        private readonly Dictionary<VoucherInExceptionCode, IDisplayableMessage> _exceptionDisplayMessageMap =
-            new Dictionary<VoucherInExceptionCode, IDisplayableMessage>
+        private readonly Dictionary<VoucherInExceptionCode, DisplayableMessage> _exceptionDisplayMessageMap =
+            new Dictionary<VoucherInExceptionCode, DisplayableMessage>
             {
                 {
                     VoucherInExceptionCode.ZeroAmount, new DisplayableMessage(

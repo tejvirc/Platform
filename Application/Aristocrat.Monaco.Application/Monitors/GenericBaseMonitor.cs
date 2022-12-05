@@ -9,8 +9,6 @@ namespace Aristocrat.Monaco.Application.Monitors
     using Hardware.Contracts;
     using Kernel;
     using log4net;
-    using Kernel.MessageDisplay;
-    using Kernel.Contracts.MessageDisplay;
 
     /// <summary>
     ///     Base class for common behavior for device monitors.
@@ -105,7 +103,7 @@ namespace Aristocrat.Monaco.Application.Monitors
         /// <param name="condition">Name of condition</param>
         /// <param name="classification">The <see cref="DisplayableMessageClassification" /> category.</param>
         /// <param name="priority">The <see cref="DisplayableMessagePriority" /> category.</param>
-        /// <param name="id">The Guid for the <see cref="IDisplayableMessage" /></param>
+        /// <param name="id">The Guid for the <see cref="DisplayableMessage" /></param>
         /// <param name="isLockup">Whether to disable the system while this condition goes into effect (default false).</param>
         protected void ManageBinaryCondition(
             string condition,
@@ -451,7 +449,7 @@ namespace Aristocrat.Monaco.Application.Monitors
                 DelayedDisableKey = null;
             }
 
-            public IDisplayableMessage DisplayableMessage { get; }
+            public DisplayableMessage DisplayableMessage { get; }
 
             public bool IsActive { get; set; }
 

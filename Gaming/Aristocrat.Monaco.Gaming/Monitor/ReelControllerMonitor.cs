@@ -11,7 +11,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.Monitors;
-    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Contracts;
     using Contracts.Events.OperatorMenu;

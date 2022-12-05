@@ -4,8 +4,6 @@
     using System.IO;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Soap;
-    using Aristocrat.Monaco.Kernel.MessageDisplay;
-    using Contracts.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -82,7 +80,7 @@
 
             stream.Position = 0;
 
-            var target = (IDisplayableMessage)formatter.Deserialize(stream);
+            var target = (DisplayableMessage)formatter.Deserialize(stream);
 
             Assert.IsTrue(original.IsMessageEquivalent(target));
         }

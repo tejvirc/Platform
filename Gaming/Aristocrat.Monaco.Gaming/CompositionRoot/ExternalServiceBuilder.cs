@@ -10,7 +10,6 @@
     using Application.Contracts.Protocol;
     using Application.Contracts.Settings;
     using Application.Contracts.TiltLogger;
-    using Kernel.Contracts.MessageDisplay;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Bell;
     using Hardware.Contracts.Button;

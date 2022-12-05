@@ -5,7 +5,6 @@ using Aristocrat.Monaco.Gaming.Runtime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Aristocrat.Monaco.Gaming.Contracts;
-using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
 
 namespace Aristocrat.Monaco.Gaming.Tests
 {

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
+﻿namespace Aristocrat.Monaco.Kernel
 {
     using System;
 
@@ -12,7 +12,7 @@
         ///     Initializes a new instance of the <see cref="MessageRemovedEvent" /> class.
         /// </summary>
         /// <param name="message">The DisplayableMessage object that was removed.</param>
-        public MessageRemovedEvent(IDisplayableMessage message)
+        public MessageRemovedEvent(DisplayableMessage message)
         {
             Message = message;
         }
@@ -20,6 +20,6 @@
         /// <summary>
         ///     Gets the DisplayableMessage object
         /// </summary>
-        public IDisplayableMessage Message { get; }
+        public DisplayableMessage Message { get; }
     }
 }

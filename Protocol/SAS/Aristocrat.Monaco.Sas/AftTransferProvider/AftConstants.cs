@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
-    using Kernel.MessageDisplay;
+    using Kernel;
     using Localization.Properties;
 
     /// <summary>The states the transfer provider can be in</summary>
@@ -47,7 +46,7 @@
         public const string MaximumVoucherLimitPropertyName = "System.MaxVoucherLimit";
 
         /// <summary>The message to display when the system goes into an Aft lock.</summary>
-        public static readonly IDisplayableMessage LockMessage = new DisplayableMessage(
+        public static readonly DisplayableMessage LockMessage = new DisplayableMessage(
             () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftLockMessage),
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Normal,

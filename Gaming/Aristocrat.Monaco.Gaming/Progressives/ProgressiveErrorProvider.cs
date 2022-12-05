@@ -5,36 +5,34 @@
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Contracts;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Kernel;
     using Localization.Properties;
-    using Kernel.MessageDisplay;
 
     public class ProgressiveErrorProvider : IProgressiveErrorProvider, IService
     {
-        private static readonly IDisplayableMessage UpdateTimeoutMessage = new DisplayableMessage(
+        private static readonly DisplayableMessage UpdateTimeoutMessage = new DisplayableMessage(
             () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgUpdateTimeout),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveUpdateTimeoutGuid);
 
-        private static readonly IDisplayableMessage DisconnectedErrorMessage = new DisplayableMessage(
+        private static readonly DisplayableMessage DisconnectedErrorMessage = new DisplayableMessage(
             () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgDisconnected),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveDisconnectErrorGuid);
 
-        private static readonly IDisplayableMessage ClaimTimeoutErrorMessage = new DisplayableMessage(
+        private static readonly DisplayableMessage ClaimTimeoutErrorMessage = new DisplayableMessage(
             () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgCommitTimeout),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveCommitTimeoutGuid);
 
-        private static readonly IDisplayableMessage MinimumThresholdErrorMessage = new DisplayableMessage(
+        private static readonly DisplayableMessage MinimumThresholdErrorMessage = new DisplayableMessage(
             () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_MinimumThresholdNotReached),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
@@ -204,7 +202,7 @@
             }
         }
 
-        private void AddError(IDisplayableMessage message, IEnumerable<IViewableProgressiveLevel> levels)
+        private void AddError(DisplayableMessage message, IEnumerable<IViewableProgressiveLevel> levels)
         {
             if ((_gamePlayState.InGameRound &&
                  _progressiveGameProvider.GetActiveProgressiveLevels().Any(
@@ -230,7 +228,7 @@
 
         private void RemoveError(
             ProgressiveErrors error,
-            IDisplayableMessage message,
+            DisplayableMessage message,
             IEnumerable<IViewableProgressiveLevel> levels)
         {
             if (_systemDisable.CurrentDisableKeys.Contains(message.Id) &&
@@ -261,7 +259,7 @@
             }
         }
 
-        private void AddError(IDisplayableMessage message, IEnumerable<IViewableLinkedProgressiveLevel> levels)
+        private void AddError(DisplayableMessage message, IEnumerable<IViewableLinkedProgressiveLevel> levels)
         {
             if ((_gamePlayState.InGameRound &&
                 _progressiveGameProvider.GetActiveLinkedProgressiveLevels().Any(
@@ -291,7 +289,7 @@
 
         private void RemoveError(
             ProgressiveErrors error,
-            IDisplayableMessage message,
+            DisplayableMessage message,
             IEnumerable<IViewableLinkedProgressiveLevel> levels)
         {
             if (_systemDisable.CurrentDisableKeys.Contains(message.Id) &&

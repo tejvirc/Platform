@@ -1,12 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Asp.Client.DataSources
 {
+    using Contracts;
+    using Kernel;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Kernel.Contracts.MessageDisplay;
-    using Contracts;
-    using Kernel.MessageDisplay;
-
 
     /// <summary>
     /// Data source for Device Class 7 Type 1
@@ -14,7 +12,7 @@
     public class ScreenMessageDataSource : IDataSource
     {
         private readonly IMessageDisplay _messageDisplayService;
-        private readonly Dictionary<string, IDisplayableMessage> _handlers;
+        private readonly Dictionary<string, DisplayableMessage> _handlers;
 
         public IReadOnlyList<string> Members => _handlers.Keys.ToList();
 
@@ -60,9 +58,9 @@
             MemberValueChanged?.Invoke(null, new Dictionary<string, object> { {member, displayableMessage.Message} });
         }
 
-        private static Dictionary<string, IDisplayableMessage> GetMembersMap()
+        private static Dictionary<string, DisplayableMessage> GetMembersMap()
         {
-            return new Dictionary<string, IDisplayableMessage>
+            return new Dictionary<string, DisplayableMessage>
             {
                 { "Screen_Message_One", null },
                 { "Screen_Message_Two", null }

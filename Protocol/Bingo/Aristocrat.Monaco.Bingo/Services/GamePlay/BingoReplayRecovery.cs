@@ -10,8 +10,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
-    using Kernel.MessageDisplay;
     using Commands;
     using Common.Events;
     using Common.GameOverlay;

@@ -50,8 +50,6 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
-    using Kernel.MessageDisplay;
-    using Kernel.Contracts.MessageDisplay;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
@@ -131,7 +129,7 @@
         private readonly IPlayerCultureProvider _playerCultureProvider;
         // Broadcasting platform messages to a game
 
-        private readonly IDisplayableMessage _disableCountdownMessage;
+        private readonly DisplayableMessage _disableCountdownMessage;
         private readonly string _disableCountdownTimeFormat = "m\\:ss";
         private bool _broadcastDisableCountdownMessagePending;
         private bool _justCashedOut;
@@ -1617,8 +1615,8 @@
 
         public string ResponsibleGamingDialogResourceKey => _responsibleGaming?.ResponsibleGamingDialogResourceKey;
 
-        public ObservableCollection<IDisplayableMessage> NotificationMessages { get; } =
-            new ObservableCollection<IDisplayableMessage>();
+        public ObservableCollection<DisplayableMessage> NotificationMessages { get; } =
+            new ObservableCollection<DisplayableMessage>();
 
         /// <summary>
         ///     Gets a value indicating whether notification text should be displayed
@@ -1882,7 +1880,7 @@
             Languages.AddRange(names);
         }
 
-        public void DisplayMessage(IDisplayableMessage displayableMessage)
+        public void DisplayMessage(DisplayableMessage displayableMessage)
         {
             Logger.Debug($"Displaying message: {displayableMessage}");
 
@@ -1902,7 +1900,7 @@
             Logger.Debug("Displayed message");
         }
 
-        public void RemoveMessage(IDisplayableMessage displayableMessage)
+        public void RemoveMessage(DisplayableMessage displayableMessage)
         {
             switch (displayableMessage.Classification)
             {
@@ -2130,7 +2128,7 @@
             GameList = gameList;
         }
 
-        private void DisplayNotificationMessage(IDisplayableMessage displayableMessage)
+        private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
         {
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -2152,7 +2150,7 @@
                 });
         }
 
-        private void RemoveNotificationMessage(IDisplayableMessage displayableMessage)
+        private void RemoveNotificationMessage(DisplayableMessage displayableMessage)
         {
             MvvmHelper.ExecuteOnUI(
                 () =>
