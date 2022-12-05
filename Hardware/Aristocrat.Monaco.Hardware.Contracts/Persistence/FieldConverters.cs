@@ -119,6 +119,7 @@
         /// <returns> The boolean represented by the byte array. </returns>
         public static object BoolConvert(byte[] bytes)
         {
+            if (bytes.Length == 0) return false;
             return BitConverter.ToBoolean(bytes, 0);
         }
 
