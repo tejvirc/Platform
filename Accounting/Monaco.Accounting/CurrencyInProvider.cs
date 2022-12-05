@@ -11,6 +11,8 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Kernel.Contracts.MessageDisplay;
+    using Kernel.MessageDisplay;
     using Contracts;
     using Hardware.Contracts;
     using Hardware.Contracts.NoteAcceptor;
@@ -47,8 +49,8 @@
         private INoteAcceptor _noteAcceptor;
         private bool _disposed;
 
-        private readonly Dictionary<CurrencyInExceptionCode, DisplayableMessage> _exceptionDisplayMessageMap =
-            new Dictionary<CurrencyInExceptionCode, DisplayableMessage>
+        private readonly Dictionary<CurrencyInExceptionCode, IDisplayableMessage> _exceptionDisplayMessageMap =
+            new Dictionary<CurrencyInExceptionCode, IDisplayableMessage>
             {
                 {
                     CurrencyInExceptionCode.CreditLimitExceeded, new DisplayableMessage(

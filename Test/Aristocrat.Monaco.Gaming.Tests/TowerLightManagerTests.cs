@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using Application.Contracts;
     using Application.Contracts.EdgeLight;
     using Application.Contracts.OperatorMenu;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.TowerLight;
     using Hardware.Contracts.Door;
@@ -19,6 +20,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using Moq;
     using TowerLight;
     using Vgt.Client12.Application.OperatorMenu;
+    using Kernel.MessageDisplay;
 
     [TestClass]
     public class TowerLightManagerTests

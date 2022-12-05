@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Kernel
+﻿namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
 {
     using System;
 
@@ -12,7 +12,7 @@
         ///     Initializes a new instance of the <see cref="MessageAddedEvent" /> class.
         /// </summary>
         /// <param name="message">The DisplayableMessage object that was added.</param>
-        public MessageAddedEvent(DisplayableMessage message)
+        public MessageAddedEvent(IDisplayableMessage message)
         {
             Message = message;
         }
@@ -20,6 +20,6 @@
         /// <summary>
         ///     Gets the DisplayableMessage object
         /// </summary>
-        public DisplayableMessage Message { get; }
+        public IDisplayableMessage Message { get; }
     }
 }

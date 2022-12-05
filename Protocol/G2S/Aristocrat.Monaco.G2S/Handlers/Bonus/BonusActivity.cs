@@ -8,7 +8,8 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
-    using Kernel;
+    using Kernel.MessageDisplay;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     public class BonusActivity : ICommandHandler<bonus, bonusActivity>
@@ -104,7 +105,7 @@
                 device.DeviceList(deviceStatus));
         }
 
-        private static DisplayableMessage GetDisplayableMessage(IBonusDevice device)
+        private static IDisplayableMessage GetDisplayableMessage(IBonusDevice device)
         {
             return new DisplayableMessage(
                 () => device?.NoHostText ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoBonusHost),

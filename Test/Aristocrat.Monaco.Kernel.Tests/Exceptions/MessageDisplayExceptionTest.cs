@@ -6,6 +6,7 @@
     using System.IO;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters.Soap;
+    using Kernel.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     #endregion

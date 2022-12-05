@@ -5,6 +5,7 @@
     using System;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.UI.Events;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Battery;

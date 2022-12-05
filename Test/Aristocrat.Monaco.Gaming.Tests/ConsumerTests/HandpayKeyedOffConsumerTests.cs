@@ -8,6 +8,7 @@
     using Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
+    using Kernel.Contracts.MessageDisplay;
     using Aristocrat.Monaco.Localization.Properties;
     using Consumers;
     using Contracts;
@@ -177,8 +178,8 @@
             var transactionEvent = new HandpayKeyedOffEvent(transaction);
             _currencyHandler.Setup(x => x.AmountIn).Returns(amount);
             // Check if message is displayed as expected
-            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
             _target.Consume(transactionEvent);
 
             _messageDisplay.Verify();
@@ -196,10 +197,10 @@
             var transactionEvent2 = new HandpayKeyedOffEvent(transaction2);
             _currencyHandler.Setup(x => x.AmountIn).Returns(amount);
             // Check if message is displayed as expected
-            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
-            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.02") && dm.MessageHasDynamicGuid))).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.02") && dm.MessageHasDynamicGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.01") && dm.MessageHasDynamicGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.02") && dm.MessageHasDynamicGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("Unit Test Handpay Credit - $0.02") && dm.MessageHasDynamicGuid))).Verifiable();
             _target.Consume(transactionEvent1);
             _target.Consume(transactionEvent2);
 
@@ -219,8 +220,8 @@
             var transactionEvent = new HandpayKeyedOffEvent(transaction);
             _currencyHandler.Setup(x => x.AmountIn).Returns(amount);
             // Check if message is displayed as expected
-            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
             _target.Consume(transactionEvent);
 
             _messageDisplay.Verify();
@@ -240,8 +241,8 @@
             var transactionEvent = new HandpayKeyedOffEvent(transaction3);
             _currencyHandler.Setup(x => x.AmountIn).Returns(amount);
             // Check if message is displayed as expected
-            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)") && dm.Id == AccountingConstants.AlternativeCancelCreditTickerMessageGuid))).Verifiable();
             _target.Consume(transactionEvent);
 
             _messageDisplay.Verify();
@@ -257,8 +258,8 @@
             var initCompletedEvent = new InitializationCompletedEvent();
             _currencyHandler.Setup(x => x.AmountIn).Returns(amount);
             // Check if message is displayed as expected
-            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)")))).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<DisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)")))).Verifiable();
+            _messageDisplay.Setup(m => m.RemoveMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)")))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayMessage(It.Is<IDisplayableMessage>(dm => dm.Message.Equals("UNIT TEST CANCEL CREDIT $0.01 (PAID IN TOTAL $0.02)")))).Verifiable();
             _startupTarget.Consume(initCompletedEvent);
 
             _messageDisplay.Verify();
@@ -272,8 +273,8 @@
             MockLocalization.Localizer.Setup(l => l.GetString(ResourceKeys.CashOutHandpayKeyedOffTotalSuffix)).Returns(AlternativeCancelCreditTickerMessageTotalSuffix);
             var initCompletedEvent = new InitializationCompletedEvent();
             _startupTarget.Consume(initCompletedEvent);
-            _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<DisplayableMessage>()), Times.Never());
-            _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<DisplayableMessage>()), Times.Never());
+            _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()), Times.Never());
+            _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()), Times.Never());
         }
 
         // For some reason, the mock service manager is returning new objects for the static properties
