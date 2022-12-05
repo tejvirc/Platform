@@ -398,10 +398,7 @@
             });
         }
 
-        public override bool HasChanges()
-        {
-            return _games.Any(g => g.HasChanges());
-        }
+        public override bool HasChanges() => _gamesMapping.Values.SelectMany(gameProfiles => gameProfiles).Any(gameProfile => gameProfile.HasChanges());
 
         public override void Save()
         {
