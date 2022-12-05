@@ -23,7 +23,7 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
                 <Setter Property="Margin" Value="0 0 10 10" />
                 <Setter Property="VerticalAlignment" Value="Center" />
@@ -50,276 +50,283 @@
     <AdornerDecorator>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" MinHeight="350"/>
+                <RowDefinition Height="*" MinHeight="200"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Name="NoteAcceptorInfo">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                <Grid Name="NoteAcceptorInfo">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Foreground="{Binding ManufacturerForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ManufacturerText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding ManufacturerText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                    <!-- Left properties column -->
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="{Binding ModelForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ModelText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding ModelText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Foreground="{Binding ManufacturerForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ManufacturerText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding ManufacturerText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{Binding ProtocolForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ProtocolText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding ProtocolText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="{Binding ModelForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ModelText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding ModelText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Foreground="{Binding PortForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding PortText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding PortText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{Binding ProtocolForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ProtocolText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding ProtocolText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" Foreground="{Binding SerialNumberForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SerialNumberText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding SerialNumberText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Foreground="{Binding PortForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding PortText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding PortText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"/>
-                <TextBlock Grid.Row="5" Grid.Column="1" Foreground="{Binding FirmwareVersionForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding FirmwareVersionText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding FirmwareVersionText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Foreground="{Binding SerialNumberForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SerialNumberText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding SerialNumberText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"/>
-                <TextBlock Grid.Row="6" Grid.Column="1" Foreground="{Binding FirmwareRevisionForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding FirmwareRevisionText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding FirmwareRevisionText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Foreground="{Binding FirmwareVersionForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FirmwareVersionText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding FirmwareVersionText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCRCLabel}}"/>
-                <TextBlock Grid.Row="7" Grid.Column="1" Foreground="{Binding FirmwareCrcForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding FirmwareCrcText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding FirmwareCrcText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Foreground="{Binding FirmwareRevisionForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FirmwareRevisionText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding FirmwareRevisionText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label  Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VariantNameLabel}}"/>
-                <TextBlock Grid.Row="8" Grid.Column="1" Foreground="{Binding VariantNameForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding VariantNameText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding VariantNameText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCRCLabel}}"/>
+                        <TextBlock Grid.Row="7" Grid.Column="1" Foreground="{Binding FirmwareCrcForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FirmwareCrcText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding FirmwareCrcText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                <Label  Grid.Row="9" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VariantVersionLabel}}"/>
-                <TextBlock Grid.Row="9" Grid.Column="1" Foreground="{Binding VariantVersionForeground}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding VariantVersionText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                            <Setter Property="Text" Value="{Binding VariantVersionText, Mode=OneWay}"/>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                        <Label  Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VariantNameLabel}}"/>
+                        <TextBlock Grid.Row="8" Grid.Column="1" Foreground="{Binding VariantNameForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding VariantNameText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding VariantNameText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-            </Grid>
+                        <Label  Grid.Row="9" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VariantVersionLabel}}"/>
+                        <TextBlock Grid.Row="9" Grid.Column="1" Foreground="{Binding VariantVersionForeground}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding VariantVersionText, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding VariantVersionText, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column= "1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                    </Grid>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StateText}"
-                           Foreground="{Binding StateForeground}"/>
+                    <!-- Right properties column -->
+                    <Grid Grid.Row="0" Grid.Column= "1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastDocumentResultLabel}}"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding LastDocumentResultText}"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StateText}"
+                                   Foreground="{Binding StateForeground}"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackerLabel}}"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StackerStateText}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastDocumentResultLabel}}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding LastDocumentResultText}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelfTestText}" 
-                           Visibility="{Binding SelfTestStatusVisible, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}" 
-                           Foreground="{Binding SelfTestForeground}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackerLabel}}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding StackerStateText}"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ActivationTimeLabel}}"  
-                       Visibility="{Binding ActivationVisible, Converter={StaticResource BoolToVisConverter}}"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ActivationTime}" 
-                           Foreground="{Binding ActivationForeground}"
-                           Visibility="{Binding ActivationVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelfTestText}" 
+                                   Visibility="{Binding SelfTestStatusVisible, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}" 
+                                   Foreground="{Binding SelfTestForeground}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}" VerticalAlignment="Top"/>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding StatusText}"  VerticalAlignment="Top" 
-                           Foreground="{Binding StatusForeground}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ActivationTimeLabel}}"  
+                               Visibility="{Binding ActivationVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ActivationTime}" 
+                                   Foreground="{Binding ActivationForeground}"
+                                   Visibility="{Binding ActivationVisible, Converter={StaticResource BoolToVisConverter}}"/>
 
-                <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherIn}}"/>
-                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding VoucherInEnabledText}"
-                           Foreground="{Binding VoucherInEnabledTextForeground}"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding StatusText}"  VerticalAlignment="Top" 
+                                   Foreground="{Binding StatusForeground}"/>
 
-                <Label Grid.Row="7" Grid.Column="0" Margin="0,20,10,0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}" Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal"  Margin="0,0,10,0"  HorizontalAlignment="Left"
-                        Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource BoolToCollapsedConverter}}">
-                    <CheckBox IsChecked="{Binding BillAcceptanceLimitIsChecked, Mode=TwoWay}" VerticalAlignment="Center">
-                        <CheckBox.IsEnabled >
-                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding Path="InputEnabled"/>
-                                <Binding Path="CanEditBillAcceptanceLimit"/>
-                            </MultiBinding>
-                        </CheckBox.IsEnabled>
-                    </CheckBox>
-                    <helpers:CurrencyTextBox Number="{Binding Path=BillAcceptanceLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                                         Margin="0 10 0 0"
-                                         Width="200" VerticalAlignment="Center"
-                                         PreventNegatives="True"
-                                         Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}" >
-                        <helpers:CurrencyTextBox.IsEnabled >
-                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding Path="InputEnabled"/>
-                                <Binding Path="CanEditBillAcceptanceLimit"/>
-                            </MultiBinding>
-                        </helpers:CurrencyTextBox.IsEnabled>
-                    </helpers:CurrencyTextBox>
-                    <TextBlock Margin="0 30 0 20"
-                           VerticalAlignment="Center"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
-                           Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
+                        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherIn}}"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding VoucherInEnabledText}"
+                                   Foreground="{Binding VoucherInEnabledTextForeground}"/>
 
-                <Label Grid.Row="8" Grid.Column="0" Margin="0 15 10 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExcessiveRejectDisable}}"
-                       Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
-                <controls:ToggleSwitchButton Grid.Row="8" Grid.Column="1" Margin="0 15 0 0"
-                                             Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource BoolToVisConverter}}"
-                                             IsChecked="{Binding ExcessiveRejectDisable}"
-                                             controls:ControlsHelper.ContentCharacterCasing="Upper"
-                                             controls:ControlsHelper.CornerRadius="0"
-                                             helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                             helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}">
-                    <controls:ToggleSwitchButton.IsEnabled>
-                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                            <Binding Path="IsNoteAcceptorConnected" />
-                            <Binding Path="InputEnabledByRuleOverride" />
-                        </MultiBinding>
-                    </controls:ToggleSwitchButton.IsEnabled>
-                </controls:ToggleSwitchButton>
+                        <Label Grid.Row="7" Grid.Column="0" Margin="0,20,10,0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}" Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal"  Margin="0,0,10,0"  HorizontalAlignment="Left"
+                                Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource BoolToCollapsedConverter}}">
+                            <CheckBox IsChecked="{Binding BillAcceptanceLimitIsChecked, Mode=TwoWay}" VerticalAlignment="Center">
+                                <CheckBox.IsEnabled >
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="InputEnabled"/>
+                                        <Binding Path="CanEditBillAcceptanceLimit"/>
+                                    </MultiBinding>
+                                </CheckBox.IsEnabled>
+                            </CheckBox>
+                            <helpers:CurrencyTextBox Number="{Binding Path=BillAcceptanceLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                                 Margin="0 10 0 0"
+                                                 Width="200" VerticalAlignment="Center"
+                                                 PreventNegatives="True"
+                                                 Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}" >
+                                <helpers:CurrencyTextBox.IsEnabled >
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="InputEnabled"/>
+                                        <Binding Path="CanEditBillAcceptanceLimit"/>
+                                    </MultiBinding>
+                                </helpers:CurrencyTextBox.IsEnabled>
+                            </helpers:CurrencyTextBox>
+                            <TextBlock Margin="0 30 0 20"
+                                   VerticalAlignment="Center"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                                   Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
 
-            </Grid>
+                        <Label Grid.Row="8" Grid.Column="0" Margin="0 15 10 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExcessiveRejectDisable}}"
+                               Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                        <controls:ToggleSwitchButton Grid.Row="8" Grid.Column="1" Margin="0 15 0 0"
+                                                     Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource BoolToVisConverter}}"
+                                                     IsChecked="{Binding ExcessiveRejectDisable}"
+                                                     controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                                     controls:ControlsHelper.CornerRadius="0"
+                                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}">
+                            <controls:ToggleSwitchButton.IsEnabled>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding Path="IsNoteAcceptorConnected" />
+                                    <Binding Path="InputEnabledByRuleOverride" />
+                                </MultiBinding>
+                            </controls:ToggleSwitchButton.IsEnabled>
+                        </controls:ToggleSwitchButton>
 
-            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0">
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- Enabled Denoms -->
+            <Grid Grid.Row="1" Grid.Column="0" Margin="0,20,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -367,63 +374,57 @@
                 </ListBox>
             </Grid>
 
-            <!-- Main grid row 2 consists of 4 rows of buttons. -->
-            <Grid Grid.Row="2" Grid.Column="0" Margin="0,15,0,0" VerticalAlignment="Bottom">
+            <!-- 2 rows of buttons. -->
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0 15 0 0" VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <Button Grid.Row="0" Grid.Column="0" Name="SelfTestButton"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
-                        Visibility="{Binding SelfTestButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
-                        IsEnabled="{Binding SelfTestButtonEnabled}" 
-                        Command="{Binding SelfTestButtonCommand}"/>
-                <Button Grid.Row="0" Grid.Column="1" 
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}" 
-                        Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
-                        IsEnabled="{Binding SelfTestButtonEnabled}" 
-                        Command="{Binding SelfTestClearButtonCommand}" />
 
-                <Button Grid.Row="1" Grid.Column="0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectButton}}"
-                        Visibility="{Binding InspectButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
-                        extensions:FocusExtension.IsFocused="{Binding InspectButtonFocused}"
-                        Command="{Binding InspectButtonCommand}" />
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Name="SelfTestButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
+                            Visibility="{Binding SelfTestButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                            IsEnabled="{Binding SelfTestButtonEnabled}" 
+                            Command="{Binding SelfTestButtonCommand}"/>
+                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}" 
+                            Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                            IsEnabled="{Binding SelfTestButtonEnabled}" 
+                            Command="{Binding SelfTestClearButtonCommand}" />
 
-                <Button Grid.Row="2" Grid.Column="0" 
-                        IsEnabled="{Binding ReturnButtonEnabled}" 
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReturnButton}}"
-                        Visibility="{Binding ReturnButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
-                        Command="{Binding ReturnButtonCommand}" />
-                <Button Grid.Row="2" Grid.Column="1" 
-                        IsEnabled="{Binding StackButtonEnabled}" 
-                        Command="{Binding StackButtonCommand}"
-                        Visibility="{Binding StackButtonVisible, Converter={StaticResource BoolToVisConverter}}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackButton}}" />
+                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectButton}}"
+                            Visibility="{Binding InspectButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                            extensions:FocusExtension.IsFocused="{Binding InspectButtonFocused}"
+                            Command="{Binding InspectButtonCommand}" />
 
-                <Button Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorTest}}" 
-                        Command="{Binding NoteAcceptorTestCommand}"
-                        IsEnabled="{Binding TestModeEnabled}" />
-                <Button Grid.Row="3" Grid.Column="1" Margin="0 15 0 0" HorizontalAlignment="Left"
-                        Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
-                        Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeToolTipDisabled, Converter={StaticResource BoolToHiddenConverter}}">
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                            <Binding ElementName="WarningButton"/>
-                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" Path="DataContext.TestWarningText" />
-                        </MultiBinding>
-                    </Button.CommandParameter>
-                </Button>
+                    <Button IsEnabled="{Binding ReturnButtonEnabled}" 
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReturnButton}}"
+                            Visibility="{Binding ReturnButtonVisible, Converter={StaticResource BoolToVisConverter}}" 
+                            Command="{Binding ReturnButtonCommand}" />
+                    <Button IsEnabled="{Binding StackButtonEnabled}" 
+                            Command="{Binding StackButtonCommand}"
+                            Visibility="{Binding StackButtonVisible, Converter={StaticResource BoolToVisConverter}}"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackButton}}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorTest}}" 
+                            Command="{Binding NoteAcceptorTestCommand}"
+                            IsEnabled="{Binding TestModeEnabled}" />
+                    <Button Margin="0 15 0 0"
+                            HorizontalAlignment="Left"
+                            Name="WarningButton"
+                            Style="{StaticResource MonacoWarningButton}"
+                            Command="{Binding ShowInfoPopupCommand}"
+                            Visibility="{Binding TestModeToolTipDisabled, Converter={StaticResource BoolToHiddenConverter}}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="WarningButton"/>
+                                <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" Path="DataContext.TestWarningText" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
             </Grid>
         </Grid>
     </AdornerDecorator>
 </operatorMenu:OperatorMenuPage>
-
