@@ -76,15 +76,15 @@
 
         [DataRow(true, false, false, DisplayName = "MeterManager Null")]
         [DataRow(false, true, false, DisplayName = "TransactionReportHandler Null")]
-        [DataRow(false, false, true, DisplayName = "TransactionHistory Null")]
+        [DataRow(false, false, true, DisplayName = "CentralProvider Null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void NullConstructorParametersTest(bool meterNull, bool reportingNull, bool historyNull)
+        public void NullConstructorParametersTest(bool meterNull, bool reportingNull, bool centralProviderNull)
         {
             _target = new MeterChangeMonitor(
                 meterNull ? null : _meterManager.Object,
                 reportingNull ? null : _bingoTransactionReportHandler.Object,
-                historyNull ? null : _centralProvider.Object);
+                centralProviderNull ? null : _centralProvider.Object);
         }
 
         [TestMethod]
@@ -258,7 +258,8 @@
                             Patterns = new List<BingoPattern> { new(string.Empty, 1, 123, 100, 20, paytableId, false, 0x80, 1) },
                             GameTitleId = gameTitleId,
                             GameSerial = gameSerial,
-                            DenominationId = denominationId
+                            DenominationId = denominationId,
+                            Paytable = paytableId.ToString()
                         }
                     }
                 }
