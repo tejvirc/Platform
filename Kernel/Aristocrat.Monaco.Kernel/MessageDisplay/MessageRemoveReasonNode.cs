@@ -1,4 +1,4 @@
-namespace Aristocrat.Monaco.Kernel.MessageDisplay
+namespace Aristocrat.Monaco.Kernel
 {
     using System;
     using Mono.Addins;

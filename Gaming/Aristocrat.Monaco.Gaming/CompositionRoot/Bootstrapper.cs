@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
-    using Kernel.Contracts.MessageDisplay;
     using Barkeeper;
     using BeagleBone;
     using Bonus;

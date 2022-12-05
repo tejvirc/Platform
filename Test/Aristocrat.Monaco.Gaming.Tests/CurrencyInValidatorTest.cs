@@ -11,7 +11,6 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Kernel.Contracts;
-    using Kernel.Contracts.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
     using Moq;
@@ -84,7 +83,7 @@
             bankBalanceChangedEvent = new BankBalanceChangedEvent(1000, 980, new Guid());
             _onBankBalanceChangedEvent(bankBalanceChangedEvent);
             _noteAcceptor.Verify(x => x.Enable(EnabledReasons.Configuration), Times.Once);
-            _messageDisplay.Verify(x => x.RemoveMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(1));
+            _messageDisplay.Verify(x => x.RemoveMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(1));
         }
 
         /// <summary>
@@ -235,13 +234,13 @@
         private void VerifyStatusDisabledForNoteAcceptor()
         {
             _noteAcceptor.Verify(x => x.Disable(DisabledReasons.Configuration), Times.Once);
-            _messageDisplay.Verify(x => x.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once);
+            _messageDisplay.Verify(x => x.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once);
         }
 
         private void VerifyNoStatusChangeForNoteAcceptor()
         {
             _noteAcceptor.Verify(x => x.Disable(DisabledReasons.Configuration), Times.Never);
-            _messageDisplay.Verify(x => x.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Never);
+            _messageDisplay.Verify(x => x.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Never);
         }
 
         private void SetupBank(long currentBankBalance)

@@ -12,7 +12,6 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Util;
-    using Kernel.Contracts.MessageDisplay;
     using DisabledEvent = Hardware.Contracts.Printer.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.Printer.EnabledEvent;
 

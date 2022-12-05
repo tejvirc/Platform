@@ -3,8 +3,6 @@
     #region Using
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Kernel.MessageDisplay;
-    using Kernel.Contracts.MessageDisplay;
 
     #endregion
 

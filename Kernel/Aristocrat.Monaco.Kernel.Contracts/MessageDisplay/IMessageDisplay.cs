@@ -1,4 +1,4 @@
-namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
+namespace Aristocrat.Monaco.Kernel
 {
     using System;
     using Contracts.ErrorMessage;
@@ -20,7 +20,7 @@ namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
     ///     and priority information in addition to the text of the message.
     /// </remarks>
     /// <seealso cref="IMessageDisplayHandler" />
-    /// <seealso cref="IDisplayableMessage" />
+    /// <seealso cref="DisplayableMessage" />
     public interface IMessageDisplay
     {
         /// <summary>
@@ -87,7 +87,7 @@ namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
         ///  </code>
         /// </example>
         /// <param name="displayableMessage">The message to display.</param>
-        void DisplayMessage(IDisplayableMessage displayableMessage);
+        void DisplayMessage(DisplayableMessage displayableMessage);
 
         /// <summary>
         ///     Forwards the provided message to the registered handler, then sets a timer and has the message
@@ -108,7 +108,7 @@ namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
         /// </example>
         /// <param name="displayableMessage">The message to display.</param>
         /// <param name="timeout">The amount of time the message should stay up, in milliseconds.</param>
-        void DisplayMessage(IDisplayableMessage displayableMessage, int timeout);
+        void DisplayMessage(DisplayableMessage displayableMessage, int timeout);
 
         /// <summary>
         ///     Instructs the message handler to remove the message from the display.
@@ -127,7 +127,7 @@ namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
         /// </code>
         /// </example>
         /// <param name="displayableMessage">A reference to the message to remove.</param>
-        void RemoveMessage(IDisplayableMessage displayableMessage);
+        void RemoveMessage(DisplayableMessage displayableMessage);
 
         /// <summary>
         /// Same as RemoveMessage((DisplayableMessage), but removes a message added with the supplied Id

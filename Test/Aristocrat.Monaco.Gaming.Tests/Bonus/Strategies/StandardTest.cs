@@ -8,7 +8,6 @@ using Aristocrat.Monaco.Gaming.Runtime;
 using Aristocrat.Monaco.Hardware.Contracts.Door;
 using Aristocrat.Monaco.Hardware.Contracts.Persistence;
 using Aristocrat.Monaco.Kernel;
-using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
 using Aristocrat.Monaco.Test.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

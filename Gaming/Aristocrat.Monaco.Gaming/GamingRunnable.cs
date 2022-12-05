@@ -9,7 +9,6 @@
     using Application.Contracts.Media;
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.TiltLogger;
-    using Kernel.Contracts.MessageDisplay;
     using Common;
     using CompositionRoot;
     using Consumers;

@@ -4,8 +4,6 @@ using Aristocrat.Monaco.Kernel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Aristocrat.Monaco.Gaming.Contracts;
-using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
-using Aristocrat.Monaco.Kernel.MessageDisplay;
 
 namespace Aristocrat.Monaco.Gaming.Tests
 {
@@ -51,7 +49,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
         [TestMethod]
         public void SendGameStart_WhenMessageShowing_ExpectRemove()
         {
-            IDisplayableMessage message = new DisplayableMessage(() => "george", DisplayableMessageClassification.HardError, DisplayableMessagePriority.Immediate, typeof(PlatformBootedEvent));
+            DisplayableMessage message = new DisplayableMessage(() => "george", DisplayableMessageClassification.HardError, DisplayableMessagePriority.Immediate, typeof(PlatformBootedEvent));
             _displayableMessageRemover.DisplayMessage(message);
 
             // Hit the message handler. It is private, so we used the event bus mock to grab it in Initialize.

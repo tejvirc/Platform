@@ -1,4 +1,4 @@
-namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
+namespace Aristocrat.Monaco.Kernel
 {
     /// <summary>
     ///     Definition of the IMessageDisplayHandler interface.
@@ -13,20 +13,20 @@ namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
     ///     are presented to the outside world.
     /// </remarks>
     /// <seealso cref="IMessageDisplay" />
-    /// <seealso cref="IDisplayableMessage" />
+    /// <seealso cref="DisplayableMessage" />
     public interface IMessageDisplayHandler
     {
         /// <summary>
         ///     Receives a message to display from the message display service.
         /// </summary>
         /// <param name="displayableMessage">The message to display</param>
-        void DisplayMessage(IDisplayableMessage displayableMessage);
+        void DisplayMessage(DisplayableMessage displayableMessage);
 
         /// <summary>
         ///     Removes the message from the display as instructed by the message display service.
         /// </summary>
         /// <param name="displayableMessage">A reference to the message to remove</param>
-        void RemoveMessage(IDisplayableMessage displayableMessage);
+        void RemoveMessage(DisplayableMessage displayableMessage);
 
         /// <summary>
         ///     Displays a status message sent from the message display service.
