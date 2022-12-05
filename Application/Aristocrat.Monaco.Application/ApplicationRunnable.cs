@@ -30,6 +30,8 @@ namespace Aristocrat.Monaco.Application
     using Monaco.Localization.Properties;
     using Mono.Addins;
     using SerialGat;
+    using Kernel.MessageDisplay;
+    using Kernel.Contracts.MessageDisplay;
 
     /// <summary>
     ///     The BootExtender is responsible for loading components and extensions in the Application layer.

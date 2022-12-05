@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Meters;

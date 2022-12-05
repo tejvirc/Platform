@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
+    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Contracts;
     using Gaming.Monitor;

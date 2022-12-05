@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using System.Timers;
     using Accounting.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using Aristocrat.Sas.Client;
     using Aristocrat.Sas.Client.LongPollDataClasses;
     using Base;

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Windows.Media;
     using Accounting.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Contracts;
     using Contracts.OperatorMenu;
@@ -115,7 +116,7 @@
             _printer.Setup(m => m.CanPrint).Returns(true);
 
             _messageDisplay = MoqServiceManager.CreateAndAddService<IMessageDisplay>(MockBehavior.Strict);
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()));
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()));
 
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
             _eventBus.Setup(m => m.Publish(It.IsAny<PageTitleEvent>()));

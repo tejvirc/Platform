@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Threading;
+    using Contracts.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
@@ -78,9 +79,9 @@
         {
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableAddedEvent>())).Verifiable();
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>())).Verifiable();
-            DisplayableMessage displayedMessage = null;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            IDisplayableMessage displayedMessage = null;
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
 
             var enableKey = Guid.NewGuid();
             var priority = SystemDisablePriority.Normal;
@@ -94,7 +95,7 @@
             Assert.IsTrue(target.IsDisabled);
             Assert.IsTrue(target.CurrentDisableKeys.Contains(enableKey));
             Assert.IsFalse(target.DisableImmediately);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -111,10 +112,10 @@
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>())).Verifiable();
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableRemovedEvent>())).Verifiable();
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemEnabledEvent>())).Verifiable();
-            DisplayableMessage displayedMessage = null;
+            IDisplayableMessage displayedMessage = null;
             var removeGuid = Guid.Empty;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
             _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<Guid>()))
                 .Callback<Guid>(theGuid => { removeGuid = theGuid; });
 
@@ -127,7 +128,7 @@
             target.Disable(guid, priority, () => reason, TimeSpan.FromMilliseconds(5));
 
             Assert.IsTrue(target.IsDisabled);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -150,9 +151,9 @@
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableAddedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableUpdatedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>()));
-            DisplayableMessage displayedMessage = null;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            IDisplayableMessage displayedMessage = null;
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
 
             const string reason = "text";
             var priority = SystemDisablePriority.Normal;
@@ -164,7 +165,7 @@
             Assert.IsTrue(target.IsDisabled);
             Assert.IsTrue(target.CurrentDisableKeys.Contains(enableKey));
             Assert.IsFalse(target.DisableImmediately);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -183,7 +184,7 @@
             _eventBusMock.Verify(mock => mock.Publish(It.IsAny<SystemDisabledEvent>()), Times.Once());
             _eventBusMock.Verify(mock => mock.Publish(It.IsAny<SystemDisableUpdatedEvent>()), Times.Once());
             Assert.AreEqual(updatedReason, displayedMessage.Message);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(2));
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -191,9 +192,9 @@
         {
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableAddedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>()));
-            DisplayableMessage displayedMessage = null;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            IDisplayableMessage displayedMessage = null;
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
 
             var reason1 = "First";
             var priority = SystemDisablePriority.Normal;
@@ -204,7 +205,7 @@
 
             Assert.IsTrue(target.IsDisabled);
             Assert.IsFalse(target.DisableImmediately);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason1, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -218,7 +219,7 @@
             Assert.IsTrue(target.IsDisabled);
             Assert.IsTrue(target.CurrentDisableKeys.Count() == 2);
             Assert.IsTrue(target.DisableImmediately);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(2));
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(2));
             Assert.AreEqual(reason2, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
             Assert.AreEqual(messagePriority, displayedMessage.Priority);
@@ -234,9 +235,9 @@
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableAddedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableUpdatedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>()));
-            DisplayableMessage displayedMessage = null;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            IDisplayableMessage displayedMessage = null;
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
 
             var enableKey = Guid.NewGuid();
             var reason = "Test";
@@ -247,7 +248,7 @@
             target.Disable(enableKey, priority, () => reason);
 
             Assert.IsFalse(target.DisableImmediately);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -259,7 +260,7 @@
             // Disable again with same key, but a higher priority
             target.Disable(enableKey, priority, () => reason);
 
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(2));
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(2));
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
             Assert.AreEqual(messagePriority, displayedMessage.Priority);
@@ -273,9 +274,9 @@
         {
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableAddedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>()));
-            DisplayableMessage displayedMessage = null;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            IDisplayableMessage displayedMessage = null;
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
 
             var target = new SystemDisableManager();
             target.Initialize();
@@ -286,7 +287,7 @@
 
             Assert.IsTrue(target.IsDisabled);
             Assert.IsFalse(target.DisableImmediately);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason1, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -299,7 +300,7 @@
             Assert.IsTrue(target.CurrentDisableKeys.Count() == 2);
             Assert.IsFalse(target.DisableImmediately);
 
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(2));
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(2));
             Assert.AreEqual(reason2, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
             Assert.AreEqual(messagePriority, displayedMessage.Priority);
@@ -320,9 +321,9 @@
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableRemovedEvent>())).Verifiable();
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemEnabledEvent>())).Verifiable();
-            DisplayableMessage displayedMessage = null;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            IDisplayableMessage displayedMessage = null;
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
             _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<Guid>()))
                 .Callback<Guid>(theGuid => { removeGuid = theGuid; });
 
@@ -334,7 +335,7 @@
             target.Disable(key, priority, () => reason);
 
             Assert.IsTrue(target.IsDisabled);
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -357,10 +358,10 @@
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableRemovedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemEnabledEvent>()));
-            DisplayableMessage displayedMessage = null;
+            IDisplayableMessage displayedMessage = null;
             Guid removeGuid = Guid.Empty;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
             _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<Guid>()))
                 .Callback<Guid>(theGuid => { removeGuid = theGuid; });
 
@@ -373,7 +374,7 @@
             var messagePriority = GetMessagePriority(priority);
             target.Disable(key, priority, () => reason, TimeSpan.FromMilliseconds(250));
 
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -397,10 +398,10 @@
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableRemovedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemEnabledEvent>()));
             var key = Guid.NewGuid();
-            DisplayableMessage displayedMessage = null;
+            IDisplayableMessage displayedMessage = null;
             Guid removeGuid = Guid.Empty;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
             _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<Guid>()))
                 .Callback<Guid>(theGuid => { removeGuid = theGuid; });
 
@@ -414,7 +415,7 @@
 
             Assert.IsTrue(target.IsDisabled);
 
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once());
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once());
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
@@ -438,10 +439,10 @@
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisabledEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemDisableRemovedEvent>()));
             _eventBusMock.Setup(e => e.Publish(It.IsAny<SystemEnabledEvent>()));
-            DisplayableMessage displayedMessage = null;
+            IDisplayableMessage displayedMessage = null;
             Guid removeGuid = Guid.Empty;
-            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
-                .Callback<DisplayableMessage>(theMessage => { displayedMessage = theMessage; });
+            _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
+                .Callback<IDisplayableMessage>(theMessage => { displayedMessage = theMessage; });
             _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<Guid>()))
                 .Callback<Guid>(theGuid => { removeGuid = theGuid; });
 
@@ -465,7 +466,7 @@
             Assert.IsTrue(target.IsDisabled);
             Assert.IsTrue(target.CurrentDisableKeys.All(k => k != key));
 
-            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Exactly(2));
+            _messageDisplay.Verify(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Exactly(2));
             Assert.IsNotNull(displayedMessage);
             Assert.AreEqual(reason2, displayedMessage.Message);
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);

@@ -18,6 +18,7 @@ namespace Aristocrat.Monaco.Hardware
     using log4net;
     using Mono.Addins;
     using Properties;
+    using Kernel.Contracts.MessageDisplay;
 
     /// <summary>
     ///     <para>
