@@ -58,7 +58,7 @@
                         transaction.Barcode);
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CancelCredits);
                     break;
-                case HandpayType.GameWin:
+                case HandpayType.GameWin when !transaction.IsCreditType():
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
                         TransactionType.CashOutJackpot,
                         amountInCents,
@@ -69,12 +69,22 @@
                     break;
                 case HandpayType.BonusPay:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        TransactionType.BonusWin,
+                        TransactionType.ExternalBonusLargeWin,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
                         transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.BonusWinAwarded);
+                    if (!transaction.IsCreditType())
+                    {
+                        _bingoTransactionReportHandler.AddNewTransactionToQueue(
+                            TransactionType.CashOutJackpot,
+                            amountInCents,
+                            (uint)(gameConfiguration?.GameTitleId ?? 0),
+                            (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                            transaction.Barcode);
+                        _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutExternalBonus);
+                    }
+
                     break;
             }
 

@@ -149,7 +149,7 @@
         public void ConsumesBonusWinTest()
         {
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashoutBonus, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode)).Verifiable();
+                Common.TransactionType.CashoutExternalBonus, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashoutBonus)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
 
@@ -160,7 +160,7 @@
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashoutBonus, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode), Times.Once());
+                Common.TransactionType.CashoutExternalBonus, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashoutBonus), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }

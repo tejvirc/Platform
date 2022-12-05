@@ -72,7 +72,7 @@
                     break;
                 case TransferOutReason.BonusPay:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.CashoutBonus,
+                        Common.TransactionType.CashoutExternalBonus,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
