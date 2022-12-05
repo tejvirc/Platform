@@ -85,13 +85,12 @@
                     transactionInfo.CashablePromoAmount = trans.TransferredPromoAmount;
                     transactionInfo.NonCashablePromoAmount = trans.TransferredNonCashAmount;
                     break;
-                case BonusTransaction trans when trans.Mode != BonusMode.GameWin:
-                    if (trans.PayMethod == PayMethod.Handpay && trans.IsAttendantPaid(_history))
+                case BonusTransaction trans:
+                    if (trans.Mode != BonusMode.GameWin && trans.PayMethod == PayMethod.Handpay && trans.IsAttendantPaid(_history))
                     {
                         transactionInfo.HandpayType = HandpayType.BonusPay;
                     }
                     excludeFromPendingAmount = true;
-
                     break;
                 case VoucherOutTransaction:
                 case HandpayTransaction:
@@ -152,8 +151,8 @@
                     if (trans.PayMethod == PayMethod.Handpay && trans.IsAttendantPaid(_history))
                     {
                         transactionInfo.HandpayType = HandpayType.BonusPay;
-                        excludeFromPendingAmount = true;
                     }
+                    excludeFromPendingAmount = true;
 
                     break;
                 case VoucherOutTransaction trans:
