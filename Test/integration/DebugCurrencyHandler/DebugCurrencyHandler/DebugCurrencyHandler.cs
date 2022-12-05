@@ -13,8 +13,6 @@
     using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
-    using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
-    using Aristocrat.Monaco.Kernel.MessageDisplay;
     using log4net;
     using System;
     using System.Collections.Generic;

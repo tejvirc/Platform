@@ -20,7 +20,6 @@
     using Contracts.EdgeLight;
     using Hardware.Contracts.EdgeLighting;
     using Test.Common;
-    using Kernel.Contracts.MessageDisplay;
 
     /// <summary>
     ///     This is a test class for DoorMonitor and is intended
@@ -2589,8 +2588,8 @@
 
                 if (!string.IsNullOrEmpty(closedMessage))
                 {
-                    _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()))
-                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.Message); }).Verifiable();
+                    _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<DisplayableMessage>()))
+                        .Callback((DisplayableMessage message) => { _removedMessages.Add(message.Message); }).Verifiable();
                 }
             }
             else
@@ -2603,14 +2602,14 @@
 
                 if (!string.IsNullOrEmpty(openMessage))
                 {
-                    _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()))
-                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.Message); }).Verifiable();
+                    _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<DisplayableMessage>()))
+                        .Callback((DisplayableMessage message) => { _removedMessages.Add(message.Message); }).Verifiable();
                 }
 
                 if (!string.IsNullOrEmpty(closedMessage))
                 {
-                    _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
-                        .Callback((IDisplayableMessage message) => { _displayedMessages.Add(message.Message); }).Verifiable();
+                    _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
+                        .Callback((DisplayableMessage message) => { _displayedMessages.Add(message.Message); }).Verifiable();
                 }
             }
         }

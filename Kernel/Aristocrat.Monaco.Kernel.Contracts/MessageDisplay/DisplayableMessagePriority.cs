@@ -1,10 +1,10 @@
-namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
+namespace Aristocrat.Monaco.Kernel
 {
     /// <summary>
     ///     This enumeration is used to control when a handler displays a message.
     /// </summary>
     /// <remarks>
-    ///     This is currently used as a property in <see cref="IDisplayableMessage" /> objects.
+    ///     This is currently used as a property in <see cref="DisplayableMessage" /> objects.
     /// </remarks>
     public enum DisplayableMessagePriority
     {

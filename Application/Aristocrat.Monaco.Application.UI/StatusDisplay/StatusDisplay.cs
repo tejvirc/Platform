@@ -3,7 +3,6 @@
     using System;
     using System.Reflection;
     using Kernel;
-    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using MVVM;
 
@@ -48,7 +47,7 @@
         }
 
         /// <inheritdoc />
-        public void DisplayMessage(IDisplayableMessage displayableMessage)
+        public void DisplayMessage(DisplayableMessage displayableMessage)
         {
             lock (_lock)
             {
@@ -59,7 +58,7 @@
         }
 
         /// <inheritdoc />
-        public void RemoveMessage(IDisplayableMessage displayableMessage)
+        public void RemoveMessage(DisplayableMessage displayableMessage)
         {
             lock (_lock)
             {

@@ -6,7 +6,6 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Util;
-    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Button;
@@ -15,13 +14,12 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Localization.Properties;
-    using Kernel.MessageDisplay;
 
     public class DocumentRejectedService : IService, IDisposable
     {
         private readonly IEventBus _bus;
 
-        private readonly IDisplayableMessage _documentRejectedMessage;
+        private readonly DisplayableMessage _documentRejectedMessage;
         private readonly IMessageDisplay _messageDisplay;
         private readonly IPropertiesManager _properties;
         private readonly ISystemDisableManager _systemDisableManager;

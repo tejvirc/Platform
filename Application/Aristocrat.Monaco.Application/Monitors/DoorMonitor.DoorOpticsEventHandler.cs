@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Kernel;
-    using Kernel.Contracts.MessageDisplay;
 
     public partial class DoorMonitor
     {

@@ -33,7 +33,6 @@
     using Hardware.Contracts.Gds;
     using Hardware.Contracts.Gds.NoteAcceptor;
     using Hardware.Contracts.IO;
-    using Kernel.Contracts.MessageDisplay;
     using Kernel;
     using log4net;
     using Newtonsoft.Json;
@@ -116,7 +115,7 @@
 
         private readonly ConcurrentDictionary<Guid, string> _currentLockups = new ConcurrentDictionary<Guid, string>();
 
-        private readonly HashSet<IDisplayableMessage> _gameLineMessages = new HashSet<IDisplayableMessage>(new DisplayableMessageComparer());
+        private readonly HashSet<DisplayableMessage> _gameLineMessages = new HashSet<DisplayableMessage>(new DisplayableMessageComparer());
 
         private VoucherIssuedEvent _lastVoucherIssued;
 
@@ -875,7 +874,7 @@
         public CommandResult GetGameLineMessages()
         {
             string messages = "";            
-            foreach (IDisplayableMessage message in _gameLineMessages)
+            foreach (DisplayableMessage message in _gameLineMessages)
             {
                 messages = messages + message.Message + "\n";
             }
@@ -1751,14 +1750,14 @@
         }
     }
 
-    internal class DisplayableMessageComparer : IEqualityComparer<IDisplayableMessage>
+    class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
     {
-        public bool Equals(IDisplayableMessage x, IDisplayableMessage y)
+        public bool Equals(DisplayableMessage x, DisplayableMessage y)
         {
             return x.Message.Trim().ToLower().Equals(y.Message.Trim().ToLower());
         }
 
-        public int GetHashCode(IDisplayableMessage obj)
+        public int GetHashCode(DisplayableMessage obj)
         {
             return obj.Message.GetHashCode();
         }

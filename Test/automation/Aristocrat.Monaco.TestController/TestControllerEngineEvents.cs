@@ -9,7 +9,6 @@
     using Gaming.Contracts.Lobby;
     using Gaming.Diagnostics;
     using Hardware.Contracts.IdReader;
-    using Kernel.Contracts.MessageDisplay;
     using Kernel;
     using System;
     using Gaming.Contracts.Events;

@@ -6,7 +6,6 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading;
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
-    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Kernel;
     using log4net;

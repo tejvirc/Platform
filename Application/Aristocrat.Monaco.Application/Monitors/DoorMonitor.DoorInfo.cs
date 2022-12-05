@@ -3,8 +3,7 @@
     using System;
     using Contracts.Localization;
     using Hardware.Contracts.Door;
-    using Kernel.MessageDisplay;
-    using Kernel.Contracts.MessageDisplay;
+    using Kernel;
     using Monaco.Localization.Properties;
 
     public partial class DoorMonitor
@@ -190,7 +189,7 @@
             /// <summary>
             ///     The displayable message for door closed (or door was opened).
             /// </summary>
-            public IDisplayableMessage DoorClosedMessage { get; }
+            public DisplayableMessage DoorClosedMessage { get; }
 
             /// <summary>
             ///     The guid for the door disable.
@@ -210,7 +209,7 @@
             /// <summary>
             ///     The displayable message for door open.
             /// </summary>
-            public IDisplayableMessage DoorOpenMessage { get; }
+            public DisplayableMessage DoorOpenMessage { get; }
         }
     }
 }

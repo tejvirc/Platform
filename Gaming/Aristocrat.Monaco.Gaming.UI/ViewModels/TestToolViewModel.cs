@@ -23,8 +23,6 @@
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.TowerLight;
     using Kernel;
-    using Kernel.MessageDisplay;
-    using Kernel.Contracts.MessageDisplay;
     using Monaco.UI.Common.Controls;
     using MVVM;
     using MVVM.Command;
@@ -141,7 +139,7 @@
         private readonly IPropertiesManager _properties;
         private readonly ResponsibleGamingMode _responsibleGamingMode;
         private readonly LobbyConfiguration _config;
-        private readonly IDisplayableMessage _displayableMessage;
+        private readonly DisplayableMessage _displayableMessage;
         private readonly IMessageDisplayHandler _platformMessageBroadcaster;
         private readonly ITowerLight _towerLight;
         private readonly SolidColorBrush _bellBrushRinging = new SolidColorBrush(Colors.White);

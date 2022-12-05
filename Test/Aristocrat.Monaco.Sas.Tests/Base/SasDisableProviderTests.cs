@@ -7,7 +7,6 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
     using Aristocrat.Monaco.Sas.Storage.Models;
     using Aristocrat.Monaco.Sas.Storage.Repository;
     using Contracts.Client;
@@ -288,7 +287,7 @@
                 Assert.IsTrue(_target.Disable(priority, state, false).Wait(WaitTime));
                 _messageDisplay.Verify(
                     x => x.DisplayMessage(
-                        It.Is<IDisplayableMessage>(
+                        It.Is<DisplayableMessage>(
                             message => message.Id == guid && message.Priority == DisplayableMessagePriority.Normal &&
                                        message.Classification == DisplayableMessageClassification.SoftError)));
 
@@ -307,7 +306,7 @@
                 _target.Disable(SystemDisablePriority.Normal, DisableState.DisabledByHost0, false).Wait(WaitTime));
             _messageDisplay.Verify(
                 x => x.DisplayMessage(
-                    It.Is<IDisplayableMessage>(
+                    It.Is<DisplayableMessage>(
                         message => message.Id == ApplicationConstants.DisabledByHost0Key &&
                                    message.Priority == DisplayableMessagePriority.Normal &&
                                    message.Classification == DisplayableMessageClassification.SoftError)));

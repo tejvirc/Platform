@@ -12,7 +12,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -190,8 +189,8 @@
 
         public bool ShowPaidMeterForAutoCashout { get; set; }
 
-        public readonly ConcurrentDictionary<string, IDisplayableMessage> HardErrorMessages =
-            new ConcurrentDictionary<string, IDisplayableMessage>();
+        public readonly ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages =
+            new ConcurrentDictionary<string, DisplayableMessage>();
 
         public void UpdateCashoutButtonState(bool state)
         {
@@ -199,7 +198,7 @@
             _overlayMessageStrategyController.FallBackStrategy.CashOutButtonPressed = state;
         }
 
-        public void AddHardErrorMessage(IDisplayableMessage displayableMessage)
+        public void AddHardErrorMessage(DisplayableMessage displayableMessage)
         {
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -216,7 +215,7 @@
                 });
         }
 
-        public void RemoveHardErrorMessage(IDisplayableMessage displayableMessage)
+        public void RemoveHardErrorMessage(DisplayableMessage displayableMessage)
         {
             MvvmHelper.ExecuteOnUI(
                 () =>

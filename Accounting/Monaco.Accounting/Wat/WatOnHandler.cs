@@ -7,14 +7,12 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
-    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.Wat;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using Kernel.MessageDisplay;
 
     /// <summary>
     ///     Waits for transfer requests from a host and attempts to start a new transaction in
