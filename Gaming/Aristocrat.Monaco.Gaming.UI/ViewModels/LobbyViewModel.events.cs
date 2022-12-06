@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
@@ -555,7 +557,7 @@
             {
                 CashInStarted(CashInType.Wat);
             }
-            
+
             if (bonusEvent.Transaction.Mode == BonusMode.GameWin &&
                 bonusEvent.Transaction.PayMethod == PayMethod.Voucher)
             {
@@ -736,21 +738,31 @@
             {
                 _eventBus.Subscribe<DownEvent>(
                     this,
-                    evt =>
+                    async (_, t) =>
                     {
-                        if (!IsSelectPayModeVisible)
+                        if (!MessageOverlayDisplay.IsSelectPayModeVisible)
                         {
-                            IsSelectPayModeVisible = true;
-                            _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, true);
-                            SelectedMenuSelectionPayOption = MenuSelectionPayOption.ReturnToLockup;
+                            MvvmHelper.ExecuteOnUI(
+                                () =>
+                                {
+                                    MessageOverlayDisplay.IsSelectPayModeVisible = true;
+                                    SelectedMenuSelectionPayOption = MenuSelectionPayOption.ReturnToLockup;
+                                    HandleMessageOverlayText();
+                                    _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, true);
+                                });
                         }
                         else
                         {
-                            IsSelectPayModeVisible = false;
-                            _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, false);
+                            MvvmHelper.ExecuteOnUI(() =>
+                            {
+                                MessageOverlayDisplay.IsSelectPayModeVisible = false;
+                                HandleMessageOverlayText();
+                                _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, false);
+                            });
+
                             if (_selectedMenuSelectionPayOption != MenuSelectionPayOption.ReturnToLockup)
                             {
-                                _eventBus.Unsubscribe<DownEvent>(this);
+                                await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), t);
                             }
                         }
                     }, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
@@ -766,14 +778,15 @@
             }
         }
 
-        private void HandleEvent(HandpayCanceledEvent platformEvent)
+        private async Task HandleEvent(HandpayCanceledEvent platformEvent, CancellationToken token)
         {
-            _eventBus.Unsubscribe<DownEvent>(this);
+            await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
         }
-        private void HandleEvent(HandpayKeyedOffEvent platformEvent)
+
+        private async Task HandleEvent(HandpayKeyedOffEvent platformEvent, CancellationToken token)
         {
-            _eventBus.Unsubscribe<DownEvent>(this);
+            await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
 
             if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
             {
@@ -1062,9 +1075,9 @@
                 {
                     // VLT-4160:  Set this so that we can reset localization after going to the Operator Menu
                     // A few pages in the operator menu share resources with the lobby, but the Operator Menu
-                    // is not localized to the same language as the lobby.  Currently we change the Resource 
+                    // is not localized to the same language as the lobby.  Currently we change the Resource
                     // Culture when we move to the Operator Menu so that everything works and then change it back
-                    // when we exit the Operator Menu.  We probably need a better solution in the future.    
+                    // when we exit the Operator Menu.  We probably need a better solution in the future.
 
                     _printingHelplineWhileResponsibleGamingReset = ContainsAnyState(LobbyState.PrintHelpline);
                     _responsibleGamingInfoWhileResponsibleGamingReset = ContainsAnyState(
@@ -1076,7 +1089,7 @@
                     //    Resources.Culture = new CultureInfo(EnglishCultureCode);
                     //}
 
-                    // set this so that if we go to the operator menu while a responsible gaming dialog is up, 
+                    // set this so that if we go to the operator menu while a responsible gaming dialog is up,
                     // we can restore the dialog on operator menu exit.
                     _responsibleGamingDialogResetWhenOperatorMenuEntered = ResetResponsibleGamingDialog(true);
 
@@ -1134,7 +1147,7 @@
 
             _responsibleGamingDialogResetWhenOperatorMenuEntered = false;
 
-            // VLT-4160:  Change back to the Resource Localization Culture that we had prior to 
+            // VLT-4160:  Change back to the Resource Localization Culture that we had prior to
             // entering the Operator Menu
             //if (Resources.Culture.Name.ToUpper() != _localeCodePreOperatorMenu)
             //{
@@ -1432,7 +1445,7 @@
                     {
                         PlayerMenuPopupViewModel.IsMenuVisible = true;
 
-                        // Reset the attract timer so that it doesn't close while 
+                        // Reset the attract timer so that it doesn't close while
                         // a player is adjusting the volume or brightness
                         StartAttractTimer();
                     }
