@@ -173,12 +173,7 @@
 
             if ((!_gamePlay.Idle || _gameHistory.IsRecoveryNeeded) && HandledState(state, faultId))
             {
-                if (device != null &&
-                    device.RequiredForPlay &&
-                    !(device is IPrinterDevice) &&
-                    !(device is IHandpayDevice) && 
-                    !_propertiesManager.GetValue(GamingConstants.AutocompleteExpired, false) &&
-                    !_propertiesManager.GetValue(GamingConstants.AutocompleteSet, false))
+                if (ShouldStartDisableCountdownTimerEvent(device, faultId))
                 {
                     _bus.Publish(new DisableCountdownTimerEvent(true));
                 }
@@ -201,9 +196,7 @@
 
             if (!_gamePlay.Idle && HandledState(state, faultId))
             {
-                if (!_gamePlay.Idle && device != null && device.RequiredForPlay && !(device is IPrinterDevice) && !(device is IHandpayDevice) &&
-                    !(cabinet?.HasCondition((d, s, f) =>
-                        s == EgmState.HostLocked || s == EgmState.HostDisabled || s == EgmState.EgmDisabled && f < 0 && !(d is IPrinterDevice)) ?? false))
+                if (ShouldStopDisableCountdownTimerEvent(device, faultId, cabinet))
                 {
                     _bus.Publish(new DisableCountdownTimerEvent(false));
                 }
@@ -341,6 +334,32 @@
             }
 
             Logger.Debug($"Cashout on disable invoked due to state {state}");
+        }
+
+        private bool ShouldStartDisableCountdownTimerEvent(IDevice device, int faultId)
+        {
+            return DoesDeviceAllowForDisableCountdownEvent(device) &&
+                   faultId != (int)CabinetFaults.HardMeterDisabled &&
+                   !_propertiesManager.GetValue(GamingConstants.AutocompleteExpired, false) &&
+                   !_propertiesManager.GetValue(GamingConstants.AutocompleteSet, false);
+        }
+
+        private bool ShouldStopDisableCountdownTimerEvent(IDevice device, int faultId, ICabinetDevice cabinet)
+        {
+            return DoesDeviceAllowForDisableCountdownEvent(device) &&
+                   faultId != (int)CabinetFaults.HardMeterDisabled &&
+                   !(cabinet?.HasCondition(
+                       (d, s, f) =>
+                           s == EgmState.HostLocked || s == EgmState.HostDisabled ||
+                           s == EgmState.EgmDisabled && f < 0 && !(d is IPrinterDevice)) ?? false);
+        }
+
+        private bool DoesDeviceAllowForDisableCountdownEvent(IDevice device)
+        {
+            return device != null &&
+                   device.RequiredForPlay &&
+                   !(device is IPrinterDevice) &&
+                   !(device is IHandpayDevice);
         }
     }
 }
