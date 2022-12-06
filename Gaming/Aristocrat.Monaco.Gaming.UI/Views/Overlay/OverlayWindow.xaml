@@ -129,11 +129,11 @@
             </overlay:ReplayRecoveryView.Style>
         </overlay:ReplayRecoveryView>
 
-        <overlay:SelectionPayMode Opacity="0" IsHitTestVisible="{Binding IsSelectPayModeVisible}">
+        <overlay:SelectionPayMode Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplay.IsSelectPayModeVisible}">
             <overlay:SelectionPayMode.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding IsSelectPayModeVisible}">
+                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.IsSelectPayModeVisible}">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
                             </DataTrigger.EnterActions>
