@@ -14,7 +14,6 @@
     /// </summary>
     public class SasFeatureSettingsPropertyChangedConsumer : Consumes<PropertyChangedEvent>
     {
-        private readonly IReportEventQueueService _bingoServerEventReportingService;
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _propertiesManager;
         private bool _aftBonusAllowed;
@@ -23,11 +22,9 @@
         public SasFeatureSettingsPropertyChangedConsumer(
             IEventBus eventBus,
             ISharedConsumer consumerContext,
-            IReportEventQueueService reportingService,
             IPropertiesManager propertiesManager)
             : base(eventBus, consumerContext, @event => @event.PropertyName == SasProperties.SasFeatureSettings)
         {
-            _bingoServerEventReportingService = reportingService ?? throw new ArgumentNullException(nameof(reportingService));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
@@ -46,7 +43,6 @@
 
             if (aftBonusAllowed != _aftBonusAllowed)
             {
-                ReportCurrentSetting(aftBonusAllowed);
                 _aftBonusAllowed = aftBonusAllowed;
                 valueChanged = true;
             }
@@ -61,12 +57,6 @@
             {
                 _eventBus.Publish(new RestartProtocolEvent());
             }
-        }
-
-        private void ReportCurrentSetting(bool aftBonusAllowed)
-        {
-            _bingoServerEventReportingService.AddNewEventToQueue(
-                aftBonusAllowed ? ReportableEvent.BonusingEnabled : ReportableEvent.BonusingDisabled);
         }
     }
 }

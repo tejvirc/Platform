@@ -8,7 +8,6 @@
     using Accounting.Contracts.Transactions;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Common.Storage;
     using Gaming.Contracts;
     using Services.Reporting;
@@ -70,39 +69,13 @@
             IGameHistoryLog log,
             BingoGameDescription bingoGame)
         {
-            var creditHandpayTransactions = GetCreditHandpays(log);
-            var gameTitleId = GetTitleId(changedEventArgs, bingoGame);
-            var denominationId = GetDenominationId(changedEventArgs, bingoGame);
-            var gameSerial = GetGameSerial(changedEventArgs, bingoGame);
-            var paytableId = GetPaytableId(changedEventArgs, bingoGame);
-            var handpayAmount = 0L;
-
-            foreach (var handpayTransaction in creditHandpayTransactions)
-            {
-                var amount = handpayTransaction.TransactionAmount;
-                _transactionQueue.AddNewTransactionToQueue(
-                    TransactionType.LargeWin,
-                    amount.MillicentsToCents(),
-                    gameTitleId,
-                    denominationId,
-                    gameSerial,
-                    paytableId,
-                    handpayTransaction.Barcode);
-                handpayAmount += amount;
-            }
-
-            var nonHandpaid = changedEventArgs.Amount - handpayAmount;
-            if (nonHandpaid > 0)
-            {
-                _transactionQueue.AddNewTransactionToQueue(
-                    TransactionType.CashWon,
-                    nonHandpaid.MillicentsToCents(),
-                    gameTitleId,
-                    denominationId,
-                    gameSerial,
-                    paytableId,
-                    string.Empty);
-            }
+            _transactionQueue.ReportEgmPaidTransactions(
+                GetCreditHandpays(log),
+                changedEventArgs.Amount,
+                GetTitleId(changedEventArgs, bingoGame),
+                GetDenominationId(changedEventArgs, bingoGame),
+                GetGameSerial(changedEventArgs, bingoGame),
+                GetPaytableId(changedEventArgs, bingoGame));
         }
 
         private IEnumerable<HandpayTransaction> GetCreditHandpays(IGameHistoryLog log)
