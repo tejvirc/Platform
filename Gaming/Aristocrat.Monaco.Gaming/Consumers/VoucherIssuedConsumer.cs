@@ -40,7 +40,7 @@
             {
                 _messageDisplay.DisplayMessage(
                     new DisplayableMessage(
-                        () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.VoucherIssued) + " " +
+                        () => Localizer.GetString(ResourceKeys.VoucherIssued, CultureProviderType.Player) + " " +
                               theEvent.Transaction.Amount.MillicentsToDollars().FormattedCurrencyString(),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Normal,

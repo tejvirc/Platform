@@ -1369,7 +1369,7 @@
         /// <summary>
         ///     Gets the active locale code.
         /// </summary>
-        public string ActiveLocaleCode => AvaliableLocales[LocaleCodeIndex];
+        public string ActiveLocaleCode => LocaleCodeIndex == -1 ? AvaliableLocales[0] : AvaliableLocales[LocaleCodeIndex];
 
         /// <summary>
         ///     Gets a value indicating whether to display the language toggle button, if there are only
@@ -1706,7 +1706,7 @@
             set => SetProperty(ref _isDisabledCountdownMessageSuppressed, value);
         }
 
-        public string PaidMeterLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaidMeterLabel);
+        public string PaidMeterLabel => Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaidMeterLabel);
 
         public ClockTimer ClockTimer { get; }
 
@@ -1815,7 +1815,7 @@
 
         private void InitializeLanguages()
         {
-            string defaultLocale = _playerCultureProvider.DefaultCulture.Name;
+            string defaultLocale = _playerCultureProvider.DefaultCulture?.Name;
 
             if (string.IsNullOrEmpty(defaultLocale))
             {
@@ -1964,7 +1964,7 @@
             var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
             if (string.IsNullOrWhiteSpace(IdleText))
             {
-                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault);
+                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.GetString(ResourceKeys.IdleTextDefault);
                 _properties.SetProperty(GamingConstants.IdleText, idleText);
             }
 

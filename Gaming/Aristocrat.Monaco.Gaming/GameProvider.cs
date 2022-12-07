@@ -22,6 +22,7 @@
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using Newtonsoft.Json;
@@ -1328,7 +1329,7 @@
                         _disableManager.Disable(
                             ApplicationConstants.NoGamesEnabledDisableKey,
                             SystemDisablePriority.Normal,
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AllGamesDisabled),
+                            () => Localizer.GetString(ResourceKeys.AllGamesDisabled, CultureProviderType.Player),
                             false);
                     }
                 }

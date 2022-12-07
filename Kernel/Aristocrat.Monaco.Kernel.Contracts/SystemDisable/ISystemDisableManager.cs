@@ -3,6 +3,8 @@ namespace Aristocrat.Monaco.Kernel
     using System;
     using System.Collections.Generic;
 
+    using Contracts.MessageDisplay;
+
     /// <summary>
     ///     Interface through which the XSpin system can be disabled and enabled for multiple,
     ///     simultaneous reasons.
@@ -90,6 +92,16 @@ namespace Aristocrat.Monaco.Kernel
         /// </summary>
         /// <param name="enableKey">The unique value that will later re-enable this disable.</param>
         /// <param name="priority">The priority of this need to disable.</param>
+        /// <param name="disableReasonResourceKey">Resource key of the disable reason</param>
+        /// <param name="providerType">The type of the message culture provider</param>
+        /// <param name="type">The type of the event that prompted this disable, if there is one</param>
+        void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, Type type = null);
+
+        /// <summary>
+        ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
+        /// </summary>
+        /// <param name="enableKey">The unique value that will later re-enable this disable.</param>
+        /// <param name="priority">The priority of this need to disable.</param>
         /// <param name="disableReason">A human readable reason for the disable</param>
         /// <param name="type">The type of the event that prompted this disable, if there is one</param>
         void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, Type type = null);
@@ -135,6 +147,7 @@ namespace Aristocrat.Monaco.Kernel
         /// <param name="affectsIdleState">true (the default) if this disable state affects the cabinet idle state.</param>
         /// <param name="type">The type of the event that prompted this disable, if there is one</param>
         /// <param name="helpText">A human readable string that contains the reason of the lockup and general guidelines on how to clear it.</param>
+        /// <param name="messageResourceKey">The message resource key of the disable reason</param>
         void Disable(
             Guid enableKey,
             SystemDisablePriority priority,
@@ -142,12 +155,21 @@ namespace Aristocrat.Monaco.Kernel
             TimeSpan duration,
             bool affectsIdleState,
             Type type = null,
-            Func<string> helpText = null);
+            Func<string> helpText = null,
+            string messageResourceKey = null);
 
         /// <summary>
         ///     Clears an existing disable reason.  If this was the only reason to disable, the system will be enabled.
         /// </summary>
         /// <param name="enableKey">The unique key previously provided for a disable.</param>
         void Enable(Guid enableKey);
+
+        /// <summary>
+        ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
+        /// </summary>
+        /// <param name="enableKey">The unique value that will later re-enable this disable.</param>
+        /// <param name="priority">The priority of this need to disable.</param>
+        /// <param name="displayableMessage">A IDisplayableMessage object for the disable</param>
+        void Disable(Guid enableKey, SystemDisablePriority priority, IDisplayableMessage displayableMessage);
     }
 }

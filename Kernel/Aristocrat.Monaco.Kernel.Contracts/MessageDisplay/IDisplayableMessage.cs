@@ -27,7 +27,12 @@
         /// </summary>
         DisplayableMessagePriority Priority { get; }
 
-        /// <summary>   
+        /// <summary>
+        ///     Gets the message culture provider
+        /// </summary>
+        CultureProviderType CultureProvider { get; }
+
+        /// <summary>
         ///     Gets the event that was the reason for this message
         /// </summary>
         Type ReasonEvent { get; }
@@ -48,6 +53,11 @@
         ///     Gets or sets the message callback, according to the specified culture provider name.
         /// </summary>
         Func<string> MessageCallback { get; set; }
+
+        /// <summary>
+        ///     The resource key of the message
+        /// </summary>
+        string MessageResourceKey { get; set; }
 
         /// <summary>
         /// IsMessageEquivalent checks to see if the IDisplayableMessage if the fields of the passed in IDisplayableMessage are

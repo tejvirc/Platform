@@ -7,12 +7,13 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
+    using Contracts.Localization;
+    using Hardware.Contracts.Cabinet;
     using Common;
     using Contracts;
     using Contracts.EKey;
-    using Contracts.Localization;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
     using SmartCard;
@@ -221,7 +222,7 @@
                 _disableManager.Disable(
                     ApplicationConstants.EKeyVerifiedDisableKey,
                     SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EKeyDetected));
+                    () => Localizer.GetString(ResourceKeys.EKeyDetected, CultureProviderType.Player));
             }
             else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.EKeyVerifiedDisableKey))
             {

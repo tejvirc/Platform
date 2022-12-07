@@ -28,7 +28,7 @@ namespace Aristocrat.Monaco.Application
                     ApplicationConstants.DisabledByOperatorText, string.Empty);
                 if (disabledMessage == string.Empty)
                 {
-                    disabledMessage = Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutOfService);
+                    disabledMessage = OutOfServiceMessage;
                 }
                 return disabledMessage;
             }
@@ -51,6 +51,9 @@ namespace Aristocrat.Monaco.Application
                 }
             }
         }
+
+        private static string OutOfServiceMessage => Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutOfService);
+
 
         /// <inheritdoc />
         public void Enable()
@@ -120,7 +123,7 @@ namespace Aristocrat.Monaco.Application
         private void DoDisable(Func<string> disableReason)
         {
             if (DisabledByOperatorMessage != string.Empty && disableReason.Invoke().Equals(
-                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutOfService)))
+                    OutOfServiceMessage))
             {
                 disableReason = () => DisabledByOperatorMessage;
             }

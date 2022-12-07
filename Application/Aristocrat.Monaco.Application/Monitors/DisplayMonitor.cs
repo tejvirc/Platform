@@ -17,6 +17,7 @@
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.Touch;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -146,7 +147,7 @@
                     _ => _disableManager.Disable(
                         ApplicationConstants.DisplayDisconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisplayDisconnected))
+                        () => Localizer.GetString(ResourceKeys.DisplayDisconnected))
                 );
 
                 CheckDevicesCount();
@@ -342,7 +343,7 @@
                     _disableManager.Disable(
                         ApplicationConstants.TouchDisplayReconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchDisplayReconnected));
+                        () => Localizer.GetString(ResourceKeys.TouchDisplayReconnected));
                 }
                 // TouchDisplayDisconnected lockup is enabled when any touch displays are disconnected.
                 else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.TouchDisplayReconnectedLockupKey) && !allConnected)
@@ -444,7 +445,7 @@
                 _disableManager.Disable(
                     disableKey,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(resource));
+                    () => Localizer.GetString(resource));
             }
         }
 

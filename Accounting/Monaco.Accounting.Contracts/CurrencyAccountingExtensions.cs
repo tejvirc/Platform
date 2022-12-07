@@ -21,7 +21,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts
                     return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PendingText);
 
                 case CurrencyState.Accepting:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AcceptingText);
+                    return Localizer.For(CultureFor.Player).GetString(ResourceKeys.AcceptingText);
 
                 case CurrencyState.Accepted:
                     return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AcceptedText);

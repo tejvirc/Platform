@@ -6,9 +6,10 @@ namespace Aristocrat.Monaco.Kernel
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using MessageDisplay;
     using Contracts.MessageDisplay;
     using log4net;
+    using MessageDisplay;
+    using Mono.Addins.Localization;
 
     /// <summary>
     ///     Definition of the SystemDisableManager class. This class handles matching system disable/enable commands.
@@ -141,6 +142,13 @@ namespace Aristocrat.Monaco.Kernel
         }
 
         /// <inheritdoc />
+        public void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, Type type = null)
+        {
+            var translationService = ServiceManager.GetInstance().GetService<ITranslationService>();
+            Disable(enableKey, priority,  () => translationService.GetString(disableReasonResourceKey, providerType), TimeSpan.Zero, true, type, null, disableReasonResourceKey);
+        }
+
+        /// <inheritdoc />
         public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, Type type = null)
         {
             Disable(enableKey, priority, disableReason, duration, true, type);
@@ -153,7 +161,7 @@ namespace Aristocrat.Monaco.Kernel
         }
 
         /// <inheritdoc />
-        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, bool affectsIdleState, Type type = null, Func<string> helpText = null)
+        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, bool affectsIdleState, Type type = null, Func<string> helpText = null, string messageResourceKey = null)
         {
             _stateLock.EnterWriteLock();
             try
@@ -169,7 +177,7 @@ namespace Aristocrat.Monaco.Kernel
                     _systemDisables[enableKey] = CreateDisableItem(
                         enableKey,
                         priority,
-                        disableReason,
+                        () => disableReason?.Invoke(),
                         affectsIdleState,
                         duration);
 
@@ -186,7 +194,7 @@ namespace Aristocrat.Monaco.Kernel
 
                     _systemDisables.Add(
                         enableKey,
-                        CreateDisableItem(enableKey, priority, disableReason, affectsIdleState, duration));
+                        CreateDisableItem(enableKey, priority, () => disableReason.Invoke(), affectsIdleState, duration));
 
                     PostEvent(
                         new SystemDisableAddedEvent(
@@ -225,6 +233,23 @@ namespace Aristocrat.Monaco.Kernel
                     helpText);
 
                 _messageDisplay.DisplayMessage(message);
+            }
+        }
+
+        /// <inheritdoc />
+        public void Disable(Guid guid, SystemDisablePriority disablePriority, IDisplayableMessage displayableMessage)
+        {
+            if (displayableMessage.MessageResourceKey != null)
+            {
+                Disable(guid, disablePriority, displayableMessage.MessageResourceKey, displayableMessage.CultureProvider);
+            }
+            else if (displayableMessage.MessageCallback != null)
+            {
+                Disable(guid, disablePriority, displayableMessage.MessageCallback);
+            }
+            else
+            {
+                throw new Exception("Invalid displayable message.");
             }
         }
 

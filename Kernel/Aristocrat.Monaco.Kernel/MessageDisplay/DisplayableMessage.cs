@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Kernel.MessageDisplay
 {
-    
     using System;
     using System.Globalization;
     using System.Runtime.Serialization;
@@ -32,6 +31,33 @@
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="messageResourceKey"></param>
+        /// <param name="providerType"></param>
+        /// <param name="classification"></param>
+        /// <param name="priority"></param>
+        /// <param name="id"></param>
+        /// <param name="helpText"></param>
+        public DisplayableMessage(
+            string messageResourceKey,
+            CultureProviderType providerType,
+            DisplayableMessageClassification classification,
+            DisplayableMessagePriority priority,
+            Guid? id = null,
+            Func<string> helpText = null)
+        {
+            MessageResourceKey = messageResourceKey;
+            CultureProvider = providerType;
+            HelpTextCallback = helpText;
+            Classification = classification;
+            Priority = priority;
+            ReasonEvent = null;
+            Id = id ?? Guid.NewGuid();
+            MessageHasDynamicGuid = !id.HasValue;
+        }
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="DisplayableMessage" /> class.
         /// </summary>
         /// <param name="message">The message text to display, the result message depends on the specified name of the culture provider(PlayerCultureProvider|OperatorCultureProvider).</param>
@@ -51,9 +77,9 @@
             if (message != null)
             {
                 MessageCallback = message;
-                message();
             }
 
+            CultureProvider = CultureProviderType.Operator;
             HelpTextCallback = helpText;
             Classification = classification;
             Priority = priority;
@@ -86,7 +112,22 @@
         }
 
         /// <inheritdoc />
-        public string Message => MessageCallback != null ? MessageCallback.Invoke() : throw new Exception("Message callbacks are not initialized.");
+        public string Message
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(MessageResourceKey))
+                {
+                    var translationService = ServiceManager.GetInstance().GetService<ITranslationService>();
+                    return translationService.GetString(MessageResourceKey, CultureProvider);
+                }
+
+                return MessageCallback != null ? MessageCallback.Invoke() : throw new Exception("Message callbacks are not initialized.");
+            }
+        }
+
+        /// <inheritdoc />
+        public string MessageResourceKey { get; set; }
 
         /// <inheritdoc />
         public Func<string> MessageCallback { get; set; }
@@ -107,6 +148,9 @@
 
         /// <inheritdoc />
         public Type ReasonEvent { get; }
+
+        /// <inheritdoc />
+        public CultureProviderType CultureProvider { get; }
 
         /// <inheritdoc />
         public Guid Id { get; }

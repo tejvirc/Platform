@@ -15,6 +15,7 @@
     using FMOD;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
 
     /// <summary>
@@ -545,7 +546,8 @@
             _disableManager.Disable(
                 AudioDisconnectedLock,
                 SystemDisablePriority.Immediate,
-                () => Properties.Resources.AudioDisconnect);
+                "AudioDisconnect",
+                CultureProviderType.Player);
         }
 
         private void PollingTimerOnElapsed(object sender, ElapsedEventArgs e)

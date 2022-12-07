@@ -1029,6 +1029,10 @@ IF TIME RUNS OUT, all manual selections will be cleared and picks will be random
   <data name="OperatorResetRequiredMessage" xml:space="preserve">
     <value>#中Operator Reset Required#</value>
   </data>
+  <data name="PaidMeterLabel" xml:space="preserve">
+    <value>#中PAID:#</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
   <data name="PlayerCardMustBeInserted" xml:space="preserve">
     <value>#中Player Card Must Be Inserted#</value>
   </data>

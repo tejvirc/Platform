@@ -21,6 +21,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     public class HandpayProvider : TransferOutProviderBase, IHandpayProvider, IDisposable
@@ -936,7 +937,7 @@
                         (transaction.WinAmount() / divisor).FormattedCurrencyString());
             }
 
-            return Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.CancelCreditPending);
+            return Localizer.GetString(ResourceKeys.CancelCreditPending, CultureProviderType.Player);
         }
 
         private string GetHelpTip(HandpayTransaction transaction)

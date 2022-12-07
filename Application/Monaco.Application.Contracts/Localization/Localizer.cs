@@ -1,41 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.Localization
 {
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
 
     /// <summary>
     ///     Provides convenience methods for localization services.
     /// </summary>
     public static class Localizer
     {
-        /// <summary>
-        /// The type of culture provider
-        /// </summary>
-        public enum CultureProviderType
-        {
-            /// <summary>
-            ///     Used to get current culture for operator.
-            /// </summary>
-            Operator = 0,
-            /// <summary>
-            ///     Used to target the operator culture provider.
-            /// </summary>
-            OperatorTicket = 1,
-            /// <summary>
-            ///     Used to target the player culture provider.
-            /// </summary>
-            Player = 2,
-
-            /// <summary>
-            ///     Used to target the player ticket culture provider.
-            /// </summary>
-            PlayerTicket = 3,
-
-            /// <summary>
-            ///     Used to target the currency culture provider.
-            /// </summary>
-            Currency = 4
-    }
-
         private static ILocalizerFactory _factory;
 
         /// <summary>
