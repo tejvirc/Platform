@@ -555,6 +555,12 @@
             if (CurrentState != LobbyState.Disabled &&
                 bonusEvent.Transaction.Mode != BonusMode.GameWin)
             {
+                if (bonusEvent.Transaction.Protocol == CommsProtocol.SAS)
+                {
+                    CashInStarted(CashInType.Wat, false);
+                    return;
+                }
+
                 CashInStarted(CashInType.Wat);
             }
 
