@@ -266,7 +266,7 @@
                 },
                 (key, data) =>
                 {
-                    data.Levels.Add(progressive.LevelId, LevelCount);
+                    data.Levels[progressive.LevelId] = LevelCount;
                     return data;
                 });
         }
