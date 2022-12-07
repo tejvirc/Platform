@@ -31,6 +31,7 @@
         public static Container AddInternalServices(this Container container)
         {
             container.RegisterSingleton<IClientConfigurationProvider, BingoClientConfigurationProvider>();
+            container.RegisterSingleton<INetworkInformationProvider, NetworkInformationProvider>();
             return container
                 .SetupBingoGamePlay()
                 .SetupCommandHandlers()
