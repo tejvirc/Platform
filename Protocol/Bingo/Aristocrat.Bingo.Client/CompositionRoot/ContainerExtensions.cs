@@ -48,8 +48,10 @@
             container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
 
             container.RegisterSingleton<BingoClientInterceptor>();
+            container.RegisterSingleton<ProgressiveClientInterceptor>();
             container.RegisterSingleton<IRegistrationService, RegistrationService>();
             container.RegisterSingleton<IAuthorizationProvider, BingoAuthorizationProvider>();
+            container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
 
             var command = Lifestyle.Singleton.CreateRegistration<CommandService>(container);
             container.AddRegistration<ICommandService>(command);

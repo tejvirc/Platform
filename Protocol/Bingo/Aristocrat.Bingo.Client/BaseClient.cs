@@ -13,7 +13,7 @@
     {
         protected readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         protected readonly IClientConfigurationProvider ConfigurationProvider;
-        protected readonly BingoClientInterceptor CommunicationInterceptor;
+        protected readonly BaseClientInterceptor CommunicationInterceptor;
 
         private readonly object _clientLock = new();
         private Channel _channel;
@@ -22,7 +22,7 @@
 
         protected BaseClient(
             IClientConfigurationProvider configurationProvider,
-            BingoClientInterceptor communicationInterceptor)
+            BaseClientInterceptor communicationInterceptor)
         {
             ConfigurationProvider =
                 configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));

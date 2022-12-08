@@ -11,7 +11,7 @@
     {
         public ProgressiveClient(
             IClientConfigurationProvider configurationProvider,
-            BingoClientInterceptor communicationInterceptor)
+            ProgressiveClientInterceptor communicationInterceptor)
             : base(configurationProvider, communicationInterceptor)
         {
         }
