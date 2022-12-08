@@ -230,11 +230,11 @@
                     Command="{Binding ShowGameMetersCommand}"
                     Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameTransactions}}"
-                    IsEnabled="{Binding IsHistoryItemSelected}"
+                    IsEnabled="{Binding IsGameRoundComplete}"
                     Command="{Binding ShowGameTransactionsCommand}"
                     Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameEventLogs}}"
-                    IsEnabled="{Binding IsHistoryItemSelected}"
+                    IsEnabled="{Binding IsGameRoundComplete}"
                     Command="{Binding ShowGameEventLogsCommand}"
                     Visibility="{Binding ShowGameEventLogsButton, Converter={StaticResource BoolToVisConverter}}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameDetailsText}}"

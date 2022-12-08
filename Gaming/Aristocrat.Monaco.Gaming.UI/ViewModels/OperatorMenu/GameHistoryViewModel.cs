@@ -73,7 +73,7 @@
         private bool _replayPauseEnabled;
         private bool _replayPauseActive;
         private ObservableCollection<string> _selectedGameRoundTextList;
-        
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistoryViewModel" /> class.
         /// </summary>
@@ -264,7 +264,7 @@
                                               GamingConstants.AdditionalInfoGameInProgress,
                                               false) &&
                                           IsReelControllerAvailable();
-    
+
         public bool IsGameRoundComplete => SelectedGameItem?.Status ==
                                            Localizer.For(CultureFor.Operator)
                                                .GetString(ResourceKeys.GameHistoryStatusComplete);
@@ -300,7 +300,8 @@
                 var gameHistoryItem = _gameLogs
                     .FirstOrDefault(g => g.LogSequence == SelectedGameItem.LogSequence);
 
-                return gameHistoryItem?.MeterSnapshots != null &&
+                return IsGameRoundComplete &&
+                       gameHistoryItem?.MeterSnapshots != null &&
                        gameHistoryItem.MeterSnapshots.Any();
             }
         }
