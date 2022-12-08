@@ -212,7 +212,7 @@
 
             if (disposing)
             {
-                _cts.Cancel(true);
+                _cts.Cancel();
 
                 if (_requeueTimer != null)
                 {
@@ -827,6 +827,11 @@
 
                 // Read current data
                 var result = await Task.WhenAny(portReadTask, queueTask);
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 if (result == portReadTask)
                 {
                     var data = await result;
@@ -854,23 +859,30 @@
 
         private async Task<byte[]> GetReceiveData(CancellationToken token)
         {
-            return await Task.Run(() => _transmitQueue?.Take(token) ?? Array.Empty<byte>(), token);
+            try
+            {
+                return await Task.Run(() => _transmitQueue?.Take(token) ?? Array.Empty<byte>(), token);
+            }
+            catch (Exception)
+            {
+                return Array.Empty<byte>();
+            }
         }
 
         private async Task<byte[]> HandlePortReads(CancellationToken token)
         {
-            return await Task.Run(() =>
+            try
             {
-                try
+                return await Task.Run(() =>
                 {
                     var data = (byte)_serialPortController.ReadByte();
                     return new[] { data };
-                }
-                catch (Exception e) when (e is IOException or TimeoutException or InvalidOperationException)
-                {
-                    return Array.Empty<byte>();
-                }
-            }, token);
+                }, token);
+            }
+            catch (Exception)
+            {
+                return Array.Empty<byte>();
+            }
         }
 
         private void ProcessReceiveQueue(CancellationToken token)
