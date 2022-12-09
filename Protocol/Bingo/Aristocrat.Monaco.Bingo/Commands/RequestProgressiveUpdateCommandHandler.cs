@@ -18,7 +18,7 @@
         /// <inheritdoc />
         public async Task Handle(ProgressiveUpdateRequestCommand command, CancellationToken token = default)
         {
-            var message = new ProgressiveUpdateRequestMessage();
+            var message = new ProgressiveUpdateRequestMessage(command.MachineSerial);
 
             await _progressiveService.ProgressiveUpdates(message, token);
         }

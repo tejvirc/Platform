@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Grpc.Core;
     using log4net;
     using Progressives;
     using ServerApiGateway;
@@ -16,7 +17,10 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IProgressiveAuthorizationProvider _authorization;
+        private bool _isRegistered;
         private bool _disposed;
+        private Thread _progressiveUpdateThread;
+        private AsyncDuplexStreamingCall<Progressive, ProgressiveUpdate> _progressiveUpdateStream;
 
         public ProgressiveService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
@@ -58,8 +62,15 @@
         {
             Logger.Debug("ProgressiveUpdates called");
 
-            using var caller = Invoke((x, c) => x.ProgressiveUpdates(null, null, token), token);
-            var responseStream = caller.ResponseStream;
+            _progressiveUpdateStream = Invoke((x, c) => x.ProgressiveUpdates(null, null, c), token);
+
+            if (!_isRegistered)
+            {
+                await _progressiveUpdateStream.RequestStream.WriteAsync(new Progressive { MachineSerial = message.MachineSerial });
+                _isRegistered = true;
+            }
+
+            var responseStream = _progressiveUpdateStream.ResponseStream;
             var results = new ProgressiveUpdateResults();
             if (await responseStream.MoveNext(token).ConfigureAwait(false))
             {
@@ -68,17 +79,29 @@
                 results.UpdateInfo.Add(data);
             }
 
-            // TODO example code uses a while loop
-            //while (await responseStream.MoveNext(token).ConfigureAwait(false))
-            //{
-            //    Logger.Debug($"SGL inside while loop, responseStream.Current={responseStream.Current}");
+            _progressiveUpdateThread = new Thread(MonitorProgressiveUpdateStream)
+            {
+                Priority = ThreadPriority.Lowest
+            };
+            _progressiveUpdateThread.Start();
 
-            //    var data = new ProgressiveUpdateInfo(responseStream.Current.NewValue, responseStream.Current.ProgressiveLevel);
-            //    Logger.Debug($"ProgressiveUpdateInfo, NewValue={data.NewValue}, progLevel={data.ProgressiveLevel}");
-            //    results.UpdateInfo.Add(data);
-            //}
-
+            // TODO just return bool if using thread
             return results;
+        }
+
+        private async void MonitorProgressiveUpdateStream()
+        {
+            Logger.Debug("MonitorProgressiveUpdateStream thread started");
+
+            var responseStream = _progressiveUpdateStream.ResponseStream;
+            var token = new CancellationToken();
+
+            while (await responseStream.MoveNext(token).ConfigureAwait(false))
+            {
+                Logger.Debug($"Publishing ProgressiveUpdate, NewValue={responseStream.Current.NewValue}, ProgLevel={responseStream.Current.ProgressiveLevel}");
+                var progressiveUpdate = new ProgressiveUpdate { ProgressiveLevel = responseStream.Current.ProgressiveLevel, NewValue = responseStream.Current.NewValue };
+                // TODO how do I send this message to the system? event bus not seen here.
+            }
         }
 
         public void Dispose()
@@ -96,6 +119,7 @@
 
             if (disposing)
             {
+                _progressiveUpdateThread.Abort();
                 _authorization.AuthorizationData = null;
             }
 

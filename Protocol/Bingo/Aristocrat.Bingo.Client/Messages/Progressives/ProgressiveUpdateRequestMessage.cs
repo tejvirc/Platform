@@ -5,5 +5,11 @@
     /// </summary>
     public class ProgressiveUpdateRequestMessage : IMessage
     {
+        public ProgressiveUpdateRequestMessage(string machineSerial)
+        {
+            MachineSerial = machineSerial;
+        }
+
+        public string MachineSerial { get; }
     }
 }

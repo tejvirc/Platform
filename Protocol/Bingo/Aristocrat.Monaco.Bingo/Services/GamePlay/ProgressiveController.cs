@@ -240,11 +240,15 @@
             {
                 var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
 
+                Logger.Debug($"Execute command  ProgressiveInfoRequestCommand, machineSerial = {machineSerial}");
+
                 // TODO testing progressive info request command here. May need to move this to another location in code.
-                await _commandFactory.Execute(new ProgressiveInfoRequestCommand(machineSerial, 1));
+                await _commandFactory.Execute(new ProgressiveInfoRequestCommand(machineSerial, 1)).ConfigureAwait(false);
+
+                Logger.Debug($"Execute command  ProgressiveUpdateRequestCommand, machineSerial = {machineSerial}");
 
                 // TODO testing progressive update command here. Need to create a progressive update handler or service.
-                await _commandFactory.Execute(new ProgressiveUpdateRequestCommand());
+                await _commandFactory.Execute(new ProgressiveUpdateRequestCommand(machineSerial)).ConfigureAwait(false);
             }
         }
 
