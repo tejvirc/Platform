@@ -34,14 +34,7 @@
 
             using (var reader = XmlReader.Create(file, settings))
             {
-                var serializer = Serializers.GetOrAdd(typeof(T), t =>
-                {
-                    var theXmlRootAttribute = Attribute.GetCustomAttributes(t.GetType())
-                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
-                    var serializer = new XmlSerializer(t.GetType(), theXmlRootAttribute ?? new XmlRootAttribute(t.GetType().Name));
-                    return serializer;
-                });
-
+                var serializer = Serializers.GetOrAdd(typeof(T), t => new XmlSerializer(t));
                 return (T)serializer.Deserialize(reader);
             }
         }
@@ -53,22 +46,14 @@
         /// <typeparam name="T">The type to deserialize into</typeparam>
         /// <returns>An instance of T</returns>
         /// <exception cref="ArgumentNullException">Thrown if file is null or empty</exception>
-        public static T Parse<T>(Stream stream)
-            where T : class
+        public static T Parse<T>(Stream stream) where T : class
         {
             if (stream == null)
             {
                 throw new ArgumentNullException(nameof(stream));
             }
 
-            var serializer = Serializers.GetOrAdd(typeof(T), t =>
-            {
-                var theXmlRootAttribute = Attribute.GetCustomAttributes(t.GetType())
-                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
-                var serializer = new XmlSerializer(t.GetType(), theXmlRootAttribute ?? new XmlRootAttribute(t.GetType().Name));
-                return serializer;
-            });
-
+            var serializer = Serializers.GetOrAdd(typeof(T), t => new XmlSerializer(t));
             return (T)serializer.Deserialize(stream);
         }
     }
