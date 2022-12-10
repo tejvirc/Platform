@@ -48,7 +48,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private readonly IPropertiesManager _propertiesManager;
         private ITimer _playingTimer;
         private SoundFileViewModel _sound;
-        private VolumeLevel _soundLevel;
+        private byte _soundLevel;
         private readonly SpeakerMix _enabledSpeakersMask;
         private bool IsAudioServiceAvailable => _audio != null;
         private IInspectionService _reporter;
@@ -106,7 +106,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private void LoadVolumeSettings()
         {
             // Load default volume level
-            _soundLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
             OnPropertyChanged(nameof(SoundLevel));
         }
@@ -180,7 +180,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
         }
 
-        public VolumeLevel SoundLevel
+        public byte SoundLevel
         {
             get => _soundLevel;
 

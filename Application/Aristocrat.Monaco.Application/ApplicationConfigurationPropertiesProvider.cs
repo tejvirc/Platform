@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Aristocrat.Monaco.Hardware.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.Cabinet;
@@ -141,6 +143,8 @@
                     ApplicationConstants.ReserveServiceLockupRemainingSeconds,
                     0);
             }
+
+
 
             // The Tuple is structured as value (Item1), Key (Item2), IsPersistent (Item3)
             _properties = new Dictionary<string, Tuple<object, string, bool>>
@@ -851,6 +855,25 @@
                         false));
             }
 
+            if (configuration.MasterVolumeSettings != null)
+            {
+                _properties.Add(HardwareConstants.VolumePreset,
+                    Tuple.Create(
+                        (object)LoadVolumeLevel(configuration.MasterVolumeSettings),
+                        HardwareConstants.VolumePreset,
+                        false));
+            }
+
+            if (configuration.VolumeScalarSettings != null)
+            {
+                _properties.Add(HardwareConstants.VolumeScalarPreset,
+                    Tuple.Create(
+                        (object)LoadVolumeScalar(configuration.VolumeScalarSettings),
+                        HardwareConstants.VolumeScalarPreset,
+                        false));
+            }
+
+
             SetPrinterLineLimits(configuration.AuditTicket);
 
             propertiesManager.AddPropertyProvider(this);
@@ -860,6 +883,27 @@
                 machineSettingsImported |= ImportMachineSettings.ApplicationConfigurationPropertiesLoaded;
                 propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);
             }
+        }
+
+        private Dictionary<byte, Tuple<string,float>> LoadVolumeLevel(ApplicationConfigurationVolumeNode[] masterVolumeSettings)
+        {
+            var result = new Dictionary<byte, Tuple<string,float>>();
+            foreach (var i in masterVolumeSettings)
+            {
+                result.Add(i.Key, new Tuple<string, float>(i.Description, i.Value));    
+            }
+            return result;
+        }
+
+        private Dictionary<VolumeScalar, float> LoadVolumeScalar(ApplicationConfigurationScalar[] VolumeScalarSettings)
+        {
+            var result = new Dictionary<VolumeScalar, float>();
+            var scalars = VolumeScalarSettings.OrderBy(s => s.Value).ToArray();
+            for(var i= 0; i < scalars.Length; i++)
+            {
+                result.Add((VolumeScalar)(i+1),scalars[i].Value);
+            }
+            return result; 
         }
 
         /// <inheritdoc />

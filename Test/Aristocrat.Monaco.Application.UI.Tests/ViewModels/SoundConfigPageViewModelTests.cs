@@ -124,7 +124,7 @@
         [TestMethod]
         public void WhenConfigurationSelectExpectSuccess()
         {
-            var soundLevel = VolumeLevel.Low;
+            byte soundLevel = 1;
             _propertiesManagerMock.Setup(m => m.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)soundLevel, true)).Verifiable();
 
             var page = new Page();
