@@ -93,4 +93,19 @@ as follows:
     <string>Progressive</string>
   </LogTypesAllowedForDisplay>
   <MultiGame DefaultBetAfterSwitch="false" />
+		<MasterVolumeSettings>
+			<VolumeNode Key="1" Description="Low" Value="10" />
+            <VolumeNode Key="2" Description="Medium Low" Value="20" />
+            <VolumeNode Key="3" Description="Medium" Value="40" />
+            <VolumeNode Key="4" Description="Medium High" Value="60" />
+            <VolumeNode Key="5" Description="High" Value="80" />
+            <VolumeNode Key="6" Description="Extra Extra High" Value="99" />
+        </MasterVolumeSettings>
+		<VolumeScalarSettings>
+			<Scalar Value="0.21" />
+			<Scalar Value="0.43" />
+			<Scalar Value="0.64" />
+			<Scalar Value="0.8" />
+			<Scalar Value="1" />
+		</VolumeScalarSettings>
 </ApplicationConfiguration>

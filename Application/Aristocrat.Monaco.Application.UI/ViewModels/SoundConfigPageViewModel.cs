@@ -1,7 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
+    using Aristocrat.Monaco.UI.Common.Extensions;
+    using Aristocrat.Monaco.UI.Common.Markup;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -27,7 +31,7 @@
         private readonly IAudio _audio;
         private readonly ISystemDisableManager _disableManager;
 
-        private VolumeLevel _soundLevel;
+        private byte _soundLevel;
         private byte _alertVolume;
         private byte _alertMinimumVolume;
         private string _infoText;
@@ -39,6 +43,7 @@
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
             SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
+            SoundLevelConfigurationParser(_audio.SoundLevelCollection);
         }
 
         private void LoadVolumeSettings()
@@ -67,12 +72,23 @@
             RaisePropertyChanged(nameof(IsAlertConfigurable));
 
             // Load default volume level
-            _soundLevel = (VolumeLevel)PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
             RaisePropertyChanged(nameof(SoundLevel));
         }
 
         public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
+
+        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection { get; } = new();
+        private void SoundLevelConfigurationParser(IEnumerable<Tuple<byte,string>> enumValues)
+        {
+            SoundLevelConfigCollection.Clear();
+            foreach (var level in enumValues)
+            {
+                SoundLevelConfigCollection.Add(new EnumerationExtension.EnumerationMember()
+                    {Description = level.Item2, Value = level.Item1});
+            }
+        }
 
         private bool IsSystemDisabled =>
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioDisconnectedLockKey) ||
@@ -111,7 +127,7 @@
                  Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SoundTest));
         }
 
-        public VolumeLevel SoundLevel
+        public byte SoundLevel
         {
             get => _soundLevel;
 

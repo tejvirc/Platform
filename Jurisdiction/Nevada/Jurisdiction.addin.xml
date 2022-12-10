@@ -53,7 +53,7 @@
 	  <ExtensionPointConfiguration extensionPath="/Audio/VolumeSettingConfiguration">
 		<NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaVolumeSettingConfig" />
 	  </ExtensionPointConfiguration>
-		<ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+  	  <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaAccountingConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
@@ -146,8 +146,8 @@
   </Extension>
   <Extension path="/Audio/VolumeSettingConfiguration">
 	<FilePath FilePath="..\jurisdiction\Nevada\VolumeSetting.config.xml" filterid="NevadaVolumeSettingConfig" />
- </Extension>
-	<Extension path="/Accounting/Configuration">
+  </Extension>
+  <Extension path="/Accounting/Configuration">
     <FilePath FilePath="..\jurisdiction\Nevada\Accounting.config.xml" filterid="NevadaAccountingConfig" />
   </Extension>
   <Extension path="/Application/JurisdictionConfiguration">

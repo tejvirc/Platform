@@ -17,7 +17,7 @@
     public class VolumeSettingPropertiesProvider : IPropertyProvider
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly Dictionary<string, Tuple<object, bool>> _properties;
+        private readonly Dictionary<string, Tuple<object, bool>> _properties=new Dictionary<string, Tuple<object, bool>>();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfiguredAddinsPropertiesProvider" /> class.
@@ -29,14 +29,14 @@
             if (configVolumeSettings == null)
                 return;
 
-            var _volumePresets = LoadVolumeLevel(configVolumeSettings.MasterVolumeSettings);
-            var _volumeScalarPresets=LoadVolumeScalar(configVolumeSettings.VolumeScalarSettings);
+            //var _volumePresets = LoadVolumeLevel(configVolumeSettings.MasterVolumeSettings);
+            //var _volumeScalarPresets=LoadVolumeScalar(configVolumeSettings.VolumeScalarSettings);
 
-            _properties = new Dictionary<string, Tuple<object, bool>>
-            {
-                { HardwareConstants.VolumePreset, Tuple.Create((object)_volumePresets,false) },
-                { HardwareConstants.VolumeScalarPreset, Tuple.Create((object)_volumeScalarPresets,false) },
-            };
+            //_properties = new Dictionary<string, Tuple<object, bool>>
+            //{
+            //    { HardwareConstants.VolumePreset, Tuple.Create((object)_volumePresets,false) },
+            //    { HardwareConstants.VolumeScalarPreset, Tuple.Create((object)_volumeScalarPresets,false) },
+            //};
         }
 
 
@@ -45,36 +45,36 @@
             var result = new Dictionary<VolumeLevel, float>();
             foreach (var i in masterVolumeSettings)
             {
-                VolumeLevel level;
+                //VolumeLevel level;
 
-                switch (i.Key)
-                {
-                    case VolumeLevelSetting.ExtraLow:
-                        level = VolumeLevel.ExtraLow;
-                        break;
-                    case VolumeLevelSetting.Low:
-                        level = VolumeLevel.Low;
-                        break;
-                    case VolumeLevelSetting.MediumLow:
-                        level = VolumeLevel.MediumLow;
-                        break;
-                    case VolumeLevelSetting.Medium:
-                        level = VolumeLevel.Medium;
-                        break;
-                    case VolumeLevelSetting.MediumHigh:
-                        level = VolumeLevel.MediumHigh;
-                        break;
-                    case VolumeLevelSetting.High:
-                        level = VolumeLevel.High;
-                        break;
-                    case VolumeLevelSetting.ExtraHigh:
-                        level = VolumeLevel.ExtraHigh;
-                        break;
-                    default:
-                        throw new Exception("Unkown volume level!");
-                }
+                //switch (i.Key)
+                //{
+                    //case VolumeLevelSetting.ExtraLow:
+                    //    level = VolumeLevel.ExtraLow;
+                    //    break;
+                    //case VolumeLevelSetting.Low:
+                    //    level = VolumeLevel.Low;
+                    //    break;
+                    //case VolumeLevelSetting.MediumLow:
+                    //    level = VolumeLevel.MediumLow;
+                    //    break;
+                    //case VolumeLevelSetting.Medium:
+                    //    level = VolumeLevel.Medium;
+                    //    break;
+                    //case VolumeLevelSetting.MediumHigh:
+                    //    level = VolumeLevel.MediumHigh;
+                    //    break;
+                    //case VolumeLevelSetting.High:
+                    //    level = VolumeLevel.High;
+                    //    break;
+                    //case VolumeLevelSetting.ExtraHigh:
+                    //    level = VolumeLevel.ExtraHigh;
+                    //    break;
+                    //default:
+                    //    throw new Exception("Unkown volume level!");
+                //}
 
-                result.Add(level, i.Value);
+                //result.Add(level, i.Value);
             }
             return result;
         }
@@ -84,30 +84,30 @@
             var result = new Dictionary<VolumeScalar, float>();
             foreach (var i in VolumeScalarSettings)
             {
-                VolumeScalar scalar;
+                //VolumeScalar scalar;
 
                 switch (i.Key)
                 {
-                    case VolumeScalarSetting.Scalar20:
-                        scalar = VolumeScalar.Scale20;
-                        break;
-                    case VolumeScalarSetting.Scalar40:
-                        scalar = VolumeScalar.Scale40;
-                        break;
-                    case VolumeScalarSetting.Scalar60:
-                        scalar = VolumeScalar.Scale60;
-                        break;
-                    case VolumeScalarSetting.Scalar80:
-                        scalar = VolumeScalar.Scale80;
-                        break;
-                    case VolumeScalarSetting.Scalar100:
-                        scalar = VolumeScalar.Scale100;
-                        break;
+                    //case VolumeScalarSetting.Scalar20:
+                    //    scalar = VolumeScalar.Scale20;
+                    //    break;
+                    //case VolumeScalarSetting.Scalar40:
+                    //    scalar = VolumeScalar.Scale40;
+                    //    break;
+                    //case VolumeScalarSetting.Scalar60:
+                    //    scalar = VolumeScalar.Scale60;
+                    //    break;
+                    //case VolumeScalarSetting.Scalar80:
+                    //    scalar = VolumeScalar.Scale80;
+                    //    break;
+                    //case VolumeScalarSetting.Scalar100:
+                    //    scalar = VolumeScalar.Scale100;
+                    //    break;
                     default:
                         throw new Exception("Unkown volume scalar!");
                 }
 
-                result.Add(scalar, i.Value);
+                //result.Add(scalar, i.Value);
             }
             return result;
         }

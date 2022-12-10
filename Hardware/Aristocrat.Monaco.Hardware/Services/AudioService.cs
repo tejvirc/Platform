@@ -39,22 +39,20 @@
 
         private readonly Dictionary<VolumeScalar, float> _volumeScalars = new Dictionary<VolumeScalar, float>
         {
-            { VolumeScalar.Scale20, 0.100f },
-            { VolumeScalar.Scale40, 0.177f },
-            { VolumeScalar.Scale60, 0.316f },
-            { VolumeScalar.Scale80, 0.562f },
-            { VolumeScalar.Scale100, 1.000f }
+            { VolumeScalar.Scale20, 0.32f },
+            { VolumeScalar.Scale40, 0.49f },
+            { VolumeScalar.Scale60, 0.67f },
+            { VolumeScalar.Scale80, 0.80f },
+            { VolumeScalar.Scale100, 1.00f }
         };
 
-        private readonly Dictionary<VolumeLevel, float> _volumePresets = new Dictionary<VolumeLevel, float>
+        private readonly Dictionary<byte, Tuple<string, float>> _volumePresets = new Dictionary<byte, Tuple<string, float>>
         {
-            { VolumeLevel.ExtraLow, 1.5f },
-            { VolumeLevel.Low, 3.0f },
-            { VolumeLevel.MediumLow, 6.0f },
-            { VolumeLevel.Medium, 12.0f },
-            { VolumeLevel.MediumHigh, 24.0f },
-            { VolumeLevel.High, 48.0f },
-            { VolumeLevel.ExtraHigh, 96.0f }
+            { 1, new Tuple<string,float>( "Low", 36.0f) },
+            { 2, new Tuple<string,float>( "MediumLow", 43.0f) },
+            { 3, new Tuple<string,float>( "Medium", 53.0f) },
+            { 4, new Tuple<string,float>( "MediumHigh", 65.0f) },
+            { 5, new Tuple<string,float>( "High", 83.0f) },
         };
 
         private Channel _channel;
@@ -218,29 +216,44 @@
         /// <inheritdoc />
         public float GetDefaultVolume()
         {
-            var preset = (VolumeLevel)_properties.GetValue(PropertyKey.DefaultVolumeLevel, (byte)VolumeLevel.Low);
+            var preset = _properties.GetValue(PropertyKey.DefaultVolumeLevel, (byte)1);
             return GetVolume(preset);
         }
 
         /// <inheritdoc />
-        public float GetVolume(VolumeLevel preset)
+        public float GetVolume(byte preset)
         {
             var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+            return volumePresets.TryGetValue(preset, out var volume) ? volume.Item2 : 1.0f;
+        }
 
-            return volumePresets.TryGetValue(preset, out var volume) ? volume : 1.0f;
+        /// <inheritdoc />
+        public string GetVolumeDescription(byte preset)
+        {
+            var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+            return volumePresets.TryGetValue(preset, out var volume) ? volume.Item1 : throw new Exception("Invalid Volume Level");
         }
 
         /// <inheritdoc />
         public float GetVolumeScalar(VolumeScalar preset)
         {
             var volumeScalars = _properties.GetValue(HardwareConstants.VolumeScalarPreset, _volumeScalars);
-
             return volumeScalars.TryGetValue(preset, out var volume) ? volume : 1.0f;
         }
 
         public IVolume GetVolumeControl(int processId)
         {
             return processId <= 0 ? null : new Volume(processId);
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<Tuple<byte,string>> SoundLevelCollection
+        {
+            get
+            {
+                var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+                return volumePresets.Select(v=>new Tuple<byte,string>(v.Key,v.Value.Item1)).ToList();
+            }
         }
 
         /// <inheritdoc />

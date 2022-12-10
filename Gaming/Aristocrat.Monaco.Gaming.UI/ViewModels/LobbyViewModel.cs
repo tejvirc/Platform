@@ -3663,30 +3663,6 @@
             PlayerMenuPopupViewModel.IsMenuVisible = false;
             _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Collect));
         }
-        private void PlayerMenuPopupVolumePressed(object obj)
-        {
-            PlayerMenuPopupViewModel.ResetCloseDelay();
-
-            var currentPlayerVolumeLevel = (VolumeScalar)_properties.GetValue(
-                ApplicationConstants.PlayerVolumeScalarKey,
-                ApplicationConstants.PlayerVolumeScalar);
-
-            var nextVolumeLevel = currentPlayerVolumeLevel == VolumeScalar.Scale100
-                ? VolumeScalar.Scale20
-                : currentPlayerVolumeLevel + 1;
-
-            _properties.SetProperty(ApplicationConstants.PlayerVolumeScalarKey, nextVolumeLevel);
-
-            Volume.PlayerVolumeScalar = nextVolumeLevel;
-
-            var useGameTypeVolume = _properties.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
-            var gameTypeVolumeScalar = useGameTypeVolume ? _audio.GetVolumeScalar(_gameCategoryService.SelectedGameCategorySetting.VolumeScalar) : 1.0f;
-            var masterVolumeLevel = (VolumeLevel)_properties.GetProperty(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            var playerVolumeScalar = _audio.GetVolumeScalar(nextVolumeLevel);
-
-            var outputVolume = _audio.GetVolume(masterVolumeLevel) * gameTypeVolumeScalar * playerVolumeScalar;
-            _runtimeService.UpdateVolume(outputVolume);
-        }
 
         private void RefreshDisplayedGameList(bool generateDenominationList = true, bool generateSubTabList = true)
         {

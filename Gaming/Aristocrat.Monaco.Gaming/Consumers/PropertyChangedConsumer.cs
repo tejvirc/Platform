@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Consumers
 {
     using System;
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Gaming.Contracts;
+    using Application.Contracts;
+    using Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using Kernel.Contracts;
@@ -15,8 +15,10 @@
         private readonly IGameCategoryService _gameCategoryService;
         private readonly IPropertiesManager _properties;
 
-        public PropertyChangedConsumer(IRuntime runtimeService, IAudio audio, IEventBus eventBus, IGameCategoryService gameCategoryService, IPropertiesManager properties)
-            : base(eventBus, null, e => e.PropertyName == PropertyKey.DefaultVolumeLevel || e.PropertyName == ApplicationConstants.PlayerVolumeScalarKey)
+        public PropertyChangedConsumer(
+            IRuntime runtimeService, IAudio audio, IEventBus eventBus, IGameCategoryService gameCategoryService, IPropertiesManager properties)
+            : base(eventBus, null, e => e.PropertyName == PropertyKey.DefaultVolumeLevel
+                                        || e.PropertyName == ApplicationConstants.PlayerVolumeScalarKey)
         {
             _runtime = runtimeService ?? throw new ArgumentNullException(nameof(runtimeService));
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
@@ -31,25 +33,12 @@
                 return;
             }
 
-            _runtime.UpdateVolume(GetMaxVolume());
+            var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
+                ApplicationConstants.VolumeControlLocationKey,
+                ApplicationConstants.VolumeControlLocationDefault);
+            var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
+
+            _runtime.UpdateVolume(_audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly));
         }
-
-        /// <inheritdoc />
-        private float GetMaxVolume()
-        {
-            var volumeLevel = (VolumeLevel)_properties.GetProperty(Kernel.Contracts.PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            var masterVolume = _audio.GetVolume(volumeLevel);
-
-            var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
-
-            var useGameTypeVolume = _properties.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
-            var gameTypeVolumeScalar = useGameTypeVolume ? _audio.GetVolumeScalar(_gameCategoryService.SelectedGameCategorySetting.VolumeScalar) : 1.0f;
-
-
-            
-
-            return masterVolume * gameTypeVolumeScalar * playerVolumeScalar;
-        }
-
     }
 }
