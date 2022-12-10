@@ -22,7 +22,7 @@
         /// <returns>Returns the max volume value (0-100.0)</returns>
         public static float GetMaxVolume(this IAudio audio, IPropertiesManager propertiesManager, IGameCategoryService gameCategoryService, bool showVolumeControlInLobbyOnly)
         {
-            var volumeLevel = (VolumeLevel)propertiesManager.GetProperty(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var volumeLevel = (byte)propertiesManager.GetProperty(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             var masterVolume = audio.GetVolume(volumeLevel);
 
             var useGameTypeVolume = propertiesManager.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
