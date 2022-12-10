@@ -241,7 +241,7 @@
                 a => a.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
             _audioService.Setup(a => a.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
             _audioService.Setup(a => a.Play(It.IsAny<string>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
-            _audioService.Setup(m => m.GetVolume(It.IsAny<VolumeLevel>())).Returns(It.IsAny<float>());
+            _audioService.Setup(m => m.GetVolume(It.IsAny<byte>())).Returns(It.IsAny<float>());
 
             var logicalDoors = new Dictionary<int, LogicalDoor>();
             _doorService.Setup(mock => mock.LogicalDoors).Returns(logicalDoors);

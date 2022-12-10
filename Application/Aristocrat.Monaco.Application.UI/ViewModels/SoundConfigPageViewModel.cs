@@ -1,11 +1,15 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
     using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
+    using Aristocrat.Monaco.UI.Common.Extensions;
+    using Aristocrat.Monaco.UI.Common.Markup;
     using Contracts;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
@@ -32,6 +36,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _propertiesManager;
 
+        private byte _soundLevel;
         private byte _alertVolume;
         private byte _alertMinimumVolume;
         private string _infoText;
@@ -48,6 +53,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
+            SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
+            SoundLevelConfigurationParser(_audio.SoundLevelCollection);
         }
 
         private void LoadVolumeSettings()
@@ -78,6 +85,21 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             OnPropertyChanged(nameof(SelectedVolumeLevel));
+            // Load default volume level
+            _soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
+            RaisePropertyChanged(nameof(SoundLevel));
+        }
+
+        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection { get; } = new();
+        private void SoundLevelConfigurationParser(IEnumerable<Tuple<byte,string>> enumValues)
+        {
+            SoundLevelConfigCollection.Clear();
+            foreach (var level in enumValues)
+            {
+                SoundLevelConfigCollection.Add(new EnumerationExtension.EnumerationMember()
+                    {Description = level.Item2, Value = level.Item1});
+            }
         }
 
         private bool IsSystemDisabled =>

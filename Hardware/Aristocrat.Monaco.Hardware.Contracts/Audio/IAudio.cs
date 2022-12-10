@@ -1,62 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Audio
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
 
-    /// <summary>Volume Levels</summary>
-    public enum VolumeLevel : byte
-    {
-        /// <summary>Extra Low</summary>
-        [Description("Extra-Low")]
-        ExtraLow = 1,
-
-        /// <summary>Low</summary>
-        [Description("Low")]
-        Low = 2,
-
-        /// <summary>Medium-Low</summary>
-        [Description("Medium-Low")]
-        MediumLow = 3,
-
-        /// <summary>Medium</summary>
-        [Description("Medium")]
-        Medium = 4,
-
-        /// <summary>Medium-High</summary>
-        [Description("Medium-High")]
-        MediumHigh = 5,
-
-        /// <summary>High</summary>
-        [Description("High")]
-        High = 6,
-
-        /// <summary>Extra High</summary>
-        [Description("Extra-High")]
-        ExtraHigh = 7
-    }
 
     /// <summary>Volume Scalars</summary>
     public enum VolumeScalar : byte
     {
         /// <summary>Low</summary>
-        [Description("20%")]
-        Scale20 = 1,
-
+        [Description("20%")] Scale20 = 1,
         /// <summary>Medium-Low</summary>
-        [Description("40%")]
-        Scale40 = 2,
-
+        [Description("40%")] Scale40 = 2,
         /// <summary>Medium</summary>
-        [Description("60%")]
-        Scale60 = 3,
-
+        [Description("60%")] Scale60 = 3,
         /// <summary>Medium-High</summary>
-        [Description("80%")]
-        Scale80 = 4,
-
+        [Description("80%")] Scale80 = 4,
         /// <summary>High</summary>
-        [Description("100%")]
-        Scale100 = 5
+        [Description("100%")] Scale100 = 5
     }
 
     /// <summary>
@@ -147,7 +108,14 @@
         /// </summary>
         /// <param name="level">the volume level</param>
         /// <returns>returns the volume (0-100.0)</returns>
-        float GetVolume(VolumeLevel level);
+        float GetVolume(byte level);
+
+        /// <summary>
+        ///     Get volume by preset
+        /// </summary>
+        /// <param name="level">the volume level</param>
+        /// <returns>returns the description string to display</returns>
+        string GetVolumeDescription(byte level);
 
         /// <summary>
         ///     Gets an <see cref="IVolume"/> instance that can be used to control the volume for a process
@@ -176,5 +144,10 @@
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <remarks>If sound is not currently playing, this call has no effect.</remarks>
         void SetSpeakerMix(SpeakerMix speakers);
+
+        /// <summary>
+        ///     Gets a set of master volume levels requested per jurisdiction 
+        /// </summary>
+        IEnumerable<Tuple<byte,string>> SoundLevelCollection { get; }
     }
 }
