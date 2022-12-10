@@ -103,20 +103,13 @@ namespace Aristocrat.Monaco.Gaming.Commands
 
             var denomination = currentGame.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
 
-            var volumeLevel = _properties.GetValue(Kernel.Contracts.PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            var useGameTypeVolume = _properties.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
-            var gameTypeVolumeScalar = useGameTypeVolume ? _audio.GetVolumeScalar(_gameCategoryService.SelectedGameCategorySetting.VolumeScalar) : 1.0f;
-
-            //var maxVolumeLevel = gameTypeVolumeScalar * _audio.GetVolume(volumeLevel);
-
             var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
                 ApplicationConstants.VolumeControlLocationKey,
                 ApplicationConstants.VolumeControlLocationDefault);
 
             var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
 
-            var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
-            var maxVolumeLevel = gameTypeVolumeScalar * _audio.GetVolume(volumeLevel) * (!showVolumeControlInLobbyOnly ? playerVolumeScalar : 1.0f);
+            var maxVolumeLevel = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
 
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
             var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
@@ -284,6 +277,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
 
             if (showVolumeControlInLobbyOnly)
             {
+                var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
                 parameters["/Runtime/Audio&playerVolumeScalar"] = playerVolumeScalar.ToString(CultureInfo.InvariantCulture);
             }
 
