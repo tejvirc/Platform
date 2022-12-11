@@ -39,20 +39,21 @@
 
         private readonly Dictionary<VolumeScalar, float> _volumeScalars = new Dictionary<VolumeScalar, float>
         {
-            { VolumeScalar.Scale20, 0.32f },
-            { VolumeScalar.Scale40, 0.49f },
-            { VolumeScalar.Scale60, 0.67f },
-            { VolumeScalar.Scale80, 0.80f },
-            { VolumeScalar.Scale100, 1.00f }
-        };
+            { VolumeScalar.Scale20, 0.100f },
+            { VolumeScalar.Scale40, 0.177f },
+            { VolumeScalar.Scale60, 0.316f },
+            { VolumeScalar.Scale80, 0.562f },
+            { VolumeScalar.Scale100, 1.000f }        };
 
         private readonly Dictionary<byte, Tuple<string, float>> _volumePresets = new Dictionary<byte, Tuple<string, float>>
         {
-            { 1, new Tuple<string,float>( "Low", 36.0f) },
-            { 2, new Tuple<string,float>( "MediumLow", 43.0f) },
-            { 3, new Tuple<string,float>( "Medium", 53.0f) },
-            { 4, new Tuple<string,float>( "MediumHigh", 65.0f) },
-            { 5, new Tuple<string,float>( "High", 83.0f) },
+            { 0, new Tuple<string,float>( "ExtraLow", 1.5f) },
+            { 1, new Tuple<string,float>( "Low", 3.0f) },
+            { 2, new Tuple<string,float>( "MediumLow", 6.0f) },
+            { 3, new Tuple<string,float>( "Medium", 12.0f) },
+            { 4, new Tuple<string,float>( "MediumHigh", 24.0f) },
+            { 5, new Tuple<string,float>( "High", 48.0f) },
+            { 6, new Tuple<string,float>( "ExtraHigh", 96.0f) },
         };
 
         private Channel _channel;
