@@ -43,7 +43,8 @@
             { VolumeScalar.Scale40, 0.177f },
             { VolumeScalar.Scale60, 0.316f },
             { VolumeScalar.Scale80, 0.562f },
-            { VolumeScalar.Scale100, 1.000f }        };
+            { VolumeScalar.Scale100, 1.000f }
+        };
 
         private readonly Dictionary<byte, Tuple<string, float>> _volumePresets = new Dictionary<byte, Tuple<string, float>>
         {
