@@ -164,8 +164,9 @@
         ///     Key used to get the preset volume level
         /// </summary>
         public const string VolumePreset = "VolumePreset";
+
         /// <summary>
-        ///     Key used to get the preset volume level
+        ///     Key used to get the preset volume scalar
         /// </summary>
         public const string VolumeScalarPreset = "VolumeScalarPreset";
     }
