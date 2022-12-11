@@ -19,8 +19,4 @@
   <ExtensionPoint path = "/Lobby/Configuration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
-
-	<ExtensionPoint path = "/Audio/VolumeSettingConfiguration">
-		<ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
-	</ExtensionPoint>
 </Addin>

@@ -320,7 +320,6 @@
         ///     Gets the platform default volume level to display.
         /// </summary>
         [JsonIgnore]
-        //Todo: Get volume level description to display
         public string DefaultVolumeLevelDisplay { get; set; }
 
         /// <summary>

@@ -141,8 +141,6 @@
                     0);
             }
 
-
-
             // The Tuple is structured as value (Item1), Key (Item2), IsPersistent (Item3)
             _properties = new Dictionary<string, Tuple<object, string, bool>>
             {
@@ -841,7 +839,6 @@
                         HardwareConstants.VolumeScalarPreset,
                         false));
             }
-
 
             SetPrinterLineLimits(configuration.AuditTicket);
 
