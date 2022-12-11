@@ -4,11 +4,12 @@
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
     using Contracts.Client;
+    using ProtoBuf;
 
     /// <summary>
     ///     A bill data exception builder
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class BillDataExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         /// <summary>
@@ -25,7 +26,14 @@
             AddRange(Utilities.ToBcd((ulong)billData.LifetimeCount, SasConstants.Bcd8Digits));
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public BillDataExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode { get; }
     }
 }

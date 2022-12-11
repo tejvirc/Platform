@@ -2,12 +2,13 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The CashOutStartedEvent is posted just before initiating a cash out.  This will occur after the cashout button was
     ///     pressed or at the end of a game round when forcing a cash out.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class CashOutStartedEvent : BaseEvent
     {
         /// <summary>
@@ -24,11 +25,13 @@
         /// <summary>
         ///     Gets the ForcedByMaxBank parameter
         /// </summary>
+        [ProtoMember(1)]
         public bool ForcedByMaxBank { get; }
 
         /// <summary>
         ///     Gets the ZeroRemaining parameter
         /// </summary>
+        [ProtoMember(2)]
         public bool ZeroRemaining { get; }
     }
 }

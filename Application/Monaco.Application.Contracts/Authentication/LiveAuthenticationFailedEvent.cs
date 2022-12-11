@@ -2,13 +2,22 @@ namespace Aristocrat.Monaco.Application.Contracts.Authentication
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event when Live Authentication fails
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class LiveAuthenticationFailedEvent : BaseEvent
     {
+
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public LiveAuthenticationFailedEvent()
+        {
+        }
+
         /// <summary>
         ///     Construct a <see cref="LiveAuthenticationFailedEvent"/>.
         /// </summary>
@@ -21,6 +30,7 @@ namespace Aristocrat.Monaco.Application.Contracts.Authentication
         /// <summary>
         ///     Get the message.
         /// </summary>
+        [ProtoMember(1)]
         public string Message { get; }
     }
 }

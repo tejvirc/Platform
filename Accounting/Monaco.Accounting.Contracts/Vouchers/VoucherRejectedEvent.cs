@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     This event is posted when a voucher redemption has been denied
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class VoucherRejectedEvent : BaseEvent
     {
         /// <summary>
@@ -28,6 +29,7 @@
         /// <summary>
         ///     Gets the transaction
         /// </summary>
+        [ProtoMember(1)]
         public VoucherInTransaction Transaction { get; }
     }
 }

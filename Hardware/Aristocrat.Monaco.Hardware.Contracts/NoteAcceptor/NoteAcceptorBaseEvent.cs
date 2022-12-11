@@ -3,11 +3,13 @@
     using Properties;
     using System;
     using Kernel;
+    using ProtoBuf;
     using static System.FormattableString;
+    using System.Runtime.Serialization;
 
     /// <summary>Definition of the NoteAcceptorBaseEvent class.</summary>
     /// <remarks>All other note acceptor events are derived from this event.</remarks>
-    [Serializable]
+    [ProtoContract]
     public class NoteAcceptorBaseEvent : BaseEvent
     {
         /// <summary>
@@ -30,6 +32,7 @@
         /// <summary>
         ///     Gets the ID of the note acceptor associated with the event.
         /// </summary>
+        [ProtoMember(1)]
         public int NoteAcceptorId { get; }
 
         /// <inheritdoc />

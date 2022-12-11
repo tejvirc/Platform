@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Events
 {
     using Kernel;
+    using ProtoBuf;
     using System;
 
     /// <summary>
@@ -10,7 +11,7 @@
     ///         When a print job (possibly multiple tickets) is completed.
     ///     </remarks>
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class OperatorMenuPrintJobCompletedEvent : BaseEvent
     {
     }

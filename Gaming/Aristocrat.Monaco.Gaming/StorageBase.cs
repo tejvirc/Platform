@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
+    using ProtoBuf;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Runtime.Serialization.Formatters.Binary;
     using Hardware.Contracts.Persistence;
 
     public abstract class StorageBase
@@ -177,12 +177,10 @@
 
                 using (var stream = new MemoryStream())
                 {
-                    var formatter = new BinaryFormatter();
-
                     stream.Write(data, 0, data.Length);
                     stream.Position = 0;
-
-                    return formatter.Deserialize(stream);
+                    
+                    return Serializer.Deserialize<IPersistentStorageAccessor>(stream);
                 }
             }
         }
@@ -193,10 +191,7 @@
             {
                 using (var stream = new MemoryStream())
                 {
-                    var formatter = new BinaryFormatter();
-
-                    formatter.Serialize(stream, value);
-
+                    Serializer.Serialize(stream, value);
                     using (var transaction = block.StartTransaction())
                     {
                         transaction[Data] = stream.ToArray();

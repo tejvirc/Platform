@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts
 {
+    using ProtoBuf;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Runtime.Serialization.Formatters.Binary;
 
     /// <summary>
     ///     A set of storage related utility methods
@@ -25,10 +25,7 @@
 
             using (var stream = new MemoryStream())
             {
-                var formatter = new BinaryFormatter();
-#pragma warning disable SYSLIB0011
-                formatter.Serialize(stream, list);
-#pragma warning restore SYSLIB0011
+                Serializer.Serialize(stream, list);
                 return stream.ToArray();
             }
         }
@@ -45,16 +42,10 @@
             {
                 using (var stream = new MemoryStream())
                 {
-                    var formatter = new BinaryFormatter();
-
                     stream.Write(data, 0, data.Length);
                     stream.Position = 0;
-#pragma warning disable SYSLIB0011
-                    if (formatter.Deserialize(stream) is List<T> list)
-                    {
-                        return list;
-                    }
-#pragma warning restore SYSLIB0011
+                    
+                    return Serializer.Deserialize<List<T>>(stream);
                 }
             }
 

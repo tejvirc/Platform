@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Events
 {
     using Kernel;
+    using ProtoBuf;
     using System;
 
     /// <summary>
@@ -12,7 +13,7 @@
     ///         buttons in the operator menu
     ///     </remarks>
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class OperatorMenuPrintJobStartedEvent : BaseEvent
     {
     }

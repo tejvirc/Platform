@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Contracts.Handpay
 {
+    using ProtoBuf;
     using System;
 
     /// <summary>
     ///     The event to post when waiting for a handpay key off
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class HandpayKeyOffPendingEvent : BaseHandpayEvent
     {
         /// <summary>

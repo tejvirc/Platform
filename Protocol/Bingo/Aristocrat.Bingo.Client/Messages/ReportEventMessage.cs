@@ -1,8 +1,10 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
+    using ProtoBuf;
     using System;
+    using System.Runtime.Serialization;
 
-    [Serializable]
+    [ProtoContract]
     public class ReportEventMessage : IMessage
     {
         public ReportEventMessage(
@@ -17,12 +19,23 @@
             EventType = eventType;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public ReportEventMessage()
+        {
+        }
+
+        [ProtoMember(1)]
         public string MachineSerial { get; set; }
 
+        [ProtoMember(2)]
         public DateTime TimeStamp { get; }
 
+        [ProtoMember(3)]
         public int EventId { get; }
 
+        [ProtoMember(4)]
         public int EventType { get; }
     }
 }

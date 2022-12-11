@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The Class2MultipleOutcomeSpinsChangedEvent is posted when the runtime updates the Class2MultipleOutcomeSpins Flag.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class Class2MultipleOutcomeSpinsChangedEvent : BaseEvent
     {
         /// <summary>
@@ -21,6 +22,7 @@
         /// <summary>
         ///     Gets the Triggered parameter
         /// </summary>
+        [ProtoMember(1)]
         public bool Triggered { get; }
     }
 }

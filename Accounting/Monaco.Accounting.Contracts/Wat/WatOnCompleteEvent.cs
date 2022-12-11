@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Event emitted when a Wat on transfer has completed.
@@ -11,9 +12,17 @@
     ///     considered complete, whether successful or not. The client can perform any clean up code here
     ///     to prepare for normal operations.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class WatOnCompleteEvent : BaseEvent
     {
+
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public WatOnCompleteEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="WatOnCompleteEvent" /> class.
         /// </summary>
@@ -26,6 +35,7 @@
         /// <summary>
         ///     Gets the completed Wat Transaction
         /// </summary>
+        [ProtoMember(1)]
         public WatOnTransaction Transaction { get; }
     }
 }

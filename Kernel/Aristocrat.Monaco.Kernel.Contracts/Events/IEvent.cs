@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Kernel
 {
     using System;
-
+    using ProtoBuf;
     /// <summary>
     ///     Provides the interface for all events posted to the Event Bus
     /// </summary>
@@ -19,11 +19,14 @@
     ///         possible fields and properties.
     ///     </para>
     /// </remarks>
+    [ProtoContract]
+    [ProtoInclude(2, typeof(BaseEvent))]
     public interface IEvent
     {
         /// <summary>
         ///     Gets the Guid for this event
         /// </summary>
+        [ProtoMember(1)]
         Guid GloballyUniqueId { get; }
     }
 }

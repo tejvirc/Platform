@@ -3,13 +3,21 @@ namespace Aristocrat.Monaco.Accounting.Contracts
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that a transfer-out request has been validated and started.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class TransferOutStartedEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty Constructor for deserialization
+        /// </summary>
+        public TransferOutStartedEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="TransferOutStartedEvent" /> class.
         /// </summary>
@@ -32,21 +40,25 @@ namespace Aristocrat.Monaco.Accounting.Contracts
         /// <summary>
         ///      Gets the unique transaction identifier
         /// </summary>
+        [ProtoMember(1)]
         public Guid TransactionId { get; }
 
         /// <summary>
         ///     Gets the amount of cashable credits to be transferred out in millicents.
         /// </summary>
+        [ProtoMember(2)]
         public long PendingCashableAmount { get; }
 
         /// <summary>
         ///     Gets the amount of promotional credits to be transferred out in millicents.
         /// </summary>
+        [ProtoMember(3)]
         public long PendingPromotionalAmount { get; }
 
         /// <summary>
         ///     Gets the amount of non-cashable credits to be transferred out in millicents.
         /// </summary>
+        [ProtoMember(4)]
         public long PendingNonCashableAmount { get; }
 
         /// <summary>

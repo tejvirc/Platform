@@ -9,11 +9,12 @@ namespace Aristocrat.Monaco.Application.Contracts
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A ReprintTicketEvent is posted when a ticket a ticket with a validation number needs to be reprinted.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class ReprintTicketEvent : BaseEvent
     {
         /// <summary>
@@ -37,11 +38,13 @@ namespace Aristocrat.Monaco.Application.Contracts
         /// <summary>
         ///     Gets or sets the ticket validation number to print.
         /// </summary>
+        [ProtoMember(1)]
         public string ValidationNumber { get; set; }
 
         /// <summary>
         ///     Gets or sets the ticket amount.
         /// </summary>
+        [ProtoMember(2)]
         public long Amount { get; set; }
     }
 }

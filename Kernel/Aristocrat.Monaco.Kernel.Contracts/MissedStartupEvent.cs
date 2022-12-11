@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel
 {
+    using ProtoBuf;
     using System;
 
     /// <summary>
@@ -11,9 +12,16 @@
     ///         event and perform the necessary action
     ///     </para>
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class MissedStartupEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public MissedStartupEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="MissedStartupEvent" /> class.
         /// </summary>
@@ -26,6 +34,7 @@
         /// <summary>
         ///     Gets the missed event
         /// </summary>
+        [ProtoMember(1)]
         public IEvent MissedEvent;
     }
 }

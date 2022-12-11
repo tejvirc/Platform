@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to disseminate serial GAT status message
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class SerialGatStatusEvent : BaseEvent
     {
         /// <summary>
@@ -21,6 +22,7 @@
         /// <summary>
         ///     Status message text
         /// </summary>
+        [ProtoMember(1)]
         public string StatusMessage { get; }
     }
 }

@@ -9,6 +9,7 @@ namespace Vgt.Client12.Application.OperatorMenu
 {
     using System;
     using Aristocrat.Monaco.Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the screen related to meters has entered.
@@ -17,7 +18,7 @@ namespace Vgt.Client12.Application.OperatorMenu
     ///     On XSpin, this event is only handled by the component implementing
     ///     the backend protocol like SAS.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class MetersOperatorMenuEnteredEvent : BaseEvent
     {
     }

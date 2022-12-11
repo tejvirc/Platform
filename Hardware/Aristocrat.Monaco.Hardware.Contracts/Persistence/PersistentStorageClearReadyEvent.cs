@@ -5,11 +5,12 @@
     using System.Runtime.Serialization;
     using System.Security;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Definition of the PersistentStorageClearReadyEvent class.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class PersistentStorageClearReadyEvent : BaseEvent
     {
         /// <summary>
@@ -42,8 +43,15 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deseriliazing
+        /// </summary>
+        public PersistentStorageClearReadyEvent()
+        { }
+
+        /// <summary>
         ///     Gets the level of persistent storage that needs to be cleared.
         /// </summary>
+        [ProtoMember(1)]
         public PersistenceLevel Level { get; }
 
         /// <summary>

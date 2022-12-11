@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
+    using ProtoBuf;
 
     /// <summary>
     ///     A Reel N Has Stopped exception builder
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class ReelNHasStoppedExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         private const int MinimumReelNumber = 1;
@@ -40,7 +41,14 @@
             Add((byte)physicalStop);
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public ReelNHasStoppedExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode { get; }
     }
 }

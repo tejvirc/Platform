@@ -3,6 +3,7 @@
     using System;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Event emitted when a currency has been inserted into the note acceptor and the request
@@ -12,9 +13,16 @@
     ///     This event only signals the start of handling a currency-in request. It is posted before
     ///     the note acceptor starts stacking the currency.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class CurrencyInStartedEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for Deserialization
+        /// </summary>
+        public CurrencyInStartedEvent()
+        {
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -25,6 +33,7 @@
         }
 
         /// <summary>Note</summary>
+        [ProtoMember(1)]
         public INote Note { get; }
     }
 }

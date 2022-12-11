@@ -1,13 +1,20 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor
 {
     using System;
+    using ProtoBuf;
     using static System.FormattableString;
 
     /// <summary>Definition of the CurrencyEscrowedEvent class.</summary>
     /// <remarks>This event is posted when the NoteAcceptor has escrowed a currency document.</remarks>
-    [Serializable]
+    [ProtoContract]
     public class CurrencyEscrowedEvent : NoteAcceptorBaseEvent
     {
+        /// <summary>
+        /// Constructor for ProtoBuf Deserialization
+        /// </summary>
+        public CurrencyEscrowedEvent()
+        {
+        }
         /// <summary>
         ///     Initializes a new instance of the <see cref="CurrencyEscrowedEvent"/> class.
         /// </summary>
@@ -33,6 +40,7 @@
 
         /// <summary>Gets the note.</summary>
         /// <value>The note.</value>
+        [ProtoMember(1)]
         public INote Note { get; }
 
         /// <inheritdoc />

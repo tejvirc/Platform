@@ -1,12 +1,13 @@
 namespace Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor
 {
     using System;
+    using ProtoBuf;
     using SharedDevice;
     using static System.FormattableString;
 
     /// <summary>Definition of the Note Acceptor EnabledEvent class.</summary>
     /// <remarks>This event is posted when Note Acceptor becomes Enabled.</remarks>
-    [Serializable]
+    [ProtoContract]
     public class EnabledEvent : NoteAcceptorBaseEvent
     {
         /// <summary>
@@ -30,7 +31,14 @@ namespace Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor
             Reasons = reasons;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing
+        /// </summary>
+        public EnabledEvent()
+        { }
+
         /// <summary>Gets the reasons for the enabled event.</summary>
+        [ProtoMember(1)]
         public EnabledReasons Reasons { get; }
 
         /// <inheritdoc />

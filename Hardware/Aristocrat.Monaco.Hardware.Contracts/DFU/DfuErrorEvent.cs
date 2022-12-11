@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Valid DFU error event Id enumerations.</summary>
     public enum DfuErrorEventId
@@ -79,7 +80,7 @@
 
     /// <summary>Definition of the DfuErrorEvent class.</summary>
     /// <remarks>Posted when a communication error occurs with the DFU.</remarks>
-    [Serializable]
+    [ProtoContract]
     public class DfuErrorEvent : BaseEvent
     {
         /// <summary>
@@ -102,9 +103,11 @@
         }
 
         /// <summary>Gets the ID of the error event.</summary>
+        [ProtoMember(1)]
         public DfuErrorEventId Id { get; }
 
         /// <summary>Gets the vendor specific error index of the error event.</summary>
+        [ProtoMember(2)]
         public int VendorSpecificErrorIndex { get; }
 
         /// <inheritdoc />

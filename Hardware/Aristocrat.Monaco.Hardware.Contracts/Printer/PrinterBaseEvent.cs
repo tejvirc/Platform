@@ -4,10 +4,11 @@
     using System;
     using Kernel;
     using static System.FormattableString;
+    using ProtoBuf;
 
     /// <summary>Definition of the PrinterBaseEvent class.</summary>
     /// <remarks>All other printer events are derived from this event.</remarks>
-    [Serializable]
+    [ProtoContract]
     public class PrinterBaseEvent : BaseEvent
     {
         /// <summary>
@@ -30,6 +31,7 @@
         /// <summary>
         ///     Gets the ID of the printer associated with the event.
         /// </summary>
+        [ProtoMember(1)]
         public int PrinterId { get; }
 
         /// <inheritdoc />

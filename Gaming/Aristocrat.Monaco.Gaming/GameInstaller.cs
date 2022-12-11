@@ -1,13 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
+    using ProtoBuf;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Threading;
+    using System.Runtime.Serialization;
     using Application.Contracts;
     using Application.Contracts.Drm;
     using Application.Contracts.Localization;
@@ -285,10 +286,7 @@
         {
             using (var stream = new MemoryStream())
             {
-                var formatter = new BinaryFormatter();
-
-                // PlanA: We supressed the SYSLIB0011 warning based on https://docs.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/5.0/binaryformatter-serialization-obsolete#recommended-action
-                formatter.Serialize(stream, packages);
+                Serializer.Serialize(stream, packages);
 
                 return stream.ToArray();
             }
@@ -446,16 +444,10 @@
             {
                 using (var stream = new MemoryStream())
                 {
-                    var formatter = new BinaryFormatter();
-
                     stream.Write(rawPackages, 0, rawPackages.Length);
                     stream.Position = 0;
-
-                    // PlanA: We supressed the SYSLIB0011 warning based on https://docs.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/5.0/binaryformatter-serialization-obsolete#recommended-action
-                    if (formatter.Deserialize(stream) is List<InstalledPackage> packages)
-                    {
-                        return packages;
-                    }
+                    
+                    return Serializer.Deserialize<List<InstalledPackage>>(stream);
                 }
             }
 
@@ -544,11 +536,16 @@
             }
         }
 
-        [Serializable]
+        [ProtoContract]
         private class InstalledPackage : IInstalledPackage
         {
+            [ProtoMember(1)]
             public string MountPath { get; set; }
+
+            [ProtoMember(2)]
             public string PackageId { get; set; }
+
+            [ProtoMember(3)]
             public string Package { get; set; }
         }
     }

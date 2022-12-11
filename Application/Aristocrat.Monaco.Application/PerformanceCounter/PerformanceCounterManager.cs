@@ -5,12 +5,12 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
     using Kernel;
     using log4net;
+    using ProtoBuf;
     using Timer = System.Timers.Timer;
 
     /// <summary>
@@ -118,16 +118,12 @@
         {
             using (var inputStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                var formatter = new BinaryFormatter();
-
                 try
                 {
                     while (inputStream.Position < inputStream.Length)
                     {
                         //deserialize each object in the file
-#pragma warning disable SYSLIB0011 // Type or member is obsolete
-                        list.Add((PerformanceCounters)formatter.Deserialize(inputStream));
-#pragma warning restore SYSLIB0011 // Type or member is obsolete
+                        list.Add(Serializer.Deserialize<PerformanceCounters>(inputStream));
                     }
                 }
                 catch (Exception)
@@ -193,16 +189,13 @@
                 }
 
                 // Flush Data to the disk
-                var formatter = new BinaryFormatter();
-
+                
                 using (var outputStream =
                     new FileStream(logFileName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
                 {
                     try
                     {
-#pragma warning disable SYSLIB0011 // Type or member is obsolete
-                        formatter.Serialize(outputStream, GetAllCountersData());
-#pragma warning restore SYSLIB0011 // Type or member is obsolete
+                        Serializer.Serialize(outputStream, GetAllCountersData());
                     }
                     catch (EndOfStreamException e)
                     {

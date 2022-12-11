@@ -4,12 +4,13 @@
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
     using Gaming.Contracts;
+    using ProtoBuf;
 
     /// <summary>
     ///     A card held/not held exception builder. Note that this exception should only
     ///     be sent if real time reporting has been enabled for the host.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class CardHeldExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         private const byte Held = 0x80;
@@ -28,7 +29,14 @@
             Add((byte)(cardNumber | (held == HoldStatus.Held ? Held : 0)));
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public CardHeldExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode => GeneralExceptionCode.CardHeldOrNotHeld;
     }
 }

@@ -2,14 +2,22 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A Game Installed Event is posted whenever a game is installed.  This typically happens when the host instructs the
     ///     EGM to add a package
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameUninstalledEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public GameUninstalledEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameUninstalledEvent" /> class.
         /// </summary>
@@ -24,11 +32,13 @@
         /// <summary>
         ///     Gets the package identifier
         /// </summary>
+        [ProtoMember(1)]
         public string PackageId { get; }
 
         /// <summary>
         ///     Gets the game package
         /// </summary>
+        [ProtoMember(2)]
         public string GamePackage { get; }
     }
 }

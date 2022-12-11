@@ -7,6 +7,7 @@
     using Application.Contracts.Localization;
     using Hardware.Contracts.Persistence;
     using Localization.Properties;
+    using ProtoBuf;
     using Transactions;
     using Wat;
 
@@ -14,7 +15,7 @@
     ///     Definition of the WatOnTransaction class.  This transaction provides and persists data for
     ///     a single WAT On transaction.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class WatOnTransaction : BaseTransaction, ITransactionTotal
     {
         /// <summary>
@@ -60,76 +61,91 @@
         /// <summary>
         ///     Gets the cashable amount
         /// </summary>
+        [ProtoMember(1)]
         public long CashableAmount { get; set; }
 
         /// <summary>
         ///     Gets the promo amount
         /// </summary>
+        [ProtoMember(2)]
         public long PromoAmount { get; set; }
 
         /// <summary>
         ///     Gets the non-cashable amount
         /// </summary>
+        [ProtoMember(3)]
         public long NonCashAmount { get; set; }
 
         /// <summary>
         ///     Gets or sets whether or not reduced amounts are allowed
         /// </summary>
+        [ProtoMember(4)]
         public bool AllowReducedAmounts { get; private set; }
 
         /// <summary>
         ///     Gets or sets the transaction identifier provided by the WAT host.
         /// </summary>
+        [ProtoMember(5)]
         public string RequestId { get; private set; }
 
         /// <summary>
         ///     Gets the authorized cashable amount
         /// </summary>
+        [ProtoMember(6)]
         public long AuthorizedCashableAmount { get; set; }
 
         /// <summary>
         ///     Gets the authorized promo amount
         /// </summary>
+        [ProtoMember(7)]
         public long AuthorizedPromoAmount { get; set; }
 
         /// <summary>
         ///     Gets the authorized non-cashable amount
         /// </summary>
+        [ProtoMember(8)]
         public long AuthorizedNonCashAmount { get; set; }
 
         /// <summary>
         ///     Gets the host exception
         /// </summary>
+        [ProtoMember(9)]
         public int HostException { get; set; }
 
         /// <summary>
         ///     Gets the EGM exception
         /// </summary>
+        [ProtoMember(10)]
         public int EgmException { get; set; }
 
         /// <summary>
         ///     Gets the transferred cashable amount
         /// </summary>
+        [ProtoMember(11)]
         public long TransferredCashableAmount { get; set; }
 
         /// <summary>
         ///     Gets the transferred promo amount
         /// </summary>
+        [ProtoMember(12)]
         public long TransferredPromoAmount { get; set; }
 
         /// <summary>
         ///     Gets the transferred non-cashable amount
         /// </summary>
+        [ProtoMember(13)]
         public long TransferredNonCashAmount { get; set; }
 
         /// <summary>
         ///     Gets the status of the transaction
         /// </summary>
+        [ProtoMember(14)]
         public WatStatus Status { get; set; }
 
         /// <summary>
         ///     Gets or sets the associated bank transaction Id
         /// </summary>
+        [ProtoMember(15)]
         public Guid BankTransactionId { get; set; }
 
         /// <summary>
@@ -138,6 +154,7 @@
         /// <remarks>
         ///     This is really only meaningful while the transaction is active
         /// </remarks>
+        [ProtoMember(16)]
         public bool OwnsBankTransaction { get; set; }
 
         /// <inheritdoc />

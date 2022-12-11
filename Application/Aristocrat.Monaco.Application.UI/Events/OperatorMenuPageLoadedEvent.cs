@@ -2,6 +2,7 @@
 {
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Kernel;
+    using ProtoBuf;
     using System;
 
     /// <summary>
@@ -10,7 +11,7 @@
     ///         This event is posted when an Operator Menu page is loaded
     ///     </remarks>
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class OperatorMenuPageLoadedEvent : BaseEvent
     {
         public OperatorMenuPageLoadedEvent(IOperatorMenuPageViewModel page)
@@ -18,6 +19,7 @@
             Page = page;
         }
 
+        [ProtoMember(1)]
         public IOperatorMenuPageViewModel Page { get; }
     }
 }

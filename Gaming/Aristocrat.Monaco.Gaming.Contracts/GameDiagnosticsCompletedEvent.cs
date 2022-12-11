@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Posted to indicate a game diagnostics has completed.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameDiagnosticsCompletedEvent : BaseEvent
     {
         /// <summary>
@@ -21,6 +22,7 @@
         /// <summary>
         ///     Gets the context associated with the event
         /// </summary>
+        [ProtoMember(1)]
         public IDiagnosticContext Context { get; }
     }
 }

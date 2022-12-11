@@ -50,26 +50,26 @@
             Assert.AreEqual(exception.InnerException.Message, innerMessage);
         }
 
-        [TestMethod]
-        public void NoteAcceptorCoordinatingExceptionConstructorTestDeserialization()
-        {
-            const string primaryMessage = "Test Exception Message";
-            const string innerMessage = "Test Inner Exception Message";
+        //[TestMethod]
+        //public void NoteAcceptorCoordinatingExceptionConstructorTestDeserialization()
+        //{
+        //    const string primaryMessage = "Test Exception Message";
+        //    const string innerMessage = "Test Inner Exception Message";
 
-            NoteAcceptorCoordinatingException exception =
-                new NoteAcceptorCoordinatingException(primaryMessage, new InvalidOperationException(innerMessage));
-            Assert.IsNotNull(exception);
+        //    NoteAcceptorCoordinatingException exception =
+        //        new NoteAcceptorCoordinatingException(primaryMessage, new InvalidOperationException(innerMessage));
+        //    Assert.IsNotNull(exception);
 
-            MemoryStream memoryStream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter(null, new StreamingContext(StreamingContextStates.All));
-            formatter.Serialize(memoryStream, exception);
+        //    MemoryStream memoryStream = new MemoryStream();
+        //    BinaryFormatter formatter = new BinaryFormatter(null, new StreamingContext(StreamingContextStates.All));
+        //    formatter.Serialize(memoryStream, exception);
 
-            memoryStream.Position = 0;
-            NoteAcceptorCoordinatingException deserializedExcept =
-                (NoteAcceptorCoordinatingException)formatter.Deserialize(memoryStream);
+        //    memoryStream.Position = 0;
+        //    NoteAcceptorCoordinatingException deserializedExcept =
+        //        (NoteAcceptorCoordinatingException)formatter.Deserialize(memoryStream);
 
-            Assert.AreEqual(exception.Message, deserializedExcept.Message);
-            Assert.AreEqual(exception.InnerException.Message, deserializedExcept.InnerException.Message);
-        }
+        //    Assert.AreEqual(exception.Message, deserializedExcept.Message);
+        //    Assert.AreEqual(exception.InnerException.Message, deserializedExcept.InnerException.Message);
+        //}
     }
 }

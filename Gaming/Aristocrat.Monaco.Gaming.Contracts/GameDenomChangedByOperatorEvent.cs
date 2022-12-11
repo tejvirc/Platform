@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A Game denominations changed event is posted when the active denominations for a game has changed by the operator.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameDenomChangedByOperatorEvent : BaseEvent
     {
         /// <summary>
@@ -21,6 +22,7 @@
         /// <summary>
         ///     Gets the Game ID of the target game.
         /// </summary>
+        [ProtoMember(1)]
         public int GameId { get; }
     }
 }

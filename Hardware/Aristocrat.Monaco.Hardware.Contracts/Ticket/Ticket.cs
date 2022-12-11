@@ -5,9 +5,10 @@
     using System.Reflection;
     using System.Runtime.Serialization;
     using log4net;
+    using ProtoBuf;
 
     /// <summary>Provides access to the ticket object. </summary>
-    [DataContract]
+    [ProtoContract]
     public class Ticket
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -15,7 +16,7 @@
         /// <summary>
         ///     Gets or sets the ticket data. For use by serialization.
         /// </summary>
-        [DataMember]
+        [ProtoMember(1)]
         public Dictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
 
         /// <summary>
@@ -23,6 +24,7 @@
         /// </summary>
         /// <param name="ticketProperty">The ticket property. </param>
         /// <returns>A string of the ticketProperty</returns>
+        [ProtoMember(2)]
         public string this[string ticketProperty]
         {
             get

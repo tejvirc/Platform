@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Definition of the TransactionSavedEvent class.
@@ -11,9 +12,16 @@
     ///     An event of this type is posted when a transaction (i.e. implementation of ITransaction) is saved by the
     ///     TransactionHistory component.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class TransactionSavedEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public TransactionSavedEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="TransactionSavedEvent" /> class.
         /// </summary>
@@ -26,6 +34,7 @@
         /// <summary>
         ///     Gets a reference to the transaction that was saved.
         /// </summary>
+        [ProtoMember(1)]
         public ITransaction Transaction { get; }
 
         /// <inheritdoc />

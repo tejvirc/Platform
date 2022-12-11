@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
     using static System.FormattableString;
 
     /// <summary>Definition of the IdReaderBaseEvent class.</summary>
     /// <remarks>All other idReader events are derived from this event.</remarks>
-    [Serializable]
+    [ProtoContract]
     public class IdReaderBaseEvent : BaseEvent
     {
         /// <summary>
@@ -29,6 +30,7 @@
         /// <summary>
         ///     Gets the ID of the idReader associated with the event.
         /// </summary>
+        [ProtoMember(1)]
         public int IdReaderId { get; }
 
         /// <inheritdoc />

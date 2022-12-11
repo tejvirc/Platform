@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
+    using ProtoBuf;
 
     /// <summary>
     ///     A game recall entry displayed exception builder
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameRecallEntryDisplayedExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         /// <summary>
@@ -22,7 +23,14 @@
             AddRange(Utilities.ToBcd((ulong)recallEntry, SasConstants.Bcd4Digits));
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public GameRecallEntryDisplayedExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode => GeneralExceptionCode.GameRecallEntryHasBeenDisplayed;
     }
 }

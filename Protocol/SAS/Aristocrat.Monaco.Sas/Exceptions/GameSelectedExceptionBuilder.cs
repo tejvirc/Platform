@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
+    using ProtoBuf;
 
     /// <summary>
     ///     A game selected exception builder
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameSelectedExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         /// <summary>
@@ -20,7 +21,14 @@
             AddRange(Utilities.ToBcd((ulong)gameId, SasConstants.Bcd4Digits));
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public GameSelectedExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode => GeneralExceptionCode.GameSelected;
     }
 }

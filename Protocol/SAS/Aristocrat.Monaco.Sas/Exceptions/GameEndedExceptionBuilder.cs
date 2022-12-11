@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
+    using ProtoBuf;
 
     /// <summary>
     ///     A game ended exception builder
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameEndedExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         /// <summary>
@@ -21,7 +22,14 @@
             AddRange(Utilities.ToBcd((ulong)winAmount.CentsToAccountingCredits(accountingDenom), SasConstants.Bcd8Digits));
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public GameEndedExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode => GeneralExceptionCode.GameHasEnded;
     }
 }

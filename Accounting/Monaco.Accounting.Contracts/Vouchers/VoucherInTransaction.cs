@@ -6,12 +6,13 @@
     using Application.Contracts.Localization;
     using Hardware.Contracts.Persistence;
     using Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>
     ///     VoucherInTransaction encapsulates and persists the data for a single
     ///     voucher-in transaction.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class VoucherInTransaction : VoucherBaseTransaction
     {
         /// <summary>
@@ -60,21 +61,25 @@
         /// <summary>
         ///     Gets the voucher sequence for the voucher (specific to Voucher IN transactions)
         /// </summary>
+        [ProtoMember(1)]
         public int VoucherSequence { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether the CommitAcknowledged for the voucher.
         /// </summary>
+        [ProtoMember(2)]
         public bool CommitAcknowledged { get; set; }
 
         /// <summary>
         ///     Gets or sets the current voucher state
         /// </summary>
+        [ProtoMember(3)]
         public VoucherState State { get; set; }
 
         /// <summary>
         ///     Gets or set the error code for the EGM
         /// </summary>
+        [ProtoMember(4)]
         public int Exception { get; set; }
 
         /// <summary>

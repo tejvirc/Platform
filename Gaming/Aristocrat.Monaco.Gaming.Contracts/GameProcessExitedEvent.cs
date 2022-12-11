@@ -2,13 +2,21 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An End Game Process event is posted to terminate the current game process.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameProcessExitedEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public GameProcessExitedEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameProcessExitedEvent" /> class.
         /// </summary>
@@ -32,11 +40,13 @@
         /// <summary>
         ///     Gets the process id for the process that exited.
         /// </summary>
+        [ProtoMember(1)]
         public int ProcessId { get; }
 
         /// <summary>
         ///     Gets a value indicating whether the process exit was unexpected.
         /// </summary>
+        [ProtoMember(2)]
         public bool Unexpected { get; }
     }
 }

@@ -2,12 +2,13 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that operator has changed serial GAT version.
     /// </summary>
- 
-    [Serializable]
+
+    [ProtoContract]
     public class SerialGatVersionChangedEvent : BaseEvent
     {
         /// <summary>
@@ -32,6 +33,7 @@
         /// <summary>
         ///     New GAT protocol version
         /// </summary>
+        [ProtoMember(3)]
         public string Version { get; }
     }
 }

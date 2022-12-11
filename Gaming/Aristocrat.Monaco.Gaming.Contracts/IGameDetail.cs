@@ -1,10 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
+    using ProtoBuf;
     using System.Collections.Generic;
 
     /// <summary>
     ///     Provides a mechanism to get the game details
     /// </summary>
+    [ProtoContract]
+    [ProtoInclude(4, typeof(GameDenomChangedEvent))]
     public interface IGameDetail :
         IGameProfile,
         IGameAttributes

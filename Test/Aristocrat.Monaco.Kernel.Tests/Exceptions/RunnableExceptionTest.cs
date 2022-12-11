@@ -69,30 +69,30 @@
             Assert.AreEqual(inner, target.InnerException);
         }
 
-        /// <summary>
-        ///     A test for RunnableException Constructor using serialization.
-        /// </summary>
-        [TestMethod]
-        public void RunnableExceptionConstructorTestWithSerialization()
-        {
-            var expectedMessage = "This is a test of RunnableException";
+        ///// <summary>
+        /////     A test for RunnableException Constructor using serialization.
+        ///// </summary>
+        //[TestMethod]
+        //public void RunnableExceptionConstructorTestWithSerialization()
+        //{
+        //    var expectedMessage = "This is a test of RunnableException";
 
-            // Just need a specific exception type for the inner exception
-            Exception innerException = new ArgumentException("this is the inner exception");
+        //    // Just need a specific exception type for the inner exception
+        //    Exception innerException = new ArgumentException("this is the inner exception");
 
-            var runnableException = new RunnableException(expectedMessage, innerException);
-            var stream = new MemoryStream();
+        //    var runnableException = new RunnableException(expectedMessage, innerException);
+        //    var stream = new MemoryStream();
 
-            var formatter = new BinaryFormatter();
+        //    var formatter = new BinaryFormatter();
 
-            formatter.Serialize(stream, runnableException);
+        //    formatter.Serialize(stream, runnableException);
 
-            stream.Position = 0;
+        //    stream.Position = 0;
 
-            var deserializedException = (RunnableException)formatter.Deserialize(stream);
+        //    var deserializedException = (RunnableException)formatter.Deserialize(stream);
 
-            Assert.AreEqual(expectedMessage, deserializedException.Message);
-            Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
-        }
+        //    Assert.AreEqual(expectedMessage, deserializedException.Message);
+        //    Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
+        //}
     }
 }

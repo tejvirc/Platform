@@ -5,14 +5,23 @@
     using System.Globalization;
     using System.Linq;
     using Application.Contracts.Extensions;
+    using ProtoBuf;
+    using System.CodeDom;
 
     /// <summary>
     ///     A Game denominations changed event is posted when the active denominations for a game has changed.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameDenomChangedEvent : BaseEvent
     {
         private const string Delimiter = " - ";
+
+        /// <summary>
+        /// Empty constructor for serialization/deserialization
+        /// </summary>
+        public GameDenomChangedEvent()
+        {
+        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameDenomChangedEvent"/> class.
@@ -48,14 +57,19 @@
         /// <summary>
         ///     Gets the Game ID of the target game.
         /// </summary>
+        [ProtoMember(1)]
         public int GameId { get; }
 
         /// <summary>
         /// List of affected denoms.
         /// </summary>
+        [ProtoMember(2)]
         public string Denoms { get; } = string.Empty;
 
+        /// <summary>
         /// Details of denom change />
+        /// </summary>
+        [ProtoMember(3)]
         public IGameDetail Details { get; }
 
         /// <inheritdoc />

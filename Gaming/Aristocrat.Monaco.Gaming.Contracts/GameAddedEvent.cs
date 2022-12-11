@@ -2,12 +2,13 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A Game Added Event is posted when a game is enabled.  This typically occurs when the host remotely configures the
     ///     game play devices on the EGM.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameAddedEvent : BaseEvent
     {
         /// <summary>
@@ -24,11 +25,13 @@
         /// <summary>
         ///     Gets the unique Game Id
         /// </summary>
+        [ProtoMember(1)]
         public int GameId { get; }
 
         /// <summary>
         ///     Gets the ThemeId for the Game
         /// </summary>
+        [ProtoMember(2)]
         public string ThemeId { get; }
     }
 }

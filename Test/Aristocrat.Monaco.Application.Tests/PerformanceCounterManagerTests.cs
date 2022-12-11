@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Threading;
     using System.Threading.Tasks;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using PerformanceCounter;
+    using Aristocrat.Monaco.Hardware.Contracts.IdReader;
+    using ProtoBuf;
 
     [TestClass]
     [Ignore("These tests will be moved to the integration test suite.")]
@@ -242,7 +243,6 @@
                 var compDate = startDate;
                 var baseDate = startDate;
 
-                var formatter = new BinaryFormatter();
 
                 var rand = new Random();
 
@@ -265,7 +265,7 @@
                     using (var outputStream =
                         new FileStream(fileName, FileMode.Append, FileAccess.Write))
                     {
-                        formatter.Serialize(outputStream, listOfCountersForDuration);
+                        Serializer.Serialize(outputStream, listOfCountersForDuration);
                     }
 
                     baseDate = baseDate.AddMinutes(1);

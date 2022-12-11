@@ -4,11 +4,12 @@
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
     using Aristocrat.Sas.Client.LongPollDataClasses;
+    using ProtoBuf;
 
     /// <summary>
     ///     Builds the legacy bonus award exception
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class LegacyBonusAwardedExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         /// <summary>
@@ -26,7 +27,14 @@
             AddRange(Utilities.ToBcd((ulong)amount.MillicentsToAccountCredits(accountingDenom), SasConstants.Bcd8Digits));
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public LegacyBonusAwardedExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode => GeneralExceptionCode.LegacyBonusPayAwarded;
     }
 }

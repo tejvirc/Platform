@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Valid IO error event ID enumerations.</summary>
     public enum ErrorEventId
@@ -48,7 +49,7 @@
     }
 
     /// <summary>Definition of the ErrorEvent class.</summary>
-    [Serializable]
+    [ProtoContract]
     public class ErrorEvent : BaseEvent
     {
         /// <summary>
@@ -69,6 +70,7 @@
         }
 
         /// <summary>Gets the ID of the error event.</summary>
+        [ProtoMember(1)]
         public ErrorEventId Id { get; }
 
         /// <inheritdoc />

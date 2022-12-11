@@ -2,14 +2,22 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event for the conversation between the backend and the components which
     ///     require the key-off from the operator.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class RemoteKeyOffEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public RemoteKeyOffEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="RemoteKeyOffEvent" /> class.
         /// </summary>
@@ -30,26 +38,31 @@
         /// <summary>
         ///     Gets the key off type
         /// </summary>
+        [ProtoMember(1)]
         public KeyOffType KeyOffType { get; }
 
         /// <summary>
         ///     Gets the cashable amount
         /// </summary>
+        [ProtoMember(2)]
         public long CashableAmount { get; }
 
         /// <summary>
         ///     Gets the promo amount
         /// </summary>
+        [ProtoMember(3)]
         public long PromoAmount { get; }
 
         /// <summary>
         ///     Gets the non-cashable amount
         /// </summary>
+        [ProtoMember(4)]
         public long NonCashAmount { get; }
 
         /// <summary>
         ///     Indicate that KeyOffType is initiated by host
         /// </summary>
+        [ProtoMember(5)]
         public bool SelectedByHost { get; }
     }
 }

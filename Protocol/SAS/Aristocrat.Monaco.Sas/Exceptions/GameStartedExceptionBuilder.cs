@@ -4,11 +4,12 @@
     using System.Collections.Generic;
     using Aristocrat.Sas.Client;
     using Contracts.Client;
+    using ProtoBuf;
 
     /// <summary>
     ///     A Game started exception builder
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameStartedExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         /// <summary>
@@ -28,7 +29,14 @@
             Add(gameStartData.ProgressiveGroup);
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public GameStartedExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode => GeneralExceptionCode.GameHasStarted;
     }
 }

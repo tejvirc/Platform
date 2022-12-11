@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The TimeLimitDialogVisibilityChangedEvent is published when the time limit dialog visibility changes.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class DisableCountdownTimerEvent : BaseEvent
     {
         private const int DefaultCountdownTimeInMinutes = 5;
@@ -35,12 +36,14 @@
         ///     Gets a value indicating whether we are starting or stopping the countdown timer
         ///     True == starting.
         /// </summary>
+        [ProtoMember(1)]
         public bool Start { get; }
 
         /// <summary>
         ///     Gets a value indicating the amount of time for the countdown timer.
         ///     This is only applicable if Start is true.
         /// </summary>
+        [ProtoMember(2)]
         public TimeSpan CountdownTime { get; }
     }
 }

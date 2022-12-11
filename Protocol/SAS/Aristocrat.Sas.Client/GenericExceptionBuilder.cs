@@ -1,12 +1,13 @@
 ﻿namespace Aristocrat.Sas.Client
 {
+    using ProtoBuf;
     using System;
     using System.Collections.Generic;
 
     /// <summary>
     ///     A generic exception builder which only sends one byte of data
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GenericExceptionBuilder : List<byte>, ISasExceptionCollection
     {
         /// <summary>
@@ -19,7 +20,15 @@
             Add((byte)ExceptionCode);
         }
 
+
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public GenericExceptionBuilder()
+        { }
+
         /// <inheritdoc />
+        [ProtoMember(1)]
         public GeneralExceptionCode ExceptionCode { get; }
     }
 }

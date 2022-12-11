@@ -3,9 +3,10 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Class to handle output events.</summary>
-    [Serializable]
+    [ProtoContract]
     public class OutputEvent : BaseEvent
     {
         /// <summary>
@@ -19,10 +20,18 @@
             Action = action;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public OutputEvent()
+        { }
+
         /// <summary>Gets a value indicating whether Id is set.</summary>
+        [ProtoMember(1)]
         public int Id { get; }
 
         /// <summary>Gets a value indicating whether Action is set.</summary>
+        [ProtoMember(2)]
         public bool Action { get; }
 
         /// <inheritdoc />

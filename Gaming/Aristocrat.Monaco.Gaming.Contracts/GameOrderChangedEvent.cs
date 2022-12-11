@@ -1,15 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using Kernel;
+    using ProtoBuf;
     using System;
     using System.Collections.Generic;
 
     /// <summary>
     ///     Definition of the GameOrderChangedEvent class.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameOrderChangedEvent : BaseEvent
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public GameOrderChangedEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameOrderChangedEvent" /> class.
         /// </summary>
@@ -36,21 +44,25 @@
         /// <summary>
         ///     Gets the ordered list of game theme Ids
         /// </summary>
+        [ProtoMember(1)]
         public IEnumerable<string> OrderedGameIds { get; }
 
         /// <summary>
         ///     Gets the game theme identifier
         /// </summary>
+        [ProtoMember(2)]
         public string GameId { get; }
 
         /// <summary>
         ///     Gets the new game position
         /// </summary>
+        [ProtoMember(3)]
         public int GamePosition { get; }
 
         /// <summary>
         ///     Gets the operator changed.
         /// </summary>
+        [ProtoMember(4)]
         public bool OperatorChanged { get; }
     }
 }

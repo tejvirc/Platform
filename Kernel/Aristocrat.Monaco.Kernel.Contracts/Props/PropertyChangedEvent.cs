@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Kernel
 {
+    using ProtoBuf;
     using System;
 
     /// <summary>
     ///     This event signals that a property has been added to the Properties Manager or a new property value has been set.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class PropertyChangedEvent : BaseEvent
     {
         /// <summary>
@@ -30,6 +31,7 @@
         /// <summary>
         ///     Gets or sets the name of the property that has changed
         /// </summary>
+        [ProtoMember(1)]
         public string PropertyName { get; set; }
     }
 }

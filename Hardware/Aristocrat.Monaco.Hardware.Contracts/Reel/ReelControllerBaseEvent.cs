@@ -3,12 +3,13 @@
     using System;
     using Kernel;
     using Properties;
+    using ProtoBuf;
     using static System.FormattableString;
 
     /// <summary>
     ///     The base event for all reel controller events
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public abstract class ReelControllerBaseEvent : BaseEvent
     {
         /// <summary>
@@ -31,6 +32,7 @@
         /// <summary>
         ///     Gets the ID of the reel controller associated with the event.
         /// </summary>
+        [ProtoMember(1)]    
         public int ReelControllerId { get; }
 
         /// <inheritdoc />

@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The MoneyInEnabledEvent is posted when deposits are enabled.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class MoneyInEnabledEvent : BaseEvent
     {
     }

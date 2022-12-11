@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The Event is raised when HardCashLockout has occured during WAT Transfer.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class HardCashLockoutEvent : BaseEvent
     {
         /// <summary>
@@ -32,16 +33,19 @@
         /// <summary>
         ///     Gets the cashable amount being handpaid.
         /// </summary>
+        [ProtoMember(1)]
         public long CashableAmount { get; }
 
         /// <summary>
         ///     Gets the noncashable amount being handpaid.
         /// </summary>
+        [ProtoMember(2)]
         public long NonCashableAmount { get; }
 
         /// <summary>
         ///     Gets the promotional amount being handpaid.
         /// </summary>
+        [ProtoMember(3)]
         public long PromotionalAmount { get; }
     }
 }

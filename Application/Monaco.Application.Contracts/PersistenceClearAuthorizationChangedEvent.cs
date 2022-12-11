@@ -3,11 +3,12 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to signal that persistence clear permission has changed in some way.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class PersistenceClearAuthorizationChangedEvent : BaseEvent
     {
         /// <summary>
@@ -37,15 +38,19 @@
         }
 
         /// <summary>Gets a value indicating whether or not partial persistence clear is allowed</summary>
+        [ProtoMember(1)]
         public bool PartialClearAllowed { get; }
 
         /// <summary>Gets a value indicating whether or not full persistence clear is allowed</summary>
+        [ProtoMember(2)]
         public bool FullClearAllowed { get; }
 
         /// <summary>Gets human-readble text describing why partial clear is not allowed</summary>
+        [ProtoMember(3)]
         public string[] PartialClearDeniedReasons { get; }
 
         /// <summary>Gets human-readble text describing why full clear is not allowed</summary>
+        [ProtoMember(4)]
         public string[] FullClearDeniedReasons { get; }
 
         /// <inheritdoc />

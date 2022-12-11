@@ -5,6 +5,7 @@
     using Application.Contracts.Localization;
     using Kernel;
     using Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>
     ///     Definition of the TransferOutFailedEvent class
@@ -12,6 +13,13 @@
     public class TransferOutFailedEvent : BaseEvent
     {
         private const decimal ConvertMillicentToDollar = 100000M;
+
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public TransferOutFailedEvent()
+        {
+        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="TransferOutFailedEvent" /> class.
@@ -31,21 +39,25 @@
         /// <summary>
         ///     Gets the amount of cashable credits that failed transferred out in millicents.
         /// </summary>
+        [ProtoMember(1)]
         public long CashableAmount { get; }
 
         /// <summary>
         ///     Gets the amount of promotional credits that failed transferred out in millicents.
         /// </summary>
+        [ProtoMember(2)]
         public long PromotionalAmount { get; }
 
         /// <summary>
         ///     Gets the amount of non-cashable credits that failed transferred out in millicents.
         /// </summary>
+        [ProtoMember(3)]
         public long NonCashableAmount { get; }
 
         /// <summary>
         ///     Gets a unique Id that can be used to track the transfer
         /// </summary>
+        [ProtoMember(4)]
         public Guid TraceId { get; }
 
         /// <summary>

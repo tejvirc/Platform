@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     This event is fired whenever a display is connected
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class DisplayConnectedEvent : BaseEvent
     {
     }

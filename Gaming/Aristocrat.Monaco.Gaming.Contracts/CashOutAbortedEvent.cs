@@ -2,12 +2,13 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The CashOutAbortedEvent is posted after the CashOutStartedEvent if we fail
     ///     to successfully start the TransferOut.  This is probably due to failing to get a Transaction.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class CashOutAbortedEvent : BaseEvent
     {
     }

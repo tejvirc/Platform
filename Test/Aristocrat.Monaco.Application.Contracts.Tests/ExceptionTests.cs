@@ -57,31 +57,31 @@
             Assert.AreEqual(inner, target.InnerException);
         }
 
-        /// <summary>
-        ///     A test for OperatorMenuException Constructor using serialization.
-        /// </summary>
-        [TestMethod]
-        public void OperatorMenuExceptionConstructorTestWithSerialization()
-        {
-            var expectedMessage = "This is a test of OperatorMenuException";
+        ///// <summary>
+        /////     A test for OperatorMenuException Constructor using serialization.
+        ///// </summary>
+        //[TestMethod]
+        //public void OperatorMenuExceptionConstructorTestWithSerialization()
+        //{
+        //    var expectedMessage = "This is a test of OperatorMenuException";
 
-            // Just need a specific exception type for the inner exception
-            Exception innerException = new ArgumentException("this is the inner exception");
+        //    // Just need a specific exception type for the inner exception
+        //    Exception innerException = new ArgumentException("this is the inner exception");
 
-            var runnableException = new OperatorMenuException(expectedMessage, innerException);
-            var stream = new MemoryStream();
+        //    var runnableException = new OperatorMenuException(expectedMessage, innerException);
+        //    var stream = new MemoryStream();
 
-            var formatter = new BinaryFormatter();
+        //    var formatter = new BinaryFormatter();
 
-            formatter.Serialize(stream, runnableException);
+        //    formatter.Serialize(stream, runnableException);
 
-            stream.Position = 0;
+        //    stream.Position = 0;
 
-            var deserializedException = (OperatorMenuException)formatter.Deserialize(stream);
+        //    var deserializedException = (OperatorMenuException)formatter.Deserialize(stream);
 
-            Assert.AreEqual(expectedMessage, deserializedException.Message);
-            Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
-        }
+        //    Assert.AreEqual(expectedMessage, deserializedException.Message);
+        //    Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
+        //}
 
         /// <summary>
         ///     A test for MeterNotFoundException Constructor
@@ -124,31 +124,31 @@
             Assert.AreEqual(inner, target.InnerException);
         }
 
-        /// <summary>
-        ///     A test for MeterNotFoundException Constructor using serialization.
-        /// </summary>
-        [TestMethod]
-        public void MeterNotFoundExceptionConstructorTestWithSerialization()
-        {
-            var expectedMessage = "This is a test of MeterNotFoundException";
+        ///// <summary>
+        /////     A test for MeterNotFoundException Constructor using serialization.
+        ///// </summary>
+        //[TestMethod]
+        //public void MeterNotFoundExceptionConstructorTestWithSerialization()
+        //{
+        //    var expectedMessage = "This is a test of MeterNotFoundException";
 
-            // Just need a specific exception type for the inner exception
-            Exception innerException = new ArgumentException("this is the inner exception");
+        //    // Just need a specific exception type for the inner exception
+        //    Exception innerException = new ArgumentException("this is the inner exception");
 
-            var runnableException = new MeterNotFoundException(expectedMessage, innerException);
-            var stream = new MemoryStream();
+        //    var runnableException = new MeterNotFoundException(expectedMessage, innerException);
+        //    var stream = new MemoryStream();
 
-            var formatter = new BinaryFormatter();
+        //    var formatter = new BinaryFormatter();
 
-            formatter.Serialize(stream, runnableException);
+        //    formatter.Serialize(stream, runnableException);
 
-            stream.Position = 0;
+        //    stream.Position = 0;
 
-            var deserializedException = (MeterNotFoundException)formatter.Deserialize(stream);
+        //    var deserializedException = (MeterNotFoundException)formatter.Deserialize(stream);
 
-            Assert.AreEqual(expectedMessage, deserializedException.Message);
-            Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
-        }
+        //    Assert.AreEqual(expectedMessage, deserializedException.Message);
+        //    Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
+        //}
 
         /// <summary>
         ///     A test for MeterException Constructor
@@ -191,30 +191,30 @@
             Assert.AreEqual(inner, target.InnerException);
         }
 
-        /// <summary>
-        ///     A test for MeterNotFoundException Constructor using serialization.
-        /// </summary>
-        [TestMethod]
-        public void MeterExceptionConstructorTestWithSerialization()
-        {
-            var expectedMessage = "This is a test of MeterException";
+        ///// <summary>
+        /////     A test for MeterNotFoundException Constructor using serialization.
+        ///// </summary>
+        //[TestMethod]
+        //public void MeterExceptionConstructorTestWithSerialization()
+        //{
+        //    var expectedMessage = "This is a test of MeterException";
 
-            // Just need a specific exception type for the inner exception
-            Exception innerException = new ArgumentException("this is the inner exception");
+        //    // Just need a specific exception type for the inner exception
+        //    Exception innerException = new ArgumentException("this is the inner exception");
 
-            var runnableException = new MeterException(expectedMessage, innerException);
-            var stream = new MemoryStream();
+        //    var runnableException = new MeterException(expectedMessage, innerException);
+        //    var stream = new MemoryStream();
 
-            var formatter = new BinaryFormatter();
+        //    var formatter = new BinaryFormatter();
 
-            formatter.Serialize(stream, runnableException);
+        //    formatter.Serialize(stream, runnableException);
 
-            stream.Position = 0;
+        //    stream.Position = 0;
 
-            var deserializedException = (MeterException)formatter.Deserialize(stream);
+        //    var deserializedException = (MeterException)formatter.Deserialize(stream);
 
-            Assert.AreEqual(expectedMessage, deserializedException.Message);
-            Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
-        }
+        //    Assert.AreEqual(expectedMessage, deserializedException.Message);
+        //    Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
+        //}
     }
 }

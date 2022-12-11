@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event implementation that provides the minimal implementation to have a
@@ -10,6 +11,7 @@
     ///     of object construction.
     /// </summary>
     /// <inheritdoc />
+    [ProtoContract]
     [Serializable]
     public abstract class BaseEvent : IEvent
     {
@@ -25,9 +27,11 @@
         /// <summary>
         ///     Gets date and time when this object was constructed
         /// </summary>
+        [ProtoMember(1)]
         public DateTime Timestamp { get; }
 
         /// <inheritdoc />
+        [ProtoMember(2)]
         public Guid GloballyUniqueId { get; }
 
         /// <summary>

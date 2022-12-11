@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel
 {
+    using ProtoBuf;
     using System;
 
     /// <summary>
@@ -11,7 +12,7 @@
     ///         event and perform the necessary action
     ///     </para>
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class PlatformBootedEvent : BaseEvent
     {
         /// <summary>
@@ -48,11 +49,13 @@
         /// <summary>
         ///     Gets the time the PlatformBootedEvent happened
         /// </summary>
+        [ProtoMember(1)]
         public DateTime Time { get; }
 
         /// <summary>
         ///     Gets a value indicating whether or not critical memory was cleared
         /// </summary>
+        [ProtoMember(2)]
         public bool CriticalMemoryCleared { get; }
     }
 }

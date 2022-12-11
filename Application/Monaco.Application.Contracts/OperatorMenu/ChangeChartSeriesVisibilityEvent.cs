@@ -2,13 +2,21 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to change chart series visibility.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class ChangeChartSeriesVisibilityEvent : BaseEvent
     {
+
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public ChangeChartSeriesVisibilityEvent()
+        {
+        }
 
         /// <summary>
         ///     An event to change chart series visibility.

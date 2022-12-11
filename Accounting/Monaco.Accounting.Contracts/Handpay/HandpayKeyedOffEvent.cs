@@ -4,11 +4,12 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that a pending handpay has been keyed off.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class HandpayKeyedOffEvent : BaseHandpayEvent
     {
         /// <summary>

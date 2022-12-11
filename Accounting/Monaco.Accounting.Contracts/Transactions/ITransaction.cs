@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts
 {
     using System;
     using Application.Contracts;
+    using ProtoBuf;
 
     /// <summary>
     ///     Defines the fundamental properties that encompass all types of transactions.
@@ -10,6 +11,8 @@ namespace Aristocrat.Monaco.Accounting.Contracts
     ///     Transactions of all types are saved and retrieved from the Transaction History service. This interface makes a
     ///     common set of properties accessible. It contains properties for recurring parameters in G2S transactions.
     /// </remarks>
+    [ProtoContract]
+    [ProtoInclude(1, typeof(TransactionSavedEvent))]
     public interface ITransaction : ILogSequence, ICloneable
     {
         /// <summary>

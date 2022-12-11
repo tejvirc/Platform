@@ -3,9 +3,9 @@
     using System.IO;
     using System.Reflection;
     using System.Runtime.Serialization;
-    using System.Runtime.Serialization.Formatters.Binary;
     using Contracts.Persistence;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using ProtoBuf;
 
     /// <summary>
     ///     Tests for PersistentStorageClearedEvent
@@ -29,13 +29,12 @@
 
             var memoryStream = new MemoryStream();
 
-            var binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Serialize(memoryStream, clearedEvent);
+            Serializer.Serialize(memoryStream, clearedEvent);
 
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             var deserializedEvent =
-                (PersistentStorageClearedEvent)binaryFormatter.Deserialize(memoryStream);
+                Serializer.Deserialize<PersistentStorageClearedEvent>(memoryStream);
 
             Assert.AreEqual(PersistenceLevel.Static, deserializedEvent.Level);
         }

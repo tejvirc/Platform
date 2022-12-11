@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using Kernel;
+    using ProtoBuf;
     using System;
     using System.Globalization;
 
@@ -8,9 +9,16 @@
     ///     An event that is posted when the GDK indicates that it has entered or exited an in-game
     ///     "selection screen", for example a denomination lobby.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameSelectionScreenEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public GameSelectionScreenEvent()
+        {
+        }
+
         /// <summary>
         ///     Indicates whether we are entering or exiting the in-game selection screen.
         /// </summary>
