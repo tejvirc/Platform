@@ -93,7 +93,7 @@ as follows:
     <string>Progressive</string>
   </LogTypesAllowedForDisplay>
   <MultiGame DefaultBetAfterSwitch="false" />
-	<MasterVolumeSettings>
+  <MasterVolumeSettings>
     <VolumeNode Key="1" Description="Low" Value="36" />
     <VolumeNode Key="2" Description="Medium Low" Value="43" />
     <VolumeNode Key="3" Description="Medium" Value="53" />
