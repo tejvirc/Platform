@@ -100,11 +100,11 @@ as follows:
     <VolumeNode Key="4" Description="Medium High" Value="65" />
     <VolumeNode Key="5" Description="High" Value="83" />
   </MasterVolumeSettings>
-	<VolumeScalarSettings>
-		<Scalar Value="0.32" />
-		<Scalar Value="0.49" />
-		<Scalar Value="0.67" />
-		<Scalar Value="0.8" />
-		<Scalar Value="1" />
-	</VolumeScalarSettings>
+  <VolumeScalarSettings>
+    <Scalar Value="0.32" />
+    <Scalar Value="0.49" />
+    <Scalar Value="0.67" />
+    <Scalar Value="0.8" />
+    <Scalar Value="1" />
+  </VolumeScalarSettings>
 </ApplicationConfiguration>
