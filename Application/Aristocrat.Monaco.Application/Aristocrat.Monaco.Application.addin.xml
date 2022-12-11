@@ -114,7 +114,6 @@
     <PropertyProvider type="Aristocrat.Monaco.Application.SystemPropertiesProvider" />
     <PropertyProvider type="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider" />
     <PropertyProvider type="Aristocrat.Monaco.Application.ConfiguredAddinsPropertiesProvider" />
-    <PropertyProvider type="Aristocrat.Monaco.Application.VolumeSettingPropertiesProvider" />
   </Extension>
 
   <Extension path="/Application/PreConfiguration">
