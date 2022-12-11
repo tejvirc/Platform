@@ -19,4 +19,5 @@
   <ExtensionPoint path = "/Lobby/Configuration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
+
 </Addin>
