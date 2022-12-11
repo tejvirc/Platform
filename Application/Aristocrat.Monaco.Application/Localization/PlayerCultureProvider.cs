@@ -44,7 +44,17 @@
                 RaisePropertyChangedEvent(nameof(DefaultCulture));
             }
         }
-        
+
+        public override CultureInfo CurrentCulture
+        {
+            get
+            {
+                string currentLocale = (string)_properties.GetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, null);
+                return string.IsNullOrEmpty(currentLocale) ?
+                       DefaultCulture ?? new CultureInfo(ApplicationConstants.DefaultLanguage) : new CultureInfo(currentLocale);
+            }
+        }
+
         /// <inheritdoc />
         public override string ProviderName => CultureFor.Player;
 

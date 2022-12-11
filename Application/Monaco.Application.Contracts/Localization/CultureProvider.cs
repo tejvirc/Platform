@@ -63,7 +63,7 @@
 
         /// <inheritdoc />
         [JsonProperty]
-        public CultureInfo CurrentCulture { get; private set; }
+        public virtual CultureInfo CurrentCulture { get; private set; }
 
         /// <inheritdoc />
         [JsonIgnore]
