@@ -200,7 +200,7 @@
                 HhrUiConstants.WaitingForRaceInfoGuid,
                 SystemDisablePriority.Immediate,
                 () =>
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.WaitingForRaceInfo));
+                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.WaitingForRaceInfo));
 
             var numberOfCredits = _properties.GetValue(GamingConstants.SelectedBetCredits, (long)0);
             var result = await _prizeDeterminationService.RequestRaceInfo(referenceId, (uint)numberOfCredits);

@@ -61,7 +61,7 @@
             _systemDisableManager.Disable(
                 BingoConstants.TransactionQueueDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TransactionReportingQueueAlmostFull));
+                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.TransactionReportingQueueAlmostFull));
         }
 
         public void AlmostFullClear()

@@ -351,7 +351,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             // Cancel the current verification task
             CancelTask();
 
-            var displayMessage = Localizer.For(CultureFor.Operator)
+            var displayMessage = Localizer.For(CultureFor.Player)
                 .FormatString(ResourceKeys.VerificationFailedText, message);
 
             // Update the disable text with the error message

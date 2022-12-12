@@ -2991,7 +2991,7 @@
 
             ReplayRecovery.MessageText = (_gameRecovery.IsRecovering || _lobbyStateManager.IsLoadingGameForRecovery)
                                          && CurrentState == LobbyState.GameLoading
-                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RecoveringText)
+                ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.RecoveringText)
                 : string.Empty;
 
             if (CurrentState == LobbyState.GameLoading ||

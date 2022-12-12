@@ -36,7 +36,7 @@
         ///<inheritdoc />
         public override async Task<IResponse> Handle(MalformedMessage message)
         {
-            _lockup.LockupForEmployeeCard(_localization.For(CultureFor.Operator).GetString(ResourceKeys.VLTCommunicationError));
+            _lockup.LockupForEmployeeCard(_localization.For(CultureFor.Player).GetString(ResourceKeys.VLTCommunicationError));
 
             await _notification.Notify(NotificationCode.LockedMalformedMessage, message.ErrorDescription);
 

@@ -144,7 +144,7 @@
             switch (status.Failure)
             {
                 case TransportFailure.Malformed:
-                    _lockup.LockupForEmployeeCard(_localization.For(CultureFor.Operator).GetString(ResourceKeys.VLTCommunicationError));
+                    _lockup.LockupForEmployeeCard(_localization.For(CultureFor.Player).GetString(ResourceKeys.VLTCommunicationError));
                     _notificationLift.Notify(NotificationCode.LockedMalformedMessage);
                     return;
                 case TransportFailure.Timeout:

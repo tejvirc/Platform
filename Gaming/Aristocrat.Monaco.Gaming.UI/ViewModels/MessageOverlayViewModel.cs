@@ -290,7 +290,7 @@
                     break;
                 case MessageOverlayState.Diagnostics:
                     MessageOverlayData.ReplayText = _gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog>
-                        ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayText)
+                        ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.ReplayText)
                         : string.Empty;
                     break;
                 case MessageOverlayState.Handpay:

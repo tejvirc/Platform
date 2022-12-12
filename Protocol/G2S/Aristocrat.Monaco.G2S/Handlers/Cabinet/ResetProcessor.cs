@@ -72,7 +72,7 @@
                     cabinet,
                     DisableCondition.Immediate,
                     TimeSpan.FromMilliseconds(command.IClass.timeToLive),
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ResetProcessor),
+                    () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.ResetProcessor),
                     success =>
                     {
                         if (success)

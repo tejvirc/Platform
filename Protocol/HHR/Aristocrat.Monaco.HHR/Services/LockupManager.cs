@@ -95,10 +95,10 @@
                 HhrConstants.TransactionPendingKey,
                 SystemDisablePriority.Normal,
                 () =>
-                    Localizer.For(CultureFor.Operator)
+                    Localizer.For(CultureFor.Player)
                         .GetString(ResourceKeys.TransactionRequestPendingText),
                 true,
-                () => Localizer.For(CultureFor.Operator)
+                () => Localizer.For(CultureFor.Player)
                     .GetString(ResourceKeys.TransactionRequestPendingHelpText));
         }
 

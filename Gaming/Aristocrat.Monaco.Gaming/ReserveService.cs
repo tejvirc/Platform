@@ -210,7 +210,7 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.ReserveDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReservedMachine));
+                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.ReservedMachine));
 
             _propertiesManager.SetProperty(ApplicationConstants.ReserveServiceLockupPresent, true);
         }
