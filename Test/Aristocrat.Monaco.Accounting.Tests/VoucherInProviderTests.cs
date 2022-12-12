@@ -11,6 +11,7 @@ using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
 using Aristocrat.Monaco.Hardware.Contracts.Persistence;
 using Aristocrat.Monaco.Kernel;
 using Aristocrat.Monaco.Kernel.Contracts;
+using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
 using Aristocrat.Monaco.Test.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mono.Addins;

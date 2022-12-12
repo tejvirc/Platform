@@ -1,5 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Bonus.Strategies
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Transactions;
@@ -8,6 +12,7 @@
     using Accounting.Contracts.Wat;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Contracts;
     using Contracts.Bonus;
@@ -20,10 +25,7 @@
     using log4net;
     using Payment;
     using Runtime;
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
+    using Kernel.MessageDisplay;
 
     public abstract class BonusStrategy
     {

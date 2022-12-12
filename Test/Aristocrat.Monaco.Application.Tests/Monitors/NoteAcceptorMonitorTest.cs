@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Audio;

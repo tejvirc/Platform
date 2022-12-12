@@ -18,6 +18,7 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.Contracts.Components;
+    using Kernel.Contracts.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Storage;
     using Moq;

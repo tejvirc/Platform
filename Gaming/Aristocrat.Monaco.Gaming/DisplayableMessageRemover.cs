@@ -8,6 +8,7 @@
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.NoteAcceptor;
@@ -58,7 +59,7 @@
             GC.SuppressFinalize(this);
         }
 
-        public void DisplayMessage(DisplayableMessage displayableMessage)
+        public void DisplayMessage(IDisplayableMessage displayableMessage)
         {
             if (displayableMessage.ReasonEvent == null || !RemovingMessages.Contains(displayableMessage.ReasonEvent))
             {
@@ -72,7 +73,7 @@
             Logger.Debug($"Added the message {displayableMessage} for automatic clearing based on game play events");
         }
 
-        public void RemoveMessage(DisplayableMessage displayableMessage)
+        public void RemoveMessage(IDisplayableMessage displayableMessage)
         {
             Logger.Debug($"Removing message {displayableMessage}");
 
@@ -152,13 +153,13 @@
 
         private class RemovalMessage
         {
-            public RemovalMessage(DisplayableMessage message, Queue<Type> requiredEvents)
+            public RemovalMessage(IDisplayableMessage message, Queue<Type> requiredEvents)
             {
                 Message = message;
                 RequiredEvents = requiredEvents;
             }
 
-            public DisplayableMessage Message { get; }
+            public IDisplayableMessage Message { get; }
 
             public Queue<Type> RequiredEvents { get; }
         }

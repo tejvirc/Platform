@@ -1,10 +1,10 @@
-namespace Aristocrat.Monaco.Kernel
+namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
 {
     /// <summary>
     ///     This enumeration is used to classify messages so that handlers can decide how to present them.
     /// </summary>
     /// <remarks>
-    ///     This is currently used as a property in <see cref="DisplayableMessage" /> objects.
+    ///     This is currently used as a property in <see cref="IDisplayableMessage" /> objects.
     /// </remarks>
     public enum DisplayableMessageClassification
     {
