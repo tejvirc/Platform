@@ -6,7 +6,8 @@
     using Application.Contracts.Authentication;
     using Application.Contracts.Localization;
     using Application.Contracts.Media;
-    using Aristocrat.Monaco.Protocol.Common.Installer;
+    using Protocol.Common.Installer;
+    using Kernel.Contracts.MessageDisplay;
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
     using Gaming.Contracts.Central;

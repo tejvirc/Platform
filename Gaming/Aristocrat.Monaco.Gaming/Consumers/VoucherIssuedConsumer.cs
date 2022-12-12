@@ -3,9 +3,11 @@
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Kernel;
     using Localization.Properties;
+    using Kernel.MessageDisplay;
 
     /// <summary>
     ///     Handles the OperatorMenuEnteredEvent, which sets the cabinet's state.

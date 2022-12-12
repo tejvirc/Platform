@@ -21,6 +21,7 @@
     using Hardware.Contracts.Communicator;
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.SharedDevice;
+    using Kernel.Contracts.MessageDisplay;
     using Kernel;
     using log4net;
     using Localization.Properties;

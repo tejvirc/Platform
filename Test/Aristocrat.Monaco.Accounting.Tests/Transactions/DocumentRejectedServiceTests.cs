@@ -7,6 +7,7 @@
     using Application.Contracts.Localization;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.NoteAcceptor;
@@ -346,7 +347,7 @@
             if (lockupType == ExcessiveDocumentRejectLockupType.Soft)
             {
                 SetupForSoftLockup();
-                _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
+                _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
                     .Throws(new Exception("Shouldn't create lockup if Max rejections are not in succession"));
             }
             else
@@ -570,7 +571,7 @@
             if (lockupType == ExcessiveDocumentRejectLockupType.Soft)
             {
                 SetupForSoftLockup();
-                _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>()))
+                _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
                     .Throws(new Exception("Shouldn't create lockup if Max rejections are not in succession"));
             }
             else
@@ -758,8 +759,8 @@
             {
                 if (!string.IsNullOrEmpty(msg))
                 {
-                    _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<DisplayableMessage>())).Callback(
-                         (DisplayableMessage message) =>
+                    _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>())).Callback(
+                         (IDisplayableMessage message) =>
                          {
                              _displayedMessages.Add(message.Message);
                          }).Verifiable();
@@ -769,8 +770,8 @@
             {
                 if (!string.IsNullOrEmpty(msg))
                 {
-                    _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<DisplayableMessage>()))
-                        .Callback((DisplayableMessage message) => { _removedMessages.Add(message.Message); })
+                    _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()))
+                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.Message); })
                         .Verifiable();
                 }
             }

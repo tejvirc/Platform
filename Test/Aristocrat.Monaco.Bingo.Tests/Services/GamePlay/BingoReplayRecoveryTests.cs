@@ -8,6 +8,7 @@
     using Application.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Bonus;
+    using Kernel.Contracts.MessageDisplay;
     using Bingo.GameEndWin;
     using Bingo.Services.GamePlay;
     using Commands;
@@ -354,7 +355,7 @@
                 x => x.Publish(It.Is<BingoGamePatternEvent>(e => description.Patterns.SequenceEqual(e.Patterns))));
             _eventBus.Setup(
                 x => x.Publish(It.Is<BingoGameBallCallEvent>(e => description.BallCallNumbers.SequenceEqual(e.BallCall.Numbers))));
-            _messages.Verify(x => x.DisplayMessage(It.IsAny<DisplayableMessage>()), Times.Once);
+            _messages.Verify(x => x.DisplayMessage(It.IsAny<IDisplayableMessage>()), Times.Once);
         }
 
         [DataTestMethod]
