@@ -324,8 +324,6 @@
             _commandService.HandleCommands(
                 _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
                 _tokenSource.Token).FireAndForget();
-
-            _timeoutTimer.Start();
         }
 
         private void TimeoutOccurred(object sender, ElapsedEventArgs e)
@@ -377,6 +375,8 @@
             while (!await _client.Start() && !token.IsCancellationRequested)
             {
             }
+
+            _timeoutTimer.Start();
         }
 
         private void SetupFirewallRule()
