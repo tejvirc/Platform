@@ -664,6 +664,7 @@
             // Handle unlock and handle bonuses
             _faulted = false;
             _handlerFactory.Create<PresentationIdle>().Handle(new PresentationIdle());
+            _eventBus.Publish(new GamePresentationIdleEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
             HandleBonusEvents(Trigger.GameIdle);
         }
 

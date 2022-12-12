@@ -59,7 +59,7 @@
             }
         }
 
-        public bool IsConnected => _channel?.State is ChannelState.Ready or ChannelState.Idle;
+        public bool IsConnected => StateIsConnected(_channel?.State);
 
         public ClientConfigurationOptions Configuration => _configurationProvider.Configuration;
 
@@ -155,9 +155,12 @@
             _disposed = true;
         }
 
+        private static bool StateIsConnected(ChannelState? state) =>
+            state is ChannelState.Ready or ChannelState.Idle or ChannelState.TransientFailure;
+
         private void MonitorConnection()
         {
-            Task.Run(async () => await MonitorConnectionAsync()).ContinueWith(
+            Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
                 async _ =>
                 {
                     Logger.Error("Monitor Connection Failed Forcing a disconnect");
@@ -166,14 +169,22 @@
                 TaskContinuationOptions.OnlyOnFaulted);
         }
 
-        private async Task MonitorConnectionAsync()
+        private async Task MonitorConnectionAsync(Channel channel)
         {
-            if (_channel is null)
+            if (channel is null)
             {
                 return;
             }
 
-            await _channel.WaitForStateChangedAsync(ChannelState.Ready);
+            var lastObservedState = channel.State;
+            while (StateIsConnected(lastObservedState))
+            {
+                await _channel.WaitForStateChangedAsync(lastObservedState);
+                lastObservedState = channel.State;
+                Logger.Info($"Channel connection state changed: {lastObservedState}");
+            }
+
+            Logger.Error($"Channel connection is no longer connected: {lastObservedState}");
             await Stop();
         }
     }
