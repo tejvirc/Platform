@@ -4,26 +4,26 @@
     using System.Collections.Generic;
     using Aristocrat.Monaco.Bingo.Common;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Bingo.Consumers;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using Test.Common;
 
     [TestClass]
-    public class SystemDisabledConsumerTests
+    public class GamePlayDisabledConsumerTests
     {
-        private SystemDisabledConsumer _target;
+        private GamePlayDisabledConsumer _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Loose);
         private readonly Mock<ISharedConsumer> _sharedConsumer = new(MockBehavior.Strict);
         private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Strict);
         private readonly Mock<ISystemDisableManager> _systemDisable = new Mock<ISystemDisableManager>();
-        private readonly SystemDisabledEvent _event = new();
+        private readonly GamePlayDisabledEvent _event = new();
 
         [TestInitialize]
         public void MyTestInitialize()
         {
-            _target = new SystemDisabledConsumer(_eventBus.Object, _sharedConsumer.Object, _reportingService.Object);
+            _target = new GamePlayDisabledConsumer(_eventBus.Object, _sharedConsumer.Object, _reportingService.Object);
             _systemDisable.Setup(mock => mock.CurrentDisableKeys).Returns(new List<Guid>() { new Guid("{F1BE3145-DF51-4C43-BAB6-F0E934681C74}") });
         }
 
@@ -38,7 +38,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorParametersTest(bool reportingNull, bool eventBusNull)
         {
-            _target = new SystemDisabledConsumer(
+            _target = new GamePlayDisabledConsumer(
                 eventBusNull ? null : _eventBus.Object,
                 _sharedConsumer.Object,
                 reportingNull ? null : _reportingService.Object);
