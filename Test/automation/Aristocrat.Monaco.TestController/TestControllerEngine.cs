@@ -133,7 +133,7 @@
 
         private MessageOverlayData _messageOverlayData;
 
-        public void Initialize()
+        public TestControllerEngine()
         {
             _pm = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
 
