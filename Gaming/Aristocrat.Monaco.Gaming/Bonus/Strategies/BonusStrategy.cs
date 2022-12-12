@@ -640,9 +640,9 @@
         {
             cashableAmount = transaction.LastAuthorizedCashableAmount > 0 ? transaction.LastAuthorizedCashableAmount : cashableAmount;
 
-            nonCashAmount += transaction.LastAuthorizedNonCashAmount > 0 ? transaction.LastAuthorizedNonCashAmount : nonCashAmount;
+            nonCashAmount = transaction.LastAuthorizedNonCashAmount > 0 ? transaction.LastAuthorizedNonCashAmount : nonCashAmount;
 
-            promoAmount += transaction.LastAuthorizedPromoAmount > 0 ? transaction.LastAuthorizedPromoAmount : promoAmount;
+            promoAmount = transaction.LastAuthorizedPromoAmount > 0 ? transaction.LastAuthorizedPromoAmount : promoAmount;
 
         }
 
