@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using Common;
+    using Kernel.Contracts.MessageDisplay;
     using Localization;
     using log4net;
     using Monaco.Localization.Properties;
@@ -203,14 +204,14 @@
             if (!dollars.IsBelowMaximum(maximumInDollars))
             {
                 return string.Format(
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LessThanOrEqualErrorMessage),
+                    Localizer.GetString(ResourceKeys.LessThanOrEqualErrorMessage, CultureProviderType.Player),
                     maximumInDollars.FormattedCurrencyString());
             }
 
             if (dollars.IsBelowMinimum(minimum) && minimum > 0)
             {
                 return string.Format(
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanOrEqualErrorMessage),
+                    Localizer.GetString(ResourceKeys.GreaterThanOrEqualErrorMessage, CultureProviderType.Player),
                     minimum.MillicentsToDollars().FormattedCurrencyString());
             }
 
@@ -218,8 +219,8 @@
             {
                 return string.Format(
                     canEqualZero
-                        ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanOrEqualErrorMessage)
-                        : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanErrorMessage),
+                        ? Localizer.GetString(ResourceKeys.GreaterThanOrEqualErrorMessage, CultureProviderType.Player)
+                        : Localizer.GetString(ResourceKeys.GreaterThanErrorMessage, CultureProviderType.Player),
                     ZeroDollars.FormattedCurrencyString());
             }
 

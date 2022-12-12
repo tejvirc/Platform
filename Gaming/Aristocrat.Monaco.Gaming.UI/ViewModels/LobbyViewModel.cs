@@ -1667,7 +1667,7 @@
             set => SetProperty(ref _disableCountdownTimeRemaining, value);
         }
 
-        public string DisableCountdownMessage => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisableCountdownMessage);
+        public string DisableCountdownMessage => Localizer.GetString(ResourceKeys.DisableCountdownMessage, CultureProviderType.Player);
 
         public bool IsPaidMeterVisible => PaidMeterValue != string.Empty;
 
@@ -1820,7 +1820,7 @@
             if (string.IsNullOrEmpty(defaultLocale))
             {
                 // if default is not set yet, get the first locale from config
-                defaultLocale = Config.LocaleCodes[0] ?? GamingConstants.DefaultCultureCode;
+                defaultLocale = !string.IsNullOrEmpty(Config.LocaleCodes[0]) ? Config.LocaleCodes[0] : GamingConstants.DefaultCultureCode;
                 _playerCultureProvider.DefaultCulture = new CultureInfo(defaultLocale);
             }
 
@@ -1830,10 +1830,9 @@
             }
             else
             {
-                _properties.SetProperty(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode);
+                _properties.SetProperty(GamingConstants.SelectedLocaleCode, defaultLocale);
+                LocaleCodeIndex = GetLocaleIndex(defaultLocale);
             }
-
-            LocaleCodeIndex = GetLocaleIndex(defaultLocale);
         }
 
         private void InitializeMultiLanguages()
@@ -1846,6 +1845,10 @@
             if (string.IsNullOrEmpty(localeCode))
             {
                 _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
+            }
+            else
+            {
+                LocaleCodeIndex = GetLocaleIndex(localeCode);
             }
 
             // subscribe the language changed event from game
@@ -1964,7 +1967,7 @@
             var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
             if (string.IsNullOrWhiteSpace(IdleText))
             {
-                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.GetString(ResourceKeys.IdleTextDefault);
+                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.GetString(ResourceKeys.IdleTextDefault, CultureProviderType.Player);
                 _properties.SetProperty(GamingConstants.IdleText, idleText);
             }
 

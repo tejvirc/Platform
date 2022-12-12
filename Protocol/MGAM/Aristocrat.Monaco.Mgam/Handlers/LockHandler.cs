@@ -4,6 +4,7 @@
     using Application.Contracts.Localization;
     using Aristocrat.Mgam.Client;
     using Aristocrat.Mgam.Client.Messaging;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Services.Lockup;
     using Services.Notification;
@@ -34,7 +35,7 @@
         {
             _lockup.AddHostLock(
                 string.IsNullOrEmpty(message.Message)
-                    ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LockedByHost)
+                    ? Localizer.GetString(ResourceKeys.LockedByHost, CultureProviderType.Player)
                     : message.Message);
 
             await _notification.Notify(NotificationCode.LockedCommanded);

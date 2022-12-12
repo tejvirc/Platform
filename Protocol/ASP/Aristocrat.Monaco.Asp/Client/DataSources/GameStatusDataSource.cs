@@ -8,6 +8,7 @@
     using Contracts;
     using Gaming.Contracts;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using HandlerMap =
         System.Collections.Generic.Dictionary<string, (System.Func<object> Getter, System.Func<object, bool> Setter)>;
@@ -77,7 +78,7 @@
                     Status == GameEnableStatus.DisableGameDisallowCollect
                         ? SystemDisablePriority.Immediate
                         : SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveDisable));
+                    () => Localizer.GetString(ResourceKeys.ProgressiveDisable, CultureProviderType.Player));
             }
             else
             {

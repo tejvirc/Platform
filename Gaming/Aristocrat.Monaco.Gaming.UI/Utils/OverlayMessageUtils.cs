@@ -4,6 +4,7 @@
     using Application.Contracts.Localization;
     using Contracts;
     using Contracts.Models;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     public static class OverlayMessageUtils
@@ -53,7 +54,7 @@
         {
             if (lastCashOutForcedByMaxBank)
             {
-                data.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaximumValueReachedCashOutText1);
+                data.Text = Localizer.GetString(ResourceKeys.MaximumValueReachedCashOutText1, CultureProviderType.Player);
                 data.IsSubText2Visible = true;
                 data.SubText = cashoutTypeText;
                 data.SubText2 = cashoutAmountText;

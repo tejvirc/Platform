@@ -17,25 +17,25 @@
     public class ProgressiveErrorProvider : IProgressiveErrorProvider, IService
     {
         private static readonly IDisplayableMessage UpdateTimeoutMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgUpdateTimeout),
+            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_ProgUpdateTimeout, CultureProviderType.Player),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveUpdateTimeoutGuid);
 
         private static readonly IDisplayableMessage DisconnectedErrorMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgDisconnected),
+            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_ProgDisconnected, CultureProviderType.Player),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveDisconnectErrorGuid);
 
         private static readonly IDisplayableMessage ClaimTimeoutErrorMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgCommitTimeout),
+            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_ProgCommitTimeout, CultureProviderType.Player),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveCommitTimeoutGuid);
 
         private static readonly IDisplayableMessage MinimumThresholdErrorMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_MinimumThresholdNotReached),
+            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_MinimumThresholdNotReached, CultureProviderType.Player),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.MinimumThresholdErrorGuid);

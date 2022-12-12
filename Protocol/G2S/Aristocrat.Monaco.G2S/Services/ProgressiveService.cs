@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Timers;
     using Application.Contracts;
+    using Application.Contracts.Localization;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
@@ -18,7 +19,7 @@
     using Handlers;
     using Handlers.Progressive;
     using Kernel;
-    using Localization.Properties;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
 
     public class ProgressiveService : IService, IDisposable, IProtocolProgressiveEventHandler
@@ -316,11 +317,11 @@
 
                 if (_commsDisable)
                 {
-                    device.DisableText = Resources.ProgressiveDisconnectText;
+                    device.DisableText = Localizer.GetString("ProgressiveDisconnectText", CultureProviderType.Player); 
                 }
                 else if (_levelMismatch)
                 {
-                    device.DisableText = Resources.ProgressiveLevelMismatchText;
+                    device.DisableText = Localizer.GetString("ProgressiveLevelMismatchText", CultureProviderType.Player);
                 }
 
                 Logger.Debug($"Progressive service is disabling the Progressive device: {reason}");

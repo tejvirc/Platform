@@ -8,6 +8,7 @@
     using System.Reflection;
     using System.Threading.Tasks;
     using System.Timers;
+    using Aristocrat.Monaco.Localization.Properties;
     using Audio;
     using Contracts;
     using Contracts.Audio;
@@ -335,7 +336,8 @@
                         _disableManager.Disable(
                             AudioReconnectedLock,
                             SystemDisablePriority.Immediate,
-                            () => Properties.Resources.AudioConnected);
+                            ResourceKeys.AudioConnected,
+                            CultureProviderType.Player);
                         _disableManager.Enable(AudioDisconnectedLock);
                     }
 
@@ -546,7 +548,7 @@
             _disableManager.Disable(
                 AudioDisconnectedLock,
                 SystemDisablePriority.Immediate,
-                "AudioDisconnect",
+                ResourceKeys.AudioDisconnect,
                 CultureProviderType.Player);
         }
 

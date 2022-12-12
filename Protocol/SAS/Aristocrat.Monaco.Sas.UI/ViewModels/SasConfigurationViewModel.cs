@@ -13,6 +13,7 @@
     using Contracts.Events;
     using Contracts.SASProperties;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Storage.Models;
 
@@ -835,12 +836,12 @@
         {
             if (value <= 0)
             {
-                return string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanErrorMessage), 0);
+                return string.Format(Localizer.GetString(ResourceKeys.GreaterThanErrorMessage, CultureProviderType.Player), 0);
             }
 
             if (value > maximum)
             {
-                return string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LessThanOrEqualErrorMessage), maximum);
+                return string.Format(Localizer.GetString(ResourceKeys.LessThanOrEqualErrorMessage, CultureProviderType.Player), maximum);
             }
 
             return string.Empty;

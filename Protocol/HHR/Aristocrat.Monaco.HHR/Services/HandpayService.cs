@@ -13,6 +13,7 @@
     using Client.WorkFlow;
     using Gaming.Contracts;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using Storage.Helpers;
@@ -410,7 +411,7 @@
                         RequestTimeout = new LockupRequestTimeout
                         {
                             LockupKey = HhrConstants.GameWinCmdTransactionErrorKey,
-                            LockupString = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameWinTransactionCmdFailedMsg),
+                            LockupString = Localizer.GetString(ResourceKeys.GameWinTransactionCmdFailedMsg, CultureProviderType.Player),
                             LockupHelpText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameWinTransactionCmdFailedHelpMsg)
                         },
                         TimeoutInMilliseconds = HhrConstants.MsgTransactionTimeoutMs,

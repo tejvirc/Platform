@@ -12,6 +12,7 @@
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Gaming.Contracts;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using HHRHandpayType = Client.Messages.HandpayType;
@@ -93,8 +94,8 @@
                 RequestTimeout = new LockupRequestTimeout
                 {
                     LockupKey = HhrConstants.CreditOutCmdTransactionErrorKey,
-                    LockupString = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CreditOutCmdFailedMsg),
-                    LockupHelpText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CreditOutCmdFailedHelpMsg)
+                    LockupString = Localizer.GetString(ResourceKeys.CreditOutCmdFailedMsg, CultureProviderType.Player),
+                    LockupHelpText = Localizer.GetString(ResourceKeys.CreditOutCmdFailedHelpMsg)
                 },
                 TransactionId = (uint)_transactionIdProvider.GetNextTransactionId(),
                 TransactionType = aftOutType,

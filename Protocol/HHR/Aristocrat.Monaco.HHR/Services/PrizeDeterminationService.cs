@@ -16,6 +16,7 @@
     using Gaming.Contracts.Progressives;
     using Hardware.Contracts.Button;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using Protocol.Common.Logging;
@@ -443,8 +444,7 @@
                 _systemDisableManager.Disable(HhrConstants.ManualHandicapWinKey,
                     SystemDisablePriority.Immediate,
                     () =>
-                        Localizer.For(CultureFor.Operator)
-                            .GetString(ResourceKeys.ManualHandicapWinText),
+                        Localizer.GetString(ResourceKeys.ManualHandicapWinText, CultureProviderType.Player),
                     true,
                     () => Localizer.For(CultureFor.Operator)
                         .GetString(ResourceKeys.ManualHandicapWinHelpText));

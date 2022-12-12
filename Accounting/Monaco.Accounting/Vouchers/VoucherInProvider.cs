@@ -155,7 +155,7 @@
                 },
                 {
                     VoucherInExceptionCode.AnotherTransferInProgress, new DisplayableMessage(
-                        () => GetRejectionMessage(ResourceKeys.ValidationFailed),
+                        () => GetRejectionMessage(ResourceKeys.AnotherTransferInProgress),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Normal,
                         typeof(VoucherRejectedEvent),
@@ -163,7 +163,7 @@
                 },
                 {
                     VoucherInExceptionCode.CannotMixNonCashableExpired, new DisplayableMessage(
-                        () => GetRejectionMessage(ResourceKeys.ValidationFailed),
+                        () => GetRejectionMessage(ResourceKeys.CannotMixNonCashableExpired),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Normal,
                         typeof(VoucherRejectedEvent),
@@ -171,7 +171,7 @@
                 },
                 {
                     VoucherInExceptionCode.CannotMixNonCashableCredits, new DisplayableMessage(
-                        () => GetRejectionMessage(ResourceKeys.ValidationFailed),
+                        () => GetRejectionMessage(ResourceKeys.CannotMixNonCashableCredits),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Normal,
                         typeof(VoucherRejectedEvent),

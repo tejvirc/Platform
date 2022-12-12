@@ -147,12 +147,12 @@
             <Image Source="../Resources/Help/CombinationPrize.png" Height="30" Margin="60,0,0,0"/>
             <DockPanel Margin="20,20,0,0">
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.IncludesProgressiveResetValues}}" 
+                           Text="{Binding IncludesProgressiveResetValues}" 
                            Visibility="{Binding CurrentWinningPattern.IncludesProgressiveResetValues, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Left"
-                           Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.GuaranteedCreditsStringFormat}}'}" />
+                           Text="{Binding CurrentWinningPatternGuaranteedCredits}" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Right"
-                           Text="{Binding CurrentWinningPattern.ExtraWinnings, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.ExtraWinningsStringFormat}}', Converter={StaticResource CurrencyConverter}}" 
+                           Text="{Binding CurrentWinningPatternExtraWinnings}" 
                            Visibility="{Binding CurrentWinningPattern.ExtraWinnings, Converter={StaticResource NumberToVisible}, ConverterParameter=0.0}" />
             </DockPanel>
         </StackPanel>

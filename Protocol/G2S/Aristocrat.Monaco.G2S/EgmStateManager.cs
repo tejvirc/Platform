@@ -122,7 +122,7 @@
             if (string.IsNullOrEmpty(message?.Invoke()))
             {
                 message = () => 
-                    Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.DisabledByDevice,
+                    Localizer.For(CultureFor.Player).FormatString(ResourceKeys.DisabledByDevice,
                     device.DeviceClass,
                     device.Id);
             }

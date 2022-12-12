@@ -8,6 +8,7 @@
     using Hardware.Contracts;
     using Hardware.Contracts.HardMeter;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -110,7 +111,7 @@
             _disableManager.Disable(
                 HardMeterDisabled,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterDisabled));
+                () => Localizer.GetString(ResourceKeys.HardMeterDisabled, CultureProviderType.Player));
         }
 
         private void EnableSystem()

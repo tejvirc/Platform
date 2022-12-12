@@ -6,6 +6,7 @@
     using Client.Messages;
     using Events;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     /// <summary>
@@ -34,7 +35,7 @@
                 _ => systemDisableManager.Disable(
                     HhrConstants.CentralServerOffline,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HHRCentralServerOffline),
+                    () => Localizer.GetString(ResourceKeys.HHRCentralServerOffline, CultureProviderType.Player),
                     true,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoHHRCentralServerOffline)));
 
@@ -106,7 +107,7 @@
             _systemDisableManager.Disable(
                 HhrConstants.ProtocolInitializationInProgress,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HHRProtocolInitializationInProgress),
+                () => Localizer.GetString(ResourceKeys.HHRProtocolInitializationInProgress, CultureProviderType.Player),
                 true,
                 () => Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.ErrorInfoHHRProtocolInitializationInProgress));
@@ -117,7 +118,7 @@
             _systemDisableManager.Disable(
                 HhrConstants.ProtocolInitializationFailed,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HHRProtocolInitializationFailed),
+                () => Localizer.GetString(ResourceKeys.HHRProtocolInitializationFailed, CultureProviderType.Player),
                 true,
                 () => Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.ErrorInfoHHRProtocolInitializationFailed));
@@ -131,7 +132,7 @@
                 HhrConstants.ProgressivesInitializationFailedKey,
                 SystemDisablePriority.Normal,
                 () =>
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveInitializationFailedMsg));
+                    Localizer.GetString(ResourceKeys.ProgressiveInitializationFailedMsg, CultureProviderType.Player));
         }
 
         private void Handle(PrizeCalculationErrorEvent evt)
@@ -140,7 +141,7 @@
                 HhrConstants.PrizeCalculationErrorKey,
                 SystemDisablePriority.Immediate,
                 () =>
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrizeCalculationError),
+                    Localizer.GetString(ResourceKeys.PrizeCalculationError, CultureProviderType.Player),
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClearPrizeCalculationError));
         }
@@ -164,7 +165,7 @@
                 HhrConstants.GameSelectionMismatchKey,
                 SystemDisablePriority.Normal,
                 () =>
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HhrGameSelectionMismatch),
+                    Localizer.GetString(ResourceKeys.HhrGameSelectionMismatch, CultureProviderType.Player),
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HhrGameSelectionMismatchHelpMessage));
         }
@@ -175,7 +176,7 @@
                 HhrConstants.GamePlayRequestFailedKey,
                 SystemDisablePriority.Normal,
                 () =>
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HhrGamePlayRequestFailed),
+                    Localizer.GetString(ResourceKeys.HhrGamePlayRequestFailed, CultureProviderType.Player),
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HhrGamePlayRequestFailedHelpMessage));
         }

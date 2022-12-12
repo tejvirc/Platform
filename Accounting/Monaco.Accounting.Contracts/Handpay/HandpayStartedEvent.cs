@@ -71,7 +71,7 @@
         public override string ToString()
         {
             var total = CashableAmount + PromoAmount + NonCashAmount;
-            return Localizer.For(CultureFor.Player).FormatString(ResourceKeys.HandpayStartedText) + " " +
+            return Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.HandpayStartedText) + " " +
                    (total / ConvertMillicentToDollar).FormattedCurrencyString();
         }
     }

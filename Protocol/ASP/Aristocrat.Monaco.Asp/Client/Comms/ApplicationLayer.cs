@@ -7,6 +7,7 @@
     using Contracts;
     using Events;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Utilities;
 
@@ -74,7 +75,7 @@
                 _systemDisableManager.Disable(
                     ProgressiveLinkDownGuid,
                     SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveDisconnectText));
+                    () => Localizer.GetString(ResourceKeys.ProgressiveDisconnectText, CultureProviderType.Player));
             }
 
             _eventBus.Publish(new LinkStatusChangedEvent(IsLinkUp));

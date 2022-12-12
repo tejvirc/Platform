@@ -12,6 +12,7 @@
     using Client.WorkFlow;
     using Events;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using Stateless;
@@ -363,7 +364,7 @@
             _systemDisableManager.Disable(
                 HhrConstants.CentralServerOffline,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HHRCentralServerOffline),
+                () => Localizer.GetString(ResourceKeys.HHRCentralServerOffline, CultureProviderType.Player),
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoHHRCentralServerOffline));
 

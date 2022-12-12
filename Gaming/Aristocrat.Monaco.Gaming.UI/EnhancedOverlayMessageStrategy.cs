@@ -12,6 +12,7 @@
     using Contracts;
     using Contracts.Models;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using MVVM.Command;
@@ -178,8 +179,7 @@
 
             data.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashWinPresentationVoucher);
             data.SubText = OverlayMessageUtils.ToCredits(LastCashOutAmount).FormattedCurrencyString();
-            data.SubText2 = Localizer.For(CultureFor.Operator)
-                             .GetString(ResourceKeys.MaximumValueReachedCashOutText1) + " " +
+            data.SubText2 = Localizer.GetString(ResourceKeys.MaximumValueReachedCashOutText1, CultureProviderType.Player) + " " +
                              Localizer.For(CultureFor.Operator).FormatString(
                              ResourceKeys.PrintingPresentationVoucher,
                              OverlayMessageUtils.ToCredits(LastCashOutAmount).FormattedCurrencyString());

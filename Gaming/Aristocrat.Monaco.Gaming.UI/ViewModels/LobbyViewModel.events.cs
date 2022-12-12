@@ -26,6 +26,7 @@
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.Printer;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Monaco.UI.Common.Models;
     using MVVM;
@@ -1052,7 +1053,7 @@
                 MvvmHelper.ExecuteOnUI(
                     () =>
                     {
-                        IdleText = (string)_properties.GetProperty(GamingConstants.IdleText, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault));
+                        IdleText = (string)_properties.GetProperty(GamingConstants.IdleText, Localizer.GetString(ResourceKeys.IdleTextDefault, CultureProviderType.Player));
                     });
             }
         }

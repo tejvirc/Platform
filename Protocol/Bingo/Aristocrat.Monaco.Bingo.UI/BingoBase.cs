@@ -18,6 +18,7 @@
     using Gaming.Contracts.Tickets;
     using Hardware.Contracts.Cabinet;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Monaco.Common;
     using SimpleInjector;
@@ -43,7 +44,7 @@
             disableManager.Disable(
                 Initializing,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledDuringInitialization),
+                () => Localizer.GetString(ResourceKeys.DisabledDuringInitialization, CultureProviderType.Player),
                 false);
             var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             eventBus.Subscribe<BingoDisplayConfigurationStartedEvent>(this, async (_, _) =>

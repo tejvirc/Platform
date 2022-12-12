@@ -690,7 +690,7 @@
                     _disableManager.Enable(door.DoorGuid);
 
                     // Create a message saying "XYZ door closed"
-                    _messageDisplay.DisplayMessage(door.DoorClosedMessage);
+                    _messageDisplay.DisplayMessage(door.GetDoorClosedMessage(CultureProviderType.Player));
                 }
             }
         }
@@ -717,11 +717,12 @@
                 _disableManager.Disable(
                     door.DoorGuid,
                     SystemDisablePriority.Immediate,
-                    door.DoorOpenMessage.MessageCallback,
+                    door.GetDoorOpenMessage(CultureProviderType.Player).MessageCallback,
                     eventType);
 
-                // Remove any message saying "XYZ door closed"
-                _messageDisplay.RemoveMessage(door.DoorClosedMessage);
+                // Remove any message saying "XYZ door closed" with player and operator language
+                _messageDisplay.RemoveMessage(door.GetDoorClosedMessage(CultureProviderType.Player));
+                _messageDisplay.RemoveMessage(door.GetDoorClosedMessage(CultureProviderType.Operator));
             }
         }
 
@@ -748,7 +749,7 @@
                             {
                                 Logger.Info(
                                     $"{pair.Value.Name} previously open, now closed prior to or during startup...");
-                                _messageDisplay.DisplayMessage(_doors[pair.Key].DoorClosedMessage);
+                                _messageDisplay.DisplayMessage(_doors[pair.Key].GetDoorClosedMessage(CultureProviderType.Operator));
 
                                 var append =
                                     queuedEvents.LastOrDefault(evt => pair.Value.PhysicalId == evt.Id)?.Action ?? true;
@@ -1063,7 +1064,7 @@
 
                 foreach (var logicalId in _doors.Keys)
                 {
-                    if (ReferenceEquals(_doors[logicalId].DoorClosedMessage, theEvent.Message))
+                    if (ReferenceEquals(_doors[logicalId].GetDoorClosedMessage(CultureProviderType.Operator), theEvent.Message))
                     {
                         SetOrClearMessageRedisplayBit(logicalId, false);
                         break;
@@ -1238,7 +1239,7 @@
                         long checkBit = 1 << logicalId;
                         if ((bitMask & checkBit) != 0)
                         {
-                            _messagesToRedisplay.Add(_doors[logicalId].DoorClosedMessage);
+                            _messagesToRedisplay.Add(_doors[logicalId].GetDoorClosedMessage(CultureProviderType.Operator));
                         }
                     }
                 }

@@ -11,6 +11,7 @@
     using Data.Model;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Localization.Properties;
     using Monaco.Common.Scheduler;
@@ -458,7 +459,7 @@
                 device,
                 log.DisableCondition,
                 log.EndDateTime == null ? TimeSpan.MaxValue : log.EndDateTime.Value - DateTime.UtcNow,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostLocked),
+                () => Localizer.GetString(ResourceKeys.HostLocked, CultureProviderType.Player),
                 result =>
                 {
                     if (result && IsAuthorized(log.TransactionId))

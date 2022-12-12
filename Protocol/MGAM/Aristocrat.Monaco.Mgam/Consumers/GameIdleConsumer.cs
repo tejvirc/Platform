@@ -15,6 +15,7 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.TowerLight;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Services.CreditValidators;
     using Services.PlayerTracking;
@@ -138,7 +139,7 @@
                     MgamConstants.GamePlayDisabledKey,
                     SystemDisablePriority.Normal,
                     () =>
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost));
+                        Localizer.GetString(ResourceKeys.DisabledByHost, CultureProviderType.Player));
 
                 _propertiesManager.SetProperty(MgamConstants.DisableGamePlayAfterGameRoundKey, false);
             }

@@ -15,6 +15,7 @@
     using Command = Menu.Command;
     using Aristocrat.Monaco.Localization.Properties;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Kernel.Contracts.MessageDisplay;
 
     public class WinningCombinationPageViewModel : HhrMenuPageViewModelBase
     {
@@ -167,6 +168,26 @@
             _betPatterns[_currentBetIndex].Count > 0
                 ? _betPatterns[_currentBetIndex][_currentPatternIndex]
                 : new WinningPatternModel();
+
+        public string CurrentWinningPatternExtraWinnings
+        {
+            get
+            {
+                string format = Localizer.GetString(ResourceKeys.ExtraWinningsStringFormat, CultureProviderType.Player);
+                return string.Format(format, CurrentWinningPattern.ExtraWinnings.FormattedCurrencyString());
+            }
+        }
+
+        public string CurrentWinningPatternGuaranteedCredits
+        {
+            get
+            {
+                string format = Localizer.GetString(ResourceKeys.GuaranteedCreditsStringFormat, CultureProviderType.Player);
+                return string.Format(format, CurrentWinningPattern.GuaranteedCredits);
+            }
+        }
+
+        public string IncludesProgressiveResetValues => Localizer.GetString(ResourceKeys.IncludesProgressiveResetValues, CultureProviderType.Player);
 
         private void PageCommandHandler(object command)
         {

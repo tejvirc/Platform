@@ -10,6 +10,7 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Button;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Localization.Properties;
 
@@ -74,7 +75,7 @@
                 _disableManager.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExcessiveMeterIncrementError));
+                    () => Localizer.GetString(ResourceKeys.ExcessiveMeterIncrementError, CultureProviderType.Player));
             }
         }
 
@@ -92,7 +93,7 @@
                 _disableManager.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExcessiveMeterIncrementError));
+                    () => Localizer.GetString(ResourceKeys.ExcessiveMeterIncrementError, CultureProviderType.Player));
                 _eventBus.Publish(new ExcessiveMeterIncrementEvent());
                 _propertiesManager.SetProperty(ApplicationConstants.ExcessiveMeterIncrementLockedKey, true);
             }

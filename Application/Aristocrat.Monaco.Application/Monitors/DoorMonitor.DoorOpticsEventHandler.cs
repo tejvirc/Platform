@@ -38,7 +38,7 @@
                 var door = (DoorInfoWithMismatch)doorMonitor._doors[_physicalDoorId];
 
                 // Remove any message saying "XYZ door closed"
-                _messageDisplay.RemoveMessage(door.DoorClosedMessage);
+                _messageDisplay.RemoveMessage(door.GetDoorClosedMessage(CultureProviderType.Player));
 
                 // Check if the paired door is closed, display mismatch error if it is
                 if (!doorMonitor.IsDoorOpen(pairDoorId))
@@ -54,7 +54,7 @@
                     _disableManager.Disable(
                         door.DoorGuid,
                         SystemDisablePriority.Immediate,
-                        door.DoorOpenMessage.MessageCallback);
+                        door.GetDoorOpenMessage(CultureProviderType.Player).MessageCallback);
                 }
             }
 
@@ -81,7 +81,7 @@
                     _disableManager.Enable(door.DoorGuid);
 
                     // Create a message saying "XYZ door closed"
-                    _messageDisplay.DisplayMessage(door.DoorClosedMessage);
+                    _messageDisplay.DisplayMessage(door.GetDoorClosedMessage());
                 }
             }
         }

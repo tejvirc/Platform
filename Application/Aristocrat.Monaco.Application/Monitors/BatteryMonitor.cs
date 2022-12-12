@@ -135,7 +135,7 @@
                 Logger.Info("Battery " + battery.Index + " status is low");
                 _messageDisplay.DisplayMessage(
                     new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(battery.ErrorMessageKey),
+                        () => Localizer.GetString(battery.ErrorMessageKey, CultureProviderType.Player),
                         DisplayableMessageClassification.SoftError,
                         DisplayableMessagePriority.Normal,
                         battery.Guid));

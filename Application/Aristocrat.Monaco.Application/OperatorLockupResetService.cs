@@ -11,6 +11,7 @@
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Printer;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Monaco.Localization.Properties;
 
     /// <summary>
@@ -186,7 +187,7 @@
                 _systemDisableManager.Disable(
                     ApplicationConstants.OperatorResetRequiredDisableKey,
                     priority,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OperatorResetRequiredMessage));
+                    () => Localizer.GetString(ResourceKeys.OperatorResetRequiredMessage, CultureProviderType.Player));
                 _operatorResetLockupActive = true;
             }
         }

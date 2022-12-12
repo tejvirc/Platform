@@ -14,6 +14,8 @@
         /// </summary>
         internal class DoorInfo
         {
+            private readonly string _doorGuidString;
+
             /// <summary>
             ///     Initializes a new instance of the <see cref="DoorInfo" /> class.
             /// </summary>
@@ -22,175 +24,11 @@
             /// <param name="powerOffMeter">The name of the power off door meter.</param>
             public DoorInfo(string doorGuid, string doorMeterName, string powerOffMeter)
             {
+                _doorGuidString = doorGuid;
                 DoorGuid = new Guid(doorGuid);
                 DoorMeterName = doorMeterName;
                 PowerOffMeterName = powerOffMeter;
-
-                if (doorGuid == BellyDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == CashDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                           () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashDoorIsOpen),
-                           DisplayableMessageClassification.HardError,
-                           DisplayableMessagePriority.Immediate,
-                           typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == LogicDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == MainDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == SecondaryCashDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecondaryCashDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecondaryCashDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == TopBoxDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == DropDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DropDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DropDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == MechanicalMeterDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalMeterDoorIsOpen),
-                        DisplayableMessageClassification.HardError,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalMeterDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == MainOpticDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainOpticDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == TopBoxOpticDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorIsOpen),
-                            DisplayableMessageClassification.HardError,
-                            DisplayableMessagePriority.Immediate,
-                            typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxOpticDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else if (doorGuid == UniversalInterfaceBoxDoorGuid)
-                {
-                    DoorOpenMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniversalInterfaceBoxDoorIsOpen),
-                        DisplayableMessageClassification.HardError,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(OpenEvent));
-
-                    DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniversalInterfaceBoxDoorClosed),
-                        DisplayableMessageClassification.Informative,
-                        DisplayableMessagePriority.Immediate,
-                        typeof(ClosedEvent));
-                }
-                else
-                {
-                    DoorOpenMessage = null;
-                    DoorClosedMessage = null;
-                }               
             }
-
-            /// <summary>
-            ///     The displayable message for door closed (or door was opened).
-            /// </summary>
-            public IDisplayableMessage DoorClosedMessage { get; }
 
             /// <summary>
             ///     The guid for the door disable.
@@ -207,10 +45,125 @@
             /// </summary>
             public string PowerOffMeterName { get; }
 
-            /// <summary>
-            ///     The displayable message for door open.
-            /// </summary>
-            public IDisplayableMessage DoorOpenMessage { get; }
+            public IDisplayableMessage GetDoorOpenMessage(CultureProviderType providerType=CultureProviderType.Player)
+            {
+                IDisplayableMessage doorOpenMessage = null;
+                if (_doorGuidString == BellyDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.BellyDoorIsOpen);
+                }
+                else if (_doorGuidString == CashDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.CashDoorIsOpen);
+                }
+                else if (_doorGuidString == LogicDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.LogicDoorIsOpen);
+                }
+                else if (_doorGuidString == MainDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.MainDoorIsOpen);
+                }
+                else if (_doorGuidString == SecondaryCashDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.SecondaryCashDoorIsOpen);
+                }
+                else if (_doorGuidString == TopBoxDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.TopBoxDoorIsOpen);
+                }
+                else if (_doorGuidString == DropDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.DropDoorIsOpen);
+                }
+                else if (_doorGuidString == MechanicalMeterDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.MechanicalMeterDoorIsOpen);
+                }
+                else if (_doorGuidString == MainOpticDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.MainDoorIsOpen);
+                }
+                else if (_doorGuidString == TopBoxOpticDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.TopBoxDoorIsOpen);
+                }
+                else if (_doorGuidString == UniversalInterfaceBoxDoorGuid)
+                {
+                    doorOpenMessage = NewOpenMessage(ResourceKeys.UniversalInterfaceBoxDoorIsOpen);
+                }
+
+                return doorOpenMessage;
+
+                IDisplayableMessage NewOpenMessage(string resourceKey)
+                {
+                    return new DisplayableMessage(
+                        () => Localizer.GetString(resourceKey, providerType),
+                        DisplayableMessageClassification.HardError,
+                        DisplayableMessagePriority.Immediate,
+                        typeof(OpenEvent));
+                }
+            }
+
+            public IDisplayableMessage GetDoorClosedMessage(CultureProviderType providerType=CultureProviderType.Player)
+            {
+                IDisplayableMessage doorClosedMessage = null;
+                if (_doorGuidString == BellyDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.BellyDoorClosed);
+                }
+                else if (_doorGuidString == CashDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.CashDoorClosed);
+                }
+                else if (_doorGuidString == LogicDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.LogicDoorClosed);
+                }
+                else if (_doorGuidString == MainDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.MainDoorClosed);
+                }
+                else if (_doorGuidString == SecondaryCashDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.SecondaryCashDoorClosed);
+                }
+                else if (_doorGuidString == TopBoxDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.TopBoxDoorClosed);
+                }
+                else if (_doorGuidString == DropDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.DropDoorClosed);
+                }
+                else if (_doorGuidString == MechanicalMeterDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.MechanicalMeterDoorClosed);
+                }
+                else if (_doorGuidString == MainOpticDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.MainOpticDoorClosed);
+                }
+                else if (_doorGuidString == TopBoxOpticDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.TopBoxOpticDoorClosed);
+                }
+                else if (_doorGuidString == UniversalInterfaceBoxDoorGuid)
+                {
+                    doorClosedMessage = NewClosedMessage(ResourceKeys.UniversalInterfaceBoxDoorClosed);
+                }
+
+                return doorClosedMessage;
+
+                IDisplayableMessage NewClosedMessage(string resourceKey)
+                {
+                    return new DisplayableMessage(
+                        () => Localizer.GetString(resourceKey, providerType),
+                        DisplayableMessageClassification.Informative,
+                        DisplayableMessagePriority.Immediate,
+                        typeof(ClosedEvent));
+                }
+            }
         }
     }
 }

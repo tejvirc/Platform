@@ -38,55 +38,52 @@ namespace Aristocrat.Monaco.Sas.Base
                 {
                     DisableState.DisabledByHost0, new DisableData(
                         ApplicationConstants.DisabledByHost0Key,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost0))
+                        () => Localizer.GetString(ResourceKeys.DisabledByHost0, CultureProviderType.Player))
                 },
                 {
                     DisableState.DisabledByHost1, new DisableData(
                         ApplicationConstants.DisabledByHost1Key,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost1))
+                        () => Localizer.GetString(ResourceKeys.DisabledByHost1, CultureProviderType.Player))
                 },
                 {
                     DisableState.Host0CommunicationsOffline, new DisableData(
                         ApplicationConstants.Host0CommunicationsOfflineDisableKey,
-                        () => Localizer.For(CultureFor.Operator)
-                            .GetString(ResourceKeys.DisabledHost0CommunicationsOffline))
+                        () => Localizer.GetString(ResourceKeys.DisabledHost0CommunicationsOffline, CultureProviderType.Player))
                 },
                 {
                     DisableState.Host1CommunicationsOffline, new DisableData(
                         ApplicationConstants.Host1CommunicationsOfflineDisableKey,
-                        () => Localizer.For(CultureFor.Operator)
-                            .GetString(ResourceKeys.DisabledHost1CommunicationsOffline))
+                        () => Localizer.GetString(ResourceKeys.DisabledHost1CommunicationsOffline, CultureProviderType.Player))
                 },
                 {
                     DisableState.MaintenanceMode, new DisableData(
                         MaintenanceModeGuid,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledMaintenanceMode))
+                        () => Localizer.GetString(ResourceKeys.DisabledMaintenanceMode, CultureProviderType.Player))
                 },
                 {
                     DisableState.ValidationIdNeeded, new DisableData(
                         ApplicationConstants.ValidationIdNeededGuid,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledValidationIdNeeded))
+                        () => Localizer.GetString(ResourceKeys.DisabledValidationIdNeeded, CultureProviderType.Player))
                 },
                 {
                     DisableState.ProgressivesNotSupported, new DisableData(
                         ProgressivesNotSupportedGuid,
-                        () => Localizer.For(CultureFor.Operator)
-                            .GetString(ResourceKeys.DisabledProgressivesNotSupported))
+                        () => Localizer.GetString(ResourceKeys.DisabledProgressivesNotSupported, CultureProviderType.Player))
                 },
                 {
                     DisableState.ValidationQueueFull, new DisableData(
                         ValidationQueueFullGuid,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisbaledValidationQueueFull))
+                        () => Localizer.GetString(ResourceKeys.DisbaledValidationQueueFull, CultureProviderType.Player))
                 },
                 {
                     DisableState.PowerUpDisabledByHost0, new DisableData(
                         PowerUpDisabledGuidHost0,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost0))
+                        () => Localizer.GetString(ResourceKeys.PowerUpDisabledByHost0, CultureProviderType.Player))
                 },
                 {
                     DisableState.PowerUpDisabledByHost1, new DisableData(
                         PowerUpDisabledGuidHost1,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost1))
+                        () => Localizer.GetString(ResourceKeys.PowerUpDisabledByHost1, CultureProviderType.Player))
                 }
             };
 

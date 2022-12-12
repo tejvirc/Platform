@@ -277,7 +277,7 @@
 
         private string DisconnectedMessageCallback()
         {
-            return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoteAcceptor_Disconnected);
+            return Localizer.GetString(ResourceKeys.NoteAcceptor_Disconnected, CultureProviderType.Player);
         }
 
         private void CheckDeviceStatus()

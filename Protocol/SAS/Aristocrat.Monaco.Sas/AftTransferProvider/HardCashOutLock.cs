@@ -11,6 +11,7 @@
     using System.Threading.Tasks;
     using Application.Contracts.Localization;
     using Gaming.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     /// <summary>
@@ -185,7 +186,7 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.HostCashOutFailedDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardCashLockMessage));
+                () => Localizer.GetString(ResourceKeys.HardCashLockMessage, CultureProviderType.Player));
         }
 
         /// <inheritdoc />

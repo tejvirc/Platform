@@ -23,7 +23,7 @@
         /// <inheritdoc />
         public override string ToString()
         {
-            return Localizer.For(CultureFor.Player).GetString(ResourceKeys.HandpayKeyedOff) + " " +
+            return Localizer.GetString(ResourceKeys.HandpayKeyedOff) + " " +
                    Transaction.TransactionAmount.MillicentsToDollars().FormattedCurrencyString();
         }
     }

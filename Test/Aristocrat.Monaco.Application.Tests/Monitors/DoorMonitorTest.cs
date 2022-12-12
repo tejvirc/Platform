@@ -2328,8 +2328,8 @@
                 "E73A483C-1555-446D-AC98-4E23D251F6EF",
                 "UnknownDoorMeterName",
                 "UnknownPowerOffDoorMeterName");
-            Assert.IsNull(doorInfo.DoorOpenMessage);
-            Assert.IsNull(doorInfo.DoorClosedMessage);
+            Assert.IsNull(doorInfo.GetDoorOpenMessage(CultureProviderType.Operator));
+            Assert.IsNull(doorInfo.GetDoorClosedMessage(CultureProviderType.Operator));
         }
 
         [TestMethod]
@@ -2627,7 +2627,7 @@
             var matchingDoor = doorInfo.Where(
                 x => string.Equals(x.DoorGuid.ToString("B"), doorGuid, StringComparison.CurrentCultureIgnoreCase));
             var doorInfos = matchingDoor as DoorMonitor.DoorInfo[] ?? matchingDoor.ToArray();
-            return doorInfos.Any() ? doorInfos.First().DoorOpenMessage.Message : string.Empty;
+            return doorInfos.Any() ? doorInfos.First().GetDoorOpenMessage(CultureProviderType.Operator).Message : string.Empty;
         }
 
         /// <summary>
@@ -2642,7 +2642,7 @@
             var matchingDoor = doorInfo.Where(
                 x => string.Equals(x.DoorGuid.ToString("B"), doorGuid, StringComparison.CurrentCultureIgnoreCase));
             var doorInfos = matchingDoor as DoorMonitor.DoorInfo[] ?? matchingDoor.ToArray();
-            return doorInfos.Any() ? doorInfos.First().DoorClosedMessage.Message : string.Empty;
+            return doorInfos.Any() ? doorInfos.First().GetDoorClosedMessage(CultureProviderType.Operator).Message : string.Empty;
         }
 
         /// <summary>

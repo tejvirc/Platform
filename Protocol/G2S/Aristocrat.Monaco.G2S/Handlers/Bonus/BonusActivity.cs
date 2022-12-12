@@ -74,7 +74,7 @@
                         device,
                         EgmState.EgmDisabled,
                         false,
-                        () => device.NoHostText ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoBonusHost));
+                        () => device.NoHostText ?? Localizer.GetString(ResourceKeys.NoBonusHost, CultureProviderType.Player));
                 }
                 else
                 {
@@ -108,7 +108,7 @@
         private static IDisplayableMessage GetDisplayableMessage(IBonusDevice device)
         {
             return new DisplayableMessage(
-                () => device?.NoHostText ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoBonusHost),
+                () => device?.NoHostText ?? Localizer.GetString(ResourceKeys.NoBonusHost, CultureProviderType.Player),
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Immediate,
                 DisplayId);

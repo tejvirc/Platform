@@ -22,6 +22,7 @@
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Monaco.Common;
     using Notification;
@@ -149,7 +150,7 @@
             {
                 case CardType.Player:
                     await LogoffPlayer(token);
-                    ShowMessage(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Identification_CardRemoved), DisplayRole.VBD);
+                    ShowMessage(Localizer.GetString(ResourceKeys.Identification_CardRemoved, CultureProviderType.Player), DisplayRole.VBD);
                     break;
                 case CardType.Employee:
                     await LogoffEmployee();
@@ -228,13 +229,13 @@
                                 return await LoginPlayer(result.Response.CardString, token);
 
                             default:
-                                LogResponseCodeError("Validate Identification - unknown card type", result.Response, DisplayRole.Main, DisplayRole.VBD);
+                                LogResponseCodeError("Validate Identification - unknown card type", result.Response, CultureProviderType.Operator, DisplayRole.Main, DisplayRole.VBD);
                                 break;
                         }
                     }
                     else
                     {
-                        LogResponseCodeError(error, result.Response, DisplayRole.Main);
+                        LogResponseCodeError(error, result.Response, CultureProviderType.Operator, DisplayRole.Main);
                     }
                 }
                 catch (ServerResponseException ex)
@@ -256,7 +257,7 @@
                             break;
                     }
 
-                    LogResponseCodeError(error, ex, targetDisplays);
+                    LogResponseCodeError(error, ex, CultureProviderType.Operator, targetDisplays);
                 }
             }
 
@@ -385,21 +386,21 @@
             return track1String.StartsWith(EmployeeCardPrefix);
         }
 
-        private void LogResponseCodeError(string error, IResponse response, params DisplayRole[] displayTargets)
+        private void LogResponseCodeError(string error, IResponse response, CultureProviderType providerType, params DisplayRole[] displayTargets)
         {
             foreach (var display in displayTargets)
             {
-                ShowMessage(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Identification_InvalidCard), display, true);
+                ShowMessage(Localizer.GetString(ResourceKeys.Identification_InvalidCard, providerType), display, true);
             }
 
             _logger.LogError($"{error}. Response code: {response?.ResponseCode}.");
         }
 
-        private void LogResponseCodeError(string error, ServerResponseException exception, params DisplayRole[] displayTarget)
+        private void LogResponseCodeError(string error, ServerResponseException exception, CultureProviderType providerType, params DisplayRole[] displayTarget)
         {
             foreach (var display in displayTarget)
             {
-                ShowMessage(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Identification_InvalidCard), display, true);
+                ShowMessage(Localizer.GetString(ResourceKeys.Identification_InvalidCard, providerType), display, true);
             }
             _logger.LogError($"{error}. Response code: {exception?.ResponseCode}.");
         }
@@ -421,7 +422,7 @@
             }
             else if (result.Status == MessageStatus.Success && result.Response.ResponseCode == ServerResponseCode.UnknownCardString)
             {
-                LogResponseCodeError("Login Employee - unknown card string", result.Response, DisplayRole.Main);
+                LogResponseCodeError("Login Employee - unknown card string", result.Response, CultureProviderType.Operator, DisplayRole.Main);
             }
             else if (result.Status == MessageStatus.Success && result.Response.ResponseCode == ServerResponseCode.Ok)
             {
@@ -437,7 +438,7 @@
 
                 if (role == EmployeeRole.Unknown)
                 {
-                    LogResponseCodeError("Login Employee - unknown employee action.", result.Response, DisplayRole.Main);
+                    LogResponseCodeError("Login Employee - unknown employee action.", result.Response, CultureProviderType.Operator, DisplayRole.Main);
                 }
                 else
                 {
@@ -451,7 +452,7 @@
             }
             else
             {
-                LogResponseCodeError(error, result.Response, DisplayRole.Main);
+                LogResponseCodeError(error, result.Response, CultureProviderType.Operator, DisplayRole.Main);
             }
 
             return loginSuccessful;
@@ -487,7 +488,7 @@
             }
             else
             {
-                LogResponseCodeError(error, result.Response, DisplayRole.VBD);
+                LogResponseCodeError(error, result.Response, CultureProviderType.Player, DisplayRole.VBD);
             }
 
             return loginSuccessful;
@@ -513,7 +514,7 @@
             }
             catch (ServerResponseException ex)
             {
-                LogResponseCodeError(error, ex, DisplayRole.VBD);
+                LogResponseCodeError(error, ex, CultureProviderType.Player, DisplayRole.VBD);
             }
         }
 

@@ -5,12 +5,14 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Common;
     using Common.Events;
     using Gaming.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.TowerLight;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     /// <summary>
@@ -51,7 +53,7 @@
             _disableManager.Disable(
                 MgamConstants.HostOfflineGuid,
                 SystemDisablePriority.Normal,
-                () => $"{Resources.HostDisconnected} {_timeService.GetLocationTime(@event.Timestamp)}");
+                () => $"{Localizer.GetString(ResourceKeys.HostDisconnected, CultureProviderType.Player)} {_timeService.GetLocationTime(@event.Timestamp)}");
 
             if (_gamePlayStateService.Idle)
             {

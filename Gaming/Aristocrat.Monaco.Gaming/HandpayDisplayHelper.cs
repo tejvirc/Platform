@@ -72,16 +72,16 @@
                 case HandpayType.GameWin:
                 case HandpayType.BonusPay:
                     return GenerateDisplayableMessage(
-                        Localizer.For(CultureFor.PlayerTicket).GetString(
+                        Localizer.GetString(
                             transaction.IsCreditType()
                                 ? ResourceKeys.JackpotToCreditsKeyedOff
-                                : ResourceKeys.JackpotHandpayKeyedOff),
+                                : ResourceKeys.JackpotHandpayKeyedOff, CultureProviderType.Player),
                         transaction.TransactionAmount);
                 case HandpayType.CancelCredit:
                     IDisplayableMessage displayableMessage = AlternativeCancelCreditMessageIsUsed()
                         ? GetAlternativeCancelCreditTickerMessage()
                         : GenerateDisplayableMessage(
-                            Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.CashOutHandpayKeyedOff),
+                            Localizer.GetString(ResourceKeys.CashOutHandpayKeyedOff, CultureProviderType.Player),
                             transaction.TransactionAmount);
                     return displayableMessage;
                 default:

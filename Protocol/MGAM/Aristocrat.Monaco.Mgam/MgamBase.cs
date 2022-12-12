@@ -16,6 +16,7 @@
     using Gaming.Contracts.Progressives.Linked;
     using Gaming.Contracts.Session;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Services.Attributes;
     using Services.Communications;
@@ -156,13 +157,13 @@
             disableManager.Disable(
                 MgamConstants.HostOfflineGuid,
                 SystemDisablePriority.Normal,
-                () => Resources.HostDisconnected);
+                () => Localizer.GetString(ResourceKeys.HostDisconnected, CultureProviderType.Player));
 
             disableManager.Disable(
                 MgamConstants.GamePlayDisabledKey,
                 SystemDisablePriority.Normal,
                 () =>
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost));
+                    Localizer.GetString(ResourceKeys.DisabledByHost, CultureProviderType.Player));
 
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             propertiesManager.SetProperty(AccountingConstants.ValidateHandpays, false); // MGAM does not require handpay validation
