@@ -55,6 +55,7 @@
 
     <b:Interaction.Behaviors>
         <common:HighDpiWindowBehavior x:Name="HighDpiBehavior"/>
+        <common:TouchWindowBehavior />
     </b:Interaction.Behaviors>
 
     <Grid x:Name="LayoutRoot" >

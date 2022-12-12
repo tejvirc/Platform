@@ -1363,7 +1363,7 @@
         /// <summary>
         ///     Controls whether the machine can be put into reserve
         /// </summary>
-        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress
+        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && !_gameHistory.IsRecoveryNeeded && _gameState.Idle && !_transferOutHandler.InProgress
                                              && !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
 
         /// <summary>

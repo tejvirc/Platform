@@ -152,7 +152,11 @@
         private bool IsRequestForceExitToLobbyValid(bool skipTestRecovery)
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
+            var isGeneralRule = _gameIsRunning &&
+                !_sc.IsGameLoading &&
+                !_forceGameExitIsInProgress &&
+                (!_exitWhenIdle || _sc.IsAllowSingleGameAutoLaunch) &&
+                (_robotController.Config.Active.TestRecovery || skipTestRecovery);
             return !isBlocked && isGeneralRule;
         }
 

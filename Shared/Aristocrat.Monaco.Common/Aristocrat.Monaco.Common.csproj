@@ -46,6 +46,7 @@
     <PackageReference Include="Aristocrat.SQLite.Core" Version="1.0.110-beta0001" />
     <PackageReference Include="FluentValidation" Version="7.4.0" />
     <PackageReference Include="Humanizer" Version="[2.8.27]" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.8" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.8" />

@@ -22,7 +22,6 @@ namespace Aristocrat.Monaco.Gaming.Tests
         private Mock<ISystemDisableManager> _systemDisableManager;
         private Action<ExitReserveButtonPressedEvent> _exitReserveButtonPressedHandler;
         private Action<PropertyChangedEvent> _propertyChangedHandler;
-        private Action<GambleFeatureActiveEvent> _gambleFeatureActiveHandler;
         private Action<OverlayWindowVisibilityChangedEvent> _overlayWindowVisibilityChangedEventHandler;
 
         private ReserveService _reserve;
@@ -541,12 +540,6 @@ namespace Aristocrat.Monaco.Gaming.Tests
                         It.IsAny<ReserveService>(),
                         It.IsAny<Action<PropertyChangedEvent>>()))
                 .Callback<object, Action<PropertyChangedEvent>>((y, x) => _propertyChangedHandler = x);
-
-            _eventBus.Setup(
-                    x => x.Subscribe(
-                        It.IsAny<ReserveService>(),
-                        It.IsAny<Action<GambleFeatureActiveEvent>>()))
-                .Callback<object, Action<GambleFeatureActiveEvent>>((y, x) => _gambleFeatureActiveHandler = x);
 
             _eventBus.Setup(
                     x => x.Subscribe(
