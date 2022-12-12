@@ -164,6 +164,8 @@
 
             await Task.CompletedTask;
         }
+        
+        public Task HandpayKeyedOff(HandpayTransaction transaction) => Task.CompletedTask;
 
         private void Handle(EmployeeLoggedInEvent evt)
         {

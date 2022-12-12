@@ -44,5 +44,12 @@
         /// </summary>
         /// <param name="transaction">The handpay transaction</param>
         Task RequestHandpay(HandpayTransaction transaction);
+
+        /// <summary>
+        ///     Method to execute after a handpay is keyed-off.  Used by protocols to perform additional updates to
+        ///     the given handpay transaction.
+        /// </summary>
+        /// <param name="transaction">The handpay transaction that has been keyed-off</param>
+        Task HandpayKeyedOff(HandpayTransaction transaction);
     }
 }
