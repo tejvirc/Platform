@@ -6,6 +6,8 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Localization;
+    using Kernel.Contracts.MessageDisplay;
+    using Kernel.MessageDisplay;
     using Gaming.Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;

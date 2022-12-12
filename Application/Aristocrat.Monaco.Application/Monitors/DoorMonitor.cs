@@ -25,6 +25,7 @@
     using Kernel.Contracts;
     using log4net;
     using Monaco.Localization.Properties;
+    using Kernel.Contracts.MessageDisplay;
     using Timer = System.Timers.Timer;
 
     /// <summary>
@@ -174,7 +175,7 @@
         private readonly object _eventLock = new();
         private readonly LinkedList<DoorMessage> _messages = new();
         private readonly object _messagesLock = new();
-        private readonly List<DisplayableMessage> _messagesToRedisplay = new();
+        private readonly List<IDisplayableMessage> _messagesToRedisplay = new();
         private readonly object _messagesToRedisplayLock = new();
 
         private readonly Dictionary<int, DoorOpticsEventHandler> _handlers = new();

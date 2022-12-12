@@ -7,6 +7,7 @@
     using Accounting.Contracts;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts.Extensions;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Meters;
