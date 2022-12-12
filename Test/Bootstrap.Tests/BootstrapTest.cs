@@ -6,6 +6,7 @@
     using System.Reflection;
     using Bootstrap;
     using Contracts;
+    using Contracts.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
     using Moq;

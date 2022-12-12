@@ -6,6 +6,8 @@ namespace Aristocrat.Monaco.Kernel
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using MessageDisplay;
+    using Contracts.MessageDisplay;
     using log4net;
 
     /// <summary>

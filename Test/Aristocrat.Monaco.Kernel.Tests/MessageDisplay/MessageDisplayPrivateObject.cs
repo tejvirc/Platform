@@ -5,7 +5,10 @@
     using System.Collections.ObjectModel;
     using System.Reflection;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using MessageDisplay = Kernel.MessageDisplay;
+    using Contracts.MessageDisplay;
+    using Aristocrat.Monaco.Kernel.MessageDisplay;
+    using MessageDisplay = Kernel.MessageDisplay.MessageDisplay;
+    
 
     /// <summary>
     /// </summary>
@@ -33,9 +36,9 @@
         /// <summary>
         ///     The collection of displayable messages shared between display handlers.
         /// </summary>
-        public Collection<DisplayableMessage> Messages
+        public Collection<IDisplayableMessage> Messages
         {
-            get { return (Collection<DisplayableMessage>)GetField("_messages"); }
+            get { return (Collection<IDisplayableMessage>)GetField("_messages"); }
         }
 
         /// <summary>

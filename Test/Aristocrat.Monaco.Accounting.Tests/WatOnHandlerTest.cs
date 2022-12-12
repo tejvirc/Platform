@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.Wat;
     using Hardware.Contracts.Persistence;

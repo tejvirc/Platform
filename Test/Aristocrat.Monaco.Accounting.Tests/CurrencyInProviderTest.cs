@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
@@ -169,7 +170,7 @@
             Assert.AreEqual(expectedState, ((BillTransaction)_result).State);
             Assert.AreEqual((int)expectedExceptionCode, ((BillTransaction)_result).Exception);
             _messageDisplay.Verify(
-                x => x.DisplayMessage(It.IsAny<DisplayableMessage>()),
+                x => x.DisplayMessage(It.IsAny<IDisplayableMessage>()),
                 Times.Exactly(expectedNoOfTimes));
         }
 
