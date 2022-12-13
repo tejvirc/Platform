@@ -33,6 +33,6 @@
         /// <summary>
         ///     The trace levels to set for GRPC logging
         /// </summary>
-        public const string GrpcTraceLevel = "api,call_error,client_channel_routing,cares_resolver,cares_address_sorting,tcp";
+        public const string GrpcTraceLevel = "api,call_error,client_channel_routing,cares_resolver,cares_address_sorting,tcp,health_check_client,http_keepalive,http,handshaker,op_failure,subchannel,subchannel_pool";
     }
 }
