@@ -68,7 +68,7 @@
                     }
                     else
                     {
-                        data.Text = Resources.WatOnText;
+                        data.Text = Localizer.GetString(ResourceKeys.WatOnText, CultureProviderType.Player);
                     }
                     break;
             }

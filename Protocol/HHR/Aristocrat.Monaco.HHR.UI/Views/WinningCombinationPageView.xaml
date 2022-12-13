@@ -65,7 +65,7 @@
             <!--   <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
                        Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}', Converter={StaticResource CurrencyConverter}}" /> -->
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}" />
+                       Text="{Binding WagerStringFormat}" />
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="0,0,0,0"
                        Text="{Binding CurrentWinningPattern.Wager}" />
 

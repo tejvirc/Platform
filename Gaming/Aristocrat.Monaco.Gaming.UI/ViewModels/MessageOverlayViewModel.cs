@@ -279,7 +279,7 @@
                         .ToUpperInvariant();
                     MessageOverlayData.Text = string.Format(
                             new CultureInfo(localeCode),
-                            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NonCashableCreditsFailedMessage),
+                            Localizer.GetString(ResourceKeys.NonCashableCreditsFailedMessage, CultureProviderType.Player),
                             OverlayMessageUtils.ToCredits(_bank.QueryBalance(AccountType.NonCash)).FormattedCurrencyString())
                         .Replace("\\r\\n", Environment.NewLine);
                     break;

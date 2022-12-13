@@ -189,6 +189,8 @@
 
         public string IncludesProgressiveResetValues => Localizer.GetString(ResourceKeys.IncludesProgressiveResetValues, CultureProviderType.Player);
 
+        public string WagerStringFormat => Localizer.GetString(ResourceKeys.WagerStringFormat, CultureProviderType.Player);
+
         private void PageCommandHandler(object command)
         {
             switch ((Command)command)

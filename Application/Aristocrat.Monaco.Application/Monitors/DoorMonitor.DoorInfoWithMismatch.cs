@@ -22,7 +22,7 @@
                 if (doorGuid == MainDoorGuid)
                 {
                     DoorMismatchMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorMismatch),
+                            () => Localizer.GetString(ResourceKeys.MainDoorMismatch, CultureProviderType.Player),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
@@ -30,7 +30,7 @@
                 else if (doorGuid == TopBoxOpticDoorGuid)
                 {
                     DoorMismatchMessage = new DisplayableMessage(
-                           () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorMismatch),
+                           () => Localizer.GetString(ResourceKeys.TopBoxDoorMismatch, CultureProviderType.Player),
                            DisplayableMessageClassification.HardError,
                            DisplayableMessagePriority.Immediate,
                            typeof(OpenEvent));
@@ -38,7 +38,7 @@
                 else if (doorGuid == MainOpticDoorGuid)
                 {
                     DoorMismatchMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorMismatch),
+                            () => Localizer.GetString(ResourceKeys.MainDoorMismatch, CultureProviderType.Player),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
@@ -46,7 +46,7 @@
                 else if (doorGuid == TopBoxDoorGuid)
                 {
                     DoorMismatchMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorMismatch),
+                            () => Localizer.GetString(ResourceKeys.TopBoxDoorMismatch, CultureProviderType.Player),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
@@ -54,7 +54,7 @@
                 else if (doorGuid == UniversalInterfaceBoxDoorGuid)
                 {
                     DoorMismatchMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniversalInterfaceBoxDoorMismatch),
+                        () => Localizer.GetString(ResourceKeys.UniversalInterfaceBoxDoorMismatch, CultureProviderType.Player),
                         DisplayableMessageClassification.HardError,
                         DisplayableMessagePriority.Immediate,
                         typeof(OpenEvent));

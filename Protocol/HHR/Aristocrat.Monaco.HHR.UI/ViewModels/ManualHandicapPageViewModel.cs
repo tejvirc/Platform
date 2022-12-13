@@ -18,6 +18,7 @@
     using Hhr.Services;
     using Hhr.Events;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Menu;
     using Models;
@@ -86,6 +87,12 @@
                 ? _racesToHandicap?[CurrentRaceIndex].Horses
                 : null;
 
+        public string HhrHorseTitle => Localizer.GetString(ResourceKeys.HhrHorseTitle, CultureProviderType.Player);
+
+        public string HhrManualHandicapDisclaimerMessage => Localizer.GetString(ResourceKeys.HhrManualHandicapDisclaimerMessage, CultureProviderType.Player);
+
+        public string HhrYourPicksTitle => Localizer.GetString(ResourceKeys.HhrYourPicksTitle, CultureProviderType.Player);
+
         public ICommand HorseNumberClicked { get; }
 
         public bool IsCurrentRaceSelectionCompleted => IsRaceSelectionCompleted(_racesToHandicap[CurrentRaceIndex]);
@@ -104,6 +111,10 @@
         }
 
         public int RemainingRacesToHandicap => TotalRaces - CurrentRaceIndex;
+
+        public string HhrRemainingRacesToHandicapTitle => Localizer.GetString(
+            ResourceKeys.HhrRemainingRacesToHandicapTitle,
+            CultureProviderType.Player);
 
         private HhrPageCommand RaceCommand { get; set; }
 

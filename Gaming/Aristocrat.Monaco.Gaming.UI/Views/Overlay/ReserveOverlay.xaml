@@ -97,7 +97,7 @@
             <!-- The giant reserved text -->
             <TextBlock Name="GiantReservedText" Grid.Row="0"
                     Style="{StaticResource GiantReservedLockupTextBlockStyle}"
-                    Text="{lex:Loc Key={x:Static loc:ResourceKeys.Reserved}}"
+                    Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.GiantReservedText}"
                     Margin="0 60 0 0"
                     FontSize="300"/>
             <!-- The remaining time on the countdown timer -->
@@ -133,7 +133,7 @@
             <!-- Top part of the incorrect pin attempts message -->
             <TextBlock Name="IncorrectPinText1" 
                        Style="{StaticResource IncorrectPinTextBlockStyle}"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText1}}"
+                       Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ReserveMachineIncorrectPinWaitText1}"
                        Margin="0 16 0 0"/>
             <!-- The time remaining that the player must wait to try again -->
             <TextBlock Name="IncorrectPinTimeRemainingText" 
@@ -144,7 +144,7 @@
             <!-- Bottom part of the incorrect pin attempts message -->
             <TextBlock Name="IncorrectPinText2"
                        Style="{StaticResource IncorrectPinTextBlockStyle}"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText2}}"
+                       Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ReserveMachineIncorrectPinWaitText2}"
                        Margin="0 290 0 0"/>
         </Grid>
 
@@ -190,7 +190,7 @@
                            Margin="272 91 0 0"/>
                 <!-- The incorrect PIN warning message -->
                 <TextBlock Name="IncorrectPinWarningText"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinText}}"
+                           Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ReserveMachineIncorrectPinText}"
                            Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,
                                Converter={StaticResource TrueVisibleFalseHidden}}"
                            HorizontalAlignment="Center" VerticalAlignment="Top"

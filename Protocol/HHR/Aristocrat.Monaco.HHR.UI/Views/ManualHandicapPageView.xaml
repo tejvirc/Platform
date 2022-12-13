@@ -51,7 +51,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 -20 0 0">
 
             <TextBlock Style="{StaticResource HeaderStyle}" HorizontalAlignment="Left" >
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRemainingRacesToHandicapTitle}}" />
+                <Run Text="{Binding HhrRemainingRacesToHandicapTitle}" />
                 <Run Foreground="White" FontSize="40" FontWeight="Bold"
                      Text="{Binding RemainingRacesToHandicap, Mode=OneWay}" />
             </TextBlock>
@@ -67,7 +67,7 @@
                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                     Orientation="Vertical" HorizontalAlignment="Center">
 
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrYourPicksTitle}}" 
+            <TextBlock Text="{Binding HhrYourPicksTitle}" 
                        Style="{StaticResource HeaderStyle}" Margin="0 20 0 0"/>
 
             <DataGrid x:Name="HosePositionDataGrid" ItemsSource="{Binding Path=CurrentHorsePicks}" 
@@ -171,7 +171,8 @@
                     Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                     Orientation="Vertical" HorizontalAlignment="Center">
 
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrHorseTitle}}" 
+            <TextBlock Text="{Binding DataContext.HhrHorseTitle,
+                                        RelativeSource={RelativeSource AncestorType=UserControl}}" 
                        Style="{StaticResource HeaderStyle}" Margin="0 10 0 0"/>
 
             <DataGrid ItemsSource="{Binding Path=CurrentHorseNumbers}" x:Name="HorseNumberPanel"
@@ -273,7 +274,8 @@
         </StackPanel>
 
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0"
-                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrManualHandicapDisclaimerMessage}}" 
+                   Text="{Binding DataContext.HhrManualHandicapDisclaimerMessage,
+                        RelativeSource={RelativeSource AncestorType=UserControl}}" 
                    FontSize="12" HorizontalAlignment="Center" TextAlignment="Center"
                    Foreground="{StaticResource HeaderColor1}"
                    Visibility="{Binding IsQuickPick, Converter={StaticResource TrueVisibleFalseHidden},

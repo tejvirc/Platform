@@ -50,15 +50,21 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" HorizontalAlignment="Left" Style="{StaticResource HeaderTextStyle}">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}" />
+                    <Run Text="{Binding DataContext.HhrRaceSet,
+                                        RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType=menu:HHRMenuPage}}" />
                     <Run FontWeight="UltraBold" Text=" 1"/>
                 </TextBlock>
 
                 <TextBlock Grid.Column="1" HorizontalAlignment="Center" Style="{StaticResource HeaderTextStyle}"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResults}}"/>
+                           Text="{Binding DataContext.HhrPreviousRaceResults,
+                                        RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType=menu:HHRMenuPage}}"/>
 
                 <TextBlock Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource HeaderTextStyle}">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}" />
+                    <Run Text="{Binding DataContext.HhrRaceSet,
+                                        RelativeSource={RelativeSource Mode=FindAncestor,
+                                                AncestorType=menu:HHRMenuPage}}" />
                     <Run FontWeight="UltraBold" Text=" 2"/>
                 </TextBlock>
     </Grid>
@@ -125,15 +131,23 @@
                 Once MANUAL HANDICAP has been pressed, the wager is committed and player must manually handicap eight positions in each of ten races for a total of 80 picks.
             -->
             <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" Margin="0 20 0 0" Foreground="GreenYellow">
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart1}}" />
+                <Run Text="{Binding DataContext.HhrPreviousRaceResultsTextPart1,
+                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                      AncestorType=menu:HHRMenuPage}}" />
                 <Run Foreground="Red"
-                     Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart2}}" />:
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart3}}" />
+                     Text="{Binding DataContext.HhrPreviousRaceResultsTextPart2,
+                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                      AncestorType=menu:HHRMenuPage}}" />:
+                <Run Text="{Binding DataContext.HhrPreviousRaceResultsTextPart3,
+                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                      AncestorType=menu:HHRMenuPage}}" />
             </TextBlock>
 
             <TextBlock HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="Underline"
                        Foreground="Red" FontSize="13" FontStyle="Italic"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart4}}" />
+                       Text="{Binding DataContext.HhrPreviousRaceResultsTextPart4,
+                                      RelativeSource={RelativeSource Mode=FindAncestor,
+                                      AncestorType=menu:HHRMenuPage}}" />
         </StackPanel>
 
 

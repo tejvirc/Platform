@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Windows.Input;
     using Application.Contracts;
+    using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Contracts;
     using Hardware.Contracts;
@@ -14,7 +15,9 @@
     using log4net;
     using MVVM.Command;
     using MVVM.ViewModel;
-    using Aristocrat.Monaco.Hardware.Contracts.Audio;
+    using Hardware.Contracts.Audio;
+    using Kernel.Contracts.MessageDisplay;
+    using Localization.Properties;
 
     /// <summary>
     ///     Reserve machine GUI states
@@ -168,6 +171,8 @@
 
         public string CountdownTimerText => _countDownTime.ToString(TimeFormat);
 
+        public string GiantReservedText => Localizer.GetString(ResourceKeys.Reserved, CultureProviderType.Player);
+
         public string IncorrectPinWaitTimeLeft => _incorrectPinWaitTimeSpan.ToString(TimeFormat);
 
         private void SetCountdownText()
@@ -281,6 +286,19 @@
             get => _showIncorrectPinWarning;
             private set => SetProperty(ref _showIncorrectPinWarning, value, nameof(ShowIncorrectPinWarning));
         }
+
+        public string ReserveMachineIncorrectPinText => Localizer.GetString(
+            ResourceKeys.ReserveMachineIncorrectPinText,
+            CultureProviderType.Player);
+
+        public string ReserveMachineIncorrectPinWaitText1 => Localizer.GetString(
+            ResourceKeys.ReserveMachineIncorrectPinWaitText1,
+            CultureProviderType.Player);
+
+        public string ReserveMachineIncorrectPinWaitText2 => Localizer.GetString(
+            ResourceKeys.ReserveMachineIncorrectPinWaitText2,
+            CultureProviderType.Player);
+        
 
         private bool _showCountdownTimer;
 

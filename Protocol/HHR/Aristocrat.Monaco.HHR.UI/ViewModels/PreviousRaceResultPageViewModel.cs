@@ -12,6 +12,7 @@
     using Storage.Helpers;
     using Aristocrat.Monaco.Hhr.Services;
     using Client.Data;
+    using Kernel.Contracts.MessageDisplay;
     using MVVM;
 
     public class PreviousRaceResultPageViewModel : HhrMenuPageViewModelBase
@@ -28,6 +29,30 @@
         public string WagerLabel1 { get; set; }
 
         public string WagerLabel2 { get; set; }
+
+        public string HhrPreviousRaceResults => Localizer.GetString(
+            ResourceKeys.HhrPreviousRaceResults,
+            CultureProviderType.Player);
+
+        public string HhrPreviousRaceResultsTextPart1 => Localizer.GetString(
+            ResourceKeys.HhrPreviousRaceResultsTextPart1,
+            CultureProviderType.Player);
+
+        public string HhrPreviousRaceResultsTextPart2 => Localizer.GetString(
+            ResourceKeys.HhrPreviousRaceResultsTextPart2,
+            CultureProviderType.Player);
+
+        public string HhrPreviousRaceResultsTextPart3 => Localizer.GetString(
+            ResourceKeys.HhrPreviousRaceResultsTextPart3,
+            CultureProviderType.Player);
+
+        public string HhrPreviousRaceResultsTextPart4 => Localizer.GetString(
+            ResourceKeys.HhrPreviousRaceResultsTextPart4,
+            CultureProviderType.Player);
+
+        public string HhrRaceSet => Localizer.GetString(
+            ResourceKeys.HhrRaceSet,
+            CultureProviderType.Player);
 
         public ObservableCollection<PreviousRaceResultModel> PreviousResultCollection1 { get; set; } =
             new ObservableCollection<PreviousRaceResultModel>();

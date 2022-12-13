@@ -98,10 +98,10 @@
             switch (cashInType)
             {
                 case CashInType.Currency:
-                    data.SubText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InsertingBillText);
+                    data.SubText = Localizer.GetString(ResourceKeys.InsertingBillText, CultureProviderType.Player);
                     break;
                 case CashInType.Voucher:
-                    data.SubText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InsertingVoucherText);
+                    data.SubText = Localizer.GetString(ResourceKeys.InsertingVoucherText, CultureProviderType.Player);
                     break;
                 case CashInType.Wat:
                     if (stateContainsCashOut &&
@@ -111,7 +111,7 @@
                     }
                     else
                     {
-                        data.Text = Resources.WatOnText;
+                        data.Text = Localizer.GetString(ResourceKeys.WatOnText, CultureProviderType.Player); 
                     }
                     break;
             }

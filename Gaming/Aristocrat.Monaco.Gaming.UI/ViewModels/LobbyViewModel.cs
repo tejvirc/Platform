@@ -5386,6 +5386,8 @@
             });
         }
 
+        public string SelectPayModeText => Localizer.GetString(ResourceKeys.SelectPayModeText, CultureProviderType.Player);
+
         public List<MenuSelectionPayOption> MenuSelectionPayOptions { get; set; }
 
         public MenuSelectionPayOption SelectedMenuSelectionPayOption
