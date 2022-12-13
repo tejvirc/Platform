@@ -23,6 +23,6 @@
         /// <param name="message">The request progressive update message</param>
         /// <param name="token">The cancellation token</param>
         /// <returns>Returns the task containing the client progressive update results from the server</returns>
-        Task<ProgressiveUpdateResults> ProgressiveUpdates(ProgressiveUpdateRequestMessage message, CancellationToken token);
+        Task<bool> ProgressiveUpdates(ProgressiveUpdateRequestMessage message, CancellationToken token);
     }
 }

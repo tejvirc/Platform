@@ -11,12 +11,14 @@
     using Consumers;
     using GameEndWin;
     using Gaming.Contracts.Central;
+    using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Tickets;
     using Handpay;
     using Handpay.Strategies;
     using Services;
     using Services.Configuration;
     using Services.GamePlay;
+    using Services.Progressives;
     using Services.Reporting;
     using Services.Security;
     using SimpleInjector;
@@ -31,6 +33,7 @@
             container.RegisterSingleton<IClientConfigurationProvider, BingoClientConfigurationProvider>();
             return container
                 .SetupBingoGamePlay()
+                .SetupProgressives()
                 .SetupCommandHandlers()
                 .SetupCommandFactory()
                 .SetupGameEndWinStrategy()
@@ -64,6 +67,13 @@
             container.RegisterSingleton<IBingoReplayRecovery, BingoReplayRecovery>();
             container.RegisterSingleton<ICertificateService, CertificateService>();
             container.RegisterSingleton<DynamicHelpMonitor>();
+            return container;
+        }
+
+        private static Container SetupProgressives(this Container container)
+        {
+            container.RegisterSingleton<IProgressiveHandler, ProgressiveHandler>();
+            container.RegisterSingleton<IProgressiveUpdateHandler, ProgressiveHandler>();
             return container;
         }
 

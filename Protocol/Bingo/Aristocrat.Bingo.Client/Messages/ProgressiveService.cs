@@ -16,18 +16,20 @@
         IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IProgressiveAuthorizationProvider _authorization;
         private bool _isRegistered;
         private bool _disposed;
-        private Thread _progressiveUpdateThread;
         private AsyncDuplexStreamingCall<Progressive, ProgressiveUpdate> _progressiveUpdateStream;
 
         public ProgressiveService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
+            IMessageHandlerFactory messageHandlerFactory,
             IProgressiveAuthorizationProvider authorization)
             : base(endpointProvider)
         {
             _authorization = authorization ?? throw new ArgumentNullException(nameof(authorization));
+            _messageHandlerFactory = messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
         }
 
         public async Task<ProgressiveInfoResults> RequestProgressiveInfo(ProgressiveInfoRequestMessage message, CancellationToken token)
@@ -58,50 +60,46 @@
             return new ProgressiveInfoResults(ResponseCode.Ok, true, result.GameTitleId, progressiveLevels);
         }
 
-        public async Task<ProgressiveUpdateResults> ProgressiveUpdates(ProgressiveUpdateRequestMessage message, CancellationToken token)
+        public async Task<bool> ProgressiveUpdates(ProgressiveUpdateRequestMessage message, CancellationToken token)
         {
             Logger.Debug("ProgressiveUpdates called");
 
-            _progressiveUpdateStream = Invoke((x, c) => x.ProgressiveUpdates(null, null, c), token);
-
             if (!_isRegistered)
             {
+                // Open the stream
+                _progressiveUpdateStream = Invoke((x, c) => x.ProgressiveUpdates(null, null, c), token);
+
+                // Send the progressive message to start the progressive updates to the EGM
                 await _progressiveUpdateStream.RequestStream.WriteAsync(new Progressive { MachineSerial = message.MachineSerial });
                 _isRegistered = true;
             }
 
-            var responseStream = _progressiveUpdateStream.ResponseStream;
-            var results = new ProgressiveUpdateResults();
-            if (await responseStream.MoveNext(token).ConfigureAwait(false))
+            try
             {
-                var data = new ProgressiveUpdateInfo(responseStream.Current.NewValue, responseStream.Current.ProgressiveLevel);
-                Logger.Debug($"ProgressiveUpdateInfo, NewValue={data.NewValue}, progLevel={data.ProgressiveLevel}");
-                results.UpdateInfo.Add(data);
+                while (!token.IsCancellationRequested)
+                {
+                    var responseStream = _progressiveUpdateStream.ResponseStream;
+                    while (await responseStream.MoveNext(token).ConfigureAwait(false) &&
+                           await ReadProgressiveUpdate(responseStream.Current, token).ConfigureAwait(false))
+                    {
+                    }
+                }
+
+                return true;
             }
-
-            _progressiveUpdateThread = new Thread(MonitorProgressiveUpdateStream)
+            catch (Exception e)
             {
-                Priority = ThreadPriority.Lowest
-            };
-            _progressiveUpdateThread.Start();
-
-            // TODO just return bool if using thread
-            return results;
+                Logger.Error($"Command service exited.  IsCancelled={token.IsCancellationRequested}", e);
+                return false;
+            }
         }
-
-        private async void MonitorProgressiveUpdateStream()
+        private async Task<bool> ReadProgressiveUpdate(ProgressiveUpdate response, CancellationToken token)
         {
-            Logger.Debug("MonitorProgressiveUpdateStream thread started");
-
-            var responseStream = _progressiveUpdateStream.ResponseStream;
-            var token = new CancellationToken();
-
-            while (await responseStream.MoveNext(token).ConfigureAwait(false))
-            {
-                Logger.Debug($"Publishing ProgressiveUpdate, NewValue={responseStream.Current.NewValue}, ProgLevel={responseStream.Current.ProgressiveLevel}");
-                var progressiveUpdate = new ProgressiveUpdate { ProgressiveLevel = responseStream.Current.ProgressiveLevel, NewValue = responseStream.Current.NewValue };
-                // TODO how do I send this message to the system? event bus not seen here.
-            }
+            Logger.Debug($"ReadProgressiveUpdate, Progressive Level={_progressiveUpdateStream.ResponseStream.Current.ProgressiveLevel}, New Value={_progressiveUpdateStream.ResponseStream.Current.NewValue}, ");
+            var progressiveUpdate = new ProgressiveUpdateMessage(ResponseCode.Ok, _progressiveUpdateStream.ResponseStream.Current.ProgressiveLevel, _progressiveUpdateStream.ResponseStream.Current.NewValue);
+            var handlerResult = await _messageHandlerFactory.Handle<ProgressiveUpdateResponse, ProgressiveUpdateMessage>(progressiveUpdate, token)
+                .ConfigureAwait(false);
+            return handlerResult.ResponseCode == ResponseCode.Ok;
         }
 
         public void Dispose()
@@ -119,7 +117,6 @@
 
             if (disposing)
             {
-                _progressiveUpdateThread.Abort();
                 _authorization.AuthorizationData = null;
             }
 

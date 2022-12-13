@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Progressives
 {
     /// <summary>
-    ///     Message to send to request a progressive update from the server
+    ///     Message to send to request progressive updates from the server for this EGM.
     /// </summary>
     public class ProgressiveUpdateRequestMessage : IMessage
     {
