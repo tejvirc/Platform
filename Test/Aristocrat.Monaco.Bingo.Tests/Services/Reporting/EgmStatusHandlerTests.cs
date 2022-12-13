@@ -26,6 +26,7 @@
         private readonly Mock<IGamePlayState> _playState = new();
         private readonly Mock<IOperatorMenuLauncher> _menuLauncher = new();
         private readonly Mock<ISystemDisableManager> _systemDisable = new();
+        private readonly Mock<IReportTransactionQueueService> _reportingService = new();
         private Mock<INoteAcceptor> _noteAcceptor;
         private Mock<IPrinter> _printer;
         private Mock<IReelController> _reelController;
@@ -63,11 +64,12 @@
             MoqServiceManager.RemoveInstance();
         }
 
-        [DataRow(true, false, false, false, false, DisplayName = "Null Properties")]
-        [DataRow(false, true, false, false, false, DisplayName = "Null Door Monitor")]
-        [DataRow(false, false, true, false, false, DisplayName = "Null Play State")]
-        [DataRow(false, false, false, true, false, DisplayName = "Null Menu Launcher")]
-        [DataRow(false, false, false, false, true, DisplayName = "Null System Disable")]
+        [DataRow(true, false, false, false, false, false, DisplayName = "Null Properties")]
+        [DataRow(false, true, false, false, false, false, DisplayName = "Null Door Monitor")]
+        [DataRow(false, false, true, false, false, false, DisplayName = "Null Play State")]
+        [DataRow(false, false, false, true, false, false, DisplayName = "Null Menu Launcher")]
+        [DataRow(false, false, false, false, true, false, DisplayName = "Null System Disable")]
+        [DataRow(false, false, false, false, false, true, DisplayName = "Null ReportingService")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorArgumentsTest(
@@ -75,9 +77,10 @@
             bool nullDoor,
             bool nullPlayState,
             bool nullMenu,
-            bool nullSystem)
+            bool nullSystem,
+            bool nullReportingSystem)
         {
-            _ = CreateTarget(nullProperties, nullDoor, nullPlayState, nullMenu, nullSystem);
+            _ = CreateTarget(nullProperties, nullDoor, nullPlayState, nullMenu, nullSystem, nullReportingSystem);
         }
 
         [DataTestMethod]
@@ -156,15 +159,6 @@
         }
 
         [TestMethod]
-        public void SystemDisabledTest()
-        {
-            _systemDisable.Setup(mock => mock.CurrentDisableKeys).Returns(new List<Guid>() { ApplicationConstants.SystemDisableGuid });
-
-            var status = _target.GetCurrentEgmStatus();
-            Assert.AreEqual(EgmStatusFlag.MachineDisabled, status & EgmStatusFlag.MachineDisabled);
-        }
-
-        [TestMethod]
         public void OperatingHoursDisabledTest()
         {
             _systemDisable.Setup(mock => mock.CurrentDisableKeys).Returns(new List<Guid>() { ApplicationConstants.OperatingHoursDisableGuid });
@@ -216,7 +210,7 @@
             _playState.Setup(mock => mock.Enabled).Returns(false);
 
             var status = _target.GetCurrentEgmStatus();
-            Assert.AreEqual(EgmStatusFlag.GameNotOnline, status & EgmStatusFlag.GameNotOnline);
+            Assert.AreEqual(EgmStatusFlag.MachineDisabled, status & EgmStatusFlag.MachineDisabled);
         }
 
         private EgmStatusHandler CreateTarget(
@@ -224,14 +218,16 @@
             bool nullDoor = false,
             bool nullPlayState = false,
             bool nullMenu = false,
-            bool nullSystem = false)
+            bool nullSystem = false,
+            bool nullReportingService = false)
         {
             return new EgmStatusHandler(
                 nullProperties ? null : _propertiesManager.Object,
                 nullDoor ? null : _doorMonitor.Object,
                 nullPlayState ? null : _playState.Object,
                 nullMenu ? null : _menuLauncher.Object,
-                nullSystem ? null : _systemDisable.Object);
+                nullSystem ? null : _systemDisable.Object,
+                nullReportingService ? null : _reportingService.Object);
         }
     }
 }
