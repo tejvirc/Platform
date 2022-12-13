@@ -126,7 +126,7 @@
         {
             // always pass if the currentValue hasn't been set yet (initial boot up)
             var result = !string.IsNullOrEmpty(currentValue) &&
-                         !string.Equals(currentValue, newValue, StringComparison.Ordinal);
+                         !StringComparer.OrdinalIgnoreCase.Equals(currentValue, newValue);
             if (result)
             {
                 Logger.Debug($"current '{currentValue}' new '{newValue}'");
