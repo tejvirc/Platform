@@ -196,7 +196,7 @@
                                     }
                                     update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
                                     update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
-                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(fieldName, field.Value)));
+                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(field.Key.Item2, field.Value)));
 
                                     if (update.ExecuteNonQuery() == 0)
                                     {
