@@ -66,7 +66,7 @@ Please update the confluence page when new elements and attributes are added.
       <NewRegion Description="ticket number receipt" PrinterRegionId="S" Command="^R|S|R|331|430|31|425|0|3|0|8|1|1|0|0||^"/>
       <NewRegion Description="expiration" PrinterRegionId="q" Command="^R|q|R|500|1051|31|400|0|3|2|7|1|1|0|0||^"/>
       <NewRegion Description="machine number" PrinterRegionId="L" Command="^R|L|R|500|120|31|350|0|3|0|7|1|1|0|0||^"/>
-      <NewRegion Description="validation number at leading edge" PrinterRegionId="i" Command="^R|i|R|125|8|370|31|0|0|0|8|1|1|0|0||^"/>
+      <NewRegion Description="validation number at leading edge" PrinterRegionId="i" Command="^R|i|R|125|8|370|31|0|0|0|8|1|1|0|4|%s%:%0%TPR[%0,E,v]|^"/>
       <NewRegion Description="validation text cashout" PrinterRegionId="k" Command="^R|k|R|358|822|31|210|0|3|0|8|1|1|0|0||^"/>
       <NewRegion Description="validation text receipt" PrinterRegionId="m" Command="^R|m|R|361|822|31|210|0|3|0|8|1|1|0|0||^"/>
       <NewRegion Description="date cashout" PrinterRegionId="B" Command="^R|B|R|358|607|31|607|0|3|0|8|1|1|0|0||^"/>
