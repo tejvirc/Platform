@@ -10,7 +10,7 @@
     ///     Handles the <see cref="ProgressiveHitEvent" /> event and figured out which exception needs to be reported.
     /// </summary>
     // ReSharper disable once UnusedMember.Global
-    public class ProgressiveHitConsumer : IProtocolProgressiveEventHandler, IConsumer<ProgressiveHitEvent>
+    public class ProgressiveHitConsumer : IProtocolProgressiveEventHandler
     {
         private readonly IProgressiveHitExceptionProvider _hitExceptionProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
