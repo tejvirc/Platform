@@ -44,6 +44,8 @@
         private ManualResetEvent _shutdownEvent = new(false);
         private ManualResetEvent _startupWaiter = new(false);
         private ISasHost _sasHost;
+        private IProtocolProgressiveEventHandler _linkedProgressiveExpiredConsumer;
+        private IProtocolProgressiveEventHandler _progressiveHitConsumer;
 
         /// <summary>
         ///     Get the container
@@ -87,6 +89,9 @@
 
                 Container = Bootstrapper.ConfigureContainer();
                 Container.Verify();
+
+                _linkedProgressiveExpiredConsumer = Container.GetInstance<LinkedProgressiveExpiredConsumer>();
+                _progressiveHitConsumer = Container.GetInstance<ProgressiveHitConsumer>();
 
                 SubscribeProgressiveEvents();
 
@@ -169,7 +174,14 @@
 
                     disableManager.Enable(BaseConstants.ProtocolDisabledKey);
                     _shutdownEvent.WaitOne();
+                    UnSubscribeProgressiveEvents();
+                    ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
                     _sasHost.StopEventSystem();
+                }
+                else
+                {
+                    UnSubscribeProgressiveEvents();
+                    ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
                 }
 
                 ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
@@ -239,26 +251,34 @@
             _disposed = true;
         }
 
-        private static void SubscribeProgressiveEvents()
+        private void SubscribeProgressiveEvents()
         {
             var eventSubscriber = ServiceManager.GetInstance().GetService<IProtocolProgressiveEventsRegistry>();
             eventSubscriber.SubscribeProgressiveEvent<LinkedProgressiveExpiredEvent>(
                 ProtocolNames.SAS,
-                Container.GetInstance<LinkedProgressiveExpiredConsumer>());
+                _linkedProgressiveExpiredConsumer);
             eventSubscriber.SubscribeProgressiveEvent<ProgressiveHitEvent>(
                 ProtocolNames.SAS,
-                Container.GetInstance<ProgressiveHitConsumer>());
+                _progressiveHitConsumer);
         }
 
-        private static void UnSubscribeProgressiveEvents()
+        private void UnSubscribeProgressiveEvents()
         {
+            if (_progressiveHitConsumer == null || _linkedProgressiveExpiredConsumer == null)
+            {
+                return;
+            }
+
             var eventSubscriber = ServiceManager.GetInstance().TryGetService<IProtocolProgressiveEventsRegistry>();
             eventSubscriber?.UnSubscribeProgressiveEvent<LinkedProgressiveExpiredEvent>(
                 ProtocolNames.SAS,
-                Container?.GetInstance<LinkedProgressiveExpiredConsumer>());
+                _linkedProgressiveExpiredConsumer);
             eventSubscriber?.UnSubscribeProgressiveEvent<ProgressiveHitEvent>(
                 ProtocolNames.SAS,
-                Container?.GetInstance<ProgressiveHitConsumer>());
+                _progressiveHitConsumer);
+
+            _progressiveHitConsumer = null;
+            _linkedProgressiveExpiredConsumer = null;
         }
 
         private void InitializeConnections(IValidationHandler validationHandler)
