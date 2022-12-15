@@ -19,7 +19,7 @@
 
         private bool _disposed;
 
-        private Dictionary<int, int> _tempProgressiveIdMapping = new()
+        private readonly Dictionary<int, int> _tempProgressiveIdMapping = new()
         {
             { 0, 10001 },
             { 1, 10002 },
