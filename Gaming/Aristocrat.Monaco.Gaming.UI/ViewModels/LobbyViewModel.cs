@@ -384,7 +384,7 @@
 
             Config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
             LargeGameIconsEnabled = Config.LargeGameIconsEnabled;
-            MultiLanguageEnabled = Config.MultiLanguageEnabled && Config.LocaleCodes.Length > 1; 
+            MultiLanguageEnabled = Config.MultiLanguageEnabled && _playerCultureProvider.AvailableCultures.Count > 1; 
             GameLoadingScreenPath = "pack://siteOfOrigin:,,,/" + Config.DefaultLoadingScreenFilename;
             _gamesPerPage = Config.MaxDisplayedGames;
 
@@ -1352,24 +1352,12 @@
         /// <summary>
         ///     Gets the available locale codes.
         /// </summary>
-        public string[] AvaliableLocales
-        {
-            get
-            {
-                var locales = _playerCultureProvider.AvailableCultures!.Select(c => c.Name).ToArray();
-                if (locales!.Length == 0)
-                {
-                    locales = Config.LocaleCodes;
-                }
-
-                return locales;
-            }
-        }
+        public string[] AvailableLocales => _playerCultureProvider.AvailableCultures!.Select(c => c.Name).ToArray();
 
         /// <summary>
         ///     Gets the active locale code.
         /// </summary>
-        public string ActiveLocaleCode => AvaliableLocales[LocaleCodeIndex];
+        public string ActiveLocaleCode => LocaleCodeIndex == -1 ? AvailableLocales[0] : AvailableLocales[LocaleCodeIndex];
 
         /// <summary>
         ///     Gets a value indicating whether to display the language toggle button, if there are only
@@ -1820,7 +1808,7 @@
             if (string.IsNullOrEmpty(defaultLocale))
             {
                 // if default is not set yet, get the first locale from config
-                defaultLocale = Config.LocaleCodes[0] ?? GamingConstants.DefaultCultureCode;
+                defaultLocale = GamingConstants.DefaultCultureCode;
                 _playerCultureProvider.DefaultCulture = new CultureInfo(defaultLocale);
             }
 
@@ -4266,20 +4254,20 @@
             if (Config.AlternateAttractModeLanguage)
             {
                 Logger.Debug($"Next Attract Mode Video will be in Primary Language: {_nextAttractModeLanguageIsPrimary}");
-                var languageIndex = _nextAttractModeLanguageIsPrimary ? 0 : 1;
+                string nextLanguage = LocaleHelper.GetNextActiveLanguage(_playerCultureProvider, ActiveLocaleCode);
 
                 TopAttractVideoPath =
-                    attract?.GetTopAttractVideoPathByLocaleCode(Config.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                    attract?.GetTopAttractVideoPathByLocaleCode(nextLanguage).NullIfEmpty() ??
                     Config.DefaultTopAttractVideoFilename;
 
                 TopperAttractVideoPath =
-                    attract?.GetTopperAttractVideoPathByLocaleCode(Config.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                    attract?.GetTopperAttractVideoPathByLocaleCode(nextLanguage).NullIfEmpty() ??
                     Config.DefaultTopperAttractVideoFilename;
 
                 if (Config.BottomAttractVideoEnabled)
                 {
                     BottomAttractVideoPath =
-                        attract?.GetBottomAttractVideoPathByLocaleCode(Config.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                        attract?.GetBottomAttractVideoPathByLocaleCode(nextLanguage).NullIfEmpty() ??
                         Config.DefaultTopAttractVideoFilename;
                 }
             }
@@ -4515,9 +4503,9 @@
 
             int? GetLocaleCodesIndex()
             {
-                for (var i = 0; i < AvaliableLocales.Length; i++)
+                for (var i = 0; i < AvailableLocales.Length; i++)
                 {
-                    if (LocaleHelper.Contains(languageOptions, AvaliableLocales[i]) && LocaleCodeIndex == i)
+                    if (LocaleHelper.Contains(languageOptions, AvailableLocales[i]) && LocaleCodeIndex == i)
                     {
                         return i;
                     }

@@ -53,5 +53,14 @@
             
             return supportedLangs.ToList();
         }
+
+        public static string GetNextActiveLanguage(IPlayerCultureProvider playerCultureProvider, string activeLanguage)
+        {
+            var availableLangs = playerCultureProvider.AvailableCultures.Select(c => c.Name).ToArray();
+            int languageIndex = Array.IndexOf(availableLangs, activeLanguage);
+            languageIndex = languageIndex == availableLangs.Length - 1 ? 0 : languageIndex + 1;
+
+            return availableLangs[languageIndex];
+        }
     }
 }

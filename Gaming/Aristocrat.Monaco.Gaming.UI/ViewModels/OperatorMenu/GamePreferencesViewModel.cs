@@ -1187,11 +1187,6 @@
 
             // get all the languages configured in the jurisdiction and installed games
             var gameLocalesCollection = (from g in _gameProvider.GetAllGames() where DoesGameSupportAllMandatoryLanguages(mandatoryLanguages, g.LocaleGraphics?.Keys.AsEnumerable()) select g.LocaleGraphics.Keys.AsEnumerable()).ToList();
-            if (gameLocalesCollection.Any())
-            {
-                var config = PropertiesManager.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
-                gameLocalesCollection.Add(config.LocaleCodes);
-            }
 
             var supportedLanguages = LocaleHelper.GetAllSupportedLocales(gameLocalesCollection, _localization, Logger);
             Logger.Debug($"Supported languages by platform: {string.Join(",", supportedLanguages)}");

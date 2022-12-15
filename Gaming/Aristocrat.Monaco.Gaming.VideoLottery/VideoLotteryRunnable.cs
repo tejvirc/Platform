@@ -4,6 +4,7 @@
     using System.Configuration;
     using System.Linq;
     using Application.Contracts.Media;
+    using Application.Contracts.Localization;
     using Common.Container;
     using Contracts;
     using Contracts.Lobby;
@@ -25,6 +26,8 @@
             container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
             container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
             container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
+            container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
+            container.RegisterInstance<ILocalization>(ServiceManager.GetInstance().GetService<ILocalization>());
             container.AddOverlayMessageStrategies();
 
             // RG based properties
@@ -72,7 +75,6 @@
 
             if (config != null)
             {
-                config.LocaleCodes = config.LocaleCodes.Select(s => s.ToUpperInvariant()).ToArray();
                 if (config.ResponsibleGamingInfo == null)
                 {
                     config.ResponsibleGamingInfo = new ResponsibleGamingInfoOptions();

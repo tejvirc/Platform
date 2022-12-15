@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
+    using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Cabinet.Contracts;
     using Contracts;
@@ -12,6 +13,7 @@
     using Kernel;
     using Models;
     using Monaco.UI.Common.Extensions;
+    using Utils;
 
     /// <summary>
     ///     Defines the AttractPreviewViewModel class
@@ -42,6 +44,9 @@
         private List<IAttractDetails> _attractSequence;
 
         private readonly LobbyConfiguration _lobbyConfig;
+        private readonly IPropertiesManager _properties;
+        private IPlayerCultureProvider _playerCultureProvider;
+
         private double _attractVideoWidth = DefaultWidth;
         private double _attractVideoHeight = DefaultHeight;
 
@@ -49,7 +54,11 @@
         {
             _attractConfigurationProvider = ServiceManager.GetInstance().GetService<IAttractConfigurationProvider>();
             _lobbyConfig = (LobbyConfiguration)PropertiesManager.GetProperty(GamingConstants.LobbyConfig, null);
-
+            _properties = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
+            var localization = ServiceManager.GetInstance().TryGetService<ILocalization>();
+            _playerCultureProvider = localization.GetProvider(CultureFor.Player) as
+                                         IPlayerCultureProvider ??
+                                     throw new ArgumentNullException(nameof(_playerCultureProvider));
             var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
             var expectedDisplays = cabinetDetectionService.ExpectedDisplayDevices.ToList();
 
@@ -179,7 +188,9 @@
         /// <summary>
         ///     Gets the active locale code.
         /// </summary>
-        public string ActiveLocaleCode => _lobbyConfig.LocaleCodes[0];
+        public string ActiveLocaleCode => (string)_properties.GetProperty(
+            GamingConstants.SelectedLocaleCode,
+            GamingConstants.DefaultCultureCode);
 
         private void LoadAttractSequence()
         {
@@ -237,21 +248,21 @@
 
             if (_lobbyConfig.AlternateAttractModeLanguage)
             {
-                var languageIndex = _nextAttractModeLanguageIsPrimary ? 0 : 1;
-
+                // find the current index to get the next enabled language. If current is the last one, reset the index to 0.
+                string nextLanguage = LocaleHelper.GetNextActiveLanguage(_playerCultureProvider, ActiveLocaleCode);
                 TopAttractVideoPath =
-                    attractDetails?.GetTopAttractVideoPathByLocaleCode(_lobbyConfig.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                    attractDetails?.GetTopAttractVideoPathByLocaleCode(nextLanguage).NullIfEmpty() ??
                     _lobbyConfig.DefaultTopAttractVideoFilename;
 
                 TopperAttractVideoPath =
-                    attractDetails?.GetTopperAttractVideoPathByLocaleCode(_lobbyConfig.LocaleCodes[languageIndex])
+                    attractDetails?.GetTopperAttractVideoPathByLocaleCode(nextLanguage)
                         .NullIfEmpty() ??
                     _lobbyConfig.DefaultTopperAttractVideoFilename;
 
                 if (_lobbyConfig.BottomAttractVideoEnabled)
                 {
                     BottomAttractVideoPath =
-                        attractDetails?.GetBottomAttractVideoPathByLocaleCode(_lobbyConfig.LocaleCodes[languageIndex])
+                        attractDetails?.GetBottomAttractVideoPathByLocaleCode(nextLanguage)
                             .NullIfEmpty() ??
                         _lobbyConfig.DefaultTopAttractVideoFilename;
                 }
