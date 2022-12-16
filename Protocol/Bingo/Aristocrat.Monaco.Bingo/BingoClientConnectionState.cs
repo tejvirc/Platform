@@ -8,7 +8,6 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Bingo.Client;
-    using Aristocrat.Bingo.Client.Messages;
     using Commands;
     using Common;
     using Common.Events;
@@ -19,7 +18,7 @@
     using Monaco.Common;
     using Stateless;
 
-    public class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
+    public sealed class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
     {
         private const int NoMessagesTimeout = 40_000;
 
@@ -28,8 +27,6 @@
         private readonly IEventBus _eventBus;
         private readonly IClient _client;
         private readonly ICommandHandlerFactory _commandFactory;
-        private readonly ICommandService _commandService;
-        private readonly IPropertiesManager _propertiesManager;
         private readonly ISystemDisableManager _systemDisable;
 
         private CancellationTokenSource _tokenSource;
@@ -49,15 +46,11 @@
             IEventBus eventBus,
             IClient client,
             ICommandHandlerFactory commandFactory,
-            ICommandService commandService,
-            IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisable)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
-            _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
 
             CreateStateMachine();
@@ -73,8 +66,28 @@
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+            _registrationState.Deactivate();
+            _client.Disconnected -= OnClientDisconnected;
+            _client.Connected -= OnClientConnected;
+            _client.MessageReceived -= OnMessageReceived;
+            _timeoutTimer.Elapsed -= TimeoutOccurred;
+            _timeoutTimer.Dispose();
+            var tokenSource = _tokenSource;
+            if (tokenSource != null)
+            {
+                tokenSource.Cancel();
+                tokenSource.Dispose();
+            }
+
+            _tokenSource = null;
+
+            _disposed = true;
         }
 
         public async Task Start()
@@ -85,35 +98,6 @@
         public async Task Stop()
         {
             await _registrationState.FireAsync(Trigger.Shutdown);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                _eventBus.UnsubscribeAll(this);
-                _registrationState.Deactivate();
-                _client.Disconnected -= OnClientDisconnected;
-                _client.Connected -= OnClientConnected;
-                _client.MessageReceived -= OnMessageReceived;
-                _timeoutTimer.Elapsed -= TimeoutOccurred;
-                _timeoutTimer.Dispose();
-                var tokenSource = _tokenSource;
-                if (tokenSource != null)
-                {
-                    tokenSource.Cancel();
-                    tokenSource.Dispose();
-                }
-
-                _tokenSource = null;
-            }
-
-            _disposed = true;
         }
 
         private static State HandleConfigurationFailure(ConfigurationFailureReason reason)
@@ -321,9 +305,7 @@
             _eventBus.Publish(new HostConnectedEvent());
             _systemDisable.Enable(BingoConstants.BingoHostDisconnectedKey);
             ClientConnected?.Invoke(this, EventArgs.Empty);
-            _commandService.HandleCommands(
-                _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
-                _tokenSource.Token).FireAndForget();
+            _commandFactory.Execute(new ClientConnectedCommand(), _tokenSource.Token).FireAndForget();
         }
 
         private void TimeoutOccurred(object sender, ElapsedEventArgs e)

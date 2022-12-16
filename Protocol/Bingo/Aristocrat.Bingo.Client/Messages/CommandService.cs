@@ -16,32 +16,55 @@
         ICommandService,
         IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICommandProcessorFactory _processorFactory;
+        private readonly IClient _bingoClient;
         private readonly SemaphoreSlim _locker = new(1);
         private readonly IAsyncPolicy _commandRetryPolicy;
 
+        private CancellationTokenSource _tokenSource = null;
         private AsyncDuplexStreamingCall<CommandResponse, Command> _commandHandler;
         private bool _disposed;
 
+        public TimeSpan BackOffTime { get; set; } = TimeSpan.FromMilliseconds(200);
+
         public CommandService(
             IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider,
-            ICommandProcessorFactory processorFactory)
+            ICommandProcessorFactory processorFactory,
+            IClient bingoClient)
             : base(endpointProvider)
         {
             _processorFactory = processorFactory ?? throw new ArgumentNullException(nameof(processorFactory));
+            _bingoClient = bingoClient ?? throw new ArgumentNullException(nameof(bingoClient));
             _commandRetryPolicy = CreatePolicy();
+
+            _bingoClient.ConnectionStateChanged += HandleConnectionStateChanges;
         }
 
         public async Task<bool> HandleCommands(string machineSerial, CancellationToken cancellationToken)
         {
             try
             {
+                _tokenSource?.Cancel();
+
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    await ProcessCommands(machineSerial, cancellationToken);
-                    Logger.Debug($"Command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}");
+                    using var source = _tokenSource = new CancellationTokenSource();
+                    try
+                    {
+                        using var shared = CancellationTokenSource.CreateLinkedTokenSource(
+                            source.Token,
+                            cancellationToken);
+                        await ProcessCommands(machineSerial, shared.Token);
+                        Logger.Debug(
+                            $"Command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}");
+                        await Task.Delay(BackOffTime, cancellationToken);
+                    }
+                    finally
+                    {
+                        _tokenSource = null;
+                    }
                 }
 
                 return true;
@@ -139,6 +162,10 @@
 
             if (disposing)
             {
+                _bingoClient.ConnectionStateChanged -= HandleConnectionStateChanges;
+                _tokenSource?.Cancel();
+                _tokenSource?.Dispose();
+                _tokenSource = null;
                 CloseCommandHandler();
                 _locker.Dispose();
             }
@@ -166,6 +193,17 @@
             finally
             {
                 _locker.Release();
+            }
+        }
+
+        private void HandleConnectionStateChanges(object sender, ConnectionStateChangedEventArgs eventArgs)
+        {
+            switch (eventArgs.State)
+            {
+                case RpcConnectionState.Disconnected:
+                case RpcConnectionState.Closed:
+                    _tokenSource?.Cancel();
+                    break;
             }
         }
 

@@ -9,7 +9,7 @@
 
     public class BingoClientInterceptor : Interceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAuthorizationProvider _authorizationProvider;
         public EventHandler<EventArgs> MessageReceived;
 
@@ -19,7 +19,7 @@
                 authorizationProvider ?? throw new ArgumentNullException(nameof(authorizationProvider));
         }
 
-        public int MessageTimeoutMs { get; set; } = 30000;
+        public TimeSpan MessageTimeoutMs { get; set; } = TimeSpan.FromMilliseconds(3000);
 
         public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
             TRequest request,
@@ -140,7 +140,7 @@
             return new ClientInterceptorContext<TRequest, TResponse>(
                 context.Method,
                 context.Host,
-                context.Options.WithDeadline(DateTime.UtcNow.AddMilliseconds(MessageTimeoutMs)));
+                context.Options.WithDeadline(DateTime.UtcNow.Add(MessageTimeoutMs)));
         }
     }
 }
