@@ -72,6 +72,8 @@
 
         public bool KeyedOnCreditsAllowed => InputEnabled && KeyedOnCreditAmount > 0 && !PropertyHasErrors(nameof(KeyedOnCreditAmount));
 
+        public bool KeyOffCreditsButtonEnabled => InputEnabled && Credits.Any(x => x.HasCredits);
+
         public Credit SelectedCredit
         {
             get => _selectedCredit;
@@ -141,6 +143,7 @@
         {
             RaisePropertyChanged(nameof(KeyedOnInputEnabled));
             RaisePropertyChanged(nameof(KeyedOnCreditsAllowed));
+            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void UpdateCreditData()
