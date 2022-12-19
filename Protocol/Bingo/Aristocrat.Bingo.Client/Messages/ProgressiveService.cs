@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -32,7 +33,7 @@
             _messageHandlerFactory = messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
         }
 
-        public async Task<ProgressiveInfoResults> RequestProgressiveInfo(ProgressiveInfoRequestMessage message, CancellationToken token)
+        public async Task<bool> RequestProgressiveInfo(ProgressiveInfoRequestMessage message, CancellationToken token)
         {
             Logger.Debug($"RequestProgressiveInfo called, MachineSerial={message.MachineSerial}, GameTitleId={message.GameTitleId}");
 
@@ -46,6 +47,7 @@
                     async x => await x.RequestProgressiveInfoAsync(request, null, null, token));
 
             Logger.Debug($"RequestProgressiveInfoAsync response, size of response array={result.ProgressiveLevel.Count}");
+            Logger.Debug($"AuthToken={result.AuthToken}");
 
             _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
 
@@ -56,7 +58,25 @@
                 progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevel, progressiveMapping.SequenceNumber));
             }
 
-            return new ProgressiveInfoResults(ResponseCode.Ok, true, result.GameTitleId, progressiveLevels);
+            Logger.Debug("Meters To Report:");
+            var metersToReport = new List<int>();
+            foreach (var meter in result.MetersToReport)
+            {
+                metersToReport.Add(meter);
+                Logger.Debug($"Meter{meter}");
+            }
+
+            var progressiveInfoMessage = new ProgressiveInfoMessage(
+                ResponseCode.Ok,
+                true,
+                result.GameTitleId,
+                result.AuthToken,
+                progressiveLevels,
+                metersToReport);
+            var handlerResult = await _messageHandlerFactory.Handle<ProgressiveInformationResponse, ProgressiveInfoMessage>(progressiveInfoMessage, token)
+                .ConfigureAwait(false);
+
+            return handlerResult.ResponseCode == ResponseCode.Ok;
         }
 
         public async Task<bool> ProgressiveUpdates(ProgressiveUpdateRequestMessage message, CancellationToken token)

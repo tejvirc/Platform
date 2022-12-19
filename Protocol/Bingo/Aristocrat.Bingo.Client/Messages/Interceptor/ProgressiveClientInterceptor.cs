@@ -19,8 +19,6 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation)
         {
-            Logger.Debug("SGL ProgressiveClientInterceptor AsyncDuplexStreamingCall");
-
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncDuplexStreamingCall<TRequest, TResponse>(

@@ -73,6 +73,7 @@
         private static Container SetupProgressives(this Container container)
         {
             container.RegisterSingleton<IProgressiveHandler, ProgressiveHandler>();
+            container.RegisterSingleton<IProgressiveInfoHandler, ProgressiveHandler>();
             container.RegisterSingleton<IProgressiveUpdateHandler, ProgressiveHandler>();
             return container;
         }

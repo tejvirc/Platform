@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="update">The progressive update message to process</param>
         /// <param name="token">The cancellation token for this task</param>
-        /// <returns>A whether or not the progressive update was handled</returns>
+        /// <returns>Whether or not the progressive update was handled</returns>
         Task<bool> ProcessProgressiveUpdate(ProgressiveUpdateMessage update, CancellationToken token);
     }
 }
