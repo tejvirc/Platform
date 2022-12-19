@@ -12,7 +12,7 @@
     using Gaming.Contracts.Progressives;
     using log4net;
 
-    public class ProgressiveHandler : IProgressiveHandler, IProgressiveInfoHandler, IProgressiveUpdateHandler, IDisposable
+    public class ProgressiveHandler : IProgressiveInfoHandler, IProgressiveUpdateHandler, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
