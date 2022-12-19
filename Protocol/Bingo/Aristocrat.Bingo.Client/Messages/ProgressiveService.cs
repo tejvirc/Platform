@@ -47,8 +47,7 @@
 
             Logger.Debug($"RequestProgressiveInfoAsync response, size of response array={result.ProgressiveLevel.Count}");
 
-            // TODO there is no Metadata in the progressive.proto so using core version
-            _authorization.AuthorizationData = new Grpc.Core.Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
+            _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
 
             var progressiveLevels = new List<ProgressiveLevelInfo>();
             foreach (var progressiveMapping in result.ProgressiveLevel)
@@ -95,11 +94,30 @@
         }
         private async Task<bool> ReadProgressiveUpdate(ProgressiveUpdate response, CancellationToken token)
         {
-            Logger.Debug($"ReadProgressiveUpdate, Progressive Level={_progressiveUpdateStream.ResponseStream.Current.ProgressiveLevel}, New Value={_progressiveUpdateStream.ResponseStream.Current.NewValue}, ");
-            var progressiveUpdate = new ProgressiveUpdateMessage(ResponseCode.Ok, _progressiveUpdateStream.ResponseStream.Current.ProgressiveLevel, _progressiveUpdateStream.ResponseStream.Current.NewValue);
-            var handlerResult = await _messageHandlerFactory.Handle<ProgressiveUpdateResponse, ProgressiveUpdateMessage>(progressiveUpdate, token)
-                .ConfigureAwait(false);
-            return handlerResult.ResponseCode == ResponseCode.Ok;
+            var progressiveMeta = response.ProgressiveMeta;
+            if (progressiveMeta.Is(DisableByProgressive.Descriptor))
+            {
+                Logger.Debug("ReadProgressiveUpdate, DISABLE from progressive controller");
+                // TODO what to do with this response
+                //await _observer.NotifyDisabledAsync("disabled by progressive", false, true);
+                return true;
+            }
+            else if (progressiveMeta.Is(EnableByProgressive.Descriptor))
+            {
+                Logger.Debug("ReadProgressiveUpdate, ENABLE from progressive controller");
+                // TODO what to do with this response
+                //await _observer.NotifyEnabledAsync(true);
+                return true;
+            }
+            else
+            {
+                var update = progressiveMeta.Unpack<ProgressiveLevelUpdate>();
+                Logger.Debug($"ReadProgressiveUpdate, Progressive Level={update.ProgressiveLevel}, New Value={update.NewValue}, ");
+                var progressiveUpdate = new ProgressiveUpdateMessage(ResponseCode.Ok, update.ProgressiveLevel, update.NewValue);
+                var handlerResult = await _messageHandlerFactory.Handle<ProgressiveUpdateResponse, ProgressiveUpdateMessage>(progressiveUpdate, token)
+                    .ConfigureAwait(false);
+                return handlerResult.ResponseCode == ResponseCode.Ok;
+            }
         }
 
         public void Dispose()
