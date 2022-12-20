@@ -229,6 +229,11 @@
         public static readonly Guid GameHistoryQueueDisableKey = new("{E8B1A368-EA55-4C80-8297-852D156ED314}");
 
         /// <summary>
+        ///     The disable key for when the progressive host is offline
+        /// </summary>
+        public static readonly Guid ProgresssiveHostOfflineKey = new("{8298BDB8-C120-4150-A998-4E347A739E39}");
+
+        /// <summary>
         ///     Indicates if side bet games are enabled
         /// </summary>
         public const string SideBetEnabled = "SideBetEnabled";

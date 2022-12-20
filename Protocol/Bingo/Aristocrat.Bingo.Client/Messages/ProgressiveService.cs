@@ -19,6 +19,7 @@
         private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IProgressiveAuthorizationProvider _authorization;
         private bool _isRegistered;
+        private bool _enabled;
         private bool _disposed;
         private AsyncDuplexStreamingCall<Progressive, ProgressiveUpdate> _progressiveUpdateStream;
 
@@ -90,6 +91,7 @@
                 // Send the progressive message to start the progressive updates to the EGM
                 await _progressiveUpdateStream.RequestStream.WriteAsync(new Progressive { MachineSerial = message.MachineSerial });
                 _isRegistered = true;
+                _enabled = true;
             }
 
             try
@@ -117,26 +119,35 @@
             if (progressiveMeta.Is(DisableByProgressive.Descriptor))
             {
                 Logger.Debug("ReadProgressiveUpdate, DISABLE from progressive controller");
+                _enabled = false;
                 // TODO what to do with this response
-                //await _observer.NotifyDisabledAsync("disabled by progressive", false, true);
-                return true;
             }
             else if (progressiveMeta.Is(EnableByProgressive.Descriptor))
             {
                 Logger.Debug("ReadProgressiveUpdate, ENABLE from progressive controller");
+                _enabled = true;
                 // TODO what to do with this response
-                //await _observer.NotifyEnabledAsync(true);
-                return true;
             }
             else
             {
+                if (!_enabled)
+                {
+                    return true;
+                }
+
                 var update = progressiveMeta.Unpack<ProgressiveLevelUpdate>();
-                Logger.Debug($"ReadProgressiveUpdate, Progressive Level={update.ProgressiveLevel}, New Value={update.NewValue}, ");
-                var progressiveUpdate = new ProgressiveUpdateMessage(ResponseCode.Ok, update.ProgressiveLevel, update.NewValue);
-                var handlerResult = await _messageHandlerFactory.Handle<ProgressiveUpdateResponse, ProgressiveUpdateMessage>(progressiveUpdate, token)
+                Logger.Debug($"ReadProgressiveUpdate, Progressive Level={update.ProgressiveLevel}, New Value={update.NewValue}");
+                var progressiveUpdate = new ProgressiveUpdateMessage(
+                    ResponseCode.Ok,
+                    update.ProgressiveLevel,
+                    update.NewValue);
+                var handlerResult = await _messageHandlerFactory
+                    .Handle<ProgressiveUpdateResponse, ProgressiveUpdateMessage>(progressiveUpdate, token)
                     .ConfigureAwait(false);
                 return handlerResult.ResponseCode == ResponseCode.Ok;
             }
+
+            return true;
         }
 
         public void Dispose()

@@ -5,26 +5,37 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Timers;
     using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Bingo.Client.Messages.Progressives;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
+    using Common.Events;
     using Gaming.Contracts.Progressives;
+    using Kernel;
     using log4net;
+    using Timer = System.Timers.Timer;
 
     public class ProgressiveHandler : IProgressiveInfoHandler, IProgressiveUpdateHandler, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
+        private const int MaximumProgressiveUpdateSeconds = 10;
+        private const int MonitorPollTimeSeconds = 10;
+        private readonly IEventBus _eventBus;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
-
-        private bool _disposed;
-
         private readonly Dictionary<int, long> _progressiveIdMapping = new();
+        private readonly Dictionary<long, DateTime> _progressiveUpdateLastTime = new();
+        private readonly List<long> _failedProgressiveLevels = new();
+        private readonly double _pollingInterval = TimeSpan.FromSeconds(MonitorPollTimeSeconds).TotalMilliseconds;
+        private readonly object _lock = new();
+        private bool _disposed;
+        private Timer _timer;
 
         public ProgressiveHandler(
+            IEventBus eventBus,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter)
         {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
         }
 
@@ -33,12 +44,18 @@
             Logger.Debug("Received a progressive information message");
             Logger.Debug($"ResponseCode={info.ResponseCode}, Accepted={info.Accepted}, GameTitle={info.GameTitleId}, AuthToken={info.AuthenticationToken}");
 
-            _progressiveIdMapping.Clear();
-            Logger.Debug("Progressive Levels:");
-            foreach (var progLevel in info.ProgressiveLevels)
+            lock (_lock)
             {
-                Logger.Debug($"SequenceNumber={progLevel.SequenceNumber}, ProgressiveLevel={progLevel.ProgressiveLevel}");
-                _progressiveIdMapping.Add(progLevel.SequenceNumber - 1, progLevel.ProgressiveLevel);
+                _progressiveIdMapping.Clear();
+                _progressiveUpdateLastTime.Clear();
+                Logger.Debug("Progressive Levels:");
+                foreach (var progLevel in info.ProgressiveLevels)
+                {
+                    Logger.Debug(
+                        $"SequenceNumber={progLevel.SequenceNumber}, ProgressiveLevel={progLevel.ProgressiveLevel}");
+                    _progressiveIdMapping.Add(progLevel.SequenceNumber - 1, progLevel.ProgressiveLevel);
+                    _progressiveUpdateLastTime.Add(progLevel.ProgressiveLevel, DateTime.Now);
+                }
             }
 
             Logger.Debug("Meters To Report:");
@@ -47,7 +64,8 @@
                 Logger.Debug($"Meter={meter}");
             }
 
-            
+            SetTimer();
+
             return Task.FromResult(info.ResponseCode == ResponseCode.Ok);
         }
 
@@ -61,6 +79,15 @@
             }
 
             token.ThrowIfCancellationRequested();
+
+            lock (_lock)
+            {
+
+                if (_progressiveUpdateLastTime.ContainsKey(update.ProgressiveLevel))
+                {
+                    _progressiveUpdateLastTime[update.ProgressiveLevel] = DateTime.Now;
+                }
+            }
 
             var progressiveLevels = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels();
             foreach (var progressiveLevel in progressiveLevels)
@@ -96,6 +123,52 @@
             return Task.FromResult(false);
         }
 
+        private void SetTimer()
+        {
+            _timer = new Timer(_pollingInterval);
+            _timer.Elapsed += PollProgressiveUpdates;
+            _timer.AutoReset = true;
+            _timer.Enabled = true;
+        }
+
+        private void PollProgressiveUpdates(object source, ElapsedEventArgs e)
+        {
+            Logger.Debug($"PollProgressiveUpdates checking for progressive update failures");
+
+            var hasAnyProgressiveExceededTimeSpan = false;
+            var maximumTimeSpan = TimeSpan.FromSeconds(MaximumProgressiveUpdateSeconds);
+
+            lock (_lock)
+            {
+                foreach (var pair in _progressiveUpdateLastTime)
+                {
+                    if ((DateTime.Now - pair.Value) >= maximumTimeSpan)
+                    {
+                        if (!_failedProgressiveLevels.Contains(pair.Key))
+                        {
+                            hasAnyProgressiveExceededTimeSpan = true;
+                            Logger.Debug($"Progressive level {pair.Key} failed to update in {MaximumProgressiveUpdateSeconds} seconds");
+                            _failedProgressiveLevels.Add(pair.Key);
+                        }
+                    }
+                    else
+                    {
+                        _failedProgressiveLevels.Remove(pair.Key);
+                    }
+                }
+            }
+
+
+            if (hasAnyProgressiveExceededTimeSpan)
+            {
+                _eventBus.Publish(new ProgressiveHostOfflineEvent());
+            }
+            else
+            {
+                _eventBus.Publish(new ProgressiveHostOnlineEvent());
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -111,6 +184,7 @@
 
             if (disposing)
             {
+                _timer.Dispose();
             }
 
             _disposed = true;
