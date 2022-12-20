@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.IO;
     using System.IO.Ports;
     using System.Linq;
     using System.Reflection;
@@ -407,7 +406,7 @@
         {
             IsDisconnected = true;
             CloseSerialPort();
-            _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(SerialTouchComPort)));
+            _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(Model)));
         }
 
         private bool Fire(SerialTouchTrigger trigger)
