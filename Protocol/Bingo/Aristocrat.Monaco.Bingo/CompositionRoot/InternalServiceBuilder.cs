@@ -11,7 +11,6 @@
     using Consumers;
     using GameEndWin;
     using Gaming.Contracts.Central;
-    using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Tickets;
     using Handpay;
     using Handpay.Strategies;

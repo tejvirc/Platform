@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Interceptor
 {
-    using System;
     using System.Reflection;
     using Grpc.Core;
     using Grpc.Core.Interceptors;

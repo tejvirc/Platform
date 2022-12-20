@@ -10,13 +10,14 @@
     public abstract class BaseClientInterceptor : Interceptor
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private IAuthorizationProvider _authorizationProvider;
-        public EventHandler<EventArgs> MessageReceived;
+        private readonly IAuthorizationProvider _authorizationProvider;
 
         protected BaseClientInterceptor(IAuthorizationProvider authorizationProvider)
         {
             _authorizationProvider = authorizationProvider ?? throw new ArgumentNullException(nameof(authorizationProvider));
         }
+
+        public EventHandler<EventArgs> MessageReceived { get; set; }
 
         public int MessageTimeoutMs { get; set; } = 30000;
 
@@ -103,7 +104,7 @@
             where TRequest : class
             where TResponse : class
         {
-            return new ClientInterceptorContext<TRequest, TResponse>(
+            return new (
                 context.Method,
                 context.Host,
                 context.Options.WithDeadline(DateTime.UtcNow.AddMilliseconds(MessageTimeoutMs)));
