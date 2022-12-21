@@ -20,7 +20,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const int MaximumProgressiveUpdateSeconds = 10;
-        private const int MonitorPollTimeSeconds = 10;
+        private const int MonitorPollTimeSeconds = 5;
         private readonly IEventBus _eventBus;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly Dictionary<int, long> _progressiveIdMapping = new();
