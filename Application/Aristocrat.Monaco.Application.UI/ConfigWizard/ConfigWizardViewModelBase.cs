@@ -28,6 +28,12 @@
 
         public bool IsWizardPage { get; }
 
+        public override bool TestModeEnabled
+        {
+            get { return IsWizardPage || base.TestModeEnabled; }
+            set => base.TestModeEnabled = value;
+        }
+
         /// <summary>
         /// Has this page been visited (loaded) since the Platform process started?
         /// (Latches true once in <see cref="OnLoaded"/> for the process's lifetime.)
@@ -47,7 +53,7 @@
 
         protected abstract void SaveChanges();
 
-        protected sealed override void OnLoaded()
+        protected override void OnLoaded()
         {
             if (WizardNavigator != null)
             {

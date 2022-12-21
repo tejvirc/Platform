@@ -2,16 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM.Command;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class BeagleBonePageViewModel : OperatorMenuPageViewModelBase
+    public class BeagleBonePageViewModel : InspectionWizardViewModelBase
     {
         private readonly IBeagleBoneController _beagleBoneController;
 
@@ -62,7 +62,7 @@
                 }
             };
 
-        public BeagleBonePageViewModel()
+        public BeagleBonePageViewModel(bool isWizard) : base(isWizard)
         {
             _beagleBoneController = ServiceManager.GetInstance().GetService<IBeagleBoneController>();
 
@@ -87,9 +87,23 @@
             }
         }
 
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
+        }
+
         private void SendShow()
         {
             var show = _shows[_showOverrideSelection];
+
+            Inspection?.SetTestName($"Light show '{_showOverrideSelection}'");
 
             _beagleBoneController.SendShow(show);
         }

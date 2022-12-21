@@ -4,7 +4,7 @@
     using Monaco.UI.Common;
 
     /// <summary>
-    ///     Interaction logic for ButtonTestView.xaml
+    ///     Interaction logic for SoundTestPage.xaml
     /// </summary>
     [CLSCompliant(false)]
     public partial class SoundTestPage
@@ -15,7 +15,7 @@
         public SoundTestPage()
         {
             InitializeComponent();
-            Resources.MergedDictionaries.Add(SkinLoader.Load("CommonUI.xaml"));
+            Resources.MergedDictionaries.Add(SkinLoader.Load("SpeakerNames.xaml", false));
         }
     }
 }

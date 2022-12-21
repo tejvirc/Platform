@@ -133,6 +133,7 @@
 
             var doors = new Mock<IDoorService>(MockBehavior.Default);
             MoqServiceManager.AddService<IDoorService>(doors.As<IService>().Object);
+            MoqServiceManager.CreateAndAddService<IDialogService>(MockBehavior.Strict);
 
             var config = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
             config.Setup(m => m.GetAccessRuleSet(It.IsAny<NoteAcceptorViewModel>())).Returns(It.IsAny<string>());
@@ -183,7 +184,7 @@
         private void InitTargets()
         {
             _targetView = new NoteAcceptorPage();
-            _target = new NoteAcceptorViewModel();
+            _target = new NoteAcceptorViewModel(false);
         }
 
         [TestMethod]

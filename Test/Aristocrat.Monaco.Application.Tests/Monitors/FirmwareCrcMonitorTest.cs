@@ -13,6 +13,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.Door;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.Printer;
+    using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Test.Common;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -250,10 +251,14 @@
             _eventBus.VerifyAll();
         }
 
-        private void SetupInitializeCommon()
+        private void SetupInitializeCommon(bool setupInspect = true)
         {
             _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.FirmwareCrcMonitorEnabled, It.IsAny<bool>())).Returns(true);
             _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.FirmwareCrcMonitorSeed, It.IsAny<int>())).Returns(1);
+            if (setupInspect)
+            {
+                _propertiesManager.Setup(p => p.GetProperty(KernelConstants.IsInspectionOnly, It.IsAny<bool>())).Returns(false);
+            }
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Func<ClosedEvent, CancellationToken, Task>>(), It.IsAny<Predicate<ClosedEvent>>()))
                 .Callback<object, Func<ClosedEvent, CancellationToken, Task>, Predicate<ClosedEvent>>((subscriber, callback, p) => _logicDoorEventHandle = callback);
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Func<PlatformBootedEvent, CancellationToken, Task>>()))
@@ -277,7 +282,7 @@
                 _disableManager.Object,
                 _audioService.Object
             );
-            SetupInitializeCommon();
+            SetupInitializeCommon(false);
         }
 
         private void AddPersistedCrcEntry(int blockPosition, int value, bool exitWithoutAdding)

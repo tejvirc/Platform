@@ -192,6 +192,7 @@
             };
 
             MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Loose);
+            MoqServiceManager.CreateAndAddService<IDialogService>(MockBehavior.Strict);
 
             _target.LoadedCommand.Execute(null);
             Assert.IsTrue(_waiter.WaitOne(Timeout));

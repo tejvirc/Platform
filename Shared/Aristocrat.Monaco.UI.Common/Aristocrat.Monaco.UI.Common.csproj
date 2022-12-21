@@ -25,12 +25,22 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Page Remove="Skins\Originals\InspectionMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\InspectionReskin.xaml" />
+    <Page Remove="Skins\Originals\MonacoMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\MonacoReskin.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="PlatformCommandLineArguments.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Update="Translations.cs">
       <DependentUpon>Translations.xsd</DependentUpon>
     </Compile>
+    <None Include="Skins\Originals\InspectionMetroSkin.xaml" />
+    <None Include="Skins\Originals\InspectionReskin.xaml" />
+    <None Include="Skins\Originals\MonacoMetroSkin.xaml" />
+    <None Include="Skins\Originals\MonacoReskin.xaml" />
     <None Include="Translations.xsd">
       <SubType>Designer</SubType>
     </None>

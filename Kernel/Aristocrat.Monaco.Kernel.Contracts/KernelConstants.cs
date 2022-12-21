@@ -24,5 +24,15 @@
         /// Path to the public key used to sign system components
         /// </summary>
         public const string SmartCardKey = "SmartCardKey";
+
+        /// <summary>
+        ///     Flag is set if platform should run ONLY in inspection mode
+        /// </summary>
+        public const string IsInspectionOnly = "IsInspectionOnly";
+
+        /// <summary>
+        ///     Inspection version
+        /// </summary>
+        public const string InspectionNameAndVersion = "InspectionNameAndVersion";
     }
 }

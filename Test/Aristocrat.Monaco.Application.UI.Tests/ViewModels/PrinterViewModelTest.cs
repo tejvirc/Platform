@@ -3,9 +3,9 @@
     using System;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts;
+    using Contracts.Extensions;
+    using Contracts.OperatorMenu;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -27,6 +27,8 @@
 
         private class TestPrinterViewModel : PrinterViewModel
         {
+            public TestPrinterViewModel() : base(false) { }
+
             public void TestEventHandlerStop(bool stop)
             {
                 base.EventHandlerStopped = stop;
@@ -45,6 +47,7 @@
             AddinManager.Registry.Update();
 
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            MoqServiceManager.CreateAndAddService<IDialogService>(MockBehavior.Strict);
             MockLocalization.Setup(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
 
@@ -96,7 +99,7 @@
         [TestMethod]
         public void ConstructorTest()
         {
-            _target = new PrinterViewModel();
+            _target = new PrinterViewModel(false);
             Assert.IsNotNull(_target);
         }
 
