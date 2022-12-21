@@ -55,7 +55,7 @@
   </Extension>
 
   <Extension path = "/Kernel/MessageDisplay">
-    <MessageDisplay type="Aristocrat.Monaco.Kernel.MessageDisplay" />
+    <MessageDisplay type="Aristocrat.Monaco.Kernel.MessageDisplay.MessageDisplay" />
   </Extension>
 
   <Extension path = "/Kernel/PathMapper">

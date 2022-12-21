@@ -16,7 +16,6 @@
       <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingInfo" type="ResponsibleGamingInfoOptions" />
       <xs:element minOccurs="0" maxOccurs="1" name="LobbyUiDirectoryPath" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="SkinFilenames" type="ArrayOfString" />
-      <xs:element minOccurs="0" maxOccurs="1" name="LocaleCodes" type="ArrayOfString" />
       <xs:element minOccurs="0" maxOccurs="1" name="LanguageButtonResourceKeys" type="ArrayOfString" />
       <xs:element minOccurs="0" maxOccurs="1" name="DefaultLoadingScreenFilename" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="DefaultTopAttractVideoFilename" type="xs:string" />
@@ -25,6 +24,8 @@
       <xs:element minOccurs="0" maxOccurs="1" name="LcdChooseVideoLanguage1" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="LcdInsertMoneyVideoLanguage2" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="LcdChooseVideoLanguage2" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="0" name="LcdInsertMoneyVideo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="0" name="LcdChooseVideo" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="AttractVideoNoBonusFilename" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="AttractVideoWithBonusFilename" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="TopperLobbyVideoFilename" type="xs:string" />

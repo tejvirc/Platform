@@ -385,7 +385,6 @@
         {
             _lobbyConfiguration = new LobbyConfiguration
             {
-                LocaleCodes = MockGameInfo.MockLocalGraphics,
                 AlternateAttractModeLanguage = alternateLanguage,
                 AttractVideoWithBonusFilename = "",
                 AttractVideoNoBonusFilename = "",

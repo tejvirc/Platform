@@ -384,7 +384,7 @@
 
             Config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
             LargeGameIconsEnabled = Config.LargeGameIconsEnabled;
-            MultiLanguageEnabled = Config.MultiLanguageEnabled && Config.LocaleCodes.Length > 1; 
+            MultiLanguageEnabled = Config.MultiLanguageEnabled && _playerCultureProvider.AvailableCultures.Count > 1; 
             GameLoadingScreenPath = "pack://siteOfOrigin:,,,/" + Config.DefaultLoadingScreenFilename;
             _gamesPerPage = Config.MaxDisplayedGames;
 
@@ -535,7 +535,7 @@
 
             Volume = new LobbyVolumeViewModel(OnUserInteraction);
 
-            TopperLobbyVideoPath = Config.TopperLobbyVideoFilename;
+            TopperLobbyVideoPath = GetAttractVideoFilePath(Config.TopperLobbyVideoFilename);
 
             MenuSelectionPayOptions = new List<MenuSelectionPayOption>((MenuSelectionPayOption[])Enum.GetValues(typeof(MenuSelectionPayOption)));
 
@@ -1176,7 +1176,11 @@
         public string TopAttractVideoPath
         {
             get => _topAttractVideoPath;
-            set => SetProperty(ref _topAttractVideoPath, value);
+            set
+            {
+                SetProperty(ref _topAttractVideoPath, value);
+                RaisePropertyChanged(nameof(TopAttractVideoPath));
+            }
         }
 
         /// <summary>
@@ -1185,7 +1189,11 @@
         public string TopperAttractVideoPath
         {
             get => _topperAttractVideoPath;
-            set => SetProperty(ref _topperAttractVideoPath, value);
+            set
+            {
+                SetProperty(ref _topperAttractVideoPath, value);
+                RaisePropertyChanged(nameof(TopperAttractVideoPath));
+            }
         }
 
         /// <summary>
@@ -1194,11 +1202,15 @@
         public string TopperLobbyVideoPath
         {
             get => _topperLobbyVideoPath;
-            set => SetProperty(
-                ref _topperLobbyVideoPath,
-                value,
-                nameof(TopperLobbyVideoPath),
-                nameof(IsLobbyTopperVideoVisible));
+            set
+            {
+                SetProperty(
+                    ref _topperLobbyVideoPath,
+                    value,
+                    nameof(TopperLobbyVideoPath),
+                    nameof(IsLobbyTopperVideoVisible));
+                RaisePropertyChanged(nameof(TopperLobbyVideoPath));
+            }
         }
 
         /// <summary>
@@ -1207,7 +1219,11 @@
         public string BottomAttractVideoPath
         {
             get => _bottomAttractVideoPath;
-            set => SetProperty(ref _bottomAttractVideoPath, value);
+            set
+            {
+                SetProperty(ref _bottomAttractVideoPath, value);
+                RaisePropertyChanged(nameof(BottomAttractVideoPath));
+            }
         }
 
         /// <summary>
@@ -1352,24 +1368,12 @@
         /// <summary>
         ///     Gets the available locale codes.
         /// </summary>
-        public string[] AvaliableLocales
-        {
-            get
-            {
-                var locales = _playerCultureProvider.AvailableCultures!.Select(c => c.Name).ToArray();
-                if (locales!.Length == 0)
-                {
-                    locales = Config.LocaleCodes;
-                }
-
-                return locales;
-            }
-        }
+        public string[] AvailableLocales => _playerCultureProvider.AvailableCultures!.Select(c => c.Name).ToArray();
 
         /// <summary>
         ///     Gets the active locale code.
         /// </summary>
-        public string ActiveLocaleCode => AvaliableLocales[LocaleCodeIndex];
+        public string ActiveLocaleCode => LocaleCodeIndex == -1 ? AvailableLocales[0] : AvailableLocales[LocaleCodeIndex];
 
         /// <summary>
         ///     Gets a value indicating whether to display the language toggle button, if there are only
@@ -1820,7 +1824,7 @@
             if (string.IsNullOrEmpty(defaultLocale))
             {
                 // if default is not set yet, get the first locale from config
-                defaultLocale = Config.LocaleCodes[0] ?? GamingConstants.DefaultCultureCode;
+                defaultLocale = GamingConstants.DefaultCultureCode;
                 _playerCultureProvider.DefaultCulture = new CultureInfo(defaultLocale);
             }
 
@@ -1830,20 +1834,22 @@
             }
             else
             {
-                _properties.SetProperty(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode);
+                _properties.SetProperty(GamingConstants.SelectedLocaleCode, defaultLocale);
             }
 
-            LocaleCodeIndex = GetLocaleIndex(defaultLocale);
+            var localeCode = _properties.GetValue(
+                    GamingConstants.SelectedLocaleCode,
+                    defaultLocale).ToUpperInvariant();
+            LocaleCodeIndex = GetLocaleIndex(localeCode);
         }
 
         private void InitializeMultiLanguages()
         {
             var localeCode = _properties.GetValue(
                     GamingConstants.SelectedLocaleCode,
-                    GamingConstants.EnglishCultureCode)
-                .ToUpperInvariant();
+                    GamingConstants.EnglishCultureCode).ToUpperInvariant();
 
-            if (string.IsNullOrEmpty(localeCode))
+            if (string.IsNullOrEmpty(localeCode) && _localeCodeIndex != -1)
             {
                 _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
             }
@@ -3900,9 +3906,9 @@
             {
                 AttractList.Add(new AttractVideoDetails
                 {
-                    BottomAttractVideoPath = Config.BottomAttractIntroVideoFilename,
-                    TopAttractVideoPath = Config.TopAttractIntroVideoFilename,
-                    TopperAttractVideoPath = Config.TopperAttractIntroVideoFilename
+                    BottomAttractVideoPath = GetAttractVideoFilePath(Config.BottomAttractIntroVideoFilename),
+                    TopAttractVideoPath = GetAttractVideoFilePath(Config.TopAttractIntroVideoFilename),
+                    TopperAttractVideoPath = GetAttractVideoFilePath(Config.TopperAttractIntroVideoFilename)
                 });
             }
 
@@ -3910,6 +3916,72 @@
 
             CheckAndResetAttractIndex();
         }
+
+        private void RefreshLobbyVideos()
+        {
+            IAttractDetails attract = null;
+
+            if (AttractList.Count > 0)
+            {
+                attract = AttractList[CurrentAttractIndex];
+            }
+
+            TopAttractVideoPath =
+                attract?.GetTopAttractVideoPathByLocaleCode(ActiveLocaleCode).NullIfEmpty() ??
+                GetAttractVideoFilePath(Config.DefaultTopAttractVideoFilename);
+
+            TopperAttractVideoPath =
+                attract?.GetTopperAttractVideoPathByLocaleCode(ActiveLocaleCode).NullIfEmpty() ??
+                GetAttractVideoFilePath(Config.DefaultTopperAttractVideoFilename);
+
+            if (Config.BottomAttractVideoEnabled)
+            {
+                BottomAttractVideoPath =
+                    attract?.GetBottomAttractVideoPathByLocaleCode(ActiveLocaleCode).NullIfEmpty() ??
+                    GetAttractVideoFilePath(Config.DefaultTopAttractVideoFilename);
+            }
+            TopperLobbyVideoPath = GetAttractVideoFilePath(Config.TopperLobbyVideoFilename);
+        }
+
+        private string GetAttractVideoFilePath(string configuredFileName, string locale=null)
+        {
+            if (string.IsNullOrEmpty(locale))
+            {
+                locale = ActiveLocaleCode;
+            }
+            if (IsENUSLanguage(locale))
+            {
+                return configuredFileName;
+            }
+
+            // if not US English, see if the video file exists in the selected locale folder
+            string name = Path.GetFileName(configuredFileName); // get the name only
+            string folder = Path.GetDirectoryName(configuredFileName);
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                folder = @"..\jurisdiction\DefaultAssets\ui\Videos\Upi\MultiLanguages";
+            }
+
+            string filePath = Path.Combine(folder, @"Upi\MultiLanguages", locale, name);
+            if (!File.Exists(filePath))
+            {
+                string lang = locale.Substring(0, 2); // language code is 2 digits
+                filePath = Path.Combine(folder, lang, name);
+                if (!File.Exists(filePath))
+                {
+                    // if still not found, use the configured file path
+                    filePath = configuredFileName;
+                }
+            }
+
+            return filePath;
+        }
+
+        private bool IsENUSLanguage(string locale) => string.Compare(
+            locale,
+            GamingConstants.DefaultCultureCode,
+            StringComparison.InvariantCultureIgnoreCase) == 0;
 
         private bool IsAttractEnabled()
         {
@@ -3940,7 +4012,6 @@
             return configuredAttractGameInfo;
 
         }
-
 
         private void SetSelectedGame(GameInfo gameInfo)
         {
@@ -4008,7 +4079,12 @@
 
         private void OnLanguageChanged()
         {
+            // need to reload the game image and attract videos based on the new selected language
+            Application.Current.Dispatcher.Invoke(new Action(LoadGameInfo));
             LoadGameLocaleGraphics();
+            // reload the attract videos on lobby
+            RefreshAttractGameList();
+            RefreshLobbyVideos();
 
             if (ClockTimer != null)
             {
@@ -4265,36 +4341,36 @@
 
             if (Config.AlternateAttractModeLanguage)
             {
-                Logger.Debug($"Next Attract Mode Video will be in Primary Language: {_nextAttractModeLanguageIsPrimary}");
-                var languageIndex = _nextAttractModeLanguageIsPrimary ? 0 : 1;
+                string nextLanguage = LocaleHelper.GetNextActiveLanguage(_playerCultureProvider, ActiveLocaleCode);
+                Logger.Debug($"Next Attract Mode Video will be in {nextLanguage} Language.");
 
                 TopAttractVideoPath =
-                    attract?.GetTopAttractVideoPathByLocaleCode(Config.LocaleCodes[languageIndex]).NullIfEmpty() ??
-                    Config.DefaultTopAttractVideoFilename;
+                    attract?.GetTopAttractVideoPathByLocaleCode(nextLanguage).NullIfEmpty() ??
+                    GetAttractVideoFilePath(Config.DefaultTopAttractVideoFilename, nextLanguage);
 
                 TopperAttractVideoPath =
-                    attract?.GetTopperAttractVideoPathByLocaleCode(Config.LocaleCodes[languageIndex]).NullIfEmpty() ??
-                    Config.DefaultTopperAttractVideoFilename;
+                    attract?.GetTopperAttractVideoPathByLocaleCode(nextLanguage).NullIfEmpty() ??
+                    GetAttractVideoFilePath(Config.DefaultTopperAttractVideoFilename, nextLanguage);
 
                 if (Config.BottomAttractVideoEnabled)
                 {
                     BottomAttractVideoPath =
-                        attract?.GetBottomAttractVideoPathByLocaleCode(Config.LocaleCodes[languageIndex]).NullIfEmpty() ??
-                        Config.DefaultTopAttractVideoFilename;
+                        attract?.GetBottomAttractVideoPathByLocaleCode(nextLanguage).NullIfEmpty() ??
+                        GetAttractVideoFilePath(Config.DefaultTopAttractVideoFilename, nextLanguage);
                 }
             }
             else
             {
-                TopAttractVideoPath = attract?.TopAttractVideoPath.NullIfEmpty() ?? Config.DefaultTopAttractVideoFilename;
+                TopAttractVideoPath = attract?.TopAttractVideoPath.NullIfEmpty() ?? GetAttractVideoFilePath(Config.DefaultTopAttractVideoFilename);
 
                 TopperAttractVideoPath =
                     attract?.TopperAttractVideoPath.NullIfEmpty() ??
-                    Config.DefaultTopperAttractVideoFilename;
+                    GetAttractVideoFilePath(Config.DefaultTopperAttractVideoFilename);
 
                 if (Config.BottomAttractVideoEnabled)
                 {
                     BottomAttractVideoPath =
-                        attract?.BottomAttractVideoPath.NullIfEmpty() ?? Config.DefaultTopAttractVideoFilename;
+                        attract?.BottomAttractVideoPath.NullIfEmpty() ?? GetAttractVideoFilePath(Config.DefaultTopAttractVideoFilename);
                 }
             }
         }
@@ -4515,9 +4591,9 @@
 
             int? GetLocaleCodesIndex()
             {
-                for (var i = 0; i < AvaliableLocales.Length; i++)
+                for (var i = 0; i < AvailableLocales.Length; i++)
                 {
-                    if (LocaleHelper.Contains(languageOptions, AvaliableLocales[i]) && LocaleCodeIndex == i)
+                    if (LocaleHelper.Contains(languageOptions, AvailableLocales[i]) && LocaleCodeIndex == i)
                     {
                         return i;
                     }
@@ -5186,24 +5262,48 @@
         {
             if (_lobbyButtonDeckRenderer != null)
             {
-                var defaultLanguageSelected = LocaleCodeIndex == 0;
+                _lobbyButtonDeckRenderer.VideoFilename = LoadLCDVideoFile();
+            }
+        }
+
+        private string LoadLCDVideoFile()
+        {
+            string videoFilePath = null;
+
+            var defaultLanguageSelected = IsENUSLanguage(ActiveLocaleCode);
+            if (MultiLanguageEnabled &&
+                !defaultLanguageSelected &&
+                !string.IsNullOrEmpty(Config.LcdChooseVideo) &&
+                !string.IsNullOrEmpty(Config.LcdInsertMoneyVideo))
+            {
+                string baseFolder = @"..\jurisdiction\DefaultAssets\ui\Videos\Upi\MultiLanguages";
+                string langFolder = ActiveLocaleCode;
+                string videoFile = HasZeroCredits ? Config.LcdInsertMoneyVideo : Config.LcdChooseVideo;
+                videoFilePath = Path.Combine(baseFolder, langFolder, videoFile);
+            }
+
+            if (string.IsNullOrEmpty(videoFilePath))
+            {
+                // if multi language is not enabled, and LcdChooseVideo/LcdInsertMoneyVideo configs are not set
                 if (HasZeroCredits && defaultLanguageSelected)
                 {
-                    _lobbyButtonDeckRenderer.VideoFilename = Config.LcdInsertMoneyVideoLanguage1;
+                    videoFilePath = Config.LcdInsertMoneyVideoLanguage1;
                 }
                 else if (!HasZeroCredits && defaultLanguageSelected)
                 {
-                    _lobbyButtonDeckRenderer.VideoFilename = Config.LcdChooseVideoLanguage1;
+                    videoFilePath = Config.LcdChooseVideoLanguage1;
                 }
                 else if (HasZeroCredits && !defaultLanguageSelected)
                 {
-                    _lobbyButtonDeckRenderer.VideoFilename = Config.LcdInsertMoneyVideoLanguage2;
+                    videoFilePath = Config.LcdInsertMoneyVideoLanguage2;
                 }
                 else if (!HasZeroCredits && !defaultLanguageSelected)
                 {
-                    _lobbyButtonDeckRenderer.VideoFilename = Config.LcdChooseVideoLanguage2;
+                    videoFilePath = Config.LcdChooseVideoLanguage2;
                 }
             }
+
+            return videoFilePath;
         }
 
         private void UpdateLcdButtonDeckRenderSetting(bool renderSetting)

@@ -75,7 +75,6 @@
 
             if (config != null)
             {
-                config.LocaleCodes = config.LocaleCodes.Select(s => s.ToUpperInvariant()).ToArray();
                 if (config.ResponsibleGamingInfo == null)
                 {
                     config.ResponsibleGamingInfo = new ResponsibleGamingInfoOptions();

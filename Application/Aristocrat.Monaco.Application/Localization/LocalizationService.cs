@@ -181,7 +181,6 @@
             if (!TryGetProvider(name, out var provider))
             {
                 throw new ArgumentOutOfRangeException(nameof(name));
-
             }
 
             return provider;

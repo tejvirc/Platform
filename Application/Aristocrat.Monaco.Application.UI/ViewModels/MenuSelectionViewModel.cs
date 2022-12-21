@@ -836,10 +836,6 @@
             LoadFinished?.Invoke(this, EventArgs.Empty);
             RefreshPageOperatorLabel();
 
-#if USE_OPERATOR_MENU_LANGUAGE_SELECTION
-            SetSupportedLanguages();
-#endif
-
             ShowCancelPrintButton = false;
             UpdateCreditBalance();
             CreditBalanceVisible = _configuration.GetSetting(OperatorMenuSetting.CreditBalanceVisible, false);
@@ -965,18 +961,6 @@
             {
                 CancelPrint();
             }
-        }
-
-        private void SetSupportedLanguages()
-        {
-            MvvmHelper.ExecuteOnUI(
-                () =>
-                {
-                    SupportedLanguages.Clear();
-
-                    SupportedLanguages.Add("ENGLISH");
-                    SupportedLanguages.Add("FRENCH");
-                });
         }
 
         private void HandleClosing(object obj)

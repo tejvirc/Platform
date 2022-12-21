@@ -31,6 +31,8 @@
   <DefaultLoadingScreenFilename>../jurisdiction/DefaultAssets/ui/Images/BS_LoadingScreen.png</DefaultLoadingScreenFilename>
   <DefaultTopAttractVideoFilename>../jurisdiction/DefaultAssets/ui/Videos/LobbyAttract.bk2</DefaultTopAttractVideoFilename>
   <DefaultTopperAttractVideoFilename>../jurisdiction/DefaultAssets/ui/Videos/LobbyTopperVideo.bk2</DefaultTopperAttractVideoFilename>
+  <LcdInsertMoneyVideo>LCD_InsertMoney.bk2</LcdInsertMoneyVideo>
+  <LcdChooseVideo>LCD_ChooseGame.bk2</LcdChooseVideo>
   <LcdInsertMoneyVideoLanguage1>../jurisdiction/DefaultAssets/ui/Videos/LCD_InsertMoney_EN.bk2</LcdInsertMoneyVideoLanguage1>
   <LcdChooseVideoLanguage1>../jurisdiction/DefaultAssets/ui/Videos/LCD_ChooseGame_EN.bk2</LcdChooseVideoLanguage1>
   <LcdInsertMoneyVideoLanguage2>../jurisdiction/DefaultAssets/ui/Videos/French/LCD_InsertMoney_FR.bk2</LcdInsertMoneyVideoLanguage2>
