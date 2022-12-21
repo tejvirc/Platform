@@ -26,7 +26,7 @@
             _commandHandlerFactory = commandHandlerFactory ?? throw new ArgumentNullException(nameof(commandHandlerFactory));
         }
 
-        public override async Task Consume(QueueFullEvent _, CancellationToken token)
+        public override async Task Consume(QueueFullEvent theEvent, CancellationToken token)
         {
             var serialNumber = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
             await _commandHandlerFactory.Execute(new StatusResponseMessage(serialNumber), token);

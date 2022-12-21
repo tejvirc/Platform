@@ -11,7 +11,7 @@
         public DeviceStatus Status
         {
             get => _status;
-            private set
+            set
             {
                 if (value == _status)
                 {
@@ -38,7 +38,7 @@
                 case DeviceStatus.Unexpected:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(Status));
             }
         }
 
@@ -50,7 +50,7 @@
 
         public Action<IDeviceStatusHandler> DisconnectAction { get; set; }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             Status = Device.Status;
         }
