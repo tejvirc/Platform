@@ -75,6 +75,7 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>())).Returns(false);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, false)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(KernelConstants.IsInspectionOnly, false)).Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(KernelConstants.InspectionNameAndVersion, It.IsAny<string>())).Returns("Test");
 
             _eventBus.Setup(mock => mock.Subscribe(It.IsAny<ButtonDeckNavigator>(), It.IsAny<Action<UpEvent>>())).Verifiable();
             _eventBus.Setup(mock => mock.Publish(It.IsAny<ButtonDeckNavigatorStartedEvent>())).Verifiable();

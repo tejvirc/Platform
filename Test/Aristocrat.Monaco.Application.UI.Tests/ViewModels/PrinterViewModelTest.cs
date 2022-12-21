@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.IO;
     using Contracts;
+    using Contracts.ConfigWizard;
     using Contracts.Extensions;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Printer;
@@ -48,6 +49,7 @@
 
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             MoqServiceManager.CreateAndAddService<IDialogService>(MockBehavior.Strict);
+            MoqServiceManager.CreateAndAddService<IInspectionService>(MockBehavior.Strict);
             MockLocalization.Setup(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
 

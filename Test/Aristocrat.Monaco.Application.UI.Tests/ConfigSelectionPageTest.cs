@@ -126,6 +126,7 @@
                 .Returns(false);
 
             _propertiesManager.Setup(m => m.GetProperty(KernelConstants.IsInspectionOnly, false)).Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(KernelConstants.InspectionNameAndVersion, It.IsAny<string>())).Returns("Test");
 
             _targetView = new ConfigSelectionPage();
             _target = _targetView.DataContext as ConfigSelectionPageViewModel;

@@ -7,6 +7,7 @@
     using System.Threading;
     using Accounting.Contracts;
     using Contracts;
+    using Contracts.ConfigWizard;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.NoteAcceptor;
@@ -48,6 +49,7 @@
         {
             AddinManager.Initialize(Directory.GetCurrentDirectory());
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            MoqServiceManager.CreateAndAddService<IInspectionService>(MockBehavior.Strict);
             MockLocalization.Setup(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(PropertyKey.VoucherIn, false)).Returns(false);

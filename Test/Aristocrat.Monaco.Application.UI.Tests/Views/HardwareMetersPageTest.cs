@@ -14,6 +14,7 @@
     using Aristocrat.Monaco.UI.Common.Events;
     using Cabinet.Contracts;
     using Contracts;
+    using Contracts.ConfigWizard;
     using Contracts.MeterPage;
     using Contracts.OperatorMenu;
     using Contracts.Tickets;
@@ -193,6 +194,7 @@
 
             MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Loose);
             MoqServiceManager.CreateAndAddService<IDialogService>(MockBehavior.Strict);
+            MoqServiceManager.CreateAndAddService<IInspectionService>(MockBehavior.Strict);
 
             _target.LoadedCommand.Execute(null);
             Assert.IsTrue(_waiter.WaitOne(Timeout));
