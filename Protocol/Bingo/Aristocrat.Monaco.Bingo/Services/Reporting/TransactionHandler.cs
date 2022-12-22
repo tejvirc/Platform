@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
+    using Common.Events;
     using Kernel;
     using Monaco.Common;
     using ServerApiGateway;
@@ -17,7 +18,7 @@
     ///     are queued.
     ///     It will resend failed transactions after a short delay.
     /// </summary>
-    public class TransactionHandler : IReportTransactionQueueService, IDisposable
+    public sealed class TransactionHandler : IReportTransactionQueueService, IDisposable
     {
         private const int RetryDelay = 500;
         private readonly IAcknowledgedQueue<ReportTransactionMessage, int> _queue;
@@ -25,6 +26,7 @@
         private readonly IBingoClientConnectionState _connectionState;
         private readonly IReportTransactionService _reportTransactionService;
         private readonly IIdProvider _idProvider;
+        private readonly IEventBus _eventBus;
         private bool _disposed;
         private CancellationTokenSource _tokenSource;
 
@@ -33,17 +35,21 @@
             IBingoClientConnectionState connectionState,
             IAcknowledgedQueue<ReportTransactionMessage, int> queue,
             IReportTransactionService reportTransactionService,
-            IIdProvider idProvider)
+            IIdProvider idProvider,
+            IEventBus eventBus)
         {
             _queue = queue ?? throw new ArgumentNullException(nameof(queue));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _connectionState = connectionState ?? throw new ArgumentNullException(nameof(connectionState));
             _reportTransactionService = reportTransactionService ?? throw new ArgumentNullException(nameof(reportTransactionService));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
             _connectionState.ClientConnected += HandleConnected;
             _connectionState.ClientDisconnected += HandleDisconnected;
         }
+
+        public bool IsFull => _queue.IsQueueFull;
 
         public void AddNewTransactionToQueue(
             TransactionType transactionType,
@@ -67,6 +73,11 @@
                 barcode);
 
             _queue.Enqueue(message);
+
+            if (IsFull)
+            {
+                _eventBus.Publish(new QueueFullEvent());
+            }
         }
 
         private void HandleDisconnected(object sender, EventArgs args)
@@ -84,26 +95,18 @@
 
         public void Dispose()
         {
-            Dispose(true);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
             if (_disposed)
             {
                 return;
             }
 
-            if (disposing)
+            _connectionState.ClientConnected -= HandleConnected;
+            _connectionState.ClientDisconnected -= HandleDisconnected;
+            if (_tokenSource is not null)
             {
-                _connectionState.ClientConnected -= HandleConnected;
-                _connectionState.ClientDisconnected -= HandleDisconnected;
-                if (_tokenSource is not null)
-                {
-                    _tokenSource.Cancel();
-                    _tokenSource.Dispose();
-                    _tokenSource = null;
-                }
+                _tokenSource.Cancel();
+                _tokenSource.Dispose();
+                _tokenSource = null;
             }
 
             _disposed = true;
