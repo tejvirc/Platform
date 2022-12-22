@@ -88,6 +88,7 @@
 
             if (IsRegularRobots())
             {
+                _automator.EnableExitToLobby(false);
                 return;
             }
 
