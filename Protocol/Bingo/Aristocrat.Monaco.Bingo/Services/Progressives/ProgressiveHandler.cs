@@ -18,9 +18,9 @@
 
     public class ProgressiveHandler : IProgressiveInfoHandler, IProgressiveUpdateHandler, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const int MaximumProgressiveUpdateSeconds = 10;
         private const int MonitorPollTimeSeconds = 5;
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly Dictionary<int, long> _progressiveIdMapping = new();
@@ -42,6 +42,14 @@
         public Task<bool> ProcessProgressiveInfo(ProgressiveInfoMessage info, CancellationToken token)
         {
             Logger.Debug("Received a progressive information message");
+
+            if (info == null)
+            {
+                throw new ArgumentNullException(nameof(info));
+            }
+
+            token.ThrowIfCancellationRequested();
+
             Logger.Debug($"ResponseCode={info.ResponseCode}, Accepted={info.Accepted}, GameTitle={info.GameTitleId}, AuthToken={info.AuthenticationToken}");
 
             lock (_lock)
@@ -71,14 +79,14 @@
 
         public Task<bool> ProcessProgressiveUpdate(ProgressiveUpdateMessage update, CancellationToken token)
         {
-            Logger.Debug($"Received a progressive update message, ProgLevel={update.ProgressiveLevel}, Amount={update.Amount}");
-
             if (update == null)
             {
                 throw new ArgumentNullException(nameof(update));
             }
 
             token.ThrowIfCancellationRequested();
+
+            Logger.Debug($"Received a progressive update message, ProgLevel={update.ProgressiveLevel}, Amount={update.Amount}");
 
             lock (_lock)
             {
