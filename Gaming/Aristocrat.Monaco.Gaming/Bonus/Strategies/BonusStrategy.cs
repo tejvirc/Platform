@@ -639,11 +639,8 @@
             ref long promoAmount)
         {
             cashableAmount = transaction.LastAuthorizedCashableAmount > 0 ? transaction.LastAuthorizedCashableAmount : cashableAmount;
-
-            nonCashAmount += transaction.LastAuthorizedNonCashAmount > 0 ? transaction.LastAuthorizedNonCashAmount : nonCashAmount;
-
-            promoAmount += transaction.LastAuthorizedPromoAmount > 0 ? transaction.LastAuthorizedPromoAmount : promoAmount;
-
+            nonCashAmount = transaction.LastAuthorizedNonCashAmount > 0 ? transaction.LastAuthorizedNonCashAmount : nonCashAmount;
+            promoAmount = transaction.LastAuthorizedPromoAmount > 0 ? transaction.LastAuthorizedPromoAmount : promoAmount;
         }
 
         private PayMethod GetActualBonusPayMethod(ITransaction transaction, BonusTransaction bonus)
