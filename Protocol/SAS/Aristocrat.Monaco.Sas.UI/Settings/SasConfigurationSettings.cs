@@ -100,7 +100,7 @@
             var portAssignment = _properties.GetValue(SasProperties.SasPortAssignments, new PortAssignment());
             var featureSettings = _properties.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
             var hostDisableCashoutAction = _properties.GetValue(GamingConstants.LockupBehavior, CashableLockupStrategy.Allowed);
-            var sasHostSettings = hosts.Select(x => (SasHostSetting)x);
+            var sasHostSettings = hosts.Where(host => host.SasAddress is not 0).Select(x => (SasHostSetting)x);
 
             return await Task.FromResult(
                 new MachineSettings
@@ -116,7 +116,7 @@
         {
             _properties.SetProperty(SasProperties.SasFeatureSettings, (SasFeatures)settings.SasFeaturesSettings);
             _properties.SetProperty(SasProperties.SasPortAssignments, (PortAssignment)settings.PortAssignmentSetting);
-            _properties.SetProperty(SasProperties.SasHosts, settings.SasHostSettings.Select(x => (Host)x).ToList());
+            _properties.SetProperty(SasProperties.SasHosts, settings.SasHostSettings.Where(host => host.SasAddress is not 0).Select(x => (Host)x).ToList());
             _properties.SetProperty(GamingConstants.LockupBehavior, settings.HostDisableCashoutAction);
             await Task.CompletedTask;
         }
