@@ -2,7 +2,7 @@
 {
     using System.Windows;
     using System.Windows.Controls;
-    using Hardware.Contracts.Touch;
+    using Application.Contracts.Input;
     using Kernel;
 
     /// <summary>
@@ -26,14 +26,21 @@
             LostFocus += TextBox_LostFocus;
         }
 
-        private static void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
+            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(sender));
+            TouchUp += TextBox_TouchDown;
         }
 
-        private static void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
+            EventBus?.Publish(new OnscreenKeyboardClosedEvent());
+            TouchUp -= TextBox_TouchDown;
+        }
+
+        private static void TextBox_TouchDown(object sender, RoutedEventArgs e)
+        {
+            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(sender));
         }
     }
 }

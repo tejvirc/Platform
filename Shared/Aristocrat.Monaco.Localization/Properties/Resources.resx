@@ -11650,4 +11650,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="ReelControllerManufacturer" xml:space="preserve">
     <value>Reel Controller Manufacturer</value>
   </data>
+  <data name="CreatingKeyboardService" xml:space="preserve">
+    <value>Creating Keyboard Service</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
 </root>
