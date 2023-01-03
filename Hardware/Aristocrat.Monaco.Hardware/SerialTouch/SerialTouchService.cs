@@ -407,7 +407,7 @@
         {
             IsDisconnected = true;
             CloseSerialPort();
-            _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(SerialTouchComPort)));
+            _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(Model)));
         }
 
         private bool Fire(SerialTouchTrigger trigger)
