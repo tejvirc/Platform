@@ -25,7 +25,6 @@
         [TestInitialize]
         public void MyTestInitialize()
         {
-            var dateTime = new DateTime(2000);
             _target = CreateTarget();
         }
 

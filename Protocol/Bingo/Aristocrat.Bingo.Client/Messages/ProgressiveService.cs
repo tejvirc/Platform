@@ -96,13 +96,10 @@
 
             try
             {
-                while (!token.IsCancellationRequested)
+                var responseStream = _progressiveUpdateStream.ResponseStream;
+                while (await responseStream.MoveNext(token).ConfigureAwait(false) &&
+                       await ReadProgressiveUpdate(responseStream.Current, token).ConfigureAwait(false))
                 {
-                    var responseStream = _progressiveUpdateStream.ResponseStream;
-                    while (await responseStream.MoveNext(token).ConfigureAwait(false) &&
-                           await ReadProgressiveUpdate(responseStream.Current, token).ConfigureAwait(false))
-                    {
-                    }
                 }
 
                 return true;
@@ -115,6 +112,11 @@
         }
         private async Task<bool> ReadProgressiveUpdate(ProgressiveUpdate response, CancellationToken token)
         {
+            if (response is null)
+            {
+                return false;
+            }
+
             var progressiveMeta = response.ProgressiveMeta;
             if (progressiveMeta.Is(DisableByProgressive.Descriptor))
             {

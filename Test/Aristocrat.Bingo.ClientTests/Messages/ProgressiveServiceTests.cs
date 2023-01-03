@@ -87,64 +87,65 @@
             Assert.IsTrue(result);
         }
 
-        //[TestMethod]
-        //public async Task ProgressiveUpdates()
-        //{
-        //    var machineSerial = "123";
-        //    var progressiveId = 10001;
-        //    var progressiveAmount = 1000;
+        [TestMethod]
+        public async Task ProgressiveUpdates()
+        {
+            var machineSerial = "123";
+            var progressiveId = 10001;
+            var progressiveAmount = 1000;
 
-        //    var client = new Mock<ProgressiveApi.ProgressiveApiClient>(MockBehavior.Default);
-        //    _clientEnpointProvider.Setup(x => x.IsConnected).Returns(true).Verifiable();
-        //    _clientEnpointProvider.Setup(x => x.Client).Returns(client.Object).Verifiable();
+            var client = new Mock<ProgressiveApi.ProgressiveApiClient>(MockBehavior.Default);
+            _clientEnpointProvider.Setup(x => x.IsConnected).Returns(true).Verifiable();
+            _clientEnpointProvider.Setup(x => x.Client).Returns(client.Object).Verifiable();
 
-        //    var request = new ProgressiveUpdate
-        //    {
-        //        ProgressiveMeta = Any.Pack(new ProgressiveLevelUpdate()
-        //        {
-        //            ProgressiveLevel = progressiveId,
-        //            NewValue = progressiveAmount
-        //        })
-        //    };
+            var request = new ProgressiveUpdate
+            {
+                ProgressiveMeta = Google.Protobuf.WellKnownTypes.Any.Pack(new ProgressiveLevelUpdate()
+                {
+                    ProgressiveLevel = progressiveId,
+                    NewValue = progressiveAmount
+                })
+            };
 
-        //    var requestStream = new Mock<IClientStreamWriter<Progressive>>(MockBehavior.Default);
-        //    var responseStream = new Mock<IAsyncStreamReader<ProgressiveUpdate>>(MockBehavior.Default);
+            var requestStream = new Mock<IClientStreamWriter<Progressive>>(MockBehavior.Default);
+            var responseStream = new Mock<IAsyncStreamReader<ProgressiveUpdate>>(MockBehavior.Default);
 
-        //    // TODO must handle write to stream with new Progressive { MachineSerial = message.MachineSerial } first
-        //    requestStream.Setup(x => x.WriteAsync(It.IsAny<Progressive>()));
+            // Now send an update to the stream
+            var duplexStream = TestCalls.AsyncDuplexStreamingCall(
+                requestStream.Object,
+                responseStream.Object,
+                Task.FromResult(new Metadata()),
+                () => Status.DefaultSuccess,
+                () => new Metadata(),
+                () => { });
 
-        //    // Now send an update to the stream
-        //    var duplexStream = TestCalls.AsyncDuplexStreamingCall(
-        //        requestStream.Object,
-        //        responseStream.Object,
-        //        Task.FromResult(new Metadata()),
-        //        () => Status.DefaultSuccess,
-        //        () => new Metadata(),
-        //        () => { });
+            client.Setup(x => x.ProgressiveUpdates(
+                null,
+                null,
+                It.IsAny<CancellationToken>()))
+                .Returns(duplexStream);
 
-        //    //client.Setup(x => x.ProgressiveUpdates(
-        //    //    It.IsAny<Metadata>(),
-        //    //    It.IsAny<DateTime?>(),
-        //    //    It.IsAny<CancellationToken>()))
-        //    //    .Returns(duplexStream);
-        //    client.Setup(x => x.ProgressiveUpdates(
-        //        null,
-        //        null,
-        //        It.IsAny<CancellationToken>()))
-        //        .Returns(duplexStream);
+            requestStream.Setup(x => x.WriteAsync(It.IsAny<Progressive>())).Returns(Task.FromResult(true));
 
-        //    var handledResponse = new ProgressiveUpdateResponse(ResponseCode.Ok);
-        //    _messageHandler.Setup(x => x.Handle<ProgressiveUpdateResponse, ProgressiveUpdateMessage>(It.IsAny<ProgressiveUpdateMessage>(), It.IsAny<CancellationToken>()))
-        //        .Returns(Task.FromResult(handledResponse))
-        //        .Verifiable();
+            responseStream.SetupSequence(x => x.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true))
+                .Returns(Task.FromResult(false));
+            responseStream.SetupSequence(x => x.Current)
+                .Returns(request)
+                .Returns(null);
 
-        //    var message = new ProgressiveUpdateRequestMessage(machineSerial);
-        //    var result = await _target.ProgressiveUpdates(message, CancellationToken.None);
+            var handledResponse = new ProgressiveUpdateResponse(ResponseCode.Ok);
+            _messageHandler.Setup(x => x.Handle<ProgressiveUpdateResponse, ProgressiveUpdateMessage>(It.IsAny<ProgressiveUpdateMessage>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(handledResponse))
+                .Verifiable();
 
-        //    _clientEnpointProvider.Verify();
+            var message = new ProgressiveUpdateRequestMessage(machineSerial);
+            var result = await _target.ProgressiveUpdates(message, CancellationToken.None);
 
-        //    Assert.IsTrue(result);
-        //}
+            _clientEnpointProvider.Verify();
+
+            Assert.IsTrue(result);
+        }
 
         private ProgressiveService CreateTarget(bool nullMessage = false, bool nullEnpoint = false, bool nullAuthorization = false)
         {
