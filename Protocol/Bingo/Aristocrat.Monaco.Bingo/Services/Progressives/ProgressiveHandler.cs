@@ -10,9 +10,11 @@
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Bingo.Client.Messages.Progressives;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
+    using Common;
     using Common.Events;
     using Gaming.Contracts.Progressives;
     using Kernel;
+    using Localization.Properties;
     using log4net;
     using Timer = System.Timers.Timer;
 
@@ -23,6 +25,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
+        private readonly ISystemDisableManager _systemDisable;
         private readonly Dictionary<int, long> _progressiveIdMapping = new();
         private readonly Dictionary<long, DateTime> _progressiveUpdateLastTime = new();
         private readonly List<long> _failedProgressiveLevels = new();
@@ -33,10 +36,12 @@
 
         public ProgressiveHandler(
             IEventBus eventBus,
-            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter)
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
+            ISystemDisableManager systemDisable)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
+            _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
         }
 
         public Task<bool> ProcessProgressiveInfo(ProgressiveInfoMessage info, CancellationToken token)
@@ -131,6 +136,41 @@
             return Task.FromResult(false);
         }
 
+        public Task<bool> DisableByProgressive(DisableByProgressiveMessage disable, CancellationToken token)
+        {
+            if (disable == null)
+            {
+                throw new ArgumentNullException(nameof(disable));
+            }
+
+            token.ThrowIfCancellationRequested();
+
+            Logger.Debug("Received a disable by progressive message");
+
+            _systemDisable.Disable(
+                BingoConstants.ProgresssiveHostOfflineKey,
+                SystemDisablePriority.Normal,
+                () => $"{Resources.DisabledByProgressiveHost}");
+
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> EnableByProgressive(EnableByProgressiveMessage enable, CancellationToken token)
+        {
+            if (enable == null)
+            {
+                throw new ArgumentNullException(nameof(enable));
+            }
+
+            token.ThrowIfCancellationRequested();
+
+            Logger.Debug("Received an enable by progressive message");
+
+            _systemDisable.Enable(BingoConstants.ProgresssiveHostOfflineKey);
+
+            return Task.FromResult(true);
+        }
+
         private void SetTimer()
         {
             _timer = new Timer(_pollingInterval);
@@ -141,10 +181,11 @@
 
         private void PollProgressiveUpdates(object source, ElapsedEventArgs e)
         {
-            Logger.Debug($"PollProgressiveUpdates checking for progressive update failures");
+            Logger.Debug("PollProgressiveUpdates checking for progressive update failures");
 
             var hasAnyProgressiveExceededTimeSpan = false;
             var maximumTimeSpan = TimeSpan.FromSeconds(MaximumProgressiveUpdateSeconds);
+            var isHostCurrentlyOffline = _failedProgressiveLevels.Count > 0;
 
             lock (_lock)
             {
@@ -166,12 +207,11 @@
                 }
             }
 
-
             if (hasAnyProgressiveExceededTimeSpan)
             {
                 _eventBus.Publish(new ProgressiveHostOfflineEvent());
             }
-            else
+            else if (isHostCurrentlyOffline && _failedProgressiveLevels.Count == 0)
             {
                 _eventBus.Publish(new ProgressiveHostOnlineEvent());
             }

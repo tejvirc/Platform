@@ -8,11 +8,11 @@
 
     public class RequestProgressiveUpdateCommandHandler : ICommandHandler<ProgressiveUpdateRequestCommand>
     {
-        private readonly IProgressiveService _progressiveService;
+        private readonly IProgressiveUpdateService _progressiveService;
 
-        public RequestProgressiveUpdateCommandHandler(IProgressiveService progressiveService)
+        public RequestProgressiveUpdateCommandHandler(IProgressiveUpdateService progressiveUpdateService)
         {
-            _progressiveService = progressiveService ?? throw new ArgumentNullException(nameof(progressiveService));
+            _progressiveService = progressiveUpdateService ?? throw new ArgumentNullException(nameof(progressiveUpdateService));
         }
 
         /// <inheritdoc />

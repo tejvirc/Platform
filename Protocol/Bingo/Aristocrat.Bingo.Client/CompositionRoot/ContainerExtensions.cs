@@ -62,8 +62,11 @@
             var configuration = Lifestyle.Singleton.CreateRegistration<ConfigurationService>(container);
             container.AddRegistration<IConfigurationService>(configuration);
 
-            var progressive = Lifestyle.Singleton.CreateRegistration<ProgressiveService>(container);
-            container.AddRegistration<IProgressiveService>(progressive);
+            var progressiveInfo = Lifestyle.Singleton.CreateRegistration<ProgressiveInfoService>(container);
+            container.AddRegistration<IProgressiveInfoService>(progressiveInfo);
+
+            var progressiveUpdate = Lifestyle.Singleton.CreateRegistration<ProgressiveUpdateService>(container);
+            container.AddRegistration<IProgressiveUpdateService>(progressiveUpdate);
 
             return container;
         }

@@ -13,12 +13,15 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Common;
+    using Localization.Properties;
 
     [TestClass]
     public class ProgressiveHandlerTests
     {
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private readonly Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter = new(MockBehavior.Default);
+        private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
 
         private ProgressiveHandler _target;
 
@@ -28,17 +31,20 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, DisplayName="Null IEventBus")]
-        [DataRow(false, true, DisplayName= "Null IProtocolLinkedProgressiveAdapter")]
+        [DataRow(true, false, false, DisplayName="Null IEventBus")]
+        [DataRow(false, true, false, DisplayName= "Null IProtocolLinkedProgressiveAdapter")]
+        [DataRow(false, false, true, DisplayName = "Null ISystemDisableManager")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorArgumentTest(
             bool nullEventBus,
-            bool nullProtocolLinkedProgressiveAdapter)
+            bool nullProtocolLinkedProgressiveAdapter,
+            bool nullSystemDisableManager)
         {
             _target = CreateTarget(
                 nullEventBus,
-                nullProtocolLinkedProgressiveAdapter);
+                nullProtocolLinkedProgressiveAdapter,
+                nullSystemDisableManager);
         }
 
         [TestMethod]
@@ -182,13 +188,46 @@
             _eventBus.Verify();
         }
 
+        [TestMethod]
+        public async Task DisableByProgressive()
+        {
+            using var source = new CancellationTokenSource();
+            var disableByProgressiveMessage = new DisableByProgressiveMessage(ResponseCode.Ok);
+
+            _systemDisableManager.Setup(m => m.Disable(
+                BingoConstants.BingoWinMismatchKey,
+                SystemDisablePriority.Immediate,
+                It.IsAny<Func<string>>(),
+                null)).Verifiable();
+
+            var result = await _target.DisableByProgressive(disableByProgressiveMessage, source.Token);
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public async Task EnableByProgressive()
+        {
+            using var source = new CancellationTokenSource();
+            var enableByProgressiveMessage = new EnableByProgressiveMessage(ResponseCode.Ok);
+
+            _systemDisableManager.Setup(m => m.Enable(
+                BingoConstants.BingoWinMismatchKey)).Verifiable();
+
+            var result = await _target.EnableByProgressive(enableByProgressiveMessage, source.Token);
+
+            Assert.IsTrue(result);
+        }
+
         private ProgressiveHandler CreateTarget(
             bool nullEventBus = false,
-            bool nullProtocolLinkedProgressiveAdapter = false)
+            bool nullProtocolLinkedProgressiveAdapter = false,
+            bool nullSystemDisableManager = false)
         {
             return new(
                 nullEventBus ? null : _eventBus.Object,
-                nullProtocolLinkedProgressiveAdapter ? null : _protocolLinkedProgressiveAdapter.Object);
+                nullProtocolLinkedProgressiveAdapter ? null : _protocolLinkedProgressiveAdapter.Object,
+                nullSystemDisableManager ? null : _systemDisableManager.Object);
         }
 
         private IViewableProgressiveLevel CreateViewableProgressive(int levelId, long amount)

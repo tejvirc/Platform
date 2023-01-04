@@ -10,7 +10,7 @@
     public class ProgressiveClientServerStreamingLogger<TRequest> : IAsyncStreamReader<TRequest>
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IAsyncStreamReader<TRequest> _caller;
 

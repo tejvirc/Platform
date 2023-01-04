@@ -5,9 +5,9 @@
     using Progressives;
 
     /// <summary>
-    ///     The progressive service
+    ///     The progressive information service
     /// </summary>
-    public interface IProgressiveService
+    public interface IProgressiveInfoService
     {
         /// <summary>
         ///     Gets the progressive information from the server
@@ -16,13 +16,5 @@
         /// <param name="token">The cancellation token</param>
         /// <returns>Returns whether the client progressive information was retrieved from the server</returns>
         Task<bool> RequestProgressiveInfo(ProgressiveInfoRequestMessage message, CancellationToken token);
-
-        /// <summary>
-        ///     Gets a progressive update from the server
-        /// </summary>
-        /// <param name="message">The request progressive update message</param>
-        /// <param name="token">The cancellation token</param>
-        /// <returns>Returns whether the client progressive update was retrieved from the server</returns>
-        Task<bool> ProgressiveUpdates(ProgressiveUpdateRequestMessage message, CancellationToken token);
     }
 }

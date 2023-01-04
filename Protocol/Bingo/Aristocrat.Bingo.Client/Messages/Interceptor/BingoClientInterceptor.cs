@@ -7,7 +7,7 @@
 
     public class BingoClientInterceptor : BaseClientInterceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public BingoClientInterceptor(IAuthorizationProvider authorizationProvider)
             : base(authorizationProvider)

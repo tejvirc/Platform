@@ -9,7 +9,7 @@
 
     public abstract class BaseClientInterceptor : Interceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAuthorizationProvider _authorizationProvider;
 
         protected BaseClientInterceptor(IAuthorizationProvider authorizationProvider)

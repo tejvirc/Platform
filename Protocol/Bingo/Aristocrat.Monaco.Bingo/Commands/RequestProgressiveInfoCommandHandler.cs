@@ -8,11 +8,11 @@
 
     public class RequestProgressiveInfoCommandHandler : ICommandHandler<ProgressiveInfoRequestCommand>
     {
-        private readonly IProgressiveService _progressiveService;
+        private readonly IProgressiveInfoService _progressiveInfoService;
 
-        public RequestProgressiveInfoCommandHandler(IProgressiveService progressiveService)
+        public RequestProgressiveInfoCommandHandler(IProgressiveInfoService progressiveService)
         {
-            _progressiveService = progressiveService ?? throw new ArgumentNullException(nameof(progressiveService));
+            _progressiveInfoService = progressiveService ?? throw new ArgumentNullException(nameof(progressiveService));
         }
 
         /// <inheritdoc />
@@ -22,7 +22,7 @@
                 command.MachineSerial,
                 command.GameTitleId);
 
-            await _progressiveService.RequestProgressiveInfo(message, token);
+            _ = await _progressiveInfoService.RequestProgressiveInfo(message, token);
         }
     }
 }

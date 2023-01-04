@@ -4,6 +4,7 @@
     using Application.Contracts;
     using Common;
     using Common.Events;
+    using Gaming.Contracts.Progressives;
     using Kernel;
     using Localization.Properties;
 
@@ -12,8 +13,9 @@
     /// </summary>
     public class ProgressiveHostOfflineConsumer : Consumes<ProgressiveHostOfflineEvent>
     {
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly ISystemDisableManager _disableManager;
-        private readonly IPropertiesManager _propertiesManager;
+
 
         /// <summary>
         ///     Initializes a new instance of the ProgressiveHostOfflineConsumer class.
@@ -21,22 +23,23 @@
         public ProgressiveHostOfflineConsumer(
             IEventBus eventBus,
             ISharedConsumer consumerContext,
-            ISystemDisableManager disableManager,
-            IPropertiesManager propertiesManager)
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
+            ISystemDisableManager disableManager
+        )
             : base(eventBus, consumerContext)
         {
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
         /// <inheritdoc />
         public override void Consume(ProgressiveHostOfflineEvent @event)
         {
-            // TODO make a new resource for "Progressive Host Disconnected"
+            _protocolLinkedProgressiveAdapter.ReportLinkDown(ProtocolNames.Bingo);
             _disableManager.Disable(
                 BingoConstants.ProgresssiveHostOfflineKey,
                 SystemDisablePriority.Normal,
-                () => $"{Resources.HostDisconnected}");
+                () => $"{Resources.ProgressiveHostDisconnected}");
         }
     }
 }

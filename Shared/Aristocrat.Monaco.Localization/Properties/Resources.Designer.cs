@@ -8345,6 +8345,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Disabled By Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string DisabledByProgressiveHost {
+			get {
+				return ResourceManager.GetString("DisabledByProgressiveHost", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Disabled By .
 		/// </summary>
         /// <remarks>
@@ -24733,6 +24745,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveFeatureLabel {
 			get {
 				return ResourceManager.GetString("ProgressiveFeatureLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnected {
+			get {
+				return ResourceManager.GetString("ProgressiveHostDisconnected", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -42760,6 +42784,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Disabled By Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string DisabledByProgressiveHost {
+			get {
+				return "DisabledByProgressiveHost";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Disabled By .
 		/// </summary>
         /// <remarks>
@@ -59152,6 +59188,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Progressive Host Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnected {
+			get {
+				return "ProgressiveHostDisconnected";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Progressive Id.
 		/// </summary>
         /// <remarks>
@@ -73622,6 +73670,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisabledByHost2,
 		/// <summary>
+		///   Looks up a localized string similar to Disabled By Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		DisabledByProgressiveHost,
+		/// <summary>
 		///   Looks up a localized string similar to Disabled By .
 		/// </summary>
         /// <remarks>
@@ -82968,6 +83023,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
 		ProgressiveFeatureLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostDisconnected,
 		/// <summary>
 		///   Looks up a localized string similar to Progressive Id.
 		/// </summary>

@@ -7,7 +7,7 @@
 
     public class ProgressiveClientInterceptor : BaseClientInterceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public ProgressiveClientInterceptor(IProgressiveAuthorizationProvider authorizationProvider)
         : base(authorizationProvider)
