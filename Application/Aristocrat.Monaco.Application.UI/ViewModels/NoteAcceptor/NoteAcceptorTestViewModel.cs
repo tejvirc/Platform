@@ -2,21 +2,29 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.Globalization;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.ConfigWizard;
     using Contracts.Extensions;
     using Contracts.Localization;
+    using Contracts.OperatorMenu;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using log4net;
     using Monaco.Localization.Properties;
     using MVVM;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class NoteAcceptorTestViewModel : OperatorMenuSaveViewModelBase
+    public class NoteAcceptorTestViewModel : INotifyPropertyChanged
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+
+        private readonly IEventBus _eventBus;
         private readonly INoteAcceptor _noteAcceptor;
         private string _status;
 
@@ -25,55 +33,88 @@
         private bool _disabledByDevice;
         private bool _disabledBySystem;
         private bool _disabledByGame;
+        private IInspectionService _reporter;
 
         public NoteAcceptorTestViewModel()
-            : this(ServiceManager.GetInstance().TryGetService<INoteAcceptor>())
+            : this(ServiceManager.GetInstance().TryGetService<IEventBus>(),
+                  ServiceManager.GetInstance().TryGetService<INoteAcceptor>())
         {
         }
 
-        public NoteAcceptorTestViewModel(INoteAcceptor noteAcceptor)
+        public NoteAcceptorTestViewModel(IEventBus eventBus, INoteAcceptor noteAcceptor)
         {
-            _noteAcceptor = noteAcceptor;
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
             _status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadyToInsert);
+        }
+
+        public void SetTestReporter(IInspectionService reporter)
+        {
+            _reporter = reporter;
         }
 
         public string Status
         {
             get => _status;
+            set => SetProperty(ref _status, value, nameof(Status));
+        }
+
+        public bool TestMode
+        {
             set
             {
-                _status = value;
-                RaisePropertyChanged(nameof(Status));
+                if (value)
+                {
+                    Initialize();
+                }
+                else
+                {
+                    UnInitialize();
+                }
             }
         }
 
         public ObservableCollection<string> TestEvents { get; } = new ObservableCollection<string>();
 
-        protected override bool CloseOnRestrictedAccess => true;
-
-        protected override void OnLoaded()
+        protected void Initialize()
         {
-            base.OnLoaded();
             SubscribeToEvents();
             SetEnableReason();
         }
 
-        protected override void OnUnloaded()
+        protected void UnInitialize()
         {
             ResetDisabledReasons();
-            base.OnUnloaded();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (field == null && value == null)
+            {
+                return;
+            }
+
+            field = value;
+            OnPropertyChanged(propertyName);
         }
 
         private void SubscribeToEvents()
         {
-            EventBus.Subscribe<ConnectedEvent>(this, HandleStatusEvent);
-            EventBus.Subscribe<DisabledEvent>(this, HandleStatusEvent);
-            EventBus.Subscribe<DisconnectedEvent>(this, HandleStatusEvent);
-            EventBus.Subscribe<EnabledEvent>(this, HandleStatusEvent);
+            _eventBus.Subscribe<ConnectedEvent>(this, HandleStatusEvent);
+            _eventBus.Subscribe<DisabledEvent>(this, HandleStatusEvent);
+            _eventBus.Subscribe<DisconnectedEvent>(this, HandleStatusEvent);
+            _eventBus.Subscribe<EnabledEvent>(this, HandleStatusEvent);
 
-            EventBus.Subscribe<CurrencyEscrowedEvent>(this, HandleEvent);
-            EventBus.Subscribe<DocumentRejectedEvent>(this, HandleEvent);
-            EventBus.Subscribe<VoucherEscrowedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<CurrencyEscrowedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<DocumentRejectedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<VoucherEscrowedEvent>(this, HandleEvent);
         }
 
         private void HandleStatusEvent(NoteAcceptorBaseEvent evt)
@@ -112,11 +153,15 @@
 
         private void HandleEvent(CurrencyEscrowedEvent evt)
         {
+            var eventName =
+                $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}";
+
             MvvmHelper.ExecuteOnUI(
                 () => TestEvents.Insert(
                     0,
-                    $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}"));
+                    eventName));
 
+            _reporter?.SetTestName(eventName);
             Task.Run(ReturnWithDelay);
         }
 
@@ -129,19 +174,26 @@
 
         private void HandleEvent(DocumentRejectedEvent evt)
         {
+            var eventName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDocInserted);
+
             MvvmHelper.ExecuteOnUI(
                 () => TestEvents.Insert(
                     0,
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDocInserted)));
+                    eventName));
+
+            _reporter?.SetTestName(eventName);
         }
 
         private void HandleEvent(VoucherEscrowedEvent evt)
         {
+            var eventName =
+                $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}";
             MvvmHelper.ExecuteOnUI(
                 () => TestEvents.Insert(
                     0,
-                    $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}"));
+                    eventName));
 
+            _reporter?.SetTestName(eventName);
             Task.Run(ReturnWithDelay);
         }
 
@@ -192,6 +244,11 @@
                 }
             }
         }
+
+        private bool GameIdle =>
+            (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.InGameRound ?? true) &&
+            (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.IsRecoveryNeeded ?? true);
+
 
         private void ResetDisabledReasons()
         {

@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Navigation;
     using System.Windows.Threading;
     using ConfigWizard;
     using Contracts;
@@ -38,6 +39,7 @@
         private readonly string _configExtensionPath = "/Application/Config/";
         private readonly string _wizardsExtensionPath = "/Application/Config/Wizards";
         private readonly bool _restartWhenFinished;
+        private readonly bool _isInspection;
 
         private readonly Collection<IOperatorMenuPageLoader> _selectableConfigurationPages = new Collection<IOperatorMenuPageLoader>();
         private readonly Collection<IOperatorMenuPageLoader> _wizardPages = new Collection<IOperatorMenuPageLoader>();
@@ -79,11 +81,21 @@
 
             _serviceManager.AddService(this);
 
+            _isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+            if (_isInspection)
+            {
+                PropertiesManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true);
+                PropertiesManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, 0);
+            }
+
             _lastWizardSelectedIndex = PropertiesManager.GetValue(ApplicationConstants.ConfigWizardLastPageViewedIndex, 0);
             _selectablePagesDone = PropertiesManager.GetValue(ApplicationConstants.ConfigWizardSelectionPagesDone, false);
             var copyrightAccepted = (bool)PropertiesManager.GetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, false);
 
-            _selectableConfigurationPages.Add(new LegalCopyrightPageLoader());
+            if (!_isInspection)
+            {
+                _selectableConfigurationPages.Add(new LegalCopyrightPageLoader());
+            }
 
             var configurations = MonoAddinsHelper.SelectableConfigurations;
             foreach (var configuration in configurations)
@@ -95,6 +107,7 @@
                     wizard.IsWizardPage = true;
                     wizard.Initialize();
                     _selectableConfigurationPages.Add(wizard);
+                    Logger.Debug($"Added selection page {wizard.PageName}");
                 }
             }
 
@@ -130,7 +143,7 @@
             EventBus.Subscribe<SystemDownEvent>(this, HandleSystemDownEvent);
 
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
-            _restartWhenFinished = !_serviceManager.GetService<ICabinetDetectionService>().TouchscreensMapped;
+            _restartWhenFinished = !_isInspection && !_serviceManager.GetService<ICabinetDetectionService>().TouchscreensMapped;
 
             BackButtonClicked = new ActionCommand<object>(BackButton_Click);
             NextButtonClicked = new ActionCommand<object>(NextButton_Click);
@@ -241,6 +254,10 @@
         /// <inheritdoc/>
         public string Name => "BasePage";
 
+        public string PortraitLogoFilePath => _isInspection
+            ? "../Resources/InspectionLogoPortrait.png"
+            : "../Resources/AristocratLogoPortrait.png";
+
         public ObservableCollection<string> Languages { get; } = new ObservableCollection<string>();
 
         /// <summary>
@@ -302,6 +319,11 @@
 
         private void NextButton_Click(object o)
         {
+            if (_currentPageLoader != null && _currentPageLoader.ViewModel is IConfigWizardViewModel vm)
+            {
+                vm.Save();
+            }
+
             // Disable these buttons as each page will need to determine if it can change pages
             CanNavigateForward = false;
             CanNavigateBackward = false;
@@ -320,8 +342,8 @@
 
             if (_onFinishedPage)
             {
-                Logger.Debug("Navigated to \"Finished\" page.");
-                Finished();
+                Logger.Debug("Navigated to 'Finished' page.");
+                Finished(!_isInspection);
             }
             else
             {
@@ -329,7 +351,7 @@
             }
         }
 
-        private void Finished(bool mapDisplays = true)
+        private void Finished(bool mapDisplays)
         {
             var configurator = _serviceManager.GetService<IAutoConfigurator>();
             var touchScreensMapped = _serviceManager.GetService<ICabinetDetectionService>().TouchscreensMapped;
@@ -429,7 +451,7 @@
                     foreach (var page in wizard.WizardPages)
                     {
                         page.Initialize();
-                        Logger.InfoFormat($"Adding wizard page {page.PageName}");
+                        Logger.InfoFormat($"Adding wizard page (IComponentWizard) {page.PageName}");
                         _wizardPages.Add(page);
                     }
                 }
@@ -439,7 +461,7 @@
                     loader.Initialize();
                     if (loader.IsVisible)
                     {
-                        Logger.InfoFormat($"Adding wizard page {loader.PageName}");
+                        Logger.InfoFormat($"Adding wizard page (IOperatorMenuPageLoader) {loader.PageName}");
                         _wizardPages.Add(loader);
                     }
                 }
@@ -456,7 +478,9 @@
 
             LoadLayer(_wizardsExtensionPath);
 
-            _wizardPages.Add(new CompletionPageLoader());
+            var completion = new CompletionPageLoader { IsWizardPage = true };
+            completion.Initialize();
+            _wizardPages.Add(completion);
 
             CanNavigateForward = true;
             CanNavigateBackward = false;
@@ -576,6 +600,11 @@
                     _serialTouchCalibrationService.BeginCalibration();
                 }
                
+                return;
+            }
+
+            if (_isInspection)
+            {
                 return;
             }
 

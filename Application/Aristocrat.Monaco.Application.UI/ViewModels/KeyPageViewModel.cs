@@ -3,16 +3,16 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using ConfigWizard;
     using Contracts.Identification;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
     using MVVM.ViewModel;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class KeyPageViewModel : OperatorMenuPageViewModelBase
+    public class KeyPageViewModel : InspectionWizardViewModelBase
     {
         private const int OperatorKeyId = 4;
         private const int JackPotId = 130;
@@ -27,7 +27,7 @@
         private bool _operatorInitialStatus;
         private KeyViewModel _playKey;
 
-        public KeyPageViewModel()
+        public KeyPageViewModel(bool isWizard) : base(isWizard)
         {
             _key = ServiceManager.GetInstance().GetService<IKeySwitch>();
             _buttonService = ServiceManager.GetInstance().GetService<IButtonService>();
@@ -54,7 +54,10 @@
 
         protected override void OnLoaded()
         {
-            Access.IgnoreKeySwitches = true;
+            if (!IsWizardPage)
+            {
+                Access.IgnoreKeySwitches = true;
+            }
 
             if (_identificationValidator != null)
             {
@@ -66,7 +69,7 @@
                 where key.Key == OperatorKeyId
                 select key.Key)
             {
-                var viewModel = new KeyViewModel(id);
+                var viewModel = new KeyViewModel(id, Inspection);
 
                 Keys.Add(viewModel);
 
@@ -78,13 +81,15 @@
                 where button.Key == JackPotId
                 select button.Key)
             {
-                var viewModel = new ButtonViewModel(id);
+                var viewModel = new ButtonViewModel(id, Inspection);
 
                 Keys.Add(viewModel);
 
                 viewModel.OnLoaded();
                 viewModel.Action = _jackPotInitialStatus ? ButtonAction.Down : ButtonAction.Up;
             }
+
+            base.OnLoaded();
         }
 
         protected override void OnUnloaded()
@@ -103,12 +108,29 @@
             }
             Keys.Clear();
 
-            Access.IgnoreKeySwitches = false;
+            if (!IsWizardPage)
+            {
+                Access.IgnoreKeySwitches = false;
+            }
 
             if (_identificationValidator != null)
             {
                 _identificationValidator.IgnoreKeySwitches = false;
             }
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         private void GetInitialKeyState()

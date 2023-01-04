@@ -71,6 +71,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\checklist.png" />
+    <Resource Include="Resources\InspectionLogoPortrait.png" />
     <Resource Include="Resources\Operator_Menu_Background_Strip.png" />
     <Resource Include="Resources\Operator_Menu_Background.png" />
     <Resource Include="Resources\Aristocrat_Logo_White.png" />

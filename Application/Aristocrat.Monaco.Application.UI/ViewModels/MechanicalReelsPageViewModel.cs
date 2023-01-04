@@ -33,7 +33,7 @@
         private bool _settingsScreenHidden;
         private bool _selfTestEnabled = true;
 
-        public MechanicalReelsPageViewModel() : base(DeviceType.ReelController)
+        public MechanicalReelsPageViewModel(bool isWizard) : base(DeviceType.ReelController, isWizard)
         {
             ShowLightTestCommand = new ActionCommand<object>(_ =>
             {
@@ -57,8 +57,8 @@
             });
 
             var edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
-            LightTestViewModel = new(ReelController, edgeLightController);
-            ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen);
+            LightTestViewModel = new(ReelController, edgeLightController, Inspection);
+            ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen, Inspection);
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
             SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
@@ -308,6 +308,7 @@
         private async void SelfTest(bool clearNvm)
         {
             SelfTestEnabled = false;
+            Inspection?.SetTestName($"Self test {(clearNvm ? " clear NVM" : "")}");
 
             await Task.Run(() =>
             {
@@ -485,11 +486,15 @@
         private void HandleEvent(HardwareFaultEvent @event)
         {
             SetHasFault();
+            Inspection?.SetTestName($"Controller fault {@event.Fault}");
+            Inspection?.ReportTestFailure();
         }
 
         private void HandleEvent(HardwareReelFaultEvent @event)
         {
             SetHasFault();
+            Inspection?.SetTestName($"Reel fault {@event.Fault}");
+            Inspection?.ReportTestFailure();
         }
 
         private void HandleEvent(HardwareDiagnosticTestStartedEvent @event)

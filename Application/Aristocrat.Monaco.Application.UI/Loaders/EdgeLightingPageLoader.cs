@@ -10,6 +10,11 @@
     {
         public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LightingLabel);
 
+        public override bool GetVisible()
+        {
+            return true;
+        }
+
         protected override IOperatorMenuPage CreatePage()
         {
             return new EdgeLightingPage { DataContext = ViewModel };
@@ -17,7 +22,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new EdgeLightingPageViewModel();
+            return new EdgeLightingPageViewModel(IsWizardPage);
         }
     }
 }

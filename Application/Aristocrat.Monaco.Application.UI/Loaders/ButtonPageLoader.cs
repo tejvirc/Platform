@@ -10,6 +10,11 @@
     {
         public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ButtonsLabel);
 
+        public override bool GetVisible()
+        {
+            return true;
+        }
+
         protected override IOperatorMenuPage CreatePage()
         {
             return new ButtonPage { DataContext = ViewModel };
@@ -17,7 +22,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new ButtonPageViewModel();
+            return new ButtonPageViewModel(IsWizardPage);
         }
     }
 }

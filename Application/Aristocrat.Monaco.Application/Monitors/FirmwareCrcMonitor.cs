@@ -18,6 +18,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using Kernel.Contracts;
     using log4net;
     using Monaco.Localization.Properties;
     using Util;
@@ -311,7 +312,10 @@
 
         private void PlayFirmwareCrcErrorSound()
         {
-            _audioService.PlaySound(_properties, _firmwareCrcErrorSoundFilePath);
+            if (!(bool)_properties.GetProperty(KernelConstants.IsInspectionOnly, false))
+            {
+                _audioService.PlaySound(_properties, _firmwareCrcErrorSoundFilePath);
+            }
         }
     }
 }
