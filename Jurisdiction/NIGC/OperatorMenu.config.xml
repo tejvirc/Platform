@@ -118,7 +118,7 @@ as follows:
             <Setting Name="EnableQuickConfig" Value="false" />
         </Page>
         <Page Type="GameHistoryViewModel" Access="ReadOnly" PrintButtonEnabled="true">
-            <Setting Name="ShowGameInfoButtons" Value="true" />
+            <Setting Name="ShowGameInfoButtons" Value="false" />
             <Setting Name="PrintGameRoundInfo" Value="true" />
         </Page>
         <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false"/>
