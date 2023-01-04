@@ -63,12 +63,12 @@
                     break;
                 case TransferOutReason.LargeWin:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.CashOutJackpot,
+                        Common.TransactionType.Jackpot,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
                         transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
+                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.VoucherIssuedJackpot);
                     break;
                 case TransferOutReason.BonusPay:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(

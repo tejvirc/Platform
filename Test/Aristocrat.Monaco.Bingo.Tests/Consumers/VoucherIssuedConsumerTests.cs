@@ -132,16 +132,16 @@
             var transaction = (VoucherOutTransaction)_transaction.Clone();
             transaction.Reason = TransferOutReason.LargeWin;
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOutJackpot, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot)).Verifiable();
+                Common.TransactionType.Jackpot, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode)).Verifiable();
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.VoucherIssuedJackpot)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
             var evt = new VoucherIssuedEvent(transaction, new Ticket());
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOutJackpot, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode), Times.Once());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot), Times.Once());
+                Common.TransactionType.Jackpot, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode), Times.Once());
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.VoucherIssuedJackpot), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }
 
