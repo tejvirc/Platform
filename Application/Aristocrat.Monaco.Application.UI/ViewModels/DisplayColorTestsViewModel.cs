@@ -28,7 +28,7 @@
 
         public DisplayColorTestsViewModel(IInspectionService reporter)
         {
-            _reporter = reporter ?? throw new ArgumentNullException(nameof(reporter));
+            _reporter = reporter;
 
             SelectedTest = ColorTests.First();
         }

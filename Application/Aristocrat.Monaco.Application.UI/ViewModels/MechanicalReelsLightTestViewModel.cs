@@ -54,7 +54,7 @@
                 reelController ?? throw new ArgumentNullException(nameof(reelController));
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
-            _reporter = reporter ?? throw new ArgumentNullException(nameof(reporter));
+            _reporter = reporter;
 
             InitializeLightIdList();
         }

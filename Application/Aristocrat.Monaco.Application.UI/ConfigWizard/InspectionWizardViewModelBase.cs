@@ -8,9 +8,11 @@
     public class InspectionWizardViewModelBase : ConfigWizardViewModelBase
     {
         public InspectionWizardViewModelBase(bool isWizard)
-            : this(ServiceManager.GetInstance().TryGetService<IInspectionService>(),
-                  isWizard)
-        { }
+            : this(
+                ServiceManager.GetInstance().TryGetService<IInspectionService>(),
+                isWizard)
+        {
+        }
 
         public InspectionWizardViewModelBase(
             IInspectionService inspectionResults,

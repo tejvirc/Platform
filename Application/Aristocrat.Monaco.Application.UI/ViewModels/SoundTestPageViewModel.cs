@@ -53,12 +53,14 @@
         private bool IsAudioServiceAvailable => _audio != null;
         private IInspectionService _reporter;
 
-        public SoundTestPageViewModel() : this(
-            ServiceManager.GetInstance().GetService<IAudio>(),
-            ServiceManager.GetInstance().GetService<IEventBus>(),
-            ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
-            ServiceManager.GetInstance().GetService<IPropertiesManager>())
-        { }
+        public SoundTestPageViewModel()
+            : this(
+                ServiceManager.GetInstance().GetService<IAudio>(),
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
+        {
+        }
 
         public SoundTestPageViewModel(IAudio audio, IEventBus eventBus, ISystemDisableManager disableManager, IPropertiesManager propertiesManager)
         {

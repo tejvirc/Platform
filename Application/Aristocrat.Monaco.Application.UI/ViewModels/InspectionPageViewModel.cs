@@ -351,7 +351,7 @@
 
             if (_onFinishedPage)
             {
-                Logger.Debug("Navigated to \"Finished\" page.");
+                Logger.Debug("Navigated to 'Finished' page.");
                 Finished();
             }
             else

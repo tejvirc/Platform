@@ -30,7 +30,7 @@
 
         public override bool TestModeEnabled
         {
-            get { return IsWizardPage || base.TestModeEnabled; }
+            get => IsWizardPage || base.TestModeEnabled;
             set => base.TestModeEnabled = value;
         }
 

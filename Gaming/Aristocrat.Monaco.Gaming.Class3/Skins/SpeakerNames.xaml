@@ -9,6 +9,6 @@
 	<sys:String x:Key="RearLeft">..\jurisdiction\DefaultAssets\RearLeft.ogg</sys:String>
 	<sys:String x:Key="RearRight">..\jurisdiction\DefaultAssets\RearRight.ogg</sys:String>
 	<sys:String x:Key="Center">..\jurisdiction\DefaultAssets\Center.ogg</sys:String>
-	<sys:String x:Key="LowFrequency">..\jurisdiction\DefaultAssets\LowFrequency.ogg"</sys:String>
+	<sys:String x:Key="LowFrequency">..\jurisdiction\DefaultAssets\LowFrequency.ogg</sys:String>
 
 </ResourceDictionary>

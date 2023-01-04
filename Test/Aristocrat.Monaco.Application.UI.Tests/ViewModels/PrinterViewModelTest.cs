@@ -28,7 +28,10 @@
 
         private class TestPrinterViewModel : PrinterViewModel
         {
-            public TestPrinterViewModel() : base(false) { }
+            public TestPrinterViewModel()
+                : base(false)
+            {
+            }
 
             public void TestEventHandlerStop(bool stop)
             {

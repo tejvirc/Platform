@@ -17,7 +17,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
     ///     This is just a navigation window that holds the inspection
     ///     wizard pages.
     /// </summary>
-    public sealed partial class InspectionWindow : BaseWindow, IDisposable
+    public sealed partial class InspectionWindow : BaseWindow
     {
         private readonly BaseWindow _windowInfo = new BaseWindow();
         private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main, showCursor: true);
@@ -49,23 +49,6 @@ namespace Aristocrat.Monaco.Application.UI.Views
         {
             get => MainWindow.Title;
             set => MainWindow.Title = value;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-            }
-        }
-
-        private void CloseWindow()
-        {
-            MvvmHelper.ExecuteOnUI(Close);
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -112,7 +95,6 @@ namespace Aristocrat.Monaco.Application.UI.Views
                     ServiceManager.GetInstance().RemoveService(service);
                 }
             }
-            Dispose();
         }
     }
 }

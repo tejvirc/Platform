@@ -20,9 +20,5 @@ namespace Aristocrat.Monaco.Application.UI.Views
 
             DataContext = new InspectionPageViewModel();
         }
-
-        private void Page_Initialized(object sender, EventArgs e)
-        {
-        }
     }
 }
