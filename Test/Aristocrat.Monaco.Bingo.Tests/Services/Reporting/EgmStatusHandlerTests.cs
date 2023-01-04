@@ -55,6 +55,9 @@
             _systemDisable.Setup(mock => mock.CurrentDisableKeys).Returns(new List<Guid> { new Guid("{F1BE3145-DF51-4C43-BAB6-F0E934681C74}") });
             _playState.Setup(mock => mock.Enabled).Returns(true);
 
+            _reelController.Setup(mock => mock.ReelControllerFaults).Returns(ReelControllerFaults.None);
+            _reelController.Setup(mock => mock.ConnectedReels).Returns(Array.Empty<int>());
+
             _target = CreateTarget();
         }
 
@@ -116,7 +119,7 @@
         [TestMethod]
         public void EgmDoorOpenTest()
         {
-            _doorMonitor.Setup(mock => mock.GetLogicalDoors()).Returns(new Dictionary<int, bool>() { { 0, true } });
+            _doorMonitor.Setup(mock => mock.GetLogicalDoors()).Returns(new Dictionary<int, bool> { { 0, true } });
 
             var status = _target.GetCurrentEgmStatus();
             Assert.AreEqual(EgmStatusFlag.DoorOpen, status & EgmStatusFlag.DoorOpen);
@@ -195,10 +198,20 @@
         }
 
         [TestMethod]
+        public void ReelControllerReelFaultTest()
+        {
+            _reelController.Setup(mock => mock.Faults).Returns(new Dictionary<int, ReelFaults> { { 0, ReelFaults.ReelStall } });
+            _reelController.Setup(mock => mock.ConnectedReels).Returns(new[] { 0 });
+
+            var status = _target.GetCurrentEgmStatus();
+            Assert.AreEqual(EgmStatusFlag.ReelMalfunction, status & EgmStatusFlag.ReelMalfunction);
+        }
+
+        [TestMethod]
         public void ReelControllerFaultTest()
         {
-            _reelController.Setup(mock => mock.Faults).Returns(new Dictionary<int, ReelFaults>() { { 0, ReelFaults.ReelStall } });
-            _reelController.Setup(mock => mock.ConnectedReels).Returns(new List<int>() { { 0 } });
+            _reelController.Setup(mock => mock.ReelControllerFaults).Returns(ReelControllerFaults.HardwareError);
+            _reelController.Setup(mock => mock.ConnectedReels).Returns(new[] { 0 });
 
             var status = _target.GetCurrentEgmStatus();
             Assert.AreEqual(EgmStatusFlag.ReelMalfunction, status & EgmStatusFlag.ReelMalfunction);
