@@ -2,14 +2,15 @@
 {
     using System;
     using Common;
+    using Gaming.Contracts;
     using Kernel;
     using Services.Reporting;
 
-    public class SystemDisabledConsumer : Consumes<SystemDisabledEvent>
+    public class GamePlayDisabledConsumer : Consumes<GamePlayDisabledEvent>
     {
         private readonly IReportEventQueueService _bingoServerEventReportingService;
 
-        public SystemDisabledConsumer(
+        public GamePlayDisabledConsumer(
             IEventBus eventBus,
             ISharedConsumer consumerContext,
             IReportEventQueueService reportingService)
@@ -18,7 +19,7 @@
             _bingoServerEventReportingService = reportingService ?? throw new ArgumentNullException(nameof(reportingService));
         }
 
-        public override void Consume(SystemDisabledEvent _)
+        public override void Consume(GamePlayDisabledEvent _)
         {
             _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.Disabled);
         }
