@@ -17,7 +17,6 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <common:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 
             <Style x:Key="DefaultColumnStyle" TargetType="DataGridCell">
                 <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
@@ -50,10 +49,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectionSummaryTitle}}" 
+        <Label Content="{Binding PageName}" 
                Foreground="{DynamicResource LightBrush4}"/>
         <Label Grid.Column="1"
-               Content="{Binding DateNow, Converter={StaticResource DateTimeFormatConverter}}" 
+               Content="{Binding Timestamp}" 
                Foreground="{DynamicResource LightBrush4}"/>
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
