@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
     using System.Windows.Input;
     using Application.Helpers;
     using Application.Settings;
@@ -18,6 +19,7 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
+    using Monaco.Localization.Properties;
     using MVVM.Command;
     using OperatorMenu;
 
@@ -460,7 +462,17 @@
                 .GetDeviceStatus(false);
 
             BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
+            if (string.IsNullOrEmpty(BiosVersion))
+            {
+                BiosVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            }
+
             FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
+            if (string.IsNullOrEmpty(FpgaVersion))
+            {
+                FpgaVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            }
+
             ModelText = ioService.DeviceConfiguration.Model;
 
             IsVisibleForInspection = PropertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
@@ -473,6 +485,8 @@
             OsImageVersion = osService.OsImageVersion.ToString();
 
             PlatformVersion = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
+
+            ReportVersions();
         }
 
         private bool SaveVariableData()
@@ -499,6 +513,21 @@
             {
                 ClearErrors(nameof(AssetNumber));
             }
+        }
+
+        private void ReportVersions()
+        {
+            var list = new List<string>();
+
+            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ModelLabel)}: {ModelText}");
+            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MacAddressLabel)}: {PhysicalAddress}");
+            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Electronics)}: {Electronics}");
+            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GraphicsCard)}: {GraphicsCard}");
+            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BiosVersion)}: {BiosVersion}");
+            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FpgaVersion)}: {FpgaVersion}");
+
+            var versions = string.Join(Environment.NewLine, list);
+            Inspection?.SetFirmwareVersion(versions);
         }
 
         private bool PropertyHasChanges(string propertyValue, string settingName, bool blankOk = false) =>
