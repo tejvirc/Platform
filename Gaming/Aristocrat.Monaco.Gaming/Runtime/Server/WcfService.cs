@@ -734,7 +734,7 @@
 
         }
 
-        public IDictionary<uint, bool> CheckMysteryJackpot()
+        public IDictionary<uint, bool> CheckMysteryProgressive()
         {
             var command = new CheckMysteryJackpot();
 
@@ -744,6 +744,11 @@
             var results = command.Results;
 
             return results;
+        }
+
+        public bool BeginGameRoundAsync(uint denom, uint betAmount, uint wagerCategoryId, CentralOutcome request, IList<GameInfo> gameDetails, byte[] data)
+        {
+            throw new NotImplementedException();
         }
     }
 }
