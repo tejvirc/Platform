@@ -16,10 +16,10 @@
         }
 
         /// <inheritdoc />
-        public Task RequestHandpay(HandpayTransaction transaction)
-        {
-            return Task.CompletedTask;
-        }
+        public Task RequestHandpay(HandpayTransaction transaction) => Task.CompletedTask;
+
+        /// <inheritdoc />
+        public Task HandpayKeyedOff(HandpayTransaction transaction) => Task.CompletedTask;
 
         /// <inheritdoc />
         public bool AllowLocalHandpay => true;
