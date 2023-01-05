@@ -493,7 +493,11 @@
                 .OnEntryFrom(_voucherCommittedTrigger, status => _ticketInInfo.RedemptionStatusCode = status)
                 .OnEntryFrom(
                     SasVoucherInTriggers.RejectTicket,
-                    () => _ticketInValidationTask?.TrySetResult(CreateDeniedTicket(_tempTicketData)))
+                    () =>
+                    {
+                        var info = _ticketInInfo.RedemptionStatusCode == RedemptionStatusCode.TicketRejectedDueToTimeout ? _ticketInInfo : _tempTicketData;
+                        _ticketInValidationTask?.TrySetResult(CreateDeniedTicket(info));
+                    })
                 .OnEntryFrom(
                     _rejectWithStatusTrigger,
                     statusCode =>
