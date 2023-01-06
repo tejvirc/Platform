@@ -37,6 +37,7 @@
         private Mock<IGamePlayState> _gamePlayState;
         private Mock<IEdgeLightingController> _edgeLightingController;
         private Mock<IGameService> _gameService;
+        private Mock<IGameHistory> _gameHistory;
         private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
@@ -72,6 +73,7 @@
             _disable = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
             _gameService = new Mock<IGameService>(MockBehavior.Default);
+            _gameHistory = new Mock<IGameHistory>(MockBehavior.Default);
             _operatorMenuLauncher = new Mock<IOperatorMenuLauncher>(MockBehavior.Default);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _edgeLightingController = new Mock<IEdgeLightingController>(MockBehavior.Default);
@@ -1014,6 +1016,7 @@
             bool nullGameProvider = false,
             bool nullEdgeLightController = false,
             bool nullGameService = false,
+            bool nullGameHistory = false,
             bool nullOperatorMenuLauncher = false)
         {
             return new ReelControllerMonitor(
@@ -1024,6 +1027,7 @@
                 nullGameProvider ? null : _gameProvider.Object,
                 nullEdgeLightController ? null : _edgeLightingController.Object,
                 nullGameService ? null : _gameService.Object,
+                nullGameHistory ? null : _gameHistory.Object,
                 nullOperatorMenuLauncher ? null : _operatorMenuLauncher.Object);
         }
     }
