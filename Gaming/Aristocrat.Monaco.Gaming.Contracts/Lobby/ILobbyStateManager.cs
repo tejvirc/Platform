@@ -57,7 +57,7 @@
         /// <summary>
         ///     Property indicating a single playable game.
         /// </summary>
-        bool IsSingleGame { set; }
+        bool IsSingleGame { get; set; }
 
         /// <summary>
         ///     Property indicating if there's just one playable game that takes priority over lobby.

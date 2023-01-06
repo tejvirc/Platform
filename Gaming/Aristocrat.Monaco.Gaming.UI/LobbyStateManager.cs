@@ -111,7 +111,7 @@
 
         public bool AllowGameAutoLaunch { private get; set; }
 
-        public bool IsSingleGame { private get; set; }
+        public bool IsSingleGame { get; set; }
 
         public bool AllowSingleGameAutoLaunch => AllowGameInCharge && AllowGameAutoLaunch && IsSingleGame;
 

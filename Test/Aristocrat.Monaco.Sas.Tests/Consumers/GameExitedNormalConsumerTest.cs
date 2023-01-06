@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Sas.Tests.Consumers
 {
+    using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Sas.Client;
     using Contracts.SASProperties;
     using Gaming.Contracts;
@@ -17,6 +18,7 @@
         private Mock<ISasExceptionHandler> _exceptionHandlerMock;
         private Mock<IPropertiesManager> _propertiesManagerMock;
         private Mock<IOperatorMenuLauncher> _launcherMock;
+        private Mock<ILobbyStateManager> _lobbyStateManagerMock;
 
         private GameExitedNormalConsumer _target;
 
@@ -26,11 +28,12 @@
             _exceptionHandlerMock = new Mock<ISasExceptionHandler>(MockBehavior.Strict);
             _propertiesManagerMock = new Mock<IPropertiesManager>(MockBehavior.Default);
             _launcherMock = new Mock<IOperatorMenuLauncher>(MockBehavior.Strict);
+            _lobbyStateManagerMock = new Mock<ILobbyStateManager>(MockBehavior.Default);
 
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
 
-            _target = new GameExitedNormalConsumer(_exceptionHandlerMock.Object, _propertiesManagerMock.Object, _launcherMock.Object);
+            _target = new GameExitedNormalConsumer(_exceptionHandlerMock.Object, _propertiesManagerMock.Object, _launcherMock.Object, _lobbyStateManagerMock.Object);
         }
 
         [TestCleanup]
