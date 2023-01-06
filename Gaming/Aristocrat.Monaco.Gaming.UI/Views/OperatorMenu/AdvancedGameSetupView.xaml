@@ -137,7 +137,7 @@
                     <Run Text="{Binding DenomSelectionLimit, Mode=OneWay}"/>
                 </TextBlock>
 
-                <DataGrid Grid.Row="2" Margin="0 -15 0 0" 
+                <DataGrid Grid.Row="2" Margin="0 -40 0 0" 
                           ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
                           Height="{Binding ElementName=GridGameConfigs, Path=ActualHeight}"
                           Width="{Binding ElementName=GridGameConfigs, Path=ActualWidth}"
