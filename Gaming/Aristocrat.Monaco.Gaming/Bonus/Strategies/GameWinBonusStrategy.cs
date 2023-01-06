@@ -216,8 +216,11 @@
         {
             if (transaction.MessageDuration == TimeSpan.MaxValue)
             {
-                _bus.Subscribe<CashOutStartedEvent>(this, _ => HandleStateChange(this, transaction));
                 _bus.Subscribe<GamePlayInitiatedEvent>(this, _ => HandleStateChange(this, transaction));
+                _bus.Subscribe<BankBalanceChangedEvent>(
+                    this,
+                    _ => HandleStateChange(this, transaction),
+                    evt => evt.NewBalance is 0);
             }
 
             DisplayMessage(transaction);
