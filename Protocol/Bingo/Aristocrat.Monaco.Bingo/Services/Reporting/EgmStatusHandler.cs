@@ -98,9 +98,14 @@
         private static EgmStatusFlag GetReelControllerStatus()
         {
             var reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
-            if (reelController?.ConnectedReels == null)
+            if (reelController is null)
             {
                 return EgmStatusFlag.None;
+            }
+
+            if (reelController.ReelControllerFaults != ReelControllerFaults.None)
+            {
+                return EgmStatusFlag.ReelMalfunction;
             }
 
             var reelFaults = reelController.Faults;
@@ -115,26 +120,21 @@
             return EgmStatusFlag.None;
         }
 
-        private EgmStatusFlag GetBatteryStatus()
-        {
-            return !_propertiesManager.GetValue(HardwareConstants.Battery1Low, true) ||
-                !_propertiesManager.GetValue(HardwareConstants.Battery2Low, true)
+        private EgmStatusFlag GetBatteryStatus() =>
+            !_propertiesManager.GetValue(HardwareConstants.Battery1Low, true) ||
+            !_propertiesManager.GetValue(HardwareConstants.Battery2Low, true)
                 ? EgmStatusFlag.NvramBatteryLow : EgmStatusFlag.None;
-        }
 
-        private EgmStatusFlag GetSerialNumberStatus()
-        {
-            return string.IsNullOrEmpty(_propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty)) ? EgmStatusFlag.NotEnrolled : EgmStatusFlag.None;
-        }
+        private EgmStatusFlag GetSerialNumberStatus() =>
+            string.IsNullOrEmpty(_propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty))
+                ? EgmStatusFlag.NotEnrolled
+                : EgmStatusFlag.None;
 
-        private EgmStatusFlag GetDoorStatus() {
-            return _doorMonitor.GetLogicalDoors().ContainsValue(true) ? EgmStatusFlag.DoorOpen : EgmStatusFlag.None;
-        }
+        private EgmStatusFlag GetDoorStatus() =>
+            _doorMonitor.GetLogicalDoors().ContainsValue(true) ? EgmStatusFlag.DoorOpen : EgmStatusFlag.None;
 
-        private EgmStatusFlag GetOperatorMenuStatus()
-        {
-            return _menuLauncher.IsShowing ? EgmStatusFlag.InOperatorMenu : EgmStatusFlag.None;
-        }
+        private EgmStatusFlag GetOperatorMenuStatus() =>
+            _menuLauncher.IsShowing ? EgmStatusFlag.InOperatorMenu : EgmStatusFlag.None;
 
         private EgmStatusFlag GetSystemDisableStatus()
         {
@@ -160,9 +160,7 @@
             return flags;
         }
 
-        private EgmStatusFlag GetPlayStateStatus()
-        {
-            return _playState.Enabled ? EgmStatusFlag.None : EgmStatusFlag.MachineDisabled;
-        }
+        private EgmStatusFlag GetPlayStateStatus() =>
+            _playState.Enabled ? EgmStatusFlag.None : EgmStatusFlag.MachineDisabled;
     }
 }
