@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Common;
     using Contracts;
     using Contracts.Protocol;
     using Kernel;
-    using log4net;
     using Mono.Addins;
 
     /// <summary>
@@ -20,12 +20,11 @@
         private const string DemonstrationExtPath = "/Protocol/Demonstration/Runnables";
 
         private static readonly TimeSpan ProtocolTimeout = TimeSpan.FromSeconds(90);
-        private static readonly ILog Logger = LogManager.GetLogger(nameof(ProtocolLauncher));
 
-        private readonly Dictionary<string, IRunnable> _runningProtocols = new Dictionary<string, IRunnable>();
+        private readonly Dictionary<string, IRunnable> _runningProtocols = new();
 
-        private readonly List<Task> _runningProtocolTasks = new List<Task>();
-        private readonly List<ProtocolTypeExtensionNode> _protocolTypeExtensionNodes = new List<ProtocolTypeExtensionNode>();
+        private readonly List<Task> _runningProtocolTasks = new();
+        private readonly List<ProtocolTypeExtensionNode> _protocolTypeExtensionNodes = new();
         private IEventBus _eventBus;
         private readonly List<CommsProtocol> _protocols;
 
@@ -89,34 +88,40 @@
             }
         }
 
+        private async Task<(string, IRunnable)> CreateProtocol(ProtocolTypeExtensionNode extensionNode)
+        {
+            var protocol = (IRunnable)extensionNode.CreateInstance();
+            _runningProtocols.Add(extensionNode.ProtocolId, protocol);
+            return await Task.Run(
+                () =>
+                {
+                    protocol.Initialize();
+                    return (extensionNode.ProtocolId, protocol);
+                }).ConfigureAwait(false);
+        }
+
+        private async Task InitializeAsync(IEnumerable<Task<(string, IRunnable)>> initializationTasks)
+        {
+            var runnables = await Task.WhenAll(initializationTasks).ConfigureAwait(false);
+            _eventBus.Publish(new ProtocolLoadedEvent(runnables.Select(x => x.Item1).ToArray()));
+        }
+
+        private static async Task RunProtocol(Task<(string name, IRunnable runable)> initializeTask)
+        {
+            var (_, runnable) = await initializeTask.ConfigureAwait(false);
+            runnable.Run();
+        }
+
         private void RunProtocols()
         {
-            var protocolsLaunched = new List<string>();
-            _protocolTypeExtensionNodes.ForEach(
-                x =>
-                {
-                    if (_runningProtocols.ContainsKey(x.ProtocolId))
-                    {
-                        return;
-                    }
-
-                    var runningProtocol = (IRunnable)x.CreateInstance();
-                    _runningProtocols[x.ProtocolId] = runningProtocol;
-
-                    _runningProtocolTasks.Add(Task.Run(() =>
-                    {
-                        Logger.Debug($"Starting protocol: {x.ProtocolId}");
-                        runningProtocol.Initialize();
-
-                        protocolsLaunched.Add(x.ProtocolId);
-
-                        runningProtocol.Run();
-                    }));
-                }
-            );
-
-            _eventBus.Publish(new ProtocolLoadedEvent(protocolsLaunched));
-
+            var runningProtocols = _protocolTypeExtensionNodes
+                .Where(x => !_runningProtocols.ContainsKey(x.ProtocolId))
+                .DistinctBy(x => x.ProtocolId)
+                .Select(CreateProtocol)
+                .ToList();
+            var initialization = InitializeAsync(runningProtocols);
+            _runningProtocolTasks.AddRange(runningProtocols.Select(RunProtocol).ToArray());
+            initialization.WaitForCompletion();
             Task.WaitAny(_runningProtocolTasks.ToArray());
             foreach (var completedTask in _runningProtocolTasks.Where(x => x.IsCompleted))
             {
