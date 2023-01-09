@@ -28,7 +28,7 @@
     public abstract class BonusStrategy
     {
         private const string LegacyBonusHostTransactionPrefix = "LEGACY";
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().ReflectedType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.ReflectedType);
 
         private readonly IBank _bank;
         private readonly IEventBus _bus;

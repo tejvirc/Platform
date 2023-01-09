@@ -237,7 +237,7 @@
         {
             switch (transaction.PayMethod)
             {
-                case PayMethod.Handpay when transaction.IsAttendantPaid(_transactions):
+                case PayMethod.Handpay when transaction.IsAttendantPaidGameWin(_transactions):
                     _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.HandPaidGameWinBonusAmount)
                         .Increment(cashableAmount + nonCashAmount + promoAmount);
                     _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.HandPaidGameWinBonusCount)
