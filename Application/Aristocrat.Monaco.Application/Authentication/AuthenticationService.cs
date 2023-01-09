@@ -18,6 +18,7 @@
     using Hardware.Contracts.IO;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Printer;
+    using Hardware.Contracts.Reel;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Kernel.Contracts.Components;
@@ -154,6 +155,11 @@
                                 .GetDevice<INoteAcceptor>();
                             GetCrc(verification, noteAcceptor);
                             return;
+                        case Constants.ReelControllerPath:
+                            var reelController = ServiceManager.GetInstance().GetService<IDeviceRegistryService>()
+                                .GetDevice<IReelController>();
+                            GetCrc(verification, reelController);
+                            return;
                     }
 
                     throw new NotSupportedException(
@@ -195,22 +201,13 @@
                                 switch (component.Path)
                                 {
                                     case Constants.PrinterPath:
-                                        var printer = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<IPrinter>();
-                                        if (printer.Crc == 0)
-                                        {
-                                            printer.CalculateCrc(0).Wait(CrcTimeout);
-                                        }
-
-                                        stream = printer.Crc != 0 ? new MemoryStream(Encoding.UTF8.GetBytes(ConvertExtensions.ToHexString(printer.Crc))) : null;
+                                        stream = GetDeviceStream<IPrinter>();
                                         break;
                                     case Constants.NoteAcceptorPath:
-                                        var noteAcceptor = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<INoteAcceptor>();
-                                        if (noteAcceptor.Crc == 0)
-                                        {
-                                            noteAcceptor.CalculateCrc(0).Wait(CrcTimeout);
-                                        }
-
-                                        stream = noteAcceptor.Crc != 0 ? new MemoryStream(Encoding.UTF8.GetBytes(ConvertExtensions.ToHexString(noteAcceptor.Crc))) : null;
+                                        stream = GetDeviceStream<INoteAcceptor>();
+                                        break;
+                                    case Constants.ReelControllerPath:
+                                        stream = GetDeviceStream<IReelController>();
                                         break;
                                     case Constants.FpgaPath:
                                     case Constants.BiosPath:
@@ -243,6 +240,17 @@
             {
                 stream?.Close();
             }
+        }
+
+        private Stream GetDeviceStream<TDevice>() where TDevice : IDeviceAdapter
+        {
+            var device = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<TDevice>();
+            if (device.Crc == 0)
+            {
+                device.CalculateCrc(0).Wait(CrcTimeout);
+            }
+
+            return device.Crc != 0 ? new MemoryStream(Encoding.UTF8.GetBytes(ConvertExtensions.ToHexString(device.Crc))) : null;
         }
 
         /// <inheritdoc />
