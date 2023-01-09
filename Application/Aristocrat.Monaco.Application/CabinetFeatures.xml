@@ -31,4 +31,5 @@ as follows:
     <HarkeyReelController Enabled="true" CabinetTypeRegex="^LS"/>
     <BeagleBone Enabled="true" CabinetTypeRegex="^LS"/>
     <DisplayElementsControl Enabled="true" CabinetTypeRegex="^LS" />
+    <DisplayLightingPage Enabled="true" CabinetTypeRegex="^(?!LS).*$"/>
 </Features>
