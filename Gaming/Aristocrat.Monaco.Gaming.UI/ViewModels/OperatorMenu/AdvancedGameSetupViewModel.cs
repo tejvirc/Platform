@@ -1824,12 +1824,22 @@
 
         private void AutoEnableGames()
         {
-            foreach (var config in _gamesMapping.Values
-                .SelectMany(profile => profile)
-                .Where(profile => !profile.OriginalRestriction?.RestrictionDetails.Editable ?? false)
-                .SelectMany(profile => profile.GameConfigurations))
+            foreach (var key in _gamesMapping.Keys.ToList())
             {
-                config.Enabled = true;
+                _gamesMapping[key].ForEach(AutoEnableGame);
+            }
+        }
+
+        private void AutoEnableGame(EditableGameProfile gameProfile)
+        {
+            if (!(gameProfile.OriginalRestriction?.RestrictionDetails.Editable ?? false))
+            {
+                return;
+            }
+            
+            for (var i = 0; i < gameProfile.GameConfigurations.Count; i++)
+            {
+                gameProfile.GameConfigurations[i].Enabled = true;
             }
         }
 
