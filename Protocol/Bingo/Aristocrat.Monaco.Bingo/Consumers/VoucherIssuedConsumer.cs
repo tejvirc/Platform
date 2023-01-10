@@ -81,7 +81,7 @@
                     break;
                 case TransferOutReason.CashWin:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.CashWon,
+                        Common.TransactionType.CashOut,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
