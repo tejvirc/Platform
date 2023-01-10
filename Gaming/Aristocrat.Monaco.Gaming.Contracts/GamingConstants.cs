@@ -712,6 +712,31 @@
         public const string RestrictedProgressiveTypes = @"GameRestrictions.RestrictedProgressiveTypes";
 
         /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Slot games
+        /// </summary>
+        public const string SlotsIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Slots";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Poker games
+        /// </summary>
+        public const string PokerIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Poker";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Keno games
+        /// </summary>
+        public const string KenoIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Keno";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Blackjack games
+        /// </summary>
+        public const string BlackjackIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Blackjack";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Roulette games
+        /// </summary>
+        public const string RouletteIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Roulette";
+
+        /// <summary>
         ///     Flag to enable/disable the inclusion of the link progressive increment RTP for in the RTP check for Slot games
         /// </summary>
         public const string SlotsIncludeLinkProgressiveIncrementRtp = @"GameRestrictions.IncludeLinkProgressiveIncrementRTP.Slots";
@@ -735,6 +760,31 @@
         ///     Flag to enable/disable the inclusion of the link progressive increment RTP for in the RTP check for Roulette games
         /// </summary>
         public const string RouletteIncludeLinkProgressiveIncrementRtp = @"GameRestrictions.IncludeLinkProgressiveIncrementRTP.Roulette";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Slot games
+        /// </summary>
+        public const string SlotsIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Slots";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Poker games
+        /// </summary>
+        public const string PokerIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Poker";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Keno games
+        /// </summary>
+        public const string KenoIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Keno";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Blackjack games
+        /// </summary>
+        public const string BlackjackIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Blackjack";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Roulette games
+        /// </summary>
+        public const string RouletteIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Roulette";
 
         /// <summary>
         ///     Flag to enable/disable the inclusion of the standalone progressive increment RTP for in the RTP check for Slot games

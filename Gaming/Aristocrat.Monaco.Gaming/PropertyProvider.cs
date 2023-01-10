@@ -80,17 +80,23 @@
                 ? storageManager.GetBlock(storageName)
                 : storageManager.CreateBlock(PersistenceLevel.Transient, storageName, 1);
 
-            var anyRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Any);
-            var blackjackRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Blackjack);
-            var slotRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Slot);
-            var kenoRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Keno);
-            var pokerRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Poker);
-            var rouletteRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Roulette);
+            var rtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits;
+
+            var anyRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Any);
+            var blackjackRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Blackjack);
+            var slotRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Slot);
+            var kenoRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Keno);
+            var pokerRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Poker);
+            var rouletteRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Roulette);
 
             var anyGameMinRtp = anyRtpLimits?.MinimumSpecified ?? false ? anyRtpLimits.Minimum : decimal.MinValue;
             var anyGameMaxRtp = anyRtpLimits?.MaximumSpecified ?? false ? anyRtpLimits.Maximum : decimal.MaxValue;
+
             var anyGameIncludeLinkProgressiveIncrementRtp = anyRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? false;
+            var anyGameIncludeLinkProgressiveStartUpRtp = anyRtpLimits?.IncludeLinkProgressiveStartUpRTP ?? false;
             var anyGameIncludeStandaloneProgressiveIncrementRtp = anyRtpLimits?.IncludeStandaloneProgressiveIncrementRTP ?? true;
+            var anyGameIncludeStandaloneProgressiveStartUpRtp = anyRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? false;
+
             var playerInformationDisplayOptions = configuration.PlayerInformationDisplay;
 
             _properties = new Dictionary<string, (object property, bool isPersisted)>

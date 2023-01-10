@@ -30,7 +30,7 @@ as follows:
 				Maximum:
 					Default is int max, unless specified
 				IncludeLinkProgressiveIncrementRTP:
-					Default is false. If set to true, will include the link progressive increment RTP in the RTP check
+					Default is false. If set to true, will include the link progressive increment RTP in the RTP calculation
 		RestrictedGameTypes:
 			Type:
 				GameType:

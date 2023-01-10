@@ -2250,10 +2250,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts{
         
         private bool includeLinkProgressiveIncrementRTPField;
         
+        private bool includeLinkProgressiveStartUpRTPField;
+        
+        private bool includeStandaloneProgressiveStartUpRTPField;
+        
         private bool includeStandaloneProgressiveIncrementRTPField;
         
         public GamingConfigurationGameRestrictionsReturnToPlayer() {
             this.includeLinkProgressiveIncrementRTPField = false;
+            this.includeLinkProgressiveStartUpRTPField = false;
+            this.includeStandaloneProgressiveStartUpRTPField = false;
             this.includeStandaloneProgressiveIncrementRTPField = true;
         }
         
@@ -2332,6 +2338,30 @@ namespace Aristocrat.Monaco.Gaming.Contracts{
             }
             set {
                 this.includeLinkProgressiveIncrementRTPField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool IncludeLinkProgressiveStartUpRTP {
+            get {
+                return this.includeLinkProgressiveStartUpRTPField;
+            }
+            set {
+                this.includeLinkProgressiveStartUpRTPField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool IncludeStandaloneProgressiveStartUpRTP {
+            get {
+                return this.includeStandaloneProgressiveStartUpRTPField;
+            }
+            set {
+                this.includeStandaloneProgressiveStartUpRTPField = value;
             }
         }
         
@@ -3437,3 +3467,4 @@ namespace Aristocrat.Monaco.Gaming.Contracts{
         }
     }
 }
+#pragma warning restore 1591
