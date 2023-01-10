@@ -6,7 +6,7 @@
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Bingo.Client.Messages.Progressives;
     using Services.Progressives;
-
+ 
     public class ProgressiveInfoResponseHandler : IMessageHandler<ProgressiveInformationResponse, ProgressiveInfoMessage>
     {
         private readonly IProgressiveInfoHandler _infoHandler;
