@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
     using System.Windows;
     using Contracts;
@@ -295,6 +296,7 @@
         private const string TabResourceKeyPrefix = "GameTab";
         private const string LabelResourceKeyPrefix = "Tab";
         private const string Disabled = "Disabled";
+        private const string ImagesPath = "..\\jurisdiction\\DefaultAssets\\ui\\Images\\";
         private bool _enabled;
 
         public GameTabInfo(GameCategory category, int tabIndex)
@@ -325,6 +327,10 @@
         public GameCategory Category { get; }
 
         public string LabelResourceKey => $"{LabelResourceKeyPrefix}{Category}{DisabledText}";
+
+        public string LabelAnimatedResourcePath => $"{AppDomain.CurrentDomain.BaseDirectory}{ImagesPath}{LabelResourceKey}.gif";
+
+        public bool HasAnimatedResource => File.Exists(LabelAnimatedResourcePath);
 
         public string TabResourceKey => $"{TabResourceKeyPrefix}{TabIndex + 1}{DisabledText}";
 

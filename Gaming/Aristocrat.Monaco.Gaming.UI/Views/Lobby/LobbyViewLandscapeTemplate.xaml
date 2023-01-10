@@ -233,8 +233,14 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:GameTabInfo}">
                                 <Viewbox Stretch="Uniform" StretchDirection="DownOnly" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Visibility="{Binding Enabled}" >
-                                    <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}" 
-                                           Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}" />
+                                    <Grid>
+                                        <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}" 
+                                               Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}"
+                                               Visibility="{Binding HasAnimatedResource, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                                        <Image gif:ImageBehavior.AnimatedSource="{Binding LabelAnimatedResourcePath}"
+                                               Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}"
+                                               Visibility="{Binding HasAnimatedResource, Converter={StaticResource BoolToVisConverter}}"/>
+                                    </Grid>
                                 </Viewbox>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -284,8 +290,8 @@
                 <!-- Specify the UI to render each item -->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:GameInfo}">
-                        <!--Wrap the game icons in viewboxes to scale correctly-->
-                        <!--Note: this viewbox will not stretch for tab views-->
+                        <!--Wrap the game icons in Viewboxes to scale correctly-->
+                        <!--Note: this Viewbox will not stretch for tab views-->
                         <Viewbox x:Name="GameTile" VerticalAlignment="Top" 
                                  Stretch="{Binding DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconStretchConv}}">
                             <Viewbox.Margin>
@@ -354,16 +360,38 @@
                                         </Button.IsEnabled>
                                         <Grid VerticalAlignment="Top"
                                               HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}">
-                                            <Image x:Name="ButtonImage"
-                                                   RenderOptions.BitmapScalingMode="HighQuality"
-                                                   HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
-                                                   VerticalAlignment="Top"
-                                                   Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}"
-                                                   Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
-                                                   Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
-                                                   gif:ImageBehavior.AnimatedSource="{Binding ImagePath}">
-                                            </Image>
-
+                                            <ContentControl x:Name="ButtonImage"
+                                                            HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
+                                                            VerticalAlignment="Top"
+                                                            Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}">
+                                                <ContentControl.Style>
+                                                    <Style TargetType="ContentControl">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                                <Setter Property="Content">
+                                                                    <Setter.Value>
+                                                                        <bink:BinkViewerControl Stretch="None"
+                                                                                                Filename="{Binding ImagePath}"
+                                                                                                Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
+                                                                                                Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                                <Setter Property="Content">
+                                                                    <Setter.Value>
+                                                                        <Image RenderOptions.BitmapScalingMode="HighQuality"
+                                                                               gif:ImageBehavior.AnimatedSource="{Binding ImagePath}"
+                                                                               Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
+                                                                               Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ContentControl.Style>
+                                            </ContentControl>
+                                            
                                             <Image x:Name="SelectedImage"
                                                    Source="{DynamicResource GameSelectedOverlay}"
                                                    RenderOptions.BitmapScalingMode="HighQuality"

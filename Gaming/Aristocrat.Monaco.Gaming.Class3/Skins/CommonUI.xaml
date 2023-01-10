@@ -30,7 +30,7 @@
 	<BitmapImage x:Key="TabPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPokerDisabled.png" />
 	<BitmapImage x:Key="TabRouletteDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabRouletteDisabled.png" />
 	<BitmapImage x:Key="TabTableDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabTableDisabled.png" />
-	<BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabLightningLinkDisabled.png" />
+	<BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabStormingJackpotsDisabled.png" />
 	<BitmapImage x:Key="TabMultiDrawPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabMultiDrawPokerDisabled.png" />
 	<BitmapImage x:Key="GameSelectedOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Game_Title_On.png" />
 	<BitmapImage x:Key="ProgressiveOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Progressive Meter_Frame.png" />
