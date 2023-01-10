@@ -1010,6 +1010,7 @@
             }
 
             window.Show();
+            window.Activate();
             WpfWindowLauncher.DisableStylus(window);
         }
 
