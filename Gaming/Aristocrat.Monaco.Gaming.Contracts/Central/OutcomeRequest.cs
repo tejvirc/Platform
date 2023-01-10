@@ -9,15 +9,15 @@
         ///     Initializes a new instance of the <see cref="OutcomeRequest" /> class.
         /// </summary>
         /// <param name="quantity">The requested outcome count</param>
-        /// <param name="wagerCategory">The wager category for the game round</param>
-        public OutcomeRequest(int quantity, int wagerCategory)
+        /// <param name="templateId">The template Id for the game round</param>
+        public OutcomeRequest(int quantity, int templateId)
         {
             Quantity = quantity;
-            WagerCategory = wagerCategory;
+            TemplateId = templateId;
         }
 
         /// <inheritdoc />
-        public int WagerCategory { get; }
+        public int TemplateId { get; }
 
         /// <inheritdoc />
         public int Quantity { get; }
