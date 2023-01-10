@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts.Meters;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
@@ -24,8 +25,10 @@
         private readonly IProgressiveMeterManager _meterManager;
         private readonly IProgressiveLevelProvider _levelProvider;
         private readonly IPersistentStorageManager _persistentStorage;
+        private readonly IPropertiesManager _properties;
 
         private bool _disposed;
+        private readonly bool _rolloverTest;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveMeterProvider" /> class.
@@ -37,12 +40,16 @@
         public ProgressiveMeterProvider(
             IPersistentStorageManager persistentStorage,
             IProgressiveMeterManager meterManager,
+            IPropertiesManager properties,
             IProgressiveLevelProvider levelProvider)
             : base(ProviderName)
         {
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
             _levelProvider = levelProvider ?? throw new ArgumentNullException(nameof(levelProvider));
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+
+            _rolloverTest = _properties.GetValue(@"maxmeters", "false") == "true";
 
             _meterManager.ProgressiveAdded += OnProgressiveAdded;
 
@@ -244,7 +251,9 @@
                     period = (long)current["Period"];
                 }
 
-                AddMeter(new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period));
+                var atomicMeter = new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period);
+                SetupMeterRolloverTest(atomicMeter);
+                AddMeter(atomicMeter);
             }
         }
 
@@ -269,7 +278,9 @@
                     period = (long)current["Period"];
                 }
 
-                AddMeter(new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period));
+                var atomicMeter = new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period);
+                SetupMeterRolloverTest(atomicMeter);
+                AddMeter(atomicMeter);
             }
         }
 
@@ -294,8 +305,37 @@
                     period = (long)current["Period"];
                 }
 
-                AddMeter(new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period));
+                var atomicMeter = new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period);
+                SetupMeterRolloverTest(atomicMeter);
+                AddMeter(atomicMeter);
             }
+        }
+
+        private void SetupMeterRolloverTest(IMeter meter)
+        {
+            if (!_rolloverTest)
+            {
+                return;
+            }
+
+            if (meter == null || meter.Lifetime != 0)
+            {
+                return;
+            }
+
+            var preRollover = meter.Classification.UpperBounds;
+            if (meter.Classification.GetType() == typeof(CurrencyMeterClassification))
+            {
+                var currencyMultiplier = _properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, ApplicationConstants.DefaultCurrencyMultiplier);
+                var oneCent = currencyMultiplier / (int)CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit;
+                preRollover -= (long)oneCent;
+            }
+            else
+            {
+                preRollover -= 1;
+            }
+
+            meter.Increment(preRollover);
         }
     }
 }
