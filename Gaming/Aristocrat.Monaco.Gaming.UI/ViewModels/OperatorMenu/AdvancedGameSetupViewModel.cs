@@ -134,14 +134,8 @@
 
             _cachedConfigProgressiveLevels = new List<IViewableProgressiveLevel>();
             _cachedConfigSharedSapLevels = new List<(IViewableSharedSapLevel, ProgressiveSharedLevelSettings)>();
-
-            var games = _gameProvider.GetGames().OrderBy(g => g.ThemeName).ToList();
-
-            VerifyGamesWithEnabledLanguages(games);
-
-            GameTypes = new List<GameType>(
-                games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
-            SelectedGameType = GameTypes.FirstOrDefault();
+            
+            GameTypes = new List<GameType>();
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
@@ -243,7 +237,7 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public IEnumerable<GameType> GameTypes { get; }
+        public IEnumerable<GameType> GameTypes { get; set; }
 
         public GameType SelectedGameType
         {
@@ -480,6 +474,8 @@
             EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
             EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
 
+            LoadGames();
+
             _canEdit = GetConfigSetting(OperatorMenuSetting.EnableAdvancedConfig, false);
             _editMode = _canEdit && !InitialConfigComplete;
 
@@ -491,7 +487,6 @@
         protected override void InitializeData()
         {
             base.InitializeData();
-            LoadGames();
         }
 
         protected override void OnUnloaded()
@@ -556,20 +551,12 @@
             SetEditMode();
         }
 
-        private void VerifyGamesWithEnabledLanguages(List<IGameDetail> games)
-        {
-            var supportedLocales = _playerCultureProvider.AvailableCultures.Select(c => c.Name).ToList();
 
-            foreach (var game in games)
-            {
-                var locales = game.LocaleGraphics?.Keys;
-                var anySupported = locales?.Intersect(supportedLocales).Any();
-                if (anySupported != null && !anySupported.Value)
-                {
-                    // game doesn't support the enabled languages, this game can't be configured.
-                    //game.Enabled = false;
-                }
-            }
+        private bool GameSupportsEnableLanguages(IGameDetail game)
+        {
+            var supportedLocales = _playerCultureProvider.AvailableCultures.Select(c => c.Name);
+            var support = game.LocaleGraphics?.Values.Select(l => l.LocaleCode).Intersect(supportedLocales, StringComparer.OrdinalIgnoreCase).Any() ?? false;
+            return support;
         }
 
         private static bool IsGameRecoveryNeeded()
@@ -600,7 +587,14 @@
 
             Logger.Debug("Loading games...");
 
-            var grouping = _gameProvider.GetGames()
+            var games = _gameProvider.GetGames()
+                .Where(GameSupportEnableLanguages).ToList();
+
+            GameTypes = new List<GameType>(
+                        games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
+            
+
+            var grouping = games
                 .SelectMany(game => game.Denominations.Select(denom => (Game: game, Denom: denom)))
                 .GroupBy(x => new GamesGrouping(x.Denom.Value, x.Game.GameType, x.Game.ThemeId, x.Game.ThemeName), x => x.Game);
 
@@ -639,6 +633,11 @@
             }
 
             SelectedGameType = GameTypes.FirstOrDefault();
+            if (!Games.Contains(SelectedGame))
+            {
+                SelectedGame = Games.FirstOrDefault();
+            }
+
             CalculateTopAward();
             ScaleEnabledRtpValues();
         }
@@ -1390,7 +1389,6 @@
                 _gamesMapping.TryGetValue(SelectedGameType, out var gameProfiles)
                     ? gameProfiles.OrderBy(g => g.ThemeName)
                     : Enumerable.Empty<EditableGameProfile>());
-
             SelectedGame = Games.FirstOrDefault();
 
             ApplyGameOptionsEnabled();

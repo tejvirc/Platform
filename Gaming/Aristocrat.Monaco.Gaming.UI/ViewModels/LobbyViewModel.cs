@@ -1369,7 +1369,7 @@
         /// <summary>
         ///     Gets the active locale code.
         /// </summary>
-        public string ActiveLocaleCode => AvaliableLocales[LocaleCodeIndex];
+        public string ActiveLocaleCode => LocaleCodeIndex == -1 ? AvaliableLocales[0] : AvaliableLocales[LocaleCodeIndex];
 
         /// <summary>
         ///     Gets a value indicating whether to display the language toggle button, if there are only
@@ -1816,7 +1816,7 @@
 
         private void InitializeLanguages()
         {
-            string defaultLocale = _playerCultureProvider.DefaultCulture.Name;
+            string defaultLocale = _playerCultureProvider.DefaultCulture?.Name;
 
             if (string.IsNullOrEmpty(defaultLocale))
             {
