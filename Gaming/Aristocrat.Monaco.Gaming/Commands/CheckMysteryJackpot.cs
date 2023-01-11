@@ -10,6 +10,6 @@
         /// <summary>
         ///     Gets or sets the result of the command
         /// </summary>
-        public Dictionary<uint, bool> Results { get; set; }
+        public IList<uint> Results { get; set; }
     }
 }
