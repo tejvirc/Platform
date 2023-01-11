@@ -588,7 +588,7 @@
             Logger.Debug("Loading games...");
 
             var games = _gameProvider.GetGames()
-                .Where(GameSupportEnableLanguages).ToList();
+                .Where(GameSupportsEnableLanguages).ToList();
 
             GameTypes = new List<GameType>(
                         games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
