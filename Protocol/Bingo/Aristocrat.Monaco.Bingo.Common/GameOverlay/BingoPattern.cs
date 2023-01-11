@@ -91,10 +91,14 @@
         {
             unchecked
             {
-                var hashCode = Name != null ? Name.GetHashCode() : 0;
+                var hashCode = (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ PatternId;
-                hashCode = (hashCode * 397) ^ CardSerial.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int)CardSerial;
                 hashCode = (hashCode * 397) ^ IsGameEndWin.GetHashCode();
+                hashCode = (hashCode * 397) ^ BallQuantity;
+                hashCode = (hashCode * 397) ^ PaytableId;
+                hashCode = (hashCode * 397) ^ BitFlags;
+                hashCode = (hashCode * 397) ^ WinIndex;
                 return hashCode;
             }
         }
@@ -117,8 +121,14 @@
 
         private bool Equals(BingoPattern other)
         {
-            return Name == other.Name && PatternId == other.PatternId && CardSerial == other.CardSerial &&
-                   IsGameEndWin == other.IsGameEndWin;
+            return Name == other.Name &&
+                   PatternId == other.PatternId &&
+                   CardSerial == other.CardSerial &&
+                   IsGameEndWin == other.IsGameEndWin &&
+                   BallQuantity == other.BallQuantity &&
+                   PaytableId == other.PaytableId &&
+                   BitFlags == other.BitFlags &&
+                   WinIndex == other.WinIndex;
         }
     }
 }
