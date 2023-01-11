@@ -11552,7 +11552,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <comment>Aristocrat.Monaco.Bingo.UI</comment>
   </data>
   <data name="BingoDynamicHelpInvalidConfigurationHelp" xml:space="preserve">
-    <value>Ensure the EMG's help is installed on the Server.  Reboot the machine to reestablish communication.</value>
+    <value>Ensure the EGM's help is installed on the Server.  Reboot the machine to reestablish communication.</value>
     <comment>Aristocrat.Monaco.Bingo.UI</comment>
   </data>
   <data name="FirmwareCrcMismatchedEvent" xml:space="preserve">
