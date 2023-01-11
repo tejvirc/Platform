@@ -1,9 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
+    using System.Reflection;
     using Application.UI.OperatorMenu;
     using Cabinet.Contracts;
     using Hardware.Contracts.Cabinet;
     using Kernel;
+    using log4net;
 
     public class BackgroundPreviewViewModel : OperatorMenuSaveViewModelBase
     {
@@ -11,11 +13,16 @@
 
         public BackgroundPreviewViewModel()
         {
-            var displayDevice = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().GetDisplayDeviceByItsRole(DisplayRole.Main);
+            var cabinetService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
+            var displayDevice = cabinetService.GetDisplayDeviceByItsRole(DisplayRole.Main);
 
             if (displayDevice != null)
             {
                 BackgroundPreviewHeight = displayDevice.Bounds.Height * 0.75;
+            }
+            if (cabinetService.Type == CabinetType.MarsX)
+            {
+                BackgroundPreviewHeight /= 2;
             }
         }
 
