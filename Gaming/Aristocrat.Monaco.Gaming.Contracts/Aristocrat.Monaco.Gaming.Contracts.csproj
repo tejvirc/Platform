@@ -65,7 +65,7 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0003" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0007" />
     <PackageReference Include="Aristocrat.CryptoRng" Version="1.1.0" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />

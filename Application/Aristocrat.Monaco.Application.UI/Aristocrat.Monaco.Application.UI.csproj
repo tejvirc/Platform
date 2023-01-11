@@ -97,7 +97,7 @@
     <ProjectReference Include="..\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0003" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0007" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="2.0.0-beta0002" />
     <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
