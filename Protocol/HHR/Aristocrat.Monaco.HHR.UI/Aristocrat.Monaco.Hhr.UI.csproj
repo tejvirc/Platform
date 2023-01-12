@@ -93,7 +93,7 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0007" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
-    <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0012" />
+    <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />

@@ -60,7 +60,7 @@
     <ProjectReference Include="..\..\Test\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0012" />
+    <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0007" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="106.0.260" />
