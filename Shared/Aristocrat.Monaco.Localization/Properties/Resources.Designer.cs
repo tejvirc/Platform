@@ -2389,7 +2389,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Ensure the EMG's help is installed on the Server. ....
+		///   Looks up a localized string similar to Ensure the EGM's help is installed on the Server. ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Bingo.UI
@@ -36832,7 +36832,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Ensure the EMG's help is installed on the Server. ....
+		///		Looks up a localized string similar to Ensure the EGM's help is installed on the Server. ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Bingo.UI
@@ -70270,7 +70270,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BingoDynamicHelpInvalidConfiguration,
 		/// <summary>
-		///   Looks up a localized string similar to Ensure the EMG's help is installed on the Server. ....
+		///   Looks up a localized string similar to Ensure the EGM's help is installed on the Server. ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Bingo.UI
