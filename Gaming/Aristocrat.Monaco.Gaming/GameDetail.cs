@@ -130,6 +130,8 @@
 
         public int[] MechanicalReelHomeStops { get; set; }
 
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
         public GameCategory Category { get; set; }
 
         public GameSubCategory SubCategory { get; set; }

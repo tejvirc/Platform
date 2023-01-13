@@ -174,5 +174,10 @@
         ///     Gets or sets the supported game's feature like BetKeeper/LuckyChanceSpin
         /// </summary>
         public IEnumerable<Feature> Features { get; set; }
+
+        /// <summary>
+        ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
+        /// </summary>
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
     }
 }

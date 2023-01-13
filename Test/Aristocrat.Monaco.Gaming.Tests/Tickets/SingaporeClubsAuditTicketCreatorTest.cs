@@ -138,6 +138,8 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeStops { get; set; }
+
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
     }
 
     internal class TestDenomination : IDenomination

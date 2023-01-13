@@ -206,5 +206,10 @@
         ///     Gets or sets the mechanical reel home stops
         /// </summary>
         int[] MechanicalReelHomeStops { get; set; }
+
+        /// <summary>
+        ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
+        /// </summary>
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
     }
 }

@@ -1005,6 +1005,7 @@
                     gameDetail.Category = game.Category != null ? (GameCategory)game.Category : GameCategory.Undefined;
                     gameDetail.SubCategory = game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined;
                     gameDetail.Features = features;
+                    gameDetail.NextToMaxBetTopAwardMultiplier = game.NextToMaxBetTopAwardMultiplier;
 
                     _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
 

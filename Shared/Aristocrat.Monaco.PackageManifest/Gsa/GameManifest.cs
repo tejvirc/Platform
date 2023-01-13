@@ -108,7 +108,7 @@
             var activeLineOption = !string.IsNullOrEmpty(activeLineOptionName)
                 ? lineOptionList.FirstOrDefault(o => o.Name == activeLineOptionName)
                 : null;
-
+     
             var betLinePresetList = new BetLinePresetList(gameInfo.betLinePresetList, betOptionList, lineOptionList);
 
             // Verify that ActiveLineOption and ActiveBetOption pair are legal. If either of these
@@ -160,7 +160,8 @@
                     Name = feature.Name,
                     Enable = feature.Enabled,
                     StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
-                }).ToList()
+                }).ToList(),
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
             };
         }
 
