@@ -2567,7 +2567,7 @@
             var softLockupButNotRecovery = _systemDisableManager.IsDisabled && !_gameRecovery.IsRecovering;
             var singleGameAndAttract = _lobbyStateManager.AllowSingleGameAutoLaunch && _attractMode;
 
-            if (_systemDisableManager.IsDisabled ||
+            if (_systemDisableManager.DisableImmediately ||
                 (singleGameAndAttract || _gameLaunchOnStartup) &&
                 softLockupButNotRecovery)
             {
