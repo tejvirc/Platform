@@ -56,30 +56,6 @@ Please update the confluence page when new elements and attributes are added.
     </PrinterTemplateMappings>
   </Override>
 
-  <Override Protocol="JCM TCL" FirmwareBase="5REURAA21" UsePrinterDefinedTemplates="true" >
-    <AuditTickets PlatformTemplateIds="101 105" />
-
-    <Replacements>
-      <RegionTextReplace>
-        <TextReplace RegionId="106" Description="title" Replace="VOUCHER" With="TICKET" />
-      </RegionTextReplace>
-      <TextSplitForRegion>
-        <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
-        <Split RegionId="127" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
-        <Split RegionId="126" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
-        <Split RegionId="126" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
-      </TextSplitForRegion>
-    </Replacements>
-
-    <PrinterTemplateMappings>
-      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="0" Regions="107 121 122 135 106 120 107 1 2 124 115 0 114 0 118 125 117" />
-      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
-      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
-      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
-      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
-    </PrinterTemplateMappings>
-  </Override>
-
   <Override Protocol="JCM TCL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
     <AuditTickets PlatformTemplateIds="101 105" />
 
