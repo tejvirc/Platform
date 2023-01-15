@@ -75,7 +75,8 @@
                 _disableManager.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.GetString(ResourceKeys.ExcessiveMeterIncrementError, CultureProviderType.Player));
+                    ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player);
             }
         }
 
@@ -93,7 +94,8 @@
                 _disableManager.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.GetString(ResourceKeys.ExcessiveMeterIncrementError, CultureProviderType.Player));
+                    ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player);
                 _eventBus.Publish(new ExcessiveMeterIncrementEvent());
                 _propertiesManager.SetProperty(ApplicationConstants.ExcessiveMeterIncrementLockedKey, true);
             }

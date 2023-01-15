@@ -15,9 +15,11 @@
         ///     The message to be displayed when a 2E exception occurs.
         /// </summary>
         public static readonly IDisplayableMessage DisplayMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.GamePlaySuspended),
+            ResourceKeys.GamePlaySuspended,
+            CultureProviderType.Player,
             DisplayableMessageClassification.Informative,
             DisplayableMessagePriority.Immediate,
+            null,
             new Guid("{57F8929F-D843-4DBB-98D7-3DE335A5A33D}"));
     }
 }

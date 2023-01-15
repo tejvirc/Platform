@@ -17,27 +17,35 @@
     public class ProgressiveErrorProvider : IProgressiveErrorProvider, IService
     {
         private static readonly IDisplayableMessage UpdateTimeoutMessage = new DisplayableMessage(
-            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_ProgUpdateTimeout, CultureProviderType.Player),
+            ResourceKeys.ProgressiveFaultTypes_ProgUpdateTimeout,
+            CultureProviderType.Player,
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
+            null,
             ApplicationConstants.ProgressiveUpdateTimeoutGuid);
 
         private static readonly IDisplayableMessage DisconnectedErrorMessage = new DisplayableMessage(
-            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_ProgDisconnected, CultureProviderType.Player),
+            ResourceKeys.ProgressiveFaultTypes_ProgDisconnected,
+            CultureProviderType.Player,
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
+            null,
             ApplicationConstants.ProgressiveDisconnectErrorGuid);
 
         private static readonly IDisplayableMessage ClaimTimeoutErrorMessage = new DisplayableMessage(
-            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_ProgCommitTimeout, CultureProviderType.Player),
+            ResourceKeys.ProgressiveFaultTypes_ProgCommitTimeout,
+            CultureProviderType.Player,
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
+            null,
             ApplicationConstants.ProgressiveCommitTimeoutGuid);
 
         private static readonly IDisplayableMessage MinimumThresholdErrorMessage = new DisplayableMessage(
-            () => Localizer.GetString(ResourceKeys.ProgressiveFaultTypes_MinimumThresholdNotReached, CultureProviderType.Player),
+            ResourceKeys.ProgressiveFaultTypes_MinimumThresholdNotReached,
+            CultureProviderType.Player,
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
+            null,
             ApplicationConstants.MinimumThresholdErrorGuid);
 
         private readonly IGamePlayState _gamePlayState;
@@ -213,7 +221,7 @@
                     .ViewConfiguredProgressiveLevels(_gameHistory.CurrentLog.GameId, _gameHistory.CurrentLog.DenomId)
                     .Any(x => levels.Any(level => level.LevelName == x.LevelName))))
             {
-                _systemDisable.Disable(message.Id, SystemDisablePriority.Immediate, message.MessageCallback);
+                _systemDisable.Disable(message.Id, SystemDisablePriority.Immediate, message.MessageResourceKey, message.CultureProvider);
             }
             else if (!_systemDisable.CurrentDisableKeys.Contains(message.Id))
             {
@@ -273,7 +281,7 @@
                              levels.Any(
                                  linked => linked.LevelName == x.AssignedProgressiveId.AssignedProgressiveKey))))
             {
-                _systemDisable.Disable(message.Id, SystemDisablePriority.Immediate, message.MessageCallback);
+                _systemDisable.Disable(message.Id, SystemDisablePriority.Immediate, message.MessageResourceKey, message.CultureProvider);
             }
             else if (!_systemDisable.CurrentDisableKeys.Contains(message.Id))
             {

@@ -460,7 +460,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _disableManager.Disable(
                 ApplicationConstants.ReelCountMismatchDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelController_ReelMismatched),
+                ResourceKeys.ReelController_ReelMismatched,
+                CultureProviderType.Operator,
                 true,
                 () => Localizer.For(CultureFor.Operator).FormatString(
                     ResourceKeys.ConnectedReelsNeeded,

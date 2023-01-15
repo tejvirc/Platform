@@ -38,52 +38,52 @@ namespace Aristocrat.Monaco.Sas.Base
                 {
                     DisableState.DisabledByHost0, new DisableData(
                         ApplicationConstants.DisabledByHost0Key,
-                        () => Localizer.GetString(ResourceKeys.DisabledByHost0, CultureProviderType.Player))
+                        ResourceKeys.DisabledByHost0)
                 },
                 {
                     DisableState.DisabledByHost1, new DisableData(
                         ApplicationConstants.DisabledByHost1Key,
-                        () => Localizer.GetString(ResourceKeys.DisabledByHost1, CultureProviderType.Player))
+                        ResourceKeys.DisabledByHost1)
                 },
                 {
                     DisableState.Host0CommunicationsOffline, new DisableData(
                         ApplicationConstants.Host0CommunicationsOfflineDisableKey,
-                        () => Localizer.GetString(ResourceKeys.DisabledHost0CommunicationsOffline, CultureProviderType.Player))
+                        ResourceKeys.DisabledHost0CommunicationsOffline)
                 },
                 {
                     DisableState.Host1CommunicationsOffline, new DisableData(
                         ApplicationConstants.Host1CommunicationsOfflineDisableKey,
-                        () => Localizer.GetString(ResourceKeys.DisabledHost1CommunicationsOffline, CultureProviderType.Player))
+                        ResourceKeys.DisabledHost1CommunicationsOffline)
                 },
                 {
                     DisableState.MaintenanceMode, new DisableData(
                         MaintenanceModeGuid,
-                        () => Localizer.GetString(ResourceKeys.DisabledMaintenanceMode, CultureProviderType.Player))
+                        ResourceKeys.DisabledMaintenanceMode)
                 },
                 {
                     DisableState.ValidationIdNeeded, new DisableData(
                         ApplicationConstants.ValidationIdNeededGuid,
-                        () => Localizer.GetString(ResourceKeys.DisabledValidationIdNeeded, CultureProviderType.Player))
+                        ResourceKeys.DisabledValidationIdNeeded)
                 },
                 {
                     DisableState.ProgressivesNotSupported, new DisableData(
                         ProgressivesNotSupportedGuid,
-                        () => Localizer.GetString(ResourceKeys.DisabledProgressivesNotSupported, CultureProviderType.Player))
+                        ResourceKeys.DisabledProgressivesNotSupported)
                 },
                 {
                     DisableState.ValidationQueueFull, new DisableData(
                         ValidationQueueFullGuid,
-                        () => Localizer.GetString(ResourceKeys.DisbaledValidationQueueFull, CultureProviderType.Player))
+                        ResourceKeys.DisbaledValidationQueueFull)
                 },
                 {
                     DisableState.PowerUpDisabledByHost0, new DisableData(
                         PowerUpDisabledGuidHost0,
-                        () => Localizer.GetString(ResourceKeys.PowerUpDisabledByHost0, CultureProviderType.Player))
+                        ResourceKeys.PowerUpDisabledByHost0)
                 },
                 {
                     DisableState.PowerUpDisabledByHost1, new DisableData(
                         PowerUpDisabledGuidHost1,
-                        () => Localizer.GetString(ResourceKeys.PowerUpDisabledByHost1, CultureProviderType.Player))
+                        ResourceKeys.PowerUpDisabledByHost1)
                 }
             };
 
@@ -248,9 +248,11 @@ namespace Aristocrat.Monaco.Sas.Base
                 var disableData = DisableDataDictionary[state];
                 _messageDisplay.DisplayMessage(
                     new DisplayableMessage(
-                        disableData.Message,
+                        disableData.MessageResourceKey,
+                        CultureProviderType.Player,
                         DisplayableMessageClassification.SoftError,
                         DisplayableMessagePriority.Normal,
+                        null,
                         disableData.DisableGuid));
                 SasSoftErrorState |= state;
             }
@@ -363,9 +365,9 @@ namespace Aristocrat.Monaco.Sas.Base
         {
             var data = DisableDataDictionary[state];
             Logger.Debug(
-                $"Requesting the disable with state={state} guid={data.DisableGuid} reason={data.Message} priority={priority}");
+                $"Requesting the disable with state={state} guid={data.DisableGuid} reason={Localizer.GetString(data.MessageResourceKey)} priority={priority}");
 
-            _systemDisableManager.Disable(data.DisableGuid, priority, data.Message);
+            _systemDisableManager.Disable(data.DisableGuid, priority, data.MessageResourceKey, CultureProviderType.Player);
             SetDisableState(state);
             CheckForceCashOut();
         }
@@ -429,16 +431,16 @@ namespace Aristocrat.Monaco.Sas.Base
             ///     Initializes a new instance of the DisableData class.
             /// </summary>
             /// <param name="guid">The guid used when disabling/enabling</param>
-            /// <param name="message">The message to display on screen when disabled</param>
-            public DisableData(Guid guid, Func<string> message)
+            /// <param name="messageKey">The message to display on screen when disabled</param>
+            public DisableData(Guid guid, string messageKey)
             {
                 DisableGuid = guid;
-                Message = message;
+                MessageResourceKey = messageKey;
             }
 
             public Guid DisableGuid { get; }
 
-            public Func<string> Message { get; }
+            public string MessageResourceKey { get; }
         }
     }
 }

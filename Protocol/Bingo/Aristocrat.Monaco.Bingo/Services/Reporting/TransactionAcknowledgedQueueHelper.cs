@@ -10,6 +10,7 @@
     using Common.Storage.Model;
     using Hardware.Contracts;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Protocol.Common.Storage.Entity;
 
@@ -61,7 +62,8 @@
             _systemDisableManager.Disable(
                 BingoConstants.TransactionQueueDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.TransactionReportingQueueAlmostFull));
+                ResourceKeys.TransactionReportingQueueAlmostFull,
+                CultureProviderType.Player);
         }
 
         public void AlmostFullClear()

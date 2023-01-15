@@ -187,7 +187,8 @@
                 _systemDisableManager.Disable(
                     ApplicationConstants.OperatorResetRequiredDisableKey,
                     priority,
-                    () => Localizer.GetString(ResourceKeys.OperatorResetRequiredMessage, CultureProviderType.Player));
+                    ResourceKeys.OperatorResetRequiredMessage,
+                    CultureProviderType.Player);
                 _operatorResetLockupActive = true;
             }
         }

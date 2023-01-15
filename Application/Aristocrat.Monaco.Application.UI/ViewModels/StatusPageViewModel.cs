@@ -250,7 +250,15 @@
                         }
                         else
                         {
-                            DisableReasons.Add(new StatusMessage(displayableMessage, additionalInfo));
+                            IDisplayableMessage newMessage = displayableMessage;
+                            if (displayableMessage.CultureProvider != CultureProviderType.Operator)
+                            {
+                                // if the display message's culture provider is not operator, we need to create
+                                // a new copy of message to use operator provider as Audit menu always uses operator provider.
+                                newMessage = displayableMessage.DeepClone();
+                                newMessage.CultureProvider = CultureProviderType.Operator;
+                            }
+                            DisableReasons.Add(new StatusMessage(newMessage, additionalInfo));
                         }
                     });
 
@@ -301,7 +309,7 @@
 
         protected override void OnLoaded()
         {
-            MessageDisplay.AddMessageDisplayHandler(this);
+            MessageDisplay.AddMessageDisplayHandler(this, CultureProviderType.Operator);
             if (DisableByOperatorManager.DisabledByOperator)
             {
                 InputStatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfServiceReason);

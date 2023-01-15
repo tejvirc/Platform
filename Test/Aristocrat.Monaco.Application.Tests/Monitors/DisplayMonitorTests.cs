@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Application.Monitors;
+    using Kernel.Contracts.MessageDisplay;
     using Cabinet.Contracts;
     using Contracts;
     using Hardware.Contracts.ButtonDeck;
@@ -328,7 +329,7 @@
             const int deviceIndex = 1;
             var device = _touchDeviceMocks.Skip(deviceIndex).First();
             _disableManager.Setup(m => m.CurrentDisableKeys).Returns(_disabledDevices);
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
             TestBootUpDeviceDisconnect(
                 () =>
@@ -452,7 +453,7 @@
             SetupPersistence();
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
             _disableManager.Setup(m => m.CurrentDisableKeys).Returns(_disabledDevices);
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
 
             var dm = new DisplayMonitor(
                 _eventBus.Object,
@@ -555,8 +556,9 @@
                 y => y.Disable(
                     lockupKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null));
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>()));
             deviceMocks.ForEach(
                 x =>
                 {
@@ -574,8 +576,9 @@
                 y => y.Disable(
                     lockupKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>()),
                 Times.Exactly(1));
         }
 
@@ -607,8 +610,9 @@
                 x => x.Disable(
                     disableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null));
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>()));
         }
 
         private void SetupDeviceDisconnectNoDisable<TEvent, TDevice>(

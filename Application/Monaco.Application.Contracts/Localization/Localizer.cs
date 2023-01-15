@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.Localization
 {
+    using System;
     using Kernel;
     using Kernel.Contracts.MessageDisplay;
 
@@ -28,5 +29,12 @@
         /// will be the default value.
         /// </summary>
         public static string GetString(string key, CultureProviderType providerType=CultureProviderType.Operator) => For(providerType.ToString()).GetString(key);
+
+        /// <summary>
+        ///     Get the localized message from the resource file according to the key and
+        /// the culture provider name, if culture provider name is left empty, CultureFor.Operator
+        /// will be the default value.
+        /// </summary>
+        public static string GetString(string key, CultureProviderType providerType, Action<Exception> exceptionHandler) => For(providerType.ToString()).GetString(key, exceptionHandler);
     }
 }

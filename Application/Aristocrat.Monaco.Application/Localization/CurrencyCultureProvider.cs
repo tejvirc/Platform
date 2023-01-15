@@ -15,6 +15,7 @@
     using Helpers;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -218,9 +219,9 @@
                         _disableManager.Disable(
                             CurrencyIsoInvalidDisableKey,
                             SystemDisablePriority.Immediate,
-                            () => Localizer.For(CultureFor.Operator).FormatString(
-                                ResourceKeys.InvalidNoteAcceptorFirmware,
-                                foundCurrencySymbol));
+                            ResourceKeys.InvalidNoteAcceptorFirmware,
+                            CultureProviderType.Operator,
+                            new object[] {foundCurrencySymbol});
                         return currencyCode;
                     }
                 }

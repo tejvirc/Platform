@@ -28,9 +28,9 @@
         DisplayableMessagePriority Priority { get; }
 
         /// <summary>
-        ///     Gets the message culture provider
+        ///     Gets or sets the message culture provider
         /// </summary>
-        CultureProviderType CultureProvider { get; }
+        CultureProviderType CultureProvider { get; set; }
 
         /// <summary>
         ///     Gets the event that was the reason for this message
@@ -58,6 +58,16 @@
         ///     The resource key of the message
         /// </summary>
         string MessageResourceKey { get; set; }
+
+        /// <summary>
+        ///     The parameters for the message
+        /// </summary>
+        object[] Params { get; set; }
+
+        /// <summary>
+        ///     The exception handler if message can't be retrieved from resources
+        /// </summary>
+        Action<Exception> ExceptionHandler { get; }
 
         /// <summary>
         /// IsMessageEquivalent checks to see if the IDisplayableMessage if the fields of the passed in IDisplayableMessage are

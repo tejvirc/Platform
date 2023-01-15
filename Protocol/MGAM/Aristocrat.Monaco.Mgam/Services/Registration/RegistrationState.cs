@@ -22,6 +22,7 @@
     using Gaming.Contracts.Events.OperatorMenu;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Lockup;
     using Monaco.Common;
@@ -537,8 +538,8 @@
                 _disableManager.Disable(
                         MgamConstants.RegistrationFailedDisabledKey,
                         SystemDisablePriority.Immediate,
-                        () =>
-                            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RegistrationFailed));
+                        ResourceKeys.RegistrationFailed,
+                        CultureProviderType.Operator);
             }
         }
 
@@ -652,7 +653,8 @@
             _disableManager.Disable(
                     MgamConstants.ConfiguringGamesGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConfiguringGames));
+                    ResourceKeys.ConfiguringGames,
+                    CultureProviderType.Operator);
         }
 
         private async Task ReadyToPlay()

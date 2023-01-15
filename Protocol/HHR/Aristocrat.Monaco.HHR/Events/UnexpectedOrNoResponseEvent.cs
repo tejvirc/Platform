@@ -3,6 +3,8 @@
     using Client.WorkFlow;
     using Kernel;
     using System.Globalization;
+    using Application.Contracts.Localization;
+
     public class UnexpectedOrNoResponseEvent : BaseEvent
     {
         public UnexpectedOrNoResponseEvent(IRequestTimeout requestTimeout) => _requestTimeout = requestTimeout;
@@ -14,7 +16,7 @@
             return _requestTimeout is LockupRequestTimeout lockupRequestTimeout
                 ? string.Format(
                     CultureInfo.InvariantCulture,
-                    $"{GetType().Name} ({lockupRequestTimeout.LockupString})")
+                    $"{GetType().Name} ({Localizer.GetString(lockupRequestTimeout.LockupStringResouceKey)})")
                 : GetType().Name;
         }
     }

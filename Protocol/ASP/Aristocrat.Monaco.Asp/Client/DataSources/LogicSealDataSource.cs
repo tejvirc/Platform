@@ -10,6 +10,7 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Extensions;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     public class LogicSealDataSource : ILogicSealDataSource, IDataSource
@@ -106,13 +107,16 @@
             {
                 if (LogicSealStatusCode == LogicSealStatusEnum.Broken)
                 {
-                    _systemDisableManager.Disable(ApplicationConstants.LogicSealBrokenKey, SystemDisablePriority.Immediate, () => GetResourceString(ResourceKeys.LogicSealIsBroken));
+                    _systemDisableManager.Disable(ApplicationConstants.LogicSealBrokenKey, SystemDisablePriority.Immediate,
+                        ResourceKeys.LogicSealIsBroken, CultureProviderType.Operator);
                 }
 
                 // The door open event would invalidate the seal and increment the counter (i.e. open event and previously sealed)
                 else if (LogicSealStatusCode == LogicSealStatusEnum.Sealed && !IsLogicDoorClosed)
                 {
-                    _systemDisableManager.Disable(ApplicationConstants.LogicSealBrokenKey, SystemDisablePriority.Immediate, () => GetResourceString(ResourceKeys.LogicSealIsBroken));
+                    _systemDisableManager.Disable(ApplicationConstants.LogicSealBrokenKey, SystemDisablePriority.Immediate,
+                        ResourceKeys.LogicSealIsBroken,
+                        CultureProviderType.Operator);
 
                     PersistSealStatus(LogicSealStatusEnum.Broken, LogicDoorSealBrokenCount + 1);
 

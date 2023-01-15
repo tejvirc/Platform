@@ -147,7 +147,8 @@
                     _ => _disableManager.Disable(
                         ApplicationConstants.DisplayDisconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.GetString(ResourceKeys.DisplayDisconnected))
+                        ResourceKeys.DisplayDisconnected,
+                        CultureProviderType.Operator)
                 );
 
                 CheckDevicesCount();
@@ -343,7 +344,8 @@
                     _disableManager.Disable(
                         ApplicationConstants.TouchDisplayReconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.GetString(ResourceKeys.TouchDisplayReconnected));
+                        ResourceKeys.TouchDisplayReconnected,
+                        CultureProviderType.Operator);
                 }
                 // TouchDisplayDisconnected lockup is enabled when any touch displays are disconnected.
                 else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.TouchDisplayReconnectedLockupKey) && !allConnected)
@@ -425,7 +427,7 @@
             }
         }
 
-        private void HandleStatusChange(bool oldStatus, bool newStatus, Guid disableKey, string resource)
+        private void HandleStatusChange(bool oldStatus, bool newStatus, Guid disableKey, string resourceKey)
         {
             _eventBus.Publish(new DisplayMonitorStatusChangeEvent());
 
@@ -436,16 +438,17 @@
 
             if (newStatus)
             {
-                Logger.Debug($"Enabling {disableKey} reason key {resource}.");
+                Logger.Debug($"Enabling {disableKey} reason key {resourceKey}.");
                 _disableManager.Enable(disableKey);
             }
             else
             {
-                Logger.Debug($"Disabling {disableKey} reason key {resource}.");
+                Logger.Debug($"Disabling {disableKey} reason key {resourceKey}.");
                 _disableManager.Disable(
                     disableKey,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.GetString(resource));
+                    resourceKey,
+                    CultureProviderType.Operator);
             }
         }
 

@@ -75,7 +75,8 @@
                 _systemDisableManager.Disable(
                     ProgressiveLinkDownGuid,
                     SystemDisablePriority.Normal,
-                    () => Localizer.GetString(ResourceKeys.ProgressiveDisconnectText, CultureProviderType.Player));
+                    ResourceKeys.ProgressiveDisconnectText,
+                    CultureProviderType.Player);
             }
 
             _eventBus.Publish(new LinkStatusChangedEvent(IsLinkUp));

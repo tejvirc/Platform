@@ -1329,7 +1329,9 @@
                         _disableManager.Disable(
                             ApplicationConstants.NoGamesEnabledDisableKey,
                             SystemDisablePriority.Normal,
-                            () => Localizer.GetString(ResourceKeys.AllGamesDisabled, CultureProviderType.Player),
+                            //() => Localizer.GetString(ResourceKeys.AllGamesDisabled, CultureProviderType.Player),
+                            ResourceKeys.AllGamesDisabled,
+                            CultureProviderType.Player,
                             false);
                     }
                 }

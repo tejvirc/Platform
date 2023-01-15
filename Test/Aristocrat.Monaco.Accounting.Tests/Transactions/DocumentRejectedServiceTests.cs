@@ -15,6 +15,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Aristocrat.Monaco.Localization.Properties;
 
     [TestClass()]
     public class DocumentRejectedServiceTests
@@ -133,7 +134,7 @@
             else
             {
                 SetupForHardLockup();
-                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
             }
             CreateTarget();
 
@@ -164,7 +165,7 @@
             SetupForHardLockup();
             CreateTarget();
 
-            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
             _systemDisableManager.Setup(m => m.Enable(It.IsAny<Guid>()))
                 .Throws(new Exception("Shouldn't clear lockup on Voucher redeemed event"));
 
@@ -187,7 +188,7 @@
             SetupForHardLockup();
             CreateTarget();
 
-            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
             _systemDisableManager.Setup(m => m.Enable(It.IsAny<Guid>()))
                 .Throws(new Exception("Shouldn't clear lockup on Valid currency in event"));
 
@@ -218,12 +219,11 @@
                 SetupForSoftLockup();
                 MockMessageDisplay(true, ReasonText);
                 MockMessageDisplay(false, ReasonText);
-
             }
             else
             {
                 SetupForHardLockup();
-                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
                 MockDisableManager(false, ApplicationConstants.ExcessiveDocumentRejectGuid);
             }
             CreateTarget();
@@ -257,7 +257,7 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ExcessiveDocumentRejectResetMethodKey, It.IsAny<object>())).Returns(resetMethodKey);
 
             SetupForHardLockup();
-            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
             MockDisableManager(false, ApplicationConstants.ExcessiveDocumentRejectGuid);
             CreateTarget();
 
@@ -269,8 +269,8 @@
                 _currencyInCompletedEvent(new CurrencyInCompletedEvent(0));
             }
 
-            Assert.AreEqual(_displayedMessages.Count, 1);
-            Assert.AreEqual(_displayedMessages[0], ReasonText);
+            Assert.AreEqual(1, _displayedMessages.Count);
+            Assert.AreEqual(ReasonText, _displayedMessages[0]);
 
             //If MainDoor then verify lockup is reset
             switch (resetMethodKey)
@@ -357,8 +357,8 @@
                         m => m.Disable(
                             It.IsAny<Guid>(),
                             SystemDisablePriority.Immediate,
-                            It.IsAny<Func<string>>(),
-                            null))
+                            ResourceKeys.ExcessiveDocumentRejectMessage,
+                            CultureProviderType.Operator))
                     .Throws(new Exception("Shouldn't create lockup if Max rejections are not in succession"));
             }
             
@@ -399,7 +399,7 @@
             else
             {
                 SetupForHardLockup();
-                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
             }
             
             CreateTarget();
@@ -453,7 +453,7 @@
             SetupForHardLockup();
             CreateTarget();
 
-            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
             _systemDisableManager.Setup(m => m.Enable(It.IsAny<Guid>()))
                 .Throws(new Exception("Shouldn't clear lockup on Voucher redeemed event"));
 
@@ -487,7 +487,7 @@
             else
             {
                 SetupForHardLockup();
-                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+                MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
                 MockDisableManager(false, ApplicationConstants.ExcessiveDocumentRejectGuid);
             }
             
@@ -540,7 +540,7 @@
             SetupForHardLockup();
             CreateTarget();
 
-            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
 
             _systemDisableManager.Setup(
                 m => m.Enable(
@@ -581,8 +581,8 @@
                         m => m.Disable(
                             It.IsAny<Guid>(),
                             SystemDisablePriority.Immediate,
-                            It.IsAny<Func<string>>(),
-                            null))
+                            ResourceKeys.ExcessiveDocumentRejectMessage,
+                            CultureProviderType.Operator))
                     .Throws(new Exception("Shouldn't create lockup if Max rejections are not in succession"));
             }
             
@@ -641,7 +641,7 @@
             SetupForHardLockup();
             CreateTarget();
 
-            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
 
             // Send bill reject once
             _currencyInCompletedEvent(new CurrencyInCompletedEvent(0));
@@ -688,7 +688,7 @@
             SetupForHardLockup();
             CreateTarget();
 
-            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
+            MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ExcessiveDocumentRejectMessage, ReasonText);
 
             _systemDisableManager.Setup(
                     m => m.Enable(
@@ -713,6 +713,7 @@
         private void MockDisableManager(
             bool disable,
             Guid disableGuid,
+            string resourceKey = null,
             string msg = "")
         {
             if (disable)
@@ -720,20 +721,16 @@
                 if (!string.IsNullOrEmpty(disableGuid.ToString()) && !string.IsNullOrEmpty(msg))
                 {
                     _systemDisableManager.Setup(
-                        m => m.Disable(
-                            disableGuid,
-                            SystemDisablePriority.Immediate,
-                            It.Is<Func<string>>(x => x.Invoke() == msg),
-                            null))
-                        .Callback(
-                            (
-                                Guid enableKey,
-                                SystemDisablePriority priority,
-                                Func<string> disableReason,
-                                Type type) =>
+                       m => m.Disable(
+                           disableGuid,
+                           SystemDisablePriority.Immediate,
+                           resourceKey,
+                           CultureProviderType.Operator))
+                       .Callback(
+                            () =>
                             {
-                                _displayedMessages.Add(disableReason.Invoke());
-                                _enableImmediateKeys.Add(enableKey);
+                                _displayedMessages.Add(msg);
+                                _enableImmediateKeys.Add(disableGuid);
                             })
                         .Verifiable();
                 }
@@ -762,7 +759,7 @@
                     _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>())).Callback(
                          (IDisplayableMessage message) =>
                          {
-                             _displayedMessages.Add(message.Message);
+                             _displayedMessages.Add(msg);
                          }).Verifiable();
                 }
             }
@@ -771,7 +768,7 @@
                 if (!string.IsNullOrEmpty(msg))
                 {
                     _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()))
-                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.Message); })
+                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(msg); })
                         .Verifiable();
                 }
             }

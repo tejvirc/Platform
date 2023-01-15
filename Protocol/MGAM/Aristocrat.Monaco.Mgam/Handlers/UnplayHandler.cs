@@ -73,8 +73,8 @@
                 _disableManager.Disable(
                     MgamConstants.GamePlayDisabledKey,
                     SystemDisablePriority.Normal,
-                    () =>
-                        Localizer.GetString(ResourceKeys.DisabledByHost, CultureProviderType.Player));
+                    ResourceKeys.DisabledByHost,
+                    CultureProviderType.Player);
             }
 
             _eventBus.Publish(new UnplayEvent());

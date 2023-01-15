@@ -14,6 +14,7 @@
     using Common.Events;
     using Common.Exceptions;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using Monaco.Common;
@@ -273,7 +274,8 @@
             _systemDisable.Disable(
                 BingoConstants.BingoHostRegistrationFailedKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoHostRegistrationFailed),
+                ResourceKeys.BingoHostRegistrationFailed,
+                CultureProviderType.Operator,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoHostRegistrationFailedHelp));
         }
@@ -298,7 +300,8 @@
             _systemDisable.Disable(
                 BingoConstants.BingoHostConfigurationInvalidKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoInvalidConfiguration),
+                ResourceKeys.BingoInvalidConfiguration,
+                CultureProviderType.Operator,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoInvalidConfigurationHelp));
         }
@@ -309,8 +312,8 @@
             _systemDisable.Disable(
                 BingoConstants.BingoHostConfigurationMismatchKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator)
-                    .GetString(ResourceKeys.BingoConfigurationChangeNVRamClearRequired),
+                ResourceKeys.BingoConfigurationChangeNVRamClearRequired,
+                CultureProviderType.Operator,
                 true,
                 () => Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.BingoConfigurationChangeNVRamClearRequiredHelp));
@@ -355,7 +358,8 @@
             _systemDisable.Disable(
                 BingoConstants.BingoHostDisconnectedKey,
                 SystemDisablePriority.Normal,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoHostDisconnected),
+                ResourceKeys.BingoHostDisconnected,
+                CultureProviderType.Operator,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoHostDisconnectedHelp));
 

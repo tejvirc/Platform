@@ -17,6 +17,7 @@
     using Handlers;
     using Hardware.Contracts.Audio;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using PlayerTracking;
 
@@ -176,7 +177,7 @@
                 }
 
                 _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DropMode));
+                    ResourceKeys.DropMode, CultureProviderType.Operator);
             }
             else
             {

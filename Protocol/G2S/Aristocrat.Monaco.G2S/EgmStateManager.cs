@@ -9,6 +9,7 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     /// <summary>
@@ -119,26 +120,35 @@
                 throw new ArgumentException(@"The Enabled state cannot be specified.", nameof(state));
             }
 
-            if (string.IsNullOrEmpty(message?.Invoke()))
-            {
-                message = () => 
-                    Localizer.For(CultureFor.Player).FormatString(ResourceKeys.DisabledByDevice,
-                    device.DeviceClass,
-                    device.Id);
-            }
-
             Func<string> helpTextCallback = null;
             if (device is ICabinetDevice && state == EgmState.HostDisabled)
             {
                 helpTextCallback = () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoG2SHostDisabled);
             }
 
-            _disableManager.Disable(
-                disableKey,
-                immediate ? SystemDisablePriority.Immediate : SystemDisablePriority.Normal,
-                message,
-                affectsIdleState,
-                helpTextCallback);
+            if (string.IsNullOrEmpty(message?.Invoke()))
+            {
+                var msgResourceKey = ResourceKeys.DisabledByDevice;
+                var msgParams = new object[] { device.DeviceClass, device.Id };
+                _disableManager.Disable(
+                    disableKey,
+                    immediate ? SystemDisablePriority.Immediate : SystemDisablePriority.Normal,
+                    msgResourceKey,
+                    CultureProviderType.Player,
+                    affectsIdleState,
+                    helpTextCallback,
+                    null,
+                    msgParams);
+            }
+            else
+            {
+                _disableManager.Disable(
+                    disableKey,
+                    immediate ? SystemDisablePriority.Immediate : SystemDisablePriority.Normal,
+                    message,
+                    affectsIdleState,
+                    helpTextCallback);
+            }
 
             _trackedStates.TryAdd(disableKey, state);
 

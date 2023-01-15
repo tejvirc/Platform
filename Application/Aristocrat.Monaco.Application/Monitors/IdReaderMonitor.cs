@@ -35,7 +35,11 @@
             _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
 
-            _disconnectedMessage = new DisplayableMessage(DisconnectedMessageCallback, DisplayableMessageClassification.SoftError, DisplayableMessagePriority.Immediate);
+            _disconnectedMessage = new DisplayableMessage(
+                ResourceKeys.IdReaderDisconnected,
+                CultureProviderType.Operator,
+                DisplayableMessageClassification.SoftError,
+                DisplayableMessagePriority.Immediate);
         }
 
         public IdReaderMonitor()
@@ -45,7 +49,10 @@
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _messageDisplay = ServiceManager.GetInstance().GetService<IMessageDisplay>();
 
-            _disconnectedMessage = new DisplayableMessage(DisconnectedMessageCallback, DisplayableMessageClassification.SoftError, DisplayableMessagePriority.Immediate);
+            _disconnectedMessage = new DisplayableMessage(
+                ResourceKeys.IdReaderDisconnected,
+                CultureProviderType.Operator,
+                DisplayableMessageClassification.SoftError, DisplayableMessagePriority.Immediate);
         }
 
         /// <inheritdoc />
@@ -137,14 +144,11 @@
 
             _disconnectedReaderGuid = disconnectedId;
 
-            _systemDisableManager.Disable(disconnectedId, SystemDisablePriority.Normal, DisconnectedMessageCallback);
+            _systemDisableManager.Disable(disconnectedId, SystemDisablePriority.Normal,
+                ResourceKeys.IdReaderDisconnected,
+                CultureProviderType.Operator);
 
             _messageDisplay.DisplayMessage(_disconnectedMessage);
-        }
-
-        private static string DisconnectedMessageCallback()
-        {
-            return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdReaderDisconnected);
         }
 
         private void RemoveDisableMessage()

@@ -9,6 +9,7 @@
     using Contracts.Localization;
     using Hardware.Contracts.Audio;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
     using Util;
@@ -132,7 +133,8 @@
                 _disabled = true;
 
                 _disableManager.Disable(LockupId, SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DiskSpaceBelowThresholdMessage));
+                    ResourceKeys.DiskSpaceBelowThresholdMessage,
+                    CultureProviderType.Operator);
 
                 PlayErrorSound();
 

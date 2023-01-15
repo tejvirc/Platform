@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Common;
     using Contracts.MessageDisplay;
     using Contracts.ErrorMessage;
     using log4net;
@@ -27,10 +28,12 @@
         private Collection<IDisplayableMessage> _messages = new Collection<IDisplayableMessage>();
         private List<ObservedMessage> _observedMessages = new List<ObservedMessage>();
         private IEventBus _eventBus;
+        //private Dictionary<IMessageDisplayHandler, List<IDisplayableMessage>> clonedMessagesForHandler = new();
         private IErrorMessageMapping _mapping;
         private readonly object _messageLock = new object();
 
         private bool _disposed;
+
 
         /// <inheritdoc />
         public void Dispose()
@@ -40,7 +43,7 @@
         }
 
         /// <inheritdoc />
-        public void AddMessageDisplayHandler(IMessageDisplayHandler handler, bool displayPreviousMessages = true)
+        public void AddMessageDisplayHandler(IMessageDisplayHandler handler, CultureProviderType? providerType = null, bool displayPreviousMessages = true)
         {
             if (!_handlers.Contains(handler))
             {
@@ -370,6 +373,18 @@
             }
 
             Logger.Debug("Initialized");
+        }
+
+        /// <inheritdoc />
+        public void RefreshMessages()
+        {
+            //lock (_messageLock)
+            //{
+            //    foreach (var message in _messages.ToList())
+            //    {
+            //        message.CultureProvider 
+            //    }
+            //}
         }
 
         /// <summary>

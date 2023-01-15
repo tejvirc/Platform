@@ -222,7 +222,8 @@
                 _disableManager.Disable(
                     ApplicationConstants.EKeyVerifiedDisableKey,
                     SystemDisablePriority.Normal,
-                    () => Localizer.GetString(ResourceKeys.EKeyDetected, CultureProviderType.Player));
+                    ResourceKeys.EKeyDetected,
+                    CultureProviderType.Player);
             }
             else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.EKeyVerifiedDisableKey))
             {

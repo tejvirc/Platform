@@ -53,7 +53,9 @@
             _disableManager.Disable(
                 MgamConstants.HostOfflineGuid,
                 SystemDisablePriority.Normal,
-                () => $"{Localizer.GetString(ResourceKeys.HostDisconnected, CultureProviderType.Player)} {_timeService.GetLocationTime(@event.Timestamp)}");
+                ResourceKeys.HostDisconnectedWithTimeStamp,
+                CultureProviderType.Player,
+                _timeService.GetLocationTime(@event.Timestamp));
 
             if (_gamePlayStateService.Idle)
             {

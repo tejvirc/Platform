@@ -27,7 +27,7 @@
     [TestClass]
     public class ReelControllerMonitorTests
     {
-        private const int WaitTIme = 1000;
+        private const int WaitTime = 1000;
 
         private ReelControllerMonitor _target;
         private Mock<IEventBus> _eventBus;
@@ -562,7 +562,7 @@
                 .Callback(() => waiter.Set());
 
             CreateTarget();
-            Assert.IsTrue(waiter.WaitOne(WaitTIme));
+            Assert.IsTrue(waiter.WaitOne(WaitTime));
             _disable.Verify(
                 x => x.Disable(
                 ApplicationConstants.ReelCountMismatchDisableKey,
@@ -1004,7 +1004,7 @@
             }
 
             CreateTarget();
-            Assert.IsTrue(waiter.WaitOne(WaitTIme));
+            Assert.IsTrue(waiter.WaitOne(WaitTime));
         }
 
         private ReelControllerMonitor CreateTarget(

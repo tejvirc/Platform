@@ -8,6 +8,7 @@
     using Contracts.OperatorMenu;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Monaco.Localization.Properties;
 
     /// <summary>
@@ -100,8 +101,11 @@
             if (!_isLockedUp && _isKeyInEgm)
             {
                 _isLockedUp = true;
-                _disableManager.Disable(ApplicationConstants.OperatorKeyNotRemovedDisableKey, SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyLeftInEgmLockupMessage));
+                _disableManager.Disable(
+                    ApplicationConstants.OperatorKeyNotRemovedDisableKey,
+                    SystemDisablePriority.Normal,
+                    ResourceKeys.KeyLeftInEgmLockupMessage,
+                    CultureProviderType.Operator);
             }
         }
 

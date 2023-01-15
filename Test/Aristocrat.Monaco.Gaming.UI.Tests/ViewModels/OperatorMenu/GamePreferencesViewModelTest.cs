@@ -11,6 +11,9 @@
     using Test.Common;
     using UI.ViewModels.OperatorMenu;
     using Aristocrat.Monaco.Gaming.Progressives;
+    using System.Globalization;
+    using SimpleInjector;
+    using Gaming.Contracts.Lobby;
 
     [TestClass]
     public class GamePreferencesViewModelTest
@@ -18,8 +21,11 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IGameProvider> _gameProvider;
         private Mock<ILocalizerFactory> _localizerFactory;
+        private Mock<ILocalization> _localization;
         private Mock<IContainerService> _containerService;
+        private Mock<ILobbyStateManager> _lobbyStateManager = new Mock<ILobbyStateManager>(MockBehavior.Default);
         private Mock<IProgressiveConfigurationProvider> _progressiveConfig;
+        private Container _container;
 
         [TestInitialize]
         public virtual void TestInitialize()
@@ -30,13 +36,37 @@
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _containerService = MoqServiceManager.CreateAndAddService<IContainerService>(MockBehavior.Loose);
             _progressiveConfig = MoqServiceManager.CreateAndAddService<IProgressiveConfigurationProvider>(MockBehavior.Loose);
+            _localization = MoqServiceManager.CreateAndAddService<ILocalization>(MockBehavior.Strict);
 
             _gameProvider.Setup(g => g.GetGame(It.IsAny<int>())).Returns((IGameDetail)null);
             _gameProvider.Setup(g => g.GetAllGames()).Returns(new List<IGameDetail>());
             _gameProvider.Setup(g => g.GetEnabledGames()).Returns(new List<IGameDetail>());
 
             _localizerFactory.Setup(m => m.For(It.IsAny<string>())).Returns(new Mock<ILocalizer>().Object);
-            
+
+            _container = new Container();
+            _container.Register(() => _gameProvider.Object, Lifestyle.Singleton);
+            _container.Register(() => _lobbyStateManager.Object, Lifestyle.Singleton);
+
+            _containerService.SetupGet(c => c.Container).Returns(_container);
+
+            var playerCultureProvider = new Mock<IPlayerCultureProvider>();
+            playerCultureProvider.SetupGet(p => p.AvailableCultures).Returns(new List<CultureInfo>()
+            {
+                new CultureInfo("en-US")
+            });
+            playerCultureProvider.SetupGet(p => p.LanguageOptions).Returns(new List<LanguageOption>()
+            {
+                new LanguageOption()
+                {
+                    Locale = "en-US",
+                    Enabled = true,
+                    IsMandatory = true
+                }
+            });
+
+            _localization.Setup(l => l.GetProvider(It.IsAny<string>())).Returns(playerCultureProvider.Object);
+
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
                 .Returns<string, object>((s, o) => o);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.AttractModeEnabled, It.IsAny<bool>()))

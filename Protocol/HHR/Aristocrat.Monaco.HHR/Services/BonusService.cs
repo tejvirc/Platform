@@ -11,6 +11,7 @@
     using Gaming.Contracts.Bonus;
     using Gaming.Contracts.Payment;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
 
@@ -198,7 +199,8 @@
                 RequestTimeout = new LockupRequestTimeout
                 {
                     LockupKey = HhrConstants.BonusCmdTransactionErrorKey,
-                    LockupString = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BonusCmdFailedMsg),
+                    LockupStringResouceKey = ResourceKeys.BonusCmdFailedMsg,
+                    ProviderType = CultureProviderType.Player,
                     LockupHelpText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BonusCmdFailedHelpMsg)
                 },
             };

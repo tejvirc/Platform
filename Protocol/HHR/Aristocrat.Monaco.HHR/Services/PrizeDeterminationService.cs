@@ -443,8 +443,8 @@
             {
                 _systemDisableManager.Disable(HhrConstants.ManualHandicapWinKey,
                     SystemDisablePriority.Immediate,
-                    () =>
-                        Localizer.GetString(ResourceKeys.ManualHandicapWinText, CultureProviderType.Player),
+                    ResourceKeys.ManualHandicapWinText,
+                    CultureProviderType.Player,
                     true,
                     () => Localizer.For(CultureFor.Operator)
                         .GetString(ResourceKeys.ManualHandicapWinHelpText));

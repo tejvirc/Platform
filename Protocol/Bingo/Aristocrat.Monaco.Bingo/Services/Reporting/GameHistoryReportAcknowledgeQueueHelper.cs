@@ -12,6 +12,7 @@
     using Gaming.Contracts;
     using Gaming.Contracts.Central;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     public class GameHistoryReportAcknowledgeQueueHelper : IAcknowledgedQueueHelper<ReportGameOutcomeMessage, long>
@@ -67,7 +68,8 @@
             _disableManager.Disable(
                 BingoConstants.GameHistoryQueueDisableKey,
                 SystemDisablePriority.Normal,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameHistoryReportingAlmostFull),
+                ResourceKeys.GameHistoryReportingAlmostFull,
+                CultureProviderType.Operator,
                 false,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameHistoryReportingAlmostFullHelp));
         }

@@ -69,8 +69,8 @@
             _systemDisable.Disable(
                 HhrUiConstants.WaitingForWinningCombinationInfo,
                 SystemDisablePriority.Immediate,
-                () =>
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.WaitingForWinningCombinationInfo));
+                ResourceKeys.WaitingForWinningCombinationInfo,
+                CultureProviderType.Operator);
 
             _gameInfoResponse = (await _gameDataService.GetGameInfo()).FirstOrDefault(
                 x => x.GameId == _referenceId);

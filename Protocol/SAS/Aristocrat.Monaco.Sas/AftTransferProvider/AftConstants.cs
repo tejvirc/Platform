@@ -48,9 +48,11 @@
 
         /// <summary>The message to display when the system goes into an Aft lock.</summary>
         public static readonly IDisplayableMessage LockMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftLockMessage),
+                ResourceKeys.AftLockMessage,
+                CultureProviderType.Operator,
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Normal,
+                null,
                 new Guid("{90639592-3E1E-4EEF-8201-1A98A005C444}"));
 
         /// <summary>

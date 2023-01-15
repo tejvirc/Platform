@@ -36,7 +36,8 @@
             _systemDisableManager.Disable(
                 requestTimeout.LockupKey,
                 SystemDisablePriority.Normal,
-                () => requestTimeout.LockupString,
+                requestTimeout.LockupStringResouceKey,
+                requestTimeout.ProviderType,
                 true,
                 () => requestTimeout.LockupHelpText);
         }

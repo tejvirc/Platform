@@ -1603,7 +1603,7 @@
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
 
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), true, null, It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -2583,8 +2583,8 @@
                 if (doorGuid != Guid.Empty && !string.IsNullOrEmpty(openMessage))
                 {
                     _disableManager.Setup(
-                            m => m.Disable(doorGuid, SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null))
-                        .Callback((Guid g, SystemDisablePriority s, Func<string> message, Type t) => { _displayedMessages.Add(message?.Invoke()); }).Verifiable();
+                            m => m.Disable(doorGuid, SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
+                        .Callback((Guid g, SystemDisablePriority s, string message, CultureProviderType t, object[] p) => { _displayedMessages.Add(message); }).Verifiable();
                 }
 
                 if (!string.IsNullOrEmpty(closedMessage))

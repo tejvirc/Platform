@@ -19,6 +19,7 @@
     using Moq;
     using Sas.Base;
     using Test.Common;
+    using Localization.Properties;
 
     [TestClass]
     public class SasDisableProviderTests
@@ -265,7 +266,7 @@
 
             foreach (var (guid, _) in disableGuids)
             {
-                _systemDisableManager.Setup(x => x.Disable(guid, priority, It.IsAny<Func<string>>(), null))
+                _systemDisableManager.Setup(x => x.Disable(guid, priority, It.IsAny<string>(), It.IsAny<CultureProviderType>()))
                     .Verifiable();
             }
 
@@ -320,8 +321,8 @@
                 x => x.Disable(
                     ApplicationConstants.DisabledByHost0Key,
                     SystemDisablePriority.Normal,
-                    It.IsAny<Func<string>>(),
-                    null));
+                    "DisabledByHost0",
+                    CultureProviderType.Player));
             Assert.IsFalse(_target.IsSoftErrorStateActive(DisableState.DisabledByHost0));
             Assert.IsTrue(_target.IsDisableStateActive(DisableState.DisabledByHost0));
         }

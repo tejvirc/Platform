@@ -7,6 +7,7 @@
     using Contracts;
     using Contracts.Localization;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -77,7 +78,10 @@
 
             var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadOnlyMediaFault);
 
-            _disableManager.Disable(ApplicationConstants.ReadOnlyMediaDisableKey, SystemDisablePriority.Immediate, () => message);
+            _disableManager.Disable(ApplicationConstants.ReadOnlyMediaDisableKey,
+                SystemDisablePriority.Immediate,
+                ResourceKeys.ReadOnlyMediaFault,
+                CultureProviderType.Operator);
 
             _bus.Publish(new ReadOnlyMediaErrorEvent(message));
 

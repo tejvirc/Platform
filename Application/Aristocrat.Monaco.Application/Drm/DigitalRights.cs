@@ -12,6 +12,7 @@
     using Contracts.Localization;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
     using Newtonsoft.Json;
@@ -138,7 +139,7 @@
 
                     var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LicenseFileValidationError);
 
-                    HandleDigitalRightsError(new LicenseErrorEvent(message), () => message, ApplicationConstants.LicenseErrorDisableKey);
+                    HandleDigitalRightsError(new LicenseErrorEvent(message), ResourceKeys.LicenseFileValidationError, ApplicationConstants.LicenseErrorDisableKey);
 
                     return;
                 }
@@ -150,7 +151,7 @@
             catch (Exception e)
             {
                 var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SmartCardMissing);
-                HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), () => message, ApplicationConstants.SmartCardNotPresentDisableKey);
+                HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), ResourceKeys.SmartCardMissing, ApplicationConstants.SmartCardNotPresentDisableKey);
 
                 Logger.Error("Failed to initialize the module", e);
             }
@@ -259,7 +260,7 @@
                 Logger.Error("Failed to authenticate license file", ex);
 
                 var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LicenseFileValidationError);
-                HandleDigitalRightsError(new LicenseErrorEvent(message), () => message, ApplicationConstants.LicenseErrorDisableKey);
+                HandleDigitalRightsError(new LicenseErrorEvent(message), ResourceKeys.LicenseFileValidationError, ApplicationConstants.LicenseErrorDisableKey);
 
                 return LicenseInfo.Invalid;
             }
@@ -275,7 +276,7 @@
             catch (Exception ex)
             {
                 var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LicenseFileParsingError);
-                HandleDigitalRightsError(new LicenseErrorEvent(message), () => message, ApplicationConstants.LicenseErrorDisableKey);
+                HandleDigitalRightsError(new LicenseErrorEvent(message), ResourceKeys.LicenseFileParsingError, ApplicationConstants.LicenseErrorDisableKey);
 
                 Logger.Error("Failed to read the license file", ex);
             }
@@ -297,7 +298,7 @@
                         Logger.Error("Failed to decrement the license counter");
 
                         var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SmartCardExpired);
-                        HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), () => message, ApplicationConstants.SmartCardExpiredDisableKey);
+                        HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), ResourceKeys.SmartCardRemoved, ApplicationConstants.SmartCardExpiredDisableKey);
                     }
                 }
                 else if (!_protectionModule.IsConnected())
@@ -307,7 +308,7 @@
                         Logger.Error("Failed to get the module state");
 
                         var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SmartCardRemoved);
-                        HandleDigitalRightsError(new SoftwareProtectionModuleDisconnectedEvent(message), () => message, ApplicationConstants.SmartCardRemovedDisableKey);
+                        HandleDigitalRightsError(new SoftwareProtectionModuleDisconnectedEvent(message), ResourceKeys.SmartCardRemoved, ApplicationConstants.SmartCardRemovedDisableKey);
                     }
                 }
                 else if (InternalDisabled)
@@ -324,18 +325,18 @@
             {
                 Logger.Error("Failed to get the module state", e);
                 var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SmartCardRemoved);
-                HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), () => message, ApplicationConstants.SmartCardRemovedDisableKey);
+                HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), ResourceKeys.SmartCardRemoved, ApplicationConstants.SmartCardRemovedDisableKey);
             }
 
             _connectedTimer?.Change(StatusInterval, Timeout.InfiniteTimeSpan);
         }
 
-        private void HandleDigitalRightsError<T>(T @event, Func<string> message, Guid disableKey)
+        private void HandleDigitalRightsError<T>(T @event, string messageResourceKey, Guid disableKey)
             where T : IEvent
         {
             _bus.Publish(@event);
 
-            _disableManager.Disable(disableKey, SystemDisablePriority.Immediate, message);
+            _disableManager.Disable(disableKey, SystemDisablePriority.Immediate, messageResourceKey, CultureProviderType.Operator);
         }
 
         private T GetCounterValue<T>(Counter counter, Func<int, T> converter, T defaultValue)

@@ -10,6 +10,7 @@
     using System.Collections.Generic;
     using Application.Contracts.Localization;
     using Test.Common;
+    using Kernel.Contracts.MessageDisplay;
 
     [TestClass]
     public class HardCashOutLockTests
@@ -173,7 +174,7 @@
                 .Returns(10000L);
             _eventBus.Setup(x => x.Publish(It.IsAny<HardCashLockoutEvent>())).Verifiable();
             _systemDisableManager.Setup(
-                x => x.Disable(ApplicationConstants.HostCashOutFailedDisableKey, SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null)).Verifiable();
+                x => x.Disable(ApplicationConstants.HostCashOutFailedDisableKey, SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>())).Verifiable();
 
             _target.PresentLockup();
             _eventBus.Verify();

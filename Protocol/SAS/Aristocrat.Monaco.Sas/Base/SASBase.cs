@@ -20,6 +20,7 @@
     using Hardware.Contracts.SerialPorts;
     using Kernel;
     using Kernel.Contracts.Events;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using Protocol.Common.Storage.Entity;
@@ -69,7 +70,9 @@
             Logger.Debug("OnRun started");
 
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
-            disableManager.Disable(BaseConstants.ProtocolDisabledKey, SystemDisablePriority.Immediate, () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasProtocolInitializing));
+            disableManager.Disable(BaseConstants.ProtocolDisabledKey, SystemDisablePriority.Immediate,
+                ResourceKeys.SasProtocolInitializing,
+                CultureProviderType.Operator);
 
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 

@@ -78,7 +78,8 @@
                     Status == GameEnableStatus.DisableGameDisallowCollect
                         ? SystemDisablePriority.Immediate
                         : SystemDisablePriority.Normal,
-                    () => Localizer.GetString(ResourceKeys.ProgressiveDisable, CultureProviderType.Player));
+                    ResourceKeys.ProgressiveDisable,
+                    CultureProviderType.Player);
             }
             else
             {
@@ -115,7 +116,8 @@
                 _gameStatusProvider.HostStatus == GameEnableStatus.DisableGameDisallowCollect
                     ? SystemDisablePriority.Immediate
                     : SystemDisablePriority.Normal,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveDisable));
+                ResourceKeys.ProgressiveDisable,
+                CultureProviderType.Operator);
 
             DisableRequestPending = false;
         }

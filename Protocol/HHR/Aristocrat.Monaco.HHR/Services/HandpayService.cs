@@ -411,7 +411,8 @@
                         RequestTimeout = new LockupRequestTimeout
                         {
                             LockupKey = HhrConstants.GameWinCmdTransactionErrorKey,
-                            LockupString = Localizer.GetString(ResourceKeys.GameWinTransactionCmdFailedMsg, CultureProviderType.Player),
+                            LockupStringResouceKey = ResourceKeys.GameWinTransactionCmdFailedMsg,
+                            ProviderType = CultureProviderType.Player,
                             LockupHelpText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameWinTransactionCmdFailedHelpMsg)
                         },
                         TimeoutInMilliseconds = HhrConstants.MsgTransactionTimeoutMs,

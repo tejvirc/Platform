@@ -261,7 +261,8 @@
                 scope.Complete();
             }
 
-            var disconnectedMessage = new DisplayableMessage(DisconnectedMessageCallback, DisplayableMessageClassification.SoftError, DisplayableMessagePriority.Immediate);
+            var disconnectedMessage = new DisplayableMessage(
+                ResourceKeys.NoteAcceptor_Disconnected, CultureProviderType.Player, DisplayableMessageClassification.SoftError, DisplayableMessagePriority.Immediate);
 
             if (disconnected)
             {
@@ -273,11 +274,6 @@
             }
 
             SetBinary(DisconnectedKey, disconnected, behavioralDelayKey);
-        }
-
-        private string DisconnectedMessageCallback()
-        {
-            return Localizer.GetString(ResourceKeys.NoteAcceptor_Disconnected, CultureProviderType.Player);
         }
 
         private void CheckDeviceStatus()
@@ -458,7 +454,8 @@
             _disableManager.Disable(
                 NoteAcceptorDocumentCheckDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.NoteAcceptorFaultTypes_DocumentCheck));
+                ResourceKeys.NoteAcceptorFaultTypes_DocumentCheck,
+                CultureProviderType.Player);
         }
 
         private void HandleSelfTestComplete()

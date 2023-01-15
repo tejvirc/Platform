@@ -138,8 +138,8 @@
                 _disableManager.Disable(
                     MgamConstants.GamePlayDisabledKey,
                     SystemDisablePriority.Normal,
-                    () =>
-                        Localizer.GetString(ResourceKeys.DisabledByHost, CultureProviderType.Player));
+                    ResourceKeys.DisabledByHost,
+                    CultureProviderType.Player);
 
                 _propertiesManager.SetProperty(MgamConstants.DisableGamePlayAfterGameRoundKey, false);
             }

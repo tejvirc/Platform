@@ -64,7 +64,8 @@
                     .Disable(
                         Constants.ProtocolDisabledKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.GetString(ResourceKeys.DisabledDuringInitialization, CultureProviderType.Player),
+                        ResourceKeys.DisabledDuringInitialization,
+                        CultureProviderType.Player,
                         false);
 
                 CreateVirtualIdReaders();

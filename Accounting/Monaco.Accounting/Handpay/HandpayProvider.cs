@@ -242,7 +242,8 @@
                 _systemDisable.Disable(
                     ApplicationConstants.HandpayPendingDisableKey,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.ReceiptPrintingFailed),
+                    ResourceKeys.ReceiptPrintingFailed,
+                    CultureProviderType.Player,
                     true,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReceiptPrintingFailedInfo));
             }
@@ -482,12 +483,17 @@
                     });
             }
 
+            var message = GetMessage(transaction);
+
             _systemDisable.Disable(
                 ApplicationConstants.HandpayPendingDisableKey,
                 SystemDisablePriority.Immediate,
-                () => GetMessage(transaction),
+                message.Item1,
+                CultureProviderType.Player,
                 true,
-                () => GetHelpTip(transaction));
+                () => GetHelpTip(transaction),
+                null,
+                message.Item2);
 
             return keyOff;
         }
@@ -917,7 +923,7 @@
             }
         }
 
-        private string GetMessage(HandpayTransaction transaction)
+        private (string, string[]) GetMessage(HandpayTransaction transaction)
         {
             switch (transaction.HandpayType)
             {
@@ -926,19 +932,23 @@
                     var divisor = _properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
                     var totalAmount = (transaction.CashableAmount + transaction.NonCashAmount + transaction.PromoAmount) / divisor;
 
+                    List<string> parameters = new List<string>();
                     if (transaction.HandpayType == HandpayType.GameWin && _properties.GetValue(ApplicationConstants.ShowWagerWithLargeWinInfo, false) && transaction.WagerAmount > 0)
                     {
                         var wagerAmount = transaction.WagerAmount / divisor;
-                        return Localizer.For(CultureFor.PlayerTicket).FormatString(ResourceKeys.JackpotPendingWithWager,
-                            totalAmount.FormattedCurrencyString(), wagerAmount.FormattedCurrencyString());
+
+                        parameters.Add(totalAmount.FormattedCurrencyString());
+                        parameters.Add(wagerAmount.FormattedCurrencyString());
+                        return (ResourceKeys.JackpotPendingWithWager, parameters.ToArray());
                     }
 
-                    return Localizer.For(CultureFor.PlayerTicket).FormatString(ResourceKeys.JackpotPending,
-                        (transaction.WinAmount() / divisor).FormattedCurrencyString());
+                    parameters.Add((transaction.WinAmount() / divisor).FormattedCurrencyString());
+                    return (ResourceKeys.JackpotPending, parameters.ToArray());
             }
 
-            return Localizer.GetString(ResourceKeys.CancelCreditPending, CultureProviderType.Player);
+            return (ResourceKeys.CancelCreditPending, null);
         }
+
 
         private string GetHelpTip(HandpayTransaction transaction)
         {

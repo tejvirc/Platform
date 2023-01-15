@@ -717,7 +717,10 @@
                 _disableManager.Disable(
                     door.DoorGuid,
                     SystemDisablePriority.Immediate,
-                    door.GetDoorOpenMessage(CultureProviderType.Player).MessageCallback,
+                    door.GetDoorOpenMessage().MessageResourceKey,
+                    door.GetDoorOpenMessage().CultureProvider,
+                    true,
+                    null,
                     eventType);
 
                 // Remove any message saying "XYZ door closed" with player and operator language
@@ -825,7 +828,8 @@
                             _disableManager.Disable(
                                 ApplicationConstants.BellyDoorDiscrepencyGuid,
                                 SystemDisablePriority.Immediate,
-                                () => Localizer.GetString(ResourceKeys.BellyDoorDiscrepancy, CultureProviderType.Player));
+                                ResourceKeys.BellyDoorDiscrepancy,
+                                CultureProviderType.Player);
 
                             _eventBus.Publish(new BellyDoorDiscrepancyEvent());
                         }

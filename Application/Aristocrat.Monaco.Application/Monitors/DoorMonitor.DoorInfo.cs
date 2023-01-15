@@ -98,7 +98,8 @@
                 IDisplayableMessage NewOpenMessage(string resourceKey)
                 {
                     return new DisplayableMessage(
-                        () => Localizer.GetString(resourceKey, providerType),
+                        resourceKey,
+                        providerType,
                         DisplayableMessageClassification.HardError,
                         DisplayableMessagePriority.Immediate,
                         typeof(OpenEvent));
@@ -158,7 +159,9 @@
                 IDisplayableMessage NewClosedMessage(string resourceKey)
                 {
                     return new DisplayableMessage(
-                        () => Localizer.GetString(resourceKey, providerType),
+                        //() => Localizer.GetString(resourceKey, providerType),
+                        resourceKey,
+                        providerType,
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));

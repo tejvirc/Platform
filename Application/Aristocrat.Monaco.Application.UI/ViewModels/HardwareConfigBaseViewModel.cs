@@ -42,6 +42,7 @@
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.InspectionFailedEvent;
     using Aristocrat.Monaco.Hardware.Contracts.Door;
     using Contracts.TowerLight;
+    using Kernel.Contracts.MessageDisplay;
     using Monaco.Common;
 
     [CLSCompliant(false)]
@@ -503,7 +504,8 @@
                     disableManager.Disable(
                                 ApplicationConstants.BellyDoorDiscrepencyGuid,
                                 SystemDisablePriority.Immediate,
-                                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorDiscrepancy));
+                                ResourceKeys.BellyDoorDiscrepancy,
+                                CultureProviderType.Operator);
 
                     ServiceManager.GetInstance().GetService<IEventBus>().Publish(new BellyDoorDiscrepancyEvent());
                 }

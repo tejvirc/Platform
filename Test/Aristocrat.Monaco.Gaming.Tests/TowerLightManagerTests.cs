@@ -21,6 +21,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using TowerLight;
     using Vgt.Client12.Application.OperatorMenu;
     using Kernel.MessageDisplay;
+    using Aristocrat.Monaco.Localization.Properties;
 
     [TestClass]
     public class TowerLightManagerTests
@@ -1765,12 +1766,18 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 SetupAllDoorClosed();
             }
 
-            var softError = new DisplayableMessage(
-                () => string.Empty,
-                DisplayableMessageClassification.SoftError,
-                DisplayableMessagePriority.Normal);
-            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, true))
-                .Callback(() => _target.DisplayMessage(softError));
+            //var softError = new Mock<DisplayableMessage>(
+            //    ResourceKeys.TestTowerLights,
+            //    CultureProviderType.Player,
+            //    DisplayableMessageClassification.SoftError,
+            //    DisplayableMessagePriority.Normal);
+            var softError = new Mock<IDisplayableMessage>();
+
+            softError.SetupGet(x => x.Message).Returns("Test");
+            softError.SetupGet(x => x.Classification).Returns(DisplayableMessageClassification.SoftError);
+
+            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, CultureProviderType.Operator, true))
+                .Callback(() => _target.DisplayMessage(softError.Object));
             _target.Initialize();
             _towerLight.Verify(
                 m => m.SetFlashState(
@@ -1785,7 +1792,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                     Timeout.InfiniteTimeSpan,
                     false));
 
-            _target.RemoveMessage(softError);
+            _target.RemoveMessage(softError.Object);
             _towerLight.Verify(
                 m => m.SetFlashState(
                     It.Is<LightTier>(x => x == LightTier.Tier1),
@@ -1819,12 +1826,13 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 SetupAllDoorClosed();
             }
 
-            var softError = new DisplayableMessage(
-                () => string.Empty,
-                DisplayableMessageClassification.SoftError,
-                DisplayableMessagePriority.Normal);
-            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, true))
-                .Callback(() => _target.DisplayMessage(softError));
+            var softError = new Mock<IDisplayableMessage>();
+
+            softError.SetupGet(x => x.Message).Returns("Test");
+            softError.SetupGet(x => x.Classification).Returns(DisplayableMessageClassification.SoftError);
+
+            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, CultureProviderType.Operator, true))
+                .Callback(() => _target.DisplayMessage(softError.Object));
             _target.Initialize();
             _towerLight.Verify(
                 m => m.SetFlashState(
@@ -1862,7 +1870,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 () => string.Empty,
                 DisplayableMessageClassification.SoftError,
                 DisplayableMessagePriority.Normal);
-            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, true))
+            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, CultureProviderType.Operator, true))
                 .Callback(() => _target.DisplayMessage(softError));
 
             Action<SystemDisableAddedEvent> disableCallback = null;

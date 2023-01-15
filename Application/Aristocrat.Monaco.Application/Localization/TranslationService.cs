@@ -16,5 +16,7 @@
         }
 
         public string GetString(string key, CultureProviderType providerType = CultureProviderType.Operator) => Localizer.GetString(key, providerType);
+
+        public string GetString(string key, CultureProviderType providerType, Action<Exception> exceptionHandler) => Localizer.GetString(key, providerType, exceptionHandler);
     }
 }

@@ -369,7 +369,8 @@
             _playerInfoDisplayManager = factory.Create(this);
 
             _disableCountdownMessage = new DisplayableMessage(
-                () => DisableCountdownMessage,
+                ResourceKeys.DisableCountdownMessage,
+                CultureProviderType.Player,
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Immediate);
 
@@ -516,7 +517,7 @@
 
             UpdatePaidMeterValue(_sessionInfoService.GetSessionPaidValue());
 
-            messageDisplay.AddMessageDisplayHandler(this);
+            messageDisplay.AddMessageDisplayHandler(this, CultureProviderType.Player);
 
             WireDesignerData();
 
@@ -1861,6 +1862,8 @@
                     {
                         LocaleCodeIndex = localeIndex;
                     }
+
+                    _messageDisplay.RefreshMessages();
                 });
         }
 
@@ -1875,6 +1878,10 @@
         {
             Logger.Debug($"Displaying message: {displayableMessage}");
 
+            if (displayableMessage.CultureProvider != CultureProviderType.Player)
+            {
+                displayableMessage.CultureProvider = CultureProviderType.Player;
+            }
             switch (displayableMessage.Classification)
             {
                 case DisplayableMessageClassification.SoftError when Config.DisplaySoftErrors:
@@ -4322,9 +4329,8 @@
 
         private void BroadcastInitialDisableCountdownMessage()
         {
-            _disableCountdownMessage.MessageCallback =
-                () => $"{DisableCountdownMessage} {DisableCountdownTimeRemaining.ToString(_disableCountdownTimeFormat)}";
-
+            _disableCountdownMessage.Params =
+                new object[] { DisableCountdownTimeRemaining.ToString(_disableCountdownTimeFormat) };
             _messageDisplay.DisplayMessage(_disableCountdownMessage);
 
             if (DisableCountdownTimeRemaining.TotalSeconds <= 0)

@@ -316,7 +316,7 @@
     <value>纸币被拒</value>
   </data>
   <data name="BillAccepted" xml:space="preserve">
-    <value>纸币已接受 -</value>
+    <value>纸币已接受 - {0}</value>
   </data>
   <data name="Cashable" xml:space="preserve">
     <value>可兑现</value>

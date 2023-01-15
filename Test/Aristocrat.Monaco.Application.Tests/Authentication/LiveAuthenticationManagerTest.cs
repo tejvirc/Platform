@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests.Authentication
 {
     using Application.Authentication;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
@@ -68,8 +69,9 @@
                     m => m.Disable(
                         ApplicationConstants.LiveAuthenticationDisableKey,
                         SystemDisablePriority.Immediate,
-                        It.IsAny<Func<string>>(),
-                        null)).Verifiable();
+                        It.IsAny<string>(),
+                        It.IsAny<CultureProviderType>(),
+                        It.IsAny<object[]>())).Verifiable();
 
                 _eventBus.Setup(evt => evt.Unsubscribe<PlatformBootedEvent>(It.IsAny<object>())).Verifiable();
                 Assert.IsNotNull(_onPlatformBootedEvent);

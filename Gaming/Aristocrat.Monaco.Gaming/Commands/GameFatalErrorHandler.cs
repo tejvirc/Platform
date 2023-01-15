@@ -4,6 +4,7 @@
     using Application.Contracts.Localization;
     using Contracts;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     /// <summary>
@@ -34,15 +35,15 @@
         /// <inheritdoc />
         public void Handle(GameFatalError command)
         {
-            Func<string> messageCallback;
+            string resourceKey = null;
 
             switch (command.ErrorCode)
             {
                 case GameErrorCode.LiabilityLimit:
-                    messageCallback = () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.LiabilityCheckFailed);
+                    resourceKey = ResourceKeys.LiabilityCheckFailed;
                     break;
                 case GameErrorCode.LegitimacyLimit:
-                    messageCallback = () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.LegitimacyCheckFailed);
+                    resourceKey = ResourceKeys.LegitimacyCheckFailed;
                     break;
                 default:
                     // This should never happen, but we're just going to bail if it does
@@ -51,7 +52,7 @@
 
             _eventBus.Publish(new GameFatalErrorEvent());
             _gameHistory.LogFatalError(command.ErrorCode);
-            _systemDisable.Disable(GamingConstants.FatalGameErrorGuid, SystemDisablePriority.Immediate, messageCallback);
+            _systemDisable.Disable(GamingConstants.FatalGameErrorGuid, SystemDisablePriority.Immediate, resourceKey, CultureProviderType.Player);
         }
     }
 }

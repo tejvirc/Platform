@@ -10,6 +10,7 @@
     using Application.Contracts.Localization;
     using Common;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using Monaco.Common;
     using Polly;
@@ -96,7 +97,8 @@
                 _disableManager.Disable(
                     BingoConstants.BingoHostHelpUrlInvalidKey,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoDynamicHelpInvalidConfiguration),
+                    ResourceKeys.BingoDynamicHelpInvalidConfiguration,
+                    CultureProviderType.Operator,
                     true,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoDynamicHelpInvalidConfigurationHelp));
             }

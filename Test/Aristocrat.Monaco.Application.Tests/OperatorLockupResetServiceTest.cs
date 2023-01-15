@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests
 {
+    using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.Button;
     using Kernel;
@@ -171,7 +172,7 @@
 
             CreateTarget();
 
-            _systemDisableManager.Verify(m => m.Disable(ApplicationConstants.OperatorResetRequiredDisableKey, SystemDisablePriority.Normal, It.IsAny<Func<string>>(), null), Times.Once);
+            _systemDisableManager.Verify(m => m.Disable(ApplicationConstants.OperatorResetRequiredDisableKey, SystemDisablePriority.Normal, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()), Times.Once);
         }
 
         [TestMethod]
@@ -194,8 +195,9 @@
                 m => m.Disable(
                     ApplicationConstants.OperatorResetRequiredDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>()),
                 Times.Never);
         }
 

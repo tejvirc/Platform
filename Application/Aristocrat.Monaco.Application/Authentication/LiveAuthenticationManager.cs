@@ -19,6 +19,7 @@ namespace Aristocrat.Monaco.Application.Authentication
     using Hardware.Contracts.VHD;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
     using Org.BouncyCastle.Crypto.Parameters;
@@ -286,7 +287,8 @@ namespace Aristocrat.Monaco.Application.Authentication
             _disableManager.Disable(
                 DisableGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifyingSignaturesText));
+                ResourceKeys.VerifyingSignaturesText,
+                CultureProviderType.Operator);
 
             VerifySignatures();
 
@@ -356,7 +358,7 @@ namespace Aristocrat.Monaco.Application.Authentication
 
             // Update the disable text with the error message
             _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate,
-                () => displayMessage);
+                ResourceKeys.VerificationFailedText, CultureProviderType.Operator, true, null, null, new object[] {message});
 
             PlayErrorSound();
 

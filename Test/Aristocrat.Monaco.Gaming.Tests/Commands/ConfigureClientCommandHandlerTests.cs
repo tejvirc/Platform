@@ -72,7 +72,12 @@
             _lobbyStateManager.Setup(m => m.AllowSingleGameAutoLaunch).Returns(false);
             _cabinetDetectionService.Setup(m => m.ButtonDeckType).Returns(It.IsAny<string>());
 
-            _localization.Setup(l => l.GetProvider(It.IsAny<string>())).Returns(new Mock<IPlayerCultureProvider>().Object);
+            var playerCultureProvider = new Mock<IPlayerCultureProvider>();
+            playerCultureProvider.SetupGet(p => p.AvailableCultures).Returns(new List<CultureInfo>()
+            {
+                new CultureInfo("en-US")
+            });
+            _localization.Setup(l => l.GetProvider(It.IsAny<string>())).Returns(playerCultureProvider.Object);
 
             CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
         }

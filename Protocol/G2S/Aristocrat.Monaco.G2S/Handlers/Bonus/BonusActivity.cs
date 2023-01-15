@@ -108,7 +108,9 @@
         private static IDisplayableMessage GetDisplayableMessage(IBonusDevice device)
         {
             return new DisplayableMessage(
-                () => device?.NoHostText ?? Localizer.GetString(ResourceKeys.NoBonusHost, CultureProviderType.Player),
+                () => device?.NoHostText,
+                ResourceKeys.NoBonusHost,
+                CultureProviderType.Player,
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Immediate,
                 DisplayId);

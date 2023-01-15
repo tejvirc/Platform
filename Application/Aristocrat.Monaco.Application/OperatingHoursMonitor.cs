@@ -11,6 +11,7 @@
     using Contracts.Localization;
     using Contracts.Operations;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -241,7 +242,8 @@
                 _systemDisableManager.Disable(
                     ApplicationConstants.OperatingHoursDisableGuid,
                     SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutsideOperatingHours),
+                    ResourceKeys.OutsideOperatingHours,
+                    CultureProviderType.Player,
                     false);
                 _eventBus.Publish(new OperatingHoursExpiredEvent());
             }

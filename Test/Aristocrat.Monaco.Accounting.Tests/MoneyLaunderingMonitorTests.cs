@@ -8,6 +8,8 @@ using Aristocrat.Monaco.Test.Common;
 using Aristocrat.Monaco.Hardware.Contracts.Button;
 using Aristocrat.Monaco.Accounting.Contracts.Wat;
 using System.Collections.Generic;
+using Aristocrat.Monaco.Localization.Properties;
+using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
 
 namespace Aristocrat.Monaco.Accounting.Tests
 {
@@ -354,8 +356,12 @@ namespace Aristocrat.Monaco.Accounting.Tests
         }
         private void VerifyDisable(Times times)
         {
+            //_disableManager.Verify(x => x.Disable(MoneyLaunderingMonitor.ExcessiveThresholdDisableKey,
+            //    SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), true, It.IsAny<Func<string>>(), null), times);
+
             _disableManager.Verify(x => x.Disable(MoneyLaunderingMonitor.ExcessiveThresholdDisableKey,
-                SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), true, It.IsAny<Func<string>>(), null), times);
+                SystemDisablePriority.Immediate, ResourceKeys.ExcessiveThresholdDisableMessage,
+                CultureProviderType.Player, true, It.IsAny<Func<string>>(), null), times);
 
             _disableManager.ResetCalls();
         }
@@ -404,7 +410,8 @@ namespace Aristocrat.Monaco.Accounting.Tests
             _properties.Setup(x => x.SetProperty(AccountingConstants.ExcessiveMeterValue, It.IsAny<long>()));
 
             _disableManager.Setup(x => x.Disable(MoneyLaunderingMonitor.ExcessiveThresholdDisableKey,
-                SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), true, It.IsAny<Func<string>>(), null));
+                SystemDisablePriority.Immediate, ResourceKeys.ExcessiveThresholdDisableMessage,
+                CultureProviderType.Player, true, It.IsAny<Func<string>>(), null));
 
             _disableManager.Setup(x => x.Enable(MoneyLaunderingMonitor.ExcessiveThresholdDisableKey));
         }

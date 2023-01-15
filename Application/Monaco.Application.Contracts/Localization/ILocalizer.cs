@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using Monaco.Localization;
 
     /// <summary>
     ///     Retrieves localized resources.

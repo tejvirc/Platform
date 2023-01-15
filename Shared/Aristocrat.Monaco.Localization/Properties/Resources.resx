@@ -506,7 +506,7 @@
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="BillAccepted" xml:space="preserve">
-    <value>Bill Accepted -</value>
+    <value>Bill Accepted - {0}</value>
     <comment>Monaco.Accounting</comment>
   </data>
   <data name="BillEventLogTicket" xml:space="preserve">
@@ -11630,5 +11630,13 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="TouchCalibrateWait" xml:space="preserve">
     <value>Please Wait...</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ProtocolMismatch" xml:space="preserve">
+    <value>Hardware Protocol Mismatch - Revalidate</value>
+    <comment>Aristocrat.Monaco.Hardware</comment>
+  </data>
+  <data name="HostDisconnectedWithTimeStamp" xml:space="preserve">
+    <value>Host Disconnected {0}</value>
+    <comment>Aristocrat.Monaco.Mgam</comment>
   </data>
 </root>

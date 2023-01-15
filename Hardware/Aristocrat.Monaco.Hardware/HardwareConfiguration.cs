@@ -10,6 +10,7 @@
     using System.Xml;
     using System.Xml.Serialization;
     using Aristocrat.Monaco.Kernel.Contracts;
+    using Aristocrat.Monaco.Localization.Properties;
     using Contracts;
     using Contracts.Communicator;
     using Contracts.IdReader;
@@ -19,6 +20,7 @@
     using Contracts.Reel;
     using Contracts.SharedDevice;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using NoteAcceptor;
     using Printer;
@@ -119,7 +121,10 @@
 
             if (hasProtocolMismatch)
             {
-                _disableManager.Disable(HardwareConstants.HardwareProtocolMismatchDisabledKey, SystemDisablePriority.Immediate, () => Properties.Resources.ProtocolMismatch);
+                _disableManager.Disable(HardwareConstants.HardwareProtocolMismatchDisabledKey,
+                    SystemDisablePriority.Immediate,
+                    ResourceKeys.ProtocolMismatch,
+                    CultureProviderType.Operator);
             }
 
             return current;

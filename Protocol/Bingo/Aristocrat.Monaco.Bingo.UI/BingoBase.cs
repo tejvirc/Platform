@@ -44,7 +44,8 @@
             disableManager.Disable(
                 Initializing,
                 SystemDisablePriority.Immediate,
-                () => Localizer.GetString(ResourceKeys.DisabledDuringInitialization, CultureProviderType.Player),
+                ResourceKeys.DisabledDuringInitialization,
+                CultureProviderType.Player,
                 false);
             var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             eventBus.Subscribe<BingoDisplayConfigurationStartedEvent>(this, async (_, _) =>

@@ -18,6 +18,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
     using Util;
@@ -153,7 +154,8 @@
             _disableManager.Disable(
                 ApplicationConstants.MonitorVerifyingDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifyingCRCSignaturesLockupText));
+                ResourceKeys.VerifyingCRCSignaturesLockupText,
+                CultureProviderType.Operator);
             _currentDeviceToCrcMap.Clear();
             foreach (var i in DeviceBlockPosition)
             {
@@ -212,9 +214,9 @@
             _disableManager.Disable(
                 ApplicationConstants.MonitorSignatureMismatchDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).FormatString(
-                    ResourceKeys.DeviceSignatureMismatchText,
-                    disableMessageSuffix));
+                ResourceKeys.DeviceSignatureMismatchText,
+                CultureProviderType.Operator,
+                disableMessageSuffix);
         }
 
         private string GetHardwareName(int blockPosition)

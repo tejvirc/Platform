@@ -186,7 +186,8 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.HostCashOutFailedDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.GetString(ResourceKeys.HardCashLockMessage, CultureProviderType.Player));
+                ResourceKeys.HardCashLockMessage,
+                CultureProviderType.Player);
         }
 
         /// <inheritdoc />

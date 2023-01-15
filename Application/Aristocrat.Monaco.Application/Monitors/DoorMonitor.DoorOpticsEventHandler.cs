@@ -46,15 +46,18 @@
                     _disableManager.Disable(
                         door.DoorGuid,
                         SystemDisablePriority.Immediate,
-                        door.DoorMismatchMessage.MessageCallback);
+                        door.DoorMismatchMessage.MessageResourceKey,
+                        door.DoorMismatchMessage.CultureProvider);
                 }
                 else
                 {
+                    var doorOpenMessage = door.GetDoorOpenMessage();
                     // Otherwise we can just now say that the whole door is open
                     _disableManager.Disable(
                         door.DoorGuid,
                         SystemDisablePriority.Immediate,
-                        door.GetDoorOpenMessage(CultureProviderType.Player).MessageCallback);
+                        doorOpenMessage.MessageResourceKey,
+                        doorOpenMessage.CultureProvider);
                 }
             }
 
@@ -73,7 +76,8 @@
                     _disableManager.Disable(
                         door.DoorGuid,
                         SystemDisablePriority.Immediate,
-                        door.DoorMismatchMessage.MessageCallback);
+                        door.DoorMismatchMessage.MessageResourceKey,
+                        door.DoorMismatchMessage.CultureProvider);
                 }
                 else
                 {

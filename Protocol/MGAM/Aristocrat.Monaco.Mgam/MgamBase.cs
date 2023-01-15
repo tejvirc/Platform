@@ -157,13 +157,14 @@
             disableManager.Disable(
                 MgamConstants.HostOfflineGuid,
                 SystemDisablePriority.Normal,
-                () => Localizer.GetString(ResourceKeys.HostDisconnected, CultureProviderType.Player));
+                ResourceKeys.HostDisconnected,
+                CultureProviderType.Player);
 
             disableManager.Disable(
                 MgamConstants.GamePlayDisabledKey,
                 SystemDisablePriority.Normal,
-                () =>
-                    Localizer.GetString(ResourceKeys.DisabledByHost, CultureProviderType.Player));
+                ResourceKeys.DisabledByHost,
+                CultureProviderType.Player);
 
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             propertiesManager.SetProperty(AccountingConstants.ValidateHandpays, false); // MGAM does not require handpay validation

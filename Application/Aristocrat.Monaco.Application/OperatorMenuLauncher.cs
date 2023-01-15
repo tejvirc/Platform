@@ -12,6 +12,7 @@
     using Contracts.OperatorMenu;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
     using Vgt.Client12.Application.OperatorMenu;
@@ -58,8 +59,6 @@
         {
             _systemDisableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
         }
-
-        private string DisableMessage => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OperatorMenuActive);
 
         /// <inheritdoc />
         public void Dispose()
@@ -196,7 +195,10 @@
                     meterManager.GetMeter(meterName).Increment(1);
                 }
 
-                _systemDisableManager.Disable(ApplicationConstants.OperatorMenuLauncherDisableGuid, SystemDisablePriority.Immediate, () => DisableMessage);
+                _systemDisableManager.Disable(ApplicationConstants.OperatorMenuLauncherDisableGuid,
+                    SystemDisablePriority.Immediate,
+                    ResourceKeys.OperatorMenuActive,
+                    CultureProviderType.Operator);
 
                 _operatorMenu.Show();
             }

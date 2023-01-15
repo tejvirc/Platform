@@ -10,6 +10,7 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
     using Util;
@@ -135,7 +136,8 @@
             _disableManager.Disable(
                 StorageFaultGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IntegrityCheckFailed));
+                ResourceKeys.IntegrityCheckFailed,
+                CultureProviderType.Operator);
 
             PlayErrorSound();
         }
@@ -157,7 +159,8 @@
             _disableManager.Disable(
                 StorageFaultGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StorageFault));
+                ResourceKeys.StorageFault,
+                CultureProviderType.Operator);
 
             PlayErrorSound();
 
@@ -176,8 +179,8 @@
                     _disableManager.Disable(
                         ApplicationConstants.SecondaryStorageMediaNotConnectedKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator)
-                            .GetString(ResourceKeys.ErrorInfoSecondaryStorageMediaNotConnected));
+                        ResourceKeys.ErrorInfoSecondaryStorageMediaNotConnected,
+                        CultureProviderType.Operator);
                     PlayErrorSound();
 
                     break;
@@ -189,8 +192,8 @@
                         _disableManager.Disable(
                             ApplicationConstants.SecondaryStorageMediaConnectedKey,
                             SystemDisablePriority.Immediate,
-                            () => Localizer.For(CultureFor.Operator)
-                                .GetString(ResourceKeys.ErrorInfoSecondaryStorageMediaConnected));
+                            ResourceKeys.ErrorInfoSecondaryStorageMediaConnected,
+                            CultureProviderType.Operator);
                         PlayErrorSound();
                     }
 

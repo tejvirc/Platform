@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
 {
+    using System;
+
     /// <summary>
     /// The type of culture provider
     /// </summary>
@@ -35,8 +37,17 @@
     public interface ITranslationService : IService
     {
         /// <summary>
-        /// 
+        ///  Get resource string for given key
         /// </summary>
         string GetString(string key, CultureProviderType providerType);
+
+        /// <summary>
+        /// Get resource string for given key
+        /// </summary>
+        /// <param name="key">resource key</param>
+        /// <param name="providerType">culture provider type</param>
+        /// <param name="exceptionHandler">exception handler</param>
+        /// <returns></returns>
+        string GetString(string key, CultureProviderType providerType, Action<Exception> exceptionHandler);
     }
 }

@@ -7,6 +7,7 @@
     using Common.Exceptions;
     using Common.Storage.Model;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
     using ServerApiGateway;
@@ -117,7 +118,8 @@
             SystemDisable.Disable(
                 BingoConstants.MissingSettingsDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoMissingRequiredSettings),
+                ResourceKeys.BingoMissingRequiredSettings,
+                CultureProviderType.Operator,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoMissingRequiredSettingsHelp));
         }

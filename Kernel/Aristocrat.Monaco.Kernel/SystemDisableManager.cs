@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Kernel
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity.Core.Objects;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -129,12 +130,22 @@ namespace Aristocrat.Monaco.Kernel
         /// <inheritdoc />
         public bool DisableImmediately => CurrentImmediateDisableKeys.Any();
 
+        // Done except following classes, not being to change as messages are either too complicated or from protocol/device
+        // LegitimacyLockUpMonitor has hardcoded messages,
+        // SerialGatService
+        // SASBase
+        // ReserverOverlayViewModel
+        // InformedPlayerService
+        // SetCabinetState
+        // BingoDisableProvider
+        // HorseAnimationLauncher
         /// <inheritdoc />
         public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, Type type = null)
         {
             Disable(enableKey, priority, disableReason, TimeSpan.Zero, type);
         }
 
+        //Done, remaining are tests
         /// <inheritdoc />
         public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, bool affectsIdleState, Type type = null)
         {
@@ -142,28 +153,70 @@ namespace Aristocrat.Monaco.Kernel
         }
 
         /// <inheritdoc />
-        public void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, Type type = null)
+        public void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, params object[] msgParams)
         {
-            var translationService = ServiceManager.GetInstance().GetService<ITranslationService>();
-            Disable(enableKey, priority,  () => translationService.GetString(disableReasonResourceKey, providerType), TimeSpan.Zero, true, type, null, disableReasonResourceKey);
+            Disable(enableKey, priority, disableReasonResourceKey, providerType, true, null, null, msgParams);
         }
 
+        /// <inheritdoc />
+        public void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, bool affectsIdleState=true, Func<string> helpText = null, Type type = null, params object[] msgParams)
+        {
+            Disable(enableKey, priority, null, TimeSpan.Zero, affectsIdleState, type, helpText, disableReasonResourceKey, providerType, msgParams);
+        }
+
+        //Done, remaining are tests
         /// <inheritdoc />
         public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, Type type = null)
         {
             Disable(enableKey, priority, disableReason, duration, true, type);
         }
 
+        //TODO EgmState
+        // HorseAnimationLauncher won't change, too complicated with nested resource string
+        // The rest are tests
         /// <inheritdoc />
         public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, bool affectsIdleState, Func<string> helpText, Type type = null)
         {
             Disable(enableKey, priority, disableReason, TimeSpan.Zero, affectsIdleState, type, helpText);
         }
 
+        // Done
         /// <inheritdoc />
-        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, bool affectsIdleState, Type type = null, Func<string> helpText = null, string messageResourceKey = null)
+        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, bool affectsIdleState, Type type = null, Func<string> helpText = null, string messageResourceKey = null, CultureProviderType? providerType=null, params object[] msgParams)
         {
             _stateLock.EnterWriteLock();
+
+            DisplayableMessage message = null;
+            string disableReasonText = disableReason?.Invoke();
+            var messagePriority = priority == SystemDisablePriority.Immediate
+                ? DisplayableMessagePriority.Immediate
+                : DisplayableMessagePriority.Normal;
+            if (!string.IsNullOrEmpty(disableReasonText))
+            {
+                message = new DisplayableMessage(
+                    disableReason,
+                    DisplayableMessageClassification.HardError,
+                    messagePriority,
+                    type,
+                    enableKey,
+                    helpText);
+            }
+            else if (!string.IsNullOrEmpty(messageResourceKey))
+            {
+                message = new DisplayableMessage(
+                    messageResourceKey,
+                    providerType ?? CultureProviderType.Operator,
+                    DisplayableMessageClassification.HardError,
+                    messagePriority,
+                    type,
+                    enableKey);
+                if (msgParams != null)
+                {
+                    message.Params = msgParams;
+                }
+                disableReasonText = message.Message;
+            }
+
             try
             {
                 var disabling = !IsDisabled || !DisableImmediately && priority == SystemDisablePriority.Immediate;
@@ -177,7 +230,7 @@ namespace Aristocrat.Monaco.Kernel
                     _systemDisables[enableKey] = CreateDisableItem(
                         enableKey,
                         priority,
-                        () => disableReason?.Invoke(),
+                        () => disableReasonText,
                         affectsIdleState,
                         duration);
 
@@ -194,7 +247,7 @@ namespace Aristocrat.Monaco.Kernel
 
                     _systemDisables.Add(
                         enableKey,
-                        CreateDisableItem(enableKey, priority, () => disableReason.Invoke(), affectsIdleState, duration));
+                        CreateDisableItem(enableKey, priority, () => disableReasonText, affectsIdleState, duration));
 
                     PostEvent(
                         new SystemDisableAddedEvent(
@@ -218,22 +271,11 @@ namespace Aristocrat.Monaco.Kernel
                 _stateLock.ExitWriteLock();
             }
 
-            if (!string.IsNullOrEmpty(disableReason?.Invoke()))
+            if (!string.IsNullOrEmpty(disableReasonText))
             {
-                var messagePriority = priority == SystemDisablePriority.Immediate
-                    ? DisplayableMessagePriority.Immediate
-                    : DisplayableMessagePriority.Normal;
-
-                var message = new DisplayableMessage(
-                    disableReason,
-                    DisplayableMessageClassification.HardError,
-                    messagePriority,
-                    type,
-                    enableKey,
-                    helpText);
-
                 _messageDisplay.DisplayMessage(message);
             }
+
         }
 
         /// <inheritdoc />

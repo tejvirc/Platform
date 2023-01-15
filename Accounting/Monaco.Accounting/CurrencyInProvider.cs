@@ -545,11 +545,14 @@
             {
                 _messageDisplay.DisplayMessage(
                     new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Player).FormatString(ResourceKeys.BillAccepted) +
-                              " " + acceptedAmount.MillicentsToDollars().FormattedCurrencyString(),
+                        ResourceKeys.BillAccepted,
+                        CultureProviderType.Player,
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Normal,
-                        typeof(CurrencyInCompletedEvent)));
+                        typeof(CurrencyInCompletedEvent))
+                    {
+                        Params = new object[] { acceptedAmount.MillicentsToDollars().FormattedCurrencyString() }
+                    });
             }
             else if (_exceptionDisplayMessageMap.ContainsKey(exceptionCode))
             {

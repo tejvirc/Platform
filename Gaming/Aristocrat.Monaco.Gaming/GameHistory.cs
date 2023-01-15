@@ -18,6 +18,7 @@
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
     using log4net;
 
@@ -106,9 +107,8 @@
             var log = _currentLog;
 
             systemDisable.Disable(GamingConstants.FatalGameErrorGuid, SystemDisablePriority.Immediate,
-                () => GameErrorCode.LiabilityLimit == log?.ErrorCode
-                    ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.LiabilityCheckFailed)
-                    : Localizer.For(CultureFor.Player).GetString(ResourceKeys.LegitimacyCheckFailed));
+                GameErrorCode.LiabilityLimit == log?.ErrorCode ? ResourceKeys.LiabilityCheckFailed : ResourceKeys.LegitimacyCheckFailed,
+                CultureProviderType.Player);
         }
 
         private int CurrentLogIndex { get; set; }

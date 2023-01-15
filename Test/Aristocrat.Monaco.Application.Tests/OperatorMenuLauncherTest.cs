@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests
 {
+    using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Door;
@@ -155,7 +156,7 @@
 
             _door.Setup(m => m.LogicalDoors).Returns(new Dictionary<int, LogicalDoor>());
             _propertiesManager.Setup(m => m.SetProperty(It.IsAny<string>(), ApplicationConstants.DefaultRole)).Verifiable();
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null))
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
                 .Verifiable();
 
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuEnteredEvent>()))
@@ -181,7 +182,7 @@
 
             _propertiesManager.Setup(m => m.SetProperty(It.IsAny<string>(), "Administrator")).Verifiable();
 
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null))
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
                 .Verifiable();
 
             _target.EnableKey(ApplicationConstants.OperatorMenuInitializationKey);
@@ -208,7 +209,7 @@
                 });
             _propertiesManager.Setup(m => m.SetProperty(It.IsAny<string>(), "Administrator")).Verifiable();
             //_propertiesManager.Setup(m => m.SetProperty(It.IsAny<string>(), ApplicationConstants.TechnicianRole)).Verifiable();
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null))
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
                 .Verifiable();
 
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuEnteredEvent>()))
@@ -236,7 +237,7 @@
                     { (int)DoorLogicalId.Logic, new LogicalDoor { Closed = false } },
                 });
             _propertiesManager.Setup(m => m.SetProperty(It.IsAny<string>(), ApplicationConstants.DefaultRole)).Verifiable();
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null))
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
                 .Verifiable();
 
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuEnteredEvent>()))
@@ -319,7 +320,7 @@
                     { 1, new LogicalDoor { Closed = false } }
                 });
             _propertiesManager.Setup(m => m.SetProperty(It.IsAny<string>(), ApplicationConstants.TechnicianRole)).Verifiable();
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null))
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
                 .Verifiable();
             _disableManager.Setup(m => m.Enable(It.IsAny<Guid>())).Verifiable();
 

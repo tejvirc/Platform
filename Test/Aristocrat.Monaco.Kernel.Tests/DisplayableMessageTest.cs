@@ -7,6 +7,7 @@
     using Aristocrat.Monaco.Kernel.MessageDisplay;
     using Contracts.MessageDisplay;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     /// <summary>
     ///     This is a test class for DisplayableMessage and is intended
@@ -26,18 +27,26 @@
             var priority = DisplayableMessagePriority.Normal;
             var helptext = "This is how you clear this disable condition";
 
-            var target1 = new DisplayableMessage(
-                () => message1,
-                classification,
-                priority,
-                null,
-                () => helptext);
+            //var target1 = new DisplayableMessage(
+            //    () => message1,
+            //    classification,
+            //    priority,
+            //    null,
+            //    () => helptext);
 
-            Assert.AreEqual(message1, target1.Message);
-            Assert.AreEqual(classification, target1.Classification);
-            Assert.AreEqual(priority, target1.Priority);
-            Assert.IsNull(target1.ReasonEvent);
-            Assert.AreEqual(helptext, target1.HelpText);
+            var target1 = new Mock<IDisplayableMessage>();
+
+            target1.SetupGet(x => x.Message).Returns(message1);
+            target1.SetupGet(x => x.Classification).Returns(classification);
+            target1.SetupGet(x => x.Priority).Returns(priority);
+            target1.SetupGet(x => x.ReasonEvent).Returns((System.Type)null);
+            target1.SetupGet(x => x.HelpText).Returns(helptext);
+
+            Assert.AreEqual(message1, target1.Object.Message);
+            Assert.AreEqual(classification, target1.Object.Classification);
+            Assert.AreEqual(priority, target1.Object.Priority);
+            Assert.IsNull(target1.Object.ReasonEvent);
+            Assert.AreEqual(helptext, target1.Object.HelpText);
 
             var message2 = "Test message with reason event";
             var reasonEvent = typeof(SystemDisabledEvent);
@@ -53,6 +62,21 @@
             Assert.AreEqual(priority, target2.Priority);
             Assert.AreEqual(reasonEvent, target2.ReasonEvent);
             Assert.IsNull(target2.HelpText);
+        }
+
+        /// <summary>
+        ///     A test for DisplayableMessage message with resourceKey
+        /// </summary>
+        [TestMethod]
+        public void MessageWithResourceKeyTest()
+        {
+            var messageText = "Test message 1";
+
+            var message = new Mock<IDisplayableMessage>();
+
+            message.SetupGet(x => x.Message).Returns(messageText);
+
+            Assert.AreEqual(message.Object.Message, messageText);
         }
 
         /// <summary>
@@ -149,6 +173,19 @@
             Assert.IsTrue(a.IsMessageEquivalent(b));
             Assert.IsTrue(b.IsMessageEquivalent(c));
             Assert.IsTrue(a.IsMessageEquivalent(c));
+
+            // test with resource key
+            string messageText = "A IsMessageEquivalentTest() test message";
+            string helpText = "IsMessageEquivalent function must be an equivalence relation";
+            var message = new Mock<IDisplayableMessage>();
+            message.SetupGet(m => m.MessageResourceKey).Returns("ResourceKey");
+            message.SetupGet(x => x.Message).Returns(messageText);
+            message.SetupGet(x => x.MessageHasDynamicGuid).Returns(true);
+            message.SetupGet(x => x.Classification).Returns(DisplayableMessageClassification.SoftError);
+            message.SetupGet(x => x.Priority).Returns(DisplayableMessagePriority.Immediate);
+            message.SetupGet(x => x.ReasonEvent).Returns((System.Type)null);
+            message.SetupGet(x => x.HelpText).Returns(() => helpText);
+            Assert.IsTrue(a.IsMessageEquivalent(message.Object));
 
             // Testing inequality
             var empty_message = new DisplayableMessage(

@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
 {
     using System;
+    using Kernel.Contracts.MessageDisplay;
     using Messages;
 
     /// <summary>
@@ -23,7 +24,13 @@
         /// <summary>
         ///     Lockup string to be displayed on screen for this lockup.
         /// </summary>
-        public string LockupString { get; set; }
+        //public string LockupString { get; set; }
+        public string LockupStringResouceKey { get; set; }
+
+        /// <summary>
+        ///     Culture provider to load Lockup text from resources
+        /// </summary>
+        public CultureProviderType ProviderType { get; set; }
 
         /// <summary>
         ///     Help text for this lockup.

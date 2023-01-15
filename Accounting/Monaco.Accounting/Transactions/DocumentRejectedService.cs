@@ -70,7 +70,8 @@
                 ResetMethodKeyType.MainDoor);
 
             _documentRejectedMessage = new DisplayableMessage(
-                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.ExcessiveDocumentRejectMessage),
+                ResourceKeys.ExcessiveDocumentRejectMessage,
+                CultureProviderType.Player,
                 (DisplayableMessageClassification)_lockupType,
                 DisplayableMessagePriority.Immediate,
                 typeof(ExcessiveDocumentRejectedEvent),
@@ -230,8 +231,9 @@
             PlayErrorSound();
             _systemDisableManager.Disable(
                 ApplicationConstants.ExcessiveDocumentRejectGuid,
-                    SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExcessiveDocumentRejectMessage));
+                SystemDisablePriority.Immediate,
+                ResourceKeys.ExcessiveDocumentRejectMessage,
+                CultureProviderType.Operator);
             _properties.SetProperty(AccountingConstants.ExcessiveDocumentRejectLockupEnabled, true);
         }
 

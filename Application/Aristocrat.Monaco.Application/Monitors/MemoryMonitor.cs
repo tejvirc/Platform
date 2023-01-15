@@ -10,6 +10,8 @@
     using Kernel;
     using log4net;
     using Aristocrat.Monaco.Localization.Properties;
+    using Kernel.Contracts.MessageDisplay;
+
     public class MemoryMonitor : IService, IDisposable
     {
         private bool _disposed;
@@ -101,7 +103,8 @@
                 _disabled = true;
 
                 _disableManager.Disable(LockupId, SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessage));
+                    ResourceKeys.OutOfMemoryMessage,
+                    CultureProviderType.Operator);
             }
         }
     }

@@ -35,7 +35,8 @@
                 _ => systemDisableManager.Disable(
                     HhrConstants.CentralServerOffline,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.GetString(ResourceKeys.HHRCentralServerOffline, CultureProviderType.Player),
+                    ResourceKeys.HHRCentralServerOffline,
+                    CultureProviderType.Player,
                     true,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoHHRCentralServerOffline)));
 
@@ -94,12 +95,10 @@
             _systemDisableManager.Disable(
                 HhrConstants.TransactionPendingKey,
                 SystemDisablePriority.Normal,
-                () =>
-                    Localizer.For(CultureFor.Player)
-                        .GetString(ResourceKeys.TransactionRequestPendingText),
+                ResourceKeys.TransactionRequestPendingText,
+                CultureProviderType.Player,
                 true,
-                () => Localizer.For(CultureFor.Player)
-                    .GetString(ResourceKeys.TransactionRequestPendingHelpText));
+                () => Localizer.GetString(ResourceKeys.TransactionRequestPendingHelpText, CultureProviderType.Operator));
         }
 
         private void OnProtocolInitializationInProgress(ProtocolInitializationInProgress obj)
@@ -107,7 +106,8 @@
             _systemDisableManager.Disable(
                 HhrConstants.ProtocolInitializationInProgress,
                 SystemDisablePriority.Immediate,
-                () => Localizer.GetString(ResourceKeys.HHRProtocolInitializationInProgress, CultureProviderType.Player),
+                ResourceKeys.HHRProtocolInitializationInProgress,
+                CultureProviderType.Player,
                 true,
                 () => Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.ErrorInfoHHRProtocolInitializationInProgress));
@@ -118,7 +118,8 @@
             _systemDisableManager.Disable(
                 HhrConstants.ProtocolInitializationFailed,
                 SystemDisablePriority.Immediate,
-                () => Localizer.GetString(ResourceKeys.HHRProtocolInitializationFailed, CultureProviderType.Player),
+                ResourceKeys.HHRProtocolInitializationFailed,
+                CultureProviderType.Player,
                 true,
                 () => Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.ErrorInfoHHRProtocolInitializationFailed));
@@ -131,8 +132,8 @@
             _systemDisableManager.Disable(
                 HhrConstants.ProgressivesInitializationFailedKey,
                 SystemDisablePriority.Normal,
-                () =>
-                    Localizer.GetString(ResourceKeys.ProgressiveInitializationFailedMsg, CultureProviderType.Player));
+                ResourceKeys.ProgressiveInitializationFailedMsg,
+                CultureProviderType.Player);
         }
 
         private void Handle(PrizeCalculationErrorEvent evt)
@@ -140,8 +141,8 @@
             _systemDisableManager.Disable(
                 HhrConstants.PrizeCalculationErrorKey,
                 SystemDisablePriority.Immediate,
-                () =>
-                    Localizer.GetString(ResourceKeys.PrizeCalculationError, CultureProviderType.Player),
+                ResourceKeys.PrizeCalculationError,
+                CultureProviderType.Player,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClearPrizeCalculationError));
         }
@@ -151,12 +152,13 @@
             _systemDisableManager.Disable(
                 HhrConstants.GameConfigurationNotSupportedKey,
                 SystemDisablePriority.Immediate,
-                () =>
-                    Localizer.For(CultureFor.Operator)
-                        .FormatString(ResourceKeys.GameConfigurationNotSupported, evt.GameId),
+                ResourceKeys.GameConfigurationNotSupported,
+                CultureProviderType.Operator,
                 true,
                 () => Localizer.For(CultureFor.Operator)
-                    .GetString(ResourceKeys.ErrorInfoGameConfigurationNotSupported));
+                    .GetString(ResourceKeys.ErrorInfoGameConfigurationNotSupported),
+                null,
+                new object[] { evt.GameId });
         }
 
         private void Handle(GameSelectionMismatchEvent evt)
@@ -164,8 +166,8 @@
             _systemDisableManager.Disable(
                 HhrConstants.GameSelectionMismatchKey,
                 SystemDisablePriority.Normal,
-                () =>
-                    Localizer.GetString(ResourceKeys.HhrGameSelectionMismatch, CultureProviderType.Player),
+                ResourceKeys.HhrGameSelectionMismatch,
+                CultureProviderType.Player,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HhrGameSelectionMismatchHelpMessage));
         }
@@ -175,8 +177,8 @@
             _systemDisableManager.Disable(
                 HhrConstants.GamePlayRequestFailedKey,
                 SystemDisablePriority.Normal,
-                () =>
-                    Localizer.GetString(ResourceKeys.HhrGamePlayRequestFailed, CultureProviderType.Player),
+                ResourceKeys.HhrGamePlayRequestFailed,
+                CultureProviderType.Player,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HhrGamePlayRequestFailedHelpMessage));
         }

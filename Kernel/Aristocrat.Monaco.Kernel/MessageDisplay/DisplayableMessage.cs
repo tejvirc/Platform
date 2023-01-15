@@ -12,6 +12,7 @@
     [Serializable]
     public class DisplayableMessage : ISerializable, IDisplayableMessage
     {
+        //Done
         /// <summary>
         ///     Initializes a new instance of the <see cref="DisplayableMessage" /> class.
         /// </summary>
@@ -31,21 +32,65 @@
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="DisplayableMessage" /> class.
         /// </summary>
+        /// <param name="message">The message text to display, the result message depends on the specified name of the culture provider(PlayerCultureProvider|OperatorCultureProvider).</param>
         /// <param name="messageResourceKey"></param>
         /// <param name="providerType"></param>
         /// <param name="classification"></param>
         /// <param name="priority"></param>
         /// <param name="id"></param>
+        public DisplayableMessage(
+            Func<string> message,
+            string messageResourceKey,
+            CultureProviderType providerType,
+            DisplayableMessageClassification classification,
+            DisplayableMessagePriority priority,
+            Guid id)
+                : this(messageResourceKey, providerType, classification, priority, null, id)
+        {
+            if (message != null)
+            {
+                MessageCallback = message;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DisplayableMessage" /> class.
+        /// </summary>
+        /// <param name="messageResourceKey"></param>
+        /// <param name="providerType"></param>
+        /// <param name="classification"></param>
+        /// <param name="priority"></param>
+        public DisplayableMessage(
+            string messageResourceKey,
+            CultureProviderType providerType,
+            DisplayableMessageClassification classification,
+            DisplayableMessagePriority priority)
+            : this(messageResourceKey, providerType, classification, priority, null, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DisplayableMessage" /> class.
+        /// </summary>
+        /// <param name="messageResourceKey"></param>
+        /// <param name="providerType"></param>
+        /// <param name="classification"></param>
+        /// <param name="priority"></param>
+        /// <param name="reason"></param>
+        /// <param name="id"></param>
         /// <param name="helpText"></param>
+        /// <param name="exceptionHandler"></param>
         public DisplayableMessage(
             string messageResourceKey,
             CultureProviderType providerType,
             DisplayableMessageClassification classification,
             DisplayableMessagePriority priority,
+            Type reason,
             Guid? id = null,
-            Func<string> helpText = null)
+            Func<string> helpText = null,
+            Action<Exception> exceptionHandler = null)
         {
             MessageResourceKey = messageResourceKey;
             CultureProvider = providerType;
@@ -55,6 +100,7 @@
             ReasonEvent = null;
             Id = id ?? Guid.NewGuid();
             MessageHasDynamicGuid = !id.HasValue;
+            ExceptionHandler = exceptionHandler;
         }
 
         /// <summary>
@@ -100,8 +146,19 @@
                 throw new ArgumentNullException(nameof(info));
             }
 
-            var message = (string)info.GetValue("Message", typeof(string));
-            MessageCallback = () => message;
+            MessageResourceKey = (string)info.GetValue("MessageResourceKey", typeof(string));
+            CultureProvider = (CultureProviderType)info.GetValue("CultureProvider", typeof(CultureProviderType));
+            Params = (object[])info.GetValue("Params", typeof(object[]));
+
+            if (string.IsNullOrEmpty(MessageResourceKey))
+            {
+                var message = (string)info.GetValue("Message", typeof(string));
+                if (message != null)
+                {
+                    MessageCallback = () => message;
+                }
+            }
+
             var helpText = (string)info.GetValue("HelpText", typeof(string));
             HelpTextCallback = () => helpText;
             Classification = (DisplayableMessageClassification)info.GetValue("Classification", typeof(DisplayableMessageClassification));
@@ -116,18 +173,33 @@
         {
             get
             {
+                if (MessageCallback != null)
+                {
+                    return MessageCallback.Invoke();
+                }
+
                 if (!string.IsNullOrEmpty(MessageResourceKey))
                 {
                     var translationService = ServiceManager.GetInstance().GetService<ITranslationService>();
-                    return translationService.GetString(MessageResourceKey, CultureProvider);
+                    string msg = translationService.GetString(MessageResourceKey, CultureProvider, ExceptionHandler);
+
+                    if (Params?.Length > 0)
+                    {
+                        msg = string.Format(msg, Params);
+                    }
+
+                    return msg;
                 }
 
-                return MessageCallback != null ? MessageCallback.Invoke() : throw new Exception("Message callbacks are not initialized.");
+                throw new Exception("Message is not initialized.");
             }
         }
 
         /// <inheritdoc />
         public string MessageResourceKey { get; set; }
+
+        /// <inheritdoc />
+        public object[] Params { get; set; }
 
         /// <inheritdoc />
         public Func<string> MessageCallback { get; set; }
@@ -150,13 +222,16 @@
         public Type ReasonEvent { get; }
 
         /// <inheritdoc />
-        public CultureProviderType CultureProvider { get; }
+        public CultureProviderType CultureProvider { get; set; }
 
         /// <inheritdoc />
         public Guid Id { get; }
 
         /// <inheritdoc />
         public bool MessageHasDynamicGuid { get; }
+
+        /// <inheritdoc />
+        public Action<Exception> ExceptionHandler { get; }
 
         /// <summary>
         ///     Builds and returns a string representation of the object instance.
@@ -187,9 +262,11 @@
             info.AddValue("Priority", Priority);
             info.AddValue("ReasonEvent", ReasonEvent);
             info.AddValue("Id", Id);
+            info.AddValue("MessageResourceKey", MessageResourceKey);
+            info.AddValue("Params", Params);
+            info.AddValue("CultureProvider", CultureProvider);
             info.AddValue("MessageHasDynamicGuid", MessageHasDynamicGuid);
         }
-
 
         /// <inheritdoc />
         public bool IsMessageEquivalent(IDisplayableMessage message)
@@ -197,6 +274,8 @@
             // if both of the messages have dynamic Guids, don't try to equate the Guids.
             return (message.Id == Id || message.MessageHasDynamicGuid && MessageHasDynamicGuid) &&
                    message.HelpText == HelpText &&
+                   //(!string.IsNullOrEmpty(message.MessageResourceKey) && !string.IsNullOrEmpty(MessageResourceKey) && message.MessageResourceKey == MessageResourceKey ||
+                   //  (string.IsNullOrEmpty(message.MessageResourceKey) && message.Message == Message)) &&
                    message.Message == Message &&
                    message.Classification == Classification &&
                    message.Priority == Priority &&

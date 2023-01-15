@@ -19,7 +19,7 @@ as follows:
           <string>en-CA</string>
       </Available>
   </Operator>
-  <Player Primary="en-CA">
+  <Player Default="en-CA">
       <Available>
           <string>en-CA</string>
           <string>fr-CA</string>

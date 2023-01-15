@@ -364,7 +364,8 @@
             _systemDisableManager.Disable(
                 HhrConstants.CentralServerOffline,
                 SystemDisablePriority.Immediate,
-                () => Localizer.GetString(ResourceKeys.HHRCentralServerOffline, CultureProviderType.Player),
+                ResourceKeys.HHRCentralServerOffline,
+                CultureProviderType.Player,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoHHRCentralServerOffline));
 

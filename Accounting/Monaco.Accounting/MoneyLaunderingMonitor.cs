@@ -15,6 +15,7 @@
     using log4net;
     using Aristocrat.Monaco.Accounting.Contracts.Wat;
     using System.Runtime.CompilerServices;
+    using Kernel.Contracts.MessageDisplay;
 
     public class MoneyLaunderingMonitor : IMoneyLaunderingMonitor, IService, IDisposable
     {
@@ -210,7 +211,8 @@
             _disableManager.Disable(
                 ExcessiveThresholdDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.ExcessiveThresholdDisableMessage),
+                ResourceKeys.ExcessiveThresholdDisableMessage,
+                CultureProviderType.Player,
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExcessiveThresholdDisableHelpMessage));
 

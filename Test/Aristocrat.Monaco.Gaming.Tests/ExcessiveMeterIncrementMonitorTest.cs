@@ -5,6 +5,8 @@
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Kernel.Contracts.MessageDisplay;
+    using Localization.Properties;
     using Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -75,15 +77,15 @@
             _systemDisableManager.Setup(m => m.Disable(
                    ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                    SystemDisablePriority.Immediate,
-                   It.IsAny<Func<string>>(),
-                   null));
+                   ResourceKeys.ExcessiveMeterIncrementError,
+                   CultureProviderType.Player));
             _gameEndHandler?.Invoke(new GameEndedEvent(1, 1, " ", new GameHistoryLog(1)));
             _systemDisableManager.Verify(
                 m => m.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player),
                 Times.Once);
         }
 
@@ -96,15 +98,15 @@
             _systemDisableManager.Setup(m => m.Disable(
                    ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                    SystemDisablePriority.Immediate,
-                   It.IsAny<Func<string>>(),
-                   null));
+                   ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player));
             _gameEndHandler?.Invoke(new GameEndedEvent(1, 1, " ", new GameHistoryLog(1)));
             _systemDisableManager.Verify(
                 m => m.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player),
                 Times.Never);
         }
 
@@ -117,16 +119,16 @@
             _systemDisableManager.Setup(m => m.Disable(
                    ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                    SystemDisablePriority.Immediate,
-                   It.IsAny<Func<string>>(),
-                   null));
+                   ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player));
             _systemDisableManager.Setup(m => m.Enable(ApplicationConstants.ExcessiveMeterIncrementErrorGuid));
             _gameEndHandler?.Invoke(new GameEndedEvent(1, 1, " ", new GameHistoryLog(1)));
             _systemDisableManager.Verify(
                 m => m.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player),
                 Times.Once);
             _downEventHandler?.Invoke(new DownEvent((int)ButtonLogicalId.Button30));
             _systemDisableManager.Verify(m => m.Enable(ApplicationConstants.ExcessiveMeterIncrementErrorGuid), Times.Once);
@@ -141,15 +143,15 @@
             _systemDisableManager.Setup(m => m.Disable(
                    ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                    SystemDisablePriority.Immediate,
-                   It.IsAny<Func<string>>(),
-                   null));
+                   ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player));
             _gameEndHandler?.Invoke(new GameEndedEvent(1, 1, " ", new GameHistoryLog(1)));
             _systemDisableManager.Verify(
                 m => m.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player),
                 Times.Never);
         }
 
@@ -159,15 +161,15 @@
             _systemDisableManager.Setup(m => m.Disable(
                    ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                    SystemDisablePriority.Immediate,
-                   It.IsAny<Func<string>>(),
-                   null));
+                   ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player));
             SetupService(false, false, false, false, false, true, true);
             _systemDisableManager.Verify(
                 m => m.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ExcessiveMeterIncrementError,
+                    CultureProviderType.Player),
                 Times.Once);
         }
 

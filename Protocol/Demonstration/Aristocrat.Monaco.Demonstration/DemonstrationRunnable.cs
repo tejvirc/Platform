@@ -230,7 +230,8 @@
             // Reset only when Exiting from Demonstration Page
             ServiceManager.GetInstance().GetService<IMessageDisplay>().DisplayMessage(
                 new DisplayableMessage(
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DemonstrationExitingMessage),
+                    ResourceKeys.DemonstrationExitingMessage,
+                    CultureProviderType.Operator,
                     DisplayableMessageClassification.Diagnostic,
                     DisplayableMessagePriority.Immediate));
 

@@ -22,6 +22,7 @@
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Mgam.Services.PlayerTracking;
     using Aristocrat.Monaco.Mgam.Services.CreditValidators;
+    using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
 
     [TestClass]
     public class DropModeTest
@@ -196,8 +197,8 @@
         {
             _systemDisable = new Mock<ISystemDisableManager>();
 
-            _systemDisable.Setup(d => d.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<Func<string>>(), It.IsAny<Type>()))
-                .Callback<Guid, SystemDisablePriority, Func<string>, Type>((g, p, f, t) => _disablers[g] = f());
+            _systemDisable.Setup(d => d.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
+                .Callback<Guid, SystemDisablePriority, string, CultureProviderType, object[]>((g, p, f, t, o) => _disablers[g] = f);
             _systemDisable.Setup(d => d.Enable(It.IsAny<Guid>()))
                 .Callback<Guid>(g => _disablers.Remove(g));
             _systemDisable.SetupGet(d => d.CurrentDisableKeys)

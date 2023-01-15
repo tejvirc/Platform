@@ -11,6 +11,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Localization.Properties;
+    using Kernel.Contracts.MessageDisplay;
 
     [TestClass]
     public class ReserveServiceTests
@@ -107,8 +109,9 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 m => m.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player,
+                    default),
                 Times.Never);
         }
 
@@ -138,8 +141,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 m => m.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player),
                 Times.Never);
         }
 
@@ -169,8 +172,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 m => m.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player),
                 Times.Never);
 
             // we would have tired to remove the lockup
@@ -188,8 +191,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 x => x.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null));
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player));
 
             SetupReserveService();
 
@@ -203,8 +206,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 m => m.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player),
                 Times.Once);
 
             // we would have not called to remove the Machine Reserved lockup
@@ -248,8 +251,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                         m => m.Disable(
                             ApplicationConstants.ReserveDisableKey,
                             SystemDisablePriority.Immediate,
-                            It.IsAny<Func<string>>(),
-                            null),
+                            ResourceKeys.ReservedMachine,
+                            CultureProviderType.Player),
                         Times.Once);
                 });
         }
@@ -445,8 +448,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 m => m.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player),
                 Times.Once);
         }
 
@@ -480,8 +483,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                         m => m.Disable(
                             ApplicationConstants.ReserveDisableKey,
                             SystemDisablePriority.Immediate,
-                            It.IsAny<Func<string>>(),
-                            null),
+                            ResourceKeys.ReservedMachine,
+                            CultureProviderType.Player),
                         Times.Once);
                 });
         }
@@ -515,8 +518,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                         m => m.Disable(
                             ApplicationConstants.ReserveDisableKey,
                             SystemDisablePriority.Immediate,
-                            It.IsAny<Func<string>>(),
-                            null),
+                            ResourceKeys.ReservedMachine,
+                            CultureProviderType.Player),
                         Times.Once);
                 });
         }
@@ -571,8 +574,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 x => x.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null));
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player));
 
             _propertiesManager.Setup(p => p.SetProperty(ApplicationConstants.ReserveServiceLockupPresent, true));
 
@@ -588,8 +591,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 m => m.Disable(
                     ApplicationConstants.ReserveDisableKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    ResourceKeys.ReservedMachine,
+                    CultureProviderType.Player),
                 Times.Once);
         }
 

@@ -15107,6 +15107,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Host Disconnected {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Mgam
+        /// </remarks>
+		public static string HostDisconnectedWithTimeStamp {
+			get {
+				return ResourceManager.GetString("HostDisconnectedWithTimeStamp", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to A host with this ID already exists..
 		/// </summary>
 		public static string HostExists {
@@ -25285,6 +25297,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProtocolLabel2 {
 			get {
 				return ResourceManager.GetString("ProtocolLabel2", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hardware Protocol Mismatch - Revalidate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware
+        /// </remarks>
+		public static string ProtocolMismatch {
+			get {
+				return ResourceManager.GetString("ProtocolMismatch", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -49522,6 +49546,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Host Disconnected {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Mgam
+        /// </remarks>
+		public static string HostDisconnectedWithTimeStamp {
+			get {
+				return "HostDisconnectedWithTimeStamp";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to A host with this ID already exists..
 		/// </summary>
 		public static string HostExists {
@@ -59700,6 +59736,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProtocolLabel2 {
 			get {
 				return "ProtocolLabel2";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hardware Protocol Mismatch - Revalidate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware
+        /// </remarks>
+		public static string ProtocolMismatch {
+			get {
+				return "ProtocolMismatch";
 			}
 		}
 
@@ -77469,6 +77517,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HostDisconnected,
 		/// <summary>
+		///   Looks up a localized string similar to Host Disconnected {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Mgam
+        /// </remarks>
+		HostDisconnectedWithTimeStamp,
+		/// <summary>
 		///   Looks up a localized string similar to A host with this ID already exists..
 		/// </summary>
 		HostExists,
@@ -83280,6 +83335,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI - Changed from "ProtocolLabel"
         /// </remarks>
 		ProtocolLabel2,
+		/// <summary>
+		///   Looks up a localized string similar to Hardware Protocol Mismatch - Revalidate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware
+        /// </remarks>
+		ProtocolMismatch,
 		/// <summary>
 		///   Looks up a localized string similar to Protocol Configuration Selection.
 		/// </summary>

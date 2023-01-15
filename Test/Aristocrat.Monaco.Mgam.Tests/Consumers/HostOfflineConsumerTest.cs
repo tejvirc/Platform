@@ -13,6 +13,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Aristocrat.Monaco.Test.Common;
+    using Aristocrat.Monaco.Kernel.Contracts.MessageDisplay;
 
     [TestClass]
     public class HostOfflineConsumerTest
@@ -38,8 +39,8 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _time = new Mock<ITime>();
             _time.Setup(t => t.GetLocationTime(It.IsAny<DateTime>())).Returns(DateTime.Now);
-            _disable.Setup(d => d.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<Func<string>>(), It.IsAny<Type>()))
-                .Callback<Guid, SystemDisablePriority, Func<string>, Type>((g, p, f, t) => _disableKeys[g] = f());
+            //_disable.Setup(d => d.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<string>(), It.IsAny<CultureProviderType>()))
+            //    .Callback<Guid, SystemDisablePriority, string, CultureProviderType>((g, p, k, t) => _disableKeys[g] = k);
         }
 
         [DataRow(false, true, true, true, true, true, DisplayName = "Null System Disable Manager Object")]
@@ -77,6 +78,9 @@
         [TestMethod]
         public void TestConsumerSuccess()
         {
+            _disable.Setup(d => d.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<string>(), It.IsAny<CultureProviderType>()))
+                .Callback(() => _disableKeys[MgamConstants.HostOfflineGuid] = "");
+
             CreateNewTarget();
 
             _target.Consume(new HostOfflineEvent());

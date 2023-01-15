@@ -94,8 +94,21 @@ namespace Aristocrat.Monaco.Kernel
         /// <param name="priority">The priority of this need to disable.</param>
         /// <param name="disableReasonResourceKey">Resource key of the disable reason</param>
         /// <param name="providerType">The type of the message culture provider</param>
+        /// <param name="msgParams">The message parameters</param>
+        public void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, params object[] msgParams);
+
+        /// <summary>
+        ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
+        /// </summary>
+        /// <param name="enableKey">The unique value that will later re-enable this disable.</param>
+        /// <param name="priority">The priority of this need to disable.</param>
+        /// <param name="disableReasonResourceKey">Resource key of the disable reason</param>
+        /// <param name="providerType">The type of the message culture provider</param>
+        /// <param name="affectsIdleState">true (the default) if this disable state affects the cabinet idle state.</param>
+        /// <param name="helpText">A human readable string that contains the reason of the lockup and general guidelines on how to clear it.</param>
         /// <param name="type">The type of the event that prompted this disable, if there is one</param>
-        void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, Type type = null);
+        /// <param name="msgParams">The message parameters</param>
+        void Disable(Guid enableKey, SystemDisablePriority priority, string disableReasonResourceKey, CultureProviderType providerType, bool affectsIdleState=true, Func<string> helpText=null, Type type = null, params object[] msgParams);
 
         /// <summary>
         ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
@@ -148,6 +161,8 @@ namespace Aristocrat.Monaco.Kernel
         /// <param name="type">The type of the event that prompted this disable, if there is one</param>
         /// <param name="helpText">A human readable string that contains the reason of the lockup and general guidelines on how to clear it.</param>
         /// <param name="messageResourceKey">The message resource key of the disable reason</param>
+        /// <param name="providerType">The culture provider type to load localized message</param>
+        /// <param name="msgParams">The message parameters</param>
         void Disable(
             Guid enableKey,
             SystemDisablePriority priority,
@@ -156,7 +171,9 @@ namespace Aristocrat.Monaco.Kernel
             bool affectsIdleState,
             Type type = null,
             Func<string> helpText = null,
-            string messageResourceKey = null);
+            string messageResourceKey = null,
+            CultureProviderType? providerType = null,
+            params object[] msgParams);
 
         /// <summary>
         ///     Clears an existing disable reason.  If this was the only reason to disable, the system will be enabled.

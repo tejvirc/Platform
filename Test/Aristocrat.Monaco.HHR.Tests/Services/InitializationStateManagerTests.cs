@@ -177,7 +177,8 @@
                 x => x.Disable(
                     HhrConstants.CentralServerOffline,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
+                    It.IsAny<string>(),
+                    Kernel.Contracts.MessageDisplay.CultureProviderType.Operator,
                     It.IsAny<bool>(),
                     It.IsAny<Func<string>>(),
                     It.IsAny<Type>()),

@@ -94,7 +94,8 @@
                 RequestTimeout = new LockupRequestTimeout
                 {
                     LockupKey = HhrConstants.CreditOutCmdTransactionErrorKey,
-                    LockupString = Localizer.GetString(ResourceKeys.CreditOutCmdFailedMsg, CultureProviderType.Player),
+                    LockupStringResouceKey = ResourceKeys.CreditOutCmdFailedMsg,
+                    ProviderType = CultureProviderType.Player,
                     LockupHelpText = Localizer.GetString(ResourceKeys.CreditOutCmdFailedHelpMsg)
                 },
                 TransactionId = (uint)_transactionIdProvider.GetNextTransactionId(),

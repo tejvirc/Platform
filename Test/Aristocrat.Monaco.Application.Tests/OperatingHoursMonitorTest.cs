@@ -10,6 +10,7 @@
     using System.Linq;
     using System.Threading;
     using Test.Common;
+    using Kernel.Contracts.MessageDisplay;
 
     [TestClass]
     public class OperatingHoursMonitorTest
@@ -184,8 +185,12 @@
                     d.Disable(
                         ApplicationConstants.OperatingHoursDisableGuid,
                         SystemDisablePriority.Normal,
+                        It.IsAny<string>(),
+                        It.IsAny<CultureProviderType>(),
+                        false,
                         It.IsAny<Func<string>>(),
-                        false, null));
+                        It.IsAny<Type>(),
+                        It.IsAny<object[]>()));
             bus.Verify(b => b.Publish(It.IsAny<OperatingHoursExpiredEvent>()));
         }
 
@@ -240,8 +245,12 @@
                     d.Disable(
                         ApplicationConstants.OperatingHoursDisableGuid,
                         SystemDisablePriority.Normal,
+                        It.IsAny<string>(),
+                        It.IsAny<CultureProviderType>(),
+                        false,
                         It.IsAny<Func<string>>(),
-                        false, null));
+                        It.IsAny<Type>(),
+                        It.IsAny<object[]>()));
 
             Thread.Sleep(250);
 
@@ -279,8 +288,12 @@
                     d.Disable(
                         ApplicationConstants.OperatingHoursDisableGuid,
                         SystemDisablePriority.Normal,
+                        It.IsAny<string>(),
+                        It.IsAny<CultureProviderType>(),
+                        false,
                         It.IsAny<Func<string>>(),
-                        false, null));
+                        It.IsAny<Type>(),
+                        It.IsAny<object[]>()));
             bus.Verify(b => b.Publish(It.IsAny<OperatingHoursExpiredEvent>()));
         }
 
@@ -328,8 +341,12 @@
                     d.Disable(
                         ApplicationConstants.OperatingHoursDisableGuid,
                         SystemDisablePriority.Normal,
+                        It.IsAny<string>(),
+                        It.IsAny<CultureProviderType>(),
+                        false,
                         It.IsAny<Func<string>>(),
-                        false, null));
+                        It.IsAny<Type>(),
+                        It.IsAny<object[]>()));
             bus.Verify(b => b.Publish(It.IsAny<OperatingHoursExpiredEvent>()));
         }
 

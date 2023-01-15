@@ -38,6 +38,7 @@
   </Extension>
 
   <Extension path="/Application/Services">
+    <Service type="Aristocrat.Monaco.Application.Localization.TranslationService" />
     <Service type="Aristocrat.Monaco.Application.Tilt.TiltLogger" />
     <Service type="Aristocrat.Monaco.Application.NoteAcceptor.NoteAcceptorCoordinator" />
     <Service type="Aristocrat.Monaco.Application.Monitors.HardMeterMonitor" />
@@ -72,7 +73,6 @@
     <Service type="Aristocrat.Monaco.Application.Monitors.SecondaryStorageMonitor" />
     <Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />
     <Service type="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" />
-    <Service type="Aristocrat.Monaco.Application.Localization.TranslationService" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">

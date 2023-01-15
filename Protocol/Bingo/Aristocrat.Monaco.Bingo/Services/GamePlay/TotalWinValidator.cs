@@ -66,7 +66,8 @@
             _systemDisableManager.Disable(
                 BingoConstants.BingoWinMismatchKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.GetString(ResourceKeys.PresentationNotFound, CultureProviderType.Player));
+                ResourceKeys.PresentationNotFound,
+                CultureProviderType.Player);
         }
 
         private void SetupWinResults()
