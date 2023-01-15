@@ -1108,6 +1108,11 @@
             RegisterAccessRule(AutoHoldField, nameof(LogicDoorEnabled), nameof(LogicDoorAccessRestriction));
 
             LoadSoundFile();
+
+            foreach (var language in LanguageOptions)
+            {
+                language.PropertyChanged += Language_OnPropertyChanged;
+            }
         }
 
         protected override void OnUnloaded()
