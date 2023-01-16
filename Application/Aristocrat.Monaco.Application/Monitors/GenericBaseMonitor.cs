@@ -393,7 +393,7 @@ namespace Aristocrat.Monaco.Application.Monitors
                 error.IsActive = true;
                 if (error.IsLockup)
                 {
-                    _disableManager.Disable(error.Guid, error.DisablePriority, error.DisplayableMessage.MessageCallback);
+                    _disableManager.Disable(error.Guid, error.DisablePriority, error.DisplayableMessage.MessageResourceKey, CultureProviderType.Operator);
                 }
                 else
                 {

@@ -5,6 +5,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages.GamePlay;
+    using Kernel.Contracts.MessageDisplay;
     using Bingo.Services.Reporting;
     using Common;
     using Common.GameOverlay;
@@ -154,10 +155,12 @@
             _systemDisableManager.Verify(m => m.Disable(
                 BingoConstants.GameHistoryQueueDisableKey,
                 SystemDisablePriority.Normal,
+                It.IsAny<string>(),
+                It.IsAny<CultureProviderType>(),
+                It.IsAny<bool>(),
                 It.IsAny<Func<string>>(),
-                false,
-                It.IsAny<Func<string>>(),
-                null), Times.Once());
+                It.IsAny<Type>(),
+                It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]

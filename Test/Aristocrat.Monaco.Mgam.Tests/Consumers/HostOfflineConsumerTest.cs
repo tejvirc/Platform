@@ -39,8 +39,8 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _time = new Mock<ITime>();
             _time.Setup(t => t.GetLocationTime(It.IsAny<DateTime>())).Returns(DateTime.Now);
-            //_disable.Setup(d => d.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<string>(), It.IsAny<CultureProviderType>()))
-            //    .Callback<Guid, SystemDisablePriority, string, CultureProviderType>((g, p, k, t) => _disableKeys[g] = k);
+            _disable.Setup(d => d.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
+                .Callback<Guid, SystemDisablePriority, string, CultureProviderType, object[]>((g, p, k, t, o) => _disableKeys[g] = k);
         }
 
         [DataRow(false, true, true, true, true, true, DisplayName = "Null System Disable Manager Object")]

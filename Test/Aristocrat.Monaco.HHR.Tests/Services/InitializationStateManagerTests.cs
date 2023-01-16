@@ -6,6 +6,7 @@
     using System.Reactive.Subjects;
     using System.Threading;
     using System.Threading.Tasks;
+    using Kernel.Contracts.MessageDisplay;
     using Client.Data;
     using Client.Messages;
     using Client.WorkFlow;
@@ -178,7 +179,7 @@
                     HhrConstants.CentralServerOffline,
                     SystemDisablePriority.Immediate,
                     It.IsAny<string>(),
-                    Kernel.Contracts.MessageDisplay.CultureProviderType.Operator,
+                    It.IsAny<CultureProviderType>(),
                     It.IsAny<bool>(),
                     It.IsAny<Func<string>>(),
                     It.IsAny<Type>()),

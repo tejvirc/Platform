@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Kernel.Contracts.MessageDisplay;
     using Bingo.Services.GamePlay;
     using Common;
     using Common.Storage.Model;
@@ -64,8 +65,9 @@
                 m => m.Disable(
                     BingoConstants.BingoWinMismatchKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>()),
                 Times.Never);
 
             _target.ValidateTotalWin(totalValidWin, transaction);
@@ -102,8 +104,9 @@
                 x => x.Disable(
                     BingoConstants.BingoWinMismatchKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null)).Verifiable();
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>())).Verifiable();
 
             _target.ValidateTotalWin(totalValidWin, transaction);
 
@@ -128,8 +131,9 @@
                 x => x.Disable(
                     BingoConstants.BingoWinMismatchKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null)).Verifiable();
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>())).Verifiable();
 
             _target = CreateTarget();
 

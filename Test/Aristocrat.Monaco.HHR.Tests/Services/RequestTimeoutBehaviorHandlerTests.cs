@@ -6,6 +6,7 @@
     using System.Reactive.Subjects;
     using System.Threading;
     using System.Threading.Tasks;
+    using Kernel.Contracts.MessageDisplay;
     using Client.Communication;
     using Client.Messages;
     using Client.Tests.Messages;
@@ -146,7 +147,8 @@
                 x => x.Disable(
                     _invalidRequestTimeoutLockup,
                     It.IsAny<SystemDisablePriority>(),
-                    It.IsAny<Func<string>>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
                     It.IsAny<bool>(),
                     It.IsAny<Func<string>>(),
                     It.IsAny<Type>()),
@@ -163,7 +165,8 @@
                 x => x.Disable(
                     _invalidRequestTimeoutLockup,
                     It.IsAny<SystemDisablePriority>(),
-                    It.IsAny<Func<string>>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
                     It.IsAny<bool>(),
                     It.IsAny<Func<string>>(),
                     It.IsAny<Type>()),

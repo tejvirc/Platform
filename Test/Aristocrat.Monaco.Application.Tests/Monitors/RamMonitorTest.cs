@@ -5,6 +5,7 @@
     using System.Linq;
     using Application.Monitors;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -126,7 +127,7 @@
             handler(new PersistentStorageIntegrityCheckFailedEvent());
 
             _disableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
             _audioService.Verify(
                 m => m.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
         }
@@ -149,7 +150,7 @@
             handler(new PersistentStorageIntegrityCheckFailedEvent());
 
             _disableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
             _audioService.Verify(
                 m => m.Play("Test.ogg", It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
         }
@@ -194,7 +195,7 @@
             handler(new StorageErrorEvent(StorageError.ReadFailure));
 
             _disableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
 
             meter.Verify(m => m.Increment(1));
         }
@@ -216,8 +217,9 @@
                 m => m.Disable(
                     ApplicationConstants.SecondaryStorageMediaConnectedKey,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null)).Verifiable();
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
+                    It.IsAny<object[]>())).Verifiable();
 
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<SecondaryStorageErrorEvent>>()))
                 .Callback<object, Action<SecondaryStorageErrorEvent>>((subscriber, callback) => handler = callback);

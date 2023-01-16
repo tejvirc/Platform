@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Kernel.Contracts.MessageDisplay;
     using Asp.Client.Contracts;
     using Asp.Client.DataSources;
     using Gaming.Contracts;
@@ -206,7 +207,7 @@
             var status = GameEnableStatus.DisableGameAllowCollect;
             SetUpCommitTests(status, false, SystemDisablePriority.Normal);
             _systemDisableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<Func<string>>(), null),
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()),
                 Times.Once);
         }
 
@@ -227,7 +228,7 @@
             var status = GameEnableStatus.DisableGameDisallowCollect;
             SetUpCommitTests(status, false);
             _systemDisableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null),
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()),
                 Times.Once);
         }
 
@@ -281,13 +282,13 @@
             }
             else
             {
-                _systemDisableManager.Setup(m => m.Disable(It.IsAny<Guid>(), priority, It.IsAny<Func<string>>(), null));
+                _systemDisableManager.Setup(m => m.Disable(It.IsAny<Guid>(), priority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
             }
 
-            var expectedDisableReason = "Progressive Disable";
-            _systemDisableManager.Setup(e => e.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<Func<string>>(), null))
-                .Callback<Guid, SystemDisablePriority, Func<string>, Type>(
-                    (guid, disablepriority, func, type) => Assert.AreEqual(expectedDisableReason, func.Invoke()));
+            var expectedDisableReasonKey = "ProgressiveDisable";
+            _systemDisableManager.Setup(e => e.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
+                .Callback<Guid, SystemDisablePriority,string, CultureProviderType, object[]>(
+                    (guid, disablepriority, resourceKey, type, p) => Assert.AreEqual(expectedDisableReasonKey, resourceKey));
 
             _gameStatusDataSource.Commit();
         }
@@ -303,10 +304,10 @@
             Assert.IsNotNull(_gameEndedEventCallback);
             _gameStatusProvider.Setup(m => m.HostStatus).Returns(status);
             _systemDisableManager.Setup(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
             _gameEndedEventCallback(new GameEndedEvent(It.IsAny<int>(), It.IsAny<long>(), It.IsAny<string>(), log.Object));
             _systemDisableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null),
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()),
                 Times.Once);
         }
 
@@ -321,10 +322,10 @@
             Assert.IsNotNull(_gameEndedEventCallback);
             _gameStatusProvider.Setup(m => m.HostStatus).Returns(status);
             _systemDisableManager.Setup(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<Func<string>>(), null));
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
             _gameEndedEventCallback(new GameEndedEvent(It.IsAny<int>(), It.IsAny<long>(), It.IsAny<string>(), log.Object));
             _systemDisableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<Func<string>>(), null),
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()),
                 Times.Once);
         }
 
@@ -339,16 +340,16 @@
             Assert.IsNotNull(_gameEndedEventCallback);
             _gameStatusProvider.Setup(m => m.HostStatus).Returns(status);
 
-            var expectedDisableReason = "Progressive Disable";
-            _systemDisableManager.Setup(e => e.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<Func<string>>(), null))
-                .Callback<Guid, SystemDisablePriority, Func<string>, Type>(
-                    (guid, priority, func, type) => Assert.AreEqual(expectedDisableReason, func.Invoke()));
+            var expectedDisableReasonKey = "ProgressiveDisable";
+            _systemDisableManager.Setup(e => e.Disable(It.IsAny<Guid>(), It.IsAny<SystemDisablePriority>(), It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
+                .Callback<Guid, SystemDisablePriority, string, CultureProviderType, object[]>(
+                    (guid, priority, resourceKey, type, p) => Assert.AreEqual(expectedDisableReasonKey, resourceKey));
 
             _gameEndedEventCallback(new GameEndedEvent(It.IsAny<int>(), It.IsAny<long>(), It.IsAny<string>(), log.Object));
             _gameEndedEventCallback(new GameEndedEvent(It.IsAny<int>(), It.IsAny<long>(), It.IsAny<string>(), log.Object));
 
             _systemDisableManager.Verify(
-                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<Func<string>>(), null),
+                m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Normal, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()),
                 Times.Once);
         }
 

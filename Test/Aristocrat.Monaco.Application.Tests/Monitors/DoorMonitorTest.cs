@@ -1590,12 +1590,12 @@
         {
             var disableGuid = new Guid(ApplicationConstants.CashDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Stacker Door is Open";
+            var doorOpenMessage = "CashDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.CashDoorGuid,
-                "Stacker Door is Open",
-                "Stacker Door Closed");
+                "Cash Door is Open",
+                "Cash Door Closed");
 
             _accessor.OpenDoor(CashDoorId, null);
 
@@ -1622,7 +1622,7 @@
         {
             var disableGuid = new Guid(ApplicationConstants.LogicDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Logic Door is Open";
+            var doorOpenMessage = "LogicDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.LogicDoorGuid,
@@ -1635,7 +1635,7 @@
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
 
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -1654,7 +1654,7 @@
         {
             var disableGuid = new Guid(ApplicationConstants.MainDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Main Door is Open";
+            var doorOpenMessage = "MainDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.MainDoorGuid,
@@ -1666,7 +1666,7 @@
             Assert.AreEqual(1, _displayedMessages.Count);
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -1685,7 +1685,7 @@
         {
             var disableGuid = new Guid(ApplicationConstants.TopBoxDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Top Box Door is Open";
+            var doorOpenMessage = "TopBoxDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.TopBoxDoorGuid,
@@ -1697,7 +1697,7 @@
             Assert.AreEqual(1, _displayedMessages.Count);
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -1716,7 +1716,7 @@
         {
             var disableGuid = new Guid(ApplicationConstants.UniversalInterfaceBoxDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Universal Interface Box Door is Open";
+            var doorOpenMessage = "UniversalInterfaceBoxDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.UniversalInterfaceBoxDoorGuid,
@@ -1728,7 +1728,7 @@
             Assert.AreEqual(1, _displayedMessages.Count);
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -1747,7 +1747,7 @@
         {
             var disableGuid = new Guid(ApplicationConstants.MechanicalMeterDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Mechanical Meter Door is Open";
+            var doorOpenMessage = "MechanicalMeterDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.MechanicalMeterDoorGuid,
@@ -1759,7 +1759,7 @@
             Assert.AreEqual(1, _displayedMessages.Count);
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -1778,7 +1778,7 @@
         {
             var disableGuid = new Guid(ApplicationConstants.MainOpticDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Main Door is Open";
+            var doorOpenMessage = "MainDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.MainOpticDoorGuid,
@@ -1790,7 +1790,7 @@
             Assert.AreEqual(1, _displayedMessages.Count);
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -1809,7 +1809,7 @@
         {
             var disableGuid = new Guid(ApplicationConstants.TopBoxOpticDoorGuid.ToString());
             const SystemDisablePriority disablePriority = SystemDisablePriority.Immediate;
-            var doorOpenMessage = "Top Box Door is Open";
+            var doorOpenMessage = "TopBoxDoorIsOpen";
             MockDisableManagerAndMessageDisplay(
                 true,
                 ApplicationConstants.TopBoxOpticDoorGuid,
@@ -1821,7 +1821,7 @@
             Assert.AreEqual(1, _displayedMessages.Count);
 
             Assert.IsTrue(IsMessageInList(doorOpenMessage, _displayedMessages));
-            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.Is<Func<string>>(x => x.Invoke() == doorOpenMessage), null), Times.Once());
+            _disableManager.Verify(m => m.Disable(disableGuid, disablePriority, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]
@@ -1899,12 +1899,12 @@
             _accessor.OpenDoor(UniversalInterfaceBoxDoorId, null);
 
             Assert.AreEqual(6, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Logic Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Stacker Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Main Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Belly Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Top Box Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Universal Interface Box Door is Open", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("LogicDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("CashDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("BellyDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("TopBoxDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("UniversalInterfaceBoxDoorIsOpen", _displayedMessages));
             var logicDoorGuid = new Guid(ApplicationConstants.LogicDoorGuid.ToString()).ToByteArray();
             var cashDoorGuid = new Guid(ApplicationConstants.CashDoorGuid.ToString()).ToByteArray();
             var mainDoorGuid = new Guid(ApplicationConstants.MainDoorGuid.ToString()).ToByteArray();
@@ -1913,22 +1913,22 @@
             var universalInterfaceBoxDoorGuid = new Guid(ApplicationConstants.UniversalInterfaceBoxDoorGuid.ToString()).ToByteArray();
 
             _disableManager.Verify(
-                m => m.Disable(new Guid(logicDoorGuid), SystemDisablePriority.Immediate, It.Is<Func<string>>(x => x.Invoke() == "Logic Door is Open"), null),
+                m => m.Disable(new Guid(logicDoorGuid), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()),
                 Times.Once());
             _disableManager.Verify(
-                m => m.Disable(new Guid(cashDoorGuid), SystemDisablePriority.Immediate, It.Is<Func<string>>(x => x.Invoke() == "Stacker Door is Open"), null),
+                m => m.Disable(new Guid(cashDoorGuid), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()),
                 Times.Once());
             _disableManager.Verify(
-                m => m.Disable(new Guid(mainDoorGuid), SystemDisablePriority.Immediate, It.Is<Func<string>>(x => x.Invoke() == "Main Door is Open"), null),
+                m => m.Disable(new Guid(mainDoorGuid), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()),
                 Times.Once());
             _disableManager.Verify(
-                m => m.Disable(new Guid(bellyDoorGuid), SystemDisablePriority.Immediate, It.Is<Func<string>>(x => x.Invoke() == "Belly Door is Open"), null),
+                m => m.Disable(new Guid(bellyDoorGuid), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()),
                 Times.Once());
             _disableManager.Verify(
-                m => m.Disable(new Guid(topBoxDoorGuid), SystemDisablePriority.Immediate, It.Is<Func<string>>(x => x.Invoke() == "Top Box Door is Open"), null),
+                m => m.Disable(new Guid(topBoxDoorGuid), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()),
                 Times.Once());
             _disableManager.Verify(
-                m => m.Disable(new Guid(universalInterfaceBoxDoorGuid), SystemDisablePriority.Immediate, It.Is<Func<string>>(x => x.Invoke() == "Universal Interface Box Door is Open"), null),
+                m => m.Disable(new Guid(universalInterfaceBoxDoorGuid), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()),
                 Times.Once());
         }
 
@@ -1945,8 +1945,8 @@
             _accessor.OpenDoor(BellyDoorId, null);
 
             Assert.AreEqual(2, _displayedMessages.Count);
-            Assert.AreEqual("Belly Door is Open", _displayedMessages[0]);
-            Assert.AreEqual("Belly Door is Open", _displayedMessages[1]);
+            Assert.AreEqual("BellyDoorIsOpen", _displayedMessages[0]);
+            Assert.AreEqual("BellyDoorIsOpen", _displayedMessages[1]);
         }
 
         [TestMethod]
@@ -2087,16 +2087,16 @@
             _accessor.CloseDoor(LogicDoorId);
 
             Assert.AreEqual(9, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Logic Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Stacker Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Main Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Belly Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Top Box Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Universal Interface Box Door is Open", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("LogicDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("CashDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("BellyDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("TopBoxDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("UniversalInterfaceBoxDoorIsOpen", _displayedMessages));
 
-            Assert.IsTrue(IsMessageInList("Belly Door Closed", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Stacker Door Closed", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Logic Door Closed", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("BellyDoorClosed", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("CashDoorClosed", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("LogicDoorClosed", _displayedMessages));
         }
 
         [TestMethod]
@@ -2122,8 +2122,8 @@
             _accessor.CloseDoor(BellyDoorId);
 
             Assert.AreEqual(2, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Belly Door is Open", _displayedMessages));
-            Assert.IsTrue(IsMessageInList("Belly Door Closed", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("BellyDoorIsOpen", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("BellyDoorClosed", _displayedMessages));
         }
 
         [TestMethod]
@@ -2359,17 +2359,18 @@
                 true,
                 ApplicationConstants.MainDoorGuid,
                 "Foo",
-                "Bar");
+                "Bar",
+                true);
 
             _accessor.OpenDoor(MainDoorId, null);
             Assert.AreEqual(1, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Main Door Mismatch", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorMismatch", _displayedMessages));
             Assert.AreEqual(1, _removedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Main Door Closed", _removedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorClosed", _removedMessages));
 
             _accessor.OpenDoor(MainOpticDoorId, null);
             Assert.AreEqual(2, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Main Door is Open", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorIsOpen", _displayedMessages));
 
             _displayedMessages.Clear();
             MockDisableManagerAndMessageDisplay(
@@ -2380,20 +2381,20 @@
 
             _accessor.CloseDoor(MainDoorId);
             Assert.AreEqual(1, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Main Door Mismatch", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorMismatch", _displayedMessages));
 
             _removedMessages.Clear();
             _accessor.CloseDoor(MainOpticDoorId);
             Assert.AreEqual(2, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Main Door Closed", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorClosed", _displayedMessages));
             Assert.AreEqual(0, _removedMessages.Count);
 
             _displayedMessages.Clear();
             _accessor.OpenDoor(MainOpticDoorId, null);
             Assert.AreEqual(1, _displayedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Main Door Mismatch", _displayedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorMismatch", _displayedMessages));
             Assert.AreEqual(1, _removedMessages.Count);
-            Assert.IsTrue(IsMessageInList("Main Door Closed", _removedMessages));
+            Assert.IsTrue(IsMessageInList("MainDoorClosed", _removedMessages));
         }
 
         private void SetupDoors()
@@ -2576,21 +2577,31 @@
             bool disable,
             Guid doorGuid,
             string openMessage,
-            string closedMessage)
+            string closedMessage,
+            bool mismatchTest=false)
         {
             if (disable)
             {
                 if (doorGuid != Guid.Empty && !string.IsNullOrEmpty(openMessage))
                 {
-                    _disableManager.Setup(
-                            m => m.Disable(doorGuid, SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
-                        .Callback((Guid g, SystemDisablePriority s, string message, CultureProviderType t, object[] p) => { _displayedMessages.Add(message); }).Verifiable();
+                    if (mismatchTest)
+                    {
+                        _disableManager.Setup(
+                                m => m.Disable(doorGuid, SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()))
+                            .Callback((Guid g, SystemDisablePriority s, string resourceKey, CultureProviderType c, object[] p) => { _displayedMessages.Add(resourceKey); }).Verifiable();
+                    }
+                    else
+                    {
+                        _disableManager.Setup(
+                                m => m.Disable(doorGuid, SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<bool>(), It.IsAny<Func<string>>(), It.IsAny<Type>(), It.IsAny<object[]>()))
+                            .Callback((Guid g, SystemDisablePriority s, string resourceKey, CultureProviderType c, bool a, Func<string> helpText, Type t, object[] p) => { _displayedMessages.Add(resourceKey); }).Verifiable();
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(closedMessage))
                 {
                     _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()))
-                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.Message); }).Verifiable();
+                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.MessageResourceKey); }).Verifiable();
                 }
             }
             else
@@ -2604,13 +2615,13 @@
                 if (!string.IsNullOrEmpty(openMessage))
                 {
                     _messageDisplay.Setup(m => m.RemoveMessage(It.IsAny<IDisplayableMessage>()))
-                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.Message); }).Verifiable();
+                        .Callback((IDisplayableMessage message) => { _removedMessages.Add(message.MessageResourceKey); }).Verifiable();
                 }
 
                 if (!string.IsNullOrEmpty(closedMessage))
                 {
                     _messageDisplay.Setup(m => m.DisplayMessage(It.IsAny<IDisplayableMessage>()))
-                        .Callback((IDisplayableMessage message) => { _displayedMessages.Add(message.Message); }).Verifiable();
+                        .Callback((IDisplayableMessage message) => { _displayedMessages.Add(message.MessageResourceKey); }).Verifiable();
                 }
             }
         }

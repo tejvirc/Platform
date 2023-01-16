@@ -4,6 +4,7 @@
     using System.Data;
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
+    using Kernel.Contracts.MessageDisplay;
     using Common;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -61,8 +62,9 @@
             _systemDisableManager.Setup(m => m.Disable(
                 BingoConstants.TransactionQueueDisableKey,
                 SystemDisablePriority.Immediate,
-                It.IsAny<Func<string>>(),
-                null))
+                It.IsAny<string>(),
+                It.IsAny<CultureProviderType>(),
+                It.IsAny<object[]>()))
                 .Verifiable();
 
             _target.AlmostFullDisable();
@@ -70,8 +72,9 @@
             _systemDisableManager.Verify(m => m.Disable(
                 BingoConstants.TransactionQueueDisableKey,
                 SystemDisablePriority.Immediate,
-                It.IsAny<Func<string>>(),
-                null), Times.Once());
+                It.IsAny<string>(),
+                It.IsAny<CultureProviderType>(),
+                It.IsAny<object[]>()), Times.Once());
         }
 
         [TestMethod]

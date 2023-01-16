@@ -13,6 +13,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.Door;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.Printer;
+    using Kernel.Contracts.MessageDisplay;
     using Aristocrat.Monaco.Test.Common;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -162,7 +163,7 @@
 
             await _platformBootedHandler.Invoke(new PlatformBootedEvent(), new CancellationToken());
             _disableManager.SetupGet(d => d.CurrentDisableKeys).Returns(new List<Guid> { });
-            _disableManager.Setup(d => d.Disable(ApplicationConstants.MonitorSignatureMismatchDisableKey, SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), It.IsAny<Type>())).Verifiable();
+            _disableManager.Setup(d => d.Disable(ApplicationConstants.MonitorSignatureMismatchDisableKey, SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>())).Verifiable();
 
             var evt = new ClosedEvent((int)DoorLogicalId.Logic, "Unit Logic Door");
             await _logicDoorEventHandle.Invoke(evt, new CancellationToken());
@@ -259,7 +260,7 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Func<PlatformBootedEvent, CancellationToken, Task>>()))
                 .Callback<object, Func<PlatformBootedEvent, CancellationToken, Task>>((subscriber, callback) => _platformBootedHandler = callback);
             _disableManager.Setup(d => d.Disable(ApplicationConstants.MonitorVerifyingDisableKey, SystemDisablePriority.Immediate,
-            It.IsAny<Func<string>>(), It.IsAny<Type>())).Verifiable();
+            It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>())).Verifiable();
             _disableManager.Setup(d => d.Enable(ApplicationConstants.MonitorVerifyingDisableKey)).Verifiable();
             _storage.Setup(s => s.GetBlock(It.IsAny<string>())).Returns(_storageAccessor.Object);
         }

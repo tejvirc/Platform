@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
+    using Kernel.Contracts.MessageDisplay;
     using Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -94,7 +95,7 @@
             monitor.Initialize();
 
             Assert.IsFalse(File.Exists(Path.Combine(currentDirectory, TempFile)));
-            _disableManager.Verify(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+            _disableManager.Verify(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<object[]>()));
             _bus.Verify(m => m.Publish(It.IsAny<ReadOnlyMediaErrorEvent>()));
         }
 

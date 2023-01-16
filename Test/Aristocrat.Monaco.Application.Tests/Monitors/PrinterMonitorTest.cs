@@ -33,6 +33,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         private Mock<IScopedTransaction> _scopedTransaction;
         private Mock<IMessageDisplay> _messageDisplay;
         private static Mock<ISystemDisableManager> _systemDisableManager;
+        private Mock<ITranslationService> _translationService;
 
         private Mock<IDisposable> _disposable;
 
@@ -73,6 +74,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             _persistentStorageTransaction = MoqServiceManager.CreateAndAddService<IPersistentStorageTransaction>(MockBehavior.Loose);
             _scopedTransaction = MoqServiceManager.CreateAndAddService<IScopedTransaction>(MockBehavior.Loose);
             _messageDisplay = MoqServiceManager.CreateAndAddService<IMessageDisplay>(MockBehavior.Default);
+            _translationService = MoqServiceManager.CreateAndAddService<ITranslationService>(MockBehavior.Default);
 
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
                 .Returns<string, object>((s, o) => o);
@@ -196,6 +198,9 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void ExpectAudioAlertForDisconnectionWhenAuditMenuOpened()
         {
+            _translationService.Setup(t => t.GetString(It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<Action<Exception>>())).
+                Returns("Test");
+
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.PrinterErrorSoundKey, It.IsAny<object>()))
                 .Returns("Test.ogg");
@@ -274,16 +279,18 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
                         m => m.Disable(
                             disableGuid,
                             It.IsAny<SystemDisablePriority>(),
-                            It.Is<Func<string>>(x => x.Invoke() == msg),
-                            null))
+                            It.IsAny<string>(),
+                            It.IsAny<CultureProviderType>(),
+                            It.IsAny<object[]>()))
                     .Callback(
                         (
                             Guid enableKey,
                             SystemDisablePriority priority,
-                            Func<string> disableReason,
-                            Type type) =>
+                            string resourceKey,
+                            CultureProviderType type,
+                            object[] p) =>
                         {
-                            _displayedMessages.Add(disableReason.Invoke());
+                            _displayedMessages.Add(resourceKey);
                         })
                     .Verifiable();
             }
