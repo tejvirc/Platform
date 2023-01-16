@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Reflection;
     using System.Threading;
@@ -27,6 +28,7 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
+    using Mono.Addins;
     using Progressives;
     using Runtime;
     using SimpleInjector;
@@ -37,6 +39,8 @@
     public abstract class GamingRunnable : BaseRunnable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private const string ServicesExtensionPath = "/Gaming/Services";
+        private readonly List<IService> _services = new List<IService>();
 
         private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(30);
 
@@ -77,6 +81,27 @@
             Unload();
             Thread.Sleep(500);
             Logger.Info("Gaming OnRun complete");
+        }
+
+        private static void WritePendingActionToMessageDisplay(string resourceStringName)
+        {
+            var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();
+
+            var localizer = Localizer.For(CultureFor.Operator);
+
+            var displayMessage = localizer.GetString(resourceStringName, _ => display.DisplayStatus(resourceStringName));
+
+            if (!string.IsNullOrWhiteSpace(displayMessage))
+            {
+                display.DisplayStatus(displayMessage);
+            }
+
+            var logMessage = localizer.GetString(CultureInfo.InvariantCulture, resourceStringName, _ => Logger.Info(resourceStringName));
+
+            if (!string.IsNullOrWhiteSpace(logMessage))
+            {
+                Logger.Info(logMessage);
+            }
         }
 
         /// <inheritdoc />
@@ -274,6 +299,16 @@
             serviceManager.AddService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
+
+            WritePendingActionToMessageDisplay("LoadingAccountingServices");
+            var nodes = MonoAddinsHelper.GetSelectedNodes<TypeExtensionNode>(ServicesExtensionPath);
+            foreach (var node in nodes)
+            {
+                var service = (IService)node.CreateInstance();
+                service.Initialize();
+                serviceManager.AddService(service);
+                _services.Add(service);
+            }
         }
 
         private void RemoveServices()
@@ -344,6 +379,14 @@
 
             RemoveServices();
             _container?.Dispose();
+
+            WritePendingActionToMessageDisplay("UnloadingGamingServices");
+            foreach (var service in _services)
+            {
+                ServiceManager.GetInstance().RemoveService(service);
+            }
+
+            _services.Clear();
         }
 
         private void HandleStartupEvents()

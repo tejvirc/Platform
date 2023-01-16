@@ -15,6 +15,7 @@
   <Runtime>
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Nevada" description="Top level Nevada jurisdiction group" id="JUR000090,JUR000998,JUR000999,JUR000033">
@@ -84,6 +85,9 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaAccountingRunnable" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/Services">
+        <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaGamingServices" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaErrorMessageConfig" />
@@ -183,5 +187,8 @@
   </Extension>
   <Extension path="/Accounting/BootExtender" filterid="NevadaAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
+  </Extension>
+  <Extension path="/Gaming/Services" filterid="NevadaGamingServices">
+    <GamingService type="Aristocrat.Monaco.Gaming.HandCountSessionService" />
   </Extension>
 </Addin>
