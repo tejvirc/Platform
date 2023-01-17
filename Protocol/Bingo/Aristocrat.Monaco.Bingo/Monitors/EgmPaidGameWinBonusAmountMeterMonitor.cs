@@ -6,7 +6,6 @@
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Common.Storage;
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
