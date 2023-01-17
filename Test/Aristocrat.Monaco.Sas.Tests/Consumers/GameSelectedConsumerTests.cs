@@ -17,6 +17,7 @@
     {
         private Mock<ISasExceptionHandler> _exceptionHandlerMock;
         private Mock<IPropertiesManager> _propertiesManagerMock;
+        private Mock<IGameProvider> _gameProviderMock;
 
         private GameSelectedConsumer _target;
 
@@ -24,12 +25,13 @@
         public void Initialize()
         {
             _exceptionHandlerMock = new Mock<ISasExceptionHandler>(MockBehavior.Strict);
-            _propertiesManagerMock = new Mock<IPropertiesManager>(MockBehavior.Strict);
+            _propertiesManagerMock = new Mock<IPropertiesManager>(MockBehavior.Default);
+            _gameProviderMock = new Mock<IGameProvider>(MockBehavior.Default);
 
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
 
-            _target = new GameSelectedConsumer(_exceptionHandlerMock.Object, _propertiesManagerMock.Object);
+            _target = new GameSelectedConsumer(_exceptionHandlerMock.Object, _propertiesManagerMock.Object, _gameProviderMock.Object);
         }
 
         [TestMethod]
@@ -38,6 +40,8 @@
         public void ConsumeGameSelectedTests(int gameId, bool exceptionReported)
         {
             const int currentGameId = 1;
+            const int denomId = 0;
+            var expectedResult = new GameSelectedExceptionBuilder(denomId);
 
             _propertiesManagerMock.Setup(p => p.SetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()));
             _propertiesManagerMock.Setup(p => p.GetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()))
@@ -48,15 +52,15 @@
                 .Callback((ISasExceptionCollection a) => actual = a as GameSelectedExceptionBuilder)
                 .Verifiable();
 
-            _target.Consume(new GameSelectedEvent(gameId, 10L, "", false, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero));
+            _target.Consume(new GameSelectedEvent(gameId, 1000L, "", false, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero));
 
             Assert.AreEqual(exceptionReported, actual != null);
 
             if (exceptionReported)
             {
                 _exceptionHandlerMock.Verify(m => m.ReportException(It.IsAny<GameSelectedExceptionBuilder>()));
-
-                CollectionAssert.AreEquivalent(new GameSelectedExceptionBuilder(gameId), actual);
+                
+                CollectionAssert.AreEquivalent(expectedResult, actual);
                 _propertiesManagerMock.Verify(m => m.SetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()));
             }
         }
