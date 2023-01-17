@@ -10,6 +10,8 @@ namespace Aristocrat.Monaco.Hardware
     using Contracts.IO;
     using Contracts.Persistence;
     using Contracts.SharedDevice;
+    using EdgeLight.Device;
+    using EdgeLight.Services;
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Contracts.Events;
@@ -290,6 +292,27 @@ namespace Aristocrat.Monaco.Hardware
             {
                 InitializeService((IService)serviceNode.CreateInstance());
             }
+
+#if !(RETAIL)
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var simulatedEdgeLightCabinet = propertiesManager.GetValue(
+                HardwareConstants.SimulateEdgeLighting,
+                false);
+
+            if (!simulatedEdgeLightCabinet)
+            {
+                InitializeService(new EdgeLightDeviceFactory());
+            }
+            else
+            {
+                Logger.Debug("Initializing simulated edge lighting services");
+                InitializeService(new SimEdgeLightDeviceFactory());
+            }
+#else
+            InitializeService(new EdgeLightDeviceFactory());
+#endif
+
+            InitializeService(new EdgeLightingControllerService());
 
             if (ServiceManager.GetInstance().GetService<IIO>() is IDeviceService service)
             {
