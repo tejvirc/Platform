@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Application.Contracts;
     using Contracts;
     using Kernel;
@@ -19,6 +20,12 @@
     /// </remarks>
     public class FundsTransferDisable : IFundsTransferDisable, IService
     {
+        private static readonly IReadOnlyList<Guid> AllowedDisableItems = new List<Guid>
+        {
+            ApplicationConstants.LiveAuthenticationDisableKey,
+            GamingConstants.ReelsNeedHomingGuid
+        };
+
         private readonly IGamePlayState _gameState;
         private readonly ISystemDisableManager _disableManager;
 
@@ -41,7 +48,8 @@
 
         public bool TransferOnDisabledTilt => _disableManager.IsDisabled;
 
-        public bool TransferOffDisabled => !IdleOrPresentationIdle || _disableManager.DisableImmediately;
+        public bool TransferOffDisabled => !IdleOrPresentationIdle ||
+                                           _disableManager.CurrentImmediateDisableKeys.Except(AllowedDisableItems).Any();
 
         public bool TransferOnDisabledOverlay { get; private set; }
 

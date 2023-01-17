@@ -35,6 +35,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -207,49 +208,57 @@
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="16"
                            Text="{Binding SasFeaturesSettings.HandpayReportingType}" />
-
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="17"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ConfigChangeNotification}}" />
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.HostDisableCashoutActionLabel}}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="17"
+                           Text="{Binding HostDisableCashoutAction}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="18"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ConfigChangeNotification}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="18"
                            Text="{Binding SasFeaturesSettings.ConfigNotification}" />
 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
-                           Grid.Row="18"
+                           Grid.Row="19"
                            Text="{lex:Loc {x:Static loc:ResourceKeys.LegacyBonusAllowed}}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
-                           Grid.Row="18"
+                           Grid.Row="19"
                            Text="{Binding SasFeaturesSettings.LegacyBonusAllowed}" />
                 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
-                           Grid.Row="19"
+                           Grid.Row="20"
                            Text="{lex:Loc {x:Static loc:ResourceKeys.RequireLP02OnPowerUp}}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
-                           Grid.Row="19"
+                           Grid.Row="20"
                            Text="{Binding SasFeaturesSettings.DisabledOnPowerUp}" />
 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
-                           Grid.Row="20"
+                           Grid.Row="21"
                            Text="{lex:Loc {x:Static loc:ResourceKeys.EGMDisabledOnHostOfflineLabel}}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
-                           Grid.Row="20"
+                           Grid.Row="21"
                            Text="{Binding SasFeaturesSettings.DisableOnDisconnect}" />
 
                 <TextBlock Grid.Column="0"
-                           Grid.Row="21"
+                           Grid.Row="22"
                            Style="{DynamicResource SettingNameStyle}"
                            Text="{lex:Loc {x:Static loc:ResourceKeys.OverflowText}}" />
                 <TextBlock Grid.Column="1"
-                           Grid.Row="21"
+                           Grid.Row="22"
                            Style="{DynamicResource SettingValueStyle}"
                            Text="{Binding SasFeaturesSettings.OverflowBehavior}" />
             </Grid>

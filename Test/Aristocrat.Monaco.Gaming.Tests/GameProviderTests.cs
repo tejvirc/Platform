@@ -210,7 +210,8 @@
                     ["Game.WagerCategories"] = "[{ \"Id\":\"1\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":75,\"MaxWagerCredits\":75,\"MaxWinAmount\":0},{ \"Id\":\"2\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":150,\"MaxWagerCredits\":150,\"MaxWinAmount\":0},{ \"Id\":\"3\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":225,\"MaxWagerCredits\":225,\"MaxWinAmount\":0},{ \"Id\":\"4\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":300,\"MaxWagerCredits\":300,\"MaxWinAmount\":0},{ \"Id\":\"5\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":450,\"MaxWagerCredits\":450,\"MaxWinAmount\":0}]",
                     ["Game.Category"] = 0,
                     ["Game.SubCategory"] = 0,
-                    ["Game.Features"] = ""
+                    ["Game.Features"] = "",
+                    ["Game.CdsGameInfos"] = ""
                 }
             };
 

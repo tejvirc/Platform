@@ -80,22 +80,19 @@
 
             if (command.Request is not null)
             {
-                IWagerCategory wagerCategory = null;
-
                 if (command.Request is ITemplateRequest request)
                 {
-                    wagerCategory = game?.WagerCategories?.SingleOrDefault(w =>
-                        w.Id.Equals(request.WagerCategory.ToString()));
+                    var cdsInfo = game?.CdsGameInfos?.SingleOrDefault(w =>
+                        w.Id.Equals(request.TemplateId.ToString()));
 
-                    if (wagerCategory is null)
+                    if (cdsInfo is null)
                     {
-                        Failed($"wager category is null: {request.WagerCategory}");
+                        Failed($"wager category is null: {request.TemplateId}");
                         return;
                     }
                 }
 
-                SetWagerCategory(wagerCategory);
-
+                SetWagerCategory();
                 // Special case for recovery and replay
                 if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
                 {

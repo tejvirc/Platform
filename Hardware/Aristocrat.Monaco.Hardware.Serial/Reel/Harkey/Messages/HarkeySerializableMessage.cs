@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey.Messages
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -19,19 +18,14 @@
         private const int SequenceIdIndex = 1;
         private const int CommandIdIndex = 2;
         private const byte MinimumCommandLength = 0x02;
-        private static readonly BinarySerializer Serializer = new BinarySerializer();
+        private static readonly BinarySerializer Serializer = new();
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private static ConcurrentDictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type> _noProtocolMessages
-            = new ConcurrentDictionary<(HarkeyCommandId, MessageMaskType), Type>();
-        private static ConcurrentDictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type> _noSequenceIdMessages
-            = new ConcurrentDictionary<(HarkeyCommandId, MessageMaskType), Type>();
-        private static ConcurrentDictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type> _standardMessages
-            = new ConcurrentDictionary<(HarkeyCommandId, MessageMaskType), Type>();
-
-        private static ConcurrentDictionary<Type, (bool isProtocolMessage, bool isSequencedMessage, byte messageLength)> _messageTypeDetails
-            = new ConcurrentDictionary<Type, (bool, bool, byte)>();
+        private static Dictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type> _noProtocolMessages = new();
+        private static Dictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type> _noSequenceIdMessages = new();
+        private static Dictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type> _standardMessages = new();
+        private static Dictionary<Type, (bool isProtocolMessage, bool isSequencedMessage, byte messageLength)> _messageTypeDetails = new();
 
         protected HarkeySerializableMessage()
             : this(0, 0, MinimumCommandLength, false)
@@ -125,14 +119,19 @@
                 return;
             }
 
+            var noSequenceIdMessages = new Dictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type>();
+            var noProtocolMessages = new Dictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type>();
+            var standardMessages = new Dictionary<(HarkeyCommandId commandId, MessageMaskType messageType), Type>();
+            var messageTypeDetails = new Dictionary<Type, (bool isProtocolMessage, bool isSequencedMessage, byte messageLength)>();
+
             // create one of each message type, temporarily
             var messageSet = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.BaseType == typeof(HarkeySerializableMessage) && !t.IsAbstract).ToList()
+                .Where(t => t.BaseType == typeof(HarkeySerializableMessage) && !t.IsAbstract)
                 .Select(t => t.GetConstructor(new Type[] { })?.Invoke(new object[] { }));
 
             foreach (var message in messageSet)
             {
-                if (!(message is HarkeySerializableMessage harkeyMessage))
+                if (message is not HarkeySerializableMessage harkeyMessage)
                 {
                     continue;
                 }
@@ -141,21 +140,26 @@
 
                 if (harkeyMessage.Protocol == (byte)harkeyMessage.CommandId)
                 {
-                    _noProtocolMessages.TryAdd(commandKey, harkeyMessage.GetType());
+                    noProtocolMessages.Add(commandKey, harkeyMessage.GetType());
                 }
-                else if (!(harkeyMessage is ISequencedCommand))
+                else if (harkeyMessage is not ISequencedCommand)
                 {
-                    _noSequenceIdMessages.TryAdd(commandKey, harkeyMessage.GetType());
+                    noSequenceIdMessages.Add(commandKey, harkeyMessage.GetType());
                 }
                 else
                 {
-                    _standardMessages.TryAdd(commandKey, harkeyMessage.GetType());
+                    standardMessages.Add(commandKey, harkeyMessage.GetType());
                 }
 
-                _messageTypeDetails.TryAdd(
+                messageTypeDetails.Add(
                     harkeyMessage.GetType(),
                     (harkeyMessage.Protocol != (byte)harkeyMessage.CommandId, harkeyMessage is ISequencedCommand, harkeyMessage.MaxLength));
             }
+
+            _noProtocolMessages = noProtocolMessages;
+            _noSequenceIdMessages = noSequenceIdMessages;
+            _standardMessages = standardMessages;
+            _messageTypeDetails = messageTypeDetails;
         }
 
         public byte[] Serialize()

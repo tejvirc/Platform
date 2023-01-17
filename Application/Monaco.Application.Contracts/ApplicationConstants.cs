@@ -466,6 +466,11 @@
         public static string EnabledMalfunctionMessage = "MalfunctionMessage";
 
         /// <summary>
+        /// used to get whether or not to display the Edge Lighting Page
+        /// </summary>
+        public static string DisplayLightingPage = "DisplayLightingPage";
+
+        /// <summary>
         ///     Key used to disable the system when the display is disconnected
         /// </summary>
         public static Guid DisplayDisconnectedLockupKey = new Guid("{29AFB89B-80AD-4CAD-A410-53F26FB87DFD}");

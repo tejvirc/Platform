@@ -551,9 +551,9 @@
 
         protected async void InitializeDataAsync()
         {
-            if (IsLoadingData)
+            if (_initialized || IsLoadingData)
             {
-                // Don't reload if already loading
+                // Don't reload if currently loading or already initialized
                 return;
             }
 
@@ -563,6 +563,7 @@
                     IsLoadingData = true;
                     InitializeData();
                     IsLoadingData = false;
+                    _initialized = true;
                 });
 
             RaisePropertyChanged(nameof(DataEmpty));
@@ -969,11 +970,7 @@
 
         internal void OnLoaded(object page)
         {
-            if (!_initialized)
-            {
-                InitializeDataAsync();
-                _initialized = true;
-            }
+            InitializeDataAsync();
 
             EventBus.Subscribe<PrintButtonClickedEvent>(this, OnPrintButtonClicked);
             EventBus.Subscribe<PrintButtonStatusEvent>(this, OnPrintButtonStatusChanged);

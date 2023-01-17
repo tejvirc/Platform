@@ -162,21 +162,129 @@
             GameRulesButtonPath = model.GetButton(new HashSet<string>() { GameAssetTags.GameRulesTag, GameAssetTags.PlayerInformationDisplayMenuTag, GameAssetTags.NormalTag });
             GameRulesButtonPressedPath = model.GetButton(new HashSet<string>() { GameAssetTags.GameRulesTag, GameAssetTags.PlayerInformationDisplayMenuTag, GameAssetTags.PressedTag });
 
+            if (string.IsNullOrWhiteSpace(GameInfoButtonPath))
+            {
+                Logger.Warn("No image found for Game Info button. Default image will be used.");
+                GameInfoButtonPath = GameInfoButtonDefaultPath;
+            }
+
+            if (string.IsNullOrWhiteSpace(GameRulesButtonPath))
+            {
+                Logger.Warn("No image found for Game Rules button. Default image will be used.");
+                GameRulesButtonPath = GameRulesButtonDefaultPath;
+            }
+
+            if (string.IsNullOrWhiteSpace(ExitButtonPath))
+            {
+                Logger.Warn("No image found for Exit button. Default image will be used.");
+                ExitButtonPath = ExitButtonDefaultPath;
+            }
+
+            if (string.IsNullOrWhiteSpace(GameInfoButtonPressedPath))
+            {
+                Logger.Warn("No image found for Game Info button Pressed. Default image will be used.");
+                GameInfoButtonPressedPath = GameInfoButtonPressedDefaultPath;
+            }
+
+            if (string.IsNullOrWhiteSpace(GameRulesButtonPressedPath))
+            {
+                Logger.Warn("No image found for Game Rules button Pressed. Default image will be used.");
+                GameRulesButtonPressedPath = GameRulesButtonPressedDefaultPath;
+            }
+
+            if (string.IsNullOrWhiteSpace(ExitButtonPressedPath))
+            {
+                Logger.Warn("No image found for Exit button Pressed. Default image will be used.");
+                ExitButtonPressedPath = ExitButtonPressedDefaultPath;
+            }
+
             RaisePropertyChanged(ObservablePropertyNames.GameAsset);
         }
 
-        public string GameRulesButtonPressedPath { get; private set; }
+        private string _gameInfoButtonPath;
+        public string GameInfoButtonPath
+        {
+            get => _gameInfoButtonPath;
+            set
+            {
+                _gameInfoButtonPath = value;
+                RaisePropertyChanged(nameof(GameInfoButtonPath));
+            }
+        }
 
-        public string GameRulesButtonPath { get; private set; }
+        private string _gameRulesButtonPath;
+        public string GameRulesButtonPath
+        {
+            get => _gameRulesButtonPath;
+            set
+            {
+                _gameRulesButtonPath = value;
+                RaisePropertyChanged(nameof(GameRulesButtonPath));
+            }
+        }
 
-        public string GameInfoButtonPressedPath { get; private set; }
+        private string _exitButtonPath;
+        public string ExitButtonPath
+        {
+            get => _exitButtonPath;
+            set
+            {
+                _exitButtonPath = value;
+                RaisePropertyChanged(nameof(ExitButtonPath));
+            }
+        }
 
-        public string GameInfoButtonPath { get; private set; }
+        private string _gameInfoButtonPressedPath;
+        public string GameInfoButtonPressedPath
+        {
+            get => _gameInfoButtonPressedPath;
+            set
+            {
+                _gameInfoButtonPressedPath = value;
+                RaisePropertyChanged(nameof(GameInfoButtonPressedPath));
+            }
+        }
 
-        public string ExitButtonPressedPath { get; private set; }
+        private string _gameRulesButtonPressedPath;
+        public string GameRulesButtonPressedPath
+        {
+            get => _gameRulesButtonPressedPath;
+            set
+            {
+                _gameRulesButtonPressedPath = value;
+                RaisePropertyChanged(nameof(GameRulesButtonPressedPath));
+            }
+        }
 
-        public string ExitButtonPath { get; private set; }
+        private string _exitButtonPressedPath;
+        public string ExitButtonPressedPath
+        {
+            get => _exitButtonPressedPath;
+            set
+            {
+                _exitButtonPressedPath = value;
+                RaisePropertyChanged(nameof(ExitButtonPressedPath));
+            }
+        }
 
         public bool IsDisabled => !_playerInfoDisplayFeatureProvider.IsPlayerInfoDisplaySupported;
+
+        private const string GameInfoButtonDefaultPath =
+            "pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameInfo_Button.png";
+
+        private const string GameRulesButtonDefaultPath =
+            "pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameRules_Button.png";
+
+        private const string ExitButtonDefaultPath =
+            "pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Exit_Button.png";
+
+        private const string GameInfoButtonPressedDefaultPath =
+            "pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameInfo_Button_Pressed.png";
+
+        private const string GameRulesButtonPressedDefaultPath =
+            "pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameRules_Button_Pressed.png";
+
+        private const string ExitButtonPressedDefaultPath =
+            "pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Exit_Button_Pressed.png";
     }
 }

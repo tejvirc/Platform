@@ -72,6 +72,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IGamePlayState _gamePlayState;
         private readonly IGameProvider _gameProvider;
         private readonly IGameService _gameService;
+        private readonly IGameHistory _gameHistory;
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
@@ -89,6 +90,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             IGameProvider gameProvider,
             IEdgeLightingController edgeLightingController,
             IGameService gameService,
+            IGameHistory gameHistory,
             IOperatorMenuLauncher operatorMenuLauncher)
             : base(message, disable)
         {
@@ -97,6 +99,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
+            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _operatorMenuLauncher = operatorMenuLauncher ?? throw new ArgumentNullException(nameof(operatorMenuLauncher));
@@ -114,8 +117,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 var inAuditMenu = _operatorMenuLauncher.IsShowing;
                 var playEnabled = _gamePlayState.Enabled;
 
-                // If in a game round we only want to review the immediate disables
-                var inGameRound = _gamePlayState.InGameRound;
+                // If in a game round or needing to recover we only want to review the immediate disables
+                var inGameRound = _gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded;
                 var disableKeys = inGameRound
                     ? _disableManager.CurrentImmediateDisableKeys
                     : _disableManager.CurrentDisableKeys;
@@ -350,7 +353,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ReelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
-                await TiltReels(_gamePlayState.InGameRound);
+                await TiltReels(_gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded);
             }
         }
 
@@ -360,7 +363,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ReelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
-                await TiltReels(_gamePlayState.InGameRound);
+                await TiltReels(_gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded);
             }
         }
 
@@ -508,7 +511,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             // On removal of any disable check, if the only remaining fault is the reelsTilted fault
             // then home the reels to attempt to clear any reel faults.
-            var inGameRound = _gamePlayState.InGameRound;
+            var inGameRound = _gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded;
             var disableKeys = inGameRound
                 ? _disableManager.CurrentImmediateDisableKeys
                 : _disableManager.CurrentDisableKeys;

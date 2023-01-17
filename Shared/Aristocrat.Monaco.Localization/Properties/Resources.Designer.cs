@@ -1984,6 +1984,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Bell Enabled.
+		/// </summary>
+		public static string BellEnabled {
+			get {
+				return ResourceManager.GetString("BellEnabled", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Bell.
 		/// </summary>
         /// <remarks>
@@ -2380,7 +2389,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Ensure the EMG's help is installed on the Server. ....
+		///   Looks up a localized string similar to Ensure the EGM's help is installed on the Server. ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Bingo.UI
@@ -25829,6 +25838,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Enabled.
+		/// </summary>
+		public static string ReelControllerEnabled {
+			get {
+				return ResourceManager.GetString("ReelControllerEnabled", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Error.
 		/// </summary>
         /// <remarks>
@@ -25873,6 +25891,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReelControllerLabel {
 			get {
 				return ResourceManager.GetString("ReelControllerLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Manufacturer.
+		/// </summary>
+		public static string ReelControllerManufacturer {
+			get {
+				return ResourceManager.GetString("ReelControllerManufacturer", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36520,6 +36547,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Bell Enabled.
+		/// </summary>
+		public static string BellEnabled {
+			get {
+				return "BellEnabled";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Bell.
 		/// </summary>
         /// <remarks>
@@ -36916,7 +36952,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Ensure the EMG's help is installed on the Server. ....
+		///		Looks up a localized string similar to Ensure the EGM's help is installed on the Server. ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Bingo.UI
@@ -60364,6 +60400,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Reel Controller Enabled.
+		/// </summary>
+		public static string ReelControllerEnabled {
+			get {
+				return "ReelControllerEnabled";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Reel Controller Error.
 		/// </summary>
         /// <remarks>
@@ -60408,6 +60453,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReelControllerLabel {
 			get {
 				return "ReelControllerLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Reel Controller Manufacturer.
+		/// </summary>
+		public static string ReelControllerManufacturer {
+			get {
+				return "ReelControllerManufacturer";
 			}
 		}
 
@@ -70226,6 +70280,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Behavior,
 		/// <summary>
+		///   Looks up a localized string similar to Bell Enabled.
+		/// </summary>
+		BellEnabled,
+		/// <summary>
 		///   Looks up a localized string similar to Bell.
 		/// </summary>
         /// <remarks>
@@ -70452,7 +70510,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BingoDynamicHelpInvalidConfiguration,
 		/// <summary>
-		///   Looks up a localized string similar to Ensure the EMG's help is installed on the Server. ....
+		///   Looks up a localized string similar to Ensure the EGM's help is installed on the Server. ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Bingo.UI
@@ -83826,6 +83884,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ReelControllerDiscovered,
 		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Enabled.
+		/// </summary>
+		ReelControllerEnabled,
+		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Error.
 		/// </summary>
         /// <remarks>
@@ -83853,6 +83915,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ReelControllerLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Manufacturer.
+		/// </summary>
+		ReelControllerManufacturer,
 		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Error.
 		/// </summary>

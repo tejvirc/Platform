@@ -83,6 +83,12 @@
             <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
           </xs:complexType>
         </xs:element>
+		<xs:element maxOccurs="unbounded" name="DisplayLightingPage">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
 	  </xs:sequence>
     </xs:complexType>
   </xs:element>

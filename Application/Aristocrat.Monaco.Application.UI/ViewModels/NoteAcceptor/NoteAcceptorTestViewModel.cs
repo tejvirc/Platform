@@ -18,6 +18,9 @@
     using log4net;
     using Monaco.Localization.Properties;
     using MVVM;
+#if !RETAIL
+    using Vgt.Client12.Testing.Tools;
+#endif
 
     [CLSCompliant(false)]
     public class NoteAcceptorTestViewModel : INotifyPropertyChanged
@@ -115,6 +118,10 @@
             _eventBus.Subscribe<CurrencyEscrowedEvent>(this, HandleEvent);
             _eventBus.Subscribe<DocumentRejectedEvent>(this, HandleEvent);
             _eventBus.Subscribe<VoucherEscrowedEvent>(this, HandleEvent);
+
+#if !RETAIL
+            _eventBus.Subscribe<DebugNoteEvent>(this, HandleEvent);
+#endif
         }
 
         private void HandleStatusEvent(NoteAcceptorBaseEvent evt)
@@ -196,6 +203,18 @@
             _reporter?.SetTestName(eventName);
             Task.Run(ReturnWithDelay);
         }
+
+#if !RETAIL
+        private void HandleEvent(DebugNoteEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () => TestEvents.Insert(
+                    0,
+                    $"{evt.Denomination.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}"));
+
+            Task.Run(ReturnWithDelay);
+        }
+#endif
 
         private void SetEnableReason()
         {

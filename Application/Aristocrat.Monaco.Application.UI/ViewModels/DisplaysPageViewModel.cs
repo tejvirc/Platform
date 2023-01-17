@@ -167,7 +167,7 @@
                     CabinetService.ExpectedDisplayDevices.OrderBy(d => d.PositionY).Select(
                         x => new DisplayDetected(
                             x,
-                            GetMappedTouchDevice(x) 
+                            GetMappedTouchDevice(x)
                             )));
                 EventBus.Subscribe<DisplayConnectedEvent>(this, _ => RefreshDisplays());
                 EventBus.Subscribe<DisplayDisconnectedEvent>(this, _ => RefreshDisplays());
@@ -257,7 +257,7 @@
 
         protected override void UpdateStatusText()
         {
-            if (!IsCabinetThatAllowsChangingBrightness)
+            if (IsCabinetThatAllowsChangingBrightness)
             {
                 base.UpdateStatusText();
             }

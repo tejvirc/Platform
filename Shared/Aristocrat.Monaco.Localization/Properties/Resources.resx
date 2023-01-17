@@ -11560,7 +11560,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <comment>Aristocrat.Monaco.Bingo.UI</comment>
   </data>
   <data name="BingoDynamicHelpInvalidConfigurationHelp" xml:space="preserve">
-    <value>Ensure the EMG's help is installed on the Server.  Reboot the machine to reestablish communication.</value>
+    <value>Ensure the EGM's help is installed on the Server.  Reboot the machine to reestablish communication.</value>
     <comment>Aristocrat.Monaco.Bingo.UI</comment>
   </data>
   <data name="FirmwareCrcMismatchedEvent" xml:space="preserve">
@@ -11670,5 +11670,14 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="ClearConfig" xml:space="preserve">
     <value>Clear Config</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="BellEnabled" xml:space="preserve">
+    <value>Bell Enabled</value>
+  </data>
+  <data name="ReelControllerEnabled" xml:space="preserve">
+    <value>Reel Controller Enabled</value>
+  </data>
+  <data name="ReelControllerManufacturer" xml:space="preserve">
+    <value>Reel Controller Manufacturer</value>
   </data>
 </root>

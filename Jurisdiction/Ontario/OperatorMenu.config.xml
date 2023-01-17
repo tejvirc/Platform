@@ -115,7 +115,7 @@ as follows:
 			<Setting Name="EnableAdvancedConfig" Value="true" />
 			<Setting Name="EnableQuickConfig" Value="false" />
 		</Page>
-		<Page Type="GameHistoryViewModel" Access="LogicDoor">
+		<Page Type="GameHistoryViewModel">
 			<Setting Name="ShowGameInfoButtons" Value="true" />
 			<Setting Name="PrintGameRoundInfo" Value="false" />
 		</Page>

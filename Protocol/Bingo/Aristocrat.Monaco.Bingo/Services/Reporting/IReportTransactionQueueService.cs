@@ -8,6 +8,11 @@
     public interface IReportTransactionQueueService
     {
         /// <summary>
+        ///     Gets whether or not the transaction queue is full
+        /// </summary>
+        bool IsFull { get; }
+
+        /// <summary>
         ///     Adds a bingo server transaction to the queue
         /// </summary>
         /// <param name="transactionType">The transaction type</param>

@@ -51,46 +51,46 @@
         [TestMethod]
         public void EnqueueItemCausesQueueNotEmptyTest()
         {
-            Assert.IsTrue(_target.IsEmpty());
+            Assert.IsTrue(_target.IsEmpty);
             _target.Enqueue(_report);
 
-            Assert.IsFalse(_target.IsEmpty());
+            Assert.IsFalse(_target.IsEmpty);
         }
 
         [TestMethod]
         public void WhenQueueFullNewItemsAreDroppedTest()
         {
-            Assert.IsTrue(_target.IsEmpty());
+            Assert.IsTrue(_target.IsEmpty);
             for (int i = 0; i < MaxQueueCount; i++)
             {
                 _target.Enqueue(_report);
             }
 
-            Assert.AreEqual(MaxQueueCount, _target.Count());
+            Assert.AreEqual(MaxQueueCount, _target.Count);
 
             // add one more entry which will get dropped
             _target.Enqueue(_report);
-            Assert.AreEqual(MaxQueueCount, _target.Count());
+            Assert.AreEqual(MaxQueueCount, _target.Count);
         }
 
         [TestMethod]
         public void AcknowledgeMatchingIdRemovesItemTest()
         {
-            Assert.IsTrue(_target.IsEmpty());
+            Assert.IsTrue(_target.IsEmpty);
             _target.Enqueue(_report);
 
             _target.Acknowledge(TestTransactionId);
-            Assert.IsTrue(_target.IsEmpty());
+            Assert.IsTrue(_target.IsEmpty);
         }
 
         [TestMethod]
         public void AcknowledgeWrongIdDoesntRemoveItemTest()
         {
-            Assert.IsTrue(_target.IsEmpty());
+            Assert.IsTrue(_target.IsEmpty);
             _target.Enqueue(_report);
 
             _target.Acknowledge(1);
-            Assert.IsFalse(_target.IsEmpty());
+            Assert.IsFalse(_target.IsEmpty);
         }
 
         [TestMethod]
@@ -113,11 +113,11 @@
 
             var target = new AcknowledgedQueue<EventReport, int>(helper.Object);
 
-            Assert.IsTrue(target.IsEmpty());
+            Assert.IsTrue(target.IsEmpty);
             target.Enqueue(report);
 
             target.Acknowledge(3);
-            Assert.IsTrue(target.IsEmpty());
+            Assert.IsTrue(target.IsEmpty);
         }
 
         [TestMethod]
@@ -127,13 +127,13 @@
             _helper.Setup(m => m.AlmostFullClear()).Verifiable();
 
             // fill queue over threshold
-            Assert.IsTrue(_target.IsEmpty());
+            Assert.IsTrue(_target.IsEmpty);
             for (int i = 0; i < AlmostFullThreshold; i++)
             {
                 _target.Enqueue(_report);
             }
 
-            Assert.AreEqual(AlmostFullThreshold, _target.Count());
+            Assert.AreEqual(AlmostFullThreshold, _target.Count);
 
             // acknowledge one element
             _target.Acknowledge(TestTransactionId);

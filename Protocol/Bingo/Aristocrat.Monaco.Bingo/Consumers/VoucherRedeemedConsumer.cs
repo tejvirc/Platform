@@ -55,7 +55,7 @@
                     break;
 
                 case AccountType.NonCash:
-                    transactionType = Common.TransactionType.NonTransferablePromoTicketIn;
+                    transactionType = Common.TransactionType.TransferablePromoTicketIn;
                     break;
             }
 
