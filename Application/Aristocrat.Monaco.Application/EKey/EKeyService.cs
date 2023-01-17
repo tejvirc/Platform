@@ -223,7 +223,7 @@
                     ApplicationConstants.EKeyVerifiedDisableKey,
                     SystemDisablePriority.Normal,
                     ResourceKeys.EKeyDetected,
-                    CultureProviderType.Player);
+                    CultureProviderType.Operator);
             }
             else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.EKeyVerifiedDisableKey))
             {

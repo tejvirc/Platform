@@ -28,7 +28,7 @@
         /// the culture provider name, if culture provider name is left empty, CultureFor.Operator
         /// will be the default value.
         /// </summary>
-        public static string GetString(string key, CultureProviderType providerType=CultureProviderType.Operator) => For(providerType.ToString()).GetString(key);
+        public static string GetString(string key, CultureProviderType providerType) => For(providerType.ToString()).GetString(key);
 
         /// <summary>
         ///     Get the localized message from the resource file according to the key and

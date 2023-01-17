@@ -4,6 +4,7 @@
     using Kernel;
     using System.Globalization;
     using Application.Contracts.Localization;
+    using Kernel.Contracts.MessageDisplay;
 
     public class UnexpectedOrNoResponseEvent : BaseEvent
     {
@@ -16,7 +17,7 @@
             return _requestTimeout is LockupRequestTimeout lockupRequestTimeout
                 ? string.Format(
                     CultureInfo.InvariantCulture,
-                    $"{GetType().Name} ({Localizer.GetString(lockupRequestTimeout.LockupStringResouceKey)})")
+                    $"{GetType().Name} ({Localizer.GetString(lockupRequestTimeout.LockupStringResouceKey, CultureProviderType.Operator)})")
                 : GetType().Name;
         }
     }

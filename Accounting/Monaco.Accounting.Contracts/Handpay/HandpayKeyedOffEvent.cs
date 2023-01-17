@@ -3,6 +3,7 @@
     using System;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Kernel.Contracts.MessageDisplay;
     using Localization.Properties;
 
     /// <summary>
@@ -23,7 +24,7 @@
         /// <inheritdoc />
         public override string ToString()
         {
-            return Localizer.GetString(ResourceKeys.HandpayKeyedOff) + " " +
+            return Localizer.GetString(ResourceKeys.HandpayKeyedOff, CultureProviderType.Operator) + " " +
                    Transaction.TransactionAmount.MillicentsToDollars().FormattedCurrencyString();
         }
     }

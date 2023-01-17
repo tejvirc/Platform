@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Application
     using Contracts.Localization;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Kernel.Contracts.MessageDisplay;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -52,7 +53,7 @@ namespace Aristocrat.Monaco.Application
             }
         }
 
-        private static string OutOfServiceMessage => Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutOfService);
+        private static string OutOfServiceMessage => Localizer.GetString(ResourceKeys.OutOfService, CultureProviderType.Operator);
 
 
         /// <inheritdoc />

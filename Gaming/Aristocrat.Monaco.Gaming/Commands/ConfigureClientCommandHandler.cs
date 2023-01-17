@@ -119,8 +119,6 @@
                         _ => "play"
                     });
 
-            //TODO, change to DI
-            //var localization = ServiceManager.GetInstance().GetService<ILocalization>();
             var playerCultureProvider = _localization.GetProvider(CultureFor.Player) as
                                          IPlayerCultureProvider;
             string enabledLanguages = string.Join(",", playerCultureProvider?.AvailableCultures.Select(c => c.Name) ?? new string[] {});

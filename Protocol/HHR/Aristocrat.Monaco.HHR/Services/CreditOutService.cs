@@ -96,7 +96,7 @@
                     LockupKey = HhrConstants.CreditOutCmdTransactionErrorKey,
                     LockupStringResouceKey = ResourceKeys.CreditOutCmdFailedMsg,
                     ProviderType = CultureProviderType.Player,
-                    LockupHelpText = Localizer.GetString(ResourceKeys.CreditOutCmdFailedHelpMsg)
+                    LockupHelpText = Localizer.GetString(ResourceKeys.CreditOutCmdFailedHelpMsg, CultureProviderType.Operator)
                 },
                 TransactionId = (uint)_transactionIdProvider.GetNextTransactionId(),
                 TransactionType = aftOutType,

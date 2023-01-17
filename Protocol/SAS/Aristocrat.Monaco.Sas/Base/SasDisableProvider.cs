@@ -365,7 +365,7 @@ namespace Aristocrat.Monaco.Sas.Base
         {
             var data = DisableDataDictionary[state];
             Logger.Debug(
-                $"Requesting the disable with state={state} guid={data.DisableGuid} reason={Localizer.GetString(data.MessageResourceKey)} priority={priority}");
+                $"Requesting the disable with state={state} guid={data.DisableGuid} reason={Localizer.GetString(data.MessageResourceKey, CultureProviderType.Operator)} priority={priority}");
 
             _systemDisableManager.Disable(data.DisableGuid, priority, data.MessageResourceKey, CultureProviderType.Player);
             SetDisableState(state);
