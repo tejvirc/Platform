@@ -19,6 +19,14 @@
 
         private int _handCount = 0;
 
+        public HandCountSessionService()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>()
+            )
+        {
+        }
+
         public HandCountSessionService(
             IEventBus eventBus,
             IPropertiesManager properties)

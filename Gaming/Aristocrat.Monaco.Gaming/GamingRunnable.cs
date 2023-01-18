@@ -300,7 +300,7 @@
             serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
 
-            WritePendingActionToMessageDisplay("LoadingAccountingServices");
+            WritePendingActionToMessageDisplay("LoadingGamingServices");
             var nodes = MonoAddinsHelper.GetSelectedNodes<TypeExtensionNode>(ServicesExtensionPath);
             foreach (var node in nodes)
             {
