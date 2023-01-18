@@ -23,6 +23,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public GameAddedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the unique Game Id
         /// </summary>
         [ProtoMember(1)]

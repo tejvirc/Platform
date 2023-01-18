@@ -27,6 +27,13 @@ namespace Aristocrat.Monaco.Application.Contracts.OperatorMenu
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public OperatorMenuEnteredEvent() : this(string.Empty, string.Empty)
+        {
+        }
+
+        /// <summary>
         ///     Gets the Role that was assigned when entering the Operator Menu
         /// </summary>
         [ProtoMember(1)]

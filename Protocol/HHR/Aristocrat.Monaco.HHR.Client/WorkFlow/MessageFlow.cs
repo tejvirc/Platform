@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
     public class MessageFlow : IMessageFlow
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly ILog ProtoLog = LogManager.GetLogger("Protocol", MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog ProtoLog = LogManager.GetLogger("Protocol");
 
         private readonly IMessageFactory _messageFactory;
         private readonly ICrcProvider _crcProvider;

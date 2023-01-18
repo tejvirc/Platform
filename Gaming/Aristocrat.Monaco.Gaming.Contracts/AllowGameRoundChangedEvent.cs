@@ -20,6 +20,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing 
+        /// </summary>
+        public AllowGameRoundChangedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the AllowGameRound parameter
         /// </summary>
         [ProtoMember(1)]

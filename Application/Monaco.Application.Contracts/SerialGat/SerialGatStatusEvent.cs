@@ -20,6 +20,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public SerialGatStatusEvent()
+        {
+        }
+
+        /// <summary>
         ///     Status message text
         /// </summary>
         [ProtoMember(1)]

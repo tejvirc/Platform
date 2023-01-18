@@ -45,14 +45,12 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private dynamic _accessor;
         private Mock<IEventBus> _eventBus;
-        private Mock<IPathMapper> _pathMapper;
         private Mock<IPropertiesManager> _propertiesManager;
-        private Mock<IDigitalRights> _digitalRights;
         private Mock<IServiceManager> _serviceManager;
         private Mock<IMultiProtocolConfigurationProvider> _protocolProvider;
         private Mock<IConfigurationUtilitiesProvider> _configurationUtilitiesProvider;
         private Mock<IProtocolCapabilityAttributeProvider> _protocolCapabilityAttributeProvider;
-        private ConfigSelectionPage _targetView;
+
         private ConfigSelectionPageViewModel _target;
 
         /// <summary>
@@ -64,6 +62,7 @@
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.
         /// </summary>
+       
         [TestInitialize]
         public void Initialize()
         {
@@ -90,8 +89,7 @@
             );
 
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
-            _pathMapper = MoqServiceManager.CreateAndAddService<IPathMapper>(MockBehavior.Strict);
-            _digitalRights = MoqServiceManager.CreateAndAddService<IDigitalRights>(MockBehavior.Strict);
+
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
             _eventBus.Setup(m => m.Publish(It.IsAny<CloseConfigWindowEvent>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuPageLoadedEvent>>()));
@@ -106,8 +104,6 @@
             var configurator = MoqServiceManager.CreateAndAddService<IAutoConfigurator>(MockBehavior.Default);
             configurator.Setup(m => m.AutoConfigurationExists).Returns(true);
 
-            _pathMapper.Setup(mock => mock.GetDirectory("/Assets/Skins")).Returns(new DirectoryInfo(@".\"));
-            _digitalRights.SetupGet(mock => mock.JurisdictionId).Returns("");
             _serviceManager.Setup(mock => mock.AddService(It.IsAny<ConfigSelectionPageViewModel>())).Verifiable();
             _propertiesManager
                 .Setup(mock => mock.GetProperty(ApplicationConstants.SelectedConfigurationKey, It.IsAny<object>()))
@@ -125,8 +121,7 @@
                 .Setup(m => m.GetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, It.IsAny<bool>()))
                 .Returns(false);
 
-            _targetView = new ConfigSelectionPage();
-            _target = _targetView.DataContext as ConfigSelectionPageViewModel;
+            _target = new ConfigSelectionPageViewModel();
 
             _accessor = new DynamicPrivateObject(_target);
 
@@ -165,10 +160,9 @@
             {
                 Application.Current.Dispatcher.PumpUntilDry();
             }
-            catch (Exception)
+            catch
             {
-                // just eat the exception since it is due to other window threads
-                // not shutting down
+
             }
 
             _target = null;
@@ -235,7 +229,6 @@
         {
             MoqServiceManager.CreateAndAddService<IIdentityTicketCreator>(MockBehavior.Strict);
             _serviceManager.Setup(mock => mock.TryGetService<IPrinter>()).Returns((IPrinter)null);
-
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.IsInitialConfigurationComplete, true))
                 .Verifiable();
             _propertiesManager.Setup(mock => mock.GetProperty("Cabinet.PrintIdentity", false)).Returns(true);
@@ -431,12 +424,12 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.SelectedConfigurationKey, null))
                 .Returns(null);
 
-
             _eventBus.Setup(m => m.Unsubscribe<PreConfigBootCompleteEvent>(_target));
+
 
             _accessor.HandlePreConfigBootCompleteEvent(null);
 
-            _targetView.Dispatcher.PumpUntilDry();
+            Application.Current.Dispatcher.PumpUntilDry();
 
             Assert.IsTrue((bool)_accessor._selectablePagesDone);
             Assert.AreEqual(0, (int)_accessor._lastWizardSelectedIndex);

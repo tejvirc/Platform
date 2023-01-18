@@ -69,7 +69,7 @@
             var deserializedEvent = (TestEvent)formatter.Deserialize(stream);
 
             Assert.AreEqual(expectedGuid, deserializedEvent.GloballyUniqueId);
-            Assert.AreEqual(expectedTimestamp, deserializedEvent.Timestamp);
+            Assert.AreEqual(expectedTimestamp, deserializedEvent.Timestamp.ToUniversalTime());
         }
 
         /// <summary>

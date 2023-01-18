@@ -20,6 +20,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public GameDenomChangedByOperatorEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the Game ID of the target game.
         /// </summary>
         [ProtoMember(1)]

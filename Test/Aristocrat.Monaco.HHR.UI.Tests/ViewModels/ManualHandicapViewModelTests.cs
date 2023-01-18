@@ -77,6 +77,7 @@
 
         public ManualHandicapHorseNumber HorseNumber(int num) => new ManualHandicapHorseNumber { HorseNumber = num };
 
+        [RequireSTA]
         [TestMethod]
         public void RacesToHandicap_ManualPicking_ResultingStringMatchesExpectedValue()
         {

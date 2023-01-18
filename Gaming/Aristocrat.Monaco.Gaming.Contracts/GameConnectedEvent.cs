@@ -20,6 +20,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public GameConnectedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the replay status of the game.
         /// </summary>
         [ProtoMember(1)]

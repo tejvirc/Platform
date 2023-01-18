@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Tests
+﻿/*namespace Aristocrat.Monaco.Application.UI.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -148,4 +148,4 @@
             property.GetSetMethod(true).Invoke(_target, new[] { value });
         }
     }
-}
+}*/

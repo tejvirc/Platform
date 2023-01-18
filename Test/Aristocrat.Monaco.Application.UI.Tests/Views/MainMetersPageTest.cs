@@ -327,6 +327,7 @@
             _eventBus.Verify();
         }
 
+        [RequireSTA]
         [TestMethod]
         public void PageLoadedPrintButtonEnabledTest()
         {
@@ -353,6 +354,7 @@
             win.Close();
         }
 
+        [RequireSTA]
         [TestMethod]
         public void PageLoadedPrintButtonDisabledTest()
         {

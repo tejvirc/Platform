@@ -196,7 +196,7 @@
             return mirrorPath;
         }
 
-        private static string ConnectionString(string filePath,string password)
+        private static string ConnectionString(string filePath, string password)
         {
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
@@ -209,7 +209,7 @@
                 //ConnectTimeout = 15
             };
 
-            return sqlBuilder.ConnectionString + ";FailIfMissing=True;Journal Mode=WAL;Synchronous=FULL;";
+            return $"{sqlBuilder.ConnectionString};";
         }
 
         private static bool IsValidSqlFile(string filePath, string password)
@@ -221,14 +221,16 @@
 
             try
             {
-                using var connection = CreateConnection(filePath, password);
-                connection.Open();
+                using (var connection = CreateConnection(filePath, password))
+                {
+                    connection.Open();
 
-                // This command is used to verify that the SQL lite file is valid and does not have errors
-                const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
-                const string successfulCommandResponse = "ok";
-                using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
-                return command.ExecuteScalar().ToString() == successfulCommandResponse;
+                    // This command is used to verify that the SQL lite file is valid and does not have errors
+                    const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
+                    const string successfulCommandResponse = "ok";
+                    using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
+                    return command.ExecuteScalar().ToString() == successfulCommandResponse;
+                }
             }
             catch (Exception e)
             {

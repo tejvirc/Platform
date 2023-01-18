@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     #endregion
@@ -29,6 +30,7 @@
         [TestMethod]
         public void ValidateJurisdictionXmlForEachJurisdiction()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Helper.ValidateXmlFilesWithXsd(_fileList, XsdFilePath);
         }
     }

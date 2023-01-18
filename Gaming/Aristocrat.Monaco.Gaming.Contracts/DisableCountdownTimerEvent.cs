@@ -33,6 +33,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public DisableCountdownTimerEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets a value indicating whether we are starting or stopping the countdown timer
         ///     True == starting.
         /// </summary>

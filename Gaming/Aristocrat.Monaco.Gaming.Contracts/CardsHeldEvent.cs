@@ -21,6 +21,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public CardsHeldEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets or sets the held cards
         /// </summary>
         [ProtoMember(1)]

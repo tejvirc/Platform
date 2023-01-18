@@ -89,7 +89,11 @@
 
             using (var context = _contextFactory.CreateDbContext())
             {
-                var json = JsonConvert.SerializeObject(profile);
+                var json = JsonConvert.SerializeObject(profile, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
                 var data = _repository.Get(context, profile.DeviceClass, profile.Id);
 
                 if (data != null)

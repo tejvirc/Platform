@@ -17,14 +17,13 @@
     /// </summary>
     public static class HandpayDisplayHelper
     {
-        private static readonly ITransactionHistory History =
+        private static ITransactionHistory History =
             ServiceManager.GetInstance().GetService<ITransactionHistory>();
 
-        private static readonly IMessageDisplay MessageDisplay =
+        private static IMessageDisplay MessageDisplay  =
             ServiceManager.GetInstance().GetService<IMessageDisplay>();
 
-        private static readonly IGameHistory GameHistory = ServiceManager.GetInstance().GetService<IGameHistory>();
-
+        private static IGameHistory GameHistory = ServiceManager.GetInstance().GetService<IGameHistory>();
 
         /// <summary>
         /// Attempts to recover an alternative cancel credit ticker message if applicable.

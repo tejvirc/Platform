@@ -27,6 +27,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public OperatorMenuPrintJobEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets or sets field of interest
         /// </summary>
         [ProtoMember(1)]

@@ -7,6 +7,7 @@
     ///     Definition of the SystemDisableRemovedEvent class. This is posted when a currently active system disable is removed
     ///     from the system. This event includes information such as the priority, the Guid, and the disable reason.
     /// </summary>
+    [Serializable]
     [ProtoContract]
     public class SystemDisableRemovedEvent : BaseEvent
     {

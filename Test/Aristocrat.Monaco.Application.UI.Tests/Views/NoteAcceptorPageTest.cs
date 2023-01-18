@@ -37,7 +37,6 @@
         private Mock<IPersistentStorageManager> _storageManager;
         private Mock<IMeterManager> _meterManager;
         private Mock<IMeter> _meter;
-        private NoteAcceptorPage _targetView;
         private NoteAcceptorViewModel _target;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
         private const int Timeout = 1000;
@@ -182,7 +181,6 @@
 
         private void InitTargets()
         {
-            _targetView = new NoteAcceptorPage();
             _target = new NoteAcceptorViewModel();
         }
 
@@ -209,7 +207,7 @@
             // restore event bus mock for Cleanup
             MoqServiceManager.Instance.Setup(mock => mock.GetService<IEventBus>()).Returns(_eventBus.Object);
         }
-
+        
         [TestMethod]
         public void UpdateScreenHandleEventTest()
         {

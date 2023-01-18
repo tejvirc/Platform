@@ -86,6 +86,8 @@
             }
 
             using var context = new BingoContext(new DefaultConnectionStringResolver(PathMapper));
+
+            context.Database.EnsureCreated();
             if (context.Certificates.SingleOrDefault() == null)
             {
                 Logger.Debug("Creating Certificate table...");

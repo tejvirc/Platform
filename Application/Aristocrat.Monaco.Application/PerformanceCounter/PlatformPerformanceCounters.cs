@@ -16,7 +16,7 @@
         /// <summary>
         /// Protobuf serialization/deserialization requires an empty constructor.
         /// </summary>
-        public PerformanceCounters()
+        public PerformanceCounters() : this(1)
         {
         }
 

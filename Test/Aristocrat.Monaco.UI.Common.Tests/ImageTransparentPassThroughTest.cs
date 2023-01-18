@@ -3,6 +3,7 @@
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using Aristocrat.Monaco.Test.Common;
     using Controls;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,12 +21,14 @@
             _target = new ImageTransparentPassThrough();
         }
 
+        [RequireSTA]
         [TestMethod]
         public void ConstructorTest()
         {
             Assert.IsNotNull(_target);
         }
 
+        [RequireSTA]
         [DataRow(0, 0)]
         [DataRow(0.9, 0.9)]
         [TestMethod]
@@ -41,6 +44,7 @@
             Assert.IsInstanceOfType(hitTestResult, typeof(HitTestResult));
         }
 
+        [RequireSTA]
         [DataRow(1, 1)]
         [DataRow(-1, -1)]
         [DataRow(0, 1)]
@@ -58,6 +62,7 @@
             Assert.AreEqual(null, hitTestResult);
         }
 
+        [RequireSTA]
         [DataRow(0,0)]
         [TestMethod]
         public void HitTransparentPoint(double x, double y)

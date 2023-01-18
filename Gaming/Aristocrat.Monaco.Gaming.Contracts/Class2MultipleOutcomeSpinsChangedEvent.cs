@@ -20,6 +20,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public Class2MultipleOutcomeSpinsChangedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the Triggered parameter
         /// </summary>
         [ProtoMember(1)]

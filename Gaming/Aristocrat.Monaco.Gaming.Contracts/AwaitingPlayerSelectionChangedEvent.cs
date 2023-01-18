@@ -20,6 +20,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public AwaitingPlayerSelectionChangedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the AwaitingPlayerSelection parameter
         /// </summary>
         [ProtoMember(1)]

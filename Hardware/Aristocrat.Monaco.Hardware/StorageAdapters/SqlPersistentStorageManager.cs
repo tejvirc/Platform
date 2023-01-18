@@ -295,12 +295,13 @@
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = fileName,
-                Pooling = true
+                Pooling = true,
+
                 //Password = _databasePassword
                 //PrepareRetries = retries,
-                //FailIfMissing = true,
+                //Missing = true,
                 //JournalMode = SQLiteJournalModeEnum.Wal,
-                //SyncMode = SynchronizationModes.Full,
+                //SyncMode = SynchronizationModes.Full,TargetInvocationException: Exception has been thrown by the target of an invocation.
                 //DefaultIsolationLevel = IsolationLevel.Serializable,
                 //BusyTimeout = timeout,
                 //["Max Pool Size"] = int.MaxValue

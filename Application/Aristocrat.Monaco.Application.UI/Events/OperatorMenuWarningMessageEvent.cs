@@ -12,6 +12,13 @@
             Message = message;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public OperatorMenuWarningMessageEvent() : this(null)
+        {
+        }
+
         [ProtoMember(1)]
         public string Message { get; }
     }

@@ -32,6 +32,7 @@
     using Test.Common;
     using Vgt.Client12.Application.OperatorMenu;
     using Constants = G2S.Constants;
+    using Aristocrat.G2S.Client.Communications;
 
     [TestClass]
     public class BootstrapperTest
@@ -101,6 +102,7 @@
             MoqServiceManager.CreateAndAddService<IOSInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IPrinterFirmwareInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<INoteAcceptorFirmwareInstaller>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IWcfApplicationRuntime>(MockBehavior.Default);
 
             var persistence = MoqServiceManager.CreateAndAddService<IPersistenceProvider>(MockBehavior.Default);
             persistence.Setup(a => a.GetOrCreateBlock(It.IsAny<string>(), It.IsAny<PersistenceLevel>())).Returns(new Mock<IPersistentBlock>().Object);

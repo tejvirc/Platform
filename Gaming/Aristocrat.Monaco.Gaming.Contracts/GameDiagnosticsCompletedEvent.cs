@@ -20,6 +20,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public GameDiagnosticsCompletedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the context associated with the event
         /// </summary>
         [ProtoMember(1)]

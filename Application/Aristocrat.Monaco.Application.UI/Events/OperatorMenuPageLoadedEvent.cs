@@ -19,6 +19,13 @@
             Page = page;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public OperatorMenuPageLoadedEvent()
+        {
+        }
+
         [ProtoMember(1)]
         public IOperatorMenuPageViewModel Page { get; }
     }

@@ -18,7 +18,7 @@ namespace Aristocrat.Monaco.Application.Contracts.OperatorMenu
         /// <summary>
         /// Empty constructor for deserialization
         /// </summary>
-        public OperatorMenuExitedEvent()
+        public OperatorMenuExitedEvent() : this(string.Empty)
         {
         }
 

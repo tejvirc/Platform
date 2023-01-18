@@ -23,6 +23,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public CashOutStartedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the ForcedByMaxBank parameter
         /// </summary>
         [ProtoMember(1)]

@@ -21,6 +21,13 @@
         {
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public HandpayKeyedOffEvent()
+        {
+        }
+
         /// <inheritdoc />
         public override string ToString()
         {

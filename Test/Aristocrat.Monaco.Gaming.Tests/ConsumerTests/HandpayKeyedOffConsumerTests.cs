@@ -9,6 +9,7 @@
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
     using Aristocrat.Monaco.Localization.Properties;
+    using Castle.DynamicProxy.Internal;
     using Consumers;
     using Contracts;
     using Hardware.Contracts.Persistence;
@@ -70,7 +71,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-
             _target = new HandpayKeyedOffConsumer(
                 _currencyHandler.Object,
                 _gameHistory.Object,
@@ -281,9 +281,10 @@
         private void ForceStaticObjectsToBeSetToMockObjects()
         {
             Type type = typeof(HandpayDisplayHelper);
-            type.GetField("History", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, _transactionHistory.Object);
-            type.GetField("MessageDisplay", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, _messageDisplay.Object);
-            type.GetField("GameHistory", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, _gameHistory.Object);
+
+            type.SetStaticField("History", BindingFlags.NonPublic | BindingFlags.Static, _transactionHistory.Object);
+            type.SetStaticField("MessageDisplay", BindingFlags.NonPublic | BindingFlags.Static, _messageDisplay.Object);
+            type.SetStaticField("GameHistory", BindingFlags.NonPublic | BindingFlags.Static, _gameHistory.Object);
         }
 
         private HandpayTransaction GenerateCancelCreditTransaction(DateTime dt, long amount = 1000)

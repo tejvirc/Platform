@@ -31,6 +31,13 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public SerialGatVersionChangedEvent()
+        {
+        }
+
+        /// <summary>
         ///     New GAT protocol version
         /// </summary>
         [ProtoMember(3)]

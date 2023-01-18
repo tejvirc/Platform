@@ -17,5 +17,12 @@
             : base(transaction)
         {
         }
+
+        /// <summary>
+        ///  Parameterless constructor used while deserializing
+        /// </summary>
+        public HandpayKeyOffPendingEvent()
+        {
+        }
     }
 }
