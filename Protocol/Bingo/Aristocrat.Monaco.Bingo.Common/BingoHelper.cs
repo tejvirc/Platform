@@ -51,6 +51,22 @@
             return unitOfWorkFactory.GetCrossGameProgressiveEnabledForMainGame(serverSettings);
         }
 
+        public static BingoGameConfiguration GetSelectedGameConfiguration(
+            this IUnitOfWorkFactory unitOfWorkFactory,
+            IPropertiesManager propertiesManager)
+        {
+            var (game, denomination) = propertiesManager.GetActiveGame();
+            if (game is null || denomination is null)
+            {
+                return null;
+            }
+
+            var gameConfigurations = unitOfWorkFactory.Invoke(
+                x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())?.GamesConfigured;
+            return gameConfigurations?.FirstOrDefault(
+                x => x.PlatformGameId == game.Id && x.Denomination == denomination.Value);
+        }
+
         private static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, BingoGameConfiguration serverSettings)
         {
             var helpUrl = serverSettings.HelpUrl;

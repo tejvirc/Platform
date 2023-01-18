@@ -18,6 +18,7 @@
     using Localization.Properties;
     using log4net;
     using Monaco.Common;
+    using Protocol.Common.Storage.Entity;
     using Stateless;
 
     public class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
@@ -30,8 +31,10 @@
         private readonly IEnumerable<IClient> _clients;
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly ICommandService _commandService;
+        private readonly IProgressiveCommandService _progressiveCommandService;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISystemDisableManager _systemDisable;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
         private CancellationTokenSource _tokenSource;
         private System.Timers.Timer _timeoutTimer;
@@ -51,15 +54,19 @@
             IEnumerable<IClient> clients,
             ICommandHandlerFactory commandFactory,
             ICommandService commandService,
+            IProgressiveCommandService progressiveCommandService,
             IPropertiesManager propertiesManager,
-            ISystemDisableManager systemDisable)
+            ISystemDisableManager systemDisable,
+            IUnitOfWorkFactory unitOfWorkFactory)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _clients = clients ?? throw new ArgumentNullException(nameof(clients));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
             _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
+            _progressiveCommandService = progressiveCommandService ?? throw new ArgumentNullException(nameof(progressiveCommandService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
 
             CreateStateMachine();
             RegisterEventListeners();
@@ -158,6 +165,13 @@
             try
             {
                 await _commandFactory.Execute(new RegistrationCommand(), _tokenSource.Token);
+
+                var isCrossGameProgressiveEnabled = _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
+                if (isCrossGameProgressiveEnabled)
+                {
+                    await _commandFactory.Execute(new ProgressiveRegistrationCommand(), _tokenSource.Token);
+                }
+
                 await _registrationState.FireAsync(Trigger.Registered);
             }
             catch (RegistrationException exception)
@@ -332,6 +346,17 @@
             _commandService.HandleCommands(
                 _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
                 _tokenSource.Token).FireAndForget();
+
+            var isCrossGameProgressiveEnabled = _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
+            if (isCrossGameProgressiveEnabled)
+            {
+                var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+                var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);
+                _progressiveCommandService.HandleCommands(
+                    _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
+                    gameTitleId,
+                    _tokenSource.Token).FireAndForget();
+            }
 
             _timeoutTimer.Start();
         }

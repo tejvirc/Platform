@@ -50,23 +50,21 @@
             container.RegisterSingleton<BingoClientInterceptor>();
             container.RegisterSingleton<ProgressiveClientInterceptor>();
             container.RegisterSingleton<IRegistrationService, RegistrationService>();
+            container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
             container.RegisterSingleton<IAuthorizationProvider, BingoAuthorizationProvider>();
             container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
 
             var command = Lifestyle.Singleton.CreateRegistration<CommandService>(container);
             container.AddRegistration<ICommandService>(command);
 
+            var progressiveCommand = Lifestyle.Singleton.CreateRegistration<ProgressiveCommandService>(container);
+            container.AddRegistration<IProgressiveCommandService>(progressiveCommand);
+
             var gamePlay = Lifestyle.Singleton.CreateRegistration<GameOutcomeService>(container);
             container.AddRegistration<IGameOutcomeService>(gamePlay);
 
             var configuration = Lifestyle.Singleton.CreateRegistration<ConfigurationService>(container);
             container.AddRegistration<IConfigurationService>(configuration);
-
-            var progressiveInfo = Lifestyle.Singleton.CreateRegistration<ProgressiveInfoService>(container);
-            container.AddRegistration<IProgressiveInfoService>(progressiveInfo);
-
-            var progressiveUpdate = Lifestyle.Singleton.CreateRegistration<ProgressiveUpdateService>(container);
-            container.AddRegistration<IProgressiveUpdateService>(progressiveUpdate);
 
             return container;
         }
@@ -85,6 +83,11 @@
             factory.Register<DisableCommandProcessor>(DisableCommand.Descriptor, Lifestyle.Transient);
             factory.Register<PingCommandProcessor>(PingCommand.Descriptor, Lifestyle.Transient);
             container.RegisterInstance<ICommandProcessorFactory>(factory);
+
+            var progressiveFactory = new ProgressiveCommandProcessorFactory(container);
+            progressiveFactory.Register<ProgressiveUpdateCommandProcessor>(ProgressiveUpdate.Descriptor, Lifestyle.Transient);
+            container.RegisterInstance<IProgressiveCommandProcessorFactory>(progressiveFactory);
+
             return container;
         }
     }

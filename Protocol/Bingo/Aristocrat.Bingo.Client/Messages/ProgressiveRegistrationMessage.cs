@@ -1,10 +1,8 @@
-﻿namespace Aristocrat.Monaco.Bingo.Commands
+﻿namespace Aristocrat.Bingo.Client.Messages
 {
-    public class ProgressiveInfoRequestCommand
+    public class ProgressiveRegistrationMessage : IMessage
     {
-        public ProgressiveInfoRequestCommand(
-            string machineSerial,
-            int gameTitleId)
+        public ProgressiveRegistrationMessage(string machineSerial, int gameTitleId)
         {
             MachineSerial = machineSerial;
             GameTitleId = gameTitleId;

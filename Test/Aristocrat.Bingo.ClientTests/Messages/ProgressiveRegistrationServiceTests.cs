@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Grpc.Core;
@@ -12,15 +13,15 @@
     using ServerApiGateway;
 
     [TestClass]
-    public class ProgressiveInfoServiceTests
+    public class ProgressiveRegistrationServiceTests
     {
         private readonly Mock<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>> _clientEnpointProvider =
             new Mock<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(MockBehavior.Default);
         private readonly Mock<IMessageHandlerFactory> _messageHandler = new Mock<IMessageHandlerFactory>(MockBehavior.Default);
         private readonly Mock<IProgressiveAuthorizationProvider> _authorizationProvider =
             new Mock<IProgressiveAuthorizationProvider>(MockBehavior.Default);
-
-        private ProgressiveInfoService _target;
+        private IEnumerable<IClient> _clients = new List<IClient>();
+        private ProgressiveRegistrationService _target;
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -28,14 +29,15 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, false)]
-        [DataRow(false, true, false)]
-        [DataRow(false, false, true)]
+        [DataRow(true, false, false, false)]
+        [DataRow(false, true, false, false)]
+        [DataRow(false, false, true, false)]
+        [DataRow(false, false, false, true)]
         [ExpectedException(typeof(ArgumentNullException))]
         [DataTestMethod]
-        public void NullConstructorArgumentsTest(bool nullMessage, bool nullEnpoint, bool nullAuthorization)
+        public void NullConstructorArgumentsTest(bool nullMessage, bool nullEnpoint, bool nullAuthorization, bool nullClients)
         {
-            _target = CreateTarget(nullEnpoint, nullMessage, nullAuthorization);
+            _target = CreateTarget(nullEnpoint, nullMessage, nullAuthorization, nullClients);
         }
 
         [TestMethod]
@@ -79,18 +81,19 @@
                 .Returns(Task.FromResult(handledResponse))
                 .Verifiable();
 
-            var message = new ProgressiveInfoRequestMessage(machineSerial, gameTitleId);
-            var result = await _target.RequestProgressiveInfo(message, CancellationToken.None);
+            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId);
+            var result = await _target.RegisterClient(message, CancellationToken.None);
 
             _clientEnpointProvider.Verify();
 
-            Assert.IsTrue(result);
+            Assert.IsTrue(result.ResponseCode == ResponseCode.Ok);
         }
 
-        private ProgressiveInfoService CreateTarget(bool nullMessage = false, bool nullEnpoint = false, bool nullAuthorization = false)
+        private ProgressiveRegistrationService CreateTarget(bool nullMessage = false, bool nullEnpoint = false, bool nullAuthorization = false, bool nullClients = false)
         {
-            return new ProgressiveInfoService(
+            return new ProgressiveRegistrationService(
                 nullEnpoint ? null : _clientEnpointProvider.Object,
+                nullClients ? null : _clients,
                 nullMessage ? null : _messageHandler.Object,
                 nullAuthorization ? null : _authorizationProvider.Object);
         }

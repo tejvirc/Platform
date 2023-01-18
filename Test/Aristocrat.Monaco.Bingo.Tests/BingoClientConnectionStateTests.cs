@@ -17,6 +17,7 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Protocol.Common.Storage.Entity;
 
     [TestClass]
     public class BingoClientConnectionStateTests
@@ -26,8 +27,10 @@
         private readonly Mock<IClient> _client = new(MockBehavior.Default);
         private readonly Mock<ICommandHandlerFactory> _commandFactory = new(MockBehavior.Default);
         private readonly Mock<ICommandService> _commandService = new(MockBehavior.Default);
+        private readonly Mock<IProgressiveCommandService> _progressiveCommandService = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
+        private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
 
         // This will point to the HandleRestartingEvent function due to reconnection
         private Func<ForceReconnectionEvent, CancellationToken, Task> _handleForceReconnectionEvent;
@@ -49,6 +52,10 @@
                         It.IsAny<object>(),
                         It.IsAny<Func<PropertyChangedEvent, CancellationToken, Task>>(),
                         It.IsAny<Predicate<PropertyChangedEvent>>()));
+            _unitOfWorkFactory.Setup(
+                    m => m.IsCrossGameProgressiveEnabledForMainGame(
+                        It.IsAny<IPropertiesManager>()))
+                    .Returns(false);
 
             var clients = new List<IClient> { _client.Object };
             _target = new BingoClientConnectionState(
@@ -56,8 +63,10 @@
                 clients,
                 _commandFactory.Object,
                 _commandService.Object,
+                _progressiveCommandService.Object,
                 _propertiesManager.Object,
-                _systemDisableManager.Object);
+                _systemDisableManager.Object,
+                _unitOfWorkFactory.Object);
         }
 
         [TestCleanup]
@@ -67,12 +76,14 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, false, false, DisplayName = "EventBus null")]
-        [DataRow(false, true, false, false, false, false, DisplayName = "Client null")]
-        [DataRow(false, false, true, false, false, false, DisplayName = "CommandFactory null")]
-        [DataRow(false, false, false, true, false, false, DisplayName = "CommandService null")]
-        [DataRow(false, false, false, false, true, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, false, false, false, false, true, DisplayName = "SystemDisableManager null")]
+        [DataRow(true, false, false, false, false, false, false, false, DisplayName = "EventBus null")]
+        [DataRow(false, true, false, false, false, false, false, false, DisplayName = "Client null")]
+        [DataRow(false, false, true, false, false, false, false, false, DisplayName = "CommandFactory null")]
+        [DataRow(false, false, false, true, false, false, false, false, DisplayName = "CommandService null")]
+        [DataRow(false, false, false, false, true, false, false, false, DisplayName = "ProgressiveCommandService null")]
+        [DataRow(false, false, false, false, false, true, false, false, DisplayName = "PropertiesManager null")]
+        [DataRow(false, false, false, false, false, false, true, false, DisplayName = "SystemDisableManager null")]
+        [DataRow(false, false, false, false, false, false, false, true, DisplayName = "UnitOfWorkFactory null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
@@ -80,16 +91,20 @@
             bool clientNull,
             bool commandFactoryNull,
             bool commandServiceNull,
+            bool progressiveCommandServiceNull,
             bool propertiesManagerNull,
-            bool systemDisableManagerNull)
+            bool systemDisableManagerNull,
+            bool unitOfWorkFactoryNull)
         {
             _target = new BingoClientConnectionState(
                 eventBusNull ? null : _eventBus.Object,
                 clientNull ? null : new List<IClient> { _client.Object },
                 commandFactoryNull ? null : _commandFactory.Object,
                 commandServiceNull ? null : _commandService.Object,
+                progressiveCommandServiceNull ? null : _progressiveCommandService.Object,
                 propertiesManagerNull ? null : _propertiesManager.Object,
-                systemDisableManagerNull ? null : _systemDisableManager.Object);
+                systemDisableManagerNull ? null : _systemDisableManager.Object,
+                unitOfWorkFactoryNull ? null : _unitOfWorkFactory.Object);
         }
 
         [TestMethod]
@@ -147,6 +162,8 @@
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             // raise the Connected event which will call OnClientConnected
@@ -184,6 +201,8 @@
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
@@ -217,6 +236,8 @@
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
@@ -257,6 +278,8 @@
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
@@ -300,6 +323,8 @@
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
@@ -342,6 +367,8 @@
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
@@ -392,6 +419,8 @@
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
@@ -436,6 +465,8 @@
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
             _commandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
+            _progressiveCommandService.Setup(m => m.HandleCommands(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 

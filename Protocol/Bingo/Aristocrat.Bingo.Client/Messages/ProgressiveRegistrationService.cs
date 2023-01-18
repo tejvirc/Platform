@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -14,29 +15,37 @@
     ///     Calls the bingo server to request progressive information and sets up the authentication
     ///     for the other progressive calls.
     /// </summary>
-    public class ProgressiveInfoService :
+    public class ProgressiveRegistrationService :
         BaseClientCommunicationService<ProgressiveApi.ProgressiveApiClient>,
-        IProgressiveInfoService,
+        IProgressiveRegistrationService,
         IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly IEnumerable<IClient> _clients;
         private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IProgressiveAuthorizationProvider _authorization;
         private bool _disposed;
 
-        public ProgressiveInfoService(
+        public ProgressiveRegistrationService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
+            IEnumerable<IClient> clients,
             IMessageHandlerFactory messageHandlerFactory,
             IProgressiveAuthorizationProvider authorization)
             : base(endpointProvider)
         {
+            _clients = clients ?? throw new ArgumentNullException(nameof(clients));
             _authorization = authorization ?? throw new ArgumentNullException(nameof(authorization));
             _messageHandlerFactory = messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
+
+            foreach (var client in _clients)
+            {
+                client.Disconnected += OnClientDisconnected;
+            }
         }
 
-        public async Task<bool> RequestProgressiveInfo(ProgressiveInfoRequestMessage message, CancellationToken token)
+        public async Task<RegistrationResults> RegisterClient(ProgressiveRegistrationMessage message, CancellationToken token)
         {
-            Logger.Debug($"RequestProgressiveInfo called, MachineSerial={message.MachineSerial}, GameTitleId={message.GameTitleId}");
+            Logger.Debug($"RegisterClient called, MachineSerial={message.MachineSerial}, GameTitleId={message.GameTitleId}");
 
             var request = new ProgressiveInfoRequest
             {
@@ -46,9 +55,6 @@
 
             var result = await Invoke(
                     async x => await x.RequestProgressiveInfoAsync(request, null, null, token));
-
-            Logger.Debug($"RequestProgressiveInfoAsync response, size of response array={result.ProgressiveLevel.Count}");
-            Logger.Debug($"AuthToken={result.AuthToken}");
 
             _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
 
@@ -77,7 +83,7 @@
             var handlerResult = await _messageHandlerFactory.Handle<ProgressiveInformationResponse, ProgressiveInfoMessage>(progressiveInfoMessage, token)
                 .ConfigureAwait(false);
 
-            return handlerResult.ResponseCode == ResponseCode.Ok;
+            return new RegistrationResults(handlerResult.ResponseCode);
         }
 
         public void Dispose()
@@ -95,10 +101,23 @@
 
             if (disposing)
             {
+                foreach (var client in _clients)
+                {
+                    client.Disconnected -= OnClientDisconnected;
+                }
+
                 _authorization.AuthorizationData = null;
             }
 
             _disposed = true;
+        }
+
+        private void OnClientDisconnected(object sender, DisconnectedEventArgs e)
+        {
+            if (_clients.Any() != true)
+            {
+                _authorization.AuthorizationData = null;
+            }
         }
     }
 }

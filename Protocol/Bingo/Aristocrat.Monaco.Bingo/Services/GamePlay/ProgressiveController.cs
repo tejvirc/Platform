@@ -7,7 +7,6 @@
     using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Commands;
     using Common;
     using Common.Events;
     using Gaming.Contracts;
@@ -15,7 +14,6 @@
     using Gaming.Contracts.Progressives.Linked;
     using Hardware.Contracts.Persistence;
     using Kernel;
-    using Protocol.Common.Storage.Entity;
     using log4net;
 
     /// <summary>
@@ -31,9 +29,6 @@
         private readonly IProtocolProgressiveEventsRegistry _multiProtocolEventBusRegistry;
         private readonly IPersistentStorageManager _storage;
         private readonly IGameHistory _gameHistory;
-        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly IPropertiesManager _propertiesManager;
-        private readonly ICommandHandlerFactory _commandFactory;
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
@@ -54,20 +49,14 @@
         /// <param name="protocolLinkedProgressiveAdapter">.</param>
         /// <param name="storage"><see cref="IPersistentStorageManager" />.</param>
         /// <param name="gameHistory"><see cref="IGameHistory" />.</param>
-        /// <param name="unitOfWorkFactory"><see cref="IUnitOfWorkFactory" />.</param>
         /// <param name="multiProtocolEventBusRegistry"><see cref="IProtocolProgressiveEventsRegistry" />.</param>
-        /// <param name="propertiesManager"><see cref="IPropertiesManager" />.</param>
-        /// <param name="commandFactory"><see cref="ICommandHandlerFactory" />.</param>
         public ProgressiveController(
             IEventBus eventBus,
             IGameProvider gameProvider,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
             IPersistentStorageManager storage,
             IGameHistory gameHistory,
-            IUnitOfWorkFactory unitOfWorkFactory,
-            IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry,
-            IPropertiesManager propertiesManager,
-            ICommandHandlerFactory commandFactory
+            IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry
             )
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -77,11 +66,8 @@
                                                     nameof(protocolLinkedProgressiveAdapter));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
-            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _multiProtocolEventBusRegistry = multiProtocolEventBusRegistry ??
                                              throw new ArgumentNullException(nameof(multiProtocolEventBusRegistry));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
-            _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
 
             SubscribeToEvents();
         }
@@ -144,7 +130,7 @@
         }
 
         /// <inheritdoc />
-        public async void Configure()
+        public void Configure()
         {
             _progressives.Clear();
             _activeProgressiveInfos.Clear();
@@ -230,25 +216,6 @@
                             new AssignableProgressiveId(AssignableProgressiveType.Linked, linkedLevel.LevelName),
                             level.ResetValue)).ToList(),
                     ProtocolNames.Bingo);
-            }
-
-            var isCrossGameProgressiveEnabled = _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
-
-            Logger.Debug($"Cross Game Progressive Enabled for main game = {isCrossGameProgressiveEnabled}");
-
-            if (isCrossGameProgressiveEnabled)
-            {
-                var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
-
-                Logger.Debug($"Execute command  ProgressiveInfoRequestCommand, machineSerial = {machineSerial}");
-
-                // TODO testing progressive info request command here. May need to move this to another location in code.
-                await _commandFactory.Execute(new ProgressiveInfoRequestCommand(machineSerial, 1)).ConfigureAwait(false);
-
-                Logger.Debug($"Execute command  ProgressiveUpdateRequestCommand, machineSerial = {machineSerial}");
-
-                // TODO testing progressive update command here. Need to create a progressive update handler or service.
-                await _commandFactory.Execute(new ProgressiveUpdateRequestCommand(machineSerial)).ConfigureAwait(false);
             }
         }
 
