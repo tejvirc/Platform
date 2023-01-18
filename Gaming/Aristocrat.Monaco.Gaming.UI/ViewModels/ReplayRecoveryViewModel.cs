@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Timers;
     using System.Windows.Input;
     using Accounting.Contracts;
@@ -17,6 +18,7 @@
     using Hardware.Contracts.Button;
     using Kernel;
     using Localization.Properties;
+    using log4net;
     using MVVM.Command;
     using MVVM.ViewModel;
 
@@ -25,6 +27,8 @@
     /// </summary>
     public class ReplayRecoveryViewModel : BaseEntityViewModel, IDisposable
     {
+        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private static readonly string CompletionText =
             Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
         private const double CashOutMessagesCycleIntervalInSeconds = 3.0;
@@ -232,6 +236,7 @@
 
             set
             {
+                Logger.Debug($"ReplayPauseMessageText={value}");
                 if (_replayPauseMessageText == value)
                 {
                     return;
@@ -241,6 +246,7 @@
                 RaisePropertyChanged(nameof(ReplayPauseMessageText));
                 RaisePropertyChanged(nameof(IsReplayPauseMessageVisible));
                 RaisePropertyChanged(nameof(CanReplayContinue));
+                Logger.Debug($"CanReplayContinue={CanReplayContinue}");
             }
         }
 
@@ -293,12 +299,14 @@
 
         private void ContinueButtonPressed(object parameter)
         {
+            Logger.Debug("ContinueButtonPressed");
             ReplayPauseMessageText = string.Empty;
             _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
         }
 
         private void HandleEvent(GameDiagnosticsStartedEvent @event)
         {
+            Logger.Debug("Handle GameDiagnosticsStartedEvent");
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
             ReplayPauseMessageText = string.Empty;
@@ -323,7 +331,9 @@
 
         private void HandleEvent(GameReplayPauseInputEvent @event)
         {
-            if (_properties.GetValue(GamingConstants.ReplayPauseActive, true))
+            var replayPauseActive = _properties.GetValue(GamingConstants.ReplayPauseActive, true);
+            Logger.Debug($"Handle GameReplayPauseInputEvent: ReplayPauseActive={replayPauseActive}, ReplayPauseMessageText={ReplayPauseMessageText}, ReplayPauseState={@event.ReplayPauseState}");
+            if (replayPauseActive)
             {
                 // The ReplayPause can be sent after the game-end Game Event 
                 if (ReplayPauseMessageText != CompletionText)
@@ -343,12 +353,14 @@
 
         private void HandleEvent(GameReplayCompletedEvent @event)
         {
+            Logger.Debug("Handle GameReplayCompletedEvent");
             _commandHandlerFactory.Create<ReplayGameEnded>().Handle(new ReplayGameEnded(_replayEndCredits.MillicentsToCents()));
             ReplayPauseMessageText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
         }
 
         private void HandleEvent(GameDiagnosticsCompletedEvent @event)
         {
+            Logger.Debug("Handle GameDiagnosticsCompletedEvent");
             ReplaySequence = null;
             ReplayGameName = string.Empty;
             ReplayStartTime = null;
@@ -369,6 +381,7 @@
 
         private void ExitDiagnostics()
         {
+            Logger.Debug("ExitDiagnostics");
             ReplayPauseMessageText = string.Empty;
             _gameDiagnostics.End();
             _cashoutMessageTimer?.Stop();

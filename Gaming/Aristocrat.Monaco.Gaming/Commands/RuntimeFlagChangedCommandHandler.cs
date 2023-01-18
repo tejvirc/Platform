@@ -42,8 +42,12 @@
                     // This essentially means, we're splitting free games into their own game.  If that's the case we don't want the event
                     if (!_meterFreeGames || _gameDiagnostics.AllowResume)
                     {
-                        Logger.Debug("Client Requested ReplayPauseInput");
+                        Logger.Debug("Client Requested ReplayPause");
                         _bus.Publish(new GameReplayPauseInputEvent(command.State));
+                    }
+                    else
+                    {
+                        Logger.Debug("Ignored ReplayPause");
                     }
 
                     break;
@@ -63,6 +67,10 @@
                         {
                             _bus.Publish(new GameReplayPauseInputEvent(false));
                         }
+                    }
+                    else
+                    {
+                        Logger.Debug("ReplayPause is disabled");
                     }
 
                     break;
