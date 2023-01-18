@@ -50,10 +50,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectionSummaryTitle}}" 
+        <Label Content="{Binding PageName}" 
                Foreground="{DynamicResource LightBrush4}"/>
         <Label Grid.Column="1"
-               Content="{Binding DateNow, Converter={StaticResource DateTimeFormatConverter}}" 
+               Content="{Binding Timestamp}" 
                Foreground="{DynamicResource LightBrush4}"/>
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"

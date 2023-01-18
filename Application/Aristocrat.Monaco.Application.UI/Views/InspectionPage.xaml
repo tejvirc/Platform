@@ -84,6 +84,7 @@
                   Margin="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -92,29 +93,39 @@
 
                 <views:InspectionIdControl HorizontalAlignment="Left" 
                                            VerticalAlignment="Center" />
-                <TextBlock Grid.Column="1"
+                <Button Grid.Column="1" 
+                        IsEnabled="{Binding PrintButtonEnabled}"
+                        Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                        Width="90" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
+                        Command="{Binding PrintButtonCommand}"
+                        Style="{StaticResource MonacoButton1}">
+                    <Grid>
+                        <iconPacks:PackIconFontAwesome Kind="Print" Width="25" Height="25"/>
+                    </Grid>
+                </Button>
+                <TextBlock Grid.Column="2"
                            Text="{Binding ReportText, UpdateSourceTrigger=PropertyChanged}"
                            Foreground="{Binding ReportBrush}"
                            Margin="20 0"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Center"/>
-                <Button Grid.Column="2"
+                <Button Grid.Column="3"
                         Name="ClearConfigButton" Command="{Binding ClearConfigButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearConfig}}"
                         Visibility="{Binding IsClearConfigVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="2"
+                <Button Grid.Column="3"
                         Name="ReportButton" Command="{Binding ReportButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="3"
+                <Button Grid.Column="4"
                         Name="BackButton" Command="{Binding BackButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
                         IsEnabled="{Binding CanNavigateBackward}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="4"
+                <Button Grid.Column="5"
                         Name="NextButton" Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
