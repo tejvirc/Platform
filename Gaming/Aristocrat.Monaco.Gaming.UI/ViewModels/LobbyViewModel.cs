@@ -517,7 +517,7 @@
 
             UpdatePaidMeterValue(_sessionInfoService.GetSessionPaidValue());
 
-            messageDisplay.AddMessageDisplayHandler(this, CultureProviderType.Player);
+            messageDisplay.AddMessageDisplayHandler(this);
 
             WireDesignerData();
 

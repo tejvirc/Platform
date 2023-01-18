@@ -1770,7 +1770,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                () => string.Empty,
                DisplayableMessageClassification.SoftError,
                DisplayableMessagePriority.Normal);
-            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, It.IsAny<CultureProviderType>(), true))
+            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, true))
                 .Callback(() => _target.DisplayMessage(softError));
 
             //var softError = new Mock<IDisplayableMessage>();
@@ -1781,7 +1781,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             //softError.SetupGet(x => x.Classification).Returns(DisplayableMessageClassification.SoftError);
             //softError.SetupGet(x => x.Priority).Returns(DisplayableMessagePriority.Normal);
 
-            //_messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, It.IsAny<CultureProviderType>(), true))
+            //_messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, true))
             //    .Callback(() => _target.DisplayMessage(softError.Object));
 
             _target.Initialize();
@@ -1844,7 +1844,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             softError.SetupGet(x => x.Message).Returns("Test");
             softError.SetupGet(x => x.Classification).Returns(DisplayableMessageClassification.SoftError);
 
-            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, It.IsAny<CultureProviderType>(), true))
+            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, true))
                 .Callback(() => _target.DisplayMessage(softError.Object));
             _target.Initialize();
             _towerLight.Verify(
@@ -1888,7 +1888,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             softError.SetupGet(x => x.Classification).Returns(DisplayableMessageClassification.SoftError);
             softError.SetupGet(x => x.Priority).Returns(DisplayableMessagePriority.Normal);
 
-            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, It.IsAny<CultureProviderType>(), true))
+            _messageDisplay.Setup(x => x.AddMessageDisplayHandler(_target, true))
                 .Callback(() => _target.DisplayMessage(softError.Object));
 
             Action<SystemDisableAddedEvent> disableCallback = null;

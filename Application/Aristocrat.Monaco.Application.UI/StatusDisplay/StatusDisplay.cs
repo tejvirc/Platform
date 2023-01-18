@@ -26,7 +26,7 @@
         public StatusDisplay(StatusDisplayView display)
         {
             _statusDisplay = display;
-            ServiceManager.GetInstance().GetService<IMessageDisplay>().AddMessageDisplayHandler(this, CultureProviderType.Player);
+            ServiceManager.GetInstance().GetService<IMessageDisplay>().AddMessageDisplayHandler(this);
         }
 
         /// <inheritdoc />

@@ -43,7 +43,7 @@
         }
 
         /// <inheritdoc />
-        public void AddMessageDisplayHandler(IMessageDisplayHandler handler, CultureProviderType? providerType = null, bool displayPreviousMessages = true)
+        public void AddMessageDisplayHandler(IMessageDisplayHandler handler, bool displayPreviousMessages = true)
         {
             if (!_handlers.Contains(handler))
             {

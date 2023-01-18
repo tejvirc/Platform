@@ -309,7 +309,7 @@
 
         protected override void OnLoaded()
         {
-            MessageDisplay.AddMessageDisplayHandler(this, CultureProviderType.Operator);
+            MessageDisplay.AddMessageDisplayHandler(this);
             if (DisableByOperatorManager.DisabledByOperator)
             {
                 InputStatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfServiceReason);

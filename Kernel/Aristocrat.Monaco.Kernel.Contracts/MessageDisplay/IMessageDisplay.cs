@@ -43,11 +43,10 @@ namespace Aristocrat.Monaco.Kernel.Contracts.MessageDisplay
         /// </code>
         /// </example>
         /// <param name="handler">The object to set as the message handler.</param>
-        /// <param name="providerType">Culture provider type</param>
         /// <param name="displayPreviousMessages">
         /// Whether to display the previous soft and info messages in the MessageDisplay after the handler is added. 
         /// Note: ALL hard lockups are displayed no matter what</param>
-        void AddMessageDisplayHandler(IMessageDisplayHandler handler, CultureProviderType? providerType = null, bool displayPreviousMessages = true);
+        void AddMessageDisplayHandler(IMessageDisplayHandler handler, bool displayPreviousMessages = true);
 
         /// <summary>
         ///     Instructs the message display to no longer forward messages to the provided handler.

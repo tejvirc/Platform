@@ -130,7 +130,7 @@
         {
             _eventBus.Setup(m => m.Publish(It.IsAny<PageTitleEvent>())).Verifiable();
             _disabledByOperatorManager.Setup(m => m.DisabledByOperator).Returns(true);
-            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true));
+            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, false)).Returns(true);
             _bank.Setup(m => m.QueryBalance()).Returns(0);
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false))
@@ -143,7 +143,7 @@
 
             _accessor.OnLoaded();
 
-            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true), Times.Once());
+            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true), Times.Once());
         }
 
         [TestMethod]
@@ -151,7 +151,7 @@
         {
             _eventBus.Setup(m => m.Publish(It.IsAny<PageTitleEvent>())).Verifiable();
             _disabledByOperatorManager.Setup(m => m.DisabledByOperator).Returns(true);
-            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true));
+            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, false)).Returns(true);
             _bank.Setup(m => m.QueryBalance()).Returns(0);
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false))
@@ -166,7 +166,7 @@
 
             Assert.IsTrue(_accessor.IsExitReserveButtonVisible);
 
-            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true), Times.Once());
+            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true), Times.Once());
         }
 
         [TestMethod]
@@ -174,7 +174,7 @@
         {
             _eventBus.Setup(m => m.Publish(It.IsAny<PageTitleEvent>())).Verifiable();
             _disabledByOperatorManager.Setup(m => m.DisabledByOperator).Returns(true);
-            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true));
+            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, false)).Returns(true);
             _bank.Setup(m => m.QueryBalance()).Returns(0);
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false))
@@ -189,7 +189,7 @@
 
             Assert.IsTrue(_accessor.IsExitReserveButtonVisible);
 
-            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true), Times.Once());
+            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true), Times.Once());
 
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false))
                 .Returns(false);
@@ -205,7 +205,7 @@
             _eventBus.Setup(m => m.Publish(It.IsAny<PageTitleEvent>())).Verifiable();
             _disabledByOperatorManager.Setup(m => m.DisabledByOperator).Returns(false);
             _propertiesManager.Setup(m => m.GetProperty(PropertyKey.CurrentBalance, 0L)).Returns(1L);
-            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true));
+            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, false)).Returns(true);
             _bank.Setup(m => m.QueryBalance()).Returns(0);
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false))
@@ -218,7 +218,7 @@
 
             _accessor.OnLoaded();
 
-            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true), Times.Once());
+            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true), Times.Once());
         }
 
         [TestMethod]
@@ -228,7 +228,7 @@
             _eventBus.Setup(m => m.Unsubscribe<ClosedEvent>(_target));
 
             _disabledByOperatorManager.Setup(m => m.DisabledByOperator).Returns(true);
-            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true));
+            _messageDisplay.Setup(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true));
             _messageDisplay.Setup(m => m.RemoveMessageDisplayHandler(It.IsAny<StatusPageViewModel>()));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, false)).Returns(true);
             _bank.Setup(m => m.QueryBalance()).Returns(0);
@@ -246,7 +246,7 @@
 
             _accessor.OnUnloaded();
 
-            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), CultureProviderType.Operator, true), Times.Once());
+            _messageDisplay.Verify(m => m.AddMessageDisplayHandler(It.IsAny<StatusPageViewModel>(), true), Times.Once());
             _messageDisplay.Verify(m => m.RemoveMessageDisplayHandler(It.IsAny<StatusPageViewModel>()), Times.Once());
         }
     }
