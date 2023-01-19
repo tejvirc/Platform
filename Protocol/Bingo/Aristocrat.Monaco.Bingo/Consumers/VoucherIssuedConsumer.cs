@@ -4,6 +4,7 @@
     using Accounting.Contracts;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Common;
     using Common.Storage.Model;
     using Kernel;
@@ -19,7 +20,7 @@
         private readonly IReportTransactionQueueService _bingoTransactionReportHandler;
         private readonly IReportEventQueueService _bingoEventQueue;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
 
         public VoucherIssuedConsumer(
             IEventBus eventBus,
@@ -27,7 +28,7 @@
             IReportTransactionQueueService bingoTransactionReportHandler,
             IReportEventQueueService bingoEventQueue,
             IUnitOfWorkFactory unitOfWorkFactory,
-            IPropertiesManager propertiesManager)
+            IGameProvider gameProvider)
             : base(eventBus, consumerContext)
         {
             _bingoTransactionReportHandler =
@@ -35,7 +36,7 @@
                 throw new ArgumentNullException(nameof(bingoTransactionReportHandler));
             _bingoEventQueue = bingoEventQueue ?? throw new ArgumentNullException(nameof(bingoEventQueue));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
         }
 
         public override void Consume(VoucherIssuedEvent theEvent)
@@ -54,7 +55,7 @@
             }
 
             var amountInCents = transaction.TransactionAmount.MillicentsToCents();
-            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
 
             switch (transaction.Reason)
             {

@@ -8,7 +8,7 @@
         {
             GameDetail = gameDetail;
             Rtp = gameDetail.GetTotalJurisdictionRtpRange(denom).Rtp;
-            DisplayText = $"{(displayRtpAsRange ? Rtp.GetRtpString() : Rtp.Minimum.GetRtpString())} v{gameDetail.VariationId}";
+            DisplayText = $"{(displayRtpAsRange ? Rtp.ToString() : Rtp.Minimum.GetRtpString())} v{gameDetail.VariationId}";
         }
 
         public IGameDetail GameDetail { get; }

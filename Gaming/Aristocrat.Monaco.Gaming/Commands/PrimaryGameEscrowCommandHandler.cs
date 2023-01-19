@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
+    using System.Linq;
     using Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Central;
@@ -39,7 +40,7 @@
                 _gameHistory.Escrow(command.InitialWager, command.Data);
             }
 
-            // this is null when the game is not running
+            // This is null when the game is not running
             if (game == null)
             {
                 return;
@@ -50,7 +51,8 @@
                 OutcomeRequest request => _central.RequestOutcomes(
                     game.Id,
                     denomination.Value,
-                    wagerCategory?.Id ?? string.Empty,
+                    // TODO: Verify this is correct. It used to be "wagerCategory.Id" but now it's missing
+                    game.WagerCategories.FirstOrDefault()?.Id ?? string.Empty, 
                     request.TemplateId.ToString(),
                     command.InitialWager.CentsToMillicents(),
                     command.Request,

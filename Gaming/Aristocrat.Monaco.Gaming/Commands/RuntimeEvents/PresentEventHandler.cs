@@ -180,14 +180,14 @@
 
         private void HandlePending()
         {
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GameWinPresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
         }
 
         private void HandleBegin()
         {
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GamePresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
         }

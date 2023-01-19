@@ -8,7 +8,7 @@
         /// <summary>
         ///     Gets or sets the Wager category identifier
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         ///     Gets or sets the theoretical payback percentage associated with the wager category
@@ -29,11 +29,6 @@
         ///     Gets or sets the maximum win amount, in millicents, associated with the wager category
         /// </summary>
         public long MaxWinAmount { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the play option name
-        /// </summary>
-        public string PlayOptionName { get; set; }
 
         /// <summary>
         ///     Gets or sets the minimum base RTP in percent.

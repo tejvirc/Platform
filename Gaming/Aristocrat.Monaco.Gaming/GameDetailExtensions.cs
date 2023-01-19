@@ -4,6 +4,7 @@
     using Contracts.Progressives;
     using Kernel;
     using Progressives;
+    using RtpRange = Contracts.RtpRange;
 
     /// <summary>
     ///     A set of <see cref="IGameDetail" /> extensions
@@ -56,9 +57,9 @@
                 .GetInstance<IGameProvider>()
                 .CanIncludeIncrementRtp(@this.GameType);
 
-            return (
-                includeIncrementRtp ? data.progressiveRtp.BaseAndResetAndIncrement : data.progressiveRtp.BaseAndReset,
-                RtpVerifiedState.Verified);
+            return (includeIncrementRtp
+                    ? data.progressiveRtp.BaseAndResetAndIncrement
+                    : data.progressiveRtp.BaseAndReset, RtpVerifiedState.Verified);
         }
 
         /// <summary>

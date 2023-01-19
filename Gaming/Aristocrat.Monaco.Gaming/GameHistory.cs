@@ -897,7 +897,7 @@
             log.LogSequence = sequenceNumber;
             log.StartDateTime = startTime;
 
-            var (game, denomination) = _properties.GetSelectedGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             log.GameId = game.Id;
             log.DenomId = denomination.Value;
             log.StartCredits = _bank.QueryBalance();

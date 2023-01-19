@@ -217,12 +217,11 @@
         {
             return new WagerCategory
             {
-                Id = wagerCategory.wagerCategory,
+                Id = wagerCategory.wagerCategory.ToString(),
                 MaxWagerCredits = wagerCategory.maxWagerCredits,
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
                 TheoPaybackPercent = ConvertToRtp(wagerCategory.theoPaybackPct),
-                PlayOptionName = wagerCategory.playOptionName,
                 MinBaseRtpPercent = ConvertToRtp(wagerCategory.minBaseRtpPct),
                 MaxBaseRtpPercent = ConvertToRtp(wagerCategory.maxBaseRtpPct),
                 MinSapStartupRtpPercent = ConvertToRtp(wagerCategory.minSapStartupRtpPct),

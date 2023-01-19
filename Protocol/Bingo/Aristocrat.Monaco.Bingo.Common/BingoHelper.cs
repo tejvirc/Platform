@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Gaming.Contracts;
-    using Kernel;
     using Protocol.Common.Storage.Entity;
     using Storage.Model;
 
@@ -12,7 +11,7 @@
     {
         private const int FallBackDynamicHelpPort = 7510;
 
-        public static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, IPropertiesManager propertiesManager)
+        public static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, IGameProvider propertiesManager)
         {
             var (gameDetail, denomination) = propertiesManager.GetActiveGame();
             var serverSettings = unitOfWorkFactory.Invoke(

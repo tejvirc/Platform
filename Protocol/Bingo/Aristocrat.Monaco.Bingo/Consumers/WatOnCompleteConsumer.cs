@@ -5,6 +5,7 @@
     using Accounting.Contracts.Wat;
     using Application.Contracts.Extensions;
     using Common;
+    using Gaming.Contracts;
     using Kernel;
     using Protocol.Common.Storage.Entity;
     using Services.Reporting;
@@ -18,7 +19,7 @@
         private readonly IReportTransactionQueueService _bingoTransactionReportHandler;
         private readonly IReportEventQueueService _bingoEventQueue;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
 
         public WatOnCompleteConsumer(
             IEventBus eventBus,
@@ -26,7 +27,7 @@
             IReportTransactionQueueService bingoTransactionReportHandler,
             IReportEventQueueService bingoEventQueue,
             IUnitOfWorkFactory unitOfWorkFactory,
-            IPropertiesManager propertiesManager)
+            IGameProvider gameProvider)
             : base(eventBus, consumerContext)
         {
             _bingoTransactionReportHandler =
@@ -34,7 +35,7 @@
                 throw new ArgumentNullException(nameof(bingoTransactionReportHandler));
             _bingoEventQueue = bingoEventQueue ?? throw new ArgumentNullException(nameof(bingoEventQueue));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
         }
 
         public override void Consume(WatOnCompleteEvent theEvent)
@@ -64,7 +65,7 @@
                     ? ReportableEvent.PartialTransferInComplete
                     : ReportableEvent.TransferInComplete);
 
-            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
             if (transaction.TransferredCashableAmount != 0)
             {
                 _bingoTransactionReportHandler.AddNewTransactionToQueue(

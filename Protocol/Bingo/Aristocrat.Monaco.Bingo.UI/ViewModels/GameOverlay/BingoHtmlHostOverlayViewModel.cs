@@ -779,7 +779,7 @@
 
         private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
-            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_gameProvider).ToString();
             await _dispatcher.ExecuteAndWaitOnUIThread(() => BingoHelpAddress = helpAddress);
         }
 
@@ -802,7 +802,7 @@
                 return;
             }
 
-            var (game, _) = _propertiesManager.GetActiveGame();
+            var (game, _) = _gameProvider.GetActiveGame();
             if (game != null)
             {
                 _lastSelectedGame = game;
@@ -959,7 +959,7 @@
 
         private async Task SetHelpVisibility(bool visible)
         {
-            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_gameProvider).ToString();
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {

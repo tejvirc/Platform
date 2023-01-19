@@ -54,6 +54,7 @@
             _recovery = recovery ?? throw new ArgumentNullException(nameof(recovery));
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameDiagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));

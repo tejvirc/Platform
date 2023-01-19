@@ -946,7 +946,7 @@
                     var wagerCategories = game.WagerCategories.Select(
                         w => new WagerCategory(
                             w.Id,
-                            ConvertToRtp(w.TheoPaybackPercent),
+                            w.TheoPaybackPercent,
                             w.MinWagerCredits,
                             w.MaxWagerCredits,
                             w.MaxWinAmount)).ToList();
