@@ -31745,18 +31745,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Too many transaction requests are pending with the....
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Bingo
-        /// </remarks>
-		public static string TransactionReportingQueueAlmostFullHelp {
-			get {
-				return ResourceManager.GetString("TransactionReportingQueueAlmostFullHelp", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Transaction request is pending with Central Server....
 		/// </summary>
         /// <remarks>
@@ -66199,18 +66187,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Too many transaction requests are pending with the....
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Bingo
-        /// </remarks>
-		public static string TransactionReportingQueueAlmostFullHelp {
-			get {
-				return "TransactionReportingQueueAlmostFullHelp";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Transaction request is pending with Central Server....
 		/// </summary>
         /// <remarks>
@@ -87024,13 +87000,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Bingo.Services.Reporting.TransactionAcknowledgedQueueHelper
         /// </remarks>
 		TransactionReportingQueueAlmostFull,
-		/// <summary>
-		///   Looks up a localized string similar to Too many transaction requests are pending with the....
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Bingo
-        /// </remarks>
-		TransactionReportingQueueAlmostFullHelp,
 		/// <summary>
 		///   Looks up a localized string similar to Transaction request is pending with Central Server....
 		/// </summary>
