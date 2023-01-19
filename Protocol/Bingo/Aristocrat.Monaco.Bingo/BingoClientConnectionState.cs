@@ -4,7 +4,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Timers;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Bingo.Client;
@@ -17,10 +16,11 @@
     using log4net;
     using Monaco.Common;
     using Stateless;
+    using Timer = System.Threading.Timer;
 
     public sealed class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
     {
-        private const int NoMessagesTimeout = 40_000;
+        private static readonly TimeSpan NoMessagesTimeout = TimeSpan.FromMilliseconds(40_000);
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -28,9 +28,9 @@
         private readonly IClient _client;
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly ISystemDisableManager _systemDisable;
+        private readonly Timer _timeoutTimer;
 
         private CancellationTokenSource _tokenSource;
-        private System.Timers.Timer _timeoutTimer;
 
         private StateMachine<State, Trigger> _registrationState;
 
@@ -55,14 +55,14 @@
 
             CreateStateMachine();
             RegisterEventListeners();
-            CreateTimeoutTimer();
+            _timeoutTimer = new Timer(TimeoutOccurred);
         }
 
         public event EventHandler ClientConnected;
 
         public event EventHandler ClientDisconnected;
 
-        public int NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
+        public TimeSpan NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
 
         public void Dispose()
         {
@@ -76,7 +76,6 @@
             _client.Disconnected -= OnClientDisconnected;
             _client.Connected -= OnClientConnected;
             _client.MessageReceived -= OnMessageReceived;
-            _timeoutTimer.Elapsed -= TimeoutOccurred;
             _timeoutTimer.Dispose();
             var tokenSource = _tokenSource;
             if (tokenSource != null)
@@ -308,7 +307,7 @@
             _commandFactory.Execute(new ClientConnectedCommand(), _tokenSource.Token).FireAndForget();
         }
 
-        private void TimeoutOccurred(object sender, ElapsedEventArgs e)
+        private void TimeoutOccurred(object _)
         {
             _registrationState.FireAsync(Trigger.Disconnected).FireAndForget();
         }
@@ -325,8 +324,12 @@
 
         private void OnMessageReceived(object sender, EventArgs e)
         {
-            _timeoutTimer.Stop();
-            _timeoutTimer.Start();
+            if (_registrationState.State is not State.Connected)
+            {
+                return;
+            }
+
+            _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
         }
 
         private async Task OnDisconnected()
@@ -339,7 +342,7 @@
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoHostDisconnectedHelp));
 
-            _timeoutTimer.Stop();
+            _timeoutTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
 
             ClientDisconnected?.Invoke(this, EventArgs.Empty);
             await _registrationState.FireAsync(Trigger.Connecting);
@@ -358,7 +361,7 @@
             {
             }
 
-            _timeoutTimer.Start();
+            _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
         }
 
         private void SetupFirewallRule()
@@ -385,13 +388,6 @@
         {
             SetupFirewallRule();
             await _registrationState.FireAsync(Trigger.Reconfigure);
-        }
-
-        private void CreateTimeoutTimer()
-        {
-            _timeoutTimer = new System.Timers.Timer(NoMessagesConnectionTimeout);
-            _timeoutTimer.AutoReset = false;
-            _timeoutTimer.Elapsed += TimeoutOccurred;
         }
 
         private enum State

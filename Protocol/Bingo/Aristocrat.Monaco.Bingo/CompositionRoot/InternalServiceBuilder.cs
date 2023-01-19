@@ -50,9 +50,7 @@
             container.RegisterSingleton<IBingoGameOutcomeHandler, CentralHandler>();
             container.RegisterSingleton<ITotalWinValidator, TotalWinValidator>();
             container.RegisterSingleton<IReportTransactionQueueService, TransactionHandler>();
-            container.RegisterSingleton<IReportTransactionService, ReportTransactionService>();
             container.RegisterSingleton<IReportEventQueueService, ReportEventHandler>();
-            container.RegisterSingleton<IReportEventService, ReportEventService>();
             container.RegisterSingleton<IGameHistoryReportHandler, GameHistoryReportHandler>();
             container.RegisterSingleton<ISharedConsumer, SharedConsumerContext>();
             container.RegisterSingleton<IAcknowledgedQueue<ReportTransactionMessage, int>, AcknowledgedQueue<ReportTransactionMessage, int>>();
@@ -67,6 +65,7 @@
             container.RegisterSingleton<IBingoReplayRecovery, BingoReplayRecovery>();
             container.RegisterSingleton<ICertificateService, CertificateService>();
             container.RegisterSingleton<DynamicHelpMonitor>();
+            container.RegisterSingleton<ClientActivityService>();
             container.RegisterManyAsCollection(typeof(IMeterMonitor), Assembly.GetExecutingAssembly());
             return container;
         }

@@ -11,13 +11,14 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAuthorizationProvider _authorizationProvider;
-        public EventHandler<EventArgs> MessageReceived;
 
         public BingoClientInterceptor(IAuthorizationProvider authorizationProvider)
         {
             _authorizationProvider =
                 authorizationProvider ?? throw new ArgumentNullException(nameof(authorizationProvider));
         }
+
+        public event EventHandler<EventArgs> MessageReceived;
 
         public TimeSpan MessageTimeoutMs { get; set; } = TimeSpan.FromMilliseconds(3000);
 
@@ -46,6 +47,7 @@
             context = AddTimeout(AddAuthorization(context));
             var response = base.BlockingUnaryCall(request, context, continuation);
             Logger.Debug($"Response Received: {response}");
+            OnMessageReceived();
             return response;
         }
 
@@ -56,8 +58,8 @@
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncDuplexStreamingCall<TRequest, TResponse>(
-                new BingoClientClientStreamingLogger<TRequest>(call.RequestStream),
-                new BingoClientServerStreamingLogger<TResponse>(call.ResponseStream, this),
+                new BingoClientClientStreamingLogger<TRequest>(Logger, call.RequestStream),
+                new BingoClientServerStreamingLogger<TResponse>(Logger, call.ResponseStream, OnMessageReceived),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -73,7 +75,7 @@
             context = AddAuthorization(context);
             var call = continuation(request, context);
             return new AsyncServerStreamingCall<TResponse>(
-                new BingoClientServerStreamingLogger<TResponse>(call.ResponseStream, this),
+                new BingoClientServerStreamingLogger<TResponse>(Logger, call.ResponseStream, OnMessageReceived),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -87,7 +89,7 @@
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
-                new BingoClientClientStreamingLogger<TRequest>(call.RequestStream),
+                new BingoClientClientStreamingLogger<TRequest>(Logger, call.RequestStream),
                 LogResponse(call.ResponseAsync),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
@@ -95,17 +97,18 @@
                 call.Dispose);
         }
 
-        public void OnMessageReceived()
+        private void OnMessageReceived()
         {
             MessageReceived?.Invoke(this, EventArgs.Empty);
         }
 
-        private static async Task<TResponse> LogResponse<TResponse>(Task<TResponse> callingTask)
+        private async Task<TResponse> LogResponse<TResponse>(Task<TResponse> callingTask)
         {
             try
             {
-                var response = await callingTask;
+                var response = await callingTask.ConfigureAwait(false);
                 Logger.Debug($"Response Received: {response}");
+                OnMessageReceived();
                 return response;
             }
             catch (Exception ex)

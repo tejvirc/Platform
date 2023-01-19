@@ -70,14 +70,14 @@
         {
             var command = new Command
             {
-                Command_ = Any.Pack(new PingCommand { PingRequestTime = DateTime.UtcNow.ToTimestamp() })
+                Command_ = Any.Pack(new EnableCommand())
             };
 
             _commandFactory.Setup(x => x.ProcessCommand(It.IsAny<Command>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult<IMessage>(new PingResponse()));
+                .Returns(Task.FromResult<IMessage>(new EnableCommandResponse()));
             var writer = await ProcessCommand(command);
             writer.Verify(
-                x => x.WriteAsync(It.Is<CommandResponse>(c => c.Response.Is(PingResponse.Descriptor))));
+                x => x.WriteAsync(It.Is<CommandResponse>(c => c.Response.Is(EnableCommandResponse.Descriptor))));
         }
 
         [TestMethod]
@@ -153,95 +153,14 @@
         {
             var command = new Command
             {
-                Command_ = Any.Pack(new PingCommand { PingRequestTime = DateTime.UtcNow.ToTimestamp() })
+                Command_ = Any.Pack(new EnableCommand())
             };
 
             _commandFactory.Setup(x => x.ProcessCommand(It.IsAny<Command>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult<IMessage>(new PingResponse()));
+                .Returns(Task.FromResult<IMessage>(new EnableCommandResponse()));
             var writer = await ProcessCommand(command, true);
             writer.Verify(
-                x => x.WriteAsync(It.Is<CommandResponse>(c => c.Response.Is(PingResponse.Descriptor))));
-        }
-
-        [TestMethod]
-        public async Task ReportStatusTest()
-        {
-            const long cashInMeter = 10000;
-            const long cashoutMeter = 20000;
-            const long cashPlayedMeter = 30000;
-            const long cashWonMeter = 40000;
-            const int egmStatus = 0;
-
-            using var source = new CancellationTokenSource();
-            var completion = new TaskCompletionSource<bool>();
-            using var waiter = new ManualResetEvent(false);
-            var message = new StatusResponseMessage(MachineId)
-            {
-                CashInMeterValue = cashInMeter,
-                CashOutMeterValue = cashoutMeter,
-                CashPlayedMeterValue = cashPlayedMeter,
-                CashWonMeterValue = cashWonMeter,
-                EgmStatusFlags = egmStatus
-            };
-
-            var client = new Mock<ClientApi.ClientApiClient>(MockBehavior.Default);
-            _clientEndpointProvider.Setup(x => x.IsConnected).Returns(true);
-            _clientEndpointProvider.Setup(x => x.Client).Returns(client.Object);
-
-            var clientWriter = new Mock<IClientStreamWriter<CommandResponse>>(MockBehavior.Default);
-            var serverWriter = new Mock<IAsyncStreamReader<Command>>(MockBehavior.Default);
-            serverWriter.Setup(x => x.MoveNext(It.IsAny<CancellationToken>()))
-                .Callback(() => waiter.Set())
-                .Returns(completion.Task);
-            serverWriter.Setup(x => x.Current).Returns(new Command());
-            clientWriter.Setup(x => x.WriteAsync(It.IsAny<CommandResponse>()))
-                .Returns(Task.CompletedTask)
-                .Verifiable();
-
-            var response = TestCalls.AsyncDuplexStreamingCall(
-                clientWriter.Object,
-                serverWriter.Object,
-                Task.FromResult(new Metadata()),
-                () => Status.DefaultSuccess,
-                () => new Metadata(),
-                () => { source.Cancel(); });
-
-            client.Setup(
-                    x => x.ReadCommands(
-                        It.IsAny<Metadata>(),
-                        It.IsAny<DateTime?>(),
-                        It.IsAny<CancellationToken>()))
-                .Returns(response);
-
-            var commandTask = _target.HandleCommands(MachineId, source.Token);
-            waiter.WaitOne(1000);
-            await _target.ReportStatus(message, source.Token);
-            clientWriter.Verify(
-                x => x.WriteAsync(It.Is<CommandResponse>(c => c.Response.Is(StatusResponse.Descriptor))),
-                Times.Once);
-            completion.SetResult(false);
-            await commandTask;
-        }
-
-        [TestMethod]
-        public async Task ReportStatusWithoutOpeningCommandsTest()
-        {
-            const long cashInMeter = 10000;
-            const long cashoutMeter = 20000;
-            const long cashPlayedMeter = 30000;
-            const long cashWonMeter = 40000;
-            const int egmStatus = 0;
-            var message = new StatusResponseMessage(MachineId)
-            {
-                CashInMeterValue = cashInMeter,
-                CashOutMeterValue = cashoutMeter,
-                CashPlayedMeterValue = cashPlayedMeter,
-                CashWonMeterValue = cashWonMeter,
-                EgmStatusFlags = egmStatus
-            };
-
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(
-                async () => await _target.ReportStatus(message, CancellationToken.None));
+                x => x.WriteAsync(It.Is<CommandResponse>(c => c.Response.Is(EnableCommandResponse.Descriptor))));
         }
 
         [DataRow(RpcConnectionState.Disconnected)]

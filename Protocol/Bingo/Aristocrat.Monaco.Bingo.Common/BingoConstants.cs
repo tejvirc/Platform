@@ -174,6 +174,16 @@
         public const int DefaultPatternCycleTime = 3;
 
         /// <summary>
+        ///     Property name for the activity time requested for bingo
+        /// </summary>
+        public const string ActivityReportingTime = "BingoActivityReportTime";
+
+        /// <summary>
+        ///     Gets the default activity time for bingo
+        /// </summary>
+        public static readonly TimeSpan DefaultActivityReportingTime = TimeSpan.FromSeconds(10);
+
+        /// <summary>
         ///     The default connection timeout
         /// </summary>
         public static readonly TimeSpan DefaultConnectionTimeout = TimeSpan.FromSeconds(30);

@@ -11,7 +11,7 @@
     using Polly;
     using ServerApiGateway;
 
-    public class CommandService :
+    public sealed class CommandService :
         BaseClientCommunicationService,
         ICommandService,
         IDisposable
@@ -23,7 +23,7 @@
         private readonly SemaphoreSlim _locker = new(1);
         private readonly IAsyncPolicy _commandRetryPolicy;
 
-        private CancellationTokenSource _tokenSource = null;
+        private CancellationTokenSource _tokenSource;
         private AsyncDuplexStreamingCall<CommandResponse, Command> _commandHandler;
         private bool _disposed;
 
@@ -116,59 +116,19 @@
             }
         }
 
-        public async Task ReportStatus(StatusResponseMessage message, CancellationToken token)
-        {
-            IClientStreamWriter<CommandResponse> requestStream;
-            await _locker.WaitAsync(token);
-            try
-            {
-                requestStream = _commandHandler?.RequestStream;
-                if (requestStream is null)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-            finally
-            {
-                _locker.Release();
-            }
-
-            var statResponse = new StatusResponse
-            {
-                StatusFlags = message.EgmStatusFlags,
-                CashPlayed = message.CashPlayedMeterValue,
-                CashWon = message.CashWonMeterValue,
-                CashIn = message.CashInMeterValue,
-                CashOut = message.CashOutMeterValue
-            };
-
-            await _commandRetryPolicy.ExecuteAsync(
-                t => Respond(statResponse, requestStream, message.MachineSerial, t),
-                token);
-        }
-
         public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
                 return;
             }
 
-            if (disposing)
-            {
-                _bingoClient.ConnectionStateChanged -= HandleConnectionStateChanges;
-                _tokenSource?.Cancel();
-                _tokenSource?.Dispose();
-                _tokenSource = null;
-                CloseCommandHandler();
-                _locker.Dispose();
-            }
+            _bingoClient.ConnectionStateChanged -= HandleConnectionStateChanges;
+            _tokenSource?.Cancel();
+            _tokenSource?.Dispose();
+            _tokenSource = null;
+            CloseCommandHandler();
+            _locker.Dispose();
 
             _disposed = true;
         }

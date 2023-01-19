@@ -144,11 +144,6 @@
             return true;
         }
 
-        public void OnMessageReceived(object sender, EventArgs e)
-        {
-            MessageReceived?.Invoke(this, EventArgs.Empty);
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -178,6 +173,11 @@
                 ChannelState.Idle or
                 ChannelState.TransientFailure or
                 ChannelState.Connecting;
+
+        private void OnMessageReceived(object sender, EventArgs e)
+        {
+            MessageReceived?.Invoke(this, EventArgs.Empty);
+        }
 
         private void MonitorConnection()
         {
