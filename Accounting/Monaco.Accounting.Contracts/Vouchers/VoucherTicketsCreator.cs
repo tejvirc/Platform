@@ -179,7 +179,7 @@
 
             using (var scope = new CultureScope(CultureFor.PlayerTicket))
             {
-                if (daysTillExpiration < 0)
+                if (daysTillExpiration <= 0)
                 {
                     Logger.Debug($"DetermineRedemptionText deciphered '{daysTillExpiration}' as never expires");
 
