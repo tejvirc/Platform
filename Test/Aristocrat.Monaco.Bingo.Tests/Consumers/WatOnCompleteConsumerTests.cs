@@ -24,6 +24,7 @@
         private readonly Mock<IReportEventQueueService> _bingoEventQueue = new(MockBehavior.Strict);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -34,7 +35,7 @@
                 _reportingService.Object,
                 _bingoEventQueue.Object,
                 _unitOfWorkFactory.Object,
-                _propertiesManager.Object);
+                _gameProvider.Object);
 
             _propertiesManager.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, It.IsAny<bool>())).Returns(false);
         }
@@ -51,7 +52,7 @@
             bool eventBusNull,
             bool queueNull,
             bool nullUnitOfWork,
-            bool nullProperties)
+            bool nullGameProvider)
         {
             _target = new WatOnCompleteConsumer(
                 eventBusNull ? null : _eventBus.Object,
@@ -59,7 +60,7 @@
                 reportingNull ? null : _reportingService.Object,
                 queueNull ? null : _bingoEventQueue.Object,
                 nullUnitOfWork ? null : _unitOfWorkFactory.Object,
-                nullProperties ? null : _propertiesManager.Object);
+                nullGameProvider ? null : _gameProvider.Object);
         }
 
         [TestMethod]

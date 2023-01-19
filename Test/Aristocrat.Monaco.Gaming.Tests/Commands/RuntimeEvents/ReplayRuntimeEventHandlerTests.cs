@@ -13,11 +13,10 @@
     [TestClass]
     public class ReplayRuntimeEventHandlerTests
     {
-        private readonly Mock<IPropertiesManager> _propertiesManager =
-            new Mock<IPropertiesManager>(MockBehavior.Default);
-
+        private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);
         private readonly Mock<IEventBus> _bus = new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<IGameDiagnostics> _gameDiagnostics = new Mock<IGameDiagnostics>(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
 
         private ReplayRuntimeEventHandler _target;
 
@@ -28,6 +27,7 @@
             var mockContext = new Mock<IDiagnosticContext<IGameHistoryLog>>(MockBehavior.Default);
 
             _gameDiagnostics.SetupGet(m => m.Context).Returns(mockContext.Object);
+            //_gameProvider.Setup .GetActiveGame();
         }
 
         [DataTestMethod]
@@ -116,11 +116,13 @@
 
         private ReplayRuntimeEventHandler CreateEventHandler(
             bool nullProperties = false,
+            bool nullGameProvider = false,
             bool nullBus = false,
             bool nullGameDiagnostics = false)
         {
             return new ReplayRuntimeEventHandler(
                 nullProperties ? null : _propertiesManager.Object,
+                nullGameProvider ? null : _gameProvider.Object,
                 nullBus ? null : _bus.Object,
                 nullGameDiagnostics ? null : _gameDiagnostics.Object);
         }

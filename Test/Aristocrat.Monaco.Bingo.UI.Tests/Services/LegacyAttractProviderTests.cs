@@ -50,6 +50,7 @@
         private const long TitleId = 61;
 
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<IGameDetail> _gameDetail = new(MockBehavior.Default);
         private readonly Mock<IDenomination> _denomination = new(MockBehavior.Default);
@@ -78,17 +79,17 @@
             _unitOfWorkFactory
                 .Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoServerSettingsModel>>()))
                 .Returns(settingsModel);
-            _target = new LegacyAttractProvider(_propertiesManager.Object, _unitOfWorkFactory.Object);
+            _target = new LegacyAttractProvider(_gameProvider.Object, _unitOfWorkFactory.Object);
         }
 
         [DataRow(true, false)]
         [DataRow(false, true)]
         [DataTestMethod]
-        public void NullConstructorArgumentsTest(bool nullProperties, bool nullUnitOfWork)
+        public void NullConstructorArgumentsTest(bool nullGameProvider, bool nullUnitOfWork)
         {
             Assert.ThrowsException<ArgumentNullException>(
                 () => _ = new LegacyAttractProvider(
-                    nullProperties ? null : _propertiesManager.Object,
+                    nullGameProvider ? null : _gameProvider.Object,
                     nullUnitOfWork ? null : _unitOfWorkFactory.Object));
         }
 

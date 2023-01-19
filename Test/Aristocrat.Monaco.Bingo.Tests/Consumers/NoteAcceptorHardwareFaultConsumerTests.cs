@@ -23,6 +23,7 @@
         private readonly Mock<IMeterManager> _meterManager = new(MockBehavior.Loose);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -34,7 +35,7 @@
                 _bingoTransactionReportHandler.Object,
                 _meterManager.Object,
                 _unitOfWorkFactory.Object,
-                _propertiesManager.Object);
+                _gameProvider.Object);
 
             _propertiesManager.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, It.IsAny<bool>())).Returns(false);
         }
@@ -53,7 +54,7 @@
             bool transactionNull,
             bool meterNull,
             bool nullUnitOfWork,
-            bool nullProperties)
+            bool nullGameProvider)
         {
             _target = new NoteAcceptorHardwareFaultConsumer(
                 eventBusNull ? null : _eventBus.Object,
@@ -62,7 +63,7 @@
                 transactionNull ? null : _bingoTransactionReportHandler.Object,
                 meterNull ? null : _meterManager.Object,
                 nullUnitOfWork ? null : _unitOfWorkFactory.Object,
-                nullProperties ? null : _propertiesManager.Object);
+                nullGameProvider ? null : _gameProvider.Object);
         }
 
         [DataRow(NoteAcceptorFaultTypes.FirmwareFault, ReportableEvent.BillAcceptorSoftwareError, DisplayName = "Firmware Fault")]

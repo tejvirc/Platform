@@ -22,6 +22,7 @@
         private readonly Mock<IReportTransactionQueueService> _transactionQueue = new(MockBehavior.Default);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _properties = new(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -135,7 +136,7 @@
             bool queueNull = false,
             bool transactionNull = false,
             bool unitOfWorkNull = false,
-            bool propertiesNull = false)
+            bool gameProviderNull = false)
         {
             return new BonusAwardedConsumer(
                 eventBusNull ? null : _eventBus.Object,
@@ -143,7 +144,7 @@
                 queueNull ? null : _bingoEventQueue.Object,
                 transactionNull ? null : _transactionQueue.Object,
                 unitOfWorkNull ? null : _unitOfWorkFactory.Object,
-                propertiesNull ? null : _properties.Object);
+                gameProviderNull ? null : _gameProvider.Object);
         }
     }
 }
