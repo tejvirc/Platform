@@ -39,6 +39,7 @@
         private Mock<IEdgeLightingController> _edgeLightingController;
         private Mock<IGameService> _gameService;
         private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
+        private Mock<ITranslationService> _translationService;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
         private Func<ConnectedEvent, CancellationToken, Task> _connectedAction;
@@ -76,6 +77,7 @@
             _operatorMenuLauncher = new Mock<IOperatorMenuLauncher>(MockBehavior.Default);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _edgeLightingController = new Mock<IEdgeLightingController>(MockBehavior.Default);
+            _translationService = MoqServiceManager.CreateAndAddService<ITranslationService>(MockBehavior.Default);
 
             var games = new List<IGameDetail>
             {
@@ -146,6 +148,8 @@
                 .Callback<object, Action<ReelStoppedEvent>>((o, c) => _reelStoppedEventAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<GameAddedEvent>>()))
                 .Callback<object, Action<GameAddedEvent>>((o, c) => _gameAddedEventAction = c);
+
+            _translationService.Setup(x => x.GetString(It.IsAny<string>(), It.IsAny<CultureProviderType>(), It.IsAny<Action<Exception>>())).Returns("");
         }
 
         [TestCleanup]
@@ -555,7 +559,8 @@
                 x => x.Disable(
                     ApplicationConstants.ReelCountMismatchDisableKey,
                     It.IsAny<SystemDisablePriority>(),
-                    It.IsAny<Func<string>>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>(),
                     It.IsAny<bool>(),
                     It.IsAny<Func<string>>(),
                     null))
@@ -567,7 +572,8 @@
                 x => x.Disable(
                 ApplicationConstants.ReelCountMismatchDisableKey,
                 SystemDisablePriority.Immediate,
-                It.IsAny<Func<string>>(),
+                It.IsAny<string>(),
+                It.IsAny<CultureProviderType>(),
                 true,
                 It.IsAny<Func<string>>(),
                 null));
@@ -597,8 +603,8 @@
                 x => x.Disable(
                     ApplicationConstants.ReelControllerDisconnectedGuid,
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    null));
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>()));
         }
 
         [TestMethod]
@@ -626,7 +632,8 @@
                 x => x.Disable(
                 ApplicationConstants.ReelCountMismatchDisableKey,
                 SystemDisablePriority.Immediate,
-                It.IsAny<Func<string>>(),
+                It.IsAny<string>(),
+                It.IsAny<CultureProviderType>(),
                 true,
                 It.IsAny<Func<string>>(),
                 null));
@@ -678,8 +685,8 @@
                 x => x.Disable(
                     It.IsAny<Guid>(),
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    It.IsAny<Type>()),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>()),
                 isDisabled ? Times.Exactly(1) : Times.Exactly(0));  // ReelTilt fault will also be set
             _reelController.Verify(x => x.TiltReels(), Times.Exactly(1));
         }
@@ -710,8 +717,8 @@
                 x => x.Disable(
                     It.IsAny<Guid>(),
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    It.IsAny<Type>()),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>()),
                 isDisabled ? Times.Exactly(1) : Times.Exactly(0));  // ReelTilt fault will also be set
             _reelController.Verify(x => x.TiltReels(), Times.Once());
         }
@@ -820,8 +827,8 @@
                 x => x.Disable(
                     It.IsAny<Guid>(),
                     SystemDisablePriority.Immediate,
-                    It.IsAny<Func<string>>(),
-                    It.IsAny<Type>()),
+                    It.IsAny<string>(),
+                    It.IsAny<CultureProviderType>()),
                 isDisabled ? Times.Exactly(1) : Times.Exactly(0));   // ReelTilt fault will also be set
             _reelController.Verify(x => x.TiltReels(), isDisabled ? Times.Once() : Times.Never());
         }
@@ -919,7 +926,7 @@
             Assert.IsNotNull(_inspectionFailedAction);
             await _inspectionFailedAction(new InspectionFailedEvent(), CancellationToken.None);
 
-            _disable.Verify(x => x.Disable(ApplicationConstants.ReelControllerDisconnectedGuid, SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+            _disable.Verify(x => x.Disable(ApplicationConstants.ReelControllerDisconnectedGuid, SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>()));
         }
 
         [TestMethod]
@@ -949,7 +956,7 @@
             Assert.IsNotNull(_disabledAction);
             _disabledAction(new DisabledEvent(DisabledReasons.Service));
 
-            _disable.Verify(x => x.Disable(new Guid("{B9029021-106D-419B-961F-1B2799817916}"), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+            _disable.Verify(x => x.Disable(new Guid("{B9029021-106D-419B-961F-1B2799817916}"), SystemDisablePriority.Immediate, It.IsAny<string>(), It.IsAny<CultureProviderType>()));
         }
 
         [TestMethod]
