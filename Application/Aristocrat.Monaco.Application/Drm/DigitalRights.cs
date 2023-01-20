@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
+    using Aristocrat.Monaco.Application.Contracts.TiltLogger;
     using Common.Ant;
     using Contracts;
     using Contracts.Drm;
@@ -34,6 +36,7 @@
 
         private IProtectionModule _protectionModule;
         private Timer _connectedTimer;
+        private ServiceWaiter _serviceWaiter;
 
         private bool _disposed;
 
@@ -56,6 +59,7 @@
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _serviceWaiter = new ServiceWaiter(_bus);
         }
 
         private bool InternalDisabled => Disabled ||
@@ -128,32 +132,38 @@
 
             _protectionModule = new SmartCardModule(smartCardKeyFile);
 
-            try
+            Task.Run(() =>
             {
-                _protectionModule.Initialize().Wait();
+                _serviceWaiter.AddServiceToWaitFor<ITiltLogger>();
+                _serviceWaiter.WaitForServices();
 
-                if (_protectionModule.Tokens.All(t => t.Name != License.Id))
+                try
                 {
-                    Logger.Error($"Mismatch between the license file and the available tokens: {License.Id}");
+                    _protectionModule.Initialize().Wait();
 
-                    var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LicenseFileValidationError);
+                    if (_protectionModule.Tokens.All(t => t.Name != License.Id))
+                    {
+                        Logger.Error($"Mismatch between the license file and the available tokens: {License.Id}");
 
-                    HandleDigitalRightsError(new LicenseErrorEvent(message), () => message, ApplicationConstants.LicenseErrorDisableKey);
+                        var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LicenseFileValidationError);
 
-                    return;
+                        HandleDigitalRightsError(new LicenseErrorEvent(message), () => message, ApplicationConstants.LicenseErrorDisableKey);
+
+                        return;
+                    }
+
+                    _connectedTimer = new Timer(OnStatus, null, StatusInterval, Timeout.InfiniteTimeSpan);
+
+                    Logger.Info("Initialized the module");
                 }
+                catch (Exception e)
+                {
+                    var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SmartCardMissing);
+                    HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), () => message, ApplicationConstants.SmartCardNotPresentDisableKey);
 
-                _connectedTimer = new Timer(OnStatus, null, StatusInterval, Timeout.InfiniteTimeSpan);
-
-                Logger.Info("Initialized the module");
-            }
-            catch (Exception e)
-            {
-                var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SmartCardMissing);
-                HandleDigitalRightsError(new SoftwareProtectionModuleErrorEvent(message), () => message, ApplicationConstants.SmartCardNotPresentDisableKey);
-
-                Logger.Error("Failed to initialize the module", e);
-            }
+                    Logger.Error("Failed to initialize the module", e);
+                }
+            });
         }
 
         public string Name => typeof(IDigitalRights).FullName;
