@@ -19,6 +19,11 @@
         {
         }
 
+        public void AcceptCopyrightTerms()
+        {
+            PropertiesManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true);
+        }
+
         protected override void SetupNavigation()
         {
             WizardNavigator.IsBackButtonVisible = false;
@@ -27,7 +32,7 @@
 
         protected override void SaveChanges()
         {
-            PropertiesManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true);
+            // Do not set accepted to true unless the Accept button is specifically pressed
         }
     }
 }

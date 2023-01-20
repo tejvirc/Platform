@@ -387,6 +387,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>())).Returns(2);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>()));
 
+            _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true));
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.SelectedConfigurationKey, It.IsAny<object>()));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>())).Returns(false);
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>()));
@@ -395,7 +396,6 @@
 
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>())).Returns(string.Empty);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>()));
-
 
             _target.NextButtonClicked.Execute(null);
 
@@ -500,6 +500,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>()));
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>()));
+            _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true));
 
             _eventBus.Setup(m => m.Publish(It.IsAny<ExitRequestedEvent>()));
 

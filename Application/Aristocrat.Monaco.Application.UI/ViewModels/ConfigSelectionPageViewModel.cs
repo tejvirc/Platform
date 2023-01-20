@@ -312,6 +312,11 @@
             PropertiesManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, _lastWizardSelectedIndex);
             IsBackButtonVisible = true;
 
+            if (CurrentPageLoader?.ViewModel is LegalCopyrightPageViewModel copyrightPage)
+            {
+                copyrightPage.AcceptCopyrightTerms();
+            }
+
             if (!_selectablePagesDone)
             {
                 HandleSelectableConfigurationPageNextClick();
@@ -575,7 +580,7 @@
                     EventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, OnSerialTouchCalibrationCompleted);
                     _serialTouchCalibrationService.BeginCalibration();
                 }
-               
+
                 return;
             }
 
