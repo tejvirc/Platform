@@ -4,6 +4,7 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Reflection;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Kernel;
     using log4net;
 
@@ -16,6 +17,12 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ConcurrentDictionary<string, IMeter> _meters = new ConcurrentDictionary<string, IMeter>();
+        private readonly IPropertiesManager _propertiesManager;
+
+        /// <inheritdoc />
+        protected IPropertiesManager PropertiesManager => _propertiesManager;
+        /// <inheritdoc />
+        protected bool RolloverTest { get; set; } = false;
 
         private ClearPeriodMeter _clearPeriodDelegates;
 
@@ -24,8 +31,14 @@
         /// </summary>
         /// <param name="name">The name of this provider</param>
         protected BaseMeterProvider(string name)
+            :this(ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
             Name = name;
+        }
+
+        private BaseMeterProvider(IPropertiesManager propertiesManager)
+        {
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
         /// <inheritdoc />
@@ -112,6 +125,38 @@
         protected bool Contains(string meterName)
         {
             return _meters.ContainsKey(meterName);
+        }
+
+        /// <summary>
+        ///     Initializes meters to maximum value when the "maxmeters" command line argument is present
+        /// </summary>
+        /// <param name="meter"></param>
+        protected void SetupMeterRolloverTest(IMeter meter)
+        {
+            if (!RolloverTest)
+            {
+                return;
+            }
+
+            if (meter == null || meter.Lifetime != 0)
+            {
+                return;
+            }
+
+            var preRollover = meter.Classification.UpperBounds;
+            if (meter.Classification.GetType() == typeof(CurrencyMeterClassification))
+            {
+                var currencyMultiplier = _propertiesManager.GetValue(ApplicationConstants.CurrencyMultiplierKey, ApplicationConstants.DefaultCurrencyMultiplier);
+                var oneCent = currencyMultiplier / (int)CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit;
+                preRollover -= (long)oneCent;
+            }
+            else
+            {
+                preRollover -= 1;
+            }
+
+            Logger.Debug($"Incrementing meter: {meter.Name} to {preRollover}");
+            meter.Increment(preRollover);
         }
     }
 }
