@@ -8,16 +8,22 @@
     using Common;
     using Common.Exceptions;
     using Kernel;
+    using Protocol.Common.Storage.Entity;
 
     public class ProgressiveRegistrationCommandHandler : ICommandHandler<ProgressiveRegistrationCommand>
     {
         private readonly IProgressiveRegistrationService _registrationService;
         private readonly IPropertiesManager _properties;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
-        public ProgressiveRegistrationCommandHandler(IProgressiveRegistrationService registrationService, IPropertiesManager properties)
+        public ProgressiveRegistrationCommandHandler(
+            IProgressiveRegistrationService registrationService,
+            IPropertiesManager properties,
+            IUnitOfWorkFactory unitOfWorkFactory)
         {
             _registrationService = registrationService ?? throw new ArgumentNullException(nameof(registrationService));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
         }
 
         public async Task Handle(ProgressiveRegistrationCommand command, CancellationToken token = default)
@@ -25,13 +31,13 @@
             try
             {
                 var machineId = _properties.GetValue(ApplicationConstants.MachineId, (uint)0).ToString();
-                var gameTitleId = 1; // TODO
+                var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_properties);
+                var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);
                 var message = new ProgressiveRegistrationMessage(machineId, gameTitleId);
                 var results = await _registrationService.RegisterClient(message, token);
                 switch (results.ResponseCode)
                 {
                     case ResponseCode.Ok:
-                        _properties.SetProperty(BingoConstants.BingoServerVersion, results.ServerVersion);
                         break;
                     case ResponseCode.Rejected:
                         throw new RegistrationException(

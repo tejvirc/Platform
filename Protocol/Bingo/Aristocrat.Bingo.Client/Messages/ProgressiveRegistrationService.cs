@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -114,10 +113,7 @@
 
         private void OnClientDisconnected(object sender, DisconnectedEventArgs e)
         {
-            if (_clients.Any() != true)
-            {
-                _authorization.AuthorizationData = null;
-            }
+            _authorization.AuthorizationData = null;
         }
     }
 }

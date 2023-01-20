@@ -127,7 +127,7 @@
                             new[] { linkedLevel },
                             ProtocolNames.Bingo);
 
-                        return Task.FromResult(update.ResponseCode == ResponseCode.Ok);
+                        return Task.FromResult(true);
                     }
                 }
             }

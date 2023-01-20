@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading;
@@ -10,10 +11,13 @@
     using Aristocrat.Bingo.Client;
     using Aristocrat.Bingo.Client.Configuration;
     using Aristocrat.Bingo.Client.Messages;
+    using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Protocol.Common.Storage.Repositories;
     using Commands;
     using Common;
     using Common.Events;
     using Common.Exceptions;
+    using Common.Storage.Model;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -30,7 +34,8 @@
         private readonly Mock<IProgressiveCommandService> _progressiveCommandService = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
-        private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
+        private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+        private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new Mock<IUnitOfWorkFactory>(MockBehavior.Strict);
 
         // This will point to the HandleRestartingEvent function due to reconnection
         private Func<ForceReconnectionEvent, CancellationToken, Task> _handleForceReconnectionEvent;
@@ -41,6 +46,7 @@
             var uriBuilder = new UriBuilder { Host = "localhost", Port = 5000 };
             _client.Setup(m => m.Start()).Returns(Task.FromResult(true));
             _client.SetupGet(m => m.Configuration).Returns(new ClientConfigurationOptions(uriBuilder.Uri, TimeSpan.FromSeconds(2), Enumerable.Empty<X509Certificate2>()));
+            _client.Setup(m => m.FirewallRuleName).Returns("TestFirewall");
 
             _eventBus.Setup(
                     x => x.Subscribe(
@@ -52,10 +58,29 @@
                         It.IsAny<object>(),
                         It.IsAny<Func<PropertyChangedEvent, CancellationToken, Task>>(),
                         It.IsAny<Predicate<PropertyChangedEvent>>()));
-            _unitOfWorkFactory.Setup(
-                    m => m.IsCrossGameProgressiveEnabledForMainGame(
-                        It.IsAny<IPropertiesManager>()))
-                    .Returns(false);
+            _unitOfWork.Setup(x => x.BeginTransaction(IsolationLevel.ReadCommitted));
+            _unitOfWork.Setup(x => x.Commit());
+            _unitOfWork.Setup(x => x.Dispose());
+            _unitOfWorkFactory.Setup(x => x.Create()).Returns(_unitOfWork.Object);
+
+            // Setup for cross game progressive check
+            var gameId = 1;
+            var gameDetail = new Mock<IGameDetail>();
+            var denomination = new Mock<IDenomination>();
+            denomination.Setup(m => m.Value).Returns(1L);
+            gameDetail.Setup(m => m.Id).Returns(gameId);
+            var listOfDenominations = new List<IDenomination>();
+            listOfDenominations.Add(denomination.Object);
+            gameDetail.Setup(m => m.Denominations).Returns(listOfDenominations);
+            var listOfGames = new List<IGameDetail>();
+            listOfGames.Add(gameDetail.Object);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.IsGameRunning, false)).Returns(true);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(gameId);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(1L);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.Games, null)).Returns(listOfGames);
+            var bingoConfig = new BingoServerSettingsModel();
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoServerSettingsModel>>()))
+                .Returns(bingoConfig);
 
             var clients = new List<IClient> { _client.Object };
             _target = new BingoClientConnectionState(

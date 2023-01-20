@@ -79,6 +79,8 @@
 
         public int NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
 
+        private bool IsCrossGameProgressiveEnabled => _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
+
         public void Dispose()
         {
             Dispose(true);
@@ -166,8 +168,7 @@
             {
                 await _commandFactory.Execute(new RegistrationCommand(), _tokenSource.Token);
 
-                var isCrossGameProgressiveEnabled = _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
-                if (isCrossGameProgressiveEnabled)
+                if (IsCrossGameProgressiveEnabled)
                 {
                     await _commandFactory.Execute(new ProgressiveRegistrationCommand(), _tokenSource.Token);
                 }
@@ -347,8 +348,7 @@
                 _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
                 _tokenSource.Token).FireAndForget();
 
-            var isCrossGameProgressiveEnabled = _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
-            if (isCrossGameProgressiveEnabled)
+            if (IsCrossGameProgressiveEnabled)
             {
                 var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
                 var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);

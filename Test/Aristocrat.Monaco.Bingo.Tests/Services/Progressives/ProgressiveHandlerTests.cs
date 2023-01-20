@@ -93,7 +93,7 @@
             const long progressiveLevel = 10001;
             const long amount = 1000;
             using var source = new CancellationTokenSource();
-            var progressiveUpdateMessage = new ProgressiveUpdateMessage(ResponseCode.Ok, progressiveLevel, amount);
+            var progressiveUpdateMessage = new ProgressiveUpdateMessage(progressiveLevel, amount);
 
             // Viewable progressives use 0-based id values, not the one link id values
             var viewableProgressives = new List<IViewableProgressiveLevel>()
@@ -131,7 +131,7 @@
             const long progressiveLevel = 10005;
             const long amount = 1000;
             using var source = new CancellationTokenSource();
-            var progressiveUpdateMessage = new ProgressiveUpdateMessage(ResponseCode.Ok, progressiveLevel, amount);
+            var progressiveUpdateMessage = new ProgressiveUpdateMessage(progressiveLevel, amount);
 
             // Viewable progressives use 0-based id values, not the one link id values
             var viewableProgressives = new List<IViewableProgressiveLevel>()
@@ -169,7 +169,7 @@
             const long progressiveLevel = 10005;
             const long amount = 1000;
             using var source = new CancellationTokenSource();
-            var progressiveUpdateMessage = new ProgressiveUpdateMessage(ResponseCode.Ok, progressiveLevel, amount);
+            var progressiveUpdateMessage = new ProgressiveUpdateMessage(progressiveLevel, amount);
 
             // Viewable progressives use 0-based id values, not the one link id values
             var viewableProgressives = new List<IViewableProgressiveLevel>()

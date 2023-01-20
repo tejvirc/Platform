@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -15,7 +14,7 @@
         IRegistrationService,
         IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEnumerable<IClient> _clients;
         private readonly IAuthorizationProvider _authorization;
 
@@ -85,10 +84,7 @@
 
         private void OnClientDisconnected(object sender, DisconnectedEventArgs e)
         {
-            if (_clients.Any() != true)
-            {
-                _authorization.AuthorizationData = null;
-            }
+            _authorization.AuthorizationData = null;
         }
     }
 }
