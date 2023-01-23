@@ -22,7 +22,7 @@
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
     public class BeginGameRoundAsyncCommandHandler : ICommandHandler<BeginGameRoundAsync>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGamePlayState _gamePlayState;
         private readonly IEventBus _eventBus;
@@ -80,6 +80,8 @@
             }
 
             var (game, denomination) = _gameProvider.GetActiveGame();
+            var wagerCategory = game?.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
+            SetWagerCategory(wagerCategory);
 
             if (command.Request is not null)
             {
@@ -95,7 +97,6 @@
                     }
                 }
 
-                SetWagerCategory();
                 // Special case for recovery and replay
                 if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
                 {
@@ -126,8 +127,6 @@
             }
             else
             {
-                SetWagerCategory();
-
                 // This is required for the game round to continue.  BeginGameRoundResponse will be invoked when the outcome request completes
                 Notify(Enumerable.Empty<Outcome>());
             }
@@ -148,11 +147,10 @@
                 _eventBus.Publish(new GameRequestFailedEvent());
             }
 
-            void SetWagerCategory(IWagerCategory wagerCategory = null)
+            void SetWagerCategory(IWagerCategory category)
             {
-                wagerCategory ??= game?.WagerCategories?.FirstOrDefault();
-
-                _properties.SetProperty(GamingConstants.SelectedWagerCategory, wagerCategory);
+                category ??= game?.WagerCategories?.FirstOrDefault();
+                _properties.SetProperty(GamingConstants.SelectedWagerCategory, category);
             }
         }
     }

@@ -136,11 +136,13 @@
         public bool BeginGameRoundAsync(
             uint denom,
             uint betAmount,
+            uint wagerCategoryId,
             CentralOutcome request,
             IList<GameInfo> gameDetails,
             byte[] data)
         {
-            Logger.Debug($"BeginGameRoundAsync(denom={denom}, betAmount={betAmount}, request=(cnt={request.OutcomeCount}, tmplId={request.TemplateId}, gameDetails={gameDetails?.FirstOrDefault()} ,data={data})");
+            Logger.Debug(
+                $"BeginGameRoundAsync(denom={denom}, betAmount={betAmount}, wagerCategoryId={wagerCategoryId}, request=(cnt={request.OutcomeCount}, tmplId={request.TemplateId}, gameDetails={gameDetails?.FirstOrDefault()} ,data={data})");
 
             IOutcomeRequest outcomeRequest = request.OutcomeCount == 0 ? null : new OutcomeRequest((int)request.OutcomeCount, (int)request.TemplateId);
 
@@ -152,6 +154,7 @@
                     denom,
                     betAmount,
                     (int)details.BetLinePreset,
+                    (int)wagerCategoryId,
                     data,
                     outcomeRequest);
 
