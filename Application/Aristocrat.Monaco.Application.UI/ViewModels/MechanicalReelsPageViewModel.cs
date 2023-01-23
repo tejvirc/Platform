@@ -13,6 +13,7 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Models;
+    using Monaco.Common;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
@@ -80,7 +81,7 @@
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
             SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
-            ApplyBrightnessCommand = new ActionCommand<object>(_ => HandleApplyBrightness());
+            ApplyBrightnessCommand = new ActionCommand<object>(_ => HandleApplyBrightness().FireAndForget());
 
             MinimumBrightness = 1;
             MaximumBrightness = 100;
@@ -511,7 +512,7 @@
             return localizedState;
         }
 
-        private async void HandleApplyBrightness()
+        private async Task HandleApplyBrightness()
         {
             BrightnessChanging = true;
 
