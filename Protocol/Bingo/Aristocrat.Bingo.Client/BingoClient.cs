@@ -13,7 +13,7 @@
 
     public class BingoClient : IClient, IClientEndpointProvider<ClientApi>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IClientConfigurationProvider _configurationProvider;
         private readonly BingoClientInterceptor _communicationInterceptor;
@@ -59,7 +59,7 @@
             }
         }
 
-        public bool IsConnected => _channel?.State is ChannelState.Ready or ChannelState.Idle;
+        public bool IsConnected => StateIsConnected(_channel?.State);
 
         public ClientConfigurationOptions Configuration => _configurationProvider.Configuration;
 
@@ -67,7 +67,7 @@
         {
             try
             {
-                await Stop();
+                await Stop().ConfigureAwait(false);
                 var configuration = _configurationProvider.Configuration;
                 var credentials = configuration.Certificates.Any()
                     ? new SslCredentials(
@@ -77,7 +77,8 @@
                 var callInvoker = _channel.Intercept(_communicationInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
-                    await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout);
+                    await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout)
+                        .ConfigureAwait(false);
                 }
 
                 Client = new ClientApi(callInvoker);
@@ -113,7 +114,7 @@
 
                 if (channel != null)
                 {
-                    await channel.ShutdownAsync();
+                    await channel.ShutdownAsync().ConfigureAwait(false);
                     Disconnected?.Invoke(this, new DisconnectedEventArgs());
                 }
             }
@@ -155,9 +156,12 @@
             _disposed = true;
         }
 
+        private static bool StateIsConnected(ChannelState? state) =>
+            state is ChannelState.Ready or ChannelState.Idle or ChannelState.TransientFailure;
+
         private void MonitorConnection()
         {
-            Task.Run(async () => await MonitorConnectionAsync()).ContinueWith(
+            Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
                 async _ =>
                 {
                     Logger.Error("Monitor Connection Failed Forcing a disconnect");
@@ -166,15 +170,23 @@
                 TaskContinuationOptions.OnlyOnFaulted);
         }
 
-        private async Task MonitorConnectionAsync()
+        private async Task MonitorConnectionAsync(Channel channel)
         {
-            if (_channel is null)
+            if (channel is null)
             {
                 return;
             }
 
-            await _channel.WaitForStateChangedAsync(ChannelState.Ready);
-            await Stop();
+            var lastObservedState = channel.State;
+            while (StateIsConnected(lastObservedState))
+            {
+                await channel.WaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
+                lastObservedState = channel.State;
+                Logger.Info($"Channel connection state changed: {lastObservedState}");
+            }
+
+            Logger.Error($"Channel connection is no longer connected: {lastObservedState}");
+            await Stop().ConfigureAwait(false);
         }
     }
 }
