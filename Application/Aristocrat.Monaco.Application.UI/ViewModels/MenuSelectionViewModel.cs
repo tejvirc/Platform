@@ -871,7 +871,7 @@
 
         private void UnsubscribeFromEvents()
         {
-            _eventBus.UnsubscribeAll(this);
+            _eventBus?.UnsubscribeAll(this);
         }
 
         private void SubscribeToSelectedItemPropertyChanged(bool subscribe)
@@ -1018,21 +1018,11 @@
                 MenuItems?.Clear();
                 UnsubscribeFromEvents();
 
-                _buttonNavigator.Dispose();
-                _popupTimer.Dispose();
-
+                _buttonNavigator?.Dispose();
+                _popupTimer?.Dispose();
                 _dayTimer?.Stop();
-
-                // ReSharper disable once UseNullPropagation
-                if (_operatorMenuPrintHandler != null)
-                {
-                    _operatorMenuPrintHandler.Dispose();
-                }
-                // ReSharper disable once UseNullPropagation
-                if (_touchErrorDialog != null)
-                {
-                    _touchErrorDialog.Dispose();
-                }
+                _operatorMenuPrintHandler?.Dispose();
+                _touchErrorDialog?.Dispose();
             }
 
             _dayTimer = null;

@@ -36,21 +36,21 @@
         {
             var block = GetBlock(name);
 
-            return (T)(GetValue(block) ?? default(T));
+            return GetValue<T>(block);
         }
 
         public T GetValue<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
 
-            return (T)(GetValue(block) ?? default(T));
+            return GetValue<T>(block);
         }
 
         public IEnumerable<T> GetValues<T>(int gameId, string name)
         {
             var block = GetBlock(gameId, name);
 
-            var list = GetValue(block) as IEnumerable;
+            var list = GetValue<IEnumerable>(block);
 
             return list?.Cast<T>() ?? Enumerable.Empty<T>();
         }
@@ -59,7 +59,7 @@
         {
             var block = GetBlock(gameId, betAmount, name);
 
-            var list = GetValue(block) as IEnumerable;
+            var list = GetValue<IEnumerable>(block);
 
             return list?.Cast<T>() ?? Enumerable.Empty<T>();
         }
@@ -165,23 +165,23 @@
             return _persistentStorage.BlockExists(blockName);
         }
 
-        internal object GetValue(IPersistentStorageAccessor block)
+        internal T GetValue<T>(IPersistentStorageAccessor block)
         {
             lock (_sync)
             {
                 var data = (byte[])block[Data];
                 if (data.Length <= 2)
                 {
-                    return null;
+                    return default(T);
                 }
 
                 using (var stream = new MemoryStream())
                 {
                     stream.Write(data, 0, data.Length);
                     stream.Position = 0;
-                    
-                    return Serializer.Deserialize<IPersistentStorageAccessor>(stream);
+                    return Serializer.Deserialize<T>(stream);
                 }
+               
             }
         }
 
