@@ -213,7 +213,13 @@
                             IsSnapToTickEnabled="True"
                             Minimum="{Binding MinimumBrightness, Mode=OneWay}"
                             Maximum="{Binding MaximumBrightness, Mode=OneWay}"
-                            Value="{Binding Brightness}" />
+                            Value="{Binding Brightness}"
+                            IsEnabled="{Binding BrightnessChanging, Converter={StaticResource InverseBoolConverter}}"/>
+                    
+                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
+                                IsEnabled="{Binding BrightnessChangePending}"
+                                Command="{Binding ApplyBrightnessCommand}"
+                                Margin="10 0 0 0" VerticalAlignment="Center" Height="50" Width="150"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
