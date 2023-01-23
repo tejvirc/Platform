@@ -174,7 +174,21 @@
             {
                 { SasProperties.SasPortAssignments, configurationService.GetPortAssignment() },
                 { SasProperties.SasFeatureSettings, configurationService.GetSasFeatures() },
-                { SasProperties.SasHosts, _sasDataFactory.GetConfigurationService().GetHosts().ToList() }
+                { SasProperties.SasHosts, _sasDataFactory.GetConfigurationService().GetHosts().ToList() },
+                { SasProperties.MeterModelKey, SasMeterModel.MeteredWhenWon },
+                { SasProperties.TicketsToDropMetersKey, true },
+                { SasProperties.ExtendedMetersSupportedKey, true },
+                { SasProperties.JackpotKeyoffExceptionSupportedKey, true },
+                { SasProperties.MultiDenomExtensionsSupportedKey, true },
+                { SasProperties.MaxPollingRateSupportedKey, true },
+                { SasProperties.MultipleSasProgressiveWinReportingSupportedKey, true },
+                { SasProperties.MeterChangeNotificationSupportedKey, false },
+                { SasProperties.SessionPlaySupportedKey, false },
+                { SasProperties.ForeignCurrencyRedemptionSupportedKey, false },
+                { SasProperties.EnhancedProgressiveDataReportingKey, false },
+                { SasProperties.MaxProgressivePaybackSupportedKey, false },
+                { SasProperties.ChangeAssetNumberSupportedKey, false },
+                { SasProperties.ChangeFloorLocationSupportedKey, true },
             };
         }
     }
