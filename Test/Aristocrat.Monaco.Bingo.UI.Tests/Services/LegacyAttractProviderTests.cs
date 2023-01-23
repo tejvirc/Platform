@@ -79,6 +79,8 @@
             _unitOfWorkFactory
                 .Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoServerSettingsModel>>()))
                 .Returns(settingsModel);
+            _gameProvider.Setup(x => x.GetActiveGame()).Returns((_gameDetail.Object, _denomination.Object));
+
             _target = new LegacyAttractProvider(_gameProvider.Object, _unitOfWorkFactory.Object);
         }
 
@@ -106,8 +108,7 @@
                 PayAmountFormattingText = "Paid {0}"
             };
 
-            var url = _target.GetLegacyAttractUri(
-                bingoAttractSettings);
+            var url = _target.GetLegacyAttractUri(bingoAttractSettings);
             var parameters = QueryHelpers.ParseQuery(url.Query);
             Assert.IsTrue(parameters.TryGetValue("baseUrl", out var baseUrl));
             Assert.IsTrue(parameters.TryGetValue("patternsUrlFormat", out var patternsUrlFormat));
