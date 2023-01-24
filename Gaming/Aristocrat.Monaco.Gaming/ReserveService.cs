@@ -242,14 +242,40 @@
 
             _eventBus.Unsubscribe<OverlayWindowVisibilityChangedEvent>(this);
 
-            if (IsReserveServiceLockupPresent)
+            if (IsReserveServiceLockupPresent && IsReserveOverlayPresent)
             {
+                Logger.Debug("Start the reserve timer");
                 _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            }
+            else
+            {
+                Logger.Debug("Don't start reserve timer because other lockups are still present and overlay will not show up");
+                _eventBus?.Subscribe<SystemDisableRemovedEvent>(this, HandleEvent);
             }
         }
 
+        private bool IsReserveOverlayPresent => _systemDisableManager.CurrentImmediateDisableKeys.Where(
+                                                    x =>
+                                                        !x.Equals(ApplicationConstants.ReserveDisableKey)
+                                                        && !x.Equals(ApplicationConstants.LiveAuthenticationDisableKey))
+                                                .ToList().Count == 0 &&
+                                                _systemDisableManager.CurrentDisableKeys.Contains(
+                                                    ApplicationConstants.ReserveDisableKey);
+
+        private void HandleEvent(SystemDisableRemovedEvent evt)
+        {
+            if (IsReserveServiceLockupPresent && IsReserveOverlayPresent)
+            {
+                Logger.Debug("Start Reserve Timer as only reserve lockup is present");
+                _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+                _eventBus.Unsubscribe<SystemDisableRemovedEvent>(this);
+                return;
+            }
+            Logger.Debug("Don't start reserve timer because reserve overlay is not present");
+        }
+
         private bool IsReserveServiceLockupPresent => (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false);
-        
+
         private bool CreateLockup(bool lockupOnStartup = false)
         {
             ShowLockup();
