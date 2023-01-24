@@ -6,6 +6,7 @@
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
+    using Aristocrat.Monaco.Accounting.Contracts.Transactions;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -22,6 +23,7 @@
     {
         private KeyedCreditsPageViewModel _target;
         private Mock<IBank> _bank;
+        private Mock<IEventBus> _eventBus;
         private Mock<ITransactionCoordinator> _transactionCoordinator;
         private Mock<ILocalizerFactory> _localizerFactory;
         private Mock<IPropertiesManager> _propertyManager;
@@ -37,6 +39,7 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
 
             _bank = MoqServiceManager.CreateAndAddService<IBank>(MockBehavior.Loose);
+            _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
             _bank.Setup(m => m.CheckDeposit(It.IsAny<AccountType>(), It.IsAny<long>(), It.IsAny<Guid>())).Returns(true);
             _bank.Setup(m => m.CheckWithdraw(It.IsAny<AccountType>(), It.IsAny<long>(), It.IsAny<Guid>()))
                 .Returns(true);
@@ -74,6 +77,8 @@
             _transactionHistory = MoqServiceManager.CreateAndAddService<ITransactionHistory>(MockBehavior.Loose);
             _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedCreditsTransaction>()));
             _target = new KeyedCreditsPageViewModel();
+            _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOnEvent>())).Verifiable();
+            _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOffEvent>())).Verifiable();
         }
 
         [TestMethod]

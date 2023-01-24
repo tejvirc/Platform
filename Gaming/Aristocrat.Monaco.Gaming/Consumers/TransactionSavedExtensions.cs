@@ -49,12 +49,16 @@
 
             switch (transaction)
             {
+                case KeyedCreditsTransaction t:
+                    cashableAmount = t.TransferredCashableAmount;
+                    cashablePromoAmount = t.TransferredPromoAmount;
+                    nonCashablePromoAmount = t.TransferredNonCashAmount;
+                    break;
                 case WatTransaction t:
                     cashableAmount = t.TransferredCashableAmount;
                     cashablePromoAmount = t.TransferredPromoAmount;
                     nonCashablePromoAmount = t.TransferredNonCashAmount;
                     break;
-
                 case VoucherOutTransaction t:
                     if (t.TypeOfAccount == AccountType.NonCash) nonCashablePromoAmount = t.Amount;
                     break;

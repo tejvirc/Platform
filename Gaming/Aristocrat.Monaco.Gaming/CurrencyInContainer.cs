@@ -5,6 +5,7 @@
     using System.Linq;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
+    using Accounting.Contracts.Transactions;
     using Accounting.Contracts.Wat;
     using Bonus;
     using Contracts;
@@ -162,6 +163,12 @@
                 case HandpayTransaction trans:
                     amount = trans.PromoAmount + trans.NonCashAmount + trans.CashableAmount;
                     currencyOut = true;
+                    break;
+                case KeyedCreditsTransaction trans:
+                    amount = trans.Amount;
+                    transactionInfo.CashableAmount = trans.TransferredCashableAmount;
+                    transactionInfo.CashablePromoAmount = trans.TransferredPromoAmount;
+                    transactionInfo.NonCashablePromoAmount = trans.TransferredNonCashAmount;
                     break;
                 case WatTransaction trans:
                     amount = trans.TransactionAmount;

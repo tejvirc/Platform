@@ -339,6 +339,7 @@
             RaisePropertyChanged(nameof(PrintSelectedButtonVisible));
             RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
             RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            RaisePropertyChanged(nameof(PendingCurrencyIn));
             RefreshGameHistory();
         }
 
@@ -742,7 +743,8 @@
             {
                 if (transaction.TransactionType == typeof(BillTransaction) ||
                     transaction.TransactionType == typeof(VoucherInTransaction) ||
-                    transaction.TransactionType == typeof(WatOnTransaction))
+                    transaction.TransactionType == typeof(WatOnTransaction) ||
+                    transaction.TransactionType == typeof(KeyedCreditsTransaction))
                 {
                     if (round.AmountIn == null)
                     {

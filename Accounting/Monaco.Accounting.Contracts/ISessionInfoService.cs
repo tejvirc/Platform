@@ -33,6 +33,16 @@ namespace Aristocrat.Monaco.Accounting.Contracts
 
         /// <summary> The session started because of wat</summary>
         WatOn,
+
+        /// <summary>
+        /// The session started because of KeyedOn
+        /// </summary>
+        KeyedOn,
+
+        /// <summary>
+        /// The session started because of KeyedOff
+        /// </summary>
+        KeyedOff
     }
     
     /// <summary>

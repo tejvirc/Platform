@@ -10,10 +10,19 @@
     /// <summary>
     ///     KeyedCreditsTransaction defines the data required to log keyed on/off credits in the transaction history
     /// </summary>
+    [Serializable]
     public class KeyedCreditsTransaction : BaseTransaction
     {
         private bool _keyedOn;
 
+        /// <summary>
+        /// the Keyed On bool
+        /// </summary>
+        public bool KeyedOn
+        {
+            get => _keyedOn;
+            private set => _keyedOn = value;
+        }
         /// <summary>
         ///     Initializes a new instance of the <see cref="KeyedCreditsTransaction" /> class.
         /// </summary>
@@ -21,6 +30,22 @@
         {
             // Need to support for loading from persistence
         }
+
+        /// <summary>
+        ///     Gets the transferred cashable amount
+        /// </summary>
+        public long TransferredCashableAmount { get; set; }
+
+        /// <summary>
+        ///     Gets the transferred promo amount
+        /// </summary>
+        public long TransferredPromoAmount { get; set; }
+
+        /// <summary>
+        ///     Gets the transferred non-cashable amount
+        /// </summary>
+        public long TransferredNonCashAmount { get; set; }
+
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="KeyedCreditsTransaction" /> class.
