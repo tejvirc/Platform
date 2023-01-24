@@ -118,7 +118,7 @@
         public string FirmwareVersion { get; private set; }
 
         /// <inheritdoc />
-        public string Model { get; private set; }
+        public string Model { get; private set; } = string.Empty;
 
         /// <inheritdoc />
         public string OutputIdentity { get; private set; }
@@ -429,7 +429,7 @@
         {
             var deviceDetails = new Dictionary<string, object>
             {
-                { nameof(BaseDeviceEvent.DeviceId), deviceName },
+                { nameof(BaseDeviceEvent.DeviceId), deviceName ?? string.Empty },
                 { nameof(BaseDeviceEvent.DeviceCategory), "SERIAL" }
             };
 
