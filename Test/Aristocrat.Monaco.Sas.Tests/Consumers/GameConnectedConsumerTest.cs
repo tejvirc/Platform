@@ -17,7 +17,7 @@
     {
         private Mock<ISasExceptionHandler> _exceptionHandler;
         private Mock<IPropertiesManager> _propertiesManagerMock;
-        private Mock<IGameProvider> _gameProvider;
+        private Mock<IGameProvider> _gameProviderMock;
         private GameConnectedConsumer _target;
 
         [TestInitialize]
@@ -25,13 +25,34 @@
         {
             _exceptionHandler = new Mock<ISasExceptionHandler>(MockBehavior.Strict);
             _propertiesManagerMock = new Mock<IPropertiesManager>(MockBehavior.Default);
-            _gameProvider = new Mock<IGameProvider>(MockBehavior.Strict);
+            _gameProviderMock = new Mock<IGameProvider>(MockBehavior.Strict);
 
             // MoqServiceManager and eventBus mock are required for the Consumes base class constructor.
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
 
-            _target = new GameConnectedConsumer(_exceptionHandler.Object, _propertiesManagerMock.Object, _gameProvider.Object);
+            _target = new GameConnectedConsumer(_exceptionHandler.Object, _propertiesManagerMock.Object, _gameProviderMock.Object);
+        }
+
+        private static IDenomination SetupMockDenomination(int gameId, long denom)
+        {
+            var mockDenomination = new Mock<IDenomination>(MockBehavior.Strict);
+            mockDenomination.SetupGet(g => g.Id).Returns(() => gameId);
+            mockDenomination.SetupGet(g => g.Value).Returns(() => denom);
+            mockDenomination.SetupGet(g => g.Active).Returns(() => true);
+            return mockDenomination.Object;
+        }
+
+        private static IGameDetail SetupMockGameDetail(int gameId, long denom)
+        {
+            var mockGameProfile = new Mock<IGameDetail>(MockBehavior.Strict);
+            mockGameProfile.SetupGet(g => g.Id).Returns(() => gameId);
+            mockGameProfile.SetupGet(g => g.ThemeName).Returns(() => "theme");
+            mockGameProfile.SetupGet(g => g.Version).Returns(() => "version");
+            mockGameProfile.SetupGet(g => g.VariationId).Returns(() => "99");
+
+            mockGameProfile.SetupGet(g => g.Denominations).Returns(() => new List<IDenomination> { SetupMockDenomination(gameId, denom) });
+            return mockGameProfile.Object;
         }
 
         [TestCleanup]
@@ -44,14 +65,14 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullExceptionHandlerTest()
         {
-            _target = new GameConnectedConsumer(null, _propertiesManagerMock.Object, _gameProvider.Object);
+            _target = new GameConnectedConsumer(null, _propertiesManagerMock.Object, _gameProviderMock.Object);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullPropertiesManagerTest()
         {
-            _target = new GameConnectedConsumer(_exceptionHandler.Object, null, _gameProvider.Object);
+            _target = new GameConnectedConsumer(_exceptionHandler.Object, null, _gameProviderMock.Object);
         }
 
         [TestMethod]
@@ -68,7 +89,7 @@
             var mockGame1 = new Mock<IGameDetail>();
             var mockGame2 = new Mock<IGameDetail>();
 
-            _gameProvider.Setup(m => m.GetEnabledGames())
+            _gameProviderMock.Setup(m => m.GetEnabledGames())
                 .Returns(new List<IGameDetail> { mockGame1.Object, mockGame2.Object });
 
             var @event = new GameConnectedEvent(true);
@@ -81,7 +102,7 @@
         [TestMethod]
         public void ConsumeEventTestOneInstalledGame()
         {
-            const int gameId = 1;
+            const int gameId = 13;
             const long denom = 1000;
             const int denomId = 13;
             var expectedResult = new GameSelectedExceptionBuilder(denomId);
@@ -97,15 +118,16 @@
             mockDenom.Setup(x => x.Value).Returns(denom);
             mockGame.Setup(x => x.Denominations).Returns(new List<IDenomination> { mockDenom.Object });
 
-            _gameProvider.Setup(m => m.GetGame(gameId))
+            _gameProviderMock.Setup(m => m.GetGame(gameId))
                 .Returns(mockGame.Object);
             _propertiesManagerMock.Setup(p => p.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>()))
                 .Returns(gameId);
             _propertiesManagerMock.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, It.IsAny<long>()))
                 .Returns(denom);
-
             _propertiesManagerMock.Setup(p => p.GetProperty(SasProperties.PreviousSelectedGameId, It.IsAny<int>()))
-                .Returns(0);
+                .Returns(100);
+
+            _gameProviderMock.Setup(g => g.GetGame(gameId)).Returns(SetupMockGameDetail(gameId, denom));
 
             var @event = new GameConnectedEvent(false);
 
