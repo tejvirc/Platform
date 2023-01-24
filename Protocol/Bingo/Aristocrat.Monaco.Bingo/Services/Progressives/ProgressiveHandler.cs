@@ -232,7 +232,7 @@
 
             if (disposing)
             {
-                _timer.Dispose();
+                _timer?.Dispose();
             }
 
             _disposed = true;

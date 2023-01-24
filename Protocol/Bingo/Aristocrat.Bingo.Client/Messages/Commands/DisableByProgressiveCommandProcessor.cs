@@ -9,12 +9,12 @@
     using ServerApiGateway;
     using IMessage = Google.Protobuf.IMessage;
 
-    public class DisableProgressiveCommandProcessor : IProgressiveCommandProcessor
+    public class DisableByProgressiveCommandProcessor : IProgressiveCommandProcessor
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IMessageHandlerFactory _handlerFactory;
 
-        public DisableProgressiveCommandProcessor(IMessageHandlerFactory handlerFactory)
+        public DisableByProgressiveCommandProcessor(IMessageHandlerFactory handlerFactory)
         {
             _handlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
         }
@@ -24,7 +24,6 @@
             if (command.ProgressiveMeta.Is(DisableByProgressive.Descriptor))
             {
                 Logger.Debug("DISABLE from progressive controller");
-
                 var disableByProgressive = new DisableByProgressiveMessage(ResponseCode.Ok);
                 await _handlerFactory
                     .Handle<ProgressiveUpdateResponse, DisableByProgressiveMessage>(disableByProgressive, token)

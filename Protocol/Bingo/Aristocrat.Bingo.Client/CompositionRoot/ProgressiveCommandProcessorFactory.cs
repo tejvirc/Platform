@@ -25,7 +25,7 @@
 
         public Task<IMessage> ProcessCommand(ProgressiveUpdate command, CancellationToken token)
         {
-            var result = _producers.Where(x => x.Key == ProgressiveUpdate.Descriptor)
+            var result = _producers.Where(x => command.ProgressiveMeta.Is(x.Key))
                 .Select(x => x.Value.GetInstance())
                 .FirstOrDefault();
 

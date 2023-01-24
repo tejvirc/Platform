@@ -85,9 +85,9 @@
             container.RegisterInstance<ICommandProcessorFactory>(factory);
 
             var progressiveFactory = new ProgressiveCommandProcessorFactory(container);
-            progressiveFactory.Register<ProgressiveUpdateCommandProcessor>(ProgressiveUpdate.Descriptor, Lifestyle.Transient);
-            progressiveFactory.Register<EnableByProgressiveCommandProcessor>(ProgressiveUpdate.Descriptor, Lifestyle.Transient);
-            progressiveFactory.Register<DisableProgressiveCommandProcessor>(ProgressiveUpdate.Descriptor, Lifestyle.Transient);
+            progressiveFactory.Register<ProgressiveUpdateCommandProcessor>(ProgressiveLevelUpdate.Descriptor, Lifestyle.Transient);
+            progressiveFactory.Register<EnableByProgressiveCommandProcessor>(EnableByProgressive.Descriptor, Lifestyle.Transient);
+            progressiveFactory.Register<DisableByProgressiveCommandProcessor>(DisableByProgressive.Descriptor, Lifestyle.Transient);
             container.RegisterInstance<IProgressiveCommandProcessorFactory>(progressiveFactory);
 
             return container;
