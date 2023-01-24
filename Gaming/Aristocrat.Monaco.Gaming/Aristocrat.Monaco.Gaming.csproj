@@ -198,7 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.GdkRuntime.Contract" Version="1.0.8" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Contract" Version="1.0.9" />
     <PackageReference Include="Google.Protobuf" Version="3.15.8" />
     <PackageReference Include="Grpc" Version="2.46.5" />
     <PackageReference Include="Grpc.Tools" Version="2.46.3">
