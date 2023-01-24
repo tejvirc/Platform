@@ -49,18 +49,14 @@
         public IEnumerable<T> GetValues<T>(int gameId, string name)
         {
             var block = GetBlock(gameId, name);
-
-            var list = GetValue<IEnumerable>(block);
-
+            var list = GetValue<T>(block) as IEnumerable;
             return list?.Cast<T>() ?? Enumerable.Empty<T>();
         }
 
         public IEnumerable<T> GetValues<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
-
-            var list = GetValue<IEnumerable>(block);
-
+            var list = GetValue<T>(block) as IEnumerable;
             return list?.Cast<T>() ?? Enumerable.Empty<T>();
         }
 
