@@ -19,6 +19,7 @@
     using Common;
     using Contracts;
     using Contracts.Events;
+    using EdgeLight;
     using Hardware.Contracts;
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.Cabinet;
@@ -703,6 +704,15 @@
                 }
             }
 
+            var simulateEdgeLight = properties.GetValue(
+                HardwareConstants.SimulateEdgeLighting,
+                false);
+            if (simulateEdgeLight)
+            {
+                var edgeLightSimulator = new EdgeLightSimulatorView();
+                edgeLightSimulator.Show();
+            }
+
             var simulateVirtualButtonDeck = properties.GetValue(
                 HardwareConstants.SimulateVirtualButtonDeck,
                 Constants.False);
@@ -1010,6 +1020,7 @@
             }
 
             window.Show();
+            window.Activate();
             WpfWindowLauncher.DisableStylus(window);
         }
 

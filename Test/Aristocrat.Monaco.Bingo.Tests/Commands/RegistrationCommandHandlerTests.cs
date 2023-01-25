@@ -1,14 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Commands.Tests
 {
     using System;
+    using System.Net.NetworkInformation;
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Bingo.Commands;
-    using Aristocrat.Monaco.Bingo.Common.Exceptions;
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Kernel.Contracts;
+    using Common.Exceptions;
+    using Kernel;
+    using Kernel.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
@@ -19,9 +19,10 @@
         private const uint MachineId = 1234;
         private const string Version = "12.12.12.12";
 
-        private readonly Mock<IRegistrationService> _registrationServer = new Mock<IRegistrationService>();
-        private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>();
-        public RegistrationCommandHandler _target;
+        private readonly Mock<IRegistrationService> _registrationServer = new(MockBehavior.Default);
+        private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
+        private readonly Mock<INetworkInformationProvider> _networkProvider = new(MockBehavior.Default);
+        private RegistrationCommandHandler _target;
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -33,18 +34,20 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false)]
-        [DataRow(false, true)]
+        [DataRow(true, false, false)]
+        [DataRow(false, true, false)]
+        [DataRow(false, false, true)]
         [DataTestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void NullConstructorArgumentsTest(bool nullRegistration, bool nullProperties)
+        public void NullConstructorArgumentsTest(bool nullRegistration, bool nullProperties, bool nullNetworkProvider)
         {
-            CreateTarget(nullRegistration, nullProperties);
+            Assert.ThrowsException<ArgumentNullException>(
+                () => CreateTarget(nullRegistration, nullProperties, nullNetworkProvider));
         }
 
         [TestMethod]
-        public async Task GoodResposeCodeHandleTest()
+        public async Task GoodResponseCodeHandleTest()
         {
+            _networkProvider.Setup(x => x.GetPhysicalAddress()).Returns(PhysicalAddress.None);
             _registrationServer.Setup(x => x.RegisterClient(It.Is<RegistrationMessage>(
                 m => string.Equals(m.MachineSerial, SerialNumber) &&
                 string.Equals(m.MachineNumber, MachineId.ToString()) &&
@@ -61,6 +64,7 @@
         [ExpectedException(typeof(RegistrationException))]
         public async Task InvalidResponseCodeHandleTest(ResponseCode code)
         {
+            _networkProvider.Setup(x => x.GetPhysicalAddress()).Returns(PhysicalAddress.None);
             _registrationServer.Setup(x => x.RegisterClient(It.Is<RegistrationMessage>(
                 m => string.Equals(m.MachineSerial, SerialNumber) &&
                 string.Equals(m.MachineNumber, MachineId.ToString()) &&
@@ -81,11 +85,15 @@
             await _target.Handle(new RegistrationCommand());
         }
 
-        private RegistrationCommandHandler CreateTarget(bool nullRegistration = false, bool nullProperties = false)
+        private RegistrationCommandHandler CreateTarget(
+            bool nullRegistration = false,
+            bool nullProperties = false,
+            bool nullNetworkProvider = false)
         {
             return new RegistrationCommandHandler(
                 nullRegistration ? null : _registrationServer.Object,
-                nullProperties ? null : _propertiesManager.Object);
+                nullProperties ? null : _propertiesManager.Object,
+                nullNetworkProvider ? null : _networkProvider.Object);
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts.Meters;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
@@ -43,6 +44,8 @@
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
             _levelProvider = levelProvider ?? throw new ArgumentNullException(nameof(levelProvider));
+
+            RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
 
             _meterManager.ProgressiveAdded += OnProgressiveAdded;
 
@@ -235,16 +238,7 @@
                     continue;
                 }
 
-                var lifetime = 0L;
-                var period = 0L;
-
-                if (currentValues.TryGetValue(blockIndex, out var current))
-                {
-                    lifetime = (long)current["Lifetime"];
-                    period = (long)current["Period"];
-                }
-
-                AddMeter(new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period));
+                AddAtomicMeter(ref currentValues, blockIndex, meterName, block, meter);
             }
         }
 
@@ -260,16 +254,7 @@
                     continue;
                 }
 
-                var lifetime = 0L;
-                var period = 0L;
-
-                if (currentValues.TryGetValue(blockIndex, out var current))
-                {
-                    lifetime = (long)current["Lifetime"];
-                    period = (long)current["Period"];
-                }
-
-                AddMeter(new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period));
+                AddAtomicMeter(ref currentValues, blockIndex, meterName, block, meter);
             }
         }
 
@@ -285,17 +270,30 @@
                     continue;
                 }
 
-                var lifetime = 0L;
-                var period = 0L;
-
-                if (currentValues.TryGetValue(blockIndex, out var current))
-                {
-                    lifetime = (long)current["Lifetime"];
-                    period = (long)current["Period"];
-                }
-
-                AddMeter(new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period));
+                AddAtomicMeter(ref currentValues, blockIndex, meterName, block, meter);
             }
+        }
+
+        private void AddAtomicMeter(
+            ref IDictionary<int,
+            Dictionary<string, object>> allBlocks,
+            int blockIndex,
+            string meterName,
+            IPersistentStorageAccessor block,
+            ProgressiveAtomicMeterNode meter)
+        {
+            var lifetime = 0L;
+            var period = 0L;
+
+            if (allBlocks.TryGetValue(blockIndex, out var current))
+            {
+                lifetime = (long)current["Lifetime"];
+                period = (long)current["Period"];
+            }
+
+            var atomicMeter = new AtomicMeter(meterName, block, blockIndex, meter.Classification, this, lifetime, period);
+            SetupMeterRolloverTest(atomicMeter);
+            AddMeter(atomicMeter);
         }
     }
 }

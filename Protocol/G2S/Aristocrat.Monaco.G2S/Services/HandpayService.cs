@@ -728,6 +728,8 @@
             }
         }
 
+        public Task HandpayKeyedOff(HandpayTransaction transaction) => Task.CompletedTask;
+
         private async Task OnKeyedOff(HandpayTransaction transaction)
         {
             var handpay = _egm.GetDevice<IHandpayDevice>();

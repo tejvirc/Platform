@@ -14,6 +14,21 @@
         where TQueueId : struct
     {
         /// <summary>
+        ///     Indicates whether the queue is empty or not.
+        /// </summary>
+        bool IsEmpty { get; }
+
+        /// <summary>
+        ///     A count of how many items are in the queue
+        /// </summary>
+        int Count { get; }
+
+        /// <summary>
+        ///     Gets whether or not the queue is full
+        /// </summary>
+        bool IsQueueFull { get; }
+
+        /// <summary>
         ///     Gets the next item in the queue but doesn't remove the item.
         ///     This will block if there aren't any items in the queue.
         /// </summary>
@@ -38,17 +53,5 @@
         /// the queue or it will be ignored.
         /// </param>
         void Acknowledge(TQueueId id);
-
-        /// <summary>
-        ///     Indicates whether the queue is empty or not.
-        /// </summary>
-        /// <returns>True if the queue is empty, false otherwise</returns>
-        bool IsEmpty();
-
-        /// <summary>
-        ///     A count of how many items are in the queue
-        /// </summary>
-        /// <returns>The count of items in the queue</returns>
-        int Count();
     }
 }

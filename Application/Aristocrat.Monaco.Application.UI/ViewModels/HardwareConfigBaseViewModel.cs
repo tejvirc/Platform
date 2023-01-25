@@ -562,6 +562,16 @@
             }
         }
 
+        private static void LoadDevice(DeviceConfigViewModel configViewModel, string manufacturer)
+        {
+            configViewModel.Manufacturer =
+                configViewModel.Manufacturers.FirstOrDefault(m => m.Equals(manufacturer));
+            if (!string.IsNullOrEmpty(configViewModel.Manufacturer))
+            {
+                configViewModel.Enabled = true;
+            }
+        }
+
         private void UpdateHardMeterTickValue(TickValueProperties value, string selection)
         {
             var curMapping = _hardMeterMappingConfiguration.HardMeterMapping.FirstOrDefault(x => x.Name == selection);
@@ -1251,24 +1261,21 @@
                 return;
             }
 
-            foreach (var device in Devices.Where(d => d.Enabled))
+            foreach (var device in Devices)
             {
                 switch (device.DeviceType)
                 {
-                    case DeviceType.NoteAcceptor:
-                        device.Manufacturer =
-                            device.Manufacturers.FirstOrDefault(m => m.Equals(_noteAcceptorManufacturer));
+                    case DeviceType.NoteAcceptor when !string.IsNullOrEmpty(_noteAcceptorManufacturer):
+                        LoadDevice(device, _noteAcceptorManufacturer);
                         break;
-                    case DeviceType.Printer:
-                        device.Manufacturer = device.Manufacturers.FirstOrDefault(m => m.Equals(_printerManufacturer));
+                    case DeviceType.Printer when !string.IsNullOrEmpty(_printerManufacturer):
+                        LoadDevice(device, _printerManufacturer);
                         break;
-                    case DeviceType.IdReader:
-                        device.Manufacturer = device.Manufacturers.FirstOrDefault(m => m.Equals(_idReaderManufacturer));
+                    case DeviceType.IdReader when !string.IsNullOrEmpty(_idReaderManufacturer):
+                        LoadDevice(device, _idReaderManufacturer);
                         break;
-                    case DeviceType.ReelController:
-                        device.Manufacturer =
-                            device.Manufacturers.FirstOrDefault(m => m.Equals(_reelControllerManufacturer));
-                        Logger.Debug($"Reel controller manufacturer set to {device.Manufacturer}");
+                    case DeviceType.ReelController when !string.IsNullOrEmpty(_reelControllerManufacturer):
+                        LoadDevice(device, _reelControllerManufacturer);
                         break;
                 }
             }

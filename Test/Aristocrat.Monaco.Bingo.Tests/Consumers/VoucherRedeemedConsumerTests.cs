@@ -92,14 +92,14 @@
                 });
             _reportingService.Setup(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.NonTransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode")).Verifiable();
+                    Common.TransactionType.TransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode")).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketIn)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.NonTransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode"), Times.Once());
+                    Common.TransactionType.TransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode"), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketIn), Times.Once());
         }
 

@@ -168,7 +168,7 @@
     <FilePath FilePath="..\jurisdiction\Colombia\printable_regions.xml" filterid="ColombiaPrintableRegionsConfig" />
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
-    <FilePath FilePath="..\jurisdiction\Columbia\PrinterOverrides.xml" filterid="ColombiaPrinterOverridesConfig" />
+    <FilePath FilePath="..\jurisdiction\Colombia\PrinterOverrides.xml" filterid="ColombiaPrinterOverridesConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Colombia\ErrorMessage.config.xml" filterid="ColombiaErrorMessageConfig" />

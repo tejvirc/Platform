@@ -110,8 +110,6 @@
     <BitmapImage x:Key="Denom5CentOn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/Standard/5c_Selected.png" />
     <BitmapImage x:Key="Denom25CentOff" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/Standard/25c_Normal.png" />
     <BitmapImage x:Key="Denom25CentOn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/UPI/Standard/25c_Selected.png" />
-    <BitmapImage x:Key="TabSlotDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/OklahomaClassIII/ui/Images/TabSlotsDisabled.png" />
-    <BitmapImage x:Key="TabSlot" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/OklahomaClassIII/ui/Images/TabSlots.png" />
 
     <!-- **MULTILANGUAGE UPI** -->
 

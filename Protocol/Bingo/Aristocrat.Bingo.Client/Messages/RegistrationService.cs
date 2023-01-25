@@ -9,12 +9,12 @@
     using log4net;
     using ServerApiGateway;
 
-    public class RegistrationService :
+    public sealed class RegistrationService :
         BaseClientCommunicationService<ClientApi.ClientApiClient>,
         IRegistrationService,
         IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEnumerable<IClient> _clients;
         private readonly IAuthorizationProvider _authorization;
 
@@ -35,34 +35,24 @@
             }
         }
 
-        public async Task<RegistrationResults> RegisterClient(RegistrationMessage message, CancellationToken token)
+        public Task<RegistrationResults> RegisterClient(
+            RegistrationMessage message,
+            CancellationToken token = default)
         {
-            var request = new RegistrationRequest
+            if (message is null)
             {
-                IsAuditCapable = true,
-                MachineNumber = message.MachineNumber,
-                MachineSerial = message.MachineSerial,
-                PlatformVersion = message.PlatformVersion
-            };
-
-            var result = await Invoke(async x => await x.RequestRegisterAsync(request, null, null, token));
-            if (result.ResultType == RegistrationResponse.Types.ResultType.Accepted)
-            {
-                _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
+                throw new ArgumentNullException(nameof(message));
             }
-            
-            Logger.Debug(
-                $"Received a registration response with the status {result.ResultType} and with the message {result.Message}");
-            return new RegistrationResults(result.ResultType.ToResponseCode(), result.ServerVersion);
+
+            return RegisterClientInternal(message, token);
         }
 
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -80,6 +70,33 @@
             }
 
             _disposed = true;
+        }
+
+        private async Task<RegistrationResults> RegisterClientInternal(
+            RegistrationMessage message,
+            CancellationToken token)
+        {
+            var request = new RegistrationRequest
+            {
+                IsAuditCapable = true,
+                MachineNumber = message.MachineNumber,
+                MachineSerial = message.MachineSerial,
+                PlatformVersion = message.PlatformVersion,
+                MachineConnectionId = message.MachineConnectionId
+            };
+
+            var result = await Invoke(
+                async (x, c) => await x.RequestRegisterAsync(request, cancellationToken: c),
+                token).ConfigureAwait(false);
+            if (result.ResultType is RegistrationResponse.Types.ResultType.Accepted &&
+                !string.IsNullOrEmpty(result.AuthToken))
+            {
+                _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
+            }
+
+            Logger.Debug(
+                $"Received a registration response with the status {result.ResultType} and with the message {result.Message}");
+            return new RegistrationResults(result.ResultType.ToResponseCode(result.AuthToken), result.ServerVersion);
         }
 
         private void OnClientDisconnected(object sender, DisconnectedEventArgs e)

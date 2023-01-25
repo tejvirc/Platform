@@ -17,5 +17,6 @@ as follows:
 			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
 		-->
 		<TransferLimit Default="10000" />
+      <EGMDisabledOnHostOffline Enabled="true" Configurable="true"/>
     </SASHostPage>  
 </SASDefaultConfiguration>

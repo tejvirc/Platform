@@ -26,6 +26,9 @@
         }
 
         /// <inheritdoc />
+        public Task HandpayKeyedOff(HandpayTransaction transaction) => Task.CompletedTask;
+
+        /// <inheritdoc />
         public bool AllowLocalHandpay => true;
 
         /// <inheritdoc />
