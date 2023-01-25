@@ -4,7 +4,7 @@
     using System.Threading;
     using Grpc.Core;
 
-    public class BingoAuthorizationProvider : IAuthorizationProvider, IDisposable
+    public class BingoAuthorizationProvider : IBingoAuthorizationProvider, IDisposable
     {
         private readonly ReaderWriterLockSlim _lock = new();
         private bool _disposed;

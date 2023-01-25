@@ -14,6 +14,8 @@
         protected readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         protected readonly IClientConfigurationProvider ConfigurationProvider;
         protected readonly BaseClientInterceptor CommunicationInterceptor;
+        protected readonly BaseClientAuthorizationInterceptor ClientAuthorizationInterceptor;
+        protected readonly LoggingInterceptor LoggingInterceptor;
 
         private readonly object _clientLock = new();
         private Channel _channel;
@@ -22,12 +24,15 @@
 
         protected BaseClient(
             IClientConfigurationProvider configurationProvider,
-            BaseClientInterceptor communicationInterceptor)
+            BaseClientInterceptor communicationInterceptor,
+            BaseClientAuthorizationInterceptor authorizationInterceptor,
+            LoggingInterceptor loggingInterceptor)
         {
             ConfigurationProvider =
                 configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
-            CommunicationInterceptor = communicationInterceptor ??
-                                       throw new ArgumentNullException(nameof(communicationInterceptor));
+            ClientAuthorizationInterceptor = authorizationInterceptor ?? throw new ArgumentNullException(nameof(authorizationInterceptor));
+            LoggingInterceptor = loggingInterceptor ?? throw new ArgumentNullException(nameof(loggingInterceptor));
+            CommunicationInterceptor = communicationInterceptor ?? throw new ArgumentNullException(nameof(communicationInterceptor));
 
             CommunicationInterceptor.MessageReceived += OnMessageReceived;
         }
@@ -73,7 +78,7 @@
                 await Stop();
                 _channel = CreateChannel();
                 var configuration = ConfigurationProvider.Configuration;
-                var callInvoker = _channel.Intercept(CommunicationInterceptor);
+                var callInvoker = _channel.Intercept(ClientAuthorizationInterceptor, CommunicationInterceptor, LoggingInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
                     await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout);

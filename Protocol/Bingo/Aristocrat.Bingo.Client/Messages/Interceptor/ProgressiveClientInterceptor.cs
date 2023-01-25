@@ -1,24 +1,14 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Interceptor
 {
-    using System.Reflection;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
-    using log4net;
 
     public class ProgressiveClientInterceptor : BaseClientInterceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
-        public ProgressiveClientInterceptor(IProgressiveAuthorizationProvider authorizationProvider)
-        : base(authorizationProvider)
-        {
-        }
-
         public override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation)
         {
-            context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncDuplexStreamingCall<TRequest, TResponse>(
                 new ProgressiveClientClientStreamingLogger<TRequest>(call.RequestStream),
@@ -34,8 +24,6 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation)
         {
-            Logger.Debug($"Sending Request {request}");
-            context = AddAuthorization(context);
             var call = continuation(request, context);
             return new AsyncServerStreamingCall<TResponse>(
                 new ProgressiveClientServerStreamingLogger<TResponse>(call.ResponseStream, this),
@@ -49,7 +37,6 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncClientStreamingCallContinuation<TRequest, TResponse> continuation)
         {
-            context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
                 new ProgressiveClientClientStreamingLogger<TRequest>(call.RequestStream),

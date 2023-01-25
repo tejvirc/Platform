@@ -59,7 +59,7 @@
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to process commands", e);
+                Logger.Error("Failed to process progressive command to start progressive updates", e);
             }
 
             try
@@ -96,7 +96,7 @@
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to process commands", e);
+                Logger.Error("Failed to process progressive commands", e);
             }
         }
 

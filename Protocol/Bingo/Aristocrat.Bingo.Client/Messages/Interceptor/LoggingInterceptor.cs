@@ -7,13 +7,11 @@
     using Grpc.Core.Interceptors;
     using log4net;
 
-    public abstract class BaseClientInterceptor : Interceptor
+    public class LoggingInterceptor : Interceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public EventHandler<EventArgs> MessageReceived { get; set; }
-
-        public int MessageTimeoutMs { get; set; } = 30000;
 
         public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
             TRequest request,
@@ -21,7 +19,6 @@
             AsyncUnaryCallContinuation<TRequest, TResponse> continuation)
         {
             Logger.Debug($"Sending Request: {request}");
-            context = AddTimeout(context);
             var call = continuation(request, context);
             return new AsyncUnaryCall<TResponse>(
                 LogResponse(call.ResponseAsync),
@@ -37,28 +34,51 @@
             BlockingUnaryCallContinuation<TRequest, TResponse> continuation)
         {
             Logger.Debug($"Sending Request {request}");
-            context = AddTimeout(context);
             var response = base.BlockingUnaryCall(request, context, continuation);
             Logger.Debug($"Response Received: {response}");
             return response;
         }
 
-        public abstract override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(
+        public override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(
             ClientInterceptorContext<TRequest, TResponse> context,
-            AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation);
+            AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation)
+        {
+            var call = continuation(context);
+            return new AsyncDuplexStreamingCall<TRequest, TResponse>(
+                call.RequestStream,
+                call.ResponseStream,
+                call.ResponseHeadersAsync,
+                call.GetStatus,
+                call.GetTrailers,
+                call.Dispose);
+        }
 
-        public abstract override AsyncServerStreamingCall<TResponse> AsyncServerStreamingCall<TRequest, TResponse>(
+        public override AsyncServerStreamingCall<TResponse> AsyncServerStreamingCall<TRequest, TResponse>(
             TRequest request,
             ClientInterceptorContext<TRequest, TResponse> context,
-            AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation);
-
-        public abstract override AsyncClientStreamingCall<TRequest, TResponse> AsyncClientStreamingCall<TRequest, TResponse>(
-            ClientInterceptorContext<TRequest, TResponse> context,
-            AsyncClientStreamingCallContinuation<TRequest, TResponse> continuation);
-
-        public void OnMessageReceived()
+            AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation)
         {
-            MessageReceived?.Invoke(this, EventArgs.Empty);
+            var call = continuation(request, context);
+            return new AsyncServerStreamingCall<TResponse>(
+                call.ResponseStream,
+                call.ResponseHeadersAsync,
+                call.GetStatus,
+                call.GetTrailers,
+                call.Dispose);
+        }
+
+        public override AsyncClientStreamingCall<TRequest, TResponse> AsyncClientStreamingCall<TRequest, TResponse>(
+            ClientInterceptorContext<TRequest, TResponse> context,
+            AsyncClientStreamingCallContinuation<TRequest, TResponse> continuation)
+        {
+            var call = continuation(context);
+            return new AsyncClientStreamingCall<TRequest, TResponse>(
+                new ProgressiveClientClientStreamingLogger<TRequest>(call.RequestStream),
+                LogResponse(call.ResponseAsync),
+                call.ResponseHeadersAsync,
+                call.GetStatus,
+                call.GetTrailers,
+                call.Dispose);
         }
 
         protected static async Task<TResponse> LogResponse<TResponse>(Task<TResponse> callingTask)
@@ -74,17 +94,6 @@
                 Logger.Error("An exception occurred trying to get a response", ex);
                 throw;
             }
-        }
-
-        protected ClientInterceptorContext<TRequest, TResponse> AddTimeout<TRequest, TResponse>(
-            ClientInterceptorContext<TRequest, TResponse> context)
-            where TRequest : class
-            where TResponse : class
-        {
-            return new (
-                context.Method,
-                context.Host,
-                context.Options.WithDeadline(DateTime.UtcNow.AddMilliseconds(MessageTimeoutMs)));
         }
     }
 }

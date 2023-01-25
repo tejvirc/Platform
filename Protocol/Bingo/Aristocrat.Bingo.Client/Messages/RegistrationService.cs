@@ -16,14 +16,14 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEnumerable<IClient> _clients;
-        private readonly IAuthorizationProvider _authorization;
+        private readonly IBingoAuthorizationProvider _authorization;
 
         private bool _disposed;
 
         public RegistrationService(
             IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider,
             IEnumerable<IClient> clients,
-            IAuthorizationProvider authorization)
+            IBingoAuthorizationProvider authorization)
             : base(endpointProvider)
         {
             _clients = clients ?? throw new ArgumentNullException(nameof(clients));

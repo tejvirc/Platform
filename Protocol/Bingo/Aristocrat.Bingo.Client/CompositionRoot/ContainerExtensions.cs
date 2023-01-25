@@ -49,9 +49,12 @@
 
             container.RegisterSingleton<BingoClientInterceptor>();
             container.RegisterSingleton<ProgressiveClientInterceptor>();
+            container.RegisterSingleton<BingoClientAuthorizationInterceptor>();
+            container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
+            container.RegisterSingleton<LoggingInterceptor>();
             container.RegisterSingleton<IRegistrationService, RegistrationService>();
             container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
-            container.RegisterSingleton<IAuthorizationProvider, BingoAuthorizationProvider>();
+            container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
             container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
 
             var command = Lifestyle.Singleton.CreateRegistration<CommandService>(container);

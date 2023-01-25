@@ -11,8 +11,10 @@
     {
         public ProgressiveClient(
             IClientConfigurationProvider configurationProvider,
-            ProgressiveClientInterceptor communicationInterceptor)
-            : base(configurationProvider, communicationInterceptor)
+            ProgressiveClientInterceptor communicationInterceptor,
+            ProgressiveClientAuthorizationInterceptor authorizationInterceptor,
+            LoggingInterceptor loggingInterceptor)
+            : base(configurationProvider, communicationInterceptor, authorizationInterceptor, loggingInterceptor)
         {
         }
 

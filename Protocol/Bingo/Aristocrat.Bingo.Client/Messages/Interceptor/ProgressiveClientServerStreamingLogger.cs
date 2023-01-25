@@ -11,9 +11,7 @@
     {
         // ReSharper disable once StaticMemberInGenericType
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
         private readonly IAsyncStreamReader<TRequest> _caller;
-
         private readonly ProgressiveClientInterceptor _progressiveClientInterceptor;
 
         public ProgressiveClientServerStreamingLogger(IAsyncStreamReader<TRequest> caller, ProgressiveClientInterceptor progressiveClientInterceptor)

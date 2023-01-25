@@ -16,7 +16,7 @@
         private readonly Mock<IClient> _client = new Mock<IClient>(MockBehavior.Default);
         private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _clientEnpointProvider =
             new Mock<IClientEndpointProvider<ClientApi.ClientApiClient>>(MockBehavior.Default);
-        private readonly Mock<IAuthorizationProvider> _authorizationProvider = new Mock<IAuthorizationProvider>(MockBehavior.Default);
+        private readonly Mock<IBingoAuthorizationProvider> _authorizationProvider = new Mock<IBingoAuthorizationProvider>(MockBehavior.Default);
 
         private RegistrationService _target;
 
