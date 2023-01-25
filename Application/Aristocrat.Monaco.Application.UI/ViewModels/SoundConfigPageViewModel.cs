@@ -201,6 +201,6 @@
             });
         }
 
-        public override bool TestModeEnabledSupplementary => CanEditVolume;
+        public override bool TestModeEnabledSupplementary => !IsAudioDisabled && !IsSystemDisabled;
     }
 }
