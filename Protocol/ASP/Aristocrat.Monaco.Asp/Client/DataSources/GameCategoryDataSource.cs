@@ -11,6 +11,7 @@
     using Gaming.Contracts;
     using Gaming.Contracts.Events.OperatorMenu;
     using Gaming.Contracts.Meters;
+    using Gaming.Contracts.Rtp;
     using Kernel;
 
     // ReSharper disable once UnusedMember.Global

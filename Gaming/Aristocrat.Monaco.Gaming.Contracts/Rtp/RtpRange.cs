@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+﻿namespace Aristocrat.Monaco.Gaming.Contracts.Rtp
 {
     using System;
     using Localization.Properties;
@@ -42,6 +42,22 @@
         ///     Gets or sets the maximum RTP, in percent
         /// </summary>
         public decimal Maximum { get; }
+
+        /// <summary>
+        ///     Overloaded Addition operator + to support adding one <see cref="RtpRange"/> to another.
+        /// </summary>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <returns></returns>
+        public static RtpRange operator +(RtpRange r1, RtpRange r2) => new(r1.Minimum + r2.Minimum, r1.Maximum + r2.Maximum);
+
+        /// <summary>
+        ///     Overloaded Subtraction operator - to support subtracting one <see cref="RtpRange"/> from another.
+        /// </summary>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <returns></returns>
+        public static RtpRange operator -(RtpRange r1, RtpRange r2) => new(r1.Minimum - r2.Minimum, r1.Maximum - r2.Maximum);
 
         /// <summary>
         ///     Returns the string representation of the rtp

@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
 {
     using System;
+    using Rtp;
 
     /// <summary>
     ///     Definition of a Progressive rtp

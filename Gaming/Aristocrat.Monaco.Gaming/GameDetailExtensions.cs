@@ -4,7 +4,7 @@
     using Contracts.Progressives;
     using Kernel;
     using Progressives;
-    using RtpRange = Contracts.RtpRange;
+    using RtpRange = Contracts.Rtp.RtpRange;
 
     /// <summary>
     ///     A set of <see cref="IGameDetail" /> extensions

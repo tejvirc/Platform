@@ -51,7 +51,6 @@
                 OutcomeRequest request => _central.RequestOutcomes(
                     game.Id,
                     denomination.Value,
-                    // TODO: Verify this is correct. It used to be "wagerCategory.Id" but now it's missing
                     game.WagerCategories.FirstOrDefault()?.Id ?? string.Empty, 
                     request.TemplateId.ToString(),
                     command.InitialWager.CentsToMillicents(),

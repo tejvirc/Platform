@@ -19,6 +19,7 @@
     using Contracts.Meters;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.Rtp;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -606,12 +607,14 @@
             _initialized = true;
         }
 
+        // TODO: Extract
         public bool CanIncludeIncrementRtp(GameType type)
         {
             return CanIncludeSapIncrementRtp(type) ||
                    CanIncludeLinkProgressiveIncrementRtp(type);
         }
 
+        // TODO: Extract
         public RtpRange GetTotalRtp(GameAttributes game, IReadOnlyCollection<ProgressiveDetail> progressiveDetails)
         {
             var gameType = ToGameType(game.GameType);
@@ -657,7 +660,7 @@
             return new RtpRange(totalRtpMin, totalRtpMax);
         }
 
-
+        // TODO: Extract
         public bool IsValidRtp(GameType gameType, RtpRange rtpRange)
         {
             return rtpRange.Maximum >= rtpRange.Minimum

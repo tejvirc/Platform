@@ -14,6 +14,7 @@
     using Data.Meters;
     using Data.Model;
     using Gaming.Contracts;
+    using Gaming.Contracts.Rtp;
     using Hardware.Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;

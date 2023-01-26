@@ -8,6 +8,7 @@
     using Application.UI.OperatorMenu;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts;
+    using Contracts.Rtp;
     using Contracts.Tickets;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.Ticket;

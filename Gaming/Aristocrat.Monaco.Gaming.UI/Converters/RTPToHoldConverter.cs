@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Windows.Data;
     using Contracts;
+    using Contracts.Rtp;
 
     /// <summary>
     ///     RtpToHoldConverter

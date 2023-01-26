@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Aristocrat.Monaco.Gaming.UI.Models.PaytableDisplay">
+    <Position X="30.75" Y="2" Width="2" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="PaytableDisplay" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAgAAAAAAAEAAAAIAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\PaytableDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.PackageManifest.Extension.v100.c_wagerCategoryItem">
+    <Position X="0.5" Y="0.75" Width="2" />
+    <Members>
+      <Method Name="c_wagerCategoryItem" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Aristocrat.Monaco.PackageManifest.Gsa.GameManifest">
+    <Position X="3.25" Y="3" Width="2.25" />
+    <Members>
+      <Method Name="GameManifest" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Aristocrat.Monaco.PackageManifest.Models.WagerCategory">
+    <Position X="10.25" Y="5.75" Width="2.5" />
+    <Members>
+      <Method Name="WagerCategory" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Aristocrat.Monaco.PackageManifest.Gsa.GsaManifest">
+    <Position X="3.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Aristocrat.Monaco.PackageManifest.Models.GameAttributes">
+    <Position X="6.25" Y="2.75" Width="2.5" />
+    <Members>
+      <Method Name="GameAttributes" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="WagerCategories" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Aristocrat.Monaco.PackageManifest.Models.GameContent">
+    <Position X="6.25" Y="0.5" Width="2.5" />
+    <Members>
+      <Method Name="GameContent" Hidden="true" />
+    </Members>
+    <AssociationLine Name="GameAttributes" Type="Aristocrat.Monaco.PackageManifest.Models.GameAttributes">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.089" Y="0.195" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="GameAttributes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Gaming.GameProvider">
+    <Position X="13" Y="1.25" Width="3" />
+    <Members>
+      <Property Name="GetCollection" Hidden="true" />
+      <Property Name="Name" Hidden="true" />
+      <Property Name="ServiceTypes" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Aristocrat.Monaco.PackageManifest.Models.ProgressiveRtp">
+    <Position X="16.5" Y="5" Width="4.5" />
+    <Members>
+      <Method Name="ProgressiveRtp" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Aristocrat.Monaco.PackageManifest.Models.ProgressiveDetail">
+    <Position X="17" Y="7.5" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Aristocrat.Monaco.Gaming.Contracts.RtpRange">
+    <Position X="16.25" Y="1.25" Width="1.5" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="RtpRange" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Aristocrat.Monaco.Gaming.UI.RtpService">
+    <Position X="18.75" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RtpService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Gaming.UI.RtpStats">
+    <Position X="19.25" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAACAAQAAAAA=</HashCode>
+      <FileName>RtpStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

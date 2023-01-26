@@ -4,6 +4,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.Tickets;
     using Contracts;
+    using Contracts.Rtp;
     using Hardware.Contracts.HardMeter;
     using Kernel;
     using Localization.Properties;

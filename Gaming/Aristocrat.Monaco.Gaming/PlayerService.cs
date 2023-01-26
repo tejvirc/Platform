@@ -9,6 +9,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Contracts;
+    using Contracts.Rtp;
     using Contracts.Session;
     using Hardware.Contracts;
     using Hardware.Contracts.IdReader;

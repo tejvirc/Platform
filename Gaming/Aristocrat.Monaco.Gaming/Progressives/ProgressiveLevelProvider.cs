@@ -11,6 +11,7 @@
     using Contracts.Meters;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Kernel;
     using log4net;
     using PackageManifest.Models;

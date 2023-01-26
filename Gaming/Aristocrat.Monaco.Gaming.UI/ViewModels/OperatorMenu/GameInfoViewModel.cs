@@ -12,6 +12,7 @@
     using Application.UI.OperatorMenu;
     using Contracts;
     using Contracts.Models;
+    using Contracts.Rtp;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;

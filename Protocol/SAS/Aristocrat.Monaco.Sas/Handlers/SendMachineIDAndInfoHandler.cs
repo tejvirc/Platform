@@ -9,6 +9,7 @@
     using Contracts.SASProperties;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Rtp;
     using Kernel;
     using Progressive;
 

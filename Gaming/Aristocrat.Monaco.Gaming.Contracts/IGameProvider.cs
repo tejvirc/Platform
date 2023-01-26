@@ -4,6 +4,7 @@
     using Aristocrat.PackageManifest.Extension.v100;
     using Models;
     using PackageManifest.Models;
+    using Rtp;
 
     /// <summary>
     ///     Provides a mechanism to retrieve and interact with the available games.

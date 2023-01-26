@@ -11,6 +11,7 @@
     using Application.Contracts.Metering;
     using Contracts;
     using Contracts.Meters;
+    using Contracts.Rtp;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;

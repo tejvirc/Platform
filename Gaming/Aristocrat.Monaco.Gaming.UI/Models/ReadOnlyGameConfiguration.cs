@@ -7,6 +7,7 @@
     using Contracts;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.Rtp;
     using Kernel;
     using Progressives;
 
