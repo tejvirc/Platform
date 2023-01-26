@@ -283,6 +283,7 @@
         {
             _inspecting = false;
             AddStatusMessage(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText), StatusMode.Error);
+            Inspection?.ReportTestFailure();
             SetDeviceInformation();
         }
 
@@ -297,6 +298,7 @@
         private void HandleHardwareNoteAcceptorSelfTestFailedEvent(SelfTestFailedEvent @event)
         {
             SelfTestCurrentState = SelfTestState.Failed;
+            Inspection?.ReportTestFailure();
             SetDiagnosticButtonsEnabled(true);
         }
     }

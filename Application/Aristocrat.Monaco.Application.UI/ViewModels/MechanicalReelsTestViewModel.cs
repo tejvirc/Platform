@@ -9,6 +9,7 @@
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
@@ -31,6 +32,7 @@
         private readonly int _maxSupportedReels;
         private readonly IEventBus _eventBus;
         private readonly Action _updateScreenCallback;
+        private readonly IInspectionService _reporter;
 
         private bool _homeEnabled = true;
         private bool _spinEnabled;
@@ -46,13 +48,15 @@
             IEventBus eventBus,
             int maxSupportedReels,
             ObservableCollection<ReelInfoItem> reelInfo,
-            Action updateScreenCallback)
+            Action updateScreenCallback,
+            IInspectionService reporter)
         {
             _reelController = reelController;
             _eventBus = eventBus;
             _reelInfo = reelInfo;
             _updateScreenCallback = updateScreenCallback;
             _maxSupportedReels = maxSupportedReels;
+            _reporter = reporter;
 
             HomeCommand = new ActionCommand<object>(_ => HomeReels());
             SpinCommand = new ActionCommand<object>(_ => SpinReels());
@@ -252,6 +256,7 @@
                 return;
             }
 
+            _reporter?.SetTestName("Home reels");
             _eventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.MechanicalReels));
             ReelsVisible = true;
             RaisePropertyChanged(nameof(ReelsVisible));
@@ -315,6 +320,7 @@
 
         private void NudgeReels()
         {
+            _reporter?.SetTestName("Nudge reels");
             var data = new List<NudgeReelData>();
 
             for (var i = 1; i <= _maxSupportedReels; ++i)
@@ -360,6 +366,7 @@
 
         private void SpinReels()
         {
+            _reporter?.SetTestName("Spin reels");
             var data = new List<ReelSpinData>();
 
             for (var i = 1; i <= _maxSupportedReels; ++i)

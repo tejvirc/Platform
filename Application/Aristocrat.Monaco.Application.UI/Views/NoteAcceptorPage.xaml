@@ -6,6 +6,7 @@
                                xmlns:extensions="clr-namespace:Aristocrat.Monaco.UI.Common.Extensions;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -321,6 +322,10 @@
                                 </MultiBinding>
                             </controls:ToggleSwitchButton.IsEnabled>
                         </controls:ToggleSwitchButton>
+                
+                        <StackPanel Grid.Row="9" Grid.Column="0" Name="TestPanel" Visibility="{Binding Visibility, ElementName=ExitTestModeButton}">
+                            <local:NoteAcceptorTestView x:Name="TestControl" DataContext="{Binding TestViewModel}" />
+                        </StackPanel>
 
                     </Grid>
                 </Grid>
@@ -375,46 +380,60 @@
                 </ListBox>
             </Grid>
 
-            <!-- 2 rows of buttons. -->
-            <Grid Grid.Row="2" Grid.Column="0" Margin="0 15 0 0" VerticalAlignment="Bottom">
+            <!-- Main grid row 2 consists of 4 rows of buttons. -->
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0,15,0,0" VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Row="0" Grid.Column="0" Name="SelfTestButton"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
+                        Visibility="{Binding SelfTestButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+                        IsEnabled="{Binding SelfTestButtonEnabled}" 
+                        Command="{Binding SelfTestButtonCommand}"/>
+                <Button Grid.Row="0" Grid.Column="1" 
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}" 
+                        Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+                        IsEnabled="{Binding SelfTestButtonEnabled}" 
+                        Command="{Binding SelfTestClearButtonCommand}" />
 
-                <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <Button Name="SelfTestButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
-                            Visibility="{Binding SelfTestButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
-                            IsEnabled="{Binding SelfTestButtonEnabled}" 
-                            Command="{Binding SelfTestButtonCommand}"/>
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}" 
-                            Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
-                            IsEnabled="{Binding SelfTestButtonEnabled}" 
-                            Command="{Binding SelfTestClearButtonCommand}" />
+                <Button Grid.Row="1" Grid.Column="0"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectButton}}"
+                        Visibility="{Binding InspectButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+                        extensions:FocusExtension.IsFocused="{Binding InspectButtonFocused}"
+                        Command="{Binding InspectButtonCommand}" />
 
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectButton}}"
-                            Visibility="{Binding InspectButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
-                            extensions:FocusExtension.IsFocused="{Binding InspectButtonFocused}"
-                            Command="{Binding InspectButtonCommand}" />
+                <Button Grid.Row="2" Grid.Column="0" 
+                        IsEnabled="{Binding ReturnButtonEnabled}" 
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReturnButton}}"
+                        Visibility="{Binding ReturnButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+                        Command="{Binding ReturnButtonCommand}" />
+                <Button Grid.Row="2" Grid.Column="1" 
+                        IsEnabled="{Binding StackButtonEnabled}" 
+                        Command="{Binding StackButtonCommand}"
+                        Visibility="{Binding StackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackButton}}" />
 
-                    <Button IsEnabled="{Binding ReturnButtonEnabled}" 
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReturnButton}}"
-                            Visibility="{Binding ReturnButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
-                            Command="{Binding ReturnButtonCommand}" />
-                    <Button IsEnabled="{Binding StackButtonEnabled}" 
-                            Command="{Binding StackButtonCommand}"
-                            Visibility="{Binding StackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackButton}}" />
-                </StackPanel>
-
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorTest}}" 
-                            Command="{Binding NoteAcceptorTestCommand}"
-                            IsEnabled="{Binding TestModeEnabled}" />
-                    <Button Margin="0 15 0 0"
+                <StackPanel Grid.Row="3" Grid.Column="0"
+                            Orientation="Horizontal"
                             HorizontalAlignment="Left"
-                            Name="WarningButton"
-                            Style="{StaticResource MonacoWarningButton}"
+                            Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}">
+                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorTest}}" 
+                            Command="{Binding ToggleTestModeCommand}"
+                            Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                            IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Name="ExitTestModeButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitNoteAcceptorTest}}" 
+                            Command="{Binding ToggleTestModeCommand}"
+                            Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    <Button Margin="0 15 0 0" HorizontalAlignment="Left"
+                            Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
                             Command="{Binding ShowInfoPopupCommand}"
                             Visibility="{Binding TestModeToolTipDisabled, Converter={StaticResource TrueHiddenFalseVisible}}">
                         <Button.CommandParameter>

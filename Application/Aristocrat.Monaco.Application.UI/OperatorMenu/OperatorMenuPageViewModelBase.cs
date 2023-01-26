@@ -196,7 +196,7 @@
             }
         }
 
-        public bool TestModeEnabled
+        public virtual bool TestModeEnabled
         {
             get => _testModeEnabled & TestModeEnabledSupplementary;
             set
@@ -311,7 +311,7 @@
             }
         }
 
-        public bool PrinterButtonsEnabled => PrinterButtonsEnabledInternal && PrintButtonAccessEnabled;
+        public virtual bool PrinterButtonsEnabled => PrinterButtonsEnabledInternal && PrintButtonAccessEnabled;
 
         public bool PrintCurrentPageButtonVisible { get; private set; }
 
@@ -636,7 +636,10 @@
                 {
                     Logger.Error("Error while printing", ex?.InnerExceptions[0]);
                     EventBus.Publish(new OperatorMenuPrintJobCompletedEvent());
-                    if (isDiagnostic) EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
+                    if (isDiagnostic)
+                    {
+                        EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
+                    }
                 });
         }
 

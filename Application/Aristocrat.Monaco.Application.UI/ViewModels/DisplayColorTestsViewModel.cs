@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Media;
+    using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
 
+    [CLSCompliant(false)]
     public class DisplayColorTestsViewModel
     {
         private static readonly IReadOnlyCollection<Color> GrayScaleColors =
@@ -21,8 +23,13 @@
 
         private static readonly IReadOnlyCollection<Color> WhitePurity = new List<Color> { Colors.White };
 
-        public DisplayColorTestsViewModel()
+        private readonly IInspectionService _reporter;
+        private TestData _selectedTest;
+
+        public DisplayColorTestsViewModel(IInspectionService reporter)
         {
+            _reporter = reporter;
+
             SelectedTest = ColorTests.First();
         }
 
@@ -58,7 +65,15 @@
             }
         };
 
-        public TestData SelectedTest { get; set; }
+        public TestData SelectedTest
+        {
+            get => _selectedTest;
+            set
+            {
+                _selectedTest = value;
+                _reporter?.SetTestName($"Colors Test: {_selectedTest.Name}");
+            }
+        }
 
         private static string Localize(string key)
         {

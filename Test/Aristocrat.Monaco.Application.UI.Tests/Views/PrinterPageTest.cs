@@ -134,7 +134,7 @@
 
         private void InitTarget()
         {
-            _target = new PrinterViewModel();
+            _target = new PrinterViewModel(false);
             SetupEventSubscriptionMocks();
             _target.LoadedCommand.Execute(null);
         }

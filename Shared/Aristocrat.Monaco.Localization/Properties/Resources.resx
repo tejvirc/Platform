@@ -1127,6 +1127,10 @@ Max: Should be less than the Large Win Limit</value>
     <value>Checking Initial Configuration</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
+  <data name="CheckingInspection" xml:space="preserve">
+    <value>Checking Inspection</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
   <data name="ClaimInterfaceText" xml:space="preserve">
     <value>Claiming interface.</value>
     <comment>Aristocrat.Monaco.Application</comment>
@@ -5943,6 +5947,10 @@ Do you really want to do partial reset?</value>
     <value>Running Configuration Wizard</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
+  <data name="RunningInspectionWizard" xml:space="preserve">
+    <value>Running Inspection Wizard</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
   <data name="RuntimePackageDescription" xml:space="preserve">
     <value>Runtime Package</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
@@ -9759,8 +9767,8 @@ See manual for details</value>
     <value>Master Sound Volume</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="SoundTest" xml:space="preserve">
-    <value>Sound Test</value>
+  <data name="EnterSoundTest" xml:space="preserve">
+    <value>Enter Sound Test</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="NoCustomSapLevelsAdded" xml:space="preserve">
@@ -11629,6 +11637,38 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="TouchCalibrateWait" xml:space="preserve">
     <value>Please Wait...</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Inspection" xml:space="preserve">
+    <value>Inspection</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExitSoundTest" xml:space="preserve">
+    <value>Exit Sound Test</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExitNoteAcceptorTest" xml:space="preserve">
+    <value>Exit Note Acceptor Test</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ReportFailure" xml:space="preserve">
+    <value>Report Failure</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectionSummaryTitle" xml:space="preserve">
+    <value>Inspection Summary</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Untested" xml:space="preserve">
+    <value>Untested</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ClearConfig" xml:space="preserve">
+    <value>Clear Config</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="BellEnabled" xml:space="preserve">

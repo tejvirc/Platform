@@ -18,7 +18,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new BeagleBonePageViewModel();
+            return new BeagleBonePageViewModel(IsWizardPage);
         }
 
         public override bool GetVisible()
