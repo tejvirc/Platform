@@ -8,8 +8,6 @@
     {
         protected IAuthorizationProvider AuthorizationProvider;
 
-        public EventHandler<EventArgs> MessageReceived { get; set; }
-
         public int MessageTimeoutMs { get; set; } = 30000;
 
         public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(

@@ -10,6 +10,7 @@
     public class LoggingInterceptor : Interceptor
     {
         protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         public EventHandler<EventArgs> MessageReceived { get; set; }
 
         public void OnMessageReceived()
@@ -49,8 +50,8 @@
         {
             var call = continuation(context);
             return new AsyncDuplexStreamingCall<TRequest, TResponse>(
-                call.RequestStream,
-                call.ResponseStream,
+                new ClientClientStreamingLogger<TRequest>(call.RequestStream),
+                new ClientServerStreamingLogger<TResponse>(call.ResponseStream, OnMessageReceived),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -64,7 +65,7 @@
         {
             var call = continuation(request, context);
             return new AsyncServerStreamingCall<TResponse>(
-                call.ResponseStream,
+                new ClientServerStreamingLogger<TResponse>(call.ResponseStream, OnMessageReceived),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -77,7 +78,7 @@
         {
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
-                call.RequestStream,
+                new ClientClientStreamingLogger<TRequest>(call.RequestStream),
                 LogResponse(call.ResponseAsync),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
