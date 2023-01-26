@@ -47,8 +47,6 @@
             container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
             container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
 
-            container.RegisterSingleton<BingoClientInterceptor>();
-            container.RegisterSingleton<ProgressiveClientInterceptor>();
             container.RegisterSingleton<BingoClientAuthorizationInterceptor>();
             container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
             container.RegisterSingleton<LoggingInterceptor>();

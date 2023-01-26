@@ -10,8 +10,12 @@
     public class LoggingInterceptor : Interceptor
     {
         protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
         public EventHandler<EventArgs> MessageReceived { get; set; }
+
+        public void OnMessageReceived()
+        {
+            MessageReceived?.Invoke(this, EventArgs.Empty);
+        }
 
         public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
             TRequest request,
@@ -73,7 +77,7 @@
         {
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
-                new ProgressiveClientClientStreamingLogger<TRequest>(call.RequestStream),
+                call.RequestStream,
                 LogResponse(call.ResponseAsync),
                 call.ResponseHeadersAsync,
                 call.GetStatus,

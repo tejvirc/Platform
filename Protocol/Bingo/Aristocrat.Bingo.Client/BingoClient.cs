@@ -11,10 +11,9 @@
     {
         public BingoClient(
             IClientConfigurationProvider configurationProvider,
-            BingoClientInterceptor communicationInterceptor,
             BingoClientAuthorizationInterceptor authorizationInterceptor,
             LoggingInterceptor loggingInterceptor)
-            : base(configurationProvider, communicationInterceptor, authorizationInterceptor, loggingInterceptor)
+            : base(configurationProvider, authorizationInterceptor, loggingInterceptor)
         {
         }
 

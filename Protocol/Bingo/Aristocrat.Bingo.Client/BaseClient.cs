@@ -13,7 +13,6 @@
     {
         protected readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         protected readonly IClientConfigurationProvider ConfigurationProvider;
-        protected readonly BaseClientInterceptor CommunicationInterceptor;
         protected readonly BaseClientAuthorizationInterceptor ClientAuthorizationInterceptor;
         protected readonly LoggingInterceptor LoggingInterceptor;
 
@@ -24,7 +23,6 @@
 
         protected BaseClient(
             IClientConfigurationProvider configurationProvider,
-            BaseClientInterceptor communicationInterceptor,
             BaseClientAuthorizationInterceptor authorizationInterceptor,
             LoggingInterceptor loggingInterceptor)
         {
@@ -32,9 +30,8 @@
                 configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             ClientAuthorizationInterceptor = authorizationInterceptor ?? throw new ArgumentNullException(nameof(authorizationInterceptor));
             LoggingInterceptor = loggingInterceptor ?? throw new ArgumentNullException(nameof(loggingInterceptor));
-            CommunicationInterceptor = communicationInterceptor ?? throw new ArgumentNullException(nameof(communicationInterceptor));
 
-            CommunicationInterceptor.MessageReceived += OnMessageReceived;
+            LoggingInterceptor.MessageReceived += OnMessageReceived;
         }
 
         public abstract string FirewallRuleName { get; }
@@ -78,7 +75,7 @@
                 await Stop();
                 _channel = CreateChannel();
                 var configuration = ConfigurationProvider.Configuration;
-                var callInvoker = _channel.Intercept(ClientAuthorizationInterceptor, CommunicationInterceptor, LoggingInterceptor);
+                var callInvoker = _channel.Intercept(ClientAuthorizationInterceptor, LoggingInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
                     await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout);
@@ -150,7 +147,7 @@
 
             if (disposing)
             {
-                CommunicationInterceptor.MessageReceived -= OnMessageReceived;
+                LoggingInterceptor.MessageReceived -= OnMessageReceived;
                 Stop().ContinueWith(
                     _ => Logger.Error($"Stopping {GetType().Name} failed while disposing"),
                     TaskContinuationOptions.OnlyOnFaulted);

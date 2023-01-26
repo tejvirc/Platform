@@ -74,7 +74,7 @@
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
-                new ProgressiveClientClientStreamingLogger<TRequest>(call.RequestStream),
+                call.RequestStream,
                 call.ResponseAsync,
                 call.ResponseHeadersAsync,
                 call.GetStatus,

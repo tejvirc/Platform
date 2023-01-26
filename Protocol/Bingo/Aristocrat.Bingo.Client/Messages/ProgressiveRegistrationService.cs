@@ -44,7 +44,7 @@
 
         public async Task<RegistrationResults> RegisterClient(ProgressiveRegistrationMessage message, CancellationToken token)
         {
-            Logger.Debug($"RegisterClient called, MachineSerial={message.MachineSerial}, GameTitleId={message.GameTitleId}");
+            Logger.Debug($"Progressive RegisterClient called, MachineSerial={message.MachineSerial}, GameTitleId={message.GameTitleId}");
 
             var request = new ProgressiveInfoRequest
             {
