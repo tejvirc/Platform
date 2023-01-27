@@ -167,6 +167,7 @@
         {
             _currentCredits = Credits.Sum(x => x.Value);
             RaisePropertyChanged(nameof(KeyedOnInputEnabled));
+            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void ConfirmKeyOnCreditsPressed(object obj)
