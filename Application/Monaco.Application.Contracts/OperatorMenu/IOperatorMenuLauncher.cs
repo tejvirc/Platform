@@ -24,6 +24,11 @@
         bool IsOperatorKeyDisabled { get; }
 
         /// <summary>
+        ///     Gets a value indicating whether the operator menu is currently exiting
+        /// </summary>
+        bool Exiting { get; }
+
+        /// <summary>
         ///     Instructs the implementation to ignore operator key usage.
         /// </summary>
         /// <param name="enabler">The object that can re-enable key usage.</param>

@@ -95,6 +95,9 @@
         public bool IsOperatorKeyDisabled => _keyEnablers.Count > 0;
 
         /// <inheritdoc />
+        public bool Exiting { get; private set; }
+
+        /// <inheritdoc />
         public void DisableKey(Guid enabler)
         {
             _keyEnablers.TryAdd(enabler, DateTime.UtcNow);
@@ -130,6 +133,7 @@
 
         public void Close()
         {
+            Exiting = true;
             _openCloseQueue.Enqueue(false);
             Logger.Info($"Adding Close to Queue.  Queue depth: {_openCloseQueue.Count}");
             CheckQueue();
@@ -143,6 +147,7 @@
             {
                 var bus = ServiceManager.GetInstance().TryGetService<IEventBus>();
                 bus?.Publish(new OperatorMenuExitingEvent());
+                
 
                 // not sure the timeout here is right--if this event isn't signaled, something is likely really wrong.
                 _exitAllowed?.WaitOne(TimeSpan.FromSeconds(Timeout));
@@ -156,6 +161,7 @@
                 var currentOperatorId = (string)propertyManager.GetProperty(ApplicationConstants.CurrentOperatorId, string.Empty);
                 bus?.Publish(new OperatorMenuExitedEvent(currentOperatorId));
             }
+            Exiting = false;
         }
 
         public bool Show()

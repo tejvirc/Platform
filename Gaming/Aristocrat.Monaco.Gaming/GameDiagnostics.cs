@@ -9,6 +9,7 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -216,7 +217,7 @@
                 _turnOperatorKeyWhenGameExits = false;
                 _operatorMenu.TurnOperatorKey();
             }
-            else if (_operatorMenu.IsShowing)
+            else if (_operatorMenu.IsShowing && !_operatorMenu.Exiting)
             {
                 _operatorMenu.Show();
             }
