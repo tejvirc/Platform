@@ -69,6 +69,7 @@
             EventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
             EventBus.Subscribe<InspectionResultsChangedEvent>(this, Handle);
 
+            PrintButtonCommand = new ActionCommand<object>(PrintButton_Click);
             ClearConfigButtonClicked = new ActionCommand<object>(ClearConfigButton_Click);
             ReportButtonClicked = new ActionCommand<object>(ReportButton_Click);
             BackButtonClicked = new ActionCommand<object>(BackButton_Click);
@@ -76,6 +77,8 @@
 
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(BeginConfigWizardPages));
         }
+
+        public ICommand PrintButtonCommand { get; set; }
 
         public ICommand ClearConfigButtonClicked { get; }
 
@@ -134,7 +137,7 @@
 
                     var category = DecipherHardwareDiagnosticDeviceCategory(value.GetType());
                     Inspection?.SetDeviceCategory(category);
-                    IsReportFailureVisible = category != HardwareDiagnosticDeviceCategory.Unknown;
+                    IsReportFailureVisible = category != HardwareDiagnosticDeviceCategory.Unknown && category != HardwareDiagnosticDeviceCategory.Machine;
                 }
 
                 if (_lastWizardSelectedIndex > 0)
@@ -270,7 +273,7 @@
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
-                if (evt.InspectionResult is null || evt.InspectionResult.Category == HardwareDiagnosticDeviceCategory.Unknown)
+                if (evt.InspectionResult is null || !IsReportFailureVisible)
                 {
                     ReportText = string.Empty;
                     return;
@@ -368,6 +371,11 @@
             storage.Clear(PersistenceLevel.Static);
 
             EventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+        }
+
+        private void PrintButton_Click(object obj)
+        {
+            EventBus.Publish(new PrintButtonClickedEvent());
         }
 
         private void ReportButton_Click(object o)
