@@ -458,18 +458,8 @@
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.BiosVersion}}" />
             <TextBlock x:Name="BiosVersionTextBlock" 
                        Grid.Row="9" 
-                       Grid.Column="1">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding BiosVersion, Mode=OneWay, TargetNullValue=''}" Value="">
-                                <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                        <Setter Property="Text" Value="{Binding BiosVersion, Mode=OneWay}"/>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+                       Grid.Column="1"
+                       Text="{Binding BiosVersion, Mode=OneWay}" />
 
             <!-- Fpga Version Section -->
             <Label x:Name="FpgaVersionLabel" 
@@ -478,18 +468,8 @@
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.FpgaVersion}}" />
             <TextBlock x:Name="FpgaVersionTextBlock" 
                        Grid.Row="10" 
-                       Grid.Column="1">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding FpgaVersion, Mode=OneWay, TargetNullValue=''}" Value="">
-                                <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                        <Setter Property="Text" Value="{Binding FpgaVersion, Mode=OneWay}"/>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+                       Grid.Column="1"
+                       Text="{Binding FpgaVersion, Mode=OneWay}" />
 
             <!-- Windows Version Section -->
             <Label x:Name="WindowsLabel" 
