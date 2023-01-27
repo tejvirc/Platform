@@ -78,7 +78,7 @@
                 // Base %, 4 bytes. Average of theoretical payback of max bet across all games, transmitted without decimal (e.g. "90.91%" would be transmitted as "9091").
                 // RTP is only the average available to the player
                 var theoreticalRtp = 
-                    activeGames.Average(game => game.WagerCategories.FirstOrDefault(wc => wc.MaxWagerCredits == game.MaximumWagerCredits)?.TheoPaybackPercent ?? 0).ToMeter();
+                    activeGames.Average(game => game.WagerCategories.LastOrDefault(wc => wc.MaxWagerCredits == game.MaximumWagerCredits)?.TheoPaybackPercent ?? 0).ToMeter();
                 response.TheoreticalRtpPercent = $"{(uint)theoreticalRtp % (uint)Math.Pow(10, 4):D4}";
             }
 
@@ -102,7 +102,7 @@
             response.PaytableId = theGame.PaytableName;
 
             // the wager category with max bet
-            var maxWagerCategory = theGame.WagerCategories.FirstOrDefault(wc => wc.MaxWagerCredits == theGame.MaximumWagerCredits);
+            var maxWagerCategory = theGame.WagerCategories.LastOrDefault(wc => wc.MaxWagerCredits == theGame.MaximumWagerCredits);
 
             // Base %, 4 bytes. theoretical payback of max bet, transmitted without decimal (e.g. "90.91%" would be transmitted as "9091").
             var theoreticalRtp = (maxWagerCategory?.TheoPaybackPercent ?? 0M).ToMeter();
