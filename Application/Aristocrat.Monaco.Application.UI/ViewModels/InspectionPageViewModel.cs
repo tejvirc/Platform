@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
@@ -135,8 +136,7 @@
                 {
                     PageTitle = _currentPageLoader.PageName;
 
-                    var category = DecipherHardwareDiagnosticDeviceCategory(value.GetType());
-                    Inspection?.SetDeviceCategory(category);
+                    var category = Inspection?.SetCurrentPageLoader(_currentPageLoader) ?? HardwareDiagnosticDeviceCategory.Unknown;
                     IsReportFailureVisible = category != HardwareDiagnosticDeviceCategory.Unknown && category != HardwareDiagnosticDeviceCategory.Machine;
                 }
 

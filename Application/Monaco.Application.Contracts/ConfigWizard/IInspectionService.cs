@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using HardwareDiagnostics;
     using Kernel;
+    using OperatorMenu;
 
     /// <summary>
     ///     Defines interface for inspection details
@@ -16,10 +17,11 @@
         ICollection<InspectionResultData> Results { get; }
 
         /// <summary>
-        ///     Set up the device category for following tests.
+        ///     Set up the current page loader.
         /// </summary>
-        /// <param name="category">Device category</param>
-        void SetDeviceCategory(HardwareDiagnosticDeviceCategory category);
+        /// <param name="loader">Current page loader</param>
+
+        HardwareDiagnosticDeviceCategory SetCurrentPageLoader(IOperatorMenuPageLoader loader);
 
         /// <summary>
         ///     Set the firmware version of current category.

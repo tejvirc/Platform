@@ -88,6 +88,7 @@
                       SelectedItem="{Binding Sound}"
                       Style="{StaticResource OptionComboStyle}"/>
             <Button Content="{iconPacks:PackIconMaterial Kind=Play, Width=10, Height=10}" 
+                    Name="PlayButton"
                     Command="{Binding PlayCommand}">
                 <Button.Style>
                     <Style TargetType="Button"
@@ -103,6 +104,7 @@
                 </Button.Style>
             </Button>
             <Button Content="{iconPacks:PackIconMaterial Kind=Stop, Width=10, Height=10}" 
+                    Name="StopButton"
                     Command="{Binding StopCommand}"
                     Style="{StaticResource SoundButtonStyle}"
                     RenderTransformOrigin="1.48,0.567"/>
@@ -110,6 +112,7 @@
 
         <Label HorizontalAlignment="Left" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundVolumeTest}}"/>
         <ComboBox ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
+                  Name="SoundLevelComboBox"
                   SelectedIndex="0"
                   DisplayMemberPath="Description"
                   SelectedValuePath="Value"
@@ -136,7 +139,9 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="1" IsEnabled="{Binding FrontLeftSpeaker, Mode=TwoWay}">
                     <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FrontLeftText}}"/>
-                    <Button Command="{Binding PlayCommandOnFrontLeftSpeaker}" CommandParameter="{DynamicResource FrontLeft}" >
+                    <Button Command="{Binding PlayCommandOnFrontLeftSpeaker}"
+                            CommandParameter="{DynamicResource FrontLeft}" 
+                            Name="FrontLeftSpeakerButton">
                         <Button.Style>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource SpeakerButtonStyle}">
@@ -156,7 +161,9 @@
 
                 <StackPanel  Grid.Row="1" Grid.Column="2" IsEnabled="{Binding CenterSpeaker, Mode=TwoWay}">
                     <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.CenterText}}"/>
-                    <Button Command="{Binding PlayCommandOnCenterSpeaker}" CommandParameter="{DynamicResource Center}">
+                    <Button Command="{Binding PlayCommandOnCenterSpeaker}"
+                            CommandParameter="{DynamicResource Center}"
+                            Name="CenterSpeakerButton">
                         <Button.Style>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource SpeakerButtonStyle}">
@@ -176,7 +183,9 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="3" IsEnabled="{Binding FrontRightSpeaker, Mode=TwoWay}">
                     <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FrontRightText}}"/>
-                    <Button Command="{Binding PlayCommandOnFrontRightSpeaker}" CommandParameter="{DynamicResource FrontRight}">
+                    <Button Command="{Binding PlayCommandOnFrontRightSpeaker}"
+                            CommandParameter="{DynamicResource FrontRight}"
+                            Name="FrontRightSpeakerButton">
                         <Button.Style>
                             <Style TargetType="Button"
                                BasedOn="{StaticResource SpeakerButtonStyle}">
@@ -195,7 +204,9 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" IsEnabled="{Binding SideLeftSpeaker, Mode=TwoWay}">
-                    <Button Command="{Binding PlayCommandOnSideLeftSpeaker}" CommandParameter="{DynamicResource SideLeft}">
+                    <Button Command="{Binding PlayCommandOnSideLeftSpeaker}"
+                            CommandParameter="{DynamicResource SideLeft}"
+                            Name="SideLeftSpeakerButton">
                         <Button.Style>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource SpeakerButtonStyle}">
@@ -215,7 +226,9 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="4" IsEnabled="{Binding SideRightSpeaker, Mode=TwoWay}">
-                    <Button Command="{Binding PlayCommandOnSideRightSpeaker}" CommandParameter="{DynamicResource SideRight}" >
+                    <Button Command="{Binding PlayCommandOnSideRightSpeaker}"
+                            CommandParameter="{DynamicResource SideRight}" 
+                            Name="SideRightSpeakerButton">
                         <Button.Style>
                             <Style TargetType="Button"
                                BasedOn="{StaticResource SpeakerButtonStyle}">
@@ -235,13 +248,16 @@
                 </StackPanel>
 
                 <Button Grid.Row="3" Grid.Column="2"
+                        Name="LowFrequencySpeakerButton"
                         IsEnabled="{Binding LowFrequencySpeaker, Mode=TwoWay}"
                         Command="{Binding PlayCommandOnLowFrequencySpeaker}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.LowFrequencyText}}" 
                         CommandParameter="{DynamicResource LowFrequency}" Width="35" Height="20" MinWidth="0" MinHeight="0" Padding="0" ScrollViewer.CanContentScroll="True" Margin="0" Grid.IsSharedSizeScope="True"/>
 
                 <StackPanel Grid.Row="4" Grid.Column="1" IsEnabled="{Binding RearLeftSpeaker, Mode=TwoWay}">
-                    <Button Command="{Binding PlayCommandOnRearLeftSpeaker}" CommandParameter="{DynamicResource RearLeft}" >
+                    <Button Command="{Binding PlayCommandOnRearLeftSpeaker}"
+                            CommandParameter="{DynamicResource RearLeft}" 
+                            Name="RearLeftSpeakerButton">
                         <Button.Style>
                             <Style TargetType="Button"
                                BasedOn="{StaticResource SpeakerButtonStyle}">
@@ -261,7 +277,9 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="4" Grid.Column="3" IsEnabled="{Binding RearRightSpeaker, Mode=TwoWay}">
-                    <Button Command="{Binding PlayCommandOnRearRightSpeaker}" CommandParameter="{DynamicResource RearRight}" >
+                    <Button Command="{Binding PlayCommandOnRearRightSpeaker}"
+                            CommandParameter="{DynamicResource RearRight}" 
+                            Name="RearRightSpeakerButton">
                         <Button.Style>
                             <Style TargetType="Button"
                                BasedOn="{StaticResource SpeakerButtonStyle}">

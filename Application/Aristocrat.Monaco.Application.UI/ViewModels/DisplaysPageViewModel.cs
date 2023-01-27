@@ -33,6 +33,7 @@
     public class DisplaysPageViewModel : InspectionWizardViewModelBase
     {
         private static readonly TimeSpan IdentifyWindowDisplayTime = TimeSpan.FromSeconds(3);
+        private static readonly TimeSpan IdentifyWindowDisplayTimeForInspection = TimeSpan.FromSeconds(1);
 
         private readonly object _lock = new object();
 
@@ -439,7 +440,8 @@
                     };
 
                     screenIdentifyWindow.Show();
-                    await Task.Delay(IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
+                    var isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+                    await Task.Delay(isInspection ? IdentifyWindowDisplayTimeForInspection : IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
                     screenIdentifyWindow.Close();
                     screenIdentifyWindow = null;
                 }

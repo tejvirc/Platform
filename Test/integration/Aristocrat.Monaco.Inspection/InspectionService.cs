@@ -2,23 +2,43 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Windows;
+    using System.Windows.Automation.Peers;
+    using System.Windows.Automation.Provider;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Xml.Serialization;
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.HardwareDiagnostics;
+    using Application.Contracts.OperatorMenu;
     using Kernel;
     using Kernel.Contracts;
     using log4net;
+    using MahApps.Metro.Controls;
+    using MVVM;
+    using Test.Automation;
+    using Timer = System.Timers.Timer;
 
     public class InspectionService : IInspectionService, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly string InspectorName = "QC Inspection Tool";
+        private static readonly string AutomationFilename = "AutomationInstructions.xml";
 
         private readonly IEventBus _events;
         private readonly IPropertiesManager _properties;
-        private readonly Dictionary<HardwareDiagnosticDeviceCategory, InspectionResultData> _results = new Dictionary<HardwareDiagnosticDeviceCategory, InspectionResultData>();
+        private readonly Dictionary<HardwareDiagnosticDeviceCategory, InspectionResultData> _results = new ();
 
+        private InspectionAutomationConfiguration _automationConfig;
+        private InspectionAutomationConfigurationPageAutomation _currentAutomationPage;
+        private int _automationActionCounter;
+        private Timer _automationTimer;
+
+        private IOperatorMenuPageLoader _currentPageLoader;
         private HardwareDiagnosticDeviceCategory _currentCategory = HardwareDiagnosticDeviceCategory.Unknown;
         private string _currentTestCondition;
         private bool _isDisposed;
@@ -44,17 +64,24 @@
             Logger.Debug($"Set IsInspectionOnly => true, InspectionNameAndVersion={inspectorNameAndVersion}");
             _properties.SetProperty(KernelConstants.IsInspectionOnly, true);
             _properties.SetProperty(KernelConstants.InspectionNameAndVersion, inspectorNameAndVersion);
+
+            _automationTimer = new Timer { AutoReset = false };
+            _automationTimer.Elapsed += (_, _) => StartCurrentAction();
+
+            _automationConfig = (InspectionAutomationConfiguration)new XmlSerializer(typeof(InspectionAutomationConfiguration))
+                .Deserialize(new StreamReader(AutomationFilename));
         }
 
         public ICollection<InspectionResultData> Results => _results.Values;
 
-        public void SetDeviceCategory(HardwareDiagnosticDeviceCategory category)
+        public HardwareDiagnosticDeviceCategory SetCurrentPageLoader(IOperatorMenuPageLoader loader)
         {
-            _currentCategory = category;
+            _currentPageLoader = loader;
+            _currentCategory = DecipherHardwareDiagnosticDeviceCategory(loader.GetType());
 
             if (!_results.ContainsKey(_currentCategory))
             {
-                _results.Add(category, new InspectionResultData
+                _results.Add(_currentCategory, new InspectionResultData
                 {
                     Category = _currentCategory,
                     Status = InspectionPageStatus.Untested,
@@ -66,6 +93,10 @@
             _currentTestCondition = null;
             Logger.Debug($"SetDeviceCategory {CurrentData.Category}.");
             RaiseChangeEvent();
+
+            TryAutomationPage();
+
+            return _currentCategory;
         }
 
         public void SetFirmwareVersion(string firmwareVersion)
@@ -125,6 +156,7 @@
                     // non-managed here
                 }
 
+                _automationTimer?.Dispose();
                 _events.UnsubscribeAll(this);
                 _isDisposed = true;
             }
@@ -135,6 +167,316 @@
         private void RaiseChangeEvent()
         {
             _events.Publish(new InspectionResultsChangedEvent(CurrentData));
+        }
+
+        private void TryAutomationPage()
+        {
+            _currentAutomationPage = _automationConfig.PageAutomation.ToList()
+                .FirstOrDefault(p => (HardwareDiagnosticDeviceCategory)Enum.Parse(typeof(HardwareDiagnosticDeviceCategory), p.category) == CurrentData.Category);
+
+            if (_currentAutomationPage != null && _currentAutomationPage.Action != null && _currentAutomationPage.Action.Length > 0)
+            {
+                _automationActionCounter = 0;
+                TryNextAutomationAction(false);
+            }
+            else
+            {
+                _currentAutomationPage = null;
+            }
+        }
+
+        private void TryNextAutomationAction(bool skipDelay)
+        {
+            if (_automationActionCounter >= _currentAutomationPage.Action.Length)
+            {
+                return;
+            }
+
+            var delay = _currentAutomationPage.Action[_automationActionCounter].waitMs;
+            if (skipDelay || delay <= 0)
+            {
+                delay = 1;
+            }
+
+            _automationTimer.Interval = delay;
+            _automationTimer.Start();
+        }
+
+        private void StartCurrentAction()
+        {
+            _automationTimer.Stop();
+
+            PerformCurrentAction(_currentAutomationPage?.Action[_automationActionCounter++]);
+        }
+
+        private void FinishCurrentAction(bool performed)
+        {
+            Logger.Debug($"Action complete: {performed}");
+            TryNextAutomationAction(!performed);
+        }
+
+        private void PerformCurrentAction(InspectionAutomationConfigurationPageAutomationAction action)
+        {
+            Logger.Debug($"Automation event after {_automationTimer.Interval}ms: {_currentCategory}...{action.controlName}({action.parameter}),"
+                         + $" if {action.conditionViewModel}.{(!string.IsNullOrEmpty(action.conditionMethod) ? $"{action.conditionMethod}({action.conditionEnum})" : action.conditionProperty)}");
+
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    // Check if there's a condition attached to the instruction
+                    if (_currentPageLoader.Page is UserControl pageControl && IsConditionMet(action))
+                    {
+                        var searchControls = new List<DependencyObject>();
+                        if (action.useChildWindows)
+                        {
+                            var window = Window.GetWindow(pageControl);
+                            foreach (Window child in window?.OwnedWindows ?? new WindowCollection())
+                            {
+                                searchControls.Add(child);
+                            }
+                        }
+                        else
+                        {
+                            searchControls.Add(pageControl);
+                        }
+
+                        foreach (var searchControl in searchControls)
+                        {
+                            // Find the control and invoke it
+                            var button = WindowHelper.FindChild<Button>(searchControl, action.controlName);
+                            if (button is not null)
+                            {
+                                Logger.Debug($"Button invoke for {action.controlName}");
+                                if (!button.IsEnabled)
+                                {
+                                    Logger.Debug($"But Button {action.controlName} is disabled");
+                                    continue;
+                                }
+
+                                var peer = new ButtonAutomationPeer(button);
+                                var invokeProvider = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                                invokeProvider?.Invoke();
+                                continue;
+                            }
+
+                            var toggle = WindowHelper.FindChild<ToggleButton>(searchControl, action.controlName);
+                            if (toggle is not null)
+                            {
+                                Logger.Debug($"ToggleButton invoke for {action.controlName}");
+                                if (!toggle.IsEnabled)
+                                {
+                                    Logger.Debug($"But ToggleButton {action.controlName} is disabled");
+                                    continue;
+                                }
+
+                                var peer = new ToggleButtonAutomationPeer(toggle);
+                                var toggleProvider = peer.GetPattern(PatternInterface.Toggle) as IToggleProvider;
+                                toggleProvider?.Toggle();
+                                continue;
+                            }
+
+                            var comboBox = WindowHelper.FindChild<ComboBox>(searchControl, action.controlName);
+                            if (comboBox is not null)
+                            {
+                                Logger.Debug($"ComboBox select {action.controlName}|{action.parameter}");
+                                if (!comboBox.IsEnabled)
+                                {
+                                    Logger.Debug($"But ComboBox {action.controlName} is disabled");
+                                    continue;
+                                }
+
+                                var peer = new ComboBoxAutomationPeer(comboBox);
+                                var expander = peer.GetPattern(PatternInterface.ExpandCollapse) as IExpandCollapseProvider;
+                                expander?.Expand();
+
+                                if (!SelectorPeerSelect(peer, action))
+                                {
+                                    SelectorDeselect(comboBox);
+                                }
+
+                                expander?.Collapse();
+                                continue;
+                            }
+
+                            var listBox = WindowHelper.FindChild<ListBox>(searchControl, action.controlName);
+                            if (listBox is not null)
+                            {
+                                Logger.Debug($"ListBox select {action.controlName}|{action.parameter}");
+                                if (!listBox.IsEnabled)
+                                {
+                                    Logger.Debug($"But ListBox {action.controlName} is disabled");
+                                    continue;
+                                }
+
+                                var peer = new ListBoxAutomationPeer(listBox);
+
+                                if (!SelectorPeerSelect(peer, action))
+                                {
+                                    SelectorDeselect(listBox);
+                                }
+                                continue;
+                            }
+
+                            Logger.Debug($"Control {action.controlName} not found, or not visible");
+                        }
+
+                        FinishCurrentAction(true);
+                    }
+                });
+        }
+
+        private bool SelectorPeerSelect(
+            SelectorAutomationPeer peer,
+            InspectionAutomationConfigurationPageAutomationAction action)
+        {
+            foreach (var child in peer.GetChildren() ?? new List<AutomationPeer>())
+            {
+                if (child is ListBoxItemAutomationPeer item)
+                {
+                    if (!IsMatchingListBoxSelection(action, item))
+                    {
+                        continue;
+                    }
+
+                    var selector = item.GetPattern(PatternInterface.SelectionItem) as ISelectionItemProvider;
+                    selector?.Select();
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void SelectorDeselect(Selector selector)
+        {
+            selector.SelectedItem = null;
+        }
+
+        private bool IsConditionMet(InspectionAutomationConfigurationPageAutomationAction action)
+        {
+            if (!string.IsNullOrEmpty(action.conditionProperty))
+            {
+                var (vmType, targetObject) = GetConditionTarget(action);
+                if (targetObject is null)
+                {
+                    return false;
+                }
+
+                var property = vmType.GetProperty(action.conditionProperty,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (property is null)
+                {
+                    Logger.Error($"Couldn't find condition property descriptor {action.conditionProperty} from {vmType}");
+                    return false;
+                }
+
+                var propertyVal = (bool)property.GetValue(targetObject);
+                Logger.Debug($"Property {action.conditionProperty} is {propertyVal}");
+                if (!propertyVal)
+                {
+                    FinishCurrentAction(false);
+                    Logger.Debug("No test; abort");
+                    return false;
+                }
+            }
+            else if (!string.IsNullOrEmpty(action.conditionMethod))
+            {
+                var (vmType, targetObject) = GetConditionTarget(action);
+                if (targetObject is null)
+                {
+                    return false;
+                }
+
+                var method = vmType.GetMethod(action.conditionMethod,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                    null, new Type[] { typeof(int) }, null);
+                if (method is null)
+                {
+                    Logger.Error($"Couldn't find condition method descriptor {action.conditionMethod}(int) from {vmType}");
+                    return false;
+                }
+
+                var methodVal = (bool)method.Invoke(targetObject, new object[] { action.conditionEnum });
+                Logger.Debug($"Method {action.conditionMethod}({action.conditionEnum}) returns {methodVal}");
+                if (!methodVal)
+                {
+                    FinishCurrentAction(false);
+                    Logger.Debug("No test; abort");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private (Type, object) GetConditionTarget(InspectionAutomationConfigurationPageAutomationAction action)
+        {
+            var vmType = _currentPageLoader.ViewModel.GetType();
+
+            object targetObject = _currentPageLoader.ViewModel;
+            if (!string.IsNullOrEmpty(action.conditionViewModel))
+            {
+                var subViewModelProperty = vmType.GetProperty(action.conditionViewModel,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (subViewModelProperty is null)
+                {
+                    Logger.Error($"Couldn't find property descriptor {action.conditionViewModel} from {vmType}");
+                    return (null, null);
+                }
+
+                var propertyObject = subViewModelProperty.GetValue(_currentPageLoader.ViewModel);
+                vmType = propertyObject.GetType();
+                targetObject = propertyObject;
+            }
+
+            return (vmType, targetObject);
+        }
+
+        private bool IsMatchingListBoxSelection(InspectionAutomationConfigurationPageAutomationAction action, ListBoxItemAutomationPeer item)
+        {
+            var itemType = item.Item?.GetType();
+            if (itemType is null)
+            {
+                Logger.Debug("Can't find item or its type");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(action.parameterProperty))
+            {
+                return ((string)item.Item).Contains(action.parameter);
+            }
+
+            var property = itemType.GetProperty(
+                action.parameterProperty,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (property is null)
+            {
+                Logger.Debug($"Can't find propertyinfo {item.Item.GetType()}.{action.parameterProperty}");
+                return false;
+            }
+
+            return ((string)property.GetValue(item.Item)).Contains(action.parameter);
+        }
+
+        private HardwareDiagnosticDeviceCategory DecipherHardwareDiagnosticDeviceCategory(Type type)
+        {
+            var shortTypeName = type.Name.ToUpper().Split('.').ToList().Last();
+            foreach (HardwareDiagnosticDeviceCategory category in Enum.GetValues(typeof(HardwareDiagnosticDeviceCategory)))
+            {
+                var categoryName = Enum.GetName(typeof(HardwareDiagnosticDeviceCategory), category) ?? "Unknown";
+                if (categoryName.EndsWith("s"))
+                {
+                    categoryName = categoryName.Substring(0, categoryName.Length - 1);
+                }
+
+                if (shortTypeName.StartsWith(categoryName.ToUpper()))
+                {
+                    return category;
+                }
+            }
+
+            return HardwareDiagnosticDeviceCategory.Unknown;
         }
     }
 }

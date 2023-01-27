@@ -14,6 +14,7 @@
     using Events;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
@@ -187,7 +188,7 @@
 
         protected override void OnLoaded()
         {
-            IsEdgeLightingAvailable = _edgeLightingController.IsDetected;
+            IsEdgeLightingAvailable = _edgeLightingController.IsDetected || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             InfoText = IsEdgeLightingAvailable
                 ? string.Empty
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);

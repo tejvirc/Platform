@@ -46,6 +46,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Application", "Application\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj", "{A2038B88-470A-424A-BAAB-5718FDC1218C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Application.UI", "Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj", "{6FB9FAF7-55F4-4211-814D-CCAA8BA180AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D89D0319-6CC4-47FD-92EC-9855898F02FF} = {D89D0319-6CC4-47FD-92EC-9855898F02FF}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Devices", "Devices", "{E5EFE08F-33C0-4930-9E02-3C9EB3EC9B88}"
 EndProject
@@ -88,6 +91,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.G2S.Common.Tests", "Test\Aristocrat.Monaco.G2S.Common.Tests\Aristocrat.Monaco.G2S.Common.Tests.csproj", "{7B143916-6F6C-4BAB-B781-3D21B43E362D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.G2S.Common", "Protocol\G2S\Aristocrat.Monaco.G2S.Common\Aristocrat.Monaco.G2S.Common.csproj", "{C1ACDB03-EECD-42F3-A0FB-7D7D349BA079}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D89D0319-6CC4-47FD-92EC-9855898F02FF} = {D89D0319-6CC4-47FD-92EC-9855898F02FF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RenderPDL", "Hardware\TicketContent\RenderPDL\RenderPDL\RenderPDL.csproj", "{96741938-506F-4631-A481-C04896EF0D14}"
 EndProject

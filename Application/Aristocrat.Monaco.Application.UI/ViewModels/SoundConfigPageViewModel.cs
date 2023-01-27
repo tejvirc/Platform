@@ -101,8 +101,6 @@
 
         public bool IsAlertConfigurable { get; private set; }
 
-        public SoundTestPageViewModel TestViewModel { get; } = new SoundTestPageViewModel();
-
         public bool InTestMode
         {
             get => _inTestMode;
@@ -249,6 +247,8 @@
                 InfoText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AudioDisconnect);
             });
         }
+
+        public SoundTestPageViewModel TestViewModel { get; } = new SoundTestPageViewModel();
 
         public override bool TestModeEnabledSupplementary => !IsAudioDisabled && !IsSystemDisabled;
     }

@@ -16,6 +16,7 @@
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.TowerLight;
     using Kernel;
+    using Kernel.Contracts;
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
@@ -45,7 +46,7 @@
             _towerLightManager = ServiceManager.GetInstance().TryGetService<ITowerLightManager>();
             _towerLight = ServiceManager.GetInstance().TryGetService<ITowerLight>();
 
-            TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true);
+            TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true) || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             TowerLights = new List<TowerLight>();
             _allFlashStates.AddRange((FlashState[])Enum.GetValues(typeof(FlashState)));
             _strobeFlashStates.AddRange(new []{ FlashState.Off, FlashState.On });
@@ -313,6 +314,11 @@
                 towerLight.FlashState = flashState;
                 towerLight.State = lightOn;
             }
+        }
+
+        private bool HasTowerLight(int tier)
+        {
+            return TowerLights.Any(t => t.Tier == (LightTier)tier);
         }
     }
 }

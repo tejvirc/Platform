@@ -29,7 +29,7 @@
                         <Style.Triggers>
                             <DataTrigger
                                 Binding="{Binding Path=SelectedIndex, 
-                                               ElementName=StripList}"
+                                               ElementName=StripsComboBox}"
                                 Value="0">
                                 <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
@@ -39,14 +39,14 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="0 0 10 0">
                         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Strip}}" />
-                        <ComboBox Name="StripList" SelectedIndex="{Binding SelectedStripIndex}"
+                        <ComboBox Name="StripsComboBox" SelectedIndex="{Binding SelectedStripIndex}"
                                   ItemsSource="{Binding Strips}" DisplayMemberPath="StripName" Width="300" />
                     </StackPanel>
 
                     <StackPanel Margin="0 0 10 0">
                         <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}" />
                         <ComboBox ItemsSource="{Binding StripColors}" SelectedIndex="{Binding SelectedColorIndex}"
-                                  Width="300" />
+                                  Name="ColorssComboBox" Width="300" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
@@ -66,6 +66,7 @@
             <StackPanel>
                 <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightShows}}" />
                 <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding LightShows}"
+                          Name="LightShowsComboBox"
                           DisplayMemberPath="Name"
                           SelectedItem="{Binding SelectedLightShow}"
                           Width="300" />
