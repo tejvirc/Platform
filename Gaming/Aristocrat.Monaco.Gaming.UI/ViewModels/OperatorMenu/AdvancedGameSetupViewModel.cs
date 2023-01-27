@@ -138,13 +138,6 @@
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
-
-            EventBus.Subscribe<PropertyChangedEvent>(
-                this,
-                HandlePropertyChangedEvent,
-                evt =>
-                    evt.PropertyName is ApplicationConstants.EKeyVerified or ApplicationConstants.EKeyDrive);
-
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
@@ -473,6 +466,12 @@
 
             EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
             EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
+
+            EventBus.Subscribe<PropertyChangedEvent>(
+                this,
+                HandlePropertyChangedEvent,
+                evt =>
+                    evt.PropertyName is ApplicationConstants.EKeyVerified or ApplicationConstants.EKeyDrive);
 
             LoadGames();
 
