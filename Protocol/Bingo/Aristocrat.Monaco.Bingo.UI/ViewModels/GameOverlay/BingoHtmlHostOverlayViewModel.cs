@@ -967,6 +967,11 @@
                     BingoHelpAddress = helpAddress;
                     NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
                     HelpOpacity = GetVisibleOpacity(visible);
+
+                    if (!visible)
+                    {
+                        ReloadBrowser(BingoHelpWebBrowser);
+                    }
                 });
         }
 
