@@ -39,6 +39,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                     { MachineAndGameConfigurationConstants.LocationPosition, (ApplicationConstants.Position, null)},
                     { MachineAndGameConfigurationConstants.BingoCardPlacement, (BingoConstants.BingoCardPlacement, null)},
                     { MachineAndGameConfigurationConstants.DispBingoCard, (BingoConstants.DisplayBingoCardEgm, null)},
+                    { MachineAndGameConfigurationConstants.SideBetEnabled, (BingoConstants.SideBetEnabled, null)},
                 };
 
             RequiredSettings =
