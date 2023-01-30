@@ -77,10 +77,10 @@
         [TestMethod]
         public void AddNewEventToQueue()
         {
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _target.AddNewEventToQueue(ReportableEvent.MainDoorOpened);
 
-            Assert.AreEqual(1, _queue.Count());
+            Assert.AreEqual(1, _queue.Count);
         }
 
         [TestMethod]
@@ -92,17 +92,17 @@
                 .Callback(() => wait.Set())
                 .Returns(Task.FromResult(_ack));
 
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _target.AddNewEventToQueue(ReportableEvent.MainDoorOpened);
 
-            Assert.AreEqual(1, _queue.Count());
+            Assert.AreEqual(1, _queue.Count);
 
             _clientConnection.Raise(x => x.ClientConnected += null, this, EventArgs.Empty);
 
             wait.WaitOne();
             Thread.Sleep(100); // give time for the event acknowledge to be processed
 
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _clientConnection.Raise(x => x.ClientDisconnected += null, this, EventArgs.Empty);
 
             Thread.Sleep(100); // give time for the Cancel to be processed
@@ -118,10 +118,10 @@
                 .Callback(() => wait.Set())
                 .Returns(completion.Task);
 
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _target.AddNewEventToQueue(ReportableEvent.MainDoorOpened);
 
-            Assert.AreEqual(1, _queue.Count());
+            Assert.AreEqual(1, _queue.Count);
 
             _clientConnection.Raise(x => x.ClientConnected += null, this, EventArgs.Empty);
 
@@ -130,7 +130,7 @@
             _clientConnection.Raise(x => x.ClientDisconnected += null, this, EventArgs.Empty);
             completion.SetResult(null);
 
-            Assert.IsFalse(_queue.IsEmpty());
+            Assert.IsFalse(_queue.IsEmpty);
         }
     }
 }

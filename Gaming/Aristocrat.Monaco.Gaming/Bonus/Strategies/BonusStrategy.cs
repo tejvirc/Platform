@@ -28,7 +28,7 @@
     public abstract class BonusStrategy
     {
         private const string LegacyBonusHostTransactionPrefix = "LEGACY";
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().ReflectedType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.ReflectedType);
 
         private readonly IBank _bank;
         private readonly IEventBus _bus;
@@ -428,6 +428,9 @@
             transaction.PaidCashableAmount += cashableAmount;
             transaction.PaidPromoAmount += promoAmount;
             transaction.PaidNonCashAmount += nonCashAmount;
+            transaction.LastAuthorizedCashableAmount = 0;
+            transaction.LastAuthorizedPromoAmount = 0;
+            transaction.LastAuthorizedNonCashAmount = 0;
 
             _transactions.UpdateTransaction(transaction);
 
@@ -591,12 +594,13 @@
                         _transactions.RecallTransactions()
                             .FirstOrDefault(x => (x as ITransactionContext)?.TraceId == traceId),
                         transaction);
+
+                    ApplyLastAuthorizedAmount(transaction, ref cashableAmount, ref nonCashAmount, ref promoAmount);
                     using (var scope = _storage.ScopedTransaction())
                     {
                         CompletePayment(transaction, cashableAmount, nonCashAmount, promoAmount);
                         scope.Complete();
                     }
-
                     paid.TrySetResult(true);
                     UnsubscribeTransferEvents();
                 });
@@ -626,6 +630,17 @@
                 });
 
             return paid;
+        }
+
+        private static void ApplyLastAuthorizedAmount(
+            BonusTransaction transaction,
+            ref long cashableAmount,
+            ref long nonCashAmount,
+            ref long promoAmount)
+        {
+            cashableAmount = transaction.LastAuthorizedCashableAmount > 0 ? transaction.LastAuthorizedCashableAmount : cashableAmount;
+            nonCashAmount = transaction.LastAuthorizedNonCashAmount > 0 ? transaction.LastAuthorizedNonCashAmount : nonCashAmount;
+            promoAmount = transaction.LastAuthorizedPromoAmount > 0 ? transaction.LastAuthorizedPromoAmount : promoAmount;
         }
 
         private PayMethod GetActualBonusPayMethod(ITransaction transaction, BonusTransaction bonus)

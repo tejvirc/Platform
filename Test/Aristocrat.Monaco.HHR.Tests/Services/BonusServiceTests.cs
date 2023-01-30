@@ -36,7 +36,7 @@
 
         private bool _requestSent;
 
-        private BonusService _sut;
+        private BonusService _target;
 
         [TestInitialize]
         public void Initialize()
@@ -124,10 +124,11 @@
             Assert.IsNotNull(_bonusAwardedHandler);
             Assert.IsFalse(_requestSent);
 
-            _bonusAwardedHandler.Invoke(new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Credit, 10)));
+            _bonusAwardedHandler.Invoke(new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Credit, 2000)));
 
             Assert.IsTrue(_requestSent);
             Assert.IsNotNull(_lastRequestSent);
+            Assert.AreEqual(2u, _lastRequestSent.Credit);
             Assert.AreEqual(CommandTransactionType.BonusWinToCreditMeter, _lastRequestSent.TransactionType);
         }
 
@@ -140,10 +141,11 @@
             Assert.IsFalse(_requestSent);
 
             _bonusAwardedHandler.Invoke(
-                new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Credit, 0, 10)));
+                new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Credit, 0, 1000)));
 
             Assert.IsTrue(_requestSent);
             Assert.IsNotNull(_lastRequestSent);
+            Assert.AreEqual(1u, _lastRequestSent.Credit);
             Assert.AreEqual(CommandTransactionType.BonusWinToCreditMeter, _lastRequestSent.TransactionType);
         }
 
@@ -155,10 +157,11 @@
             Assert.IsNotNull(_bonusAwardedHandler);
             Assert.IsFalse(_requestSent);
 
-            _bonusAwardedHandler.Invoke(new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Voucher, 10)));
+            _bonusAwardedHandler.Invoke(new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Voucher, 3000)));
 
             Assert.IsTrue(_requestSent);
             Assert.IsNotNull(_lastRequestSent);
+            Assert.AreEqual(3u, _lastRequestSent.Credit);
             Assert.AreEqual(CommandTransactionType.BonusWinToCashableOutTicket, _lastRequestSent.TransactionType);
         }
 
@@ -170,10 +173,11 @@
             Assert.IsNotNull(_bonusAwardedHandler);
             Assert.IsFalse(_requestSent);
 
-            _bonusAwardedHandler.Invoke(new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Handpay, 10)));
+            _bonusAwardedHandler.Invoke(new BonusAwardedEvent(CreateCommittedBonusTransaction(PayMethod.Handpay, 4000)));
 
             Assert.IsTrue(_requestSent);
             Assert.IsNotNull(_lastRequestSent);
+            Assert.AreEqual(4u, _lastRequestSent.Credit);
             Assert.AreEqual(CommandTransactionType.BonusWinToHandpayNoReceipt, _lastRequestSent.TransactionType);
         }
 
@@ -189,7 +193,7 @@
                 .Returns(120000000L);
 
             var bonusTrans = CreateCommittedBonusTransaction(PayMethod.Any, 10, 20, 30);
-            var actual = _sut.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
+            var actual = _target.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
             Assert.AreEqual(PayMethod.Handpay, actual);
         }
 
@@ -206,7 +210,7 @@
                 .Returns(120000000L);
 
             var bonusTrans = CreateCommittedBonusTransaction(PayMethod.Any, 10, 20, 30);
-            var test = _sut.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
+            var test = _target.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
             Assert.AreEqual(PayMethod.Voucher, test);
         }
 
@@ -222,7 +226,7 @@
                 .Returns(120000000L);
 
             var bonusTrans = CreateCommittedBonusTransaction(PayMethod.Any, 10, 20, 30);
-            var actual = _sut.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
+            var actual = _target.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
 
             Assert.AreEqual(PayMethod.Handpay, actual);
         }
@@ -240,7 +244,7 @@
                 .Returns(120000000L);
 
             var bonusTrans = CreateCommittedBonusTransaction(PayMethod.Any, 10, 20, 30);
-            var test = _sut.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
+            var test = _target.GetBonusPayMethod(bonusTrans, bonusWinInMillicents);
             Assert.AreEqual(PayMethod.Voucher, test);
         }
 
@@ -292,7 +296,7 @@
             bool nullPaymentDeterminationProvider = false,
             bool nullGameDataService = false)
         {
-            _sut = new BonusService(
+            _target = new BonusService(
                 nullEventBus ? null : _eventBus.Object,
                 nullCentralManager ? null : _centralManager.Object,
                 nullPlayerSessionService ? null : _playerSession.Object,
@@ -303,7 +307,7 @@
                 nullGameDataService ? null : _gameDataService.Object
             );
 
-            return _sut;
+            return _target;
         }
     }
 }

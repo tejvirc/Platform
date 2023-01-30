@@ -3,9 +3,9 @@
     using System;
     using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
-    using Aristocrat.Monaco.Bingo.Common;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
     using Bingo.Consumers;
+    using Common;
     using Gaming.Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -71,21 +71,14 @@
                 { KeyOffCashableAmount = TestAmount, Barcode = TestBarcode });
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
                 TransactionType.CancelledCredits, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
-            _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                TransactionType.HandPayKeyOff, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CancelCredits)).Verifiable();
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCancelCredits)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
                 TransactionType.CancelledCredits, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
                 Times.Once());
-            _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                TransactionType.HandPayKeyOff, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
-                Times.Once());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff), Times.Once());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CancelCredits), Times.Once());
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCancelCredits), Times.Once());
         }
 
         [TestMethod]
@@ -95,22 +88,16 @@
                 new HandpayTransaction(1, DateTime.Now, TestAmount, 0, 0, 123, HandpayType.GameWin, false, new Guid())
                 { KeyOffCashableAmount = TestAmount, Barcode = TestBarcode });
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                TransactionType.CashOutJackpot, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
+                TransactionType.HandpayKeyOff, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffJackpot)).Verifiable();
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                TransactionType.HandPayKeyOff, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot)).Verifiable();
+                TransactionType.Jackpot, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
 
             _target.Consume(evt);
 
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffJackpot), Times.Once());
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                TransactionType.CashOutJackpot, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
-                Times.Once());
-            _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                TransactionType.HandPayKeyOff, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
-                Times.Once());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff), Times.Once());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot), Times.Once());
+                TransactionType.Jackpot, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode), Times.Once());
         }
 
         [TestMethod]
@@ -120,22 +107,20 @@
                 new HandpayTransaction(1, DateTime.Now, TestAmount, 0, 0, 123, HandpayType.BonusPay, false, new Guid())
                 { KeyOffCashableAmount = TestAmount, Barcode = TestBarcode });
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                TransactionType.BonusWin, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
+                TransactionType.ExternalBonusLargeWin, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                TransactionType.HandPayKeyOff, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.BonusWinAwarded)).Verifiable();
+                TransactionType.Jackpot, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode)).Verifiable();
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCashoutExternalBonus)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                TransactionType.BonusWin, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
+                TransactionType.ExternalBonusLargeWin, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
                 Times.Once());
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                TransactionType.HandPayKeyOff, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
+                    TransactionType.Jackpot, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
                 Times.Once());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff), Times.Once());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusWinAwarded), Times.Once());
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCashoutExternalBonus), Times.Once());
         }
 
         [TestMethod]
@@ -148,16 +133,14 @@
                 });
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
                 TransactionType.CashIn, 0, 0, 0, 0, 0, TestBarcode)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff)).Verifiable();
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CancelCredits)).Verifiable();
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCancelCredits)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
                 TransactionType.CashIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode),
                 Times.Never());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff), Times.Never());
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CancelCredits), Times.Never());
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCancelCredits), Times.Never());
         }
     }
 }

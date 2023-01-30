@@ -78,7 +78,7 @@ as follows:
         <Page Type="EdgeLightingPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
             <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
         </Page>
-        <Page Type="BeagleBonePageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
+        <Page Type="BeagleBonePageViewModel" PrintButtonEnabled="false">
             <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
         </Page>
         <Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
@@ -105,7 +105,6 @@ as follows:
         <Page Type="TimeConfigPageViewModel" Access="MainZeroCredits"/>
         <Page Type="LimitsPageViewModel" Access="LogicZeroCreditsZeroGamesPlayed"/>
         <Page Type="VoucherSettingsPageViewModel" Access="MainZeroCreditsGameIdle" FieldAccess="MainLogicZeroCreditsGameIdle"/>
-        <Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle"/>
         <Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
         <Page Type="BarkeeperConfigurationViewModel" Access="MainZeroCreditsGameIdle"/>
         <Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCreditsGameIdle"/>
@@ -118,7 +117,7 @@ as follows:
             <Setting Name="EnableAdvancedConfig" Value="false" />
             <Setting Name="EnableQuickConfig" Value="false" />
         </Page>
-        <Page Type="GameHistoryViewModel" Access="LogicDoor" PrintButtonEnabled="true">
+        <Page Type="GameHistoryViewModel" Access="ReadOnly" PrintButtonEnabled="true">
             <Setting Name="ShowGameInfoButtons" Value="true" />
             <Setting Name="PrintGameRoundInfo" Value="true" />
         </Page>
@@ -127,6 +126,7 @@ as follows:
         <Page TabType="CombinationTestViewLoader" Visible="false"/>
         <Page TabType="GamePerformanceViewLoader" Visible="false" />
         <Page TabType="GameStatisticsViewLoader" Visible="false" />
+        <Page TabType="CustomSAPViewLoader" Visible="false" />
     </Menu>
     <Menu Type="CommsMainPageLoader">
         <Page Type="NetworkConfigPageViewModel" Access="GameIdleZeroCredits"/>

@@ -100,7 +100,7 @@
                 new RequestPlay(
                     (int)_bank.QueryBalance(AccountType.Cashable).MillicentsToCents(),
                     (int)_bank.QueryBalance(AccountType.Promo).MillicentsToCents(),
-                    Convert.ToInt32(transaction.WagerCategory),
+                    Convert.ToInt32(transaction.TemplateId),
                     (int)(transaction.WagerAmount / transaction.Denomination),
                     (int)transaction.Denomination.MillicentsToCents(),
                     Convert.ToInt32(currentGame.ReferenceId),

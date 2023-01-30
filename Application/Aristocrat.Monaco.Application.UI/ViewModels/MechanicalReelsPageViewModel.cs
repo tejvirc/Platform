@@ -94,6 +94,8 @@
                 _lightTestScreenHidden = value;
                 RaisePropertyChanged(nameof(LightTestScreenHidden));
                 RaisePropertyChanged(nameof(LightTestButtonHidden));
+
+                LightTestViewModel.CancelTest();
             }
         }
 

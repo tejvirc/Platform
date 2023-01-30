@@ -9,7 +9,7 @@
     /// </summary>
     public class BaseDeviceEvent : BaseEvent
     {
-        private const string VidPidRegexFormat = ".*VID_{0:X}.*PID_{1:X}";
+        private const string VidPidRegexFormat = "VID_{0:X}.*PID_{1:X}";
 
         /// <summary>
         ///     Constructor.
@@ -45,16 +45,23 @@
         /// <returns></returns>
         public bool IsForVidPid(int vendorId, int productId)
         {
-            return Regex.IsMatch(
-                DeviceId,
-                string.Format(VidPidRegexFormat, vendorId, productId),
-                RegexOptions.IgnoreCase);
+            return DeviceId != null &&
+                   Regex.IsMatch(
+                        DeviceId,
+                        string.Format(VidPidRegexFormat, vendorId, productId),
+                        RegexOptions.IgnoreCase);
         }
 
         private static T GetValue<T>(IDictionary<string, object> properties, string property, T defaultValue)
         {
             object value = defaultValue;
             return properties?.TryGetValue(property, out value) ?? false ? (T)value : defaultValue;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return $"{base.ToString()}: Description='{Description}', DeviceCategory='{DeviceCategory}', DeviceId='{DeviceId ?? "NULL"}'";
         }
     }
 }

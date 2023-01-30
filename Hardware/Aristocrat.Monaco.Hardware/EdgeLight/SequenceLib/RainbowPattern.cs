@@ -30,7 +30,7 @@
         {
             EdgeLightManager = edgeLightManager;
             _stripColors = Strips.OrderBy(x => x.StripId)
-                .Where(x => x.LedCount > 1)
+                .Where(x => x.LedCount >= 1)
                 .Select(x => new StripColors { Strip = x, Colors = new LedColorBuffer(x.LedCount) }).ToList();
             _rainbowTexture = BuildRainbowColors(360);
             _timeElapsed = 0;
@@ -62,7 +62,7 @@
                 for (var i = 0; i < stripColors.Colors.Count; ++i)
                 {
                     // Normalize to [0, 1].
-                    var point = currentIndex++ / (double)(totalLength - 1);
+                    var point = currentIndex++ / (double)totalLength;
 
                     stripColors.Colors[i] = _rainbowTexture[GetSample(point)];
                 }

@@ -25,9 +25,9 @@
         public int HardwareStripId { get; set; } = int.MaxValue;
 
         [XmlIgnore]
-        private bool IsForward => From < To;
+        public bool IsForward => From < To;
 
-        private int StartLedIndex => Math.Min(To, From);
+        public int StartLedIndex => Math.Min(To, From);
 
         [XmlIgnore]
         public int LedCount => Math.Abs(From - To) + 1;

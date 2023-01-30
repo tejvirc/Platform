@@ -46,6 +46,8 @@ namespace Aristocrat.Monaco.Application.Contracts {
         
         private FeaturesBeagleBone[] beagleBoneField;
         
+        private FeaturesDisplayLightingPage[] displayLightingPageField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("ScreenBrightnessControl")]
         public FeaturesScreenBrightnessControl[] ScreenBrightnessControl {
@@ -164,6 +166,17 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.beagleBoneField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("DisplayLightingPage")]
+        public FeaturesDisplayLightingPage[] DisplayLightingPage {
+            get {
+                return this.displayLightingPageField;
+            }
+            set {
+                this.displayLightingPageField = value;
             }
         }
     }
@@ -603,6 +616,41 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class FeaturesBeagleBone {
+        
+        private bool enabledField;
+        
+        private string cabinetTypeRegexField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool Enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string CabinetTypeRegex {
+            get {
+                return this.cabinetTypeRegexField;
+            }
+            set {
+                this.cabinetTypeRegexField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class FeaturesDisplayLightingPage {
         
         private bool enabledField;
         

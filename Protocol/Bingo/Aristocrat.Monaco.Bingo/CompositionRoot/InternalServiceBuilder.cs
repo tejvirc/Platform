@@ -14,6 +14,8 @@
     using Gaming.Contracts.Tickets;
     using Handpay;
     using Handpay.Strategies;
+    using Monaco.Common.Container;
+    using Monitors;
     using Services;
     using Services.Configuration;
     using Services.GamePlay;
@@ -30,6 +32,7 @@
         public static Container AddInternalServices(this Container container)
         {
             container.RegisterSingleton<IClientConfigurationProvider, BingoClientConfigurationProvider>();
+            container.RegisterSingleton<INetworkInformationProvider, NetworkInformationProvider>();
             return container
                 .SetupBingoGamePlay()
                 .SetupProgressives()
@@ -60,12 +63,13 @@
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportEventMessage, int>, EventAcknowledgedQueueHelper>();
             container.RegisterSingleton<IAcknowledgedQueue<ReportGameOutcomeMessage, long>, AcknowledgedQueue<ReportGameOutcomeMessage, long>>();
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportGameOutcomeMessage, long>, GameHistoryReportAcknowledgeQueueHelper>();
-            container.RegisterSingleton<MeterChangeMonitor>();
+            container.RegisterSingleton<IBingoGameProvider, BingoGameProvider>();
             container.RegisterSingleton<IEgmStatusService, EgmStatusHandler>();
             container.RegisterSingleton<IGameRoundPrintFormatter, BingoRoundPrintFormatter>();
             container.RegisterSingleton<IBingoReplayRecovery, BingoReplayRecovery>();
             container.RegisterSingleton<ICertificateService, CertificateService>();
             container.RegisterSingleton<DynamicHelpMonitor>();
+            container.RegisterManyAsCollection(typeof(IMeterMonitor), Assembly.GetExecutingAssembly());
             return container;
         }
 

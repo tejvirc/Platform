@@ -49,7 +49,9 @@
             var request = new ProgressiveInfoRequest
             {
                 MachineSerial = message.MachineSerial,
-                GameTitleId = message.GameTitleId
+                GameTitleId = message.GameTitleId,
+                Denomination = 1,   // TODO set denom
+                MaxBet = 1          // TODO set max bet
             };
 
             var result = await Invoke(
@@ -58,10 +60,10 @@
             _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
 
             var progressiveLevels = new List<ProgressiveLevelInfo>();
-            foreach (var progressiveMapping in result.ProgressiveLevel)
+            foreach (var progressiveMapping in result.ProgressiveLevels)
             {
-                Logger.Debug($"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevel}, sequence={progressiveMapping.SequenceNumber}");
-                progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevel, progressiveMapping.SequenceNumber));
+                Logger.Debug($"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevelId}, sequence={progressiveMapping.SequenceNumber}");
+                progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevelId, progressiveMapping.SequenceNumber));
             }
 
             Logger.Debug("Meters To Report:");

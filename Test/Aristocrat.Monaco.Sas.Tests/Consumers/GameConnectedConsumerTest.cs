@@ -17,7 +17,7 @@
     {
         private Mock<ISasExceptionHandler> _exceptionHandler;
         private Mock<IPropertiesManager> _propertiesManagerMock;
-        private Mock<IGameProvider> _gameProvider;
+        private Mock<IGameProvider> _gameProviderMock;
         private GameConnectedConsumer _target;
 
         [TestInitialize]
@@ -25,13 +25,13 @@
         {
             _exceptionHandler = new Mock<ISasExceptionHandler>(MockBehavior.Strict);
             _propertiesManagerMock = new Mock<IPropertiesManager>(MockBehavior.Default);
-            _gameProvider = new Mock<IGameProvider>(MockBehavior.Strict);
+            _gameProviderMock = new Mock<IGameProvider>(MockBehavior.Strict);
 
             // MoqServiceManager and eventBus mock are required for the Consumes base class constructor.
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
 
-            _target = new GameConnectedConsumer(_exceptionHandler.Object, _propertiesManagerMock.Object, _gameProvider.Object);
+            _target = new GameConnectedConsumer(_exceptionHandler.Object, _propertiesManagerMock.Object, _gameProviderMock.Object);
         }
 
         [TestCleanup]
@@ -44,14 +44,14 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullExceptionHandlerTest()
         {
-            _target = new GameConnectedConsumer(null, _propertiesManagerMock.Object, _gameProvider.Object);
+            _target = new GameConnectedConsumer(null, _propertiesManagerMock.Object, _gameProviderMock.Object);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullPropertiesManagerTest()
         {
-            _target = new GameConnectedConsumer(_exceptionHandler.Object, null, _gameProvider.Object);
+            _target = new GameConnectedConsumer(_exceptionHandler.Object, null, _gameProviderMock.Object);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@
             var mockGame1 = new Mock<IGameDetail>();
             var mockGame2 = new Mock<IGameDetail>();
 
-            _gameProvider.Setup(m => m.GetEnabledGames())
+            _gameProviderMock.Setup(m => m.GetEnabledGames())
                 .Returns(new List<IGameDetail> { mockGame1.Object, mockGame2.Object });
 
             var @event = new GameConnectedEvent(true);
@@ -97,7 +97,7 @@
             mockDenom.Setup(x => x.Value).Returns(denom);
             mockGame.Setup(x => x.Denominations).Returns(new List<IDenomination> { mockDenom.Object });
 
-            _gameProvider.Setup(m => m.GetGame(gameId))
+            _gameProviderMock.Setup(m => m.GetGame(gameId))
                 .Returns(mockGame.Object);
             _propertiesManagerMock.Setup(p => p.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>()))
                 .Returns(gameId);

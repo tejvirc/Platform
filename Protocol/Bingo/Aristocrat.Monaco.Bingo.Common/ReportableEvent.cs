@@ -33,7 +33,7 @@
         CardInserted,
         CardRemoved,
         CardReaderError,
-        HandpayKeyOff,
+        HandpayKeyOff, // Unused
         BillAcceptorError,
         BillAcceptorErrorClear,
         PrinterError,
@@ -78,8 +78,9 @@
         PowerUp,
         NewOnFloor,
         RemovedFromFloor,
-        CashoutJackpot,
-        CancelCredits,
+        VoucherIssuedJackpot, // "Jackpot" 
+        HandpayKeyedOffJackpot = VoucherIssuedJackpot, // "Jackpot" 
+        HandpayKeyedOffCancelCredits, // "Cancel Credit"
         CardReaderMessageFramingError,
         CardReaderHardwareError,
         CardReaderSoftwareError,
@@ -159,7 +160,7 @@
         CallAttendantButtonDeactivated,
         CashoutBonus,
         CashoutProgressive,
-        CashoutExternalBonus,
+        HandpayKeyedOffCashoutExternalBonus,
         CashInExceedsVoucherInLimit,
         BellyDoorOpened,
         BellyDoorClosed,

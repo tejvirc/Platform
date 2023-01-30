@@ -91,7 +91,7 @@
         private const string LobbyIdleTextDefaultResourceKey = "LobbyIdleTextDefault";
         private const string TopperImageDefaultResourceKey = "TopperBackground";
         private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string IdleTextFamilyName = "Segoe UI";
         private const double OpacityNone = 0.0;
         private const double OpacityFifth = 0.2;
@@ -266,7 +266,6 @@
         private readonly Dictionary<Sound, string> _soundFilePathMap = new Dictionary<Sound, string>();
         private bool _playCollectSound;
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
-        private bool _isSelectPayModeVisible;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
 
@@ -1718,16 +1717,6 @@
 
         public bool IsInOperatorMenu => _operatorMenu.IsShowing;
 
-        public bool IsSelectPayModeVisible
-        {
-            get => _isSelectPayModeVisible;
-            set
-            {
-                MvvmHelper.ExecuteOnUI(HandleMessageOverlayText);
-                SetProperty(ref _isSelectPayModeVisible, value);
-            }
-        }
-
         public bool IsSingleGameMode => (_lobbyStateManager?.AllowGameInCharge ?? false) && UniqueThemeIds <= 1;
 
         private int UniqueThemeIds => (GameList?.Where(g => g.Enabled).Select(o => o.ThemeId).Distinct().Count() ?? 0);
@@ -1817,7 +1806,7 @@
         {
             // we call ChangeLanguageSkin before this is called from LobbyViewModel.xaml.cs
             // So any text that needs to be localized from resources can be updated once
-            // we are here.  
+            // we are here.
             Logger.Debug("Lobby OnLoaded() complete");
             RaisePropertyChanged(nameof(PaidMeterLabel));
         }
@@ -2578,13 +2567,13 @@
             var softLockupButNotRecovery = _systemDisableManager.IsDisabled && !_gameRecovery.IsRecovering;
             var singleGameAndAttract = _lobbyStateManager.AllowSingleGameAutoLaunch && _attractMode;
 
-            if (_systemDisableManager.IsDisabled ||
+            if (_systemDisableManager.DisableImmediately ||
                 (singleGameAndAttract || _gameLaunchOnStartup) &&
                 softLockupButNotRecovery)
             {
                 SendTrigger(LobbyTrigger.Disable);
             }
-            
+
             _gameLaunchOnStartup = false;
         }
 
@@ -2835,7 +2824,7 @@
             {
                 StartAttractTimer();
             }
-            
+
             OnUserInteraction();
         }
 
@@ -2952,7 +2941,7 @@
                     ReplayRecovery.BackgroundOpacity = _gameDiagnostics.AllowInput ? OpacityNone : 0.05;
                 }
             }
-            else //CurrentState == LobbyState.Disabled.  
+            else //CurrentState == LobbyState.Disabled.
             {
                 // VLT-4326: Do not include all Disabled states here because we handle Replay stuff in the above code block
                 ReplayRecovery.BackgroundOpacity = OpacityFifth;
@@ -3178,7 +3167,7 @@
             }
             else if (IsTimeLimitDlgVisible)
             {
-                // VLT-4319: If Responsible Gaming is ALC Mode, always show Blank Graphic in VBD during Responsible Gaming Dialogs.  
+                // VLT-4319: If Responsible Gaming is ALC Mode, always show Blank Graphic in VBD during Responsible Gaming Dialogs.
                 state = (_responsibleGaming.IsSessionLimitHit ||
                         ResponsibleGamingMode == ResponsibleGamingMode.Continuous ||
                         ResponsibleGamingCurrentDialogState == ResponsibleGamingDialogState.PlayBreak1 ||
@@ -3715,7 +3704,7 @@
                 DisplayedGameList.Clear();
 
                 // When the tab is hosting extra large icons (i.e., for Lightning Link), a list of denoms PER game will appear
-                // below the icon for the user to pick. 
+                // below the icon for the user to pick.
                 if (IsExtraLargeGameIconTabActive)
                 {
                     var distinctGameNames = _gameList.Where(g => g.Category == GameCategory.LightningLink)
@@ -4606,7 +4595,7 @@
             {
                 state = CashOutEnabled;
             }
-            
+
             buttonsLampState.Add(SetLampState(LampName.Collect, state));
         }
 
@@ -4632,7 +4621,7 @@
 
             buttonsLampState.Add(SetLampState(LampName.Bet3, state)); // prev game
             buttonsLampState.Add(SetLampState(LampName.Bet4, state)); // prev tab
-            buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom 
+            buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom
             buttonsLampState.Add(SetLampState(LampName.Playline5, state)); //next tab
             buttonsLampState.Add(SetLampState(LampName.Playline4, state)); //next game
         }
@@ -4678,7 +4667,7 @@
                 // todo let player culture provider manage multi-language support for lobby
                 _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
             }
-            
+
             _initialLanguageEventSent = true;
         }
 
@@ -5246,8 +5235,8 @@
                         _eventBus.Publish(new RemoteKeyOffEvent(KeyOffType.Unknown, 0, 0, 0, false));
                         break;
                 }
-                RaisePropertyChanged(nameof(SelectedMenuSelectionPayOption));
 
+                RaisePropertyChanged(nameof(SelectedMenuSelectionPayOption));
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
     using Configuration;
@@ -72,13 +73,14 @@
         {
             try
             {
-                await Stop();
+                await Stop().ConfigureAwait(false);
                 _channel = CreateChannel();
                 var configuration = ConfigurationProvider.Configuration;
                 var callInvoker = _channel.Intercept(ClientAuthorizationInterceptor, LoggingInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
-                    await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout);
+                    await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout)
+                        .ConfigureAwait(false);
                 }
 
                 Client = CreateClient(callInvoker);
@@ -108,9 +110,9 @@
         {
             try
             {
-                Client = default;
                 var channel = _channel;
                 _channel = null;
+                Client = default;
 
                 if (channel != null)
                 {

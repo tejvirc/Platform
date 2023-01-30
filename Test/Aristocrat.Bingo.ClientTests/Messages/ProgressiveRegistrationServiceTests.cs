@@ -106,20 +106,20 @@
                 AuthToken = "ABC123",
             };
 
-            info.ProgressiveLevel.Add(new ProgressiveMapping
+            info.ProgressiveLevels.Add(new ProgressiveMapping
             {
                 SequenceNumber = 1,
-                ProgressiveLevel = 10001
+                ProgressiveLevelId = 10001
             });
-            info.ProgressiveLevel.Add(new ProgressiveMapping
+            info.ProgressiveLevels.Add(new ProgressiveMapping
             {
                 SequenceNumber = 2,
-                ProgressiveLevel = 10002
+                ProgressiveLevelId = 10002
             });
-            info.ProgressiveLevel.Add(new ProgressiveMapping
+            info.ProgressiveLevels.Add(new ProgressiveMapping
             {
                 SequenceNumber = 3,
-                ProgressiveLevel = 10003
+                ProgressiveLevelId = 10003
             });
 
             info.MetersToReport.Add(1);

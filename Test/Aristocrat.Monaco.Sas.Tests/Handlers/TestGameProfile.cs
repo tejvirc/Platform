@@ -43,6 +43,8 @@
 
         public bool CentralAllowed { get; set; }
 
+        public IEnumerable<ICdsGameInfo> CdsGameInfos { get; set; }
+
         public decimal MaximumPaybackPercent { get; set; }
 
         public decimal MinimumPaybackPercent { get; set; }

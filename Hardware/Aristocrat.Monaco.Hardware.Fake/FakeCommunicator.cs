@@ -31,20 +31,20 @@
     /// <summary>A fake communicator.</summary>
     public class FakeCommunicator : VirtualCommunicator
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly Dictionary<string, List<int>> SupportedCurrencies =
-            new Dictionary<string, List<int>>();
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly Dictionary<string, List<int>> SupportedCurrencies = new();
 
         private const string DefaultBaseName = "Fake";
         private const string SimWindowNamePartial = "ReelLayout_";
         private const string GamesPath = "/Games";
+        private const string PackagesPath = "/Packages";
         private const int LightsPerReel = 3;
         private const int StepsPerReel = 200;
 
-        private readonly Dictionary<int, Note> _noteTable = new Dictionary<int, Note>();
+        private readonly Dictionary<int, Note> _noteTable = new();
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;
-        private readonly List<int> _standardDenominations = new List<int>
+        private readonly List<int> _standardDenominations = new()
         {
             1,
             2,
@@ -54,7 +54,7 @@
             50,
             100
         };
-        private readonly Queue<GdsSerializableMessage> _simQueue = new Queue<GdsSerializableMessage>();
+        private readonly Queue<GdsSerializableMessage> _simQueue = new();
 
         private string _fakeCardData;
         private bool _disposed;
@@ -600,6 +600,7 @@
             }
 
             var gamesPath = _pathMapper.GetDirectory(GamesPath).FullName;
+            var packagesPath = _pathMapper.GetDirectory(PackagesPath).FullName;
             var knownReels = reelController.ConnectedReels.Count;
             Logger.Debug($"Known reels: {knownReels}");
 
@@ -608,14 +609,14 @@
             var usedTitles = Process.GetProcesses()
                 .Where(process => process.MainWindowTitle.Contains(SimWindowNamePartial))
                 .Select(process => process.MainWindowTitle.Substring(process.MainWindowTitle.IndexOf('_') + 1));
-            usedIds.AddRange(usedTitles.ToList().Select(title => int.Parse(title)).ToList());
+            usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
                     Simulation.HarkeyReels.Logger.Log += SimulatorLog;
-                    _simWindow = new ReelSetWindow(_id, gamesPath, knownReels);
+                    _simWindow = new ReelSetWindow(_id, gamesPath, knownReels, packagesPath);
                     Logger.Debug($"Game says: {_reelCount} reels");
                     _simWindow.ReelStateChanged += SimWindowReelStateChanged;
                     _simWindow.Show();
