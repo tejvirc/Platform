@@ -157,7 +157,10 @@
         }
 
         private static bool StateIsConnected(ChannelState? state) =>
-            state is ChannelState.Ready or ChannelState.Idle or ChannelState.TransientFailure;
+            state is ChannelState.Ready or
+                ChannelState.Idle or
+                ChannelState.TransientFailure or
+                ChannelState.Connecting;
 
         private void MonitorConnection()
         {
