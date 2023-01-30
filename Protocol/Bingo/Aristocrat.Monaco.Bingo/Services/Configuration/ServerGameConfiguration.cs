@@ -23,6 +23,9 @@
         [JsonProperty("Bets")]
         public IReadOnlyCollection<long> Bets { get; set; } = Array.Empty<long>();
 
+        [JsonProperty("Progressive")]
+        public int Progressive { get; set; }
+
         [JsonProperty("QuickStopMode")]
         public bool QuickStopMode { get; set; }
 
@@ -37,6 +40,6 @@
         public bool CrossGameProgressiveEnabled { get; set; }
 
         [JsonProperty("SideBetGames")]
-        public IReadOnlyCollection<SideBetGameConfiguration> SideBetGames { get; set; } = Array.Empty<SideBetGameConfiguration>();
+        public IReadOnlyCollection<SideBetGameConfiguration> SideBetGames { get; set; }
     }
 }

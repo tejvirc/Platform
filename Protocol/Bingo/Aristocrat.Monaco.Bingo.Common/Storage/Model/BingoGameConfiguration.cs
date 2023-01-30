@@ -36,10 +36,13 @@
         [JsonProperty("PlatformGameId")]
         public long PlatformGameId { get; set; }
 
+        [JsonProperty("Progressive")]
+        public int Progressive { get; set; }
+
         [JsonProperty("CrossGameProgressiveEnabled")]
         public bool CrossGameProgressiveEnabled { get; set; }
 
         [JsonProperty("SideBetGames")]
-        public IReadOnlyCollection<SideBetGameConfiguration> SideBetGames { get; set; } = Array.Empty<SideBetGameConfiguration>();
+        public IReadOnlyCollection<SideBetGameConfiguration> SideBetGames { get; set; }
     }
 }

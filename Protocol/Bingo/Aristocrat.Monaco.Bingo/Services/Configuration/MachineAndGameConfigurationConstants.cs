@@ -110,5 +110,10 @@
         ///     Indicates using global settings for bingo card display
         /// </summary>
         public const string UseGlobalSettings = "UseGlobal";
+
+        /// <summary>
+        ///     Indicates if side bet games are enabled
+        /// </summary>
+        public const string SideBetEnabled = "SideBetEnabled";
     }
 }

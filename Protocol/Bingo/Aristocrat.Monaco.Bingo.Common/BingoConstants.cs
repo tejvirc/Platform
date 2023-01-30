@@ -237,6 +237,5 @@
         ///     key to use for SideBetEnabled property
         /// </summary>
         public const string SideBetEnabledKey = "SideBetEnabled";
-
     }
 }
