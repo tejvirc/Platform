@@ -12,8 +12,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Brush3}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal" />
-        <Setter Property="controls:HeaderedControlHelper.HeaderFontSize" Value="{DynamicResource MahApps.Font.Size.SubHeader}" />
-        <Setter Property="controls:HeaderedControlHelper.HeaderForeground" Value="{DynamicResource Brush3}" />
+        <Setter Property="controls:HeaderedControlHelper.HeaderForeground" Value="{DynamicResource Brush3}"/>
         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -41,13 +40,14 @@
                                 <controls:ContentControlEx x:Name="HeaderContent"
                                                        Margin="{DynamicResource GroupBoxHeaderThemePadding}"
                                                        Content="{TemplateBinding Header}"
+                                                       FontSize="{DynamicResource SubHeaderFontSize}"
                                                        ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.ContentCharacterCasing)}"
                                                        ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
                                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                                        RecognizesAccessKey="True"
                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                               HorizontalContentAlignment="Left"
+                                                       HorizontalContentAlignment="Left"
                                                        UseLayoutRounding="False">
                                     <TextElement.Foreground>
                                         <MultiBinding Converter="{x:Static converters:BackgroundToForegroundConverter.Instance}">
