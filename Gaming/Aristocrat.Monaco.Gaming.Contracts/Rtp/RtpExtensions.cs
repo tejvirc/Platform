@@ -45,7 +45,7 @@
         /// <returns></returns>
         public static string GetRtpString(this decimal @this)
         {
-            return $"{@this.ToString("F2")}%";
+            return $"{@this:F2}%";
         }
     }
 }

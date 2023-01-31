@@ -1651,6 +1651,7 @@
             }
         }
 
+        // TODO: Move to RTP service
         private void SetupRtpRules()
         {
             _rtpRules[GameType.Slot] = (
@@ -1683,11 +1684,14 @@
             _rtpRules[GameType.Undefined] = _rtpRules[GameType.Slot];
         }
 
+        // TODO: Move to RTP service
         private bool CanIncludeSapIncrementRtp(GameType type)
         {
             return _rtpRules[type].includeSapIncr;
         }
 
+
+        // TODO: Move to RTP service
         private bool CanIncludeLinkProgressiveIncrementRtp(GameType type)
         {
             return _rtpRules[type].includeLinkIncr;
