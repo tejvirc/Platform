@@ -20,6 +20,7 @@
     using Contracts.Models;
     using Contracts.Progressives;
     using Hardware.Contracts.Cabinet;
+    using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
@@ -1006,6 +1007,9 @@
                     gameDetail.SubCategory = game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined;
                     gameDetail.Features = features;
                     gameDetail.NextToMaxBetTopAwardMultiplier = game.NextToMaxBetTopAwardMultiplier;
+                    gameDetail.PlatformTarget = game.PlatformTarget.HasValue ?
+                        (PlatformTarget)game.PlatformTarget
+                        : PlatformTarget.None;
 
                     _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
 

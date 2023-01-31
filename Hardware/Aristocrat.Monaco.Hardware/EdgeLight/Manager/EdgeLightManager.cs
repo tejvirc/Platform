@@ -5,6 +5,7 @@
     using System.Drawing;
     using System.Linq;
     using System.Reflection;
+    using Cabinet.Contracts;
     using Contracts;
     using Device;
     using Hardware.Contracts.Cabinet;
@@ -19,6 +20,7 @@
     /// </summary>
     internal sealed class EdgeLightManager : IEdgeLightManager
     {
+        private const string MarsXFit = "marsxfit";
         private static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -42,6 +44,8 @@
         private readonly IEventBus _eventBus;
 
         private readonly StripDataRenderer _renderer;
+        private readonly ICabinetDetectionService _cabinetDetection;
+        private readonly IPropertiesManager _propertiesManager;
 
         private bool _connectionStatus;
         private bool _disposed;
@@ -58,7 +62,9 @@
                 new DeviceMultiplexer(ServiceManager.GetInstance().GetService<IEdgeLightDeviceFactory>()),
                 new StripDataRenderer(priorityComparer),
                 priorityComparer,
-                ServiceManager.GetInstance().GetService<IEventBus>())
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
@@ -67,20 +73,29 @@
             IEdgeLightDevice edgeLightDevice,
             StripDataRenderer renderer,
             PriorityComparer priorityComparer,
-            IEventBus eventBus)
+            IEventBus eventBus,
+            ICabinetDetectionService cabinetDetection,
+            IPropertiesManager propertiesManager)
         {
             _renderer = renderer ?? throw new ArgumentNullException(nameof(renderer));
             _logicalStripFactory = logicalStripFactory ?? throw new ArgumentNullException(nameof(logicalStripFactory));
             _edgeLightDevice = edgeLightDevice ?? throw new ArgumentNullException(nameof(edgeLightDevice));
             _priorityComparer = priorityComparer ?? throw new ArgumentNullException(nameof(priorityComparer));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _cabinetDetection = cabinetDetection ?? throw new ArgumentNullException(nameof(cabinetDetection));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
             SubscribeDeviceEvent<DeviceDisconnectedEvent>();
             SubscribeDeviceEvent<DeviceConnectedEvent>();
+            _eventBus.Subscribe<PropertyChangedEvent>(
+                this,
+                e => CheckPlatformTarget(),
+                e => e.PropertyName == nameof(PlatformTarget));
 
             _brightnessData = new EdgeLightBrightnessData(priorityComparer);
             SetBrightnessForPriority(EdgeLightConstants.MaxChannelBrightness, StripPriority.LowPriority);
             _edgeLightDevice.StripsChanged += DeviceStripsChanged;
+            CheckPlatformTarget();
             CheckForConnection();
             Logger.Debug("EdgeLight Manager started");
         }
@@ -113,6 +128,8 @@
         {
             set => _edgeLightDevice.LowPowerMode = value;
         }
+
+        public bool IgnoreGameData { get; set; }
 
         public void SetBrightnessForPriority(int brightness, StripPriority priority)
         {
@@ -342,6 +359,14 @@
             {
                 _eventBus.Publish(new EdgeLightingConnectedEvent());
             }
+        }
+
+        private void CheckPlatformTarget()
+        {
+            IgnoreGameData = _cabinetDetection.Type.ToString().ToLower().Contains(MarsXFit) &&
+                             _propertiesManager.GetValue(
+                                 nameof(PlatformTarget),
+                                 PlatformTarget.None) == PlatformTarget.Legacy;
         }
     }
 }

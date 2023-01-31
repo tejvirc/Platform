@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Aristocrat.Monaco.Hardware.Contracts.EdgeLighting;
     using Aristocrat.PackageManifest.Extension.v100;
     using Gaming.Contracts;
     using Gaming.Contracts.Models;
@@ -128,5 +129,7 @@
         public int[] MechanicalReelHomeStops { get; set; }
 
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        public PlatformTarget PlatformTarget { get; set; }
     }
 }

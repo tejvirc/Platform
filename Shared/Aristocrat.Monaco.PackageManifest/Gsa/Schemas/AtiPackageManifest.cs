@@ -2112,6 +2112,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private bool nextToMaxBetTopAwardMultiplierField;
         
+        private t_platformTarget platformTargetField;
+        
         public c_gameAttributes() {
             this.maxPaybackPctField = ((long)(0));
             this.minPaybackPctField = ((long)(0));
@@ -2123,6 +2125,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             this.letItRideEnabledField = false;
             this.referenceIdField = "";
             this.nextToMaxBetTopAwardMultiplierField = false;
+            this.platformTargetField = t_platformTarget.None;
         }
         
         /// <remarks/>
@@ -2540,6 +2543,18 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
                 this.nextToMaxBetTopAwardMultiplierField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+        [System.ComponentModel.DefaultValueAttribute(t_platformTarget.None)]
+        public t_platformTarget platformTarget {
+            get {
+                return this.platformTargetField;
+            }
+            set {
+                this.platformTargetField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -2682,6 +2697,22 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         /// <remarks/>
         Roulette,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    public enum t_platformTarget {
+        
+        /// <remarks/>
+        None,
+        
+        /// <remarks/>
+        Legacy,
+        
+        /// <remarks/>
+        Native,
     }
     
     /// <remarks/>

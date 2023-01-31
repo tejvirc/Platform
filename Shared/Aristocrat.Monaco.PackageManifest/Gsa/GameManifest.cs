@@ -161,7 +161,8 @@
                     Enable = feature.Enabled,
                     StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
                 }).ToList(),
-                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
+                PlatformTarget = gameInfo.platformTarget
             };
         }
 

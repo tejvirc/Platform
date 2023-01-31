@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Aristocrat.Monaco.Hardware.Contracts.EdgeLighting;
     using Gaming.Contracts;
     using Gaming.Contracts.Models;
     using Kernel;
@@ -257,6 +258,8 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeStops { get; set; }
+
+        public PlatformTarget PlatformTarget { get; set; }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

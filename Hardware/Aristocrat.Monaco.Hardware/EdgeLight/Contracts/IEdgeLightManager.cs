@@ -17,6 +17,11 @@
         bool PowerMode { set; }
 
         /// <summary>
+        ///     Ignore game edgelight data
+        /// </summary>
+        bool IgnoreGameData { get; }
+
+        /// <summary>
         ///     List of all the logical Strips attached
         /// </summary>
         IReadOnlyCollection<StripData> LogicalStrips { get; }

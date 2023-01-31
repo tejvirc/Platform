@@ -3,6 +3,7 @@
     using Models;
     using System;
     using System.Collections.Generic;
+    using Hardware.Contracts.EdgeLighting;
     using PackageManifest.Models;
 
     /// <summary>
@@ -211,5 +212,10 @@
         ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
         /// </summary>
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        /// <summary>
+        ///     Specifies the platform target to expect for a certain game context.
+        /// </summary>
+        public PlatformTarget PlatformTarget { get; set; }
     }
 }

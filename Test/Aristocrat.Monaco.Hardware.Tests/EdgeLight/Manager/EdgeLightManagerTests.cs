@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+	using Aristocrat.Monaco.Hardware.Services;
     using Contracts.Cabinet;
     using Contracts.EdgeLighting;
     using Hardware.EdgeLight.Contracts;
@@ -17,6 +18,8 @@
     [TestClass]
     public class EdgeLightManagerTests
     {
+        private Mock<ICabinetDetectionService> _cabinetDetectionService;
+        private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IEdgeLightDevice> _edgeLightDevice;
         private EdgeLightManager _edgeLightManager;
         private Mock<IEventBus> _eventBus;
@@ -53,7 +56,10 @@
             _stripDataRenderer = new StripDataRenderer(_priorityComparer);
 
             MoqServiceManager.CreateInstance(MockBehavior.Default);
+            _cabinetDetectionService = MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Default);
+            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
+
             _eventBus.Setup(x => x.Publish(It.IsAny<EdgeLightingConnectedEvent>()));
             _eventBus.Setup(
                     x => x.Subscribe(
@@ -69,6 +75,13 @@
                         It.IsAny<Predicate<DeviceDisconnectedEvent>>()))
                 .Callback<object, Action<DeviceDisconnectedEvent>, Predicate<DeviceDisconnectedEvent>>(
                     (o, action, p) => { _unplugAction = action; });
+            _eventBus.Setup(
+                    x => x.Subscribe(
+                        It.IsAny<object>(),
+                        It.IsAny<Action<PropertyChangedEvent>>(),
+                        It.IsAny<Predicate<PropertyChangedEvent>>()))
+                .Callback<object, Action<PropertyChangedEvent>, Predicate<PropertyChangedEvent>>(
+                    (o, action, p) => { });
         }
 
         [TestCleanup]
@@ -99,14 +112,14 @@
             Helper.AssertThrow<ArgumentNullException>(
                 () =>
                 {
-                    using (var unused = new EdgeLightManager(null, null, null, null, null))
+                    using (var unused = new EdgeLightManager(null, null, null, null, null, null, null))
                     {
                     }
                 });
             Helper.AssertThrow<ArgumentNullException>(
                 () =>
                 {
-                    using (var unused = new EdgeLightManager(_logicalStripFactoryMoq.Object, null, null, null, null))
+                    using (var unused = new EdgeLightManager(_logicalStripFactoryMoq.Object, null, null, null, null, null, null))
                     {
                     }
                 });
@@ -116,6 +129,8 @@
                     using (var unused = new EdgeLightManager(
                         _logicalStripFactoryMoq.Object,
                         _edgeLightDevice.Object,
+                        null,
+                        null,
                         null,
                         null,
                         null))
@@ -129,6 +144,8 @@
                         _logicalStripFactoryMoq.Object,
                         _edgeLightDevice.Object,
                         _stripDataRenderer,
+                        null,
+                        null,
                         null,
                         null))
                     {
@@ -142,6 +159,8 @@
                         _edgeLightDevice.Object,
                         _stripDataRenderer,
                         _priorityComparer,
+                        null,
+                        null,
                         null))
                     {
                     }
@@ -505,7 +524,9 @@
                 _edgeLightDevice.Object,
                 _stripDataRenderer,
                 _priorityComparer,
-                _eventBus.Object);
+                _eventBus.Object,
+                _cabinetDetectionService.Object,
+                _propertiesManager.Object);
             _physicalStripMocks.ForEach(x => x.VerifyAll());
             _eventBus.Setup(x => x.UnsubscribeAll(_edgeLightManager));
         }

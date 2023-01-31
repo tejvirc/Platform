@@ -179,5 +179,10 @@
         ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
         /// </summary>
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        /// <summary>
+        ///     Specifies the platform target to expect for a certain game context.
+        /// </summary>
+        public t_platformTarget? PlatformTarget { get; set; }
     }
 }

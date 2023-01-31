@@ -23,7 +23,7 @@
 
         public void Update()
         {
-            if (_edgeLightData == null || _edgeLightManager == null)
+            if (_edgeLightData == null || _edgeLightManager == null || _edgeLightManager.IgnoreGameData)
             {
                 return;
             }

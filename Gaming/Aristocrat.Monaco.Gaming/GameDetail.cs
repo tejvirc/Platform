@@ -5,6 +5,7 @@
     using System.Linq;
     using Contracts;
     using Contracts.Models;
+    using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using PackageManifest.Models;
 
@@ -131,6 +132,8 @@
         public int[] MechanicalReelHomeStops { get; set; }
 
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        public PlatformTarget PlatformTarget { get; set; }
 
         public GameCategory Category { get; set; }
 

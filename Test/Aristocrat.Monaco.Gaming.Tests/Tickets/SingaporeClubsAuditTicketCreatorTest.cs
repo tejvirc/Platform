@@ -8,6 +8,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Tickets;
+    using Aristocrat.Monaco.Hardware.Contracts.EdgeLighting;
     using Aristocrat.Monaco.Hardware.Contracts.Printer;
     using Contracts;
     using Contracts.Models;
@@ -140,6 +141,8 @@
         public int[] MechanicalReelHomeStops { get; set; }
 
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        public PlatformTarget PlatformTarget { get; set; }
     }
 
     internal class TestDenomination : IDenomination

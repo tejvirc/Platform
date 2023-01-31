@@ -10,6 +10,7 @@
     using System.IO;
     using System.Linq;
     using Hardware.Contracts.Display;
+    using Hardware.Contracts.EdgeLighting;
 
     /// <summary>
     ///     Service used to start a game process
@@ -57,6 +58,8 @@
             {
                 return -1;
             }
+
+            _properties.SetProperty(nameof(PlatformTarget), game.PlatformTarget);
 
             var logPath = _pathMapper.GetDirectory(Logs);
 
