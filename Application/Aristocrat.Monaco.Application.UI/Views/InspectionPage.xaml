@@ -94,7 +94,6 @@
                 <views:InspectionIdControl HorizontalAlignment="Left" 
                                            VerticalAlignment="Center" />
                 <Button Grid.Column="1" 
-                        IsEnabled="{Binding PrintButtonEnabled}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
                         Width="90" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
                         Command="{Binding PrintButtonCommand}"
@@ -105,10 +104,27 @@
                 </Button>
                 <TextBlock Grid.Column="2"
                            Text="{Binding ReportText, UpdateSourceTrigger=PropertyChanged}"
-                           Foreground="{Binding ReportBrush}"
                            Margin="20 0"
                            HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" 
+                               BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ReportStatus}" Value="Untested">
+                                    <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ReportStatus}" Value="Good">
+                                    <Setter Property="Foreground" Value="{DynamicResource GreenBrush}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ReportStatus}" Value="Bad">
+                                    <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <Button Grid.Column="3"
                         Name="ClearConfigButton" Command="{Binding ClearConfigButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearConfig}}"
@@ -122,14 +138,12 @@
                 <Button Grid.Column="4"
                         Name="BackButton" Command="{Binding BackButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
-                        IsEnabled="{Binding CanNavigateBackward}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
                 <Button Grid.Column="5"
                         Name="NextButton" Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
-                        IsEnabled="{Binding CanNavigateForward}"
                         Margin="0" controls:ControlsHelper.CornerRadius="3" />
             </Grid>
         </Grid>

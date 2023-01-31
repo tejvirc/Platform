@@ -35,7 +35,7 @@
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         public ICommand ToggleTestModeCommand { get; }
@@ -100,6 +100,19 @@
                 }
 
                 SetProperty(ref _inTestMode, value, nameof(InTestMode));
+            }
+        }
+
+        public override bool TestModeEnabled
+        {
+            get => base.TestModeEnabled;
+            set
+            {
+                base.TestModeEnabled = value;
+                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                {
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                }
             }
         }
 

@@ -76,15 +76,14 @@
                     Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}">
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterSoundTest}}"
                         Command="{Binding ToggleTestModeCommand}"
-                        Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                        IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                        Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
             <Button Name="ExitTestModeButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitSoundTest}}"
                         Command="{Binding ToggleTestModeCommand}"
                         Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled,UpdateSourceTrigger=PropertyChanged , Converter={StaticResource TrueCollapsedFalseVisible}}">
+                        Visibility="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="WarningButton"/>

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Windows.Input;
     using Application.Helpers;
     using Application.Settings;
@@ -74,238 +73,115 @@
         public string IpAddress
         {
             get => _ipAddress;
-            set
-            {
-                if (value != _ipAddress)
-                {
-                    _ipAddress = value;
-                    RaisePropertyChanged(nameof(IpAddress));
-                }
-            }
+            set => SetProperty(ref _ipAddress, value, nameof(IpAddress));
         }
 
         public string PhysicalAddress
         {
             get => _physicalAddress;
-            set
-            {
-                if (_physicalAddress == value)
-                {
-                    return;
-                }
-
-                _physicalAddress = value;
-                RaisePropertyChanged(nameof(PhysicalAddress));
-            }
+            set => SetProperty(ref _physicalAddress, value, nameof(PhysicalAddress));
         }
 
         public string ModelText
         {
             get => _modelText;
-            set
-            {
-                _modelText = value;
-                RaisePropertyChanged(nameof(ModelText));
-            }
+            set => SetProperty(ref _modelText, value, nameof(ModelText));
         }
 
         public string Jurisdiction
         {
             get => _jurisdiction;
-            set
-            {
-                _jurisdiction = value;
-                RaisePropertyChanged(nameof(Jurisdiction));
-            }
+            set => SetProperty(ref _jurisdiction, value, nameof(Jurisdiction));
         }
 
         public string CurrencySample
         {
             get => _currencySample;
-            set
-            {
-                _currencySample = value;
-                RaisePropertyChanged(nameof(CurrencySample));
-            }
+            set => SetProperty(ref _currencySample, value, nameof(CurrencySample));
         }
 
         public bool IsVisibleForInspection
         {
             get => _isVisibleForInspection;
-            set
-            {
-                _isVisibleForInspection = value;
-                RaisePropertyChanged(nameof(IsVisibleForInspection));
-            }
+            set => SetProperty(ref _isVisibleForInspection, value, nameof(IsVisibleForInspection));
         }
 
         public string BiosVersion
         {
             get => _biosVersion;
-            private set
-            {
-                if (_biosVersion != value)
-                {
-                    _biosVersion = value;
-                    RaisePropertyChanged(nameof(BiosVersion));
-                }
-            }
+            private set => SetProperty(ref _biosVersion, value, nameof(BiosVersion));
         }
 
         public string FpgaVersion
         {
             get => _fpgaVersion;
-            private set
-            {
-                if (_fpgaVersion != value)
-                {
-                    _fpgaVersion = value;
-                    RaisePropertyChanged(nameof(FpgaVersion));
-                }
-            }
+            private set => SetProperty(ref _fpgaVersion, value, nameof(FpgaVersion));
         }
 
         public string WindowsVersion
         {
             get => _windowsVersion;
-            private set
-            {
-                if (_windowsVersion != value)
-                {
-                    _windowsVersion = value;
-                    RaisePropertyChanged(nameof(WindowsVersion));
-                }
-            }
+            private set => SetProperty(ref _windowsVersion, value, nameof(WindowsVersion));
         }
 
         public string OsImageVersion
         {
             get => _osImageVersion;
-            private set
-            {
-                if (_osImageVersion != value)
-                {
-                    _osImageVersion = value;
-                    RaisePropertyChanged(nameof(OsImageVersion));
-                }
-            }
+            private set => SetProperty(ref _osImageVersion, value, nameof(OsImageVersion));
         }
 
         public string PlatformVersion
         {
             get => _platformVersion;
-            private set
-            {
-                if (_platformVersion != value)
-                {
-                    _platformVersion = value;
-                    RaisePropertyChanged(nameof(PlatformVersion));
-                }
-            }
+            private set => SetProperty(ref _platformVersion, value, nameof(PlatformVersion));
         }
 
         public string Electronics
         {
             get => _electronics;
-            private set
-            {
-                if (_electronics != value)
-                {
-                    _electronics = value;
-                    RaisePropertyChanged(nameof(Electronics));
-                }
-            }
+            private set => SetProperty(ref _electronics, value, nameof(Electronics));
         }
 
         public string GraphicsCard
         {
             get => _graphicsCard;
-            private set
-            {
-                if (_graphicsCard != value)
-                {
-                    _graphicsCard = value;
-                    RaisePropertyChanged(nameof(GraphicsCard));
-                }
-            }
+            private set => SetProperty(ref _graphicsCard, value, nameof(GraphicsCard));
         }
 
         public string ButtonDeck
         {
             get => _buttonDeck;
-            private set
-            {
-                if (_buttonDeck != value)
-                {
-                    _buttonDeck = value;
-                    RaisePropertyChanged(nameof(ButtonDeck));
-                }
-            }
+            private set => SetProperty(ref _buttonDeck, value, nameof(ButtonDeck));
         }
 
         public string TouchScreens
         {
             get => _touchScreens;
-            private set
-            {
-                if (!_touchScreens?.Equals(value) ?? true)
-                {
-                    _touchScreens = value;
-                    RaisePropertyChanged(nameof(TouchScreens));
-                }
-            }
+            private set => SetProperty(ref _touchScreens, value, nameof(TouchScreens));
         }
 
         public string Lighting
         {
             get => _lighting;
-            private set
-            {
-                if (!_lighting?.Equals(value) ?? true)
-                {
-                    _lighting = value;
-                    RaisePropertyChanged(nameof(Lighting));
-                }
-            }
+            private set => SetProperty(ref _lighting, value, nameof(Lighting));
         }
 
         public string NoteAcceptorModel
         {
             get => _noteAcceptorModel;
-            private set
-            {
-                if (_noteAcceptorModel != value)
-                {
-                    _noteAcceptorModel = value;
-                    RaisePropertyChanged(nameof(NoteAcceptorModel));
-                }
-            }
+            private set => SetProperty(ref _noteAcceptorModel, value, nameof(NoteAcceptorModel));
         }
 
         public string PrinterModel
         {
             get => _printerModel;
-            private set
-            {
-                if (_printerModel != value)
-                {
-                    _printerModel = value;
-                    RaisePropertyChanged(nameof(PrinterModel));
-                }
-            }
+            private set => SetProperty(ref _printerModel, value, nameof(PrinterModel));
         }
 
         public string ReelController
         {
             get => _reelController;
-            private set
-            {
-                if (_reelController != value)
-                {
-                    _reelController = value;
-                    RaisePropertyChanged(nameof(ReelController));
-                }
-            }
+            private set => SetProperty(ref _reelController, value, nameof(ReelController));
         }
 
         /// <summary>
@@ -314,14 +190,7 @@
         public string HardBootTime
         {
             get => _hardBootTime;
-            set
-            {
-                if (_hardBootTime != value)
-                {
-                    _hardBootTime = value;
-                    RaisePropertyChanged(nameof(HardBootTime));
-                }
-            }
+            set => SetProperty(ref _hardBootTime, value, nameof(HardBootTime));
         }
 
         /// <summary>
@@ -330,14 +199,7 @@
         public string SoftBootTime
         {
             get => _softBootTime;
-            set
-            {
-                if (_softBootTime != value)
-                {
-                    _softBootTime = value;
-                    RaisePropertyChanged(nameof(SoftBootTime));
-                }
-            }
+            set => SetProperty(ref _softBootTime, value, nameof(SoftBootTime));
         }
 
         protected override void Loaded()

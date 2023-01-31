@@ -143,10 +143,10 @@
             EventBus.Subscribe<SystemDownEvent>(this, HandleSystemDownEvent);
 
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
-            _restartWhenFinished = !_isInspection && !_serviceManager.GetService<ICabinetDetectionService>().TouchscreensMapped;
+            _restartWhenFinished = !_isInspection && !_cabinetDetectionService.TouchscreensMapped;
 
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click);
+            BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
+            NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
         }
 
         public ICommand BackButtonClicked { get; }
@@ -156,31 +156,19 @@
         public string PageTitle
         {
             get => _pageTitle;
-            set
-            {
-                _pageTitle = value;
-                RaisePropertyChanged(nameof(PageTitle));
-            }
+            set => SetProperty(ref _pageTitle, value, nameof(PageTitle));
         }
 
         public string NextButtonText
         {
             get => _nextButtonText;
-            set
-            {
-                _nextButtonText = value;
-                RaisePropertyChanged(nameof(NextButtonText));
-            }
+            set => SetProperty(ref _nextButtonText, value, nameof(NextButtonText));
         }
 
         public bool NextButtonFocused
         {
             get => _nextButtonFocused;
-            set
-            {
-                _nextButtonFocused = value;
-                RaisePropertyChanged(nameof(NextButtonFocused));
-            }
+            set => SetProperty(ref _nextButtonFocused, value, nameof(NextButtonFocused));
         }
 
         public IOperatorMenuPageLoader CurrentPageLoader
@@ -193,8 +181,7 @@
                     vm.Save();
                 }
 
-                _currentPageLoader = value;
-                RaisePropertyChanged(nameof(CurrentPage));
+                SetProperty(ref _currentPageLoader, value, nameof(CurrentPage));
 
                 if (_currentPageLoader != null)
                 {
@@ -216,10 +203,10 @@
             get => _canNavigateForward;
             set
             {
-                if (_canNavigateForward != value)
+                SetProperty(ref _canNavigateForward, value, nameof(CanNavigateForward));
+                if (NextButtonClicked is IActionCommand actionCommand)
                 {
-                    _canNavigateForward = value;
-                    RaisePropertyChanged(nameof(CanNavigateForward));
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
                 }
             }
         }
@@ -230,10 +217,10 @@
             get => _canNavigateBackward;
             set
             {
-                if (_canNavigateBackward != value)
+                SetProperty(ref _canNavigateBackward, value, nameof(CanNavigateBackward));
+                if (BackButtonClicked is IActionCommand actionCommand)
                 {
-                    _canNavigateBackward = value;
-                    RaisePropertyChanged(nameof(CanNavigateBackward));
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
                 }
             }
         }
@@ -241,14 +228,7 @@
         public bool IsBackButtonVisible
         {
             get => _isBackButtonVisible;
-            set
-            {
-                if (_isBackButtonVisible != value)
-                {
-                    _isBackButtonVisible = value;
-                    RaisePropertyChanged(nameof(IsBackButtonVisible));
-                }
-            }
+            set => SetProperty(ref _isBackButtonVisible, value, nameof(IsBackButtonVisible));
         }
 
         /// <inheritdoc/>
@@ -292,20 +272,20 @@
             CanNavigateForward = false;
             CanNavigateBackward = false;
 
-            Logger.DebugFormat($"Back button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex - 1}...");
+            Logger.Debug($"Back button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex - 1}...");
 
             _lastWizardSelectedIndex--;
             PropertiesManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, _lastWizardSelectedIndex);
 
             if (_selectablePagesDone)
             {
-                Logger.DebugFormat(
+                Logger.Debug(
                     $"Navigating back to wizard page {_wizardPages[_lastWizardSelectedIndex].PageName} page...");
                 CurrentPageLoader = _wizardPages[_lastWizardSelectedIndex];
             }
             else
             {
-                Logger.DebugFormat(
+                Logger.Debug(
                     $"Navigating back to selectable configuration page {_selectableConfigurationPages[_lastWizardSelectedIndex].PageName} page...");
                 CurrentPageLoader = _selectableConfigurationPages[_lastWizardSelectedIndex];
             }
@@ -328,7 +308,7 @@
             CanNavigateForward = false;
             CanNavigateBackward = false;
 
-            Logger.DebugFormat($"Next button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex + 1}...");
+            Logger.Debug($"Next button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex + 1}...");
 
             _lastWizardSelectedIndex++;
             PropertiesManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, _lastWizardSelectedIndex);
@@ -354,7 +334,7 @@
         private void Finished(bool mapDisplays)
         {
             var configurator = _serviceManager.GetService<IAutoConfigurator>();
-            var touchScreensMapped = _serviceManager.GetService<ICabinetDetectionService>().TouchscreensMapped;
+            var touchScreensMapped = _cabinetDetectionService.TouchscreensMapped;
 
             if (mapDisplays && !configurator.AutoConfigurationExists && !touchScreensMapped)
             {
@@ -429,7 +409,7 @@
 
         private void LoadLayer(string extensionPath)
         {
-            Logger.InfoFormat($"Loading layer {extensionPath}");
+            Logger.Info($"Loading layer {extensionPath}");
 
             var nodes = MonoAddinsHelper.GetSelectedNodes<WizardConfigTypeExtensionNode>(extensionPath);
 
@@ -444,14 +424,14 @@
             {
                 var instance = node.CreateInstance();
 
-                Logger.DebugFormat($"Loading wizard {node.Type}");
+                Logger.Debug($"Loading wizard {node.Type}");
 
                 if (instance is IComponentWizard wizard)
                 {
                     foreach (var page in wizard.WizardPages)
                     {
                         page.Initialize();
-                        Logger.InfoFormat($"Adding wizard page (IComponentWizard) {page.PageName}");
+                        Logger.Info($"Adding wizard page (IComponentWizard) {page.PageName}");
                         _wizardPages.Add(page);
                     }
                 }
@@ -461,13 +441,13 @@
                     loader.Initialize();
                     if (loader.IsVisible)
                     {
-                        Logger.InfoFormat($"Adding wizard page (IOperatorMenuPageLoader) {loader.PageName}");
+                        Logger.Info($"Adding wizard page (IOperatorMenuPageLoader) {loader.PageName}");
                         _wizardPages.Add(loader);
                     }
                 }
             }
 
-            Logger.InfoFormat($"Loading layer {extensionPath} - complete!");
+            Logger.Info($"Loading layer {extensionPath} - complete!");
         }
 
         private void LoadWizards()
@@ -493,7 +473,7 @@
             // If more selectable addin configuration pages exist, go to the next
             if (_lastWizardSelectedIndex < _selectableConfigurationPages.Count)
             {
-                Logger.DebugFormat(
+                Logger.Debug(
                     $"Navigating forward to wizard page {_selectableConfigurationPages[_lastWizardSelectedIndex].PageName}...");
                 CurrentPageLoader = _selectableConfigurationPages[_lastWizardSelectedIndex];
                 return;
@@ -511,7 +491,7 @@
                 _lastWizardSelectedIndex = _wizardPages.Count - 1;
             }
 
-            Logger.DebugFormat($"Navigating forward to wizard page {_wizardPages[_lastWizardSelectedIndex].PageName}...");
+            Logger.Debug($"Navigating forward to wizard page {_wizardPages[_lastWizardSelectedIndex].PageName}...");
             if (_lastWizardSelectedIndex < _wizardPages.Count)
             {
                 CurrentPageLoader = _wizardPages[_lastWizardSelectedIndex];

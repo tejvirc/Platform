@@ -22,7 +22,7 @@
             SelfTestButtonCommand = new ActionCommand<object>(HandleSelfTestButtonCommand);
             SelfTestClearButtonCommand = new ActionCommand<object>(HandleSelfTestClearNvmButtonCommand);
             ReturnButtonCommand = new ActionCommand<object>(HandleReturnButtonCommand);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         public ICommand InspectButtonCommand { get; set; }
@@ -32,6 +32,19 @@
         public ICommand StackButtonCommand { get; set; }
 
         public ICommand ToggleTestModeCommand { get; set; }
+
+        public override bool TestModeEnabled
+        {
+            get => base.TestModeEnabled;
+            set
+            {
+                base.TestModeEnabled = value;
+                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                {
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                }
+            }
+        }
 
         protected override void OnLoaded()
         {

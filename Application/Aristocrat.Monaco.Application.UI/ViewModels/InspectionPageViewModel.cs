@@ -4,10 +4,8 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Reflection;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Media;
     using System.Windows.Threading;
     using ConfigWizard;
     using Contracts;
@@ -27,17 +25,13 @@
     [CLSCompliant(false)]
     public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IService
     {
-        private static readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
-        private static readonly SolidColorBrush YellowBrush = new SolidColorBrush(Colors.Yellow);
-        private static readonly SolidColorBrush GreenBrush = new SolidColorBrush(Colors.LightGreen);
-
         private readonly string _inspectionWizardsGroupName = "InspectionWizardPages";
         private readonly string _wizardsExtensionPath = "/Application/Inspection/Wizards";
         private readonly Collection<IOperatorMenuPageLoader> _wizardPages = new ();
         private readonly OperatorMenuPrintHandler _operatorMenuPrintHandler;
 
         private string _reportText;
-        private Brush _reportBrush;
+        private InspectionPageStatus _reportStatus;
 
         private int _lastWizardSelectedIndex;
         private bool _onFinishedPage;
@@ -73,8 +67,8 @@
             PrintButtonCommand = new ActionCommand<object>(PrintButton_Click);
             ClearConfigButtonClicked = new ActionCommand<object>(ClearConfigButton_Click);
             ReportButtonClicked = new ActionCommand<object>(ReportButton_Click);
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click);
+            BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
+            NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
 
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(BeginConfigWizardPages));
         }
@@ -92,31 +86,19 @@
         public string PageTitle
         {
             get => _pageTitle;
-            set
-            {
-                _pageTitle = value;
-                RaisePropertyChanged(nameof(PageTitle));
-            }
+            set => SetProperty(ref _pageTitle, value, nameof(PageTitle));
         }
 
         public string NextButtonText
         {
             get => _nextButtonText;
-            set
-            {
-                _nextButtonText = value;
-                RaisePropertyChanged(nameof(NextButtonText));
-            }
+            set => SetProperty(ref _nextButtonText, value, nameof(NextButtonText));
         }
 
         public bool NextButtonFocused
         {
             get => _nextButtonFocused;
-            set
-            {
-                _nextButtonFocused = value;
-                RaisePropertyChanged(nameof(NextButtonFocused));
-            }
+            set => SetProperty(ref _nextButtonFocused, value, nameof(NextButtonFocused));
         }
 
         public IOperatorMenuPageLoader CurrentPageLoader
@@ -129,8 +111,7 @@
                     vm.Save();
                 }
 
-                _currentPageLoader = value;
-                RaisePropertyChanged(nameof(CurrentPage));
+                SetProperty(ref _currentPageLoader, value, nameof(CurrentPage));
 
                 if (_currentPageLoader != null)
                 {
@@ -155,10 +136,10 @@
             get => _canNavigateForward;
             set
             {
-                if (_canNavigateForward != value)
+                SetProperty(ref _canNavigateForward, value, nameof(CanNavigateForward));
+                if (NextButtonClicked is IActionCommand actionCommand)
                 {
-                    _canNavigateForward = value;
-                    RaisePropertyChanged(nameof(CanNavigateForward));
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
                 }
             }
         }
@@ -169,10 +150,10 @@
             get => _canNavigateBackward;
             set
             {
-                if (_canNavigateBackward != value)
+                SetProperty(ref _canNavigateBackward, value, nameof(CanNavigateBackward));
+                if (BackButtonClicked is IActionCommand actionCommand)
                 {
-                    _canNavigateBackward = value;
-                    RaisePropertyChanged(nameof(CanNavigateBackward));
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
                 }
             }
         }
@@ -180,42 +161,19 @@
         public bool IsBackButtonVisible
         {
             get => _isBackButtonVisible;
-            set
-            {
-                if (_isBackButtonVisible != value)
-                {
-                    _isBackButtonVisible = value;
-                    RaisePropertyChanged(nameof(IsBackButtonVisible));
-                }
-            }
+            set => SetProperty(ref _isBackButtonVisible, value, nameof(IsBackButtonVisible));
         }
 
         public bool IsClearConfigVisible
         {
             get => _isClearConfigVisible;
-            set
-            {
-                if (_isClearConfigVisible == value)
-                {
-                    return;
-                }
-
-                SetProperty(ref _isClearConfigVisible, value, nameof(IsClearConfigVisible));
-            }
+            set => SetProperty(ref _isClearConfigVisible, value, nameof(IsClearConfigVisible));
         }
 
         public bool IsReportFailureVisible
         {
             get => _isReportFailureVisible;
-            set
-            {
-                if (_isReportFailureVisible == value)
-                {
-                    return;
-                }
-
-                SetProperty(ref _isReportFailureVisible, value, nameof(IsReportFailureVisible));
-            }
+            set => SetProperty(ref _isReportFailureVisible, value, nameof(IsReportFailureVisible));
         }
 
         /// <inheritdoc/>
@@ -244,25 +202,13 @@
         public string ReportText
         {
             get => _reportText;
-            set
-            {
-                if (_reportText != value)
-                {
-                    SetProperty(ref _reportText, value, nameof(ReportText));
-                }
-            }
+            set => SetProperty(ref _reportText, value, nameof(ReportText));
         }
 
-        public Brush ReportBrush
+        public InspectionPageStatus ReportStatus
         {
-            get => _reportBrush;
-            set
-            {
-                if (_reportBrush != value)
-                {
-                    SetProperty(ref _reportBrush, value, nameof(ReportBrush));
-                }
-            }
+            get => _reportStatus;
+            set => SetProperty(ref _reportStatus, value, nameof(ReportStatus));
         }
 
         protected override void SaveChanges()
@@ -282,18 +228,17 @@
                 switch (evt.InspectionResult.Status)
                 {
                     case InspectionPageStatus.Untested:
-                        ReportBrush = YellowBrush;
                         ReportText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Untested);
                         break;
                     case InspectionPageStatus.Good:
-                        ReportBrush = GreenBrush;
                         ReportText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OKText);
                         break;
                     case InspectionPageStatus.Bad:
-                        ReportBrush = RedBrush;
                         ReportText = evt.InspectionResult.CombinedTestFailures;
                         break;
                 }
+
+                ReportStatus = evt.InspectionResult.Status;
             });
         }
 
@@ -312,7 +257,7 @@
                 return;
             }
 
-            Logger.DebugFormat($"Back button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex - 1}...");
+            Logger.Debug($"Back button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex - 1}...");
 
             _lastWizardSelectedIndex--;
 
@@ -321,7 +266,7 @@
             CanNavigateBackward = _lastWizardSelectedIndex > 0;
             PropertiesManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, _lastWizardSelectedIndex);
 
-            Logger.DebugFormat(
+            Logger.Debug(
                 $"Navigating back to wizard page {_wizardPages[_lastWizardSelectedIndex].PageName} page...");
             CurrentPageLoader = _wizardPages[_lastWizardSelectedIndex];
 
@@ -341,7 +286,7 @@
                 vm.Save();
             }
 
-            Logger.DebugFormat($"Next button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex + 1}...");
+            Logger.Debug($"Next button click {_lastWizardSelectedIndex} to {_lastWizardSelectedIndex + 1}...");
 
             _lastWizardSelectedIndex++;
 
@@ -385,7 +330,7 @@
 
         private void LoadLayer(string extensionPath)
         {
-            Logger.InfoFormat($"Loading layer {extensionPath}");
+            Logger.Info($"Loading layer {extensionPath}");
 
             var group = AddinConfigurationGroupNode.Get(_inspectionWizardsGroupName);
             var nodes = MonoAddinsHelper.GetConfiguredExtensionNodes<WizardConfigTypeExtensionNode>(
@@ -402,7 +347,7 @@
             {
                 var instance = node.CreateInstance();
 
-                Logger.DebugFormat($"Loading wizard {node.Type}");
+                Logger.Debug($"Loading wizard {node.Type}");
 
                 if (instance is IOperatorMenuPageLoader loader)
                 {
@@ -410,13 +355,13 @@
                     loader.Initialize();
                     if (loader.IsVisible)
                     {
-                        Logger.InfoFormat($"Adding wizard page (IOperatorMenuPageLoader) {loader.PageName}");
+                        Logger.Info($"Adding wizard page (IOperatorMenuPageLoader) {loader.PageName}");
                         _wizardPages.Add(loader);
                     }
                 }
             }
 
-            Logger.InfoFormat($"Loading layer {extensionPath} - complete!");
+            Logger.Info($"Loading layer {extensionPath} - complete!");
         }
 
         private void LoadWizards()
@@ -445,7 +390,7 @@
                 _lastWizardSelectedIndex = _wizardPages.Count - 1;
             }
 
-            Logger.DebugFormat($"Navigating forward to wizard page {_wizardPages[_lastWizardSelectedIndex].PageName}...");
+            Logger.Debug($"Navigating forward to wizard page {_wizardPages[_lastWizardSelectedIndex].PageName}...");
             if (_lastWizardSelectedIndex < _wizardPages.Count)
             {
                 CurrentPageLoader = _wizardPages[_lastWizardSelectedIndex];
@@ -469,26 +414,6 @@
             PropertiesManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, 0);
 
             HandleWizardPageNextClick();
-        }
-
-        private HardwareDiagnosticDeviceCategory DecipherHardwareDiagnosticDeviceCategory(Type type)
-        {
-            var shortTypeName = type.Name.ToUpper().Split('.').ToList().Last();
-            foreach (HardwareDiagnosticDeviceCategory category in Enum.GetValues(typeof(HardwareDiagnosticDeviceCategory)))
-            {
-                var categoryName = Enum.GetName(typeof(HardwareDiagnosticDeviceCategory), category);
-                if (categoryName.EndsWith("s"))
-                {
-                    categoryName = categoryName.Substring(0, categoryName.Length - 1);
-                }
-
-                if (shortTypeName.StartsWith(categoryName.ToUpper()))
-                {
-                    return category;
-                }
-            }
-
-            return HardwareDiagnosticDeviceCategory.Unknown;
         }
 
         private void Finished()

@@ -93,14 +93,12 @@
                 <Button Grid.Column="2"
                         Name="BackButton" Command="{Binding BackButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
-                        IsEnabled="{Binding CanNavigateBackward}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
                 <Button Grid.Column="3"
                         Name="NextButton" Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
-                        IsEnabled="{Binding CanNavigateForward}"
                         Margin="0" controls:ControlsHelper.CornerRadius="3" />
             </Grid>
         </Grid>

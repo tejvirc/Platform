@@ -429,7 +429,7 @@
             get => _inTestMode;
             set
             {
-                if (_inTestMode == value)
+                if (!SetProperty(ref _inTestMode, value, nameof(InTestMode)))
                 {
                     return;
                 }
@@ -449,8 +449,6 @@
                     EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
                 }
-
-                SetProperty(ref _inTestMode, value, nameof(InTestMode));
             }
         }
 

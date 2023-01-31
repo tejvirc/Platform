@@ -40,7 +40,7 @@
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         private void LoadVolumeSettings()
@@ -76,6 +76,19 @@
 
         public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
 
+        public override bool TestModeEnabled
+        {
+            get => base.TestModeEnabled;
+            set
+            {
+                base.TestModeEnabled = value;
+                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                {
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                }
+            }
+        }
+
         private bool IsSystemDisabled =>
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioDisconnectedLockKey) ||
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioReconnectedLockKey);
@@ -93,8 +106,11 @@
             get => _infoText;
             set
             {
-                _infoText = value;
-                RaisePropertyChanged(nameof(InfoText));
+                if (!SetProperty(ref _infoText, value, nameof(InfoText)))
+                {
+                    return;
+                }
+
                 UpdateStatusText();
             }
         }
@@ -106,7 +122,7 @@
             get => _inTestMode;
             set
             {
-                if (_inTestMode == value)
+                if (!SetProperty(ref _inTestMode, value, nameof(InTestMode)))
                 {
                     return;
                 }
@@ -126,8 +142,6 @@
                     EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Sound));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
                 }
-
-                SetProperty(ref _inTestMode, value, nameof(InTestMode));
             }
         }
 
@@ -137,13 +151,11 @@
 
             set
             {
-                if (_soundLevel == value)
+                if (!SetProperty(ref _soundLevel, value, nameof(SoundLevel)))
                 {
                     return;
                 }
 
-                _soundLevel = value;
-                RaisePropertyChanged(nameof(SoundLevel));
                 PropertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
             }
         }
@@ -155,11 +167,12 @@
             get => _alertVolume;
             set
             {
-                if (_alertVolume != value && value >= _alertMinimumVolume)
+                if (value >= _alertMinimumVolume)
                 {
-                    _alertVolume = value;
-                    RaisePropertyChanged(nameof(AlertVolume));
-                    PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, value);
+                    if (SetProperty(ref _alertVolume, value, nameof(AlertVolume)))
+                    {
+                        PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, value);
+                    }
                 }
                 if (_playTestAlertSound)
                 {
@@ -248,7 +261,7 @@
             });
         }
 
-        public SoundTestPageViewModel TestViewModel { get; } = new SoundTestPageViewModel();
+        public SoundTestPageViewModel TestViewModel { get; } = new ();
 
         public override bool TestModeEnabledSupplementary => !IsAudioDisabled && !IsSystemDisabled;
     }

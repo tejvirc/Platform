@@ -5,16 +5,15 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
-    using System.Windows.Media;
-    using Application.Contracts;
     using ConfigWizard;
+    using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Models;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
     using OperatorMenu;
 
     /// <summary>
@@ -127,56 +126,5 @@
         {
             return field.Split(new [] { Environment.NewLine }, StringSplitOptions.None).Length;
         }
-    }
-
-    [CLSCompliant(false)]
-    public class InspectionCategoryResult : BaseEntityViewModel
-    {
-        private static readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
-        private static readonly SolidColorBrush YellowBrush = new SolidColorBrush(Colors.Yellow);
-        private static readonly SolidColorBrush GreenBrush = new SolidColorBrush(Colors.LightGreen);
-
-        public const string CheckMark = "\x221A";
-
-        public InspectionCategoryResult(InspectionResultData data)
-        {
-            Category = Enum.GetName(typeof(HardwareDiagnosticDeviceCategory), data.Category);
-
-            switch (data.Status)
-            {
-                case InspectionPageStatus.Untested:
-                    StatusText = "?";
-                    StatusColor = YellowBrush;
-                    break;
-                case InspectionPageStatus.Good:
-                    StatusText = CheckMark;
-                    StatusColor = GreenBrush;
-                    break;
-                case InspectionPageStatus.Bad:
-                    StatusText = "X";
-                    StatusColor = RedBrush;
-                    break;
-            }
-
-            FirmwareMessage = data.FirmwareVersion;
-            FailureMessage = string.Join("; ", data.CombinedTestFailures);
-
-            RaisePropertyChanged(
-                nameof(Category),
-                nameof(StatusText),
-                nameof(StatusColor),
-                nameof(FirmwareMessage),
-                nameof(FailureMessage));
-        }
-
-        public string Category { get; set; }
-
-        public string StatusText { get; set; }
-
-        public Brush StatusColor { get; set; }
-
-        public string FirmwareMessage { get; set; }
-
-        public string FailureMessage { get; set; }
     }
 }
