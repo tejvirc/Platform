@@ -739,7 +739,7 @@
 
         private void SetRestriction(IConfigurationRestriction restriction)
         {
-            if (SelectedGame == null)
+            if (SelectedGame is null)
             {
                 return;
             }
@@ -755,7 +755,7 @@
             {
                 // If there are configured restrictions but none is chosen or none were valid, then
                 // we don't want to show any denoms for configuration.
-                if (ConfiguredRestrictions.Any() && restriction == null)
+                if (ConfiguredRestrictions.Any() && restriction is null)
                 {
                     game.RestrictedToReadOnly = true;
                     game.Enabled = false;
@@ -765,13 +765,13 @@
 
                 // From here on, if the restriction is null, then we can't do anything, so we
                 // should just move on.
-                if (restriction == null)
+                if (restriction is null)
                 {
                     continue;
                 }
 
                 var mapping = restriction.RestrictionDetails.Mapping?.FirstOrDefault(c => game.BaseDenom == c.Denomination);
-                if (mapping == null)
+                if (mapping is null)
                 {
                     game.RestrictedToReadOnly = true;
                     game.Enabled = false;
@@ -780,7 +780,7 @@
                 }
 
                 var mappedGame = game.AvailableGames.FirstOrDefault(g => g.VariationId == mapping.VariationId);
-                if (mappedGame == null)
+                if (mappedGame is null)
                 {
                     game.Active = false;
                     continue;
@@ -793,13 +793,19 @@
                 game.Enabled = mapping.EnabledByDefault;
 
                 var betLinePreset = game.Game.BetLinePresetList.FirstOrDefault(b => b.Id == mapping.DefaultBetLinePresetId);
-                if (betLinePreset != null)
+                if (betLinePreset is not null)
                 {
                     var betOption = game.BetOptions.FirstOrDefault(b => b.Name == betLinePreset.BetOption.Name);
-                    if (betOption != null)
+                    if (betOption is not null)
                     {
                         Logger.Debug($"Restricted bet option to {mapping.DefaultBetLinePresetId} from {string.Join(",", mapping.BetLinePresets)}");
                         game.SelectedBetOption = betOption;
+                    }
+
+                    var lineOption = game.LineOptions.FirstOrDefault(l => l.Name == betLinePreset.LineOption.Name);
+                    if (lineOption is not null)
+                    {
+                        game.SelectedLineOption = lineOption;
                     }
                 }
 
