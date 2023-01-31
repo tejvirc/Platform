@@ -27,17 +27,18 @@
 
             command.Values.Add(
                 StorageType.GameLocalSession,
-                _gameStorage.GetValue<Dictionary<string, string>>(gameId, denomId, StorageType.GameLocalSession.ToString()) ??
+                (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(gameId, denomId, StorageType.GameLocalSession.ToString())
+                ??
                 new Dictionary<string, string>());
 
             command.Values.Add(
                 StorageType.LocalSession,
-                _gameStorage.GetValue<Dictionary<string, string>>(StorageType.LocalSession.ToString()) ??
+                (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(StorageType.LocalSession.ToString()) ??
                 new Dictionary<string, string>());
 
             command.Values.Add(
                 StorageType.PlayerSession,
-                _gameStorage.GetValue<Dictionary<string, string>>(StorageType.PlayerSession.ToString()) ??
+                (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(StorageType.PlayerSession.ToString()) ??
                 new Dictionary<string, string>());
 
             var value = _gameStorage.GetValue<Dictionary<string, string>>(
@@ -47,7 +48,7 @@
 
             if (value?.Any() ?? false)
             {
-                command.Values.Add(StorageType.GamePlayerSession, value);
+                command.Values.Add(StorageType.GamePlayerSession, (IDictionary<string, string>)value);
             }
         }
     }

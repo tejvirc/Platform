@@ -77,7 +77,7 @@
         {
             var updated = false;
 
-            var perGame = _gameStorage.GetValue<Dictionary<string, string>>(
+            var perGame = (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(
                 gameId,
                 denomId,
                 storageValue.Key.ToString()) ?? new Dictionary<string, string>();
@@ -102,7 +102,7 @@
         {
             var updated = false;
 
-            var shared = _gameStorage.GetValue<Dictionary<string, string>>(storageValue.Key.ToString()) ??
+            var shared = (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(storageValue.Key.ToString()) ??
                          new Dictionary<string, string>();
 
             storageValue.Value.ToList().ForEach(

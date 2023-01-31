@@ -302,7 +302,7 @@
                     levelIds,
                     transactionIds,
                     recovering,
-                    bonusId).ToList();
+                    bonusId == null ? string.Empty : bonusId.FirstOrDefault()).ToList();
                 _levelProvider.UpdateProgressiveLevels(_packName, _gameId, _denomination, _activeLevels);
                 TryNotifyWin();
 

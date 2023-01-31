@@ -13,7 +13,7 @@
         /// <typeparam name="T">The value type.</typeparam>
         /// <param name="name">The block name</param>
         /// <returns>The value associated with the provided name</returns>
-        T GetValue<T>(string name);
+        List<T> GetValue<T>(string name);
 
         /// <summary>
         ///     Gets the value stored for the specified game combo (id and denom)
@@ -23,7 +23,7 @@
         /// <param name="betAmount"> The bet amount (in credits) for which the associated meter is to be obtained.</param>
         /// <param name="name">The value name</param>
         /// <returns>The value associated with the provided name</returns>
-        T GetValue<T>(int gameId, long betAmount, string name);
+        List<T> GetValue<T>(int gameId, long betAmount, string name);
 
         /// <summary>
         ///     Gets the values stored for the specified game combo (id and denom)
