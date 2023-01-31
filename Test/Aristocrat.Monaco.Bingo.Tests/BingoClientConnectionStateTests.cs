@@ -12,7 +12,6 @@
     using Aristocrat.Bingo.Client.Configuration;
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Monaco.Gaming.Contracts;
-    using Aristocrat.Monaco.Protocol.Common.Storage.Repositories;
     using Commands;
     using Common;
     using Common.Events;
