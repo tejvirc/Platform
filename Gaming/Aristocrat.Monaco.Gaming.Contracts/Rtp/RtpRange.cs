@@ -18,12 +18,10 @@
             {
                 throw new ArgumentException("The RTP min value is greater than the RTP max value.");
             }
-
             if (min < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(min), "RTP percentages cannot be negative.");
             }
-
             if (max < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(max), "RTP percentages cannot be negative.");
@@ -44,20 +42,22 @@
         public decimal Maximum { get; }
 
         /// <summary>
-        ///     Overloaded Addition operator + to support adding one <see cref="RtpRange"/> to another.
+        ///     Overloaded Addition operator + to support expanding RTP Ranges.
         /// </summary>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
+        /// <param name="r1">RTP Range 1</param>
+        /// <param name="r2">RTP Range 2</param>
         /// <returns></returns>
-        public static RtpRange operator +(RtpRange r1, RtpRange r2) => new(r1.Minimum + r2.Minimum, r1.Maximum + r2.Maximum);
+        public static RtpRange operator +(RtpRange r1, RtpRange r2) => new(Math.Min(r1.Minimum, r2.Minimum), Math.Max(r1.Maximum, r2.Maximum));
 
         /// <summary>
-        ///     Overloaded Subtraction operator - to support subtracting one <see cref="RtpRange"/> from another.
+        /// Overloaded Addition operator + to support expanding RTP Ranges.
         /// </summary>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
-        /// <returns></returns>
-        public static RtpRange operator -(RtpRange r1, RtpRange r2) => new(r1.Minimum - r2.Minimum, r1.Maximum - r2.Maximum);
+        /// <param name="range">The RTP range being added.</param>
+        /// <param name="rtpPercent">The RTP percent being added.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static RtpRange operator +(RtpRange range, decimal rtpPercent) => new(Math.Min(range.Minimum, rtpPercent), Math.Max(range.Maximum, rtpPercent));
 
         /// <summary>
         ///     Returns the string representation of the rtp

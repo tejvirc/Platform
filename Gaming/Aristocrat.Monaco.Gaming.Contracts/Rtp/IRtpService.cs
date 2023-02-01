@@ -23,6 +23,6 @@
         /// </summary>
         /// <param name="gameThemeId">The game theme identifier.</param>
         /// <returns>The RTP report for the given game theme</returns>
-        public GameThemeRtpReport GenerateRtpReportForGame(string gameThemeId);
+        public RtpReportForGameTheme GenerateRtpReportForGame(string gameThemeId);
     }
 }

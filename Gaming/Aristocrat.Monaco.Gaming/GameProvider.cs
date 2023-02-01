@@ -118,6 +118,7 @@
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
 
+            // TODO: No, not here buddy!
             SetupRtpRules();
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
@@ -952,7 +953,16 @@
                             w.TheoPaybackPercent,
                             w.MinWagerCredits,
                             w.MaxWagerCredits,
-                            w.MaxWinAmount)).ToList();
+                            w.MaxWinAmount,
+                            w.MinBaseRtpPercent,
+                            w.MaxBaseRtpPercent,
+                            w.MinSapStartupRtpPercent,
+                            w.MaxSapStartupRtpPercent,
+                            w.SapIncrementRtpPercent,
+                            w.MinLinkStartupRtpPercent,
+                            w.MaxLinkStartupRtpPercent,
+                            w.LinkIncrementRtpPercent)).ToList();
+
                     var centralAllowed = false;
 
                     if (game.CentralInfo.Any())

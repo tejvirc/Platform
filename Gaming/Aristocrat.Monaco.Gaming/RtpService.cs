@@ -2,29 +2,42 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Contracts;
     using Contracts.Rtp;
     using Kernel;
 
     public class RtpService : IService, IRtpService
     {
-        public RtpService()
+        private readonly IGameProvider _gameProvider;
+
+        public RtpService(IGameProvider gameProvider)
         {
-            throw new System.NotImplementedException();
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
         }
 
         public string Name => GetType().ToString();
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IRtpService) };
 
-        public GameThemeRtpReport GenerateRtpReportForGame(string gameThemeId) 
+        public RtpReportForGameTheme GenerateRtpReportForGame(string gameThemeId) 
         {
-            // lookup game using gameProvider
-            throw new System.NotImplementedException();
+            var gamesForTheme = _gameProvider.GetAllGames()
+                .Where(game => game.ThemeId.Equals(gameThemeId));
+
+            var report = new RtpReportForGameTheme(gamesForTheme);
+
+            // Validate - filter out or mark invalid RTP ranges
+            // TODO: Implement this
+
+            return report;
         }
 
         public void Initialize()
         {
+            // Load and cache Jurisdictional RTP rules
+
+
             throw new NotImplementedException();
         }
     }
