@@ -27,18 +27,18 @@
 
             command.Values.Add(
                 StorageType.GameLocalSession,
-                (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(gameId, denomId, StorageType.GameLocalSession.ToString())
+                _gameStorage.GetValue<Dictionary<string, string>>(gameId, denomId, StorageType.GameLocalSession.ToString())
                 ??
                 new Dictionary<string, string>());
 
             command.Values.Add(
                 StorageType.LocalSession,
-                (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(StorageType.LocalSession.ToString()) ??
+                _gameStorage.GetValue<Dictionary<string, string>>(StorageType.LocalSession.ToString()) ??
                 new Dictionary<string, string>());
 
             command.Values.Add(
                 StorageType.PlayerSession,
-                (IDictionary<string, string>)_gameStorage.GetValue<Dictionary<string, string>>(StorageType.PlayerSession.ToString()) ??
+                _gameStorage.GetValue<Dictionary<string, string>>(StorageType.PlayerSession.ToString()) ??
                 new Dictionary<string, string>());
 
             var value = _gameStorage.GetValue<Dictionary<string, string>>(

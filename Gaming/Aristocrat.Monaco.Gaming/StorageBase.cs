@@ -32,14 +32,14 @@
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
         }
 
-        public List<T> GetValue<T>(string name)
+        public T GetValue<T>(string name)
         {
             var block = GetBlock(name);
 
             return GetValue<T>(block);
         }
 
-        public List<T> GetValue<T>(int gameId, long betAmount, string name)
+        public T GetValue<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
 
@@ -56,7 +56,7 @@
         public IEnumerable<T> GetValues<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
-            var list = GetValue<T>(block) as IEnumerable;
+            var list = GetValues<T>(block) as IEnumerable;
             return list?.Cast<T>() ?? Enumerable.Empty<T>();
         }
 
@@ -161,7 +161,26 @@
             return _persistentStorage.BlockExists(blockName);
         }
 
-        internal List<T> GetValue<T>(IPersistentStorageAccessor block)
+        internal T GetValue<T>(IPersistentStorageAccessor block)
+        {
+            lock (_sync)
+            {
+                var data = (byte[])block[Data];
+                if (data.Length <= 2)
+                {
+                    return default(T);
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                    stream.Position = 0;
+                    return Serializer.Deserialize<T>(stream);
+                }
+            }
+        }
+
+        internal List<T> GetValues<T>(IPersistentStorageAccessor block)
         {
             lock (_sync)
             {
@@ -177,7 +196,6 @@
                     stream.Position = 0;
                     return Serializer.Deserialize<List<T>>(stream);
                 }
-               
             }
         }
 
