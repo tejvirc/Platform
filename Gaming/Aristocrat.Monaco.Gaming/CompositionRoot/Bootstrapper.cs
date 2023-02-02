@@ -22,6 +22,7 @@
     using Contracts.Process;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Contracts.Session;
     using GameRound;
     using GDKRuntime.Contract;
@@ -136,6 +137,7 @@
             container.Register<IHandpayRuntimeFlagsHelper, HandpayRuntimeFlagsHelper>(Lifestyle.Singleton);
             container.Register<IReplayRuntimeEventHandler, ReplayRuntimeEventHandler>(Lifestyle.Singleton);
             container.Register<ReelControllerMonitor>(Lifestyle.Singleton);
+            container.Register<IRtpService, RtpService>(Lifestyle.Singleton);
 
             var progressiveCalculatorFactory = new ProgressiveCalculatorFactory(container);
             progressiveCalculatorFactory.Register<StandardCalculator>(SapFundingType.Standard);

@@ -16,7 +16,6 @@
         /// </summary>
         /// <param name="id">Wager category identifier</param>
         /// <param name="theoPaybackPercent">Theoretical payback percentage associated with the wager category</param>
-        [JsonConstructor]
         public WagerCategory(
             string id,
             decimal theoPaybackPercent)
@@ -33,7 +32,6 @@
         /// <param name="minWagerCredits">Minimum wager, in credits, associated with the wager category</param>
         /// <param name="maxWagerCredits">Maximum wager, in credits, associated with the wager category</param>
         /// <param name="maxWinAmount">Maximum win amount, in millicents, associated with the wager category</param>
-        [JsonConstructor]
         public WagerCategory(
             string id,
             decimal theoPaybackPercent,

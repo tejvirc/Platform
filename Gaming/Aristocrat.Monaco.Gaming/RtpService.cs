@@ -24,6 +24,11 @@
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IRtpService) };
 
+        public void Initialize()
+        {
+            LoadRtpRules();
+        }
+
         public RtpReportForGameTheme GenerateRtpReportForGame(string gameThemeId) 
         {
             var gamesForTheme = _gameProvider.GetAllGames()
@@ -34,12 +39,6 @@
             var report = new RtpReportForGameTheme(gamesForTheme, _rtpRules[gameType]);
 
             return report;
-        }
-
-        public void Initialize()
-        {
-            // Load and cache Jurisdictional RTP rules
-            LoadRtpRules();
         }
 
         private void LoadRtpRules()
