@@ -6,9 +6,7 @@
     using Common;
     using Contracts;
     using Contracts.Extensions;
-    using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
-    using Events;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -47,7 +45,6 @@
         private bool _allowBillIn;
         private bool _allowBillInEnabled;
         private string _voucherInEnabledText;
-        private bool _inTestMode;
 
         public bool IsNoteAcceptorConnected => NoteAcceptor != null;
 
@@ -420,36 +417,6 @@
             }
 
             return error;
-        }
-
-        public NoteAcceptorTestViewModel TestViewModel { get; } = new NoteAcceptorTestViewModel();
-
-        public bool InTestMode
-        {
-            get => _inTestMode;
-            set
-            {
-                if (!SetProperty(ref _inTestMode, value, nameof(InTestMode)))
-                {
-                    return;
-                }
-
-                TestViewModel.TestMode = value;
-                if (!value)
-                {
-                    if (_inTestMode)
-                    {
-                        EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
-                    }
-
-                    UpdateStatusText();
-                }
-                else
-                {
-                    EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
-                    EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
-                }
-            }
         }
 
         protected override void SetError(string propertyName, string error)

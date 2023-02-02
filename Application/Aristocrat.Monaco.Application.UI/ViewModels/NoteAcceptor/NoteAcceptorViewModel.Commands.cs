@@ -8,8 +8,10 @@
     using Contracts.OperatorMenu;
     using Hardware.Contracts.SharedDevice;
     using Monaco.Localization.Properties;
+    using Kernel;
     using MVVM;
     using MVVM.Command;
+    using Views;
 
     public partial class NoteAcceptorViewModel
     {
@@ -22,7 +24,7 @@
             SelfTestButtonCommand = new ActionCommand<object>(HandleSelfTestButtonCommand);
             SelfTestClearButtonCommand = new ActionCommand<object>(HandleSelfTestClearNvmButtonCommand);
             ReturnButtonCommand = new ActionCommand<object>(HandleReturnButtonCommand);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
+            NoteAcceptorTestCommand = new ActionCommand<object>(HandleNoteAcceptorTestCommand);
         }
 
         public ICommand InspectButtonCommand { get; set; }
@@ -31,7 +33,7 @@
 
         public ICommand StackButtonCommand { get; set; }
 
-        public ICommand ToggleTestModeCommand { get; set; }
+        public ICommand NoteAcceptorTestCommand { get; set; }
 
         public override bool TestModeEnabled
         {
@@ -64,22 +66,9 @@
 
             EventBus.Publish(new NoteAcceptorMenuEnteredEvent());
 
-            if (IsWizardPage)
-            {
-                InTestMode = true;
-            }
-
             base.OnLoaded();
 
             UpdateWarningMessage();
-        }
-
-        protected override void OnUnloaded()
-        {
-            InTestMode = false;
-            EventBus.UnsubscribeAll(this);
-
-            base.OnUnloaded();
         }
 
         protected override void UpdateWarningMessage()
@@ -135,6 +124,22 @@
             }
 
             StartInspecting();
+        }
+
+        private void HandleNoteAcceptorTestCommand(object obj)
+        {
+            var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+
+            var viewModel = new NoteAcceptorTestViewModel();
+
+            EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
+
+            dialogService.ShowInfoDialog<NoteAcceptorTestView>(
+                this,
+                viewModel,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoteAcceptorTest));
+
+            EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
         }
 
         private void HandleReturnButtonCommand(object obj)

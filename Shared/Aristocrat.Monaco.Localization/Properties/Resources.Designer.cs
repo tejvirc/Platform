@@ -11324,18 +11324,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Exit Note Acceptor Test.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string ExitNoteAcceptorTest {
-			get {
-				return ResourceManager.GetString("ExitNoteAcceptorTest", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Exit Reserve.
 		/// </summary>
 		public static string ExitReserve {
@@ -45886,18 +45874,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Exit Note Acceptor Test.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string ExitNoteAcceptorTest {
-			get {
-				return "ExitNoteAcceptorTest";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Exit Reserve.
 		/// </summary>
 		public static string ExitReserve {
@@ -75599,13 +75575,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ExitGameBeforeChange,
-		/// <summary>
-		///   Looks up a localized string similar to Exit Note Acceptor Test.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		ExitNoteAcceptorTest,
 		/// <summary>
 		///   Looks up a localized string similar to Exit Reserve.
 		/// </summary>

@@ -6,7 +6,6 @@
                                xmlns:extensions="clr-namespace:Aristocrat.Monaco.UI.Common.Extensions;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                               xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -322,10 +321,6 @@
                                 </MultiBinding>
                             </controls:ToggleSwitchButton.IsEnabled>
                         </controls:ToggleSwitchButton>
-                
-                        <StackPanel Grid.Row="9" Grid.Column="0" Name="TestPanel" Visibility="{Binding Visibility, ElementName=ExitTestModeButton}">
-                            <local:NoteAcceptorTestView x:Name="TestControl" DataContext="{Binding TestViewModel}" />
-                        </StackPanel>
 
                     </Grid>
                 </Grid>
@@ -423,14 +418,10 @@
 
                 <StackPanel Grid.Row="3" Grid.Column="0"
                             Orientation="Horizontal"
-                            HorizontalAlignment="Left"
-                            Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}">
+                            HorizontalAlignment="Left">
                     <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorTest}}" 
-                            Command="{Binding ToggleTestModeCommand}"
-                            Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-                    <Button Name="ExitTestModeButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitNoteAcceptorTest}}" 
-                            Command="{Binding ToggleTestModeCommand}"
-                            Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                            Command="{Binding NoteAcceptorTestCommand}"
+                            IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Margin="0 15 0 0" HorizontalAlignment="Left"
                             Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
                             Command="{Binding ShowInfoPopupCommand}"
