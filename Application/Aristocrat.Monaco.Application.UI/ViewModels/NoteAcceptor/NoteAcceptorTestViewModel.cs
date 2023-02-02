@@ -2,32 +2,25 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.ComponentModel;
     using System.Globalization;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.ConfigWizard;
     using Contracts.Extensions;
     using Contracts.Localization;
-    using Contracts.OperatorMenu;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
-    using log4net;
     using Monaco.Localization.Properties;
     using MVVM;
+    using OperatorMenu;
 #if !RETAIL
     using Vgt.Client12.Testing.Tools;
 #endif
 
     [CLSCompliant(false)]
-    public class NoteAcceptorTestViewModel : INotifyPropertyChanged
+    public class NoteAcceptorTestViewModel : OperatorMenuSaveViewModelBase
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
-
-        private readonly IEventBus _eventBus;
         private readonly INoteAcceptor _noteAcceptor;
         private string _status;
 
@@ -39,21 +32,16 @@
         private IInspectionService _reporter;
 
         public NoteAcceptorTestViewModel()
-            : this(ServiceManager.GetInstance().TryGetService<IEventBus>(),
+            : this(ServiceManager.GetInstance().TryGetService<IInspectionService>(),
                   ServiceManager.GetInstance().TryGetService<INoteAcceptor>())
         {
         }
 
-        public NoteAcceptorTestViewModel(IEventBus eventBus, INoteAcceptor noteAcceptor)
+        public NoteAcceptorTestViewModel(IInspectionService reporter, INoteAcceptor noteAcceptor)
         {
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _reporter = reporter; // it's non-null only for Inspection Tool
             _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
             _status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadyToInsert);
-        }
-
-        public void SetTestReporter(IInspectionService reporter)
-        {
-            _reporter = reporter;
         }
 
         public string Status
@@ -62,65 +50,36 @@
             set => SetProperty(ref _status, value, nameof(Status));
         }
 
-        public bool TestMode
-        {
-            set
-            {
-                if (value)
-                {
-                    Initialize();
-                }
-                else
-                {
-                    UnInitialize();
-                }
-            }
-        }
-
         public ObservableCollection<string> TestEvents { get; } = new ObservableCollection<string>();
 
-        protected void Initialize()
+        protected override bool CloseOnRestrictedAccess => _reporter is null;
+
+        protected override void OnLoaded()
         {
+            base.OnLoaded();
             SubscribeToEvents();
             SetEnableReason();
         }
 
-        protected void UnInitialize()
+        protected override void OnUnloaded()
         {
             ResetDisabledReasons();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (field == null && value == null)
-            {
-                return;
-            }
-
-            field = value;
-            OnPropertyChanged(propertyName);
+            base.OnUnloaded();
         }
 
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<ConnectedEvent>(this, HandleStatusEvent);
-            _eventBus.Subscribe<DisabledEvent>(this, HandleStatusEvent);
-            _eventBus.Subscribe<DisconnectedEvent>(this, HandleStatusEvent);
-            _eventBus.Subscribe<EnabledEvent>(this, HandleStatusEvent);
+            EventBus.Subscribe<ConnectedEvent>(this, HandleStatusEvent);
+            EventBus.Subscribe<DisabledEvent>(this, HandleStatusEvent);
+            EventBus.Subscribe<DisconnectedEvent>(this, HandleStatusEvent);
+            EventBus.Subscribe<EnabledEvent>(this, HandleStatusEvent);
 
-            _eventBus.Subscribe<CurrencyEscrowedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<DocumentRejectedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<VoucherEscrowedEvent>(this, HandleEvent);
+            EventBus.Subscribe<CurrencyEscrowedEvent>(this, HandleEvent);
+            EventBus.Subscribe<DocumentRejectedEvent>(this, HandleEvent);
+            EventBus.Subscribe<VoucherEscrowedEvent>(this, HandleEvent);
 
 #if !RETAIL
-            _eventBus.Subscribe<DebugNoteEvent>(this, HandleEvent);
+            EventBus.Subscribe<DebugNoteEvent>(this, HandleEvent);
 #endif
         }
 
@@ -263,11 +222,6 @@
                 }
             }
         }
-
-        private bool GameIdle =>
-            (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.InGameRound ?? true) &&
-            (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.IsRecoveryNeeded ?? true);
-
 
         private void ResetDisabledReasons()
         {
