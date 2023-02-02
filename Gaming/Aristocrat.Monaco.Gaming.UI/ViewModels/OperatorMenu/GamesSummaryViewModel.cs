@@ -43,6 +43,7 @@
             }
 
             _denomMultiplier = PropertiesManager.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
+
             ShowGameRtpAsRange = GetGlobalConfigSetting(OperatorMenuSetting.ShowGameRtpAsRange, true);
             ProgressiveRtpsVisible = Configuration.GetSetting(OperatorMenuSetting.ShowProgressiveRtps, true);
 

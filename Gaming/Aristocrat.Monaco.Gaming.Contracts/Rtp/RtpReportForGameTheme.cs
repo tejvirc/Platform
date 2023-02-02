@@ -40,23 +40,23 @@
         /// <returns>The total RTP statistics for the variation</returns>
         public RtpBreakdown GetTotalRtpBreakdownForVariation(string variationId)
         {
-            if (!_rtpBreakdownsByVariationAndWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpDetails))
+            if (!_rtpBreakdownsByVariationAndWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpBreakdowns))
             {
                 throw new Exception($"Could not find any RTP Details for VariationId: \"{variationId}\"");
             }
 
-            var totalRtpDetails = wagerCategoryRtpDetails.Values.Aggregate((d1, d2) => d1 + d2);
+            var totalRtpBreakdown = wagerCategoryRtpBreakdowns.Values.Aggregate((d1, d2) => d1 + d2);
 
-            return totalRtpDetails;
+            return totalRtpBreakdown;
         }
 
         /// <summary>
-        ///     Gets the RTP Details for the given wager category.
+        ///     Gets the RTP Breakdown for the given wager category.
         /// </summary>
         /// <param name="variationId">The variation identifier.</param>
         /// <param name="wagerCategoryId">The wager category identifier.</param>
-        /// <returns>The RTP details for the wager category</returns>
-        public RtpBreakdown GetRtpDetailsForWagerCategory(string variationId, string wagerCategoryId)
+        /// <returns>The RTP Breakdown for the wager category</returns>
+        public RtpBreakdown GetRtpBreakdownForWagerCategory(string variationId, string wagerCategoryId)
         {
             if (!_rtpBreakdownsByVariationAndWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpDetails))
             {

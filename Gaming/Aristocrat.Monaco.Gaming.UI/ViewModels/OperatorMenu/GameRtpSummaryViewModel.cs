@@ -8,17 +8,19 @@
     using Application.UI.OperatorMenu;
     using Contracts;
     using Contracts.Models;
+    using Contracts.Rtp;
+    using Kernel;
     using Localization.Properties;
     using Models;
 
     public class GameRtpSummaryViewModel : OperatorMenuSaveViewModelBase
     {
+        private readonly IRtpService _rtpService;
+
         public GameRtpSummaryViewModel(IReadOnlyCollection<IGameDetail> games, double denomMultiplier)
         {
-            if (games is null)
-            {
-                games = new ReadOnlyCollection<IGameDetail>(new List<IGameDetail>());
-            }
+            _rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
+            games ??= new ReadOnlyCollection<IGameDetail>(new List<IGameDetail>());
 
             GameTypeItems = new List<GameSummary>();
             GameItemsByType = new Dictionary<GameType, IEnumerable<GameSummary>>();
@@ -65,14 +67,32 @@
 
         public bool HasMoreThanOneGameType => GameTypeItems.Count > 1;
 
-        private static decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games)
+        private decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games)
         {
-            return !games.Any()
-                ? 0
-                : games.Average(g => (g.MaximumPaybackPercent + g.MinimumPaybackPercent) / 2);
+            if (!games.Any())
+            {
+                return 0m; 
+            }
+
+            var gameThemes = games.Select(game => game.ThemeId).Distinct();
+            var rtpReportsByTheme = new Dictionary<string, RtpReportForGameTheme>();
+
+            foreach (var themeId in gameThemes)
+            {
+                rtpReportsByTheme[themeId] = _rtpService.GenerateRtpReportForGame(themeId);
+            }
+
+            var averageRtp = games.Average(game =>
+            {
+                var rtpBreakdown = rtpReportsByTheme[game.ThemeId].GetTotalRtpBreakdownForVariation(game.VariationId);
+                var totalRtp = rtpBreakdown.TotalRtp;
+                return (totalRtp.Minimum + totalRtp.Maximum) / 2.0m;
+            });
+
+            return averageRtp;
         }
 
-        private static List<GameSummary> CreateGameSummaries(
+        private List<GameSummary> CreateGameSummaries(
             IReadOnlyCollection<IGameDetail> games,
             double denomMultiplier)
         {
@@ -84,7 +104,7 @@
                 .ToList();
         }
 
-        private static GameSummary CreateGameSummary(
+        private GameSummary CreateGameSummary(
             IReadOnlyCollection<IGameDetail> games,
             long denomValue,
             double denomMultiplier)
