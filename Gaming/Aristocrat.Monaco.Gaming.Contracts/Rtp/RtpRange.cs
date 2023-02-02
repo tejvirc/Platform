@@ -42,22 +42,17 @@
         public decimal Maximum { get; }
 
         /// <summary>
+        ///     Represents a zero RTP range
+        /// </summary>
+        public static RtpRange Zero = new (0.0m, 0.0m);
+
+        /// <summary>
         ///     Overloaded Addition operator + to support expanding RTP Ranges.
         /// </summary>
         /// <param name="r1">RTP Range 1</param>
         /// <param name="r2">RTP Range 2</param>
         /// <returns></returns>
         public static RtpRange operator +(RtpRange r1, RtpRange r2) => new(Math.Min(r1.Minimum, r2.Minimum), Math.Max(r1.Maximum, r2.Maximum));
-
-        /// <summary>
-        /// Overloaded Addition operator + to support expanding RTP Ranges.
-        /// </summary>
-        /// <param name="range">The RTP range being added.</param>
-        /// <param name="rtpPercent">The RTP percent being added.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static RtpRange operator +(RtpRange range, decimal rtpPercent) => new(Math.Min(range.Minimum, rtpPercent), Math.Max(range.Maximum, rtpPercent));
 
         /// <summary>
         ///     Returns the string representation of the rtp

@@ -3,7 +3,7 @@
     /// <summary>
     ///     A fine-grain breakdown of RTP percentages which make up a total RTP percent range
     /// </summary>
-    public class RtpDetails
+    public class RtpBreakdown
     {
         /// <summary>
         ///     Gets the total RTP for base and feature games excluding all progressive elements.
@@ -13,7 +13,7 @@
         /// <summary>
         ///     Gets the total RTP coming from increment across all stand alone progressive levels.
         /// </summary>
-        public decimal StandaloneProgressiveIncrement { get; set; }
+        public RtpRange StandaloneProgressiveIncrement { get; set; }
 
         /// <summary>
         ///     Gets the total RTP coming from the start up amount (reset value) across all stand alone progressive levels.
@@ -24,7 +24,7 @@
         ///     Gets the total RTP coming from increment across all game driven linked progressive levels. This includes SSP and
         ///     MSP.
         /// </summary>
-        public decimal LinkedProgressiveIncrement { get; set; }
+        public RtpRange LinkedProgressiveIncrement { get; set; }
 
         /// <summary>
         ///     Gets the total RTP coming from the start up amount (reset value) across all stand alone progressive levels.
@@ -41,21 +41,25 @@
                                     LinkedProgressiveReset;
 
         /// <summary>
+        ///     The results of the RTP validation
+        /// </summary>
+        public RtpValidationResult ValidationResult = new();
+
+        /// <summary>
         ///     Implements the operator +.
         /// </summary>
         /// <param name="d1">The d1.</param>
         /// <param name="d2">The d2.</param>
         /// <returns>The result of the operation.</returns>
-        public static RtpDetails operator +(RtpDetails d1, RtpDetails d2)
+        public static RtpBreakdown operator +(RtpBreakdown d1, RtpBreakdown d2)
         {
-            return new RtpDetails
+            return new RtpBreakdown
             {
                 Base = d1.Base + d2.Base,
                 StandaloneProgressiveReset = d1.StandaloneProgressiveReset + d2.StandaloneProgressiveReset,
                 LinkedProgressiveReset = d1.LinkedProgressiveReset + d2.LinkedProgressiveReset,
                 LinkedProgressiveIncrement = d1.LinkedProgressiveIncrement + d2.LinkedProgressiveIncrement,
-                StandaloneProgressiveIncrement =
-                    d1.StandaloneProgressiveIncrement + d2.StandaloneProgressiveIncrement
+                StandaloneProgressiveIncrement = d1.StandaloneProgressiveIncrement + d2.StandaloneProgressiveIncrement
             };
         }
     }
