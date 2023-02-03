@@ -5,6 +5,7 @@
     using Application.Contracts.Extensions;
     using Contracts.Models;
     using Models;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Defines the LobbyViewModel class
@@ -14,7 +15,7 @@
         [Conditional("DESIGN")]
         private void WireDesignerData()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 GameList.Add(
                     new GameInfo

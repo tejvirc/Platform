@@ -7,6 +7,7 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -25,9 +26,8 @@
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using Mono.Addins;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
     using Views;
 
     [CLSCompliant(false)]
@@ -123,7 +123,7 @@
                 {
                     if (_calibrationPending)
                     {
-                        MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                        Execute.OnUIThread(InvokeCalibration);
                     }
                 });
 
@@ -132,8 +132,8 @@
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
             _restartWhenFinished = !_serviceManager.GetService<ICabinetDetectionService>().TouchscreensMapped;
 
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click);
+            BackButtonClicked = new RelayCommand<object>(BackButton_Click);
+            NextButtonClicked = new RelayCommand<object>(NextButton_Click);
         }
 
         public ICommand BackButtonClicked { get; }
@@ -146,7 +146,7 @@
             set
             {
                 _pageTitle = value;
-                RaisePropertyChanged(nameof(PageTitle));
+                OnPropertyChanged(nameof(PageTitle));
             }
         }
 
@@ -156,7 +156,7 @@
             set
             {
                 _nextButtonText = value;
-                RaisePropertyChanged(nameof(NextButtonText));
+                OnPropertyChanged(nameof(NextButtonText));
             }
         }
 
@@ -166,7 +166,7 @@
             set
             {
                 _nextButtonFocused = value;
-                RaisePropertyChanged(nameof(NextButtonFocused));
+                OnPropertyChanged(nameof(NextButtonFocused));
             }
         }
 
@@ -181,7 +181,7 @@
                 }
 
                 _currentPageLoader = value;
-                RaisePropertyChanged(nameof(CurrentPage));
+                OnPropertyChanged(nameof(CurrentPage));
 
                 if (_currentPageLoader != null)
                 {
@@ -206,7 +206,7 @@
                 if (_canNavigateForward != value)
                 {
                     _canNavigateForward = value;
-                    RaisePropertyChanged(nameof(CanNavigateForward));
+                    OnPropertyChanged(nameof(CanNavigateForward));
                 }
             }
         }
@@ -220,7 +220,7 @@
                 if (_canNavigateBackward != value)
                 {
                     _canNavigateBackward = value;
-                    RaisePropertyChanged(nameof(CanNavigateBackward));
+                    OnPropertyChanged(nameof(CanNavigateBackward));
                 }
             }
         }
@@ -233,7 +233,7 @@
                 if (_isBackButtonVisible != value)
                 {
                     _isBackButtonVisible = value;
-                    RaisePropertyChanged(nameof(IsBackButtonVisible));
+                    OnPropertyChanged(nameof(IsBackButtonVisible));
                 }
             }
         }
@@ -247,6 +247,10 @@
         ///     Gets the service types of the service
         /// </summary>
         public ICollection<Type> ServiceTypes => new[] { typeof(IConfigWizardNavigator) };
+
+        public void Initialize()
+        {
+        }
 
         /// <summary>
         ///     Use this to cause the configuration wizard to navigate to the next page.  This function should only be used
@@ -540,7 +544,7 @@
             {
                 if (_errorViewModel != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => _errorViewModel?.Close());
+                    Execute.OnUIThread(() => _errorViewModel?.Close());
                 }
                 else
                 {
@@ -551,7 +555,7 @@
                     }
 
                     _serialTouchCalibrated = false;
-                    MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                    Execute.OnUIThread(InvokeCalibration);
                 }
             }
             else
@@ -575,7 +579,7 @@
                     EventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, OnSerialTouchCalibrationCompleted);
                     _serialTouchCalibrationService.BeginCalibration();
                 }
-               
+
                 return;
             }
 
@@ -632,7 +636,7 @@
                 var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
                 _errorViewModel = new TouchCalibrationErrorViewModel { IsInWizard = true };
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         dialogService.ShowDialog<TouchCalibrationErrorView>(

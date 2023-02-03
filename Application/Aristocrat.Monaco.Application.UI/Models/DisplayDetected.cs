@@ -2,18 +2,18 @@
 {
     using System;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Hardware.Contracts.Touch;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     This is used to display the detected video display and/or touch screen./>.
     ///     This is created by the display page viewmodel implementation for use in displays page UIs.
     /// </summary>
     [CLSCompliant(false)]
-    public class DisplayDetected : BaseViewModel
+    public class DisplayDetected : ObservableObject
     {
         private string _displayName;
         private string _touchName;
@@ -36,7 +36,7 @@
             set
             {
                 _displayName = value;
-                RaisePropertyChanged(nameof(DisplayName));
+                OnPropertyChanged(nameof(DisplayName));
             }
         }
 
@@ -46,7 +46,7 @@
             set
             {
                 _touchName = value;
-                RaisePropertyChanged(nameof(TouchName));
+                OnPropertyChanged(nameof(TouchName));
             }
         }
 
@@ -56,7 +56,7 @@
             set
             {
                 _displayStatus = value;
-                RaisePropertyChanged(nameof(DisplayStatus));
+                OnPropertyChanged(nameof(DisplayStatus));
             }
         }
 
@@ -66,7 +66,7 @@
             set
             {
                 _touchStatus = value;
-                RaisePropertyChanged(nameof(TouchStatus));
+                OnPropertyChanged(nameof(TouchStatus));
             }
         }
 
@@ -119,9 +119,9 @@
             DisplayStatus = IsDisplayConnected ? connectedText : disconnectedText;
             TouchStatus = IsTouchAvailable ? IsTouchConnected ? connectedText : disconnectedText : noneText;
 
-            RaisePropertyChanged(nameof(IsDisplayConnected));
-            RaisePropertyChanged(nameof(IsTouchDisconnected));
-            RaisePropertyChanged(nameof(AnyDisconnected));
+            OnPropertyChanged(nameof(IsDisplayConnected));
+            OnPropertyChanged(nameof(IsTouchDisconnected));
+            OnPropertyChanged(nameof(AnyDisconnected));
         }
 
         private static string Localize(string key)

@@ -7,7 +7,7 @@
     using Handlers;
     using Kernel;
     using Monaco.UI.Common.CefHandlers;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using ViewModels;
 
     /// <summary>
@@ -43,7 +43,7 @@
 
         private void MuteAudioHandler(MediaPlayerSetAudioMutedEvent e)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (Browser.IsBrowserInitialized)

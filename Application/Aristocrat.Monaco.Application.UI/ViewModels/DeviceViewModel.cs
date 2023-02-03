@@ -84,8 +84,8 @@
             set
             {
                 _activationTime = value;
-                RaisePropertyChanged(nameof(ActivationTime));
-                RaisePropertyChanged(nameof(ActivationForeground));
+                OnPropertyChanged(nameof(ActivationTime));
+                OnPropertyChanged(nameof(ActivationForeground));
             }
         }
 
@@ -97,7 +97,7 @@
             set
             {
                 _activationVisible = value;
-                RaisePropertyChanged(nameof(ActivationVisible));
+                OnPropertyChanged(nameof(ActivationVisible));
             }
         }
 
@@ -107,8 +107,8 @@
             set
             {
                 _firmwareCrcText = value;
-                RaisePropertyChanged(nameof(FirmwareCrcText));
-                RaisePropertyChanged(nameof(FirmwareCrcForeground));
+                OnPropertyChanged(nameof(FirmwareCrcText));
+                OnPropertyChanged(nameof(FirmwareCrcForeground));
             }
         }
 
@@ -120,8 +120,8 @@
             set
             {
                 _firmwareVersionText = value;
-                RaisePropertyChanged(nameof(FirmwareVersionText));
-                RaisePropertyChanged(nameof(FirmwareVersionForeground));
+                OnPropertyChanged(nameof(FirmwareVersionText));
+                OnPropertyChanged(nameof(FirmwareVersionForeground));
             }
         }
 
@@ -133,8 +133,8 @@
             set
             {
                 _firmwareRevisionText = value;
-                RaisePropertyChanged(nameof(FirmwareRevisionText));
-                RaisePropertyChanged(nameof(FirmwareRevisionForeground));
+                OnPropertyChanged(nameof(FirmwareRevisionText));
+                OnPropertyChanged(nameof(FirmwareRevisionForeground));
             }
         }
 
@@ -146,8 +146,8 @@
             set
             {
                 _manufacturerText = value;
-                RaisePropertyChanged(nameof(ManufacturerText));
-                RaisePropertyChanged(nameof(ManufacturerForeground));
+                OnPropertyChanged(nameof(ManufacturerText));
+                OnPropertyChanged(nameof(ManufacturerForeground));
             }
         }
 
@@ -159,8 +159,8 @@
             set
             {
                 _modelText = value;
-                RaisePropertyChanged(nameof(ModelText));
-                RaisePropertyChanged(nameof(ModelForeground));
+                OnPropertyChanged(nameof(ModelText));
+                OnPropertyChanged(nameof(ModelForeground));
             }
         }
 
@@ -172,8 +172,8 @@
             set
             {
                 _portText = value;
-                RaisePropertyChanged(nameof(PortText));
-                RaisePropertyChanged(nameof(PortForeground));
+                OnPropertyChanged(nameof(PortText));
+                OnPropertyChanged(nameof(PortForeground));
             }
         }
 
@@ -187,8 +187,8 @@
             set
             {
                 _protocolText = value;
-                RaisePropertyChanged(nameof(ProtocolText));
-                RaisePropertyChanged(nameof(ProtocolForeground));
+                OnPropertyChanged(nameof(ProtocolText));
+                OnPropertyChanged(nameof(ProtocolForeground));
             }
         }
 
@@ -200,8 +200,8 @@
             set
             {
                 _serialNumberText = value;
-                RaisePropertyChanged(nameof(SerialNumberText));
-                RaisePropertyChanged(nameof(SerialNumberForeground));
+                OnPropertyChanged(nameof(SerialNumberText));
+                OnPropertyChanged(nameof(SerialNumberForeground));
             }
         }
 
@@ -219,8 +219,8 @@
                 }
 
                 _showingDiagnostics = value;
-                RaisePropertyChanged(nameof(ShowDiagnostics));
-                RaisePropertyChanged(nameof(IsSelfTestVisible));
+                OnPropertyChanged(nameof(ShowDiagnostics));
+                OnPropertyChanged(nameof(IsSelfTestVisible));
             }
         }
 
@@ -233,7 +233,7 @@
             set
             {
                 _selfTestButtonEnabled = value;
-                RaisePropertyChanged(nameof(SelfTestButtonEnabled));
+                OnPropertyChanged(nameof(SelfTestButtonEnabled));
             }
         }
 
@@ -244,9 +244,9 @@
             set
             {
                 _selfTestState = value;
-                RaisePropertyChanged(nameof(SelfTestButtonEnabled));
-                RaisePropertyChanged(nameof(SelfTestText));
-                RaisePropertyChanged(nameof(SelfTestForeground));
+                OnPropertyChanged(nameof(SelfTestButtonEnabled));
+                OnPropertyChanged(nameof(SelfTestText));
+                OnPropertyChanged(nameof(SelfTestForeground));
             }
         }
 
@@ -277,7 +277,7 @@
             set
             {
                 _stateText = value;
-                RaisePropertyChanged(nameof(StateText));
+                OnPropertyChanged(nameof(StateText));
             }
         }
 
@@ -288,7 +288,7 @@
             set
             {
                 _stateMode = value;
-                RaisePropertyChanged(nameof(StateForeground));
+                OnPropertyChanged(nameof(StateForeground));
             }
         }
 
@@ -310,7 +310,7 @@
             set
             {
                 _statusText = value;
-                RaisePropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(StatusText));
             }
         }
 
@@ -321,7 +321,7 @@
             set
             {
                 _statusMode = value;
-                RaisePropertyChanged(nameof(StatusForeground));
+                OnPropertyChanged(nameof(StatusForeground));
             }
         }
 
@@ -361,7 +361,7 @@
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(SelfTestButtonEnabled));
+            OnPropertyChanged(nameof(SelfTestButtonEnabled));
         }
         
         protected virtual void SetDeviceInformation(IDevice device)

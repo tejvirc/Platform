@@ -4,7 +4,7 @@
     using System.Reflection;
     using Kernel;
     using log4net;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Handles registration as the IMessageDisplayHandler as well as dispatching of incomming messages to the GUI thread.
@@ -41,7 +41,7 @@
             lock (_lock)
             {
                 Logger.Debug("Clearing message");
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.ClearMessages());
+                Execute.OnUIThread(() => _statusDisplay.ClearMessages());
                 Logger.Debug("Cleared message");
             }
         }
@@ -52,7 +52,7 @@
             lock (_lock)
             {
                 Logger.Debug("Displaying message");
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.DisplayMessage(displayableMessage));
+                Execute.OnUIThread(() => _statusDisplay.DisplayMessage(displayableMessage));
                 Logger.Debug("Displayed message");
             }
         }
@@ -63,7 +63,7 @@
             lock (_lock)
             {
                 Logger.Debug("Removing message");
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.RemoveMessage(displayableMessage));
+                Execute.OnUIThread(() => _statusDisplay.RemoveMessage(displayableMessage));
                 Logger.Debug("Removed message");
             }
         }
@@ -73,7 +73,7 @@
         {
             lock (_lock)
             {
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.DisplayStatus(message));
+                Execute.OnUIThread(() => _statusDisplay.DisplayStatus(message));
             }
         }
 

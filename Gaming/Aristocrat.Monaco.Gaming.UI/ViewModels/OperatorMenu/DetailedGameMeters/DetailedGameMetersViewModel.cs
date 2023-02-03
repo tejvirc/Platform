@@ -21,7 +21,7 @@
             set
             {
                 _meters = value;
-                RaisePropertyChanged(nameof(Meters));
+                OnPropertyChanged(nameof(Meters));
             }
         }
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Globalization;
     using System.Linq;
     using System.Runtime.InteropServices;
@@ -11,6 +12,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -29,9 +31,8 @@
     using Monaco.UI.Common;
     using Monaco.UI.Common.Events;
     using Monaco.UI.Common.Models;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
+    using Monaco.UI.Common.ViewModels;
+    using Toolkit.Mvvm.Extensions;
 
     public enum OperatorMenuPrintData
     {
@@ -48,7 +49,7 @@
     ///     All operator menu page ViewModels should inherit from this base class
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class OperatorMenuPageViewModelBase : BaseEntityViewModel, IOperatorMenuPageViewModel, ILiveSettingParent
+    public abstract class OperatorMenuPageViewModelBase : CustomObservableValidator, IOperatorMenuPageViewModel, ILiveSettingParent
     {
         private const string PlayedCount = "PlayedCount";
         private const string TestMode = "TestMode";
@@ -56,8 +57,8 @@
         private const string OnScreenKeyboardClassName = "IPTip_Main_Window";
         private const int WindowManagerSysCommand = 0x0112;
         private const int SysCommandClose = 0xF060;
-        private static readonly object TicketGenerationLock = new object();
-        protected new readonly ILog Logger;
+        private static readonly object TicketGenerationLock = new();
+        protected readonly ILog Logger;
         protected bool DefaultPrintButtonEnabled;
 
         private volatile bool _disposed;
@@ -98,13 +99,13 @@
         {
             Logger = LogManager.GetLogger(GetType());
 
-            PrintSelectedButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.SelectedItem));
-            PrintCurrentPageButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.CurrentPage));
-            PrintLast15ButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Last15));
-            LoadedCommand = new ActionCommand<object>(OnLoaded);
-            UnloadedCommand = new ActionCommand<object>(OnUnloaded);
-            EventViewerScrolledCommand = new ActionCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
-            ShowInfoPopupCommand = new ActionCommand<object>(ShowInfoPopup);
+            PrintSelectedButtonCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.SelectedItem));
+            PrintCurrentPageButtonCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.CurrentPage));
+            PrintLast15ButtonCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Last15));
+            LoadedCommand = new RelayCommand<object>(OnLoaded);
+            UnloadedCommand = new RelayCommand<object>(OnUnloaded);
+            EventViewerScrolledCommand = new RelayCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
+            ShowInfoPopupCommand = new RelayCommand<object>(ShowInfoPopup);
             DefaultPrintButtonEnabled = defaultPrintButtonEnabled;
             SetIgnoreProperties();
         }
@@ -154,22 +155,25 @@
                 if (_inputEnabled != value)
                 {
                     _inputEnabled = value;
-                    MvvmHelper.ExecuteOnUI(() =>
+                    Execute.OnUIThread(() =>
                     {
                         OnInputEnabledChanged();
-                        RaisePropertyChanged(nameof(InputEnabled), nameof(InputEnabledByRuleOverride), nameof(IsInputEnabled));
+                        OnPropertyChanged(nameof(InputEnabled));
+                        OnPropertyChanged(nameof(InputEnabledByRuleOverride));
+                        OnPropertyChanged(nameof(IsInputEnabled));
                     });
                 }
             }
         }
 
+        //[CustomValidation(typeof(OperatorMenuPageViewModelBase), nameof(InputStatusTextValidate))]
         public string InputStatusText
         {
             get => _inputStatusText;
             set
             {
                 _inputStatusText = value;
-                RaisePropertyChanged(nameof(InputStatusText));
+                OnPropertyChanged(nameof(InputStatusText));
                 UpdateStatusText();
             }
         }
@@ -180,7 +184,7 @@
             protected set
             {
                 _fieldAccessStatusText = value;
-                RaisePropertyChanged(nameof(FieldAccessStatusText));
+                OnPropertyChanged(nameof(FieldAccessStatusText));
                 UpdateStatusText();
             }
         }
@@ -191,7 +195,7 @@
             set
             {
                 _printButtonStatusText = value;
-                RaisePropertyChanged(nameof(PrintButtonStatusText));
+                OnPropertyChanged(nameof(PrintButtonStatusText));
                 UpdateStatusText();
             }
         }
@@ -204,7 +208,7 @@
                 if (_testModeEnabled != value)
                 {
                     _testModeEnabled = value;
-                    RaisePropertyChanged(nameof(TestModeEnabled));
+                    OnPropertyChanged(nameof(TestModeEnabled));
                     OnTestModeEnabledChanged();
 
                     if (_testModeEnabled)
@@ -223,7 +227,7 @@
                 if (_testModeRestriction != value)
                 {
                     _testModeRestriction = value;
-                    RaisePropertyChanged(nameof(TestModeRestriction));
+                    OnPropertyChanged(nameof(TestModeRestriction));
                     UpdateWarningMessage();
                 }
             }
@@ -237,7 +241,8 @@
                 if (_fieldAccessEnabled != value)
                 {
                     _fieldAccessEnabled = value;
-                    RaisePropertyChanged(nameof(FieldAccessEnabled), nameof(InputEnabledByRuleOverride));
+                    OnPropertyChanged(nameof(FieldAccessEnabled));
+                    OnPropertyChanged(nameof(InputEnabledByRuleOverride));
                     OnFieldAccessEnabledChanged();
                 }
             }
@@ -251,7 +256,7 @@
                 if (_fieldAccessRestriction != value)
                 {
                     _fieldAccessRestriction = value;
-                    RaisePropertyChanged(nameof(FieldAccessRestriction));
+                    OnPropertyChanged(nameof(FieldAccessRestriction));
                     SetFieldAccessRestrictionText();
                     OnFieldAccessRestrictionChange();
                 }
@@ -266,9 +271,9 @@
                 if (_printButtonAccessEnabled != value)
                 {
                     _printButtonAccessEnabled = value;
-                    RaisePropertyChanged(nameof(PrintButtonAccessEnabled),
-                        nameof(PrinterButtonsEnabled),
-                        nameof(MainPrintButtonEnabled));
+                    OnPropertyChanged(nameof(PrintButtonAccessEnabled));
+                    OnPropertyChanged(nameof(PrinterButtonsEnabled));
+                    OnPropertyChanged(nameof(MainPrintButtonEnabled));
                     UpdatePrinterButtons();
                 }
             }
@@ -288,7 +293,7 @@
                 if (value != _noGamesPlayed)
                 {
                     _noGamesPlayed = value;
-                    RaisePropertyChanged(nameof(NoGamesPlayed));
+                    OnPropertyChanged(nameof(NoGamesPlayed));
                 }
             }
         }
@@ -304,7 +309,8 @@
                 if (_printerButtonsEnabledInternal != value)
                 {
                     _printerButtonsEnabledInternal = value;
-                    RaisePropertyChanged(nameof(MainPrintButtonEnabled), nameof(PrinterButtonsEnabled));
+                    OnPropertyChanged(nameof(MainPrintButtonEnabled));
+                    OnPropertyChanged(nameof(PrinterButtonsEnabled));
                 }
 
                 UpdatePrinterButtons();
@@ -328,7 +334,7 @@
             set
             {
                 _firstVisibleElement = value;
-                RaisePropertyChanged(nameof(FirstVisibleElement));
+                OnPropertyChanged(nameof(FirstVisibleElement));
             }
         }
 
@@ -341,7 +347,7 @@
             set
             {
                 _recordsToBePrinted = value;
-                RaisePropertyChanged(nameof(RecordsToBePrinted));
+                OnPropertyChanged(nameof(RecordsToBePrinted));
             }
         }
 
@@ -353,7 +359,7 @@
                 if (_testWarningText != value)
                 {
                     _testWarningText = value;
-                    RaisePropertyChanged(nameof(TestWarningText));
+                    OnPropertyChanged(nameof(TestWarningText));
                 }
             }
         }
@@ -367,7 +373,7 @@
             set
             {
                 _isLoadingData = value;
-                RaisePropertyChanged(nameof(IsLoadingData));
+                OnPropertyChanged(nameof(IsLoadingData));
             }
         }
 
@@ -387,7 +393,7 @@
                 if (_pageSupportsMainPrintButton != value)
                 {
                     _pageSupportsMainPrintButton = value;
-                    RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+                    OnPropertyChanged(nameof(MainPrintButtonEnabled));
                 }
             }
         }
@@ -517,7 +523,7 @@
 
         protected virtual void UpdateStatusText()
         {
-            MvvmHelper.ExecuteOnUI(_UpdateStatusText);
+            Execute.OnUIThread(_UpdateStatusText);
         }
 
         private void _UpdateStatusText()
@@ -565,7 +571,7 @@
                     IsLoadingData = false;
                 });
 
-            RaisePropertyChanged(nameof(DataEmpty));
+            OnPropertyChanged(nameof(DataEmpty));
         }
 
         protected IEnumerable<T> GetItemsToPrint<T>(ICollection<T> itemsToPrint, OperatorMenuPrintData dataType)
@@ -689,7 +695,7 @@
 
                 if (Application.Current != null)
                 {
-                    MvvmHelper.ExecuteOnUI(OnInputStatusChanged);
+                    Execute.OnUIThread(OnInputStatusChanged);
                 }
             }
 
@@ -814,7 +820,7 @@
 
         protected void OnPrintButtonStatusChanged(PrintButtonStatusEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 PrinterButtonsEnabledInternal = evt.Enabled;
                 SetPrintAccessStatus(evt.Enabled, OperatorMenuAccessRestriction.None);
@@ -1020,7 +1026,7 @@
             PrintSelectedButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintSelected, true);
 
             OnLoaded();
-            RaisePropertyChanged(nameof(DataEmpty));
+            OnPropertyChanged(nameof(DataEmpty));
             EventBus.Publish(new OperatorMenuPageLoadedEvent(this));
             EventBus.Publish(new OperatorMenuPopupEvent(false));
 

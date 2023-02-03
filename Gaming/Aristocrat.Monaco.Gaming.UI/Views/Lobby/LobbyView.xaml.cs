@@ -29,8 +29,8 @@
     using ManagedBink;
     using MediaDisplay;
     using Monaco.UI.Common;
-    using MVVM;
     using Overlay;
+    using Toolkit.Mvvm.Extensions;
     using Utils;
     using ViewModels;
     using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
@@ -194,7 +194,7 @@
 
         private void HandleOverlayWindowVisibilityChanged(OverlayWindowVisibilityChangedEvent e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 try
                 {
@@ -897,7 +897,7 @@
                 _timeLimitDlg.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
                 _timeLimitDlg.Close();
             }
-      
+
             if (_msgOverlay != null)
             {
                 _msgOverlay.IsVisibleChanged -= OnChildWindowIsVisibleChanged;

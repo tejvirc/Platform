@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class SoundFileViewModel : BaseViewModel
+    public class SoundFileViewModel : ObservableObject
     {
         private string _name;
         private string _path;
@@ -27,7 +27,7 @@
                 }
 
                 _name = value;
-                RaisePropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -43,7 +43,7 @@
                 }
 
                 _path = value;
-                RaisePropertyChanged(nameof(Path));
+                OnPropertyChanged(nameof(Path));
             }
         }
     }

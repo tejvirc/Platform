@@ -3,9 +3,9 @@
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class VenueRaceTracksModel : BaseViewModel
+    public class VenueRaceTracksModel : ObservableObject
     {
         private bool _raceStarted;
 

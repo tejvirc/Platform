@@ -8,6 +8,7 @@
     using Contracts;
     using Kernel;
     using Localization.Properties;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class ReserveMachineViewModel : OperatorMenuPageViewModelBase
@@ -33,9 +34,10 @@
                     return;
                 }
 
-                SetProperty(
+                this.SetProperty(
                     ref _allowPlayerToReserveMachine,
                     value,
+                    OnPropertyChanged,
                     nameof(AllowPlayerToReserveMachine),
                     nameof(IsReserveMachineDurationEnabled));
 
@@ -59,9 +61,10 @@
                     return;
                 }
 
-                SetProperty(
+                this.SetProperty(
                     ref _isReserveMachineOptionEnabled,
                     value,
+                    OnPropertyChanged,
                     nameof(IsReserveMachineOptionEnabled),
                     nameof(IsReserveMachineDurationEnabled));
             }

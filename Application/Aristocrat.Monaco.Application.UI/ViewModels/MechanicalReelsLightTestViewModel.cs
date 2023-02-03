@@ -9,10 +9,10 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Aristocrat.Monaco.Localization.Properties;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class MechanicalReelsLightTestViewModel : INotifyPropertyChanged, IDisposable
@@ -49,7 +49,7 @@
         private bool _buttonEnabled;
         private bool _disposed;
         private CancellationTokenSource _cancellationTokenSource = new();
-        
+
         public MechanicalReelsLightTestViewModel(
             IReelController reelController,
             IEdgeLightingController edgeLightingController)
@@ -59,7 +59,7 @@
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
 
-            FlashReelLightsCommand = new ActionCommand<object>(_ => Task.Run(FlashReelLights));
+            FlashReelLightsCommand = new RelayCommand<object>(_ => Task.Run(FlashReelLights));
             InitializeLightIdList();
         }
 
@@ -94,7 +94,7 @@
         public int SelectedReelLightIdIndex { get; set; }
 
         private Color SelectedColor => Color.FromName(ReelLightColors.ElementAt(SelectedReelLightColorIndex));
-        
+
         public void CancelTest()
         {
             if (_cancellationTokenSource == null)

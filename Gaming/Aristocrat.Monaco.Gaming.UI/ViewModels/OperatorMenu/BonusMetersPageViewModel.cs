@@ -12,7 +12,7 @@
     using Contracts.Bonus;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class BonusMetersPageViewModel : MetersPageViewModelBase
@@ -56,7 +56,7 @@
             set
             {
                 _egmPaidBonusAwardsTotalAmountFormatted = value;
-                RaisePropertyChanged(nameof(EgmPaidBonusAwardsTotalAmountFormatted));
+                OnPropertyChanged(nameof(EgmPaidBonusAwardsTotalAmountFormatted));
             }
         }
 
@@ -69,7 +69,7 @@
             set
             {
                 _handPaidBonusAwardsTotalAmountFormatted = value;
-                RaisePropertyChanged(nameof(HandPaidBonusAwardsTotalAmountFormatted));
+                OnPropertyChanged(nameof(HandPaidBonusAwardsTotalAmountFormatted));
             }
         }
 
@@ -100,20 +100,20 @@
         {
             EgmPaidBonusAwardsTotalAmountFormatted =
                 EgmPaidBonusAwardsMeters.Sum(m => m.MeterValue).FormattedCurrencyString();
-            
+
             HandPaidBonusAwardsTotalAmountFormatted =
                 HandPaidBonusAwardsMeters.Sum(m => m.MeterValue).FormattedCurrencyString();
         }
 
         private void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RemoveMeters();
                     AddMeters();
-                    RaisePropertyChanged(nameof(EgmPaidBonusAwardsMeters));
-                    RaisePropertyChanged(nameof(HandPaidBonusAwardsMeters));
+                    OnPropertyChanged(nameof(EgmPaidBonusAwardsMeters));
+                    OnPropertyChanged(nameof(HandPaidBonusAwardsMeters));
                     UpdateMeterTotals();
                 });
         }

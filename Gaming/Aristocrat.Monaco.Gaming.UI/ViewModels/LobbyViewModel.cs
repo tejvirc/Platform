@@ -21,9 +21,6 @@
     using Models;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
@@ -44,6 +41,8 @@
     using Application.Contracts.Drm;
     using Cabinet.Contracts;
     using Common;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Events;
     using Contracts.InfoBar;
     using Contracts.PlayerInfoDisplay;
@@ -52,6 +51,7 @@
     using Hardware.Contracts.Button;
     using Timers;
     using Utils;
+    using Toolkit.Mvvm.Extensions;
     using Vgt.Client12.Application.OperatorMenu;
     using Views.Controls;
     using Views.Lobby;
@@ -64,7 +64,7 @@
     /// <summary>
     ///     Defines the LobbyViewModel class
     /// </summary>
-    public partial class LobbyViewModel : BaseEntityViewModel, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
+    public partial class LobbyViewModel : ObservableObject, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
     {
         private const double IdleTimerIntervalSeconds = 15.0;
         private const double IdleTextTimerIntervalSeconds = 30.0;
@@ -91,7 +91,7 @@
         private const string LobbyIdleTextDefaultResourceKey = "LobbyIdleTextDefault";
         private const string TopperImageDefaultResourceKey = "TopperBackground";
         private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string IdleTextFamilyName = "Segoe UI";
 
         private readonly IBank _bank;
@@ -423,32 +423,32 @@
 
             GameList = new ObservableCollection<GameInfo>();
 
-            GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
-            PreviousPageCommand = new ActionCommand<object>(PrevPage);
-            NextPageCommand = new ActionCommand<object>(NextPage);
-            AddCreditsCommand = new ActionCommand<object>(BankPressed);
-            CashOutCommand = new ActionCommand<object>(CashOutPressed);
-            ServiceCommand = new ActionCommand<object>(ServicePressed);
-            AddDebugCashCommand = new ActionCommand<object>(AddDebugCashPressed);
-            VbdCashoutDlgYesNoCommand = new ActionCommand<object>(VbdCashoutDlgYesNoPressed);
-            VbdServiceDlgYesNoCommand = new ActionCommand<object>(VbdServiceDlgYesNoPressed);
-            DenomFilterPressedCommand = new ActionCommand<object>(DenomFilterPressed);
-            TimeLimitDlgCommand = new ActionCommand<object>(TimeLimitAccepted);
-            ResponsibleGamingDialogOpenCommand = new ActionCommand<object>(ResponsibleGamingDialogOpenButtonPressed);
-            PrintHelplineMessageCommand = new ActionCommand<object>(OnPrintHelplineMessage, CanPrintHelplineMessage);
-            IdleTextScrollingCompletedCommand = new ActionCommand<object>(OnIdleTextScrollingCompleted);
-            CashOutWrapperMouseDownCommand = new ActionCommand<object>(OnCashOutWrapperMouseDown);
-            UpiPreviewMouseDownCommand = new ActionCommand<object>(OnUpiPreviewMouseDown);
-            UserInteractionCommand = new ActionCommand<object>(obj => OnUserInteraction());
-            ExitResponsibleGamingInfoCommand = new ActionCommand<object>(obj => ExitResponsibleGamingInfoDialog());
-            TouchResponsibleGamingInfoCommand = new ActionCommand<object>(obj => TouchResponsibleGamingInfoDialog());
-            ClockSwitchCommand = new ActionCommand<object>(OnClockSwitchPressed);
-            GameTabPressedCommand = new ActionCommand<object>(OnGameTabPressed);
-            DenominationPressedCommand = new ActionCommand<object>(OnDenominationPressed);
-            DenominationForSpecificGamePressedCommand = new ActionCommand<object[]>(OnDenominationForSpecificGamePressed);
-            SubTabPressedCommand = new ActionCommand<object>(OnSubTabPressed);
-            ReturnToLobbyCommand = new ActionCommand<object>(ReturnToLobbyButtonPressed);
-            CashOutFromPlayerMenuPopupCommand = new ActionCommand<object>(CashoutFromPlayerPopUpMenu);
+            GameSelectCommand = new RelayCommand<object>(LaunchGameFromUi);
+            PreviousPageCommand = new RelayCommand<object>(PrevPage);
+            NextPageCommand = new RelayCommand<object>(NextPage);
+            AddCreditsCommand = new RelayCommand<object>(BankPressed);
+            CashOutCommand = new RelayCommand<object>(CashOutPressed);
+            ServiceCommand = new RelayCommand<object>(ServicePressed);
+            AddDebugCashCommand = new RelayCommand<object>(AddDebugCashPressed);
+            VbdCashoutDlgYesNoCommand = new RelayCommand<object>(VbdCashoutDlgYesNoPressed);
+            VbdServiceDlgYesNoCommand = new RelayCommand<object>(VbdServiceDlgYesNoPressed);
+            DenomFilterPressedCommand = new RelayCommand<object>(DenomFilterPressed);
+            TimeLimitDlgCommand = new RelayCommand<object>(TimeLimitAccepted);
+            ResponsibleGamingDialogOpenCommand = new RelayCommand<object>(ResponsibleGamingDialogOpenButtonPressed);
+            PrintHelplineMessageCommand = new RelayCommand<object>(OnPrintHelplineMessage, CanPrintHelplineMessage);
+            IdleTextScrollingCompletedCommand = new RelayCommand<object>(OnIdleTextScrollingCompleted);
+            CashOutWrapperMouseDownCommand = new RelayCommand<object>(OnCashOutWrapperMouseDown);
+            UpiPreviewMouseDownCommand = new RelayCommand<object>(OnUpiPreviewMouseDown);
+            UserInteractionCommand = new RelayCommand<object>(obj => OnUserInteraction());
+            ExitResponsibleGamingInfoCommand = new RelayCommand<object>(obj => ExitResponsibleGamingInfoDialog());
+            TouchResponsibleGamingInfoCommand = new RelayCommand<object>(obj => TouchResponsibleGamingInfoDialog());
+            ClockSwitchCommand = new RelayCommand<object>(OnClockSwitchPressed);
+            GameTabPressedCommand = new RelayCommand<object>(OnGameTabPressed);
+            DenominationPressedCommand = new RelayCommand<object>(OnDenominationPressed);
+            DenominationForSpecificGamePressedCommand = new RelayCommand<object[]>(OnDenominationForSpecificGamePressed);
+            SubTabPressedCommand = new RelayCommand<object>(OnSubTabPressed);
+            ReturnToLobbyCommand = new RelayCommand<object>(ReturnToLobbyButtonPressed);
+            CashOutFromPlayerMenuPopupCommand = new RelayCommand<object>(CashoutFromPlayerPopUpMenu);
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
@@ -624,7 +624,7 @@
         /// <summary>
         ///     Gets the print helpline message command
         /// </summary>
-        public ActionCommand<object> PrintHelplineMessageCommand { get; }
+        public RelayCommand<object> PrintHelplineMessageCommand { get; }
 
         /// <summary>
         ///     Gets the time limit dialog command
@@ -712,11 +712,11 @@
 
                     _gameList.CollectionChanged += GameList_CollectionChanged;
 
-                    RaisePropertyChanged(nameof(GameList));
-                    RaisePropertyChanged(nameof(MarginInputs));
-                    RaisePropertyChanged(nameof(IsSingleTabView));
-                    RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
-                    RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+                    OnPropertyChanged(nameof(GameList));
+                    OnPropertyChanged(nameof(MarginInputs));
+                    OnPropertyChanged(nameof(IsSingleTabView));
+                    OnPropertyChanged(nameof(IsSingleDenomDisplayed));
+                    OnPropertyChanged(nameof(IsSingleGameDisplayed));
                 }
             }
         }
@@ -755,8 +755,9 @@
         public bool IsVbdRenderingDisabled
         {
             get => _isVbdRenderingDisabled;
-            set => SetProperty(ref _isVbdRenderingDisabled,
+            set => this.SetProperty(ref _isVbdRenderingDisabled,
                 value,
+                OnPropertyChanged,
                 nameof(IsVbdRenderingDisabled),
                 nameof(IsLobbyVbdVisible),
                 nameof(IsGameVbdVisible),
@@ -778,7 +779,7 @@
         public bool IsTopScreenRenderingDisabled
         {
             get => _isTopScreenRenderingDisabled;
-            set => SetProperty(ref _isTopScreenRenderingDisabled, value, nameof(IsTopScreenRenderingDisabled), nameof(IsLobbyTopScreenVisible), nameof(IsGameTopScreenVisible));
+            set => this.SetProperty(ref _isTopScreenRenderingDisabled, value, OnPropertyChanged, nameof(IsTopScreenRenderingDisabled), nameof(IsLobbyTopScreenVisible), nameof(IsGameTopScreenVisible));
         }
 
         /// <summary>
@@ -787,9 +788,10 @@
         public bool IsTopperScreenRenderingDisabled
         {
             get => _isTopperScreenRenderingDisabled;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _isTopperScreenRenderingDisabled,
                 value,
+                OnPropertyChanged,
                 nameof(IsTopperScreenRenderingDisabled),
                 nameof(IsLobbyTopperScreenVisible),
                 nameof(IsGameTopperScreenVisible),
@@ -860,17 +862,17 @@
                 }
 
                 _credits = value;
-                RaisePropertyChanged(nameof(Credits));
-                RaisePropertyChanged(nameof(HasZeroCredits));
-                RaisePropertyChanged(nameof(CashOutEnabled));
-                RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
-                RaisePropertyChanged(nameof(FormattedCredits));
-                RaisePropertyChanged(nameof(ShowAttractMode));
-                RaisePropertyChanged(nameof(IsDebugMoneyEnabled));
-                RaisePropertyChanged(nameof(IsBlinkingIdleTextVisible));
-                RaisePropertyChanged(nameof(StartIdleTextBlinking));
-                RaisePropertyChanged(nameof(IsScrollingIdleTextEnabled));
-                RaisePropertyChanged(nameof(IsCashOutButtonLit));
+                OnPropertyChanged(nameof(Credits));
+                OnPropertyChanged(nameof(HasZeroCredits));
+                OnPropertyChanged(nameof(CashOutEnabled));
+                OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+                OnPropertyChanged(nameof(FormattedCredits));
+                OnPropertyChanged(nameof(ShowAttractMode));
+                OnPropertyChanged(nameof(IsDebugMoneyEnabled));
+                OnPropertyChanged(nameof(IsBlinkingIdleTextVisible));
+                OnPropertyChanged(nameof(StartIdleTextBlinking));
+                OnPropertyChanged(nameof(IsScrollingIdleTextEnabled));
+                OnPropertyChanged(nameof(IsCashOutButtonLit));
                 UpdateLcdButtonDeckVideo();
                 UpdateLamps();
             }
@@ -966,20 +968,20 @@
                 {
                     _isInLobby = value;
                     ClockTimer.IsInLobby = value;
-                    RaisePropertyChanged(nameof(IsInLobby));
-                    RaisePropertyChanged(nameof(IsIdleAttractVideoVisible));
-                    RaisePropertyChanged(nameof(IsBottomAttractVisible));
-                    RaisePropertyChanged(nameof(IsLobbyVbdVisible));
-                    RaisePropertyChanged(nameof(IsGameVbdVisible));
-                    RaisePropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
-                    RaisePropertyChanged(nameof(IsLobbyTopScreenVisible));
-                    RaisePropertyChanged(nameof(IsGameTopScreenVisible));
-                    RaisePropertyChanged(nameof(IsLobbyTopperScreenVisible));
-                    RaisePropertyChanged(nameof(IsGameTopperScreenVisible));
-                    RaisePropertyChanged(nameof(IsGameVisible));
-                    RaisePropertyChanged(nameof(IsIdleTextBlinking));
-                    RaisePropertyChanged(nameof(StartIdleTextBlinking));
-                    RaisePropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                    OnPropertyChanged(nameof(IsInLobby));
+                    OnPropertyChanged(nameof(IsIdleAttractVideoVisible));
+                    OnPropertyChanged(nameof(IsBottomAttractVisible));
+                    OnPropertyChanged(nameof(IsLobbyVbdVisible));
+                    OnPropertyChanged(nameof(IsGameVbdVisible));
+                    OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                    OnPropertyChanged(nameof(IsLobbyTopScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopScreenVisible));
+                    OnPropertyChanged(nameof(IsLobbyTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsGameVisible));
+                    OnPropertyChanged(nameof(IsIdleTextBlinking));
+                    OnPropertyChanged(nameof(StartIdleTextBlinking));
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
                 }
             }
         }
@@ -1009,9 +1011,10 @@
         public bool IsAttractModePlaying
         {
             get => _isAttractModePlaying;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _isAttractModePlaying,
                 value,
+                OnPropertyChanged,
                 nameof(IsAttractModePlaying),
                 nameof(IsCashOutButtonLit)
             );
@@ -1032,9 +1035,10 @@
         public bool IsTopperAttractFeaturePlaying
         {
             get => _isTopperAttractFeaturePlaying;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _isTopperAttractFeaturePlaying,
                 value,
+                OnPropertyChanged,
                 nameof(IsTopperAttractFeaturePlaying),
                 nameof(IsLobbyTopperVideoVisible));
         }
@@ -1069,13 +1073,13 @@
         public bool IsBottomAttractVisible
         {
             get => _isBottomAttractVisible;
-            set => SetProperty(ref _isBottomAttractVisible,
+            set => this.SetProperty(ref _isBottomAttractVisible,
                 value,
+                OnPropertyChanged,
                 nameof(IsBottomAttractVisible),
                 nameof(IsMainInfoBarVisible));
         }
-
-
+        
         /// <summary>
         ///     Gets or sets a value indicating whether a request has been received for the Main screen InfoBar to be shown
         ///     Note that the InfoBar is not always visible, even when a request is present. <see cref="IsMainInfoBarVisible" />
@@ -1085,9 +1089,10 @@
             get => _mainInfoBarOpenRequested;
             set
             {
-                SetProperty(
+                this.SetProperty(
                 ref _mainInfoBarOpenRequested,
                 value,
+                OnPropertyChanged,
                 nameof(MainInfoBarOpenRequested),
                 nameof(GameControlHeight),
                 nameof(IsMainInfoBarVisible));
@@ -1110,9 +1115,10 @@
             get => _vbdInfoBarOpenRequested;
             set
             {
-                SetProperty(
+                this.SetProperty(
                 ref _vbdInfoBarOpenRequested,
                 value,
+                OnPropertyChanged,
                 nameof(VbdInfoBarOpenRequested),
                 nameof(GameControlHeight),
                 nameof(IsVbdInfoBarVisible));
@@ -1132,7 +1138,7 @@
         public string PaidMeterValue
         {
             get => _paidMeterValue;
-            set => SetProperty(ref _paidMeterValue, value, nameof(PaidMeterValue), nameof(IsPaidMeterVisible));
+            set => this.SetProperty(ref _paidMeterValue, value, OnPropertyChanged, nameof(PaidMeterValue), nameof(IsPaidMeterVisible));
         }
 
         public bool IsTimeLimitDlgVisible => _responsibleGaming?.IsTimeLimitDialogVisible ?? false;
@@ -1176,9 +1182,10 @@
         public string TopperLobbyVideoPath
         {
             get => _topperLobbyVideoPath;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _topperLobbyVideoPath,
                 value,
+                OnPropertyChanged,
                 nameof(TopperLobbyVideoPath),
                 nameof(IsLobbyTopperVideoVisible));
         }
@@ -1216,9 +1223,10 @@
         public bool IsBottomLoadingScreenVisible
         {
             get => _isBottomLoadingScreenVisible;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _isBottomLoadingScreenVisible,
                 value,
+                OnPropertyChanged,
                 nameof(IsBottomLoadingScreenVisible),
                 nameof(CashOutEnabled),
                 nameof(CashOutEnabledInPlayerMenu),
@@ -1260,7 +1268,7 @@
                 {
                     _gameFilter = value;
                     OnUserInteraction();
-                    RaisePropertyChanged(nameof(GameFilter));
+                    OnPropertyChanged(nameof(GameFilter));
                 }
             }
         }
@@ -1298,12 +1306,12 @@
 
                     OnLanguageChanged();
 
-                    RaisePropertyChanged(nameof(IsPrimaryLanguageSelected));
-                    RaisePropertyChanged(nameof(ActiveLocaleCode));
-                    RaisePropertyChanged(nameof(FormattedCredits));
-                    RaisePropertyChanged(nameof(DisableCountdownMessage));
-                    RaisePropertyChanged(nameof(LanguageButtonResourceKey));
-                    RaisePropertyChanged(nameof(PaidMeterLabel));
+                    OnPropertyChanged(nameof(IsPrimaryLanguageSelected));
+                    OnPropertyChanged(nameof(ActiveLocaleCode));
+                    OnPropertyChanged(nameof(FormattedCredits));
+                    OnPropertyChanged(nameof(DisableCountdownMessage));
+                    OnPropertyChanged(nameof(LanguageButtonResourceKey));
+                    OnPropertyChanged(nameof(PaidMeterLabel));
 
                     UpdateLcdButtonDeckVideo();
                     UpdatePaidMeterValue(_sessionInfoService.GetSessionPaidValue());
@@ -1367,18 +1375,20 @@
         public LobbyVbdVideoState VbdVideoState
         {
             get => _vbdVideoState;
-            set => SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState), nameof(IsLobbyVbdBackgroundBlank));
+
+            set => this.SetProperty(ref _vbdVideoState, value, OnPropertyChanged, nameof(VbdVideoState), nameof(IsLobbyVbdBackgroundBlank));
         }
 
         public int GameCount
         {
             get => _gameCount;
+
             set
             {
                 _gameCount = value;
                 _lobbyStateManager.IsSingleGame = _lobbyStateManager.AllowGameInCharge || UniqueThemeIds <= 1;
-                RaisePropertyChanged(nameof(GameCount));
-                RaisePropertyChanged(nameof(MarginInputs));
+                OnPropertyChanged(nameof(GameCount));
+                OnPropertyChanged(nameof(MarginInputs));
             }
         }
 
@@ -1396,7 +1406,7 @@
                 if (_idleText != value)
                 {
                     _idleText = value;
-                    RaisePropertyChanged(nameof(IdleText));
+                    OnPropertyChanged(nameof(IdleText));
                     UpdateIdleTextSettings();
                 }
             }
@@ -1408,6 +1418,7 @@
         public bool IsScrollingIdleTextVisible
         {
             get => _isScrollingIdleTextVisible;
+
             set => SetProperty(ref _isScrollingIdleTextVisible, value);
         }
 
@@ -1417,6 +1428,7 @@
         public bool IsIdleTextPaused
         {
             get => _isIdleTextPaused;
+
             set => SetProperty(ref _isIdleTextPaused, value);
         }
 
@@ -1432,7 +1444,7 @@
                 if (Math.Abs(_chooseGameOffsetY - value) > 0.001)
                 {
                     _chooseGameOffsetY = value;
-                    RaisePropertyChanged(nameof(ChooseGameOffsetY));
+                    OnPropertyChanged(nameof(ChooseGameOffsetY));
                 }
             }
         }
@@ -1532,7 +1544,7 @@
         public string CurrentNotificationText
         {
             get => _currentNotificationText;
-            set => SetProperty(ref _currentNotificationText, value, nameof(CurrentNotificationText), nameof(IsNotificationTextVisible));
+            set => this.SetProperty(ref _currentNotificationText, value, OnPropertyChanged, nameof(CurrentNotificationText), nameof(IsNotificationTextVisible));
         }
 
         /// <summary>
@@ -1651,7 +1663,7 @@
             get => _replayNavigationBarHeight;
             set
             {
-                SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
+                this.SetProperty(ref _replayNavigationBarHeight, value, OnPropertyChanged, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
                 _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
         }
@@ -1684,15 +1696,16 @@
                     Logger.Debug($"Recalculate Infobar height => {_mainInfoBarHeight} because aspect ratio = {_aspectRatio}");
                 }
                 _eventBus.Publish(new InfoBarSetHeightEvent(_mainInfoBarHeight, DisplayRole.Main));
-                RaisePropertyChanged(nameof(MarginInputs));
+                OnPropertyChanged(nameof(MarginInputs));
             }
         }
 
         private BannerDisplayMode LobbyBannerDisplayMode
         {
             get => _bannerDisplayMode;
-            set => SetProperty(ref _bannerDisplayMode,
+            set => this.SetProperty(ref _bannerDisplayMode,
                 value,
+                OnPropertyChanged,
                 nameof(LobbyBannerDisplayMode),
                 nameof(IsIdleTextScrolling),
                 nameof(IsBlinkingIdleTextVisible),
@@ -1717,7 +1730,7 @@
             get => _isSelectPayModeVisible;
             set
             {
-                MvvmHelper.ExecuteOnUI(HandleMessageOverlayText);
+                Execute.OnUIThread(HandleMessageOverlayText);
                 SetProperty(ref _isSelectPayModeVisible, value);
             }
         }
@@ -1780,7 +1793,7 @@
         public void ClearMessages()
         {
             Logger.Debug("Clearing messages");
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (Config.DisplaySoftErrors)
@@ -1811,9 +1824,9 @@
         {
             // we call ChangeLanguageSkin before this is called from LobbyViewModel.xaml.cs
             // So any text that needs to be localized from resources can be updated once
-            // we are here.  
+            // we are here.
             Logger.Debug("Lobby OnLoaded() complete");
-            RaisePropertyChanged(nameof(PaidMeterLabel));
+            OnPropertyChanged(nameof(PaidMeterLabel));
         }
 
         /// <summary>
@@ -1829,7 +1842,7 @@
                 SetTabViewToDefault();
             }
 
-            RaisePropertyChanged(nameof(PreserveGameLayoutSideMargins));
+            OnPropertyChanged(nameof(PreserveGameLayoutSideMargins));
             var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
             if (string.IsNullOrWhiteSpace(IdleText))
             {
@@ -1959,7 +1972,7 @@
         /// </summary>
         public void LoadGameInfo()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -1987,7 +2000,7 @@
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (NotificationMessages.Any(x => x.Equals(displayableMessage)))
@@ -2009,7 +2022,7 @@
 
         private void RemoveNotificationMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     NotificationMessages.Remove(x => x.Equals(displayableMessage));
@@ -2179,7 +2192,7 @@
             switch (state)
             {
                 case LobbyState.Chooser:
-                    MvvmHelper.ExecuteOnUI(OnChooserEnter);
+                    Execute.OnUIThread(OnChooserEnter);
                     break;
                 case LobbyState.ChooserScrollingIdleText:
                     OnChooserShowingIdleTextEnter();
@@ -2479,7 +2492,7 @@
 
         private void UninstallerStartedEvent(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     OnUserInteraction();
@@ -2577,7 +2590,7 @@
             {
                 SendTrigger(LobbyTrigger.Disable);
             }
-            
+
             _gameLaunchOnStartup = false;
         }
 
@@ -2806,7 +2819,7 @@
             {
                 StartAttractTimer();
             }
-            
+
             OnUserInteraction();
         }
 
@@ -2923,7 +2936,7 @@
                     ReplayRecovery.BackgroundOpacity = _gameDiagnostics.AllowInput ? 0.00 : 0.05;
                 }
             }
-            else //CurrentState == LobbyState.Disabled.  
+            else //CurrentState == LobbyState.Disabled.
             {
                 // VLT-4326: Do not include all Disabled states here because we handle Replay stuff in the above code block
                 ReplayRecovery.BackgroundOpacity = 0.2;
@@ -2997,26 +3010,26 @@
 
             RaisePropertiesChanged();
 
-            PrintHelplineMessageCommand.RaiseCanExecuteChanged();
+            PrintHelplineMessageCommand.NotifyCanExecuteChanged();
 
             Logger.Debug($"Leaving UpdateUI, state: {CurrentState}");
         }
 
         public void RaisePropertiesChanged()
         {
-            RaisePropertyChanged(nameof(CashOutEnabled));
-            RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
-            RaisePropertyChanged(nameof(ResponsibleGamingInfoEnabled));
-            RaisePropertyChanged(nameof(IsIdleTextBlinking));
-            RaisePropertyChanged(nameof(StartIdleTextBlinking));
-            RaisePropertyChanged(nameof(IsDebugMoneyEnabled));
-            RaisePropertyChanged(nameof(IsNotificationTextVisible));
-            RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
-            RaisePropertyChanged(nameof(CanCashoutInLockup));
-            RaisePropertyChanged(nameof(IsGameLoading));
-            RaisePropertyChanged(nameof(IsServiceRequested));
-            RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
-            RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            OnPropertyChanged(nameof(CashOutEnabled));
+            OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+            OnPropertyChanged(nameof(ResponsibleGamingInfoEnabled));
+            OnPropertyChanged(nameof(IsIdleTextBlinking));
+            OnPropertyChanged(nameof(StartIdleTextBlinking));
+            OnPropertyChanged(nameof(IsDebugMoneyEnabled));
+            OnPropertyChanged(nameof(IsNotificationTextVisible));
+            OnPropertyChanged(nameof(IsVirtualButtonDeckDisabled));
+            OnPropertyChanged(nameof(CanCashoutInLockup));
+            OnPropertyChanged(nameof(IsGameLoading));
+            OnPropertyChanged(nameof(IsServiceRequested));
+            OnPropertyChanged(nameof(ReturnToLobbyAllowed));
+            OnPropertyChanged(nameof(ReserveMachineAllowed));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -3033,14 +3046,14 @@
             switch (e.PropertyName)
             {
                 case nameof(MessageOverlayDisplay.IsReplayRecoveryDlgVisible):
-                    RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
-                    RaisePropertyChanged(nameof(GameControlHeight));
-                    RaisePropertyChanged(nameof(IsMainInfoBarVisible));
+                    OnPropertyChanged(nameof(IsVirtualButtonDeckDisabled));
+                    OnPropertyChanged(nameof(GameControlHeight));
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
                     _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
                     break;
                 case nameof(MessageOverlayDisplay.IsLockupMessageVisible):
-                    RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
-                    RaisePropertyChanged(nameof(CanCashoutInLockup));
+                    OnPropertyChanged(nameof(IsVirtualButtonDeckDisabled));
+                    OnPropertyChanged(nameof(CanCashoutInLockup));
                     break;
                 case nameof(MessageOverlayDisplay.MessageOverlayData):
                     RaisePropertiesChanged();
@@ -3086,9 +3099,9 @@
 
             if (IsSingleGameMode)
             {
-                RaisePropertyChanged(nameof(IsLobbyVbdVisible));
-                RaisePropertyChanged(nameof(IsGameVbdVisible));
-                RaisePropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                OnPropertyChanged(nameof(IsLobbyVbdVisible));
+                OnPropertyChanged(nameof(IsGameVbdVisible));
+                OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
             }
         }
 
@@ -3149,7 +3162,7 @@
             }
             else if (IsTimeLimitDlgVisible)
             {
-                // VLT-4319: If Responsible Gaming is ALC Mode, always show Blank Graphic in VBD during Responsible Gaming Dialogs.  
+                // VLT-4319: If Responsible Gaming is ALC Mode, always show Blank Graphic in VBD during Responsible Gaming Dialogs.
                 state = (_responsibleGaming.IsSessionLimitHit ||
                         ResponsibleGamingMode == ResponsibleGamingMode.Continuous ||
                         ResponsibleGamingCurrentDialogState == ResponsibleGamingDialogState.PlayBreak1 ||
@@ -3194,7 +3207,7 @@
                 RotateTopImageForAttractMode();
                 RotateTopperImageForAttractMode();
                 Task.Run(
-                    () => { MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });
+                    () => { Execute.OnUIThread(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });
             }
         }
 
@@ -3394,8 +3407,8 @@
             // Keep these in sync.
             if (propertyChangedEventArgs.PropertyName == ResponsibleGamingPropNameDialogVisible)
             {
-                RaisePropertyChanged(nameof(IsTimeLimitDlgVisible));
-                RaisePropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
+                OnPropertyChanged(nameof(IsTimeLimitDlgVisible));
+                OnPropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
                 ClockTimer.UpdateSessionTimeText();
 
                 if (IsTimeLimitDlgVisible)
@@ -3415,7 +3428,7 @@
                     Task.Run(
                         () =>
                         {
-                            MvvmHelper.ExecuteOnUI(
+                            Execute.OnUIThread(
                                 () =>
                                     OnResponsibleGamingDialogPending()); //need to thread this to allow async locking in responsible gaming to work.
                         });
@@ -3423,11 +3436,11 @@
             }
             else if (propertyChangedEventArgs.PropertyName == ResponsibleGamingPropNameDialogState)
             {
-                RaisePropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
+                OnPropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
             }
             else if (propertyChangedEventArgs.PropertyName == ResponsibleGamingPropNameDialogResourceKey)
             {
-                RaisePropertyChanged(nameof(ResponsibleGamingDialogResourceKey));
+                OnPropertyChanged(nameof(ResponsibleGamingDialogResourceKey));
             }
         }
 
@@ -3543,7 +3556,7 @@
         private void ServicePressed(object obj)
         {
             _attendant.OnServiceButtonPressed();
-            RaisePropertyChanged(nameof(IsServiceRequested));
+            OnPropertyChanged(nameof(IsServiceRequested));
             PlayAudioFile(Sound.Touch);
         }
 
@@ -3571,7 +3584,7 @@
             if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
             {
                 _attendant.IsServiceRequested = true;
-                RaisePropertyChanged(nameof(IsServiceRequested));
+                OnPropertyChanged(nameof(IsServiceRequested));
             }
 
             ShowVbdServiceConfirmationDialog(false);
@@ -3687,7 +3700,7 @@
                 DisplayedGameList.Clear();
 
                 // When the tab is hosting extra large icons (i.e., for Lightning Link), a list of denoms PER game will appear
-                // below the icon for the user to pick. 
+                // below the icon for the user to pick.
                 if (IsExtraLargeGameIconTabActive)
                 {
                     var distinctGameNames = _gameList.Where(g => g.Category == GameCategory.LightningLink)
@@ -3727,11 +3740,11 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(MarginInputs));
-            RaisePropertyChanged(nameof(IsExtraLargeGameIconTabActive));
-            RaisePropertyChanged(nameof(IsSingleTabView));
-            RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
-            RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+            OnPropertyChanged(nameof(MarginInputs));
+            OnPropertyChanged(nameof(IsExtraLargeGameIconTabActive));
+            OnPropertyChanged(nameof(IsSingleTabView));
+            OnPropertyChanged(nameof(IsSingleDenomDisplayed));
+            OnPropertyChanged(nameof(IsSingleGameDisplayed));
         }
 
         private void SelectFirstDisplayedGame()
@@ -3980,7 +3993,7 @@
 
         private void VbdConfirmationTimeOutTimerOnTick(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() => ShowVbdServiceConfirmationDialog(false));
+            Execute.OnUIThread(() => ShowVbdServiceConfirmationDialog(false));
         }
 
         private void RenderTimerTick(object sender, EventArgs e)
@@ -4237,18 +4250,18 @@
 
         private void DoUiUpdatesForResponsibleGamingStateChange()
         {
-            MvvmHelper.ExecuteOnUI(() => ClockTimer.UpdateClockTimer());
+            Execute.OnUIThread(() => ClockTimer.UpdateClockTimer());
         }
 
         private void ForcePendingResponsibleGamingCheck(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() => OnResponsibleGamingDialogPending());
+            Execute.OnUIThread(() => OnResponsibleGamingDialogPending());
         }
 
         private void PrintHelplineTicketTimerTick(object sender, EventArgs e)
         {
             _inPrintHelplineTicketWaitPeriod = false;
-            PrintHelplineMessageCommand.RaiseCanExecuteChanged();
+            PrintHelplineMessageCommand.NotifyCanExecuteChanged();
         }
 
         private void RotateTopImageTimerTick(object sender, EventArgs e)
@@ -4265,7 +4278,7 @@
 
         private void RotateSoftErrorTextTimerTick(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (NotificationMessages.Count == 0)
@@ -4283,7 +4296,7 @@
         private void DebugCurrencyTimerTick(object sender, EventArgs e)
         {
             _disableDebugCurrency = false;
-            RaisePropertyChanged(nameof(IsDebugMoneyEnabled));
+            OnPropertyChanged(nameof(IsDebugMoneyEnabled));
         }
 
         private void CashOutTimerTick(object sender, EventArgs e)
@@ -4309,7 +4322,7 @@
             Logger.Debug($"Cash In Started at Zero Credits: {_cashInStartZeroCredits}");
             MessageOverlayDisplay.CashInType = cashInType;
             MessageOverlayDisplay.IsCashingInDlgVisible = showDialog;
-            MvvmHelper.ExecuteOnUI(() => _lobbyStateManager.AddFlagState(LobbyState.CashIn, cashInType));
+            Execute.OnUIThread(() => _lobbyStateManager.AddFlagState(LobbyState.CashIn, cashInType));
         }
 
         private void CashInFinished()
@@ -4331,7 +4344,7 @@
             }
             _cashInStartZeroCredits = null;
             _canOverrideEdgeLight = false;
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _lobbyStateManager.RemoveFlagState(LobbyState.CashIn);
@@ -4376,7 +4389,7 @@
         {
             if (obj is GameTabInfo gameTabInfo && GameTabInfo.SelectedCategory != gameTabInfo.Category)
             {
-                MvvmHelper.ExecuteOnUI(() => GameTabInfo.SelectTab(gameTabInfo));
+                Execute.OnUIThread(() => GameTabInfo.SelectTab(gameTabInfo));
                 PlayAudioFile(Sound.Touch);
             }
         }
@@ -4385,7 +4398,7 @@
         {
             if (obj is DenominationInfoViewModel denominationInfo)
             {
-                MvvmHelper.ExecuteOnUI(() => GameTabInfo.SetSelectedDenomination(denominationInfo));
+                Execute.OnUIThread(() => GameTabInfo.SetSelectedDenomination(denominationInfo));
             }
             PlayAudioFile(Sound.Touch);
         }
@@ -4408,7 +4421,7 @@
         {
             if (obj is SubTabInfoViewModel subTabInfo)
             {
-                MvvmHelper.ExecuteOnUI(() => GameTabInfo.SelectSubTab(subTabInfo));
+                Execute.OnUIThread(() => GameTabInfo.SelectSubTab(subTabInfo));
             }
             PlayAudioFile(Sound.Touch);
         }
@@ -4578,7 +4591,7 @@
             {
                 state = CashOutEnabled;
             }
-            
+
             buttonsLampState.Add(SetLampState(LampName.Collect, state));
         }
 
@@ -4604,7 +4617,7 @@
 
             buttonsLampState.Add(SetLampState(LampName.Bet3, state)); // prev game
             buttonsLampState.Add(SetLampState(LampName.Bet4, state)); // prev tab
-            buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom 
+            buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom
             buttonsLampState.Add(SetLampState(LampName.Playline5, state)); //next tab
             buttonsLampState.Add(SetLampState(LampName.Playline4, state)); //next game
         }
@@ -4650,7 +4663,7 @@
                 // todo let player culture provider manage multi-language support for lobby
                 _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
             }
-            
+
             _initialLanguageEventSent = true;
         }
 
@@ -5183,7 +5196,7 @@
 
         private void RequestInfoBarOpen(DisplayRole displayTarget, bool open)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 switch (displayTarget)
                 {
@@ -5217,7 +5230,7 @@
                         _eventBus.Publish(new RemoteKeyOffEvent(KeyOffType.Unknown, 0, 0, 0, false));
                         break;
                 }
-                RaisePropertyChanged(nameof(SelectedMenuSelectionPayOption));
+                OnPropertyChanged(nameof(SelectedMenuSelectionPayOption));
 
             }
         }

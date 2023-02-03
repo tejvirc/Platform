@@ -9,8 +9,8 @@
     using Contracts.HardwareDiagnostics;
     using Hardware.Contracts.Button;
     using Kernel;
-    using MVVM;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class ButtonPageViewModel : OperatorMenuPageViewModelBase
@@ -64,7 +64,7 @@
             set
             {
                 _isLcdButtonDeckEnabled = value;
-                RaisePropertyChanged(nameof(IsLcdPanelEnabled));
+                OnPropertyChanged(nameof(IsLcdPanelEnabled));
             }
         }
 
@@ -79,7 +79,7 @@
                 }
 
                 _firmwareCrc = value;
-                RaisePropertyChanged(nameof(FirmwareCrc));
+                OnPropertyChanged(nameof(FirmwareCrc));
             }
         }
 
@@ -94,7 +94,7 @@
                 }
 
                 _crcSeed = value;
-                RaisePropertyChanged(nameof(CrcSeed));
+                OnPropertyChanged(nameof(CrcSeed));
             }
         }
 
@@ -189,7 +189,7 @@
                 _buttonService.GetButtonPhysicalId(evt.LogicalId),
                 _buttonService.GetButtonName(evt.LogicalId));
 
-            MvvmHelper.ExecuteOnUI(() => PressedButtonsData.Insert(0, pressedData));
+            Execute.OnUIThread(() => PressedButtonsData.Insert(0, pressedData));
         }
 
         private void HandleEvent(UpEvent evt)

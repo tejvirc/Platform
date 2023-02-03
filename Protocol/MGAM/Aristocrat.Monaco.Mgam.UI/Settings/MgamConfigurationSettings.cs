@@ -9,7 +9,7 @@
     using Application.Contracts.Settings;
     using Common;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Manages the import and export of settings.
@@ -44,7 +44,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

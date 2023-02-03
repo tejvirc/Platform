@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows.Media;
     using Common;
@@ -11,6 +12,7 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Monaco.Localization.Properties;
+    using Toolkit.Mvvm.Extensions;
 
     public partial class NoteAcceptorViewModel
     {
@@ -54,7 +56,7 @@
             set
             {
                 _changeFocus = value;
-                RaisePropertyChanged(nameof(ChangeFocus));
+                OnPropertyChanged(nameof(ChangeFocus));
             }
         }
 
@@ -66,8 +68,8 @@
                 if (_isDenomEditable != value)
                 {
                     _isDenomEditable = value;
-                    RaisePropertyChanged(nameof(IsDenomEditable));
-                    RaisePropertyChanged(nameof(CanEgmModifyDenominations));
+                    OnPropertyChanged(nameof(IsDenomEditable));
+                    OnPropertyChanged(nameof(CanEgmModifyDenominations));
                 }
             }
         }
@@ -90,7 +92,7 @@
                         PropertiesManager.SetProperty(ApplicationConstants.ExcessiveDocumentRejectCount, excessiveDocumentRejectCountDefault);
                     }
 
-                    RaisePropertyChanged(nameof(ExcessiveRejectDisable));
+                    OnPropertyChanged(nameof(ExcessiveRejectDisable));
                 }
             }
         }
@@ -103,7 +105,7 @@
                 if (_excessiveRejectDisableIsVisible != value)
                 {
                     _excessiveRejectDisableIsVisible = value;
-                    RaisePropertyChanged(nameof(ExcessiveRejectDisableIsVisible));
+                    OnPropertyChanged(nameof(ExcessiveRejectDisableIsVisible));
                 }
             }
         }
@@ -116,7 +118,7 @@
                 if (_voucherInEnabledText != value)
                 {
                     _voucherInEnabledText = value;
-                    RaisePropertyChanged(nameof(VoucherInEnabledText));
+                    OnPropertyChanged(nameof(VoucherInEnabledText));
                 }
             }
         }
@@ -142,7 +144,7 @@
                     denom.Selected = _allowBillIn;
                 }
 
-                RaisePropertyChanged(nameof(AllowBillIn));
+                OnPropertyChanged(nameof(AllowBillIn));
             }
         }
 
@@ -157,7 +159,7 @@
                 }
 
                 _allowBillInEnabled = value;
-                RaisePropertyChanged(nameof(AllowBillInEnabled));
+                OnPropertyChanged(nameof(AllowBillInEnabled));
             }
         }
 
@@ -168,20 +170,13 @@
             NoteAcceptor.LogicalState != NoteAcceptorLogicalState.Inspecting &&
             _noteAcceptorDiagnosticsEnabled;
 
+        [CustomValidation(typeof(NoteAcceptorViewModel), nameof(BillAcceptanceLimitValidate))]
         public decimal BillAcceptanceLimit
         {
             get => _billAcceptanceLimit;
             set
             {
-                if (_billAcceptanceLimit == value)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _billAcceptanceLimit, value, nameof(BillAcceptanceLimit)))
-                {
-                    SetError(nameof(BillAcceptanceLimit), ValidateBillAcceptanceLimit(value));
-                }
+                SetProperty(ref _billAcceptanceLimit, value, true);
             }
         }
 
@@ -191,9 +186,10 @@
         public bool CanEditBillAcceptanceLimit
         {
             get => _canEditBillAcceptanceLimit;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _canEditBillAcceptanceLimit,
                 value,
+                OnPropertyChanged,
                 nameof(CanEditBillAcceptanceLimit),
                 nameof(BillAcceptanceLimitCheckboxIsEnabled));
         }
@@ -226,7 +222,7 @@
             set
             {
                 _stackerStateText = value;
-                RaisePropertyChanged(nameof(StackerStateText));
+                OnPropertyChanged(nameof(StackerStateText));
             }
         }
 
@@ -237,7 +233,7 @@
             set
             {
                 _enabledDenominationsText = value;
-                RaisePropertyChanged(nameof(EnabledDenominationsText));
+                OnPropertyChanged(nameof(EnabledDenominationsText));
             }
         }
 
@@ -248,7 +244,7 @@
             set
             {
                 _lastDocumentResultText = value;
-                RaisePropertyChanged(nameof(LastDocumentResultText));
+                OnPropertyChanged(nameof(LastDocumentResultText));
             }
         }
 
@@ -262,7 +258,7 @@
             set
             {
                 _returnButtonEnabled = value;
-                RaisePropertyChanged(nameof(ReturnButtonEnabled));
+                OnPropertyChanged(nameof(ReturnButtonEnabled));
             }
         }
 
@@ -273,7 +269,7 @@
             set
             {
                 _stackButtonEnabled = value;
-                RaisePropertyChanged(nameof(StackButtonEnabled));
+                OnPropertyChanged(nameof(StackButtonEnabled));
             }
         }
 
@@ -284,7 +280,7 @@
             set
             {
                 _stackButtonVisible = value;
-                RaisePropertyChanged(nameof(StackButtonVisible));
+                OnPropertyChanged(nameof(StackButtonVisible));
             }
         }
 
@@ -295,8 +291,8 @@
             set
             {
                 _variantNameText = value;
-                RaisePropertyChanged(nameof(VariantNameText));
-                RaisePropertyChanged(nameof(VariantNameForeground));
+                OnPropertyChanged(nameof(VariantNameText));
+                OnPropertyChanged(nameof(VariantNameForeground));
             }
         }
 
@@ -307,8 +303,8 @@
             set
             {
                 _variantVersionText = value;
-                RaisePropertyChanged(nameof(VariantVersionText));
-                RaisePropertyChanged(nameof(VariantVersionForeground));
+                OnPropertyChanged(nameof(VariantVersionText));
+                OnPropertyChanged(nameof(VariantVersionForeground));
             }
         }
 
@@ -323,7 +319,7 @@
             set
             {
                 _selfTestButtonVisible = value;
-                RaisePropertyChanged(nameof(SelfTestButtonVisible));
+                OnPropertyChanged(nameof(SelfTestButtonVisible));
             }
         }
 
@@ -334,7 +330,7 @@
             set
             {
                 _selfTestClearNvmButtonVisible = value;
-                RaisePropertyChanged(nameof(SelfTestClearNvmButtonVisible));
+                OnPropertyChanged(nameof(SelfTestClearNvmButtonVisible));
             }
         }
 
@@ -345,7 +341,7 @@
             set
             {
                 _selfTestStatusVisible = value;
-                RaisePropertyChanged(nameof(SelfTestStatusVisible));
+                OnPropertyChanged(nameof(SelfTestStatusVisible));
             }
         }
 
@@ -356,7 +352,7 @@
             set
             {
                 _inspectButtonVisible = value;
-                RaisePropertyChanged(nameof(InspectButtonVisible));
+                OnPropertyChanged(nameof(InspectButtonVisible));
             }
         }
 
@@ -367,7 +363,7 @@
             set
             {
                 _returnButtonVisible = value;
-                RaisePropertyChanged(nameof(ReturnButtonVisible));
+                OnPropertyChanged(nameof(ReturnButtonVisible));
             }
         }
 
@@ -378,7 +374,7 @@
             set
             {
                 _setDenominationsButtonVisible = value;
-                RaisePropertyChanged(nameof(SetDenominationsButtonVisible));
+                OnPropertyChanged(nameof(SetDenominationsButtonVisible));
             }
         }
 
@@ -389,7 +385,7 @@
             set
             {
                 _inspectButtonFocused = value;
-                RaisePropertyChanged(nameof(InspectButtonFocused));
+                OnPropertyChanged(nameof(InspectButtonFocused));
             }
         }
 
@@ -403,7 +399,7 @@
 
         public bool TestModeToolTipDisabled => (NoteAcceptor?.ReasonDisabled.HasFlag(DisabledReasons.GamePlay) ?? false) || TestModeEnabled;
 
-        public string ValidateBillAcceptanceLimit(decimal billAcceptanceLimit)
+        public static ValidationResult BillAcceptanceLimitValidate(decimal billAcceptanceLimit)
         {
             string error = string.Empty;
             if (billAcceptanceLimit > ApplicationConstants.MaxCreditsInMax)
@@ -416,19 +412,11 @@
                 error = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid);
             }
 
-            return error;
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
             if (string.IsNullOrEmpty(error))
             {
-                ClearErrors(propertyName);
+                return ValidationResult.Success;
             }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
+            return new(error);
         }
     }
 }

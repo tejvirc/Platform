@@ -2,6 +2,8 @@
 {
     using System;
     using System.Windows.Controls;
+    using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+    using System.Xml.Linq;
 
     /// <summary>
     /// A setting with string live and edited values.
@@ -12,6 +14,16 @@
         private int _minLength, _maxLength;
         private bool _isAlphaNumeric = true;
         private CharacterCasing _characterCasing = CharacterCasing.Normal;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public LiveStringSetting()
+            : base(null, null)
+        {
+
+        }
+
 
         /// <InheritDoc/>
         public LiveStringSetting(ILiveSettingParent parent, string name)
@@ -28,7 +40,7 @@
             set
             {
                 _minLength = value;
-                RaisePropertyChanged(nameof(MinLength));
+                OnPropertyChanged(nameof(MinLength));
             }
         }
 
@@ -41,7 +53,7 @@
             set
             {
                 _maxLength = value;
-                RaisePropertyChanged(nameof(MaxLength));
+                OnPropertyChanged(nameof(MaxLength));
             }
         }
 
@@ -54,7 +66,7 @@
             set
             {
                 _isAlphaNumeric = value;
-                RaisePropertyChanged(nameof(IsAlphaNumeric));
+                OnPropertyChanged(nameof(IsAlphaNumeric));
             }
         }
 
@@ -67,7 +79,7 @@
             set
             {
                 _characterCasing = value;
-                RaisePropertyChanged(nameof(CharacterCasing));
+                OnPropertyChanged(nameof(CharacterCasing));
             }
         }
     }

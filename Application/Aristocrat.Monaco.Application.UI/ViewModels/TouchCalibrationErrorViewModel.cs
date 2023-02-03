@@ -9,8 +9,8 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class TouchCalibrationErrorViewModel : OperatorMenuSaveViewModelBase, IConfigWizardDialog
@@ -73,7 +73,7 @@
         {
             if (downEvent.LogicalId == (int)ButtonLogicalId.Play && downEvent.Enabled == false)
             {
-                MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                Execute.OnUIThread(InvokeCalibration);
             }
         }
     }

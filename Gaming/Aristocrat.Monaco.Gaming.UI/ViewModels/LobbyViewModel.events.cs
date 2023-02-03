@@ -26,7 +26,7 @@
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Models;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using Utils;
     using PayMethod = Contracts.Bonus.PayMethod;
 #if !(RETAIL)
@@ -151,7 +151,7 @@
                 MessageOverlayDisplay.CustomMainViewElementVisible = evt.Action == ViewInjectionEvent.ViewAction.Add;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     HandleMessageOverlayText();
@@ -166,7 +166,7 @@
 
         private void HandleEvent(ReserveButtonPressedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     //Check if reserve is supported
@@ -176,13 +176,13 @@
                     }
 
                     MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible = true;
-                    MvvmHelper.ExecuteOnUI(HandleMessageOverlayText);
+                    Execute.OnUIThread(HandleMessageOverlayText);
                 });
         }
 
         private void HandleEvent(ProgressiveGameDisabledEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (!_gameRecovery.IsRecovering && _gameState.UncommittedState == PlayState.Idle &&
@@ -199,7 +199,7 @@
 
         private void HandleEvent(ProgressiveGameEnabledEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_selectedGame?.Denomination == evt.Denom && _selectedGame?.GameId == evt.GameId &&
@@ -225,7 +225,7 @@
 
             if (!evt.IsResending)
             {
-                MvvmHelper.ExecuteOnUI(UpdateUI);
+                Execute.OnUIThread(UpdateUI);
             }
         }
 
@@ -241,7 +241,7 @@
 
         private void HandleEvent(GameUninstalledEvent gameUninstalledEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     CurrentAttractIndex = 0;
@@ -251,7 +251,7 @@
 
         private void HandleEvent(GameUpgradedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     OnUserInteraction();
@@ -264,7 +264,7 @@
 
         private void HandleEvent(SystemDownEvent platformEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (PlayerMenuPopupViewModel.IsMenuVisible)
@@ -316,7 +316,7 @@
 
         private void HandleEvent(UpEvent platformEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (IsLobbyVisible && !_systemDisableManager.IsDisabled)
@@ -338,7 +338,7 @@
             // any time we reenter the Game State, NOT just the first time the game is loaded.
             // It could be called multiple times if say, lockups and caused and cleared during recovery.
             // We ONLY want to call OnGamePlayEnabled one time when the game first is loaded.
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_gameRecovery.IsRecovering)
@@ -377,7 +377,7 @@
         private void HandleEvent(GameExitedNormalEvent platformEvent)
         {
             _normalGameExitReceived = true;
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug("GameExitedNormalEvent received.");
@@ -404,7 +404,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 Logger.Debug($"GameProcessExitedEvent received.  Unexpected: {platformEvent.Unexpected}");
 
@@ -447,7 +447,7 @@
 
         private void HandleEvent(BankBalanceChangedEvent platformEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Credits = OverlayMessageUtils.ToCredits(platformEvent.NewBalance);
@@ -531,7 +531,7 @@
             {
                 CashInStarted(CashInType.Wat);
             }
-            
+
             if (bonusEvent.Transaction.Mode == BonusMode.GameWin &&
                 bonusEvent.Transaction.PayMethod == PayMethod.Voucher)
             {
@@ -571,7 +571,7 @@
         private void HandleEvent(TransferOutCompletedEvent platformEvent)
         {
             Logger.Debug("Detected TransferOutCompletedEvent");
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (HasZeroCredits && _gameState.Idle) // VLT-5401: Handle Manitoba partial cash-out
@@ -597,7 +597,7 @@
         private void HandleEvent(TransferOutFailedEvent platformEvent)
         {
             Logger.Debug("Detected TransferOutFailedEvent");
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     // If Responsible Gaming is running and we failed to cash out
@@ -654,7 +654,7 @@
                 }
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     CashOutDialogState = LobbyCashOutDialogState.Visible;
@@ -676,7 +676,7 @@
             // Dequeue the forced cashout data from this failed operation.
             _forcedCashOutData.TryDequeue(out _);
 
-            MvvmHelper.ExecuteOnUI(UpdateUI);
+            Execute.OnUIThread(UpdateUI);
         }
 
         private void HandleEvent(WatTransferInitiatedEvent platformEvent)
@@ -768,26 +768,26 @@
             {
                 _printingReprintTicket = true;
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () => _lobbyStateManager.AddFlagState(LobbyState.CashOut, platformEvent.Amount, false));
             }
         }
 
         private void HandleEvent(GamePlayDisabledEvent gameDisabledEvent)
         {
-            MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.Disable));
+            Execute.OnUIThread(() => SendTrigger(LobbyTrigger.Disable));
         }
 
         private void HandleEvent(GamePlayEnabledEvent gameEnabledEvent)
         {
             // Restore the fast-launch capability after tilts.
             _lobbyStateManager.AllowGameAutoLaunch = true;
-            MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.Enable));
+            Execute.OnUIThread(() => SendTrigger(LobbyTrigger.Enable));
 
             // If game is ready but not loaded due to disable, load it now
             if (GameReady)
             {
-                MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameLoaded));
+                Execute.OnUIThread(() => SendTrigger(LobbyTrigger.GameLoaded));
             }
         }
 
@@ -796,7 +796,7 @@
             Logger.Debug($"Detected ViewResizeEvent Resizing:{viewResizeEvent.Resizing}");
             if (viewResizeEvent.Resizing)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         _lobbyStateManager.AddFlagState(LobbyState.MediaPlayerResizing);
@@ -807,7 +807,7 @@
             }
             else
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         _lobbyStateManager.RemoveFlagState(LobbyState.MediaPlayerResizing);
@@ -821,7 +821,7 @@
         {
             if (primaryOverlayEvent.IsShowing)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         _lobbyStateManager.AddFlagState(LobbyState.MediaPlayerOverlay);
@@ -830,7 +830,7 @@
             }
             else
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         _lobbyStateManager.RemoveFlagState(LobbyState.MediaPlayerOverlay);
@@ -841,7 +841,7 @@
 
         private void HandleEvent(GameDiagnosticsStartedEvent replayStartedEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var game =
@@ -858,13 +858,13 @@
         private void HandleEvent(GameDiagnosticsCompletedEvent replayCompletedEvent)
         {
             Logger.Debug("Detected GameDiagnosticsCompletedEvent");
-            MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameDiagnosticsExit));
+            Execute.OnUIThread(() => SendTrigger(LobbyTrigger.GameDiagnosticsExit));
         }
 
         private void HandleEvent(GameOrderChangedEvent evt)
         {
             // The game info needs to be reloaded, since we can't be certain no other attributes around the game have changed
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     OnUserInteraction();
@@ -875,7 +875,7 @@
         private void HandleEvent(GameAddedEvent added)
         {
             // This could be done better by only adding the game the specific game id
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     OnUserInteraction();
@@ -887,7 +887,7 @@
         private void HandleEvent(GameRemovedEvent removed)
         {
             // This could be done better by only removing the game the specific game id
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     OnUserInteraction();
@@ -898,7 +898,7 @@
 
         private void HandleEvent(GameEnabledEvent enabled)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     LoadGameInfo();
@@ -908,7 +908,7 @@
 
         private void HandleEvent(GameDisabledEvent disabled)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     LoadGameInfo();
@@ -919,7 +919,7 @@
 #if !(RETAIL)
         private void HandleEvent(GameLoadRequestedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var game = GameList.FirstOrDefault(g => g.GameId == evt.GameId && g.FilteredDenomination == evt.Denomination);
@@ -944,7 +944,7 @@
             // not need to reset the opacity.
 
             // Note: Not sure this is needed anymore, but leaving it just in case
-            MvvmHelper.ExecuteOnUI(() => MessageOverlayDisplay.MessageOverlayData.Opacity = 1.0);
+            Execute.OnUIThread(() => MessageOverlayDisplay.MessageOverlayData.Opacity = 1.0);
         }
 
         private void HandleEvent(GameTagsChangedEvent evt)
@@ -960,7 +960,7 @@
 
         private void HandleEvent(GameRequestedLobbyEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     // Normal game exit, if >1 game or old-style behavior is desired
@@ -996,7 +996,7 @@
         {
             if (evt.PropertyName == GamingConstants.IdleText)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         IdleText = (string)_properties.GetProperty(GamingConstants.IdleText, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault));
@@ -1006,7 +1006,7 @@
 
         private void HandleEvent(GameIdleEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (HasZeroCredits)
@@ -1026,19 +1026,19 @@
 
         private void HandleEvent(OperatorMenuEnteredEvent evt)
         {
-            RaisePropertyChanged(nameof(IsInOperatorMenu));
+            OnPropertyChanged(nameof(IsInOperatorMenu));
             UpdateLcdButtonDeckRenderSetting(false);
             // VLT-4426: Need to remove the Responsible Gaming Dialog while the Operator Menu is up.
             Logger.Debug("Clearing Responsible Gaming Dialog For Operator Menu");
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     // VLT-4160:  Set this so that we can reset localization after going to the Operator Menu
                     // A few pages in the operator menu share resources with the lobby, but the Operator Menu
-                    // is not localized to the same language as the lobby.  Currently we change the Resource 
+                    // is not localized to the same language as the lobby.  Currently we change the Resource
                     // Culture when we move to the Operator Menu so that everything works and then change it back
-                    // when we exit the Operator Menu.  We probably need a better solution in the future.    
+                    // when we exit the Operator Menu.  We probably need a better solution in the future.
 
                     _printingHelplineWhileResponsibleGamingReset = ContainsAnyState(LobbyState.PrintHelpline);
                     _responsibleGamingInfoWhileResponsibleGamingReset = ContainsAnyState(
@@ -1050,7 +1050,7 @@
                     //    Resources.Culture = new CultureInfo(EnglishCultureCode);
                     //}
 
-                    // set this so that if we go to the operator menu while a responsible gaming dialog is up, 
+                    // set this so that if we go to the operator menu while a responsible gaming dialog is up,
                     // we can restore the dialog on operator menu exit.
                     _responsibleGamingDialogResetWhenOperatorMenuEntered = ResetResponsibleGamingDialog(true);
 
@@ -1080,14 +1080,14 @@
 
         private void HandleEvent(OperatorMenuExitedEvent evt)
         {
-            RaisePropertyChanged(nameof(IsInOperatorMenu));
+            OnPropertyChanged(nameof(IsInOperatorMenu));
             UpdateLcdButtonDeckRenderSetting(!IsGameRenderingToLcdButtonDeck());
 
             if (_responsibleGaming?.ShowTimeLimitDlgPending ?? false)
             {
                 var allowDialogWhileDisabled = _responsibleGamingDialogResetWhenOperatorMenuEntered;
                 // VLT-4426: Need to put the Responsible Gaming Dialog back when the Operator Menu exits.
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         OnResponsibleGamingDialogPending(allowDialogWhileDisabled);
@@ -1108,17 +1108,17 @@
 
             _responsibleGamingDialogResetWhenOperatorMenuEntered = false;
 
-            // VLT-4160:  Change back to the Resource Localization Culture that we had prior to 
+            // VLT-4160:  Change back to the Resource Localization Culture that we had prior to
             // entering the Operator Menu
             //if (Resources.Culture.Name.ToUpper() != _localeCodePreOperatorMenu)
             //{
-            //    MvvmHelper.ExecuteOnUI(
+            //    Execute.OnUIThread(
             //        () => { Resources.Culture = new CultureInfo(_localeCodePreOperatorMenu); });
             //}
 
             RaisePropertiesChanged();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     TryLaunchSingleGame();
@@ -1130,7 +1130,7 @@
         {
             if (CashOutDialogState == LobbyCashOutDialogState.VisiblePendingTimeout)
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     ClearCashOutDialog(true);
                 });
@@ -1147,7 +1147,7 @@
                 if (_gameHistory.IsRecoveryNeeded)
                 {
                     Logger.Debug("Sending InitiateRecovery Trigger");
-                    MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.InitiateRecovery, false));
+                    Execute.OnUIThread(() => SendTrigger(LobbyTrigger.InitiateRecovery, false));
                 }
             }
         }
@@ -1164,7 +1164,7 @@
 
         private void HandleEvent(DisableCountdownTimerEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (evt.Start)
@@ -1183,7 +1183,7 @@
         private void HandleEvent(PrintCompletedEvent evt)
         {
             Logger.Debug("Detected PrintCompletedEvent");
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_printingHelplineTicket)
@@ -1207,7 +1207,7 @@
         private void HandleEvent(FieldOfInterestEvent evt)
         {
             Logger.Debug("Detected FieldOfInterestEvent");
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_printingReprintTicket)
@@ -1223,7 +1223,7 @@
             Logger.Debug($"Detected DisplayingTimeRemainingChangedEvent {evt.IsDisplayingTimeRemaining}");
             if (Config.DisplaySessionTimeInClock)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         ClockTimer.ChangeClockState(
@@ -1242,23 +1242,23 @@
             if (evt.Identity == null)
             {
                 // logging out
-                MvvmHelper.ExecuteOnUI(() => IsPrimaryLanguageSelected = true);
+                Execute.OnUIThread(() => IsPrimaryLanguageSelected = true);
             }
             else
             {
                 // logging in
-                MvvmHelper.ExecuteOnUI(() => SetLanguage(evt.Identity.LocaleId));
+                Execute.OnUIThread(() => SetLanguage(evt.Identity.LocaleId));
             }
         }
 
         private void HandleEvent(TimeUpdatedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() => _lobbyStateManager.OnUserInteraction());
+            Execute.OnUIThread(() => _lobbyStateManager.OnUserInteraction());
         }
 
         private void HandleEvent(ShowServiceConfirmationEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() => ShowVbdServiceConfirmationDialog(evt.Show));
+            Execute.OnUIThread(() => ShowVbdServiceConfirmationDialog(evt.Show));
         }
 
         private void HandleEvent(MissedStartupEvent evt)
@@ -1304,7 +1304,7 @@
 
         private void HandleEvent(CultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 HandleMessageOverlayText();
 
@@ -1327,19 +1327,19 @@
                     GetVolumeButtonVisible();
                     break;
                 case LobbySettingType.ShowTopPickBanners:
-                    MvvmHelper.ExecuteOnUI(LoadGameInfo);
+                    Execute.OnUIThread(LoadGameInfo);
                     break;
             }
         }
 
         private void HandleEvent(CurrencyCultureChangedEvent evt)
         {
-            RaisePropertyChanged(nameof(FormattedCredits));
+            OnPropertyChanged(nameof(FormattedCredits));
         }
 
         private void HandleEvent(GameDenomChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(LoadGameInfo);
+            Execute.OnUIThread(LoadGameInfo);
         }
 
         private void HandleEvent(AttractConfigurationChangedEvent evt)
@@ -1349,7 +1349,7 @@
 
         private void HandleEvent(DenominationSelectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() => DenominationSelectionChanged(evt.GameId, evt.Denomination));
+            Execute.OnUIThread(() => DenominationSelectionChanged(evt.GameId, evt.Denomination));
         }
 
         private void HandleEvent(InfoBarDisplayTransientMessageEvent evt) => RequestInfoBarOpen(evt.DisplayTarget, true);
@@ -1360,7 +1360,7 @@
 
         private void HandleEvent(SystemDisableRemovedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (evt.DisableId == ApplicationConstants.LiveAuthenticationDisableKey)
@@ -1399,14 +1399,14 @@
             }
 
             MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut = !evt.Show;
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (evt.Show)
                     {
                         PlayerMenuPopupViewModel.IsMenuVisible = true;
 
-                        // Reset the attract timer so that it doesn't close while 
+                        // Reset the attract timer so that it doesn't close while
                         // a player is adjusting the volume or brightness
                         StartAttractTimer();
                     }
@@ -1422,21 +1422,21 @@
         private void HandleEvent(PlayerInfoDisplayEnteredEvent @event)
         {
             Logger.Debug("Player Info Display On");
-            MvvmHelper.ExecuteOnUI(HandleMessageOverlayVisibility);
+            Execute.OnUIThread(HandleMessageOverlayVisibility);
         }
 
         private void HandleEvent(PlayerInfoDisplayExitedEvent @event)
         {
             Logger.Debug("Player Info Display Off");
-            MvvmHelper.ExecuteOnUI(HandleMessageOverlayVisibility);
+            Execute.OnUIThread(HandleMessageOverlayVisibility);
         }
 
         private void HandleEvent(GambleFeatureActiveEvent evt)
         {
             _isGambleFeatureActive = evt.Active;
-            RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
-            RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
-            RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            OnPropertyChanged(nameof(ReturnToLobbyAllowed));
+            OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+            OnPropertyChanged(nameof(ReserveMachineAllowed));
         }
 
         private void HandleMessageOverlayVisibility()

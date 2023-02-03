@@ -3,15 +3,15 @@
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Lobby;
     using Contracts.Models;
     using Kernel;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     View Model for InfoWindow
     /// </summary>
-    public class InfoOverlayViewModel : BaseEntityViewModel, IDisposable
+    public class InfoOverlayViewModel : ObservableObject, IDisposable
     {
         /// <summary>
         ///     guid for the cabinet configuration text that we handle directly
@@ -120,7 +120,7 @@
                     break;
             }
 
-            RaisePropertyChanged(nameof(TextsTopLeft));
+            OnPropertyChanged(nameof(TextsTopLeft));
         }
     }
 }

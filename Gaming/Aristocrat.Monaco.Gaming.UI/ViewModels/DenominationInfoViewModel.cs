@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Application.Contracts.Extensions;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class DenominationInfoViewModel : BaseNotify
+    public class DenominationInfoViewModel : ObservableObject
     {
         private bool _isSelected;
         private bool _isVisible;
@@ -28,9 +28,9 @@
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    RaisePropertyChanged(nameof(IsSelected));
-                    RaisePropertyChanged(nameof(DenomText));
-                    RaisePropertyChanged(nameof(DenomBackground));
+                    OnPropertyChanged(nameof(IsSelected));
+                    OnPropertyChanged(nameof(DenomText));
+                    OnPropertyChanged(nameof(DenomBackground));
                 }
             }
         }
@@ -43,7 +43,7 @@
                 if (_isVisible != value)
                 {
                     _isVisible = value;
-                    RaisePropertyChanged(nameof(IsVisible));
+                    OnPropertyChanged(nameof(IsVisible));
                 }
             }
         }

@@ -10,6 +10,7 @@
     using System.Windows.Input;
     using Accounting.Contracts;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -23,7 +24,6 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -59,11 +59,11 @@
             ShowPrintLanguageSettings = (bool)PropertiesManager.GetProperty(ApplicationConstants.LocalizationPlayerTicketLanguageSettingVisible, false);
             ShowOperatorOverrideCheckBox = (bool)PropertiesManager.GetProperty(ApplicationConstants.LocalizationPlayerTicketLanguageSettingShowCheckBox, false);
 
-            FormFeedButtonCommand = new ActionCommand<object>(FormFeedButtonClicked);
-            PrintDiagnosticButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Main, isDiagnostic: true));
-            PrintTestTicketCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1, isDiagnostic: true));
-            SelfTestClearButtonCommand = new ActionCommand<object>(SelfTestClearNvmButtonClicked);
-            SelfTestButtonCommand = new ActionCommand<object>(SelfTestButtonClicked);
+            FormFeedButtonCommand = new RelayCommand<object>(FormFeedButtonClicked);
+            PrintDiagnosticButtonCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Main, isDiagnostic: true));
+            PrintTestTicketCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom1, isDiagnostic: true));
+            SelfTestClearButtonCommand = new RelayCommand<object>(SelfTestClearNvmButtonClicked);
+            SelfTestButtonCommand = new RelayCommand<object>(SelfTestButtonClicked);
         }
 
         public bool PlayerLocalesAvailable { get; set; }
@@ -103,7 +103,7 @@
                     }
                 }
 
-                RaisePropertyChanged(nameof(SelectedPrintLanguage));
+                OnPropertyChanged(nameof(SelectedPrintLanguage));
             }
         }
 
@@ -140,8 +140,8 @@
                 }
 
                 PropertiesManager.SetProperty(ApplicationConstants.LocalizationPlayerTicketOverride, _printLanguageOverrideIsChecked);
-                RaisePropertyChanged(nameof(PrintLanguageOverrideIsChecked));
-                RaisePropertyChanged(nameof(SelectedPrintLanguageIsEnabled));
+                OnPropertyChanged(nameof(PrintLanguageOverrideIsChecked));
+                OnPropertyChanged(nameof(SelectedPrintLanguageIsEnabled));
             }
         }
 
@@ -265,7 +265,7 @@
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(TestModeEnabled));
+            OnPropertyChanged(nameof(TestModeEnabled));
             UpdateWarningMessage();
         }
 
@@ -327,8 +327,8 @@
 
         private void UpdateEnabledProperties()
         {
-            RaisePropertyChanged(nameof(SelectedPrintLanguageIsEnabled));
-            RaisePropertyChanged(nameof(PrintLanguageOverrideIsEnabled));
+            OnPropertyChanged(nameof(SelectedPrintLanguageIsEnabled));
+            OnPropertyChanged(nameof(PrintLanguageOverrideIsEnabled));
         }
 
         private void FormFeedButtonClicked(object obj)

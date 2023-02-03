@@ -7,6 +7,7 @@
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.HardwareDiagnostics;
     using Hardware.Contracts;
@@ -15,9 +16,8 @@
     using Kernel.Contracts;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class SoundTestPageViewModel : OperatorMenuSaveViewModelBase
@@ -70,27 +70,27 @@
 
             bool enablePlay = IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled;
 
-            StopCommand = new ActionCommand<object>(_ => StopSound(),
+            StopCommand = new RelayCommand<object>(_ => StopSound(),
                 _ => IsAudioServiceAvailable && !IsAudioDisabled && IsPlaying);
 
-            PlayCommand = new ActionCommand<object>(_ => PlaySound(),
+            PlayCommand = new RelayCommand<object>(_ => PlaySound(),
                 _ => IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled);
 
-            PlayCommandOnFrontLeftSpeaker = new ActionCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
+            PlayCommandOnFrontLeftSpeaker = new RelayCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnCenterSpeaker = new ActionCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
+            PlayCommandOnCenterSpeaker = new RelayCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
 
-            PlayCommandOnFrontRightSpeaker = new ActionCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
+            PlayCommandOnFrontRightSpeaker = new RelayCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideLeftSpeaker = new ActionCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
+            PlayCommandOnSideLeftSpeaker = new RelayCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideRightSpeaker = new ActionCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
+            PlayCommandOnSideRightSpeaker = new RelayCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnLowFrequencySpeaker = new ActionCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
+            PlayCommandOnLowFrequencySpeaker = new RelayCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
 
-            PlayCommandOnRearLeftSpeaker = new ActionCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
+            PlayCommandOnRearLeftSpeaker = new RelayCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnRearRightSpeaker = new ActionCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
+            PlayCommandOnRearRightSpeaker = new RelayCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
         }
 
         private void LoadVolumeSettings()
@@ -98,28 +98,28 @@
             // Load default volume level
             _soundLevel = (VolumeLevel)PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
-            RaisePropertyChanged(nameof(SoundLevel));
+            OnPropertyChanged(nameof(SoundLevel));
         }
 
-        public IActionCommand PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
-        public IActionCommand StopCommand { get; }
+        public IRelayCommand StopCommand { get; }
 
-        public IActionCommand PlayCommandOnFrontLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnCenterSpeaker { get; }
+        public IRelayCommand PlayCommandOnCenterSpeaker { get; }
 
-        public IActionCommand PlayCommandOnFrontRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnLowFrequencySpeaker { get; }
+        public IRelayCommand PlayCommandOnLowFrequencySpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearRightSpeaker { get; }
 
         public bool IsPlaying
         {
@@ -133,9 +133,9 @@
                 }
 
                 _isPlaying = value;
-                RaisePropertyChanged(nameof(IsPlaying));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(IsPlaying));
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -151,9 +151,9 @@
                 }
 
                 _isAudioDisabled = value;
-                RaisePropertyChanged(nameof(IsAudioDisabled));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(IsAudioDisabled));
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -169,7 +169,7 @@
                 }
 
                 _soundLevel = value;
-                RaisePropertyChanged(nameof(SoundLevel));
+                OnPropertyChanged(nameof(SoundLevel));
             }
         }
 
@@ -187,7 +187,7 @@
                 }
 
                 _sound = value;
-                RaisePropertyChanged(nameof(Sound));
+                OnPropertyChanged(nameof(Sound));
             }
         }
 
@@ -200,7 +200,7 @@
                 if (_frontLeftSpeaker != value)
                 {
                     _frontLeftSpeaker = value;
-                    RaisePropertyChanged(nameof(FrontLeftSpeaker));
+                    OnPropertyChanged(nameof(FrontLeftSpeaker));
                 }
             }
         }
@@ -214,7 +214,7 @@
                 if (_frontRightSpeaker != value)
                 {
                     _frontRightSpeaker = value;
-                    RaisePropertyChanged(nameof(FrontRightSpeaker));
+                    OnPropertyChanged(nameof(FrontRightSpeaker));
                 }
             }
         }
@@ -228,7 +228,7 @@
                 if (_centerSpeaker != value)
                 {
                     _centerSpeaker = value;
-                    RaisePropertyChanged(nameof(CenterSpeaker));
+                    OnPropertyChanged(nameof(CenterSpeaker));
                 }
             }
         }
@@ -242,7 +242,7 @@
                 if (_rearLeftSpeaker != value)
                 {
                     _rearLeftSpeaker = value;
-                    RaisePropertyChanged(nameof(RearLeftSpeaker));
+                    OnPropertyChanged(nameof(RearLeftSpeaker));
                 }
             }
         }
@@ -256,7 +256,7 @@
                 if (_rearRightSpeaker != value)
                 {
                     _rearRightSpeaker = value;
-                    RaisePropertyChanged(nameof(RearRightSpeaker));
+                    OnPropertyChanged(nameof(RearRightSpeaker));
                 }
             }
         }
@@ -270,7 +270,7 @@
                 if (_sideLeftSpeaker != value)
                 {
                     _sideLeftSpeaker = value;
-                    RaisePropertyChanged(nameof(SideLeftSpeaker));
+                    OnPropertyChanged(nameof(SideLeftSpeaker));
                 }
             }
         }
@@ -284,7 +284,7 @@
                 if (_sideRightSpeaker != value)
                 {
                     _sideRightSpeaker = value;
-                    RaisePropertyChanged(nameof(SideRightSpeaker));
+                    OnPropertyChanged(nameof(SideRightSpeaker));
                 }
             }
         }
@@ -298,7 +298,7 @@
                 if (_lowFrequencySpeaker != value)
                 {
                     _lowFrequencySpeaker = value;
-                    RaisePropertyChanged(nameof(LowFrequencySpeaker));
+                    OnPropertyChanged(nameof(LowFrequencySpeaker));
                 }
             }
         }
@@ -340,7 +340,7 @@
 
         private void StopSound()
         {
-            if (Sound != null)  // VLT-12533 : Fix null reference exception in sound page when switching tabs when cable unplugged 
+            if (Sound != null)  // VLT-12533 : Fix null reference exception in sound page when switching tabs when cable unplugged
             {
                 _audio?.Stop(Sound.Path);
             }
@@ -420,11 +420,11 @@
 
         private void OnPlayEnded(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _playingTimer.Stop();
                 IsPlaying = false;
-                StopCommand?.RaiseCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             });
         }
 
@@ -469,7 +469,7 @@
 
         private void OnPlayingTimerTick(object sender, EventArgs args)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (!IsAudioServiceAvailable)
                 {
@@ -518,7 +518,7 @@
 
         private void OnEnabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 IsAudioDisabled = true;
                 TestModeEnabled = false;
@@ -528,7 +528,7 @@
 
         private void OnDisabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 IsPlaying = false;
                 IsAudioDisabled = true;

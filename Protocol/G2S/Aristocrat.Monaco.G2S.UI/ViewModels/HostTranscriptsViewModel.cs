@@ -11,11 +11,11 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
+    using CommunityToolkit.Mvvm.Input;
     using Kernel;
     using Models;
     using Monaco.UI.Common;
-    using MVVM;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
     using ICommand = System.Windows.Input.ICommand;
 
     /// <summary>
@@ -49,8 +49,8 @@
         {
             _time = ServiceManager.GetInstance().GetService<ITime>();
 
-            ViewHostTranscriptsCommand = new ActionCommand<object>(ViewHostTranscript, _ => CanViewDetail());
-            CloseDetailCommand = new ActionCommand<object>(CloseHostTranscriptDetail);
+            ViewHostTranscriptsCommand = new RelayCommand<object>(ViewHostTranscript, _ => CanViewDetail());
+            CloseDetailCommand = new RelayCommand<object>(CloseHostTranscriptDetail);
 
             _enableViewHostTranscripts = false;
 
@@ -69,7 +69,7 @@
                 if (_messages != value)
                 {
                     _messages = value;
-                    RaisePropertyChanged(nameof(HostTranscriptsData));
+                    OnPropertyChanged(nameof(HostTranscriptsData));
                 }
             }
         }
@@ -77,7 +77,7 @@
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> ViewHostTranscriptsCommand { get; }
+        public RelayCommand<object> ViewHostTranscriptsCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
@@ -95,7 +95,7 @@
                 if (_selectedText != value)
                 {
                     _selectedText = value;
-                    RaisePropertyChanged(nameof(SelectedHostTranscriptText));
+                    OnPropertyChanged(nameof(SelectedHostTranscriptText));
                 }
             }
         }
@@ -123,7 +123,7 @@
                     }
 
                     EnableViewHostTranscripts = SelectedHostTranscript != null;
-                    RaisePropertyChanged(nameof(SelectedHostTranscript));
+                    OnPropertyChanged(nameof(SelectedHostTranscript));
                 }
             }
         }
@@ -137,7 +137,7 @@
             set
             {
                 _showHostTranscripts = value;
-                RaisePropertyChanged(nameof(ShowHostTranscripts));
+                OnPropertyChanged(nameof(ShowHostTranscripts));
             }
         }
 
@@ -152,8 +152,8 @@
                 if (_enableViewHostTranscripts != value)
                 {
                     _enableViewHostTranscripts = value;
-                    RaisePropertyChanged(nameof(EnableViewHostTranscripts));
-                    ViewHostTranscriptsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(EnableViewHostTranscripts));
+                    ViewHostTranscriptsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -166,7 +166,7 @@
                 if (_commInfoData != value)
                 {
                     _commInfoData = value;
-                    RaisePropertyChanged(nameof(CommsInfoData));
+                    OnPropertyChanged(nameof(CommsInfoData));
                 }
             }
         }
@@ -187,7 +187,7 @@
                 if (_commsConnected != value)
                 {
                     _commsConnected = value;
-                    RaisePropertyChanged(nameof(CommsConnected));
+                    OnPropertyChanged(nameof(CommsConnected));
                 }
             }
         }
@@ -199,7 +199,7 @@
 
         public void OnNext(ClassCommand value)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var eventDesc = GetCommandSummary(value);
@@ -337,13 +337,13 @@
 
         private void PollConnectionTimerOnTick(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(RefreshData);
+            Execute.OnUIThread(RefreshData);
         }
 
         private void RefreshData()
         {
-            RaisePropertyChanged(nameof(EgmId));
-            RaisePropertyChanged(nameof(EgmAddress));
+            OnPropertyChanged(nameof(EgmId));
+            OnPropertyChanged(nameof(EgmAddress));
 
             CommsConnected = _egm.Running;
 

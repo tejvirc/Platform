@@ -17,6 +17,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Central;
     using Contracts.Events.OperatorMenu;
@@ -33,9 +34,8 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM;
-    using MVVM.Command;
     using Tickets;
+    using Toolkit.Mvvm.Extensions;
     using Views.OperatorMenu;
 
     /// <summary>
@@ -74,7 +74,7 @@
         private bool _replayPauseEnabled;
         private bool _replayPauseActive;
         private ObservableCollection<string> _selectedGameRoundTextList;
-        
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistoryViewModel" /> class.
         /// </summary>
@@ -92,7 +92,7 @@
 
             ShowGameInfoButtons = GetConfigSetting(OperatorMenuSetting.ShowGameInfoButtons, false);
 
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 var container = ServiceManager.GetInstance().GetService<IContainerService>();
 
@@ -121,12 +121,12 @@
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 
-            ReplayCommand = new ActionCommand<object>(ReplayPressed);
-            ShowGameMetersCommand = new ActionCommand<object>(ShowGameMeters);
-            ShowGameTransactionsCommand = new ActionCommand<object>(ShowGameTransactions);
-            ShowGameProgressiveWinCommand = new ActionCommand<object>(ShowGameProgressiveWin);
-            ShowGameEventLogsCommand = new ActionCommand<object>(ShowGameEventLogs);
-            ShowGameDetailsCommand = new ActionCommand<object>(ShowGameDetails);
+            ReplayCommand = new RelayCommand<object>(ReplayPressed);
+            ShowGameMetersCommand = new RelayCommand<object>(ShowGameMeters);
+            ShowGameTransactionsCommand = new RelayCommand<object>(ShowGameTransactions);
+            ShowGameProgressiveWinCommand = new RelayCommand<object>(ShowGameProgressiveWin);
+            ShowGameEventLogsCommand = new RelayCommand<object>(ShowGameEventLogs);
+            ShowGameDetailsCommand = new RelayCommand<object>(ShowGameDetails);
 
             ReplayPauseActive = PropertiesManager.GetValue(GamingConstants.ReplayPauseActive, true);
             ReplayPauseEnabled = PropertiesManager.GetValue(GamingConstants.ReplayPauseEnable, true);
@@ -158,10 +158,10 @@
             set
             {
                 _gameHistory = value;
-                RaisePropertyChanged(nameof(GameHistory));
-                RaisePropertyChanged(nameof(ReplayButtonEnabled));
-                RaisePropertyChanged(nameof(EnablePrintCurrentPageButton));
-                RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+                OnPropertyChanged(nameof(GameHistory));
+                OnPropertyChanged(nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(EnablePrintCurrentPageButton));
+                OnPropertyChanged(nameof(MainPrintButtonEnabled));
             }
         }
 
@@ -173,7 +173,7 @@
             set
             {
                 _resetScrollToTop = value;
-                RaisePropertyChanged(nameof(ResetScrollToTop));
+                OnPropertyChanged(nameof(ResetScrollToTop));
             }
         }
 
@@ -183,7 +183,7 @@
             set
             {
                 _replayPauseEnabled = value;
-                RaisePropertyChanged(nameof(ReplayPauseEnabled));
+                OnPropertyChanged(nameof(ReplayPauseEnabled));
             }
         }
 
@@ -193,7 +193,7 @@
             set
             {
                 _replayPauseActive = value;
-                RaisePropertyChanged(nameof(ReplayPauseActive));
+                OnPropertyChanged(nameof(ReplayPauseActive));
                 _propertiesManager.SetProperty(GamingConstants.ReplayPauseActive, ReplayPauseActive);
             }
         }
@@ -229,13 +229,13 @@
                         .SelectMany(SplitGameRoundInfo);
                     SelectedGameRoundTextList = new ObservableCollection<string>(gameRoundDescriptionTextItems);
 
-                    RaisePropertyChanged(nameof(ReplayButtonEnabled));
-                    RaisePropertyChanged(nameof(SelectedGameItem));
-                    RaisePropertyChanged(nameof(EnablePrintSelectedButton));
-                    RaisePropertyChanged(nameof(IsGameRoundComplete));
-                    RaisePropertyChanged(nameof(IsHistoryItemSelected));
-                    RaisePropertyChanged(nameof(GameProgressiveWinButtonEnabled));
-                    RaisePropertyChanged(nameof(IsMeteredGameSelected));
+                    OnPropertyChanged(nameof(ReplayButtonEnabled));
+                    OnPropertyChanged(nameof(SelectedGameItem));
+                    OnPropertyChanged(nameof(EnablePrintSelectedButton));
+                    OnPropertyChanged(nameof(IsGameRoundComplete));
+                    OnPropertyChanged(nameof(IsHistoryItemSelected));
+                    OnPropertyChanged(nameof(GameProgressiveWinButtonEnabled));
+                    OnPropertyChanged(nameof(IsMeteredGameSelected));
                     UpdateStatusText();
                     ResetScrollToTop = false;
                 }
@@ -251,7 +251,8 @@
             set
             {
                 _isReplaying = value;
-                RaisePropertyChanged(nameof(IsReplaying), nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(IsReplaying));
+                OnPropertyChanged(nameof(ReplayButtonEnabled));
             }
         }
 
@@ -265,7 +266,7 @@
                                               GamingConstants.AdditionalInfoGameInProgress,
                                               false) &&
                                           IsReelControllerAvailable();
-    
+
         public bool IsGameRoundComplete => SelectedGameItem?.Status ==
                                            Localizer.For(CultureFor.Operator)
                                                .GetString(ResourceKeys.GameHistoryStatusComplete);
@@ -338,19 +339,19 @@
             // We don't need to subscribe to completed events because that is handled by the UpdatePrinterButtons override
 
             SelectedGameItem = null;
-            RaisePropertyChanged(nameof(PrintCurrentPageButtonVisible));
-            RaisePropertyChanged(nameof(PrintSelectedButtonVisible));
-            RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(PrintCurrentPageButtonVisible));
+            OnPropertyChanged(nameof(PrintSelectedButtonVisible));
+            OnPropertyChanged(nameof(PrintLast15ButtonVisible));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
             RefreshGameHistory();
         }
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(EnablePrintCurrentPageButton));
-            RaisePropertyChanged(nameof(EnablePrintSelectedButton));
-            RaisePropertyChanged(nameof(EnablePrintLast15Button));
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(EnablePrintCurrentPageButton));
+            OnPropertyChanged(nameof(EnablePrintSelectedButton));
+            OnPropertyChanged(nameof(EnablePrintLast15Button));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
         }
 
         protected override void UpdateStatusText()
@@ -908,23 +909,23 @@
 
         private void PrintStatusChanged(IEvent printEvent)
         {
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
         }
 
         private void HandleUpdate(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RefreshGameHistory();
-                    RaisePropertyChanged(nameof(PendingCurrencyIn));
+                    OnPropertyChanged(nameof(PendingCurrencyIn));
                 });
         }
 
         private void HandleReelRelatedFault(IEvent theEvent)
         {
             UpdateStatusText();
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
         }
 
         private void HandleSystemDisableAddedEvent(SystemDisableAddedEvent theEvent)
@@ -932,7 +933,7 @@
             if (theEvent.DisableId == ApplicationConstants.ReelControllerDisconnectedGuid)
             {
                 UpdateStatusText();
-                RaisePropertyChanged(nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(ReplayButtonEnabled));
             }
         }
 
@@ -941,7 +942,7 @@
             if (theEvent.DisableId == ApplicationConstants.ReelControllerDisconnectedGuid)
             {
                 UpdateStatusText();
-                RaisePropertyChanged(nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(ReplayButtonEnabled));
             }
         }
 

@@ -7,13 +7,13 @@
     using Application.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Common;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Events;
     using Hardware.Contracts;
     using Kernel;
     using log4net;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Configurable states for the player menu popup display
@@ -38,9 +38,9 @@
         ButtonsOnly
     }
 
-    public class PlayerMenuPopupViewModel : BaseViewModel, IDisposable
+    public class PlayerMenuPopupViewModel : ObservableObject, IDisposable
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
@@ -106,11 +106,11 @@
             _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
             _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
-            ReserveDigitClickedCommand = new ActionCommand<string>(ConcatenateReservePin);
-            ReserveClickedCommand = new ActionCommand<object>(StartMachineReservation);
-            ReserveBackspaceClickedCommand = new ActionCommand<object>(BackspaceOnReservePin);
-            StartNewSessionClickedCommand = new ActionCommand<object>(StartNewTrackingSession);
-            MouseDownOnMenuCommand = new ActionCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
+            ReserveDigitClickedCommand = new RelayCommand<string>(ConcatenateReservePin);
+            ReserveClickedCommand = new RelayCommand<object>(StartMachineReservation);
+            ReserveBackspaceClickedCommand = new RelayCommand<object>(BackspaceOnReservePin);
+            StartNewSessionClickedCommand = new RelayCommand<object>(StartNewTrackingSession);
+            MouseDownOnMenuCommand = new RelayCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
 
             IsMenuVisible = false;
 

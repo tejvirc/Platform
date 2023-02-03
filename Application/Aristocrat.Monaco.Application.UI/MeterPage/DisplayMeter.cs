@@ -1,17 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.MeterPage
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
-    ///     This is the display version of an <see cref="IMeter"/>. 
+    ///     This is the display version of an <see cref="IMeter"/>.
     ///     This is created by the meters page viewmodel implementation for use in meters page UIs.
     /// </summary>
     [CLSCompliant(false)]
-    public class DisplayMeter : BaseViewModel, IDisposable
+    public class DisplayMeter : ObservableObject, IDisposable
     {
         private bool _showLifetime;
         private bool _disposed;
@@ -88,9 +89,9 @@
                 {
                     return ShowNotApplicable ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MeterNotApplicable) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MeterNotFound);
                 }
-                
+
                 var meterValue = ShowLifetime ? Meter.Lifetime : Meter.Period;
-                RaisePropertyChanged(nameof(HideRowForPeriod));
+                OnPropertyChanged(nameof(HideRowForPeriod));
                 return Meter.Classification.CreateValueString(meterValue);
             }
         }
@@ -103,8 +104,8 @@
             get => _showLifetime;
             set
             {
-                SetProperty(ref _showLifetime, value, nameof(Value), nameof(Count));
-                RaisePropertyChanged(nameof(HideRowForPeriod));
+                this.SetProperty(ref _showLifetime, value, OnPropertyChanged, nameof(Value), nameof(Count));
+                OnPropertyChanged(nameof(HideRowForPeriod));
             }
         }
 
@@ -118,7 +119,7 @@
         /// </summary>
         protected virtual void OnMeterChangedEvent(object sender, MeterChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(Value));
         }
 
         /// <inheritdoc />

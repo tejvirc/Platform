@@ -10,7 +10,7 @@
     using Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Gaming configuration settings provider.
@@ -49,7 +49,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary
@@ -133,7 +133,7 @@
                         _properties.GetValue(GamingConstants.IdleText, string.Empty),
                     IdleTimePeriod =
                         _properties.GetValue(GamingConstants.IdleTimePeriod, 0),
-                    GameRoundDurationMs = 
+                    GameRoundDurationMs =
                         _properties.GetValue(GamingConstants.GameRoundDurationMs, 0),
                 });
         }

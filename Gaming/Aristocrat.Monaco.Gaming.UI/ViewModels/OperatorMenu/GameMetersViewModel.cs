@@ -13,13 +13,13 @@
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
+    using Toolkit.Mvvm.Extensions;
     using Views.OperatorMenu;
     using static DenomMetersPageViewModel;
 
@@ -45,7 +45,7 @@
         public GameMetersViewModel()
             : base(MeterNodePage.Game, true)
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -55,11 +55,11 @@
             SelectByGameNameAndDenomination = GetConfigSetting(
                 OperatorMenuSetting.GameNameAndDenominationSelections,
                 false);
-            PreviousGameCommand = new ActionCommand<object>(PreviousGame);
-            NextGameCommand = new ActionCommand<object>(NextGame);
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
-            DisplayCategoriesCommand = new ActionCommand<object>(ShowWagerCategoryMeters);
+            PreviousGameCommand = new RelayCommand<object>(PreviousGame);
+            NextGameCommand = new RelayCommand<object>(NextGame);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
+            DisplayCategoriesCommand = new RelayCommand<object>(ShowWagerCategoryMeters);
         }
 
         public ICommand PreviousGameCommand { get; }
@@ -90,9 +90,9 @@
             set
             {
                 _gameButtonsEnabled = value;
-                RaisePropertyChanged(nameof(GameButtonsEnabled));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(GameButtonsEnabled));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -104,10 +104,10 @@
             set
             {
                 _printSelectedButtonEnabled = value;
-                RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-                RaisePropertyChanged(nameof(GameButtonsEnabled));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
+                OnPropertyChanged(nameof(GameButtonsEnabled));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -119,8 +119,8 @@
             set
             {
                 _selectedGame = value;
-                RaisePropertyChanged(nameof(SelectedGame));
-                RaisePropertyChanged(nameof(DisplayCategoriesButtonEnabled));
+                OnPropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(DisplayCategoriesButtonEnabled));
                 InitializeMeters();
                 LoadDenoms();
             }
@@ -132,7 +132,7 @@
             set
             {
                 _selectedDenom = value;
-                RaisePropertyChanged(nameof(SelectedDenom));
+                OnPropertyChanged(nameof(SelectedDenom));
                 InitializeMeters();
             }
         }
@@ -149,9 +149,9 @@
 
                 _selectedDenomIndex = value;
                 SelectedDenom = Denoms[value];
-                RaisePropertyChanged(nameof(SelectedDenomIndex));
-                RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-                RaisePropertyChanged(nameof(NextDenomIsEnabled));
+                OnPropertyChanged(nameof(SelectedDenomIndex));
+                OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+                OnPropertyChanged(nameof(NextDenomIsEnabled));
             }
         }
 
@@ -167,8 +167,8 @@
 
                 _selectedGameIndex = value;
                 SelectedGame = Games[value];
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -186,7 +186,7 @@
             // This will occur each time a different game is selected
             var meterManager = ServiceManager.GetInstance().GetService<IGameMeterManager>();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     foreach (var meter in Meters)
@@ -279,10 +279,10 @@
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-            RaisePropertyChanged(nameof(GameButtonsEnabled));
-            RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-            RaisePropertyChanged(nameof(NextGameIsEnabled));
+            OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
+            OnPropertyChanged(nameof(GameButtonsEnabled));
+            OnPropertyChanged(nameof(PreviousGameIsEnabled));
+            OnPropertyChanged(nameof(NextGameIsEnabled));
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
@@ -401,7 +401,7 @@
                     PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames)
                         .DistinctBy(game => game.ThemeName).OrderBy(game => game.Id))
                 : _allGames;
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
             SelectedGameIndex = 0;
         }
     }

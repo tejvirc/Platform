@@ -4,13 +4,13 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Common.GameOverlay;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the data for a ball call.
     /// </summary>
-    public class BingoBallCallModel : BaseNotify
+    public class BingoBallCallModel : ObservableObject
     {
         /// <summary>
         ///     Constructor for <see cref="BingoBallCallModel"/>.
@@ -37,13 +37,13 @@
 
             foreach (var number in Numbers)
             {
-                number.State = cardDaubs.Contains(number.Number) 
+                number.State = cardDaubs.Contains(number.Number)
                     ? BingoNumberState.BallCallInitial
                     : BingoNumberState.CardInitial;
                 number.Daubed = patternDaubs.Contains(number.Number);
             }
 
-            RaisePropertyChanged(nameof(Numbers));
+            OnPropertyChanged(nameof(Numbers));
         }
     }
 }

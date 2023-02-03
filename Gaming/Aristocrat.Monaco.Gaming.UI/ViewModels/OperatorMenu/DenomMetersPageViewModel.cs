@@ -9,14 +9,14 @@
     using Application.Contracts.MeterPage;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class DenomMetersPageViewModel : MetersPageViewModelBase
@@ -35,8 +35,8 @@
                 games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d)));
             SelectedDenom = Denoms.FirstOrDefault();
 
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
         }
 
         public ICommand PreviousDenomCommand { get; }
@@ -55,7 +55,7 @@
             set
             {
                 _selectedDenom = value;
-                RaisePropertyChanged(nameof(SelectedDenom));
+                OnPropertyChanged(nameof(SelectedDenom));
                 InitializeMeters();
             }
         }
@@ -72,8 +72,8 @@
 
                 _selectedDenomIndex = value;
                 SelectedDenom = Denoms[value];
-                RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-                RaisePropertyChanged(nameof(NextDenomIsEnabled));
+                OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+                OnPropertyChanged(nameof(NextDenomIsEnabled));
             }
         }
 
@@ -85,9 +85,9 @@
             {
                 return;
             }
-            
+
             // This will occur each time a different denom is selected
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     foreach (var meter in Meters)
@@ -132,14 +132,14 @@
                             MetersRightColumn.Add(meter);
                         }
                     }
-                    RaisePropertyChanged(nameof(MetersRightColumnVisible));
+                    OnPropertyChanged(nameof(MetersRightColumnVisible));
                 });
         }
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-            RaisePropertyChanged(nameof(NextDenomIsEnabled));
+            OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+            OnPropertyChanged(nameof(NextDenomIsEnabled));
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)

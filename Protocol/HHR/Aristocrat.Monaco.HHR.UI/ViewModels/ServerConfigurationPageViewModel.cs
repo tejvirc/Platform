@@ -6,12 +6,15 @@
     using Application.UI.ConfigWizard;
     using Application.Contracts.OperatorMenu;
     using Client.Messages;
+    using CommunityToolkit.Mvvm.Input;
     using Kernel;
     using Kernel.Contracts;
     using Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
+    using System.ComponentModel.DataAnnotations;
+
+    //using Aristocrat.Monaco.Common.Validation;
 
     public class ServerConfigurationPageViewModel : ConfigWizardViewModelBase
     {
@@ -48,17 +51,17 @@
 
             PropertyChanged += ServerConfigurationPageViewModel_PropertyChanged;
 
-            ApplyServerConfigurationCommand = new ActionCommand<object>(Apply);
+            ApplyServerConfigurationCommand = new RelayCommand<object>(Apply);
         }
 
         protected override void Loaded()
         {
-            ValidateNetworkAddress(IpAddress);
-            ValidateTcpPort(TcpPortNumber);
-            ValidateUdpPort(UdpPortNumber);
+            ValidateProperty(IpAddress, nameof(IpAddress));
+            ValidateProperty(TcpPortNumber, nameof(TcpPortNumber));
+            ValidateProperty(UdpPortNumber, nameof(UdpPortNumber));
         }
 
-        public ActionCommand<object> ApplyServerConfigurationCommand { get; set; }
+        public RelayCommand<object> ApplyServerConfigurationCommand { get; set; }
 
         private void ServerConfigurationPageViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -83,88 +86,33 @@
             }
         }
 
+        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(NetworkAddressValidate))]
         public string IpAddress
         {
             get => _ipAddress;
 
             set
             {
-                if (value == _ipAddress)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _ipAddress, value, nameof(IpAddress)))
-                {
-                    ValidateNetworkAddress(value);
-                }
+                SetProperty(ref _ipAddress, value, true, nameof(IpAddress));
             }
         }
 
+        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(TcpPortValidate))]
         public string TcpPortNumber
         {
             get => _tcpPortNumber;
 
-            set
-            {
-                if (value == _tcpPortNumber)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _tcpPortNumber, value, nameof(TcpPortNumber)))
-                {
-                    ValidateTcpPort(value);
-                }
-            }
+            set => SetProperty(ref _tcpPortNumber, value, true, nameof(TcpPortNumber));
         }
 
-        private void ValidateTcpPort(string value)
-        {
-            var errorMessage = GetPortErrorMessage(value);
-            SetError(nameof(TcpPortNumber), errorMessage);
-        }
 
-        private string GetPortErrorMessage(string value)
-        {
-            var errorMessage = string.Empty;
-
-            if (string.IsNullOrEmpty(value))
-            {
-                errorMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CannotBeLeftBlankErrorMessage);
-            }
-            else if (IsValueInvalidPortNumber(value))
-            {
-                errorMessage = string.Format(
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LessThanOrEqualErrorMessage),
-                    MaxPortNumber);
-            }
-
-            return errorMessage;
-        }
-
+        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(TcpPortValidate))]
         public string UdpPortNumber
         {
             get => _udpPortNumber;
 
-            set
-            {
-                if (value == _udpPortNumber)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _udpPortNumber, value, nameof(UdpPortNumber)))
-                {
-                    ValidateUdpPort(value);
-                }
-            }
-        }
-
-        private void ValidateUdpPort(string value)
-        {
-            var errorMessage = GetPortErrorMessage(value);
-            SetError(nameof(UdpPortNumber), errorMessage);
+            set => SetProperty(ref _udpPortNumber, value, true, nameof(UdpPortNumber));
+            
         }
 
         public string EncryptionKey
@@ -222,13 +170,41 @@
             return true;
         }
 
-        private void ValidateNetworkAddress(string address)
+        public static ValidationResult NetworkAddressValidate(string address, ValidationContext context)
         {
-            SetError(
-                nameof(IpAddress),
-                IpValidation.IsIpV4AddressValid(address)
-                    ? string.Empty
-                    : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+           var errors = "";
+
+            if (!IpValidation.IsIpV4AddressValid(address))
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid);
+            }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
+        }
+
+        public static ValidationResult TcpPortValidate(string value, ValidationContext context)
+        {
+            ServerConfigurationPageViewModel instance = (ServerConfigurationPageViewModel)context.ObjectInstance;
+            var errors = "";
+            if (string.IsNullOrEmpty(value))
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CannotBeLeftBlankErrorMessage);
+            }
+            else if (instance.IsValueInvalidPortNumber(value))
+            {
+                errors = string.Format(
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LessThanOrEqualErrorMessage),
+                    MaxPortNumber);
+            }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void Apply(object parameter)
@@ -267,21 +243,6 @@
             _propertiesManager.SetProperty(HHRPropertyNames.EncryptionKey, EncryptionKey);
 
             _propertiesManager.SetProperty(HHRPropertyNames.ManualHandicapMode, ManualHandicapMode);
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-                IsConfigChanged = false;
-            }
-
-            CheckNavigation();
         }
 
         private void CheckNavigation()

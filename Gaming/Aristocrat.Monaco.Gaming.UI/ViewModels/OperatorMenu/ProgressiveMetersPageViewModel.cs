@@ -12,6 +12,7 @@
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Progressives;
@@ -20,8 +21,7 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
     using static DenomMetersPageViewModel;
 
     [CLSCompliant(false)]
@@ -50,14 +50,14 @@
 
             _progressiveMeterManager = serviceManager.GetService<IProgressiveMeterManager>();
 
-            PreviousGameCommand = new ActionCommand<object>(PreviousGame);
-            NextGameCommand = new ActionCommand<object>(NextGame);
+            PreviousGameCommand = new RelayCommand<object>(PreviousGame);
+            NextGameCommand = new RelayCommand<object>(NextGame);
 
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
 
-            PreviousBetOptionCommand = new ActionCommand<object>(PreviousBetOption);
-            NextBetOptionCommand = new ActionCommand<object>(NextBetOption);
+            PreviousBetOptionCommand = new RelayCommand<object>(PreviousBetOption);
+            NextBetOptionCommand = new RelayCommand<object>(NextBetOption);
 
             BetOptions = new ObservableCollection<string>();
             Denoms = new ObservableCollection<Denomination>();
@@ -123,10 +123,10 @@
 
                 UpdateBetOptions();
 
-                RaisePropertyChanged(nameof(Denoms));
+                OnPropertyChanged(nameof(Denoms));
                 SelectedDenomIndex = 0;
 
-                RaisePropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(SelectedGame));
                 InitializeMeters();
             }
         }
@@ -187,9 +187,9 @@
                 SelectedGame = Games[value];
                 _selectedGameIndex = value;
 
-                RaisePropertyChanged(nameof(SelectedGameIndex));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(SelectedGameIndex));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -209,7 +209,7 @@
             set
             {
                 _selectedDenom = value;
-                RaisePropertyChanged(nameof(SelectedDenom));
+                OnPropertyChanged(nameof(SelectedDenom));
                 InitializeMeters();
             }
         }
@@ -226,9 +226,9 @@
 
                 _selectedDenomIndex = value;
                 SelectedDenom = Denoms[value];
-                RaisePropertyChanged(nameof(SelectedDenomIndex));
-                RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-                RaisePropertyChanged(nameof(NextDenomIsEnabled));
+                OnPropertyChanged(nameof(SelectedDenomIndex));
+                OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+                OnPropertyChanged(nameof(NextDenomIsEnabled));
             }
         }
 
@@ -254,9 +254,9 @@
 
                 _selectedBetOptionIndex = value;
                 SelectedBetOption = BetOptions[value];
-                RaisePropertyChanged(nameof(SelectedBetOptionIndex));
-                RaisePropertyChanged(nameof(PreviousBetOptionIsEnabled));
-                RaisePropertyChanged(nameof(NextBetOptionIsEnabled));
+                OnPropertyChanged(nameof(SelectedBetOptionIndex));
+                OnPropertyChanged(nameof(PreviousBetOptionIsEnabled));
+                OnPropertyChanged(nameof(NextBetOptionIsEnabled));
             }
         }
 
@@ -266,12 +266,12 @@
             set
             {
                 _selectedBetOption = value;
-                RaisePropertyChanged(nameof(SelectedBetOption));
+                OnPropertyChanged(nameof(SelectedBetOption));
                 InitializeMeters();
             }
         }
 
-        public bool ViewBetOptionFilter 
+        public bool ViewBetOptionFilter
         {
             get => _viewBetOptionFilter;
             set
@@ -279,7 +279,7 @@
                 if(value != _viewBetOptionFilter)
                 {
                     _viewBetOptionFilter = value;
-                    RaisePropertyChanged(nameof(ViewBetOptionFilter));
+                    OnPropertyChanged(nameof(ViewBetOptionFilter));
                 }
             }
         }
@@ -292,7 +292,7 @@
             {
                 return;
             }
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     // Per each progressive level which:

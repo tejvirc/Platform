@@ -14,7 +14,7 @@
     using log4net;
     using ManagedBink;
     using Monaco.UI.Common;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using ViewModels;
     using Cursors = System.Windows.Input.Cursors;
 
@@ -41,7 +41,7 @@
             _layoutRootWidth = _vbdDisplayDevice?.Resolution.X ?? 1920;
 
             ServiceManager.GetInstance().GetService<IEventBus>()
-                .Subscribe<DisplayConnectedEvent>(this, evt => MvvmHelper.ExecuteOnUI(() => HandleEvent(evt)));
+                .Subscribe<DisplayConnectedEvent>(this, evt => Execute.OnUIThread(() => HandleEvent(evt)));
         }
 
         /// <summary>

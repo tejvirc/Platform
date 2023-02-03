@@ -7,7 +7,7 @@
     using Contracts;
     using Contracts.Handpay;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Implements <see cref="IConfigurationSettings"/> for Accounting settings.
@@ -53,7 +53,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary
@@ -221,7 +221,7 @@
                         _properties.GetValue(AccountingConstants.VoucherOutNonCash, true),
                     VoucherOutNonCashExpirationDays =
                         _properties.GetValue(AccountingConstants.VoucherOutNonCashExpirationDays, AccountingConstants.DefaultVoucherExpirationDays),
-                    VoucherOutCheckBoxChecked = 
+                    VoucherOutCheckBoxChecked =
                         _properties.GetValue(AccountingConstants.VoucherOutLimitEnabled, true),
                     VoucherInCheckBoxChecked =
                         _properties.GetValue(AccountingConstants.VoucherInLimitEnabled, true),
@@ -229,7 +229,7 @@
                         _properties.GetValue(AccountingConstants.HandpayLimit, long.MaxValue),
                     AllowRemoteHandpayReset =
                         _properties.GetValue(AccountingConstants.RemoteHandpayResetAllowed, true),
-                    LargeWinHandpayResetMethod = 
+                    LargeWinHandpayResetMethod =
                         _properties.GetValue(AccountingConstants.LargeWinHandpayResetMethod, LargeWinHandpayResetMethod.PayByHand),
                     HandpayLimitIsChecked =
                         _properties.GetValue(AccountingConstants.HandpayLimitEnabled, true),

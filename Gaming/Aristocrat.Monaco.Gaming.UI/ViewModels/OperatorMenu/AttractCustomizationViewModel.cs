@@ -8,13 +8,13 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Models;
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class AttractCustomizationViewModel : OperatorMenuSaveViewModelBase
@@ -55,12 +55,12 @@
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Cancel);
 
-            MoveUpCommand = new ActionCommand<object>(MoveUpButton_Clicked);
-            MoveDownCommand = new ActionCommand<object>(MoveDownButton_Clicked);
-            MoveToTopCommand = new ActionCommand<object>(MoveToTopButton_Clicked);
-            MoveToBottomCommand = new ActionCommand<object>(MoveToBottomButton_Clicked);
+            MoveUpCommand = new RelayCommand<object>(MoveUpButton_Clicked);
+            MoveDownCommand = new RelayCommand<object>(MoveDownButton_Clicked);
+            MoveToTopCommand = new RelayCommand<object>(MoveToTopButton_Clicked);
+            MoveToBottomCommand = new RelayCommand<object>(MoveToBottomButton_Clicked);
 
-            RestoreDefaultCommand = new ActionCommand<object>(RestoreDefaultButton_Clicked);
+            RestoreDefaultCommand = new RelayCommand<object>(RestoreDefaultButton_Clicked);
 
             Init();
         }
@@ -101,7 +101,7 @@
             private set
             {
                 _configuredAttractInfo = value;
-                RaisePropertyChanged(nameof(ConfiguredAttractInfo));
+                OnPropertyChanged(nameof(ConfiguredAttractInfo));
             }
         }
 
@@ -111,7 +111,7 @@
             set
             {
                 _selectedItem = value;
-                RaisePropertyChanged(nameof(ChangeOrderButtonsEnabled));
+                OnPropertyChanged(nameof(ChangeOrderButtonsEnabled));
             }
         }
 
@@ -248,27 +248,27 @@
                         {
                             case GameType.Slot:
                                 _slotAttractSelected = true;
-                                RaisePropertyChanged(nameof(SlotAttractSelected));
+                                OnPropertyChanged(nameof(SlotAttractSelected));
 
                                 break;
                             case GameType.Keno:
                                 _kenoAttractSelected = true;
-                                RaisePropertyChanged(nameof(KenoAttractSelected));
+                                OnPropertyChanged(nameof(KenoAttractSelected));
 
                                 break;
                             case GameType.Poker:
                                 _pokerAttractSelected = true;
-                                RaisePropertyChanged(nameof(PokerAttractSelected));
+                                OnPropertyChanged(nameof(PokerAttractSelected));
 
                                 break;
                             case GameType.Blackjack:
                                 _blackjackAttractSelected = true;
-                                RaisePropertyChanged(nameof(BlackjackAttractSelected));
+                                OnPropertyChanged(nameof(BlackjackAttractSelected));
 
                                 break;
                             case GameType.Roulette:
                                 _rouletteAttractSelected = true;
-                                RaisePropertyChanged(nameof(RouletteAttractSelected));
+                                OnPropertyChanged(nameof(RouletteAttractSelected));
 
                                 break;
                         }
@@ -283,27 +283,27 @@
                         {
                             case GameType.Slot:
                                 _slotAttractSelected = false;
-                                RaisePropertyChanged(nameof(SlotAttractSelected));
+                                OnPropertyChanged(nameof(SlotAttractSelected));
 
                                 break;
                             case GameType.Keno:
                                 _kenoAttractSelected = false;
-                                RaisePropertyChanged(nameof(KenoAttractSelected));
+                                OnPropertyChanged(nameof(KenoAttractSelected));
 
                                 break;
                             case GameType.Poker:
                                 _pokerAttractSelected = false;
-                                RaisePropertyChanged(nameof(PokerAttractSelected));
+                                OnPropertyChanged(nameof(PokerAttractSelected));
 
                                 break;
                             case GameType.Blackjack:
                                 _blackjackAttractSelected = false;
-                                RaisePropertyChanged(nameof(BlackjackAttractSelected));
+                                OnPropertyChanged(nameof(BlackjackAttractSelected));
 
                                 break;
                             case GameType.Roulette:
                                 _rouletteAttractSelected = false;
-                                RaisePropertyChanged(nameof(RouletteAttractSelected));
+                                OnPropertyChanged(nameof(RouletteAttractSelected));
 
                                 break;
                         }
@@ -311,8 +311,8 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(ConfiguredAttractInfo));
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(ConfiguredAttractInfo));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         public override bool CanSave => HasChanges();
@@ -331,11 +331,11 @@
             _rouletteAttractSelected =
                 !ConfiguredAttractInfo.Any(g => g.GameType == GameType.Roulette && !g.IsSelected);
 
-            RaisePropertyChanged(nameof(SlotAttractSelected));
-            RaisePropertyChanged(nameof(KenoAttractSelected));
-            RaisePropertyChanged(nameof(PokerAttractSelected));
-            RaisePropertyChanged(nameof(BlackjackAttractSelected));
-            RaisePropertyChanged(nameof(RouletteAttractSelected));
+            OnPropertyChanged(nameof(SlotAttractSelected));
+            OnPropertyChanged(nameof(KenoAttractSelected));
+            OnPropertyChanged(nameof(PokerAttractSelected));
+            OnPropertyChanged(nameof(BlackjackAttractSelected));
+            OnPropertyChanged(nameof(RouletteAttractSelected));
         }
 
         private void AttractSelectionChanged(GameType gameType, bool selected)
@@ -343,23 +343,23 @@
             switch (gameType)
             {
                 case GameType.Slot:
-                    RaisePropertyChanged(nameof(SlotAttractSelected));
+                    OnPropertyChanged(nameof(SlotAttractSelected));
 
                     break;
                 case GameType.Keno:
-                    RaisePropertyChanged(nameof(KenoAttractSelected));
+                    OnPropertyChanged(nameof(KenoAttractSelected));
 
                     break;
                 case GameType.Poker:
-                    RaisePropertyChanged(nameof(PokerAttractSelected));
+                    OnPropertyChanged(nameof(PokerAttractSelected));
 
                     break;
                 case GameType.Blackjack:
-                    RaisePropertyChanged(nameof(BlackjackAttractSelected));
+                    OnPropertyChanged(nameof(BlackjackAttractSelected));
 
                     break;
                 case GameType.Roulette:
-                    RaisePropertyChanged(nameof(RouletteAttractSelected));
+                    OnPropertyChanged(nameof(RouletteAttractSelected));
 
                     break;
             }
@@ -372,8 +372,8 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(ConfiguredAttractInfo));
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(ConfiguredAttractInfo));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         private void MoveUpButton_Clicked(object o)
@@ -436,7 +436,7 @@
             if (itemIndex != newIndex && newIndex >= 0 && newIndex < _configuredAttractInfo.Count)
             {
                 _configuredAttractInfo.Move(itemIndex, newIndex);
-                RaisePropertyChanged(nameof(CanSave));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
@@ -479,7 +479,7 @@
 
         private void HandleEvent(OperatorMenuExitingEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(Cancel);
+            Execute.OnUIThread(Cancel);
         }
 
         private void AddAttractItemSelectedHandler()

@@ -6,12 +6,12 @@
     using Events;
     using Client.Data;
     using Client.Messages;
+    using CommunityToolkit.Mvvm.Input;
     using Gaming.Contracts;
     using Hhr.Services;
     using Kernel;
     using Menu;
     using Models;
-    using MVVM.Command;
     using Command = Menu.Command;
 
     public class RaceStatsPageViewModel : HhrMenuPageViewModelBase
@@ -66,7 +66,7 @@
 
         private void UpdateView()
         {
-            RaisePropertyChanged(nameof(RaceStatsCharts));
+            OnPropertyChanged(nameof(RaceStatsCharts));
         }
 
         private void BackHandler(object obj)
@@ -126,7 +126,7 @@
             TimerInfo = new TimerInfo
             {
                 Timeout = Math.Min(UiProperties.ManualHandicapRemainingTime, ClientProperties.RaceStatTimeOut),
-                TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
+                TimerElapsedCommand = new RelayCommand<object>(OnTimerElapsed),
                 IsVisible = true,
                 IsQuickPickTextVisible = false,
                 IsAutoPickTextVisible = false,

@@ -2,6 +2,7 @@
 {
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
@@ -70,7 +71,7 @@
             _target.HandpayLimitIsChecked = true;
             _target.HandpayLimit = -1;
             Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.HandpayLimit)));
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit)));
         }
 
         [TestMethod]
@@ -79,7 +80,7 @@
             _target.HandpayLimitIsChecked = true;
             _target.HandpayLimit = AccountingConstants.DefaultHandpayLimit.MillicentsToDollars();
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.HandpayLimit)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit)));
         }
 
         [TestMethod]
@@ -91,7 +92,7 @@
             _target.LargeWinLimitIsChecked = true;
             _target.LargeWinLimit = AccountingConstants.DefaultLargeWinLimit.MillicentsToDollars() + 1;
             Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.LargeWinLimit)));
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.LargeWinLimit)));
         }
 
         [TestMethod]
@@ -103,7 +104,7 @@
             _target.HandpayLimitIsChecked = true;
             _target.HandpayLimit = AccountingConstants.DefaultHandpayLimit.MillicentsToDollars() + 1;
             Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.HandpayLimit)));
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit)));
         }
 
         [TestMethod]
@@ -115,17 +116,17 @@
             _target.LargeWinLimitIsChecked = true;
             _target.LargeWinLimit = AccountingConstants.DefaultLargeWinLimit.MillicentsToDollars();
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.LargeWinLimit)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.LargeWinLimit)));
 
             _target.HandpayLimitIsChecked = true;
             _target.HandpayLimit = AccountingConstants.DefaultLargeWinLimit.MillicentsToDollars() - 1;
             Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.HandpayLimit)));
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit)));
 
             _target.LargeWinLimit = 2000L;
             _target.HandpayLimit = 3000L;
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.HandpayLimit)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit)));
 
         }
 
@@ -138,16 +139,16 @@
             _target.HandpayLimitIsChecked = true;
             _target.HandpayLimit = AccountingConstants.DefaultHandpayLimit.MillicentsToDollars();
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.HandpayLimit)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit)));
 
             _target.LargeWinLimitIsChecked = true;
             _target.LargeWinLimit = long.MaxValue.MillicentsToDollars();
             Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.LargeWinLimit)));
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.LargeWinLimit)));
 
             _target.LargeWinLimit = AccountingConstants.DefaultHandpayLimit.MillicentsToDollars() - 100;
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.LargeWinLimit)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.LargeWinLimit)));
         }
 
         [TestMethod]
@@ -158,19 +159,19 @@
 
             _target.LargeWinLimitIsChecked = true;
             _target.LargeWinLimit = AccountingConstants.DefaultHandpayLimit.MillicentsToDollars();
-            Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.LargeWinLimit)));
+            Assert.IsFalse(_target.HasErrors);
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.LargeWinLimit)));
 
             _target.HandpayLimitIsChecked = true;
             _target.HandpayLimit = long.MaxValue.MillicentsToDollars();
-            Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.HandpayLimit))); // HandpayLimit error is created
+            Assert.IsTrue(_target.HasErrors);
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit))); // HandpayLimit error is created
 
             _target.LargeWinLimit = AccountingConstants.DefaultHandpayLimit.MillicentsToDollars();
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.LargeWinLimit))); // LargeWinLimit error is not created
-
-            Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.HandpayLimit))); // HandpayLimit error is still exists
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.LargeWinLimit))); // LargeWinLimit error is not created
+            
+            Assert.IsTrue(_target.HasErrors);
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.HandpayLimit))); // HandpayLimit error is still exists
         }
     }
 }

@@ -7,10 +7,10 @@
     using Aristocrat.Mgam.Client.Common;
     using Aristocrat.Mgam.Client.Routing;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Kernel;
-    using MVVM;
-    using MVVM.Command;
     using Services.Communications;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     The view model for displaying communication with the NYL host.
@@ -41,19 +41,19 @@
         {
             _transcripts = ServiceManager.GetInstance().GetService<IHostTranscripts>();
 
-            ViewHostTranscriptsCommand = new ActionCommand<object>(ViewHostTranscript, _ => CanViewDetail());
-            CloseDetailCommand = new ActionCommand<object>(CloseHostTranscriptDetail);
+            ViewHostTranscriptsCommand = new RelayCommand<object>(ViewHostTranscript, _ => CanViewDetail());
+            CloseDetailCommand = new RelayCommand<object>(CloseHostTranscriptDetail);
         }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> ViewHostTranscriptsCommand { get; }
+        public RelayCommand<object> ViewHostTranscriptsCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> CloseDetailCommand { get; }
+        public RelayCommand<object> CloseDetailCommand { get; }
 
         /// <summary>
         ///     Gets messages sent to and from the server.
@@ -88,7 +88,7 @@
                     }
 
                     EnableViewHostTranscripts = SelectedHostTranscript != null;
-                    RaisePropertyChanged(nameof(SelectedHostTranscript));
+                    OnPropertyChanged(nameof(SelectedHostTranscript));
                 }
             }
         }
@@ -124,7 +124,7 @@
                 if (_selectedText != value)
                 {
                     _selectedText = value;
-                    RaisePropertyChanged(nameof(SelectedHostTranscriptText));
+                    OnPropertyChanged(nameof(SelectedHostTranscriptText));
                 }
             }
         }
@@ -184,7 +184,7 @@
                             Observer.Create<RegisteredInstance>(
                                 instance =>
                                 {
-                                    MvvmHelper.ExecuteOnUI(
+                                    Execute.OnUIThread(
                                         () =>
                                         {
                                             RegisteredInstances.Clear();
@@ -193,8 +193,8 @@
                                 },
                                 error =>
                                 {
-                                    MvvmHelper.ExecuteOnUI(
-                                        () => { SetError(nameof(RegisteredInstances), string.Empty); });
+                                    Execute.OnUIThread(
+                                        () => { /*SetError(nameof(RegisteredInstances), string.Empty)*/CommitCommand.NotifyCanExecuteChanged(); });
                                 })));
 
                     _subscriptions.Add(
@@ -205,11 +205,11 @@
                     _subscriptions.Add(
                         _transcripts.Subscribe(
                             Observer.Create<RoutedMessage>(
-                                messages => { MvvmHelper.ExecuteOnUI(() => Populate(messages)); },
+                                messages => { Execute.OnUIThread(() => Populate(messages)); },
                                 error =>
                                 {
-                                    MvvmHelper.ExecuteOnUI(
-                                        () => { SetError(nameof(Messages), string.Empty); });
+                                    Execute.OnUIThread(
+                                        () => { /*SetError(nameof(Messages), string.Empty);*/CommitCommand.NotifyCanExecuteChanged(); });
                                 })));
                 }
                 finally

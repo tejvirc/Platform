@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using log4net;
     using Contracts.PlayerInfoDisplay;
@@ -15,11 +15,11 @@
     /// <summary>
     ///     Player Information Display Main Page (menu)
     /// </summary>
-    public sealed class PlayerInfoDisplayMenuViewModel : BaseViewModel, IPlayerInfoDisplayViewModel, IDisposable
+    public sealed class PlayerInfoDisplayMenuViewModel : ObservableObject, IPlayerInfoDisplayViewModel, IDisposable
     {
         private ITimer _closeTimer;
         private readonly IPlayerInfoDisplayFeatureProvider _playerInfoDisplayFeatureProvider;
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _isVisible;
         private bool _disposedValue;
@@ -46,16 +46,16 @@
                 return;
             }
 
-            ExitClickedCommand = new ActionCommand<object>(_ => ExitRequested());
+            ExitClickedCommand = new RelayCommand<object>(_ => ExitRequested());
 
             if (_playerInfoDisplayFeatureProvider.IsGameInfoSupported)
             {
-                GameInfoClickedCommand = new ActionCommand<object>(GameInfoRequested);
+                GameInfoClickedCommand = new RelayCommand<object>(GameInfoRequested);
             }
 
             if (_playerInfoDisplayFeatureProvider.IsGameRulesSupported)
             {
-                GameRulesClickedCommand = new ActionCommand<object>(GameRulesRequested);
+                GameRulesClickedCommand = new RelayCommand<object>(GameRulesRequested);
             }
 
             _closeTimer = timeoutTimer ?? new DispatcherTimerAdapter();
@@ -162,7 +162,7 @@
             GameRulesButtonPath = model.GetButton(new HashSet<string>() { GameAssetTags.GameRulesTag, GameAssetTags.PlayerInformationDisplayMenuTag, GameAssetTags.NormalTag });
             GameRulesButtonPressedPath = model.GetButton(new HashSet<string>() { GameAssetTags.GameRulesTag, GameAssetTags.PlayerInformationDisplayMenuTag, GameAssetTags.PressedTag });
 
-            RaisePropertyChanged(ObservablePropertyNames.GameAsset);
+            OnPropertyChanged(ObservablePropertyNames.GameAsset);
         }
 
         public string GameRulesButtonPressedPath { get; private set; }

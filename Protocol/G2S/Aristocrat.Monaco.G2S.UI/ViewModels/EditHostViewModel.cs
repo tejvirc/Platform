@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Runtime.Remoting.Contexts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.ConfigWizard;
@@ -10,7 +12,7 @@
     using Aristocrat.G2S.Client.Communications;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using Constants = Constants;
 
     /// <summary>
@@ -58,32 +60,28 @@
         /// <summary>
         ///     Gets or sets the host identifier
         /// </summary>
+        [CustomValidation(typeof(EditHostViewModel), nameof(HostIdValidate))]
         public int? HostId
         {
             get => _hostId;
             set
             {
-                if (SetProperty(ref _hostId, value, nameof(HostId)))
-                {
-                    ValidateHostId(_hostId);
-                    RaisePropertyChanged(nameof(CanSave));
-                }
+                SetProperty(ref _hostId, value, true, nameof(HostId));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
         /// <summary>
         ///     Gets or sets the host address
         /// </summary>
+        [CustomValidation(typeof(EditDeviceViewModel), nameof(AddressValidate))]
         public string Address
         {
             get => _address;
             set
             {
-                if (SetProperty(ref _address, value, nameof(Address)))
-                {
-                    ValidateAddress(_address);
-                    RaisePropertyChanged(nameof(CanSave));
-                }
+                SetProperty(ref _address, value, true, nameof(Address));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
@@ -93,7 +91,7 @@
         public bool Registered
         {
             get => _registered;
-            set => SetProperty(ref _registered, value, nameof(Registered), nameof(CanSave));
+            set => this.SetProperty(ref _registered, value, OnPropertyChanged, nameof(Registered), nameof(CanSave));
         }
 
         /// <summary>
@@ -103,7 +101,7 @@
         public bool RequiredForPlay
         {
             get => _requiredForPlay;
-            set => SetProperty(ref _requiredForPlay, value, nameof(RequiredForPlay), nameof(CanSave));
+            set => this.SetProperty(ref _requiredForPlay, value, OnPropertyChanged, nameof(RequiredForPlay), nameof(CanSave));
         }
 
         public bool IsInWizard { get; set; }
@@ -121,27 +119,33 @@
         {
             if (!operatorMenuEvent.IsTechnicianRole)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
 
-        private void ValidateHostId(int? hostId)
+        public static ValidationResult HostIdValidate(int? hostId, ValidationContext context)
         {
-            ClearErrors(nameof(HostId));
-
-            if (hostId.HasValue && _originalHostId == hostId.Value)
+            EditHostViewModel instance = (EditHostViewModel)context.ObjectInstance;
+            instance.ClearErrors(nameof(HostId));
+            var errors = "";
+            if (hostId.HasValue && instance._originalHostId == hostId.Value)
             {
-                return;
+                return ValidationResult.Success;
             }
 
             if (!hostId.HasValue || hostId.Value <= 0)
             {
-                SetError(nameof(HostId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero);
             }
-            else if (HostIdExists(hostId.Value))
+            else if (instance.HostIdExists(hostId.Value))
             {
-                SetError(nameof(HostId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostExists));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostExists);
             }
+            if(string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private bool HostIdExists(int hostId)
@@ -151,14 +155,21 @@
                 .Any(host => host.Id == hostId);
         }
 
-        private void ValidateAddress(string address)
+        public static ValidationResult AddressValidate(string address, ValidationContext context)
         {
-            ClearErrors(nameof(Address));
+            EditHostViewModel instance = (EditHostViewModel)context.ObjectInstance;
+            var errors = "";
+            instance.ClearErrors(nameof(Address));
 
             if (!IsAddressValid(address))
             {
-                SetError(nameof(Address), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostAddressNotValid));
+                errors =  Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostAddressNotValid);
             }
+            if(string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private static bool IsAddressValid(string address)

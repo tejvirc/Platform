@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Sas.UI.Settings
 {
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Storage.Models;
 
     /// <summary>
     ///     Gets the port assignment setting
     /// </summary>
-    public class PortAssignmentSetting : BaseNotify
+    public class PortAssignmentSetting : ObservableObject
     {
         private HostId _aftPort;
         private HostId _validationPort;

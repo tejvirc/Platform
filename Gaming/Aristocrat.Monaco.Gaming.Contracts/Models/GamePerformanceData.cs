@@ -2,13 +2,13 @@
 {
     using System;
     using Application.Contracts.Extensions;
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Model for game performance.
     /// </summary>
     [CLSCompliant(false)]
-    public class GamePerformanceData : BaseViewModel
+    public class GamePerformanceData : ObservableObject
     {
         private bool _isActive;
 

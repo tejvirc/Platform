@@ -7,13 +7,13 @@
     using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu;
     using Kernel;
-    using MVVM.Command;
     using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows.Input;
     using Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
     using Localization.Properties;
@@ -41,9 +41,9 @@
             _sharedSapProvider = ServiceManager.GetInstance().GetService<ISharedSapProvider>();
             _configurationProvider = ServiceManager.GetInstance().GetService<IProgressiveConfigurationProvider>();
 
-            AddSAPLevelCommand = new ActionCommand<object>(AddLevelPressed);
-            DeleteSAPLevelCommand = new ActionCommand<string>(DeleteLevelPressed);
-            EditSAPLevelCommand = new ActionCommand<string>(EditLevelPressed);
+            AddSAPLevelCommand = new RelayCommand<object>(AddLevelPressed);
+            DeleteSAPLevelCommand = new RelayCommand<string>(DeleteLevelPressed);
+            EditSAPLevelCommand = new RelayCommand<string>(EditLevelPressed);
 
             RefreshLevelDetails();
         }
@@ -60,7 +60,7 @@
             set
             {
                 _gameType = value ? GameType.Keno : GameType.Poker;
-                RaisePropertyChanged(nameof(_gameType));
+                OnPropertyChanged(nameof(_gameType));
                 RefreshLevelDetails();
             }
         }
@@ -71,7 +71,7 @@
             set
             {
                 _localInputStatusText = value;
-                RaisePropertyChanged(nameof(LocalInputStatusText));
+                OnPropertyChanged(nameof(LocalInputStatusText));
             }
         }
 
@@ -151,7 +151,7 @@
                 x => x.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.CustomSap).ToList();
 
             // Level index starts at 1.  This is continually refreshed as items are added and removed.
-            var levelIndex = 1; 
+            var levelIndex = 1;
             foreach (var level in levels.OrderBy(l => l.CreatedDateTime.Ticks))
             {
                 LevelDetails.Add(
@@ -162,7 +162,7 @@
                             x => x.AssignedProgressiveId.AssignedProgressiveKey == level.LevelAssignmentKey)));
             }
 
-            RaisePropertyChanged(nameof(InputEnabled));
+            OnPropertyChanged(nameof(InputEnabled));
         }
 
         private void SetInputStatusText()

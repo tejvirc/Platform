@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Accounting.Contracts;
     using Application.Contracts;
@@ -12,6 +13,7 @@
     using Application.Contracts.Protocol;
     using Application.UI.ConfigWizard;
     using Aristocrat.Sas.Client;
+    using CefSharp.DevTools.CSS;
     using Contracts;
     using Contracts.Events;
     using Contracts.SASProperties;
@@ -19,6 +21,7 @@
     using Kernel;
     using Localization.Properties;
     using Storage.Models;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     A view model through which the settings for SAS features can be configured.
@@ -132,9 +135,10 @@
         public bool BonusTransferStatusEditable
         {
             get => _bonusTransferStatusEditable;
-            private set => SetProperty(
+            private set => this.SetProperty(
                 ref _bonusTransferStatusEditable,
                 value,
+                OnPropertyChanged,
                 nameof(BonusTransferStatusEditable),
                 nameof(AftBonusTransferStatus));
         }
@@ -179,9 +183,10 @@
             {
                 _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(_isAftInEnabled, IsAftOutEnabled, value);
 
-                SetProperty(
+                this.SetProperty(
                     ref _isAftInEnabled,
                     IsAftSettingsConfigurable && value,
+                    OnPropertyChanged,
                     nameof(IsAftInEnabled),
                     nameof(AftBonusTransferStatus),
                     nameof(AftPartialTransfersCheckboxEnabled));
@@ -202,9 +207,10 @@
             {
                 _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(IsAftInEnabled, _isAftOutEnabled, value);
 
-                SetProperty(
+                this.SetProperty(
                     ref _isAftOutEnabled,
                     IsAftSettingsConfigurable && value,
+                    OnPropertyChanged,
                     nameof(IsAftOutEnabled),
                     nameof(AftPartialTransfersCheckboxEnabled));
 
@@ -271,9 +277,11 @@
         /// <summary>
         ///     Gets or sets the AFT transfer limit amount.
         /// </summary>
+        [CustomValidation(typeof(SasFeatureViewModel), nameof(AftTransferLimitValidate))]
         public decimal AftTransferLimit
         {
             get => _aftTransferLimit;
+            
             set
             {
                 if ((_maxAftTransferLimit > value || IsCreditLimitMaxed) && PreviousAftTransferLimit != value)
@@ -281,17 +289,29 @@
                     PreviousAftTransferLimit = _aftTransferLimit;
                 }
 
-                if (SetProperty(ref _aftTransferLimit, value, nameof(AftTransferLimit)))
-                {
-                    SetError(
-                        nameof(AftTransferLimit),
-                        _aftTransferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()));
-                }
-
-                RaisePropertyChanged(nameof(AftTransferLimit));
+                SetProperty(ref _aftTransferLimit, value, true);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aftTransferLimit"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static ValidationResult AftTransferLimitValidate(decimal aftTransferLimit, ValidationContext context)
+        {
+            SasFeatureViewModel instance = (SasFeatureViewModel)context.ObjectInstance;
+            var errors = aftTransferLimit.Validate(true, instance.MaxTransferLimit.DollarsToMillicents());
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+            
+        }
         /// <summary>
         ///     Gets or sets the previous AFT transfer limit.
         /// </summary>
@@ -306,7 +326,7 @@
             set
             {
                 _aftTransferLimitCheckboxEnabled = IsAftSettingsConfigurable && value;
-                RaisePropertyChanged(nameof(AftTransferLimitCheckboxEnabled));
+                OnPropertyChanged(nameof(AftTransferLimitCheckboxEnabled));
             }
         }
 
@@ -328,7 +348,7 @@
 
                 AftTransferLimit = _aftTransferLimitEnabled ? aftTransferLimit : MaxTransferLimit;
 
-                RaisePropertyChanged(nameof(AftTransferLimitEnabled));
+                OnPropertyChanged(nameof(AftTransferLimitEnabled));
             }
         }
 
@@ -435,7 +455,7 @@
 
             set
             {
-                RaisePropertyChanged(nameof(ConfigChangeNotification));
+                OnPropertyChanged(nameof(ConfigChangeNotification));
                 SetProperty(ref _configChangeNotification, value, nameof(ConfigChangeNotification));
             }
         }
@@ -449,7 +469,7 @@
             set
             {
                 _configChangeNotificationIndex = value;
-                RaisePropertyChanged(nameof(ConfigChangeNotificationIndex));
+                OnPropertyChanged(nameof(ConfigChangeNotificationIndex));
             }
         }
 
@@ -554,7 +574,7 @@
 
                 // allow the server to override SAS setting
                 _isLegacyBonusEnabled = settings.LegacyBonusAllowed;
-                RaisePropertyChanged(nameof(IsLegacyBonusEnabled));
+                OnPropertyChanged(nameof(IsLegacyBonusEnabled));
             }
 
             CheckNavigation();
@@ -784,21 +804,6 @@
             }
 
             return SasValidationType.None;
-        }
-
-        /// <inheritdoc />
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-
-            CheckNavigation();
         }
     }
 }

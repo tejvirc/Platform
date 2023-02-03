@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;
@@ -13,9 +14,8 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class MainMetersPageViewModel : MetersPageViewModelBase
@@ -26,11 +26,11 @@
 
         public MainMetersPageViewModel() : base(MeterNodePage.MainPage)
         {
-            ClearPeriodCommand = new ActionCommand<object>(ClearPeriod_Clicked);
+            ClearPeriodCommand = new RelayCommand<object>(ClearPeriod_Clicked);
 
-            PrintVerificationButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom2));
-            PrintPeriodicResetButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
-            PrintAuditTicketButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom3));
+            PrintVerificationButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom2));
+            PrintPeriodicResetButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
+            PrintAuditTicketButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom3));
 
             PrintVerificationButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintVerificationVisible, true);
             PrintAuditTicketButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintAuditTicketVisible, false);
@@ -54,7 +54,7 @@
             set
             {
                 _periodWarningText = value;
-                RaisePropertyChanged(nameof(PeriodWarningText));
+                OnPropertyChanged(nameof(PeriodWarningText));
                 UpdateStatusText();
             }
         }
@@ -78,7 +78,7 @@
             set
             {
                 _clearButtonEnabled = value;
-                RaisePropertyChanged(nameof(ClearButtonEnabled));
+                OnPropertyChanged(nameof(ClearButtonEnabled));
                 if (ClearPeriodMetersButtonIsVisible)
                 {
                     // Only show the warning text if the button is not enabled and game is not idle, since the button
@@ -104,7 +104,7 @@
                 Print(OperatorMenuPrintData.Custom1, () =>
                 {
                     serviceManager.GetService<IMeterManager>().ClearAllPeriodMeters();
-                    MvvmHelper.ExecuteOnUI(UpdateUI);
+                    Execute.OnUIThread(UpdateUI);
                 });
             }
         }
@@ -198,7 +198,7 @@
 
         protected override void OnFieldAccessEnabledChanged()
         {
-            RaisePropertyChanged(nameof(ClearButtonEnabled));
+            OnPropertyChanged(nameof(ClearButtonEnabled));
         }
 
         private void UpdateUI()

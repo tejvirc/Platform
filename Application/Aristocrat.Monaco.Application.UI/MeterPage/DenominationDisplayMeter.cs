@@ -40,7 +40,7 @@
         protected override void OnMeterChangedEvent(object sender, MeterChangedEventArgs e)
         {
             base.OnMeterChangedEvent(sender, e);
-            RaisePropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(Count));
         }
     }
 }

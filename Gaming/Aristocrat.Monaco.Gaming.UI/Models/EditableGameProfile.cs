@@ -5,11 +5,11 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Configuration;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
 
-    public class EditableGameProfile : BaseViewModel, IDisposable
+    public class EditableGameProfile : ObservableObject, IDisposable
     {
         private readonly bool _enableRtpScaling;
         private IConfigurationRestriction _selectedRestriction;
@@ -96,7 +96,7 @@
 
         public void Refresh()
         {
-            RaisePropertyChanged(nameof(GameConfigurations));
+            OnPropertyChanged(nameof(GameConfigurations));
         }
 
         public void Reset()
@@ -151,8 +151,8 @@
                 return;
             }
 
-            RaisePropertyChanged(nameof(Enabled));
-            RaisePropertyChanged(nameof(EnabledGameConfigurationsCount));
+            OnPropertyChanged(nameof(Enabled));
+            OnPropertyChanged(nameof(EnabledGameConfigurationsCount));
         }
     }
 }

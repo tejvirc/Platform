@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.Models
 {
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class HorsePositionModel : BaseViewModel
+    public class HorsePositionModel : ObservableObject
     {
         private HorseModel _horseInfo;
 
@@ -19,9 +19,9 @@
             get => _horseInfo;
             set
             {
-                SetProperty(ref _horseInfo, value, nameof(HorseInfo));
-                RaisePropertyChanged(nameof(PositionSelected));
-                RaisePropertyChanged(nameof(HorseNumber));
+                SetProperty(ref _horseInfo, value);
+                OnPropertyChanged(nameof(PositionSelected));
+                OnPropertyChanged(nameof(HorseNumber));
             }
         }
 

@@ -9,7 +9,7 @@
     using Application.Contracts.Settings;
     using Client.Messages;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     public class HHRConfigurationSettings : IConfigurationSettings
     {
@@ -41,7 +41,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

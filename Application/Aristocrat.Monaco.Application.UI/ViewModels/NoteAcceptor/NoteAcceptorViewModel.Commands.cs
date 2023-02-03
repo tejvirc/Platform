@@ -3,28 +3,28 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
     using Views;
 
     public partial class NoteAcceptorViewModel
     {
         private void InitCommands()
         {
-            StackButtonCommand = new ActionCommand<object>(HandleStackButtonCommand);
+            StackButtonCommand = new RelayCommand<object>(HandleStackButtonCommand);
 
-            InspectButtonCommand = new ActionCommand<object>(HandleInspectButtonCommand);
+            InspectButtonCommand = new RelayCommand<object>(HandleInspectButtonCommand);
 
-            SelfTestButtonCommand = new ActionCommand<object>(HandleSelfTestButtonCommand);
-            SelfTestClearButtonCommand = new ActionCommand<object>(HandleSelfTestClearNvmButtonCommand);
-            ReturnButtonCommand = new ActionCommand<object>(HandleReturnButtonCommand);
-            NoteAcceptorTestCommand = new ActionCommand<object>(HandleNoteAcceptorTestCommand);
+            SelfTestButtonCommand = new RelayCommand<object>(HandleSelfTestButtonCommand);
+            SelfTestClearButtonCommand = new RelayCommand<object>(HandleSelfTestClearNvmButtonCommand);
+            ReturnButtonCommand = new RelayCommand<object>(HandleReturnButtonCommand);
+            NoteAcceptorTestCommand = new RelayCommand<object>(HandleNoteAcceptorTestCommand);
         }
 
         public ICommand InspectButtonCommand { get; set; }
@@ -68,7 +68,7 @@
             {
                 base.UpdateWarningMessage();
             }
-            RaisePropertyChanged(nameof(TestModeToolTipDisabled));
+            OnPropertyChanged(nameof(TestModeToolTipDisabled));
         }
 
         protected override void OnTestModeEnabledChanged()
@@ -77,7 +77,7 @@
             {
                 NoteAcceptor?.Enable(EnabledReasons.Operator);
             }
-            RaisePropertyChanged(nameof(TestModeToolTipDisabled));
+            OnPropertyChanged(nameof(TestModeToolTipDisabled));
         }
 
         /// <summary>Checks the denomination checkboxes to reset if all, none, or no vouchers selected.</summary>
@@ -119,7 +119,7 @@
             var viewModel = new NoteAcceptorTestViewModel();
 
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
-            
+
             dialogService.ShowInfoDialog<NoteAcceptorTestView>(
                 this,
                 viewModel,
@@ -157,7 +157,7 @@
                 {
                     await NoteAcceptor.Return();
 
-                    MvvmHelper.ExecuteOnUI(SelfTest);
+                    Execute.OnUIThread(SelfTest);
                 });
             }
             else

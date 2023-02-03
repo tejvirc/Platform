@@ -13,7 +13,7 @@
     using Menu;
     using Models;
     using System.Threading.Tasks;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     public class CurrentProgressivePageViewModel : HhrMenuPageViewModelBase
     {
@@ -59,7 +59,7 @@
         public override void Reset()
         {
             base.Reset();
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ProgressivePools.Clear();

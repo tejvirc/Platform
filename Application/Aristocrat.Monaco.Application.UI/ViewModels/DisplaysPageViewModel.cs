@@ -9,6 +9,7 @@
     using System.Windows;
     using System.Windows.Input;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.HardwareDiagnostics;
     using Contracts.Input;
@@ -24,7 +25,6 @@
     using Models;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Command;
     using OperatorMenu;
     using Views;
 
@@ -46,12 +46,12 @@
 
         public DisplaysPageViewModel()
         {
-            EnterTouchScreenCommand = new ActionCommand<object>(OnEnterTouchScreenCommand);
-            EnterIdentifyScreenCommand = new ActionCommand<object>(
+            EnterTouchScreenCommand = new RelayCommand<object>(OnEnterTouchScreenCommand);
+            EnterIdentifyScreenCommand = new RelayCommand<object>(
                 OnEnterIdentifyScreenCommand);
-            EnterColorTestCommand = new ActionCommand<object>(
+            EnterColorTestCommand = new RelayCommand<object>(
                 OnEnterColorTestCommand);
-            EnterCalibrateTouchScreenCommand = new ActionCommand<object>(
+            EnterCalibrateTouchScreenCommand = new RelayCommand<object>(
                 OnEnterCalibrateTouchScreenCommand);
             CabinetService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
             SerialTouchService = ServiceManager.GetInstance().GetService<ISerialTouchService>();
@@ -103,7 +103,7 @@
             set
             {
                 SetProperty(ref _minimumBrightness, value, nameof(MinimumBrightness));
-                RaisePropertyChanged(nameof(MinimumBrightness));
+                OnPropertyChanged(nameof(MinimumBrightness));
             }
         }
 
@@ -113,7 +113,7 @@
             set
             {
                 SetProperty(ref _maximumBrightness, value, nameof(MaximumBrightness));
-                RaisePropertyChanged(nameof(MaximumBrightness));
+                OnPropertyChanged(nameof(MaximumBrightness));
             }
         }
 
@@ -166,7 +166,7 @@
                     CabinetService.ExpectedDisplayDevices.OrderBy(d => d.PositionY).Select(
                         x => new DisplayDetected(
                             x,
-                            GetMappedTouchDevice(x) 
+                            GetMappedTouchDevice(x)
                             )));
                 EventBus.Subscribe<DisplayConnectedEvent>(this, _ => RefreshDisplays());
                 EventBus.Subscribe<DisplayDisconnectedEvent>(this, _ => RefreshDisplays());
@@ -212,8 +212,8 @@
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestsEnabled));
-            RaisePropertyChanged(nameof(TouchScreenButtonsEnabled));
+            OnPropertyChanged(nameof(TestsEnabled));
+            OnPropertyChanged(nameof(TouchScreenButtonsEnabled));
         }
 
         protected override void OnInputStatusChanged()
@@ -403,7 +403,7 @@
                     Rectangle visibleArea = windowToScreenMapper.GetVisibleArea();
                     // Translate the origin of the Visible Area for the global Screen coordinate space to
                     // local relative space. This is needed for ScreenIdentifyWindow as it takes a
-                    // visible area rectangle that is relative to the origin of the Window. 
+                    // visible area rectangle that is relative to the origin of the Window.
                     visibleArea.X -= screenBounds.X;
                     visibleArea.Y -= screenBounds.Y;
 

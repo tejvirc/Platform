@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Drm;
@@ -17,9 +18,8 @@
     using Models;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
     using Views;
 
     [CLSCompliant(false)]
@@ -85,7 +85,7 @@
             _isJurisdictionSelectionEnabled = true;
 
             _settingsManager = serviceManager.GetService<IConfigurationSettingsManager>();
-            ImportCommand = new ActionCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && IsMachineConfigFound && !IsImporting);
+            ImportCommand = new RelayCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && IsMachineConfigFound && !IsImporting);
             _importSettingLabel = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ImportMachineSettingsInsertEKey);
 
             _dialogService = serviceManager.GetService<IDialogService>();
@@ -156,7 +156,7 @@
             set
             {
                 _selectedJurisdiction = value;
-                RaisePropertyChanged(nameof(SelectedJurisdiction));
+                OnPropertyChanged(nameof(SelectedJurisdiction));
             }
         }
 
@@ -169,7 +169,7 @@
             {
                 _isShowModeChecked = value;
                 GameRulesEditable = _isShowModeChecked;
-                RaisePropertyChanged(nameof(IsShowModeChecked));
+                OnPropertyChanged(nameof(IsShowModeChecked));
 
                 PropertiesManager.SetProperty(ApplicationConstants.ShowMode, _isShowModeChecked);
             }
@@ -185,7 +185,7 @@
             set
             {
                 _gameRulesVisible = value;
-                RaisePropertyChanged(nameof(GameRulesVisible));
+                OnPropertyChanged(nameof(GameRulesVisible));
             }
         }
 
@@ -208,7 +208,7 @@
                     _gameRulesEditable = false;
                     IsGameRulesChecked = true;
                 }
-                RaisePropertyChanged(nameof(GameRulesEditable));
+                OnPropertyChanged(nameof(GameRulesEditable));
             }
         }
 
@@ -221,7 +221,7 @@
             set
             {
                 _isGameRulesChecked = value;
-                RaisePropertyChanged(nameof(IsGameRulesChecked));
+                OnPropertyChanged(nameof(IsGameRulesChecked));
 
                 PropertiesManager.SetProperty(ApplicationConstants.GameRules, _isGameRulesChecked);
             }
@@ -233,7 +233,7 @@
             set
             {
                 _isJurisdictionSelectionEnabled = value;
-                RaisePropertyChanged(nameof(IsJurisdictionSelectionEnabled));
+                OnPropertyChanged(nameof(IsJurisdictionSelectionEnabled));
             }
         }
 
@@ -286,13 +286,13 @@
             set
             {
                 _importSettingLabel = value;
-                RaisePropertyChanged(nameof(ImportSettingLabel));
+                OnPropertyChanged(nameof(ImportSettingLabel));
             }
         }
 
         public ObservableCollection<ConfigurationSetting> ConfigurationSettings { get; } = new ObservableCollection<ConfigurationSetting>();
 
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand<object> ImportCommand { get; }
 
         /// <summary>
         ///     Gets a value that indicates if the import is in progress.
@@ -304,7 +304,7 @@
             set
             {
                 SetProperty(ref _isImporting, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -337,7 +337,7 @@
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -351,7 +351,7 @@
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -438,7 +438,7 @@
 
         private void Handle(PropertyChangedEvent obj)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEKeyVerified = PropertiesManager.GetValue(ApplicationConstants.EKeyVerified, false);
@@ -451,7 +451,7 @@
 
         private void Handle(ConfigurationSettingsImportedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsImporting = false;
@@ -477,10 +477,10 @@
                         PropertiesManager.SetProperty(ApplicationConstants.MachineSettingsReimported, true);
 
                         _isShowModeChecked = PropertiesManager.GetValue(ApplicationConstants.ShowMode, false);
-                        RaisePropertyChanged(nameof(IsShowModeChecked));
+                        OnPropertyChanged(nameof(IsShowModeChecked));
 
                         _isGameRulesChecked = PropertiesManager.GetValue(ApplicationConstants.GameRules, true);
-                        RaisePropertyChanged(nameof(IsGameRulesChecked));
+                        OnPropertyChanged(nameof(IsGameRulesChecked));
                     }
                 });
         }
@@ -505,7 +505,7 @@
 
         private void Handle(ConfigurationSettingsSummaryEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ConfigurationSettings.AddRange(
@@ -520,10 +520,10 @@
                     }
 
                     _isShowModeChecked = PropertiesManager.GetValue(ApplicationConstants.ShowMode, IsShowModeChecked);
-                    RaisePropertyChanged(nameof(IsShowModeChecked));
+                    OnPropertyChanged(nameof(IsShowModeChecked));
 
                     _isGameRulesChecked = PropertiesManager.GetValue(ApplicationConstants.GameRules, IsGameRulesChecked);
-                    RaisePropertyChanged(nameof(IsGameRulesChecked));
+                    OnPropertyChanged(nameof(IsGameRulesChecked));
 
                     var viewModel = new ConfigurationSettingSummaryPopupViewModel(
                         ConfigurationSettings,

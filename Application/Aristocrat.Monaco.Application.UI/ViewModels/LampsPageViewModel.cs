@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Timers;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.HardwareDiagnostics;
     using Contracts.LampTest;
@@ -18,7 +19,6 @@
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
     using Timer = System.Timers.Timer;
 
@@ -63,7 +63,7 @@
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
 
-            SetTowerLightFlashStateCommand = new ActionCommand<object>(SetTowerLightFlashState);
+            SetTowerLightFlashStateCommand = new RelayCommand<object>(SetTowerLightFlashState);
         }
 
         public bool ButtonLampsAvailable { get; set; }
@@ -89,9 +89,9 @@
                     _selectedTowerLight = value;
                     SelectedFlashState = _selectedTowerLight.FlashState;
 
-                    RaisePropertyChanged(nameof(SelectedTowerLight));
-                    RaisePropertyChanged(nameof(SelectedFlashState));
-                    RaisePropertyChanged(nameof(FlashStates));
+                    OnPropertyChanged(nameof(SelectedTowerLight));
+                    OnPropertyChanged(nameof(SelectedFlashState));
+                    OnPropertyChanged(nameof(FlashStates));
                 }
             }
         }
@@ -113,7 +113,7 @@
                 }
 
                 _selectedButtonLamp = value;
-                RaisePropertyChanged(nameof(SelectedButtonLamp));
+                OnPropertyChanged(nameof(SelectedButtonLamp));
                 SetSelectedLamps(value);
             }
         }
@@ -132,7 +132,7 @@
                 StopFlashTimer();
 
                 _selectedInterval = value;
-                RaisePropertyChanged(nameof(SelectedInterval));
+                OnPropertyChanged(nameof(SelectedInterval));
 
                 if (SelectedInterval != null)
                 {

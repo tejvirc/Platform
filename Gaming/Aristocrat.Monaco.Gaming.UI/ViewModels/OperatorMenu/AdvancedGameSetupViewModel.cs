@@ -17,8 +17,10 @@
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Settings;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Common.Validation;
     using Commands;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Configuration;
     using Contracts.Events.OperatorMenu;
@@ -26,15 +28,15 @@
     using Contracts.Models;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using FluentValidation;
     using Kernel;
     using Localization.Properties;
-    using Microsoft.Expression.Interactivity.Core;
     using Models;
-    using MVVM;
-    using MVVM.Command;
     using Progressives;
     using Settings;
+    using Toolkit.Mvvm.Extensions;
     using Views.OperatorMenu;
+    using System.ComponentModel.DataAnnotations;
 
     public class AdvancedGameSetupViewModel : OperatorMenuSaveViewModelBase
     {
@@ -90,21 +92,21 @@
 
         public AdvancedGameSetupViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
 
-            ImportCommand = new ActionCommand<object>(
+            ImportCommand = new RelayCommand<object>(
                 _ => Import(),
                 _ => CanExecuteImportCommand);
-            ExportCommand = new ActionCommand<object>(_ => Export(), _ => CanExecuteExportCommand);
-            ConfigCommand = new ActionCommand(EnterConfig);
+            ExportCommand = new RelayCommand<object>(_ => Export(), _ => CanExecuteExportCommand);
+            ConfigCommand = new RelayCommand(EnterConfig);
 
-            ProgressiveSetupCommand = new ActionCommand<object>(ProgressiveSetup);
-            ProgressiveViewCommand = new ActionCommand<object>(ProgressiveView);
-            ShowRtpSummaryCommand = new ActionCommand(ShowRtpSummary);
-            ShowProgressiveSummaryCommand = new ActionCommand(ShowProgressiveSummary);
+            ProgressiveSetupCommand = new RelayCommand<object>(ProgressiveSetup);
+            ProgressiveViewCommand = new RelayCommand<object>(ProgressiveView);
+            ShowRtpSummaryCommand = new RelayCommand(ShowRtpSummary);
+            ShowProgressiveSummaryCommand = new RelayCommand(ShowProgressiveSummary);
 
             ImportExportVisible = GetConfigSetting(OperatorMenuSetting.AllowImportExport, false);
             GlobalOptionsVisible = GetConfigSetting(OperatorMenuSetting.ShowGlobalOptions, false);
@@ -152,9 +154,9 @@
 
         public ICommand ConfigCommand { get; }
 
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand<object> ImportCommand { get; }
 
-        public ActionCommand<object> ExportCommand { get; }
+        public RelayCommand<object> ExportCommand { get; }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
         // ReSharper disable once MemberCanBePrivate.Global - used by xaml
@@ -168,7 +170,7 @@
         {
             get => _readOnlyStatus;
             // ReSharper disable once MemberCanBePrivate.Global - used by xaml
-            set => SetProperty(ref _readOnlyStatus, value, nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
+            set => this.SetProperty(ref _readOnlyStatus, value, OnPropertyChanged, nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
         }
 
         public bool IsInProgress
@@ -177,14 +179,14 @@
             set
             {
                 SetProperty(ref _isInProgress, value);
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
-                        ExportCommand.RaiseCanExecuteChanged();
-                        ImportCommand.RaiseCanExecuteChanged();
+                        ExportCommand.NotifyCanExecuteChanged();
+                        ImportCommand.NotifyCanExecuteChanged();
 
-                        RaisePropertyChanged(nameof(CanExecuteImportCommand));
-                        RaisePropertyChanged(nameof(CanExecuteExportCommand));
+                        OnPropertyChanged(nameof(CanExecuteImportCommand));
+                        OnPropertyChanged(nameof(CanExecuteExportCommand));
                     });
             }
         }
@@ -259,7 +261,7 @@
         public ObservableCollection<EditableGameProfile> Games
         {
             get => _games;
-            set => SetProperty(ref _games, value, nameof(Games), nameof(HasMultipleGames));
+            set => this.SetProperty(ref _games, value, OnPropertyChanged, nameof(Games), nameof(HasMultipleGames));
         }
 
         public EditableGameConfiguration SelectedConfig
@@ -280,7 +282,10 @@
 
                 _selectedGame = value;
                 UpdateInputStatusText();
-                RaisePropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms));
+                OnPropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(GameConfigurations));
+                OnPropertyChanged(nameof(ThemePlusOptions));
+                OnPropertyChanged(nameof(SelectedDenoms));
                 if (_selectedGame == null)
                 {
                     return;
@@ -305,15 +310,16 @@
         public long TopAwardValue
         {
             get => _topAwardValue;
-            set => SetProperty(ref _topAwardValue, value, nameof(TopAwardValue), nameof(HasTopAward));
+            set => this.SetProperty(ref _topAwardValue, value, OnPropertyChanged, nameof(TopAwardValue), nameof(HasTopAward));
         }
 
         public bool GameOptionsGridEnabled
         {
             get => _gameOptionsGridEnabled;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _gameOptionsGridEnabled,
                 value,
+                OnPropertyChanged,
                 nameof(GameOptionsGridEnabled),
                 nameof(GameOptionsEnabled));
         }
@@ -337,12 +343,12 @@
                 }
 
                 SelectedGame.SelectedRestriction = value;
-                RaisePropertyChanged(nameof(SelectedRestriction));
+                OnPropertyChanged(nameof(SelectedRestriction));
 
                 SetRestriction(value);
 
-                RaisePropertyChanged(nameof(GameConfigurations));
-                RaisePropertyChanged(nameof(CanSave));
+                OnPropertyChanged(nameof(GameConfigurations));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
@@ -357,11 +363,7 @@
         public bool ResetScrollIntoView
         {
             get => _resetScrollIntoView;
-            set
-            {
-                _resetScrollIntoView = value;
-                RaisePropertyChanged(nameof(ResetScrollIntoView), nameof(SelectedDenoms));
-            }
+            set => this.SetProperty(ref _resetScrollIntoView, value, OnPropertyChanged, nameof(ResetScrollIntoView), nameof(SelectedDenoms));
         }
 
         public bool IsEnabledGamesLimitExceeded => TotalEnabledGames > _digitalRights.LicenseCount;
@@ -387,14 +389,14 @@
 
         public void HandlePropertyChangedEvent(PropertyChangedEvent eventObject)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
-                ImportCommand.RaiseCanExecuteChanged();
-                ExportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
 
-                RaisePropertyChanged(nameof(CanExecuteImportCommand));
-                RaisePropertyChanged(nameof(CanExecuteExportCommand));
+                OnPropertyChanged(nameof(CanExecuteImportCommand));
+                OnPropertyChanged(nameof(CanExecuteExportCommand));
             });
         }
 
@@ -463,7 +465,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(GameOptionsEnabled));
+            OnPropertyChanged(nameof(GameOptionsEnabled));
             base.OnInputEnabledChanged();
         }
 
@@ -474,8 +476,8 @@
 
             _cancellation = new CancellationTokenSource();
 
-            EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
-            EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
+            EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => Execute.OnUIThread(HandleImported));
+            EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => Execute.OnUIThread(HandleExported));
 
             _canEdit = GetConfigSetting(OperatorMenuSetting.EnableAdvancedConfig, false);
             _editMode = _canEdit && !InitialConfigComplete;
@@ -504,14 +506,14 @@
         protected override void OnFieldAccessEnabledChanged()
         {
             base.OnFieldAccessEnabledChanged();
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
-                    ImportCommand.RaiseCanExecuteChanged();
-                    ExportCommand.RaiseCanExecuteChanged();
+                    ImportCommand.NotifyCanExecuteChanged();
+                    ExportCommand.NotifyCanExecuteChanged();
 
-                    RaisePropertyChanged(nameof(CanExecuteImportCommand));
-                    RaisePropertyChanged(nameof(CanExecuteExportCommand));
+                    OnPropertyChanged(nameof(CanExecuteImportCommand));
+                    OnPropertyChanged(nameof(CanExecuteExportCommand));
                 });
         }
 
@@ -659,15 +661,14 @@
             GameOptionsGridEnabled = _editMode;
 
             ApplyGameOptionsEnabled();
-            RaisePropertyChanged(
-                nameof(GameOptionsEnabled),
-                nameof(ShowSaveButtonOverride),
-                nameof(ShowCancelButtonOverride),
-                nameof(ShowSummaryButtons),
-                nameof(CanSave),
-                nameof(ExportVisibleOverride),
-                nameof(ImportVisibleOverride),
-                nameof(ConfigureVisible));
+            OnPropertyChanged(nameof(GameOptionsEnabled));
+            OnPropertyChanged(nameof(ShowSaveButtonOverride));
+            OnPropertyChanged(nameof(ShowCancelButtonOverride));
+            OnPropertyChanged(nameof(ShowSummaryButtons));
+            OnPropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(ExportVisibleOverride));
+            OnPropertyChanged(nameof(ImportVisibleOverride));
+            OnPropertyChanged(nameof(ConfigureVisible));
 
             UpdateRestrictions();
         }
@@ -691,19 +692,35 @@
                 {
                     // We need to check all the denominations, not just the current one. If we find one that's invalid,
                     // prevent saving the config.
-                    foreach (var gameConfig in GameConfigurations)
-                    {
-                        gameConfig.SetWarningText();
-                        if (!string.IsNullOrEmpty(gameConfig.WarningText))
-                        {
-                            SetError(nameof(InputStatusText), InputStatusText);
-                            break;
-                        }
-                    }
+                    
+                    ValidateProperty(InputStatusText, nameof(InputStatusText));
                 }
 
-                RaisePropertyChanged(nameof(InputStatusText), nameof(CanSave), nameof(HasErrors));
+                OnPropertyChanged(nameof(InputStatusText));
+                OnPropertyChanged(nameof(CanSave));
+                OnPropertyChanged(nameof(HasErrors));
             }
+        }
+
+        public static System.ComponentModel.DataAnnotations.ValidationResult InputStatusTextValidate(string inputStatusText, System.ComponentModel.DataAnnotations.ValidationContext context)
+        {
+            AdvancedGameSetupViewModel instance = (AdvancedGameSetupViewModel)context.ObjectInstance;
+            var errors = "";
+            foreach (var gameConfig in instance.GameConfigurations)
+            {
+                gameConfig.SetWarningText();
+                if (!string.IsNullOrEmpty(gameConfig.WarningText))
+                {
+                    errors = inputStatusText;
+                    break;
+                }
+            }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return System.ComponentModel.DataAnnotations.ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         private void UpdateSaveWarning()
@@ -726,18 +743,17 @@
 
         private void UpdateRestrictions()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     SelectedGame?.UpdateValidRestrictions();
-                    RaisePropertyChanged(
-                        nameof(SelectedRestriction),
-                        nameof(ValidRestrictions),
-                        nameof(ShowRestrictionChooser),
-                        nameof(DenomSelectionLimit),
-                        nameof(DenomSelectionLimitExists),
-                        nameof(GameConfigurations),
-                        nameof(CanSave));
+                    OnPropertyChanged(nameof(SelectedRestriction));
+                    OnPropertyChanged(nameof(ValidRestrictions));
+                    OnPropertyChanged(nameof(ShowRestrictionChooser));
+                    OnPropertyChanged(nameof(DenomSelectionLimit));
+                    OnPropertyChanged(nameof(DenomSelectionLimitExists));
+                    OnPropertyChanged(nameof(GameConfigurations));
+                    OnPropertyChanged(nameof(CanSave));
                     SetRestriction(SelectedRestriction);
                 });
         }
@@ -1002,7 +1018,7 @@
             }
 
             editableConfig.PropertyChanged += OnSubPropertyChanged;
-            RaisePropertyChanged(nameof(editableConfig.DenomString));
+            OnPropertyChanged(nameof(editableConfig.DenomString));
         }
 
         private void SaveChanges()
@@ -1171,7 +1187,7 @@
                 game.OnSave();
             }
 
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         private void ResetChanges()
@@ -1266,7 +1282,7 @@
 
         private void OnSubPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
 
             if (sender is not EditableGameConfiguration editableConfig)
             {
@@ -1321,7 +1337,7 @@
 
             UpdateInputStatusText();
             UpdateSaveWarning();
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         private void ScaleEnabledRtpValues()
@@ -1373,8 +1389,11 @@
             SelectedGame = Games.FirstOrDefault();
 
             ApplyGameOptionsEnabled();
-            RaisePropertyChanged(nameof(LetItRideOptionVisible), nameof(GambleOptionVisible),
-                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected), nameof(IsPokerGameSelected));
+            OnPropertyChanged(nameof(LetItRideOptionVisible));
+            OnPropertyChanged(nameof(GambleOptionVisible));
+            OnPropertyChanged(nameof(OptionColumnVisible));
+            OnPropertyChanged(nameof(IsRouletteGameSelected));
+            OnPropertyChanged(nameof(IsPokerGameSelected));
         }
 
         private void ApplyGameOptionsEnabled()
@@ -1435,7 +1454,7 @@
                     return;
                 }
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         IsInProgress = true;
@@ -1611,7 +1630,7 @@
 
                 if (result == true && FieldAccessEnabled)
                 {
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () =>
                         {
                             IsInProgress = true;
@@ -1638,7 +1657,7 @@
                             TaskContinuationOptions.OnlyOnFaulted,
                             TaskScheduler.FromCurrentSynchronizationContext());
 
-                    MvvmHelper.ExecuteOnUI(() => IsInProgress = true);
+                    Execute.OnUIThread(() => IsInProgress = true);
                 }
             }
         }

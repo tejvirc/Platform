@@ -9,9 +9,9 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
     using Application.UI.OperatorMenu;
     using Aristocrat.Sas.Client;
     using Base;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Client;
     using Localization.Properties;
-    using MVVM.Command;
 
     /// <summary>
     ///     ViewModel for Sas diagnostics
@@ -37,8 +37,8 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
         {
             BindingOperations.EnableCollectionSynchronization(SasPollDatas, _sasPollDataLock);
             SelectedSasDiagnostics = _sasHost.GetSasClientDiagnostics(0);
-            ToggleMonitoringCommand = new ActionCommand<object>(_ => ToggleMonitoring());
-            ClearSasDataCommand = new ActionCommand<object>(_ => ClearSasData());
+            ToggleMonitoringCommand = new RelayCommand<object>(_ => ToggleMonitoring());
+            ClearSasDataCommand = new RelayCommand<object>(_ => ClearSasData());
             _canMonitorPollType = new Dictionary<SasPollData.PollType, Func<bool>>
             {
                 { SasPollData.PollType.GeneralPoll, () => MonitoringGeneralPoll && _monitor },
@@ -103,8 +103,8 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
                 SelectedSasDiagnostics = _sasHost.GetSasClientDiagnostics(_monitoringSasHost ? 1 : 0);
                 ClearSasData();
                 SelectedSasDiagnostics.NewSasPollDataArgs += NewPollDataArgsDataAvailable;
-                RaisePropertyChanged(nameof(SelectedSasDiagnostics));
-                RaisePropertyChanged(nameof(SasPollDatas));
+                OnPropertyChanged(nameof(SelectedSasDiagnostics));
+                OnPropertyChanged(nameof(SasPollDatas));
             }
         }
 
@@ -143,7 +143,7 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
         ///     Monitor Incoming data
         /// </summary>
         public bool MonitoringIncomingPackets { get; set; } = true;
-        
+
         private void NewPollDataArgsDataAvailable(object sender, NewSasPollDataEventArgs e)
         {
             if (_canMonitorPollType[e.SasPollData.SasPollType]() && _canMonitorPacketType[e.SasPollData.Type]())
@@ -181,7 +181,7 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
                 SelectedSasDiagnostics.NewSasPollDataArgs -= NewPollDataArgsDataAvailable;
             }
 
-            RaisePropertyChanged(nameof(MonitorButtonName));
+            OnPropertyChanged(nameof(MonitorButtonName));
         }
     }
 }

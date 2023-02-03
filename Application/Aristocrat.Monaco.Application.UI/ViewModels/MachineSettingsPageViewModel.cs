@@ -5,6 +5,7 @@
     using System.Windows.Input;
     using Application.Helpers;
     using Application.Settings;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -18,7 +19,6 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM.Command;
     using OperatorMenu;
 
     /// <summary>
@@ -57,7 +57,7 @@
         {
             DefaultPrintButtonEnabled = true;
 
-            VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+            VisibilityChangedCommand = new RelayCommand<object>(OnVisibilityChanged);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@
                 if (value != _ipAddress)
                 {
                     _ipAddress = value;
-                    RaisePropertyChanged(nameof(IpAddress));
+                    OnPropertyChanged(nameof(IpAddress));
                 }
             }
         }
@@ -89,7 +89,7 @@
                 }
 
                 _physicalAddress = value;
-                RaisePropertyChanged(nameof(PhysicalAddress));
+                OnPropertyChanged(nameof(PhysicalAddress));
             }
         }
 
@@ -99,7 +99,7 @@
             set
             {
                 _modelText = value;
-                RaisePropertyChanged(nameof(ModelText));
+                OnPropertyChanged(nameof(ModelText));
             }
         }
 
@@ -111,7 +111,7 @@
                 if (_biosVersion != value)
                 {
                     _biosVersion = value;
-                    RaisePropertyChanged(nameof(BiosVersion));
+                    OnPropertyChanged(nameof(BiosVersion));
                 }
             }
         }
@@ -124,7 +124,7 @@
                 if (_fpgaVersion != value)
                 {
                     _fpgaVersion = value;
-                    RaisePropertyChanged(nameof(FpgaVersion));
+                    OnPropertyChanged(nameof(FpgaVersion));
                 }
             }
         }
@@ -137,7 +137,7 @@
                 if (_windowsVersion != value)
                 {
                     _windowsVersion = value;
-                    RaisePropertyChanged(nameof(WindowsVersion));
+                    OnPropertyChanged(nameof(WindowsVersion));
                 }
             }
         }
@@ -150,7 +150,7 @@
                 if (_osImageVersion != value)
                 {
                     _osImageVersion = value;
-                    RaisePropertyChanged(nameof(OsImageVersion));
+                    OnPropertyChanged(nameof(OsImageVersion));
                 }
             }
         }
@@ -163,7 +163,7 @@
                 if (_platformVersion != value)
                 {
                     _platformVersion = value;
-                    RaisePropertyChanged(nameof(PlatformVersion));
+                    OnPropertyChanged(nameof(PlatformVersion));
                 }
             }
         }
@@ -176,7 +176,7 @@
                 if (_electronics != value)
                 {
                     _electronics = value;
-                    RaisePropertyChanged(nameof(Electronics));
+                    OnPropertyChanged(nameof(Electronics));
                 }
             }
         }
@@ -189,7 +189,7 @@
                 if (_graphicsCard != value)
                 {
                     _graphicsCard = value;
-                    RaisePropertyChanged(nameof(GraphicsCard));
+                    OnPropertyChanged(nameof(GraphicsCard));
                 }
             }
         }
@@ -202,7 +202,7 @@
                 if (_buttonDeck != value)
                 {
                     _buttonDeck = value;
-                    RaisePropertyChanged(nameof(ButtonDeck));
+                    OnPropertyChanged(nameof(ButtonDeck));
                 }
             }
         }
@@ -215,7 +215,7 @@
                 if (!_touchScreens?.Equals(value) ?? true)
                 {
                     _touchScreens = value;
-                    RaisePropertyChanged(nameof(TouchScreens));
+                    OnPropertyChanged(nameof(TouchScreens));
                 }
             }
         }
@@ -228,7 +228,7 @@
                 if (!_lighting?.Equals(value) ?? true)
                 {
                     _lighting = value;
-                    RaisePropertyChanged(nameof(Lighting));
+                    OnPropertyChanged(nameof(Lighting));
                 }
             }
         }
@@ -241,7 +241,7 @@
                 if (_noteAcceptorModel != value)
                 {
                     _noteAcceptorModel = value;
-                    RaisePropertyChanged(nameof(NoteAcceptorModel));
+                    OnPropertyChanged(nameof(NoteAcceptorModel));
                 }
             }
         }
@@ -254,7 +254,7 @@
                 if (_printerModel != value)
                 {
                     _printerModel = value;
-                    RaisePropertyChanged(nameof(PrinterModel));
+                    OnPropertyChanged(nameof(PrinterModel));
                 }
             }
         }
@@ -267,7 +267,7 @@
                 if (_reelController != value)
                 {
                     _reelController = value;
-                    RaisePropertyChanged(nameof(ReelController));
+                    OnPropertyChanged(nameof(ReelController));
                 }
             }
         }
@@ -283,7 +283,7 @@
                 if (_hardBootTime != value)
                 {
                     _hardBootTime = value;
-                    RaisePropertyChanged(nameof(HardBootTime));
+                    OnPropertyChanged(nameof(HardBootTime));
                 }
             }
         }
@@ -299,7 +299,7 @@
                 if (_softBootTime != value)
                 {
                     _softBootTime = value;
-                    RaisePropertyChanged(nameof(SoftBootTime));
+                    OnPropertyChanged(nameof(SoftBootTime));
                 }
             }
         }
@@ -318,13 +318,13 @@
             Unsubscribe();
             SaveData();
             ClearVariableErrors();
-            ValidateAll(false);
+            ValidateAll();
         }
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(SerialNumberWarningEnabled));
-            RaisePropertyChanged(nameof(AssetNumberWarningEnabled));
+            OnPropertyChanged(nameof(SerialNumberWarningEnabled));
+            OnPropertyChanged(nameof(AssetNumberWarningEnabled));
             SetWarningText();
         }
 
@@ -488,7 +488,7 @@
             UpdateBootTimeInformation();
         }
 
-        protected override void SetError(string propertyName, string error)
+        /*protected override void SetError(string propertyName, string error)
         {
             if (string.IsNullOrEmpty(error))
             {
@@ -498,6 +498,6 @@
             {
                 base.SetError(propertyName, error);
             }
-        }
+        }*/
     }
 }

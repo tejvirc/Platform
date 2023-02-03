@@ -8,6 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -19,7 +20,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
 
 #pragma warning disable 2214
@@ -76,7 +76,7 @@
                 {
                     Denominations.Add(new ConfigurableDenomination(
                         denom,
-                        new ActionCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
+                        new RelayCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
                         DenominationIsSelected(denom)));
                 }
             }
@@ -119,7 +119,7 @@
 
                 VoucherInEnabledText = IsVoucherInEnabled && noteAcceptor.Enabled ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledLabel) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
 
-                RaisePropertyChanged(nameof(TestModeEnabled));
+                OnPropertyChanged(nameof(TestModeEnabled));
 
                 ConfigureStackButton();
 
@@ -427,7 +427,7 @@
 
             ReturnButtonEnabled = enable;
             SetDenominationsEnabled(enable);
-            RaisePropertyChanged(nameof(TestModeEnabled));
+            OnPropertyChanged(nameof(TestModeEnabled));
         }
 
         private void SetDenominationsEnabled(bool enable)
@@ -827,7 +827,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanEgmModifyDenominations));
+            OnPropertyChanged(nameof(CanEgmModifyDenominations));
         }
 
         /// <summary>This method will check whether any of the enabled denominations are currently selected or not</summary>

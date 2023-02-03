@@ -1750,7 +1750,7 @@
         }
     }
 
-    class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
+    public class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
     {
         public bool Equals(DisplayableMessage x, DisplayableMessage y)
         {

@@ -12,6 +12,7 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class LicenseViewModel : OperatorMenuPageViewModelBase
@@ -22,7 +23,7 @@
         private const string PackageExtension = @"iso";
         public LicenseViewModel()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }

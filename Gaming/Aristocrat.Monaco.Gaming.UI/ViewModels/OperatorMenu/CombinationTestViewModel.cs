@@ -4,13 +4,13 @@
     using System.Linq;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Models;
     using Diagnostics;
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM.Command;
 
     public class CombinationTestViewModel : OperatorMenuDiagnosticPageViewModelBase
     {
@@ -29,12 +29,12 @@
                 _diagnostics = container.Container.GetInstance<IGameDiagnostics>();
             }
 
-            ComboTestCommand = new ActionCommand<object>(_ => LaunchCombinationTest(), _ => SelectedGame != null && InputEnabled);
+            ComboTestCommand = new RelayCommand<object>(_ => LaunchCombinationTest(), _ => SelectedGame != null && InputEnabled);
 
             Games = new ObservableCollection<GameComboInfo>();
         }
 
-        public IActionCommand ComboTestCommand { get; }
+        public IRelayCommand ComboTestCommand { get; }
 
         public GameComboInfo SelectedGame
         {
@@ -44,8 +44,8 @@
                 if (_selectedGame != value)
                 {
                     _selectedGame = value;
-                    RaisePropertyChanged(nameof(SelectedGame));
-                    ComboTestCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(SelectedGame));
+                    ComboTestCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -56,18 +56,18 @@
             set
             {
                 _games = value;
-                RaisePropertyChanged(nameof(Games));
+                OnPropertyChanged(nameof(Games));
             }
         }
 
         protected override void OnInputStatusChanged()
         {
-            ComboTestCommand.RaiseCanExecuteChanged();
+            ComboTestCommand.NotifyCanExecuteChanged();
         }
 
         protected override void OnInputEnabledChanged()
         {
-            ComboTestCommand.RaiseCanExecuteChanged();
+            ComboTestCommand.NotifyCanExecuteChanged();
         }
 
         protected override void InitializeData()

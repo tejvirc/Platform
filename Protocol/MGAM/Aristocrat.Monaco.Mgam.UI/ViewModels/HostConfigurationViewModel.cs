@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Mgam.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -9,7 +10,9 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.ConfigWizard;
+    using Aristocrat.Monaco.Application.UI.ViewModels;
     using Aristocrat.Monaco.UI.Common;
+    using CefSharp.DevTools.CSS;
     using Common;
     using Common.Configuration;
     using Common.Data;
@@ -46,6 +49,7 @@
         /// <summary>
         ///     Gets or sets the directory service port.
         /// </summary>
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(DirectoryPortValidate))]
         public int DirectoryPort
         {
             get => _directoryPort;
@@ -53,14 +57,7 @@
             {
                 if (_directoryPort != value)
                 {
-                    ClearErrors(nameof(DirectoryPort));
-
-                    if (value <= 0 || value > ushort.MaxValue)
-                    {
-                        SetError(nameof(DirectoryPort), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange));
-                    }
-                    _directoryPort = value;
-                    RaisePropertyChanged(nameof(DirectoryPort));
+                    SetProperty(ref _directoryPort, value, true, nameof(DirectoryPort));
                     SetupNavigation();
                 }
             }
@@ -87,7 +84,7 @@
                     {
                         DirectoryIpAddress = _previousIpAddress;
                     }
-                    RaisePropertyChanged(nameof(UseUdpBroadcasting));
+                    OnPropertyChanged(nameof(UseUdpBroadcasting));
                 }
             }
         }
@@ -95,19 +92,14 @@
         /// <summary>
         /// Gets or Sets DirectoryIpAddress
         /// </summary>
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(DirectoryIpAddressValidate))]
         public string DirectoryIpAddress
         {
             get => _directoryIpAddress;
 
             set
             {
-                var trimmed = value.Trim();
-                if (trimmed != _directoryIpAddress)
-                {
-                    _directoryIpAddress = trimmed;
-                    RaisePropertyChanged(nameof(DirectoryIpAddress));
-                }
-                ValidateNetworkAddress(trimmed);
+                SetProperty(ref _directoryIpAddress, value, true, nameof(DirectoryIpAddress));
                 SetupNavigation();
             }
         }
@@ -115,6 +107,7 @@
         /// <summary>
         ///     Gets or sets the VLT service name to locate.
         /// </summary>
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(ServiceNameValidate))]
         public string ServiceName
         {
             get => _serviceName;
@@ -122,14 +115,7 @@
             {
                 if (_serviceName != value)
                 {
-                    ClearErrors(nameof(ServiceName));
-
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        SetError(nameof(ServiceName), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
-                    }
-                    _serviceName = value;
-                    RaisePropertyChanged(nameof(ServiceName));
+                    SetProperty(ref _serviceName, value, true, nameof(ServiceName));
                     SetupNavigation();
                 }
             }
@@ -313,14 +299,28 @@
             Logger.Info("Create database complete.");
         }
 
-        private void ValidateNetworkAddress(string address)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static ValidationResult DirectoryIpAddressValidate(string address, ValidationContext context)
         {
-            ClearErrors(nameof(DirectoryIpAddress));
+            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
 
-            if (!UseUdpBroadcasting && !IpValidation.IsIpV4AddressValid(address))
+            if (!instance.UseUdpBroadcasting && !IpValidation.IsIpV4AddressValid(address))
             {
-                SetError(nameof(DirectoryIpAddress), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         /// <inheritdoc />
@@ -347,6 +347,54 @@
             }
 
             base.LoadAutoConfiguration();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directoryPort"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static ValidationResult DirectoryPortValidate(int directoryPort, ValidationContext context)
+        {
+            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            if (directoryPort <= 0 || directoryPort > ushort.MaxValue)
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange);
+            }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static ValidationResult ServiceNameValidate(string serviceName, ValidationContext context)
+        {
+            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            if (string.IsNullOrEmpty(serviceName))
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage);
+            }
+            
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
     }
 }

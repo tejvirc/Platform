@@ -2,11 +2,11 @@
 {
     using Hardware.Contracts.TowerLight;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class TowerLight : BaseViewModel
+    public class TowerLight : ObservableObject
     {
         private FlashState _flashState;
         private bool _state;
@@ -33,7 +33,7 @@
                 }
 
                 _state = value;
-                RaisePropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(State));
             }
         }
 
@@ -50,8 +50,8 @@
                 }
 
                 _flashState = value;
-                RaisePropertyChanged(nameof(FlashState));
-                RaisePropertyChanged(nameof(FlashStateName));
+                OnPropertyChanged(nameof(FlashState));
+                OnPropertyChanged(nameof(FlashStateName));
             }
         }
     }

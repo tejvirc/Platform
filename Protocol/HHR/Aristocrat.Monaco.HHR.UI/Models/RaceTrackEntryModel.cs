@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.Models
 {
     using System.Windows;
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class RaceTrackEntryModel : BaseViewModel
+    public class RaceTrackEntryModel : ObservableObject
     {
         private bool _raceStarted;
 
@@ -15,7 +15,7 @@
             get => _raceStarted;
             set => SetProperty(ref _raceStarted, value);
         }
-        
+
         private int _position;
 
         /// <summary>

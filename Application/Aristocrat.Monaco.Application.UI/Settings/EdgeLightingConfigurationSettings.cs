@@ -11,7 +11,7 @@
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Brightness configuration settings.
@@ -88,7 +88,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

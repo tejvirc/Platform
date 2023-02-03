@@ -113,7 +113,7 @@
             VerifyRaceSet(HhrUiConstants.NumberOfRacesPerRaceSet, _target.PreviousResultCollection2);
         }
 
-        void VerifyRaceSet(int testDataIdxOffset, ObservableCollection<PreviousRaceResultModel> collection)
+        private void VerifyRaceSet(int testDataIdxOffset, ObservableCollection<PreviousRaceResultModel> collection)
         {
             var prizeInfo = CreatePrizeInformation();
 

@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using MVVM.Model;
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class ProgressiveWinModel : BaseNotify
+    public class ProgressiveWinModel : ObservableObject
     {
         private DateTime _winDateTime;
         private string _levelName;
@@ -22,7 +22,7 @@
             set
             {
                 _winAmount = value;
-                RaisePropertyChanged(nameof(WinAmount));
+                OnPropertyChanged(nameof(WinAmount));
             }
         }
 
@@ -36,7 +36,7 @@
             set
             {
                 _winDateTime = value;
-                RaisePropertyChanged(nameof(WinDateTime));
+                OnPropertyChanged(nameof(WinDateTime));
             }
         }
 
@@ -50,7 +50,7 @@
             set
             {
                 _levelName = value;
-                RaisePropertyChanged(nameof(LevelName));
+                OnPropertyChanged(nameof(LevelName));
             }
         }
 
@@ -64,7 +64,7 @@
             set
             {
                 _levelId = value;
-                RaisePropertyChanged(nameof(LevelId));
+                OnPropertyChanged(nameof(LevelId));
             }
         }
 
@@ -78,7 +78,7 @@
             set
             {
                 _deviceId = value;
-                RaisePropertyChanged(nameof(DeviceId));
+                OnPropertyChanged(nameof(DeviceId));
             }
         }
 
@@ -92,7 +92,7 @@
             set
             {
                 _transactionId = value;
-                RaisePropertyChanged(nameof(TransactionId));
+                OnPropertyChanged(nameof(TransactionId));
             }
         }
     }

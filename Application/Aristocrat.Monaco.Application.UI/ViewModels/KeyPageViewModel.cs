@@ -3,12 +3,12 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Identification;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
-    using MVVM.ViewModel;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -34,7 +34,7 @@
             _identificationValidator = ServiceManager.GetInstance().TryGetService<IIdentificationValidator>();
         }
 
-        public ObservableCollection<BaseViewModel> Keys { get; } = new ObservableCollection<BaseViewModel>();
+        public ObservableCollection<ObservableObject> Keys { get; } = new();
 
         public KeyViewModel PlayKey
         {
@@ -48,7 +48,7 @@
                 }
 
                 _playKey = value;
-                RaisePropertyChanged(nameof(PlayKey));
+                OnPropertyChanged(nameof(PlayKey));
             }
         }
 

@@ -2,20 +2,20 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Extensions;
     using Contracts.Localization;
     using Contracts.Protocol;
     using Hardware.Contracts.Audio;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM.Model;
     using Newtonsoft.Json;
     using Contracts;
 
     /// <summary>
     ///     Application machine settings.
     /// </summary>
-    internal class MachineSettings : BaseNotify
+    internal class MachineSettings : ObservableObject
     {
         private bool _noteAcceptorEnabled;
         private string _noteAcceptorManufacturer;
@@ -194,7 +194,7 @@
             set
             {
                 SetProperty(ref _hardMeterTickValue, value);
-                RaisePropertyChanged(nameof(HardMeterTickValueDisplay));
+                OnPropertyChanged(nameof(HardMeterTickValueDisplay));
             }
         }
 
@@ -290,7 +290,7 @@
             set
             {
                 SetProperty(ref _maxCreditsIn, value);
-                RaisePropertyChanged(nameof(MaxCreditsInDisplay));
+                OnPropertyChanged(nameof(MaxCreditsInDisplay));
             }
         }
 
@@ -312,7 +312,7 @@
             set
             {
                 SetProperty(ref _defaultVolumeLevel, value);
-                RaisePropertyChanged(nameof(DefaultVolumeLevelDisplay));
+                OnPropertyChanged(nameof(DefaultVolumeLevelDisplay));
             }
         }
 
@@ -332,7 +332,7 @@
             set
             {
                 SetProperty(ref _volumeControlLocation, value);
-                RaisePropertyChanged(nameof(VolumeControlLocation));
+                OnPropertyChanged(nameof(VolumeControlLocation));
             }
         }
 

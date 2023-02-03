@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using Contracts.Models;
-    using MVVM.ViewModel;
     using System.Collections.Generic;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class HoldPercentage : BaseViewModel
+    public class HoldPercentage : ObservableObject
     {
         private GameHoldPercentageType? _selectedOption;
 
@@ -31,11 +31,11 @@
             set
             {
                 _selectedOption = value;
-                RaisePropertyChanged(nameof(SelectedOption));
-                RaisePropertyChanged(nameof(IsOffSelected));
-                RaisePropertyChanged(nameof(IsLowSelected));
-                RaisePropertyChanged(nameof(IsMediumSelected));
-                RaisePropertyChanged(nameof(IsHighSelected));
+                OnPropertyChanged(nameof(SelectedOption));
+                OnPropertyChanged(nameof(IsOffSelected));
+                OnPropertyChanged(nameof(IsLowSelected));
+                OnPropertyChanged(nameof(IsMediumSelected));
+                OnPropertyChanged(nameof(IsHighSelected));
             }
         }
 

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
@@ -17,12 +18,12 @@
     using Aristocrat.G2S.Client.Devices.v21;
     using Common.DHCP;
     using Common.Events;
+    using CommunityToolkit.Mvvm.Input;
     using Data.Profile;
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
     using Views;
     using Constants = Constants;
 
@@ -50,7 +51,7 @@
         /// </summary>
         public HostConfigurationViewModel(bool isWizardPage) : base(isWizardPage)
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -66,9 +67,9 @@
 
             ResetEditState();
 
-            NewCommand = new ActionCommand<object>(_ => NewHost());
-            EditCommand = new ActionCommand<Host>(EditHost);
-            DeleteCommand = new ActionCommand<Host>(DeleteHost);
+            NewCommand = new RelayCommand<object>(_ => NewHost());
+            EditCommand = new RelayCommand<Host>(EditHost);
+            DeleteCommand = new RelayCommand<Host>(DeleteHost);
 
             _port = PropertiesManager.GetValue(Constants.Port, Constants.DefaultPort);
 
@@ -103,8 +104,8 @@
             set
             {
                 _registeredHostsEnabled = value;
-                RaisePropertyChanged(nameof(RegisteredHostsEnabled));
-                RaisePropertyChanged(nameof(ProgressRingIsActive));
+                OnPropertyChanged(nameof(RegisteredHostsEnabled));
+                OnPropertyChanged(nameof(ProgressRingIsActive));
                 if (_registeredHostsEnabled && WizardNavigator != null)
                 {
                     SetupNavigation();
@@ -125,22 +126,19 @@
                 if (_macAddress != value)
                 {
                     _macAddress = value;
-                    RaisePropertyChanged(nameof(MacAddress));
+                    OnPropertyChanged(nameof(MacAddress));
                 }
             }
         }
 
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(PortValidate))]
         public int Port
         {
             get => _port;
             set
             {
-                if (_port != value)
-                {
-                    ValidatePort(value);
-                    _port = value;
-                    RaisePropertyChanged(nameof(Port));
-                }
+                SetProperty(ref _port, value, true, nameof(Port));
+                OnPropertyChanged(nameof(Port));
             }
         }
 
@@ -152,10 +150,10 @@
         protected override void Loaded()
         {
             _egm = GetEgm();
-            RaisePropertyChanged(nameof(EgmId));
+            OnPropertyChanged(nameof(EgmId));
 
             MacAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
-            
+
             if (!_activated)
             {
                 _activated = true;
@@ -195,7 +193,7 @@
         {
             base.ValidateAll();
 
-            ValidatePort(_port);
+            ValidateProperty(Port, nameof(Port));
         }
 
         private static void RegisteredFilter(object sender, FilterEventArgs e)
@@ -206,14 +204,23 @@
             }
         }
 
-        private void ValidatePort(int value)
+        public static ValidationResult PortValidate(int value, ValidationContext context)
         {
-            ClearErrors(nameof(Port));
+
+            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(Port));
 
             if (value < 0 || value > ushort.MaxValue)
             {
-                SetError(nameof(Port), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void ResetEditState()
@@ -255,7 +262,7 @@
 
         private void LoadHosts()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -516,7 +523,7 @@
 
         private void RefreshHosts()
         {
-            RaisePropertyChanged(nameof(Hosts));
+            OnPropertyChanged(nameof(Hosts));
             RegisteredHosts.View.Refresh();
 
             // VLT-9577 : enable Next button on wizard if enter a url in retail (default is empty in retail)
@@ -660,7 +667,7 @@
                 }
             }
 
-            MvvmHelper.ExecuteOnUI(EnableRegisteredHosts);
+            Execute.OnUIThread(EnableRegisteredHosts);
         }
 
         private static IG2SEgm GetEgm()

@@ -10,7 +10,7 @@
     using Contracts;
     using Contracts.Barkeeper;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Barkeeper configuration settings.
@@ -44,7 +44,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

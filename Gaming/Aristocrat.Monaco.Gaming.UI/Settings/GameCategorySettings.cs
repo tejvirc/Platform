@@ -1,14 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Models;
     using Hardware.Contracts.Audio;
-    using MVVM.Model;
 
     /// <summary>
     ///     Base class for game category settings.
     /// </summary>
-    internal abstract class GameCategorySettings : BaseNotify
+    internal abstract class GameCategorySettings : ObservableObject
     {
         private bool _autoPlay;
         private bool _autoHold;

@@ -10,15 +10,15 @@
     using Kernel;
     using log4net;
     using Menu;
-    using MVVM.ViewModel;
     using Services;
     using Views;
-    using MVVM;
     using System.Windows;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using Toolkit.Mvvm.Extensions;
 
-    public class HostPageViewModelManager : BaseEntityViewModel, IMenuAccessService, IDisposable
+    public class HostPageViewModelManager : ObservableObject, IMenuAccessService, IDisposable
     {
-        private static readonly Guid RaceInfoTransactionRequestorId = new Guid("5297D108-9F34-4174-BE9F-716538519FBA");
+        private static readonly Guid RaceInfoTransactionRequestorId = new("5297D108-9F34-4174-BE9F-716538519FBA");
 
         private readonly IEventBus _eventBus;
         private readonly IRuntimeFlagHandler _runtimeFlagHandler;
@@ -52,7 +52,7 @@
         private readonly IPlayerBank _bank;
         private ITransactionCoordinator _transactionCoordinator;
         private Guid _raceInfoTransactionId;
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
 
         public HostPageViewModelManager(
             IEventBus eventBus,
@@ -105,7 +105,7 @@
             _overlayExpiryTimer = new HHRTimer(OverlayIdleTimerIntervalMilliSeconds) { AutoReset = true, Enabled = false };
             _overlayExpiryTimer.Elapsed += (obj, args) =>
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     CloseMenu);
             };
 
@@ -166,7 +166,7 @@
 
             _selectedViewModel = viewModel;
 
-            RaisePropertyChanged(nameof(SelectedViewModel));
+            OnPropertyChanged(nameof(SelectedViewModel));
 
             oldViewModel?.Reset();
         }
@@ -177,7 +177,7 @@
 
             _selectedViewModel = null;
 
-            RaisePropertyChanged(nameof(SelectedViewModel));
+            OnPropertyChanged(nameof(SelectedViewModel));
         }
 
         /// <summary>
@@ -191,7 +191,7 @@
 
         public void Hide()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_hostView != null && _selectedViewModel != null && _hostView is UIElement element)
@@ -211,7 +211,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_hostView != null && _hostView is UIElement element)
@@ -362,7 +362,7 @@
             _overlayExpiryTimer.Stop();
 
             _eventBus.Publish(new OverlayMenuExitedEvent());
-            
+
             //Notify the runtime that HHR Menu is not active any  more
             _runtimeFlagHandler.SetAwaitingPlayerSelection(false);
             _properties.SetProperty(GamingConstants.AwaitingPlayerSelection, false);
@@ -408,7 +408,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _placardView = new PlacardView(args.Placard);
@@ -547,7 +547,7 @@
 
         private void HandleEvent(GameDiagnosticsStartedEvent replayStartedEvent)
         {
-            MvvmHelper.ExecuteOnUI(CloseMenu);
+            Execute.OnUIThread(CloseMenu);
         }
 
         private bool EnableCashout(SystemDisableAddedEvent evt)

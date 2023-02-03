@@ -9,8 +9,8 @@
     using Application.Contracts.Settings;
     using Contracts.SASProperties;
     using Kernel;
-    using MVVM;
     using Storage.Models;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Implements <see cref="IConfigurationSettings"/> for SAS settings.
@@ -45,7 +45,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

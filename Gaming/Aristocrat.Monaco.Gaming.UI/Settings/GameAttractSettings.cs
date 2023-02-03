@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System.Collections.Generic;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
-    using MVVM.Model;
 
     /// <summary>
     ///     Attract game settings.
     /// </summary>
-    internal class GameAttractSettings : BaseNotify
+    internal class GameAttractSettings : ObservableObject
     {
         private bool _overallAttractEnabled;
         private bool _slotAttractSelected;

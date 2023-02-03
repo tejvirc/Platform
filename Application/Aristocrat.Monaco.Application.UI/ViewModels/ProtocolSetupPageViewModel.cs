@@ -364,8 +364,8 @@
 
         private void CheckRequiredFunctionalityProtocolSelected()
         {
-            RaisePropertyChanged(nameof(IsDisplayRequiredFunctionalityProtocolSelectionMessage));
-            RaisePropertyChanged(nameof(RequiredFunctionalityProtocolSelectionMessage));
+            OnPropertyChanged(nameof(IsDisplayRequiredFunctionalityProtocolSelectionMessage));
+            OnPropertyChanged(nameof(RequiredFunctionalityProtocolSelectionMessage));
         }
     }
 }

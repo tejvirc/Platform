@@ -3,9 +3,13 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Globalization;
     using System.Linq;
     using Application.Helpers;
+    using Aristocrat.Monaco.Localization.Properties;
+    using Aristocrat.Monaco.UI.Common.Extensions;
+    using Aristocrat.Monaco.UI.Common.Models;
     using Contracts;
     using Contracts.Currency;
     using Contracts.Localization;
@@ -62,7 +66,7 @@
             set
             {
                 _currencies = value;
-                RaisePropertyChanged(nameof(Currencies));
+                OnPropertyChanged(nameof(Currencies));
             }
         }
 
@@ -74,7 +78,7 @@
                 if (_selectedCurrency != value)
                 {
                     _selectedCurrency = value;
-                    RaisePropertyChanged(nameof(SelectedCurrency));
+                    OnPropertyChanged(nameof(SelectedCurrency));
                 }
             }
         }
@@ -87,7 +91,7 @@
                 if (_requireZeroCredit != value)
                 {
                     _requireZeroCredit = value;
-                    RaisePropertyChanged(nameof(RequireZeroCredit));
+                    OnPropertyChanged(nameof(RequireZeroCredit));
                 }
             }
         }

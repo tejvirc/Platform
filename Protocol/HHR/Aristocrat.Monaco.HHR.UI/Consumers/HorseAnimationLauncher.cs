@@ -15,8 +15,8 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using log4net;
-    using MVVM;
     using Storage.Helpers;
+    using Toolkit.Mvvm.Extensions;
     using ViewModels;
     using Views;
 
@@ -72,7 +72,7 @@
 
             _eventBus.Subscribe<DisplayConnectionChangedEvent>(this, HandleEvent);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"Rendering capability tier: {RenderCapability.Tier >> 16}");
@@ -207,7 +207,7 @@
                 _gamePlayState,
                 _gamePlayEntity);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _venueRaceCollection = new VenueRaceCollection(_venueRaceCollectionViewModel);

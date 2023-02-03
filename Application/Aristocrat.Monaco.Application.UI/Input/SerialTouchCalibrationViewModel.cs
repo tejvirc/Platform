@@ -4,13 +4,13 @@
     using System.Windows;
     using System.Windows.Media;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Hardware.Contracts.Touch;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class SerialTouchCalibrationViewModel : BaseViewModel
+    public class SerialTouchCalibrationViewModel : ObservableObject
     {
         private readonly string _modelName;
         private const double CursorWidthCenterOffset = 40.0;

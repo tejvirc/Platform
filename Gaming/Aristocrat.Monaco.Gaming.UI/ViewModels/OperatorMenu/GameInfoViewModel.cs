@@ -10,13 +10,13 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Models;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
     using Views.OperatorMenu;
 
     /// <summary>
@@ -56,7 +56,7 @@
 
             _allowPrintGamingMachineInfo = true;
 
-            SetGameOrderCommand = new ActionCommand<object>(SetGameOrder);
+            SetGameOrderCommand = new RelayCommand<object>(SetGameOrder);
             _setGameOrderOnlyInShowMode = GetConfigSetting(OperatorMenuSetting.SetGameOrderOnlyInShowMode, false);
         }
 
@@ -78,7 +78,7 @@
                 if (_gameList != value)
                 {
                     _gameList = value;
-                    RaisePropertyChanged(nameof(GameList));
+                    OnPropertyChanged(nameof(GameList));
                 }
             }
         }
@@ -95,7 +95,7 @@
                 if (_selectedItem != value)
                 {
                     _selectedItem = value;
-                    RaisePropertyChanged(nameof(SelectedItem));
+                    OnPropertyChanged(nameof(SelectedItem));
                 }
             }
         }
@@ -112,7 +112,7 @@
                 if (_selectedIndex != value)
                 {
                     _selectedIndex = value;
-                    RaisePropertyChanged(nameof(SelectedIndex));
+                    OnPropertyChanged(nameof(SelectedIndex));
                 }
             }
         }
@@ -129,7 +129,7 @@
                 if (_upButtonEnabled != value)
                 {
                     _upButtonEnabled = value;
-                    RaisePropertyChanged(nameof(UpButtonEnabled));
+                    OnPropertyChanged(nameof(UpButtonEnabled));
                 }
             }
         }
@@ -146,7 +146,7 @@
                 if (_downButtonEnabled != value)
                 {
                     _downButtonEnabled = value;
-                    RaisePropertyChanged(nameof(DownButtonEnabled));
+                    OnPropertyChanged(nameof(DownButtonEnabled));
                 }
             }
         }
@@ -161,7 +161,7 @@
                 if (_selectedTag != value)
                 {
                     _selectedTag = value;
-                    RaisePropertyChanged(nameof(SelectedTag));
+                    OnPropertyChanged(nameof(SelectedTag));
                 }
             }
         }
@@ -175,7 +175,7 @@
                 if (_allowPrintGamingMachineInfo != value)
                 {
                     _allowPrintGamingMachineInfo = value;
-                    RaisePropertyChanged(nameof(AllowPrintGamingMachineInfo));
+                    OnPropertyChanged(nameof(AllowPrintGamingMachineInfo));
                 }
             }
         }

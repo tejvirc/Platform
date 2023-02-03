@@ -12,18 +12,18 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Commands;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Diagnostics;
     using Hardware.Contracts.Button;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Helper class to handle replay/recovering screen of the lobby ViewModel.
     /// </summary>
-    public class ReplayRecoveryViewModel : BaseEntityViewModel, IDisposable
+    public class ReplayRecoveryViewModel : ObservableObject, IDisposable
     {
         private static readonly string CompletionText =
             Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
@@ -68,8 +68,8 @@
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _commandHandlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
 
-            ExitCommand = new ActionCommand<object>(ExitButtonPressed);
-            ContinueCommand = new ActionCommand<object>(ContinueButtonPressed);
+            ExitCommand = new RelayCommand<object>(ExitButtonPressed);
+            ContinueCommand = new RelayCommand<object>(ContinueButtonPressed);
             _cashoutMessageTimer = new Timer(TimeSpan.FromSeconds(CashOutMessagesCycleIntervalInSeconds).TotalMilliseconds);
             _cashoutMessageTimer.Elapsed += CashOutMessageCycleTimerTick;
 
@@ -101,7 +101,7 @@
                 }
 
                 _isReplayNavigationVisible = value;
-                RaisePropertyChanged(nameof(IsReplayNavigationVisible));
+                OnPropertyChanged(nameof(IsReplayNavigationVisible));
             }
         }
 
@@ -120,7 +120,7 @@
                 }
 
                 _backgroundOpacity = value;
-                RaisePropertyChanged(nameof(BackgroundOpacity));
+                OnPropertyChanged(nameof(BackgroundOpacity));
             }
         }
 
@@ -139,7 +139,7 @@
                 }
 
                 _messageText = value;
-                RaisePropertyChanged(nameof(MessageText));
+                OnPropertyChanged(nameof(MessageText));
             }
         }
 
@@ -155,7 +155,7 @@
                 }
 
                 _replaySequence = value;
-                RaisePropertyChanged(nameof(ReplaySequence));
+                OnPropertyChanged(nameof(ReplaySequence));
             }
         }
 
@@ -171,7 +171,7 @@
                 }
 
                 _replayGameName = value;
-                RaisePropertyChanged(nameof(ReplayGameName));
+                OnPropertyChanged(nameof(ReplayGameName));
             }
         }
 
@@ -187,7 +187,7 @@
                 }
 
                 _replayStartTime = value;
-                RaisePropertyChanged(nameof(ReplayStartTime));
+                OnPropertyChanged(nameof(ReplayStartTime));
             }
         }
 
@@ -206,7 +206,7 @@
                 }
 
                 _label = value;
-                RaisePropertyChanged(nameof(Label));
+                OnPropertyChanged(nameof(Label));
             }
         }
 
@@ -222,7 +222,7 @@
                 }
 
                 _cashoutText = value;
-                RaisePropertyChanged(nameof(CashoutText));
+                OnPropertyChanged(nameof(CashoutText));
             }
         }
 
@@ -238,9 +238,9 @@
                 }
 
                 _replayPauseMessageText = value;
-                RaisePropertyChanged(nameof(ReplayPauseMessageText));
-                RaisePropertyChanged(nameof(IsReplayPauseMessageVisible));
-                RaisePropertyChanged(nameof(CanReplayContinue));
+                OnPropertyChanged(nameof(ReplayPauseMessageText));
+                OnPropertyChanged(nameof(IsReplayPauseMessageVisible));
+                OnPropertyChanged(nameof(CanReplayContinue));
             }
         }
 
@@ -325,7 +325,7 @@
         {
             if (_properties.GetValue(GamingConstants.ReplayPauseActive, true))
             {
-                // The ReplayPause can be sent after the game-end Game Event 
+                // The ReplayPause can be sent after the game-end Game Event
                 if (ReplayPauseMessageText != CompletionText)
                 {
                     ReplayPauseMessageText = @event.ReplayPauseState ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayPauseInputText) : string.Empty;
@@ -334,7 +334,7 @@
                 return;
             }
 
-            // Let the replay continue if the pause is requested but it is disabled 
+            // Let the replay continue if the pause is requested but it is disabled
             if (@event.ReplayPauseState)
             {
                 _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));

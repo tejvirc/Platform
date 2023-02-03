@@ -2,15 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Runtime.Remoting.Contexts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Gaming.UI.Models;
     using Contracts;
     using Contracts.Models;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using FluentValidation;
     using Localization.Properties;
+    using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
     /// <summary>
     ///     Defines the AddSAPLevelViewModel class
@@ -71,30 +76,15 @@
 
         public string GameTypeLabel => (_gameType == GameType.Poker) ? Poker : Keno;
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(LevelNameValidate))]
         public string LevelName
         {
             get => _levelName;
 
             set
             {
-                _levelName = value;
-                var trimmedName = value?.Trim();
-                if (string.IsNullOrWhiteSpace(_levelName))
-                {
-                    SetError(
-                        nameof(LevelName),
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
-                }
-                else if (_sharedSapLevel?.Name != trimmedName && _sharedSapProvider.ViewSharedSapLevels().Any(x => x.Name == trimmedName))
-                {
-                    SetError(nameof(LevelName), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniqueLevelNameError));
-                }
-                else
-                {
-                    ClearErrors(nameof(LevelName));
-                }
-
-                RaisePropertyChanged(nameof(LevelName), nameof(CanSave));
+                SetProperty(ref _levelName, value);
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
@@ -200,25 +190,37 @@
             IncrementRate = _sharedSapLevel.IncrementRate.ToPercentage();
         }
 
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-        }
-
         private void ValidValueFields()
         {
-            SetError(nameof(ResetValue), ResetValue.Validate(false, MaxValue.DollarsToMillicents()));
-            SetError(nameof(MaxValue), MaxValue == 0M ? string.Empty : MaxValue.Validate(false, 0, ResetValue.DollarsToMillicents()));
-            SetError(nameof(InitialValue), InitialValue.Validate(false, MaxValue.DollarsToMillicents(), ResetValue.DollarsToMillicents()));
+            ValidateProperty(ResetValue, nameof(ResetValue));
+            ValidateProperty(MaxValue, nameof(MaxValue));
+            ValidateProperty(InitialValue, nameof(InitialValue));
 
-            RaisePropertyChanged(nameof(ResetValue), nameof(MaxValue), nameof(InitialValue), nameof(CanSave));
+            OnPropertyChanged(nameof(ResetValue));
+            OnPropertyChanged(nameof(MaxValue));
+            OnPropertyChanged(nameof(InitialValue));
+            OnPropertyChanged(nameof(CanSave));
+        }
+
+        public static ValidationResult LevelNameValidate(string name, ValidationContext context)
+        {
+            AddSAPLevelViewModel instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var errors = "";
+            var trimmedName = name?.Trim();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage);
+            }
+            else if (instance._sharedSapLevel?.Name != trimmedName && instance._sharedSapProvider.ViewSharedSapLevels().Any(x => x.Name == trimmedName))
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniqueLevelNameError);
+            }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
     }
 }

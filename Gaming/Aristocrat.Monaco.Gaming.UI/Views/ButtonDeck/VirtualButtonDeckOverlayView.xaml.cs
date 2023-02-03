@@ -8,7 +8,7 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using MahApps.Metro.Controls;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using ViewModels;
 
     /// <summary>
@@ -36,7 +36,7 @@
             // since it momentarily is behind the lobby until it is repositioned
             ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<ResetVbdBoundariesEvent>(
                 this,
-                evt => MvvmHelper.ExecuteOnUI(SetBoundaries));
+                evt => Execute.OnUIThread(SetBoundaries));
         }
 
         /// <summary>

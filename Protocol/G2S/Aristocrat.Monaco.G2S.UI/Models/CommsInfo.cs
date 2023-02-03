@@ -2,12 +2,12 @@
 {
     using Aristocrat.G2S.Protocol.v21;
     using System;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Comms info model
     /// </summary>
-    public class CommsInfo : BaseNotify
+    public class CommsInfo : ObservableObject
     {
         private Uri _address;
         private int _hostId;
@@ -32,7 +32,7 @@
                 if (_hostId != value)
                 {
                     _hostId = value;
-                    RaisePropertyChanged(nameof(HostId));
+                    OnPropertyChanged(nameof(HostId));
                 }
             }
         }
@@ -47,7 +47,7 @@
                 if (_address != value)
                 {
                     _address = value;
-                    RaisePropertyChanged(nameof(Address));
+                    OnPropertyChanged(nameof(Address));
                 }
             }
         }
@@ -62,7 +62,7 @@
                 if (_registered != value)
                 {
                     _registered = value;
-                    RaisePropertyChanged(nameof(Registered));
+                    OnPropertyChanged(nameof(Registered));
                 }
             }
         }
@@ -77,7 +77,7 @@
                 if (_outboundOverflow != value)
                 {
                     _outboundOverflow = value;
-                    RaisePropertyChanged(nameof(OutboundOverflow));
+                    OnPropertyChanged(nameof(OutboundOverflow));
                 }
             }
         }
@@ -92,7 +92,7 @@
                 if (_inboundOverflow != value)
                 {
                     _inboundOverflow = value;
-                    RaisePropertyChanged(nameof(InboundOverflow));
+                    OnPropertyChanged(nameof(InboundOverflow));
                 }
             }
         }
@@ -107,7 +107,7 @@
                 if (_transportState != value)
                 {
                     _transportState = value;
-                    RaisePropertyChanged(nameof(TransportState));
+                    OnPropertyChanged(nameof(TransportState));
                 }
             }
         }
@@ -122,7 +122,7 @@
                 if (_state != value)
                 {
                     _state = value;
-                    RaisePropertyChanged(nameof(State));
+                    OnPropertyChanged(nameof(State));
                 }
             }
         }

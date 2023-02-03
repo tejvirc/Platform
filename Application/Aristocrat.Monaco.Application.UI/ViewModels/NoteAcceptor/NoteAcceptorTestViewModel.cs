@@ -11,8 +11,8 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class NoteAcceptorTestViewModel : OperatorMenuSaveViewModelBase
@@ -43,7 +43,7 @@
             set
             {
                 _status = value;
-                RaisePropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(Status));
             }
         }
 
@@ -112,7 +112,7 @@
 
         private void HandleEvent(CurrencyEscrowedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}"));
@@ -129,7 +129,7 @@
 
         private void HandleEvent(DocumentRejectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDocInserted)));
@@ -137,7 +137,7 @@
 
         private void HandleEvent(VoucherEscrowedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}"));

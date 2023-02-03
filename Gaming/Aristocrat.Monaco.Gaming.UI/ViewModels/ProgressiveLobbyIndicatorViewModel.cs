@@ -5,6 +5,7 @@
     using System.Linq;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -13,11 +14,10 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM;
-    using MVVM.ViewModel;
     using Progressives;
+    using Toolkit.Mvvm.Extensions;
 
-    public class ProgressiveLobbyIndicatorViewModel : BaseEntityViewModel, IDisposable
+    public class ProgressiveLobbyIndicatorViewModel : ObservableObject, IDisposable
     {
         private readonly LobbyViewModel _lobby;
         private readonly IProgressiveConfigurationProvider _progressiveConfiguration;
@@ -75,12 +75,12 @@
             _sharedSapProvider = sharedSapProvider ?? throw new ArgumentNullException(nameof(sharedSapProvider));
 
             // We only need to listen to link updates as all others can't change in the lobby
-            _eventBus.Subscribe<LinkedProgressiveUpdatedEvent>(this, evt => MvvmHelper.ExecuteOnUI(() => Handler(evt)));
-            _eventBus.Subscribe<ProgressiveGameDisabledEvent>(this, evt => MvvmHelper.ExecuteOnUI(() => Handler(evt)));
-            _eventBus.Subscribe<ProgressiveGameEnabledEvent>(this, evt => MvvmHelper.ExecuteOnUI(() => Handler(evt)));
+            _eventBus.Subscribe<LinkedProgressiveUpdatedEvent>(this, evt => Execute.OnUIThread(() => Handler(evt)));
+            _eventBus.Subscribe<ProgressiveGameDisabledEvent>(this, evt => Execute.OnUIThread(() => Handler(evt)));
+            _eventBus.Subscribe<ProgressiveGameEnabledEvent>(this, evt => Execute.OnUIThread(() => Handler(evt)));
             _eventBus.Subscribe<PropertyChangedEvent>(
                 this,
-                _ => MvvmHelper.ExecuteOnUI(() => UpdateProgressiveIndicator(_lobby.GameList)),
+                _ => Execute.OnUIThread(() => UpdateProgressiveIndicator(_lobby.GameList)),
                 evt => evt.PropertyName == GamingConstants.ProgressiveLobbyIndicatorType);
         }
 

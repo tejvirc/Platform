@@ -9,6 +9,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Configuration;
     using Contracts.Models;
@@ -16,13 +17,13 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM.ViewModel;
     using PackageManifest.Models;
     using Progressives;
+    using Toolkit.Mvvm.Extensions;
 
-    public class EditableGameConfiguration : BaseViewModel, IDisposable
+    public class EditableGameConfiguration : ObservableObject, IDisposable
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IProgressiveConfigurationProvider _progressives;
         private readonly IPropertiesManager _properties;
@@ -115,7 +116,7 @@
                     return;
                 }
 
-                RaisePropertyChanged(nameof(Game));
+                OnPropertyChanged(nameof(Game));
                 LoadBetOptions();
                 LoadLineOptions();
                 LoadBonusBets(SelectedBetOption);
@@ -146,9 +147,10 @@
         public string WarningText
         {
             get => _warningText;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _warningText,
                 value,
+                OnPropertyChanged,
                 nameof(WarningText),
                 nameof(CanEdit),
                 nameof(WarningTextHidden));
@@ -173,7 +175,7 @@
                 }
 
                 _selectedBetOption = value;
-                RaisePropertyChanged(nameof(SelectedBetOption));
+                OnPropertyChanged(nameof(SelectedBetOption));
                 LoadBonusBets(SelectedBetOption);
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
@@ -186,7 +188,7 @@
         public bool BetOptionAvailable
         {
             get => _betOptionAvailable;
-            set => SetProperty(ref _betOptionAvailable, value, nameof(BonusBetAvailable), nameof(BetOptionEnabled));
+            set => this.SetProperty(ref _betOptionAvailable, value, OnPropertyChanged, nameof(BonusBetAvailable), nameof(BetOptionEnabled));
         }
 
         public ObservableCollection<LineOption> LineOptions
@@ -206,7 +208,7 @@
                 }
 
                 _selectedLineOption = value;
-                RaisePropertyChanged(nameof(SelectedLineOption));
+                OnPropertyChanged(nameof(SelectedLineOption));
                 ConfigurationMinBet();
                 TopAwardValue = RecalculateTopAward();
             }
@@ -217,7 +219,7 @@
         public bool LineOptionAvailable
         {
             get => _lineOptionAvailable;
-            set => SetProperty(ref _lineOptionAvailable, value, nameof(LineOptionAvailable), nameof(LineOptionEnabled));
+            set => this.SetProperty(ref _lineOptionAvailable, value, OnPropertyChanged, nameof(LineOptionAvailable), nameof(LineOptionEnabled));
         }
 
         public ObservableCollection<int> BonusBets
@@ -237,7 +239,7 @@
         public bool BonusBetAvailable
         {
             get => _bonusBetAvailable;
-            set => SetProperty(ref _bonusBetAvailable, value, nameof(BonusBetAvailable), nameof(BonusBetAvailable));
+            set => this.SetProperty(ref _bonusBetAvailable, value, OnPropertyChanged, nameof(BonusBetAvailable), nameof(BonusBetAvailable));
         }
 
         public bool Active
@@ -262,21 +264,21 @@
                 }
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
-                RaisePropertyChanged(nameof(CanEdit));
-                RaisePropertyChanged(nameof(WarningTextHidden));
-                RaisePropertyChanged(nameof(CanEditAndEnabled));
-                RaisePropertyChanged(nameof(CanEditAndEnableGamble));
-                RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
-                RaisePropertyChanged(nameof(ProgressivesAllowed));
-                RaisePropertyChanged(nameof(ProgressivesEnabled));
-                RaisePropertyChanged(nameof(ProgressiveSetupEnabled));
-                RaisePropertyChanged(nameof(ProgressiveSetupVisibility));
-                RaisePropertyChanged(nameof(ProgressiveViewVisibility));
-                RaisePropertyChanged(nameof(BetOptionEnabled));
-                RaisePropertyChanged(nameof(LineOptionEnabled));
-                RaisePropertyChanged(nameof(BonusBetEnabled));
-                RaisePropertyChanged(nameof(SelectedPaytable));
+                OnPropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(CanEdit));
+                OnPropertyChanged(nameof(WarningTextHidden));
+                OnPropertyChanged(nameof(CanEditAndEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(ProgressivesAllowed));
+                OnPropertyChanged(nameof(ProgressivesEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupVisibility));
+                OnPropertyChanged(nameof(ProgressiveViewVisibility));
+                OnPropertyChanged(nameof(BetOptionEnabled));
+                OnPropertyChanged(nameof(LineOptionEnabled));
+                OnPropertyChanged(nameof(BonusBetEnabled));
+                OnPropertyChanged(nameof(SelectedPaytable));
             }
         }
 
@@ -295,9 +297,10 @@
         public bool ProgressiveSetupConfigured
         {
             get => _progressiveSetupConfigured;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _progressiveSetupConfigured,
                 value,
+                OnPropertyChanged,
                 nameof(ProgressiveSetupConfigured),
                 nameof(ProgressiveSetupText),
                 nameof(ProgressiveViewVisibility));
@@ -318,19 +321,17 @@
                     return;
                 }
 
-                RaisePropertyChanged(
-                    nameof(CanEditAndEnabled),
-                    nameof(CanEditAndEnableGamble),
-                    nameof(CanEditAndEnableLetItRide),
-                    nameof(BetOptionEnabled),
-                    nameof(LineOptionEnabled),
-                    nameof(BonusBetEnabled),
-                    nameof(ProgressiveSetupEnabled),
-                    nameof(CanEdit),
-                    nameof(CanToggleEnabled),
-                    nameof(ProgressiveViewVisibility),
-                    nameof(ProgressiveSetupVisibility),
-                    nameof(GameOptionsEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(BetOptionEnabled));
+                OnPropertyChanged(nameof(LineOptionEnabled));
+                OnPropertyChanged(nameof(BonusBetEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupEnabled));
+                OnPropertyChanged(nameof(CanEdit));
+                OnPropertyChanged(nameof(CanToggleEnabled));
+                OnPropertyChanged(nameof(ProgressiveViewVisibility));
+                OnPropertyChanged(nameof(ProgressiveSetupVisibility));
                 SetProgressivesConfigured();
             }
         }
@@ -340,9 +341,11 @@
         public bool ProgressivesEditable
         {
             get => _progressivesEditable;
-            private set => SetProperty(
+
+            private set => this.SetProperty(
                 ref _progressivesEditable,
                 value,
+                OnPropertyChanged,
                 nameof(ProgressivesEditable),
                 nameof(ProgressiveSetupVisibility),
                 nameof(ProgressiveViewVisibility));
@@ -359,13 +362,12 @@
                 }
 
                 _maxDenomEntriesReached = value;
-                RaisePropertyChanged(
-                    nameof(CanToggleEnabled),
-                    nameof(CanEditAndEnabled),
-                    nameof(CanEditAndEnableGamble),
-                    nameof(CanEditAndEnableLetItRide),
-                    nameof(WarningTextHidden),
-                    nameof(CanEdit));
+                OnPropertyChanged(nameof(CanToggleEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(WarningTextHidden));
+                OnPropertyChanged(nameof(CanEdit));
                 SetWarningText();
             }
         }
@@ -403,9 +405,10 @@
         public bool RestrictedToReadOnly
         {
             get => _restrictedToReadOnly;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _restrictedToReadOnly,
                 value,
+                OnPropertyChanged,
                 nameof(RestrictedToReadOnly),
                 nameof(CanToggleEnabled),
                 nameof(CanEditAndEnableGamble),
@@ -484,7 +487,7 @@
         public decimal BetMaximum
         {
             get => _betMaximum;
-            set => SetProperty(ref _betMaximum, value, nameof(BetMaximum), nameof(MaxBet));
+            set => this.SetProperty(ref _betMaximum, value, OnPropertyChanged, nameof(BetMaximum), nameof(MaxBet));
         }
 
         public decimal ForcedMaxBet
@@ -596,12 +599,12 @@
 
         public void RaiseEnabledByHostChanged()
         {
-            RaisePropertyChanged(nameof(EnabledByHost));
-            RaisePropertyChanged(nameof(WarningTextHidden));
-            RaisePropertyChanged(nameof(CanEdit));
-            RaisePropertyChanged(nameof(CanEditAndEnabled));
-            RaisePropertyChanged(nameof(CanEditAndEnableGamble));
-            RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
+            OnPropertyChanged(nameof(EnabledByHost));
+            OnPropertyChanged(nameof(WarningTextHidden));
+            OnPropertyChanged(nameof(CanEdit));
+            OnPropertyChanged(nameof(CanEditAndEnabled));
+            OnPropertyChanged(nameof(CanEditAndEnableGamble));
+            OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
         }
 
         public void SetAllowedRtpRange(decimal? lowestAllowed, decimal? highestAllowed)
@@ -622,7 +625,7 @@
                 SelectedPaytable = AvailablePaytables.FirstOrDefault();
             }
 
-            RaisePropertyChanged(nameof(CanToggleEnabled));
+            OnPropertyChanged(nameof(CanToggleEnabled));
             Logger.Debug(
                 AvailablePaytables.Aggregate(
                     $"Denom {Denom} available minimum RTPs: ",
@@ -675,7 +678,7 @@
             ProgressiveSetupConfigured = ViewProgressiveLevels
                 .Any(p => p.CurrentState != ProgressiveLevelState.Init);
             ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
-            RaisePropertyChanged(nameof(UseImportedLevels));
+            OnPropertyChanged(nameof(UseImportedLevels));
         }
 
         public void SetWarningText()
@@ -813,7 +816,9 @@
             // Raise this in case we change variation while editing and we have different bonus bets. Note
             // that if someone actually does want to do this, you need to enforce that the game's various
             // ati:betOption manifest entries have unique names. Otherwise they just get coalesced.
-            RaisePropertyChanged(nameof(SelectedBonusBet), nameof(BonusBets), nameof(BonusBetAvailable));
+            OnPropertyChanged(nameof(SelectedBonusBet));
+            OnPropertyChanged(nameof(BonusBets));
+            OnPropertyChanged(nameof(BonusBetAvailable));
         }
 
         private long RecalculateTopAward()

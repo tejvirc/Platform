@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Authentication;
     using Contracts.Localization;
@@ -22,9 +23,8 @@
     using Models;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
     using NoteAcceptorHardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
     using PrinterDisconnectedEvent = Hardware.Contracts.Printer.DisconnectedEvent;
@@ -163,9 +163,9 @@
             // Initially it should always be active until it's set by the rule access service.
             OutOfServiceModeButtonActive = true;
 
-            OutOfServiceModeButtonCommand = new ActionCommand<object>(_ => OutOfServiceModeButtonCommandHandler());
+            OutOfServiceModeButtonCommand = new RelayCommand<object>(_ => OutOfServiceModeButtonCommandHandler());
 
-            ExitReserveCommand = new ActionCommand<object>(ExitReserve);
+            ExitReserveCommand = new RelayCommand<object>(ExitReserve);
         }
 
         public ICommand ExitReserveCommand { get; }
@@ -183,7 +183,7 @@
             set
             {
                 _outOfServiceModeButtonActive = value;
-                RaisePropertyChanged(nameof(OutOfServiceModeButtonActive));
+                OnPropertyChanged(nameof(OutOfServiceModeButtonActive));
             }
         }
 
@@ -219,7 +219,7 @@
             {
                 Logger.Debug("Displaying messages");
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         if (_guidInfosToIgnore.Contains(displayableMessage.Id))
@@ -263,7 +263,7 @@
             {
                 Logger.Debug("Removing messages");
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         var reason = DisableReasons.LastOrDefault(d => d.Message == displayableMessage.Message);
@@ -283,7 +283,7 @@
 
         public void ClearMessages()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug("Clearing messages");
@@ -349,7 +349,7 @@
 
             if (!active && PopupOpen)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         EventBus.Publish(new OperatorMenuPopupEvent(false, string.Empty));
@@ -375,7 +375,7 @@
                 InputStatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfServiceReason);
             }
 
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            OnPropertyChanged(nameof(OutOfServiceButtonText));
         }
 
         private void HandleEvent(PropertyChangedEvent @event)

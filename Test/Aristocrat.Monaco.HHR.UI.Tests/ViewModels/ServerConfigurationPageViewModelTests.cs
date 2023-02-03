@@ -73,7 +73,7 @@
         {
             _target.IpAddress = ipAddress;
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.IpAddress)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.IpAddress)));
 
             _accessor.ApplyServerConfigurationCommand.Execute(null);
             _propertiesManager.Verify(m => m.SetProperty(HHRPropertyNames.ServerTcpIp, It.IsAny<string>()), Times.Once);
@@ -104,7 +104,7 @@
         {
             _target.TcpPortNumber = portNumber;
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.TcpPortNumber)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.TcpPortNumber)));
 
             _accessor.ApplyServerConfigurationCommand.Execute(null);
             _propertiesManager.Verify(m => m.SetProperty(HHRPropertyNames.ServerTcpPort, It.IsAny<int>()), Times.Once);
@@ -118,7 +118,7 @@
         {
             _target.UdpPortNumber = portNumber;
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.UdpPortNumber)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.UdpPortNumber)));
 
             _accessor.ApplyServerConfigurationCommand.Execute(null);
             _propertiesManager.Verify(m => m.SetProperty(HHRPropertyNames.ServerUdpPort, It.IsAny<int>()), Times.Once);
@@ -134,7 +134,7 @@
         {
             _target.TcpPortNumber = portNumber;
             Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.TcpPortNumber)));
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.TcpPortNumber)));
 
             _accessor.ApplyServerConfigurationCommand.Execute(null);
             _propertiesManager.Verify(m => m.SetProperty(HHRPropertyNames.ServerTcpPort, It.IsAny<int>()), Times.Never);
@@ -150,7 +150,7 @@
         {
             _target.UdpPortNumber = portNumber;
             Assert.IsTrue(_accessor.HasErrors);
-            Assert.IsNotNull(_accessor.GetErrors(nameof(_target.UdpPortNumber)));
+            Assert.IsTrue(_accessor.PropertyHasErrors(nameof(_target.UdpPortNumber)));
 
             _accessor.ApplyServerConfigurationCommand.Execute(null);
             _propertiesManager.Verify(m => m.SetProperty(HHRPropertyNames.ServerUdpPort, It.IsAny<int>()), Times.Never);
@@ -164,7 +164,7 @@
         {
             _target.EncryptionKey = encryptionKey;
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsNull(_accessor.GetErrors(nameof(_target.EncryptionKey)));
+            Assert.IsFalse(_accessor.PropertyHasErrors(nameof(_target.EncryptionKey)));
 
             _accessor.ApplyServerConfigurationCommand.Execute(null);
             _propertiesManager.Verify(m => m.SetProperty(HHRPropertyNames.EncryptionKey, It.IsAny<string>()), Times.Once);

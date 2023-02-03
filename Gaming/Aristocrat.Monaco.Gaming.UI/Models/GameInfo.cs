@@ -6,11 +6,12 @@
     using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Linq;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Kernel;
     using Contracts;
     using Contracts.Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Model;
+    using Toolkit.Mvvm.Extensions;
     using ViewModels;
     using Size = System.Windows.Size;
 
@@ -18,7 +19,7 @@
     ///     Defines the GameInfo class
     /// </summary>
     [CLSCompliant(false)]
-    public class GameInfo : BaseNotify, IGameInfo, IAttractDetails
+    public class GameInfo : ObservableObject, IGameInfo, IAttractDetails
     {
         private string _attractHighlightVideoPath = string.Empty;
         private string _bottomAttractVideoPath = string.Empty;
@@ -71,7 +72,7 @@
                 if (_dllPath != value)
                 {
                     _dllPath = value;
-                    RaisePropertyChanged(nameof(DllPath));
+                    OnPropertyChanged(nameof(DllPath));
                 }
             }
         }
@@ -88,7 +89,7 @@
                 if (_name != value)
                 {
                     _name = value;
-                    RaisePropertyChanged(nameof(Name));
+                    OnPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -131,7 +132,7 @@
                 if (_imagePath != value)
                 {
                     _imagePath = value;
-                    RaisePropertyChanged(nameof(ImagePath));
+                    OnPropertyChanged(nameof(ImagePath));
                 }
             }
         }
@@ -153,7 +154,7 @@
                 if (_topAttractVideoPath != value)
                 {
                     _topAttractVideoPath = value;
-                    RaisePropertyChanged(nameof(TopAttractVideoPath));
+                    OnPropertyChanged(nameof(TopAttractVideoPath));
                 }
             }
         }
@@ -170,7 +171,7 @@
                 if (_topperAttractVideoPath != value)
                 {
                     _topperAttractVideoPath = value;
-                    RaisePropertyChanged(nameof(TopperAttractVideoPath));
+                    OnPropertyChanged(nameof(TopperAttractVideoPath));
                 }
             }
         }
@@ -187,7 +188,7 @@
                 if (_bottomAttractVideoPath != value)
                 {
                     _bottomAttractVideoPath = value;
-                    RaisePropertyChanged(nameof(BottomAttractVideoPath));
+                    OnPropertyChanged(nameof(BottomAttractVideoPath));
                 }
             }
         }
@@ -204,7 +205,7 @@
                 if (_loadingScreenPath != value)
                 {
                     _loadingScreenPath = value;
-                    RaisePropertyChanged(nameof(LoadingScreenPath));
+                    OnPropertyChanged(nameof(LoadingScreenPath));
                 }
             }
         }
@@ -222,7 +223,7 @@
                 if (_attractHighlightVideoPath != value)
                 {
                     _attractHighlightVideoPath = value;
-                    RaisePropertyChanged(nameof(AttractHighlightVideoPath));
+                    OnPropertyChanged(nameof(AttractHighlightVideoPath));
                 }
             }
         }
@@ -239,7 +240,7 @@
                 if (_progressiveOrBonusValue != value)
                 {
                     _progressiveOrBonusValue = value;
-                    RaisePropertyChanged(nameof(ProgressiveOrBonusValue));
+                    OnPropertyChanged(nameof(ProgressiveOrBonusValue));
                 }
             }
         }
@@ -249,9 +250,10 @@
         public ProgressiveLobbyIndicator ProgressiveIndicator
         {
             get => _progressiveIndicator;
-            set => SetProperty(
+            set => this.SetProperty(
                 ref _progressiveIndicator,
                 value,
+                OnPropertyChanged,
                 nameof(ProgressiveIndicator),
                 nameof(HasProgressiveLabelDisplay),
                 nameof(IsSelectedWithProgressiveLabel),
@@ -282,8 +284,8 @@
                 if (_hasProgressiveOrBonusValue != value)
                 {
                     _hasProgressiveOrBonusValue = value;
-                    RaisePropertyChanged(nameof(ProgressiveOrBonusValue));
-                    RaisePropertyChanged(nameof(HasProgressiveOrBonusValue));
+                    OnPropertyChanged(nameof(ProgressiveOrBonusValue));
+                    OnPropertyChanged(nameof(HasProgressiveOrBonusValue));
                 }
             }
         }
@@ -300,7 +302,7 @@
                 if (_denom != value)
                 {
                     _denom = value;
-                    RaisePropertyChanged(nameof(Denomination));
+                    OnPropertyChanged(nameof(Denomination));
                 }
             }
         }
@@ -320,7 +322,7 @@
         /// <summary>
         ///     Gets the bet option
         /// </summary>
-        public string BetOption 
+        public string BetOption
         {
             get => _betOption;
 
@@ -329,7 +331,7 @@
                 if (_betOption != value)
                 {
                     _betOption = value;
-                    RaisePropertyChanged(nameof(BetOption));
+                    OnPropertyChanged(nameof(BetOption));
                 }
             }
         }
@@ -346,7 +348,7 @@
                 if (_filteredDenom != value)
                 {
                     _filteredDenom = value;
-                    RaisePropertyChanged(nameof(FilteredDenomination));
+                    OnPropertyChanged(nameof(FilteredDenomination));
                 }
             }
         }
@@ -363,7 +365,7 @@
                 if (_gameType != value)
                 {
                     _gameType = value;
-                    RaisePropertyChanged(nameof(GameType));
+                    OnPropertyChanged(nameof(GameType));
                 }
             }
         }
@@ -380,7 +382,7 @@
                 if (_gameSubtype != value)
                 {
                     _gameSubtype = value;
-                    RaisePropertyChanged(nameof(GameSubtype));
+                    OnPropertyChanged(nameof(GameSubtype));
                 }
             }
         }
@@ -394,7 +396,8 @@
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    RaisePropertyChanged(nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel));
+                    OnPropertyChanged(nameof(IsSelected));
+                    OnPropertyChanged(nameof(IsSelectedWithProgressiveLabel));
                 }
             }
         }
@@ -413,7 +416,7 @@
                 if (_platinumSeries != value)
                 {
                     _platinumSeries = value;
-                    RaisePropertyChanged(nameof(PlatinumSeries));
+                    OnPropertyChanged(nameof(PlatinumSeries));
                 }
             }
         }
@@ -430,7 +433,7 @@
                 if (_installDateTime != value)
                 {
                     _installDateTime = value;
-                    RaisePropertyChanged(nameof(InstallDateTime));
+                    OnPropertyChanged(nameof(InstallDateTime));
                 }
             }
         }
@@ -447,7 +450,7 @@
                 if (_isNew != value)
                 {
                     _isNew = value;
-                    RaisePropertyChanged(nameof(IsNew));
+                    OnPropertyChanged(nameof(IsNew));
                 }
             }
         }
@@ -464,7 +467,7 @@
                 if (_enabled != value)
                 {
                     _enabled = value;
-                    RaisePropertyChanged(nameof(Enabled));
+                    OnPropertyChanged(nameof(Enabled));
                 }
             }
         }
@@ -480,7 +483,7 @@
         public IEnumerable LocaleGraphics { get; set; }
 
         /// <summary>
-        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need RaisePropertyChanged
+        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need OnPropertyChanged
         /// </summary>
         public string ThemeId { get; set; }
 
@@ -593,7 +596,7 @@
                 if (_category != value)
                 {
                     _category = value;
-                    RaisePropertyChanged(nameof(Category));
+                    OnPropertyChanged(nameof(Category));
                 }
             }
         }
@@ -610,7 +613,7 @@
                 if (_subCategory != value)
                 {
                     _subCategory = value;
-                    RaisePropertyChanged(nameof(SubCategory));
+                    OnPropertyChanged(nameof(SubCategory));
                 }
             }
         }

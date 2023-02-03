@@ -13,20 +13,20 @@
     using Application.Contracts.OperatorMenu;
     using Client.Data;
     using Common;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Gaming.Contracts;
     using Hhr.Events;
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM.ViewModel;
     using Storage.Helpers;
     using log4net;
 
-    public class VenueRaceCollectionViewModel : BaseViewModel, IDisposable
+    public class VenueRaceCollectionViewModel : ObservableObject, IDisposable
     {
         private const string RaceFinishedName = "RaceFinished";
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
@@ -391,7 +391,8 @@
                 }
 
                 _raceStarted = value;
-                RaisePropertyChanged(nameof(RaceStarted), nameof(IsAnimationVisible));
+                OnPropertyChanged(nameof(RaceStarted));
+                OnPropertyChanged(nameof(IsAnimationVisible));
             }
         }
 
@@ -402,7 +403,8 @@
             {
                 Logger.Debug($"Set IsAnimationVisible: {value}");
                 _isAnimationVisible = value;
-                RaisePropertyChanged(nameof(IsAnimationVisible), nameof(RaceStarted));
+                OnPropertyChanged(nameof(IsAnimationVisible));
+                OnPropertyChanged(nameof(RaceStarted));
             }
         }
 

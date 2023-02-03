@@ -3,9 +3,6 @@
     using Contracts.Authentication;
     using Kernel;
     using Kernel.Contracts.Components;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using OperatorMenu;
     using System;
     using System.Collections;
@@ -19,8 +16,11 @@
     using Contracts.Localization;
     using Monaco.Localization.Properties;
     using System.Security.Cryptography;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using Toolkit.Mvvm.Extensions;
 
-   [CLSCompliant(false)]
+    [CLSCompliant(false)]
     public sealed class SoftwareVerificationPageViewModel : OperatorMenuPageViewModelBase
     {
         private readonly IAuthenticationService _authenticationService;
@@ -59,8 +59,8 @@
         {
             _authenticationService = ServiceManager.GetInstance().GetService<IAuthenticationService>();
 
-            CalculateCommand = new ActionCommand<object>(OnCalculate);
-            ResetCommand = new ActionCommand<object>(OnReset);
+            CalculateCommand = new RelayCommand<object>(OnCalculate);
+            ResetCommand = new RelayCommand<object>(OnReset);
 
             AlgorithmTypes = new List<AlgorithmInfo>
             {
@@ -75,7 +75,7 @@
             ShowMasterResult = (bool)PropertiesManager.GetProperty(
                 ApplicationConstants.ShowMasterResult,
                 false);
-          
+
         }
 
         public ICommand CalculateCommand { get; set; }
@@ -100,7 +100,7 @@
                 if (value != _hmacKey)
                 {
                     _hmacKey = value;
-                    RaisePropertyChanged(nameof(FormattedHmacKey));
+                    OnPropertyChanged(nameof(FormattedHmacKey));
                 }
             }
         }
@@ -114,7 +114,7 @@
                 if (value != _showMasterResult)
                 {
                     _showMasterResult = value;
-                    RaisePropertyChanged(nameof(ShowMasterResult));
+                    OnPropertyChanged(nameof(ShowMasterResult));
                 }
             }
         }
@@ -128,7 +128,7 @@
                 if (value != _isIdle)
                 {
                     _isIdle = value;
-                    RaisePropertyChanged(nameof(IsIdle));
+                    OnPropertyChanged(nameof(IsIdle));
                 }
             }
         }
@@ -142,7 +142,7 @@
                 if (value != _isValidResult)
                 {
                     _isValidResult = value;
-                    RaisePropertyChanged(nameof(IsValidResult));
+                    OnPropertyChanged(nameof(IsValidResult));
                 }
             }
         }
@@ -156,7 +156,7 @@
                 if (value != _masterResult)
                 {
                     _masterResult = value;
-                    RaisePropertyChanged(nameof(MasterResult));
+                    OnPropertyChanged(nameof(MasterResult));
                 }
             }
         }
@@ -170,8 +170,8 @@
                 if (value.Type != _selectedAlgorithmType.Type)
                 {
                     _selectedAlgorithmType = value;
-                    RaisePropertyChanged(nameof(SelectedAlgorithmType));
-                    RaisePropertyChanged(nameof(CanUseHmacKey));
+                    OnPropertyChanged(nameof(SelectedAlgorithmType));
+                    OnPropertyChanged(nameof(CanUseHmacKey));
                     Reset();
                 }
             }
@@ -195,7 +195,7 @@
             IsIdle = true;
 
             FormattedHmacKey = _selectedAlgorithmType.AllZerosKey;
-            
+
             ComponentSet.ToList().ForEach(c => c.ChangeHashResult(_selectedAlgorithmType.AllZerosKey));
             _masterResultAsBinary = null;
             MasterResult = _selectedAlgorithmType.AllZerosKey;
@@ -210,7 +210,7 @@
         }
 
         private bool ValidateHmacString()
-        {         
+        {
             if (FormattedHmacKey.Length != _selectedAlgorithmType.HexHashLength || !OnlyHexInString(FormattedHmacKey))
             {
                 return false;
@@ -232,7 +232,7 @@
             var algorithmType = SelectedAlgorithmType.Type;
             var salt = "";
             if (SelectedAlgorithmType.CanUseHMacKey)
-            {              
+            {
                 if (!ValidateHmacString())
                 {
                     ShowPopup(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidHMACString));
@@ -282,7 +282,7 @@
             var compHashObj = ComponentSet.ToList().FirstOrDefault(c => c.ComponentId == evt.ComponentVerification.ComponentId);
             if (compHashObj != null)
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     compHashObj.ChangeHashResult(
                             ConvertExtensions.ToPackedHexString(evt.ComponentVerification.Result));
@@ -303,7 +303,7 @@
 
             if (evt.Cancelled)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         var components = ComponentSet.ToList().Where(a => string.IsNullOrEmpty(a.HashResult) ||
@@ -315,7 +315,7 @@
             }
             else
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     if (ShowMasterResult)
                     {
@@ -362,7 +362,7 @@
 
             if (component != default(ComponentHashViewModel))
             {
-                MvvmHelper.ExecuteOnUI(() => ComponentSet.Remove(component));
+                Execute.OnUIThread(() => ComponentSet.Remove(component));
             }
         }
 
@@ -377,7 +377,7 @@
                     ComponentId = aEvent.Component.ComponentId
                 };
 
-                MvvmHelper.ExecuteOnUI(() => ComponentSet.Add(compHash));
+                Execute.OnUIThread(() => ComponentSet.Add(compHash));
             }
         }
 
@@ -404,7 +404,7 @@
     }
 
     [CLSCompliant(false)]
-    public class ComponentHashViewModel : BaseEntityViewModel
+    public class ComponentHashViewModel : ObservableObject
     {
         public string ComponentId { get; set; }
 
@@ -413,7 +413,7 @@
         public void ChangeHashResult(string value)
         {
             HashResult = value;
-            RaisePropertyChanged(nameof(HashResult));
+            OnPropertyChanged(nameof(HashResult));
         }
     }
 }

@@ -186,7 +186,7 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(ShowRightColumn));
+            OnPropertyChanged(nameof(ShowRightColumn));
         }
     }
 }

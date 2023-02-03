@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.IO;
     using System.Linq;
     using Application.Contracts.Localization;
@@ -34,46 +35,26 @@
             _hostService = factory?.GetHostService() ?? throw new ArgumentNullException(nameof(factory));
         }
 
+        [CustomValidation(typeof(BingoHostConfigurationViewModel), nameof(HostNameValidate))]
         public string HostName
         {
             get => _hostName;
             set
             {
-                if (!SetProperty(ref _hostName, value))
-                {
-                    return;
-                }
+                SetProperty(ref _hostName, value, true, nameof(HostName));
 
-                ClearErrors(nameof(HostName));
-                if (Uri.CheckHostName(value) == UriHostNameType.Unknown)
-                {
-                    SetError(
-                        nameof(HostName),
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
-                }
-
+                
                 CheckNavigation();
             }
         }
 
+        [CustomValidation(typeof(BingoHostConfigurationViewModel), nameof(PortValidate))]
         public int Port
         {
             get => _port;
             set
             {
-                if (!SetProperty(ref _port, value))
-                {
-                    return;
-                }
-
-                ClearErrors(nameof(Port));
-                if (_port is <= 0 or > ushort.MaxValue)
-                {
-                    SetError(
-                        nameof(Port),
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange));
-                }
-
+                SetProperty(ref _port, value, true);
                 CheckNavigation();
             }
         }
@@ -161,6 +142,44 @@
 
             WizardNavigator.CanNavigateForward = !HasErrors;
             WizardNavigator.CanNavigateBackward = true;
+        }
+
+        public static ValidationResult HostNameValidate(string hostName, ValidationContext context)
+        {
+
+            BingoHostConfigurationViewModel instance = (BingoHostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+            instance.ClearErrors(nameof(hostName));
+
+            if (Uri.CheckHostName(hostName) == UriHostNameType.Unknown)
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid);
+            }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult PortValidate(int port, ValidationContext context)
+        {
+            BingoHostConfigurationViewModel instance = (BingoHostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+             
+            instance.ClearErrors(nameof(Port));
+            if (port is <= 0 or > ushort.MaxValue)
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange);
+            }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
     }
 }

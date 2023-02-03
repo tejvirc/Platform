@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
     using Kernel;
     using Kernel.Contracts;
     using Monaco.UI.Common;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Interaction logic for SelectionWindow.xaml
@@ -71,7 +71,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
 
         private void CloseWindow()
         {
-            MvvmHelper.ExecuteOnUI(Close);
+            Execute.OnUIThread(Close);
         }
 
         private void Window_Initialized(object sender, EventArgs e)

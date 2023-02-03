@@ -5,21 +5,21 @@
     using Helpers;
     using log4net;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
     using DeviceConfiguration = Models.DeviceConfiguration;
 
     [CLSCompliant(false)]
-    public class DeviceConfigViewModel : BaseViewModel
+    public class DeviceConfigViewModel : ObservableObject
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
         private readonly List<string> _allPorts;
@@ -59,7 +59,7 @@
 
         private void Ports_OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Ports));
+            OnPropertyChanged(nameof(Ports));
         }
 
         public DeviceType DeviceType { get; set; }
@@ -92,15 +92,15 @@
                 }
 
                 _config.Enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(Enabled));
                 Status = string.Empty;
 
                 var message = DeviceType + (value ? " enabled" : " disabled");
                 Logger.DebugFormat(message);
-                RaisePropertyChanged(nameof(ManufacturerEnabled));
-                RaisePropertyChanged(nameof(PortEnabled));
-                RaisePropertyChanged(nameof(ProtocolEnabled));
-                RaisePropertyChanged(nameof(StatusEnabled));
+                OnPropertyChanged(nameof(ManufacturerEnabled));
+                OnPropertyChanged(nameof(PortEnabled));
+                OnPropertyChanged(nameof(ProtocolEnabled));
+                OnPropertyChanged(nameof(StatusEnabled));
 
                 if (string.IsNullOrEmpty(Manufacturer))
                 {
@@ -122,11 +122,11 @@
                 }
 
                 _config.Manufacturer = value ?? string.Empty;
-                RaisePropertyChanged(nameof(Manufacturer));
+                OnPropertyChanged(nameof(Manufacturer));
 
                 Logger.DebugFormat($"{DeviceType} Manufacturer {value} selected");
-                RaisePropertyChanged(nameof(PortEnabled));
-                RaisePropertyChanged(nameof(ProtocolEnabled));
+                OnPropertyChanged(nameof(PortEnabled));
+                OnPropertyChanged(nameof(ProtocolEnabled));
 
                 ResetProtocols();
                 ResetPortSelections();
@@ -150,7 +150,7 @@
 
                 _config.Protocol = value ?? string.Empty;
                 Status = string.Empty;
-                RaisePropertyChanged(nameof(Protocol));
+                OnPropertyChanged(nameof(Protocol));
                 Logger.DebugFormat($"{DeviceType} Protocol {Protocol} selected");
 
                 ResetPortSelections();
@@ -181,7 +181,7 @@
 
                 _port = value;
                 Status = string.Empty;
-                RaisePropertyChanged(nameof(Port));
+                OnPropertyChanged(nameof(Port));
                 Logger.DebugFormat($"{DeviceType} Port {Port} selected");
             }
         }
@@ -201,7 +201,7 @@
                 }
 
                 _status = value;
-                RaisePropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(Status));
             }
         }
 
@@ -226,7 +226,7 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(IsVisible));
+            OnPropertyChanged(nameof(IsVisible));
         }
 
         private void AddManufacturer(string manufacturer)

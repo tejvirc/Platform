@@ -12,6 +12,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -22,13 +23,12 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM;
-    using MVVM.ViewModel;
+    using Toolkit.Mvvm.Extensions;
     using Utils;
 
-    public class MessageOverlayViewModel : BaseEntityViewModel
+    public class MessageOverlayViewModel : ObservableObject
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string CashoutDisplayKey = "CashOutImage";
@@ -200,7 +200,7 @@
 
         public void AddHardErrorMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (HardErrorMessages.ContainsKey(displayableMessage.Message))
@@ -217,7 +217,7 @@
 
         public void RemoveHardErrorMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (!HardErrorMessages.TryRemove(displayableMessage.Message, out _))
@@ -357,7 +357,7 @@
             _eventBus.Publish(new MessageOverlayDataEvent(MessageOverlayData));
 #endif
 
-            RaisePropertyChanged(nameof(MessageOverlayData));
+            OnPropertyChanged(nameof(MessageOverlayData));
         }
 
         public void HandleOverlayWindowDialogVisibility()
@@ -378,7 +378,7 @@
             {
                 ReserveOverlayViewModel.IsDialogVisible = true;
             }
-            
+
             MessageOverlayData.IsDialogVisible = (IsLockupMessageVisible &&
                                                              ((HardErrorMessages.Count > 1) ||
                                                               (!_systemDisableManager.CurrentDisableKeys.Contains(

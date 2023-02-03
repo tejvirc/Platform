@@ -8,14 +8,14 @@
     using System.Text.RegularExpressions;
     using System.Threading;
     using System.Threading.Tasks;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     View model for diagnostic network panel
@@ -50,7 +50,7 @@
         {
             _network = ServiceManager.GetInstance().GetService<INetworkService>();
 
-            PingCommand = new ActionCommand<object>(OnPing, _ => CanOnPing);
+            PingCommand = new RelayCommand<object>(OnPing, _ => CanOnPing);
 
             _monitorNetworkStatusTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
             _monitorNetworkStatusTimer.Tick += OnMonitorNetworkStatus;
@@ -58,7 +58,7 @@
             _netStatTimer = new Timer(OnNetStatUpdate);
         }
 
-        public ActionCommand<object> PingCommand { get; set; }
+        public RelayCommand<object> PingCommand { get; set; }
 
         public string PingIpAddress
         {
@@ -75,7 +75,7 @@
 
                     ValidateIpAddress(value);
                     _pingIpAddress = value;
-                    RaisePropertyChanged(nameof(PingIpAddress));
+                    OnPropertyChanged(nameof(PingIpAddress));
                 }
             }
         }
@@ -89,7 +89,7 @@
                 if (value != _receivedBytes)
                 {
                     _receivedBytes = value;
-                    RaisePropertyChanged(nameof(ReceivedBytes));
+                    OnPropertyChanged(nameof(ReceivedBytes));
                 }
             }
         }
@@ -103,13 +103,13 @@
                 if (value != _sentBytes)
                 {
                     _sentBytes = value;
-                    RaisePropertyChanged(nameof(SentBytes));
+                    OnPropertyChanged(nameof(SentBytes));
                 }
             }
         }
 
         public ObservableCollection<NetworkState> NetstatResultSet { get; } = new ObservableCollection<NetworkState>();
-    
+
         public string PingResult
         {
             get => _pingResult;
@@ -119,7 +119,7 @@
                 if (value != _pingResult)
                 {
                     _pingResult = value;
-                    RaisePropertyChanged(nameof(PingResult));
+                    OnPropertyChanged(nameof(PingResult));
                 }
             }
         }
@@ -133,7 +133,7 @@
                 if (value != _ipAddress)
                 {
                     _ipAddress = value;
-                    RaisePropertyChanged(nameof(IpAddress));
+                    OnPropertyChanged(nameof(IpAddress));
                 }
             }
         }
@@ -147,7 +147,7 @@
                 if (value != _operationalStatus)
                 {
                     _operationalStatus = value;
-                    RaisePropertyChanged(nameof(OperationalStatus));
+                    OnPropertyChanged(nameof(OperationalStatus));
                 }
             }
         }
@@ -161,7 +161,7 @@
                 if (value != _interfaceType)
                 {
                     _interfaceType = value;
-                    RaisePropertyChanged(nameof(InterfaceType));
+                    OnPropertyChanged(nameof(InterfaceType));
                 }
             }
         }
@@ -175,7 +175,7 @@
                 if (_staticIp != value)
                 {
                     _staticIp = value;
-                    RaisePropertyChanged(nameof(StaticIp));
+                    OnPropertyChanged(nameof(StaticIp));
                 }
             }
         }
@@ -192,7 +192,7 @@
                 }
 
                 _physicalAddress = value;
-                RaisePropertyChanged(nameof(PhysicalAddress));
+                OnPropertyChanged(nameof(PhysicalAddress));
             }
         }
 
@@ -205,7 +205,7 @@
                 if (_showStatus != value)
                 {
                     _showStatus = value;
-                    RaisePropertyChanged(nameof(ShowStatus));
+                    OnPropertyChanged(nameof(ShowStatus));
                 }
             }
         }
@@ -219,10 +219,10 @@
                 if (_canOnPing != value)
                 {
                     _canOnPing = value;
-                    RaisePropertyChanged("CanOnPing");
+                    OnPropertyChanged("CanOnPing");
                 }
 
-                MvvmHelper.ExecuteOnUI(() => PingCommand?.RaiseCanExecuteChanged());
+                Execute.OnUIThread(() => PingCommand?.NotifyCanExecuteChanged());
             }
         }
 
@@ -409,14 +409,14 @@
                     IsLoadingData = false;
                 });
 
-            RaisePropertyChanged(nameof(DataEmpty));
+            OnPropertyChanged(nameof(DataEmpty));
         }
 
         private void GetNetStat()
         {
             _process?.Dispose();
 
-            MvvmHelper.ExecuteOnUI(() => NetstatResultSet.Clear());
+            Execute.OnUIThread(() => NetstatResultSet.Clear());
 
             _process = new Process
             {
@@ -435,7 +435,7 @@
 
                 if (networkState != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => NetstatResultSet.Add(networkState));
+                    Execute.OnUIThread(() => NetstatResultSet.Add(networkState));
                 }
             };
 

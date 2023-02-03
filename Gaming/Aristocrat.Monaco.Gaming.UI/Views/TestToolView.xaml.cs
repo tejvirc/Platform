@@ -2,7 +2,7 @@
 {
     using Contracts;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using ViewModels;
 
     /// <summary>
@@ -22,7 +22,7 @@
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<TestToolPluginEvent>(this, evt =>
                 {
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () => TabControl.Items.Insert(TabControl.Items.Count, evt.Tab));
                 });
         }

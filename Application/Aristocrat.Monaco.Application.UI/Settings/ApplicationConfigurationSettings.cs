@@ -14,8 +14,8 @@
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM;
     using Application.Contracts.Localization;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Implements the <see cref="IConfigurationSettings"/> interface.
@@ -25,7 +25,7 @@
         private readonly IPropertiesManager _propertiesManager;
         private readonly IDisabledNotesService _disabledNotesService;
         private readonly IMultiProtocolConfigurationProvider _multiProtocolConfigurationProvider;
- 
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="ApplicationConfigurationSettings"/> class.
         /// </summary>
@@ -72,7 +72,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

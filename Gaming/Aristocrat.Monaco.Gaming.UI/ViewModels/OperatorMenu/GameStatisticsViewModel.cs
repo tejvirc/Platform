@@ -10,7 +10,7 @@
     using Contracts;
     using Contracts.Meters;
     using Kernel;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     public class GameStatisticsViewModel : OperatorMenuDiagnosticPageViewModelBase
     {
@@ -40,7 +40,7 @@
                 if (_baseStatsCollapsed != value)
                 {
                     _baseStatsCollapsed = value;
-                    RaisePropertyChanged(nameof(BaseStatsCollapsed));
+                    OnPropertyChanged(nameof(BaseStatsCollapsed));
                 }
             }
         }
@@ -54,7 +54,7 @@
                 if (_featureStatsCollapsed != value)
                 {
                     _featureStatsCollapsed = value;
-                    RaisePropertyChanged(nameof(FeatureStatsCollapsed));
+                    OnPropertyChanged(nameof(FeatureStatsCollapsed));
                 }
             }
         }
@@ -90,7 +90,7 @@
             // This will occur each time a different game is selected
             var meterManager = ServiceManager.GetInstance().GetService<IGameMeterManager>();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     foreach (var meter in GameGambleMeters)
@@ -133,7 +133,7 @@
             set
             {
                 _selectedGame = value;
-                RaisePropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(SelectedGame));
                 InitializeGameFeatureMeters(value);
             }
         }

@@ -13,7 +13,7 @@
     using Application.Contracts.Localization;
     using Application.UI.MeterPage;
     using Monaco.Localization.Properties;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class WatMetersPageViewModel : MetersPageViewModelBase
@@ -36,7 +36,7 @@
         private string _watOnTotalValue;
         private string _watOffTotalValue;
         private long _watOffTotalCount;
-        
+
         public WatMetersPageViewModel() : base(null)
         {
         }
@@ -50,7 +50,7 @@
             set
             {
                 _watOnTotalCount = value;
-                RaisePropertyChanged(nameof(WatOnTotalCount));
+                OnPropertyChanged(nameof(WatOnTotalCount));
             }
         }
 
@@ -60,7 +60,7 @@
             set
             {
                 _watOnTotalValue = value;
-                RaisePropertyChanged(nameof(WatOnTotalValue));
+                OnPropertyChanged(nameof(WatOnTotalValue));
             }
         }
 
@@ -73,7 +73,7 @@
             set
             {
                 _watOffTotalCount = value;
-                RaisePropertyChanged(nameof(WatOffTotalCount));
+                OnPropertyChanged(nameof(WatOffTotalCount));
             }
         }
 
@@ -83,7 +83,7 @@
             set
             {
                 _watOffTotalValue = value;
-                RaisePropertyChanged(nameof(WatOffTotalValue));
+                OnPropertyChanged(nameof(WatOffTotalValue));
             }
         }
 
@@ -105,7 +105,7 @@
             var printMeters = WatOnMeters.Select(m => new Tuple<IMeter, string>(m.CountMeter, m.Name)).ToList();
             printMeters.AddRange(WatOffMeters.Select(m => new Tuple<IMeter, string>(m.CountMeter, m.Name)));
 
-            return TicketToList(ticketCreator?.CreateEgmMetersTicket(printMeters, ShowLifetime));  
+            return TicketToList(ticketCreator?.CreateEgmMetersTicket(printMeters, ShowLifetime));
         }
 
         protected override void InitializeMeters()
@@ -137,13 +137,13 @@
 
         private void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RemoveMeters();
                     AddMeters();
-                    RaisePropertyChanged(nameof(WatOnMeters));
-                    RaisePropertyChanged(nameof(WatOffMeters));
+                    OnPropertyChanged(nameof(WatOnMeters));
+                    OnPropertyChanged(nameof(WatOffMeters));
                     UpdateMeterTotals();
                 });
         }

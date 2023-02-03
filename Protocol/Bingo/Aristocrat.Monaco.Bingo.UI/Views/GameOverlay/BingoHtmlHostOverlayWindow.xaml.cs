@@ -6,7 +6,7 @@
     using CefSharp;
     using Models;
     using Monaco.UI.Common.CefHandlers;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using ViewModels.GameOverlay;
 #if DEBUG
     using System.Windows.Input;
@@ -60,7 +60,7 @@
 
         public void BingoHelp_OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() => { ViewModel.IsHelpLoading = false; });
+            Execute.OnUIThread(() => { ViewModel.IsHelpLoading = false; });
 
             if (e.Frame.IsMain)
             {
@@ -82,7 +82,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (Owner != null)

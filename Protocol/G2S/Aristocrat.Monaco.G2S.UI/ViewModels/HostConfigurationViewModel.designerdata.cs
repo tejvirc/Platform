@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics;
     using Models;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Designer data for the <see cref="HostConfigurationViewModel" />
@@ -12,7 +13,7 @@
         [Conditional("DESIGN")]
         private void WireDesignerData()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 Hosts.Add(new Host { Index = 0, Id = 0, Registered = true });
                 Hosts.Add(

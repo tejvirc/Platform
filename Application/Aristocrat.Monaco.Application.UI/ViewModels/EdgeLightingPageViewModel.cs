@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.EdgeLight;
     using Contracts.HardwareDiagnostics;
@@ -13,9 +14,8 @@
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class EdgeLightingPageViewModel : OperatorMenuPageViewModelBase
@@ -32,7 +32,7 @@
         public EdgeLightingPageViewModel()
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode);
         }
 
         public ICommand ToggleTestModeCommand { get; }
@@ -43,8 +43,8 @@
             set
             {
                 _infoText = value;
-                RaisePropertyChanged(nameof(InfoText));
-                RaisePropertyChanged(nameof(InfoTextVisible));
+                OnPropertyChanged(nameof(InfoText));
+                OnPropertyChanged(nameof(InfoTextVisible));
                 UpdateStatusText();
             }
         }
@@ -57,12 +57,13 @@
 
             set
             {
-                SetProperty(
+                this.SetProperty(
                     ref _isEdgeLightingAvailable,
                     value,
+                    OnPropertyChanged,
                     nameof(IsEdgeLightingAvailable),
                     nameof(TestButtonEnabled));
-                RaisePropertyChanged(nameof(EdgeLightingEnabled));
+                OnPropertyChanged(nameof(EdgeLightingEnabled));
                 if (!value)
                 {
                     InTestMode = false;
@@ -218,12 +219,12 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(EdgeLightingEnabled));
+            OnPropertyChanged(nameof(EdgeLightingEnabled));
         }
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestButtonEnabled));
+            OnPropertyChanged(nameof(TestButtonEnabled));
         }
 
         protected override void UpdateStatusText()
@@ -240,7 +241,7 @@
 
         private void HandleEdgeLightConnectedEvent(EdgeLightingConnectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEdgeLightingAvailable = true;
@@ -250,7 +251,7 @@
 
         private void HandleEdgeLightDisconnectedEvent(EdgeLightingDisconnectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEdgeLightingAvailable = false;

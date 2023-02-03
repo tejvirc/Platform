@@ -5,10 +5,11 @@ using Aristocrat.Monaco.Application.UI.OperatorMenu;
 using Aristocrat.Monaco.Gaming.Contracts;
 using Aristocrat.Monaco.Gaming.Contracts.Models;
 using Aristocrat.Monaco.Kernel;
-using Aristocrat.MVVM.Command;
 
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
+    using CommunityToolkit.Mvvm.Input;
+
     public class SetGameOrderViewModel : OperatorMenuSaveViewModelBase
     {
         private ObservableCollection<GameOrderData> _gameList = new ObservableCollection<GameOrderData>();
@@ -24,8 +25,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 _gameOrderSettings = container.Container.GetInstance<IGameOrderSettings>();
             }
 
-            UpCommand = new ActionCommand<object>(UpPressed, o => SelectedItem != null && GameList.IndexOf(SelectedItem) != 0);
-            DownCommand = new ActionCommand<object>(DownPressed, o => SelectedItem != null && GameList.IndexOf(SelectedItem) != GameList.Count - 1);
+            UpCommand = new RelayCommand<object>(UpPressed, o => SelectedItem != null && GameList.IndexOf(SelectedItem) != 0);
+            DownCommand = new RelayCommand<object>(DownPressed, o => SelectedItem != null && GameList.IndexOf(SelectedItem) != GameList.Count - 1);
         }
 
         public ObservableCollection<GameOrderData> GameList
@@ -37,7 +38,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_gameList != value)
                 {
                     _gameList = value;
-                    RaisePropertyChanged(nameof(GameList));
+                    OnPropertyChanged(nameof(GameList));
                 }
             }
         }
@@ -51,9 +52,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_selectedItem != value)
                 {
                     _selectedItem = value;
-                    RaisePropertyChanged(nameof(SelectedItem));
-                    UpCommand.RaiseCanExecuteChanged();
-                    DownCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(SelectedItem));
+                    UpCommand.NotifyCanExecuteChanged();
+                    DownCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -68,8 +69,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private int GameOrder(GameOrderData game) => _gameOrderSettings.GetPositionPriority(game.ThemeId);
 
-        public ActionCommand<object> UpCommand { get; }
-        public ActionCommand<object> DownCommand { get; }
+        public RelayCommand<object> UpCommand { get; }
+        public RelayCommand<object> DownCommand { get; }
 
         private bool IsDirty
         {
@@ -79,7 +80,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_isDirty != value)
                 {
                     _isDirty = value;
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                 }
             }
         }
@@ -117,7 +118,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             var newIndex = oldIndex - 1;
             GameList.Move(oldIndex, newIndex);
             IsDirty = true;
-            UpCommand.RaiseCanExecuteChanged();
+            UpCommand.NotifyCanExecuteChanged();
         }
 
         private void DownPressed(object obj)
@@ -126,7 +127,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             var newIndex = oldIndex + 1;
             GameList.Move(oldIndex, newIndex);
             IsDirty = true;
-            DownCommand.RaiseCanExecuteChanged();
+            DownCommand.NotifyCanExecuteChanged();
         }
 
         public override bool HasChanges()

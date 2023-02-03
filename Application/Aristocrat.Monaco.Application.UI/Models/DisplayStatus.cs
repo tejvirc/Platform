@@ -1,16 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     /// <summary>
-    ///     This is used to display the display status as connected or disconnected./>. 
+    ///     This is used to display the display status as connected or disconnected./>.
     ///     This is created by the display page viewmodel implementation for use in displays page UIs.
     /// </summary>
     [CLSCompliant(false)]
-    public class DisplayStatus : BaseViewModel
+    public class DisplayStatus : ObservableObject
     {
         private bool _disconnected;
         private string _status;
@@ -60,7 +60,7 @@
             set
             {
                 _status = value;
-                RaisePropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(Status));
             }
         }
     }

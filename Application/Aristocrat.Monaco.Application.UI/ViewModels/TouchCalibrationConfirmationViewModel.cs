@@ -6,8 +6,8 @@
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Touch;
     using Kernel;
-    using MVVM;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class TouchCalibrationConfirmationViewModel : OperatorMenuSaveViewModelBase
@@ -24,7 +24,7 @@
         public TouchCalibrationConfirmationViewModel()
         {
             EventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
- 
+
             _cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
             _serialTouchCalibrationService = ServiceManager.GetInstance().GetService<ISerialTouchCalibration>();
             _touchCalibrationService = ServiceManager.GetInstance().GetService<ITouchCalibration>();
@@ -87,7 +87,7 @@
                 }
 
                 _serialTouchCalibrated = false;
-                MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                Execute.OnUIThread(InvokeCalibration);
             }
         }
     }

@@ -8,13 +8,13 @@
     using System.Threading.Tasks;
     using System.Windows;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.InfoBar;
     using log4net;
     using Kernel;
-    using MVVM;
-    using MVVM.ViewModel;
+    using Toolkit.Mvvm.Extensions;
 
-    public class InfoBarViewModel : BaseViewModel, IDisposable
+    public class InfoBarViewModel : ObservableObject, IDisposable
     {
         private class InfoBarMessageData
         {
@@ -32,7 +32,7 @@
         private const double MarginSide = 4;
         private const double MarginTop = 6;
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _isOpen;
         private bool _disposed;
@@ -447,7 +447,7 @@
                                 IsOpen = false;
                                 _eventBus.Publish(new InfoBarCloseEvent(e.DisplayTarget));
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -457,11 +457,11 @@
                 });
         }
 
-        private void Handler(InfoBarCloseEvent e) => MvvmHelper.ExecuteOnUI(() => IsOpen = false);
+        private void Handler(InfoBarCloseEvent e) => Execute.OnUIThread(() => IsOpen = false);
 
         private void Handler(InfoBarSetHeightEvent e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 var scaleUp = e.Height / BarHeightMinimum;
 

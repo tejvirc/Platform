@@ -3,13 +3,14 @@
     using Application.Contracts.Media;
     using MediaDisplay;
     using Kernel;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class LayoutTemplateViewModel : BaseEntityViewModel, IDisposable
+    public class LayoutTemplateViewModel : ObservableObject, IDisposable
     {
         private readonly IMediaProvider _provider;
         private readonly DisplayType _displayType;
@@ -18,7 +19,7 @@
         private IEventBus _eventBus;
         private ScreenType? _screenType;
         private double _windowWidth;
-        private double _windowHeight; 
+        private double _windowHeight;
 
         public event EventHandler<int> BrowserProcessTerminated;
 
@@ -50,7 +51,7 @@
                 if (!_windowWidth.Equals(value))
                 {
                     _windowWidth = value;
-                    RaisePropertyChanged(nameof(WindowWidth));
+                    OnPropertyChanged(nameof(WindowWidth));
                 }
             }
         }
@@ -64,7 +65,7 @@
                 if (!_windowHeight.Equals(value))
                 {
                     _windowHeight = value;
-                    RaisePropertyChanged(nameof(WindowHeight));
+                    OnPropertyChanged(nameof(WindowHeight));
                 }
             }
         }
@@ -83,11 +84,11 @@
             _eventBus.Subscribe<BrowserProcessTerminatedEvent>(this, e => BrowserProcessTerminated?.Invoke(this, e.MediaPlayerId));
         }
 
-        protected override void RaisePropertyChanged(string propertyName)
+        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            base.RaisePropertyChanged(propertyName);
+            base.OnPropertyChanged(e);
 
-            if (propertyName == "WindowWidth" || propertyName == "WindowHeight")
+            if (e.PropertyName is "WindowWidth" or "WindowHeight")
             {
                 SetContentSize();
             }
@@ -168,7 +169,7 @@
 
             // Highest priority visible players should be scaled proportionately
             var visiblePlayers = MediaPlayers.Where(p => p.IsVisible).OrderBy(p => p.Priority).ToList();
-            
+
             // Scale all but the last in the list
             MediaPlayerViewModelBase lastVisible = null;
             if (visiblePlayers.Count > 1)

@@ -5,11 +5,11 @@
     using Kernel;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     ViewModel for VoucherInHistory.
@@ -33,7 +33,7 @@
                 if (_selectedRow != value)
                 {
                     _selectedRow = value;
-                    RaisePropertyChanged("SelectedRow");
+                    OnPropertyChanged("SelectedRow");
                 }
             }
         }
@@ -49,7 +49,7 @@
                 if (_transactionData != value)
                 {
                     _transactionData = value;
-                    RaisePropertyChanged(nameof(TransactionData));
+                    OnPropertyChanged(nameof(TransactionData));
                 }
             }
         }
@@ -61,7 +61,7 @@
             var provider = ServiceManager.GetInstance().GetService<ICentralProvider>();
             if (provider != null)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         TransactionData.Clear();

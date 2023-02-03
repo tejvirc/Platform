@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Media;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
@@ -14,8 +15,7 @@
     using Kernel;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     View model for mechanical reels
@@ -35,19 +35,19 @@
 
         public MechanicalReelsPageViewModel() : base(DeviceType.ReelController)
         {
-            ShowLightTestCommand = new ActionCommand<object>(_ =>
+            ShowLightTestCommand = new RelayCommand<object>(_ =>
             {
                 LightTestScreenHidden = false;
                 ReelTestScreenHidden = true;
                 SettingsScreenHidden = true;
             });
-            ShowReelTestCommand = new ActionCommand<object>(_ =>
+            ShowReelTestCommand = new RelayCommand<object>(_ =>
             {
                 LightTestScreenHidden = true;
                 ReelTestScreenHidden = false;
                 SettingsScreenHidden = true;
             });
-            ShowSettingsCommand = new ActionCommand<object>(_ =>
+            ShowSettingsCommand = new RelayCommand<object>(_ =>
             {
                 LightTestScreenHidden = true;
                 ReelTestScreenHidden = true;
@@ -58,8 +58,8 @@
             LightTestViewModel = new(ReelController, edgeLightController);
             ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen);
 
-            SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
-            SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
+            SelfTestCommand = new RelayCommand<object>(_ => SelfTest(false));
+            SelfTestClearCommand = new RelayCommand<object>(_ => SelfTest(true));
 
             MinimumBrightness = 1;
             MaximumBrightness = 100;
@@ -76,8 +76,8 @@
             set
             {
                 _reelTestScreenHidden = value;
-                RaisePropertyChanged(nameof(ReelTestScreenHidden));
-                RaisePropertyChanged(nameof(ReelTestButtonHidden));
+                OnPropertyChanged(nameof(ReelTestScreenHidden));
+                OnPropertyChanged(nameof(ReelTestButtonHidden));
             }
         }
 
@@ -90,8 +90,8 @@
             set
             {
                 _lightTestScreenHidden = value;
-                RaisePropertyChanged(nameof(LightTestScreenHidden));
-                RaisePropertyChanged(nameof(LightTestButtonHidden));
+                OnPropertyChanged(nameof(LightTestScreenHidden));
+                OnPropertyChanged(nameof(LightTestButtonHidden));
             }
         }
 
@@ -104,8 +104,8 @@
             set
             {
                 _settingsScreenHidden = value;
-                RaisePropertyChanged(nameof(SettingsScreenHidden));
-                RaisePropertyChanged(nameof(SettingsButtonHidden));
+                OnPropertyChanged(nameof(SettingsScreenHidden));
+                OnPropertyChanged(nameof(SettingsButtonHidden));
             }
         }
 
@@ -118,8 +118,8 @@
             set
             {
                 _reelCount = value;
-                RaisePropertyChanged(nameof(ReelCount));
-                RaisePropertyChanged(nameof(ReelCountForeground));
+                OnPropertyChanged(nameof(ReelCount));
+                OnPropertyChanged(nameof(ReelCountForeground));
             }
         }
 
@@ -131,7 +131,7 @@
                 if (_reelsEnabled != value)
                 {
                     _reelsEnabled = value;
-                    RaisePropertyChanged(nameof(ReelsEnabled));
+                    OnPropertyChanged(nameof(ReelsEnabled));
                 }
             }
         }
@@ -166,7 +166,7 @@
             {
                 ReelController.DefaultReelBrightness = value;
                 ReelController.SetReelBrightness(value);
-                RaisePropertyChanged(nameof(Brightness));
+                OnPropertyChanged(nameof(Brightness));
             }
         }
 
@@ -182,7 +182,7 @@
                 }
 
                 _selfTestEnabled = value;
-                RaisePropertyChanged(nameof(SelfTestEnabled));
+                OnPropertyChanged(nameof(SelfTestEnabled));
             }
         }
 
@@ -212,7 +212,7 @@
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestModeToolTipDisabled));
+            OnPropertyChanged(nameof(TestModeToolTipDisabled));
 
             LightTestScreenHidden = true;
             ReelTestScreenHidden = true;
@@ -283,7 +283,7 @@
 
         protected override void UpdateScreen()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     SetDeviceInformation();
@@ -304,7 +304,7 @@
                 base.UpdateWarningMessage();
             }
 
-            RaisePropertyChanged(nameof(TestModeToolTipDisabled));
+            OnPropertyChanged(nameof(TestModeToolTipDisabled));
         }
 
         private async void SelfTest(bool clearNvm)

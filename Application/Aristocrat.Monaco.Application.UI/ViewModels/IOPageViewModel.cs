@@ -10,7 +10,6 @@
     using Hardware.Contracts.SharedDevice;
     using Hardware.Contracts.Ticket;
     using Kernel;
-    using MVVM;
     using OperatorMenu;
     using System;
     using System.Collections.Generic;
@@ -24,6 +23,7 @@
     using Contracts;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
+    using Toolkit.Mvvm.Extensions;
     using DisabledEvent = Hardware.Contracts.IO.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.IO.EnabledEvent;
     using Timer = System.Timers.Timer;
@@ -88,7 +88,7 @@
             set
             {
                 _manufacturerText = value;
-                RaisePropertyChanged(nameof(ManufacturerText));
+                OnPropertyChanged(nameof(ManufacturerText));
             }
         }
 
@@ -98,7 +98,7 @@
             set
             {
                 _modelText = value;
-                RaisePropertyChanged(nameof(ModelText));
+                OnPropertyChanged(nameof(ModelText));
             }
         }
 
@@ -108,7 +108,7 @@
             set
             {
                 _stateText = value;
-                RaisePropertyChanged(nameof(StateText));
+                OnPropertyChanged(nameof(StateText));
             }
         }
 
@@ -118,7 +118,7 @@
             set
             {
                 _stateForegroundBrush = value;
-                RaisePropertyChanged(nameof(StateForegroundBrush));
+                OnPropertyChanged(nameof(StateForegroundBrush));
             }
         }
 
@@ -128,7 +128,7 @@
             set
             {
                 _statusText = value;
-                RaisePropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(StatusText));
             }
         }
 
@@ -138,7 +138,7 @@
             set
             {
                 _statusForegroundBrush = value;
-                RaisePropertyChanged(nameof(StatusForegroundBrush));
+                OnPropertyChanged(nameof(StatusForegroundBrush));
             }
         }
 
@@ -149,7 +149,7 @@
             {
                 _inputsText = value;
                 IntrusionText = _inputsText.Substring(_inputsText.Length - IntrusionBitsLength);
-                RaisePropertyChanged(nameof(InputsText));
+                OnPropertyChanged(nameof(InputsText));
             }
         }
 
@@ -159,7 +159,7 @@
             set
             {
                 _intrusionText = value;
-                RaisePropertyChanged(nameof(IntrusionText));
+                OnPropertyChanged(nameof(IntrusionText));
             }
         }
 
@@ -170,7 +170,7 @@
             set
             {
                 _outputsText = value;
-                RaisePropertyChanged(nameof(OutputsText));
+                OnPropertyChanged(nameof(OutputsText));
             }
         }
 
@@ -279,7 +279,7 @@
 
         private void HandleEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => { HandleEvents(theEvent); });
         }
 
@@ -414,7 +414,7 @@
                 var doorEvent = (ClosedEvent)theEvent;
 
                 UpdateStatusTextForDoor(doorEvent.LogicalId, false);
-                
+
                 SetLogicalInputLabelState(doorEvent.LogicalId, true, true);
 
                 Logger.DebugFormat(
@@ -598,7 +598,7 @@
 
             tempString += "\n" + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutputsLabel) + ": \n";
             var outputs = OutputsText.Trim();
-            
+
             tempString += outputs;
 
             tempString += "\n \n";

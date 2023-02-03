@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using CefSharp.DevTools.Accessibility;
     using Contracts;
     using Kernel;
     using Kernel.Contracts;
@@ -71,26 +73,15 @@
             set
             {
                 _allowVoucherIn = value;
-                RaisePropertyChanged(nameof(AllowVoucherIn));
+                OnPropertyChanged(nameof(AllowVoucherIn));
             }
         }
 
+        [CustomValidation(typeof(VoucherSettingsPageViewModel), nameof(VoucherInLimitValidate))]
         public decimal VoucherInLimit
         {
             get => _voucherInLimit;
-            set
-            {
-                if (PreviousVoucherInLimit != value)
-                {
-                    PreviousVoucherInLimit = _voucherInLimit;
-                }
-
-                if (SetProperty(ref _voucherInLimit, value, nameof(VoucherInLimit)))
-                {
-                    SetError(nameof(VoucherInLimit), _voucherInLimit.Validate(true, MaxVoucherInAllowed));
-                }
-            }
-        }
+            set => SetProperty(ref _voucherInLimit, value, true);}
 
         public decimal PreviousVoucherInLimit { get; set; }
 
@@ -100,7 +91,7 @@
             set
             {
                 _voucherInLimitCheckboxEnabled = value;
-                RaisePropertyChanged(nameof(VoucherInLimitCheckboxEnabled));
+                OnPropertyChanged(nameof(VoucherInLimitCheckboxEnabled));
             }
         }
 
@@ -122,7 +113,7 @@
                     ? voucherInLimit
                     : MaxVoucherInAllowed.MillicentsToDollars();
 
-                RaisePropertyChanged(nameof(VoucherInLimitEnabledChecked));
+                OnPropertyChanged(nameof(VoucherInLimitEnabledChecked));
                 PropertiesManager.SetProperty(AccountingConstants.VoucherInLimitEnabled, value);
             }
         }
@@ -146,7 +137,7 @@
                     AllowNonCashVoucherOut = false;
                 }
 
-                RaisePropertyChanged(nameof(AllowVoucherOut));
+                OnPropertyChanged(nameof(AllowVoucherOut));
             }
         }
 
@@ -162,7 +153,7 @@
                     PrintHandpayReceipt = false;
                 }
 
-                RaisePropertyChanged(nameof(PrinterEnabled));
+                OnPropertyChanged(nameof(PrinterEnabled));
             }
         }
 
@@ -174,7 +165,7 @@
                 if (_printerDisabledWarningText != value)
                 {
                     _printerDisabledWarningText = value;
-                    RaisePropertyChanged(nameof(PrinterDisabledWarningText));
+                    OnPropertyChanged(nameof(PrinterDisabledWarningText));
                 }
             }
         }
@@ -185,7 +176,7 @@
             set
             {
                 _isCashableVoucherExpirationVisible = value;
-                RaisePropertyChanged(nameof(IsCashableVoucherExpirationVisible));
+                OnPropertyChanged(nameof(IsCashableVoucherExpirationVisible));
             }
         }
 
@@ -195,7 +186,7 @@
             set
             {
                 _isNonCashableVoucherOutVisible = value;
-                RaisePropertyChanged(nameof(IsNonCashableVoucherOutVisible));
+                OnPropertyChanged(nameof(IsNonCashableVoucherOutVisible));
             }
         }
 
@@ -205,10 +196,11 @@
             set
             {
                 _arePropertyFieldsEnabled = value;
-                RaisePropertyChanged(nameof(ArePropertyFieldsEnabled));
+                OnPropertyChanged(nameof(ArePropertyFieldsEnabled));
             }
         }
 
+        [CustomValidation(typeof(VoucherSettingsPageViewModel), nameof(VoucherOutLimitValidate))]
         public decimal VoucherOutLimit
         {
             get => _voucherOutLimit;
@@ -220,12 +212,21 @@
                     PreviousVoucherOutLimit = _voucherOutLimit;
                 }
 
-                if (SetProperty(ref _voucherOutLimit, value, nameof(VoucherOutLimit)))
-                {
-                    SetError(nameof(VoucherOutLimit),
-                        _voucherOutLimit.Validate(maximum: MaxVoucherOutAllowed));
-                }
+                SetProperty(ref _voucherOutLimit, value, true);
             }
+        }
+
+        public static ValidationResult VoucherOutLimitValidate(decimal voucherOutLimit, ValidationContext context)
+        {
+            VoucherSettingsPageViewModel instance = (VoucherSettingsPageViewModel)context.ObjectInstance;
+            var errors = voucherOutLimit.Validate(maximum: instance.MaxVoucherOutAllowed);
+
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         public decimal PreviousVoucherOutLimit { get; set; }
@@ -236,7 +237,7 @@
             set
             {
                 _voucherOutLimitCheckboxEnabled = value;
-                RaisePropertyChanged(nameof(VoucherOutLimitCheckboxEnabled));
+                OnPropertyChanged(nameof(VoucherOutLimitCheckboxEnabled));
             }
         }
 
@@ -259,7 +260,7 @@
                     ? voucherOutLimit
                     : MaxVoucherOutAllowed.MillicentsToDollars();
 
-                RaisePropertyChanged(nameof(VoucherOutLimitEnabledChecked));
+                OnPropertyChanged(nameof(VoucherOutLimitEnabledChecked));
                 PropertiesManager.SetProperty(AccountingConstants.VoucherOutLimitEnabled, value);
             }
         }
@@ -272,7 +273,7 @@
             set
             {
                 _allowNonCashVoucherOut = value;
-                RaisePropertyChanged(nameof(AllowNonCashVoucherOut));
+                OnPropertyChanged(nameof(AllowNonCashVoucherOut));
             }
         }
 
@@ -282,7 +283,7 @@
             set
             {
                 _handpayReceiptEditable = value;
-                RaisePropertyChanged(nameof(HandpayReceiptEditable));
+                OnPropertyChanged(nameof(HandpayReceiptEditable));
             }
         }
 
@@ -292,7 +293,7 @@
             set
             {
                 _printHandpayReceipt = value;
-                RaisePropertyChanged(nameof(PrintHandpayReceipt));
+                OnPropertyChanged(nameof(PrintHandpayReceipt));
             }
         }
 
@@ -307,7 +308,7 @@
                 }
 
                 _selectedBarcodeType = value;
-                RaisePropertyChanged(nameof(SelectedBarcodeType));
+                OnPropertyChanged(nameof(SelectedBarcodeType));
                 PropertiesManager.SetProperty(ApplicationConstants.BarCodeType, value);
             }
         }
@@ -320,7 +321,7 @@
             set
             {
                 _selectedValidationLength = value;
-                RaisePropertyChanged(nameof(SelectedValidationLength));
+                OnPropertyChanged(nameof(SelectedValidationLength));
             }
         }
 
@@ -332,7 +333,7 @@
             set
             {
                 _selectedLayoutType = value;
-                RaisePropertyChanged(nameof(SelectedLayoutType));
+                OnPropertyChanged(nameof(SelectedLayoutType));
             }
         }
 
@@ -342,7 +343,7 @@
             set
             {
                 _voucherExpirationDays = value;
-                RaisePropertyChanged(nameof(VoucherExpirationDays));
+                OnPropertyChanged(nameof(VoucherExpirationDays));
             }
         }
 
@@ -352,7 +353,7 @@
             set
             {
                 _nonCashVoucherExpirationDays = value;
-                RaisePropertyChanged(nameof(NonCashVoucherExpirationDays));
+                OnPropertyChanged(nameof(NonCashVoucherExpirationDays));
             }
         }
 
@@ -362,7 +363,7 @@
             set
             {
                 _propertyName = value;
-                RaisePropertyChanged(nameof(PropertyName));
+                OnPropertyChanged(nameof(PropertyName));
             }
         }
 
@@ -372,7 +373,7 @@
             set
             {
                 _propertyAddress1 = value;
-                RaisePropertyChanged(nameof(PropertyAddress1));
+                OnPropertyChanged(nameof(PropertyAddress1));
             }
         }
 
@@ -382,7 +383,7 @@
             set
             {
                 _propertyAddress2 = value;
-                RaisePropertyChanged(nameof(PropertyAddress2));
+                OnPropertyChanged(nameof(PropertyAddress2));
             }
         }
 
@@ -392,7 +393,7 @@
             set
             {
                 _voucherExpirationEditable = value;
-                RaisePropertyChanged(nameof(VoucherExpirationEditable));
+                OnPropertyChanged(nameof(VoucherExpirationEditable));
             }
         }
 
@@ -403,6 +404,19 @@
         private long MaxVoucherInAllowed { get; set; }
 
         private long MaxVoucherOutAllowed { get; set; }
+
+        public static ValidationResult VoucherInLimitValidate(decimal voucherInLimit, ValidationContext context)
+        {
+            VoucherSettingsPageViewModel instance = (VoucherSettingsPageViewModel)context.ObjectInstance;
+            var errors = voucherInLimit.Validate(true, instance.MaxVoucherInAllowed);
+
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
 
         protected override void OnFieldAccessRestrictionChange()
         {
@@ -523,18 +537,6 @@
             }
 
             EventBus?.Unsubscribe<PropertyChangedEvent>(this);
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
         }
 
         private void HandleEvent(PropertyChangedEvent @event)

@@ -8,7 +8,7 @@
     using System.Windows.Media;
     using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
     using WpfAnimatedGif;
 
     /// <summary>
@@ -79,7 +79,7 @@
             lock (_lock)
             {
                 _clock?.Controller?.Pause();
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     ImageBehavior.GetAnimationController(Horse)?.Pause();
                 });
@@ -97,7 +97,7 @@
 
                 if (_initialized)
                 {
-                    MvvmHelper.ExecuteOnUI(() =>
+                    Execute.OnUIThread(() =>
                     {
                         ImageBehavior.GetAnimationController(Horse)?.Play();
                     });

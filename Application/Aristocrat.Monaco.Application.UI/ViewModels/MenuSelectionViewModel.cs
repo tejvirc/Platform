@@ -12,6 +12,8 @@
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Input;
@@ -30,19 +32,17 @@
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Events;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using OperatorMenu;
+    using Toolkit.Mvvm.Extensions;
     using Vgt.Client12.Application.OperatorMenu;
     using Views;
 
     /// <summary>
     ///     A DiscovererViewModel contains the logic for MenuSelectionWindow.xaml.cs
     /// </summary>
-    /// <seealso cref="BaseEntityViewModel" />
+    /// <seealso cref="ObservableObject" />
     [CLSCompliant(false)]
-    public sealed class MenuSelectionViewModel : BaseEntityViewModel, IOperatorMenuConfigObject, IDisposable
+    public sealed class MenuSelectionViewModel : ObservableObject, IOperatorMenuConfigObject, IDisposable
     {
         private const double DayTimerIntervalSeconds = 1.0;
         private const string DemoModeProperty = "System.DemoMode";
@@ -148,13 +148,13 @@
 
             MenuItems = new ObservableCollection<IOperatorMenuPageLoader>();
 
-            HandleLoadedCommand = new ActionCommand<object>(HandleLoaded);
-            HandleContentRenderedCommand = new ActionCommand<object>(HandleContentRendered);
-            HandleClosingCommand = new ActionCommand<object>(HandleClosing);
-            LanguageChangedCommand = new ActionCommand<object>(HandleLanguageChangedCommand);
-            PrintButtonCommand = new ActionCommand<object>(HandlePrintButtonCommand);
-            ExitButtonCommand = new ActionCommand<object>(_ => ExitMenu());
-            HelpButtonCommand = new ActionCommand<object>(HandleHelpButtonCommand);
+            HandleLoadedCommand = new RelayCommand<object>(HandleLoaded);
+            HandleContentRenderedCommand = new RelayCommand<object>(HandleContentRendered);
+            HandleClosingCommand = new RelayCommand<object>(HandleClosing);
+            LanguageChangedCommand = new RelayCommand<object>(HandleLanguageChangedCommand);
+            PrintButtonCommand = new RelayCommand<object>(HandlePrintButtonCommand);
+            ExitButtonCommand = new RelayCommand<object>(_ => ExitMenu());
+            HelpButtonCommand = new RelayCommand<object>(HandleHelpButtonCommand);
 
             SupportedLanguages = new ObservableCollection<string>();
 
@@ -204,8 +204,8 @@
             _eventBus.Subscribe<DisplayConnectedEvent>(this, HandleEvent);
             _eventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
             _eventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<DialogOpenedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
-            _eventBus.Subscribe<DialogClosedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
+            _eventBus.Subscribe<DialogOpenedEvent>(this, _ => OnPropertyChanged(nameof(CanCalibrateTouchScreens)));
+            _eventBus.Subscribe<DialogClosedEvent>(this, _ => OnPropertyChanged(nameof(CanCalibrateTouchScreens)));
 
             LoadMenus();
 
@@ -247,7 +247,7 @@
                 if (_printStatusText != value)
                 {
                     _printStatusText = value;
-                    RaisePropertyChanged(nameof(PrintStatusText));
+                    OnPropertyChanged(nameof(PrintStatusText));
                 }
             }
         }
@@ -267,8 +267,8 @@
                 if (_pageTitleContent != value)
                 {
                     _pageTitleContent = value;
-                    RaisePropertyChanged(nameof(PageTitleContent));
-                    RaisePropertyChanged(nameof(IsPageTitleVisible));
+                    OnPropertyChanged(nameof(PageTitleContent));
+                    OnPropertyChanged(nameof(IsPageTitleVisible));
                     RefreshPageOperatorLabel();
                 }
             }
@@ -286,7 +286,7 @@
             set
             {
                 _printButtonEnabled = value;
-                RaisePropertyChanged(nameof(PrintButtonEnabled));
+                OnPropertyChanged(nameof(PrintButtonEnabled));
             }
         }
 
@@ -322,7 +322,7 @@
                 if (_operatorMenuLabelContent != value)
                 {
                     _operatorMenuLabelContent = value;
-                    RaisePropertyChanged(nameof(OperatorMenuLabelContent));
+                    OnPropertyChanged(nameof(OperatorMenuLabelContent));
                 }
             }
         }
@@ -342,7 +342,7 @@
                 if (_creditBalanceVisible != value)
                 {
                     _creditBalanceVisible = value;
-                    RaisePropertyChanged(nameof(CreditBalanceVisible));
+                    OnPropertyChanged(nameof(CreditBalanceVisible));
                 }
             }
         }
@@ -362,7 +362,7 @@
                 if (_creditBalanceContent != value)
                 {
                     _creditBalanceContent = value;
-                    RaisePropertyChanged(nameof(CreditBalanceContent));
+                    OnPropertyChanged(nameof(CreditBalanceContent));
                 }
             }
         }
@@ -382,7 +382,7 @@
                 if (_exitButtonFocused != value)
                 {
                     _exitButtonFocused = value;
-                    RaisePropertyChanged(nameof(ExitButtonFocused));
+                    OnPropertyChanged(nameof(ExitButtonFocused));
                 }
             }
         }
@@ -400,7 +400,7 @@
                 if (_currentDateTime != value)
                 {
                     _currentDateTime = value;
-                    RaisePropertyChanged(nameof(CurrentDateTime));
+                    OnPropertyChanged(nameof(CurrentDateTime));
                 }
             }
         }
@@ -424,8 +424,8 @@
                 SubscribeToSelectedItemPropertyChanged(false);
 
                 _selectedItem = value;
-                RaisePropertyChanged(nameof(SelectedItem));
-                RaisePropertyChanged(nameof(CanCalibrateTouchScreens));
+                OnPropertyChanged(nameof(SelectedItem));
+                OnPropertyChanged(nameof(CanCalibrateTouchScreens));
                 IsLoadingData = false;
 
                 if (_selectedItem != null)
@@ -450,7 +450,7 @@
                 if (_isLoadingData != value)
                 {
                     _isLoadingData = value;
-                    RaisePropertyChanged(nameof(IsLoadingData));
+                    OnPropertyChanged(nameof(IsLoadingData));
                     SetPrintButtonEnabled();
                 }
             }
@@ -464,7 +464,7 @@
                 if (_dataEmpty != value)
                 {
                     _dataEmpty = value;
-                    RaisePropertyChanged(nameof(DataEmpty));
+                    OnPropertyChanged(nameof(DataEmpty));
                     SetPrintButtonEnabled();
                 }
             }
@@ -482,7 +482,7 @@
                 if (_showCancelPrintButton != value)
                 {
                     _showCancelPrintButton = value;
-                    RaisePropertyChanged(nameof(ShowCancelPrintButton));
+                    OnPropertyChanged(nameof(ShowCancelPrintButton));
 
                     if (_showCancelPrintButton)
                     {
@@ -498,7 +498,7 @@
             set
             {
                 _cancelButtonEnabled = value;
-                RaisePropertyChanged(nameof(CancelButtonEnabled));
+                OnPropertyChanged(nameof(CancelButtonEnabled));
             }
         }
 
@@ -540,7 +540,7 @@
                 if (_popupText != value)
                 {
                     _popupText = value;
-                    RaisePropertyChanged(nameof(PopupText));
+                    OnPropertyChanged(nameof(PopupText));
                     PopupOpen = !string.IsNullOrEmpty(PopupText);
                 }
             }
@@ -554,7 +554,7 @@
                 if (_popupOpen != value)
                 {
                     _popupOpen = value;
-                    RaisePropertyChanged(nameof(PopupOpen));
+                    OnPropertyChanged(nameof(PopupOpen));
 
                     if (_popupOpen)
                     {
@@ -602,9 +602,9 @@
             set
             {
                 _popupPlacementTarget = value;
-                RaisePropertyChanged(nameof(PopupPlacement));
-                RaisePropertyChanged(nameof(PopupPlacementTarget));
-                RaisePropertyChanged(nameof(PopupFontSize));
+                OnPropertyChanged(nameof(PopupPlacement));
+                OnPropertyChanged(nameof(PopupPlacementTarget));
+                OnPropertyChanged(nameof(PopupFontSize));
             }
         }
 
@@ -624,7 +624,7 @@
                 if (_showExitButton != value)
                 {
                     _showExitButton = value;
-                    RaisePropertyChanged(nameof(ShowExitButton));
+                    OnPropertyChanged(nameof(ShowExitButton));
                 }
             }
         }
@@ -648,7 +648,7 @@
                 if (_mainPrintButtonEnabled != value)
                 {
                     _mainPrintButtonEnabled = value;
-                    RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+                    OnPropertyChanged(nameof(MainPrintButtonEnabled));
                     SetPrintButtonEnabled();
                 }
             }
@@ -911,8 +911,8 @@
                 }
                 else if (e.PropertyName == nameof(vm.CanCalibrateTouchScreens))
                 {
-                    RaisePropertyChanged(nameof(CanCalibrateTouchScreens));
-                    RaisePropertyChanged(nameof(ShowMainDoorText));
+                    OnPropertyChanged(nameof(CanCalibrateTouchScreens));
+                    OnPropertyChanged(nameof(ShowMainDoorText));
                 }
             }
         }
@@ -969,7 +969,7 @@
 
         private void SetSupportedLanguages()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     SupportedLanguages.Clear();
@@ -1171,7 +1171,7 @@
 
             if (downEvent.LogicalId == (int)ButtonLogicalId.Play && downEvent.Enabled == false)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         _touchConfirmationDialog =
@@ -1261,7 +1261,7 @@
 
         private void ShowTouchErrorDialog(string message)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
                 _touchErrorDialog = new TouchCalibrationErrorViewModel(message);
@@ -1431,8 +1431,8 @@
 
             _calibrationAccess = access;
 
-            RaisePropertyChanged(nameof(CanCalibrateTouchScreens));
-            RaisePropertyChanged(nameof(ShowMainDoorText));
+            OnPropertyChanged(nameof(CanCalibrateTouchScreens));
+            OnPropertyChanged(nameof(ShowMainDoorText));
         }
 
         /// <inheritdoc />

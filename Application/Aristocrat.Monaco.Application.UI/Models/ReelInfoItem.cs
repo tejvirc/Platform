@@ -1,17 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Definition of the ReelInfoItem class.
     /// </summary>
     [CLSCompliant(false)]
-    public class ReelInfoItem : BaseEntityViewModel
+    public class ReelInfoItem : ObservableObject
     {
         private const int MaximumReelSteps = 199;
 
@@ -37,7 +37,7 @@
         /// <param name="isConnected">Indicates whether or not the reel is connected</param>
         /// <param name="isEnabled">Indicates whether or not the reel is enabled</param>
         /// <param name="state">The state of the reel</param>
-        /// <param name="offset">The offset for this reel</param> 
+        /// <param name="offset">The offset for this reel</param>
         public ReelInfoItem(int id, bool isConnected, bool isEnabled, string state, int offset)
         {
             _eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
@@ -68,7 +68,7 @@
                 if (_id != value)
                 {
                     _id = value;
-                    RaisePropertyChanged(nameof(Name));
+                    OnPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -89,7 +89,7 @@
                 if (_connected != value)
                 {
                     _connected = value;
-                    RaisePropertyChanged(nameof(Connected));
+                    OnPropertyChanged(nameof(Connected));
                 }
             }
         }
@@ -105,7 +105,7 @@
                 if (_enabled != value)
                 {
                     _enabled = value;
-                    RaisePropertyChanged(nameof(Enabled));
+                    OnPropertyChanged(nameof(Enabled));
                 }
             }
         }
@@ -120,7 +120,7 @@
             set
             {
                 _state = value;
-                RaisePropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(State));
             }
         }
 
@@ -134,10 +134,10 @@
             set
             {
                 _step = value;
-                RaisePropertyChanged(nameof(Step));
+                OnPropertyChanged(nameof(Step));
             }
         }
-        
+
         /// <summary>
         ///     Gets the number of steps to offset
         /// </summary>
@@ -152,11 +152,11 @@
                 }
 
                 _offsetSteps = value;
-                RaisePropertyChanged(nameof(OffsetSteps));
+                OnPropertyChanged(nameof(OffsetSteps));
                 _eventBus?.Publish(new PropertyChangedEvent(nameof(OffsetSteps)));
             }
         }
-        
+
         /// <summary>
         ///     Gets the step to spin to
         /// </summary>
@@ -167,7 +167,7 @@
             set
             {
                 _spinStep = value;
-                RaisePropertyChanged(nameof(SpinStep));
+                OnPropertyChanged(nameof(SpinStep));
             }
         }
 
@@ -182,8 +182,8 @@
             {
                 _directionToSpin = value ? SpinDirection.Forward : SpinDirection.Backwards;
 
-                RaisePropertyChanged(nameof(DirectionToSpin));
-                RaisePropertyChanged(nameof(DirectionToSpinText));
+                OnPropertyChanged(nameof(DirectionToSpin));
+                OnPropertyChanged(nameof(DirectionToSpinText));
             }
         }
 
@@ -203,7 +203,7 @@
             set
             {
                 _nudgeSteps = value;
-                RaisePropertyChanged(nameof(NudgeSteps));
+                OnPropertyChanged(nameof(NudgeSteps));
             }
         }
 
@@ -218,8 +218,8 @@
             {
                 _directionToNudge = value ? SpinDirection.Forward : SpinDirection.Backwards;
 
-                RaisePropertyChanged(nameof(DirectionToNudge));
-                RaisePropertyChanged(nameof(DirectionToNudgeText));
+                OnPropertyChanged(nameof(DirectionToNudge));
+                OnPropertyChanged(nameof(DirectionToNudgeText));
             }
         }
 

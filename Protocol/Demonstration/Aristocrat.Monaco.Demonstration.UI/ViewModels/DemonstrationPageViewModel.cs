@@ -3,9 +3,9 @@ namespace Aristocrat.Monaco.Demonstration.UI.ViewModels
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
     using Kernel;
-    using MVVM.Command;
     using System.Windows.Input;
     using Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.Input;
     using Localization.Properties;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Demonstration.UI.ViewModels
     {
         public DemonstrationPageViewModel()
         {
-            DemonstrationExitButtonClickCommand = new ActionCommand<object>(OnExitButtonClickCommand);
+            DemonstrationExitButtonClickCommand = new RelayCommand<object>(OnExitButtonClickCommand);
         }
 
         /// <summary>

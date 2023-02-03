@@ -21,9 +21,9 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using MVVM;
     using Simulation.HarkeyReels;
     using Simulation.HarkeyReels.Controls;
+    using Toolkit.Mvvm.Extensions;
     using Virtual;
     using NoteAcceptorMetrics = Contracts.Gds.NoteAcceptor.Metrics;
     using PrinterMetrics = Contracts.Gds.Printer.Metrics;
@@ -607,7 +607,7 @@
             usedIds.AddRange(usedTitles.ToList().Select(title => int.Parse(title)).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Simulation.HarkeyReels.Logger.Log += SimulatorLog;

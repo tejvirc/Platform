@@ -13,7 +13,7 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class EdgeLightingTestViewModel : INotifyPropertyChanged
@@ -97,7 +97,7 @@
                 SetProperty(ref _selectedStripIndex, value, nameof(SelectedStripIndex));
                 SetProperty(ref _startLed, Math.Min(1, SelectedStrip.LedCount), nameof(StartLed));
                 SetProperty(ref _endLed, SelectedStrip.LedCount, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -135,7 +135,7 @@
                 SetProperty(ref _selectedColorIndex, 0, nameof(SelectedColorIndex));
                 SetProperty(ref _startLed, Math.Min(1, SelectedStrip.LedCount), nameof(StartLed));
                 SetProperty(ref _endLed, SelectedStrip.LedCount, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -157,7 +157,7 @@
             set
             {
                 SetProperty(ref _startLed, value, nameof(StartLed));
-                RaisePropertyChanged(nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -168,7 +168,7 @@
             set
             {
                 SetProperty(ref _endLed, value, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -208,7 +208,7 @@
             OnPropertyChanged(propertyName);
         }
 
-        private void RaisePropertyChanged(params string[] propertyNames)
+        private void OnPropertyChanged(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
             {
@@ -247,7 +247,7 @@
             var stripsData =
                 _edgeLightingController.StripIds.Select(
                     x => new StripData(x, _edgeLightingController.GetStripLedCount(x)));
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     lock (_lock)

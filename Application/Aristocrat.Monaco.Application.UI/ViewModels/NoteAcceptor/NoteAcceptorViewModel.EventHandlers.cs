@@ -97,7 +97,18 @@
                 }
             }
 
-            if (string.IsNullOrEmpty(ValidateBillAcceptanceLimit(BillAcceptanceLimit)))
+
+            string error = string.Empty;
+            if (_billAcceptanceLimit > ApplicationConstants.MaxCreditsInMax)
+            {
+                error = string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString());
+            }
+
+            if (_billAcceptanceLimit < ApplicationConstants.MaxCreditsInMin)
+            {
+                error = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid);
+            }
+            if (string.IsNullOrEmpty(error))
             {
                 if (PropertiesManager.GetValue(PropertyKey.MaxCreditsIn, ApplicationConstants.DefaultMaxCreditsIn).MillicentsToDollars() !=
                     BillAcceptanceLimit)

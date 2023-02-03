@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.Door;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class DoorViewModel : BaseViewModel
+    public class DoorViewModel : ObservableObject
     {
         private readonly object _context = new object();
         private bool _closed;
@@ -34,7 +34,7 @@
                 }
 
                 _name = value;
-                RaisePropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -55,7 +55,7 @@
 
                 _closed = value;
 
-                RaisePropertyChanged(nameof(Action));
+                OnPropertyChanged(nameof(Action));
             }
         }
 
@@ -73,7 +73,7 @@
                 }
 
                 _lastOpened = value;
-                RaisePropertyChanged(nameof(LastOpened));
+                OnPropertyChanged(nameof(LastOpened));
             }
         }
 

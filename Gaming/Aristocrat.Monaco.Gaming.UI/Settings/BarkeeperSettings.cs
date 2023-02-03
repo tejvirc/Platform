@@ -9,15 +9,15 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Barkeeper;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Barkeeper;
     using Localization.Properties;
-    using MVVM.Model;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Barkeeper settings.
     /// </summary>
-    internal class BarkeeperSettings : BaseNotify, IBarkeeperSettings
+    internal class BarkeeperSettings : ObservableObject, IBarkeeperSettings
     {
         private bool _enabled;
         private RewardLevel _cashInRewardLevel;

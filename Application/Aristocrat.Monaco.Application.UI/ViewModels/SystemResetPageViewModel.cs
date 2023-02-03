@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Events;
@@ -9,7 +10,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -21,7 +21,7 @@
 
         public SystemResetPageViewModel()
         {
-            PartialResetButtonClickCommand = new ActionCommand<object>(OnPartialResetButtonClickCommand);
+            PartialResetButtonClickCommand = new RelayCommand<object>(OnPartialResetButtonClickCommand);
 
             // Disable PartialResetButton if in game round or credits are there in machine
             var gamePlayMonitor = ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>();
@@ -49,7 +49,7 @@
             set
             {
                 _statusText = value;
-                RaisePropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(StatusText));
                 UpdateStatusText();
             }
         }
@@ -64,7 +64,7 @@
             set
             {
                 _partialResetButtonActive = value;
-                RaisePropertyChanged(nameof(PartialResetButtonActive));
+                OnPropertyChanged(nameof(PartialResetButtonActive));
             }
         }
 

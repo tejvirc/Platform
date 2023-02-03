@@ -6,10 +6,11 @@
     using System.Windows.Input;
     using Application.Contracts.Extensions;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Models;
     using Contracts.Barkeeper;
     using Kernel;
-    using MVVM.Command;
+    using Toolkit.Mvvm.Extensions;
 
     public class BarkeeperConfigurationViewModel : OperatorMenuPageViewModelBase
     {
@@ -24,18 +25,18 @@
             : this(ServiceManager.GetInstance().GetService<IBarkeeperHandler>())
         {
 
-            CoinInRateEnabledChangedCommand = new ActionCommand<object>(
+            CoinInRateEnabledChangedCommand = new RelayCommand<object>(
                 _ =>
                 {
-                    RaisePropertyChanged(nameof(RewardLevels));
-                    RaisePropertyChanged(nameof(RewardLevels.CoinInStrategy.CoinInRate.Enabled));
+                    OnPropertyChanged(nameof(RewardLevels));
+                    OnPropertyChanged(nameof(RewardLevels.CoinInStrategy.CoinInRate.Enabled));
                 });
 
-            CashInEnabledChangedCommand = new ActionCommand<object>(
+            CashInEnabledChangedCommand = new RelayCommand<object>(
                 _ =>
                 {
-                    RaisePropertyChanged(nameof(CashInRewardLevel));
-                    RaisePropertyChanged(nameof(CashInRewardLevel.Enabled));
+                    OnPropertyChanged(nameof(CashInRewardLevel));
+                    OnPropertyChanged(nameof(CashInRewardLevel.Enabled));
                 });
         }
 
@@ -65,7 +66,7 @@
             get => _rewardLevels;
             set
             {
-                SetProperty(ref _rewardLevels, value, nameof(RewardLevels), nameof(RewardLevelsEnabled));
+                this.SetProperty(ref _rewardLevels, value, OnPropertyChanged, nameof(RewardLevels), nameof(RewardLevelsEnabled));
 
                 CoinInRewardLevels = (from rewardLevel in _rewardLevels.RewardLevels
                     where
@@ -99,22 +100,26 @@
             set
             {
                 _rewardLevels.Enabled = value;
-                RaisePropertyChanged(nameof(RewardLevels), nameof(RewardLevelsEnabled), nameof(CoinInRewardLevels),
-                    nameof(CoinInRewardLevelsExist), nameof(CashInRewardLevels), nameof(CashInRewardLevelsExist));
+                OnPropertyChanged(nameof(RewardLevels));
+                OnPropertyChanged(nameof(RewardLevelsEnabled));
+                OnPropertyChanged(nameof(CoinInRewardLevels));
+                OnPropertyChanged(nameof(CoinInRewardLevelsExist));
+                OnPropertyChanged(nameof(CashInRewardLevels));
+                OnPropertyChanged(nameof(CashInRewardLevelsExist));
             }
         }
 
         public List<CoinInRewardLevel> CoinInRewardLevels
         {
             get => _coinInRewardLevels;
-            set => SetProperty(ref _coinInRewardLevels, value,
+            set => this.SetProperty(ref _coinInRewardLevels, value, OnPropertyChanged,
                 nameof(CoinInRewardLevels), nameof(CoinInRewardLevelsExist));
         }
 
         public List<CashInRewardLevel> CashInRewardLevels
         {
             get => _cashInRewardLevels;
-            set => SetProperty(ref _cashInRewardLevels, value,
+            set => this.SetProperty(ref _cashInRewardLevels, value, OnPropertyChanged,
                 nameof(CashInRewardLevels), nameof(CashInRewardLevelsExist));
         }
 

@@ -5,6 +5,7 @@
     using System.Reflection;
     using Application.Contracts;
     using Common;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Lobby;
     using Contracts.Models;
@@ -12,16 +13,15 @@
     using log4net;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Models;
-    using MVVM.ViewModel;
 
-    public class ClockTimer : BaseViewModel
+    public class ClockTimer : ObservableObject
     {
         private const int ClockStateTimeoutInSeconds = 30;
         private const double DayTimerIntervalSeconds = 1.0;
         private const string TimeResourceKey = "TimeLabel";
         private const string TimeLeftResourceKey = "TimeLeftLabel";
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly object _clockStateLock = new object();
 
         private readonly LobbyConfiguration _config;
@@ -86,7 +86,7 @@
                     _clockState = value;
                     _lastClockStateSet = DateTime.UtcNow;
                     Logger.Debug($"Setting Lobby Clock State: {_clockState}");
-                    RaisePropertyChanged(nameof(ClockState));
+                    OnPropertyChanged(nameof(ClockState));
                     UpdateTime();
                 }
             }
@@ -108,7 +108,7 @@
                 if (_currentTime != value)
                 {
                     _currentTime = value;
-                    RaisePropertyChanged(nameof(CurrentTime));
+                    OnPropertyChanged(nameof(CurrentTime));
                 }
             }
         }
@@ -156,7 +156,7 @@
                         DateTime.UtcNow - TimeSpan.FromSeconds(ClockStateTimeoutInSeconds - 1)
                     ) // -1 because event seems to sometimes fire a few milliseconds earlier than expected so need buffer.
                     {
-                        // Timestamp the clock flip and ignore the timer if it comes in earlier than it should.  
+                        // Timestamp the clock flip and ignore the timer if it comes in earlier than it should.
                         // This should prevent double flips caused by lags in communication with the runtime.
                         Logger.Debug(
                             $"Ignoring ChangeClockState: LastClockStateSet:{_lastClockStateSet.Value.ToString("hh: mm:ss.fff", CultureInfo.InvariantCulture)}");
@@ -183,7 +183,7 @@
                         }
                         else
                         {
-                            // Set value properly even though we didn't actually send it.  
+                            // Set value properly even though we didn't actually send it.
                             _lastDisplayingTimeRemainingValue = ClockState == LobbyClockState.ResponsibleGamingSessionTime;
                         }
                     }
@@ -244,7 +244,7 @@
 
         public void RestartClockTimer()
         {
-            //This should only happen if we had a forced cashout while disabled and now we are re-enabling 
+            //This should only happen if we had a forced cashout while disabled and now we are re-enabling
             if (_config.DisplaySessionTimeInClock &&
                 ResponsibleGamingSessionState == ResponsibleGamingSessionState.Stopped &&
                 !ClockStateTimer.IsEnabled)
@@ -276,7 +276,7 @@
 
         public void UpdateTime()
         {
-            RaisePropertyChanged(nameof(IsSessionOverLabelVisible));
+            OnPropertyChanged(nameof(IsSessionOverLabelVisible));
             if (_clockState == LobbyClockState.Clock)
             {
                 var culture = new CultureInfo(ActiveLocaleCode);
@@ -295,7 +295,7 @@
 
                         break;
                     case ClockMode.Military:
-                        //we want 24-hour always for Quebec, which is FR-CA culture    
+                        //we want 24-hour always for Quebec, which is FR-CA culture
                         culture = CultureInfo.CreateSpecificCulture(GamingConstants.FrenchCultureCode);
                         format = culture.DateTimeFormat.ShortTimePattern;
                         break;
@@ -308,7 +308,7 @@
                 CurrentTime = SessionTimeText;
             }
 
-            RaisePropertyChanged(nameof(TimeLabelResourceKey));
+            OnPropertyChanged(nameof(TimeLabelResourceKey));
         }
 
         private void DayTimer_Tick(object sender, EventArgs e)

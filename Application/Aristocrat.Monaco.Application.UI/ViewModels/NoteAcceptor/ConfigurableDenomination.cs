@@ -1,18 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Extensions;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class ConfigurableDenomination : BaseViewModel
+    public class ConfigurableDenomination : ObservableObject
     {
         private bool _enabled;
         private bool _selected;
         private bool _visible;
 
-        public ConfigurableDenomination(int denom, ActionCommand<bool> command, bool selected)
+        public ConfigurableDenomination(int denom, RelayCommand<bool> command, bool selected)
         {
             Denom = denom;
             ChangeCommand = command;
@@ -23,7 +23,7 @@
 
         public int Denom { get; }
 
-        public ActionCommand<bool> ChangeCommand { get; }
+        public RelayCommand<bool> ChangeCommand { get; }
 
         public string DisplayValue => Denom.FormattedCurrencyString("C0");
 
@@ -35,7 +35,7 @@
                 if (_enabled != value)
                 {
                     _enabled = value;
-                    RaisePropertyChanged(nameof(Enabled));
+                    OnPropertyChanged(nameof(Enabled));
                 }
             }
         }
@@ -48,7 +48,7 @@
                 if (_selected != value)
                 {
                     _selected = value;
-                    RaisePropertyChanged(nameof(Selected));
+                    OnPropertyChanged(nameof(Selected));
                     ChangeCommand.Execute(Selected);
                 }
             }
@@ -62,7 +62,7 @@
                 if (_visible != value)
                 {
                     _visible = value;
-                    RaisePropertyChanged(nameof(Visible));
+                    OnPropertyChanged(nameof(Visible));
                 }
             }
         }

@@ -19,6 +19,7 @@
     using Common.Events;
     using Common.GameOverlay;
     using Common.Storage.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Events;
@@ -28,7 +29,6 @@
     using Models;
     using Monaco.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Model;
     using OverlayServer;
     using OverlayServer.Attributes;
     using OverlayServer.Data.Bingo;
@@ -37,7 +37,7 @@
     using BingoPattern = Common.GameOverlay.BingoPattern;
     using PresentationOverrideTypes = Gaming.Contracts.PresentationOverrideTypes;
 
-    public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
+    public class BingoHtmlHostOverlayViewModel : ObservableObject, IDisposable
     {
         private const string CloseEvent = "Close";
 
@@ -84,7 +84,7 @@
         private double _infoOpacity;
         private double _gameControlledHeight;
         private double _dynamicMessageOpacity;
-        private IGameDetail _lastSelectedGame; 
+        private IGameDetail _lastSelectedGame;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,

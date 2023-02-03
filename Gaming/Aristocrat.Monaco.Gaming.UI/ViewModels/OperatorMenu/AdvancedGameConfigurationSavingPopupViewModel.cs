@@ -3,7 +3,7 @@
     using System;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
-    using MVVM;
+    using Toolkit.Mvvm.Extensions;
 
     public class AdvancedGameConfigurationSavingPopupViewModel : OperatorMenuSaveViewModelBase
     {
@@ -22,7 +22,7 @@
             _loadedAction.BeginInvoke(
                 ar =>
                 {
-                    MvvmHelper.ExecuteOnUI(() => _dialogService.DismissOpenedDialog());
+                    Execute.OnUIThread(() => _dialogService.DismissOpenedDialog());
                 },
                 this);
         }

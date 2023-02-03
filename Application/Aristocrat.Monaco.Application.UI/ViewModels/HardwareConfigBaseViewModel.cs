@@ -28,8 +28,6 @@
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using IdReaderInspectionFailedEvent = Hardware.Contracts.IdReader.InspectionFailedEvent;
     using IdReaderInspectionSucceededEvent = Hardware.Contracts.IdReader.InspectedEvent;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
@@ -41,8 +39,10 @@
     using ReelInspectedEvent = Hardware.Contracts.Reel.InspectedEvent;
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.InspectionFailedEvent;
     using Aristocrat.Monaco.Hardware.Contracts.Door;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.TowerLight;
     using Monaco.Common;
+    using Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
@@ -121,14 +121,14 @@
             _configWizardConfiguration = _serviceManager.GetService<IConfigurationUtilitiesProvider>()
                 .GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
 
-            ValidateCommand = new ActionCommand<object>(
+            ValidateCommand = new RelayCommand<object>(
                 _ => ValidateConfig(),
                 _ =>
                 {
                     InitialHardMeter = _hardMetersEnabled;
                     if (!CanValidate && IsWizardPage)
                     {
-                        Task.Delay(100).ContinueWith(_ => MvvmHelper.ExecuteOnUI(() => UpdateScreen(true)));
+                        Task.Delay(100).ContinueWith(_ => Execute.OnUIThread(() => UpdateScreen(true)));
                     }
 
                     return CanValidate;
@@ -165,7 +165,7 @@
         public ObservableCollection<DeviceConfigViewModel> Devices { get; set; } =
             new ObservableCollection<DeviceConfigViewModel>();
 
-        public ActionCommand<object> ValidateCommand { get; set; }
+        public RelayCommand<object> ValidateCommand { get; set; }
 
         public bool IsValidating
         {
@@ -178,12 +178,12 @@
                 }
 
                 _isValidating = value;
-                RaisePropertyChanged(nameof(IsValidating));
-                RaisePropertyChanged(nameof(ConfigurableBell));
-                RaisePropertyChanged(nameof(ConfigurableHardMeters));
-                RaisePropertyChanged(nameof(ConfigurableDoorOpticSensor));
-                RaisePropertyChanged(nameof(ConfigurableBellyPanelDoor));
-                MvvmHelper.ExecuteOnUI(() => ValidateCommand.RaiseCanExecuteChanged());
+                OnPropertyChanged(nameof(IsValidating));
+                OnPropertyChanged(nameof(ConfigurableBell));
+                OnPropertyChanged(nameof(ConfigurableHardMeters));
+                OnPropertyChanged(nameof(ConfigurableDoorOpticSensor));
+                OnPropertyChanged(nameof(ConfigurableBellyPanelDoor));
+                Execute.OnUIThread(() => ValidateCommand.NotifyCanExecuteChanged());
 
                 CheckValidatedStatus();
 
@@ -206,7 +206,7 @@
             set
             {
                 _validationStatus = value;
-                RaisePropertyChanged(nameof(ValidationStatus));
+                OnPropertyChanged(nameof(ValidationStatus));
             }
         }
 
@@ -230,7 +230,8 @@
                 if (_hardMetersEnabled != value)
                 {
                     _hardMetersEnabled = value;
-                    RaisePropertyChanged(nameof(HardMetersEnabled), nameof(TickValueVisible));
+                    OnPropertyChanged(nameof(HardMetersEnabled));
+                    OnPropertyChanged(nameof(TickValueVisible));
                     UpdateChanges?.Invoke();
 
                     if (IsWizardPage)
@@ -251,7 +252,7 @@
                 if (_bellEnabled != value)
                 {
                     _bellEnabled = value;
-                    RaisePropertyChanged(nameof(BellEnabled));
+                    OnPropertyChanged(nameof(BellEnabled));
                     UpdateChanges?.Invoke();
 
                     if (IsWizardPage)
@@ -332,7 +333,7 @@
                 if (_bellyPanelDoorEnabled != value)
                 {
                     _bellyPanelDoorEnabled = value;
-                    RaisePropertyChanged(nameof(BellyPanelDoorEnabled));
+                    OnPropertyChanged(nameof(BellyPanelDoorEnabled));
                     UpdateChanges?.Invoke();
                 }
             }
@@ -352,7 +353,7 @@
 
             CheckValidatedStatus();
 
-            MvvmHelper.ExecuteOnUI(() => ValidateCommand.RaiseCanExecuteChanged());
+            Execute.OnUIThread(() => ValidateCommand.NotifyCanExecuteChanged());
         }
 
         protected virtual void UndoSavedChanges()
@@ -389,8 +390,8 @@
 
         protected override void OnInputEnabledChanged()
         {
-            ValidateCommand.RaiseCanExecuteChanged();
-            RaisePropertyChanged(nameof(ShowApplyButton));
+            ValidateCommand.NotifyCanExecuteChanged();
+            OnPropertyChanged(nameof(ShowApplyButton));
         }
 
         protected override void DisposeInternal()
@@ -822,7 +823,7 @@
                     StopTimer();
                 }
 
-                MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+                Execute.OnUIThread(() => UpdateScreen());
             }
         }
 
@@ -1409,8 +1410,8 @@
                 }
                 else
                 {
-                    MvvmHelper.ExecuteOnUI(() => IsValidating = false);
-                    MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+                    Execute.OnUIThread(() => IsValidating = false);
+                    Execute.OnUIThread(() => UpdateScreen());
                 }
             }
         }
@@ -1512,7 +1513,7 @@
                 device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated);
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsValidating = false;
@@ -1535,7 +1536,7 @@
                     }
                 });
 
-            MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+            Execute.OnUIThread(() => UpdateScreen());
         }
 
         private void StopTimer()

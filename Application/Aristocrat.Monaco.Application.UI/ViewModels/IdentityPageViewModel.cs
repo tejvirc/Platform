@@ -1,14 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Text.RegularExpressions;
     using System.Web.UI;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Models;
+    using Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     The IdentityViewModel supports adding and editing a G2S host.
@@ -37,7 +41,7 @@
                 IsQuiet = isWizardPage,
                 OnChanged = _ =>
                 {
-                    ValidateArea(true);
+                    ValidateProperty(Area, nameof(Area));
                 },
             };
 
@@ -46,7 +50,7 @@
                 IsQuiet = isWizardPage,
                 OnChanged = _ =>
                 {
-                    ValidateZone(true);
+                    ValidateProperty(Zone, nameof(Zone));
                 },
             };
 
@@ -55,7 +59,7 @@
                 IsQuiet = isWizardPage,
                 OnChanged = _ =>
                 {
-                    ValidateBank(true);
+                    ValidateProperty(Bank, nameof(Bank));
                 },
             };
 
@@ -64,7 +68,7 @@
                 IsQuiet = isWizardPage,
                 OnChanged = _ =>
                 {
-                    ValidatePosition(true);
+                    ValidateProperty(Position, nameof(Position));
                 },
             };
 
@@ -73,7 +77,7 @@
                 IsQuiet = isWizardPage,
                 OnChanged = _ =>
                 {
-                    ValidateLocation(true);
+                    ValidateProperty(Location, nameof(Location));
                 },
             };
 
@@ -83,22 +87,28 @@
                 IsVisible = false,
                 OnChanged = setting =>
                 {
-                    ValidateDeviceName(true);
-                    RaisePropertyChanged(setting.Name);
+                    ValidateProperty(DeviceName, nameof(DeviceName));
+                    OnPropertyChanged(setting.Name);
                 }
             };
         }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(AreaValidate))]
         public LiveStringSetting Area { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(ZoneValidate))]
         public LiveStringSetting Zone { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(BankValidate))]
         public LiveStringSetting Bank { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(PositionValidate))]
         public LiveStringSetting Position { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(LocationValidate))]
         public LiveStringSetting Location { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(DeviceNameValidate))]
         public LiveStringSetting DeviceName { get; private set; }
 
         /// <summary>
@@ -113,7 +123,7 @@
                 if (_printIdentityTicket != value)
                 {
                     _printIdentityTicket = value;
-                    RaisePropertyChanged(nameof(PrintIdentityTicket));
+                    OnPropertyChanged(nameof(PrintIdentityTicket));
                 }
             }
         }
@@ -130,7 +140,7 @@
                 if (_printTicketEnabled != value)
                 {
                     _printTicketEnabled = value;
-                    RaisePropertyChanged(nameof(PrintTicketEnabled));
+                    OnPropertyChanged(nameof(PrintTicketEnabled));
                 }
             }
         }
@@ -150,14 +160,14 @@
             LoadVariableData();
             SetupNavigation();
 
-            ValidateAll(WizardNavigator == null); // unmark fields only in Config Wizard
+            ValidateAll(); // unmark fields only in Config Wizard
         }
 
         protected override void OnUnloaded()
         {
             Unsubscribe();
             SaveChanges();
-            ValidateAll(false);
+            ValidateAll();
         }
 
         /// <summary>
@@ -262,26 +272,6 @@
             base.SaveChanges();
         }
 
-        /// <inheritdoc />
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-            ValidateAll(true);
-        }
-
-        /// <summary>
-        /// Validate live settings. Circumvents "sticky" errors due to the vaildation system not properly tracking deep field paths.
-        /// </summary>
-        protected void ValidateAll(bool markFields)
-        {
-            ValidateArea(markFields);
-            ValidateZone(markFields);
-            ValidateBank(markFields);
-            ValidatePosition(markFields);
-            ValidateLocation(markFields);
-            ValidateDeviceName(markFields);
-        }
-
         protected override void SetupNavigation()
         {
             if (WizardNavigator != null)
@@ -293,7 +283,7 @@
 
         protected virtual void LoadVariableData()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 UpdateLiveSetting(nameof(SerialNumber));
                 UpdateLiveSetting(nameof(AssetNumber));
@@ -380,41 +370,81 @@
             }
         }
 
-        private void ValidateArea(bool markField)
+        public static ValidationResult AreaValidate(LiveStringSetting area, ValidationContext context)
         {
-            ValidateField(Area, _areaOverride, ResourceKeys.SiteRange, null, markField);
+            IdentityPageViewModel instance = (IdentityPageViewModel)context.ObjectInstance;
+            var error = instance.ValidateField(area, instance._areaOverride, ResourceKeys.SiteRange, null);
+            if (string.IsNullOrEmpty(error))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(error);
         }
 
-        private void ValidateZone(bool markField)
+        public static ValidationResult ZoneValidate(LiveStringSetting zone, ValidationContext context)
         {
-            ValidateField(Zone, _zoneOverride, ResourceKeys.ZoneRange, null, markField);
+            IdentityPageViewModel instance = (IdentityPageViewModel)context.ObjectInstance;
+            var error = instance.ValidateField(zone, instance._zoneOverride, ResourceKeys.ZoneRange, null);
+            if (string.IsNullOrEmpty(error))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(error);
         }
 
-        private void ValidateBank(bool markField)
+        public static ValidationResult BankValidate(LiveStringSetting bank, ValidationContext context)
         {
-            ValidateField(Bank, _bankOverride, ResourceKeys.BankRange, null, markField);
+            IdentityPageViewModel instance = (IdentityPageViewModel)context.ObjectInstance;
+            var error = instance.ValidateField(bank, instance._bankOverride, ResourceKeys.BankRange, null);
+            if (string.IsNullOrEmpty(error))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(error);
         }
 
-        private void ValidatePosition(bool markField)
+        public static ValidationResult PositionValidate(LiveStringSetting position, ValidationContext context)
         {
-            ValidateField(Position, _positionOverride, ResourceKeys.PositionRange, null, markField);
+            IdentityPageViewModel instance = (IdentityPageViewModel)context.ObjectInstance;
+            var error = instance.ValidateField(position, instance._positionOverride, ResourceKeys.PositionRange, null);
+            if (string.IsNullOrEmpty(error))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(error);
         }
 
-        private void ValidateLocation(bool markField)
+        public static ValidationResult LocationValidate(LiveStringSetting location, ValidationContext context)
         {
-            ValidateField(Location, _locationOverride, ResourceKeys.LocationRange, null, markField);
+            IdentityPageViewModel instance = (IdentityPageViewModel)context.ObjectInstance;
+            var error = instance.ValidateField(location, instance._locationOverride, ResourceKeys.LocationRange, null);
+            if (string.IsNullOrEmpty(error))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(error);
         }
 
-        private void ValidateDeviceName(bool markField)
+        public static ValidationResult DeviceNameValidate(LiveStringSetting deviceName, ValidationContext context)
         {
-            ValidateField(DeviceName, _deviceNameOverride, null, ResourceKeys.DeviceNameLength, markField);
+            IdentityPageViewModel instance = (IdentityPageViewModel)context.ObjectInstance;
+            var error = instance.ValidateField(deviceName, instance._deviceNameOverride, null, ResourceKeys.DeviceNameLength);
+            if (string.IsNullOrEmpty(error))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(error);
         }
 
-        private void ValidateField(LiveStringSetting setting, IdentityFieldOverride over,
-            string rangeErrorText, string lengthErrorText, bool markField)
+        private string ValidateField(LiveStringSetting setting, IdentityFieldOverride over,
+            string rangeErrorText, string lengthErrorText)
         {
-            var name = setting.Name;
-
             // validate range
             string error = null;
             if (rangeErrorText != null)
@@ -438,16 +468,12 @@
                     : null;
             }
 
-            // update error
-            setting.ValidationErrors = markField ? new[] { error } : null;
-            ClearErrors(name);
-            SetError(name, error);
-            RaisePropertyChanged(name);
+            return error;
         }
 
-        protected override void RaisePropertyChanged(string propertyName)
+        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            base.RaisePropertyChanged(propertyName);
+            base.OnPropertyChanged(e);
 
             if (WizardNavigator != null)
             {

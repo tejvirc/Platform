@@ -2,14 +2,14 @@
 {
     using System.Collections.ObjectModel;
     using Aristocrat.Monaco.Application.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Hardware.Contracts.Audio;
-    using MVVM.Model;
 
     /// <summary>
     ///     Gaming settings.
     /// </summary>
-    internal class GamingSettings : BaseNotify
+    internal class GamingSettings : ObservableObject
     {
         private string _jurisdiction;
         private bool _autoPlayAllowed;

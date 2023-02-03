@@ -2,12 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -70,10 +70,10 @@
                 ApplicationConstants.ShowOverrideSelectionKey,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DefaultBeagleBoneLightShowText));
 
-            SendShowCommand = new ActionCommand<object>(_ => SendShow());
+            SendShowCommand = new RelayCommand<object>(_ => SendShow());
         }
 
-        public IActionCommand SendShowCommand { get; }
+        public IRelayCommand SendShowCommand { get; }
 
         public string ShowOverrideSelection
         {

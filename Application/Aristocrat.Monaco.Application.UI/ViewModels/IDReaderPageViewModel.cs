@@ -9,6 +9,7 @@
     using System.Windows;
     using System.Windows.Media;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.IdReader;
@@ -16,7 +17,6 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -46,8 +46,8 @@
 
         public IdReaderPageViewModel() : base(DeviceType.IdReader)
         {
-            SelfTestButtonCommand = new ActionCommand<object>(OnSelfTestCmd);
-            SelfTestClearButtonCommand = new ActionCommand<object>(OnSelfTestClearNvmCmd);
+            SelfTestButtonCommand = new RelayCommand<object>(OnSelfTestCmd);
+            SelfTestClearButtonCommand = new RelayCommand<object>(OnSelfTestClearNvmCmd);
 
             SelfTestCurrentState = SelfTestState.None;
         }
@@ -70,8 +70,8 @@
                 if (_idCardReadData != value)
                 {
                     _idCardReadData = value;
-                    RaisePropertyChanged(nameof(IdCardReadData));
-                    RaisePropertyChanged(nameof(IdCardReadDataForeground));
+                    OnPropertyChanged(nameof(IdCardReadData));
+                    OnPropertyChanged(nameof(IdCardReadDataForeground));
                 }
             }
         }
@@ -222,7 +222,7 @@
 
                 SetStateInformation(idReader);
 
-                RaisePropertyChanged("UninitializedVisibility");
+                OnPropertyChanged("UninitializedVisibility");
 
                 SelfTestButtonEnabled = IdReader.Enabled && SelfTestCurrentState != SelfTestState.Running;
             }

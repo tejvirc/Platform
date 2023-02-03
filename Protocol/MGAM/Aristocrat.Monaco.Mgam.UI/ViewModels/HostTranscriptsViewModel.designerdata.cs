@@ -5,13 +5,14 @@
     using Aristocrat.Mgam.Client;
     using Aristocrat.Mgam.Client.Routing;
     using Common;
+    using Toolkit.Mvvm.Extensions;
 
     public partial class HostTranscriptsViewModel
     {
         [Conditional("DESIGN")]
         private void WireDesignerData()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 RegisteredInstances.Add(
                     new RegisteredInstance(
