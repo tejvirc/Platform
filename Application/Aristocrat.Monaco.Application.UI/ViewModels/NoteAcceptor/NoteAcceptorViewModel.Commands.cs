@@ -35,19 +35,6 @@
 
         public ICommand NoteAcceptorTestCommand { get; set; }
 
-        public override bool TestModeEnabled
-        {
-            get => base.TestModeEnabled;
-            set
-            {
-                base.TestModeEnabled = value;
-                if (ToggleTestModeCommand is IActionCommand actionCommand)
-                {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
-                }
-            }
-        }
-
         protected override void OnLoaded()
         {
             ChangeFocus = false;
