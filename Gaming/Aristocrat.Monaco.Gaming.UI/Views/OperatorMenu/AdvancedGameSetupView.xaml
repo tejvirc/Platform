@@ -360,7 +360,7 @@
                                                                              Maximum="{Binding BetMaximum, Mode=OneWay}" 
                                                                              Value="{Binding ForcedMinBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                              Style="{StaticResource MonacoDecimalUpDown}"
-                                                                             AllowTextInput="True"
+                                                                             AllowTextInput="{Binding Path=DataContext.IsRouletteGameSelected, RelativeSource={RelativeSource AncestorType={x:Type operatorMenu:OperatorMenuPage}}, Mode=OneWay}"
                                                                              IsEnabled="{Binding CanEditAndEnabled}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -377,7 +377,7 @@
                                                                    Increment="{Binding Denom}"
                                                                    Value="{Binding ForcedMinBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                    Style="{StaticResource MonacoDecimalUpDown}"
-                                                                   AllowTextInput="True"
+                                                                   AllowTextInput="{Binding Path=DataContext.IsRouletteGameSelected, RelativeSource={RelativeSource AncestorType={x:Type operatorMenu:OperatorMenuPage}}, Mode=OneWay}"
                                                                    IsEnabled="{Binding CanEditAndEnabled}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
