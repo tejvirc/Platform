@@ -40,10 +40,13 @@
                     window.addEventListener('onClose', function(e) {
                         CefSharp.PostMessage('Close');
                     }, false);
+                    window.addEventListener('click', function(e) {
+                        CefSharp.PostMessage('Click');
+                    }, false);
                 ",
                 false);
 
-            BingoHelpHost.JavascriptMessageReceived += ViewModel.ExitHelp;
+            BingoHelpHost.JavascriptMessageReceived += ViewModel.HandleJavascriptMessageReceived;
 
             SetupBrowsers(BingoInfoHost);
             SetupBrowsers(BingoHelpHost);
@@ -112,7 +115,7 @@
 #if DEBUG
             KeyDown -= OnKeyDown;
 #endif
-            BingoHelpHost.JavascriptMessageReceived -= ViewModel.ExitHelp;
+            BingoHelpHost.JavascriptMessageReceived -= ViewModel.HandleJavascriptMessageReceived;
             BingoHelpHost.Dispose();
             BingoInfoHost.Dispose();
             DynamicMessageHost.Dispose();

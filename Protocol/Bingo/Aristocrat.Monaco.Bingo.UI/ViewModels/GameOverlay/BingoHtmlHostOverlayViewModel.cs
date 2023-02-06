@@ -39,7 +39,8 @@
 
     public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
     {
-        private const string CloseEvent = "Close";
+        private const string JavascriptCloseEventMessage = "Close";
+        private const string JavascriptClickEventMessage = "Click";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
@@ -55,6 +56,7 @@
         private readonly ConcurrentDictionary<PresentationOverrideTypes, BingoDisplayConfigurationPresentationOverrideMessageFormat> _configuredOverrideMessageFormats = new();
         private readonly BingoWindow _targetWindow;
 
+        private Timer _helpTimer;
         private BingoCard _lastBingoCard;
         private IReadOnlyList<BingoNumber> _lastBallCall = new List<BingoNumber>();
         private IReadOnlyList<BingoPattern> _bingoPatterns = new List<BingoPattern>();
@@ -158,6 +160,8 @@
             _eventBus.Subscribe<GameFatalErrorEvent>(this, (_, _) => SetHelpVisibility(false));
             _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, (e, _) => SetHelpVisibility(e.Visible));
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, Handle);
+
+            _helpTimer = new Timer(_ => ExitHelp(), null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
         }
 
         public string BingoInfoAddress
@@ -267,6 +271,19 @@
             set => SetProperty(ref _dynamicMessageOpacity, value);
         }
 
+        public void HandleJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs args)
+        {
+            switch (args.Message)
+            {
+                case JavascriptClickEventMessage:
+                    ResetHelpTimer();
+                    return;
+                case JavascriptCloseEventMessage:
+                    ExitHelp();
+                    return;
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -276,6 +293,14 @@
 
             if (disposing)
             {
+                if (_helpTimer != null)
+                {
+                    _helpTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+                    var timer = _helpTimer;
+                    _helpTimer = null;
+                    timer.Dispose();
+                }
+
                 _overlayServer.ServerStarted -= HandleServerStarted;
                 _overlayServer.AttractCompleted -= AttractCompleted;
                 _overlayServer.ClientConnected -= OverlayClientConnected;
@@ -382,13 +407,8 @@
             }
         }
 
-        public void ExitHelp(object sender, JavascriptMessageReceivedEventArgs args)
+        private void ExitHelp()
         {
-            if (args.Message is not CloseEvent)
-            {
-                return;
-            }
-
             _eventBus.Publish(new ExitHelpEvent());
         }
 
@@ -947,6 +967,16 @@
 #endif
         }
 
+        private void ResetHelpTimer()
+        {
+            if (IsHelpVisible)
+            {
+                _helpTimer?.Change(
+                    TimeSpan.FromSeconds(_bingoConfigurationProvider.GetHelpAppearance().HelpScreenTimeoutS),
+                    Timeout.InfiniteTimeSpan);
+            }
+        }
+
         private void SaveDaubState(bool state)
         {
             using var unitOfWork = _unitOfWorkFactory.Create();
@@ -971,6 +1001,13 @@
                     if (!visible)
                     {
                         ReloadBrowser(BingoHelpWebBrowser);
+                        _helpTimer?.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+                    }
+                    else
+                    {
+                        _helpTimer?.Change(
+                            TimeSpan.FromSeconds(_bingoConfigurationProvider.GetHelpAppearance().HelpScreenTimeoutS),
+                            Timeout.InfiniteTimeSpan);
                     }
                 });
         }
