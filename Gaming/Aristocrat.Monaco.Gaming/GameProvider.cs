@@ -947,22 +947,7 @@
                         continue;
                     }
 
-                    var wagerCategories = game.WagerCategories.Select(
-                        w => new WagerCategory(
-                            w.Id,
-                            w.TheoPaybackPercent,
-                            w.MinWagerCredits,
-                            w.MaxWagerCredits,
-                            w.MaxWinAmount,
-                            w.MinBaseRtpPercent,
-                            w.MaxBaseRtpPercent,
-                            w.MinSapStartupRtpPercent,
-                            w.MaxSapStartupRtpPercent,
-                            w.SapIncrementRtpPercent,
-                            w.MinLinkStartupRtpPercent,
-                            w.MaxLinkStartupRtpPercent,
-                            w.LinkIncrementRtpPercent)).ToList();
-
+                    List<WagerCategory> wagerCategories;
                     var centralAllowed = false;
 
                     if (game.CentralInfo.Any())
@@ -987,11 +972,19 @@
                     {
                         wagerCategories = game.WagerCategories.Select(
                             w => new WagerCategory(
-                                w.Id.ToString(),
+                                w.Id,
                                 w.TheoPaybackPercent,
                                 w.MinWagerCredits,
                                 w.MaxWagerCredits,
-                                w.MaxWinAmount)).ToList();
+                                w.MaxWinAmount,
+                                w.MinBaseRtpPercent,
+                                w.MaxBaseRtpPercent,
+                                w.MinSapStartupRtpPercent,
+                                w.MaxSapStartupRtpPercent,
+                                w.SapIncrementRtpPercent,
+                                w.MinLinkStartupRtpPercent,
+                                w.MaxLinkStartupRtpPercent,
+                                w.LinkIncrementRtpPercent)).ToList();
                     }
 
                     var cdsGameInfos = game.CentralInfo?.GroupBy(c => c.Id, c => c.Bet,
