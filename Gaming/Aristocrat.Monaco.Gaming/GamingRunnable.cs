@@ -21,6 +21,7 @@
     using Contracts.Payment;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Contracts.Session;
     using Hardware.Contracts;
     using Kernel;
@@ -274,6 +275,7 @@
             serviceManager.AddService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IRtpService>() as IService);
         }
 
         private void RemoveServices()
