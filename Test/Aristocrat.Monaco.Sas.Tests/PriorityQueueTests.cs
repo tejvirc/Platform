@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+    using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Aristocrat.Monaco.Protocol.Common.Storage.Repositories;
     using Aristocrat.Monaco.Sas.Exceptions;
@@ -22,6 +23,7 @@
         private const int ClientId = 3;
         private readonly Mock<ISasExceptionHandler> _exceptionHandler = new Mock<ISasExceptionHandler>(MockBehavior.Default);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new Mock<IUnitOfWorkFactory>(MockBehavior.Default);
+        private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Default);
         private readonly Mock<IRepository<ExceptionQueue>> _repository = new Mock<IRepository<ExceptionQueue>>(MockBehavior.Default);
         private SasPriorityExceptionQueue _target;
@@ -36,7 +38,7 @@
             _unitOfWorkFactory.Setup(x => x.Create()).Returns(_unitOfWork.Object);
             _unitOfWork.Setup(x => x.Repository<ExceptionQueue>()).Returns(_repository.Object);
             _repository.Setup(x => x.Queryable()).Returns(Enumerable.Empty<ExceptionQueue>().AsQueryable());
-            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, new SasClientConfiguration { LegacyHandpayReporting = true, DiscardOldestException = true, IsNoneValidation = false });
+            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, new SasClientConfiguration { LegacyHandpayReporting = true, DiscardOldestException = true, IsNoneValidation = false }, _eventBus.Object);
 
             // now remove the 30 elements we passed in thru persistence so the queue starts with nothing in it
             foreach (var _ in Enumerable.Range(0, ReturnedQueueSize))
@@ -305,7 +307,7 @@
         [TestMethod]
         public void LegacyHandpayReportingHandpayExceptionPrioritiesTest()
         {
-            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, new SasClientConfiguration { LegacyHandpayReporting = true });
+            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, new SasClientConfiguration { LegacyHandpayReporting = true }, _eventBus.Object);
             _target.QueuePriorityException(GeneralExceptionCode.HandPayIsPending);
             _target.QueuePriorityException(GeneralExceptionCode.HandPayWasReset);
 
@@ -320,7 +322,7 @@
         [TestMethod]
         public void SecureHandpayReportingHandpayExceptionPrioritiesTest()
         {
-            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, new SasClientConfiguration { LegacyHandpayReporting = false });
+            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, new SasClientConfiguration { LegacyHandpayReporting = false }, _eventBus.Object);
             _target.QueuePriorityException(GeneralExceptionCode.HandPayIsPending);
             _target.QueuePriorityException(GeneralExceptionCode.HandPayWasReset);
 
@@ -444,7 +446,7 @@
             // make the exception to queue one that normally is a priority exception
             var exception = new GenericExceptionBuilder(GeneralExceptionCode.CashOutTicketPrinted);
 
-            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, configuration);
+            _target = new SasPriorityExceptionQueue(ClientId, _unitOfWorkFactory.Object, _exceptionHandler.Object, configuration, _eventBus.Object);
 
             // now remove the 30 elements we passed in thru persistence so the queue starts with nothing in it
             foreach (var _ in Enumerable.Range(0, ReturnedQueueSize))

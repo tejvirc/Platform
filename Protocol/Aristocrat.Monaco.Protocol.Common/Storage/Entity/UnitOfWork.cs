@@ -5,6 +5,8 @@
     using System.Data;
     using System.Data.Common;
     using System.Data.Entity;
+    using System.Reflection;
+    using log4net;
     using Monaco.Common.Storage;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
@@ -14,6 +16,8 @@
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly Container _container;
 
         private readonly Dictionary<Type, InstanceProducer> _repositories = new Dictionary<Type, InstanceProducer>();
@@ -51,15 +55,24 @@
 
             if (!_repositories.TryGetValue(entityType, out var producer))
             {
-                producer = _container.GetRegistration(typeof(Repositories.IRepository<>).MakeGenericType(entityType));
-
-                _repositories.Add(entityType, producer);
+                try
+                {
+                    producer = _container.GetRegistration(typeof(Repositories.IRepository<>).MakeGenericType(entityType));
+                }
+                catch (ObjectDisposedException e)
+                {
+                    Logger.Warn($"Failed getting registration for {entityType.Name} - container has been disposed:", e);
+                }
             }
 
             if (producer == null)
             {
-                throw new InvalidOperationException($"No repository for {entityType.Name} entity type");
+                throw new InvalidOperationException($"No producer for entity type {entityType.Name}");
             }
+			else
+			{
+                _repositories.Add(entityType, producer);
+			}
 
             return (Repositories.IRepository<TEntity>)_scope.GetInstance(producer.ServiceType);
         }
