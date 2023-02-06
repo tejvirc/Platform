@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Rtp
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Localization.Properties;
 
     /// <summary>
@@ -9,6 +11,11 @@
     [Serializable]
     public class RtpRange
     {
+        /// <summary>
+        ///     Represents a zero RTP range which usually means "unused."
+        /// </summary>
+        public static RtpRange Zero = new (0.0m, 0.0m);
+
         /// <summary>
         ///     Constructs a new immutable RTP (Return to Player) range in percent.
         /// </summary>
@@ -42,9 +49,18 @@
         public decimal Maximum { get; }
 
         /// <summary>
-        ///     Represents a zero RTP range
+        ///     Totals the specified RTP ranges together. The resulting range has the lowest minimum and highest maximum of all ranges.
         /// </summary>
-        public static RtpRange Zero = new (0.0m, 0.0m);
+        /// <param name="rtpRanges">The RTP ranges to be totaled together.</param>
+        /// <returns>A new <see cref="RtpRange"/> which is the total of a many ranges.</returns>
+        public static RtpRange Total(params RtpRange[] rtpRanges) => rtpRanges.Aggregate((r1, r2) => r1.TotalWith(r2));
+
+        /// <summary>
+        ///     Totals this RTP range with another RTP range.
+        /// </summary>
+        /// <param name="otherRtp">The other RTP range.</param>
+        /// <returns>A new <see cref="RtpRange"/> with the most minimum and maximum values of the two ranges.</returns>
+        public RtpRange TotalWith(RtpRange otherRtp) => new(Math.Min(Minimum, otherRtp.Minimum), Math.Max(Maximum, otherRtp.Maximum));
 
         /// <summary>
         ///     Overloaded Addition operator + to support expanding RTP Ranges.
@@ -52,7 +68,7 @@
         /// <param name="r1">RTP Range 1</param>
         /// <param name="r2">RTP Range 2</param>
         /// <returns></returns>
-        public static RtpRange operator +(RtpRange r1, RtpRange r2) => new(Math.Min(r1.Minimum, r2.Minimum), Math.Max(r1.Maximum, r2.Maximum));
+        public static RtpRange operator +(RtpRange r1, RtpRange r2) => new(r1.Minimum + r2.Minimum, r1.Maximum + r2.Maximum);
 
         /// <summary>
         ///     Returns the string representation of the rtp

@@ -84,7 +84,7 @@
 
             var averageRtp = games.Average(game =>
             {
-                var rtpBreakdown = rtpReportsByTheme[game.ThemeId].GetTotalRtpBreakdownForVariation(game.VariationId);
+                var rtpBreakdown = rtpReportsByTheme[game.ThemeId].GetTotalRtpForVariation(game.VariationId);
                 var totalRtp = rtpBreakdown.TotalRtp;
                 return (totalRtp.Minimum + totalRtp.Maximum) / 2.0m;
             });

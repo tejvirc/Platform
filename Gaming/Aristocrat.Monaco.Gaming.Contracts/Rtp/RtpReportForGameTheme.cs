@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Rtp
 {
+    using Aristocrat.Monaco.PackageManifest.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,7 +14,7 @@
         private const int RequiredLevelOfRtpPrecision = 5;
         private readonly IList<IGameDetail> _gamesDetails;
         private readonly RtpRules _rules;
-        private readonly Dictionary<string, Dictionary<string, RtpBreakdown>> _rtpBreakdownsByVariationAndWagerCategory = new();
+        private readonly Dictionary<string, Dictionary<string, RtpBreakdown>> _rtpBreakdownsByVariationThenWagerCategory = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RtpReportForGameTheme" /> class.
@@ -28,98 +29,109 @@
             _gamesDetails = gamesDetails.ToList();
             _rules = rules;
 
-            SetupRtpBreakdowns();
+            GenerateRtpBreakdowns();
 
             RunAllRtpValidations();
         }
 
         /// <summary>
-        ///     Gets the Total RTP breakdown for the given variation.
+        ///     Gets the Total RTP for the given game variation.
         /// </summary>
         /// <param name="variationId">The variation identifier.</param>
-        /// <returns>The total RTP statistics for the variation</returns>
-        public RtpBreakdown GetTotalRtpBreakdownForVariation(string variationId)
+        /// <returns>The total RTP the variation</returns>
+        public RtpRange GetTotalRtpForVariation(string variationId)
         {
-            if (!_rtpBreakdownsByVariationAndWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpBreakdowns))
+            if (!_rtpBreakdownsByVariationThenWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpBreakdowns))
             {
-                throw new Exception($"Could not find any RTP Details for VariationId: \"{variationId}\"");
+                throw new Exception($"Could not find any RTP information for VariationId: \"{variationId}\"");
             }
 
-            var totalRtpBreakdown = wagerCategoryRtpBreakdowns.Values.Aggregate((d1, d2) => d1 + d2);
+            var totalRtpBreakdown = wagerCategoryRtpBreakdowns.Values
+                .Select(breakdown => breakdown.TotalRtp)
+                .Aggregate((r1, r2) => r1.TotalWith(r2));
 
             return totalRtpBreakdown;
-        }
-
-        /// <summary>
-        ///     Gets the RTP Breakdown for the given wager category.
-        /// </summary>
-        /// <param name="variationId">The variation identifier.</param>
-        /// <param name="wagerCategoryId">The wager category identifier.</param>
-        /// <returns>The RTP Breakdown for the wager category</returns>
-        public RtpBreakdown GetRtpBreakdownForWagerCategory(string variationId, string wagerCategoryId)
-        {
-            if (!_rtpBreakdownsByVariationAndWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpDetails))
-            {
-                throw new Exception($"Could not find any RTP Details for VariationId: \"{variationId}\"");
-            }
-
-            if (!wagerCategoryRtpDetails.TryGetValue(wagerCategoryId, out var rtpDetails))
-            {
-                throw new Exception($"Could not find any RTP Details for WagerCategoryId: \"{wagerCategoryId}\"");
-            }
-
-            return rtpDetails;
         }
 
         /// <summary>
         ///     Gets the total RTP Range for the Game Theme.
         /// </summary>
         /// <returns>The RTP statistics for the Game Theme</returns>
-        public RtpBreakdown GetTotalRtp()
+        public RtpRange GetTotalRtpForGameTheme()
         {
-            var variationRtpDetailTotals =
-                _rtpBreakdownsByVariationAndWagerCategory.Keys.Select(GetTotalRtpBreakdownForVariation);
+            var variationRtpTotals =
+                _rtpBreakdownsByVariationThenWagerCategory.Keys.Select(GetTotalRtpForVariation);
 
-            var rtpDetailsTotal = variationRtpDetailTotals.Aggregate((d1, d2) => d1 + d2);
+            var rtpTotal = variationRtpTotals.Aggregate((r1, r2) => r1.TotalWith(r2));
 
-            return rtpDetailsTotal;
+            return rtpTotal;
         }
 
-        private void SetupRtpBreakdowns()
+        private void GenerateRtpBreakdowns()
         {
             foreach (var gameVariant in _gamesDetails)
             {
-                var rtpBreakdownsForGameVariant = new Dictionary<string, RtpBreakdown>();
+                var rtpBreakdownsByWagerCategoryId = gameVariant.WagerCategories
+                    .ToDictionary(wagerCategory => wagerCategory.Id, ConvertToRtpBreakdown);
 
-                foreach (var wagerCategory in gameVariant.WagerCategories)
-                {
-                    var rtpBreakdown = new RtpBreakdown
-                    {
-                        Base = new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent),
-                        StandaloneProgressiveIncrement = _rules.IncludeStandaloneProgressiveIncrementRtp
-                            ? new RtpRange(wagerCategory.SapIncrementRtpPercent, wagerCategory.SapIncrementRtpPercent)
-                            : RtpRange.Zero,
-                        StandaloneProgressiveReset = _rules.IncludeStandaloneProgressiveStartUpRtp
-                            ? new RtpRange(wagerCategory.MinSapStartupRtpPercent, wagerCategory.MaxSapStartupRtpPercent)
-                            : RtpRange.Zero,
-                        LinkedProgressiveIncrement = _rules.IncludeLinkProgressiveIncrementRtp
-                            ? new RtpRange(wagerCategory.LinkIncrementRtpPercent, wagerCategory.LinkIncrementRtpPercent)
-                            : RtpRange.Zero,
-                        LinkedProgressiveReset = _rules.IncludeLinkProgressiveStartUpRtp
-                            ? new RtpRange(wagerCategory.MinLinkStartupRtpPercent, wagerCategory.MaxLinkStartupRtpPercent)
-                            : RtpRange.Zero,
-                    };
-
-                    rtpBreakdownsForGameVariant.Add(gameVariant.VariationId, rtpBreakdown);
-                }
-
-                _rtpBreakdownsByVariationAndWagerCategory.Add(gameVariant.VariationId, rtpBreakdownsForGameVariant);
+                _rtpBreakdownsByVariationThenWagerCategory.Add(gameVariant.VariationId, rtpBreakdownsByWagerCategoryId);
             }
+        }
+
+        /// <summary>
+        ///     Gets the RTP Breakdown for the given game variation and wager category.
+        /// </summary>
+        /// <param name="variationId">The variation identifier.</param>
+        /// <param name="wagerCategoryId">The wager category identifier.</param>
+        /// <returns>The RTP Breakdown</returns>
+        public RtpBreakdown GetRtpBreakdown(string variationId, string wagerCategoryId)
+        {
+            if (!_rtpBreakdownsByVariationThenWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpDetails))
+            {
+                throw new Exception($"Could not find any RTP Details for VariationId: \"{variationId}\"");
+            }
+
+            if (!wagerCategoryRtpDetails.TryGetValue(wagerCategoryId, out var rtpBreakdown))
+            {
+                throw new Exception($"Could not find any RTP Details for WagerCategoryId: \"{wagerCategoryId}\"");
+            }
+
+            return rtpBreakdown;
+        }
+
+        public RtpRange GetRtpBreakdownsForVariation(string variationId)
+        {
+            if (!_rtpBreakdownsByVariationThenWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpBreakdowns))
+            {
+                throw new Exception($"Could not find any RTP information for VariationId: \"{variationId}\"");
+            }
+
+            return wagerCategoryRtpBreakdowns.Values;
+        }
+
+        private RtpBreakdown ConvertToRtpBreakdown(IWagerCategory wagerCategory)
+        {
+            return new RtpBreakdown
+            {
+                Base = new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent),
+                StandaloneProgressiveIncrement = _rules.IncludeStandaloneProgressiveIncrementRtp
+                    ? new RtpRange(wagerCategory.SapIncrementRtpPercent, wagerCategory.SapIncrementRtpPercent)
+                    : RtpRange.Zero,
+                StandaloneProgressiveReset = _rules.IncludeStandaloneProgressiveStartUpRtp
+                    ? new RtpRange(wagerCategory.MinSapStartupRtpPercent, wagerCategory.MaxSapStartupRtpPercent)
+                    : RtpRange.Zero,
+                LinkedProgressiveIncrement = _rules.IncludeLinkProgressiveIncrementRtp
+                    ? new RtpRange(wagerCategory.LinkIncrementRtpPercent, wagerCategory.LinkIncrementRtpPercent)
+                    : RtpRange.Zero,
+                LinkedProgressiveReset = _rules.IncludeLinkProgressiveStartUpRtp
+                    ? new RtpRange(wagerCategory.MinLinkStartupRtpPercent, wagerCategory.MaxLinkStartupRtpPercent)
+                    : RtpRange.Zero,
+            };
         }
 
         private void RunAllRtpValidations()
         {
-            foreach (var gameVariantRtp in _rtpBreakdownsByVariationAndWagerCategory)
+            foreach (var gameVariantRtp in _rtpBreakdownsByVariationThenWagerCategory)
             {
                 foreach (var wagerCategoryRtp in gameVariantRtp.Value)
                 {

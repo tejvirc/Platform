@@ -44,23 +44,5 @@
         ///     The results of the RTP validation
         /// </summary>
         public RtpValidationResult ValidationResult = new();
-
-        /// <summary>
-        ///     Implements the operator +.
-        /// </summary>
-        /// <param name="d1">The d1.</param>
-        /// <param name="d2">The d2.</param>
-        /// <returns>The result of the operation.</returns>
-        public static RtpBreakdown operator +(RtpBreakdown d1, RtpBreakdown d2)
-        {
-            return new RtpBreakdown
-            {
-                Base = d1.Base + d2.Base,
-                StandaloneProgressiveReset = d1.StandaloneProgressiveReset + d2.StandaloneProgressiveReset,
-                LinkedProgressiveReset = d1.LinkedProgressiveReset + d2.LinkedProgressiveReset,
-                LinkedProgressiveIncrement = d1.LinkedProgressiveIncrement + d2.LinkedProgressiveIncrement,
-                StandaloneProgressiveIncrement = d1.StandaloneProgressiveIncrement + d2.StandaloneProgressiveIncrement
-            };
-        }
     }
 }
