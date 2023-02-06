@@ -196,7 +196,7 @@
             }
         }
 
-        public bool TestModeEnabled
+        public virtual bool TestModeEnabled
         {
             get => _testModeEnabled & TestModeEnabledSupplementary;
             set
@@ -311,7 +311,7 @@
             }
         }
 
-        public bool PrinterButtonsEnabled => PrinterButtonsEnabledInternal && PrintButtonAccessEnabled;
+        public virtual bool PrinterButtonsEnabled => PrinterButtonsEnabledInternal && PrintButtonAccessEnabled;
 
         public bool PrintCurrentPageButtonVisible { get; private set; }
 
@@ -551,9 +551,9 @@
 
         protected async void InitializeDataAsync()
         {
-            if (IsLoadingData)
+            if (_initialized || IsLoadingData)
             {
-                // Don't reload if already loading
+                // Don't reload if currently loading or already initialized
                 return;
             }
 
@@ -563,6 +563,7 @@
                     IsLoadingData = true;
                     InitializeData();
                     IsLoadingData = false;
+                    _initialized = true;
                 });
 
             RaisePropertyChanged(nameof(DataEmpty));
@@ -635,7 +636,10 @@
                 {
                     Logger.Error("Error while printing", ex?.InnerExceptions[0]);
                     EventBus.Publish(new OperatorMenuPrintJobCompletedEvent());
-                    if (isDiagnostic) EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
+                    if (isDiagnostic)
+                    {
+                        EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
+                    }
                 });
         }
 
@@ -966,11 +970,7 @@
 
         internal void OnLoaded(object page)
         {
-            if (!_initialized)
-            {
-                InitializeDataAsync();
-                _initialized = true;
-            }
+            InitializeDataAsync();
 
             EventBus.Subscribe<PrintButtonClickedEvent>(this, OnPrintButtonClicked);
             EventBus.Subscribe<PrintButtonStatusEvent>(this, OnPrintButtonStatusChanged);

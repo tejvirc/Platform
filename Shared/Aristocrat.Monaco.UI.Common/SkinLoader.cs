@@ -19,11 +19,15 @@
         ///     Initializes a new instance of the <see cref="ResourceDictionary" /> class.
         /// </summary>
         /// <param name="filename">The name of the resource dictionary</param>
+        /// <param name="includeCommon">Allow NOT to load CommonUI.xaml, for non-lobby/game users.</param>
         /// <returns>A resource dictionary loaded from the file</returns>
-        public static ResourceDictionary Load(string filename)
+        public static ResourceDictionary Load(string filename, bool includeCommon = true)
         {
             var dictionary = LoadDictionary(filename);
-            dictionary.MergedDictionaries.Add(LoadCommon());
+            if (includeCommon)
+            {
+                dictionary.MergedDictionaries.Add(LoadCommon());
+            }
             return dictionary;
         }
 

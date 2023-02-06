@@ -13,13 +13,18 @@
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:CompletionPageViewModel}}">
     <UserControl.Resources>
-        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     
     <StackPanel Orientation="Vertical" Margin="10">
-        <Label Content="{lex:Loc ConfigComplete}"/>
+        <Label Content="{lex:Loc ConfigComplete}" Foreground="{StaticResource LightBrush4}"/>
         <Label Content="{lex:Loc GameSetupMessage}" Margin="0 20 0 0"
-               Visibility="{Binding ShowGameSetupMessage, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+               Visibility="{Binding ShowGameSetupMessage, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+               Foreground="{StaticResource LightBrush4}"/>
     </StackPanel>
 </operatorMenu:OperatorMenuPage>
 

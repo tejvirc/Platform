@@ -1,9 +1,8 @@
-﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.SoundTestPage"
+﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.SoundTestPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -83,7 +82,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label Content="{lex:Loc SampleSoundTest}"/>
         <StackPanel Orientation="Horizontal">
             <ComboBox ItemsSource="{Binding SoundFiles}"
@@ -91,7 +90,7 @@
                       SelectedIndex="0"
                       SelectedItem="{Binding Sound}"
                       Style="{StaticResource OptionComboStyle}"/>
-            <Button Content="{iconPacks:PackIcon Play, Width=10, Height=10}" 
+            <Button Content="{iconPacks:PackIcon Kind=Play, Width=10, Height=10}" 
                     Command="{Binding PlayCommand}">
                 <Button.Style>
                     <Style TargetType="Button"
@@ -106,7 +105,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="{iconPacks:PackIcon Stop, Width=10, Height=10}" 
+            <Button Content="{iconPacks:PackIcon Kind=Stop, Width=10, Height=10}" 
                     Command="{Binding StopCommand}"
                     Style="{StaticResource SoundButtonStyle}"
                     RenderTransformOrigin="1.48,0.567"/>
@@ -286,4 +285,4 @@
             </Grid>
         </GroupBox>
     </StackPanel>
-</operatorMenu:OperatorMenuPage>
+</UserControl>

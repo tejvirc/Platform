@@ -29,6 +29,12 @@
     <None Remove="PlatformCommandLineArguments.addin.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Remove="Skins\Originals\InspectionMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\InspectionReskin.xaml" />
+    <Page Remove="Skins\Originals\MonacoMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\MonacoReskin.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="PlatformCommandLineArguments.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -37,6 +43,10 @@
     <Compile Update="Translations.cs">
       <DependentUpon>Translations.xsd</DependentUpon>
     </Compile>
+    <None Include="Skins\Originals\InspectionMetroSkin.xaml" />
+    <None Include="Skins\Originals\InspectionReskin.xaml" />
+    <None Include="Skins\Originals\MonacoMetroSkin.xaml" />
+    <None Include="Skins\Originals\MonacoReskin.xaml" />
     <None Include="Translations.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -58,7 +68,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0007" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="3.0.0-beta0001" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
     <PackageReference Include="log4net" Version="2.0.13" />

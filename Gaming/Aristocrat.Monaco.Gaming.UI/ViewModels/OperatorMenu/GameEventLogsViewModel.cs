@@ -51,6 +51,9 @@
             }
 
             _lastGame = games.Count == _gameHistoryLog?.LogSequence;
+
+            // Initialize data before load
+            InitializeDataAsync();
         }
 
         protected override void InitializeData()
@@ -59,7 +62,7 @@
             {
                 return;
             }
-            
+
             var logs = new List<GameEventLogEntry>(_gameHistoryLog.Events);
 
             if (_lastGame)

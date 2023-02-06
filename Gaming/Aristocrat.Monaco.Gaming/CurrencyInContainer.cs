@@ -152,9 +152,8 @@
                     if (trans.PayMethod == PayMethod.Handpay && trans.IsAttendantPaid(_history))
                     {
                         transactionInfo.HandpayType = HandpayType.BonusPay;
-                        excludeFromPendingAmount = true;
                     }
-
+                    excludeFromPendingAmount = true;
                     break;
                 case VoucherOutTransaction trans:
                     amount = trans.Amount;

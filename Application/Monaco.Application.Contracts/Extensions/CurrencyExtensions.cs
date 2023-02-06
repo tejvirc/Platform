@@ -340,7 +340,9 @@
         {
             return amount >= CurrencyMinorUnitsPerMajorUnit
                 ? amount.CentsToDollars().ToString("C0", CurrencyCultureInfo)
-                : $"{amount}{MinorUnitSymbol}";
+                : string.IsNullOrWhiteSpace(MinorUnitSymbol)
+                    ? amount.CentsToDollars().ToString("C", CurrencyCultureInfo)
+                    : $"{amount}{MinorUnitSymbol}";
         }
 
         /// <summary>

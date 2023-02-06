@@ -25,6 +25,7 @@
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.MechanicalReels.ReelControllerAdapter.Options";
         private const string ReelBrightnessOption = "ReelBrightness";
         private const string ReelOffsetsOption = "ReelOffsets";
+        private const string ReelController = "Reel Controller";
         private const int ReelOffsetDefaultValue = 0;
         private const int MaxBrightness = 100;
 
@@ -177,9 +178,9 @@
 
         protected override IReelControllerImplementation Implementation => _reelController;
 
-        protected override string Description => string.Empty;
+        protected override string Description => ReelController;
 
-        protected override string Path => string.Empty;
+        protected override string Path => Kernel.Contracts.Components.Constants.ReelControllerPath;
 
         private bool CanSendCommand => LogicalState is
                     not ReelControllerState.Uninitialized and

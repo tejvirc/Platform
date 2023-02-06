@@ -21,7 +21,7 @@
 		<Optimize>true</Optimize>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Aristocrat.Protocols" Version="1.0.70" />
+		<PackageReference Include="Aristocrat.Protocols" Version="1.0.75" />
 		<PackageReference Include="log4net" Version="2.0.13" />
 		<PackageReference Include="Polly" Version="7.2.1" />
 		<PackageReference Include="protobuf-net" Version="3.1.25" />

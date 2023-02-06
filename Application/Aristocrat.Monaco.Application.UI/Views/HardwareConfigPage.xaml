@@ -332,7 +332,7 @@
                    Foreground="{Binding ValidationStatus, Converter={StaticResource BrushConverter}}"/>
         </StackPanel>
 
-        <controls:ProgressRing Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" IsActive="{Binding IsValidating}"/>
+        <controls:ProgressRing Grid.Row="0" Grid.RowSpan="2" Foreground="{StaticResource LightBrush3}" VerticalAlignment="Center" IsActive="{Binding IsValidating}"/>
     </Grid>
 </operatorMenu:OperatorMenuPage>
 

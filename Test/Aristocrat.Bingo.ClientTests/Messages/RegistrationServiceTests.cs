@@ -50,7 +50,7 @@
         public async Task RegisterClientTest(RegistrationResponse.Types.ResultType resultType, bool authorizationSet, ResponseCode responseCode)
         {
             var client = new Mock<ClientApi.ClientApiClient>(MockBehavior.Default);
-            var message = new RegistrationMessage("123", "1234", "V1");
+            var message = new RegistrationMessage("123", "1234", "V1", "TestId");
             _clientEnpointProvider.Setup(x => x.IsConnected).Returns(true);
             _clientEnpointProvider.Setup(x => x.Client).Returns(client.Object);
             var fakeCall = TestCalls.AsyncUnaryCall(
@@ -86,7 +86,7 @@
             var client = new Mock<ClientApi.ClientApiClient>(MockBehavior.Default);
             _clientEnpointProvider.Setup(x => x.IsConnected).Returns(false);
             _clientEnpointProvider.Setup(x => x.Client).Returns(client.Object);
-            var message = new RegistrationMessage("123", "1234", "V1");
+            var message = new RegistrationMessage("123", "1234", "V1", "TestId");
             _ = await _target.RegisterClient(message, CancellationToken.None);
         }
 
@@ -96,7 +96,7 @@
         {
             _clientEnpointProvider.Setup(x => x.IsConnected).Returns(true);
             _clientEnpointProvider.Setup(x => x.Client).Returns((ClientApi.ClientApiClient)null);
-            var message = new RegistrationMessage("123", "1234", "V1");
+            var message = new RegistrationMessage("123", "1234", "V1", "TestId");
             _ = await _target.RegisterClient(message, CancellationToken.None);
         }
 

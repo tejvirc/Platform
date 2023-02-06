@@ -19,37 +19,48 @@
             _endpointProvider = endpointProvider ?? throw new ArgumentNullException(nameof(endpointProvider));
         }
 
-        protected Task<TResult> Invoke<TResult>(
-            Func<ClientApi.ClientApiClient, Task<TResult>> action,
-            IAsyncPolicy policy = null) =>
-            Invoke(async (c, _) => await action(c).ConfigureAwait(false), CancellationToken.None, policy);
-
-        protected async Task<TResult> Invoke<TResult>(
-            Func<ClientApi.ClientApiClient, CancellationToken, Task<TResult>> action,
-            CancellationToken token,
-            IAsyncPolicy policy = null)
-        {
-            if (action == null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
-
-            var client = GetClient();
-            if (policy is null)
-            {
-                return await action(client, token).ConfigureAwait(false);
-            }
-
-            return await policy.ExecuteAsync(async t => await action(client, t).ConfigureAwait(false), token)
-                .ConfigureAwait(false);
-        }
-
         protected static IAsyncPolicy CreatePolicy(int retryCount = RetryCount, Func<int, TimeSpan> delay = null)
         {
             return Policy
                 .Handle<RpcException>(e => e.StatusCode is not (StatusCode.Cancelled or StatusCode.Aborted))
                 .OrInner<RpcException>(e => e.StatusCode is not (StatusCode.Cancelled or StatusCode.Aborted))
                 .WaitAndRetryAsync(retryCount, delay ?? (_ => RetryDelay));
+        }
+
+        protected Task<TResult> Invoke<TResult>(
+            Func<ClientApi.ClientApiClient, Task<TResult>> action,
+            IAsyncPolicy policy = null) =>
+            Invoke(async (c, _, _) => await action(c).ConfigureAwait(false), (object)null, policy, CancellationToken.None);
+
+        protected Task<TResult> Invoke<TResult>(
+            Func<ClientApi.ClientApiClient, CancellationToken, Task<TResult>> action,
+            CancellationToken token) =>
+            Invoke(async (c, _, t) => await action(c, t).ConfigureAwait(false), (object)null, null, token);
+
+        protected Task<TResult> Invoke<TResult>(
+            Func<ClientApi.ClientApiClient, CancellationToken, Task<TResult>> action,
+            IAsyncPolicy policy,
+            CancellationToken token) =>
+            Invoke(async (c, _, t) => await action(c, t).ConfigureAwait(false), (object)null, policy, token);
+
+        protected Task<TResult> Invoke<TResult, TMessage>(
+            Func<ClientApi.ClientApiClient, TMessage, CancellationToken, Task<TResult>> action,
+            TMessage message,
+            CancellationToken token) =>
+            Invoke(action, message, null, token);
+
+        protected Task<TResult> Invoke<TResult, TMessage>(
+            Func<ClientApi.ClientApiClient, TMessage, CancellationToken, Task<TResult>> action,
+            TMessage message,
+            IAsyncPolicy policy,
+            CancellationToken token)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            return InvokeInternal(action, message, policy, token);
         }
 
         protected AsyncDuplexStreamingCall<TInput, TOutput> Invoke<TInput, TOutput>(
@@ -71,10 +82,16 @@
 
         protected AsyncServerStreamingCall<TOutput> Invoke<TOutput>(
             Func<ClientApi.ClientApiClient, AsyncServerStreamingCall<TOutput>> action) =>
-            Invoke((c, _) => action(c), CancellationToken.None);
+            Invoke((c, _, _) => action(c), (object)null, CancellationToken.None);
 
         protected AsyncServerStreamingCall<TOutput> Invoke<TOutput>(
             Func<ClientApi.ClientApiClient, CancellationToken, AsyncServerStreamingCall<TOutput>> action,
+            CancellationToken token) =>
+            Invoke((c, _, t) => action(c, t), (object)null, token);
+
+        protected AsyncServerStreamingCall<TOutput> Invoke<TOutput, TMessage>(
+            Func<ClientApi.ClientApiClient, TMessage, CancellationToken, AsyncServerStreamingCall<TOutput>> action,
+            TMessage message,
             CancellationToken token)
         {
             if (action == null)
@@ -83,7 +100,23 @@
             }
 
             var client = GetClient();
-            return action(client, token);
+            return action(client, message, token);
+        }
+
+        private async Task<TResult> InvokeInternal<TResult, TMessage>(
+            Func<ClientApi.ClientApiClient, TMessage, CancellationToken, Task<TResult>> action,
+            TMessage message,
+            IAsyncPolicy policy,
+            CancellationToken token)
+        {
+            var client = GetClient();
+            if (policy is null)
+            {
+                return await action(client, message, token).ConfigureAwait(false);
+            }
+
+            return await policy.ExecuteAsync(async t => await action(client, message, t).ConfigureAwait(false), token)
+                .ConfigureAwait(false);
         }
 
         private ClientApi.ClientApiClient GetClient()

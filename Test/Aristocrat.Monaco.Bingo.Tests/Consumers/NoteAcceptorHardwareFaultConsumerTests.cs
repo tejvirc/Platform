@@ -18,9 +18,9 @@
         private NoteAcceptorHardwareFaultConsumer _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Loose);
         private readonly Mock<ISharedConsumer> _consumerContext = new(MockBehavior.Loose);
-        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Strict);
-        private readonly Mock<IReportTransactionQueueService> _bingoTransactionReportHandler = new(MockBehavior.Loose);
-        private readonly Mock<IMeterManager> _meterManager = new(MockBehavior.Loose);
+        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Default);
+        private readonly Mock<IReportTransactionQueueService> _bingoTransactionReportHandler = new(MockBehavior.Default);
+        private readonly Mock<IMeterManager> _meterManager = new(MockBehavior.Default);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
 
@@ -73,16 +73,19 @@
         [DataRow(NoteAcceptorFaultTypes.StackerFault, ReportableEvent.BillAcceptorHardwareFailure, DisplayName = "Stacker Fault")]
         [DataRow(NoteAcceptorFaultTypes.CheatDetected, ReportableEvent.BillAcceptorCheatDetected, DisplayName = "Cheat Detected Fault")]
         [DataRow(NoteAcceptorFaultTypes.OtherFault, ReportableEvent.BillAcceptorError, DisplayName = "Other Fault")]
-        [DataRow(NoteAcceptorFaultTypes.MechanicalFault, ReportableEvent.BillAcceptorError, DisplayName = "Mechanical Fault")]
+        [DataRow(NoteAcceptorFaultTypes.MechanicalFault, ReportableEvent.BillAcceptorHardwareFailure, DisplayName = "Mechanical Fault")]
         [DataRow(NoteAcceptorFaultTypes.StackerJammed, ReportableEvent.BillAcceptorStackerJammed, DisplayName = "Stacker Jammed Fault")]
         [DataRow(NoteAcceptorFaultTypes.NoteJammed, ReportableEvent.BillAcceptorStackerJammed, DisplayName = "Note Jammed Fault")]
         [DataTestMethod]
         public void ConsumesTest(NoteAcceptorFaultTypes fault, ReportableEvent response)
         {
-            HardwareFaultEvent _event = new(fault);
-            _reportingService.Setup(m => m.AddNewEventToQueue(response)).Verifiable();
+            var @event = new HardwareFaultEvent(fault);
+            _target.Consume(@event);
 
-            _target.Consume(_event);
+            if (response is not ReportableEvent.BillAcceptorError)
+            {
+                _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.BillAcceptorError), Times.Once());
+            }
 
             _reportingService.Verify(m => m.AddNewEventToQueue(response), Times.Once());
         }
@@ -90,10 +93,7 @@
         [TestMethod]
         public void ConsumesNoneTest()
         {
-            _reportingService.Setup(m => m.AddNewEventToQueue(It.IsAny<ReportableEvent>())).Verifiable();
-
             _target.Consume(new(NoteAcceptorFaultTypes.None));
-
             _reportingService.Verify(m => m.AddNewEventToQueue(It.IsAny<ReportableEvent>()), Times.Never());
         }
 
@@ -105,11 +105,9 @@
             meter.Setup(m => m.Period).Returns(periodValue);
 
             _meterManager.Setup(m => m.GetMeter(It.IsAny<string>())).Returns(meter.Object);
-            _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.StackerRemoved)).Verifiable();
-            _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashDrop)).Verifiable();
-            _bingoTransactionReportHandler.Setup(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0, string.Empty)).Verifiable();
             _target.Consume(new(NoteAcceptorFaultTypes.StackerDisconnected));
 
+            _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.BillAcceptorError), Times.Once());
             _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.StackerRemoved), Times.Once());
             _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashDrop), Times.Once());
             _bingoTransactionReportHandler.Verify(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0, string.Empty), Times.Once());

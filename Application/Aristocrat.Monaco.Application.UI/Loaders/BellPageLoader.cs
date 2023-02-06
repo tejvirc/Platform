@@ -18,7 +18,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new BellPageViewModel();
+            return new BellPageViewModel(IsWizardPage);
         }
 
         public override bool GetVisible()

@@ -25,7 +25,7 @@
         private const string CabinetFeaturesXml = @".\CabinetFeatures.xml";
         private const PersistenceLevel Level = PersistenceLevel.Static;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<string, Tuple<object, string, bool>> _properties;
         private readonly IPropertiesManager _propertiesManager;
@@ -404,6 +404,20 @@
                     false));
         }
 
+        private void InitializeDisplayEdgeLightingPageProperties(FeaturesDisplayLightingPage[] featuresDisplayLightingPage, CabinetType cabinetType)
+        {
+            var displayLightingPage =
+                featuresDisplayLightingPage.FirstOrDefault(
+                    x => Regex.IsMatch(cabinetType.ToString(), x.CabinetTypeRegex)) ??
+                new FeaturesDisplayLightingPage { Enabled = false };
+            _properties.Add(
+                ApplicationConstants.DisplayLightingPage,
+                Tuple.Create(
+                    (object)displayLightingPage.Enabled,
+                    ApplicationConstants.DisplayLightingPage,
+                    false));
+        }
+
         private void SetCabinetConfiguration()
         {
             var sr = new StreamReader(CabinetFeaturesXml);
@@ -460,6 +474,10 @@
             if (cabinetFeatures.BeagleBone != null)
             {
                 InitializeBeagleBoneProperties(cabinetFeatures.BeagleBone, cabinetType);
+            }
+            if (cabinetFeatures.DisplayLightingPage != null)
+            {
+                InitializeDisplayEdgeLightingPageProperties(cabinetFeatures.DisplayLightingPage, cabinetType);
             }
         }
 

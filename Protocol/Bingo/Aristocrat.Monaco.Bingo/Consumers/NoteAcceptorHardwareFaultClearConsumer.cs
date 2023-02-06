@@ -25,6 +25,12 @@
 
         public override void Consume(HardwareFaultClearEvent theEvent)
         {
+            if (theEvent.Fault is NoteAcceptorFaultTypes.None)
+            {
+                return;
+            }
+
+            _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.BillAcceptorErrorClear);
             switch (theEvent.Fault)
             {
                 case NoteAcceptorFaultTypes.StackerDisconnected:
@@ -32,9 +38,6 @@
                     break;
                 case NoteAcceptorFaultTypes.StackerFull:
                     _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.BillAcceptorStackerFullClear);
-                    break;
-                default:
-                    _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.BillAcceptorErrorClear);
                     break;
             }
         }

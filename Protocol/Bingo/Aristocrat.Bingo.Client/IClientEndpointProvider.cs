@@ -2,7 +2,7 @@
 {
     using Grpc.Core;
 
-    public interface IClientEndpointProvider<out T> where T : ClientBase
+    public interface IClientEndpointProvider<out T> where T : ClientBase<T>
     {
         /// <summary>
         ///     Gets the current client callback channel

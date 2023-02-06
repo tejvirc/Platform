@@ -199,14 +199,14 @@
                 return await Task.FromResult(false);
             }
 
-            _bus.Publish(new VoucherOutStartedEvent(amount.Amount));
-
             var transaction = await validator.IssueVoucher(amount, accountType, transactionId, reason);
             if (transaction == null)
             {
                 Logger.Error($"Failed to issue voucher transaction - {transactionId}");
                 return await Task.FromResult(false);
             }
+
+            _bus.Publish(new VoucherOutStartedEvent(amount.Amount));
 
             if (!UpdateTransferOutContext(
                 context =>

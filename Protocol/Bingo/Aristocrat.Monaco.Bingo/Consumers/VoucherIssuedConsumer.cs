@@ -63,25 +63,24 @@
                     break;
                 case TransferOutReason.LargeWin:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.CashOutJackpot,
+                        Common.TransactionType.Jackpot,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
                         transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
+                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.VoucherIssuedJackpot);
                     break;
                 case TransferOutReason.BonusPay:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.CashoutBonus,
+                        Common.TransactionType.CashoutExternalBonus,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
                         transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutBonus);
                     break;
                 case TransferOutReason.CashWin:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.CashWon,
+                        Common.TransactionType.CashOut,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
@@ -117,7 +116,7 @@
                     break;
                 case AccountType.NonCash:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.NonTransferablePromoTicketOut,
+                        Common.TransactionType.TransferablePromoTicketOut,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),

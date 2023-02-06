@@ -8,7 +8,9 @@
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
+    using Application.Settings;
     using Cabinet.Contracts;
+    using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;
     using Contracts.Input;
@@ -25,11 +27,10 @@
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM.Command;
-    using OperatorMenu;
     using Views;
 
     [CLSCompliant(false)]
-    public class DisplaysPageViewModel : OperatorMenuPageViewModelBase
+    public class DisplaysPageViewModel : InspectionWizardViewModelBase
     {
         private static readonly TimeSpan IdentifyWindowDisplayTime = TimeSpan.FromSeconds(3);
 
@@ -44,7 +45,7 @@
         private bool _calibrateTouchScreenVisible;
         private bool _testTouchScreenVisible = true;
 
-        public DisplaysPageViewModel()
+        public DisplaysPageViewModel(bool isWizard) : base(isWizard)
         {
             EnterTouchScreenCommand = new ActionCommand<object>(OnEnterTouchScreenCommand);
             EnterIdentifyScreenCommand = new ActionCommand<object>(
@@ -166,7 +167,7 @@
                     CabinetService.ExpectedDisplayDevices.OrderBy(d => d.PositionY).Select(
                         x => new DisplayDetected(
                             x,
-                            GetMappedTouchDevice(x) 
+                            GetMappedTouchDevice(x)
                             )));
                 EventBus.Subscribe<DisplayConnectedEvent>(this, _ => RefreshDisplays());
                 EventBus.Subscribe<DisplayDisconnectedEvent>(this, _ => RefreshDisplays());
@@ -187,6 +188,13 @@
 
                 RefreshDisplays();
             }
+
+            var monitorInfo = "Monitor: ??"; // TODO
+            var touchInfo = "Touch: " +
+                            MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
+            Inspection?.SetFirmwareVersion(string.Join(Environment.NewLine, monitorInfo, touchInfo));
+
+            base.OnLoaded();
         }
 
         private ITouchDevice GetMappedTouchDevice(IDisplayDevice x)
@@ -208,6 +216,20 @@
         protected override void OnUnloaded()
         {
             _cancellationTokenSource?.Cancel();
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void OnTestModeEnabledChanged()
@@ -235,7 +257,7 @@
 
         protected override void UpdateStatusText()
         {
-            if (!IsCabinetThatAllowsChangingBrightness)
+            if (IsCabinetThatAllowsChangingBrightness)
             {
                 base.UpdateStatusText();
             }
@@ -282,6 +304,7 @@
             TestsEnabled = false;
 
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
+            Inspection?.SetTestName("Touchscreen test");
 
             _cancellationTokenSource = new CancellationTokenSource();
             var testWindows = touchDisplays.Select(
@@ -321,6 +344,7 @@
         {
             TestsEnabled = false;
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
+            Inspection?.SetTestName("Serial Touchscreen Calibration");
             InvokeSerialTouchCalibration();
         }
 
@@ -335,9 +359,10 @@
             TestsEnabled = false;
 
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
+            Inspection?.SetTestName("Colors Test");
 
             _cancellationTokenSource = new CancellationTokenSource();
-            var viewModel = new DisplayColorTestsViewModel();
+            var viewModel = new DisplayColorTestsViewModel(Inspection);
             var testWindows = DisplaysDetected.Select(
                 displayDetected =>
                 {
@@ -389,6 +414,7 @@
                 TestsEnabled = false;
 
                 EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
+                Inspection?.SetTestName("Screen Identification");
 
                 foreach (var display in DisplaysDetected)
                 {

@@ -79,7 +79,10 @@
                 { "SourceID", "003001020" },
                 { "AssociatedTransactions", "[]" },
                 { "MessageDuration", TimeSpan.MinValue.Ticks },
-                { "TraceId", Guid.Empty }
+                { "TraceId", Guid.Empty },
+                { "LastAuthorizedCashableAmount", 0L },
+                { "LastAuthorizedNonCashAmount", 0L },
+                { "LastAuthorizedPromoAmount", 0L }
             };
 
             Assert.IsTrue(_target.SetData(values));
@@ -102,6 +105,9 @@
             transaction.SetupSet(m => m[element, "CashableAmount"] = _target.CashableAmount);
             transaction.SetupSet(m => m[element, "NonCashAmount"] = _target.NonCashAmount);
             transaction.SetupSet(m => m[element, "PromoAmount"] = _target.PromoAmount);
+            transaction.SetupSet(m => m[element, "LastAuthorizedCashableAmount"] = _target.LastAuthorizedCashableAmount);
+            transaction.SetupSet(m => m[element, "LastAuthorizedNonCashAmount"] = _target.LastAuthorizedNonCashAmount);
+            transaction.SetupSet(m => m[element, "LastAuthorizedPromoAmount"] = _target.LastAuthorizedPromoAmount);
             transaction.SetupSet(m => m[element, "GameId"] = _target.GameId);
             transaction.SetupSet(m => m[element, "Denom"] = _target.Denom);
             transaction.SetupSet(m => m[element, "PayMethod"] = (int)_target.PayMethod);

@@ -14,6 +14,8 @@
     using Gaming.Contracts.Tickets;
     using Handpay;
     using Handpay.Strategies;
+    using Monaco.Common.Container;
+    using Monitors;
     using Services;
     using Services.Configuration;
     using Services.GamePlay;
@@ -29,6 +31,7 @@
         public static Container AddInternalServices(this Container container)
         {
             container.RegisterSingleton<IClientConfigurationProvider, BingoClientConfigurationProvider>();
+            container.RegisterSingleton<INetworkInformationProvider, NetworkInformationProvider>();
             return container
                 .SetupBingoGamePlay()
                 .SetupCommandHandlers()
@@ -47,9 +50,7 @@
             container.RegisterSingleton<IBingoGameOutcomeHandler, CentralHandler>();
             container.RegisterSingleton<ITotalWinValidator, TotalWinValidator>();
             container.RegisterSingleton<IReportTransactionQueueService, TransactionHandler>();
-            container.RegisterSingleton<IReportTransactionService, ReportTransactionService>();
             container.RegisterSingleton<IReportEventQueueService, ReportEventHandler>();
-            container.RegisterSingleton<IReportEventService, ReportEventService>();
             container.RegisterSingleton<IGameHistoryReportHandler, GameHistoryReportHandler>();
             container.RegisterSingleton<ISharedConsumer, SharedConsumerContext>();
             container.RegisterSingleton<IAcknowledgedQueue<ReportTransactionMessage, int>, AcknowledgedQueue<ReportTransactionMessage, int>>();
@@ -58,12 +59,14 @@
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportEventMessage, int>, EventAcknowledgedQueueHelper>();
             container.RegisterSingleton<IAcknowledgedQueue<ReportGameOutcomeMessage, long>, AcknowledgedQueue<ReportGameOutcomeMessage, long>>();
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportGameOutcomeMessage, long>, GameHistoryReportAcknowledgeQueueHelper>();
-            container.RegisterSingleton<MeterChangeMonitor>();
+            container.RegisterSingleton<IBingoGameProvider, BingoGameProvider>();
             container.RegisterSingleton<IEgmStatusService, EgmStatusHandler>();
             container.RegisterSingleton<IGameRoundPrintFormatter, BingoRoundPrintFormatter>();
             container.RegisterSingleton<IBingoReplayRecovery, BingoReplayRecovery>();
             container.RegisterSingleton<ICertificateService, CertificateService>();
             container.RegisterSingleton<DynamicHelpMonitor>();
+            container.RegisterSingleton<ClientActivityService>();
+            container.RegisterManyAsCollection(typeof(IMeterMonitor), Assembly.GetExecutingAssembly());
             return container;
         }
 

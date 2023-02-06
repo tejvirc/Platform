@@ -306,7 +306,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Gamble}}" 
+                        <DataGridTemplateColumn Header="{lex:Loc Gamble}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -319,7 +319,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LetItRide}}" 
+                        <DataGridTemplateColumn Header="{lex:Loc LetItRide}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <DataGridTemplateColumn.CellTemplate>

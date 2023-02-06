@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Bingo.Client.CompositionRoot
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Messages;
@@ -40,22 +42,45 @@
 
         private static Container RegisterClient(this Container container)
         {
-            var clientRegistration = Lifestyle.Singleton.CreateRegistration<BingoClient>(container);
-            container.AddRegistration<IClient>(clientRegistration);
-            container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
             container.RegisterSingleton<BingoClientInterceptor>();
-
-            container.RegisterSingleton<IRegistrationService, RegistrationService>();
             container.RegisterSingleton<IAuthorizationProvider, BingoAuthorizationProvider>();
+            return container.RegisterAllInterfaces<BingoClient>()
+                .RegisterCommunicationServices();
+        }
 
-            var command = Lifestyle.Singleton.CreateRegistration<CommandService>(container);
-            container.AddRegistration<ICommandService>(command);
+        private static Container RegisterCommunicationServices(this Container container)
+        {
+            var communicationServices = Assembly.GetExecutingAssembly().GetExportedTypes()
+                .Where(x => x.IsSubclassOf(typeof(BaseClientCommunicationService)) && !x.IsAbstract);
+            foreach (var service in communicationServices)
+            {
+                container.RegisterAllInterfaces(service);
+            }
 
-            var gamePlay = Lifestyle.Singleton.CreateRegistration<GameOutcomeService>(container);
-            container.AddRegistration<IGameOutcomeService>(gamePlay);
+            return container;
+        }
 
-            var configuration = Lifestyle.Singleton.CreateRegistration<ConfigurationService>(container);
-            container.AddRegistration<IConfigurationService>(configuration);
+        private static Container RegisterAllInterfaces<TType>(this Container container, Func<Type, bool> filter = null)
+        {
+            return container.RegisterAllInterfaces(typeof(TType), filter);
+        }
+
+        private static Container RegisterAllInterfaces(
+            this Container container,
+            Type type,
+            Func<Type, bool> filter = null)
+        {
+            filter ??= t => t != typeof(IDisposable) && t != typeof(IEnumerable<>) && t != typeof(IEnumerable);
+            var registration = Lifestyle.Singleton.CreateRegistration(type, container);
+            foreach (var @interface in type.GetInterfaces())
+            {
+                if (!filter(@interface))
+                {
+                    continue;
+                }
+
+                container.AddRegistration(@interface, registration);
+            }
 
             return container;
         }
@@ -72,7 +97,6 @@
             var factory = new CommandProcessorFactory(container);
             factory.Register<EnableCommandProcessor>(EnableCommand.Descriptor, Lifestyle.Transient);
             factory.Register<DisableCommandProcessor>(DisableCommand.Descriptor, Lifestyle.Transient);
-            factory.Register<PingCommandProcessor>(PingCommand.Descriptor, Lifestyle.Transient);
             container.RegisterInstance<ICommandProcessorFactory>(factory);
             return container;
         }

@@ -187,7 +187,25 @@
         public IWebBrowser BingoInfoWebBrowser
         {
             get => _bingoInfoWebBrowser;
-            set => SetProperty(ref _bingoInfoWebBrowser, value);
+
+            set
+            {
+                var previous = _bingoInfoWebBrowser;
+                if (!SetProperty(ref _bingoInfoWebBrowser, value))
+                {
+                    return;
+                }
+
+                if (previous is not null)
+                {
+                    previous.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
+                }
+
+                if (_bingoInfoWebBrowser is not null)
+                {
+                    _bingoInfoWebBrowser.ConsoleMessage += BingoInfoWebBrowserOnConsoleMessage;
+                }
+            }
         }
 
         public double Height
@@ -262,6 +280,12 @@
                 _overlayServer.AttractCompleted -= AttractCompleted;
                 _overlayServer.ClientConnected -= OverlayClientConnected;
                 _overlayServer.ClientDisconnected -= OverlayClientDisconnected;
+
+                if (_bingoInfoWebBrowser is not null)
+                {
+                    _bingoInfoWebBrowser.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
+                }
+
                 _eventBus.UnsubscribeAll(this);
                 _overlayServer.Dispose();
             }
@@ -269,11 +293,16 @@
             _disposed = true;
         }
 
+        private static void BingoInfoWebBrowserOnConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        {
+            Logger.DebugFormat("Bingo Overlay - {0}", e.Message);
+        }
+
         private static double GetVisibleOpacity(bool visible) => visible ? 1.0 : 0.0;
 
-        private static void OverlayClientDisconnected(object sender, OverlayType overlayType)
+        private static void OverlayClientDisconnected(object sender, ClientDisconnectEventArgs args)
         {
-            Logger.Debug($"Overlay client disconnected: {overlayType}");
+            Logger.Debug($"Overlay client disconnected: {args.Type}, Exception: {(args.Exception == null ? "No Exception": args.Exception)}");
         }
 
         private static void ReloadBrowser(IWebBrowser browser)

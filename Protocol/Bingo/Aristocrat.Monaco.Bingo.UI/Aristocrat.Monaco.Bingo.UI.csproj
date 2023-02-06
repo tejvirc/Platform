@@ -50,9 +50,9 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0007" />
-    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.0-beta0007" />
-    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003"/>
+    <PackageReference Include="Aristocrat.Cabinet" Version="3.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.1-beta0006" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="106.0.260" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />

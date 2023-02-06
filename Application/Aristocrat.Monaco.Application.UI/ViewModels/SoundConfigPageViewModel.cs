@@ -2,22 +2,22 @@
 {
     using System;
     using System.Linq;
+    using System.Windows.Input;
+    using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
-    using Contracts.OperatorMenu;
     using Events;
     using Hardware.Contracts;
     using Hardware.Contracts.Audio;
+    using Contracts.HardwareDiagnostics;
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
-    using OperatorMenu;
-    using Views;
 
     [CLSCompliant(false)]
-    public class SoundConfigPageViewModel : OperatorMenuPageViewModelBase
+    public class SoundConfigPageViewModel : InspectionWizardViewModelBase
     {
         private const bool IsAlertConfigurableDefault = false;
         private const bool ShowModeDefault = false;
@@ -33,12 +33,14 @@
         private string _infoText;
         private bool _playTestAlertSound;
         private string _soundFile;
+        private bool _inTestMode;
 
-        public SoundConfigPageViewModel()
+        public SoundConfigPageViewModel(bool isWizard) : base(isWizard)
         {
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
-            SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
+            TestViewModel.SetTestReporter(Inspection);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
         }
 
         private void LoadVolumeSettings()
@@ -99,16 +101,36 @@
 
         public bool IsAlertConfigurable { get; private set; }
 
-        private void SoundTestClicked(object obj)
+        public SoundTestPageViewModel TestViewModel { get; } = new SoundTestPageViewModel();
+
+        public bool InTestMode
         {
-            var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+            get => _inTestMode;
+            set
+            {
+                if (_inTestMode == value)
+                {
+                    return;
+                }
 
-            var viewModel = new SoundTestPageViewModel();
+                TestViewModel.TestMode = value;
+                if (!value)
+                {
+                    if (_inTestMode)
+                    {
+                        EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Sound));
+                    }
 
-            dialogService.ShowInfoDialog<SoundTestPage>(
-                 this,
-                 viewModel,
-                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SoundTest));
+                    UpdateStatusText();
+                }
+                else
+                {
+                    EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Sound));
+                    EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
+                }
+
+                SetProperty(ref _inTestMode, value, nameof(InTestMode));
+            }
         }
 
         public VolumeLevel SoundLevel
@@ -128,7 +150,7 @@
             }
         }
 
-        public System.Windows.Input.ICommand SoundTestCommand { get; }
+        public ICommand ToggleTestModeCommand { get; }
 
         public byte AlertVolume
         {
@@ -164,6 +186,33 @@
                         ? ResourceKeys.AudioConnected
                         : ResourceKeys.AudioDisconnect);
             }
+
+            if (IsWizardPage)
+            {
+                InTestMode = true;
+            }
+
+            base.OnLoaded();
+        }
+
+        protected override void OnUnloaded()
+        {
+            InTestMode = false;
+            EventBus.UnsubscribeAll(this);
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void UpdateStatusText()
@@ -201,6 +250,6 @@
             });
         }
 
-        public override bool TestModeEnabledSupplementary => CanEditVolume;
+        public override bool TestModeEnabledSupplementary => !IsAudioDisabled && !IsSystemDisabled;
     }
 }

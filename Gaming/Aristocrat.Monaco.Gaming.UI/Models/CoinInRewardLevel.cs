@@ -1,29 +1,26 @@
 ﻿
 namespace Aristocrat.Monaco.Gaming.UI.Models
 {
+    using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.MVVM.ViewModel;
     using Contracts.Barkeeper;
-    using MVVM.Model;
 
     /// <summary>
     /// CoinInRewardLevel which binds to BarkeeperConfigurationViewModel for RewardsLevels.
     /// This class is needed as RewardLevel is not publishing PropertyChanged when it is modified.
     /// </summary>
-    public class CoinInRewardLevel : BaseNotify
+    public class CoinInRewardLevel : RewardLevelViewModel
     {
-        private bool _enabledField;
-
-        public string Name { get; set; }
-
-        public long ThresholdInCents { get; set; }
-
-        public ColorOptions Color { get; set; }
-
-        public BarkeeperAlertOptions Alert { get; set; }
-
-        public bool Enabled
+        public override bool ValidateThresholdInCents()
         {
-            get => _enabledField;
-            set => SetProperty(ref _enabledField, value, nameof(Enabled));
+            var thresholdValidate = (ThresholdInCents.CentsToDollars()).Validate(
+                false,
+                PropertiesManager?.GetValue(GamingConstants.GambleWagerLimit, GamingConstants.DefaultGambleWagerLimit) ?? GamingConstants.DefaultGambleWagerLimit);
+
+            SetError(nameof(ThresholdInCents), thresholdValidate);
+            return string.IsNullOrEmpty(thresholdValidate);
         }
     }
 }

@@ -235,7 +235,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0007" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="3.0.0-beta0001" />
     <PackageReference Include="Aristocrat.Signing" Version="2.0.0-beta0004" />
     <PackageReference Include="Aristocrat.SmartCard" Version="2.0.0-beta0001" />
     <PackageReference Include="log4net" Version="2.0.13" />

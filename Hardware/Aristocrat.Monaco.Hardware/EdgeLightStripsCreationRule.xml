@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <EdgeLightMappings>
-  <EdgeLightMapping Name="Helix">
+  <EdgeLightMapping Name="Helix1">
     <HardwareStrip ResponseCommand="LedConfiguration" Id="110000" LEDCount="24" BytesPerLed="3" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="110001" LEDCount="24" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="110002" LEDCount="32" />
@@ -17,7 +17,7 @@
     </LogicalStrip>
 
   </EdgeLightMapping>
-  <EdgeLightMapping Name="Helix">
+  <EdgeLightMapping Name="Helix2">
     <HardwareStrip ResponseCommand="LedConfiguration" Id="110000" LEDCount="48" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="110001" LEDCount="48" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="110002" LEDCount="32" />
@@ -55,7 +55,7 @@
       <LEDSegment Id="0" HardwareStripId="131020" from="0" to="18" />
     </LogicalStrip>
   </EdgeLightMapping>
-  <EdgeLightMapping Name="Helix">
+  <EdgeLightMapping Name="Helix3">
 
     <HardwareStrip ResponseCommand="LedConfiguration" Id="120000" LEDCount="40" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="120001" LEDCount="40" />
@@ -76,7 +76,7 @@
     </LogicalStrip>
 
   </EdgeLightMapping>
-  <EdgeLightMapping Name="Helix">
+  <EdgeLightMapping Name="Helix4">
 
     <HardwareStrip ResponseCommand="LedConfiguration" Id="120000" LEDCount="24" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="120001" LEDCount="24" />
@@ -91,7 +91,7 @@
     </LogicalStrip>
 
   </EdgeLightMapping>
-  <EdgeLightMapping Name="Helix">
+  <EdgeLightMapping Name="Helix5">
     <HardwareStrip ResponseCommand="LedConfiguration" Id="160000" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="160001" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="160002" />
@@ -110,7 +110,7 @@
       <LEDSegment Id="0" HardwareStripId="160003" />
     </LogicalStrip>
   </EdgeLightMapping>
-  <EdgeLightMapping Name="Helix">
+  <EdgeLightMapping Name="Helix6">
     <HardwareStrip ResponseCommand="LedConfiguration" Id="120000" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="120001" />
     <HardwareStrip ResponseCommand="LedConfiguration" Id="120002" />

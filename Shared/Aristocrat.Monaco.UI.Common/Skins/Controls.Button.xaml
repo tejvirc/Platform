@@ -274,6 +274,11 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
+                        <Rectangle
+                            Margin="8, 0, 0, 0"
+                            Width="36" Height="24"
+                            Fill="Transparent">
+                        </Rectangle>
                         <Ellipse Height="22" Width="22" Fill="White"/>
                         <Ellipse Height="20" Width="20" Fill="{DynamicResource Brush2}"/>
                         <TextBlock Text="i" Foreground="White" FontSize="14" 

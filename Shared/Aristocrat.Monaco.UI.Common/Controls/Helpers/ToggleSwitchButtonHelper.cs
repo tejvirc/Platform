@@ -47,7 +47,7 @@
                 typeof(Brush),
                 typeof(ToggleSwitchButtonHelper),
                 new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Color.FromArgb(0xff, 0x00, 0x97, 0xde)),
+                    new SolidColorBrush(Color.FromArgb(0xff, 0xaa, 0xaa, 0xaa)),
                     FrameworkPropertyMetadataOptions.AffectsRender,
                     OnOffBrushChanged));
 

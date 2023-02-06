@@ -72,8 +72,6 @@
     <Service type="Aristocrat.Monaco.Hardware.Services.DisplayService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.AudioService" />
     <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Manager.SharedMemoryManager" />
-    <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Device.EdgeLightDeviceFactory" />
-    <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Services.EdgeLightingControllerService" />
     <Service type="Aristocrat.Monaco.Hardware.VHD.VirtualDisk" />
     <Service type="Aristocrat.Monaco.Hardware.Services.NoteAcceptorFirmwareInstaller" />
     <Service type="Aristocrat.Monaco.Hardware.Services.PrinterFirmwareInstaller" />

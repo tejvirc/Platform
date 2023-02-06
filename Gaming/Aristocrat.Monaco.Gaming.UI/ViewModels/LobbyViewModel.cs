@@ -90,7 +90,7 @@
         private const string LobbyIdleTextDefaultResourceKey = "LobbyIdleTextDefault";
         private const string TopperImageDefaultResourceKey = "TopperBackground";
         private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string IdleTextFamilyName = "Segoe UI";
         private const double OpacityNone = 0.0;
         private const double OpacityFifth = 0.2;
@@ -265,7 +265,6 @@
         private readonly Dictionary<Sound, string> _soundFilePathMap = new Dictionary<Sound, string>();
         private bool _playCollectSound;
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
-        private bool _isSelectPayModeVisible;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
 
@@ -1717,16 +1716,6 @@
 
         public bool IsInOperatorMenu => _operatorMenu.IsShowing;
 
-        public bool IsSelectPayModeVisible
-        {
-            get => _isSelectPayModeVisible;
-            set
-            {
-                MvvmHelper.ExecuteOnUI(HandleMessageOverlayText);
-                SetProperty(ref _isSelectPayModeVisible, value);
-            }
-        }
-
         public bool IsSingleGameMode => (_lobbyStateManager?.AllowGameInCharge ?? false) && UniqueThemeIds <= 1;
 
         private int UniqueThemeIds => (GameList?.Where(g => g.Enabled).Select(o => o.ThemeId).Distinct().Count() ?? 0);
@@ -2577,13 +2566,13 @@
             var softLockupButNotRecovery = _systemDisableManager.IsDisabled && !_gameRecovery.IsRecovering;
             var singleGameAndAttract = _lobbyStateManager.AllowSingleGameAutoLaunch && _attractMode;
 
-            if (_systemDisableManager.IsDisabled ||
+            if (_systemDisableManager.DisableImmediately ||
                 (singleGameAndAttract || _gameLaunchOnStartup) &&
                 softLockupButNotRecovery)
             {
                 SendTrigger(LobbyTrigger.Disable);
             }
-            
+
             _gameLaunchOnStartup = false;
         }
 
@@ -2834,7 +2823,7 @@
             {
                 StartAttractTimer();
             }
-            
+
             OnUserInteraction();
         }
 
@@ -4605,7 +4594,7 @@
             {
                 state = CashOutEnabled;
             }
-            
+
             buttonsLampState.Add(SetLampState(LampName.Collect, state));
         }
 
@@ -4631,7 +4620,7 @@
 
             buttonsLampState.Add(SetLampState(LampName.Bet3, state)); // prev game
             buttonsLampState.Add(SetLampState(LampName.Bet4, state)); // prev tab
-            buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom 
+            buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom
             buttonsLampState.Add(SetLampState(LampName.Playline5, state)); //next tab
             buttonsLampState.Add(SetLampState(LampName.Playline4, state)); //next game
         }
@@ -4677,7 +4666,7 @@
                 // todo let player culture provider manage multi-language support for lobby
                 _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
             }
-            
+
             _initialLanguageEventSent = true;
         }
 
@@ -5245,8 +5234,8 @@
                         _eventBus.Publish(new RemoteKeyOffEvent(KeyOffType.Unknown, 0, 0, 0, false));
                         break;
                 }
-                RaisePropertyChanged(nameof(SelectedMenuSelectionPayOption));
 
+                RaisePropertyChanged(nameof(SelectedMenuSelectionPayOption));
             }
         }
 

@@ -22,6 +22,7 @@
     using Hardware.Contracts.KeySwitch;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Kernel.Contracts;
     using log4net;
     using Monaco.Localization.Properties;
     using Timer = System.Timers.Timer;
@@ -563,13 +564,17 @@
             {
                 var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, (byte)100);
                 var logicDoorFullVolume = _propertiesManager.GetValue(ApplicationConstants.SoundConfigurationLogicDoorFullVolumeAlert, false);
+                var isInspectionMode = _propertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
 
                 //Using door service, since it appears that this is called before the door state is changed, so it will be false on door open and true on door close
-                if ( logicDoorFullVolume && _doorService.GetDoorOpen((int)DoorLogicalId.Logic))
+                if (logicDoorFullVolume && _doorService.GetDoorOpen((int)DoorLogicalId.Logic))
                 {
                     alertVolume = MaximumVolume;
                 }
-                _audioService.Play(_doorAlarmFile, _doorAlarmLoopCount, alertVolume);
+                if (!isInspectionMode)
+                {
+                    _audioService.Play(_doorAlarmFile, _doorAlarmLoopCount, alertVolume);
+                }
                 if (_doorOpenAlarmRepeatSeconds > 0)
                 {
                     _doorOpenAlarmTimer.Start();

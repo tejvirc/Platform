@@ -21,6 +21,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Controls/LiveSetting.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <uiconverters:DateTimeFormatConverter x:Key="DateTimeFormatConverter"/>
@@ -232,6 +233,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -283,6 +286,30 @@
                            Grid.Row="3" 
                            Grid.Column="1" 
                            Text="{Binding PhysicalAddress, Mode=OneWay}" />
+
+                <!-- Jurisdiction Section -->
+                <Label x:Name="JurisdictionLabel" 
+                       Grid.Row="4" 
+                       Grid.Column="0" 
+                       Visibility="{Binding IsVisibleForInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                       Content="{lex:Loc JurisdictionLabel}" Margin="0,2.222,9.556,13.555" />
+                <TextBlock x:Name="JurisdictionTextBlock" 
+                           Grid.Row="4" 
+                           Grid.Column="1" 
+                           Visibility="{Binding IsVisibleForInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                           Text="{Binding Jurisdiction, Mode=OneWay}" Margin="0.444,0.222,-0.444,9.555" />
+
+                <!-- Currency Section -->
+                <Label x:Name="CurrencyLabel" 
+                       Grid.Row="5" 
+                       Grid.Column="0" 
+                       Visibility="{Binding IsVisibleForInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                       Content="{lex:Loc Currency}" Margin="0,2.222,9.556,13.555" />
+                <TextBlock x:Name="CurrencyTextBlock" 
+                           Grid.Row="5" 
+                           Grid.Column="1" 
+                           Visibility="{Binding IsVisibleForInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                           Text="{Binding CurrencySample, Mode=OneWay}" Margin="0.444,0.222,-0.444,9.555" />
             </Grid>
         </Grid>
 

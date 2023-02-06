@@ -65,7 +65,7 @@
             <Image Source="../Resources/Help/WinningCombinationLabel.png" Height="30"/>
 
             <!--   <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
-                       Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}', Converter={StaticResource CurrencyConverter}}" /> -->
+                       Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc WagerStringFormat}', Converter={StaticResource CurrencyConverter}}" /> -->
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
                        Text="{lex:Loc WagerStringFormat}" />
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="0,0,0,0"

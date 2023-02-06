@@ -83,8 +83,14 @@
         public void EndProcess(int processId, bool notifyExited = true, bool terminateExpected = true)
         {
             var processToKill = GetProcessFromId(processId);
+
             if (processToKill.HasExited)
             {
+                if (!notifyExited)
+                {
+                    processToKill.Exited -= ProcessExited;
+                }
+
                 Logger.Debug($"Process Id ({processId}) has already exited.");
                 return;
             }

@@ -63,7 +63,8 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Left"
+                        Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}">
                 <Button Name="EnterTestModeButton" Content="{lex:Loc TestEdgeLightingLabel}"
                         IsEnabled="{Binding TestButtonEnabled, UpdateSourceTrigger=PropertyChanged}" 
                         Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
