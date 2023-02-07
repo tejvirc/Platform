@@ -57,7 +57,7 @@ as follows:
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
     <DefaultVolumeLevel>2</DefaultVolumeLevel>
-    <AlertVolume Minimum="10" Configurable="true" PlayTestSound="true" LogicDoorFullVolumeAlert="true" />
+    <AlertVolume Minimum="30" Configurable="true" PlayTestSound="true" LogicDoorFullVolumeAlert="true" />
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
 <!--
