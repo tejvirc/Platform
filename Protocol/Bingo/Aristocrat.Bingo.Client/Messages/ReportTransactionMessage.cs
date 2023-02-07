@@ -11,7 +11,7 @@
             long amount,
             long gameSerial,
             uint gameTitleId,
-            int transactionId,
+            long transactionId,
             int paytableId,
             int denominationId,
             int transactionType,
@@ -39,7 +39,7 @@
 
         public uint GameTitleId { get; }
 
-        public int TransactionId { get; }
+        public long TransactionId { get; }
 
         public int PaytableId { get; }
 

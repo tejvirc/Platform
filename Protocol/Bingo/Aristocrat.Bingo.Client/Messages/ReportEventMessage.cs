@@ -8,7 +8,7 @@
         public ReportEventMessage(
             string machineSerial,
             DateTime timeStamp,
-            int eventId,
+            long eventId,
             int eventType)
         {
             MachineSerial = machineSerial;
@@ -21,7 +21,7 @@
 
         public DateTime TimeStamp { get; }
 
-        public int EventId { get; }
+        public long EventId { get; }
 
         public int EventType { get; }
     }

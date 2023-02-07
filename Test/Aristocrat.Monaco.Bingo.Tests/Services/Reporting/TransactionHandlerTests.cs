@@ -7,11 +7,10 @@
     using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
-    using Aristocrat.Monaco.Bingo.Common.Events;
+    using Common.Events;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using ServerApiGateway;
 
     [TestClass]
     public class TransactionHandlerTests
@@ -19,10 +18,10 @@
         private const string MachineSerial = "1";
         private const long Amount = 10_00;
         private const int TransactionId = 123;
-        private readonly ReportTransactionAck _ack = new() { Succeeded = true, TransactionId = TransactionId };
+        private readonly ReportTransactionResponse _ack = new(ResponseCode.Ok, TransactionId);
         private TransactionHandler _target;
-        private readonly Mock<IAcknowledgedQueueHelper<ReportTransactionMessage, int>> _helper = new(MockBehavior.Strict);
-        private AcknowledgedQueue<ReportTransactionMessage, int> _queue;
+        private readonly Mock<IAcknowledgedQueueHelper<ReportTransactionMessage, long>> _helper = new(MockBehavior.Strict);
+        private AcknowledgedQueue<ReportTransactionMessage, long> _queue;
         private readonly Mock<IPropertiesManager> _properties = new(MockBehavior.Strict);
         private readonly Mock<IReportTransactionService> _reportTransactionService = new(MockBehavior.Strict);
         private readonly Mock<IIdProvider> _idProvider = new(MockBehavior.Strict);
@@ -118,7 +117,7 @@
         public void DisconnectWhileProcessingQueue()
         {
             var wait = new AutoResetEvent(false);
-            var completion = new TaskCompletionSource<ReportTransactionAck>();
+            var completion = new TaskCompletionSource<ReportTransactionResponse>();
 
             _reportTransactionService.Setup(m => m.ReportTransaction(It.IsAny<ReportTransactionMessage>(), It.IsAny<CancellationToken>()))
                 .Callback(() => wait.Set())
@@ -142,7 +141,7 @@
         [TestMethod]
         public void QueueFullTest()
         {
-            _eventBus.Setup(x => x.Publish<QueueFullEvent>(It.IsAny<QueueFullEvent>()));
+            _eventBus.Setup(x => x.Publish(It.IsAny<QueueFullEvent>()));
             _helper.Setup(x => x.AlmostFullDisable());
 
             while (!_queue.IsQueueFull)

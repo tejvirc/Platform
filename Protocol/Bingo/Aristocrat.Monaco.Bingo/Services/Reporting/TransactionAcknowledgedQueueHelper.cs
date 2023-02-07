@@ -13,7 +13,7 @@
     using Localization.Properties;
     using Protocol.Common.Storage.Entity;
 
-    public class TransactionAcknowledgedQueueHelper : IAcknowledgedQueueHelper<ReportTransactionMessage, int>
+    public class TransactionAcknowledgedQueueHelper : IAcknowledgedQueueHelper<ReportTransactionMessage, long>
     {
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
@@ -27,7 +27,7 @@
                 systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
         }
 
-        public int GetId(ReportTransactionMessage item)
+        public long GetId(ReportTransactionMessage item)
         {
             return item.TransactionId;
         }
