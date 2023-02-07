@@ -75,11 +75,11 @@
             }
 
             var gameThemes = games.Select(game => game.ThemeId).Distinct();
-            var rtpReportsByTheme = new Dictionary<string, RtpReportForGameTheme>();
+            var rtpReportsByTheme = new Dictionary<string, RtpReport>();
 
             foreach (var themeId in gameThemes)
             {
-                rtpReportsByTheme[themeId] = _rtpService.GenerateRtpReportForGame(themeId);
+                rtpReportsByTheme[themeId] = _rtpService.GetRtpReportForGameTheme(themeId);
             }
 
             var averageRtp = games.Average(game =>

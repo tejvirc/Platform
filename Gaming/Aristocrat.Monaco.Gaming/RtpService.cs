@@ -8,7 +8,7 @@
     using Contracts.Rtp;
     using Kernel;
 
-    public class RtpService : IService, IRtpService
+    public class RtpService : IRtpService, IService
     {
         private readonly IGameProvider _gameProvider;
         private readonly IPropertiesManager _properties;
@@ -29,16 +29,31 @@
             LoadRtpRules();
         }
 
-        public RtpReportForGameTheme GenerateRtpReportForGame(string gameThemeId) 
+        public RtpReport GetRtpReport(params IGameDetail[] gameVariations)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RtpReport GetRtpReportForGameTheme(string gameThemeId) 
         {
             var gamesForTheme = _gameProvider.GetAllGames()
                 .Where(game => game.ThemeId.Equals(gameThemeId)).ToList();
 
             var gameType = gamesForTheme.First().GameType;
 
-            var report = new RtpReportForGameTheme(gamesForTheme, _rtpRules[gameType]);
+            var report = new RtpReport(gamesForTheme, _rtpRules[gameType]);
 
             return report;
+        }
+
+        public RtpReport GetRtpReportForVariation(string gameThemeId, string variationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RtpReport GetRtpReportForWagerCategory(string gameThemeId, string variationId, string wagerCategoryId)
+        {
+            throw new NotImplementedException();
         }
 
         private void LoadRtpRules()

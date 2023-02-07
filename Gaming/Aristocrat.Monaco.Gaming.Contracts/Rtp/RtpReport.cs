@@ -6,30 +6,28 @@
     using System.Linq;
 
     /// <summary>
-    ///     TODO: fill this in
+    ///     TODO: fill this in (it represents a report on a collection of gamesVariants
+    /// 
     ///     TODO: Validate the validations
     /// </summary>
-    public class RtpReportForGameTheme
+    public class RtpReport
     {
         private const int RequiredLevelOfRtpPrecision = 5;
-        private readonly IList<IGameDetail> _gamesDetails;
         private readonly RtpRules _rules;
         private readonly Dictionary<string, Dictionary<string, RtpBreakdown>> _rtpBreakdownsByVariationThenWagerCategory = new();
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="RtpReportForGameTheme" /> class.
+        ///     Initializes a new instance of the <see cref="RtpReport" /> class.
         /// </summary>
-        /// <param name="gamesDetails">The games details.</param>
+        /// <param name="gameDetails">The games details.</param>
         /// <param name="rules">
         ///     The rules used to validate and filter out invalid RTP. It also includes rules for customizing
         ///     the RTP calculation
         /// </param>
-        public RtpReportForGameTheme(IEnumerable<IGameDetail> gamesDetails, RtpRules rules)
+        public RtpReport(IEnumerable<IGameDetail> gameDetails, RtpRules rules)
         {
-            _gamesDetails = gamesDetails.ToList();
             _rules = rules;
-
-            GenerateRtpBreakdowns();
+            _rtpBreakdownsByVariationThenWagerCategory = GenerateRtpBreakdowns(gameDetails);
 
             RunAllRtpValidations();
         }
@@ -67,17 +65,6 @@
             return rtpTotal;
         }
 
-        private void GenerateRtpBreakdowns()
-        {
-            foreach (var gameVariant in _gamesDetails)
-            {
-                var rtpBreakdownsByWagerCategoryId = gameVariant.WagerCategories
-                    .ToDictionary(wagerCategory => wagerCategory.Id, ConvertToRtpBreakdown);
-
-                _rtpBreakdownsByVariationThenWagerCategory.Add(gameVariant.VariationId, rtpBreakdownsByWagerCategoryId);
-            }
-        }
-
         /// <summary>
         ///     Gets the RTP Breakdown for the given game variation and wager category.
         /// </summary>
@@ -86,27 +73,52 @@
         /// <returns>The RTP Breakdown</returns>
         public RtpBreakdown GetRtpBreakdown(string variationId, string wagerCategoryId)
         {
-            if (!_rtpBreakdownsByVariationThenWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpDetails))
+            var rtpBreakdownsForVariation = GetRtpBreakdowns(variationId);
+
+            var rtpBreakdownPair =
+                rtpBreakdownsForVariation.FirstOrDefault(pair => pair.wagerCategoryId.Equals(wagerCategoryId));
+
+            if (rtpBreakdownPair == default((string wagerCategoryId, RtpBreakdown rtpBreakdown)))
             {
-                throw new Exception($"Could not find any RTP Details for VariationId: \"{variationId}\"");
+                throw new Exception($"Could not find any RTP information for WagerCategoryId: \"{wagerCategoryId}\"");
             }
 
-            if (!wagerCategoryRtpDetails.TryGetValue(wagerCategoryId, out var rtpBreakdown))
-            {
-                throw new Exception($"Could not find any RTP Details for WagerCategoryId: \"{wagerCategoryId}\"");
-            }
-
-            return rtpBreakdown;
+            return rtpBreakdownPair.rtpBreakdown;
         }
 
-        public RtpRange GetRtpBreakdownsForVariation(string variationId)
+        /// <summary>
+        ///     Gets a list of (WagerCategoryId, <see cref="RtpBreakdown" />) tuples. Each tuple consists of a
+        ///     WagerCategory and its respective RTP Breakdown.
+        /// </summary>
+        /// <param name="variationId">The variation identifier.</param>
+        /// <returns>A collection of (WagerCategoryId, <see cref="RtpBreakdown" />) tuples</returns>
+        public IEnumerable<(string wagerCategoryId, RtpBreakdown rtpBreakdown)> GetRtpBreakdowns(string variationId)
         {
-            if (!_rtpBreakdownsByVariationThenWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpBreakdowns))
+            if (!_rtpBreakdownsByVariationThenWagerCategory.TryGetValue(
+                    variationId,
+                    out var wagerCategoryRtpBreakdowns))
             {
                 throw new Exception($"Could not find any RTP information for VariationId: \"{variationId}\"");
             }
 
-            return wagerCategoryRtpBreakdowns.Values;
+            var rtpBreakdowns = wagerCategoryRtpBreakdowns.Select(pair => (pair.Key, pair.Value)).ToList();
+
+            return rtpBreakdowns;
+        }
+
+        private Dictionary<string, Dictionary<string, RtpBreakdown>> GenerateRtpBreakdowns(IEnumerable<IGameDetail> games)
+        {
+            var rtpBreakdowns = new Dictionary<string, Dictionary<string, RtpBreakdown>>();
+
+            foreach (var gameDetail in games)
+            {
+                var rtpBreakdownsByWagerCategoryId = gameDetail.WagerCategories
+                    .ToDictionary(wagerCategory => wagerCategory.Id, ConvertToRtpBreakdown);
+
+                rtpBreakdowns.Add(gameDetail.VariationId, rtpBreakdownsByWagerCategoryId);
+            }
+
+            return rtpBreakdowns;
         }
 
         private RtpBreakdown ConvertToRtpBreakdown(IWagerCategory wagerCategory)
