@@ -78,7 +78,7 @@ as follows:
         <Page Type="EdgeLightingPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
             <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
         </Page>
-        <Page Type="BeagleBonePageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
+        <Page Type="BeagleBonePageViewModel" PrintButtonEnabled="false">
             <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
         </Page>
         <Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
@@ -105,14 +105,19 @@ as follows:
         <Page Type="TimeConfigPageViewModel" Access="MainZeroCredits"/>
         <Page Type="LimitsPageViewModel" Access="LogicZeroCreditsZeroGamesPlayed"/>
         <Page Type="VoucherSettingsPageViewModel" Access="MainZeroCreditsGameIdle" FieldAccess="MainLogicZeroCreditsGameIdle"/>
-        <Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle"/>
         <Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
         <Page Type="BarkeeperConfigurationViewModel" Access="MainZeroCreditsGameIdle"/>
-        <Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCredits"/>
+        <Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCreditsGameIdle"/>
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
     <Menu Type="GamesMainPageLoader">
-        <Page Type="GameHistoryViewModel" Access="LogicDoor" PrintButtonEnabled="true">
+        <Page Type="AdvancedGameSetupViewModel" Access="ReadOnly">
+            <Setting Name="AllowImportExport" Value="false" />
+            <Setting Name="ShowGlobalOptions" Value="true" />
+            <Setting Name="EnableAdvancedConfig" Value="false" />
+            <Setting Name="EnableQuickConfig" Value="false" />
+        </Page>
+        <Page Type="GameHistoryViewModel" Access="ReadOnly" PrintButtonEnabled="true">
             <Setting Name="ShowGameInfoButtons" Value="true" />
             <Setting Name="PrintGameRoundInfo" Value="true" />
         </Page>
@@ -120,6 +125,8 @@ as follows:
         <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
         <Page TabType="CombinationTestViewLoader" Visible="false"/>
         <Page TabType="GamePerformanceViewLoader" Visible="false" />
+        <Page TabType="GameStatisticsViewLoader" Visible="false" />
+        <Page TabType="CustomSAPViewLoader" Visible="false" />
     </Menu>
     <Menu Type="CommsMainPageLoader">
         <Page Type="NetworkConfigPageViewModel" Access="GameIdleZeroCredits"/>
@@ -167,9 +174,9 @@ as follows:
             <Rule Restriction="ZeroCredits" />
         </AccessRuleSet>
         <AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
+            <Rule Restriction="ZeroGamesPlayed" />
             <Rule Restriction="ZeroCredits" />
             <Rule DeviceName="Logic" />
-            <Rule Restriction="ZeroGamesPlayed" />
         </AccessRuleSet>
         <AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
             <Rule Restriction="ZeroCredits" />
@@ -180,6 +187,11 @@ as follows:
         <AccessRuleSet Name="MainDoorGameIdle">
             <Rule Restriction="GameIdle" />
             <Rule DeviceName="Main" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="LogicZeroCreditsGameIdle">
+          <Rule Restriction="GameIdle" />
+          <Rule Restriction="ZeroCredits" />
+          <Rule DeviceName="Logic" />
         </AccessRuleSet>
         <AccessRuleSet Name="MainZeroCreditsGameIdle">
             <Rule Restriction="GameIdle" />

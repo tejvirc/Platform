@@ -462,6 +462,33 @@
             _sasTicketPrintedHandler.Verify();
         }
 
+        [TestMethod]
+        public void DuplicateItemsTests()
+        {
+            var transactionId = 0L;
+            var readResults = new List<ITransaction> { ValidReadResult };
+            _propertiesManager.Setup(c => c.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { ValidationType = SasValidationType.SecureEnhanced });
+
+            AddResultsToTarget(readResults);
+            AddResultsToTarget(readResults.Select(x => (ITransaction)x.Clone()).ToList());
+            _sasTicketPrintedHandler.SetupSet(m => m.PendingTransactionId = It.IsAny<long>()).Callback<long>(t => transactionId = t);
+
+            var response = _target.GetResponseFromInfo(new SendEnhancedValidationInformation { FunctionCode = SasConstants.CurrentValidation });
+
+            // setups for Ack handler
+            _sasTicketPrintedHandler.Setup(m => m.TicketPrintedAcknowledged()).Verifiable();
+            _sasTicketPrintedHandler.Setup(m => m.PendingTransactionId).Returns(transactionId);
+
+            // Invoke Ack handler and verify setups matched
+            response.Handlers.ImpliedAckHandler.Invoke();
+
+            _sasTicketPrintedHandler.Verify();
+
+            response = _target.GetResponseFromInfo(new SendEnhancedValidationInformation { FunctionCode = SasConstants.CurrentValidation });
+            Assert.IsFalse(response.Successful);
+        }
+
         private EnhancedValidationProvider CreateTarget(
             bool nullProperties = false,
             bool nullTicketHandler = false,

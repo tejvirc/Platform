@@ -28,6 +28,7 @@
         private decimal _resetValue;
         private string _overflowValue;
         private decimal _incrementRate;
+        private decimal _minimumRequiredValue;
         private ProgressiveErrors _levelErrors;
         private IReadOnlyCollection<IViewableLinkedProgressiveLevel> _linkedLevels;
         private IReadOnlyCollection<IViewableSharedSapLevel> _sharedSapLevels;
@@ -64,6 +65,11 @@
             {
                 CurrentValue = sharedSapLevel?.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true) ??
                                level.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true);
+            }
+
+            if (LevelType == ProgressiveLevelType.Selectable)
+            {
+                MinimumRequiredValue = level.ResetValue.MillicentsToDollars();
             }
 
             InitialValue = level.InitialValue.MillicentsToDollars();
@@ -303,6 +309,19 @@
             {
                 _overflowValue = value;
                 OnPropertyChanged(nameof(OverflowValue));
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the minimum required value (for selectable levels) as initially supplied by the game
+        /// </summary>
+        public decimal MinimumRequiredValue
+        {
+            get => _minimumRequiredValue;
+            set
+            {
+                _minimumRequiredValue = value;
+                OnPropertyChanged(nameof(MinimumRequiredValue));
             }
         }
 

@@ -16,7 +16,7 @@
         private TransferLockConsumer _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Loose);
         private readonly Mock<ISharedConsumer> _consumerContext = new(MockBehavior.Loose);
-        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Strict);
+        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -39,8 +39,6 @@
                 reportingNull ? null : _reportingService.Object);
         }
 
-        [DataRow(true, true, ReportableEvent.BonusLock, DisplayName = "Lock Active, Bonus")]
-        [DataRow(false, true, ReportableEvent.BonusUnlock, DisplayName = "Lock Off, Bonus")]
         [DataRow(true, false, ReportableEvent.TransferLock, DisplayName = "Lock Active, No Bonus")]
         [DataRow(false, false, ReportableEvent.TransferUnlock, DisplayName = "Lock Off, No Bonus")]
         [DataTestMethod]
@@ -48,7 +46,6 @@
         {
             var transferCondition = bonus ? AftTransferConditions.BonusAwardToGamingMachineOk : AftTransferConditions.TransferToGamingMachineOk;
             var evt = new TransferLockEvent(locked, transferCondition);
-            _reportingService.Setup(m => m.AddNewEventToQueue(@event)).Verifiable();
 
             _target.Consume(evt);
 

@@ -62,8 +62,6 @@
         private bool _isRequireLP02OnPowerUpEnabled;
 
         private decimal _aftTransferLimit;
-        private decimal _creditLimit;
-        private decimal _maxCreditLimit;
 
         private decimal _maxAllowedTransferLimit;
 
@@ -284,7 +282,7 @@
             
             set
             {
-                if ((_maxAftTransferLimit > value || IsCreditLimitMaxed) && PreviousAftTransferLimit != value)
+                if (_maxAftTransferLimit > value && PreviousAftTransferLimit != value)
                 {
                     PreviousAftTransferLimit = _aftTransferLimit;
                 }
@@ -341,7 +339,7 @@
                 _aftTransferLimitEnabled = value;
 
                 var aftTransferLimit = GetPropertiesAftTransferLimitToDollars();
-                if (_aftTransferLimitEnabled && (aftTransferLimit == MaxTransferLimit || IsCreditLimitMaxed))
+                if (_aftTransferLimitEnabled && aftTransferLimit == MaxTransferLimit)
                 {
                     aftTransferLimit = PreviousAftTransferLimit;
                 }
@@ -473,10 +471,7 @@
             }
         }
 
-        private bool IsCreditLimitMaxed => _creditLimit == _maxCreditLimit;
-
-        private decimal MaxTransferLimit =>
-            _maxAllowedTransferLimit < _creditLimit ? _maxAllowedTransferLimit : _creditLimit;
+        private decimal MaxTransferLimit => _maxAllowedTransferLimit;
 
         /// <summary>
         ///     Gets and sets the SAS Protocol Configuration
@@ -506,14 +501,6 @@
             var ports = PropertiesManager.GetValue(SasProperties.SasPortAssignments, new PortAssignment());
             var settings = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
             IsAftSettingsConfigurable = ports.AftPort != HostId.None;
-
-            _creditLimit = PropertiesManager
-                .GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue)
-                .MillicentsToDollars();
-
-            _maxCreditLimit = PropertiesManager
-                .GetValue(AccountingConstants.MaxCreditMeterMaxAllowed, long.MaxValue)
-                .MillicentsToDollars();
 
             _maxAllowedTransferLimit = settings.MaxAllowedTransferLimits.CentsToDollars();
             var aftTransferLimit = CapAmount(settings.TransferLimit.CentsToDollars(), MaxTransferLimit, (amount) =>
@@ -740,7 +727,7 @@
 
         private void SetAftTransferLimitState()
         {
-            AftTransferLimitCheckboxEnabled = IsCreditLimitMaxed && (IsAftInEnabled || IsAftOutEnabled);
+            AftTransferLimitCheckboxEnabled = IsAftInEnabled || IsAftOutEnabled;
 
             if (!IsAftInEnabled && !IsAftOutEnabled && AftTransferLimitEnabled)
             {
@@ -752,16 +739,12 @@
                 {
                     AftTransferLimitEnabled = true;
 
-                    var limit = _creditLimit <= _defaultAftTransferLimit
-                        ? _creditLimit
-                        : _defaultAftTransferLimit;
-
-                    AftTransferLimit = limit;
-                    PreviousAftTransferLimit = limit;
+                    AftTransferLimit = _defaultAftTransferLimit;
+                    PreviousAftTransferLimit = _defaultAftTransferLimit;
                 }
                 else if (!IsLoaded)
                 {
-                    if (PreviousAftTransferLimit == MaxTransferLimit && IsCreditLimitMaxed || AftTransferLimit > MaxTransferLimit)
+                    if (PreviousAftTransferLimit == MaxTransferLimit || AftTransferLimit > MaxTransferLimit)
                     {
                         AftTransferLimitEnabled = false;
                     }

@@ -4,6 +4,7 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Transactions;
@@ -13,6 +14,7 @@
     using Contracts.Client;
     using Contracts.SASProperties;
     using Kernel;
+    using log4net;
     using Storage;
     using Storage.Models;
     using Storage.Repository;
@@ -22,6 +24,8 @@
     /// </summary>
     public class EnhancedValidationProvider : IEnhancedValidationProvider
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly HostAcknowledgementHandler _processingHandlers;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISasTicketPrintedHandler _sasTicketPrintedHandler;
@@ -93,6 +97,12 @@
         /// <param name="transaction"></param>
         public void AddTransaction(ITransaction transaction)
         {
+            if (_data.Any(d => d.TransactionId == transaction.TransactionId))
+            {
+                Logger.Warn($"Transaction already stored: {transaction}");
+                return;
+            }
+
             _data.Enqueue(new EnhancedValidationData(transaction));
             while (_data.Count > SasConstants.MaxValidationIndex)
             {

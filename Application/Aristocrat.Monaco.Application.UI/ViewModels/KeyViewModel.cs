@@ -2,6 +2,7 @@
 {
     using System;
     using CommunityToolkit.Mvvm.ComponentModel;
+    using Contracts.ConfigWizard;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
 
@@ -11,24 +12,27 @@
         private readonly IKeySwitch _button;
         private readonly object _context = new object();
         private readonly IEventBus _eventBus;
+        private readonly IInspectionService _reporter;
         private KeySwitchAction _action;
         private string _name;
         private KeySwitchState _state;
 
-        public KeyViewModel(int id)
+        public KeyViewModel(int id, IInspectionService reporter)
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IKeySwitch>(),
-                id
+                id,
+                reporter
             )
         {
         }
 
-        public KeyViewModel(IEventBus eventBus, IKeySwitch button, int id)
+        public KeyViewModel(IEventBus eventBus, IKeySwitch button, int id, IInspectionService reporter)
         {
             _eventBus = eventBus;
             _button = button;
             Id = id;
+            _reporter = reporter;
         }
 
         public int Id { get; }
@@ -105,6 +109,7 @@
             }
 
             Update();
+            _reporter?.SetTestName($"{Name} {Action}");
         }
 
         private void HandleEvent(OnEvent evt)
@@ -115,6 +120,7 @@
             }
 
             Update();
+            _reporter?.SetTestName($"{Name} {Action}");
         }
 
         private void Update()

@@ -48,6 +48,7 @@
         private const string GameStatusField = @"Game.Status";
         private const string GameDenominationsField = @"Game.Denominations";
         private const string GameWagerCategoriesField = @"Game.WagerCategories";
+        private const string CdsGameInfosField = @"Game.CdsGameInfos";
         private const string GameInstallDateField = @"Game.InstallDate";
         private const string GameTagsField = @"Game.Tags";
         private const string GameUpgradedField = @"Game.Upgraded";
@@ -58,12 +59,12 @@
 
         private const string ProgressivesConfigFilename = @"progressives.xml";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;
         private readonly IGameOrderSettings _gameOrder;
-        private readonly List<GameDetail> _games = new List<GameDetail>();
+        private readonly List<GameDetail> _games = new();
         private readonly IManifest<GameContent> _manifest;
         private readonly IGameMeterManager _meters;
         private readonly IPathMapper _pathMapper;
@@ -78,7 +79,7 @@
         private readonly ICabinetDetectionService _cabinetDetectionService;
 
         private readonly double _multiplier;
-        private readonly object _sync = new object();
+        private readonly object _sync = new();
 
         private bool _initialized;
 
@@ -866,37 +867,30 @@
                         continue;
                     }
 
-                    List<WagerCategory> wagerCategories;
+                    var wagerCategories = game.WagerCategories.Select(
+                        w => new WagerCategory(
+                            w.Id,
+                            ConvertToRtp(w.TheoPaybackPercent),
+                            w.MinWagerCredits,
+                            w.MaxWagerCredits,
+                            w.MaxWinAmount)).ToList();
                     var centralAllowed = false;
 
                     if (game.CentralInfo.Any())
                     {
                         centralAllowed = true;
                         _properties.SetProperty(ApplicationConstants.CentralAllowed, true);
-                        // IMPORTANT: For central determinant games the wager categories are comprised of the cds info templates instead of the
-                        // actual WagerCategory information from the GSA Manifest.
-                        wagerCategories = game.CentralInfo.GroupBy(c => c.Id, c => c.Bet,
-                            (id, bet) =>
-                            {
-                                var betList = bet.ToList();
-                                return new WagerCategory(
-                                    id.ToString(),
-                                    ConvertToRtp(game.MaxPaybackPercent),
-                                    betList.Min(),
-                                    betList.Max(),
-                                    0);
-                            }).ToList();
                     }
-                    else
-                    {
-                        wagerCategories = game.WagerCategories.Select(
-                            w => new WagerCategory(
-                                w.Id,
-                                ConvertToRtp(w.TheoPaybackPercent),
-                                w.MinWagerCredits,
-                                w.MaxWagerCredits,
-                                w.MaxWinAmount)).ToList();
-                    }
+
+                    var cdsGameInfos = game.CentralInfo?.GroupBy(c => c.Id, c => c.Bet,
+                        (id, bet) =>
+                        {
+                            var betList = bet.ToList();
+                            return new CdsGameInfo(
+                                id.ToString(),
+                                betList.Min(),
+                                betList.Max());
+                        }).ToList() ?? new List<CdsGameInfo>();
 
                     var validDenoms = GetValidDenoms(game, denomLimit).ToList();
                     if (!validDenoms.Any())
@@ -943,7 +937,8 @@
                             game.SecondaryAllowed,
                             game.Category != null ? (GameCategory)game.Category : GameCategory.Undefined,
                             game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined,
-                            features);
+                            features,
+                            cdsGameInfos);
                     }
                     else
                     {
@@ -961,7 +956,7 @@
                         gameDetail.Status |= GameStatus.GameFilesNotFound;
                     }
 
-                    gameDetail.PaytableName = game.PaytableId.TrimStart(AtiPrefix.ToArray());
+                    gameDetail.PaytableName = GetPaytableName(game.PaytableId);
                     gameDetail.VariationId = game.VariationId;
                     gameDetail.MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent);
                     gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
@@ -1113,7 +1108,7 @@
                             ThemeId = (string)gameInfo[GameThemeIdField],
                             ThemeName = (string)gameInfo[GameThemeNameField],
                             PaytableId = (string)gameInfo[GamePayTableIdField],
-                            PaytableName = ((string)gameInfo[GamePayTableIdField]).TrimStart(AtiPrefix.ToArray()),
+                            PaytableName = GetPaytableName((string)gameInfo[GamePayTableIdField]),
                             Version = (string)gameInfo[GameVersionField],
                             Status = (GameStatus)gameInfo[GameStatusField],
                             Denominations =
@@ -1122,6 +1117,9 @@
                             WagerCategories =
                                 JsonConvert.DeserializeObject<List<WagerCategory>>(
                                     (string)gameInfo[GameWagerCategoriesField]),
+                            CdsGameInfos =
+                                JsonConvert.DeserializeObject<List<CdsGameInfo>>(
+                                    (string)gameInfo[CdsGameInfosField]),
                             Active = false,
                             InstallDate =
                                 DateTime.TryParse(gameInfo[GameInstallDateField].ToString(), out var dt)
@@ -1141,6 +1139,14 @@
             }
         }
 
+        private static string GetPaytableName(string paytableId)
+        {
+            var prefixIndex = paytableId.IndexOf(AtiPrefix, StringComparison.Ordinal);
+            return prefixIndex < 0
+                ? paytableId
+                : paytableId.Remove(prefixIndex, AtiPrefix.Length);
+        }
+
         private GameDetail GetOrAddGame(
             string themeId,
             string themeName,
@@ -1152,7 +1158,8 @@
             bool secondaryAllowed,
             GameCategory category,
             GameSubCategory subCategory,
-            IEnumerable<Feature> features)
+            IEnumerable<Feature> features,
+            IEnumerable<ICdsGameInfo> cdsGameInfos)
         {
             var game = FindGame(themeId, paytableId);
             if (game != null)
@@ -1160,6 +1167,7 @@
                 game.Version = version;
                 game.Denominations = supportedDenominations;
                 game.WagerCategories = wagerCategories;
+                game.CdsGameInfos = cdsGameInfos;
             }
             else
             {
@@ -1190,7 +1198,8 @@
                     SecondaryAllowed = secondaryAllowed,
                     Category = category,
                     SubCategory = subCategory,
-                    Features = features
+                    Features = features,
+                    CdsGameInfos = cdsGameInfos
                 };
             }
 
@@ -1198,28 +1207,28 @@
 
             var blockIndex = game.Id - 1;
 
-            using (var transaction = dataBlock.StartTransaction())
-            {
-                transaction[blockIndex, GameIdField] = game.Id;
-                transaction[blockIndex, GameThemeIdField] = game.ThemeId;
-                transaction[blockIndex, GameThemeNameField] = game.ThemeName;
-                transaction[blockIndex, GamePayTableIdField] = game.PaytableId;
-                transaction[blockIndex, GameVersionField] = game.Version;
-                transaction[blockIndex, GameStatusField] = game.Status;
-                transaction[blockIndex, GameDenominationsField] =
-                    JsonConvert.SerializeObject(game.Denominations, Formatting.None);
-                transaction[blockIndex, GameWagerCategoriesField] =
-                    JsonConvert.SerializeObject(game.WagerCategories, Formatting.None);
-                transaction[blockIndex, GameInstallDateField] = $"{game.InstallDate:g}";
-                transaction[blockIndex, GameUpgradedField] = game.Upgraded;
-                transaction[blockIndex, GameMaximumWagerCreditsField] = game.MaximumWagerCredits;
-                transaction[blockIndex, GameCategoryField] = game.Category;
-                transaction[blockIndex, GameSubCategoryField] = game.SubCategory;
-                transaction[blockIndex, GameFeaturesField] =
-                    JsonConvert.SerializeObject(game.Features, Formatting.None);
+            using var transaction = dataBlock.StartTransaction();
+            transaction[blockIndex, GameIdField] = game.Id;
+            transaction[blockIndex, GameThemeIdField] = game.ThemeId;
+            transaction[blockIndex, GameThemeNameField] = game.ThemeName;
+            transaction[blockIndex, GamePayTableIdField] = game.PaytableId;
+            transaction[blockIndex, GameVersionField] = game.Version;
+            transaction[blockIndex, GameStatusField] = game.Status;
+            transaction[blockIndex, GameDenominationsField] =
+                JsonConvert.SerializeObject(game.Denominations, Formatting.None);
+            transaction[blockIndex, GameWagerCategoriesField] =
+                JsonConvert.SerializeObject(game.WagerCategories, Formatting.None);
+            transaction[blockIndex, CdsGameInfosField] =
+                JsonConvert.SerializeObject(game.CdsGameInfos, Formatting.None);
+            transaction[blockIndex, GameInstallDateField] = $"{game.InstallDate:g}";
+            transaction[blockIndex, GameUpgradedField] = game.Upgraded;
+            transaction[blockIndex, GameMaximumWagerCreditsField] = game.MaximumWagerCredits;
+            transaction[blockIndex, GameCategoryField] = game.Category;
+            transaction[blockIndex, GameSubCategoryField] = game.SubCategory;
+            transaction[blockIndex, GameFeaturesField] =
+                JsonConvert.SerializeObject(game.Features, Formatting.None);
 
-                transaction.Commit();
-            }
+            transaction.Commit();
 
             return game;
         }

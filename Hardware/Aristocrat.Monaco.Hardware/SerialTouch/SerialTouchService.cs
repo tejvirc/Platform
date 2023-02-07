@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.IO;
     using System.IO.Ports;
     using System.Linq;
     using System.Reflection;
@@ -47,6 +48,8 @@
         private const int PointerId = 0;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly TimeSpan DisabledDelay = TimeSpan.FromMilliseconds(500);
+
         private readonly IEventBus _eventBus;
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly ISerialPortsService _serialPortsService;
@@ -119,7 +122,7 @@
         public string FirmwareVersion { get; private set; }
 
         /// <inheritdoc />
-        public string Model { get; private set; }
+        public string Model { get; private set; } = string.Empty;
 
         /// <inheritdoc />
         public string OutputIdentity { get; private set; }
@@ -209,7 +212,7 @@
 
             if (disposing)
             {
-                _cts.Cancel(true);
+                _cts.Cancel();
 
                 if (_requeueTimer != null)
                 {
@@ -317,7 +320,7 @@
                 Task.Run(() => { ProcessReceiveQueue(_cts.Token); }, _cts.Token)
                     .FireAndForget(ex => Logger.Error($"ProcessReceiveQueue: Exception occurred {ex}"));
 
-                Task.Run(() => { SendAndReceiveData(_cts.Token); }, _cts.Token)
+                SendAndReceiveData(_cts.Token)
                     .FireAndForget(ex => Logger.Error($"SendAndReceiveData: Exception occurred {ex}"));
             }
         }
@@ -404,7 +407,7 @@
         {
             IsDisconnected = true;
             CloseSerialPort();
-            _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(SerialTouchComPort)));
+            _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(Model)));
         }
 
         private bool Fire(SerialTouchTrigger trigger)
@@ -431,7 +434,7 @@
         {
             var deviceDetails = new Dictionary<string, object>
             {
-                { nameof(BaseDeviceEvent.DeviceId), deviceName },
+                { nameof(BaseDeviceEvent.DeviceId), deviceName ?? string.Empty },
                 { nameof(BaseDeviceEvent.DeviceCategory), "SERIAL" }
             };
 
@@ -810,30 +813,75 @@
             }
         }
 
-        private void SendAndReceiveData(CancellationToken token)
+        private async Task SendAndReceiveData(CancellationToken token)
         {
+            var portReadTask = HandlePortReads(token);
+            var queueTask = GetReceiveData(token);
             while (!token.IsCancellationRequested)
             {
-                if (_serialPortController.IsEnabled)
+                if (!_serialPortController.IsEnabled)
                 {
-                    // Read current data
-                    var bytes = new byte[_serialPortController.BytesToRead];
-                    if (bytes.Length > 0 && _serialPortController.TryReadBuffer(ref bytes, 0, bytes.Length) > 0)
+                    await Task.Delay(DisabledDelay, token);
+                    continue;
+                }
+
+                // Read current data
+                var result = await Task.WhenAny(portReadTask, queueTask);
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                if (result == portReadTask)
+                {
+                    var data = await result;
+                    if (data.Any())
                     {
-                        ProcessNewData(bytes);
+                        ProcessNewData(data);
                         _checkDisconnectAttempts = 0;
                     }
 
-                    // Transmit pending messages
-                    if (_transmitQueue != null && _transmitQueue.TryTake(out var message))
-                    {
-                        Logger.Debug($"SendAndReceiveData - Removing [{message.ToHexString()}] from transmit queue");
-
-                        _packetBuilder.Reset();
-                        _serialPortController.FlushInputAndOutput();
-                        _serialPortController.WriteBuffer(message);
-                    }
+                    portReadTask = HandlePortReads(token);
                 }
+
+                if (result == queueTask)
+                {
+                    var message = await result;
+                    Logger.Debug($"SendAndReceiveData - Removing [{message.ToHexString()}] from transmit queue");
+
+                    _packetBuilder.Reset();
+                    _serialPortController.FlushInputAndOutput();
+                    _serialPortController.WriteBuffer(message);
+                    queueTask = GetReceiveData(token);
+                }
+            }
+        }
+
+        private async Task<byte[]> GetReceiveData(CancellationToken token)
+        {
+            try
+            {
+                return await Task.Run(() => _transmitQueue?.Take(token) ?? Array.Empty<byte>(), token);
+            }
+            catch (Exception)
+            {
+                return Array.Empty<byte>();
+            }
+        }
+
+        private async Task<byte[]> HandlePortReads(CancellationToken token)
+        {
+            try
+            {
+                return await Task.Run(() =>
+                {
+                    var data = (byte)_serialPortController.ReadByte();
+                    return new[] { data };
+                }, token);
+            }
+            catch (Exception)
+            {
+                return Array.Empty<byte>();
             }
         }
 

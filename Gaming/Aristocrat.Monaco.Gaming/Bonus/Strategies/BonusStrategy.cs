@@ -28,7 +28,7 @@
     public abstract class BonusStrategy
     {
         private const string LegacyBonusHostTransactionPrefix = "LEGACY";
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().ReflectedType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.ReflectedType);
 
         private readonly IBank _bank;
         private readonly IEventBus _bus;
@@ -297,12 +297,16 @@
                     traceId));
             }
 
-            var (cashable, promo, nonCash) = _transactions.RecallTransactions().OfType<ITransactionContext>()
+            var transactionAmounts = _transactions.RecallTransactions().OfType<ITransactionContext>()
                 .Where(
                     x => (x as ITransactionConnector)?.AssociatedTransactions.Contains(transaction.TransactionId) ?? false)
-                .Select(x => x.GetTransactionAmounts()).Aggregate(
+                .Select(x => x.GetTransactionAmounts()).ToList();
+
+            var (cashable, promo, nonCash) = transactionAmounts.Any()
+                ? transactionAmounts.Aggregate(
                     (current, next) => (current.cashable + next.cashable, current.promo + next.promo,
-                        current.nonCash + next.nonCash));
+                        current.nonCash + next.nonCash))
+                : (0L, 0L, 0L);
             var remainingCashable = cashableAmount - cashable;
             var remainingPromo = promoAmount - promo;
             var remainingNonCash = nonCashAmount - nonCash;
@@ -424,6 +428,9 @@
             transaction.PaidCashableAmount += cashableAmount;
             transaction.PaidPromoAmount += promoAmount;
             transaction.PaidNonCashAmount += nonCashAmount;
+            transaction.LastAuthorizedCashableAmount = 0;
+            transaction.LastAuthorizedPromoAmount = 0;
+            transaction.LastAuthorizedNonCashAmount = 0;
 
             _transactions.UpdateTransaction(transaction);
 
@@ -550,15 +557,6 @@
         {
             var traceId = Guid.NewGuid();
 
-            _history.AppendCashOut(
-                new CashOutInfo
-                {
-                    Amount = cashableAmount + nonCashAmount + promoAmount,
-                    Reason = reason,
-                    TraceId = traceId,
-                    AssociatedTransactions = new[] { transaction.TransactionId }
-                });
-
             if (!_transferHandler.TransferOutWithContinuation<T>(
                 transactionId,
                 cashableAmount,
@@ -596,12 +594,13 @@
                         _transactions.RecallTransactions()
                             .FirstOrDefault(x => (x as ITransactionContext)?.TraceId == traceId),
                         transaction);
+
+                    ApplyLastAuthorizedAmount(transaction, ref cashableAmount, ref nonCashAmount, ref promoAmount);
                     using (var scope = _storage.ScopedTransaction())
                     {
                         CompletePayment(transaction, cashableAmount, nonCashAmount, promoAmount);
                         scope.Complete();
                     }
-
                     paid.TrySetResult(true);
                     UnsubscribeTransferEvents();
                 });
@@ -631,6 +630,17 @@
                 });
 
             return paid;
+        }
+
+        private static void ApplyLastAuthorizedAmount(
+            BonusTransaction transaction,
+            ref long cashableAmount,
+            ref long nonCashAmount,
+            ref long promoAmount)
+        {
+            cashableAmount = transaction.LastAuthorizedCashableAmount > 0 ? transaction.LastAuthorizedCashableAmount : cashableAmount;
+            nonCashAmount = transaction.LastAuthorizedNonCashAmount > 0 ? transaction.LastAuthorizedNonCashAmount : nonCashAmount;
+            promoAmount = transaction.LastAuthorizedPromoAmount > 0 ? transaction.LastAuthorizedPromoAmount : promoAmount;
         }
 
         private PayMethod GetActualBonusPayMethod(ITransaction transaction, BonusTransaction bonus)

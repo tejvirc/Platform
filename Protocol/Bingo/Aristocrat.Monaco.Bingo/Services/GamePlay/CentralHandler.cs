@@ -34,6 +34,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
+        private static readonly IComparer<WinResult> DefaultWinResultComparer = new WinResultComparer();
 
         private static readonly IReadOnlyCollection<Guid> AllowedGameDisables = new[]
         {
@@ -54,6 +55,7 @@
         private readonly object _lock = new();
 
         private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _gewCancellationTokenSource;
         private long _currentGameTransactionId;
         private bool _disposed;
         private Task _currentGamePlayTask;
@@ -107,13 +109,14 @@
             return ProcessGameOutcomeInternal(outcome, token);
         }
 
-        public async Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token)
+        public Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token)
         {
             Logger.Debug($"Received a claim win response with Accepted={claim.Accepted}");
+            token.ThrowIfCancellationRequested();
 
             if (!claim.Accepted)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             if (!_gameState.InGameRound)
@@ -136,23 +139,7 @@
                 Logger.Debug("Game is active, provide claim win");
             }
 
-            var winStrategy =
-                _unitOfWorkFactory.Invoke(
-                        x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())
-                    ?.GameEndingPrize ?? GameEndWinStrategy.BonusCredits;
-            var gameEndWinStrategy = _gewStrategyFactory.Create(winStrategy);
-            var accepted = await gameEndWinStrategy.ProcessWin(gewPattern.WinAmount.CentsToMillicents(), token)
-                .ConfigureAwait(false);
-
-            lock (_lock)
-            {
-                var description = GameDescription ?? new BingoGameDescription();
-                description.GameEndWinClaimAccepted = accepted;
-                _centralProvider.UpdateOutcomeDescription(
-                    transactionId,
-                    new List<IOutcomeDescription> { description });
-                return description.GameEndWinClaimAccepted;
-            }
+            return ProcessClaimWinInternal(gewPattern, transactionId, token);
         }
 
         /// <inheritdoc />
@@ -184,10 +171,19 @@
                 _eventBus.UnsubscribeAll(this);
                 _centralProvider.Clear(ProtocolNames.Bingo);
                 _waitingForPlayersTask?.TrySetCanceled();
+
+                _cancellationTokenSource?.Cancel(true);
                 if (_cancellationTokenSource != null)
                 {
                     _cancellationTokenSource.Dispose();
                     _cancellationTokenSource = null;
+                }
+
+                _gewCancellationTokenSource?.Cancel(true);
+                if (_gewCancellationTokenSource != null)
+                {
+                    _gewCancellationTokenSource.Dispose();
+                    _gewCancellationTokenSource = null;
                 }
             }
 
@@ -212,9 +208,15 @@
             return transferredAmount > 0;
         }
 
+        private static IEnumerable<WinResult> GetOrderedWinResults(GameOutcomeWinDetails windDetails)
+        {
+            return windDetails.WinResults.OrderBy(x => x, DefaultWinResultComparer);
+        }
+
         private async Task RequestOutcomesInternal(CentralTransaction transaction)
         {
             _cancellationTokenSource?.Cancel();
+            _gewCancellationTokenSource?.Cancel();
             var lastGame = _currentGamePlayTask ?? Task.CompletedTask;
             await lastGame.ContinueWith(
                 t =>
@@ -260,6 +262,37 @@
             return true;
         }
 
+        private async Task<bool> ProcessClaimWinInternal(BingoPattern gewPattern, long transactionId, CancellationToken token)
+        {
+            using var source = new CancellationTokenSource();
+            _gewCancellationTokenSource = source;
+
+            try
+            {
+                var serverSettingsModel = _unitOfWorkFactory.Invoke(
+                    x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault());
+                var winStrategy = serverSettingsModel?.GameEndingPrize ?? GameEndWinStrategy.BonusCredits;
+                var gameEndWinStrategy = _gewStrategyFactory.Create(winStrategy);
+                var winAmount = gewPattern.WinAmount.CentsToMillicents();
+                token.ThrowIfCancellationRequested();
+                var accepted = await gameEndWinStrategy.ProcessWin(winAmount, source.Token).ConfigureAwait(false);
+
+                lock (_lock)
+                {
+                    var description = GameDescription ?? new BingoGameDescription();
+                    description.GameEndWinClaimAccepted = accepted;
+                    _centralProvider.UpdateOutcomeDescription(
+                        transactionId,
+                        new List<IOutcomeDescription> { description });
+                    return description.GameEndWinClaimAccepted;
+                }
+            }
+            finally
+            {
+                _gewCancellationTokenSource = null;
+            }
+        }
+
         private async Task HandleBingoOutcomes(GameOutcome outcome, CancellationToken token)
         {
             var outcomeTasks = new List<Task>();
@@ -273,8 +306,9 @@
                 var outcomes = new List<Outcome>();
                 if (outcome.WinDetails.WinResults.Any() || newCard)
                 {
+                    var orderedPayout = GetOrderedWinResults(outcome.WinDetails);
                     outcomeTasks.AddRange(
-                        outcome.WinDetails.WinResults.Select(
+                        orderedPayout.Select(
                             winResult => ProcessWins(outcome, winResult, outcomes, description, token)));
                     if (outcomes.Any())
                     {

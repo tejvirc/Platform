@@ -147,6 +147,12 @@
         }
 
         /// <inheritdoc />
+        public IMeter GetMeter(string meterName)
+        {
+            return _meterManager.GetMeter(meterName);
+        }
+
+        /// <inheritdoc />
         public IMeter GetMeter(int deviceId, int levelId, string meterName)
         {
             return _meterManager.GetMeter(GetMeterName(deviceId, levelId, meterName));
@@ -195,6 +201,12 @@
         {
             return _deviceIdMap.TryGetValue(deviceId, out _) &&
                    _meterManager.IsMeterProvided(GetMeterName(deviceId, meterName));
+        }
+
+        /// <inheritdoc />
+        public bool IsMeterProvided(string meterName)
+        {
+            return _meterManager.IsMeterProvided(meterName);
         }
 
         /// <inheritdoc />

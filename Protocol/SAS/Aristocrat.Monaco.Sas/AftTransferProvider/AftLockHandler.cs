@@ -77,6 +77,10 @@
                 this,
                 _ => ProcessAftLock(),
                 _ => CurrentTransactionId != Guid.Empty && CanLock);
+            _bus.Subscribe<GamePresentationIdleEvent>(
+                this,
+                _ => ProcessAftLock(),
+                _ => CurrentTransactionId != Guid.Empty && CanLock);
             _bus.Subscribe<GameIdleEvent>(
                 this,
                 _ => ProcessAftLock(),
@@ -103,9 +107,9 @@
         public ICollection<Type> ServiceTypes => new[] { typeof(IAftLockHandler) };
 
         private bool CanLock =>
-            (!_systemDisableManager.DisableImmediately &&
-             (_gamePlay.UncommittedState == PlayState.Idle ||
-              (AftLockTransferConditions & AftTransferConditions.BonusAwardToGamingMachineOk) != 0)) ||
+            !_systemDisableManager.DisableImmediately &&
+            (_gamePlay.UncommittedState is PlayState.Idle or PlayState.PresentationIdle ||
+             (AftLockTransferConditions & AftTransferConditions.BonusAwardToGamingMachineOk) != 0) ||
             _hostCashOutProvider.CanCashOut;
 
         /// <inheritdoc />
@@ -231,7 +235,7 @@
                     case AftGameLockStatus.GameLocked:
                         StartAftLock(Timeout);
                         break;
-                    case AftGameLockStatus.GameLockPending:
+                    case AftGameLockStatus.GameLockPending when !_autoPlayActive && CanLock:
                         var lockAllowed = true;
                         // if any transfer conditions used to request lock are false, set lockAllowed = false
                         if (!_hostCashOutProvider.HostCashOutPending && CurrentTransactionId == Guid.Empty)
@@ -239,8 +243,9 @@
                             Logger.Debug("HandleAftLockRequest(): Requesting transaction...");
 
                             // Make sure the lock is released after timeout is complete.
-                            CurrentTransactionId = _transactionCoordinator.RequestTransaction(this, TransactionType.Write);
-                            lockAllowed = CurrentTransactionId != Guid.Empty && !_autoPlayActive && CanLock;
+                            CurrentTransactionId =
+                                _transactionCoordinator.RequestTransaction(this, TransactionType.Write);
+                            lockAllowed = CurrentTransactionId != Guid.Empty;
                             Logger.Debug($"HandleAftLock(): lockAllowed={lockAllowed}");
                         }
 

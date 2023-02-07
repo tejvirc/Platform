@@ -36,17 +36,15 @@
         /// <inheritdoc />
         public override void Consume(GameSelectedEvent theEvent)
         {
-            var selectedGameId = _propertiesManager.GetValue(GamingConstants.SelectedGameId, DefaultSelectedGame);
-            var selectedDenom = _propertiesManager.GetValue(GamingConstants.SelectedDenom, 0L);
-            var gameId = (int)(_gameProvider.GetGameId(selectedGameId, selectedDenom) ?? DefaultSelectedGame);
-
-            if (gameId == theEvent.GameId)
+            var lastGameId = _propertiesManager.GetValue(SasProperties.PreviousSelectedGameId, DefaultSelectedGame);
+            if (theEvent.GameId == lastGameId)
             {
                 return;
             }
 
-            _exceptionHandler.ReportException(new GameSelectedExceptionBuilder(theEvent.GameId));
-            _propertiesManager.SetProperty(SasProperties.PreviousSelectedGameId, theEvent.GameId);
+            var gameId = (int)(_gameProvider.GetGameId(theEvent.GameId, theEvent.Denomination) ?? DefaultSelectedGame);
+            _exceptionHandler.ReportException(new GameSelectedExceptionBuilder(gameId));
+            _propertiesManager.SetProperty(SasProperties.PreviousSelectedGameId, gameId);
         }
     }
 }

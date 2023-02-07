@@ -54,7 +54,7 @@
         public bool Recover()
         {
             var log = _history.CurrentLog;
-            if (log is null)
+            if (log is null || !HasPending)
             {
                 return false;
             }

@@ -10,7 +10,11 @@
     using Models;
     using Contracts.Barkeeper;
     using Kernel;
+    using Gaming.Contracts;
     using Toolkit.Mvvm.Extensions;
+    using System.ComponentModel.DataAnnotations;
+    using Aristocrat.Monaco.Accounting.Contracts;
+
 
     public class BarkeeperConfigurationViewModel : OperatorMenuPageViewModelBase
     {
@@ -20,6 +24,7 @@
         private BarkeeperRewardLevels _rewardLevels;
         private List<CoinInRewardLevel> _coinInRewardLevels;
         private List<CashInRewardLevel> _cashInRewardLevels;
+        private long _rewardLevelCoinInAmount;
 
         public BarkeeperConfigurationViewModel()
             : this(ServiceManager.GetInstance().GetService<IBarkeeperHandler>())
@@ -61,6 +66,12 @@
             set => SetProperty(ref _coinInSessionMeter, value, nameof(CoinInSessionMeter));
         }
 
+        public long RewardLevelCoinInAmount
+        {
+            get => _rewardLevelCoinInAmount;
+            set => SetProperty(ref _rewardLevelCoinInAmount, value, true, nameof(RewardLevelCoinInAmount));
+        }
+
         public BarkeeperRewardLevels RewardLevels
         {
             get => _rewardLevels;
@@ -69,28 +80,28 @@
                 this.SetProperty(ref _rewardLevels, value, OnPropertyChanged, nameof(RewardLevels), nameof(RewardLevelsEnabled));
 
                 CoinInRewardLevels = (from rewardLevel in _rewardLevels.RewardLevels
-                    where
-                        CoinInStrategyPredicate(rewardLevel)
-                    select new CoinInRewardLevel()
-                    {
-                        Name = rewardLevel.Name,
-                        Enabled = rewardLevel.Enabled,
-                        ThresholdInCents = rewardLevel.ThresholdInCents,
-                        Alert = rewardLevel.Alert,
-                        Color = rewardLevel.Color
-                    }).ToList();
+                                      where
+                                          CoinInStrategyPredicate(rewardLevel)
+                                      select new CoinInRewardLevel()
+                                      {
+                                          Name = rewardLevel.Name,
+                                          Enabled = rewardLevel.Enabled,
+                                          ThresholdInCents = rewardLevel.ThresholdInCents,
+                                          Alert = rewardLevel.Alert,
+                                          Color = rewardLevel.Color
+                                      }).ToList();
 
                 CashInRewardLevels = (from rewardLevel in _rewardLevels.RewardLevels
-                    where
-                        CashInStrategyPredicate(rewardLevel)
-                    select new CashInRewardLevel()
-                    {
-                        Name = rewardLevel.Name,
-                        Enabled = rewardLevel.Enabled,
-                        ThresholdInCents = rewardLevel.ThresholdInCents,
-                        Alert = rewardLevel.Alert,
-                        Color = rewardLevel.Color
-                    }).ToList();
+                                      where
+                                          CashInStrategyPredicate(rewardLevel)
+                                      select new CashInRewardLevel()
+                                      {
+                                          Name = rewardLevel.Name,
+                                          Enabled = rewardLevel.Enabled,
+                                          ThresholdInCents = rewardLevel.ThresholdInCents,
+                                          Alert = rewardLevel.Alert,
+                                          Color = rewardLevel.Color
+                                      }).ToList();
             }
         }
 
@@ -112,15 +123,13 @@
         public List<CoinInRewardLevel> CoinInRewardLevels
         {
             get => _coinInRewardLevels;
-            set => this.SetProperty(ref _coinInRewardLevels, value, OnPropertyChanged,
-                nameof(CoinInRewardLevels), nameof(CoinInRewardLevelsExist));
+            set => SetProperty(ref _coinInRewardLevels, value, true, nameof(CoinInRewardLevels));
         }
 
         public List<CashInRewardLevel> CashInRewardLevels
         {
             get => _cashInRewardLevels;
-            set => this.SetProperty(ref _cashInRewardLevels, value, OnPropertyChanged,
-                nameof(CashInRewardLevels), nameof(CashInRewardLevelsExist));
+            set => SetProperty(ref _cashInRewardLevels, value, true, nameof(CashInRewardLevels));
         }
 
         public bool CoinInRewardLevelsExist => _rewardLevels.Enabled && _coinInRewardLevels.Count > 0;
@@ -134,6 +143,8 @@
             CashInSessionMeter =
                 _barkeeperHandler.CreditsInDuringSession.MillicentsToDollars().FormattedCurrencyString();
             CoinInSessionMeter = _barkeeperHandler.CoinInDuringSession.MillicentsToDollars().FormattedCurrencyString();
+
+            RewardLevelCoinInAmount = _rewardLevels.CoinInStrategy.CoinInRate.Amount;
         }
 
         protected override void OnUnloaded()
@@ -145,9 +156,9 @@
         protected override void OnCommitted()
         {
             base.OnCommitted();
-            CoinInRewardLevels?.Where(lvl => lvl.ThresholdInCents == 0 && lvl.Enabled).ToList()
+            CoinInRewardLevels?.Where(lvl => !(GetErrors(nameof(lvl.ThresholdInCents)) == ValidationResult.Success) && lvl.Enabled).ToList()
                 .ForEach(lvl => lvl.Enabled = false);
-            CashInRewardLevels?.Where(lvl => lvl.ThresholdInCents == 0 && lvl.Enabled).ToList()
+            CashInRewardLevels?.Where(lvl => !(GetErrors(nameof(lvl.ThresholdInCents)) == ValidationResult.Success) && lvl.Enabled).ToList()
                 .ForEach(lvl => lvl.Enabled = false);
 
             foreach (var rewardLevel in RewardLevels.RewardLevels.Where(CoinInStrategyPredicate))
@@ -176,6 +187,7 @@
 
             RewardLevels.CoinInStrategy.CoinInRate.Enabled = RewardLevels.CoinInStrategy.CoinInRate.Enabled &&
                                                              RewardLevels.CoinInStrategy.CoinInRate.Amount > 0;
+            RewardLevels.CoinInStrategy.CoinInRate.Amount = RewardLevelCoinInAmount;
 
             if (Committed || HasErrors || _barkeeperHandler.RewardLevels.Equals(RewardLevels))
             {
@@ -183,6 +195,20 @@
             }
 
             _barkeeperHandler.RewardLevels = RewardLevels;
+        }
+
+        public static ValidationResult CoinInRateValidate(long rewardLevelCoinInAmount, ValidationContext context)
+        {
+            BarkeeperConfigurationViewModel instance = (BarkeeperConfigurationViewModel)context.ObjectInstance;
+            var coinInRateValidate = ((decimal)rewardLevelCoinInAmount.CentsToDollars()).Validate(
+                false,
+                instance.PropertiesManager.GetValue(GamingConstants.GambleWagerLimit, GamingConstants.DefaultGambleWagerLimit));
+
+            if (string.IsNullOrEmpty(coinInRateValidate))
+            {
+                return ValidationResult.Success;
+            }
+            return new (coinInRateValidate);
         }
 
         private bool CoinInStrategyPredicate(RewardLevel rewardLevel)

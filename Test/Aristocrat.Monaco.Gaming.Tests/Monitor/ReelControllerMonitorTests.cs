@@ -37,11 +37,14 @@
         private Mock<IGamePlayState> _gamePlayState;
         private Mock<IEdgeLightingController> _edgeLightingController;
         private Mock<IGameService> _gameService;
+        private Mock<IGameHistory> _gameHistory;
         private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
         private Func<ConnectedEvent, CancellationToken, Task> _connectedAction;
         private Func<DisconnectedEvent, CancellationToken, Task> _disconnectedAction;
+        private Func<ReelDisconnectedEvent, CancellationToken, Task> _reelDisconnectedAction;
+        private Func<ReelConnectedEvent, CancellationToken, Task> _reelConnectedAction;
         private Action<DisabledEvent> _disabledAction;
         private Action<EnabledEvent> _enabledAction;
         private Func<HardwareFaultClearEvent, CancellationToken, Task> _reelControllerClearAction;
@@ -70,6 +73,7 @@
             _disable = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
             _gameService = new Mock<IGameService>(MockBehavior.Default);
+            _gameHistory = new Mock<IGameHistory>(MockBehavior.Default);
             _operatorMenuLauncher = new Mock<IOperatorMenuLauncher>(MockBehavior.Default);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _edgeLightingController = new Mock<IEdgeLightingController>(MockBehavior.Default);
@@ -121,6 +125,10 @@
                 .Callback<object, Func<ConnectedEvent, CancellationToken, Task>>((o, c) => _connectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<DisconnectedEvent, CancellationToken, Task>>()))
                 .Callback<object, Func<DisconnectedEvent, CancellationToken, Task>>((o, c) => _disconnectedAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<ReelDisconnectedEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<ReelDisconnectedEvent, CancellationToken, Task>>((o, c) => _reelDisconnectedAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<ReelConnectedEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<ReelConnectedEvent, CancellationToken, Task>>((o, c) => _reelConnectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<EnabledEvent>>()))
                 .Callback<object, Action<EnabledEvent>>((o, c) => _enabledAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<DisabledEvent>>()))
@@ -594,6 +602,63 @@
                     null));
         }
 
+        [TestMethod]
+        public async Task ReelDisconnectedTest()
+        {
+            InitializeClient(false);
+            _reelController.Reset();
+            _disable.Reset();
+            _gamePlayState.Reset();
+
+            _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.IdleAtStops);
+            var connectedReels = new List<int>() { 2, 3 };
+            _reelController.Setup(x => x.ConnectedReels).Returns(connectedReels);
+            _reelController.Setup(x => x.TiltReels()).Returns(Task.FromResult(true));
+            _reelController.Setup(x => x.HomeReels()).Returns(Task.FromResult(true));
+            var currentDisableKeys = new List<Guid>() { ApplicationConstants.ReelCountMismatchDisableKey };
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(currentDisableKeys);
+            _gamePlayState.Setup(x => x.Enabled).Returns(false);
+
+            Assert.IsNotNull(_reelDisconnectedAction);
+            var reelId = 1;
+            await _reelDisconnectedAction(new ReelDisconnectedEvent(reelId), CancellationToken.None);
+
+            _disable.Verify(
+                x => x.Disable(
+                ApplicationConstants.ReelCountMismatchDisableKey,
+                SystemDisablePriority.Immediate,
+                It.IsAny<Func<string>>(),
+                true,
+                It.IsAny<Func<string>>(),
+                null));
+
+            _reelController.Verify(x => x.TiltReels(), Times.Once);
+            _reelController.Verify(x => x.HomeReels(), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task ReelReconnectedTest()
+        {
+            InitializeClient(false);
+            _reelController.ResetCalls();
+
+            _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.Tilted);
+            _reelController.Setup(x => x.TiltReels()).Returns(Task.FromResult(true));
+            _reelController.Setup(x => x.HomeReels()).Returns(Task.FromResult(true));
+
+            var disableKeys = new List<Guid> { ApplicationConstants.ReelCountMismatchDisableKey };
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
+
+            Assert.IsNotNull(_reelConnectedAction);
+            var reelId = 1;
+            await _reelConnectedAction(new ReelConnectedEvent(reelId), CancellationToken.None);
+
+            _disable.Verify(x => x.Enable(ApplicationConstants.ReelCountMismatchDisableKey));
+
+            _reelController.Verify(x => x.TiltReels(), Times.Once);
+            _reelController.Verify(x => x.HomeReels(), Times.Once);
+        }
+
         [DataRow(ReelControllerFaults.None, false)]
         [DataTestMethod]
         public async Task HardwareFaultNoneOccuredTest(ReelControllerFaults fault, bool isDisabled)
@@ -919,7 +984,7 @@
 
             _gamePlayState.Setup(x => x.Enabled).Returns(!areReelsTilted);
             _gamePlayState.Setup(x => x.InGameRound).Returns(false);
-            _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid> { ApplicationConstants.SystemDisableGuid });
+            _disable.Setup(x => x.CurrentDisableKeys).Returns( new List<Guid> { ApplicationConstants.SystemDisableGuid });
             if (areReelsTilted)
             {
                 var count = 0;
@@ -951,6 +1016,7 @@
             bool nullGameProvider = false,
             bool nullEdgeLightController = false,
             bool nullGameService = false,
+            bool nullGameHistory = false,
             bool nullOperatorMenuLauncher = false)
         {
             return new ReelControllerMonitor(
@@ -961,6 +1027,7 @@
                 nullGameProvider ? null : _gameProvider.Object,
                 nullEdgeLightController ? null : _edgeLightingController.Object,
                 nullGameService ? null : _gameService.Object,
+                nullGameHistory ? null : _gameHistory.Object,
                 nullOperatorMenuLauncher ? null : _operatorMenuLauncher.Object);
         }
     }

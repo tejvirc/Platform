@@ -41,6 +41,7 @@
         private Mock<IProgressiveLevelProvider> _progressiveProvider = new Mock<IProgressiveLevelProvider>(MockBehavior.Default);
         private Mock<ICentralProvider> _centralProvider = new Mock<ICentralProvider>(MockBehavior.Default);
         private Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>(MockBehavior.Default);
+        private Mock<IGameRoundMeterSnapshotProvider> _gameRoundMeterSnapshotProvider = new Mock<IGameRoundMeterSnapshotProvider>(MockBehavior.Default);
         private Mock<IReelController> _reelController = new Mock<IReelController>(MockBehavior.Default);
         private Mock<IGameRoundDetailsDisplayProvider> _gameRoundDetailsDisplayProvider;
         private Mock<IDialogService> _dialogService;
@@ -100,6 +101,7 @@
             _container.Register(() => _currencyContainer.Object, Lifestyle.Singleton);
             _container.Register(() => _protocolLinkedProgressiveAdapter.Object, Lifestyle.Singleton);
             _container.Register(() => _disableManager.Object, Lifestyle.Singleton);
+            _container.Register(() => _gameRoundMeterSnapshotProvider.Object, Lifestyle.Singleton);
 
             _containerService.Setup(m => m.Container).Returns(_container);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.MeterFreeGamesIndependently, false)).Returns(false);

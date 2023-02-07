@@ -71,6 +71,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\checklist.png" />
+    <Resource Include="Resources\InspectionLogoPortrait.png" />
     <Resource Include="Resources\Operator_Menu_Background_Strip.png" />
     <Resource Include="Resources\Operator_Menu_Background.png" />
     <Resource Include="Resources\Aristocrat_Logo_White.png" />
@@ -95,9 +97,13 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj" />
     <ProjectReference Include="..\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'!='Retail'">
+    <ProjectReference Include="..\..\Test\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.10" />
+    <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.11" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
     <PackageReference Include="LiveCharts" Version="0.9.7" />

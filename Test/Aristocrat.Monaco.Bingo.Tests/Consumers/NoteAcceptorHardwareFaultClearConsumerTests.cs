@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests.Consumers
 {
     using System;
-    using Aristocrat.Monaco.Bingo.Common;
-    using Aristocrat.Monaco.Bingo.Services.Reporting;
-    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Bingo.Consumers;
+    using Bingo.Services.Reporting;
+    using Common;
+    using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -15,7 +15,7 @@
         private NoteAcceptorHardwareFaultClearConsumer _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Loose);
         private readonly Mock<ISharedConsumer> _consumerContext = new(MockBehavior.Loose);
-        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Strict);
+        private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -42,9 +42,12 @@
         public void ConsumesTest(NoteAcceptorFaultTypes fault, ReportableEvent response)
         {
             var @event = new HardwareFaultClearEvent(fault);
-            _reportingService.Setup(m => m.AddNewEventToQueue(response)).Verifiable();
-
             _target.Consume(@event);
+
+            if (response is not ReportableEvent.BillAcceptorErrorClear)
+            {
+                _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.BillAcceptorErrorClear), Times.Once());
+            }
 
             _reportingService.Verify(m => m.AddNewEventToQueue(response), Times.Once());
         }

@@ -20,11 +20,12 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
     using Kernel;
     using Localization.Properties;
     using log4net;
+    using Vgt.Client12.Application.OperatorMenu;
 
     /// <summary>Provides a mechanism to monitor events and control TowerLight device as defined in the configuration file.</summary>
     public class TowerLightManager : IDisposable, ITowerLightManager, IMessageDisplayHandler
     {
-        private const string TowerLightConfigPath = "/TowerLight/Configuration"; 
+        private const string TowerLightConfigPath = "/TowerLight/Configuration";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -36,6 +37,7 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
         private readonly IMessageDisplay _messageDisplay;
         private readonly IEdgeLightingStateManager _edgeLightingStateManager;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IOperatorMenuLauncher _operatorMenuLauncher;
         private bool _disposed;
         private List<DoorLogicalId> _doorTilts;
         private readonly object _lockObject = new object();
@@ -57,7 +59,8 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
             ITowerLight towerLight,
             IMessageDisplay messageDisplay,
             IEdgeLightingStateManager edgeLightingStateManager,
-            IPropertiesManager propertiesManager)
+            IPropertiesManager propertiesManager,
+            IOperatorMenuLauncher operatorMenuLauncher)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _systemDisableManager =
@@ -68,7 +71,8 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
             _edgeLightingStateManager = edgeLightingStateManager ??
                                         throw new ArgumentNullException(nameof(edgeLightingStateManager));
-
+            _operatorMenuLauncher =
+                operatorMenuLauncher ?? throw new ArgumentNullException(nameof(operatorMenuLauncher));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             Initialize();
         }
@@ -467,10 +471,13 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
             lock (_lockObject)
             {
                 // Set AuditMenu flag
-                SetFlag(OperationalConditions.AuditMenu, true);
+                if (!GetFlag(OperationalConditions.AuditMenu))
+                {
+                    SetFlag(OperationalConditions.AuditMenu, true);
 
-                UpdateOperationalConditionStatus();
-                UpdateTowerLightSignal();
+                    UpdateOperationalConditionStatus();
+                    UpdateTowerLightSignal();
+                }
             }
         }
 
@@ -495,7 +502,15 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
 
             lock (_lockObject)
             {
-                _disabledKeys.Add(evt.DisableId);
+                if (evt.DisableId == ApplicationConstants.OperatorMenuLauncherDisableGuid)
+                {
+                    SetFlag(OperationalConditions.AuditMenu, _operatorMenuLauncher.IsShowing);
+                }
+                else
+                {
+                    _disabledKeys.Add(evt.DisableId);
+                }
+
                 UpdateOperationalConditionStatus();
                 UpdateTowerLightSignal();
             }
@@ -505,8 +520,7 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
         {
             if (evt.DisableId == ApplicationConstants.LiveAuthenticationDisableKey &&
                 !string.IsNullOrEmpty(evt.DisableReasons) &&
-                evt.DisableReasons !=
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifyingSignaturesText))
+                evt.DisableReasons != Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifyingSignaturesText))
             {
                 lock (_lockObject)
                 {
@@ -521,7 +535,15 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
         {
             lock (_lockObject)
             {
-                _disabledKeys.Remove(evt.DisableId);
+                if (evt.DisableId == ApplicationConstants.OperatorMenuLauncherDisableGuid)
+                {
+                    SetFlag(OperationalConditions.AuditMenu, _operatorMenuLauncher.IsShowing);
+                }
+                else
+                {
+                    _disabledKeys.Remove(evt.DisableId);
+                }
+
                 UpdateOperationalConditionStatus();
                 UpdateTowerLightSignal();
             }

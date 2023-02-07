@@ -493,6 +493,11 @@
         public string PositionPriorityKey { get; set; }
 
         /// <summary>
+        ///     Gets or sets a property stating whether or not this game requires mechanical reels
+        /// </summary>
+        public bool RequiresMechanicalReels { get; set; }
+
+        /// <summary>
         ///     Select the approriate for the Locale Graphics
         /// </summary>
         /// <param name="activeLocaleCode">locale code to use</param>

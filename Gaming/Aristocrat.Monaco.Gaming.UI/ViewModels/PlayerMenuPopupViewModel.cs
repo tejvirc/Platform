@@ -74,8 +74,6 @@
 
         public ICommand StartNewSessionClickedCommand { get; }
 
-        public ICommand MouseDownOnMenuCommand { get; }
-
         public void SendButtonPressToExit() => _eventBus.Publish(new PlayerMenuButtonPressedEvent(false));
 
         public PlayerMenuPopupViewModel()
@@ -110,7 +108,6 @@
             ReserveClickedCommand = new RelayCommand<object>(StartMachineReservation);
             ReserveBackspaceClickedCommand = new RelayCommand<object>(BackspaceOnReservePin);
             StartNewSessionClickedCommand = new RelayCommand<object>(StartNewTrackingSession);
-            MouseDownOnMenuCommand = new RelayCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
 
             IsMenuVisible = false;
 
@@ -320,7 +317,6 @@
                 {
                     return;
                 }
-
                 SetupMenu();
 
                 _runtimeFlagHandler.SetInPlayerMenu(_isMenuVisible);

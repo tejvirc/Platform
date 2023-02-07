@@ -11,6 +11,8 @@
     using Contracts.Reel;
     using Contracts.SharedDevice;
     using log4net;
+    using HomeReel = Contracts.Gds.Reel.HomeReel;
+    using Nudge = Contracts.Gds.Reel.Nudge;
 
     /// <summary>
     ///     The reel controller gds device
@@ -19,13 +21,13 @@
     {
         private const int WaitForReportTime = 30000;
 
-        private const int RequestGatReportWaitTimeout = 30000;
+        private const int InitializationWaitTimeout = 30000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly ConcurrentDictionary<int, ReelFaults> _faults = new ConcurrentDictionary<int, ReelFaults>();
+        private readonly ConcurrentDictionary<int, ReelFaults> _faults = new();
 
-        private readonly ConcurrentDictionary<int, ReelStatus> _reelsStatus = new ConcurrentDictionary<int, ReelStatus>();
+        private readonly ConcurrentDictionary<int, ReelStatus> _reelsStatus = new();
 
         /// <summary>
         /// </summary>
@@ -38,7 +40,8 @@
             RegisterCallback<ReelSpinningStatus>(ReelSpinningStatusReceived);
             RegisterCallback<ReelLightIdentifiersResponse>(ReelLightsIdentifiersReceived);
             RegisterCallback<ReelLightResponse>(ReelLightsResponseReceived);
-            RegisterCallback<ControllerInitializedStatus>(_ => { OnHardwareInitialized(); });
+            RegisterCallback<TiltReelsResponse>(TiltReelsResponseReceived);
+            RegisterCallback<ControllerInitializedStatus>(OnHardwareInitializedReceived);
         }
 
         /// <inheritdoc />
@@ -185,10 +188,11 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> TiltReels()
+        public async Task<bool> TiltReels()
         {
             SendCommand(new TiltReels());
-            return Task.FromResult(true);
+            await WaitForReport<TiltReelsResponse>();
+            return true;
         }
 
         /// <inheritdoc />
@@ -392,8 +396,9 @@
         /// <summary>
         ///     Called when the controller hardware is initialized
         /// </summary>
-        protected virtual void OnHardwareInitialized()
+        protected virtual void OnHardwareInitializedReceived(ControllerInitializedStatus status)
         {
+            PublishReport(status);
             HardwareInitialized?.Invoke(this, EventArgs.Empty);
         }
 
@@ -412,13 +417,19 @@
                 return false;
             }
 
-            if (string.IsNullOrEmpty(await RequestGatReport(RequestGatReportWaitTimeout)))
+            if (string.IsNullOrEmpty(await RequestGatReport()))
             {
                 Logger.Warn("Reset - RequestGatReport failed");
                 return false;
             }
 
-            return true;
+            var result = await WaitForReport<ControllerInitializedStatus>(InitializationWaitTimeout);
+            if (result is null)
+            {
+                Logger.Warn("Reel Controller Failed to Initialize");
+            }
+
+            return result is not null;
         }
 
         private void FailureClear(FailureStatusClear status)
@@ -648,6 +659,11 @@
         }
 
         private void ReelLightsResponseReceived(ReelLightResponse response)
+        {
+            PublishReport(response);
+        }
+
+        private void TiltReelsResponseReceived(TiltReelsResponse response)
         {
             PublishReport(response);
         }

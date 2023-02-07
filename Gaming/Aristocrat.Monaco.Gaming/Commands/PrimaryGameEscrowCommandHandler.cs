@@ -32,38 +32,35 @@
         public void Handle(PrimaryGameEscrow command)
         {
             var (game, denomination) = _properties.GetActiveGame();
+            var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
 
-            using (var scope = _storage.ScopedTransaction())
+            using var scope = _storage.ScopedTransaction();
+            // When recovering we can't update/create the log, but we need to ensure that the outcome request has been processed
+            if (!_recovery.IsRecovering)
             {
-                // When recovering we can't update/create the log, but we need to ensure that the outcome request has been processed
-                if (!_recovery.IsRecovering)
-                {
-                    _gameHistory.Escrow(command.InitialWager, command.Data);
-                }
-
-                // this is null when the game is not running
-                if (game == null)
-                {
-                    return;
-                }
-
-                switch (command.Request)
-                {
-                    case OutcomeRequest request:
-                        command.Result = _central.RequestOutcomes(
-                            game.Id,
-                            denomination.Value,
-                            request.WagerCategory.ToString(),
-                            command.InitialWager.CentsToMillicents(),
-                            command.Request,
-                            _recovery.IsRecovering);
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
-
-                scope.Complete();
+                _gameHistory.Escrow(command.InitialWager, command.Data);
             }
+
+            // this is null when the game is not running
+            if (game == null)
+            {
+                return;
+            }
+
+            command.Result = command.Request switch
+            {
+                OutcomeRequest request => _central.RequestOutcomes(
+                    game.Id,
+                    denomination.Value,
+                    wagerCategory?.Id ?? string.Empty,
+                    request.TemplateId.ToString(),
+                    command.InitialWager.CentsToMillicents(),
+                    command.Request,
+                    _recovery.IsRecovering),
+                _ => throw new NotSupportedException()
+            };
+
+            scope.Complete();
         }
     }
 }

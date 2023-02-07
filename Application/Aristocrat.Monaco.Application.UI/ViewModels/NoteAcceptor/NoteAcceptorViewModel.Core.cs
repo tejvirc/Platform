@@ -36,7 +36,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="NoteAcceptorViewModel" /> class.
         /// </summary>
-        public NoteAcceptorViewModel() : base(DeviceType.NoteAcceptor)
+        public NoteAcceptorViewModel(bool isWizard) : base(DeviceType.NoteAcceptor, isWizard)
         {
             Logger.Debug("Start Note Acceptor (MVVM)");
 
@@ -82,6 +82,7 @@
             }
 
             InitCommands();
+            TestViewModel.SetTestReporter(Inspection);
 
             _isDenomEditable = GetConfigSetting(OperatorMenuSetting.EgmCanEnableDenominations, false);
 
@@ -565,6 +566,8 @@
                 var highestStatusMode = StatusMode.None;
                 foreach (var fault in faults)
                 {
+                    Inspection?.SetTestName($"hardware fault {fault}");
+                    Inspection?.ReportTestFailure();
                     status += fault + Environment.NewLine;
                     highestStatusMode = StatusMode.Error;
                 }

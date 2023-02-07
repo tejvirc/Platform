@@ -16,6 +16,11 @@
         public const string NoteAcceptorPath = @"noteAcceptor";
 
         /// <summary>
+        ///     Defines a ReelController for GAT purposes
+        /// </summary>
+        public const string ReelControllerPath = @"reelController";
+
+        /// <summary>
         ///     Defines the BIOS for GAT purposes
         /// </summary>
         public const string BiosPath = @"bios";

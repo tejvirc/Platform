@@ -4,16 +4,15 @@
     using System.ComponentModel.DataAnnotations;
     using System.Windows.Input;
     using Aristocrat.Monaco.Localization.Properties;
-    using CefSharp.DevTools.Accessibility;
     using CommunityToolkit.Mvvm.Input;
+    using ConfigWizard;
     using Contracts;
     using Contracts.Extensions;
     using Hardware.Contracts.Bell;
     using Kernel;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class BellPageViewModel : OperatorMenuPageViewModelBase
+    public class BellPageViewModel : InspectionWizardViewModelBase
     {
         private readonly IBell _bell;
         private readonly long _maxBellValue;
@@ -24,12 +23,12 @@
         private decimal _initialBellValue;
         private decimal _intervalBellValue;
 
-        public BellPageViewModel()
-            :this(ServiceManager.GetInstance().TryGetService<IBell>())
+        public BellPageViewModel(bool isWizard)
+            : this(ServiceManager.GetInstance().TryGetService<IBell>(), isWizard)
         {
         }
 
-        public BellPageViewModel(IBell bell)
+        public BellPageViewModel(IBell bell, bool isWizard) : base(isWizard)
         {
             _bell = bell;
             _maxBellValue = PropertiesManager.GetValue(ApplicationConstants.MaxBellRing, 0L);
@@ -93,80 +92,19 @@
             set => SetProperty(ref _testEnabled, value, nameof(TestEnabled));
         }
 
-        [CustomValidation(typeof(BellPageViewModel), nameof(InitialBellValueValidate))]
         public decimal InitialBellValue
         {
             get => _initialBellValue;
-            set => SetProperty(ref _initialBellValue, value, true);
+
+            set => SetProperty(ref _initialBellValue, value, true, nameof(InitialBellValue));
         }
 
-        private ValidationResult InitialBellValueValidate(decimal initialBellValue, ValidationContext context)
-        {
-            var errors = initialBellValue.Validate(maximum: _maxBellValue);
-
-            if (errors == null)
-            {
-                return ValidationResult.Success;
-            }
-
-            return new(errors);
-        }
-        /*public decimal InitialBellValue
-        {
-            get => _initialBellValue;
-
-            set
-            {
-                if (_initialBellValue == value)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _initialBellValue, value, nameof(InitialBellValue)))
-                {
-                    SetError(nameof(InitialBellValue), _initialBellValue.Validate(maximum: _maxBellValue));
-                }
-            }
-        }*/
-
-
-
-        [CustomValidation(typeof(BellPageViewModel), nameof(IntervalBellValueValidate))]
         public decimal IntervalBellValue
         {
             get => _intervalBellValue;
-            set => SetProperty(ref _intervalBellValue, value, true);
+
+            set => SetProperty(ref _intervalBellValue, value, true, nameof(IntervalBellValue));
         }
-
-        private ValidationResult IntervalBellValueValidate(decimal intervalBellValue, ValidationContext context)
-        {
-            var errors = intervalBellValue.Validate(maximum: _maxBellValue);
-
-            if (errors == null)
-            {
-                return ValidationResult.Success;
-            }
-
-            return new(errors);
-        }
-        /*public decimal IntervalBellValue
-        {
-            get => _intervalBellValue;
-
-            set
-            {
-                if (_intervalBellValue == value)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _intervalBellValue, value, nameof(IntervalBellValue)))
-                {
-                    SetError(nameof(IntervalBellValue),
-                        _intervalBellValue.Validate(maximum: _maxBellValue));
-                }
-            }
-        }*/
 
         public ICommand RingBellClicked { get; }
 
@@ -179,7 +117,7 @@
             EventBus.Subscribe<RingStoppedEvent>(this, _ => UpdateProperties());
 
             InitialBellValue = -1;
-            IntervalBellValue = -1;  
+            IntervalBellValue = -1;
 
             InitialBellValue = _previousInitialBellValue = ((long)PropertiesManager.GetProperty(ApplicationConstants.InitialBellRing, 0))
                 .MillicentsToDollars();
@@ -187,6 +125,18 @@
                 .MillicentsToDollars();
 
             UpdateProperties();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void OnInputStatusChanged()
@@ -232,6 +182,8 @@
 
         private void RingBell_Click(object o)
         {
+            Inspection?.SetTestName($"Ring at {InitialBellValue}sec, repeat after {IntervalBellValue}sec");
+
             _bell?.RingBell(TimeSpan.FromSeconds(3));
             UpdateProperties();
         }

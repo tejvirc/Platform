@@ -1,29 +1,27 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.DetailedGameMeters
 {
-    using System;
     using System.Linq;
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts.Handpay;
-    using Aristocrat.Monaco.Accounting.Contracts.TransferOut;
-    using Aristocrat.Monaco.Accounting.Contracts.Wat;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Gaming.Contracts;
-    using Aristocrat.Monaco.Gaming.Contracts.Bonus;
+    using System.Reflection;
+    using Contracts;
 
     /// <summary>
     ///     Builds a meter snapshot model with values pertaining to a specific game round.
     /// </summary>
     public class TransactionMeterFactory
     {
-        private readonly ICurrencyInContainer _currencyContainer;
-        private readonly IBank _bank;
+
+        private readonly IGameRoundMeterSnapshotProvider _meterSnapshotProvider;
+
+        private static readonly PropertyInfo[] MeteredProps =
+            typeof(GameRoundMeterSnapshot)
+                .GetProperties()
+                .Where(p => p.Name != nameof(GameRoundMeterSnapshot.PlayState) && p.Name != nameof(GameRoundMeterSnapshot.CurrentCredits))
+                .ToArray();
 
         public TransactionMeterFactory(
-            ICurrencyInContainer currencyContainer,
-            IBank bank)
+            IGameRoundMeterSnapshotProvider meterSnapshotProvider)
         {
-            _currencyContainer = currencyContainer;
-            _bank = bank;
+            _meterSnapshotProvider = meterSnapshotProvider;
         }
 
         public GameMetersHistoryViewModel Build(
@@ -62,214 +60,138 @@
         private void FillBeforeGameStartTransactions(IGameHistoryLog gameHistoryLog,
             GameRoundMeterSnapshotViewModel result, IGameHistoryLog previousGame)
         {
-            var transactions = gameHistoryLog.Transactions
-                .Where(t => t.TransactionId < gameHistoryLog.TransactionId);
+            var beforeGameStartCurrentGame =
+                gameHistoryLog?.MeterSnapshots
+                .FirstOrDefault(s => s.PlayState == PlayState.PrimaryGameStarted);
 
-            foreach (var transaction in transactions)
+            if (beforeGameStartCurrentGame == null)
             {
-                FillTransactionDetail(result, transaction);
+                return;
             }
 
-            result.Snapshot.CurrentCredits = gameHistoryLog.StartCredits;
+            var resultingSnapshot = beforeGameStartCurrentGame;
 
-            if (previousGame != null)
+            if (previousGame?.MeterSnapshots != null && previousGame.MeterSnapshots.Any())
             {
-                result.Snapshot.SecondaryPlayedCount = previousGame.SecondaryPlayed;
+                var beforeNextGamePreviousGame = previousGame.MeterSnapshots.FirstOrDefault(
+                    s => s.PlayState == PlayState.PresentationIdle || s.PlayState == PlayState.GameEnded);
+
+                 resultingSnapshot = GetSnapshotDelta(beforeNextGamePreviousGame, beforeGameStartCurrentGame);
             }
+
+            result.Snapshot = resultingSnapshot;
+            FillMeters(result, resultingSnapshot);
         }
 
         private void FillAfterGameEndTransactions(IGameHistoryLog gameHistoryLog,
             GameRoundMeterSnapshotViewModel result)
         {
-            var transactions = gameHistoryLog.Transactions
-                .Where(t => t.TransactionId <= gameHistoryLog.EndTransactionId);
+            var beforeGameStartCurrentGame =
+                gameHistoryLog?.MeterSnapshots
+                .FirstOrDefault(s => s.PlayState == PlayState.PrimaryGameStarted);
 
-            foreach (var transaction in transactions)
+            var afterGameEnd = gameHistoryLog?.MeterSnapshots
+                    .FirstOrDefault(s => s.PlayState == PlayState.Idle ||
+                         s.PlayState == PlayState.GameEnded ||
+                         s.PlayState == PlayState.PresentationIdle);
+
+            if (beforeGameStartCurrentGame == null || afterGameEnd == null)
             {
-                FillTransactionDetail(result, transaction);
+                return;
             }
 
-            FillMachinePaidWinMeters(result, gameHistoryLog);
-            FillAttendantPaidWinMeters(result, gameHistoryLog);
-            FillWagerMeters(result.Snapshot, gameHistoryLog);
-            FillGambleMeters(result.Snapshot, gameHistoryLog);
+            var resultingSnapshot = GetSnapshotDelta(beforeGameStartCurrentGame, afterGameEnd);
 
-            result.Snapshot.CurrentCredits = gameHistoryLog.EndCredits;
-            result.Snapshot.WageredAmount = gameHistoryLog.FinalWager.CentsToMillicents();
-            result.Snapshot.SecondaryPlayedCount = gameHistoryLog.SecondaryPlayed;
+            result.Snapshot = resultingSnapshot;
+            FillMeters(result, resultingSnapshot);
         }
 
         private void FillBeforeNextGameStartTransactions(IGameHistoryLog gameHistoryLog,
             GameRoundMeterSnapshotViewModel result,
             IGameHistoryLog nextGameHistoryLog = null)
         {
-            FillAfterGameEndTransactions(gameHistoryLog, result);
+            var afterGameEnd = gameHistoryLog?.MeterSnapshots
+                .FirstOrDefault(s => s.PlayState == PlayState.Idle ||
+                    s.PlayState == PlayState.GameEnded ||
+                    s.PlayState == PlayState.PresentationIdle);
 
-            if (nextGameHistoryLog == null)
-            {
-                foreach (var transaction in _currencyContainer.Transactions)
-                {
-                    FillTransactionDetail(result, transaction);
-                }
-
-                result.Snapshot.CurrentCredits = _bank.QueryBalance();
-            }
-            else
-            {
-                FillBeforeGameStartTransactions(nextGameHistoryLog, result, null);
-
-                result.Snapshot.CurrentCredits = nextGameHistoryLog.StartCredits;
-            }
-
-            var postGameTransactions = gameHistoryLog.Transactions
-                .Where(t => t.TransactionId > gameHistoryLog.EndTransactionId);
-
-            foreach (var transaction in postGameTransactions)
-            {
-                FillTransactionDetail(result, transaction);
-            }
-
-            result.Snapshot.WageredAmount = gameHistoryLog.FinalWager.CentsToMillicents();
-            result.Snapshot.SecondaryPlayedCount = gameHistoryLog.SecondaryPlayed;
-        }
-
-        private static void FillTransactionDetail
-            (GameRoundMeterSnapshotViewModel detail,
-            TransactionInfo transaction)
-        {
-            if (detail == null)
+            if (afterGameEnd == null)
             {
                 return;
             }
 
-            // TODO: Resolve coin transactions if TrueCoinIn or TrueCoinOut are implemented
-            detail.Snapshot.TrueCoinIn = 0;
-            detail.Snapshot.TrueCoinOut = 0;
-            
-            if (transaction.TransactionType == typeof(BillTransaction))
-            {
-                detail.Snapshot.CurrencyInAmount += transaction.Amount;
-            }
-            else if (transaction.TransactionType == typeof(BonusTransaction))
-            {
-                if (transaction.HandpayType == HandpayType.BonusPay)
-                {
-                    detail.Snapshot.HandPaidBonusAmount += transaction.Amount;
-                    detail.TotalPaidAmount += transaction.Amount;
-                }
-                else
-                {
-                    detail.Snapshot.HandPaidBonusAmount += transaction.Amount;
-                }
-            }
-            else if (transaction.TransactionType == typeof(VoucherInTransaction))
-            {
-                detail.TotalVouchersIn += transaction.Amount;
-                detail.Snapshot.VoucherInNonCashableAmount += transaction.NonCashablePromoAmount;
-            }
-            else if (transaction.TransactionType == typeof(VoucherOutTransaction))
-            {
-                detail.TotalVouchersOut += transaction.Amount;
-                detail.Snapshot.VoucherOutNonCashableAmount += transaction.NonCashablePromoAmount;
-            }
-            else if (transaction.TransactionType == typeof(WatOnTransaction))
-            {
-                detail.WatOnTotalAmount += transaction.Amount;
-                detail.Snapshot.WatOnNonCashableAmount += transaction.NonCashablePromoAmount;
-                detail.Snapshot.WatOnCashablePromoAmount += transaction.CashablePromoAmount;
-                detail.Snapshot.WatOnCashableAmount += transaction.CashableAmount;
-            }
-            else if (transaction.TransactionType == typeof(WatTransaction))
-            {
-                detail.WatOffTotalAmount += transaction.Amount;
-                detail.Snapshot.WatOffNonCashableAmount += transaction.NonCashablePromoAmount;
-                detail.Snapshot.WatOffCashablePromoAmount += transaction.CashablePromoAmount;
-                detail.Snapshot.WatOffCashableAmount += transaction.CashableAmount;
-            }
-            else if (transaction.TransactionType == typeof(HandpayTransaction) &&
-                     transaction.HandpayType == HandpayType.CancelCredit)
-            {
-                detail.Snapshot.HandpaidCancelAmount += transaction.Amount;
-            }
+            var beforeNextGame = nextGameHistoryLog?.MeterSnapshots == null ||
+                     !nextGameHistoryLog.MeterSnapshots.Any()
+                ? _meterSnapshotProvider.GetSnapshot(PlayState.Idle)
+                : nextGameHistoryLog.MeterSnapshots.FirstOrDefault(
+                    s => s.PlayState == PlayState.PrimaryGameStarted
+                );
+
+            var resultingSnapshot = GetSnapshotDelta(afterGameEnd, beforeNextGame);
+
+            result.Snapshot = resultingSnapshot;
+            FillMeters(result, resultingSnapshot);
         }
 
-        private static void FillMachinePaidWinMeters(GameRoundMeterSnapshotViewModel meters,
-            IGameHistoryLog gameHistoryLog)
+        private static GameRoundMeterSnapshot GetSnapshotDelta(GameRoundMeterSnapshot olderSnapshot, GameRoundMeterSnapshot newerSnapshot)
         {
-            if (gameHistoryLog.EndDateTime.Equals(DateTime.MinValue))
+            var result = new GameRoundMeterSnapshot();
+            result.CurrentCredits = newerSnapshot.CurrentCredits;
+
+            foreach (var prop in MeteredProps)
+            {
+                var olderValue = (long)prop.GetValue(olderSnapshot, null);
+                var newerValue = (long)prop.GetValue(newerSnapshot, null);
+
+                prop.SetValue(result, newerValue - olderValue);
+            }
+
+            return result;
+        }
+
+        private static void FillMeters(GameRoundMeterSnapshotViewModel model, GameRoundMeterSnapshot snapshot)
+        {
+            if (snapshot == null)
             {
                 return;
             }
 
-            var machinePaidWin = gameHistoryLog.TotalWon.CentsToMillicents() - GetAttendantPaidGameWin(gameHistoryLog);
-            var progWin = !(gameHistoryLog.SecondaryPlayed > 0 && gameHistoryLog.Result == GameResult.Lost) ? gameHistoryLog.Jackpots.Sum(info => info.WinAmount) : 0;
-            var handPaidProgWinFromJackpotInfo = GetHandPaidProgressiveWinInfo(gameHistoryLog);
+            model.TotalEgmPaidAmount =
+                snapshot.EgmPaidGameWonAmount +
+                snapshot.EgmPaidGameWinBonusAmount +
+                snapshot.EgmPaidBonusAmount +
+                snapshot.EgmPaidProgWonAmount;
 
-            meters.Snapshot.EgmPaidProgWonAmount += progWin - handPaidProgWinFromJackpotInfo;
-            meters.TotalEgmPaidAmount += machinePaidWin;
-            meters.TotalPaidAmount += machinePaidWin;
-        }
+            model.TotalHandPaidAmount =
+                snapshot.HandPaidGameWonAmount +
+                snapshot.HandPaidBonusAmount +
+                snapshot.HandPaidGameWinBonusAmount +
+                snapshot.HandPaidProgWonAmount;
 
-        private static void FillAttendantPaidWinMeters(GameRoundMeterSnapshotViewModel meters,
-            IGameHistoryLog gameHistoryLog)
-        {
-            if (gameHistoryLog.EndDateTime.Equals(DateTime.MinValue))
-            {
-                return;
-            }
+            model.TotalPaidAmount =
+                model.TotalEgmPaidAmount +
+                model.TotalHandPaidAmount;
 
-            var gameWin = GetAttendantPaidGameWin(gameHistoryLog);
-            var handPaidProgWinFromJackpotInfo = GetHandPaidProgressiveWinInfo(gameHistoryLog);
+            model.TotalVouchersIn =
+                snapshot.VoucherInCashableAmount +
+                snapshot.VoucherInCashablePromoAmount +
+                snapshot.VoucherInNonCashableAmount +
+                snapshot.HandPaidGameWonAmount;
 
-            meters.Snapshot.HandPaidProgWonAmount += handPaidProgWinFromJackpotInfo;
-            meters.TotalHandPaidAmount += gameWin;
-            meters.TotalPaidAmount += gameWin;
-        }
+            model.TotalVouchersOut =
+                snapshot.VoucherOutCashableAmount +
+                snapshot.VoucherOutCashablePromoAmount +
+                snapshot.VoucherOutNonCashableAmount;
 
+            model.WatOnTotalAmount =
+                snapshot.WatOnCashableAmount +
+                snapshot.WatOnCashablePromoAmount +
+                snapshot.WatOnNonCashableAmount;
 
-        private static void FillWagerMeters(GameRoundMeterSnapshot meters, IGameHistoryLog gameHistoryLog)
-        {
-            if (gameHistoryLog.EndDateTime.Equals(DateTime.MinValue))
-            {
-                return;
-            }
-
-            var promoWager = gameHistoryLog.PromoWager;
-            meters.WageredPromoAmount += promoWager;
-        }
-
-        private static void FillGambleMeters(GameRoundMeterSnapshot meters, IGameHistoryLog gameHistoryLog)
-        {
-            if (gameHistoryLog.EndDateTime.Equals(DateTime.MinValue))
-            {
-                return;
-            }
-
-            var gambleWagered = gameHistoryLog.SecondaryWager;
-            var gambleWon = gameHistoryLog.SecondaryWin;
-
-            meters.SecondaryWageredAmount += gambleWagered;
-            meters.SecondaryWonAmount += gambleWon;
-        }
-
-        private static long GetAttendantPaidGameWin(IGameHistoryLog gameHistoryLog)
-        {
-            return (from cashoutInfo in
-                    gameHistoryLog.CashOutInfo.Where(c => c.Handpay && c.Reason == TransferOutReason.LargeWin && c.Complete)
-                    let transactionInfos =
-                        gameHistoryLog.Transactions.Where(x => cashoutInfo.AssociatedTransactions.Contains(x.TransactionId))
-                    where transactionInfos.All(
-                        x => x.KeyOffType != KeyOffType.LocalCredit && x.KeyOffType != KeyOffType.RemoteCredit)
-                    select cashoutInfo.Amount).Sum();
-        }
-
-        private static long GetHandPaidProgressiveWinInfo(IGameHistoryLog gameHistoryLog)
-        {
-            return gameHistoryLog.Jackpots.Where(
-                       jackpot => gameHistoryLog.CashOutInfo.Any(
-                           cashout => cashout.AssociatedTransactions.Contains(jackpot.TransactionId) &&
-                                   cashout.Handpay && cashout.Reason != TransferOutReason.CashWin))
-                   .Sum(info => info.WinAmount);
+            model.WatOffTotalAmount =
+                snapshot.WatOffCashableAmount +
+                snapshot.WatOffCashablePromoAmount +
+                snapshot.WatOffNonCashableAmount;
         }
     }
 }

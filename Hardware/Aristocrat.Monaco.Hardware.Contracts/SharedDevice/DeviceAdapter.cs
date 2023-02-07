@@ -728,8 +728,7 @@
                     return;
                 }
 
-                var manufacturer = string.IsNullOrEmpty(InternalConfiguration.Manufacturer)
-                    ? string.Empty : $"_{InternalConfiguration.Manufacturer}";
+                var manufacturer = GetManufacturerInformation();
                 var firmwareId = string.IsNullOrEmpty(InternalConfiguration.FirmwareId)
                     ? string.Empty : $"_{InternalConfiguration.FirmwareId}";
                 var version = string.IsNullOrEmpty(InternalConfiguration.VariantVersion) && string.IsNullOrEmpty(InternalConfiguration.FirmwareRevision)
@@ -818,6 +817,23 @@
             var updated = ReasonDisabled & remedy;
             ReasonDisabled &= ~updated;
             return updated;
+        }
+
+        private string GetManufacturerInformation()
+        {
+            const string aristocrat = "Aristocrat";
+            var isAristocratProduct = string.Equals(
+                InternalConfiguration.Manufacturer,
+                aristocrat,
+                StringComparison.InvariantCultureIgnoreCase);
+            if (isAristocratProduct)
+            {
+                return $"_{InternalConfiguration.Model}";
+            }
+
+            return string.IsNullOrEmpty(InternalConfiguration.Manufacturer)
+                ? string.Empty
+                : $"_{InternalConfiguration.Manufacturer}";
         }
     }
 }

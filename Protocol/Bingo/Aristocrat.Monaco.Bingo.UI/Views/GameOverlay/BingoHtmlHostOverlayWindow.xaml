@@ -93,8 +93,6 @@
                 <cefsharp:ChromiumWebBrowser x:Name="BingoHelpHost" Address="{Binding BingoHelpAddress, Mode=TwoWay}"
                                              WebBrowser="{Binding BingoHelpWebBrowser, Mode=OneWayToSource}" />
             </Border>
-
-            <metro:ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding IsHelpLoading}" Foreground="White"/>
         </Grid>
     </Grid>
 </metro:MetroWindow>

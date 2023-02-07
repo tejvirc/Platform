@@ -9,6 +9,7 @@
     using Application.Contracts.Settings;
     using Contracts.SASProperties;
     using Kernel;
+    using Gaming.Contracts;
     using Storage.Models;
     using Toolkit.Mvvm.Extensions;
 
@@ -98,15 +99,16 @@
             var hosts = _properties.GetValue(SasProperties.SasHosts, Enumerable.Empty<Host>()).ToList();
             var portAssignment = _properties.GetValue(SasProperties.SasPortAssignments, new PortAssignment());
             var featureSettings = _properties.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
-
-            var sasHostSettings = hosts.Select(x => (SasHostSetting)x);
+            var hostDisableCashoutAction = _properties.GetValue(GamingConstants.LockupBehavior, CashableLockupStrategy.Allowed);
+            var sasHostSettings = hosts.Where(host => host.SasAddress is not 0).Select(x => (SasHostSetting)x);
 
             return await Task.FromResult(
                 new MachineSettings
                 {
                     SasHostSettings = new ObservableCollection<SasHostSetting>(sasHostSettings),
                     PortAssignmentSetting = (PortAssignmentSetting)portAssignment,
-                    SasFeaturesSettings = (SasFeaturesSettings)featureSettings
+                    SasFeaturesSettings = (SasFeaturesSettings)featureSettings,
+                    HostDisableCashoutAction = hostDisableCashoutAction
                 });
         }
 
@@ -114,7 +116,8 @@
         {
             _properties.SetProperty(SasProperties.SasFeatureSettings, (SasFeatures)settings.SasFeaturesSettings);
             _properties.SetProperty(SasProperties.SasPortAssignments, (PortAssignment)settings.PortAssignmentSetting);
-            _properties.SetProperty(SasProperties.SasHosts, settings.SasHostSettings.Select(x => (Host)x).ToList());
+            _properties.SetProperty(SasProperties.SasHosts, settings.SasHostSettings.Where(host => host.SasAddress is not 0).Select(x => (Host)x).ToList());
+            _properties.SetProperty(GamingConstants.LockupBehavior, settings.HostDisableCashoutAction);
             await Task.CompletedTask;
         }
     }

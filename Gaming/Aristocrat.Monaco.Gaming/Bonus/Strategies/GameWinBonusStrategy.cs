@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.TransferOut;
-    using Application.Contracts;
     using Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Bonus;
@@ -97,7 +96,7 @@
                    playState is PlayState.GameEnded or PlayState.PresentationIdle;
         }
 
-        public async Task<IContinuationContext> Pay(
+        public Task<IContinuationContext> Pay(
             BonusTransaction transaction,
             Guid transactionId,
             IContinuationContext context)
@@ -107,11 +106,55 @@
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            if (!CanPay(transaction))
+            return !CanPay(transaction)
+                ? Task.FromResult<IContinuationContext>(null)
+                : PayInternal(transaction, transactionId, context);
+        }
+
+        public bool Cancel(BonusTransaction transaction)
+        {
+            return Cancel(transaction, CancellationReason.Any);
+        }
+
+        public bool Cancel(BonusTransaction transaction, CancellationReason reason)
+        {
+            return reason == CancellationReason.Any && InternalCancel(transaction);
+        }
+
+        public Task Recover(BonusTransaction transaction, Guid transactionId)
+        {
+            if (transaction == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(transaction));
             }
 
+            return transaction.State != BonusState.Pending
+                ? Task.CompletedTask
+                : RecoverInternal(transaction, transactionId);
+        }
+
+        protected override void CompletePayment(
+            BonusTransaction transaction,
+            long cashableAmount,
+            long nonCashAmount,
+            long promoAmount)
+        {
+            base.CompletePayment(transaction, cashableAmount, nonCashAmount, promoAmount);
+            UpdateMeters(transaction, cashableAmount, nonCashAmount, promoAmount);
+            if (transaction.PaidAmount != transaction.TotalAmount)
+            {
+                return;
+            }
+
+            Commit(transaction);
+            _history.AddGameWinBonus((cashableAmount + nonCashAmount + promoAmount).MillicentsToCents());
+        }
+
+        private async Task<IContinuationContext> PayInternal(
+            BonusTransaction transaction,
+            Guid transactionId,
+            IContinuationContext context)
+        {
             using var scope = _storage.ScopedTransaction();
             var total = transaction.CashableAmount + transaction.NonCashAmount + transaction.PromoAmount;
 
@@ -143,41 +186,18 @@
             return context;
         }
 
-        public bool Cancel(BonusTransaction transaction)
+        private async Task RecoverInternal(BonusTransaction transaction, Guid transactionId)
         {
-            return Cancel(transaction, CancellationReason.Any);
-        }
-
-        public bool Cancel(BonusTransaction transaction, CancellationReason reason)
-        {
-            return reason == CancellationReason.Any && InternalCancel(transaction);
-        }
-
-        public async Task Recover(BonusTransaction transaction, Guid transactionId)
-        {
-            if (transaction == null)
-            {
-                throw new ArgumentNullException(nameof(transaction));
-            }
-
             var success = false;
-            TaskCompletionSource<bool> pending = null;
+            TaskCompletionSource<bool> pending;
             using (var scope = _storage.ScopedTransaction())
             {
-                switch (transaction.PayMethod)
-                {
-                    case PayMethod.Handpay:
-                    case PayMethod.Voucher:
-                    case PayMethod.Wat:
-                        (_, pending) = RecoverTransfer(
-                            transaction,
-                            transactionId,
-                            transaction.CashableAmount,
-                            transaction.NonCashAmount,
-                            transaction.PromoAmount);
-                        break;
-                }
-
+                (_, pending) = RecoverTransfer(
+                    transaction,
+                    transactionId,
+                    transaction.CashableAmount,
+                    transaction.NonCashAmount,
+                    transaction.PromoAmount);
                 scope.Complete();
             }
 
@@ -192,29 +212,15 @@
             }
         }
 
-        protected override void CompletePayment(
-            BonusTransaction transaction,
-            long cashableAmount,
-            long nonCashAmount,
-            long promoAmount)
-        {
-            base.CompletePayment(transaction, cashableAmount, nonCashAmount, promoAmount);
-            UpdateMeters(transaction, cashableAmount, nonCashAmount, promoAmount);
-            if (transaction.PaidAmount != transaction.TotalAmount)
-            {
-                return;
-            }
-
-            Commit(transaction);
-            _history.AddGameWinBonus((cashableAmount + nonCashAmount + promoAmount).MillicentsToCents());
-        }
-
         private void InternalDisplayMessage(BonusTransaction transaction)
         {
             if (transaction.MessageDuration == TimeSpan.MaxValue)
             {
-                _bus.Subscribe<CashOutStartedEvent>(this, _ => HandleStateChange(this, transaction));
                 _bus.Subscribe<GamePlayInitiatedEvent>(this, _ => HandleStateChange(this, transaction));
+                _bus.Subscribe<BankBalanceChangedEvent>(
+                    this,
+                    _ => HandleStateChange(this, transaction),
+                    evt => evt.NewBalance is 0);
             }
 
             DisplayMessage(transaction);
@@ -234,7 +240,7 @@
         {
             switch (transaction.PayMethod)
             {
-                case PayMethod.Handpay when transaction.IsAttendantPaid(_transactions):
+                case PayMethod.Handpay when transaction.IsAttendantPaidGameWin(_transactions):
                     _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.HandPaidGameWinBonusAmount)
                         .Increment(cashableAmount + nonCashAmount + promoAmount);
                     _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.HandPaidGameWinBonusCount)

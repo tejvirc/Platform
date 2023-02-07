@@ -370,8 +370,7 @@
 
         public int TotalEnabledGames => _gamesMapping.Values
             .SelectMany(m => m)
-            .SelectMany(p => p.GameConfigurations)
-            .Count(c => c.Enabled);
+            .Count(m => m.Enabled);
 
         public string SaveWarningText
         {
@@ -400,10 +399,7 @@
             });
         }
 
-        public override bool HasChanges()
-        {
-            return _games.Any(g => g.HasChanges());
-        }
+        public override bool HasChanges() => _gamesMapping.Values.SelectMany(gameProfiles => gameProfiles).Any(gameProfile => gameProfile.HasChanges());
 
         public override void Save()
         {
@@ -483,6 +479,8 @@
             _editMode = _canEdit && !InitialConfigComplete;
 
             SetEditMode();
+            AutoEnableGames();
+            UpdateSaveWarning();
         }
 
         protected override void InitializeData()
@@ -1841,6 +1839,27 @@
                 this,
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSummaryTitle));
+        }
+
+        private void AutoEnableGames()
+        {
+            foreach (var key in _gamesMapping.Keys.ToList())
+            {
+                _gamesMapping[key].ForEach(AutoEnableGame);
+            }
+        }
+
+        private void AutoEnableGame(EditableGameProfile gameProfile)
+        {
+            if (!(gameProfile.OriginalRestriction?.RestrictionDetails.Editable ?? false))
+            {
+                return;
+            }
+            
+            for (var i = 0; i < gameProfile.GameConfigurations.Count; i++)
+            {
+                gameProfile.GameConfigurations[i].Enabled = true;
+            }
         }
 
         private class GamesGrouping

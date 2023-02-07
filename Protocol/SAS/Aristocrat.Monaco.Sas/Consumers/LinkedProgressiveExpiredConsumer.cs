@@ -13,7 +13,7 @@
     ///     or not we need to post exception 53.
     /// </summary>
     // ReSharper disable once UnusedMember.Global
-    public class LinkedProgressiveExpiredConsumer: IProtocolProgressiveEventHandler, IConsumer<LinkedProgressiveExpiredEvent>
+    public class LinkedProgressiveExpiredConsumer: IProtocolProgressiveEventHandler
     {
         private readonly ISasExceptionHandler _exceptionHandler;
         private readonly IPropertiesManager _propertiesManager;

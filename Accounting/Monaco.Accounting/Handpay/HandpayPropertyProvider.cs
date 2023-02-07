@@ -30,7 +30,7 @@
                    Handpay = new AccountingConfigurationHandpay()
                }) ;
             var storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-            
+
 
             var storageName = GetType().ToString();
 
@@ -175,6 +175,11 @@
                 {
                     AccountingConstants.CanKeyOffWhileInLockUp,
                     Tuple.Create((object)configuration.Handpay?.CanKeyOffWhileInLockUp ?? true, false)
+                },
+                {
+                    AccountingConstants.HandpayReceiptsRequired,
+                    Tuple.Create((object)configuration.Handpay?.HandpayReceiptsRequired ?? false, false)
+
                 }
             };
 
@@ -208,7 +213,7 @@
                 else
                 {
                     // The following settings were imported and set to the default property provider since the handpay property provider was not yet loaded
-                    // at the time of import, so we set each to their imported values here. 
+                    // at the time of import, so we set each to their imported values here.
                     SetProperty(AccountingConstants.CombineCashableOut, propertiesManager.GetValue(AccountingConstants.CombineCashableOut, false));
                     SetProperty(AccountingConstants.DisabledLocalCredit, propertiesManager.GetValue(AccountingConstants.DisabledLocalCredit, false));
                     SetProperty(AccountingConstants.DisabledLocalHandpay, propertiesManager.GetValue(AccountingConstants.DisabledLocalHandpay, false));
@@ -239,7 +244,7 @@
                     SetProperty(AccountingConstants.CanKeyOffWhileInLockUp, propertiesManager.GetValue(AccountingConstants.CanKeyOffWhileInLockUp, configuration.Handpay?.CanKeyOffWhileInLockUp ?? true));
                     SetProperty(AccountingConstants.ValidateHandpays, propertiesManager.GetValue(AccountingConstants.ValidateHandpays, false));
                     SetProperty(AccountingConstants.RemoteHandpayResetAllowed, propertiesManager.GetValue(AccountingConstants.RemoteHandpayResetAllowed, true));
-                    SetProperty(AccountingConstants.AllowGameWinReceipts, propertiesManager.GetValue(AccountingConstants.AllowGameWinReceipts, configuration.Handpay?.AllowGameWinReceipt.Enabled ?? true));
+                    SetProperty(AccountingConstants.AllowGameWinReceipts, propertiesManager.GetValue(AccountingConstants.AllowGameWinReceipts, configuration.Handpay?.AllowGameWinReceipt?.Enabled ?? true));
 
                     machineSettingsImported |= ImportMachineSettings.HandpayPropertiesLoaded;
                     propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);

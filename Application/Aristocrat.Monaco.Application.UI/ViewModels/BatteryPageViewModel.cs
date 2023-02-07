@@ -3,19 +3,19 @@
     using System;
     using System.Windows.Input;
     using System.Windows.Media;
+    using ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.Battery;
     using Kernel;
     using Monaco.Localization.Properties;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class BatteryPageViewModel : OperatorMenuPageViewModelBase
+    public class BatteryPageViewModel : InspectionWizardViewModelBase
     {
         private readonly IBattery _battery;
         private readonly bool?[] _batteryStatus = new bool?[2];
 
-        public BatteryPageViewModel()
+        public BatteryPageViewModel(bool isWizard) : base(isWizard)
         {
             _battery = ServiceManager.GetInstance().GetService<IBattery>();
         }
@@ -37,6 +37,20 @@
         protected override void OnLoaded()
         {
             TestBatteries();
+
+            base.OnLoaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         private void TestBatteries()
@@ -61,10 +75,14 @@
 
         private Brush GetBatteryStatusBackground(int batteryIndex)
         {
+            Inspection?.SetTestName($"Battery{batteryIndex + 1}");
+
             Brush background = Brushes.Transparent;
             if (_batteryStatus[batteryIndex].HasValue && !_batteryStatus[batteryIndex].Value)
             {
                 background = Brushes.Red;
+
+                Inspection?.ReportTestFailure();
             }
 
             return background;

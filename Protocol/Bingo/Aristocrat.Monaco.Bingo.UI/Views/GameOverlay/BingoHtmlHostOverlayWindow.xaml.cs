@@ -35,13 +35,19 @@
 
             InitializeComponent();
             DataContext = overlayViewModel;
+            BingoHelpHost.ExecuteScriptAsyncWhenPageLoaded(
+                @"
+                    window.addEventListener('onClose', function(e) {
+                        CefSharp.PostMessage('Close');
+                    }, false);
+                ",
+                false);
 
-            BingoHelpHost.FrameLoadEnd += BingoHelp_OnFrameLoadEnd;
             BingoHelpHost.JavascriptMessageReceived += ViewModel.ExitHelp;
 
-            BingoInfoHost.MenuHandler = new DisabledContextMenuHandler();
-            BingoHelpHost.MenuHandler = new DisabledContextMenuHandler();
-            DynamicMessageHost.MenuHandler = new DisabledContextMenuHandler();
+            SetupBrowsers(BingoInfoHost);
+            SetupBrowsers(BingoHelpHost);
+            SetupBrowsers(DynamicMessageHost);
 
             // MetroApps issue--need to set in code behind after InitializeComponent.
             AllowsTransparency = true;
@@ -50,29 +56,22 @@
 #endif
         }
 
+        private static void SetupBrowsers(IWebBrowser browser)
+        {
+            browser.MenuHandler = new DisabledContextMenuHandler();
+            browser.JsDialogHandler = new JsDialogHandler();
+            browser.DownloadHandler = new DownloadHandler();
+            browser.DragHandler = new DragHandler();
+            browser.DialogHandler = new DialogHandler();
+            browser.DisplayHandler = new DisplayHandler();
+        }
+
         private BingoHtmlHostOverlayViewModel ViewModel => DataContext as BingoHtmlHostOverlayViewModel;
 
         private void BingoHtmlHostOverlayWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             var window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             ConfigureDisplay(window);
-        }
-
-        public void BingoHelp_OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
-        {
-            Execute.OnUIThread(() => { ViewModel.IsHelpLoading = false; });
-
-            if (e.Frame.IsMain)
-            {
-                BingoHelpHost.ExecuteScriptAsync(@"
-                    document.addEventListener('click', function(e) {
-                        CefSharp.PostMessage(e.target.id);
-                    }, false);
-                    window.addEventListener('onClose', function(e) {
-                        CefSharp.PostMessage('Close');
-                    }, false);
-                ");
-            }
         }
 
         private void ConfigureDisplay(Window window)
@@ -115,9 +114,7 @@
 #endif
             BingoHelpHost.JavascriptMessageReceived -= ViewModel.ExitHelp;
             BingoHelpHost.Dispose();
-
             BingoInfoHost.Dispose();
-
             DynamicMessageHost.Dispose();
             base.OnClosing(e);
         }

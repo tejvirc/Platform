@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+    using Contracts;
     using Contracts.EdgeLighting;
     using Hardware.EdgeLight.Contracts;
     using Hardware.EdgeLight.Services;
@@ -21,6 +22,7 @@
         private EdgeLightingControllerService _controllerService;
         private Mock<IEdgeLightManager> _edgeLightManagerMock;
         private Mock<IEventBus> _eventBus;
+        private Mock<IPropertiesManager> _propertiesManager;
         private Action<EdgeLightingStripsChangedEvent> _stripChangedHandler;
         private int _timerTicks;
 
@@ -49,7 +51,11 @@
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
+            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
             _edgeLightManagerMock = new Mock<IEdgeLightManager>(MockBehavior.Strict);
+
+            _propertiesManager.Setup(x => x.GetProperty(HardwareConstants.SimulateEdgeLighting, It.IsAny<object>())).Returns(false);
+
             CreateMockRenderer();
             _controllerService = new EdgeLightingControllerService(
                 _eventBus.Object,
@@ -60,6 +66,7 @@
             );
             _edgeLightManagerMock.Setup(x => x.Dispose());
             _timerTicks = 0;
+            _edgeLightManagerMock.SetupGet(x => x.LogicalStrips).Returns(new List<StripData>());
             _edgeLightManagerMock.Setup(x => x.RenderAllStripData()).Callback(() => _timerTicks++);
             _eventBus.Setup(
                     x => x.Subscribe(

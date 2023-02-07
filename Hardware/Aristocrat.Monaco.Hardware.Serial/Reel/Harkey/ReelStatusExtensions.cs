@@ -7,12 +7,16 @@
             return (status & (ReelStatus.RmsConnected | ReelStatus.RmConnected | ReelStatus.ReelSlowSpin)) > 0;
         }
 
-        public static Contracts.Gds.Reel.ReelStatus ToReelStatus(this ReelStatus status, int reelId, bool ignoreConnected)
+        public static Contracts.Gds.Reel.ReelStatus ToReelStatus(
+            this ReelStatus status,
+            int reelId,
+            bool initialized,
+            bool ignoreConnected)
         {
             return new Contracts.Gds.Reel.ReelStatus
             {
                 ReelId = reelId,
-                Connected = status.IsReelConnected() || ignoreConnected,
+                Connected = initialized && (status.IsReelConnected() || ignoreConnected),
                 ReelStall = (status & ReelStatus.Stalled) == ReelStatus.Stalled,
                 ReelTampered = (status & ReelStatus.ReelOutOfSync) == ReelStatus.ReelOutOfSync
             };

@@ -9,7 +9,9 @@
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
@@ -20,7 +22,7 @@
     using Simulation.HarkeyReels;
 
     [CLSCompliant(false)]
-    public class MechanicalReelsTestViewModel : INotifyPropertyChanged
+    public class MechanicalReelsTestViewModel : ObservableObject
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -31,6 +33,7 @@
         private readonly int _maxSupportedReels;
         private readonly IEventBus _eventBus;
         private readonly Action _updateScreenCallback;
+        private readonly IInspectionService _reporter;
 
         private bool _homeEnabled = true;
         private bool _spinEnabled;
@@ -46,13 +49,15 @@
             IEventBus eventBus,
             int maxSupportedReels,
             ObservableCollection<ReelInfoItem> reelInfo,
-            Action updateScreenCallback)
+            Action updateScreenCallback,
+            IInspectionService reporter)
         {
             _reelController = reelController;
             _eventBus = eventBus;
             _reelInfo = reelInfo;
             _updateScreenCallback = updateScreenCallback;
             _maxSupportedReels = maxSupportedReels;
+            _reporter = reporter;
 
             HomeCommand = new RelayCommand<object>(_ => HomeReels());
             SpinCommand = new RelayCommand<object>(_ => SpinReels());
@@ -62,8 +67,6 @@
         public IReelDisplayControl ReelsSimulation { get; set; }
 
         public bool ReelsVisible { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand HomeCommand { get; }
 
@@ -252,6 +255,7 @@
                 return;
             }
 
+            _reporter?.SetTestName("Home reels");
             _eventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.MechanicalReels));
             ReelsVisible = true;
             OnPropertyChanged(nameof(ReelsVisible));
@@ -315,6 +319,7 @@
 
         private void NudgeReels()
         {
+            _reporter?.SetTestName("Nudge reels");
             var data = new List<NudgeReelData>();
 
             for (var i = 1; i <= _maxSupportedReels; ++i)
@@ -345,21 +350,9 @@
             ExecuteSpinCommand(data);
         }
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void OnPropertyChanged(params string[] propertyNames)
-        {
-            foreach (var propertyName in propertyNames)
-            {
-                OnPropertyChanged(propertyName);
-            }
-        }
-
         private void SpinReels()
         {
+            _reporter?.SetTestName("Spin reels");
             var data = new List<ReelSpinData>();
 
             for (var i = 1; i <= _maxSupportedReels; ++i)

@@ -571,7 +571,7 @@
             get => _kenoShowPlayerSpeedButton;
             set
             {
-                if (_kenoShowPlayerSpeedButton == value)
+                if (_kenoShowPlayerSpeedButton == value && _gameCategory[GameType.Keno].ShowPlayerSpeedButton == value)
                 {
                     return;
                 }
@@ -687,7 +687,7 @@
             get => _pokerShowPlayerSpeedButton;
             set
             {
-                if (_pokerShowPlayerSpeedButton == value)
+                if (_pokerShowPlayerSpeedButton == value && _gameCategory[GameType.Poker].ShowPlayerSpeedButton == value)
                 {
                     return;
                 }
@@ -1056,7 +1056,7 @@
             if (KenoOptionsEnabled)
             {
                 KenoEnableAutoPlay = _gameCategory[GameType.Keno].AutoPlay;
-                KenoShowPlayerSpeedButton = _gameCategory[GameType.Keno].ShowPlayerSpeedButton;
+                KenoShowPlayerSpeedButton = KenoPlayerSpeedButtonEnabled && _gameCategory[GameType.Keno].ShowPlayerSpeedButton;
                 KenoSpeedLevel = SetSpeed(_gameCategory[GameType.Keno].DealSpeed, 1, 9);
                 KenoDefaultSpeedLevel = SetSpeed(_gameCategory[GameType.Keno].PlayerSpeed, 1, 3);
                 KenoVolumeScalar = _gameCategory[GameType.Keno].VolumeScalar;
@@ -1065,7 +1065,7 @@
             if (PokerOptionsEnabled)
             {
                 PokerEnableAutoHold = _gameCategory[GameType.Poker].AutoHold;
-                PokerShowPlayerSpeedButton = _gameCategory[GameType.Poker].ShowPlayerSpeedButton;
+                PokerShowPlayerSpeedButton = PokerPlayerSpeedButtonEnabled && _gameCategory[GameType.Poker].ShowPlayerSpeedButton;
                 PokerSpeedLevel = SetSpeed(_gameCategory[GameType.Poker].DealSpeed, 1, 9);
                 PokerDefaultSpeedLevel = SetSpeed(_gameCategory[GameType.Poker].PlayerSpeed, 1, 3);
                 PokerVolumeScalar = _gameCategory[GameType.Poker].VolumeScalar;

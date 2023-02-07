@@ -44,7 +44,7 @@
         private bool _updateDeviceInformation;
         private bool _wasEnabled;
 
-        public IdReaderPageViewModel() : base(DeviceType.IdReader)
+        public IdReaderPageViewModel(bool isWizard) : base(DeviceType.IdReader, isWizard)
         {
             SelfTestButtonCommand = new RelayCommand<object>(OnSelfTestCmd);
             SelfTestClearButtonCommand = new RelayCommand<object>(OnSelfTestClearNvmCmd);
@@ -176,6 +176,7 @@
             if (idReader != null)
             {
                 SelfTestCurrentState = SelfTestState.Running;
+                Inspection?.SetTestName("Self Test");
 
                 await IdReader.SelfTest(false).ConfigureAwait(false);
             }
@@ -187,6 +188,7 @@
             if (idReader != null)
             {
                 SelfTestCurrentState = SelfTestState.Running;
+                Inspection?.SetTestName("Self Test Clear NVM");
 
                 await IdReader.SelfTest(true).ConfigureAwait(false);
             }
@@ -334,11 +336,13 @@
             }
             else if (typeof(IdPresentedEvent) == eventType)
             {
+                Inspection?.SetTestName("ID Card Insert");
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CardInsertedText);
                 StatusCurrentMode = StatusMode.Working;
             }
             else if (typeof(IdClearedEvent) == eventType)
             {
+                Inspection?.SetTestName("ID Card Remove");
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CardRemovedText);
 
                 StatusCurrentMode = StatusMode.Normal;
@@ -348,6 +352,7 @@
             }
             else if (typeof(SetValidationEvent) == eventType)
             {
+                Inspection?.SetTestName("ID Card Validate");
                 var evt = theEvent as SetValidationEvent;
                 if (evt?.Identity != null)
                 {
@@ -357,6 +362,8 @@
             }
             else if (typeof(InspectionFailedEvent) == eventType)
             {
+                Inspection?.SetTestName("Inspection");
+                Inspection?.ReportTestFailure();
                 UpdateStatusError(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText), false);
             }
             else if (typeof(SelfTestPassedEvent) == eventType)
@@ -365,6 +372,7 @@
             }
             else if (typeof(SelfTestFailedEvent) == eventType)
             {
+                Inspection?.ReportTestFailure();
                 SelfTestCurrentState = SelfTestState.Failed;
             }
             else if (typeof(ReadErrorEvent) == eventType)
@@ -555,6 +563,8 @@
                             temp += "\n";
                         }
                     }
+                    Inspection?.SetTestName(text);
+                    Inspection?.ReportTestFailure();
 
                     temp += text;
 

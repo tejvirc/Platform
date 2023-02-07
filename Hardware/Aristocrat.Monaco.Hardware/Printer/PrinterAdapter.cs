@@ -495,7 +495,7 @@
 
             // wait for all the region reports to come in before starting templates
             Logger.Debug("LoadRegionsAndTemplates: waiting before loading templates");
-            Task.Delay(100).Wait();
+            await Task.Delay(100);
 
             // Load the printable templates.
             foreach (var item in Templates)
@@ -647,14 +647,14 @@
 
         private void ImplementationInitialized(object sender, EventArgs e)
         {
-            if (!CanFire(PrinterLogicalStateTrigger.Initialized))
+            if (!Fire(PrinterLogicalStateTrigger.Initializing, true))
             {
-                Logger.Error("ImplementationInitialized: invalid state for device initialized");
+                Logger.Error("ImplementationInitialized: invalid state for device initializing");
 
                 return;
             }
 
-            Logger.Info("ImplementationInitialized: device initialized");
+            Logger.Info("ImplementationInitialized: device initializing");
             if (ContainsWarning(PrinterWarningTypes.PaperInChute))
             {
                 _formFeedPending = true;
@@ -894,13 +894,16 @@
             // Uninitialized and Inspecting are only used when configuring the reader
             stateMachine.Configure(PrinterLogicalState.Uninitialized)
                 .Permit(PrinterLogicalStateTrigger.Inspecting, PrinterLogicalState.Inspecting)
-                .PermitDynamic(
-                    PrinterLogicalStateTrigger.Initialized,
-                    () => Enabled ? PrinterLogicalState.Idle : PrinterLogicalState.Disabled);
+                .Permit(PrinterLogicalStateTrigger.Initializing, PrinterLogicalState.Initializing);
 
             stateMachine.Configure(PrinterLogicalState.Inspecting)
                 .PermitReentry(PrinterLogicalStateTrigger.Enable)
                 .Permit(PrinterLogicalStateTrigger.InspectionFailed, PrinterLogicalState.Uninitialized)
+                .Permit(PrinterLogicalStateTrigger.Initializing, PrinterLogicalState.Initializing)
+                .Permit(PrinterLogicalStateTrigger.Disconnected, PrinterLogicalState.Disconnected);
+
+            stateMachine.Configure(PrinterLogicalState.Initializing)
+                .PermitReentry(PrinterLogicalStateTrigger.Enable)
                 .PermitDynamic(
                     PrinterLogicalStateTrigger.Initialized,
                     () => Enabled ? PrinterLogicalState.Idle : PrinterLogicalState.Disabled)
@@ -921,9 +924,7 @@
                         _formFeedPending = false;
                         TaskExtensions.FireAndForget(FormFeed());
                     })
-                .PermitDynamic(
-                    PrinterLogicalStateTrigger.Initialized,
-                    () => Enabled ? PrinterLogicalState.Idle : PrinterLogicalState.Disabled)
+                .Permit(PrinterLogicalStateTrigger.Initializing, PrinterLogicalState.Initializing)
                 .Permit(PrinterLogicalStateTrigger.Printing, PrinterLogicalState.Printing)
                 .Permit(PrinterLogicalStateTrigger.Disable, PrinterLogicalState.Disabled)
                 .Permit(PrinterLogicalStateTrigger.Disconnected, PrinterLogicalState.Disconnected);

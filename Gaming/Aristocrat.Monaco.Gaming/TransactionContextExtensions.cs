@@ -13,7 +13,7 @@
             switch (@this)
             {
                 case HandpayTransaction handpay:
-                    return (handpay.CashableAmount, handpay.PromoAmount, handpay.NonCashAmount);
+                    return (handpay.KeyOffCashableAmount, handpay.KeyOffPromoAmount, handpay.KeyOffNonCashAmount);
                 case VoucherOutTransaction voucherOut:
                     switch (voucherOut.TypeOfAccount)
                     {
@@ -27,7 +27,7 @@
                             throw new ArgumentOutOfRangeException();
                     }
                 case WatTransaction wat:
-                    return (wat.CashableAmount, wat.PromoAmount, wat.NonCashAmount);
+                    return (wat.TransferredCashableAmount, wat.TransferredPromoAmount, wat.TransferredNonCashAmount);
                 default:
                     throw new ArgumentException();
             }

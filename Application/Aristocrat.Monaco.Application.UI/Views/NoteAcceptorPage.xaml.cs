@@ -11,7 +11,7 @@
         public NoteAcceptorPage()
         {
             InitializeComponent();
-            DataContext = new NoteAcceptorViewModel();
+            DataContext = new NoteAcceptorViewModel(false);
         }
 
         [CLSCompliant(false)]

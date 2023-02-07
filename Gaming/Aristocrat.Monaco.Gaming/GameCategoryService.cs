@@ -91,7 +91,7 @@
             {
                 AutoPlay = _properties.GetValue(GamingConstants.AutoPlayAllowed, false),
                 AutoHold = _properties.GetValue(GamingConstants.AutoHoldEnable, false),
-                ShowPlayerSpeedButton = true,
+                ShowPlayerSpeedButton = _properties.GetValue(GamingConstants.ShowPlayerSpeedButtonEnabled, true),
                 VolumeScalar =
                     gameType == GameType.Keno ? VolumeScalar.Scale60 :
                     gameType == GameType.Slot ? VolumeScalar.Scale80 : VolumeScalar.Scale40,

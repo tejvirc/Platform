@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tests
 {
     using System;
+    using System.Collections.Generic;
     using Aristocrat.Monaco.Application.Contracts;
     using Contracts;
     using Kernel;
@@ -11,6 +12,15 @@
     public class FundsTransferDisableTests
     {
         private FundsTransferDisable _target;
+
+        private static readonly IReadOnlyList<Guid> NoImmediateDisables = new List<Guid> { };
+        private static readonly IReadOnlyList<Guid> ImmediateDisables = new List<Guid> { ApplicationConstants.MainDoorGuid };
+        private static readonly IReadOnlyList<Guid> ReelsNeedHoming = new List<Guid>
+        {
+            GamingConstants.ReelsNeedHomingGuid,
+            ApplicationConstants.LiveAuthenticationDisableKey
+        };
+
         private readonly Mock<IGamePlayState> _gameState = new Mock<IGamePlayState>(MockBehavior.Default);
         private readonly Mock<IEventBus> _eventBus= new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _disableManager = new Mock<ISystemDisableManager>(MockBehavior.Default);
@@ -33,16 +43,17 @@
             CreateFundsTransferDisable(nullGameState, nullDisableManager, nullEventBus);
         }
 
-        [DataRow(false, false, true, true, true, false, true, false, DisplayName = "In game round with active transaction should disable money on and off")]
-        [DataRow(false, false, true, false, true, false, true, false, DisplayName = "In game round without active transaction should disable money on and off")]
-        [DataRow(false, false, false, false, false, false, false, false, DisplayName = "All transfer types are enabled when not disabled and not in a game round")]
-        [DataRow(true, false, false, false, false, true, false, false, DisplayName = "A non immediate disabled should disable money on")]
-        [DataRow(true, true, false, false, false, true, true, false, DisplayName = "A immediate disable should disable money on and off")]
-        [DataRow(false, false, false, false, false, false, false, true, DisplayName = "Transfer disabled with overlay window")]
+        [DataRow(false, "NoImmediateDisables", true, true, true, false, true, false, DisplayName = "In game round with active transaction should disable money on and off")]
+        [DataRow(false, "NoImmediateDisables", true, false, true, false, true, false, DisplayName = "In game round without active transaction should disable money on and off")]
+        [DataRow(false, "NoImmediateDisables", false, false, false, false, false, false, DisplayName = "All transfer types are enabled when not disabled and not in a game round")]
+        [DataRow(true, "NoImmediateDisables", false, false, false, true, false, false, DisplayName = "A non immediate disabled should disable money on")]
+        [DataRow(true, "ImmediateDisables", false, false, false, true, true, false, DisplayName = "A immediate disable should disable money on and off")]
+        [DataRow(false, "NoImmediateDisables", false, false, false, false, false, true, DisplayName = "Transfer disabled with overlay window")]
+        [DataRow(true, "ReelsNeedHoming", false, false, false, true, false, false, DisplayName = "The ReelsNeedHoming fault shouldn't prevent cashing out")]
         [DataTestMethod]
         public void TransferTypeDisabledTest(
             bool disabled,
-            bool disableImmediately,
+            string immediateDisables,
             bool inGameRound,
             bool activeTransaction,
             bool transferOnDisabled,
@@ -51,7 +62,8 @@
             bool transferOnDisabledOverlay)
         {
             _gameState.Setup(m => m.UncommittedState).Returns(inGameRound ? PlayState.Initiated : PlayState.Idle);
-            _disableManager.Setup(m => m.DisableImmediately).Returns(disableImmediately);
+            SetupCurrentImmediateDisableKeys(immediateDisables);
+
             _disableManager.Setup(m => m.IsDisabled).Returns(disabled);
             _playerBank.Setup(x => x.TransactionId).Returns(activeTransaction ? Guid.NewGuid() : Guid.Empty);
             if (transferOnDisabledOverlay) { overlayEnteredHandler.Invoke(new OverlayMenuEnteredEvent()); }
@@ -99,6 +111,23 @@
                 nullGameState ? null : _gameState.Object,
                 nullDisableManager ? null : _disableManager.Object,
                 nullEventBus ? null : _eventBus.Object);
+        }
+
+        private void SetupCurrentImmediateDisableKeys(string immediateDisables)
+        {
+            switch (immediateDisables)
+            {
+                case "ImmediateDisables":
+                    _disableManager.Setup(m => m.CurrentImmediateDisableKeys).Returns(ImmediateDisables);
+                    break;
+                case "ReelsNeedHoming":
+                    _disableManager.Setup(m => m.CurrentImmediateDisableKeys).Returns(ReelsNeedHoming);
+                    break;
+                case "NoImmediateDisables":
+                default:
+                    _disableManager.Setup(m => m.CurrentImmediateDisableKeys).Returns(NoImmediateDisables);
+                    break;
+            }
         }
     }
 }

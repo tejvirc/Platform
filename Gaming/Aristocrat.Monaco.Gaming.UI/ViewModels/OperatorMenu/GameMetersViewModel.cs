@@ -258,17 +258,7 @@
                         }
                     }
 
-                    foreach (var meter in Meters)
-                    {
-                        if (meter.Order <= LeftColumnMaximumMeterOrder)
-                        {
-                            MetersLeftColumn.Add(meter);
-                        }
-                        else
-                        {
-                            MetersRightColumn.Add(meter);
-                        }
-                    }
+                    SplitMeters();
                 });
         }
 

@@ -1,13 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests.Consumers
 {
     using System;
-    using Aristocrat.Monaco.Bingo.Common;
+    using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
     using Bingo.Consumers;
+    using Common;
+    using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Protocol.Common.Storage.Entity;
 
     [TestClass]
     public class BonusAwardedConsumerTests
@@ -15,57 +18,132 @@
         private BonusAwardedConsumer _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Loose);
         private readonly Mock<ISharedConsumer> _consumerContext = new(MockBehavior.Loose);
-        private readonly Mock<IReportEventQueueService> _bingoEventQueue = new(MockBehavior.Strict);
+        private readonly Mock<IReportEventQueueService> _bingoEventQueue = new(MockBehavior.Default);
+        private readonly Mock<IReportTransactionQueueService> _transactionQueue = new(MockBehavior.Default);
+        private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
+        private readonly Mock<IPropertiesManager> _properties = new(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()
         {
-            _target = new BonusAwardedConsumer(
-                _eventBus.Object,
-                _consumerContext.Object,
-                _bingoEventQueue.Object);
+            _target = CreateTarget();
+            _properties.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, It.IsAny<bool>())).Returns(false);
         }
 
-        [DataRow(true, false, DisplayName = "EventBus Null")]
-        [DataRow(false, true, DisplayName = "Event Reporting Service Null")]
+        [TestCleanup]
+        public void MyTestCleanup()
+        {
+            _target.Dispose();
+        }
+
+        [DataRow(true, false, false, false, false)]
+        [DataRow(false, true, false, false, false)]
+        [DataRow(false, false, true, false, false)]
+        [DataRow(false, false, false, true, false)]
+        [DataRow(false, false, false, false, true)]
         [DataTestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void NullConstructorParametersTest(bool eventBusNull, bool queueNull)
+        public void NullConstructorParametersTest(
+            bool eventBusNull,
+            bool queueNull,
+            bool transactionNull,
+            bool unitOfWorkNull,
+            bool propertiesNull)
         {
-            _target = new BonusAwardedConsumer(
-                eventBusNull ? null : _eventBus.Object,
-                _consumerContext.Object,
-                queueNull ? null : _bingoEventQueue.Object);
+            Assert.ThrowsException<ArgumentNullException>(
+                () => _ = CreateTarget(eventBusNull, queueNull, transactionNull, unitOfWorkNull, propertiesNull));
         }
 
-        [TestMethod]
-        public void ConsumesNormalBonusTest()
+        [DataRow(PayMethod.Any)]
+        [DataRow(PayMethod.Credit)]
+        [DataRow(PayMethod.Wat)]
+        [DataTestMethod]
+        public void ConsumesNormalBonusTest(PayMethod method)
         {
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.BonusWinAwarded)).Verifiable();
+            const long paidAmount = 1000000;
+            var bonusTransaction = new BonusTransaction
+            {
+                Mode = BonusMode.Standard, PayMethod = method, PaidCashableAmount = paidAmount
+            };
 
-            _target.Consume(new BonusAwardedEvent(new BonusTransaction { Mode = BonusMode.Standard, PayMethod = PayMethod.Any }));
+            _target.Consume(new BonusAwardedEvent(bonusTransaction));
 
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusWinAwarded), Times.Once());
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusWinAwarded), Times.Once);
+            _transactionQueue.Verify(
+                m => m.AddNewTransactionToQueue(
+                    TransactionType.ExternalBonusWin,
+                    paidAmount.MillicentsToCents(),
+                    0,
+                    0,
+                    0,
+                    0,
+                    string.Empty),
+                Times.Once);
         }
 
         [TestMethod]
         public void ConsumesGameWinBonusTest()
         {
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.BonusLargeWinAwarded)).Verifiable();
+            const long paidAmount = 1000000;
+            var bonusTransaction = new BonusTransaction
+            {
+                Mode = BonusMode.GameWin, PayMethod = PayMethod.Any, PaidCashableAmount = paidAmount
+            };
 
-            _target.Consume(new BonusAwardedEvent(new BonusTransaction { Mode = BonusMode.GameWin }));
+            _target.Consume(new BonusAwardedEvent(bonusTransaction));
 
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusLargeWinAwarded), Times.Never());
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(It.IsAny<ReportableEvent>()), Times.Never);
+            _transactionQueue.Verify(
+                m => m.AddNewTransactionToQueue(
+                    It.IsAny<TransactionType>(),
+                    It.IsAny<long>(),
+                    It.IsAny<uint>(),
+                    It.IsAny<int>(),
+                    It.IsAny<long>(),
+                    It.IsAny<int>(),
+                    It.IsAny<string>()),
+                Times.Never);
         }
 
-        [TestMethod]
-        public void ConsumesLargeWinBonusTest()
+        [DataRow(PayMethod.Handpay, ReportableEvent.BonusLargeWinAwarded)]
+        [DataRow(PayMethod.Voucher, ReportableEvent.BonusWinAwarded)]
+        [DataTestMethod]
+        public void ConsumesNoTransactionReportBonusTest(PayMethod method, ReportableEvent reportableEvent)
         {
-            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.BonusLargeWinAwarded)).Verifiable();
+            const long paidAmount = 1000000;
+            var bonusTransaction = new BonusTransaction
+            {
+                Mode = BonusMode.Standard, PayMethod = method, PaidCashableAmount = paidAmount
+            };
 
-            _target.Consume(new BonusAwardedEvent(new BonusTransaction { Mode = BonusMode.Standard, PayMethod = PayMethod.Handpay }));
+            _target.Consume(new BonusAwardedEvent(bonusTransaction));
 
-            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusLargeWinAwarded), Times.Once());
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(reportableEvent), Times.Once);
+            _transactionQueue.Verify(
+                m => m.AddNewTransactionToQueue(
+                    It.IsAny<TransactionType>(),
+                    It.IsAny<long>(),
+                    It.IsAny<uint>(),
+                    It.IsAny<int>(),
+                    It.IsAny<long>(),
+                    It.IsAny<int>(),
+                    It.IsAny<string>()),
+                Times.Never);
+        }
+
+        private BonusAwardedConsumer CreateTarget(
+            bool eventBusNull = false,
+            bool queueNull = false,
+            bool transactionNull = false,
+            bool unitOfWorkNull = false,
+            bool propertiesNull = false)
+        {
+            return new BonusAwardedConsumer(
+                eventBusNull ? null : _eventBus.Object,
+                _consumerContext.Object,
+                queueNull ? null : _bingoEventQueue.Object,
+                transactionNull ? null : _transactionQueue.Object,
+                unitOfWorkNull ? null : _unitOfWorkFactory.Object,
+                propertiesNull ? null : _properties.Object);
         }
     }
 }

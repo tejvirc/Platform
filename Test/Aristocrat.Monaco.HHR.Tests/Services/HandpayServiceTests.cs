@@ -30,7 +30,6 @@
         private readonly Mock<IEventBus> _mockEventBus = new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<IPaymentDeterminationProvider> _mockLargeWins = new Mock<IPaymentDeterminationProvider>(MockBehavior.Default);
         private readonly Mock<IPrizeInformationEntityHelper> _mockPrizeInformation = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
-        private readonly Mock<IGamePlayState> _mockGameState = new Mock<IGamePlayState>(MockBehavior.Strict);
         private readonly Mock<ITransactionIdProvider> _idProvider = new Mock<ITransactionIdProvider>(MockBehavior.Strict);
 
         private HandpayService _handpayService;
@@ -39,7 +38,6 @@
         private List<HandpayCreateRequest> _handpayRequests;
 
         private Action<HandpayCompletedEvent> _sendHandpayCompleted;
-        private Action<TransferOutCompletedEvent> _sendTranferOutComplete;
 
         [TestInitialize]
         public void TestInitialize()
@@ -56,7 +54,6 @@
             _mockProperties.Setup(m => m.GetProperty(GamingConstants.SelectedGameId, It.IsAny<uint>())).Returns(99u); _mockProperties.Setup(m => m.GetProperty(GamingConstants.GameWinMaxCreditCashOutStrategy, It.IsAny<MaxCreditCashOutStrategy>())).Returns(MaxCreditCashOutStrategy.Win);
             _mockProperties.Setup(m => m.GetProperty(AccountingConstants.MaxCreditMeter, It.IsAny<long>())).Returns(500000000L);
             _mockProperties.Setup(m => m.SetProperty(ApplicationConstants.LastWagerWithLargeWinInfo, It.IsAny<long>()));
-
             // Set up the central manager so we can monitor for handpays being sent over the connection.
             _mockManager.Setup(
                 m => m.Send<TransactionRequest, CloseTranResponse>(
@@ -81,19 +78,10 @@
                         _sendHandpayCompleted = act;
                     });
 
-            _mockEventBus.Setup(m => m.Subscribe(It.IsAny<HandpayService>(), It.IsAny<Action<TransferOutCompletedEvent>>()))
-                .Callback<object, Action<TransferOutCompletedEvent>>(
-                    (tar, act) =>
-                    {
-                        _sendTranferOutComplete = act;
-                    });
-
             _mockPrizeInformation.SetupGet(m => m.PrizeInformation).Returns(() => GetLastPrizeInfo());
             _mockPrizeInformation.SetupSet(m => m.PrizeInformation = It.IsAny<PrizeInformation>())
                 .Callback<PrizeInformation>(
                     (prizeInfo) => SetLastPrizeInfo(prizeInfo));
-
-            _mockGameState.SetupGet(m => m.InGameRound).Returns(true);
 
             _idProvider.Setup(i => i.GetNextTransactionId()).Returns(It.IsAny<uint>());
 
@@ -106,7 +94,6 @@
                 _mockEventBus.Object,
                 _mockLargeWins.Object,
                 _mockPrizeInformation.Object,
-                _mockGameState.Object,
                 _idProvider.Object);
         }
 
@@ -235,17 +222,11 @@
             HandpayCompletedEvent evt = new HandpayCompletedEvent(trn);
             _sendHandpayCompleted(evt);
 
-            TransferOutCompletedEvent tfo = new TransferOutCompletedEvent(1, 2, 3, false, prizeInfo.RaceSet2HandpayGuid);
-            _sendTranferOutComplete(tfo);
-
             // Note we're sending these in a different order for race set 2.
             trn = new HandpayTransaction();
             trn.TraceId = prizeInfo.RaceSet2HandpayGuid;
             evt = new HandpayCompletedEvent(trn);
             _sendHandpayCompleted(evt);
-
-            tfo = new TransferOutCompletedEvent(1, 2, 3, false, prizeInfo.RaceSet1HandpayGuid);
-            _sendTranferOutComplete(tfo);
 
             Assert.AreEqual(transAmounts.Length, _transactionRequests.Count);
             Assert.AreEqual(handpayAmounts.Length, _handpayRequests.Count);
@@ -284,13 +265,13 @@
             new uint[] { 70003 }, new uint[] { 1 },
             DisplayName = "Ratio too low")
             ]
-        [DataRow(10u, 90000u, 0u, 30u, 59997u, 2u, 0u,
-            new long[] { 10, 59999 }, new long[] { 89990, 0 },
+        [DataRow(10u, 500000u, 0u, 30u, 59997u, 2u, 0u,
+            new long[] { 10, 59999 }, new long[] { 499990, 0 },
             new uint[] { 59999 }, new uint[] { 1 },
             DisplayName = "Handpay set 1, small win set 2")
             ]
-        [DataRow(10u, 80000u, 0u, 30u, 0u, 2u, 400u,
-            new long[] { 10, 402 }, new long[] { 79990, 0 },
+        [DataRow(10u, 500000u, 0u, 30u, 0u, 2u, 400u,
+            new long[] { 10, 402 }, new long[] { 499990, 0 },
             new uint[] { 2, 400 }, new uint[] { 1, 0 },
             DisplayName = "Handpay set 1, mixed win set 2")
             ]
@@ -299,8 +280,8 @@
             new uint[] { }, new uint[] { },
             DisplayName = "Handpay set 2")
             ]
-        [DataRow(10u, 14u, 17u, 30u, 91000u, 2u, 0u,
-            new long[] { 31, 30 }, new long[] { 0, 90972 },
+        [DataRow(10u, 14u, 17u, 30u, 600000u, 2u, 0u,
+            new long[] { 31, 30 }, new long[] { 0, 599972 },
             new uint[] { 31 }, new uint[] { 1 },
             DisplayName = "Handpay set 2, small win set 1")
             ]
@@ -331,13 +312,13 @@
             ]
         [DataRow(10u, 50u, 3u, 30u, 100u, 2u, 0u,
             new long[] { 53, 102 }, new long[] { 0, 0 },
-            new uint[] { }, new uint[] { },
+            new uint[] { 53, 102 }, new uint[] { 1, 1 },
             499999000L,
             DisplayName = "Small win, no handpay, over credit limit")
             ]
         [DataRow(10u, 50u, 3u, 30u, 100u, 2u, 800u,
             new long[] { 53, 902 }, new long[] { 0, 0 },
-            new uint[] { }, new uint[] { },
+            new uint[] { 53, 102, 800 }, new uint[] { 1, 1, 0 },
             499999000L,
             DisplayName = "Mixed win, no handpay, over credit limit")
             ]

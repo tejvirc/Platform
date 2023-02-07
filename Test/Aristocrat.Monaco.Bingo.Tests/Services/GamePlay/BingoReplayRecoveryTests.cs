@@ -38,7 +38,7 @@
         private readonly Mock<GameEndWinFactory> _gameEndWinFactory = new();
         private readonly Mock<IBonusHandler> _bonusHandler = new();
         private readonly Mock<ITransactionHistory> _transactionHistory = new();
-
+        private readonly Mock<IGamePlayState> _gamePlayState = new();
 
         private Action<GameLoadedEvent> _gameLoadedConsumer;
         private Action<GamePlayInitiatedEvent> _gamePlayInitiatedConsumer;
@@ -154,7 +154,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -196,7 +196,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -239,7 +239,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -279,7 +279,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed
@@ -319,7 +319,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed,
@@ -390,7 +390,7 @@
                 GameEndWinClaimAccepted = gewAlreadyClaimed
             };
 
-            var transaction = new CentralTransaction(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+            var transaction = new CentralTransaction(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
             {
                 Descriptions = new List<IOutcomeDescription> { description },
                 AssociatedTransactions = new List<long> { gameId },
@@ -458,7 +458,7 @@
             var joinedBalls = description.BallCallNumbers.Take(joinedBallIndex);
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed,
@@ -472,12 +472,15 @@
             await _target.Replay(history.Object, isFinalized, CancellationToken.None);
             foreach (var card in description.Cards)
             {
-                _eventBus.Verify(x => x.Publish(It.Is<BingoGameNewCardEvent>(e => e.BingoCard == card)));
+                _eventBus.Verify(
+                    x => x.Publish(It.Is<BingoGameNewCardEvent>(e => e.BingoCard == card)),
+                    isFinalized ? Times.Never() : Times.Once());
             }
 
-            _eventBus.Setup(
-                x => x.Publish(It.Is<BingoGamePatternEvent>(e => description.Patterns.SequenceEqual(e.Patterns))));
-            _eventBus.Setup(
+            _eventBus.Verify(
+                x => x.Publish(It.Is<BingoGamePatternEvent>(e => !e.StartPatternCycle && description.Patterns.SequenceEqual(e.Patterns))),
+                isFinalized ? Times.Never() : Times.Once());
+            _eventBus.Verify(
                 x => x.Publish(
                     It.Is<BingoGameBallCallEvent>(
                         e => isFinalized
@@ -495,7 +498,8 @@
             bool nullUnitOfWOrk = false,
             bool nullGewFactory = false,
             bool nullBonusHandler = false,
-            bool nulltransactionHistory = false)
+            bool nulltransactionHistory = false,
+            bool nullGamePlayState = false)
         {
             return new BingoReplayRecovery(
                 nullEvent ? null : _eventBus.Object,
@@ -507,7 +511,8 @@
                 nullUnitOfWOrk ? null : _unitOfWorkFactory.Object,
                 nullGewFactory ? null : _gameEndWinFactory.Object,
                 nullBonusHandler ? null : _bonusHandler.Object,
-                nulltransactionHistory ? null : _transactionHistory.Object);
+                nulltransactionHistory ? null : _transactionHistory.Object,
+                nullGamePlayState ? null : _gamePlayState.Object);
         }
     }
 }

@@ -53,6 +53,7 @@
         private ValidationLengthOptions _validationLength;
         private LayoutTypeOptions _layoutType;
         private VolumeControlLocation _volumeControlLocation;
+        private bool _bellEnabled;
 
         /// <summary>
         ///     Gets or sets a value that indicates whether the note acceptor is enabled.
@@ -384,6 +385,15 @@
             get => _reelControllerManufacturer;
 
             set => SetProperty(ref _reelControllerManufacturer, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the bell enabled or not
+        /// </summary>
+        public bool BellEnabled
+        {
+            get => _bellEnabled;
+            set => SetProperty(ref _bellEnabled, value);
         }
 
         /// <summary>

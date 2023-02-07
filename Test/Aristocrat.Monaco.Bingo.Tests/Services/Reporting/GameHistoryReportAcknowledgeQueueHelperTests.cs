@@ -95,7 +95,7 @@
                 ThemeId = 123
             };
 
-            var centralTransaction = new CentralTransaction(0, DateTime.UtcNow, 123, 1000, "Test Wager", wagerAmount, 1)
+            var centralTransaction = new CentralTransaction(0, DateTime.UtcNow, 123, 1000, "Test Wager", string.Empty, wagerAmount, 1)
             {
                 Descriptions = new[] { description },
                 AssociatedTransactions = new []{ gameTransactionId }

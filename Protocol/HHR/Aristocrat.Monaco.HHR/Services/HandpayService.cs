@@ -16,6 +16,7 @@
     using Localization.Properties;
     using log4net;
     using Storage.Helpers;
+    using HandpayType = Accounting.Contracts.Handpay.HandpayType;
 
     /// <summary>
     ///     This service exists to register as a PaymentDetermination delegate and to subscribe to handpay and voucher out
@@ -33,7 +34,6 @@
         private readonly IPlayerSessionService _playerSession;
         private readonly IPlayerBank _playerBank;
         private readonly IPrizeInformationEntityHelper _prizeInformationEntityHelper;
-        private readonly IGamePlayState _gamePlayState;
         private readonly ITransactionIdProvider _transactionIdProvider;
 
         /// <summary>
@@ -57,7 +57,6 @@
             IEventBus eventBus,
             IPaymentDeterminationProvider largeWinDetermination,
             IPrizeInformationEntityHelper prizeInformationEntityHelper,
-            IGamePlayState gamePlayState,
             ITransactionIdProvider transactionIdProvider)
         {
             _centralManager = centralManager ?? throw new ArgumentNullException(nameof(centralManager));
@@ -65,7 +64,6 @@
             _playerSession = playerSession ?? throw new ArgumentNullException(nameof(playerSession));
             _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
             _prizeInformationEntityHelper = prizeInformationEntityHelper ?? throw new ArgumentNullException(nameof(prizeInformationEntityHelper));
-            _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _transactionIdProvider = transactionIdProvider ?? throw new ArgumentNullException(nameof(transactionIdProvider));
 
             // Register as the guy who will make decisions about what to do with large wins in PayGameResultsCommandHandler.
@@ -73,7 +71,6 @@
 
             // Subscribe for the events that will fire when handpays are cleared.
             eventBus.Subscribe<HandpayCompletedEvent>(this, HandleHandpayCompleted);
-            eventBus.Subscribe<TransferOutCompletedEvent>(this, HandleTransferCompleted);
         }
 
         /// <inheritdoc />
@@ -92,25 +89,10 @@
         /// </returns>
         private void HandleHandpayCompleted(HandpayCompletedEvent handpayEvent)
         {
-            if (_gamePlayState.InGameRound)
+            if (handpayEvent.Transaction.HandpayType == HandpayType.GameWin)
             {
+                Logger.Debug($"Handpay Completed for GameWin and handpayId :{handpayEvent.Transaction.TraceId} ");
                 LargeWinCheck(handpayEvent.Transaction.TraceId, 0);
-            }
-        }
-
-        /// <summary>
-        ///     Deals with the result of a handpay that we've previously caused to happen. Sends all the messages required
-        ///     by the protocol indicating what happened to each amount.
-        /// </summary>
-        /// <param name="voucherEvent">The TransferOutCompletedEvent object which tells us what happened to the money.</param>
-        /// <returns>
-        ///     A list of PaymentDeterminationResult objects, which won't be used in our case because we've already done that.
-        /// </returns>
-        private void HandleTransferCompleted(TransferOutCompletedEvent voucherEvent)
-        {
-            if (_gamePlayState.InGameRound)
-            {
-                LargeWinCheck(voucherEvent.TraceId, 0);
             }
         }
 
@@ -134,7 +116,7 @@
         ///     A list of PaymentDeterminationResult objects, which tells us how much money to put on the credit meter and how
         ///     much to handpay.
         /// </returns>
-        private List<PaymentDeterminationResult> LargeWinCheck(Guid handpayTraceId, long amountMillis, bool isPayGameResults=true)
+        private List<PaymentDeterminationResult> LargeWinCheck(Guid handpayTraceId, long amountMillis, bool isPayGameResults = true, KeyOffType keyOffType = KeyOffType.Unknown)
         {
             List<PaymentDeterminationResult> listOfHandpays = new List<PaymentDeterminationResult>();
 
@@ -160,18 +142,18 @@
 
             if (ctx.RaceSet1TotalWinCents > 0)
             {
-                ProcessRaceSet1(ctx, listOfHandpays, handpayTraceId, isPayGameResults);
+                ProcessRaceSet1(ctx, listOfHandpays, handpayTraceId, keyOffType, isPayGameResults);
             }
 
             if (ctx.RaceSet2TotalWinCents > 0)
             {
-                ProcessRaceSet2(ctx, listOfHandpays, handpayTraceId, isPayGameResults);
+                ProcessRaceSet2(ctx, listOfHandpays, handpayTraceId, keyOffType, isPayGameResults);
             }
 
             return listOfHandpays;
         }
 
-        private void ProcessRaceSet1(HandpayServiceContext ctx, List<PaymentDeterminationResult> result, Guid handpayTraceId, bool isPayGameResults=true)
+        private void ProcessRaceSet1(HandpayServiceContext ctx, List<PaymentDeterminationResult> result, Guid handpayTraceId, KeyOffType keyOffType, bool isPayGameResults = true)
         {
             // Did we win more than the IRS limit for this win? If so, we'll need to send all the messages required by HHR,
             // otherwise, we have to send the "normal" messages indicating a credit meter increment for the prize.
@@ -209,11 +191,21 @@
                 // already dealt with this handpay?
                 if (handpayTraceId != prizeInfo.RaceSet1HandpayGuid || prizeInfo.RaceSet1HandpayKeyedOff) return;
 
+                CommandTransactionType commandTransactionType;
+                if (keyOffType == KeyOffType.LocalCredit || keyOffType == KeyOffType.RemoteCredit)
+                {
+                    commandTransactionType = CommandTransactionType.GameWinToCreditMeter;
+                }
+                else
+                {
+                    commandTransactionType = CommandTransactionType.GameWinToHandpayNoReceipt;
+                }
+
                 // Send the game win to credit meter message for the wager part. Note that this amount will already be on
                 // the credit meter.
                 SendGameWinTransaction(ctx, CommandTransactionType.GameWinToCreditMeter, ctx.RaceSet1WagerCents, HandpayTypeNonProgressive);
 
-                SendGameWinTransaction(ctx, CommandTransactionType.GameWinToHandpayNoReceipt, ctx.RaceSet1NetPrizeCents, HandpayTypeNonProgressive);
+                SendGameWinTransaction(ctx, commandTransactionType, ctx.RaceSet1NetPrizeCents, HandpayTypeNonProgressive);
 
                 SendHandpayCreateRequest(ctx, ctx.RaceSet1NetPrizeCents, ctx.RaceSet1TotalWinCents, 0, ctx.RaceSet1WagerCents, HandpayTypeNonProgressive);
 
@@ -237,12 +229,13 @@
                     return;
                 }
 
-                // If the win is greater than the Credit Limit but less than the IRS limit, don't send game win message from here
-                // because the GameWinService will handle the sending of the appropriate message to the HHR server.
-                if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
+                // As discussed with the Ainsworth team, send GameWinToCreditMeter transaction even Current Credit + Win  > Credit Limit, the extra credit
+                //would be either canceled credit or Cashed out and the appropriate message would be sent to the HHR Server in CreditOutService.
+
+                /* if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
                 {
                     return;
-                }
+                }*/
 
                 // Send the game win to credit meter message for the "non large" win.
                 ctx.CurrentCreditMeterCents += ctx.RaceSet1TotalWinCents;
@@ -251,7 +244,7 @@
             }
         }
 
-        private void ProcessRaceSet2(HandpayServiceContext ctx, List<PaymentDeterminationResult> result, Guid handpayTraceId, bool isPayGameResults=true)
+        private void ProcessRaceSet2(HandpayServiceContext ctx, List<PaymentDeterminationResult> result, Guid handpayTraceId, KeyOffType keyOffType, bool isPayGameResults = true)
         {
             // We need to figure out if there was a progressive win. This is as per the sample code from HHR, and
             // it is non-trivial to follow.
@@ -289,13 +282,23 @@
                 // already dealt with this handpay?
                 if (handpayTraceId != prizeInfo.RaceSet2HandpayGuid || prizeInfo.RaceSet2HandpayKeyedOff) return;
 
+                CommandTransactionType commandTransactionType;
+                if (keyOffType == KeyOffType.LocalCredit || keyOffType == KeyOffType.RemoteCredit)
+                {
+                    commandTransactionType = CommandTransactionType.GameWinToCreditMeter;
+                }
+                else
+                {
+                    commandTransactionType = CommandTransactionType.GameWinToHandpayNoReceipt;
+                }
+
                 // If we won enough on the non-progressive part of the game, then just as for race set 1, we pay back the
                 // wager amount to the credit meter as a non-progressive handpay. Otherwise, we will have to use part of
                 // our progressive win for the wager part of the handpay.
                 if (ctx.RaceSet2NonProgressiveNetPrizeCents > 0)
                 {
                     SendGameWinTransaction(ctx, CommandTransactionType.GameWinToCreditMeter, ctx.RaceSet2WagerCents, HandpayTypeNonProgressive);
-                    SendGameWinTransaction(ctx, CommandTransactionType.GameWinToHandpayNoReceipt, ctx.RaceSet2NonProgressiveNetPrizeCents, HandpayTypeNonProgressive);
+                    SendGameWinTransaction(ctx, commandTransactionType, ctx.RaceSet2NonProgressiveNetPrizeCents, HandpayTypeNonProgressive);
                 }
                 else
                 {
@@ -316,7 +319,7 @@
                         progressiveNetPrizeCents += ctx.RaceSet2NonProgressiveNetPrizeCents;
                     }
 
-                    SendGameWinTransaction(ctx, CommandTransactionType.GameWinToHandpayNoReceipt, progressiveNetPrizeCents, HandpayTypeProgressive);
+                    SendGameWinTransaction(ctx, commandTransactionType, progressiveNetPrizeCents, HandpayTypeProgressive);
 
                     SendHandpayCreateRequest(ctx, ctx.RaceSet2NetPrizeCents, 0, ctx.RaceSet2ProgressiveTotalWinCents, ctx.RaceSet2WagerCents, HandpayTypeProgressive);
                 }
@@ -348,12 +351,13 @@
                     return;
                 }
 
-                // If the win is greater than the Credit Limit but less than the IRS limit, don't send game win message from here
-                // because the GameWinService will handle the sending of the appropriate message to the HHR server.
-                if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
+                // As discussed with the Ainsworth team, send GameWinToCreditMeter transaction even Current Credit + Win  > Credit Limit, the extra credit
+                //would be either canceled credit or Cashed out and the appropriate message would be sent to the HHR Server in CreditOutService.
+
+                /*if (IsWinOverCreditLimit(ctx.CurrentCreditMeterCents + ctx.RaceSet1TotalWinCents + ctx.RaceSet2TotalWinCents))
                 {
                     return;
-                }
+                }*/
 
                 // Send the game win to credit meter message for the "non large" wins we had
                 if (ctx.RaceSet2NonProgressiveTotalWinCents > 0)
@@ -392,15 +396,6 @@
             uint wagerCents)
         {
             return prizeCents >= ctx.WinLimitCents && prizeCents / wagerCents >= ctx.WinLimitRatio;
-        }
-
-        private bool IsWinOverCreditLimit(long currentCredits)
-        {
-            var maxCreditStrategy = _properties.GetValue(GamingConstants.GameWinMaxCreditCashOutStrategy, MaxCreditCashOutStrategy.Win);
-            var maxCreditLimit = _properties.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue).MillicentsToCents();
-
-            return currentCredits > maxCreditLimit ||
-                   maxCreditStrategy == MaxCreditCashOutStrategy.CreditLimit && currentCredits == maxCreditLimit;
         }
 
         // Send the message to transfer the wager amount to the credit meter or to indicate handpay of the IRS lockup amount

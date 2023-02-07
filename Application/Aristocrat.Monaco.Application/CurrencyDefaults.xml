@@ -236,7 +236,18 @@ as follows:
       </Format>
     </Formats>
   </CurrencyInfo>
-
+  <CurrencyInfo>
+    <CurrencyCode>DKK</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>Kr</Symbol>
+        <MinorUnitSymbol>øre</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
   <CurrencyInfo>
     <CurrencyCode>DOP</CurrencyCode>
     <Formats>
@@ -327,7 +338,7 @@ as follows:
     <CurrencyCode>GHS</CurrencyCode>
     <Formats>
       <Format id="1">
-        <Symbol>GHC</Symbol>
+        <Symbol>GHS</Symbol>
         <MinorUnitSymbol>Gp</MinorUnitSymbol>
         <MinorUnits>Pesewa</MinorUnits>
         <MinorUnitsPlural>Pesewas</MinorUnitsPlural>
@@ -361,7 +372,8 @@ as follows:
     <CurrencyCode>GNF</CurrencyCode>
     <Formats>
       <Format id="1">
-       <PositivePattern>0</PositivePattern>
+        <Symbol>GNF</Symbol>
+        <PositivePattern>0</PositivePattern>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -370,7 +382,11 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>Q</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -388,7 +404,11 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>L</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -434,6 +454,9 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>L$</Symbol>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -459,15 +482,9 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
         <DecimalSeparator>.</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
-        <Symbol>DH</Symbol>
-        <MinorUnitSymbol>s</MinorUnitSymbol>
-        <MinorUnits>Centime</MinorUnits>
-        <MinorUnitsPlural>Centimes</MinorUnitsPlural>
-      </Format>
-      <Format id="2">
-        <PositivePattern>0</PositivePattern>
+        <GroupSeparator>,</GroupSeparator>
         <Symbol>MAD</Symbol>
         <MinorUnitSymbol>s</MinorUnitSymbol>
         <MinorUnits>santim</MinorUnits>
@@ -589,7 +606,11 @@ as follows:
     <Formats>
       <Format id="1">
         <Symbol>C$</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -653,7 +674,7 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
-        <MinorUnitSymbol>bani</MinorUnitSymbol>
+        <MinorUnitSymbol>b</MinorUnitSymbol>
         <MinorUnits>ban</MinorUnits>
         <MinorUnitsPlural>bani</MinorUnitsPlural>
       </Format>
@@ -827,7 +848,7 @@ as follows:
         <DecimalSeparator>.</DecimalSeparator>
         <GroupSeparator>,</GroupSeparator>
         <Symbol>UAH</Symbol>
-        <MinorUnitSymbol></MinorUnitSymbol>
+        <MinorUnitsSymbol>UAH</MinorUnitsSymbol>
         <MinorUnits>Kopiyka</MinorUnits>
         <MinorUnitsPlural>Kopiyky</MinorUnitsPlural>
       </Format>

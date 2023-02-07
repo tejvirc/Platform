@@ -466,6 +466,10 @@
             }
         }
 
+        public int MinBetWidth => GetBetWidth(ForcedMinBet);
+
+        public int MaxBetWidth => GetBetWidth(ForcedMaxBet);
+
         public decimal BetMinimum
         {
             get => _betMinimum;
@@ -831,6 +835,29 @@
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
                 .Select(g => new PaytableDisplay(g, BaseDenom, _showGameRtpAsRange)).ToList();
+        }
+
+        private static int GetBetWidth(decimal betAmount)
+        {
+            const int defaultBetWidth = 162;
+
+            const int currencyDigitWidth = 4;
+
+            var format = CurrencyExtensions.CurrencyCultureInfo?.NumberFormat;
+
+            if (format == null)
+            {
+                return defaultBetWidth;
+            }
+
+            var padding = format.CurrencyDecimalDigits +
+                          format.CurrencyDecimalSeparator.Length +
+                          format.CurrencySymbol.Length;
+
+            var textLength =
+                betAmount.FormattedCurrencyString().Length - padding;
+
+            return defaultBetWidth + Math.Max(textLength, 1) * currencyDigitWidth;
         }
     }
 }

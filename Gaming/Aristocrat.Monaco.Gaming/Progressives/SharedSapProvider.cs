@@ -232,18 +232,23 @@
                         level.OverflowTotal = sharedSapLevel.OverflowTotal;
                         level.MaximumValue = sharedSapLevel.MaximumValue;
 
+                        var hiddenTotalMeter = _meters.GetMeter(
+                            level.DeviceId,
+                            level.LevelId,
+                            ProgressiveMeters.ProgressiveLevelHiddenTotal);
+
+                        var hiddenValue = hiddenTotalMeter.Lifetime;
+
                         calculator?.Increment(
                             level,
                             wager,
                             ante,
-                            _meters.GetMeter(
-                                level.DeviceId,
-                                level.LevelId,
-                                ProgressiveMeters.ProgressiveLevelHiddenTotal));
-
+                            hiddenTotalMeter);
+                        
                         sharedSapLevel.CanEdit = false; // Once we update we can no longer edit the level ever again
 
                         UpdateSharedSapLevel(level, sharedSapLevel);
+                        sharedSapLevel.HiddenTotal += hiddenTotalMeter.Lifetime - hiddenValue;
 
                         break;
                     }
@@ -255,7 +260,7 @@
 
             Save();
         }
-
+        
         public void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction)
         {
             if (level == null)
@@ -292,6 +297,7 @@
         {
             return _sharedSapIndex.Values.AsEnumerable();
         }
+
 
         private static void UpdateSharedSapLevel(IViewableProgressiveLevel level, SharedSapLevel sharedSapLevel)
         {

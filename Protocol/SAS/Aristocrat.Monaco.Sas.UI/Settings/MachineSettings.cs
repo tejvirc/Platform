@@ -2,6 +2,7 @@
 {
     using System.Collections.ObjectModel;
     using CommunityToolkit.Mvvm.ComponentModel;
+    using Gaming.Contracts;
 
     /// <summary>
     ///     SAS machine settings.
@@ -10,6 +11,7 @@
     {
         private PortAssignmentSetting _portAssignmentSetting;
         private SasFeaturesSettings _sasFeaturesSettings;
+        private CashableLockupStrategy _hostDisableCashoutAction;
 
         /// <summary>
         ///     Gets or sets the SAS Host settings.
@@ -32,6 +34,16 @@
         {
             get => _sasFeaturesSettings;
             set => SetProperty(ref _sasFeaturesSettings, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the host disable cashout action.
+        /// </summary>
+        public CashableLockupStrategy HostDisableCashoutAction
+        {
+            get => _hostDisableCashoutAction;
+
+            set => SetProperty(ref _hostDisableCashoutAction, value);
         }
     }
 }

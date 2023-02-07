@@ -611,10 +611,8 @@
                 }
             }
 
-            CurrentGameProfile = GameProfiles.FirstOrDefault(g => g.GameName == CurrentGame) ?? new GameProfile();
-
+            SetCurrentActiveGame(CurrentGame);
             Validate();
-
             return CurrentGame;
         }
 
@@ -633,7 +631,7 @@
         internal void SetCurrentActiveGame(string currentGame)
         {
             CurrentGame = currentGame;
-            CurrentGameProfile = GameProfiles.FirstOrDefault(g => g.GameName == currentGame) ?? new GameProfile();
+            CurrentGameProfile = GameProfiles?.FirstOrDefault(g => g != null && !string.IsNullOrEmpty(g.GameName) && g.GameName == currentGame) ?? new GameProfile();
         }
     }
 }

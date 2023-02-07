@@ -34,7 +34,7 @@ as follows:
   <WinLimits>
 	<LargeWinLimit Default="120000000" MaxAllowed="120000000" Editable="true"/>
   </WinLimits>
-  <VoucherIn State="Enabled" LimitDefault="299999000"/>
+  <VoucherIn State="Enabled" LimitDefault="299999000" LimitMax="299999000"/>
 <!--
     VoucherOut Settings:
        State:

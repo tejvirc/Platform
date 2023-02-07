@@ -4,7 +4,7 @@
     using Common;
     using Hardware.Contracts.Door;
 
-    public class BingoDoorToEvent
+    public sealed class BingoDoorToEvent
     {
         /// <summary>
         ///     The lookup table of door events to Bingo server events to report.
@@ -12,7 +12,6 @@
         ///     The Bingo server lists the following doors which don't currently appear in the
         ///     DoorLogicalId enumeration:
         ///       Base Door
-        ///       Pizza Box Door
         ///       Aux Door
         /// </summary>
         public static readonly IReadOnlyDictionary<DoorLogicalId, BingoDoorToEvent> DoorEventMap =
@@ -23,12 +22,16 @@
                     new BingoDoorToEvent(ReportableEvent.MainDoorOpened, ReportableEvent.MainDoorClosed)
                 },
                 {
+                    DoorLogicalId.UniversalInterfaceBox,
+                    new BingoDoorToEvent(ReportableEvent.PizzaBoxDoorOpened, ReportableEvent.PizzaBoxDoorClosed)
+                },
+                {
                     DoorLogicalId.TopBox,
                     new BingoDoorToEvent(ReportableEvent.LcdDoorOpened, ReportableEvent.LcdDoorClosed)
                 },
                 {
                     DoorLogicalId.DropDoor,
-                    new BingoDoorToEvent(ReportableEvent.StackerDoorOpened, ReportableEvent.StackerDoorClosed)
+                    new BingoDoorToEvent(ReportableEvent.CashDoorOpened, ReportableEvent.CashDoorClosed) // Drop door is what the server calls the cash door
                 },
                 {
                     DoorLogicalId.Logic,
@@ -36,7 +39,7 @@
                 },
                 {
                     DoorLogicalId.CashBox,
-                    new BingoDoorToEvent(ReportableEvent.CashDoorOpened, ReportableEvent.CashDoorClosed)
+                    new BingoDoorToEvent(ReportableEvent.StackerDoorOpened, ReportableEvent.StackerDoorClosed) // CashBox is the stack door
                 },
                 {
                     DoorLogicalId.Belly,

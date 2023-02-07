@@ -42,6 +42,7 @@
         public const string EnableLinePrintingModeCommand = "^j|^";
         public const string FlushAllCommand = "^F|A|^";
         public const string FormFeedSingleCommand = "^f|I|^";
+        public const string AbortBarcodePrintCommand = "^F|C|^";
 
         public static readonly byte[] EnableTemplatePrintingModeCommand = { Esc, 0x5B, 0x5E, 0x5D, Esc }; // Escape [^] Escape
         public static readonly byte[] RequestStatusCommand = { Enq };

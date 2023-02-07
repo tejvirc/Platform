@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
@@ -283,7 +285,10 @@
                         return;
                     }
 
-                    if (IsLobbyVisible && platformEvent.Enabled)
+                    if (platformEvent.Enabled)
+                    {
+                        var reportCashoutButtonPress = (bool)_properties.GetProperty(GamingConstants.ReportCashoutButtonPressWithZeroCredit, false);
+                        if (IsLobbyVisible)
                     {
                         if (!IsResponsibleGamingInfoFullScreen)
                         {
@@ -294,11 +299,22 @@
                         {
                             if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
                             {
+                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0 || reportCashoutButtonPress)
+                                    {
                                 HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
                             }
                         }
-
+                            }
                         OnUserInteraction();
+                    }
+                        else if (reportCashoutButtonPress
+                        && Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId)
+                        && (LcdButtonDeckLobby)platformEvent.LogicalId == LcdButtonDeckLobby.CashOut
+                        && _bank.QueryBalance() == 0
+                        && _gameState.Idle)
+                        {
+                            HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby.CashOut);
+                        }
                     }
 
                     if (MessageOverlayDisplay.ShowProgressiveGameDisabledNotification)
@@ -408,6 +424,16 @@
             {
                 Logger.Debug($"GameProcessExitedEvent received.  Unexpected: {platformEvent.Unexpected}");
 
+                var lastGameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
+                var lastGameDenom = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
+                var game = GameList.FirstOrDefault(g => g.GameId == lastGameId && g.Denomination == lastGameDenom);
+                if (unexpected && (game?.RequiresMechanicalReels ?? false))
+                {
+                    Logger.Warn("Waiting for mechanical reels to be processed before re-launching");
+                    SendTrigger(LobbyTrigger.GameUnexpectedExit);
+                    return;
+                }
+
                 // Moving check for recovery outside of check for unexpected.  We sometimes shut
                 // down the game process ourselves and get an "expected" game process exited event,
                 // but still need to do recovery.
@@ -450,6 +476,12 @@
             Execute.OnUIThread(
                 () =>
                 {
+                    if (PlayerMenuPopupViewModel.IsMenuVisible)
+                    {
+                        PlayerMenuPopupViewModel.IsMenuVisible = false;
+                        HandleMessageOverlayVisibility();
+                    }
+
                     Credits = OverlayMessageUtils.ToCredits(platformEvent.NewBalance);
                     CheckForExitGame();
                     OnUserInteraction();
@@ -529,6 +561,12 @@
             if (CurrentState != LobbyState.Disabled &&
                 bonusEvent.Transaction.Mode != BonusMode.GameWin)
             {
+                if (bonusEvent.Transaction.Protocol == CommsProtocol.SAS)
+                {
+                    CashInStarted(CashInType.Wat, false);
+                    return;
+                }
+
                 CashInStarted(CashInType.Wat);
             }
 
@@ -707,26 +745,35 @@
             SetEdgeLighting();
 
             var payResetMethod = _properties.GetValue(AccountingConstants.LargeWinHandpayResetMethod, LargeWinHandpayResetMethod.PayByHand);
-            if (payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection &&
-                platformEvent.EligibleResetToCreditMeter)
+            if (payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection && platformEvent.EligibleResetToCreditMeter)
             {
                 _eventBus.Subscribe<DownEvent>(
                     this,
-                    evt =>
+                    async (_, t) =>
                     {
-                        if (!IsSelectPayModeVisible)
+                        if (!MessageOverlayDisplay.IsSelectPayModeVisible)
                         {
-                            IsSelectPayModeVisible = true;
+                            Execute.OnUIThread(
+                                () =>
+                                {
+                                    MessageOverlayDisplay.IsSelectPayModeVisible = true;
+                                    SelectedMenuSelectionPayOption = MenuSelectionPayOption.ReturnToLockup;
+                                    HandleMessageOverlayText();
                             _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, true);
-                            SelectedMenuSelectionPayOption = MenuSelectionPayOption.ReturnToLockup;
+                                });
                         }
                         else
                         {
-                            IsSelectPayModeVisible = false;
+                            Execute.OnUIThread(() =>
+                            {
+                                MessageOverlayDisplay.IsSelectPayModeVisible = false;
+                                HandleMessageOverlayText();
                             _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, false);
+                            });
+
                             if (_selectedMenuSelectionPayOption != MenuSelectionPayOption.ReturnToLockup)
                             {
-                                _eventBus.Unsubscribe<DownEvent>(this);
+                                await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), t);
                             }
                         }
                     }, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
@@ -742,20 +789,23 @@
             }
         }
 
-        private void HandleEvent(HandpayCanceledEvent platformEvent)
+        private async Task HandleEvent(HandpayCanceledEvent platformEvent, CancellationToken token)
         {
-            _eventBus.Unsubscribe<DownEvent>(this);
+            await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
         }
-        private void HandleEvent(HandpayKeyedOffEvent platformEvent)
+
+        private async Task HandleEvent(HandpayKeyedOffEvent platformEvent, CancellationToken token)
         {
-            _eventBus.Unsubscribe<DownEvent>(this);
+            await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
 
             if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
             {
                 _playCollectSound = false;
                 _audio.Stop();
             }
+
+            MessageOverlayDisplay.MessageOverlayData.GameHandlesHandPayPresentation = false;
 
             SetEdgeLighting();
         }
@@ -1292,6 +1342,7 @@
             // We are waiting for a handpay key off--stop the cash out dialog timer and reset the dialog state
             _cashOutTimer?.Stop();
             CashOutDialogState = LobbyCashOutDialogState.Visible;
+            Execute.OnUIThread(HandleMessageOverlayVisibility);
         }
 
         private void HandleEvent(SessionInfoEvent evt)
@@ -1436,7 +1487,6 @@
             _isGambleFeatureActive = evt.Active;
             OnPropertyChanged(nameof(ReturnToLobbyAllowed));
             OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
-            OnPropertyChanged(nameof(ReserveMachineAllowed));
         }
 
         private void HandleMessageOverlayVisibility()

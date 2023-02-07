@@ -302,7 +302,8 @@
                 var gameHistoryItem = _gameLogs
                     .FirstOrDefault(g => g.LogSequence == SelectedGameItem.LogSequence);
 
-                return gameHistoryItem?.MeterSnapshots != null &&
+                return IsGameRoundComplete &&
+                       gameHistoryItem?.MeterSnapshots != null &&
                        gameHistoryItem.MeterSnapshots.Any();
             }
         }
@@ -324,6 +325,10 @@
         protected override void OnLoaded()
         {
             base.OnLoaded();
+            if (!_gameDiagnostics?.IsActive ?? false)
+            {
+                IsReplaying = false;
+            }
 
             EventBus.Publish(new GameHistoryPageLoadedEvent());
 

@@ -25,12 +25,22 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Page Remove="Skins\Originals\InspectionMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\InspectionReskin.xaml" />
+    <Page Remove="Skins\Originals\MonacoMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\MonacoReskin.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="PlatformCommandLineArguments.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Update="Translations.cs">
       <DependentUpon>Translations.xsd</DependentUpon>
     </Compile>
+    <None Include="Skins\Originals\InspectionMetroSkin.xaml" />
+    <None Include="Skins\Originals\InspectionReskin.xaml" />
+    <None Include="Skins\Originals\MonacoMetroSkin.xaml" />
+    <None Include="Skins\Originals\MonacoReskin.xaml" />
     <None Include="Translations.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -53,14 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="CefSharp.Wpf" Version="92.0.260" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
+    <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.5-TXARCH-534-dietrich.1" />
+    <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="1.9.1" />
-    <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.5-TXARCH-534-dietrich.1" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
   </ItemGroup>
 </Project>

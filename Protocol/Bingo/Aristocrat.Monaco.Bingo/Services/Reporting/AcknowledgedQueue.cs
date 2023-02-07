@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Reporting
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -10,13 +11,13 @@ namespace Aristocrat.Monaco.Bingo.Services.Reporting
     using log4net;
     using Monaco.Common;
 
-    public class AcknowledgedQueue<TQueueItem, TQueueId> : IDisposable, IAcknowledgedQueue<TQueueItem, TQueueId>
+    public sealed class AcknowledgedQueue<TQueueItem, TQueueId> : IDisposable, IAcknowledgedQueue<TQueueItem, TQueueId>
         where TQueueItem : class
         where TQueueId : struct
     {
         private const int DefaultQueueSize = 30;
         private const int AlmostFullThreshold = 24; // 80% full
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private ConcurrentQueue<TQueueItem> _queue;
         private readonly IAcknowledgedQueueHelper<TQueueItem, TQueueId> _helper;
         private readonly int _queueSize;
@@ -39,9 +40,15 @@ namespace Aristocrat.Monaco.Bingo.Services.Reporting
             DisableIfQueueAlmostFull();
         }
 
+        public bool IsEmpty => _queue.IsEmpty;
+
+        public int Count => _queue.Count;
+
+        public bool IsQueueFull => Count >= _queueSize;
+
         public async Task<TQueueItem> GetNextItem(CancellationToken token)
         {
-            if (!IsEmpty())
+            if (!IsEmpty)
             {
                 _autoResetEvent.Reset();
                 return _queue.TryPeek(out var result) ? result : default;
@@ -71,7 +78,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Reporting
         public void Acknowledge(TQueueId id)
         {
             var item = _queue.TryPeek(out var result) ? result : default;
-            if (item is null || !Equals(_helper.GetId(item), id))
+            if (item is null || !EqualityComparer<TQueueId>.Default.Equals(_helper.GetId(item), id))
             {
                 return;
             }
@@ -83,22 +90,12 @@ namespace Aristocrat.Monaco.Bingo.Services.Reporting
             EnableIfQueueBelowThreshold();
         }
 
-        public bool IsEmpty()
-        {
-            return _queue.IsEmpty;
-        }
-
-        public int Count()
-        {
-            return _queue.Count;
-        }
-
         public void Dispose()
         {
             Dispose(true);
         }
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (_disposed)
             {

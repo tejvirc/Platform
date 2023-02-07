@@ -102,7 +102,7 @@ as follows:
 		<Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle"/>
 		<Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
 		<Page Type="BarkeeperConfigurationViewModel" Access="MainZeroCreditsGameIdle"/>
-        <Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCredits"/>
+    <Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCreditsGameIdle"/>
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
 	</Menu>
 	<Menu Type="GamesMainPageLoader">
@@ -112,7 +112,7 @@ as follows:
 			<Setting Name="EnableAdvancedConfig" Value="true" />
 			<Setting Name="EnableQuickConfig" Value="false" />
 		</Page>
-		<Page Type="GameHistoryViewModel" Access="LogicDoor">
+		<Page Type="GameHistoryViewModel">
 			<Setting Name="ShowGameInfoButtons" Value="true" />
 			<Setting Name="PrintGameRoundInfo" Value="false" />
 		</Page>
@@ -161,11 +161,11 @@ as follows:
             <Rule Restriction="GameIdle" />
             <Rule Restriction="ZeroCredits" />
         </AccessRuleSet>
-		<AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
-			<Rule Restriction="ZeroCredits" />
-			<Rule DeviceName="Logic" />
-			<Rule Restriction="ZeroGamesPlayed" />
-		</AccessRuleSet>
+        <AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
+            <Rule Restriction="ZeroGamesPlayed" />
+            <Rule Restriction="ZeroCredits" />
+            <Rule DeviceName="Logic" />
+        </AccessRuleSet>
 		<AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
 			<Rule Restriction="ZeroCredits" />
 			<Rule DeviceName="Logic" />
@@ -176,6 +176,11 @@ as follows:
 			<Rule Restriction="GameIdle" />
 			<Rule DeviceName="Main" />	
 		</AccessRuleSet>
+    <AccessRuleSet Name="LogicZeroCreditsGameIdle">
+      <Rule Restriction="GameIdle" />
+      <Rule Restriction="ZeroCredits" />
+      <Rule DeviceName="Logic" />
+    </AccessRuleSet>
 		<AccessRuleSet Name="MainZeroCreditsGameIdle">
 			<Rule Restriction="GameIdle" />
 			<Rule Restriction="ZeroCredits" />

@@ -69,7 +69,6 @@
         private OverlayType? _selectedOverlayType;
 
         private Thickness _helpBoxMargin;
-        private bool _isHelpLoading;
         private bool _isHelpVisible;
         private bool _isInfoVisible;
         private string _bingoHelpAddress;
@@ -188,7 +187,25 @@
         public IWebBrowser BingoInfoWebBrowser
         {
             get => _bingoInfoWebBrowser;
-            set => SetProperty(ref _bingoInfoWebBrowser, value);
+
+            set
+            {
+                var previous = _bingoInfoWebBrowser;
+                if (!SetProperty(ref _bingoInfoWebBrowser, value))
+                {
+                    return;
+                }
+
+                if (previous is not null)
+                {
+                    previous.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
+                }
+
+                if (_bingoInfoWebBrowser is not null)
+                {
+                    _bingoInfoWebBrowser.ConsoleMessage += BingoInfoWebBrowserOnConsoleMessage;
+                }
+            }
         }
 
         public double Height
@@ -201,12 +218,6 @@
         {
             get => _helpBoxMargin;
             private set => SetProperty(ref _helpBoxMargin, value);
-        }
-
-        public bool IsHelpLoading
-        {
-            get => _isHelpLoading;
-            set => SetProperty(ref _isHelpLoading, value);
         }
 
         public bool IsHelpVisible
@@ -269,6 +280,12 @@
                 _overlayServer.AttractCompleted -= AttractCompleted;
                 _overlayServer.ClientConnected -= OverlayClientConnected;
                 _overlayServer.ClientDisconnected -= OverlayClientDisconnected;
+
+                if (_bingoInfoWebBrowser is not null)
+                {
+                    _bingoInfoWebBrowser.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
+                }
+
                 _eventBus.UnsubscribeAll(this);
                 _overlayServer.Dispose();
             }
@@ -276,11 +293,16 @@
             _disposed = true;
         }
 
+        private static void BingoInfoWebBrowserOnConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        {
+            Logger.DebugFormat("Bingo Overlay - {0}", e.Message);
+        }
+
         private static double GetVisibleOpacity(bool visible) => visible ? 1.0 : 0.0;
 
-        private static void OverlayClientDisconnected(object sender, OverlayType overlayType)
+        private static void OverlayClientDisconnected(object sender, ClientDisconnectEventArgs args)
         {
-            Logger.Debug($"Overlay client disconnected: {overlayType}");
+            Logger.Debug($"Overlay client disconnected: {args.Type}, Exception: {(args.Exception == null ? "No Exception": args.Exception)}");
         }
 
         private static void ReloadBrowser(IWebBrowser browser)
@@ -473,9 +495,10 @@
             _multipleSpins = e.Triggered;
         }
 
-        private void Handle(GameControlSizeChangedEvent e)
+        private async Task Handle(GameControlSizeChangedEvent e, CancellationToken token)
         {
             _gameControlledHeight = e.GameControlHeight;
+            await UpdateAppearance().ConfigureAwait(false);
         }
 
         private async Task Handle(GameProcessExitedEvent e, CancellationToken token)
@@ -756,7 +779,8 @@
 
         private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
-            await _dispatcher.ExecuteAndWaitOnUIThread(NavigateToHelp);
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+            await _dispatcher.ExecuteAndWaitOnUIThread(() => BingoHelpAddress = helpAddress);
         }
 
         private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)
@@ -865,18 +889,6 @@
             }
         }
 
-        private void NavigateToHelp()
-        {
-            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            if (BingoHelpAddress == helpAddress)
-            {
-                return;
-            }
-
-            IsHelpLoading = true;
-            BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-        }
-
         private void NavigateToDynamicMessage(string message, string scene, string meterMessage, bool showMessage, bool showMeter)
         {
             var formattedQueryString = string.Format(
@@ -947,11 +959,12 @@
 
         private async Task SetHelpVisibility(bool visible)
         {
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
                     IsHelpVisible = visible;
-                    NavigateToHelp();
+                    BingoHelpAddress = helpAddress;
                     NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
                     HelpOpacity = GetVisibleOpacity(visible);
                 });

@@ -25,6 +25,7 @@
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.MechanicalReels.ReelControllerAdapter.Options";
         private const string ReelBrightnessOption = "ReelBrightness";
         private const string ReelOffsetsOption = "ReelOffsets";
+        private const string ReelController = "Reel Controller";
         private const int ReelOffsetDefaultValue = 0;
         private const int MaxBrightness = 100;
 
@@ -43,6 +44,7 @@
         private readonly StateMachine<ReelControllerState, ReelControllerTrigger> _state;
         private readonly ConcurrentDictionary<int, StateMachineWithStoppingTrigger> _reelStates = new();
         private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
+        private readonly SemaphoreSlim _reelSpinningLock = new(1, 1);
         private readonly ConcurrentDictionary<int, int> _steps = new();
 
         private IReelControllerImplementation _reelController;
@@ -176,9 +178,9 @@
 
         protected override IReelControllerImplementation Implementation => _reelController;
 
-        protected override string Description => string.Empty;
+        protected override string Description => ReelController;
 
-        protected override string Path => string.Empty;
+        protected override string Path => Kernel.Contracts.Components.Constants.ReelControllerPath;
 
         private bool CanSendCommand => LogicalState is
                     not ReelControllerState.Uninitialized and
@@ -189,47 +191,7 @@
 
         public Task<bool> SpinReels(params ReelSpinData[] reelData)
         {
-            Logger.Debug("SpinReels with stops called");
-            _stateLock.EnterWriteLock();
-            bool canFire;
-            bool fired = false;
-
-            try
-            {
-                canFire = reelData.All(
-                    reel => CanFire(
-                        reel.Direction == SpinDirection.Forward
-                            ? ReelControllerTrigger.SpinReel
-                            : ReelControllerTrigger.SpinReelBackwards,
-                        reel.ReelId));
-
-                if (!canFire)
-                {
-                    Logger.Debug("SpinReels - CanFire FAILED - CAN NOT SPIN");
-                }
-                else
-                {
-                    fired = reelData.All(
-                        reel => Fire(
-                            reel.Direction == SpinDirection.Forward
-                                ? ReelControllerTrigger.SpinReel
-                                : ReelControllerTrigger.SpinReelBackwards,
-                            reel.ReelId));
-
-                    if (!fired)
-                    {
-                        Logger.Debug("SpinReels - Fire FAILED - CAN NOT SPIN");
-                    }
-                }
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-
-            return canFire && fired
-                ? Implementation?.SpinReels(reelData) ?? Task.FromResult(false)
-                : Task.FromResult(false);
+            return SpinReelsInternal(reelData);
         }
 
         public Task<bool> SetLights(params ReelLampData[] lampData)
@@ -262,84 +224,14 @@
             return await HomeReels(ReelHomeSteps);
         }
 
-        public async Task<bool> HomeReels(IReadOnlyDictionary<int, int> reelOffsets)
+        public Task<bool> HomeReels(IReadOnlyDictionary<int, int> reelOffsets)
         {
-            Logger.Debug("HomeReels with stops called");
-
-            if (!Fire(ReelControllerTrigger.HomeReels))
-            {
-                Logger.Debug("HomeReels - Fire FAILED - CAN NOT HOME");
-                return false;
-            }
-
-            var allHomed = (await Task.WhenAll(
-                    reelOffsets.Select(x =>
-                    {
-                        Logger.Debug($"homing reel {x.Key} to step {x.Value}");
-                        if (!ConnectedReels.Contains(x.Key))
-                        {
-                            return Task.FromResult(true);
-                        }
-
-                        if (!Fire(ReelControllerTrigger.HomeReels, x.Key))
-                        {
-                            Logger.Debug($"HomeReels - Fire FAILED for reel {x.Key} - CAN NOT HOME");
-                            return Task.FromResult(false);
-                        }
-
-                        return Implementation?.HomeReel(x.Key, x.Value) ?? Task.FromResult(false);
-                    })))
-                .All(x => x);
-
-            if (!allHomed)
-            {
-                await TiltReels();
-            }
-
-            return allHomed;
+            return HandleReelSpinningActionAsync(() => HomeReelsInternal(reelOffsets));
         }
 
         public Task<bool> NudgeReel(params NudgeReelData[] reelData)
         {
-            Logger.Debug("NudgeReels with stops called");
-            _stateLock.EnterWriteLock();
-            bool canFire;
-            bool fired = false;
-
-            try
-            {
-                canFire = reelData.All(
-                    reel => CanFire(
-                        reel.Direction == SpinDirection.Forward
-                            ? ReelControllerTrigger.SpinReel
-                            : ReelControllerTrigger.SpinReelBackwards,
-                        reel.ReelId));
-
-                if (!canFire)
-                {
-                    Logger.Debug("NudgeReel - CanFire FAILED - CAN NOT NUDGE");
-                }
-                else
-                {
-                    fired = reelData.All(
-                        reel => Fire(
-                            reel.Direction == SpinDirection.Forward
-                                ? ReelControllerTrigger.SpinReel
-                                : ReelControllerTrigger.SpinReelBackwards,
-                            reel.ReelId));
-
-                    if (!fired)
-                    {
-                        Logger.Debug("NudgeReel - Fire FAILED - CAN NOT NUDGE");
-                    }
-                }
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-
-            return canFire && fired ? Implementation?.NudgeReels(reelData) ?? Task.FromResult(false) : Task.FromResult(false);
+            return HandleReelSpinningActionAsync(() => NudgeReelsInternal(reelData));
         }
 
         /// <inheritdoc />
@@ -369,9 +261,7 @@
 
         public Task<bool> TiltReels()
         {
-            Logger.Debug("TiltReels called");
-            FireAll(ReelControllerTrigger.TiltReels);
-            return Implementation?.TiltReels() ?? Task.FromResult(false);
+            return HandleReelSpinningActionAsync(TiltReelsInternal);
         }
 
         protected override void DisabledDetected()
@@ -453,6 +343,7 @@
                 }
 
                 _stateLock.Dispose();
+                _reelSpinningLock.Dispose();
             }
 
             base.Dispose(disposing);
@@ -495,6 +386,84 @@
 
         protected override void SubscribeToEvents(IEventBus eventBus)
         {
+        }
+
+        private async Task<bool> HomeReelsInternal(IReadOnlyDictionary<int, int> reelOffsets)
+        {
+            Logger.Debug("HomeReels with stops called");
+
+            if (!Fire(ReelControllerTrigger.HomeReels))
+            {
+                Logger.Debug("HomeReels - Fire FAILED - CAN NOT HOME");
+                return false;
+            }
+
+            var allHomed = (await Task.WhenAll(
+                    reelOffsets.Select(
+                        x =>
+                        {
+                            Logger.Debug($"homing reel {x.Key} to step {x.Value}");
+                            if (!ConnectedReels.Contains(x.Key))
+                            {
+                                return Task.FromResult(true);
+                            }
+
+                            if (!Fire(ReelControllerTrigger.HomeReels, x.Key))
+                            {
+                                Logger.Debug($"HomeReels - Fire FAILED for reel {x.Key} - CAN NOT HOME");
+                                return Task.FromResult(false);
+                            }
+
+                            return Implementation?.HomeReel(x.Key, x.Value) ?? Task.FromResult(false);
+                        })))
+                .All(x => x);
+
+            if (!allHomed)
+            {
+                await TiltReelsInternal();
+            }
+
+            return allHomed;
+        }
+
+        private async Task<bool> TiltReelsInternal()
+        {
+            FireAll(ReelControllerTrigger.TiltReels);
+            var result = await (Implementation?.TiltReels() ?? Task.FromResult(false));
+            return result;
+        }
+
+        private async Task<bool> NudgeReelsInternal(NudgeReelData[] reelData)
+        {
+            Logger.Debug("NudgeReels with stops called");
+            var reelTriggers = reelData.Select(
+                reel => (
+                    reel.Direction == SpinDirection.Forward
+                        ? ReelControllerTrigger.SpinReel
+                        : ReelControllerTrigger.SpinReelBackwards, reel.ReelId));
+
+            if (!Fire(reelTriggers))
+            {
+                return false;
+            }
+
+            return await (Implementation?.NudgeReels(reelData) ?? Task.FromResult(false));
+        }
+
+        private async Task<bool> SpinReelsInternal(ReelSpinData[] reelData)
+        {
+            Logger.Debug("SpinReels with stops called");
+            var reelTriggers = reelData.Select(
+                reel => (
+                    reel.Direction == SpinDirection.Forward
+                        ? ReelControllerTrigger.SpinReel
+                        : ReelControllerTrigger.SpinReelBackwards, reel.ReelId));
+            if (!Fire(reelTriggers))
+            {
+                return false;
+            }
+
+            return await (Implementation?.SpinReels(reelData) ?? Task.FromResult(false));
         }
 
         private StateMachineWithStoppingTrigger CreateReelStateMachine(ReelLogicalState state = ReelLogicalState.IdleUnknown)
@@ -828,6 +797,21 @@
             }
         }
 
+        private bool Fire(IEnumerable<(ReelControllerTrigger trigger, int reelId)> reelTriggers, bool updateControllerState = true)
+        {
+            _stateLock.EnterWriteLock();
+            try
+            {
+                var reelData = reelTriggers.ToList();
+                return reelData.All(x => CanFire(x.trigger, x.reelId, updateControllerState)) &&
+                       reelData.All(x => Fire(x.trigger, x.reelId, updateControllerState));
+            }
+            finally
+            {
+                _stateLock.ExitWriteLock();
+            }
+        }
+
         private bool FireReelStopped(ReelControllerTrigger trigger, int reelId, ReelEventArgs args)
         {
             Logger.Debug($"FireReelStopped with trigger {trigger} for reel {reelId}");
@@ -894,13 +878,11 @@
                     i =>
                     {
                         PostEvent(new ReelConnectedEvent(i, ReelControllerId));
-                        SetInitialReelBrightness(e.ReelId);
                         return CreateReelStateMachine();
                     },
                     (i, s) =>
                     {
                         Fire(ReelControllerTrigger.Connected, i, new ReelConnectedEvent(i, ReelControllerId), false);
-                        SetInitialReelBrightness(e.ReelId);
                         return s;
                     });
             }
@@ -1162,11 +1144,6 @@
             }
         }
 
-        private void SetInitialReelBrightness(int reelId)
-        {
-            SetReelBrightness(new Dictionary<int, int> { { reelId, DefaultReelBrightness } });
-        }
-
         private void ReadOrCreateOptions()
         {
             if (!this.GetOrAddBlock(OptionsBlock, out var options, ReelControllerId - 1))
@@ -1184,6 +1161,24 @@
         private void SetReelOffsets(params int[] offsets)
         {
             Implementation.SetReelOffsets(offsets);
+        }
+
+        private Task<T> HandleReelSpinningActionAsync<T>(Func<Task<T>> action) =>
+            HandleReelSpinningActionAsync(_ => action(), default);
+
+        private async Task<T> HandleReelSpinningActionAsync<T>(
+            Func<CancellationToken, Task<T>> action,
+            CancellationToken token)
+        {
+            await _reelSpinningLock.WaitAsync(token).ConfigureAwait(false);
+            try
+            {
+                return await action(token).ConfigureAwait(false);
+            }
+            finally
+            {
+                _reelSpinningLock.Release();
+            }
         }
 
         private class StateMachineWithStoppingTrigger

@@ -154,6 +154,7 @@
             {
                 Logger.Info($"Recovering handpay transaction: {transaction}");
 
+                IHandpayValidator validator = null;
                 if (transaction.State == HandpayState.Pending || transaction.State == HandpayState.Requested)
                 {
                     var voucher = _transactions.RecallTransactions<VoucherOutTransaction>()
@@ -180,7 +181,7 @@
 
                     var keyOff = Initiate(transaction);
 
-                    var validator = _validationProvider.GetHandPayValidator(true);
+                    validator = _validationProvider.GetHandPayValidator(true);
                     if (validator == null)
                     {
                         Logger.Info($"No validator or validation is currently not allowed - {transactionId}");
@@ -210,12 +211,13 @@
                         Logger.Error($"Failed to acquire printer: {transaction}");
                     }
 
-                    return await IssueReceipt(printer, transaction);
+                    return await IssueReceipt(printer, validator, transaction);
                 }
 
-                if (transaction.State == HandpayState.Committed && transaction.PrintTicket && !transaction.Printed)
+                if (transaction.State == HandpayState.Committed && transaction.PrintTicket && !transaction.Printed &&
+                    _properties.GetValue(AccountingConstants.HandpayReceiptsRequired, false))
                 {
-                    await FinishPrintingHandpay(transaction, cancellationToken);
+                    return await FinishPrintingHandpay(validator, transaction, cancellationToken);
                 }
             }
 
@@ -224,7 +226,7 @@
             return false;
         }
 
-        private async Task<bool> FinishPrintingHandpay(HandpayTransaction transaction, CancellationToken cancellationToken)
+        private async Task<bool> FinishPrintingHandpay(IHandpayValidator validator, HandpayTransaction transaction, CancellationToken cancellationToken)
         {
             Logger.Debug("FinishPrintingHandpay");
 
@@ -244,9 +246,9 @@
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReceiptPrintingFailedInfo));
             }
 
-            _bus.Publish(new HandpayKeyedOffEvent(transaction));
+            HandpayKeyedOff(validator, transaction);
 
-            return await IssueReceipt(printer, transaction);
+            return await IssueReceipt(printer, validator, transaction);
         }
 
         private async Task<TransferResult> Transfer(
@@ -272,7 +274,7 @@
                 nonCashAmount = 0L;
             }
 
-            var validator = _validationProvider.GetHandPayValidator();
+            var validator = _validationProvider.GetHandPayValidator(true);
             if (validator == null)
             {
                 Logger.Info($"No validator or validation is currently not allowed - {transactionId}");
@@ -343,7 +345,7 @@
 
                 transaction.PrintTicket = IsPrintReceiptEnable(transaction);
                 var printer = transaction.PrintTicket ? await GetPrinter(cancellationToken) : null;
-                if (!await IssueReceipt(printer, transaction))
+                if (!await IssueReceipt(printer, validator, transaction))
                 {
                     return TransferResult.Failed;
                 }
@@ -436,14 +438,13 @@
 
             _bus.Subscribe<DownEvent>(
                 this,
-                evt =>
+                _ =>
                 {
-                    if (_properties.GetValue(AccountingConstants.HandpayNoteAcceptorConnectedRequired, false))
+                    if (_properties.GetValue(AccountingConstants.HandpayNoteAcceptorConnectedRequired, false) &&
+                        (_noteAcceptor is not { Connected: true } ||
+                         _noteAcceptor.ServiceProtocol == ApplicationConstants.Fake && !_noteAcceptor.Enabled))
                     {
-                        if (_noteAcceptor == null
-                            || !_noteAcceptor.Connected
-                            || (_noteAcceptor.ServiceProtocol == ApplicationConstants.Fake && !_noteAcceptor.Enabled))
-                            return;
+                        return;
                     }
 
                     // Check if we are in another lockup and Keyoff is allowed in this state
@@ -451,9 +452,10 @@
                     {
                         return;
                     }
+
                     var allowLocalHandpay = _validationProvider.GetHandPayValidator()?.AllowLocalHandpay ?? false;
                     if (!allowLocalHandpay || transaction.KeyOffType == KeyOffType.Unknown ||
-                        (_remoteHandpayMethodSelected && payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection))
+                        _remoteHandpayMethodSelected && payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection)
                     {
                         Logger.Error($"Button.DownEvent ignored - AllowLocalHandpay={allowLocalHandpay}, KeyOffType={transaction.KeyOffType}, RemoteHandpayMethodSelected={_remoteHandpayMethodSelected}, LargeWinHandpayResetMethod={payResetMethod}");
                         return;
@@ -468,11 +470,12 @@
                 evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
 
             // Only Subscribe to this event when Handpay is of type CancelCredit
-            if ((bool)_properties.GetProperty(AccountingConstants.HandpayPendingExitEnabled, false) && (transaction.HandpayType == HandpayType.CancelCredit))
+            if ((bool)_properties.GetProperty(AccountingConstants.HandpayPendingExitEnabled, false) &&
+                transaction.HandpayType == HandpayType.CancelCredit)
             {
                 _bus.Subscribe<HandpayPendingCanceledEvent>(
                     this,
-                    evt =>
+                    _ =>
                     {
                         keyOff.TrySetResult(KeyOffType.Cancelled);
                     });
@@ -543,42 +546,40 @@
 
                     transaction.KeyOffType = keyOffType;
                     _transactions.UpdateTransaction(transaction);
-                    using (var scope = _storage.ScopedTransaction())
+                    using var scope = _storage.ScopedTransaction();
+                    switch (transaction.KeyOffType)
                     {
-                        switch (transaction.KeyOffType)
-                        {
-                            case KeyOffType.LocalHandpay:
-                            case KeyOffType.RemoteHandpay:
-                                ToHandpay(transaction);
-                                break;
-                            case KeyOffType.LocalVoucher:
-                            case KeyOffType.RemoteVoucher:
-                                if (!await Transfer(_voucherOut, transaction))
-                                {
-                                    throw new TransferOutException(@"Voucher issuance failed", true);
-                                }
-                                break;
-                            case KeyOffType.LocalWat:
-                            case KeyOffType.RemoteWat:
-                                if (!await Transfer(_wat, transaction))
-                                {
-                                    throw new TransferOutException(@"WAT transfer failed", true);
-                                }
-                                break;
-                            case KeyOffType.LocalCredit:
-                            case KeyOffType.RemoteCredit:
-                                ToCreditMeter(transaction);
-                                break;
-                            case KeyOffType.Cancelled:
-                                // This should only occur for CancelCredit types and is currently a no-op
-                                break;
-                            case KeyOffType.Unknown:
-                                break;
-                        }
-
-                        CommitTransaction(transaction);
-                        scope.Complete();
+                        case KeyOffType.LocalHandpay:
+                        case KeyOffType.RemoteHandpay:
+                            ToHandpay(transaction);
+                            break;
+                        case KeyOffType.LocalVoucher:
+                        case KeyOffType.RemoteVoucher:
+                            if (!await Transfer(_voucherOut, transaction))
+                            {
+                                throw new TransferOutException(@"Voucher issuance failed", true);
+                            }
+                            break;
+                        case KeyOffType.LocalWat:
+                        case KeyOffType.RemoteWat:
+                            if (!await Transfer(_wat, transaction))
+                            {
+                                throw new TransferOutException(@"WAT transfer failed", true);
+                            }
+                            break;
+                        case KeyOffType.LocalCredit:
+                        case KeyOffType.RemoteCredit:
+                            ToCreditMeter(transaction);
+                            break;
+                        case KeyOffType.Cancelled:
+                            // This should only occur for CancelCredit types and is currently a no-op
+                            break;
+                        case KeyOffType.Unknown:
+                            break;
                     }
+
+                    CommitTransaction(transaction);
+                    scope.Complete();
                 }
                 catch (BankException ex)
                 {
@@ -593,9 +594,16 @@
 
             _systemDisable.Enable(ApplicationConstants.HandpayPendingDisableKey);
 
-            _bus.Publish(new HandpayKeyedOffEvent(transaction));
+            HandpayKeyedOff(validator, transaction);
 
             return await Task.FromResult(true);
+        }
+
+        private void HandpayKeyedOff(IHandpayValidator validator, HandpayTransaction transaction)
+        {
+            validator.HandpayKeyedOff(transaction);
+
+            _bus.Publish(new HandpayKeyedOffEvent(transaction));
         }
 
         private void ToHandpay(HandpayTransaction transaction)
@@ -675,31 +683,35 @@
             return result.Success;
         }
 
-        private async Task<bool> IssueReceipt(IPrinter printer, HandpayTransaction transaction)
+        private async Task<bool> IssueReceipt(IPrinter printer, IHandpayValidator validator, HandpayTransaction transaction)
         {
+            var handpayTransaction = _transactions.RecallTransactions<HandpayTransaction>()
+                .First(t => t.TransactionId == transaction.TransactionId);
+
             // Give this ticket a sequence number now, which will remain even if we fail to print,
             // and more importantly will be changed if we do later print it again.
             using (var scope = _storage.ScopedTransaction())
             {
-                transaction.ReceiptSequence = GetTicketSequence(_idProvider.GetNextLogSequence<IHandpayTicketCreator>());
-                _transactions.UpdateTransaction(transaction);
+                handpayTransaction.ReceiptSequence = GetTicketSequence(_idProvider.GetNextLogSequence<IHandpayTicketCreator>());
+                _transactions.UpdateTransaction(handpayTransaction);
                 scope.Complete();
             }
 
-            if (printer != null && transaction.PrintTicket)
+            if (printer != null && handpayTransaction.PrintTicket)
             {
-                if (!await printer.Print(GetTicket(transaction), Commit))
+                if (!await printer.Print(GetTicket(handpayTransaction), Commit) &&
+                    _properties.GetValue(AccountingConstants.HandpayReceiptsRequired, false))
                 {
-                    Logger.Error($"Failed to print ticket: {transaction}");
+                    Logger.Error($"Failed to print ticket: {handpayTransaction}");
 
                     if (!printer.Enabled)
                     {
                         _handpayPrintRetry.Reset();
                         _bus.Subscribe<Hardware.Contracts.Printer.EnabledEvent>(this, async (_, token) =>
                         {
-                            if (printer.Enabled && await FinishPrintingHandpay(transaction, token))
+                            if (printer.Enabled && await FinishPrintingHandpay(validator, handpayTransaction, token))
                             {
-                                Logger.Info($"Handpay completed after printer reconnected: {transaction}");
+                                Logger.Info($"Handpay completed after printer reconnected: {handpayTransaction}");
 
                                 _bus.Unsubscribe<Hardware.Contracts.Printer.EnabledEvent>(this);
 
@@ -710,29 +722,33 @@
                         });
 
                         _handpayPrintRetry.WaitOne();
+                        return true;
                     }
-                    else
-                    {
-                        await Task.Delay(PrintRetryDelay);
-                        await FinishPrintingHandpay(transaction, CancellationToken.None);
-                    }
+
+                    await Task.Delay(PrintRetryDelay);
+                    return await FinishPrintingHandpay(validator, handpayTransaction, CancellationToken.None);
                 }
 
                 Task Commit()
                 {
-                    _bus.Publish(new HandpayReceiptPrintEvent(transaction));
+                    var currentTransaction = _transactions.RecallTransactions<HandpayTransaction>()
+                        .First(t => t.TransactionId == transaction.TransactionId);
 
-                    transaction.Printed = true;
-                    _transactions.UpdateTransaction(transaction);
+                    currentTransaction.Printed = true;
+                    _transactions.UpdateTransaction(currentTransaction);
+                    _bus.Publish(new HandpayReceiptPrintEvent(currentTransaction));
 
                     return Task.CompletedTask;
                 }
             }
 
-            Logger.Info($"Handpay completed: {transaction}");
+            var finishedTransaction = _transactions.RecallTransactions<HandpayTransaction>()
+                .First(t => t.TransactionId == transaction.TransactionId);
+
+            Logger.Info($"Handpay completed: {finishedTransaction}");
 
             _remoteHandpayMethodSelected = false;
-            _bus.Publish(new HandpayCompletedEvent(transaction));
+            _bus.Publish(new HandpayCompletedEvent(finishedTransaction));
 
             return true;
         }

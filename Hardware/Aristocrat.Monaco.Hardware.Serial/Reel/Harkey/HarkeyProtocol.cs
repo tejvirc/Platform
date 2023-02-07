@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
+    using Common.Cryptography;
     using Contracts.Gds;
     using Contracts.Gds.Reel;
     using Contracts.Reel;
@@ -23,7 +24,10 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
     public class HarkeyProtocol : SerialReelController
     {
+        private const int LightResetDelayMs = 100;
+        private const int ResetDelayMs = 20;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly int[] ValidReelIds = Enumerable.Range(1, HarkeyConstants.MaxReelId).ToArray();
 
         private readonly ConcurrentDictionary<Type, InvokerQueue> _router = new();
 
@@ -46,6 +50,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         private int[] _offsets = Array.Empty<int>();
         private bool _setOffsetsPending;
         private bool _isInitialized;
+        private bool _reelsTilted;
 
         public HarkeyProtocol()
             : base(1, HarkeyConstants.MaxReelId, HarkeyConstants.MessageTemplate)
@@ -82,6 +87,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 }
             }
 
+            HarkeySerializableMessage.Initialize();
             MessageBuilt += OnMessageBuilt;
         }
 
@@ -106,7 +112,6 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
             try
             {
-                HarkeySerializableMessage.Initialize();
                 _reelsSpinning = false;
 
                 base.Open();
@@ -122,7 +127,13 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
         protected override void SelfTest()
         {
-            _homeReelMessageDictionary.Clear();
+            lock (_sequenceLock)
+            {
+                if (_isInitialized)
+                {
+                    _homeReelMessageDictionary.Clear();
+                }
+            }
 
             // Clear any hardware faults that are active
             OnMessageReceived(new FailureStatusClear { HardwareError = true, CommunicationError = true });
@@ -140,7 +151,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 }
 
                 // Clear unsolicited tamper detected fault
-                OnMessageReceived(new FailureStatusClear { ReelId = reelIndex, TamperDetected = true, StallDetected = true, ComponentError = true });
+                OnMessageReceived(new FailureStatusClear { ReelId = reelIndex, TamperDetected = true, StallDetected = true, ComponentError = true, LowVoltageDetected = true});
             }
 
             // It doesn't support this
@@ -155,12 +166,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
         protected override bool GetDeviceInformation()
         {
-            foreach (var reelId in Enumerable.Range(1, HarkeyConstants.MaxReelId))
-            {
-                // Determine what reels are connected in the background homing reels can take up to 10 seconds
-                HomeReel(reelId);
-            }
-
+            DiscoverReels();
             HandleModel();
             SendCommand(new GetRm6Version());
 
@@ -187,8 +193,11 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
         protected override void CalculateCrc()
         {
-            // This device does not support CRC
-            FirmwareCrc = UnknownCrc;
+            // This device does not support CRC just use the version and has that
+            using var crc = new Crc32();
+            FirmwareCrc = string.IsNullOrEmpty(FirmwareVersion)
+                ? UnknownCrc
+                : BitConverter.ToInt32(crc.ComputeHash(FirmwareVersion.ToByteArray()), 0);
         }
 
         protected override void Enable(bool enable)
@@ -384,7 +393,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         {
             _homeReelMessageDictionary.Clear();
             SetPollingRate(HarkeyConstants.PollingIntervalMs);
-            SendCommand(new AbortAndSlowSpin { SelectedReels = GetAllReelsSelectedBits() });
+            SendAndReceive<AbortAndSlowSpinResponse>(
+                new AbortAndSlowSpin { SelectedReels = GetAllReelsSelectedBits() });
             _reelsSpinning = false;
         }
 
@@ -507,6 +517,36 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             );
         }
 
+        private byte[] GetHomeReelSequenceIds()
+        {
+            lock (_sequenceLock)
+            {
+                if (_homeReelMessageDictionary.Any())
+                {
+                    return Array.Empty<byte>();
+                }
+
+                var sequenceIds = new byte[ValidReelIds.Length];
+                for (var i = 0; i < ValidReelIds.Length; ++i)
+                {
+                    var nextSequence = NextSequenceId();
+                    sequenceIds[i] = nextSequence;
+                    _homeReelMessageDictionary.TryAdd(ValidReelIds[i], (nextSequence, false));
+                }
+
+                return sequenceIds;
+            }
+        }
+
+        private void DiscoverReels()
+        {
+            var sequenceIds = GetHomeReelSequenceIds();
+            for (var i = 0; i < sequenceIds.Length; ++i)
+            {
+                SendCommand(new HomeReel { ReelId = i + 1, SequenceId = sequenceIds[i] }, false);
+            }
+        }
+
         private byte[] GetReelSteps(IEnumerable<ISpinData> spinData, bool applyOffsets)
         {
             var steps = new byte[HarkeyConstants.MaxReelId];
@@ -552,6 +592,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
         private void HandleAbortAndSlowSpinResponse(AbortAndSlowSpinResponse response)
         {
+            _reelsTilted = true;
+
             var commandedReels = new BitArray(new[] { GetAllReelsSelectedBits() });
             for (var i = 0; i < commandedReels.Length; i++)
             {
@@ -560,6 +602,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                     OnMessageReceived(new ReelSpinningStatus { ReelId = i + 1, SlowSpinning = true });
                 }
             }
+
+            OnMessageReceived(new TiltReelsResponse());
         }
 
         private void HandleProtocolErrorResponse(ProtocolErrorResponse response)
@@ -610,6 +654,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
             if (response.ResponseCode == (int)HomeReelResponseCodes.Homed)
             {
+                _reelsTilted = false;
                 int homeStep;
 
                 lock (_sequenceLock)
@@ -624,7 +669,6 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                     reel,
                     x =>
                     {
-                        x.Connected = true;
                         x.ReelStall = false;
                         x.ReelTampered = false;
                         x.LowVoltage = false;
@@ -655,20 +699,26 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
             _homeReelMessageDictionary.TryUpdate(reel, (response.SequenceId, true), (response.SequenceId, false));
 
-            if (_homeReelMessageDictionary.All(x => x.Value.responseReceived))
-            {
-                _homeReelMessageDictionary.Clear();
-            }
-
             bool postInitialized;
             lock (_sequenceLock)
             {
-                postInitialized = !_isInitialized && !_homeReelMessageDictionary.IsEmpty;
-                _isInitialized = true;
+                if (_homeReelMessageDictionary.All(x => x.Value.responseReceived))
+                {
+                    _homeReelMessageDictionary.Clear();
+                    _reelsSpinning = false;
+                }
+
+                if (_isInitialized)
+                {
+                    return;
+                }
+
+                postInitialized = _isInitialized = _homeReelMessageDictionary.IsEmpty;
             }
 
             if (postInitialized)
             {
+                RequestStatus();
                 OnMessageReceived(new ControllerInitializedStatus());
             }
         }
@@ -766,6 +816,10 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         {
             FirmwareVersion = GetVersionString(version);
             OnMessageReceived(new GatData { Data = GatData });
+            if (_isInitialized)
+            {
+                OnMessageReceived(new ControllerInitializedStatus());
+            }
         }
 
         private void HandleStatus(ReelStatusResponse status)
@@ -782,12 +836,12 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             lock (_sequenceLock)
             {
                 // We need to ignore the connected status when homing after a tilt because the controller reports no status.
-                reel1Status = status.Reel1Status.ToReelStatus(1, _homeReelMessageDictionary.ContainsKey(1) && _reelsConnected[0]);
-                reel2Status = status.Reel2Status.ToReelStatus(2, _homeReelMessageDictionary.ContainsKey(2) && _reelsConnected[1]);
-                reel3Status = status.Reel3Status.ToReelStatus(3, _homeReelMessageDictionary.ContainsKey(3) && _reelsConnected[2]);
-                reel4Status = status.Reel4Status.ToReelStatus(4, _homeReelMessageDictionary.ContainsKey(4) && _reelsConnected[3]);
-                reel5Status = status.Reel5Status.ToReelStatus(5, _homeReelMessageDictionary.ContainsKey(5) && _reelsConnected[4]);
-                reel6Status = status.Reel6Status.ToReelStatus(6, _homeReelMessageDictionary.ContainsKey(6) && _reelsConnected[5]);
+                reel1Status = status.Reel1Status.ToReelStatus(1, _isInitialized, IgnoreConnectedStatus(1));
+                reel2Status = status.Reel2Status.ToReelStatus(2, _isInitialized, IgnoreConnectedStatus(2));
+                reel3Status = status.Reel3Status.ToReelStatus(3, _isInitialized, IgnoreConnectedStatus(3));
+                reel4Status = status.Reel4Status.ToReelStatus(4, _isInitialized, IgnoreConnectedStatus(4));
+                reel5Status = status.Reel5Status.ToReelStatus(5, _isInitialized, IgnoreConnectedStatus(5));
+                reel6Status = status.Reel6Status.ToReelStatus(6, _isInitialized, IgnoreConnectedStatus(6));
 
                 _reelsConnected[0] = reel1Status.Connected;
                 _reelsConnected[1] = reel2Status.Connected;
@@ -803,6 +857,16 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             SetReelStatus(4, reel4Status);
             SetReelStatus(5, reel5Status);
             SetReelStatus(6, reel6Status);
+        }
+
+        private bool IgnoreConnectedStatus(int reelId)
+        {
+            if (reelId >= HarkeyConstants.MaxReelId)
+            {
+                return false;
+            }
+
+            return (_homeReelMessageDictionary.ContainsKey(reelId) || _reelsTilted) && _reelsConnected[reelId - 1];
         }
 
         private void HandleSetFaultsResponse(SetFaultsResponse response)
@@ -843,11 +907,13 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             byte sequenceId;
             lock (_sequenceLock)
             {
+                _reelsSpinning = true;
+                SetPollingRate(HarkeyConstants.SpinningPollingIntervalMs);
                 sequenceId = NextSequenceId();
                 _homeReelMessageDictionary.TryAdd(reelId, (sequenceId, false));
             }
 
-            SendCommand(new HomeReel { ReelId = reelId, SequenceId = sequenceId }, false);
+            SendAndReceive<HomeReelResponse>(new HomeReel { ReelId = reelId, SequenceId = sequenceId }, false);
         }
 
         private void SetFaults(IReadOnlyList<byte> positions)
@@ -880,7 +946,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 _reelsSpinning = true;
             }
 
-            SendCommand(new SpinReelsToGoal
+            SendAndReceive<SpinReelsToGoalResponse>(new SpinReelsToGoal
             {
                 Direction = directions,
                 Goal1 = stops[0],
@@ -1205,6 +1271,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             // After a reset the controller thinks the lights are off but they could be on.
             // First we need to tell the reel controller to turn all lights on, then turn them all off.
             SetLightsStates(HarkeyConstants.AllLightsOn);
+            Thread.Sleep(ResetDelayMs);
             SetLightsStates(HarkeyConstants.AllLightsOff);
             for (var i = 0; i < _lastReelColors.Length; ++i)
             {
@@ -1215,6 +1282,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             {
                 _currentLightState[i] = new ReelLampData(Color.Black, false, i + 1);
             }
+
+            Thread.Sleep(LightResetDelayMs);
         }
 
         private async Task<TMessage> WaitForMessage<TMessage>(CancellationToken token)
@@ -1252,7 +1321,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             where TMessage : HarkeySerializableMessage
         {
             var delay = Task.Delay(waitTime, token);
-            var result = await Task.WhenAny(delay, messageWaiter);
+            var result = await Task.WhenAny(delay, messageWaiter).ConfigureAwait(false);
             if (result == messageWaiter)
             {
                 return await messageWaiter;

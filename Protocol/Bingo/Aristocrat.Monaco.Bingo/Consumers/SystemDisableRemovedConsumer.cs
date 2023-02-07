@@ -14,19 +14,16 @@
     public class SystemDisableRemovedConsumer : AsyncConsumes<SystemDisableRemovedEvent>
     {
         private readonly IReportEventQueueService _reportingService;
-        private readonly IPropertiesManager _propertiesManager;
         private readonly ICommandHandlerFactory _commandHandlerFactory;
 
         public SystemDisableRemovedConsumer(
             IEventBus eventBus,
             ISharedConsumer consumerContext,
             IReportEventQueueService reportingService,
-            IPropertiesManager propertiesManager,
             ICommandHandlerFactory commandHandlerFactory)
             : base(eventBus, consumerContext)
         {
             _reportingService = reportingService ?? throw new ArgumentNullException(nameof(reportingService));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _commandHandlerFactory = commandHandlerFactory ?? throw new ArgumentNullException(nameof(commandHandlerFactory));
         }
 
@@ -37,8 +34,7 @@
                 _reportingService.AddNewEventToQueue(ReportableEvent.Enabled);
             }
 
-            var serialNumber = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
-            await _commandHandlerFactory.Execute(new StatusResponseMessage(serialNumber), token);
+            await _commandHandlerFactory.Execute(new ReportEgmStatusCommand(), token);
         }
     }
 }

@@ -291,33 +291,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                     };
                 }
 
-                if (_selfTestDone)
-                {
-                    PrinterStatus = new PrinterStatus
-                    {
-                        PaperInChute = !_isPrinting && status.HasFlag(TclProtocolConstants.TclStatus.PaperInPath), // Paper In Chute only matters when not printing.
-                        PaperLow = status.HasFlag(TclProtocolConstants.TclStatus.PaperLow),
-                        // The printer will continue to print in this conditions.
-                        // Wait for validation number to be sent before setting fault to prevent a handpay for a valid ticket.
-                        ChassisOpen = (!_isPrinting || _isPrinting && !_isValidationCompleteReported)
-                                      && status.HasFlag(TclProtocolConstants.TclStatus.ChassisIsOpen),
-                        PrintHeadOpen = status.HasFlag(TclProtocolConstants.TclStatus.HeadIsUp),
-                        PaperJam = status.HasFlag(TclProtocolConstants.TclStatus.PaperJam),
-                        PaperEmpty = !_isPrinting &&
-                                     !status.HasFlag(TclProtocolConstants.TclStatus.ChassisIsOpen) &&
-                                     !status.HasFlag(TclProtocolConstants.TclStatus.HeadError) &&
-                                     status.HasFlag(TclProtocolConstants.TclStatus.OutOfPaper), // Paper Out only matters when not printing.
-                        TopOfForm = _isPrinting ||
-                                    status.HasFlag(TclProtocolConstants.TclStatus.TopOfForm) || // Top-of-form only matters at certain times.
-                                    status.HasFlag(TclProtocolConstants.TclStatus.OutOfPaper) ||
-                                    !status.HasFlag(TclProtocolConstants.TclStatus.HeadError)
-                    };
-
-                    if (HasDisablingFault)
-                    {
-                        _isPrinting = false;
-                    }
-                }
+                CheckSelfTestDone(status);
 
                 Logger.Debug($"isPrinting={_isPrinting} waitingForRegionOfInterest={_waitForRegionOfInterest} isTemplateMode={_isTemplateMode} busy={status.HasFlag(TclProtocolConstants.TclStatus.Busy)}");
 
@@ -356,6 +330,43 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
             EnablePolling(true);
 
             OnMessageReceived(new FailureStatus());
+        }
+
+        private void CheckSelfTestDone(TclProtocolConstants.TclStatus status)
+        {
+            if (_selfTestDone)
+            {
+                PrinterStatus = new PrinterStatus
+                {
+                    PaperInChute = !_isPrinting && status.HasFlag(TclProtocolConstants.TclStatus.PaperInPath), // Paper In Chute only matters when not printing.
+                    PaperLow = status.HasFlag(TclProtocolConstants.TclStatus.PaperLow),
+                    // The printer will continue to print when the chassis is open, we only flag the chasis open if we are not
+                    // printing or printing and not waiting for a region of interest. 
+                    ChassisOpen = (!_isPrinting || _isPrinting && !_waitForRegionOfInterest)
+                                  && status.HasFlag(TclProtocolConstants.TclStatus.ChassisIsOpen),
+                    PrintHeadOpen = status.HasFlag(TclProtocolConstants.TclStatus.HeadIsUp),
+                    PaperJam = status.HasFlag(TclProtocolConstants.TclStatus.PaperJam),
+                    PaperEmpty = !_isPrinting &&
+                                 !status.HasFlag(TclProtocolConstants.TclStatus.ChassisIsOpen) &&
+                                 !status.HasFlag(TclProtocolConstants.TclStatus.HeadError) &&
+                                 status.HasFlag(TclProtocolConstants.TclStatus.OutOfPaper), // Paper Out only matters when not printing.
+                    TopOfForm = _isPrinting ||
+                                status.HasFlag(TclProtocolConstants.TclStatus.TopOfForm) || // Top-of-form only matters at certain times.
+                                status.HasFlag(TclProtocolConstants.TclStatus.OutOfPaper) ||
+                                !status.HasFlag(TclProtocolConstants.TclStatus.HeadError)
+                };
+
+                if (_isPrinting && HasDisablingFault)
+                {
+                    Logger.Warn($"RequestStatus - HasDisablingFault - _waitForRegionOfInterest {_waitForRegionOfInterest}");
+                    if (_waitForRegionOfInterest)
+                    {
+                        SendMessage(TclProtocolConstants.AbortBarcodePrintCommand);
+                    }
+
+                    _isPrinting = false;
+                }
+            }
         }
 
         private void AbortPrintBatch()
