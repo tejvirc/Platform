@@ -11676,4 +11676,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="ReelControllerManufacturer" xml:space="preserve">
     <value>Reel Controller Manufacturer</value>
   </data>
+  <data name="Displays" xml:space="preserve">
+    <value>Displays</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>

@@ -190,9 +190,8 @@
                 RefreshDisplays();
             }
 
-            var monitorInfo = "Monitor: ??"; // TODO
-            var touchInfo = "Touch: " +
-                            MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
+            var monitorInfo = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
+            var touchInfo = $"Touch: {MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator))}";
             Inspection?.SetFirmwareVersion(string.Join(Environment.NewLine, monitorInfo, touchInfo));
 
             base.OnLoaded();

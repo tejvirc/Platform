@@ -8756,6 +8756,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return ResourceManager.GetString("Displays", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -43306,6 +43318,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return "Displays";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -74117,6 +74141,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		DisplayDisconnected,
+		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Displays,
 		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>

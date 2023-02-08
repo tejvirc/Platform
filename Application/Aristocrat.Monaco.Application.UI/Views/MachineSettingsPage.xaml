@@ -329,6 +329,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -378,35 +379,46 @@
                        Grid.Column="1" 
                        Text="{Binding ButtonDeck, Mode=OneWay}" />
 
+            <!-- Displays Section -->
+            <Label x:Name="DisplaysLabel" 
+                   Grid.Row="4" 
+                   Grid.Column="0" 
+                   loc:Localizer.For="Operator"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.Displays}}" />
+            <TextBlock x:Name="DisplaysTextBlock" 
+                       Grid.Row="4" 
+                       Grid.Column="1" 
+                       Text="{Binding Displays, Mode=OneWay}" />
+
             <!-- Touch Screen Section -->
             <Label x:Name="TouchScreenLabel" 
-                   Grid.Row="4" 
+                   Grid.Row="5" 
                    Grid.Column="0" 
                    loc:Localizer.For="Operator"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.TouchScreen}}" />
             <TextBlock x:Name="TouchScreenTextBlock" 
-                       Grid.Row="4" 
+                       Grid.Row="5" 
                        Grid.Column="1" 
                        Text="{Binding TouchScreens, Mode=OneWay}" />
 
             <!-- Lighting Section -->
             <Label x:Name="LightingLabel" 
-                   Grid.Row="5" 
+                   Grid.Row="6" 
                    Grid.Column="0" 
                    loc:Localizer.For="Operator"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.EdgeLighting}}" />
             <TextBlock x:Name="LightingTextBlock" 
-                       Grid.Row="5" 
+                       Grid.Row="6" 
                        Grid.Column="1" 
                        Text="{Binding Lighting, Mode=OneWay}" />
 
             <!-- Note Acceptor Section -->
             <Label x:Name="NoteAcceptorLabel" 
-                   Grid.Row="6" 
+                   Grid.Row="7" 
                    Grid.Column="0" 
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorLabel}}" />
             <TextBlock x:Name="NoteAcceptorTextBlock" 
-                       Grid.Row="6" 
+                       Grid.Row="7" 
                        Grid.Column="1">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -422,11 +434,11 @@
             
             <!-- Printer Section -->
             <Label x:Name="PrinterLabel" 
-                   Grid.Row="7" 
+                   Grid.Row="8" 
                    Grid.Column="0" 
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrinterLabel}}" />
             <TextBlock x:Name="PrinterTextBlock" 
-                       Grid.Row="7" 
+                       Grid.Row="8" 
                        Grid.Column="1">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -442,62 +454,62 @@
 
             <!-- Reels Section -->
             <Label x:Name="ReelControllerLabel" 
-                   Grid.Row="8" 
+                   Grid.Row="9" 
                    Grid.Column="0" 
                    loc:Localizer.For="Operator"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReelControllerLabel}}" />
             <TextBlock x:Name="ReelControllerTextBlock" 
-                       Grid.Row="8" 
+                       Grid.Row="9" 
                        Grid.Column="1" 
                        Text="{Binding ReelController, Mode=OneWay}" />
 
             <!-- Bios Version Section -->
             <Label x:Name="BiosVersionLabel" 
-                   Grid.Row="9" 
+                   Grid.Row="10" 
                    Grid.Column="0" 
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.BiosVersion}}" />
             <TextBlock x:Name="BiosVersionTextBlock" 
-                       Grid.Row="9" 
+                       Grid.Row="10" 
                        Grid.Column="1"
                        Text="{Binding BiosVersion, Mode=OneWay}" />
 
             <!-- Fpga Version Section -->
             <Label x:Name="FpgaVersionLabel" 
-                   Grid.Row="10" 
+                   Grid.Row="11" 
                    Grid.Column="0" 
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.FpgaVersion}}" />
             <TextBlock x:Name="FpgaVersionTextBlock" 
-                       Grid.Row="10" 
+                       Grid.Row="11" 
                        Grid.Column="1"
                        Text="{Binding FpgaVersion, Mode=OneWay}" />
 
             <!-- Windows Version Section -->
             <Label x:Name="WindowsLabel" 
-                   Grid.Row="11" 
+                   Grid.Row="12" 
                    Grid.Column="0" 
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.WindowsVersionLabel}}" />
             <TextBlock x:Name="WindowsTextBlock" 
-                       Grid.Row="11" 
+                       Grid.Row="12" 
                        Grid.Column="1" 
                        Text="{Binding WindowsVersion, Mode=OneWay}" />
 
             <!-- OS Image Section -->
             <Label x:Name="OsImageLabel" 
-                   Grid.Row="12" 
+                   Grid.Row="13" 
                    Grid.Column="0" 
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.OSImageVersionLabel}}" />
             <TextBlock x:Name="OsImageTextBlock" 
-                       Grid.Row="12" 
+                       Grid.Row="13" 
                        Grid.Column="1" 
                        Text="{Binding OsImageVersion, Mode=OneWay}" />
 
             <!-- Platform Version Section -->
             <Label x:Name="PlatformLabel" 
-                   Grid.Row="13" 
+                   Grid.Row="14" 
                    Grid.Column="0" 
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlatformVersionLabel}}" />
             <TextBlock x:Name="PlatformTextBlock" 
-                       Grid.Row="13" 
+                       Grid.Row="14" 
                        Grid.Column="1" 
                        Text="{Binding PlatformVersion, Mode=OneWay}" />
 

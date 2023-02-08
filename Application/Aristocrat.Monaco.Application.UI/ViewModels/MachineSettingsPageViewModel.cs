@@ -44,6 +44,7 @@
         private string _electronics;
         private string _graphicsCard;
         private string _buttonDeck;
+        private string _displays;
         private string _touchScreens;
         private string _lighting;
         private string _noteAcceptorModel;
@@ -152,6 +153,19 @@
         {
             get => _buttonDeck;
             private set => SetProperty(ref _buttonDeck, value, nameof(ButtonDeck));
+        }
+
+        public string Displays
+        {
+            get => _displays;
+            private set
+            {
+                if (!_displays?.Equals(value) ?? true)
+                {
+                    _displays = value;
+                    RaisePropertyChanged(nameof(Displays));
+                }
+            }
         }
 
         public string TouchScreens
@@ -303,6 +317,8 @@
                 .GraphicsCard;
 
             ButtonDeck = MachineSettingsUtilities.GetButtonDeckIdentification(Localizer.For(CultureFor.Operator));
+
+            Displays = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
 
             TouchScreens = MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
 
