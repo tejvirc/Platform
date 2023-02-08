@@ -76,7 +76,7 @@
                 var beforeNextGamePreviousGame = previousGame.MeterSnapshots.FirstOrDefault(
                     s => s.PlayState == PlayState.PresentationIdle || s.PlayState == PlayState.GameEnded);
 
-                 resultingSnapshot = GetSnapshotDelta(beforeNextGamePreviousGame, beforeGameStartCurrentGame);
+                resultingSnapshot = GetSnapshotDelta(beforeNextGamePreviousGame, beforeGameStartCurrentGame);
             }
 
             result.Snapshot = resultingSnapshot;
@@ -175,8 +175,7 @@
             model.TotalVouchersIn =
                 snapshot.VoucherInCashableAmount +
                 snapshot.VoucherInCashablePromoAmount +
-                snapshot.VoucherInNonCashableAmount +
-                snapshot.HandPaidGameWonAmount;
+                snapshot.VoucherInNonCashableAmount;
 
             model.TotalVouchersOut =
                 snapshot.VoucherOutCashableAmount +
