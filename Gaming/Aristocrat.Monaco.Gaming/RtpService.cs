@@ -29,7 +29,7 @@
             LoadRtpRules();
         }
 
-        public RtpReport GetRtpReport(params IGameDetail[] gameVariations)
+        public RtpReport GetRtpReport(params IGameProfile[] gameVariations)
         {
             throw new NotImplementedException();
         }

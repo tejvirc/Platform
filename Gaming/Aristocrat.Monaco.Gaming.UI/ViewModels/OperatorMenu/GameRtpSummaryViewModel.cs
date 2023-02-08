@@ -74,22 +74,27 @@
                 return 0m; 
             }
 
-            var gameThemes = games.Select(game => game.ThemeId).Distinct();
-            var rtpReportsByTheme = new Dictionary<string, RtpReport>();
+            var rtpReport = _rtpService.GetRtpReport(games.ToArray());
 
-            foreach (var themeId in gameThemes)
-            {
-                rtpReportsByTheme[themeId] = _rtpService.GetRtpReportForGameTheme(themeId);
-            }
+            rtpReport.GetRtpBreakdowns()
 
-            var averageRtp = games.Average(game =>
-            {
-                var rtpBreakdown = rtpReportsByTheme[game.ThemeId].GetTotalRtpForVariation(game.VariationId);
-                var totalRtp = rtpBreakdown.TotalRtp;
-                return (totalRtp.Minimum + totalRtp.Maximum) / 2.0m;
-            });
 
-            return averageRtp;
+            //var gameThemes = games.Select(game => game.ThemeId).Distinct();
+            //var rtpReportsByTheme = new Dictionary<string, RtpReport>();
+
+            //foreach (var themeId in gameThemes)
+            //{
+            //    rtpReportsByTheme[themeId] = _rtpService.GetRtpReportForGameTheme(themeId);
+            //}
+
+            //var averageRtp = games.Average(game =>
+            //{
+            //    var rtpBreakdown = rtpReportsByTheme[game.ThemeId].GetTotalVariationRtp(game.VariationId);
+            //    var totalRtp = rtpBreakdown.Rtp;
+            //    return (totalRtp.Minimum + totalRtp.Maximum) / 2.0m;
+            //});
+
+            //return averageRtp;
         }
 
         private List<GameSummary> CreateGameSummaries(

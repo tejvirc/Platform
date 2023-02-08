@@ -37,7 +37,7 @@
         /// </summary>
         /// <param name="variationId">The variation identifier.</param>
         /// <returns>The total RTP the variation</returns>
-        public RtpRange GetTotalRtpForVariation(string variationId)
+        public RtpRange GetTotalVariationRtp(string variationId)
         {
             if (!_rtpBreakdownsByVariationThenWagerCategory.TryGetValue(variationId, out var wagerCategoryRtpBreakdowns))
             {
@@ -45,7 +45,7 @@
             }
 
             var totalRtpBreakdown = wagerCategoryRtpBreakdowns.Values
-                .Select(breakdown => breakdown.TotalRtp)
+                .Select(breakdown => breakdown.Rtp)
                 .Aggregate((r1, r2) => r1.TotalWith(r2));
 
             return totalRtpBreakdown;
@@ -55,10 +55,10 @@
         ///     Gets the total RTP Range for the Game Theme.
         /// </summary>
         /// <returns>The RTP statistics for the Game Theme</returns>
-        public RtpRange GetTotalRtpForGameTheme()
+        public RtpRange GetTotalRtp()
         {
             var variationRtpTotals =
-                _rtpBreakdownsByVariationThenWagerCategory.Keys.Select(GetTotalRtpForVariation);
+                _rtpBreakdownsByVariationThenWagerCategory.Keys.Select(GetTotalVariationRtp);
 
             var rtpTotal = variationRtpTotals.Aggregate((r1, r2) => r1.TotalWith(r2));
 
@@ -147,28 +147,44 @@
             {
                 foreach (var wagerCategoryRtp in gameVariantRtp.Value)
                 {
-                    ValidateRtpValues(wagerCategoryRtp.Value);
+                    ValidateRtpRangeBoundries(wagerCategoryRtp.Value);
 
                     ValidatePrecision(wagerCategoryRtp.Value, RequiredLevelOfRtpPrecision);
 
+                    ValidateGameLimits();
+
                     ValidateJurisdictionalLimits(wagerCategoryRtp.Value);
+
+                    ValidateMachineAndOrHostLimits();
                 }
             }
         }
 
+        private void ValidateMachineAndOrHostLimits()
+        {
+            // TODO: Implement if needed
+            throw new NotImplementedException();
+        }
+
+        private void ValidateGameLimits()
+        {
+            // TODO: Implement if needed
+            throw new NotImplementedException();
+        }
+
         private void ValidateJurisdictionalLimits(RtpBreakdown rtpBreakdown)
         {
-            if (rtpBreakdown.TotalRtp.Minimum < _rules.MinimumRtp)
+            if (rtpBreakdown.Rtp.Minimum < _rules.MinimumRtp)
             {
                 rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMinimum;
             }
-            if (rtpBreakdown.TotalRtp.Maximum > _rules.MaximumRtp)
+            if (rtpBreakdown.Rtp.Maximum > _rules.MaximumRtp)
             {
                 rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMaximum;
             }
         }
 
-        private static void ValidateRtpValues(RtpBreakdown rtpBreakdown)
+        private void ValidateRtpRangeBoundries(RtpBreakdown rtpBreakdown)
         {
             if (CheckRtpRange(rtpBreakdown.Base) &&
                 CheckRtpRange(rtpBreakdown.StandaloneProgressiveReset) &&
@@ -182,7 +198,7 @@
             rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.InvalidRtpValue;
         }
 
-        private static void ValidatePrecision(RtpBreakdown rtpBreakdown, int numOfDecimalPlaces)
+        private void ValidatePrecision(RtpBreakdown rtpBreakdown, int numOfDecimalPlaces)
         {
             if (CheckPrecision(rtpBreakdown.Base.Minimum, numOfDecimalPlaces) &&
                 CheckPrecision(rtpBreakdown.Base.Maximum, numOfDecimalPlaces) &&

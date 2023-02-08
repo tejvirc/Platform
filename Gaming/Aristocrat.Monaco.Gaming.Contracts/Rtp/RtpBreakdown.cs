@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Rtp
 {
     /// <summary>
-    ///     A fine-grain breakdown of RTP percentages which make up a total RTP percent range
+    ///     A fine-grain breakdown of RTP percentages for a WagerCategory
     /// </summary>
     public class RtpBreakdown
     {
@@ -34,11 +34,7 @@
         /// <summary>
         ///     Gets the total RTP.
         /// </summary>
-        public RtpRange TotalRtp => Base +
-                                    StandaloneProgressiveIncrement +
-                                    StandaloneProgressiveReset +
-                                    LinkedProgressiveIncrement +
-                                    LinkedProgressiveReset;
+        public RtpRange Rtp => Base + StandaloneProgressiveIncrement + StandaloneProgressiveReset + LinkedProgressiveIncrement + LinkedProgressiveReset;
 
         /// <summary>
         ///     The results of the RTP validation

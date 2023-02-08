@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using Contracts;
     using Contracts.Rtp;
 
     public class GameSummary

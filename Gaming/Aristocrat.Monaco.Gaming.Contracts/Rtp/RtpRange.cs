@@ -12,7 +12,7 @@
     public class RtpRange
     {
         /// <summary>
-        ///     Represents a zero RTP range which usually means "unused."
+        ///     Represents a zero RTP range which essentially means "unused."
         /// </summary>
         public static RtpRange Zero = new (0.0m, 0.0m);
 
@@ -63,11 +63,11 @@
         public RtpRange TotalWith(RtpRange otherRtp) => new(Math.Min(Minimum, otherRtp.Minimum), Math.Max(Maximum, otherRtp.Maximum));
 
         /// <summary>
-        ///     Overloaded Addition operator + to support expanding RTP Ranges.
+        ///     Overloaded Addition operator +, used for finding the summation of two <see cref="RtpRange"s/>
         /// </summary>
         /// <param name="r1">RTP Range 1</param>
         /// <param name="r2">RTP Range 2</param>
-        /// <returns></returns>
+        /// <returns>The sum of the two ranges</returns>
         public static RtpRange operator +(RtpRange r1, RtpRange r2) => new(r1.Minimum + r2.Minimum, r1.Maximum + r2.Maximum);
 
         /// <summary>
