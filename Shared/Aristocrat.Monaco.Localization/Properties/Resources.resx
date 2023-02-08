@@ -1891,10 +1891,6 @@ Max: Should be less than the Large Win Limit</value>
     <value>Initializing</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
-  <data name="DisabledHost0CommunicationsOffline" xml:space="preserve">
-    <value>Communications Offline (SAS Host 0)</value>
-    <comment>Aristocrat.Monaco.Sas</comment>
-  </data>
   <data name="DisabledHost1CommunicationsOffline" xml:space="preserve">
     <value>Communications Offline (SAS Host 1)</value>
     <comment>Aristocrat.Monaco.Sas</comment>
