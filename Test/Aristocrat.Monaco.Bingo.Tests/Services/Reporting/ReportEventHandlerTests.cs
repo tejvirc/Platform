@@ -11,17 +11,16 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using ServerApiGateway;
 
     [TestClass]
     public class ReportEventHandlerTests
     {
         private const string MachineSerial = "1";
         private const int ReportId = 123;
-        private readonly ReportEventAck _ack = new() { Succeeded = true, EventId = ReportId };
+        private readonly ReportEventResponse _ack = new(ResponseCode.Ok, ReportId);
         private ReportEventHandler _target;
-        private readonly Mock<IAcknowledgedQueueHelper<ReportEventMessage, int>> _helper = new (MockBehavior.Strict);
-        private AcknowledgedQueue<ReportEventMessage, int> _queue;
+        private readonly Mock<IAcknowledgedQueueHelper<ReportEventMessage, long>> _helper = new (MockBehavior.Strict);
+        private AcknowledgedQueue<ReportEventMessage, long> _queue;
         private readonly Mock<IPropertiesManager> _properties = new(MockBehavior.Strict);
         private readonly Mock<IReportEventService> _reportEventService = new(MockBehavior.Strict);
         private readonly Mock<IIdProvider> _idProvider = new(MockBehavior.Strict);
@@ -112,7 +111,7 @@
         public void DisconnectWhileProcessingQueue()
         {
             var wait = new AutoResetEvent(false);
-            var completion = new TaskCompletionSource<ReportEventAck>();
+            var completion = new TaskCompletionSource<ReportEventResponse>();
 
             _reportEventService.Setup(m => m.ReportEvent(It.IsAny<ReportEventMessage>(), It.IsAny<CancellationToken>()))
                 .Callback(() => wait.Set())

@@ -54,7 +54,7 @@
 
             var result = await _target.ReportEvent(_message, CancellationToken.None);
             Assert.AreEqual(EventId, result.EventId);
-            Assert.IsTrue(result.Succeeded);
+            Assert.AreEqual(result.ResponseCode, ResponseCode.Ok);
         }
 
         [ExpectedException(typeof(InvalidOperationException))]
