@@ -444,7 +444,7 @@
 
             if (string.IsNullOrEmpty(action.parameterProperty))
             {
-                return ((string)item.Item).Contains(action.parameter);
+                return item.Item.ToString().Contains(action.parameter);
             }
 
             var property = itemType.GetProperty(

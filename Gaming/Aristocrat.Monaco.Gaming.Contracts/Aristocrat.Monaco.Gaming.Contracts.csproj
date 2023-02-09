@@ -55,9 +55,6 @@
     <None Include="Lobby\LobbyConfiguration.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="TowerLight\TowerLightConfiguration.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">

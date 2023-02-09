@@ -56,36 +56,36 @@
     <Action waitMs="500"  controlName="ButtonLampsListBox" parameter="Bash/Play Button"      conditionProperty="ButtonLampsAvailable" />
     <Action waitMs="1000" controlName="ButtonLampsListBox" parameter="Test All Button Lamps" conditionProperty="ButtonLampsAvailable" />
     <Action waitMs="1000" controlName="ButtonLampsListBox" parameter="None"                  conditionProperty="ButtonLampsAvailable" />
-    <Action waitMs="1000" controlName="TowerLightTiersComboBox"      parameter="Tier1"  conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"     conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier2"  conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"     conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier3"  conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"     conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier4"  conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"     conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Strobe" conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"     conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="1500" controlName="TowerLightTiersComboBox"      parameter="Tier1"  conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"    conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier2"  conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"    conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier3"  conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"    conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier4"  conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"    conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Strobe" conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"    conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                    conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"      parameter="Tier 1" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 2" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 3" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 4" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Strobe" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="1500" controlName="TowerLightTiersComboBox"      parameter="Tier 1" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 2" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 3" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 4" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Strobe" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="4" />
   </PageAutomation>
   <PageAutomation category="Bell">
     <Action waitMs="1000" controlName="BellToggleSwitch" />
