@@ -68,25 +68,16 @@
 
         private decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games)
         {
-            return !games.Any() ? 0m : _rtpService.GetAverageRtp(games);
+            if (!games.Any())
+            {
+                return decimal.Zero;
+            }
+            else
+            {
+                var average = _rtpService.GetAverageRtp(games);
 
-            // TODO: Delete comment after verify
-            //var gameThemes = games.Select(game => game.ThemeId).Distinct();
-            //var rtpReportsByTheme = new Dictionary<string, RtpReport>();
-
-            //foreach (var themeId in gameThemes)
-            //{
-            //    rtpReportsByTheme[themeId] = _rtpService.GetRtpReportForGameTheme(themeId);
-            //}
-
-            //var averageRtp = games.Average(game =>
-            //{
-            //    var rtpBreakdown = rtpReportsByTheme[game.ThemeId].GetTotalVariationRtp(game.VariationId);
-            //    var totalRtp = rtpBreakdown.Rtp;
-            //    return (totalRtp.Minimum + totalRtp.Maximum) / 2.0m;
-            //});
-
-            //return averageRtp;
+                return average;
+            }
         }
 
         private List<GameSummary> CreateGameSummaries(

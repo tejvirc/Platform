@@ -25,7 +25,7 @@
 
         public string Name => GetType().ToString();
 
-        public ICollection<Type> ServiceTypes => new[] { typeof(IRtpService) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(IRtpService2) };
 
         public void Initialize()
         {
