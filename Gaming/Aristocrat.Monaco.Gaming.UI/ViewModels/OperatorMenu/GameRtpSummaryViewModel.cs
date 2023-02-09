@@ -15,12 +15,11 @@
 
     public class GameRtpSummaryViewModel : OperatorMenuSaveViewModelBase
     {
-        private readonly IRtpService _rtpService;
+        private readonly IRtpService2 _rtpService;
 
         public GameRtpSummaryViewModel(IReadOnlyCollection<IGameDetail> games, double denomMultiplier)
         {
-            _rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
-            games ??= new ReadOnlyCollection<IGameDetail>(new List<IGameDetail>());
+            _rtpService = ServiceManager.GetInstance().GetService<IRtpService2>();
 
             GameTypeItems = new List<GameSummary>();
             GameItemsByType = new Dictionary<GameType, IEnumerable<GameSummary>>();
@@ -69,16 +68,9 @@
 
         private decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games)
         {
-            if (!games.Any())
-            {
-                return 0m; 
-            }
+            return !games.Any() ? 0m : _rtpService.GetAverageRtp(games);
 
-            var rtpReport = _rtpService.GetRtpReport(games.ToArray());
-
-            rtpReport.GetRtpBreakdowns()
-
-
+            // TODO: Delete comment after verify
             //var gameThemes = games.Select(game => game.ThemeId).Distinct();
             //var rtpReportsByTheme = new Dictionary<string, RtpReport>();
 

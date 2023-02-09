@@ -6,9 +6,7 @@
     using System.Linq;
 
     /// <summary>
-    ///     TODO: fill this in (it represents a report on a collection of gamesVariants
-    /// 
-    ///     TODO: Validate the validations
+    ///     TODO: DELETE ME
     /// </summary>
     public class RtpReport
     {
@@ -16,6 +14,7 @@
         private readonly RtpRules _rules;
         private readonly Dictionary<string, Dictionary<string, RtpBreakdown>> _rtpBreakdownsByVariationThenWagerCategory = new();
 
+        // TODO: DELETE ME
         /// <summary>
         ///     Initializes a new instance of the <see cref="RtpReport" /> class.
         /// </summary>
@@ -45,7 +44,7 @@
             }
 
             var totalRtpBreakdown = wagerCategoryRtpBreakdowns.Values
-                .Select(breakdown => breakdown.Rtp)
+                .Select(breakdown => breakdown.TotalRtp)
                 .Aggregate((r1, r2) => r1.TotalWith(r2));
 
             return totalRtpBreakdown;
@@ -141,13 +140,15 @@
             };
         }
 
+
+
         private void RunAllRtpValidations()
         {
             foreach (var gameVariantRtp in _rtpBreakdownsByVariationThenWagerCategory)
             {
                 foreach (var wagerCategoryRtp in gameVariantRtp.Value)
                 {
-                    ValidateRtpRangeBoundries(wagerCategoryRtp.Value);
+                    ValidateRtpRangeBoundaries(wagerCategoryRtp.Value);
 
                     ValidatePrecision(wagerCategoryRtp.Value, RequiredLevelOfRtpPrecision);
 
@@ -174,17 +175,17 @@
 
         private void ValidateJurisdictionalLimits(RtpBreakdown rtpBreakdown)
         {
-            if (rtpBreakdown.Rtp.Minimum < _rules.MinimumRtp)
+            if (rtpBreakdown.TotalRtp.Minimum < _rules.MinimumRtp)
             {
                 rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMinimum;
             }
-            if (rtpBreakdown.Rtp.Maximum > _rules.MaximumRtp)
+            if (rtpBreakdown.TotalRtp.Maximum > _rules.MaximumRtp)
             {
                 rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMaximum;
             }
         }
 
-        private void ValidateRtpRangeBoundries(RtpBreakdown rtpBreakdown)
+        private void ValidateRtpRangeBoundaries(RtpBreakdown rtpBreakdown)
         {
             if (CheckRtpRange(rtpBreakdown.Base) &&
                 CheckRtpRange(rtpBreakdown.StandaloneProgressiveReset) &&
@@ -216,6 +217,7 @@
 
             rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.InsufficientRtpPrecision;
         }
+
 
         private static bool CheckPrecision(decimal value, int numOfDecimalPlaces)
         {

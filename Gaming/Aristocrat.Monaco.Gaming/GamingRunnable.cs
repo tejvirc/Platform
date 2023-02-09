@@ -275,7 +275,7 @@
             serviceManager.AddService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<IRtpService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IRtpService2>() as IService);
         }
 
         private void RemoveServices()

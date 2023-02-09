@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Rtp
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Localization.Properties;
 
@@ -14,26 +13,13 @@
         /// <summary>
         ///     Represents a zero RTP range which essentially means "unused."
         /// </summary>
-        public static RtpRange Zero = new (0.0m, 0.0m);
+        public static RtpRange Zero = new ();
 
         /// <summary>
-        ///     Constructs a new immutable RTP (Return to Player) range in percent.
+        ///     Constructs a new RTP (Return to Player) range in percent.
         /// </summary>
-        public RtpRange(decimal min, decimal max)
+        public RtpRange(decimal min = decimal.Zero, decimal max = decimal.Zero)
         {
-            if (min > max)
-            {
-                throw new ArgumentException("The RTP min value is greater than the RTP max value.");
-            }
-            if (min < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(min), "RTP percentages cannot be negative.");
-            }
-            if (max < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(max), "RTP percentages cannot be negative.");
-            }
-
             Minimum = min;
             Maximum = max;
         }
@@ -41,7 +27,7 @@
         /// <summary>
         ///     Gets or sets the minimum RTP, in percent
         /// </summary>
-        public decimal Minimum { get; }
+        public decimal Minimum { get; } 
 
         /// <summary>
         ///     Gets or sets the maximum RTP, in percent

@@ -34,11 +34,11 @@
         /// <summary>
         ///     Gets the total RTP.
         /// </summary>
-        public RtpRange Rtp => Base + StandaloneProgressiveIncrement + StandaloneProgressiveReset + LinkedProgressiveIncrement + LinkedProgressiveReset;
+        public RtpRange TotalRtp => Base + StandaloneProgressiveIncrement + StandaloneProgressiveReset + LinkedProgressiveIncrement + LinkedProgressiveReset;
 
         /// <summary>
         ///     The results of the RTP validation
         /// </summary>
-        public RtpValidationResult ValidationResult = new();
+        public RtpValidationResult ValidationResult { get; set; } = new();
     }
 }

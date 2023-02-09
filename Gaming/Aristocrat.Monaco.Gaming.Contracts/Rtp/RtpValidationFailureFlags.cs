@@ -11,7 +11,7 @@
         /// <summary>
         ///     Indicating no failures
         /// </summary>
-        None,
+        None = 0,
 
         /// <summary>
         ///     The RTP exceeds jurisdictional maximum RTP
