@@ -1,22 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.UI.OperatorMenu;
-    using Cabinet.Contracts;
-    using Hardware.Contracts.Cabinet;
-    using Kernel;
+    using System.Windows;
 
     public class BackgroundPreviewViewModel : OperatorMenuSaveViewModelBase
     {
         private string _backgroundImagePath;
+        private readonly double _scaleFactor = 0.75;
 
         public BackgroundPreviewViewModel()
         {
-            var displayDevice = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().GetDisplayDeviceByItsRole(DisplayRole.Main);
-
-            if (displayDevice != null)
-            {
-                BackgroundPreviewHeight = displayDevice.Bounds.Height * 0.75;
-            }
+            BackgroundPreviewHeight = SystemParameters.PrimaryScreenHeight * _scaleFactor;
+            BackgroundPreviewWidth = SystemParameters.PrimaryScreenWidth * _scaleFactor;
+            Logger.Debug($"Screen Size: {BackgroundPreviewWidth}x{BackgroundPreviewHeight}");
         }
 
         public string BackgroundImagePath
@@ -26,5 +22,6 @@
         }
 
         public double BackgroundPreviewHeight { get; }
+        public double BackgroundPreviewWidth { get; }
     }
 }
