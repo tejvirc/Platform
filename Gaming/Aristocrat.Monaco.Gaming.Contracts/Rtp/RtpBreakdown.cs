@@ -40,5 +40,14 @@
         ///     The results of the RTP validation
         /// </summary>
         public RtpValidationResult ValidationResult { get; set; } = new();
+
+        /// <summary>
+        ///     Converts this model to string.
+        /// </summary>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
+        public override string ToString()
+        {
+            return $"{nameof(TotalRtp)}: {TotalRtp}, {nameof(ValidationResult)}: {ValidationResult}";
+        }
     }
 }

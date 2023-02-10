@@ -2,13 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
-    using Aristocrat.Monaco.PackageManifest.Models;
     using Contracts;
     using Contracts.Models;
     using Contracts.Rtp;
-    using FMOD;
     using Kernel;
 
     public class RtpService2 : IRtpService2, IService
@@ -82,33 +79,25 @@
             var wagerCategory = game.WagerCategories.FirstOrDefault(w => w.Id.Equals(wagerCategoryId))
                 ?? throw new ArgumentException(nameof(wagerCategoryId), $"No WagerCategory exists with id={wagerCategoryId}");
 
-            return CreateRtpBreakdown(game.GameType, wagerCategory);
+            var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
+            ValidateRtp(breakdown, game.GameType);
+
+            return breakdown;
         }
 
         public RtpValidationReport ValidateRtp(params IGameProfile[] games)
         {
             var validationDataForReport = new List<(IGameProfile game, RtpValidation validation)>();
 
-            // iterate over games
             foreach (var game in games)
             {
                 var resultEntries = new List<(string wagerCategoryId, RtpValidationResult validationResult)>();
 
-                // iterate wager categories
                 foreach (var wagerCategory in game.WagerCategories)
                 {
-                    // build Rtp breakdowns
                     var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
 
-                    ValidateRtpRangeBoundaries(breakdown);
-
-                    ValidatePrecision(breakdown, RequiredLevelOfRtpPrecision);
-
-                    ValidateGameLimits(breakdown);
-
-                    ValidateJurisdictionalLimits(breakdown, game.GameType);
-
-                    ValidateMachineAndOrHostLimits(breakdown);
+                    ValidateRtp(breakdown, game.GameType);
 
                     resultEntries.Add((wagerCategory.Id, breakdown.ValidationResult));
                 }
@@ -126,6 +115,19 @@
             var validationReport = new RtpValidationReport(validationDataForReport);
 
             return validationReport;
+        }
+
+        private void ValidateRtp(RtpBreakdown breakdown, GameType gameType)
+        {
+            ValidateRtpRangeBoundaries(breakdown);
+
+            ValidatePrecision(breakdown, RequiredLevelOfRtpPrecision);
+
+            ValidateGameLimits(breakdown);
+
+            ValidateJurisdictionalLimits(breakdown, gameType);
+
+            ValidateMachineAndOrHostLimits(breakdown);
         }
 
         private void LoadRtpRules()

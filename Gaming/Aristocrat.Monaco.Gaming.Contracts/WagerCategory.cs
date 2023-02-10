@@ -131,5 +131,14 @@
 
         /// <inheritdoc />
         public decimal LinkIncrementRtpPercent { get; set; }
+
+        /// <summary>
+        ///     Converts to a string.
+        /// </summary>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, {nameof(TheoPaybackPercent)}: {TheoPaybackPercent}";
+        }
     }
 }
