@@ -303,7 +303,15 @@
             if (voucherAmount != null && transaction.TypeOfAccount.Equals(AccountType.Cashable) &&
                 voucherAmount.PromoAmount > 0)
             {
+                var validator = _validationProvider.GetVoucherValidator();
+
                 var separateMeteringCashableAmounts = _properties.GetValue(AccountingConstants.SeparateMeteringCashableAndPromoOutAmounts, false);
+
+                if (validator.CanCombineCashableAmounts && !separateMeteringCashableAmounts)
+                {
+                    UpdateCashableMeters(transaction.Amount);
+                    return;
+                }
 
                 if (separateMeteringCashableAmounts)
                 {
@@ -312,8 +320,7 @@
 
                     if (voucherAmount.CashAmount > 0)
                     {
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount).Increment(voucherAmount.CashAmount);
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashableCount).Increment(1);
+                        UpdateCashableMeters(voucherAmount.CashAmount);
                     }
                 }
                 else
@@ -322,8 +329,7 @@
 
                     if (voucherAmount.CashAmount > 0)
                     {
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount).Increment(voucherAmount.CashAmount);
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashableCount).Increment(1);
+                        UpdateCashableMeters(voucherAmount.CashAmount);
                     }
                     else
                     {
@@ -338,8 +344,7 @@
                 switch (transaction.TypeOfAccount)
                 {
                     case AccountType.Cashable:
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount).Increment(transaction.Amount);
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashableCount).Increment(1);
+                        UpdateCashableMeters(transaction.Amount);
                         break;
                     case AccountType.Promo:
                         _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoAmount).Increment(transaction.Amount);
@@ -350,6 +355,12 @@
                         _meters.GetMeter(AccountingMeters.VoucherOutNonCashableCount).Increment(1);
                         break;
                 }
+            }
+
+            void UpdateCashableMeters(long amount)
+            {
+                _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount).Increment(amount);
+                _meters.GetMeter(AccountingMeters.VoucherOutCashableCount).Increment(1);
             }
         }
 
