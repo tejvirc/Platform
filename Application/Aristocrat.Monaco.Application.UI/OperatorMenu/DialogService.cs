@@ -203,6 +203,12 @@
                 return null;
             }
 
+            Logger.Debug("CreateAndShowDialog: " +
+                         $"OwnerViewModel={ownerViewModel?.GetType().Name}, " +
+                         $"OwnerView={owner.GetType().Name}, " +
+                         $"ViewModel={viewModel?.GetType().Name}, " +
+                         $"View={internalView?.GetType().Name}");
+
             Window dialog = new OperatorMenuDialogWindow(operatorMenuDialog)
             {
                 Owner = owner,
