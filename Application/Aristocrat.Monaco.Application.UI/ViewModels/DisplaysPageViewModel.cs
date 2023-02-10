@@ -177,14 +177,15 @@
                 EventBus.Subscribe<DeviceConnectedEvent>(this, _ => RefreshDisplays());
                 EventBus.Subscribe<DeviceDisconnectedEvent>(this, _ => RefreshDisplays());
 
+                var isInspection = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(KernelConstants.IsInspectionOnly, false);
                 if (CabinetService.ExpectedDisplayDevicesWithSerialTouch != null)
                 {
-                    CalibrateTouchScreenVisible = TestTouchScreenVisible = CabinetService.ExpectedDisplayDevicesWithSerialTouch.Count() > 0;
+                    CalibrateTouchScreenVisible = TestTouchScreenVisible = CabinetService.ExpectedDisplayDevicesWithSerialTouch.Count() > 0 || isInspection;
                 }
                 else
                 {
                     var touchDevicesAvailable = DisplaysDetected.Where(d => d.TouchDevice != null).ToList();
-                    TestTouchScreenVisible = touchDevicesAvailable.Any();
+                    TestTouchScreenVisible = touchDevicesAvailable.Any() || isInspection;
                 }
 
                 RefreshDisplays();
