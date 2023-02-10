@@ -1,0 +1,21 @@
+﻿namespace Aristocrat.Monaco.Gaming
+{
+    using Contracts;
+
+    public class BonusGame : IBonusGame
+    {
+        public BonusGame()
+        {
+        }
+
+        public BonusGame(long id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public long Id { get; set; }
+
+        public string Name { get; set; }
+    }
+}

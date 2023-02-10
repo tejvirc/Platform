@@ -23,5 +23,15 @@
         ///     Gets the list of all supported denominations for each credit wagered as part of the game
         /// </summary>
         IEnumerable<IDenomination> Denominations { get; }
+
+        /// <summary>
+        ///     Gets the list of all supported bonus games
+        /// </summary>
+        IEnumerable<IBonusGame> SupportedBonusGames { get; }
+
+        /// <summary>
+        ///     Gets the bonus game ID selected in the configuration
+        /// </summary>
+        IEnumerable<IBonusGame> SelectedBonusGames { get; }
     }
 }

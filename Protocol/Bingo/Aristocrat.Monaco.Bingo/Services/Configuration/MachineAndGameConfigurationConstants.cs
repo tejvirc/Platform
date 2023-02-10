@@ -110,5 +110,10 @@
         ///     Indicates using global settings for bingo card display
         /// </summary>
         public const string UseGlobalSettings = "UseGlobal";
+
+        /// <summary>
+        ///     Configured Bonus Game
+        /// </summary>
+        public const string BonusGameId = "BonusGameId";
     }
 }

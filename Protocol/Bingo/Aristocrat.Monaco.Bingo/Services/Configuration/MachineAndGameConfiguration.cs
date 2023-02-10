@@ -74,17 +74,28 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                     model.ServerGameConfiguration = value;
                     var configured = JsonConvert.DeserializeObject<List<ServerGameConfiguration>>(value);
                     var results = ConfigureGames(configured).ToList();
+                    SetSelectedBonusGame(configured);
                     model.GamesConfigurationText = JsonConvert.SerializeObject(results);
                     break;
                 case MachineAndGameConfigurationConstants.GamesConfigured:
                     model.ServerGameConfiguration = value;
                     var serverSettings = JsonConvert.DeserializeObject<List<ServerGameConfiguration>>(value);
                     var updateConfiguration = BuildUpdateConfiguration(serverSettings);
+                    SetSelectedBonusGame(serverSettings);
                     model.GamesConfigurationText = JsonConvert.SerializeObject(updateConfiguration);
                     break;
                 default:
                     LogUnhandledSetting(name, value);
                     break;
+            }
+        }
+
+        private void SetSelectedBonusGame(IEnumerable<ServerGameConfiguration> configured)
+        {
+            foreach (var (gameDetail, setting) in GetGameConfigurations(configured).SelectMany(x => x))
+            {
+                // set selected bonus game from server in gameDetail object
+                // gameDetail.SelectedBonusGames = setting.BonusGames;
             }
         }
 
@@ -181,6 +192,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                    newSetting.PaytableId == oldSetting.PaytableId &&
                    newSetting.GameTitleId == oldSetting.GameTitleId &&
                    newSetting.ThemeSkinId == oldSetting.ThemeSkinId &&
+                   newSetting.BonusGameId == oldSetting.BonusGameId &&
                    newSetting.EvaluationTypePaytable == oldSetting.EvaluationTypePaytable &&
                    oldSetting.Bets != null && newSetting.Bets != null &&
                    newSetting.Bets.SequenceEqual(oldSetting.Bets);
@@ -221,6 +233,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                         c => (
                             GameDetails: gameDetails.FirstOrDefault(
                                 d => d.GetBingoTitleId() == c.GameTitleId.ToString() && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
+    //                                && (d.SupportedBonusGames == null || c.BonusGameId == 0 || d.SupportedBonusGames.Contains(c.BonusGameId))),
                             Settings: c))
                     .GroupBy(x => x.GameDetails?.Id ?? -1);
                 return result.Any() &&

@@ -32,5 +32,8 @@
 
         [JsonProperty("HelpUrl")]
         public string HelpUrl { get; set; }
+
+        [JsonProperty("BonusGameId")]
+        public long BonusGameId { get; set; }
     }
 }

@@ -1002,6 +1002,9 @@
                     gameDetail.SubCategory = game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined;
                     gameDetail.Features = features;
 
+                    // This placeholder will change depending on how supported bonus games are held in the game attributes
+                    // gameDetail.SupportedBonusGames = game.BonusGames;
+
                     _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
 
                     gameThemeId = game.ThemeId;

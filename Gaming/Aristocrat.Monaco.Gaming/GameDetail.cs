@@ -139,5 +139,9 @@
         public GameSubCategory SubCategory { get; set; }
 
         public IEnumerable<Feature> Features { get; set; }
+
+        public IEnumerable<IBonusGame> SupportedBonusGames { get; set; }
+
+        public IEnumerable<IBonusGame> SelectedBonusGames { get; set; }
     }
 }
