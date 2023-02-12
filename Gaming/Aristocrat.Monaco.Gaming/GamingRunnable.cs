@@ -275,7 +275,7 @@
             serviceManager.AddService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<IRtpService2>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IRtpService>() as IService);
         }
 
         private void RemoveServices()
@@ -327,7 +327,7 @@
             serviceManager.RemoveService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.RemoveService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.RemoveService(_container.GetInstance<IOutcomeValidatorProvider>());
-            serviceManager.RemoveService(_container.GetInstance<IRtpService2>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IRtpService>() as IService);
         }
 
         private void Unload()

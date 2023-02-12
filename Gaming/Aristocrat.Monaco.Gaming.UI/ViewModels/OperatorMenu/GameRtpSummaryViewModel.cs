@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -15,11 +15,11 @@
 
     public class GameRtpSummaryViewModel : OperatorMenuSaveViewModelBase
     {
-        private readonly IRtpService2 _rtpService;
+        private readonly IRtpService _rtpService;
 
         public GameRtpSummaryViewModel(IReadOnlyCollection<IGameDetail> games, double denomMultiplier)
         {
-            _rtpService = ServiceManager.GetInstance().GetService<IRtpService2>();
+            _rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
 
             GameTypeItems = new List<GameSummary>();
             GameItemsByType = new Dictionary<GameType, IEnumerable<GameSummary>>();
@@ -66,19 +66,7 @@
 
         public bool HasMoreThanOneGameType => GameTypeItems.Count > 1;
 
-        private decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games)
-        {
-            if (!games.Any())
-            {
-                return decimal.Zero;
-            }
-            else
-            {
-                var average = _rtpService.GetAverageRtp(games);
-
-                return average;
-            }
-        }
+        private decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games) => !games.Any() ? decimal.Zero : _rtpService.GetAverageRtp(games);
 
         private List<GameSummary> CreateGameSummaries(
             IReadOnlyCollection<IGameDetail> games,

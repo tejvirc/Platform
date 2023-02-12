@@ -214,7 +214,7 @@
             container.Register<ExcessiveMeterIncrementMonitor>(Lifestyle.Singleton);
 
             container.Register<RngCyclingService>(Lifestyle.Singleton);
-            container.Register<IRtpService2, RtpService2>(Lifestyle.Singleton);
+            container.Register<IRtpService, RtpService>(Lifestyle.Singleton);
 
             //#if !(RETAIL)
             //            PerformanceCounters.RegisterFromAttribute(typeof(ICommandHandler<>).Assembly);

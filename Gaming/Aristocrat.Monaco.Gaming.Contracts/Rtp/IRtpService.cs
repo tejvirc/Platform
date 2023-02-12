@@ -5,7 +5,7 @@
     /// <summary>
     ///     TODO: Edit XML Comment 
     /// </summary>
-    public interface IRtpService2
+    public interface IRtpService
     {
         /// <summary>
         ///     Gets the average RTP.

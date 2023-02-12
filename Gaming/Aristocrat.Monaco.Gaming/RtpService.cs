@@ -8,21 +8,21 @@
     using Contracts.Rtp;
     using Kernel;
 
-    public class RtpService2 : IRtpService2, IService
+    public class RtpService : IRtpService, IService
     {
         private const int RequiredLevelOfRtpPrecision = 5;
 
         private readonly IPropertiesManager _properties;
         private readonly Dictionary<GameType, RtpRules> _rules = new();
 
-        public RtpService2(IPropertiesManager propertiesManager)
+        public RtpService(IPropertiesManager propertiesManager)
         {
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
         public string Name => GetType().ToString();
 
-        public ICollection<Type> ServiceTypes => new[] { typeof(IRtpService2) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(IRtpService) };
 
         public void Initialize()
         {
@@ -33,13 +33,10 @@
         {
             var rtpValuesForGames = new List<decimal>();
 
-            // iterate over games
             foreach (var game in games)
             {
-                // iterate wager categories
                 foreach (var wagerCategory in game.WagerCategories)
                 {
-                    // build Rtp breakdowns
                     var rtpBreakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
 
                     var averageGameRtp = (rtpBreakdown.TotalRtp.Minimum + rtpBreakdown.TotalRtp.Maximum) / 2.0m;
@@ -49,7 +46,6 @@
             }
 
             var averageRtp = rtpValuesForGames.Average(rtp => rtp);
-            // calculate average based on RTP for each game
 
             return averageRtp;
         }
@@ -58,16 +54,13 @@
         {
             var totalRtp = new RtpRange();
 
-            // iterate over games
             foreach (var game in games)
             {
-                // iterate wager categories
                 foreach (var wagerCategory in game.WagerCategories)
                 {
-                    // build Rtp breakdowns
                     var rtpBreakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
 
-                    totalRtp.TotalWith(rtpBreakdown.TotalRtp);
+                    totalRtp = totalRtp.TotalWith(rtpBreakdown.TotalRtp);
                 }
             }
 
@@ -80,6 +73,7 @@
                 ?? throw new ArgumentException(nameof(wagerCategoryId), $"No WagerCategory exists with id={wagerCategoryId}");
 
             var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
+
             ValidateRtp(breakdown, game.GameType);
 
             return breakdown;
@@ -205,13 +199,11 @@
         private void ValidateMachineAndOrHostLimits(RtpBreakdown rtpBreakdown)
         {
             // TODO: Implement if needed
-            throw new NotImplementedException();
         }
 
         private void ValidateGameLimits(RtpBreakdown rtpBreakdown)
         {
             // TODO: Implement if needed
-            throw new NotImplementedException();
         }
 
         private void ValidateJurisdictionalLimits(RtpBreakdown rtpBreakdown, GameType gameType)
