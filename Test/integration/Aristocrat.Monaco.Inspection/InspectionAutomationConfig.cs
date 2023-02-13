@@ -101,8 +101,11 @@ namespace Aristocrat.Monaco.Inspection {
         
         private bool useChildWindowsField;
         
+        private bool childWindowMustBeMainField;
+        
         public InspectionAutomationConfigurationPageAutomationAction() {
             this.useChildWindowsField = false;
+            this.childWindowMustBeMainField = false;
         }
         
         /// <remarks/>
@@ -213,6 +216,18 @@ namespace Aristocrat.Monaco.Inspection {
             }
             set {
                 this.useChildWindowsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool childWindowMustBeMain {
+            get {
+                return this.childWindowMustBeMainField;
+            }
+            set {
+                this.childWindowMustBeMainField = value;
             }
         }
     }

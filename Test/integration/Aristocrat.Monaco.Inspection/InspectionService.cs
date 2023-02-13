@@ -14,10 +14,10 @@
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.HardwareDiagnostics;
     using Application.Contracts.OperatorMenu;
+    using Cabinet.Contracts;
     using Kernel;
     using Kernel.Contracts;
     using log4net;
-    using MahApps.Metro.Controls;
     using MVVM;
     using Test.Automation;
     using Timer = System.Timers.Timer;
@@ -181,14 +181,30 @@
             }
             else
             {
-                _currentAutomationPage = null;
+                FinishAutomationPage();
             }
+        }
+
+        private void FinishAutomationPage()
+        {
+            if (_currentPageLoader != null)
+            {
+                // Some tests use overlays and leave the parent window lurking behind a console.
+                if (_currentPageLoader.Page is UserControl pageControl)
+                {
+                    var window = Window.GetWindow(pageControl);
+                    window.Activate();
+                }
+            }
+
+            _currentAutomationPage = null;
         }
 
         private void TryNextAutomationAction(bool skipDelay)
         {
             if (_automationActionCounter >= _currentAutomationPage.Action.Length)
             {
+                FinishAutomationPage();
                 return;
             }
 
@@ -224,7 +240,7 @@
                 () =>
                 {
                     // Check if there's a condition attached to the instruction
-                    if (_currentPageLoader.Page is UserControl pageControl && IsConditionMet(action))
+                    if (_currentPageLoader.Page is UserControl pageControl && IsViewModelConditionMet(action))
                     {
                         var searchControls = new List<DependencyObject>();
                         if (action.useChildWindows)
@@ -232,7 +248,10 @@
                             var window = Window.GetWindow(pageControl);
                             foreach (Window child in window?.OwnedWindows ?? new WindowCollection())
                             {
-                                searchControls.Add(child);
+                                if (IsWindowConditionMet(child, action))
+                                {
+                                    searchControls.Add(child);
+                                }
                             }
                         }
                         else
@@ -353,7 +372,30 @@
             selector.SelectedItem = null;
         }
 
-        private bool IsConditionMet(InspectionAutomationConfigurationPageAutomationAction action)
+        private bool IsWindowConditionMet(Control control, InspectionAutomationConfigurationPageAutomationAction action)
+        {
+            const string DisplayRoleProperty = "DisplayRole";
+
+            if (!action.childWindowMustBeMain)
+            {
+                return true;
+            }
+
+            var viewType = control.GetType();
+            var property = viewType.GetProperty(DisplayRoleProperty,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (property is null)
+            {
+                Logger.Error($"Couldn't find DisplayRole property descriptor on {viewType}");
+                return false;
+            }
+
+            var propertyVal = (DisplayRole)property.GetValue(control);
+            Logger.Debug($"Property DisplayRole is {propertyVal}");
+            return propertyVal == DisplayRole.Main;
+        }
+
+        private bool IsViewModelConditionMet(InspectionAutomationConfigurationPageAutomationAction action)
         {
             if (!string.IsNullOrEmpty(action.conditionProperty))
             {

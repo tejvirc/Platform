@@ -12,20 +12,20 @@
   </PageAutomation>
   <PageAutomation category="Displays">
     <Action waitMs="500" controlName="EnterColorTestButton" />
-    <Action waitMs="1000" useChildWindows="true" controlName="ColorTestsComboBox" parameter="Basic Colors" parameterProperty="Name" />
-    <Action waitMs="1000" useChildWindows="true" controlName="ColorTestsComboBox" parameter="White Purity" parameterProperty="Name" />
-    <Action waitMs="1000" useChildWindows="true" controlName="ColorTestsComboBox" parameter="Black Purity" parameterProperty="Name" />
-    <Action waitMs="1000" useChildWindows="true" controlName="ExitButton" />
+    <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ColorTestsComboBox" parameter="Basic Colors" parameterProperty="Name" />
+    <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ColorTestsComboBox" parameter="White Purity" parameterProperty="Name" />
+    <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ColorTestsComboBox" parameter="Black Purity" parameterProperty="Name" />
+    <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ExitButton" />
     <Action waitMs="1000" controlName="EnterIdentifyScreenBtn" />
   </PageAutomation>
   <PageAutomation category="EdgeLighting">
-    <Action waitMs="10"  controlName="ColorssComboBox" parameter="Purple" />
-    <Action waitMs="500" controlName="ColorssComboBox" parameter="Blue" />
-    <Action waitMs="500" controlName="ColorssComboBox" parameter="Green" />
-    <Action waitMs="500" controlName="ColorssComboBox" parameter="Yellow" />
-    <Action waitMs="500" controlName="ColorssComboBox" parameter="Orange" />
-    <Action waitMs="500" controlName="ColorssComboBox" parameter="Red" />
-    <Action waitMs="500" controlName="ColorssComboBox" parameter="White" />
+    <Action waitMs="10"  controlName="ColorsComboBox" parameter="Purple" />
+    <Action waitMs="500" controlName="ColorsComboBox" parameter="Blue" />
+    <Action waitMs="500" controlName="ColorsComboBox" parameter="Green" />
+    <Action waitMs="500" controlName="ColorsComboBox" parameter="Yellow" />
+    <Action waitMs="500" controlName="ColorsComboBox" parameter="Orange" />
+    <Action waitMs="500" controlName="ColorsComboBox" parameter="Red" />
+    <Action waitMs="500" controlName="ColorsComboBox" parameter="White" />
     <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x00)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="0" />
     <Action waitMs="500" controlName="StripsComboBox" parameter="(0x01)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="1" />
     <Action waitMs="500" controlName="StripsComboBox" parameter="(0x02)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="2" />
