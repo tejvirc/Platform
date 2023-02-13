@@ -217,7 +217,7 @@
                 _turnOperatorKeyWhenGameExits = false;
                 _operatorMenu.TurnOperatorKey();
             }
-            else if (_operatorMenu.IsShowing && !_operatorMenu.Exiting)
+            else if (_operatorMenu.IsShowing)
             {
                 _operatorMenu.Show();
             }
