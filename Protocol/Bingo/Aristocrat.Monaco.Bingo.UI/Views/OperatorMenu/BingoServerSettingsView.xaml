@@ -159,10 +159,12 @@
 
             <Label Grid.Row="12"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoCardPlacementLabel}}" />
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoCardPlacementLabel}}" 
+                   Visibility="{Binding IsBingoCardPlacementSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
             <TextBlock Grid.Row="12"
                        Grid.Column="1"
-                       Text="{Binding BingoCardPlacement, Mode=OneWay}" />
+                       Text="{Binding BingoCardPlacement, Mode=OneWay}" 
+                       Visibility="{Binding IsBingoCardPlacementSettingVisible, Converter={StaticResource BoolToCollapsedConverter}}"/>
 
             <Label Grid.Row="13"
                    Grid.Column="0"
