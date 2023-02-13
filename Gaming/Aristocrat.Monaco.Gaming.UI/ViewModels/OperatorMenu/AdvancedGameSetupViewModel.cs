@@ -1331,6 +1331,7 @@
             {
                 var enabledLowerDenoms = enabledConfigs.Where(g => g.Denom < config.Denom).ToList();
                 var closestEnabledLowerDenom = enabledLowerDenoms.FirstOrDefault(g => g.Denom == enabledLowerDenoms.Max(d => d.Denom));
+
                 var enabledHigherDenoms = enabledConfigs.Where(g => g.Denom > config.Denom).ToList();
                 var closestEnabledHigherDenom = enabledHigherDenoms.FirstOrDefault(g => g.Denom == enabledHigherDenoms.Min(d => d.Denom));
 
@@ -1340,11 +1341,11 @@
             }
         }
 
-        private void OnGameStatusChanged(GameStatusChangedEvent obj)
+        private void OnGameStatusChanged(GameStatusChangedEvent e)
         {
             foreach (var game in _editableGames.Values)
             {
-                var config = game.GameConfigurations.FirstOrDefault(g => g.Game?.Id == obj.GameId);
+                var config = game.GameConfigurations.FirstOrDefault(g => g.Game?.Id == e.GameId);
                 if (config == null)
                 {
                     continue;

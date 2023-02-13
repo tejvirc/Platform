@@ -113,8 +113,9 @@
         {
             var baseGameRtp = game.GetBaseGameRtpRange();
 
+            // TODO: handle bad RTP state enum here, not in GetRtp method.
             var (progressiveRtp, rtpState) =
-                progressiveConfigurationProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name);
+                progressiveConfigurationProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name); // This verifies SAP progressive??
 
             var (totalJurisdictionRtp, _) = game.GetTotalJurisdictionRtpRange((progressiveRtp, rtpState));
 
@@ -150,6 +151,7 @@
             TotalJurisdictionalRTPMax = totalJurisdictionRtp?.Maximum.GetRtpString();
 
             ProgressiveResetRTPState = rtpState;
+
             ProgressiveIncrementRTPState = !_gameProvider.CanIncludeIncrementRtp(GameType) && rtpState == RtpVerifiedState.Verified
                 ? RtpVerifiedState.NotUsed : rtpState;
         }

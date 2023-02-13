@@ -23,7 +23,7 @@
         /// </returns>
         public override string ToString()
         {
-            return $"{nameof(IsValid)}: {IsValid}, {nameof(FailureFlags)}: {FailureFlags}";
+            return $"{nameof(IsValid)}: {IsValid}";
         }
     }
 }

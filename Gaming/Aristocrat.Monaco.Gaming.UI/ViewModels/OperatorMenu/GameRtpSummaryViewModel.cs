@@ -1,7 +1,6 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
@@ -24,10 +23,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             GameTypeItems = new List<GameSummary>();
             GameItemsByType = new Dictionary<GameType, IEnumerable<GameSummary>>();
 
-
             var activeDenomGames = games
                 .Where(game => game.ActiveDenominations.Any())
                 .ToArray();
+
             var gameTypes = activeDenomGames.Select(g => g.GameType).Distinct().ToList();
 
             if (gameTypes.Count > 1)
@@ -42,9 +41,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             {
                 var typeGames = activeDenomGames.Where(g => g.GameType == type).ToList();
 
-                var name = Localizer.For(CultureFor.Operator).GetString(type.ToString());
+                var typeName = Localizer.For(CultureFor.Operator).GetString(type.ToString());
 
-                GameTypeItems.Add(new GameSummary(name, GetAverageRtp(typeGames)));
+                GameTypeItems.Add(new GameSummary(typeName, GetAverageRtp(typeGames)));
 
                 GameItemsByType.Add(
                     type,

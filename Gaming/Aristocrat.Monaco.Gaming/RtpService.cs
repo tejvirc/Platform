@@ -10,8 +10,6 @@
 
     public class RtpService : IRtpService, IService
     {
-        private const int RequiredLevelOfRtpPrecision = 5;
-
         private readonly IPropertiesManager _properties;
         private readonly Dictionary<GameType, RtpRules> _rules = new();
 
@@ -187,7 +185,7 @@
         {
             ValidateRtpRangeBoundaries(breakdown);
 
-            ValidatePrecision(breakdown, RequiredLevelOfRtpPrecision);
+            ValidatePrecision(breakdown, GamingConstants.NumberOfDecimalPlacesForRtpDisplay);
 
             ValidateGameLimits(breakdown);
 

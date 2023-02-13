@@ -20,7 +20,7 @@
     using PackageManifest.Models;
     using Progressives;
 
-    public class EditableGameConfiguration : BaseViewModel, IDisposable
+    public class EditableGameConfiguration : BaseViewModel
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -32,7 +32,6 @@
         private readonly bool _allowEditHostDisabled;
 
         private bool _active = true;
-        private bool _disposed;
         private bool _enabled;
         private BetOption _selectedBetOption;
         private bool _betOptionAvailable;
@@ -87,7 +86,7 @@
             _allowEditHostDisabled = _properties.GetValue(GamingConstants.AllowEditHostDisabled, false);
             _denominationMapping = AvailableGames.ToDictionary(
                 x => x.Id,
-                x => x.Denominations.FirstOrDefault(d => d.Value == denom));
+                x => x.Denominations.FirstOrDefault(d => d.Value == BaseDenom));
 
             SetAvailableGamesAndDenom();
             SetWarningText();
@@ -533,12 +532,6 @@
             : _progressives.ViewProgressiveLevels(Game.Id, BaseDenom).Where(
                 p => string.IsNullOrEmpty(p.BetOption) || p.BetOption == SelectedBetOption?.Name);
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public void LoadConfiguredProgressiveLevels(IReadOnlyCollection<IViewableProgressiveLevel> levels)
         {
             _assignedLevels.Clear();
@@ -619,7 +612,9 @@
 
             _lowestAllowedMinimumRtp = lowest;
             _highestAllowedMinimumRtp = highest;
+
             SetAvailableGamesAndDenom();
+
             if (!AvailablePaytables.Contains(SelectedPaytable))
             {
                 // Reset selected RTP if the one that was selected previously is no longer available
@@ -627,26 +622,12 @@
             }
 
             RaisePropertyChanged(nameof(CanToggleEnabled));
+
             Logger.Debug(
                 AvailablePaytables.Aggregate(
                     $"Denom {Denom} available minimum RTPs: ",
                     (current, rtp) => current + $"{rtp.GameDetail.MinimumPaybackPercent}  ")
                 + $" (Allowed Range: {_lowestAllowedMinimumRtp} - {_highestAllowedMinimumRtp})");
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                // Nothing to do here now.
-            }
-
-            _disposed = true;
         }
 
         private bool IsProgressivesEnabled()

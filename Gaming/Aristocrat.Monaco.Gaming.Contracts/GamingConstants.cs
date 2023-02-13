@@ -812,6 +812,16 @@
         public const string RouletteIncludeStandaloneProgressiveIncrementRtp = @"GameRestrictions.IncludeStandaloneProgressiveIncrementRTP.Roulette";
 
         /// <summary>
+        ///     The required number of decimal places to display RTP. Values must be rounded up (away from zero).
+        /// </summary>
+        public const int NumberOfDecimalPlacesForRtpDisplay = 2;
+
+        /// <summary>
+        ///     The required number of decimal places for RTP calculations
+        /// </summary>
+        public const int NumberOfDecimalPlacesForRtpCalculations = 5;
+
+        /// <summary>
         ///     Provides hand information for poker games
         /// </summary>
         public const string PokerHandInformation = @"PokerHandInformation";

@@ -72,7 +72,7 @@
         /// <summary>
         ///     Gets the minimum theoretical payback percentage for the game; a value of 0 (zero) indicates that the attribute is
         ///     not supported; otherwise, MUST be set to the minimum payback percentage for the game, which MUST be greater than 0
-        ///     (zero). For example, a value of 82.45 represents a minimum payback percentage of 82.45^
+        ///     (zero). For example, a value of 82.45 represents a minimum payback percentage of 82.45%
         /// </summary>
         decimal MinimumPaybackPercent { get; }
 

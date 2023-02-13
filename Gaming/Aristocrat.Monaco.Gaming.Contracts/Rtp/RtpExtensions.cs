@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Rtp
 {
+    using System;
+
     /// <summary>
     ///     A set of utility methods to deal with Rtp (Return to Player) values
     /// </summary>
@@ -39,13 +41,19 @@
         }
 
         /// <summary>
-        ///     Convert RTP value to displayable text
+        ///     Convert RTP percentage to displayable text. RTP values displayed on the UI are rounded up to 2 decimal places as
+        ///     per Product Team.
         /// </summary>
-        /// <param name="this">The Rtp value</param>
-        /// <returns></returns>
+        /// <param name="this">The Rtp percentage</param>
+        /// <returns>RTP string formatted with the correct number of decimal place.</returns>
         public static string GetRtpString(this decimal @this)
         {
-            return $"{@this:F2}%";
+            var roundedRtp = Math.Round(
+                @this,
+                GamingConstants.NumberOfDecimalPlacesForRtpDisplay,
+                MidpointRounding.AwayFromZero);
+
+            return $"{roundedRtp:F2}%";
         }
     }
 }

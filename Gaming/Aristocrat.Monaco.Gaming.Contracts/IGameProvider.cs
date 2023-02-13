@@ -159,28 +159,5 @@
         ///     Updates game runtime targets after runtime instance is removed with the installer.
         /// </summary>
         void UpdateGameRuntimeTargets();
-
-        /// <summary>
-        ///     Return whether or not total RTP includes progressive increment contribution.
-        /// </summary>
-        /// <param name="type">Game type</param>
-        /// <returns>Whether or not total RTP includes progressive increment contribution.</returns>
-        bool CanIncludeIncrementRtp(GameType type);
-
-        /// <summary>
-        ///     Return total RTP range, calculated per jurisdiction rules.
-        /// </summary>
-        /// <param name="game">Game</param>
-        /// <param name="progressiveDetails">Progressive info</param>
-        /// <returns>Total RTP range</returns>
-        RtpRange GetTotalRtp(GameAttributes game, IReadOnlyCollection<ProgressiveDetail> progressiveDetails);
-
-        /// <summary>
-        ///     Return whether or not total RTP is valid
-        /// </summary>
-        /// <param name="gameType">Game type</param>
-        /// <param name="rtpRange">RTP range</param>
-        /// <returns>Whether or not total RTP range is valid</returns>
-        bool IsValidRtp(GameType gameType, RtpRange rtpRange);
     }
 }
