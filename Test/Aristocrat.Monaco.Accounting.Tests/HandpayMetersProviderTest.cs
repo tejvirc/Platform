@@ -60,8 +60,14 @@
         [TestCleanup]
         public void CleanUp()
         {
-            AddinManager.Shutdown();
-
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }

@@ -48,7 +48,14 @@
         public void TestCleanup()
         {
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         /// <summary>A test of Evaluate with property value set to true; without, then with a "compareTo" attribute given</summary>

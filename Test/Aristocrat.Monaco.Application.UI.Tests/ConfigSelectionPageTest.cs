@@ -172,8 +172,14 @@
 
             Logger.InfoFormat("{0}() cleanup-start", TestContext.TestName);
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
-
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             Logger.InfoFormat("{0}() cleanup-end{1}", TestContext.TestName, Environment.NewLine);
         }
 

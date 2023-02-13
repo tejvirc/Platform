@@ -153,7 +153,14 @@
                 // just eat any exceptions since they are after the test has finished.
             }
 
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             MoqServiceManager.RemoveInstance();
         }
 

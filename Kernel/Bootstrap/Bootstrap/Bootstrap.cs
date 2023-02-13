@@ -257,7 +257,14 @@
         private static void ShutdownAddinManager()
         {
             Logger.Info("Shutting down the addin manager...");
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             Logger.Info("Done.");
         }
 

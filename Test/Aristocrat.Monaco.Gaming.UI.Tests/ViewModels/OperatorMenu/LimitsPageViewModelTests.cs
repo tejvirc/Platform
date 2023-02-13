@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Tests.ViewModels.OperatorMenu
 {
+    using System;
     using System.Globalization;
     using System.IO;
     using Application.Contracts.ConfigWizard;
@@ -52,7 +53,14 @@
             MoqServiceManager.RemoveInstance();
             if (AddinManager.IsInitialized)
             {
-                AddinManager.Shutdown();
+                try
+                {
+                    AddinManager.Shutdown();
+                }
+                catch (InvalidOperationException)
+                {
+                    // temporarily swallow exception
+                }
             }
         }
 

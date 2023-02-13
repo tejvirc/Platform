@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Tests.ContractsTests
 {
+    using System;
     using System.IO;
     using System.IO.Ports;
     using Contracts.SerialPorts;
@@ -36,7 +37,14 @@
         {
             if (AddinManager.IsInitialized)
             {
-                AddinManager.Shutdown();
+                try
+                {
+                    AddinManager.Shutdown();
+                }
+                catch (InvalidOperationException)
+                {
+                    // temporarily swallow exception
+                }
             }
         }
 

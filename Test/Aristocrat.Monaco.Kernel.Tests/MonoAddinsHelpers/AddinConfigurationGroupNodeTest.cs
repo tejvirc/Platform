@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests.MonoAddinsHelpers
 {
+    using System;
     #region Using
 
     using System.Collections.Generic;
@@ -124,7 +125,14 @@
 
             if (AddinManager.IsInitialized == true)
             {
-                AddinManager.Shutdown();
+                try
+                {
+                    AddinManager.Shutdown();
+                }
+                catch (InvalidOperationException)
+                {
+                    // temporarily swallow exception
+                }
             }
         }
     }

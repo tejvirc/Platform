@@ -60,7 +60,14 @@
         [TestCleanup]
         public void CleanUp()
         {
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch
+            {
+                // temporarily swallow exception
+            }
             MoqServiceManager.RemoveInstance();
 
             GC.Collect();

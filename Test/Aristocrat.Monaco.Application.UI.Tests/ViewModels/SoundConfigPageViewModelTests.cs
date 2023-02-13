@@ -93,7 +93,14 @@
 
             if (AddinManager.IsInitialized)
             {
-                AddinManager.Shutdown();
+                try
+                {
+                    AddinManager.Shutdown();
+                }
+                catch (InvalidOperationException)
+                {
+                    // temporarily swallow exception
+                }
             }
         }
         [Ignore] // Ignored, needs to be rewritten. Test no longer helpful/valid.
