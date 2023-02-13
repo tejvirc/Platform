@@ -79,7 +79,7 @@
             return breakdown;
         }
 
-        public RtpValidationReport ValidateRtp(params IGameProfile[] games)
+        public RtpValidationReport ValidateRtp(IEnumerable<IGameProfile> games)
         {
             var validationDataForReport = new List<(IGameProfile game, RtpValidation validation)>();
 
@@ -111,17 +111,30 @@
             return validationReport;
         }
 
-        private void ValidateRtp(RtpBreakdown breakdown, GameType gameType)
+        /// <summary>
+        ///     Creates a custom RTP breakdown, based on jurisdictional RTP rules, which is used to seed the final RTP calculation.
+        /// </summary>
+        /// <param name="gameType">Type of the game.</param>
+        /// <param name="wagerCategory">The wager category used to populate the <see cref="RtpBreakdown" />.</param>
+        /// <returns>An breakdown of RTP ranges, used in RTP calculation.</returns>
+        private RtpBreakdown CreateRtpBreakdown(GameType gameType, IWagerCategory wagerCategory)
         {
-            ValidateRtpRangeBoundaries(breakdown);
-
-            ValidatePrecision(breakdown, RequiredLevelOfRtpPrecision);
-
-            ValidateGameLimits(breakdown);
-
-            ValidateJurisdictionalLimits(breakdown, gameType);
-
-            ValidateMachineAndOrHostLimits(breakdown);
+            return new RtpBreakdown
+            {
+                Base = new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent),
+                StandaloneProgressiveIncrement = _rules[gameType].IncludeStandaloneProgressiveIncrementRtp
+                    ? new RtpRange(wagerCategory.SapIncrementRtpPercent, wagerCategory.SapIncrementRtpPercent)
+                    : RtpRange.Zero,
+                StandaloneProgressiveReset = _rules[gameType].IncludeStandaloneProgressiveStartUpRtp
+                    ? new RtpRange(wagerCategory.MinSapStartupRtpPercent, wagerCategory.MaxSapStartupRtpPercent)
+                    : RtpRange.Zero,
+                LinkedProgressiveIncrement = _rules[gameType].IncludeLinkProgressiveIncrementRtp
+                    ? new RtpRange(wagerCategory.LinkIncrementRtpPercent, wagerCategory.LinkIncrementRtpPercent)
+                    : RtpRange.Zero,
+                LinkedProgressiveReset = _rules[gameType].IncludeLinkProgressiveStartUpRtp
+                    ? new RtpRange(wagerCategory.MinLinkStartupRtpPercent, wagerCategory.MaxLinkStartupRtpPercent)
+                    : RtpRange.Zero,
+            };
         }
 
         private void LoadRtpRules()
@@ -170,30 +183,17 @@
             _rules[GameType.Undefined] = _rules[GameType.Slot];
         }
 
-        /// <summary>
-        ///     Creates a custom RTP breakdown, based on jurisdictional RTP rules, which is used to seed the final RTP calculation.
-        /// </summary>
-        /// <param name="gameType">Type of the game.</param>
-        /// <param name="wagerCategory">The wager category used to populate the <see cref="RtpBreakdown" />.</param>
-        /// <returns>An breakdown of RTP ranges, used in RTP calculation.</returns>
-        private RtpBreakdown CreateRtpBreakdown(GameType gameType, IWagerCategory wagerCategory)
+        private void ValidateRtp(RtpBreakdown breakdown, GameType gameType)
         {
-            return new RtpBreakdown
-            {
-                Base = new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent),
-                StandaloneProgressiveIncrement = _rules[gameType].IncludeStandaloneProgressiveIncrementRtp
-                    ? new RtpRange(wagerCategory.SapIncrementRtpPercent, wagerCategory.SapIncrementRtpPercent)
-                    : RtpRange.Zero,
-                StandaloneProgressiveReset = _rules[gameType].IncludeStandaloneProgressiveStartUpRtp
-                    ? new RtpRange(wagerCategory.MinSapStartupRtpPercent, wagerCategory.MaxSapStartupRtpPercent)
-                    : RtpRange.Zero,
-                LinkedProgressiveIncrement = _rules[gameType].IncludeLinkProgressiveIncrementRtp
-                    ? new RtpRange(wagerCategory.LinkIncrementRtpPercent, wagerCategory.LinkIncrementRtpPercent)
-                    : RtpRange.Zero,
-                LinkedProgressiveReset = _rules[gameType].IncludeLinkProgressiveStartUpRtp
-                    ? new RtpRange(wagerCategory.MinLinkStartupRtpPercent, wagerCategory.MaxLinkStartupRtpPercent)
-                    : RtpRange.Zero,
-            };
+            ValidateRtpRangeBoundaries(breakdown);
+
+            ValidatePrecision(breakdown, RequiredLevelOfRtpPrecision);
+
+            ValidateGameLimits(breakdown);
+
+            ValidateJurisdictionalLimits(breakdown, gameType);
+
+            ValidateMachineAndOrHostLimits(breakdown);
         }
 
         private void ValidateMachineAndOrHostLimits(RtpBreakdown rtpBreakdown)

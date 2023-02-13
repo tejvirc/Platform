@@ -38,6 +38,6 @@
         /// <param name="games">The games.</param>
         /// <returns></returns>
         /// TODO Edit XML Comment Template for ValidateRtp
-        RtpValidationReport ValidateRtp(params IGameProfile[] games);
+        RtpValidationReport ValidateRtp(IEnumerable<IGameProfile> games);
     }
 }
