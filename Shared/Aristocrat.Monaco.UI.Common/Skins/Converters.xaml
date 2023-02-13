@@ -5,13 +5,16 @@
     <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" TrueValue="Visible" FalseValue="Collapsed"/>
     <converters:BoolToVisibilityConverter x:Key="BoolToVisHiddenConverter" TrueValue="Visible" FalseValue="Hidden"/>
     <converters:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Hidden" FalseValue="Visible"/>
-    <converters:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" TrueValue="Collapsed" FalseValue="Visible" />
+    <converters:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" TrueValue="Collapsed" FalseValue="Visible"/>
+
+    <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueVisibleFalseCollapsed" TrueValue="Visible" FalseValue="Collapsed"/>
+    <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueCollapsedFalseVisible" TrueValue="Collapsed" FalseValue="Visible"/>
 
     <converters:CurrencyConverter x:Key="CurrencyConverter"/>
     <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
-    <converters:DefaultValueConverter x:Key="EmptyToDefaultValue" />
+    <converters:DefaultValueConverter x:Key="EmptyToDefaultValue"/>
     <converters:InverseBooleanConverter x:Key="InverseBoolConverter"/>
-    <converters:LogicalAndConverter x:Key="BoolAndConverter" />
-    <converters:LogicalOrConverter x:Key="BoolOrConverter" />
+    <converters:LogicalAndConverter x:Key="BoolAndConverter"/>
+    <converters:LogicalOrConverter x:Key="BoolOrConverter"/>
     <converters:MultiValueConverter x:Key="MultiValueConverter"/>
 </ResourceDictionary>
