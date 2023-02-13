@@ -64,10 +64,10 @@
             var breakdownTotal = new RtpBreakdown
             {
                 Base = Base.TotalWith(other.Base),
-                StandaloneProgressiveIncrement = StandaloneProgressiveIncrement.TotalWith(other.Base),
-                StandaloneProgressiveReset = StandaloneProgressiveReset.TotalWith(other.Base),
-                LinkedProgressiveIncrement = LinkedProgressiveIncrement.TotalWith(other.Base),
-                LinkedProgressiveReset = LinkedProgressiveReset.TotalWith(other.Base)
+                StandaloneProgressiveIncrement = StandaloneProgressiveIncrement.TotalWith(other.StandaloneProgressiveIncrement),
+                StandaloneProgressiveReset = StandaloneProgressiveReset.TotalWith(other.StandaloneProgressiveReset),
+                LinkedProgressiveIncrement = LinkedProgressiveIncrement.TotalWith(other.LinkedProgressiveIncrement),
+                LinkedProgressiveReset = LinkedProgressiveReset.TotalWith(other.LinkedProgressiveReset)
             };
             return breakdownTotal;
         } 

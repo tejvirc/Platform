@@ -1059,19 +1059,6 @@
                         gameDetail.Status |= GameStatus.GameFilesNotFound;
                     }
 
-                    // New RTP information (post GDK 5.0)
-                    if (gameDetail.HasExtendedRtpInformation)
-                    {
-                        var totalRtp = _rtpService.GetTotalRtp(gameDetail);
-                        gameDetail.MaximumPaybackPercent = totalRtp.Maximum;
-                        gameDetail.MinimumPaybackPercent = totalRtp.Minimum;
-                    }
-                    else // Legacy RTP information (pre-GDK 5.0). This is for backwards compatibility only.
-                    {
-                        gameDetail.MaximumPaybackPercent = game.MaxPaybackPercent;
-                        gameDetail.MinimumPaybackPercent = game.MinPaybackPercent;
-                    }
-
                     gameDetail.PaytableName = GetPaytableName(game.PaytableId);
                     gameDetail.VariationId = game.VariationId;
                     gameDetail.CentralAllowed = centralAllowed;
@@ -1115,6 +1102,19 @@
                     gameDetail.Category = game.Category != null ? (GameCategory)game.Category : GameCategory.Undefined;
                     gameDetail.SubCategory = game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined;
                     gameDetail.Features = features;
+
+                    // New RTP information (post-GDK 5.0)
+                    if (gameDetail.HasExtendedRtpInformation)
+                    {
+                        var totalRtp = _rtpService.GetTotalRtp(gameDetail);
+                        gameDetail.MaximumPaybackPercent = totalRtp.Maximum;
+                        gameDetail.MinimumPaybackPercent = totalRtp.Minimum;
+                    }
+                    else // Legacy RTP information (pre-GDK 5.0). This is for backwards compatibility only.
+                    {
+                        gameDetail.MaximumPaybackPercent = game.MaxPaybackPercent;
+                        gameDetail.MinimumPaybackPercent = game.MinPaybackPercent;
+                    }
 
                     _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
 

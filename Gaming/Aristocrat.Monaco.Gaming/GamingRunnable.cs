@@ -157,6 +157,7 @@
         {
             LoadPropertyProviders();
             LoadRuntime();
+            LoadRtpService();
             LoadGames();
             LoadMeterProviders();
 
@@ -211,6 +212,15 @@
             provider?.Initialize();
             ServiceManager.GetInstance().AddService(provider);
             manager.AddPropertyProvider(provider as IPropertyProvider);
+        }
+
+        private void LoadRtpService()
+        {
+            if (_container.GetInstance<IRtpService>() is IService rtpService)
+            {
+                rtpService.Initialize();
+                ServiceManager.GetInstance().AddService(rtpService);
+            }
         }
 
         private void LoadMeterProviders()
@@ -275,7 +285,6 @@
             serviceManager.AddService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<IRtpService>() as IService);
         }
 
         private void RemoveServices()

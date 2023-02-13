@@ -118,10 +118,14 @@
             var (_, rtpState) =
                 progressiveConfigurationProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name);
 
+            var progressiveResetRtp = rtpTotals.StandaloneProgressiveReset.TotalWith(rtpTotals.LinkedProgressiveReset);
+            var progressiveIncrementRtp =
+                rtpTotals.StandaloneProgressiveIncrement.TotalWith(rtpTotals.LinkedProgressiveIncrement);
+
             SetRtpInformation(
                 rtpTotals.Base,
-                rtpTotals.StandaloneProgressiveReset.TotalWith(rtpTotals.LinkedProgressiveReset),
-                rtpTotals.StandaloneProgressiveIncrement.TotalWith(rtpTotals.LinkedProgressiveIncrement),
+                progressiveResetRtp,
+                progressiveIncrementRtp,
                 rtpTotals.TotalRtp,
                 rtpState);
         }

@@ -811,8 +811,6 @@
 
         private void SetAvailableGamesAndDenom()
         {
-
-
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
                 .Select(g => new PaytableDisplay(g, _rtpService.GetTotalRtp(g), _showGameRtpAsRange)).ToList();

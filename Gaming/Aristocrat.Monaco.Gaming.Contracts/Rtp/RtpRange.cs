@@ -45,10 +45,14 @@
         ///     Totals this RTP range with another RTP range.
         /// </summary>
         /// <remarks>
-        /// // TODO: talk about disjointed ranges
+        ///     The total of the two RTP ranges are calculated as follows:
+        ///     <code>
+        ///         New Minimum = Math.Min(RangeA.Min, RangeB.Min)
+        ///         New Maximum = Math.Max(RangeA.Max, RangeB.Max)
+        ///     </code>
         /// </remarks>
         /// <param name="otherRtp">The other RTP range.</param>
-        /// <returns>A new <see cref="RtpRange"/> with the most minimum and maximum values of the two ranges.</returns>
+        /// <returns>A new <see cref="RtpRange"/> with the most minimum and maximum values of the two given ranges.</returns>
         public RtpRange TotalWith(RtpRange otherRtp)
         {
             if (otherRtp.Equals(Zero))
@@ -60,13 +64,8 @@
                 return otherRtp;
             }
 
-            // Check for range intersection
-            if (otherRtp.Maximum < Minimum || otherRtp.Minimum > Maximum)
-            {
-                throw new Exception("Cannot calculate Total Rtp range with two disjointed (non-intersecting) ranges.");
-            }
-
             var totalRange = new RtpRange(Math.Min(Minimum, otherRtp.Minimum), Math.Max(Maximum, otherRtp.Maximum));
+
             return totalRange;
         } 
 
