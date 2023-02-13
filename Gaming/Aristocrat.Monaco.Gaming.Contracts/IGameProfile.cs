@@ -216,5 +216,11 @@
         ///     Gets or sets the mechanical reel home steps
         /// </summary>
         int[] MechanicalReelHomeSteps { get; set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether this game includes extended RTP information. After the release of GDK 5.0, games are
+        ///     required to supply additional information about how the Total RTP is broken down.
+        /// </summary>
+        bool HasExtendedRtpInformation { get; }
     }
 }

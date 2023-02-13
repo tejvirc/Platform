@@ -1,5 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Rtp
 {
+    using System.Linq;
+
+    using System;
+
     /// <summary>
     ///     A fine-grain breakdown of RTP percentages for a WagerCategory
     /// </summary>
@@ -42,12 +46,39 @@
         public RtpValidationResult ValidationResult { get; set; } = new();
 
         /// <summary>
+        /// Totals the specified RTP breakdowns.
+        /// </summary>
+        /// <param name="rtpBreakdowns">The RTP breakdowns.</param>
+        /// <returns></returns>
+        /// TODO Edit XML Comment Template for Total
+        public static RtpBreakdown Total(params RtpBreakdown[] rtpBreakdowns) => rtpBreakdowns.Aggregate((r1, r2) => r1.TotalWith(r2));
+
+        /// <summary>
+        /// Totals the with.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns></returns>
+        /// TODO Edit XML Comment Template for TotalWith
+        public RtpBreakdown TotalWith(RtpBreakdown other)
+        {
+            var breakdownTotal = new RtpBreakdown
+            {
+                Base = Base.TotalWith(other.Base),
+                StandaloneProgressiveIncrement = StandaloneProgressiveIncrement.TotalWith(other.Base),
+                StandaloneProgressiveReset = StandaloneProgressiveReset.TotalWith(other.Base),
+                LinkedProgressiveIncrement = LinkedProgressiveIncrement.TotalWith(other.Base),
+                LinkedProgressiveReset = LinkedProgressiveReset.TotalWith(other.Base)
+            };
+            return breakdownTotal;
+        } 
+
+        /// <summary>
         ///     Converts this model to string.
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return $"{nameof(TotalRtp)}: {TotalRtp}, {nameof(ValidationResult)}: {ValidationResult}";
+            return $"{nameof(TotalRtp)}: {TotalRtp}, IsValid: {ValidationResult.IsValid}";
         }
     }
 }

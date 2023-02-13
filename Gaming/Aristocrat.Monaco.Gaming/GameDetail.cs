@@ -76,6 +76,8 @@
 
         public IEnumerable<IWagerCategory> WagerCategories { get; set; }
 
+        public bool HasExtendedRtpInformation => WagerCategories.All(w => w.HasExtendedRtpInformation);
+
         public IEnumerable<IWinLevel> WinLevels { get; set; }
 
         public string VariationId { get; set; }
@@ -124,7 +126,7 @@
 
         public bool Upgraded { get; set; }
 
-        public bool AutoPlaySupported => GameType == GameType.Slot || GameType == GameType.Keno;
+        public bool AutoPlaySupported => GameType is GameType.Slot or GameType.Keno;
 
         public int? MaximumProgressivePerDenom { get; set; }
 

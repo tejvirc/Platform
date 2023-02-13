@@ -9,6 +9,7 @@
     using Aristocrat.Monaco.Gaming.Contracts.Configuration;
     using Aristocrat.Monaco.Gaming.Contracts.Meters;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Aristocrat.Monaco.Gaming.Contracts.Rtp;
     using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.PackageManifest;
@@ -45,6 +46,7 @@
         private Mock<IDigitalRights> _digitalRights;
         private Mock<IConfigurationProvider> _configurationProvider;
         private Mock<ICabinetDetectionService> _cabinetDetectionService;
+        private Mock<IRtpService> _rtpService;
         private Mock<IServiceManager> _serviceManager;
 
         [TestInitialize]
@@ -68,21 +70,22 @@
 
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
         public void WhenArgumentIsNullExpectException(
             bool nullPath,
             bool nullStorage,
@@ -98,7 +101,8 @@
             bool nullId,
             bool nullDigitalRights,
             bool nullConfiguration,
-            bool nullCabinet)
+            bool nullCabinet,
+            bool nullRtp)
         {
             CreateTarget(
                 nullPath,
@@ -115,7 +119,8 @@
                 nullId,
                 nullDigitalRights,
                 nullConfiguration,
-                nullCabinet);
+                nullCabinet,
+                nullRtp);
         }
 
         private void CreateTarget(
@@ -133,7 +138,8 @@
             bool nullId = false,
             bool nullDigitalRights = false,
             bool nullConfiguration = false,
-            bool nullCabinet = false)
+            bool nullCabinet = false,
+            bool nullRtp = false)
         {
             _target = new GameProvider(
                 nullPath ? null : _pathMapper.Object,
@@ -150,7 +156,8 @@
                 nullId ? null : _idProvider.Object,
                 nullDigitalRights ? null : _digitalRights.Object,
                 nullConfiguration ? null : _configurationProvider.Object,
-                nullCabinet ? null : _cabinetDetectionService.Object);
+                nullCabinet ? null : _cabinetDetectionService.Object,
+                nullRtp ? null : _rtpService.Object);
 
             _target.Initialize();
         }
@@ -172,6 +179,7 @@
             _digitalRights = new Mock<IDigitalRights>(MockBehavior.Default);
             _configurationProvider = new Mock<IConfigurationProvider>(MockBehavior.Default);
             _cabinetDetectionService = new Mock<ICabinetDetectionService>(MockBehavior.Default);
+            _rtpService = new Mock<IRtpService>(MockBehavior.Default);
         }
 
         private void SetupProperties()

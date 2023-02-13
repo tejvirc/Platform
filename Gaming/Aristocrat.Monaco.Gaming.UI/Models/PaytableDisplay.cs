@@ -5,16 +5,23 @@
 
     public class PaytableDisplay
     {
-        public PaytableDisplay(IGameDetail gameDetail, long denom, bool displayRtpAsRange)
+        public PaytableDisplay(IGameDetail gameDetail, RtpRange rtp, bool displayRtpAsRange)
         {
             GameDetail = gameDetail;
-            Rtp = gameDetail.GetTotalJurisdictionRtpRange(denom).Rtp;
+            Rtp = rtp;
             DisplayText = $"{(displayRtpAsRange ? Rtp.ToString() : Rtp.Minimum.GetRtpString())} v{gameDetail.VariationId}";
         }
 
         public IGameDetail GameDetail { get; }
 
         public RtpRange Rtp { get; }
+
+        public string DisplayText { get; }
+
+        protected bool Equals(PaytableDisplay other)
+        {
+            return GameDetail.Id == other.GameDetail.Id;
+        }
 
         public override bool Equals(object obj)
         {
@@ -25,13 +32,6 @@
         public override int GetHashCode()
         {
             return GameDetail?.Id.GetHashCode() ?? 0;
-        }
-
-        public string DisplayText { get; }
-
-        protected bool Equals(PaytableDisplay other)
-        {
-            return GameDetail.Id == other.GameDetail.Id;
         }
     }
 }

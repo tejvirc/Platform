@@ -14,7 +14,7 @@
     public class ReadOnlyGameConfiguration
     {
         private readonly IGameProvider _gameProvider;
-
+        private readonly IRtpService _rtpService;
         private readonly double _denomMultiplier;
 
         public ReadOnlyGameConfiguration(
@@ -29,6 +29,7 @@
 
             var container = ServiceManager.GetInstance().GetService<IContainerService>().Container;
             _gameProvider = container.GetInstance<IGameProvider>();
+            _rtpService = container.GetInstance<IRtpService>();
 
             SetupProgressiveValues(container.GetInstance<IProgressiveConfigurationProvider>(), GameDetail, DenominationValue);
 
@@ -111,19 +112,17 @@
 
         private void SetupProgressiveValues(IProgressiveConfigurationProvider progressiveConfigurationProvider, IGameDetail game, long denom)
         {
-            var baseGameRtp = game.GetBaseGameRtpRange();
+            var rtpTotals = _rtpService.GetTotalRtpBreakdown(game);
 
             // TODO: handle bad RTP state enum here, not in GetRtp method.
-            var (progressiveRtp, rtpState) =
-                progressiveConfigurationProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name); // This verifies SAP progressive??
-
-            var (totalJurisdictionRtp, _) = game.GetTotalJurisdictionRtpRange((progressiveRtp, rtpState));
+            var (_, rtpState) =
+                progressiveConfigurationProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name);
 
             SetRtpInformation(
-                baseGameRtp,
-                progressiveRtp?.Reset,
-                progressiveRtp?.Increment,
-                totalJurisdictionRtp,
+                rtpTotals.Base,
+                rtpTotals.StandaloneProgressiveReset.TotalWith(rtpTotals.LinkedProgressiveReset),
+                rtpTotals.StandaloneProgressiveIncrement.TotalWith(rtpTotals.LinkedProgressiveIncrement),
+                rtpTotals.TotalRtp,
                 rtpState);
         }
 
@@ -134,6 +133,7 @@
             RtpRange totalJurisdictionRtp,
             RtpVerifiedState rtpState)
         {
+            // TODO: Refactor these into a breakdown to help flatten this bloated model
             BaseGameRTP = baseGameRtp.ToString();
             BaseGameRTPMin = baseGameRtp.Minimum.GetRtpString();
             BaseGameRTPMax = baseGameRtp.Maximum.GetRtpString();
@@ -152,8 +152,14 @@
 
             ProgressiveResetRTPState = rtpState;
 
-            ProgressiveIncrementRTPState = !_gameProvider.CanIncludeIncrementRtp(GameType) && rtpState == RtpVerifiedState.Verified
-                ? RtpVerifiedState.NotUsed : rtpState;
+            var rules = _rtpService.GetJurisdictionalRtpRules(GameType);
+
+            var progressiveIncrement = rules.IncludeLinkProgressiveIncrementRtp ||
+                                       rules.IncludeStandaloneProgressiveIncrementRtp;
+
+            ProgressiveIncrementRTPState = (!progressiveIncrement && rtpState == RtpVerifiedState.Verified)
+                ? RtpVerifiedState.NotUsed
+                : rtpState;
         }
     }
 }

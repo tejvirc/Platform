@@ -46,7 +46,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WagerCategory"/> class.
+        ///     Initializes a new instance of the <see cref="WagerCategory"/> class. This constructor includes detailed RTP information made available with the transition to GDK 5.0.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="theoPaybackPercent">The theoretical payback percentage associated with the wager category.</param>
@@ -131,6 +131,18 @@
 
         /// <inheritdoc />
         public decimal LinkIncrementRtpPercent { get; set; }
+
+        /// <inheritdoc />
+        [JsonIgnore]
+        public bool HasExtendedRtpInformation =>
+            MinBaseRtpPercent != default ||
+            MaxBaseRtpPercent != default ||
+            MinSapStartupRtpPercent != default ||
+            MaxSapStartupRtpPercent != default ||
+            SapIncrementRtpPercent != default ||
+            MinLinkStartupRtpPercent != default ||
+            MaxLinkStartupRtpPercent != default ||
+            LinkIncrementRtpPercent != default;
 
         /// <summary>
         ///     Converts to a string.

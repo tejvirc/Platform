@@ -130,5 +130,7 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public bool HasExtendedRtpInformation => WagerCategories.All(w => w.HasExtendedRtpInformation);
     }
 }

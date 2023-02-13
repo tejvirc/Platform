@@ -78,6 +78,8 @@
         private readonly IDigitalRights _digitalRights;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
+        private readonly IRtpService _rtpService;
+
         //private readonly Dictionary<GameType,
         //    (bool includeSapIncr, bool includeLinkIncr, decimal minPayback, decimal maxPayback)> _rtpRules = new();
         private readonly double _multiplier;
@@ -100,7 +102,8 @@
             IIdProvider idProvider,
             IDigitalRights digitalRights,
             IConfigurationProvider configurationProvider,
-            ICabinetDetectionService cabinetDetectionService)
+            ICabinetDetectionService cabinetDetectionService,
+            IRtpService rtpService)
         {
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
@@ -117,6 +120,7 @@
             _digitalRights = digitalRights ?? throw new ArgumentNullException(nameof(digitalRights));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+            _rtpService = rtpService ?? throw new ArgumentNullException(nameof(rtpService));;
 
             // TODO: No, not here buddy!
             //SetupRtpRules();
@@ -926,6 +930,7 @@
 
                 string gameThemeId = null;
 
+                // Iterate over each game variation in the GSA Manifest
                 foreach (var game in definedGames)
                 {
                     var progressiveDetails =
@@ -939,25 +944,16 @@
                         continue;
                     }
 
-                    // TODO: DELETE
-                    //var rtpRange = GetTotalRtp(game, progressiveDetails);
-                    //var gameType = ToGameType(game.GameType);
-                    
-                    //if (!IsValidRtp(gameType, rtpRange))
-                    //{
-                    //    Logger.Info($"{game.ThemeId}:{game.PaytableId}'s RTP is not allowed in Jurisdiction");
-                    //    continue;
-                    //}
-
                     List<WagerCategory> wagerCategories;
                     var centralAllowed = false;
 
+                    // IMPORTANT: For central determinant games the wager categories are comprised of the cds info templates instead of the
+                    // actual WagerCategory information from the GSA Manifest.
                     if (game.CentralInfo.Any())
                     {
                         centralAllowed = true;
                         _properties.SetProperty(ApplicationConstants.CentralAllowed, true);
-                        // IMPORTANT: For central determinant games the wager categories are comprised of the cds info templates instead of the
-                        // actual WagerCategory information from the GSA Manifest.
+                        
                         wagerCategories = game.CentralInfo.GroupBy(c => c.Id, c => c.Bet,
                             (id, bet) =>
                             {
@@ -1063,10 +1059,21 @@
                         gameDetail.Status |= GameStatus.GameFilesNotFound;
                     }
 
+                    // New RTP information (post GDK 5.0)
+                    if (gameDetail.HasExtendedRtpInformation)
+                    {
+                        var totalRtp = _rtpService.GetTotalRtp(gameDetail);
+                        gameDetail.MaximumPaybackPercent = totalRtp.Maximum;
+                        gameDetail.MinimumPaybackPercent = totalRtp.Minimum;
+                    }
+                    else // Legacy RTP information (pre-GDK 5.0). This is for backwards compatibility only.
+                    {
+                        gameDetail.MaximumPaybackPercent = game.MaxPaybackPercent;
+                        gameDetail.MinimumPaybackPercent = game.MinPaybackPercent;
+                    }
+
                     gameDetail.PaytableName = GetPaytableName(game.PaytableId);
                     gameDetail.VariationId = game.VariationId;
-                    gameDetail.MaximumPaybackPercent = game.MaxPaybackPercent;
-                    gameDetail.MinimumPaybackPercent = game.MinPaybackPercent;
                     gameDetail.CentralAllowed = centralAllowed;
                     gameDetail.CdsThemeId = game.CdsThemeId;
                     gameDetail.CdsTitleId = game.CdsTitleId;
@@ -1130,7 +1137,7 @@
 
                         _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
                     }
-                }
+                } // End foreach (game in definedGames)
 
                 if (gameContent.Configurations != null)
                 {
@@ -1283,10 +1290,8 @@
 
                 var installDateTime = GetInstallDate();
 
-                _storageManager.ResizeBlock(GetBlockName(DataBlock), gamePlayId);
-
                 // Games added after initial boot will always be upgraded.
-                //  For the initial set of games just mark them as upgraded
+                // For the initial set of games just mark them as upgraded.
                 var upgraded = installDateTime == DateTime.MinValue;
 
                 game = new GameDetail
@@ -1309,6 +1314,8 @@
                     Features = features,
                     CdsGameInfos = cdsGameInfos
                 };
+
+                _storageManager.ResizeBlock(GetBlockName(DataBlock), gamePlayId);
             }
 
             var dataBlock = GetAccessor(DataBlock);

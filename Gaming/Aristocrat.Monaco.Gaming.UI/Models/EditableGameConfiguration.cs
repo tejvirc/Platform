@@ -13,6 +13,7 @@
     using Contracts.Configuration;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.Rtp;
     using Kernel;
     using Localization.Properties;
     using log4net;
@@ -26,6 +27,7 @@
 
         private readonly IProgressiveConfigurationProvider _progressives;
         private readonly IPropertiesManager _properties;
+        private readonly IRtpService _rtpService;
         private readonly List<IViewableProgressiveLevel> _assignedLevels = new List<IViewableProgressiveLevel>();
         private readonly IDictionary<int, IDenomination> _denominationMapping;
         private readonly decimal _denomMultiplier;
@@ -68,6 +70,7 @@
         {
             var serviceManager = ServiceManager.GetInstance();
             _properties = serviceManager.GetService<IPropertiesManager>();
+            _rtpService = serviceManager.GetService<IRtpService>();
             _progressives = serviceManager.GetService<IProgressiveConfigurationProvider>();
 
             _denomMultiplier = (decimal)_properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
@@ -808,9 +811,11 @@
 
         private void SetAvailableGamesAndDenom()
         {
+
+
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
-                .Select(g => new PaytableDisplay(g, BaseDenom, _showGameRtpAsRange)).ToList();
+                .Select(g => new PaytableDisplay(g, _rtpService.GetTotalRtp(g), _showGameRtpAsRange)).ToList();
         }
 
         private static int GetBetWidth(decimal betAmount)
