@@ -16,6 +16,7 @@
     using OperatorMenu;
     using OxyPlot;
     using OxyPlot.Axes;
+    using OxyPlot.Legends;
     using OxyPlot.Wpf;
     using PerformanceCounter;
     using Axis = OxyPlot.Axes.Axis;
@@ -447,7 +448,7 @@
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
                     MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
-                    Label = metric.GetAttribute<LabelAttribute>().Label
+                    Label = metric.GetAttribute<LabelAttribute>().Label,
                 };
 
                 m.PropertyChanged += ViewMetric_PropertyChanged;
@@ -704,6 +705,7 @@
                             DateTimeAxis.CreateDataPoint(
                                 counter.DateTime,
                                 counter.CounterDictionary.TryGetValue(metric.MetricType, out var value) ? value : 0)));
+                
             }
 
             //After Population of the data, set the Absolute Maximum Value.
@@ -751,15 +753,21 @@
                 Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PerformanceCountersPlotting),
                 TitleFontSize = 25,
                 TitleColor = OxyColors.CornflowerBlue,
-                //LegendFontSize = 12,
-                //LegendFontWeight = 550,
-                //LegendSymbolLength = 30,
-                //LegendSymbolMargin = 10,
-                //LegendTextColor = OxyColors.White,
+                IsLegendVisible = true,
                 PlotAreaBorderColor = OxyColors.CornflowerBlue,
                 PlotMargins = new OxyThickness(60, 10, 20, 70)
             };
-
+            MonacoPlotModel.Legends = new ElementCollection<LegendBase>(MonacoPlotModel)
+            {
+                new Legend()
+                {
+                    FontSize = 14,
+                    FontWeight = 800,
+                    LegendTextColor = OxyColors.White,
+                    LegendSymbolLength = 30,
+                    LegendSymbolMargin = 10,
+                }
+            };
             PopulateAxes();
 
             PopulateSeries();

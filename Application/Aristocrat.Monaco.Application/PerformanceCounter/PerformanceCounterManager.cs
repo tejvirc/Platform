@@ -123,7 +123,7 @@
                     while (inputStream.Position < inputStream.Length)
                     {
                         //deserialize each object in the file
-                        list.Add(Serializer.Deserialize<PerformanceCounters>(inputStream));
+                        list.Add(Serializer.DeserializeWithLengthPrefix<PerformanceCounters>(inputStream, PrefixStyle.Fixed32));
                     }
                 }
                 catch (Exception)
@@ -189,13 +189,12 @@
                 }
 
                 // Flush Data to the disk
-                
                 using (var outputStream =
                     new FileStream(logFileName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
                 {
                     try
                     {
-                        Serializer.Serialize(outputStream, GetAllCountersData());
+                        Serializer.SerializeWithLengthPrefix(outputStream, GetAllCountersData(), PrefixStyle.Fixed32);
                     }
                     catch (EndOfStreamException e)
                     {
