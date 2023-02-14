@@ -30,16 +30,18 @@
 
             if (parameter != null && Enum.TryParse(parameter.ToString(), out LobbyViewMarginType type))
             {
-                int gameCount = 0;
-                bool tabView = false;
+                var gameCount = 0;
+                var tabView = false;
                 var bottomLabelVisible = false;
                 double topMarginAdjust = 0;
                 double denomMarginAdjust = 0;
-                bool extraLargeIcons = false;
-                Size gameIconSize = Size.Empty;
+                double screenHeight = 0;
+                var extraLargeIcons = false;
+                var gameIconSize = Size.Empty;
 
                 if (value is GameGridMarginInputs inputs)
                 {
+                    screenHeight = inputs.ScreenHeight;
                     gameCount = inputs.GameCount;
                     tabView = inputs.TabView;
                     bottomLabelVisible = inputs.BottomLabelVisible;
@@ -49,6 +51,12 @@
                     {
                         topMarginAdjust = TopMarginAdjust;
                         denomMarginAdjust = DenomMarginAdjust;
+                    }
+
+                    if (gameCount > 8 && inputs.SubTabVisible)
+                    {
+                        // If there is sub tabs, we need to give more space on the top
+                        topMarginAdjust += 60;
                     }
                 }
                 else if (value is int count)
@@ -75,11 +83,15 @@
                             }
 
                             var offset = bottomLabelVisible ? 10 : 0;
-                            return gameCount <= 4
-                                ? new Thickness(0, 325 - offset + topMarginAdjust, 0, 0)
+                            var topOffset = screenHeight > NormalScreenHeight ? (gameCount > 4 ? 0 : -80) : 60;
+                            var margin = gameCount <= 4
+                                ? new Thickness(0, 325 - offset + topMarginAdjust - topOffset, 0, 0)
                                 : gameCount <= 8
                                     ? new Thickness(0, 240 - offset + topMarginAdjust, 0, 0)
-                                    : new Thickness(0, 180 - offset + topMarginAdjust, 0, 0);
+                                : new Thickness(0, 180 - offset + topMarginAdjust - topOffset, 0, 0);
+
+
+                            return margin;
                         }
 
                         return useSmallIcons
@@ -96,7 +108,12 @@
                     case LobbyViewMarginType.Banner:
                         return new Thickness(19.0, 0, 20.0, 8.0);
                     case LobbyViewMarginType.ProgressiveOverlay:
-                        return new Thickness(0, 0, 0, 48);
+                        if (screenHeight > NormalScreenHeight)
+                        {
+                            // for marsX or any monitor with higher resolution
+                            return new Thickness(0, 0, 0, gameCount <= 8 ? 128 : 168);
+                        }
+                        return new Thickness(0, 0, 0, 36);
                     case LobbyViewMarginType.ProgressiveOverlayText:
                         return new Thickness(0, 0, 0, value is bool selected ? (selected ? -5 : 0) : 0);
                     case LobbyViewMarginType.DenomLargeScreenLayout:
@@ -135,6 +152,7 @@
         public GameGridMarginInputs(
             int gameCount,
             bool tabView,
+            bool subTabVisible,
             bool bottomLabelVisible,
             double screenHeight,
             bool extraLargeIconLayout,
@@ -144,6 +162,7 @@
         {
             GameCount = gameCount;
             TabView = tabView;
+            SubTabVisible = subTabVisible;
             BottomLabelVisible = bottomLabelVisible;
             ScreenHeight = screenHeight;
             ExtraLargeIconLayout = extraLargeIconLayout;
@@ -155,6 +174,8 @@
         public int GameCount { get; }
 
         public bool TabView { get; }
+
+        public bool SubTabVisible { get; }
 
         public bool BottomLabelVisible { get; }
 

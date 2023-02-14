@@ -65,7 +65,7 @@
             }
         }
 
-        private SubTabInfoViewModel SelectedSubTab => SubTabs.FirstOrDefault(o => o.IsSelected);
+        public SubTabInfoViewModel SelectedSubTab => SubTabs.FirstOrDefault(o => o.IsSelected);
 
         private int SelectedTabIndex => _tabs.FirstOrDefault(o => o.Enabled)?.TabIndex ?? 0;
 
