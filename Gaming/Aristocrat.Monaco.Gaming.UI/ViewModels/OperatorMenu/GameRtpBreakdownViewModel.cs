@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
-    using System.Windows.Input;
+    using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
     using Contracts.Progressives;
     using Contracts.Rtp;
 
-    public class GameRtpBreakdownViewModel : OperatorMenuPageViewModelBase
+    public class GameRtpBreakdownViewModel : OperatorMenuPageViewModelBase, IModalDialogViewModel
     {
         public GameRtpBreakdownViewModel(Args args)
         {
@@ -72,5 +72,7 @@
 
             public RtpVerifiedState LinkedProgressiveIncrementRtpState { get; set; }
         }
+
+        public bool? DialogResult => true;
     }
 }

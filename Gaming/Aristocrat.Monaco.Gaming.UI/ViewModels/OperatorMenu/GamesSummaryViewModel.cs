@@ -17,13 +17,17 @@
     using System.Linq;
     using Contracts.Rtp;
     using MVVM.Command;
+    using Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu;
+    using Contracts.Progressives;
+    using IDialogService = Application.Contracts.OperatorMenu.IDialogService;
 
     public class GamesSummaryViewModel : OperatorMenuPageViewModelBase
     {
+        private readonly IGameProvider _gameProvider;
+        private readonly IDialogService _dialogService;
         private string _range;
         private int _enabledGamesCount;
         private readonly double _denomMultiplier;
-        private readonly IGameProvider _gameProvider;
         private ObservableCollection<ReadOnlyGameConfiguration> _enabledGames;
         private string _maxBetLimit;
         private IReadOnlyCollection<IGameDetail> _enabledGamesList;
@@ -33,6 +37,10 @@
 
         public GamesSummaryViewModel()
         {
+            _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+
+            ShowRtpBreakdownDialogCommand = new ActionCommand<ReadOnlyGameConfiguration>(ShowRtpBreakdownDialog);
+
             _enabledGamesList = new List<IGameDetail>();
             _filteredGamesList = new List<IGameDetail>();
 
@@ -58,7 +66,7 @@
             }
         }
 
-        public ActionCommand<object> ShowRtpBreakdownDialogCommand { get; } = new (ShowRtpBreakdownDialog);
+        public ActionCommand<ReadOnlyGameConfiguration> ShowRtpBreakdownDialogCommand { get; }
 
         public string Range
         {
@@ -117,10 +125,6 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public bool ShowProgressiveRtpAsRange => ProgressiveRtpsVisible && ShowGameRtpAsRange;
-
-        public bool ShowProgressiveRtpSeparately => ProgressiveRtpsVisible && !ShowGameRtpAsRange;
-
         protected override void OnLoaded()
         {
             var maxBetLimitDollars = ((long)PropertiesManager.GetProperty(
@@ -166,9 +170,26 @@
             }
         }
 
-        private static void ShowRtpBreakdownDialog(object args)
+        private void ShowRtpBreakdownDialog(ReadOnlyGameConfiguration gameConfig)
         {
+            //var viewModel = new GameRtpSummaryViewModel(_gameProvider.GetGames(), _denomMultiplier);
+            //_dialogService.ShowInfoDialog<GameRtpSummaryView>(
+            //    this,
+            //    viewModel,
+            //    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameSummaryTitle));
 
+            // TODO: Get the RTP breakdown info gor the game that is on the line with the button
+            var args = new GameRtpBreakdownViewModel.Args
+            {
+                Breakdown = null,
+                StandaloneProgressiveResetRtpState = RtpVerifiedState.Verified,
+                StandaloneProgressiveIncrementRtpState = RtpVerifiedState.Verified,
+                LinkedProgressiveResetRtpState = RtpVerifiedState.Verified,
+                LinkedProgressiveIncrementRtpState = RtpVerifiedState.Verified
+            };
+
+            var viewModel = new GameRtpBreakdownViewModel(args);
+            _dialogService.ShowInfoDialog<GameRtpSummaryView>(this, viewModel, string.Empty);
         }
     }
 }

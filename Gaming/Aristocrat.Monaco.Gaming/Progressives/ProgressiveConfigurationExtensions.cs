@@ -28,6 +28,8 @@
                 throw new ArgumentNullException(nameof(@this));
             }
 
+            // TODO: GetRtpVerified state for all progressive types
+
             var configuredLevels = @this.ViewAssignedProgressiveLevels(gameId, denomination, betOption);
             if (!configuredLevels.Any())
             {

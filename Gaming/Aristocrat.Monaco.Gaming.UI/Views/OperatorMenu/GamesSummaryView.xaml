@@ -272,16 +272,17 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}" Margin="-30,0, 0,0" HorizontalAlignment="Left"
-                                        Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <Button.CommandParameter>
+                                <Button Name="RtpBreakdownDialogBtn" Style="{StaticResource MonacoInfoButton}" Margin="-30,0, 0,0" HorizontalAlignment="Left"
+                                        Command="{Binding DataContext.ShowRtpBreakdownDialogCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}">
+                                    <!--<Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                            <Binding ElementName="InfoButton"/>
+                                            <Binding ElementName="RtpBreakdownDialogBtn"/>
                                             <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result"/>
                                         </MultiBinding>
                                     </Button.CommandParameter>
                                     <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" 
-                                                  Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}"/>
+                                                  Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}"/>-->
                                 </Button>
                             </Grid>
                         </DataTemplate>
