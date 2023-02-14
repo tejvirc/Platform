@@ -58,7 +58,6 @@
         <DataGrid Grid.Row="1"
                   Margin="0 10"
                   ItemsSource="{Binding EnabledGames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                   VerticalAlignment="Stretch"
                   ScrollViewer.CanContentScroll="True"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -67,7 +66,7 @@
             <DataGrid.Resources>
                 <common:BindingProxy x:Key="Proxy" Data="{Binding}"/>
 
-                <Style x:Key="ProgressiveResetRtpState" TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
+                <!--<Style x:Key="ProgressiveResetRtpState" TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveResetRTPState), Mode=OneWay}" Value="{x:Static progressive:RtpVerifiedState.NotVerified}">
                             <Setter Property="Text" Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotVerified}}"/>
@@ -93,11 +92,11 @@
                             <Setter Property="Text" Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotUsed}}"/>
                         </DataTrigger>
                     </Style.Triggers>
-                </Style>
+                </Style>-->
             </DataGrid.Resources>
 
             <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}">
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeaderSmall}">
                     <Setter Property="MinHeight" Value="60" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
@@ -105,19 +104,26 @@
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell" BasedOn="{StaticResource MonacoDataGridCell}">
                     <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Padding" Value="0, 0, 10, 0" />
                 </Style>
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Binding="{Binding UniqueId}" />
+                <DataGridTextColumn Header="#" Width="30" Binding="{Binding UniqueId}" />
+
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}" Binding="{Binding ThemeName}"/>
+
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VersionText}}" Binding="{Binding Version}"/>
+
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}" Binding="{Binding PaytableId}" />
+
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}" Binding="{Binding Denomination}" />
+
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}" Binding="{Binding MaximumWagerCredits}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}" Binding="{Binding TopAward, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"/>
+
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}" MinWidth="90" Binding="{Binding TopAward, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"/>
                 
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTP}}" 
+                <!--<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTP}}" 
                                     Binding="{Binding BaseGameRTP}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTPMin}}" 
@@ -248,42 +254,25 @@
                             </Viewbox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                </DataGridTemplateColumn>-->
 
-                <DataGridTextColumn Binding="{Binding TotalJurisdictionalRTP}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}">
-                    <DataGridTextColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Source={lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}, Converter={StaticResource ToUpperConverter}}}" 
-                                           Width="100" TextWrapping="Wrap"/>
-                                <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}" Margin="6,-16,20,0"
-                                        Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                            <Binding ElementName="InfoButton"/>
-                                            <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" 
-                                                  Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}"/>
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTextColumn.HeaderTemplate>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}}"
+                                    Binding="{Binding TotalJurisdictionalRTP}"
+                                    Visibility="{Binding Path=DataContext.ShowGameRtpAsRange, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMin}}"
                                     Binding="{Binding TotalJurisdictionalRTPMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
+                
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMax}}"
                                     Binding="{Binding TotalJurisdictionalRTPMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}">
-                    <DataGridTextColumn.HeaderTemplate>
+                
+                <DataGridTemplateColumn x:Name="RtpBreakdownBtn" Width="10" Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}">
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}" Margin="-30,-10,10,0"
+                            <Grid>
+                                <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}" Margin="-30,0, 0,0" HorizontalAlignment="Left"
                                         Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
@@ -294,12 +283,12 @@
                                     <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" 
                                                   Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}"/>
                                 </Button>
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
-                    </DataGridTextColumn.HeaderTemplate>
-                </DataGridTextColumn>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}" Binding="{Binding RuntimeVersion}" />
+                <!--<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}" Binding="{Binding RuntimeVersion}" />-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

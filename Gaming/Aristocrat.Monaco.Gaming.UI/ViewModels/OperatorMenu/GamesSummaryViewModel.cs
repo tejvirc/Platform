@@ -16,6 +16,7 @@
     using System.Globalization;
     using System.Linq;
     using Contracts.Rtp;
+    using MVVM.Command;
 
     public class GamesSummaryViewModel : OperatorMenuPageViewModelBase
     {
@@ -56,6 +57,8 @@
                 HashesComponentId = hashesFileName.Substring(0, hashesFileName.LastIndexOf(HashesFileExtension[0]));
             }
         }
+
+        public ActionCommand<object> ShowRtpBreakdownDialogCommand { get; } = new (ShowRtpBreakdownDialog);
 
         public string Range
         {
@@ -147,7 +150,7 @@
 
                 var totalRtp = rtpService.GetTotalRtp(_filteredGamesList);
 
-                Range = $"{totalRtp.Minimum.GetRtpString()} - {totalRtp.Maximum.GetRtpString()}";
+                Range = $"{totalRtp.Minimum.ToRtpString()} - {totalRtp.Maximum.ToRtpString()}";
             }
             else
             {
@@ -161,6 +164,11 @@
 
                 Range = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
             }
+        }
+
+        private static void ShowRtpBreakdownDialog(object args)
+        {
+
         }
     }
 }

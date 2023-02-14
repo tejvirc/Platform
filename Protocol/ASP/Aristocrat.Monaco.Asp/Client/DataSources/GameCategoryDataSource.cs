@@ -93,7 +93,7 @@
         private static string GetGameRtp((IGameDetail game, IDenomination denom)? gameProfile)
         {
             var theoreticalRtp = gameProfile?.game.MinimumPaybackPercent ?? 0;
-            return theoreticalRtp.GetRtpString();
+            return theoreticalRtp.ToRtpString();
         }
 
         private static object GetGameMaxBetInCents((IGameDetail game, IDenomination denom)? gameProfile)

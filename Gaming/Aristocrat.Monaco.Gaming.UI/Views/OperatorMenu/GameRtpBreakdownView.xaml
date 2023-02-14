@@ -1,0 +1,81 @@
+﻿<operatorMenu:OperatorMenuPage
+    x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameRtpBreakdownView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:loc="http://monaco.aristocrat.com/localization"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+    MaxHeight="800"
+    Background="Transparent"
+    d:DataContext="{d:DesignInstance {x:Type viewModels:GameRtpBreakdownViewModel}}"
+    Height="600"
+    Width="800"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource Brush3}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="64" Name="LayoutRoot">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Headers-->
+            <Label Grid.Row="0" Grid.Column="0" Content="RTP BREAKDOWN"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="MIN"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="MAX"/>
+
+            <!--Rows-->
+            <!--TODO: Convert to localized strings-->
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Base (Excluding Progressives)"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Standalone Progressive Reset"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Standalone Progressive Increment"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Link Progressive Reset"/>
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Link Progressive Increment"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding BaseGameRtpMin}"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding StandaloneProgressiveResetRtpMin}"/>
+            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding StandaloneProgressiveIncrementRtpMin}"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding LinkedProgressiveResetRtpMin}"/>
+            <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding LinkedProgressiveIncrementRtpMin}"/>
+
+            <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding BaseGameRtpMax}"/>
+            <TextBlock Grid.Column="2" Grid.Row="2" Text="{Binding StandaloneProgressiveResetRtpMax}"/>
+            <TextBlock Grid.Column="2" Grid.Row="3" Text="{Binding StandaloneProgressiveIncrementRtpMax}"/>
+            <TextBlock Grid.Column="2" Grid.Row="4" Text="{Binding LinkedProgressiveResetRtpMax}"/>
+            <TextBlock Grid.Column="2" Grid.Row="5" Text="{Binding LinkedProgressiveIncrementRtpMax}"/>
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

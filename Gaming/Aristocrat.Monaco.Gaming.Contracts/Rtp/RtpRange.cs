@@ -88,14 +88,14 @@
             }
             if (Maximum == decimal.MaxValue)
             {
-                return $"{Resources.AtLeast} {Minimum.GetRtpString()}";
+                return $"{Resources.AtLeast} {Minimum.ToRtpString()}";
             }
             if (Minimum == decimal.MinValue)
             {
-                return $"{Resources.AtMost} {Maximum.GetRtpString()}";
+                return $"{Resources.AtMost} {Maximum.ToRtpString()}";
             }
 
-            return $"{Minimum.GetRtpString()} - {Maximum.GetRtpString()}";
+            return $"{Minimum.ToRtpString()} - {Maximum.ToRtpString()}";
         }
 
         /// <summary>
@@ -109,7 +109,6 @@
         /// <summary>
         ///     Returns the unique hash code
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             unchecked

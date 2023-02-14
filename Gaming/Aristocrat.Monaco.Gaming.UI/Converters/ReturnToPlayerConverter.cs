@@ -27,10 +27,10 @@
                     return string.Empty;
                 case Tuple<decimal, decimal> value1:
                     return value1.Item1 == value1.Item2
-                        ? value1.Item1.GetRtpString()
+                        ? value1.Item1.ToRtpString()
                         : new RtpRange(value1.Item1, value1.Item2).ToString();
                 case decimal value2:
-                    return value2.GetRtpString();
+                    return value2.ToRtpString();
                 default:
                     return string.Empty;
             }

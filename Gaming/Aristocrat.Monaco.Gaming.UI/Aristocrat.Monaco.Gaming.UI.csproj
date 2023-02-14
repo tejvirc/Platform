@@ -82,4 +82,9 @@
   <ItemGroup>
     <Reference Include="System.Windows.Presentation" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\OperatorMenu\GameRtpBreakdownView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
 </Project>

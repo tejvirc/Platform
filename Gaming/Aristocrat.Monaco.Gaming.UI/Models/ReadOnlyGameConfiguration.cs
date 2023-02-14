@@ -139,20 +139,20 @@
         {
             // TODO: Refactor these into a breakdown to help flatten this bloated model
             BaseGameRTP = baseGameRtp.ToString();
-            BaseGameRTPMin = baseGameRtp.Minimum.GetRtpString();
-            BaseGameRTPMax = baseGameRtp.Maximum.GetRtpString();
+            BaseGameRTPMin = baseGameRtp.Minimum.ToRtpString();
+            BaseGameRTPMax = baseGameRtp.Maximum.ToRtpString();
 
             ProgressiveResetRTP = progressiveResetRtp?.ToString();
-            ProgressiveResetRTPMin = progressiveResetRtp?.Minimum.GetRtpString();
-            ProgressiveResetRTPMax = progressiveResetRtp?.Maximum.GetRtpString();
+            ProgressiveResetRTPMin = progressiveResetRtp?.Minimum.ToRtpString();
+            ProgressiveResetRTPMax = progressiveResetRtp?.Maximum.ToRtpString();
 
             ProgressiveIncrementRTP = progressiveIncrementRtp?.ToString();
-            ProgressiveIncrementRTPMin = progressiveIncrementRtp?.Minimum.GetRtpString();
-            ProgressiveIncrementRTPMax = progressiveIncrementRtp?.Maximum.GetRtpString();
+            ProgressiveIncrementRTPMin = progressiveIncrementRtp?.Minimum.ToRtpString();
+            ProgressiveIncrementRTPMax = progressiveIncrementRtp?.Maximum.ToRtpString();
 
             TotalJurisdictionalRTP = totalJurisdictionRtp?.ToString();
-            TotalJurisdictionalRTPMin = totalJurisdictionRtp?.Minimum.GetRtpString();
-            TotalJurisdictionalRTPMax = totalJurisdictionRtp?.Maximum.GetRtpString();
+            TotalJurisdictionalRTPMin = totalJurisdictionRtp?.Minimum.ToRtpString();
+            TotalJurisdictionalRTPMax = totalJurisdictionRtp?.Maximum.ToRtpString();
 
             ProgressiveResetRTPState = rtpState;
 

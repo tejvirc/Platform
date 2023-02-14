@@ -493,7 +493,7 @@
                             <Binding ElementName="GameSetupEKeyImportVerified" Path="Result" />
                         </MultiBinding>
                     </Button.CommandParameter>
-                    <lex:LocProxy x:Name="GameSetupEKeyImportVerified"
+                    <lex:LocProxy x:Name= "GameSetupEKeyImportVerified"
                                   Source="{x:Static loc:ResourceKeys.GameSetupEKeyImportVerified}" />
                 </Button>
             </StackPanel>

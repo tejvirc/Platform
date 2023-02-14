@@ -9,7 +9,7 @@
         {
             GameDetail = gameDetail;
             Rtp = rtp;
-            DisplayText = $"{(displayRtpAsRange ? Rtp.ToString() : Rtp.Minimum.GetRtpString())} v{gameDetail.VariationId}";
+            DisplayText = $"{(displayRtpAsRange ? Rtp.ToString() : Rtp.Minimum.ToRtpString())} v{gameDetail.VariationId}";
         }
 
         public IGameDetail GameDetail { get; }

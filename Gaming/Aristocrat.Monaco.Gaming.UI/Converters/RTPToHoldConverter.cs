@@ -29,10 +29,10 @@
                     return string.Empty;
                 case Tuple<decimal, decimal> value1:
                     return value1.Item1 == value1.Item2
-                        ? (OneHundredPercent - value1.Item1).GetRtpString()
+                        ? (OneHundredPercent - value1.Item1).ToRtpString()
                         : new RtpRange(OneHundredPercent - value1.Item2, OneHundredPercent - value1.Item1).ToString();
                 case decimal value2:
-                    return (OneHundredPercent - value2).GetRtpString();
+                    return (OneHundredPercent - value2).ToRtpString();
                 default:
                     return string.Empty;
             }

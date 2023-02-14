@@ -9,8 +9,8 @@
         public GameSummary(string name, decimal rtp)
         {
             Name = name;
-            BlendedRTP = rtp.GetRtpString();
-            BlendedHold = (OneHundredPercent - rtp).GetRtpString();
+            BlendedRTP = rtp.ToRtpString();
+            BlendedHold = (OneHundredPercent - rtp).ToRtpString();
         }
 
         public string Name { get; }

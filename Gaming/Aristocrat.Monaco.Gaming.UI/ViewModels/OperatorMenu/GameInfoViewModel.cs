@@ -208,7 +208,7 @@
                         ThemeId = game.ThemeId,
                         ThemeName = game.ThemeName,
                         GameTags = new ObservableCollection<string>(game.GameTags ?? new List<string>()),
-                        TheoPaybackPct = game.MaximumPaybackPercent.GetRtpString()
+                        TheoPaybackPct = game.MaximumPaybackPercent.ToRtpString()
                     });
             }
 

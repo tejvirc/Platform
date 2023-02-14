@@ -34,7 +34,7 @@
         ///     Converts the rtp value to fraction
         /// </summary>
         /// <param name="this">The Rtp value</param>
-        /// <returns></returns>
+        /// <returns>The fraction</returns>
         public static decimal ToFraction(this decimal @this)
         {
             return decimal.Divide(@this, Divisor);
@@ -46,7 +46,7 @@
         /// </summary>
         /// <param name="this">The Rtp percentage</param>
         /// <returns>RTP string formatted with the correct number of decimal place.</returns>
-        public static string GetRtpString(this decimal @this)
+        public static string ToRtpString(this decimal @this)
         {
             var roundedRtp = Math.Round(
                 @this,
