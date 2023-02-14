@@ -55,6 +55,8 @@
 
                 _commandFactory.Create<Wager>().Handle(new Wager(command.GameId, command.Denomination, command.Wager));
 
+                //check HandCountSessionService exists or not
+
                 scope.Complete();
 
                 _runtime.UpdateBalance(_bank.Credits);

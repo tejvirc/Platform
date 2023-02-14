@@ -35,7 +35,7 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
         }
 
-        public string Name => typeof(GameCategoryService).FullName;
+        public string Name => typeof(HandCountSessionService).FullName;
 
         public int HandCount => _handCount;
 
@@ -49,7 +49,6 @@
         private void HandleEvent(PrimaryGameStartedEvent evt)
         {
             IncreaseHandCount();
-
         }
 
         public void IncreaseHandCount()
