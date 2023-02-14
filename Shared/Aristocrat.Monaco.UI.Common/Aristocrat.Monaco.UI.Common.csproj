@@ -68,7 +68,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="3.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0013" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
     <PackageReference Include="log4net" Version="2.0.13" />
