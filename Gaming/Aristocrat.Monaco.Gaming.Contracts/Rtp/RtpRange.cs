@@ -86,12 +86,10 @@
             {
                 return Resources.NoLimit;
             }
-
             if (Maximum == decimal.MaxValue)
             {
                 return $"{Resources.AtLeast} {Minimum.GetRtpString()}";
             }
-
             if (Minimum == decimal.MinValue)
             {
                 return $"{Resources.AtMost} {Maximum.GetRtpString()}";

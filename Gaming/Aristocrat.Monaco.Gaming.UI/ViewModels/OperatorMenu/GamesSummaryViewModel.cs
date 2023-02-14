@@ -143,9 +143,11 @@
 
             if (_filteredGamesList.Any())
             {
-                var minOverall = _filteredGamesList.Min(g => g.MinimumPaybackPercent);
-                var maxOverall = _filteredGamesList.Max(g => g.MaximumPaybackPercent);
-                Range = $"{minOverall.GetRtpString()} - {maxOverall.GetRtpString()}";
+                var rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
+
+                var totalRtp = rtpService.GetTotalRtp(_filteredGamesList);
+
+                Range = $"{totalRtp.Minimum.GetRtpString()} - {totalRtp.Maximum.GetRtpString()}";
             }
             else
             {

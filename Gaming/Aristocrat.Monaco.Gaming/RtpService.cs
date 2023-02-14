@@ -81,7 +81,7 @@
 
             var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
 
-            ValidateRtp(breakdown, game.GameType);
+            RunRtpValidation(breakdown, game.GameType);
 
             return breakdown;
         }
@@ -93,7 +93,7 @@
                 .Aggregate((r1, r2) => r1.TotalWith(r2));
         }
 
-        public RtpValidationReport ValidateRtp(IEnumerable<IGameProfile> games)
+        public RtpValidationReport GetValidationReport(IEnumerable<IGameProfile> games)
         {
             var validationDataForReport = new List<(IGameProfile game, RtpValidation validation)>();
 
@@ -105,7 +105,7 @@
                 {
                     var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
 
-                    ValidateRtp(breakdown, game.GameType);
+                    RunRtpValidation(breakdown, game.GameType);
 
                     resultEntries.Add((wagerCategory.Id, breakdown.ValidationResult));
                 }
@@ -199,7 +199,7 @@
             _rules[GameType.Undefined] = _rules[GameType.Slot];
         }
 
-        private void ValidateRtp(RtpBreakdown breakdown, GameType gameType)
+        private void RunRtpValidation(RtpBreakdown breakdown, GameType gameType)
         {
             ValidateRtpRangeBoundaries(breakdown);
 

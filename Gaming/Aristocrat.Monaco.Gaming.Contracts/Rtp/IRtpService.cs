@@ -57,8 +57,8 @@
         /// </summary>
         /// <param name="games">The games.</param>
         /// <returns></returns>
-        /// TODO Edit XML Comment Template for ValidateRtp
-        RtpValidationReport ValidateRtp(IEnumerable<IGameProfile> games);
+        /// TODO Edit XML Comment Template for GetValidationReport
+        RtpValidationReport GetValidationReport(IEnumerable<IGameProfile> games);
 
         /// <summary>
         ///     Gets the jurisdiction RTP rules.
