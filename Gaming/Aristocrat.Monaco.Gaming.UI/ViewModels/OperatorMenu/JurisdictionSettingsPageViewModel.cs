@@ -105,8 +105,6 @@
 
         private void SetupRtpValuesAndVisibility()
         {
-            // TODO: Put check in to include progressive RTP if progressive increment RTP is allowed.
-
             var config = ServiceManager.GetInstance().GetService<IOperatorMenuConfiguration>();
             var showAllowedRtp = config.GetSetting(this, ShowAllowedRtpSetting, true);
 
@@ -159,14 +157,15 @@
 
         private bool GetAllowedRtpForGameType(string allowGameTypeKey, string minimumRtpKey, string maximumRtpKey, ref string allowedRtpRange)
         {
-            // TODO : Construct keys from game type, eg GamingConstants.GetAllowedGamesKey(GameType forGameType); then, loop through each game type for the sent-in values.
-
             if (PropertiesManager.GetValue(allowGameTypeKey, true))
             {
-                allowedRtpRange = new RtpRange(
-                    PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum),
-                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum))
-                    .ToString();
+                var minimumRtp = PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum);
+                var maximumRtp = PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum);
+
+                var rtpRange = new RtpRange(minimumRtp, maximumRtp);
+
+                allowedRtpRange = rtpRange.ToString();
+
                 return true;
             }
 
