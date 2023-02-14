@@ -47,13 +47,13 @@ namespace Aristocrat.Monaco.Sas.Base
                     DisableState.Host0CommunicationsOffline, new DisableData(
                         ApplicationConstants.Host0CommunicationsOfflineDisableKey,
                         () => Localizer.For(CultureFor.Operator)
-                            .GetString(ResourceKeys.DisabledHost0CommunicationsOffline))
+                            .GetString(ResourceKeys.DisabledHost1CommunicationsOffline))
                 },
                 {
                     DisableState.Host1CommunicationsOffline, new DisableData(
                         ApplicationConstants.Host1CommunicationsOfflineDisableKey,
                         () => Localizer.For(CultureFor.Operator)
-                            .GetString(ResourceKeys.DisabledHost1CommunicationsOffline))
+                            .GetString(ResourceKeys.DisabledHost2CommunicationsOffline))
                 },
                 {
                     DisableState.MaintenanceMode, new DisableData(
