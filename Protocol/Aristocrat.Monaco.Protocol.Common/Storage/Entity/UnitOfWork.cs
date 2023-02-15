@@ -143,11 +143,6 @@
 
             _transaction = null;
             _scope = null;
-            if (_context != null)
-            {
-                _context.Dispose();
-                _context = null;
-            }
 
             _disposed = true;
         }
