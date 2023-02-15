@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,7 @@
     public class RtpService : IRtpService, IService
     {
         private readonly IPropertiesManager _properties;
-        private readonly Dictionary<GameType, RtpRules> _rules = new();
+        private readonly Dictionary<GameType, RtpRules> _rules = new ();
 
         public RtpService(IPropertiesManager propertiesManager)
         {
@@ -205,21 +205,7 @@
 
             ValidatePrecision(breakdown, GamingConstants.NumberOfDecimalPlacesForRtpDisplay);
 
-            ValidateGameLimits(breakdown);
-
             ValidateJurisdictionalLimits(breakdown, gameType);
-
-            ValidateMachineAndOrHostLimits(breakdown);
-        }
-
-        private void ValidateMachineAndOrHostLimits(RtpBreakdown rtpBreakdown)
-        {
-            // TODO: Implement if needed
-        }
-
-        private void ValidateGameLimits(RtpBreakdown rtpBreakdown)
-        {
-            // TODO: Implement if needed
         }
 
         private void ValidateJurisdictionalLimits(RtpBreakdown rtpBreakdown, GameType gameType)

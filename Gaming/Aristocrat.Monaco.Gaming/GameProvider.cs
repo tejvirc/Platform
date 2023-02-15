@@ -79,9 +79,6 @@
         private readonly IConfigurationProvider _configurationProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly IRtpService _rtpService;
-
-        //private readonly Dictionary<GameType,
-        //    (bool includeSapIncr, bool includeLinkIncr, decimal minPayback, decimal maxPayback)> _rtpRules = new();
         private readonly double _multiplier;
         private readonly object _sync = new();
 
@@ -121,9 +118,6 @@
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _rtpService = rtpService ?? throw new ArgumentNullException(nameof(rtpService));;
-
-            // TODO: No, not here buddy!
-            //SetupRtpRules();
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
 
@@ -611,67 +605,6 @@
 
             _initialized = true;
         }
-
-        // TODO: Extract
-        //public bool CanIncludeIncrementRtp(GameType type)
-        //{
-        //    return CanIncludeSapIncrementRtp(type) ||
-        //           CanIncludeLinkProgressiveIncrementRtp(type);
-        //}
-
-        // TODO: Extract
-        //public RtpRange GetTotalRtp(GameAttributes game, IReadOnlyCollection<ProgressiveDetail> progressiveDetails)
-        //{
-        //    var gameType = ToGameType(game.GameType);
-        //    var includeIncrement = CanIncludeIncrementRtp(gameType);
-        //    decimal totalRtpMin;
-        //    decimal totalRtpMax;
-
-        //    var rtps = game.WagerCategories.ToList();
-        //    if (rtps.Any(r => r.MinBaseRtpPercent > 0))
-        //    {
-        //        var minBaseRtp = rtps.Select(w => w.MinBaseRtpPercent).Min();
-        //        var maxBaseRtp = rtps.Select(w => w.MaxBaseRtpPercent).Max();
-        //        var minProgStartupRtp = rtps.Select(w => w.MinSapStartupRtpPercent)
-        //            .Union(rtps.Select(w => w.MinLinkStartupRtpPercent)).Min();
-        //        var maxProgStartupRtp = rtps.Select(w => w.MaxSapStartupRtpPercent)
-        //            .Union(rtps.Select(w => w.MaxLinkStartupRtpPercent)).Max();
-        //        var progIncrementRtps = rtps.Select(w => w.SapIncrementRtpPercent)
-        //            .Union(rtps.Select(w => w.LinkIncrementRtpPercent)).ToList();
-        //        var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
-        //        var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
-        //        Logger.Debug(
-        //            $"minBase={minBaseRtp}% maxBase={maxBaseRtp}% minProgStart={minProgStartupRtp}% maxProgStart={maxProgStartupRtp}% minProgIncr={minProgIncrementRtp}% maxProgIncr={maxProgIncrementRtp}%");
-
-        //        totalRtpMin = minBaseRtp + minProgStartupRtp + minProgIncrementRtp;
-        //        totalRtpMax = maxBaseRtp + maxProgStartupRtp + maxProgIncrementRtp;
-        //        Logger.Debug($"minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
-        //    }
-
-        //    // old-style game manifest?
-        //    else
-        //    {
-        //        var returnToPlayer = progressiveDetails?.FirstOrDefault()?.ReturnToPlayer;
-
-        //        totalRtpMin = (includeIncrement
-        //            ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMin
-        //            : returnToPlayer?.BaseRtpAndResetRtpMin) ?? game.MinPaybackPercent;
-        //        totalRtpMax = (includeIncrement
-        //            ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMax
-        //            : returnToPlayer?.BaseRtpAndResetRtpMax) ?? game.MaxPaybackPercent;
-        //        Logger.Debug($"Alt minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
-        //    }
-
-        //    return new RtpRange(totalRtpMin, totalRtpMax);
-        //}
-
-        // TODO: Extract
-        //public bool IsValidRtp(GameType gameType, RtpRange rtpRange)
-        //{
-        //    return rtpRange.Maximum >= rtpRange.Minimum
-        //           && rtpRange.Minimum >= _rtpRules[gameType].minPayback
-        //           && rtpRange.Maximum <= _rtpRules[gameType].maxPayback;
-        //}
 
         private static string GetManifest(string path)
         {
@@ -1662,69 +1595,5 @@
                     return _properties.GetValue(GamingConstants.AllowSlotGames, true);
             }
         }
-
-        // TODO: Move to RTP service
-        //private void SetupRtpRules()
-        //{
-        //    _rtpRules[GameType.Slot] = (
-        //        _properties.GetValue(GamingConstants.SlotsIncludeStandaloneProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.SlotMinimumReturnToPlayer, decimal.MinValue),
-        //        _properties.GetValue(GamingConstants.SlotMaximumReturnToPlayer, decimal.MaxValue));
-        //    _rtpRules[GameType.Poker] = (
-        //        _properties.GetValue(GamingConstants.PokerIncludeStandaloneProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.PokerIncludeLinkProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.PokerMinimumReturnToPlayer, decimal.MinValue),
-        //        _properties.GetValue(GamingConstants.PokerMaximumReturnToPlayer, decimal.MaxValue));
-        //    _rtpRules[GameType.Keno] = (
-        //        _properties.GetValue(GamingConstants.KenoIncludeStandaloneProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.KenoIncludeLinkProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.KenoMinimumReturnToPlayer, decimal.MinValue),
-        //        _properties.GetValue(GamingConstants.KenoMaximumReturnToPlayer, decimal.MaxValue));
-        //    _rtpRules[GameType.Blackjack] = (
-        //        _properties.GetValue(GamingConstants.BlackjackIncludeStandaloneProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.BlackjackIncludeLinkProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.BlackjackMinimumReturnToPlayer, decimal.MinValue),
-        //        _properties.GetValue(GamingConstants.BlackjackMaximumReturnToPlayer, decimal.MaxValue));
-        //    _rtpRules[GameType.Roulette] = (
-        //        _properties.GetValue(GamingConstants.RouletteIncludeStandaloneProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.RouletteIncludeLinkProgressiveIncrementRtp, false),
-        //        _properties.GetValue(GamingConstants.RouletteMinimumReturnToPlayer, decimal.MinValue),
-        //        _properties.GetValue(GamingConstants.RouletteMaximumReturnToPlayer, decimal.MaxValue));
-
-        //    // for games that didn't specify their type, presume they are Slot.
-        //    _rtpRules[GameType.Undefined] = _rtpRules[GameType.Slot];
-        //}
-
-        // TODO: Move to RTP service
-        //private bool CanIncludeSapIncrementRtp(GameType type)
-        //{
-        //    return _rtpRules[type].includeSapIncr;
-        //}
-
-
-        // TODO: Move to RTP service
-        //private bool CanIncludeLinkProgressiveIncrementRtp(GameType type)
-        //{
-        //    return _rtpRules[type].includeLinkIncr;
-        //}
-
-        //private GameType ToGameType(t_gameType type)
-        //{
-        //    // Default to slot for games that are not tagged
-        //    switch (type)
-        //    {
-        //        case t_gameType.Blackjack:
-        //            return GameType.Blackjack;
-        //        case t_gameType.Poker:
-        //            return GameType.Poker;
-        //        case t_gameType.Keno:
-        //            return GameType.Keno;
-        //        case t_gameType.Roulette:
-        //            return GameType.Roulette;
-        //        default:
-        //            return GameType.Slot;
-        //    }
-        //}
     }
 }

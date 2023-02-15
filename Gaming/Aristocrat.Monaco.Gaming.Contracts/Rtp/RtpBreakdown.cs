@@ -2,8 +2,6 @@
 {
     using System.Linq;
 
-    using System;
-
     /// <summary>
     ///     A fine-grain breakdown of RTP percentages for a WagerCategory
     /// </summary>
@@ -38,7 +36,8 @@
         /// <summary>
         ///     Gets the total RTP.
         /// </summary>
-        public RtpRange TotalRtp => Base + StandaloneProgressiveIncrement + StandaloneProgressiveReset + LinkedProgressiveIncrement + LinkedProgressiveReset;
+        public RtpRange TotalRtp => Base + StandaloneProgressiveIncrement + StandaloneProgressiveReset +
+                                    LinkedProgressiveIncrement + LinkedProgressiveReset;
 
         /// <summary>
         ///     The results of the RTP validation
@@ -46,31 +45,13 @@
         public RtpValidationResult ValidationResult { get; set; } = new();
 
         /// <summary>
-        /// Totals the specified RTP breakdowns.
+        ///     Totals together the given RTP breakdowns.
         /// </summary>
         /// <param name="rtpBreakdowns">The RTP breakdowns.</param>
-        /// <returns></returns>
-        /// TODO Edit XML Comment Template for Total
-        public static RtpBreakdown Total(params RtpBreakdown[] rtpBreakdowns) => rtpBreakdowns.Aggregate((r1, r2) => r1.TotalWith(r2));
-
-        /// <summary>
-        /// Totals the with.
-        /// </summary>
-        /// <param name="other">The other.</param>
-        /// <returns></returns>
-        /// TODO Edit XML Comment Template for TotalWith
-        public RtpBreakdown TotalWith(RtpBreakdown other)
+        public static RtpBreakdown Total(params RtpBreakdown[] rtpBreakdowns)
         {
-            var breakdownTotal = new RtpBreakdown
-            {
-                Base = Base.TotalWith(other.Base),
-                StandaloneProgressiveIncrement = StandaloneProgressiveIncrement.TotalWith(other.StandaloneProgressiveIncrement),
-                StandaloneProgressiveReset = StandaloneProgressiveReset.TotalWith(other.StandaloneProgressiveReset),
-                LinkedProgressiveIncrement = LinkedProgressiveIncrement.TotalWith(other.LinkedProgressiveIncrement),
-                LinkedProgressiveReset = LinkedProgressiveReset.TotalWith(other.LinkedProgressiveReset)
-            };
-            return breakdownTotal;
-        } 
+            return rtpBreakdowns.Aggregate((r1, r2) => r1.TotalWith(r2));
+        }
 
         /// <summary>
         ///     Converts this model to string.
@@ -79,6 +60,25 @@
         public override string ToString()
         {
             return $"{nameof(TotalRtp)}: {TotalRtp}, IsValid: {ValidationResult.IsValid}";
+        }
+
+        /// <summary>
+        ///     Totals together the current RTP Breakdown values with the RTP Breakdown given.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>A new <see cref="RtpBreakdown"/> that is a total of the two.</returns>
+        public RtpBreakdown TotalWith(RtpBreakdown other)
+        {
+            var breakdownTotal = new RtpBreakdown
+            {
+                Base = Base.TotalWith(other.Base),
+                StandaloneProgressiveIncrement =
+                    StandaloneProgressiveIncrement.TotalWith(other.StandaloneProgressiveIncrement),
+                StandaloneProgressiveReset = StandaloneProgressiveReset.TotalWith(other.StandaloneProgressiveReset),
+                LinkedProgressiveIncrement = LinkedProgressiveIncrement.TotalWith(other.LinkedProgressiveIncrement),
+                LinkedProgressiveReset = LinkedProgressiveReset.TotalWith(other.LinkedProgressiveReset)
+            };
+            return breakdownTotal;
         }
     }
 }

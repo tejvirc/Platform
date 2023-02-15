@@ -6,9 +6,8 @@
     using System.Linq;
 
     /// <summary>
-    /// talk about how it's a 1-to-1 relationship with games (IGameProfile)
+    ///     This class represents the validation results for a collection of games.
     /// </summary>
-    /// TODO Edit XML Comment Template for
     public class RtpValidationReport
     {
         private readonly IReadOnlyCollection<(IGameProfile game, RtpValidation validation)> _validations;
@@ -17,7 +16,6 @@
         ///     Initializes a new instance of the <see cref="RtpValidationReport" /> class.
         /// </summary>
         /// <param name="validations">The validations.</param>
-        /// TODO Edit XML Comment Template for #ctor
         public RtpValidationReport(IList<(IGameProfile game, RtpValidation validation)> validations)
         {
             if (!validations.Any())
@@ -31,16 +29,14 @@
         }
 
         /// <summary>
-        ///     Gets the passed games.
+        ///     Gets the games that passed validation.
         /// </summary>
-        /// TODO Edit XML Comment Template for PassedGames
         public IReadOnlyList<(IGameProfile, RtpValidation)> PassedGames =>
             _validations.Where(v => v.validation.IsValid).ToArray();
 
         /// <summary>
-        ///     Gets the failed games.
+        ///     ets the games that failed validation.
         /// </summary>
-        /// TODO Edit XML Comment Template for FailedGames
         public IReadOnlyList<(IGameProfile, RtpValidation)> FailedGames =>
             _validations.Where(v => !v.validation.IsValid).ToArray();
 

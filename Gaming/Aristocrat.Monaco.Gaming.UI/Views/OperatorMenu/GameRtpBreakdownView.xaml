@@ -50,17 +50,16 @@
             </Grid.ColumnDefinitions>
 
             <!--Headers-->
-            <Label Grid.Row="0" Grid.Column="0" Content="RTP BREAKDOWN"/>
-            <Label Grid.Row="0" Grid.Column="1" Content="MIN"/>
-            <Label Grid.Row="0" Grid.Column="2" Content="MAX"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.RtpBreakdown}}"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Min}}"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Max}}"/>
 
             <!--Rows-->
-            <!--TODO: Convert to localized strings-->
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Base (Excluding Progressives)"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Standalone Progressive Reset"/>
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="Standalone Progressive Increment"/>
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="Link Progressive Reset"/>
-            <TextBlock Grid.Column="0" Grid.Row="5" Text="Link Progressive Increment"/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="{lex:Loc Key={x:Static loc:ResourceKeys.BaseExcludingProgressives}}"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveReset}}"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveIncrement}}"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveReset}}"/>
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveIncrement}}"/>
 
             <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding RtpValues.BaseGameRtpMin, Mode=OneTime}"/>
             <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding RtpValues.StandaloneProgressiveResetRtpMin, Mode=OneTime}"/>
