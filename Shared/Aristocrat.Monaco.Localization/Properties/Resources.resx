@@ -9919,7 +9919,7 @@ See manual for details</value>
     <comment>Aristocrat.Monaco.Mgam</comment>
   </data>
   <data name="MaxEnabledDenomsReached" xml:space="preserve">
-    <value>Maximum Unique Denominations Reached For This Game Type</value>
+    <value>Maximum unique denominations reached for {0}</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="MachineTopAward" xml:space="preserve">

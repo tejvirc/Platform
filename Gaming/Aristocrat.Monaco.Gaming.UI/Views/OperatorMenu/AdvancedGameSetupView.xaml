@@ -405,8 +405,13 @@
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <Button Name="WarningButton" 
                                             Style="{StaticResource MonacoWarningButton}"
-                                            Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            Visibility="{Binding WarningTextHidden, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}" >
+                                            Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                        <Button.Visibility>
+                                            <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
+                                                <Binding Path="WarningTextIsVisible"/>
+                                                <Binding Source="{StaticResource PageModel}" Path="Data.(viewModels:AdvancedGameSetupViewModel.IsInEditMode)"/>
+                                            </MultiBinding>
+                                        </Button.Visibility>
                                         <Button.CommandParameter>
                                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                                 <Binding ElementName="WarningButton"/>

@@ -8414,18 +8414,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Communications Offline (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledHost0CommunicationsOffline {
-			get {
-				return ResourceManager.GetString("DisabledHost0CommunicationsOffline", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Communications Offline (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -19532,7 +19520,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Maximum Unique Denominations Reached For This Game....
+		///   Looks up a localized string similar to Maximum unique denominations reached for {0}.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -42976,18 +42964,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Communications Offline (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledHost0CommunicationsOffline {
-			get {
-				return "DisabledHost0CommunicationsOffline";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Communications Offline (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -54094,7 +54070,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Maximum Unique Denominations Reached For This Game....
+		///		Looks up a localized string similar to Maximum unique denominations reached for {0}.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -73955,13 +73931,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisabledDuringInitialization,
 		/// <summary>
-		///   Looks up a localized string similar to Communications Offline (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		DisabledHost0CommunicationsOffline,
-		/// <summary>
 		///   Looks up a localized string similar to Communications Offline (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -80278,7 +80247,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MaxCreditsInLabel,
 		/// <summary>
-		///   Looks up a localized string similar to Maximum Unique Denominations Reached For This Game....
+		///   Looks up a localized string similar to Maximum unique denominations reached for {0}.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
