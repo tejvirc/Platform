@@ -37,7 +37,6 @@
         /// </summary>
         string BetOption { get; }
 
-
         /// <summary>
         ///     Gets the variation associated with this progressive level
         /// </summary>

@@ -125,6 +125,10 @@
 
         public bool ShowGameRtpAsRange { get; }
 
+        public bool ShowProgressiveRtpAsRange => ProgressiveRtpsVisible && ShowGameRtpAsRange; 
+ 
+        public bool ShowProgressiveRtpSeparately => ProgressiveRtpsVisible && !ShowGameRtpAsRange; 
+
         protected override void OnLoaded()
         {
             var maxBetLimitDollars = ((long)PropertiesManager.GetProperty(
@@ -172,24 +176,9 @@
 
         private void ShowRtpBreakdownDialog(ReadOnlyGameConfiguration gameConfig)
         {
-            //var viewModel = new GameRtpSummaryViewModel(_gameProvider.GetGames(), _denomMultiplier);
-            //_dialogService.ShowInfoDialog<GameRtpSummaryView>(
-            //    this,
-            //    viewModel,
-            //    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameSummaryTitle));
+            var viewModel = new GameRtpBreakdownViewModel(gameConfig.RtpDisplayValues);
 
-            // TODO: Get the RTP breakdown info gor the game that is on the line with the button
-            var args = new GameRtpBreakdownViewModel.Args
-            {
-                Breakdown = null,
-                StandaloneProgressiveResetRtpState = RtpVerifiedState.Verified,
-                StandaloneProgressiveIncrementRtpState = RtpVerifiedState.Verified,
-                LinkedProgressiveResetRtpState = RtpVerifiedState.Verified,
-                LinkedProgressiveIncrementRtpState = RtpVerifiedState.Verified
-            };
-
-            var viewModel = new GameRtpBreakdownViewModel(args);
-            _dialogService.ShowInfoDialog<GameRtpSummaryView>(this, viewModel, string.Empty);
+            _dialogService.ShowInfoDialog<GameRtpBreakdownView>(this, viewModel, string.Empty);
         }
     }
 }

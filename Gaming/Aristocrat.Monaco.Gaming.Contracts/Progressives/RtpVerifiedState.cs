@@ -16,7 +16,7 @@
         NotVerified,
 
         /// <summary>
-        ///     RTP is not used.
+        ///     RTP is not used. E.g. It's disabled in Gaming.config.xml.
         /// </summary>
         NotUsed,
 

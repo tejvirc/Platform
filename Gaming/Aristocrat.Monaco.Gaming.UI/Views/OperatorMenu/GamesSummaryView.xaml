@@ -257,39 +257,33 @@
                 </DataGridTemplateColumn>-->
 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}}"
-                                    Binding="{Binding TotalJurisdictionalRTP}"
-                                    Visibility="{Binding Path=DataContext.ShowGameRtpAsRange, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                                    Width="140"
+                                    Binding="{Binding RtpDisplayValues.TotalJurisdictionalRtp}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}" />
 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMin}}"
-                                    Binding="{Binding TotalJurisdictionalRTPMin}"
+                                    Binding="{Binding RtpDisplayValues.TotalJurisdictionalRtpMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
                 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMax}}"
-                                    Binding="{Binding TotalJurisdictionalRTPMax}"
+                                    Binding="{Binding RtpDisplayValues.TotalJurisdictionalRtpMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
                 
-                <DataGridTemplateColumn x:Name="RtpBreakdownBtn" Width="10" Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}">
+                <DataGridTemplateColumn x:Name="RtpBreakdownBtn" Width="10" Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Button Name="RtpBreakdownDialogBtn" Style="{StaticResource MonacoInfoButton}" Margin="-30,0, 0,0" HorizontalAlignment="Left"
+                                <Button Name="RtpBreakdownDialogBtn" Style="{StaticResource MonacoInfoButton}" 
+                                        Margin="-20,0, 0,0" 
+                                        HorizontalAlignment="Left"
                                         Command="{Binding DataContext.ShowRtpBreakdownDialogCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                        CommandParameter="{Binding}">
-                                    <!--<Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                            <Binding ElementName="RtpBreakdownDialogBtn"/>
-                                            <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" 
-                                                  Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}"/>-->
-                                </Button>
+                                        CommandParameter="{Binding}" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!--<DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}" Binding="{Binding RuntimeVersion}" />-->
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}" Binding="{Binding RuntimeVersion}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
