@@ -21,7 +21,7 @@
     {
         private const int Million = 1000000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGameProvider _gameProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
@@ -53,7 +53,7 @@
 
             foreach (var game in enabledGames)
             {
-                if (game.WagerCategories.Count() == game.WagerCategories.Distinct().Count())
+                if (game.CdsGameInfos.Count() == game.CdsGameInfos.Distinct().Count())
                 {
                     continue;
                 }
@@ -69,7 +69,8 @@
         ///     As per current understanding, the matching is done based on fields : WagerAmount, LevelId, ResetValue and
         ///     IncrementRate
         /// </summary>
-        public Task<bool> AssociateServerLevelsToGame(ProgressiveInfoResponse serverDefinedLevel,
+        public Task<bool> AssociateServerLevelsToGame(
+            ProgressiveInfoResponse serverDefinedLevel,
             GameInfoResponse gameInfo,
             IList<ProgressiveLevelAssignment> levelAssignments)
         {

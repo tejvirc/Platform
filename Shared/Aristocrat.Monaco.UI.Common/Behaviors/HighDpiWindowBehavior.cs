@@ -13,7 +13,6 @@
     using log4net;
     using Microsoft.Xaml.Behaviors;
     using Monaco.Common;
-    using DataGrid = System.Windows.Controls.DataGrid;
     using DpiChangedEventArgs = System.Windows.DpiChangedEventArgs;
     using HorizontalAlignment = System.Windows.HorizontalAlignment;
     using Size = System.Drawing.Size;
@@ -147,13 +146,6 @@
                 return;
             }
 
-            var dataGrid = AssociatedObject.FindChild<DataGrid>();
-            if (AssociatedObject is OperatorMenuDialogWindow && dataGrid != null && !(dataGrid.Tag is bool finishedConverting && finishedConverting))
-            {
-                // If it's a popup don't apply these changes until the DataGridHeightConverter has finished converting
-                return;
-            }
-
             // Applying a transform to the ContentPresenter will scale the content up or down.
             var contentPresenter = TreeHelper.FindChild<ContentPresenter>(AssociatedObject);
             if (contentPresenter == null)
@@ -182,7 +174,13 @@
                 AssociatedObject.BringIntoView();
             }
 
-            Logger.Info($"[{AssociatedObject.Title}]: calculated_scale={_scale}, system_scale={_systemDpiScale}, adjusted_scale={_scale/_systemDpiScale}, window_content_size=({appSurface.Width}x{appSurface.Height}), screen_size=({_screenWidth}x{_screenHeight})");
+            Logger.Info($"[{AssociatedObject.Title}]: Calculated Scale={_scale}, " +
+                        $"System DPI Scale={_systemDpiScale}, " +
+                        $"Adjusted Scale={scale}, " +
+                        $"Content Size=({appSurface.Width}x{appSurface.Height}), " +
+                        $"AssociatedObject Size=({AssociatedObject.Width}x{AssociatedObject.Height}), " +
+                        $"SizeToContent={AssociatedObject.SizeToContent}, " +
+                        $"Screen Size=({_screenWidth}x{_screenHeight})");
         }
 
         /// <summary>

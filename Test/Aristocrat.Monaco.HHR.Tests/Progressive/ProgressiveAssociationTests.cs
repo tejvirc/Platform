@@ -384,9 +384,9 @@
         }
 
         [TestMethod]
-        public void UnsupportedGameConfig_DuplicateWagerCategories_ExpectSystemDisable()
+        public void UnsupportedGameConfig_DuplicateCdsInfos_ExpectSystemDisable()
         {
-            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(GetGamesWithDuplicateWagerCategories());
+            _gameProvider.Setup(g => g.GetEnabledGames()).Returns(GetGamesWithDuplicateCdsInfos());
             _eventBus.Setup(e => e.Publish(It.IsAny<GameConfigurationNotSupportedEvent>())).Verifiable();
 
             CreateProgressiveAssociation();
@@ -395,7 +395,7 @@
         }
 
         [TestMethod]
-        public void UnsupportedGameConfig_DistinctWagerCategories_ExpectSystemNotDisabled()
+        public void UnsupportedGameConfig_DistinctCdsInfos_ExpectSystemNotDisabled()
         {
             _gameProvider.Setup(g => g.GetEnabledGames()).Returns(GetGames());
             _eventBus.Setup(e => e.Publish(It.IsAny<GameConfigurationNotSupportedEvent>()))
@@ -403,6 +403,7 @@
                     throw new Exception("Shouldn't raise this event as game config is fine."));
 
             CreateProgressiveAssociation();
+            _eventBus.Verify(x => x.Publish(It.IsAny<GameConfigurationNotSupportedEvent>()), Times.Never());
         }
 
         private ProgressiveAssociation CreateProgressiveAssociation(
@@ -535,36 +536,40 @@
             {
                 new MockGameInfo
                 {
-                    Id = 1, ReferenceId = "100", VariationId = "1",
+                    Id = 1,
+                    ReferenceId = "100",
+                    VariationId = "1",
+                    CdsGameInfos = new[] { new CdsGameInfo("One", 1, 2), new CdsGameInfo("Two", 1, 2) },
                     WagerCategories =
-                        new List<IWagerCategory>
-                        {
-                            new WagerCategory("One", 1),
-                            new WagerCategory("Two", 1)
-                        }
+                        new List<IWagerCategory> { new WagerCategory("One", 1), new WagerCategory("Two", 1) }
                 },
                 new MockGameInfo
                 {
-                    Id = 2, ReferenceId = "101", VariationId = "2",
+                    Id = 2,
+                    ReferenceId = "101",
+                    VariationId = "2",
+                    CdsGameInfos = new[] { new CdsGameInfo("One", 1, 2), new CdsGameInfo("Two", 1, 2) },
                     WagerCategories =
-                        new List<IWagerCategory>
-                        {
-                            new WagerCategory("One", 1),
-                            new WagerCategory("Two", 1)
-                        }
+                        new List<IWagerCategory> { new WagerCategory("One", 1), new WagerCategory("Two", 1) }
                 }
             };
         }
 
-        private IReadOnlyCollection<IGameDetail> GetGamesWithDuplicateWagerCategories()
+        private IReadOnlyCollection<IGameDetail> GetGamesWithDuplicateCdsInfos()
         {
             var wagerCategory = new WagerCategory("One", 1, 50, 100, 1000);
+            var cdsInfo = new CdsGameInfo("One", 50, 100);
 
             return new List<IGameDetail>
             {
                 new MockGameInfo
                 {
                     Id = 1, ReferenceId = "100", VariationId = "1",
+                    CdsGameInfos = new ICdsGameInfo[]
+                    {
+                        cdsInfo,
+                        cdsInfo
+                    },
                     WagerCategories =
                         new List<IWagerCategory> {wagerCategory, wagerCategory}
                 }
@@ -611,6 +616,22 @@
                 ProgCreditsBet = creditBet,
                 ProgResetValue = resetValue
             };
+        }
+
+        private class CdsGameInfo : ICdsGameInfo
+        {
+            public CdsGameInfo(string id, int minWagerCredits, int maxWagerCredits)
+            {
+                Id = id;
+                MinWagerCredits = minWagerCredits;
+                MaxWagerCredits = maxWagerCredits;
+            }
+
+            public string Id { get; }
+
+            public int MinWagerCredits { get; }
+
+            public int MaxWagerCredits { get; }
         }
     }
 }

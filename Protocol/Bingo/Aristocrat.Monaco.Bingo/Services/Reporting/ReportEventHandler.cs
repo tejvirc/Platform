@@ -8,7 +8,6 @@
     using Common;
     using Kernel;
     using Monaco.Common;
-    using ServerApiGateway;
 
     /// <summary>
     ///     This class handles getting notifications of events from consumers
@@ -17,10 +16,10 @@
     ///     are queued.
     ///     It will resend failed events after a short delay.
     /// </summary>
-    public class ReportEventHandler : IReportEventQueueService, IDisposable
+    public sealed class ReportEventHandler : IReportEventQueueService, IDisposable
     {
         private const int RetryDelay = 500;
-        private readonly IAcknowledgedQueue<ReportEventMessage, int> _queue;
+        private readonly IAcknowledgedQueue<ReportEventMessage, long> _queue;
         private readonly IPropertiesManager _properties;
         private readonly IBingoClientConnectionState _connectionState;
         private readonly IReportEventService _reportEventService;
@@ -31,7 +30,7 @@
         public ReportEventHandler(
             IPropertiesManager properties,
             IBingoClientConnectionState connectionState,
-            IAcknowledgedQueue<ReportEventMessage, int> queue,
+            IAcknowledgedQueue<ReportEventMessage, long> queue,
             IReportEventService reportEventService,
             IIdProvider idProvider)
         {
@@ -47,7 +46,21 @@
 
         public void Dispose()
         {
-            Dispose(true);
+            if (_disposed)
+            {
+                return;
+            }
+
+            _connectionState.ClientConnected -= HandleConnected;
+            _connectionState.ClientDisconnected -= HandleDisconnected;
+            if (_tokenSource is not null)
+            {
+                _tokenSource.Cancel();
+                _tokenSource.Dispose();
+                _tokenSource = null;
+            }
+
+            _disposed = true;
         }
 
         public void AddNewEventToQueue(ReportableEvent eventType)
@@ -55,7 +68,7 @@
             var message = new ReportEventMessage(
                 string.Empty,
                 DateTime.UtcNow,
-                (int)_idProvider.GetNextLogSequence<ReportEventHandler>(),
+                _idProvider.GetNextLogSequence<ReportEventHandler>(),
                 (int)eventType);
 
             _queue.Enqueue(message);
@@ -74,34 +87,12 @@
             ConsumeQueuedEvents(_tokenSource.Token).FireAndForget();
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                _connectionState.ClientConnected -= HandleConnected;
-                _connectionState.ClientDisconnected -= HandleDisconnected;
-                if (_tokenSource is not null)
-                {
-                    _tokenSource.Cancel();
-                    _tokenSource.Dispose();
-                    _tokenSource = null;
-                }
-            }
-
-            _disposed = true;
-        }
-
         private async Task ConsumeQueuedEvents(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
                 // this will block until an item is available or the token is cancelled
-                var item = await _queue.GetNextItem(token);
+                var item = await _queue.GetNextItem(token).ConfigureAwait(false);
                 if (item is null)
                 {
                     continue;
@@ -110,23 +101,23 @@
                 // add the current machine serial to the report
                 item.MachineSerial = _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty);
 
-                ReportEventAck ack = null;
+                ReportEventResponse ack = null;
                 try
                 {
-                    ack = await _reportEventService.ReportEvent(item, token);
+                    ack = await _reportEventService.ReportEvent(item, token).ConfigureAwait(false);
                 }
                 catch (Exception e) when(e is not OperationCanceledException)
                 {
                 }
 
-                if (ack is not null && ack.Succeeded)
+                if (ack is { ResponseCode: ResponseCode.Ok })
                 {
                     _queue.Acknowledge(ack.EventId);
                 }
                 else
                 {
                     // delay 1/2 second before retrying failed reports
-                    await Task.Delay(TimeSpan.FromMilliseconds(RetryDelay), token);
+                    await Task.Delay(TimeSpan.FromMilliseconds(RetryDelay), token).ConfigureAwait(false);
                 }
             }
         }

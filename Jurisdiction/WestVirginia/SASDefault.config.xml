@@ -19,7 +19,7 @@ as follows:
 			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
 		-->
 		<TransferLimit Default="10000" />
-		<EGMDisabledOnHostOffline Enabled="false" Configurable="false"/>
+		<EGMDisabledOnHostOffline Enabled="true" Configurable="false"/>
 		<MustHaveDualHost Enabled="true"/>
 		<GeneralControl Editable="false"/>
 		<ExceptionOverflow Behaviour="DiscardNewExceptions"/>

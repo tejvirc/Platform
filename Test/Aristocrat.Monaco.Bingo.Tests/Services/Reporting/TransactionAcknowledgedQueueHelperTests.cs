@@ -62,6 +62,8 @@
                 BingoConstants.TransactionQueueDisableKey,
                 SystemDisablePriority.Immediate,
                 It.IsAny<Func<string>>(),
+                true,
+                It.IsAny<Func<string>>(),
                 null))
                 .Verifiable();
 
@@ -70,6 +72,8 @@
             _systemDisableManager.Verify(m => m.Disable(
                 BingoConstants.TransactionQueueDisableKey,
                 SystemDisablePriority.Immediate,
+                It.IsAny<Func<string>>(),
+                true,
                 It.IsAny<Func<string>>(),
                 null), Times.Once());
         }

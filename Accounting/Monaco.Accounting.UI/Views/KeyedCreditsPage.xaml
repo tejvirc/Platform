@@ -87,7 +87,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button HorizontalAlignment="Left" Margin="8 5 0 0" Width="250" IsEnabled="{Binding InputEnabled}"
+                <Button HorizontalAlignment="Left" Margin="8 5 0 0" Width="250" IsEnabled="{Binding KeyOffCreditsButtonEnabled}"
                         Content="{lex:Loc KeyedOffCreditsConfirmButtonLabel}"
                         Command="{Binding ConfirmKeyOffCreditsCommand}"/>
             </StackPanel>

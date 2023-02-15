@@ -65,7 +65,11 @@
                         Style="{StaticResource MonacoSlider}"  
                         Value="{Binding AlertVolume}" 
                         MinWidth="400" 
-                        HorizontalAlignment="Left" Minimum="{Binding AlertMinimumVolume}" Maximum="100" TickFrequency="10" IsSnapToTickEnabled="True" 
+                        HorizontalAlignment="Left" 
+                        Minimum="{Binding AlertMinimumVolume}" 
+                        Maximum="100" 
+                        TickFrequency="{Binding AlertVolumeTickFrequency}" 
+                        IsSnapToTickEnabled="True" 
                         IsEnabled="{Binding Path=CanEditVolume}"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Name="TestPanel" Visibility="{Binding Visibility, ElementName=ExitTestModeButton}">

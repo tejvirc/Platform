@@ -23,6 +23,10 @@
         private const bool ShowModeDefault = false;
         private const byte ShowModeAlertVolumeDefault = 100;
         private const byte ShowModeAlertVolumeMinimum = 70;
+        private const byte AlertTickFrequency = 5;
+        private const float VolumeToSliderFactor = 10f;
+        private const float SliderToVolumeFactor = 100f;
+        private const double SliderToVolumeSquareIndex = 2;
 
         private readonly IAudio _audio;
         private readonly ISystemDisableManager _disableManager;
@@ -56,7 +60,8 @@
             _soundFile = PropertiesManager.GetValue(ApplicationConstants.DingSoundKey, "");
 
             // Load alert volume level and settings
-            var alertVolume = PropertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, ShowModeAlertVolumeDefault);
+            var alertVolume = ConvertVolumeToSlider(
+                PropertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, ShowModeAlertVolumeDefault));
             _alertVolume = showMode
                 ? alertVolume >= ShowModeAlertVolumeMinimum
                     ? alertVolume
@@ -85,8 +90,10 @@
         public int AlertMinimumVolume
         {
             get => _alertMinimumVolume;
-            set => SetProperty(ref _alertMinimumVolume, (byte)value, nameof(AlertMinimumVolume));
+            set => SetProperty(ref _alertMinimumVolume, (byte)value);
         }
+
+        public static int AlertVolumeTickFrequency => AlertTickFrequency;
 
         public string InfoText
         {
@@ -157,15 +164,17 @@
             get => _alertVolume;
             set
             {
+                var scaledVolume = ConvertSliderToVolume(value);
+
                 if (_alertVolume != value && value >= _alertMinimumVolume)
                 {
                     _alertVolume = value;
                     RaisePropertyChanged(nameof(AlertVolume));
-                    PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, value);
+                    PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, scaledVolume);
                 }
                 if (_playTestAlertSound)
                 {
-                    _audio.Play(_soundFile, value);
+                    _audio.Play(_soundFile, scaledVolume);
                 }
             }
         }
@@ -251,5 +260,15 @@
         }
 
         public override bool TestModeEnabledSupplementary => !IsAudioDisabled && !IsSystemDisabled;
+
+        public static byte ConvertSliderToVolume(byte sliderValue) =>
+            (byte)(Math.Pow(sliderValue, SliderToVolumeSquareIndex) / SliderToVolumeFactor);
+        
+
+        public static byte ConvertVolumeToSlider(byte volume)
+        {
+            var sliderValue = Math.Sqrt(volume) * VolumeToSliderFactor;
+            return (byte)(Math.Round(sliderValue / AlertTickFrequency) * AlertTickFrequency);
+        }
     }
 }

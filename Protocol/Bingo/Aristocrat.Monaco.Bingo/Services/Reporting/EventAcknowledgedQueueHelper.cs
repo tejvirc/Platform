@@ -13,7 +13,7 @@
     using Localization.Properties;
     using Protocol.Common.Storage.Entity;
 
-    public class EventAcknowledgedQueueHelper : IAcknowledgedQueueHelper<ReportEventMessage, int>
+    public class EventAcknowledgedQueueHelper : IAcknowledgedQueueHelper<ReportEventMessage, long>
     {
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
@@ -27,7 +27,7 @@
                 systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
         }
 
-        public int GetId(ReportEventMessage item)
+        public long GetId(ReportEventMessage item)
         {
             return item.EventId;
         }

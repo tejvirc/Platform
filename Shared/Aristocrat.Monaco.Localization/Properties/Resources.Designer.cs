@@ -11324,18 +11324,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Exit Note Acceptor Test.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string ExitNoteAcceptorTest {
-			get {
-				return ResourceManager.GetString("ExitNoteAcceptorTest", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Exit Reserve.
 		/// </summary>
 		public static string ExitReserve {
@@ -31853,6 +31841,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Too many transaction requests are pending with the....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string TransactionReportingQueueAlmostFullHelp {
+			get {
+				return ResourceManager.GetString("TransactionReportingQueueAlmostFullHelp", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Transaction request is pending with Central Server....
 		/// </summary>
         /// <remarks>
@@ -45882,18 +45882,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ExitGameBeforeChange {
 			get {
 				return "ExitGameBeforeChange";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Exit Note Acceptor Test.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string ExitNoteAcceptorTest {
-			get {
-				return "ExitNoteAcceptorTest";
 			}
 		}
 
@@ -66415,6 +66403,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Too many transaction requests are pending with the....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string TransactionReportingQueueAlmostFullHelp {
+			get {
+				return "TransactionReportingQueueAlmostFullHelp";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Transaction request is pending with Central Server....
 		/// </summary>
         /// <remarks>
@@ -75599,13 +75599,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ExitGameBeforeChange,
-		/// <summary>
-		///   Looks up a localized string similar to Exit Note Acceptor Test.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		ExitNoteAcceptorTest,
 		/// <summary>
 		///   Looks up a localized string similar to Exit Reserve.
 		/// </summary>
@@ -87303,6 +87296,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Bingo.Services.Reporting.TransactionAcknowledgedQueueHelper
         /// </remarks>
 		TransactionReportingQueueAlmostFull,
+		/// <summary>
+		///   Looks up a localized string similar to Too many transaction requests are pending with the....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		TransactionReportingQueueAlmostFullHelp,
 		/// <summary>
 		///   Looks up a localized string similar to Transaction request is pending with Central Server....
 		/// </summary>

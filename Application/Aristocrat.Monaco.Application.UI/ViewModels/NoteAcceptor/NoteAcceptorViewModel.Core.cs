@@ -82,7 +82,6 @@
             }
 
             InitCommands();
-            TestViewModel.SetTestReporter(Inspection);
 
             _isDenomEditable = GetConfigSetting(OperatorMenuSetting.EgmCanEnableDenominations, false);
 
