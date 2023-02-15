@@ -4,6 +4,12 @@
 
     public static class SerialPrinterExtensions
     {
+
+        static SerialPrinterExtensions()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+
         /// <summary>
         ///     Convert a string to byte array
         /// </summary>

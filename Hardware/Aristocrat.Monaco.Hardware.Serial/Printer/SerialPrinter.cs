@@ -155,9 +155,9 @@
                         if (message is DefineTemplate template)
                         {
                             var reader = new StringReader(template.Data);
-                            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dprtype))
+                            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dpttype))
                                 .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
-                            var serializer = new XmlSerializer(typeof(dprtype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dprtype)));
+                            var serializer = new XmlSerializer(typeof(dpttype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dpttype)));
                             var printableTemplate = (dpttype)serializer.Deserialize(reader);
                             var result = await DefineTemplate(printableTemplate);
                             OnMessageReceived(new TransferStatus
