@@ -77,6 +77,7 @@
         {
             container.RegisterSingleton<IProgressiveInfoHandler, ProgressiveHandler>();
             container.RegisterSingleton<IProgressiveUpdateHandler, ProgressiveHandler>();
+            container.RegisterSingleton<IProgressiveClaimHandler, ProgressiveHandler>();
             return container;
         }
 

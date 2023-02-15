@@ -18,7 +18,7 @@
     using log4net;
     using Timer = System.Timers.Timer;
 
-    public class ProgressiveHandler : IProgressiveInfoHandler, IProgressiveUpdateHandler, IDisposable
+    public class ProgressiveHandler : IProgressiveInfoHandler, IProgressiveUpdateHandler, IProgressiveClaimHandler, IDisposable
     {
         private const int MaximumProgressiveUpdateSeconds = 10;
         private const int MonitorPollTimeSeconds = 5;
@@ -55,7 +55,7 @@
 
             token.ThrowIfCancellationRequested();
 
-            Logger.Debug($"ResponseCode={info.ResponseCode}, Accepted={info.Accepted}, GameTitle={info.GameTitleId}, AuthToken={info.AuthenticationToken}");
+            Logger.Debug($"ResponseCode={info.ResponseCode}, Accepted={info.Accepted}, GameTitle={info.GameTitleId}");
 
             lock (_lock)
             {
@@ -120,8 +120,7 @@
                             Amount = update.Amount
                         };
 
-                        Logger.Debug(
-                            $"UpdateLinkedProgressiveLevels ProgressiveGroupId={linkedLevel.ProgressiveGroupId}, LevelId={linkedLevel.LevelId}, Amount={linkedLevel.Amount}");
+                        Logger.Debug($"UpdateLinkedProgressiveLevels ProgressiveGroupId={linkedLevel.ProgressiveGroupId}, LevelId={linkedLevel.LevelId}, Amount={linkedLevel.Amount}");
 
                         _protocolLinkedProgressiveAdapter.UpdateLinkedProgressiveLevels(
                             new[] { linkedLevel },
@@ -133,6 +132,38 @@
             }
 
             Logger.Info($"Ignoring progressive update with unknown progressive level {update.ProgressiveLevel}");
+            return Task.FromResult(false);
+        }
+
+        public Task<bool> ProcessProgressiveClaim(ProgressiveClaimMessage claim, CancellationToken token)
+        {
+            if (claim == null)
+            {
+                throw new ArgumentNullException(nameof(claim));
+            }
+
+            token.ThrowIfCancellationRequested();
+
+            Logger.Debug($"Received a progressive claim message, ProgLevelId={claim.ProgressiveLevelId}, Amount={claim.Amount}, AwardId={claim.AwardId}");
+
+            var progressiveLevels = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels();
+            foreach (var progressiveLevel in progressiveLevels)
+            {
+                if (_progressiveIdMapping.ContainsKey(progressiveLevel.LevelId))
+                {
+                    var mappedLevelId = _progressiveIdMapping[progressiveLevel.LevelId];
+                    if (mappedLevelId == claim.ProgressiveLevelId)
+                    {
+                        Logger.Debug($"ClaimLinkedProgressiveLevels LevelName={progressiveLevel.LevelName}, Amount={claim.Amount}");
+
+                        // TODO store the claimed win values for later when the progressives are actually processed.
+
+                        return Task.FromResult(true);
+                    }
+                }
+            }
+
+            Logger.Info($"Process progressive claim for unknown progressive level {claim.ProgressiveLevelId}");
             return Task.FromResult(false);
         }
 
