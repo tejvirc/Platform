@@ -4,22 +4,19 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Forms;
     using Contracts;
 
     public class MarginConverter : IValueConverter
     {
         private const double BankImageTopMarginEn = 10;
         private const double BankImageTopMarginFr = 9;
-        private const double NormalScreenHeight = 1080;
-        private const double NormalScreenWidth = 1920;
         private const double DenomMarginAdjust = 150;
         private const double TopMarginAdjust = 150;
         private const double MajorBannerOffset = 55;
         private const double TopRowAdjust = 45;
         private const double TopRowToGameIconPanelAdjust = 115;
         private const double BottomOfGameIconAreaAdjust = 180;
-        private readonly double _scaleBy = Screen.PrimaryScreen.Bounds.Width / NormalScreenWidth;
+        private readonly double _scaleBy = ScaleUtility.GetScale();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -47,7 +44,7 @@
                     bottomLabelVisible = inputs.BottomLabelVisible;
                     extraLargeIcons = inputs.ExtraLargeIconLayout;
                     gameIconSize = inputs.GameIconSize;
-                    if (inputs.ScreenHeight > NormalScreenHeight)
+                    if (inputs.ScreenHeight > ScaleUtility.BaseScreenHeight)
                     {
                         topMarginAdjust = TopMarginAdjust;
                         denomMarginAdjust = DenomMarginAdjust;
@@ -75,7 +72,7 @@
                             {
                                 // The game icons are centered horizontally, so no need to mess with the left/right margins. The top margin needs to be
                                 // calculated from the point of view of the start of the 2nd row, which is the game icon panel row.
-                                var adjustedGameIconPanelHeight = NormalScreenHeight - TopRowAdjust - TopRowToGameIconPanelAdjust - BottomOfGameIconAreaAdjust;
+                                var adjustedGameIconPanelHeight = ScaleUtility.BaseScreenHeight - TopRowAdjust - TopRowToGameIconPanelAdjust - BottomOfGameIconAreaAdjust;
                                 var topMargin1 = (adjustedGameIconPanelHeight - gameIconSize.Height) / 2;
                                 var topMargin2 = TopRowToGameIconPanelAdjust + topMargin1 + MajorBannerOffset;
 
@@ -83,7 +80,7 @@
                             }
 
                             var offset = bottomLabelVisible ? 10 : 0;
-                            var topOffset = screenHeight > NormalScreenHeight ? (gameCount > 4 ? 0 : -80) : 60;
+                            var topOffset = screenHeight > ScaleUtility.BaseScreenHeight ? (gameCount > 4 ? 0 : -80) : 60;
                             var margin = gameCount <= 4
                                 ? new Thickness(0, 325 - offset + topMarginAdjust - topOffset, 0, 0)
                                 : gameCount <= 8
@@ -108,7 +105,7 @@
                     case LobbyViewMarginType.Banner:
                         return new Thickness(19.0, 0, 20.0, 8.0);
                     case LobbyViewMarginType.ProgressiveOverlay:
-                        if (screenHeight > NormalScreenHeight)
+                        if (screenHeight > ScaleUtility.BaseScreenHeight)
                         {
                             // for marsX or any monitor with higher resolution
                             return new Thickness(0, 0, 0, gameCount <= 8 ? 128 : 168);
