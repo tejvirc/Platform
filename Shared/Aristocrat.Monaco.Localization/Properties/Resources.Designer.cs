@@ -8414,18 +8414,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Communications Offline (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledHost0CommunicationsOffline {
-			get {
-				return ResourceManager.GetString("DisabledHost0CommunicationsOffline", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Communications Offline (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -27425,6 +27413,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Searching {
+			get {
+				return ResourceManager.GetString("Searching", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Secondary Stacker Door Closed.
 		/// </summary>
         /// <remarks>
@@ -29465,6 +29465,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Start Detection ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StartDetection {
+			get {
+				return ResourceManager.GetString("StartDetection", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Starting Download.
 		/// </summary>
         /// <remarks>
@@ -29695,6 +29707,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return ResourceManager.GetString("StatusText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Stop Detection ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StopDetection {
+			get {
+				return ResourceManager.GetString("StopDetection", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -42972,18 +42996,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DisabledDuringInitialization {
 			get {
 				return "DisabledDuringInitialization";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Communications Offline (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledHost0CommunicationsOffline {
-			get {
-				return "DisabledHost0CommunicationsOffline";
 			}
 		}
 
@@ -61987,6 +61999,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Searching {
+			get {
+				return "Searching";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Secondary Stacker Door Closed.
 		/// </summary>
         /// <remarks>
@@ -64027,6 +64051,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Start Detection ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StartDetection {
+			get {
+				return "StartDetection";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Starting Download.
 		/// </summary>
         /// <remarks>
@@ -64257,6 +64293,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return "StatusText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Stop Detection ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StopDetection {
+			get {
+				return "StopDetection";
 			}
 		}
 
@@ -73954,13 +74002,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S
         /// </remarks>
 		DisabledDuringInitialization,
-		/// <summary>
-		///   Looks up a localized string similar to Communications Offline (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		DisabledHost0CommunicationsOffline,
 		/// <summary>
 		///   Looks up a localized string similar to Communications Offline (SAS Host 1).
 		/// </summary>
@@ -84781,6 +84822,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ScrollToLabel,
 		/// <summary>
+		///   Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Searching,
+		/// <summary>
 		///   Looks up a localized string similar to Secondary Stacker Door Closed.
 		/// </summary>
         /// <remarks>
@@ -85951,6 +85999,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		StartDateText,
 		/// <summary>
+		///   Looks up a localized string similar to Start Detection ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		StartDetection,
+		/// <summary>
 		///   Looks up a localized string similar to Starting Download.
 		/// </summary>
         /// <remarks>
@@ -86084,6 +86139,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming
         /// </remarks>
 		StatusText,
+		/// <summary>
+		///   Looks up a localized string similar to Stop Detection ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		StopDetection,
 		/// <summary>
 		///   Looks up a localized string similar to Stopped Responding.
 		/// </summary>

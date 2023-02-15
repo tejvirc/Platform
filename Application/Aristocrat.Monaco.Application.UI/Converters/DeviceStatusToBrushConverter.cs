@@ -25,7 +25,8 @@
             }
 
             var status = value.ToString();
-            if (status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated)))
+            if (status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated)) ||
+                status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching)))
             {
                 return Brushes.Gray;
             }

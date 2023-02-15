@@ -13,6 +13,7 @@
     using Application.Helpers;
     using ConfigWizard;
     using Contracts;
+    using Contracts.Detection;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts;
@@ -58,6 +59,7 @@
         private readonly IServiceManager _serviceManager;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IHardMeter _hardMeter;
+        private readonly IDeviceDetection _deviceDetection;
 
         // This contains all potential devices, even those disabled and not visible on the page
         private readonly Dictionary<DeviceType, DeviceConfigViewModel> _deviceConfigurationDictionary =
@@ -87,6 +89,7 @@
         private Timer _discoveryTimer;
         private bool _isValidating;
         private string _validationStatus;
+        private bool _isDetecting;
         private bool _hardMetersEnabled;
         private bool _configurableHardMeters;
         private bool _configurableDoorOpticSensor;
@@ -120,6 +123,7 @@
             _hardwareConfiguration = _serviceManager.GetService<IHardwareConfiguration>();
             _configWizardConfiguration = _serviceManager.GetService<IConfigurationUtilitiesProvider>()
                 .GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
+            _deviceDetection = _serviceManager.GetService<IDeviceDetection>();
 
             ValidateCommand = new ActionCommand<object>(
                 _ => ValidateConfig(),
@@ -133,6 +137,9 @@
 
                     return CanValidate;
                 });
+
+            StartDetectionCommand = new ActionCommand<object>(StartDetection);
+            StopDetectionCommand = new ActionCommand<object>(StopDetection);
 
             InitialHardMeter = _hardMetersEnabled;
 
@@ -213,6 +220,16 @@
         public bool ShowApplyButton => this is HardwareManagerPageViewModel && InputEnabled;
 
         public bool ShowValidateButton => !(this is HardwareManagerPageViewModel);
+
+        public ActionCommand<object> StartDetectionCommand { get; set; }
+
+        public ActionCommand<object> StopDetectionCommand { get; set; }
+
+        public bool IsDetecting
+        {
+            get => _isDetecting;
+            set => SetProperty(ref _isDetecting, value, nameof(IsDetecting));
+        }
 
         public bool ShowHardMeters { get; private set; }
 
@@ -1430,6 +1447,39 @@
             }
 
             StartTimer(DiscoveryTimeoutSeconds * MilliSecondsPerSecond);
+        }
+
+        private void StartDetection(object _)
+        {
+            IsDetecting = true;
+
+            EventBus.Subscribe<DeviceDetectionCompletedEvent>(this, e => Handle(e));
+
+            EnabledDevices.ToList().ForEach(d => d.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching));
+
+            _deviceDetection.BeginDetection(EnabledDevices.Select(d => d.DeviceType));
+        }
+
+        private void StopDetection(object _)
+        {
+            IsDetecting = false;
+
+            _deviceDetection.CancelDetection();
+        }
+
+        private void Handle(DeviceDetectionCompletedEvent _)
+        {
+            foreach (var device in EnabledDevices)
+            {
+                if (_deviceDiscoveryStatus[device.DeviceType])
+                {
+                    continue;
+                }
+
+                device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed);
+            }
+
+            IsDetecting = false;
         }
 
         private void UpdateScreen(bool clearValidation = false)
