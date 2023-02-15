@@ -153,7 +153,6 @@ namespace Aristocrat.Monaco.Gaming.Runtime.Server
                     denom,
                     betAmount,
                     (int)details.BetLinePreset,
-                    (int)wagerCategoryId,
                     data,
                     outcomeRequest,
                     (int)wagerCategoryId);

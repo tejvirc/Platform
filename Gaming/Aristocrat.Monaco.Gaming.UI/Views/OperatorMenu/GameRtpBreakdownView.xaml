@@ -9,8 +9,9 @@
     xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
     mc:Ignorable="d"
-    Background="Transparent"
-    d:DataContext="{d:DesignInstance {x:Type viewModels:GameRtpBreakdownViewModel}}">
+    loc:Localizer.For="Operator"
+    d:DataContext="{d:DesignInstance {x:Type viewModels:GameRtpBreakdownViewModel}}"
+    Background="Transparent">
 
     <UserControl.Resources>
         <ResourceDictionary>

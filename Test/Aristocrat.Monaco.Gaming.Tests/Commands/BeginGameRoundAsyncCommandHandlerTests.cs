@@ -19,6 +19,7 @@
         private Mock<IGamePlayState> _gameState;
         private Mock<IGameRecovery> _recovery;
         private Mock<IPropertiesManager> _properties;
+        private Mock<IGameProvider> _gameProvider;
         private Mock<IRuntime> _runtime;
         private Mock<IGameDiagnostics> _gameDiagnostics;
         private Mock<IGameHistory> _gameHistory;
@@ -32,6 +33,7 @@
             _gameState = new Mock<IGamePlayState>();
             _recovery = new Mock<IGameRecovery>();
             _properties = new Mock<IPropertiesManager>();
+            _gameProvider = new Mock<IGameProvider>();
             _bus = new Mock<IEventBus>();
             _runtime = new Mock<IRuntime>();
             _gameDiagnostics = new Mock<IGameDiagnostics>();
@@ -43,6 +45,7 @@
                 _recovery.Object,
                 _gameState.Object,
                 _properties.Object,
+                _gameProvider.Object,
                 _gameDiagnostics.Object,
                 _gameHistory.Object,
                 _bus.Object,

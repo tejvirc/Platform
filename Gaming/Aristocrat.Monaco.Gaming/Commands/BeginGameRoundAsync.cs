@@ -20,7 +20,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             long denom,
             long wager,
             int betLinePresetId,
-            int wagerCategoryId,
             byte[] data,
             IOutcomeRequest request,
             int wagerCategoryId)

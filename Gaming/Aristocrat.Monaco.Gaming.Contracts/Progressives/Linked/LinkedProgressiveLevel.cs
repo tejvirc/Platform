@@ -56,7 +56,6 @@
         /// <summary>
         ///     Gets the string value of the progressive level
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return $"LinkedProgressiveLevel: {LevelName} Amount={Amount} Expiration={Expiration} CurrentErrorStatus={CurrentErrorStatus} {ClaimStatus}{(WagerCredits != 0 ? " WagerCredits=" + WagerCredits : "")}";

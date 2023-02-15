@@ -776,7 +776,7 @@
                                  ?? Game?.ActiveLineOption
                                  ?? LineOptions?.FirstOrDefault();
 
-            LineOptionAvailable = LineOptions.Any();
+            LineOptionAvailable = LineOptions?.Any() ?? false;
         }
 
         private void LoadBonusBets(BetOption betOption)

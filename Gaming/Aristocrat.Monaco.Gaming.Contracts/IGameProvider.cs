@@ -51,7 +51,7 @@
         IReadOnlyCollection<IGameCombo> GetGameCombos();
 
         /// <summary>
-        ///     Get the active game and denomination
+        ///     Get the actively running game and denomination
         /// </summary>
         /// <returns>Active game and denomination</returns>
         (IGameDetail game, IDenomination denomination) GetActiveGame();
