@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.ConfigWizard;
     using Contracts.Extensions;
     using Contracts.Localization;
     using Hardware.Contracts.NoteAcceptor;
@@ -28,31 +29,30 @@
         private bool _disabledByDevice;
         private bool _disabledBySystem;
         private bool _disabledByGame;
+        private IInspectionService _reporter;
 
         public NoteAcceptorTestViewModel()
-            : this(ServiceManager.GetInstance().TryGetService<INoteAcceptor>())
+            : this(ServiceManager.GetInstance().TryGetService<IInspectionService>(),
+                  ServiceManager.GetInstance().TryGetService<INoteAcceptor>())
         {
         }
 
-        public NoteAcceptorTestViewModel(INoteAcceptor noteAcceptor)
+        public NoteAcceptorTestViewModel(IInspectionService reporter, INoteAcceptor noteAcceptor)
         {
-            _noteAcceptor = noteAcceptor;
+            _reporter = reporter; // it's non-null only for Inspection Tool
+            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
             _status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadyToInsert);
         }
 
         public string Status
         {
             get => _status;
-            set
-            {
-                _status = value;
-                RaisePropertyChanged(nameof(Status));
-            }
+            set => SetProperty(ref _status, value, nameof(Status));
         }
 
         public ObservableCollection<string> TestEvents { get; } = new ObservableCollection<string>();
 
-        protected override bool CloseOnRestrictedAccess => true;
+        protected override bool CloseOnRestrictedAccess => _reporter is null;
 
         protected override void OnLoaded()
         {
@@ -119,11 +119,15 @@
 
         private void HandleEvent(CurrencyEscrowedEvent evt)
         {
+            var eventName =
+                $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}";
+
             MvvmHelper.ExecuteOnUI(
                 () => TestEvents.Insert(
                     0,
-                    $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}"));
+                    eventName));
 
+            _reporter?.SetTestName(eventName);
             Task.Run(ReturnWithDelay);
         }
 
@@ -136,19 +140,26 @@
 
         private void HandleEvent(DocumentRejectedEvent evt)
         {
+            var eventName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDocInserted);
+
             MvvmHelper.ExecuteOnUI(
                 () => TestEvents.Insert(
                     0,
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDocInserted)));
+                    eventName));
+
+            _reporter?.SetTestName(eventName);
         }
 
         private void HandleEvent(VoucherEscrowedEvent evt)
         {
+            var eventName =
+                $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}";
             MvvmHelper.ExecuteOnUI(
                 () => TestEvents.Insert(
                     0,
-                    $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}"));
+                    eventName));
 
+            _reporter?.SetTestName(eventName);
             Task.Run(ReturnWithDelay);
         }
 

@@ -165,7 +165,7 @@
                 <DataGridTextColumn 
                     Header="{lex:Loc Key={x:Static loc:ResourceKeys.MinimumRequiredValue}}"
                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
-                    Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                    Binding="{Binding MinimumRequiredValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
                     Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"

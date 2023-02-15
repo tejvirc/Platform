@@ -78,7 +78,6 @@
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
                         transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutBonus);
                     break;
                 case TransferOutReason.CashWin:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
@@ -118,7 +117,7 @@
                     break;
                 case AccountType.NonCash:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.NonTransferablePromoTicketOut,
+                        Common.TransactionType.TransferablePromoTicketOut,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),

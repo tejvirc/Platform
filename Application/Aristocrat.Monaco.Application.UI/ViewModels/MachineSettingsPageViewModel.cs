@@ -36,6 +36,10 @@
         private string _physicalAddress;
         private string _modelText;
 
+        private string _jurisdiction;
+        private string _currencySample;
+        private bool _isVisibleForInspection;
+
         private string _electronics;
         private string _graphicsCard;
         private string _buttonDeck;
@@ -53,7 +57,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="MachineSettingsPageViewModel" /> class.
         /// </summary>
-        public MachineSettingsPageViewModel()
+        public MachineSettingsPageViewModel(bool isWizard) : base(isWizard)
         {
             DefaultPrintButtonEnabled = true;
 
@@ -100,6 +104,36 @@
             {
                 _modelText = value;
                 RaisePropertyChanged(nameof(ModelText));
+            }
+        }
+
+        public string Jurisdiction
+        {
+            get => _jurisdiction;
+            set
+            {
+                _jurisdiction = value;
+                RaisePropertyChanged(nameof(Jurisdiction));
+            }
+        }
+
+        public string CurrencySample
+        {
+            get => _currencySample;
+            set
+            {
+                _currencySample = value;
+                RaisePropertyChanged(nameof(CurrencySample));
+            }
+        }
+
+        public bool IsVisibleForInspection
+        {
+            get => _isVisibleForInspection;
+            set
+            {
+                _isVisibleForInspection = value;
+                RaisePropertyChanged(nameof(IsVisibleForInspection));
             }
         }
 
@@ -319,6 +353,20 @@
             SaveData();
             ClearVariableErrors();
             ValidateAll(false);
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void OnInputEnabledChanged()
@@ -414,6 +462,10 @@
             BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
             FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
             ModelText = ioService.DeviceConfiguration.Model;
+
+            IsVisibleForInspection = PropertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
+            Jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
+            CurrencySample = PropertiesManager.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
 
             var osService = ServiceManager.GetInstance().GetService<IOSService>();
 

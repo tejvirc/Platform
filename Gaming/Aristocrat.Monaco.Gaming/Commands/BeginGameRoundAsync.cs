@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Commands
+namespace Aristocrat.Monaco.Gaming.Commands
 {
     using Contracts;
 
@@ -15,13 +15,15 @@
         /// <param name="betLinePresetId">The bet-line-preset-id for the game round</param>
         /// <param name="data">The initial recovery blob</param>
         /// <param name="request">Outcome request</param>
+        /// <param name="wagerCategoryId">Wager category for the game round</param>///
         public BeginGameRoundAsync(
             long denom,
             long wager,
             int betLinePresetId,
             int wagerCategoryId,
             byte[] data,
-            IOutcomeRequest request)
+            IOutcomeRequest request,
+            int wagerCategoryId)
         {
             Denom = denom;
             Wager = wager;
@@ -29,6 +31,7 @@
             WagerCategoryId = wagerCategoryId;
             Data = data;
             Request = request;
+            WagerCategoryId = wagerCategoryId;
         }
 
         /// <summary>
@@ -47,7 +50,7 @@
         public int BetLinePresetId { get; }
 
         /// <summary>
-        ///     Gets the wager category ID
+        ///     Gets the wager category id
         /// </summary>
         public int WagerCategoryId { get; }
 

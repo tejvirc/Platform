@@ -5,7 +5,7 @@
     using SimpleInjector;
 
     /// <summary>
-    ///     Command handler factory   
+    ///     Command handler factory
     /// </summary>
     public class CommandHandlerFactory : ICommandHandlerFactory
     {
@@ -15,7 +15,7 @@
         {
             _container = container;
         }
-        
+
         public async Task Execute<TCommand>(TCommand command, CancellationToken token = default)
             where TCommand : class
         {

@@ -18,6 +18,12 @@
         public const string StartupEventListenerExtensionPoint = "/Hardware/Service/StartupEventListener";
 
         /// <summary>
+        ///     Key for the simulateEdgeLighting property in property manager. The property value corresponding to
+        ///     this key is set by the command line arguments.
+        /// </summary>
+        public const string SimulateEdgeLighting = "simulateEdgeLighting";
+
+        /// <summary>
         ///     Key for the simulateLcdButtonDeck property in property manager.  The property value corresponding to
         ///     this key is set by the command line arguments.
         /// </summary>

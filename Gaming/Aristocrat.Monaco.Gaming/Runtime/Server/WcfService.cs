@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
+namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
     using System;
     using System.Collections.Generic;
@@ -141,8 +141,7 @@
             IList<GameInfo> gameDetails,
             byte[] data)
         {
-            Logger.Debug(
-                $"BeginGameRoundAsync(denom={denom}, betAmount={betAmount}, wagerCategoryId={wagerCategoryId}, request=(cnt={request.OutcomeCount}, tmplId={request.TemplateId}, gameDetails={gameDetails?.FirstOrDefault()} ,data={data})");
+            Logger.Debug($"BeginGameRoundAsync(denom={denom}, betAmount={betAmount}, wagerCategoryId={wagerCategoryId}, request=(cnt={request.OutcomeCount}, tmplId={request.TemplateId}, gameDetails={gameDetails?.FirstOrDefault()} ,data={data})");
 
             IOutcomeRequest outcomeRequest = request.OutcomeCount == 0 ? null : new OutcomeRequest((int)request.OutcomeCount, (int)request.TemplateId);
 
@@ -156,7 +155,8 @@
                     (int)details.BetLinePreset,
                     (int)wagerCategoryId,
                     data,
-                    outcomeRequest);
+                    outcomeRequest,
+                    (int)wagerCategoryId);
 
                 // This will be run asynchronously from this method only
                 _handlerFactory.Create<BeginGameRoundAsync>().Handle(command);

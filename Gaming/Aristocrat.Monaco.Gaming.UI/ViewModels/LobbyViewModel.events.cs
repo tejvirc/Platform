@@ -745,8 +745,7 @@
             SetEdgeLighting();
 
             var payResetMethod = _properties.GetValue(AccountingConstants.LargeWinHandpayResetMethod, LargeWinHandpayResetMethod.PayByHand);
-            if (payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection &&
-                platformEvent.EligibleResetToCreditMeter)
+            if (payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection && platformEvent.EligibleResetToCreditMeter)
             {
                 _eventBus.Subscribe<DownEvent>(
                     this,
@@ -1343,6 +1342,7 @@
             // We are waiting for a handpay key off--stop the cash out dialog timer and reset the dialog state
             _cashOutTimer?.Stop();
             CashOutDialogState = LobbyCashOutDialogState.Visible;
+            MvvmHelper.ExecuteOnUI(HandleMessageOverlayVisibility);
         }
 
         private void HandleEvent(SessionInfoEvent evt)

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Commands
+namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
     using System.Collections.Generic;
@@ -92,6 +92,7 @@
 
                     if (cdsInfo is null)
                     {
+                        _gamePlayState.InitializationFailed();
                         Failed($"wager category is null: {request.TemplateId}");
                         return;
                     }
@@ -113,6 +114,7 @@
 
                 if (!_gamePlayState.EscrowWager(command.Wager, command.Data, command.Request, _recovery.IsRecovering))
                 {
+                    _gamePlayState.InitializationFailed();
                     Failed("EscrowWager is false");
                     return;
                 }

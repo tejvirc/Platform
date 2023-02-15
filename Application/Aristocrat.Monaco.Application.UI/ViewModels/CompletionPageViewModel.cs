@@ -4,6 +4,7 @@
     using Contracts;
     using System;
     using Contracts.Localization;
+    using Kernel.Contracts;
     using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
@@ -14,7 +15,8 @@
         {
             ShowGameSetupMessage = (bool)PropertiesManager.GetProperty(
                 ApplicationConstants.ConfigWizardCompletionPageShowGameSetupMessage,
-                false);
+                false)
+                && !(bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
         }
 
         public string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CompleteTitle);

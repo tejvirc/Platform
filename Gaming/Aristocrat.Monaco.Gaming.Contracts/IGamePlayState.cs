@@ -67,6 +67,12 @@
         bool EscrowWager(long initialWager, byte[] data, IOutcomeRequest request, bool recovering);
 
         /// <summary>
+        ///     Called to indicate a failure to initialize a game round.
+        ///     This is called when credits are unable to be escrowed.
+        /// </summary>
+        void InitializationFailed();
+
+        /// <summary>
         ///     Called to indicate the game round has started.
         /// </summary>
         /// <param name="initialWager">The initial wager for the primary game.</param>

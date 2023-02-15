@@ -50,15 +50,13 @@
             container.RegisterSingleton<IBingoGameOutcomeHandler, CentralHandler>();
             container.RegisterSingleton<ITotalWinValidator, TotalWinValidator>();
             container.RegisterSingleton<IReportTransactionQueueService, TransactionHandler>();
-            container.RegisterSingleton<IReportTransactionService, ReportTransactionService>();
             container.RegisterSingleton<IReportEventQueueService, ReportEventHandler>();
-            container.RegisterSingleton<IReportEventService, ReportEventService>();
             container.RegisterSingleton<IGameHistoryReportHandler, GameHistoryReportHandler>();
             container.RegisterSingleton<ISharedConsumer, SharedConsumerContext>();
-            container.RegisterSingleton<IAcknowledgedQueue<ReportTransactionMessage, int>, AcknowledgedQueue<ReportTransactionMessage, int>>();
-            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportTransactionMessage, int>, TransactionAcknowledgedQueueHelper>();
-            container.RegisterSingleton<IAcknowledgedQueue<ReportEventMessage, int>, AcknowledgedQueue<ReportEventMessage, int>>();
-            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportEventMessage, int>, EventAcknowledgedQueueHelper>();
+            container.RegisterSingleton<IAcknowledgedQueue<ReportTransactionMessage, long>, AcknowledgedQueue<ReportTransactionMessage, long>>();
+            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportTransactionMessage, long>, TransactionAcknowledgedQueueHelper>();
+            container.RegisterSingleton<IAcknowledgedQueue<ReportEventMessage, long>, AcknowledgedQueue<ReportEventMessage, long>>();
+            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportEventMessage, long>, EventAcknowledgedQueueHelper>();
             container.RegisterSingleton<IAcknowledgedQueue<ReportGameOutcomeMessage, long>, AcknowledgedQueue<ReportGameOutcomeMessage, long>>();
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportGameOutcomeMessage, long>, GameHistoryReportAcknowledgeQueueHelper>();
             container.RegisterSingleton<IBingoGameProvider, BingoGameProvider>();
@@ -67,6 +65,7 @@
             container.RegisterSingleton<IBingoReplayRecovery, BingoReplayRecovery>();
             container.RegisterSingleton<ICertificateService, CertificateService>();
             container.RegisterSingleton<DynamicHelpMonitor>();
+            container.RegisterSingleton<ClientActivityService>();
             container.RegisterManyAsCollection(typeof(IMeterMonitor), Assembly.GetExecutingAssembly());
             return container;
         }

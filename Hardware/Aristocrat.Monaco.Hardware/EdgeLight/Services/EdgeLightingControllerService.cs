@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Threading;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using log4net;
@@ -13,7 +14,7 @@
     using SequenceLib;
     using Vgt.Client12.Hardware.HidLibrary;
 
-    internal sealed class EdgeLightingControllerService : BaseRunnable, IEdgeLightingController, IService
+    internal class EdgeLightingControllerService : BaseRunnable, IEdgeLightingController, IService
     {
         private const int TickInterval = 33;
 
@@ -27,6 +28,8 @@
         private readonly List<IEdgeLightRenderer> _rendererList = new List<IEdgeLightRenderer>();
         private readonly object _rendererListLock = new object();
         private readonly IEdgeLightManager _edgeLightManager;
+
+        private readonly bool _isSimulated;
 
         public EdgeLightingControllerService()
             : this(
@@ -50,6 +53,9 @@
             _rendererFactory = rendererFactory ?? throw new ArgumentNullException(nameof(rendererFactory));
             _deviceEnumerator = deviceEnumerator ?? throw new ArgumentNullException(nameof(deviceEnumerator));
 
+            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            _isSimulated = properties.GetValue(HardwareConstants.SimulateEdgeLighting, false);
+
             DetectedOnStartup = IsDetected;
             foreach (var edgeLightRenderer in initialRendererList)
             {
@@ -57,7 +63,7 @@
             }
         }
 
-        public bool IsDetected => _deviceEnumerator.Invoke().Any();
+        public bool IsDetected => _isSimulated ? StripIds.Any() : _deviceEnumerator.Invoke().Any();
 
         public bool DetectedOnStartup { get; }
 

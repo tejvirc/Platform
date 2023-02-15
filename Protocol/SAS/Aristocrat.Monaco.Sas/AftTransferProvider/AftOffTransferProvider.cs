@@ -29,7 +29,7 @@
 
         private static readonly IReadOnlyList<PlayState> AvailableLockableStates = new List<PlayState>
         {
-            PlayState.Idle, PlayState.PayGameResults
+            PlayState.Idle, PlayState.PayGameResults, PlayState.PresentationIdle
         };
 
         private readonly object _lock = new object();
@@ -734,7 +734,7 @@
                 ImmediateSystemDisable)
             {
                 ReleaseTransactionId();
-                
+
                 Logger.Debug("Cannot perform AftOff request.");
                 return false;
             }

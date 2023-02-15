@@ -303,7 +303,7 @@ namespace Aristocrat.Monaco.Application
                 }
             }
 
-            if (configWizardConfiguration.ProtocolConfiguration.ProtocolsAllowed != null)
+            if (configWizardConfiguration.ProtocolConfiguration?.ProtocolsAllowed != null)
             {
                 _properties.Add(ApplicationConstants.ProtocolsAllowedKey,
                     Tuple.Create(

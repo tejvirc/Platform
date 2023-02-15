@@ -34,6 +34,7 @@
         private bool _forceGameExitIsInProgress;
         private bool _requestGameIsInProgress;
         private bool _gameIsRunning;
+        private bool _gameShutdownInProgress;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
         {
@@ -123,6 +124,7 @@
             _sanityCounter = 0;
             _exitWhenIdle = false;
             _gameIsRunning = _gameService.Running;
+            _gameShutdownInProgress = false;
         }
 
         public void Halt()
@@ -146,6 +148,7 @@
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
             _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
             _forceGameExitIsInProgress = true;
+            _gameShutdownInProgress = true;
             _exitWhenIdle = false;
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
@@ -212,6 +215,13 @@
 
         private void LoadGameWithDelay(int milliseconds)
         {
+            //Prevent multiple delayed requests from GameProcessExitedEvent and SystemEnabledEvent
+            if (_requestGameIsInProgress)
+            {
+                _logger.Info($"LoadGameWithDelay: request is already in progress!", GetType().Name);
+                return;
+            }
+
             _logger.Info($"LoadGameWithDelay Request is Received!", GetType().Name);
             Task.Delay(milliseconds).ContinueWith(
                 _ =>
@@ -267,10 +277,18 @@
                 {
                     _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     _gameIsRunning = true;
+                    _gameShutdownInProgress = false;
                     _sanityCounter = 0;
                     _requestGameIsInProgress = false;
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                     _automator.EnableExitToLobby(false);
+                });
+            _eventBus.Subscribe<GameShutdownStartedEvent>(
+                this,
+                _ =>
+                {
+                    _logger.Info($"GameShutdownStartedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _gameShutdownInProgress = true;
                 });
 
             _eventBus.Subscribe<GamePlayRequestFailedEvent>(
@@ -306,7 +324,7 @@
                      {
                          if (!_forceGameExitIsInProgress)
                          {
-                             _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                             _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}] ProcessId: {evt.ProcessId}", GetType().Name);
                              _robotController.Enabled = false;
                          }
                          _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
@@ -319,7 +337,8 @@
                          _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                          _goToNextGame = true;
                      }
-                     _automator.EnableExitToLobby(true);
+                     _gameShutdownInProgress = false;
+                     _automator.EnableExitToLobby(false);
                      LoadGameWithDelay(Constants.loadGameDelayDuration);
                  });
             _eventBus.Subscribe<GameFatalErrorEvent>(
@@ -445,12 +464,15 @@
         private bool IsRequestGameValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            var isGeneralRule = _sc.IsChooser || (_gameIsRunning && !_sc.IsGameLoading);
+            var isGeneralRule = _sc.IsChooser && !_sc.IsAllowSingleGameAutoLaunch || (_gameService.Running && !_gameShutdownInProgress && !_sc.IsGameLoading);
             var isValid = !isBlocked && isGeneralRule && !_requestGameIsInProgress;
 
             if (!isValid)
             {
                 _logger.Info($"IsRequestGameValid is false: isBlocked={isBlocked}, isGeneralRule={isGeneralRule}, _requestGameIsInProgress={_requestGameIsInProgress}", GetType().Name);
+                _logger.Info($"_gameService.Running: {_gameService.Running}", GetType().Name);
+                _logger.Info($"_gameShutdownInProgress: {_gameShutdownInProgress}", GetType().Name);
+                _logger.Info($"_sc.IsGameLoading: {_sc.IsGameLoading}", GetType().Name);
             }
 
             return isValid;

@@ -94,13 +94,13 @@
                 NonCashAmount = TestAmount
             });
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.NonTransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty)).Verifiable();
+                Common.TransactionType.TransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TransferInComplete)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.NonTransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty),
+                Common.TransactionType.TransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty),
                 Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TransferInComplete), Times.Once());
         }
@@ -144,7 +144,7 @@
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
                 Common.TransactionType.CashPromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty)).Verifiable();
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.NonTransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty)).Verifiable();
+                Common.TransactionType.TransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TransferInComplete)).Verifiable();
 
             _target.Consume(evt);
@@ -156,7 +156,7 @@
                 Common.TransactionType.CashPromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty),
                 Times.Once());
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.NonTransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty),
+                Common.TransactionType.TransferablePromoTransferIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, string.Empty),
                 Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TransferInComplete), Times.Once());
         }

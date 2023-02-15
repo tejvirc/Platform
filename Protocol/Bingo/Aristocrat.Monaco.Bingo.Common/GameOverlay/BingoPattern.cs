@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.GameOverlay
 {
     using System;
+    using System.Collections.Generic;
     using System.Text;
     using Newtonsoft.Json;
 
@@ -69,7 +70,7 @@
         ///     Card pattern as a 2-D array.
         /// </summary>
         [JsonIgnore]
-        public bool[,] Flags { get; }
+        public IReadOnlyList<IReadOnlyList<bool>> Flags { get; }
 
         /// <summary>
         ///     Gets the bit masked flags for the bingo pattern
@@ -91,10 +92,14 @@
         {
             unchecked
             {
-                var hashCode = Name != null ? Name.GetHashCode() : 0;
+                var hashCode = (Name != null ? Name.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ PatternId;
-                hashCode = (hashCode * 397) ^ CardSerial.GetHashCode();
+                hashCode = (hashCode * 397) ^ (int)CardSerial;
                 hashCode = (hashCode * 397) ^ IsGameEndWin.GetHashCode();
+                hashCode = (hashCode * 397) ^ BallQuantity;
+                hashCode = (hashCode * 397) ^ PaytableId;
+                hashCode = (hashCode * 397) ^ BitFlags;
+                hashCode = (hashCode * 397) ^ WinIndex;
                 return hashCode;
             }
         }
@@ -106,7 +111,7 @@
             {
                 for (var col = 0; col < BingoConstants.BingoCardDimension; col++)
                 {
-                    sb.Append($"|{(Flags[row, col] ? "XX" : "  ")}");
+                    sb.Append($"|{(Flags[row][col] ? "XX" : "  ")}");
                 }
 
                 sb.AppendLine($"|{Environment.NewLine} -- -- -- -- --");
@@ -117,8 +122,14 @@
 
         private bool Equals(BingoPattern other)
         {
-            return Name == other.Name && PatternId == other.PatternId && CardSerial == other.CardSerial &&
-                   IsGameEndWin == other.IsGameEndWin;
+            return Name == other.Name &&
+                   PatternId == other.PatternId &&
+                   CardSerial == other.CardSerial &&
+                   IsGameEndWin == other.IsGameEndWin &&
+                   BallQuantity == other.BallQuantity &&
+                   PaytableId == other.PaytableId &&
+                   BitFlags == other.BitFlags &&
+                   WinIndex == other.WinIndex;
         }
     }
 }

@@ -33,8 +33,6 @@
         private readonly char[] _operators = { '+', '-', '*', '/', '(', ')' };
 
         private readonly IPersistentStorageManager _persistentStorage;
-        private readonly IPropertiesManager _properties;
-        private readonly bool _rolloverTest;
 
         private bool _disposed;
 
@@ -46,15 +44,13 @@
         /// <param name="meterManager">The meter manager</param>
         public GameMeterProvider(
             IPersistentStorageManager persistentStorage,
-            IPropertiesManager properties,
             IGameMeterManager meterManager)
             : base(typeof(GameMeterProvider).ToString())
         {
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
 
-            _rolloverTest = _properties.GetValue(@"maxmeters", "false") == "true";
+            RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
 
             Initialize();
 
@@ -186,7 +182,7 @@
         {
             var blockName = GetType().ToString();
 
-            var games = _properties.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
+            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
 
             foreach (var meter in meters)
             {
@@ -374,7 +370,7 @@
 
         private void AddCompositeMeters(IReadOnlyCollection<GameCompositeMeterNode> compositeMeterNodes)
         {
-            var games = _properties.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
+            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
             AddTheoreticalPaybackMeter(games);
 
             // This will temporarily allow us to avoid using the Flee library for calculating simple sums of meters (the majority)
@@ -477,35 +473,7 @@
                 classification == "Percentage"
                     ? new CompositeMeter(name, BuildPercentMeterExpression(meters), meters, new PercentageMeterClassification())
                     : new CompositeMeter(name, BuildGameMeterExpression(meters), meters, classification));
-        }
-
-        private void SetupMeterRolloverTest(IMeter meter)
-        {
-            if (!_rolloverTest)
-            {
-                return;
-            }
-
-            if (meter == null || meter.Lifetime != 0)
-            {
-                return;
-            }
-
-            var preRollover = meter.Classification.UpperBounds;
-            if (meter.Classification.GetType() == typeof(CurrencyMeterClassification))
-            {
-                var currencyMultiplier = _properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, ApplicationConstants.DefaultCurrencyMultiplier);
-                var oneCent = currencyMultiplier / (int)CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit;
-                preRollover -= (long)oneCent;
-            }
-            else
-            {
-                preRollover -= 1;
-            }
-
-            Logger.Debug($"Incrementing meter: {meter.Name} to {preRollover}");
-            meter.Increment(preRollover);
-        }
+        }   
 
         private static IEnumerable<string> FormatGameMeterList(IEnumerable<string> symbols)
         {

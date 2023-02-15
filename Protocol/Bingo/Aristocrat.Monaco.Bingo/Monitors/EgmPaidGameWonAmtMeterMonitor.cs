@@ -8,7 +8,6 @@
     using Accounting.Contracts.Transactions;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Common.Storage;
     using Gaming.Contracts;
     using Services.Reporting;

@@ -84,7 +84,7 @@
             if (transaction.TransferredNonCashAmount != 0)
             {
                 _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                    TransactionType.NonTransferablePromoTransferOut,
+                    TransactionType.TransferablePromoTransferOut,
                     transaction.TransferredNonCashAmount.MillicentsToCents(),
                     (uint)(gameConfiguration?.GameTitleId ?? 0),
                     (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));

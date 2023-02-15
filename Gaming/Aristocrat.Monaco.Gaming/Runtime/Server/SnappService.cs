@@ -282,7 +282,8 @@
                     (int)details.BetLinePreset,
                     0,
                     request.Data.ToByteArray(),
-                    outcomeRequest);
+                    outcomeRequest,
+                    (int)request.WagerCategoryId);
 
                 // This will be run asynchronously from this method only
                 _handlerFactory.Create<BeginGameRoundAsync>().Handle(command);

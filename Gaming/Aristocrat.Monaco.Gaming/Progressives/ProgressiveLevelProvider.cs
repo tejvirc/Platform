@@ -29,7 +29,7 @@
 
         private readonly List<ProgressiveLevel> _levels = new List<ProgressiveLevel>();
         private readonly object _sync = new object();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public ProgressiveLevelProvider(
             IGameStorage gameStorage,
@@ -71,7 +71,9 @@
                             denominations,
                             gameDetails.BetOptionList,
                             detail,
-                            gameDetails.WagerCategories.ToList()));
+                            gameDetails.CentralAllowed
+                                ? gameDetails.CdsGameInfos.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits))
+                                : gameDetails.WagerCategories.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits))));
                 }
             }
         }
@@ -345,7 +347,7 @@
             IReadOnlyCollection<long> denominations,
             BetOptionList betOptions,
             ProgressiveDetail progressive,
-            IList<IWagerCategory> wagerCategories)
+            IEnumerable<WagerInfos> wagerCategories)
         {
             var currentValues = GetPersistedLevels(gameId, denominations, progressive.Name);
 
@@ -422,77 +424,160 @@
 
         private IEnumerable<ProgressiveLevel> GenerateLevelsPerGamePerDenomPerWager(
             int gameId,
-            IReadOnlyCollection<long> denominations,
+            IEnumerable<long> denominations,
             ProgressiveDetail progressive,
             LevelDetail levelDetail,
             IReadOnlyCollection<ProgressiveLevel> persistedLevels,
-            IList<IWagerCategory> wagerCategories)
+            IEnumerable<WagerInfos> wagerCategories)
         {
             var poolCreationType = (ProgressivePoolCreation)_properties.GetProperty(
                 GamingConstants.ProgressivePoolCreationType,
                 ProgressivePoolCreation.Default);
 
+            var wagerInfo = wagerCategories.ToList();
             foreach (var denomination in denominations)
             {
-                var singleDenomList = new List<long> { denomination };
-
-                if (poolCreationType == ProgressivePoolCreation.WagerBased &&
-                    progressive.CreationType == PackageManifest.Ati.poolCreationType.All)
+                var progressiveLevels = GenerateLevelsPerGamePerDenomPerWager(
+                    gameId,
+                    progressive,
+                    levelDetail,
+                    persistedLevels,
+                    denomination,
+                    poolCreationType,
+                    wagerInfo);
+                foreach (var progressiveLevel in progressiveLevels)
                 {
-                    foreach (var wagerCategory in wagerCategories.DistinctBy(x => x.Id))
-                    {
-                        if (wagerCategory.MaxWagerCredits == null)
-                        {
-                            continue;
-                        }
-
-                        var currentLevel = persistedLevels.FirstOrDefault(
-                            l => l.LevelId == levelDetail.LevelId &&
-                                 l.Denomination.Count() == 1 &&
-                                 l.Denomination.First() == denomination &&
-                                 l.WagerCredits == wagerCategory.MaxWagerCredits.Value);
-
-                        yield return ToProgressiveLevel(
-                            gameId,
-                            singleDenomList,
-                            null,
-                            progressive,
-                            levelDetail,
-                            currentLevel,
-                            wagerCategory.MaxWagerCredits.Value);
-                    }
-                }
-                else if (poolCreationType == ProgressivePoolCreation.WagerBased &&
-                         progressive.CreationType == PackageManifest.Ati.poolCreationType.Max)
-                {
-                    var filteredWagerCategories = wagerCategories.Where(x => x.MaxWagerCredits != null);
-
-                    var max = filteredWagerCategories
-                        .Where(item => item.MaxWagerCredits != null)
-                        .OrderByDescending(item => item.MaxWagerCredits.Value)
-                        .FirstOrDefault();
-
-                    if (max?.MaxWagerCredits == null)
-                    {
-                        continue;
-                    }
-
-                    var currentLevel = persistedLevels.FirstOrDefault(
-                        l => l.LevelId == levelDetail.LevelId &&
-                             l.Denomination.Count() == 1 &&
-                             l.Denomination.First() == denomination &&
-                             l.WagerCredits == max.MaxWagerCredits.Value);
-
-                    yield return ToProgressiveLevel(
-                        gameId,
-                        singleDenomList,
-                        null,
-                        progressive,
-                        levelDetail,
-                        currentLevel,
-                        max.MaxWagerCredits.Value);
+                    yield return progressiveLevel;
                 }
             }
+        }
+
+        private IEnumerable<ProgressiveLevel> GenerateLevelsPerGamePerDenomPerWager(
+            int gameId,
+            ProgressiveDetail progressive,
+            LevelDetail levelDetail,
+            IReadOnlyCollection<ProgressiveLevel> persistedLevels,
+            long denomination,
+            ProgressivePoolCreation poolCreationType,
+            IEnumerable<WagerInfos> wagerInfo)
+        {
+            var singleDenomList = new List<long> { denomination };
+
+            if (poolCreationType == ProgressivePoolCreation.WagerBased &&
+                progressive.CreationType == PackageManifest.Ati.poolCreationType.All)
+            {
+                var progressiveLevels = GenerateWagerCategoryForAllBets(
+                    gameId,
+                    progressive,
+                    levelDetail,
+                    persistedLevels,
+                    denomination,
+                    wagerInfo,
+                    singleDenomList);
+                foreach (var progressiveLevel in progressiveLevels)
+                {
+                    yield return progressiveLevel;
+                }
+            }
+            else if (poolCreationType == ProgressivePoolCreation.WagerBased &&
+                     progressive.CreationType == PackageManifest.Ati.poolCreationType.Max)
+            {
+                var progressiveLevels = GenerateProgressiveLevelsForMaxBet(
+                    gameId,
+                    progressive,
+                    levelDetail,
+                    persistedLevels,
+                    denomination,
+                    wagerInfo,
+                    singleDenomList);
+                foreach (var progressiveLevel in progressiveLevels)
+                {
+                    yield return progressiveLevel;
+                }
+            }
+        }
+
+        private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsForMaxBet(
+            int gameId,
+            ProgressiveDetail progressive,
+            LevelDetail levelDetail,
+            IEnumerable<ProgressiveLevel> persistedLevels,
+            long denomination,
+            IEnumerable<WagerInfos> wagerInfo,
+            IEnumerable<long> singleDenomList)
+        {
+            var filteredWagerCategories = wagerInfo.Where(x => x.MaxWagerCredits != null);
+
+            var max = filteredWagerCategories
+                .Where(item => item.MaxWagerCredits != null)
+                .OrderByDescending(item => item.MaxWagerCredits.Value)
+                .FirstOrDefault();
+
+            if (max?.MaxWagerCredits == null)
+            {
+                yield break;
+            }
+
+            var currentLevel = persistedLevels.FirstOrDefault(
+                l => l.LevelId == levelDetail.LevelId &&
+                     l.Denomination.Count() == 1 &&
+                     l.Denomination.First() == denomination &&
+                     l.WagerCredits == max.MaxWagerCredits.Value);
+
+            yield return ToProgressiveLevel(
+                gameId,
+                singleDenomList,
+                null,
+                progressive,
+                levelDetail,
+                currentLevel,
+                max.MaxWagerCredits.Value);
+        }
+
+        private IEnumerable<ProgressiveLevel> GenerateWagerCategoryForAllBets(
+            int gameId,
+            ProgressiveDetail progressive,
+            LevelDetail levelDetail,
+            IReadOnlyCollection<ProgressiveLevel> persistedLevels,
+            long denomination,
+            IEnumerable<WagerInfos> wagerInfo,
+            IReadOnlyCollection<long> singleDenomList)
+        {
+            foreach (var wagerCategory in wagerInfo.DistinctBy(x => x.Id))
+            {
+                if (wagerCategory.MaxWagerCredits == null)
+                {
+                    continue;
+                }
+
+                var currentLevel = persistedLevels.FirstOrDefault(
+                    l => l.LevelId == levelDetail.LevelId &&
+                         l.Denomination.Count() == 1 &&
+                         l.Denomination.First() == denomination &&
+                         l.WagerCredits == wagerCategory.MaxWagerCredits.Value);
+
+                yield return ToProgressiveLevel(
+                    gameId,
+                    singleDenomList,
+                    null,
+                    progressive,
+                    levelDetail,
+                    currentLevel,
+                    wagerCategory.MaxWagerCredits.Value);
+            }
+        }
+
+        private class WagerInfos
+        {
+            public WagerInfos(string id, int? maxWagerCredits)
+            {
+                Id = id;
+                MaxWagerCredits = maxWagerCredits;
+            }
+
+            public string Id { get; }
+
+            public int? MaxWagerCredits { get; }
         }
     }
 }

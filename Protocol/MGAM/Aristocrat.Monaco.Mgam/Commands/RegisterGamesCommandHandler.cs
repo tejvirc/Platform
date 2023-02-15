@@ -64,7 +64,7 @@
 
         private async Task RegisterGame(IGameProfile game)
         {
-            foreach (var wagerCategory in game.WagerCategories)
+            foreach (var wagerCategory in game.CdsGameInfos)
             {
                 var result = await Register(_mapper.MergeInto<RegisterGame>(game, wagerCategory));
 

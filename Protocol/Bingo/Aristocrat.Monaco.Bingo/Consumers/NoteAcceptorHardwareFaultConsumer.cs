@@ -32,8 +32,7 @@
                 { NoteAcceptorFaultTypes.StackerFull, ReportableEvent.BillAcceptorStackerIsFull },
                 { NoteAcceptorFaultTypes.StackerFault, ReportableEvent.BillAcceptorHardwareFailure },
                 { NoteAcceptorFaultTypes.CheatDetected, ReportableEvent.BillAcceptorCheatDetected },
-                { NoteAcceptorFaultTypes.OtherFault, ReportableEvent.BillAcceptorError },
-                { NoteAcceptorFaultTypes.MechanicalFault, ReportableEvent.BillAcceptorError },
+                { NoteAcceptorFaultTypes.MechanicalFault, ReportableEvent.BillAcceptorHardwareFailure },
                 { NoteAcceptorFaultTypes.StackerDisconnected, ReportableEvent.StackerRemoved },
                 { NoteAcceptorFaultTypes.StackerJammed, ReportableEvent.BillAcceptorStackerJammed },
                 { NoteAcceptorFaultTypes.NoteJammed, ReportableEvent.BillAcceptorStackerJammed }
@@ -60,21 +59,25 @@
 
         public override void Consume(HardwareFaultEvent theEvent)
         {
-            if (theEvent.Fault == NoteAcceptorFaultTypes.None)
+            if (theEvent.Fault is NoteAcceptorFaultTypes.None)
             {
                 return;
             }
 
-            var fault = BingoErrorMapping.TryGetValue(theEvent.Fault, out var flt)
-                ? flt
-                : ReportableEvent.BillAcceptorHardwareFailure;
-
-            _bingoServerEventReportingService.AddNewEventToQueue(fault);
-            if (theEvent.Fault != NoteAcceptorFaultTypes.StackerDisconnected)
+            _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.BillAcceptorError);
+            if (BingoErrorMapping.TryGetValue(theEvent.Fault, out var fault))
             {
-                return;
+                _bingoServerEventReportingService.AddNewEventToQueue(fault);
             }
 
+            if (theEvent.Fault is NoteAcceptorFaultTypes.StackerDisconnected)
+            {
+                HandleStackerRemoved();
+            }
+        }
+
+        private void HandleStackerRemoved()
+        {
             _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.CashDrop);
             var totalInMeter = _meterManager.GetMeter(ApplicationMeters.TotalIn);
             var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);

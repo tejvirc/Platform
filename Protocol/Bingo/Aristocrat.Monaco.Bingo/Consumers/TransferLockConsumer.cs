@@ -27,12 +27,7 @@
 
         public override void Consume(TransferLockEvent theEvent)
         {
-            if ((theEvent.TransferConditions & AftTransferConditions.BonusAwardToGamingMachineOk) != 0)
-            {
-                _bingoEventQueue.AddNewEventToQueue(
-                    theEvent.Locked ? ReportableEvent.BonusLock : ReportableEvent.BonusUnlock);
-            }
-            else
+            if (theEvent.TransferConditions is not AftTransferConditions.BonusAwardToGamingMachineOk)
             {
                 _bingoEventQueue.AddNewEventToQueue(
                     theEvent.Locked ? ReportableEvent.TransferLock : ReportableEvent.TransferUnlock);
