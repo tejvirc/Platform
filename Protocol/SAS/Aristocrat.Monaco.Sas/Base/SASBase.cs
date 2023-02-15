@@ -5,7 +5,6 @@
     using System.Threading;
     using Accounting.Contracts;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Sas.Client;
     using Common.Container;
@@ -39,7 +38,7 @@
         isCentralDeterminationSystemSupported: false)]
     public sealed class SasBase : BaseRunnable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _disposed;
         private ManualResetEvent _shutdownEvent = new(false);
         private ManualResetEvent _startupWaiter = new(false);
@@ -57,7 +56,7 @@
         {
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<InitializationCompletedEvent>(this, _ => _startupWaiter.Set());
-            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
+            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnRestart());
 
             Logger.Debug("Runnable initialized!");
         }
@@ -184,7 +183,6 @@
                     ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
                 }
 
-                ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
                 Bootstrapper.OnExiting();
             }
 
@@ -249,6 +247,12 @@
             }
 
             _disposed = true;
+        }
+
+        private void OnRestart()
+        {
+            _sasHost.HandlePendingExceptions();
+            OnStop();
         }
 
         private void SubscribeProgressiveEvents()
