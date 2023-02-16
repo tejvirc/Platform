@@ -497,6 +497,11 @@
         public const string GambleAllowed = @"GamePlay.Gamble.Allowed";
 
         /// <summary>
+        ///     Whether gamble is skipped on jackpot hit or not
+        /// </summary>
+        public const string GambleSkipByJackpotHit = @"GamePlay.Gamble.SkipByJackpotHit";
+
+        /// <summary>
         ///     Whether gamble Game Rules will show dynamic settings
         /// </summary>
         public const string ShowGambleDynamicHelp = @"GamePlay.Gamble.ShowGambleDynamicHelp";
