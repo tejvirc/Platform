@@ -877,46 +877,36 @@
                         continue;
                     }
 
-                    List<WagerCategory> wagerCategories;
+                    var wagerCategories = game.WagerCategories.Select(
+                        w => new WagerCategory(
+                            w.Id,
+                            w.TheoPaybackPercent,
+                            w.MinWagerCredits,
+                            w.MaxWagerCredits,
+                            w.MaxWinAmount)).ToList();
                     var centralAllowed = false;
 
-                    // IMPORTANT: For central determinant games the wager categories are comprised of the cds info templates instead of the
-                    // actual WagerCategory information from the GSA Manifest.
                     if (game.CentralInfo.Any())
                     {
                         centralAllowed = true;
                         _properties.SetProperty(ApplicationConstants.CentralAllowed, true);
-                        
-                        wagerCategories = game.CentralInfo.GroupBy(c => c.Id, c => c.Bet,
-                            (id, bet) =>
-                            {
-                                var betList = bet.ToList();
-                                return new WagerCategory(
-                                    id.ToString(),
-                                    game.MaxPaybackPercent,
-                                    betList.Min(),
-                                    betList.Max(),
-                                    0);
-                            }).ToList();
                     }
-                    else
-                    {
-                        wagerCategories = game.WagerCategories.Select(
-                            w => new WagerCategory(
-                                w.Id,
-                                w.TheoPaybackPercent,
-                                w.MinWagerCredits,
-                                w.MaxWagerCredits,
-                                w.MaxWinAmount,
-                                w.MinBaseRtpPercent,
-                                w.MaxBaseRtpPercent,
-                                w.MinSapStartupRtpPercent,
-                                w.MaxSapStartupRtpPercent,
-                                w.SapIncrementRtpPercent,
-                                w.MinLinkStartupRtpPercent,
-                                w.MaxLinkStartupRtpPercent,
-                                w.LinkIncrementRtpPercent)).ToList();
-                    }
+
+                    wagerCategories = game.WagerCategories.Select(
+                        w => new WagerCategory(
+                            w.Id,
+                            w.TheoPaybackPercent,
+                            w.MinWagerCredits,
+                            w.MaxWagerCredits,
+                            w.MaxWinAmount,
+                            w.MinBaseRtpPercent,
+                            w.MaxBaseRtpPercent,
+                            w.MinSapStartupRtpPercent,
+                            w.MaxSapStartupRtpPercent,
+                            w.SapIncrementRtpPercent,
+                            w.MinLinkStartupRtpPercent,
+                            w.MaxLinkStartupRtpPercent,
+                            w.LinkIncrementRtpPercent)).ToList();
 
                     var cdsGameInfos = game.CentralInfo?.GroupBy(c => c.Id, c => c.Bet,
                         (id, bet) =>
