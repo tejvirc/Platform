@@ -29,6 +29,17 @@
         void SetFirmwareVersion(string firmwareVersion);
 
         /// <summary>
+        ///     Set a reference to the inspection wizard.
+        /// </summary>
+        /// <param name="wizard">That man behind the curtain.</param>
+        void SetWizard(IInspectionWizard wizard);
+
+        /// <summary>
+        ///     Manually start the automated test.
+        /// </summary>
+        void ManuallyStartAutoTest();
+
+        /// <summary>
         ///     Set up the following test's name.
         /// </summary>
         /// <param name="testName">Test name</param>

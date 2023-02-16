@@ -11680,4 +11680,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Displays</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="AutoTest" xml:space="preserve">
+    <value>Auto Test</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>

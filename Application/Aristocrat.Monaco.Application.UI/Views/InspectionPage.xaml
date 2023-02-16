@@ -93,6 +93,11 @@
 
                 <views:InspectionIdControl HorizontalAlignment="Left" 
                                            VerticalAlignment="Center" />
+                <Button Grid.Column="1"
+                        Name="ReportButton" Command="{Binding ReportButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
+                        Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
                 <Button Grid.Column="1" 
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
                         Width="90" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
@@ -131,8 +136,8 @@
                         Visibility="{Binding IsClearConfigVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
                 <Button Grid.Column="3"
-                        Name="ReportButton" Command="{Binding ReportButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
+                        Name="AutoTestButton" Command="{Binding AutoTestButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.AutoTest}}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
                 <Button Grid.Column="4"

@@ -1546,6 +1546,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return ResourceManager.GetString("AutoTest", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		public static string AvailableMeterMappings {
@@ -36109,6 +36121,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return "AutoTest";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		public static string AvailableMeterMappings {
@@ -70036,6 +70060,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		AutoPlay,
+		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AutoTest,
 		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>

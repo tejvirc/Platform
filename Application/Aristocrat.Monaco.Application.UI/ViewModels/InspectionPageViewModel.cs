@@ -23,7 +23,7 @@
     using MVVM.Command;
 
     [CLSCompliant(false)]
-    public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IService
+    public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IInspectionWizard, IService
     {
         private readonly string _inspectionWizardsGroupName = "InspectionWizardPages";
         private readonly string _wizardsExtensionPath = "/Application/Inspection/Wizards";
@@ -37,6 +37,7 @@
         private bool _onFinishedPage;
         private bool _canNavigateForward;
         private bool _canNavigateBackward;
+        private bool _canStartAutoTest;
         private bool _isBackButtonVisible;
         private bool _isClearConfigVisible;
         private bool _isReportFailureVisible;
@@ -67,6 +68,7 @@
             PrintButtonCommand = new ActionCommand<object>(PrintButton_Click);
             ClearConfigButtonClicked = new ActionCommand<object>(ClearConfigButton_Click);
             ReportButtonClicked = new ActionCommand<object>(ReportButton_Click);
+            AutoTestButtonClicked = new ActionCommand<object>(AutoTestButton_Click, _ => CanStartAutoTest);
             BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
             NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
 
@@ -78,6 +80,8 @@
         public ICommand ClearConfigButtonClicked { get; }
 
         public ICommand ReportButtonClicked { get; }
+
+        public ICommand AutoTestButtonClicked { get; }
 
         public ICommand BackButtonClicked { get; }
 
@@ -155,6 +159,20 @@
                 {
                     MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
                 }
+            }
+        }
+
+        public bool CanStartAutoTest
+        {
+            get => _canStartAutoTest;
+            set
+            {
+                SetProperty(ref _canStartAutoTest, value, nameof(CanStartAutoTest));
+                if (AutoTestButtonClicked is IActionCommand actionCommand)
+                {
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                }
+
             }
         }
 
@@ -328,6 +346,11 @@
             Inspection?.ReportTestFailure();
         }
 
+        private void AutoTestButton_Click(object o)
+        {
+            Inspection?.ManuallyStartAutoTest();
+        }
+
         private void LoadLayer(string extensionPath)
         {
             Logger.Info($"Loading layer {extensionPath}");
@@ -377,9 +400,12 @@
 
             CanNavigateForward = false;
             CanNavigateBackward = false;
+            CanStartAutoTest = false;
             NextButtonFocused = true;
             IsReportFailureVisible = false;
             IsClearConfigVisible = true;
+
+            Inspection.SetWizard(this);
             Logger.Info("Loading wizards - complete!");
         }
 

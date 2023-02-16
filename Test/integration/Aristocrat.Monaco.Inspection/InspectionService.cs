@@ -38,6 +38,7 @@
         private int _automationActionCounter;
         private Timer _automationTimer;
 
+        private IInspectionWizard _wizard;
         private IOperatorMenuPageLoader _currentPageLoader;
         private HardwareDiagnosticDeviceCategory _currentCategory = HardwareDiagnosticDeviceCategory.Unknown;
         private string _currentTestCondition;
@@ -94,7 +95,7 @@
             Logger.Debug($"SetDeviceCategory {CurrentData.Category}.");
             RaiseChangeEvent();
 
-            TryAutomationPage();
+            TryAutomationPage(false);
 
             return _currentCategory;
         }
@@ -108,6 +109,13 @@
 
             Logger.Debug($"SetFirmwareVersion {CurrentData.Category}/{firmwareVersion}");
             CurrentData.FirmwareVersion = firmwareVersion;
+        }
+
+        public void SetWizard(IInspectionWizard wizard) => _wizard = wizard;
+
+        public void ManuallyStartAutoTest()
+        {
+            TryAutomationPage(true);
         }
 
         public void SetTestName(string testName)
@@ -164,18 +172,23 @@
 
         private InspectionResultData CurrentData => _results.ContainsKey(_currentCategory) ? _results[_currentCategory] : null;
 
+        private bool IsCurrentPageAutoTestable => _currentAutomationPage is {Action: {Length: > 0}};
+
         private void RaiseChangeEvent()
         {
             _events.Publish(new InspectionResultsChangedEvent(CurrentData));
         }
 
-        private void TryAutomationPage()
+        private void TryAutomationPage(bool userRequested)
         {
             _currentAutomationPage = _automationConfig.PageAutomation.ToList()
                 .FirstOrDefault(p => (HardwareDiagnosticDeviceCategory)Enum.Parse(typeof(HardwareDiagnosticDeviceCategory), p.category) == CurrentData.Category);
 
-            if (_currentAutomationPage != null && _currentAutomationPage.Action != null && _currentAutomationPage.Action.Length > 0)
+            if (IsCurrentPageAutoTestable &&
+                (userRequested || _results[_currentCategory].Status == InspectionPageStatus.Untested))
             {
+                SetAutoTestButtonEnable(false);
+
                 _automationActionCounter = 0;
                 TryNextAutomationAction(false);
             }
@@ -193,9 +206,11 @@
                 if (_currentPageLoader.Page is UserControl pageControl)
                 {
                     var window = Window.GetWindow(pageControl);
-                    window.Activate();
+                    window?.Activate();
                 }
             }
+
+            SetAutoTestButtonEnable(IsCurrentPageAutoTestable);
 
             _currentAutomationPage = null;
         }
@@ -372,9 +387,20 @@
             selector.SelectedItem = null;
         }
 
+        private void SetAutoTestButtonEnable(bool enable)
+        {
+            if (_wizard is null)
+            {
+                Logger.Debug("No wizard defined yet");
+                return;
+            }
+
+            MvvmHelper.ExecuteOnUI(() => _wizard.CanStartAutoTest = enable);
+        }
+
         private bool IsWindowConditionMet(Control control, InspectionAutomationConfigurationPageAutomationAction action)
         {
-            const string DisplayRoleProperty = "DisplayRole";
+            const string displayRoleProperty = "DisplayRole";
 
             if (!action.childWindowMustBeMain)
             {
@@ -382,7 +408,7 @@
             }
 
             var viewType = control.GetType();
-            var property = viewType.GetProperty(DisplayRoleProperty,
+            var property = viewType.GetProperty(displayRoleProperty,
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             if (property is null)
             {
@@ -432,7 +458,7 @@
 
                 var method = vmType.GetMethod(action.conditionMethod,
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
-                    null, new Type[] { typeof(int) }, null);
+                    null, new [] { typeof(int) }, null);
                 if (method is null)
                 {
                     Logger.Error($"Couldn't find condition method descriptor {action.conditionMethod}(int) from {vmType}");
