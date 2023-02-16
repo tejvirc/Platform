@@ -53,7 +53,7 @@
             IgnorePropertyForCommitted(nameof(ShowStatus));
         }
 
-        public bool CanApplyChanges => InputEnabled && HasChanges();
+        public bool CanApplyChanges => !HasErrors && InputEnabled && HasChanges();
 
         [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(IpAddressAllowEmptyValidate))]
         public string DnsServer1
@@ -62,10 +62,8 @@
 
             set 
             {
-                if (SetProperty(ref _dnsServer1, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));            
-                }
+                SetProperty(ref _dnsServer1, value, true, nameof(DnsServer1));
+                OnPropertyChanged(nameof(CanApplyChanges));            
             }
         }
 
@@ -76,10 +74,8 @@
 
             set
             {
-                if (SetProperty(ref _dnsServer2, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }                
+                SetProperty(ref _dnsServer2, value, true, nameof(DnsServer2));
+                OnPropertyChanged(nameof(CanApplyChanges));
             }
         }
 
@@ -90,10 +86,8 @@
 
             set
             {
-                if (SetProperty(ref _ipAddress, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
+                SetProperty(ref _ipAddress, value, true, nameof(IpAddress));
+                OnPropertyChanged(nameof(CanApplyChanges));
             }
         }
 
@@ -104,10 +98,8 @@
 
             set
             {
-                if (SetProperty(ref _subnetMask, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }                
+                SetProperty(ref _subnetMask, value, true, nameof(SubnetMask));
+                OnPropertyChanged(nameof(CanApplyChanges));
             }
         }
 
@@ -118,7 +110,7 @@
 
             set
             {
-                SetProperty(ref _gateway, value, true);
+                SetProperty(ref _gateway, value, true, nameof(Gateway));
                 OnPropertyChanged(nameof(CanApplyChanges));
             }
         }
