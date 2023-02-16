@@ -162,6 +162,7 @@
                 { GamingConstants.PlayOnFromPresentWins, ((object)configuration.PlayOnFromPresentWins?.Enabled ?? false, false) },
                 { GamingConstants.GambleAllowed, ((object)configuration.Gamble?.Allowed ?? true, false) },
                 { GamingConstants.GambleEnabled, ((object)configuration.Gamble?.Enabled ?? false, false) },
+                { GamingConstants.GambleSkipByJackpotHit, ((object)configuration.Gamble?.SkipByJackpotHit ?? false, false) },
                 { GamingConstants.GambleWagerLimit, (InitFromStorage(GamingConstants.GambleWagerLimit), true) },
                 { GamingConstants.GambleWagerLimitConfigurable, ((object)configuration.Gamble?.WagerLimitConfigurable ?? true, false) },
                 { GamingConstants.LetItRideAllowed, ((object)configuration.LetItRide?.Allowed ?? true, false) },
