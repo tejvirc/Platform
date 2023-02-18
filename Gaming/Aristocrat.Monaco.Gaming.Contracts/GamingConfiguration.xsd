@@ -195,7 +195,7 @@
           <xs:complexType>
             <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="WagerLimit" type="xs:long" use="optional" default="9223372036854775807" />
+            <xs:attribute name="WagerLimit" type="xs:long" use="optional" default="50000000" />
             <xs:attribute name="WinLimit" type="xs:long" use="optional" default="9223372036854775807" />
             <xs:attribute name="WagerLimitConfigurable" type="xs:boolean" use="optional" default="true" />
             <xs:attribute name="WinLimitConfigurable" type="xs:boolean" use="optional" default="false" />
