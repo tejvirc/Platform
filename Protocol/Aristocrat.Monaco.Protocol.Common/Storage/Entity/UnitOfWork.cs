@@ -35,6 +35,7 @@
             _scope = AsyncScopedLifestyle.BeginScope(_container);
 
             _context = _scope.GetInstance<DbContext>();
+            _context.Database.EnsureCreated();
         }
 
         /// <inheritdoc />
