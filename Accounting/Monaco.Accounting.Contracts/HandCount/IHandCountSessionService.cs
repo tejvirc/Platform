@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+﻿namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
 {
     using Kernel;
 
@@ -15,9 +15,9 @@
         int HandCount { get; }
 
         /// <summary>
-        ///     Increase hand count
+        ///     Increment hand count
         /// </summary>
-        void IncreaseHandCount();
+        void IncrementHandCount();
 
         /// <summary>
         ///     Decrease hand count

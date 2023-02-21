@@ -233,10 +233,6 @@
       <ExtensionNode name="PropertyProvider"/>
     </ExtensionPoint>
 
-    <ExtensionPoint path="/Gaming/Services">
-      <ExtensionNode name="Service" />
-    </ExtensionPoint>
-
   <Extension path="/Kernel/AddinConfigurationGroup">
     <AddinConfigurationGroup name="GamingConfigWizardPages" description="These are the config wizard pages for Gaming">
       <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">

@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
+    using Accounting.Contracts.HandCount;
     using Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Events;
@@ -17,6 +18,7 @@
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IGameHistory _gameHistory;
         private readonly IProgressiveGameProvider _progressiveGame;
+        //private readonly IHandCountProvider _handCount;
         private readonly IPersistentStorageManager _storage;
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -55,7 +57,12 @@
 
                 _commandFactory.Create<Wager>().Handle(new Wager(command.GameId, command.Denomination, command.Wager));
 
-                //check HandCountSessionService exists or not
+                //assumption this will be only trigger for the jurisdiction
+                //_handCount.IncrementHandCount();
+                if (ServiceManager.GetInstance().IsServiceAvailable<IHandCountSessionService>())
+                {
+                    ServiceManager.GetInstance().GetService<IHandCountSessionService>().IncrementHandCount();
+                }
 
                 scope.Complete();
 

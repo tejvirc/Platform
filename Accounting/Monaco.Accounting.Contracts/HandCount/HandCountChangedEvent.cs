@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+﻿namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
 {
     using System;
     using Kernel;

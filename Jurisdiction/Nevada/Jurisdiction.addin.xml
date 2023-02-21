@@ -188,7 +188,7 @@
   <Extension path="/Accounting/BootExtender" filterid="NevadaAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>
-  <Extension path="/Gaming/Services" filterid="NevadaGamingServices">
-    <Service type="Aristocrat.Monaco.Gaming.HandCountSessionService" />
+  <Extension path="/Accounting/Services" filterid="NevadaAccountingServices">
+    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountSessionService" />
   </Extension>
 </Addin>

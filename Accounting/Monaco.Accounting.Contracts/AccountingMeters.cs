@@ -713,5 +713,9 @@
         /// </summary>
         public const string TotalCashCoinTicketInAmount = "TotalCashCoinTicketInAmount";
 
+        /// <summary>
+        ///     Count of hand played by the player in this hand count session
+        /// </summary>
+        public const string HandCount = "HandCount";
     }
 }

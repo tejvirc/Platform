@@ -22,6 +22,9 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="HandCountSessionService.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Aristocrat.GdkRuntime.Contract">
       <HintPath>..\Aristocrat.GdkRuntime.Contract\bin\$(Configuration)\Aristocrat.GdkRuntime.Contract.dll</HintPath>
     </Reference>
