@@ -111,7 +111,7 @@
         private static async Task RunProtocol(Task<(string name, IRunnable runable)> initializeTask)
         {
             var (_, runnable) = await initializeTask;
-            runnable.Run();
+            await Task.Run(() => runnable.Run());
         }
 
         private void RunProtocols()

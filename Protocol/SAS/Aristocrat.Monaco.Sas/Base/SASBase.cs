@@ -251,7 +251,7 @@
 
         private void OnRestart()
         {
-            _sasHost.HandlePendingExceptions();
+            _sasHost?.HandlePendingExceptions();
             OnStop();
         }
 
