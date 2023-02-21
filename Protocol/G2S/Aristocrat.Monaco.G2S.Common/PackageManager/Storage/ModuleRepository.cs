@@ -10,12 +10,14 @@
     /// </summary>
     public class ModuleRepository : BaseRepository<Module>, IModuleRepository
     {
+        private static string SqliteIgnoreCase = "NOCASE";
+
         /// <inheritdoc />
         public Module GetModuleByModuleId(DbContext context, string moduleId)
         {
             return context.Set<Module>()
                 .FirstOrDefault(
-                    x => string.Compare(x.ModuleId, moduleId, StringComparison.InvariantCultureIgnoreCase) == 0);
+                    x => EF.Functions.Like(EF.Functions.Collate(x.ModuleId, SqliteIgnoreCase), moduleId));
         }
     }
 }

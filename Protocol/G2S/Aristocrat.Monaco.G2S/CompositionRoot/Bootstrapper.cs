@@ -160,17 +160,6 @@
         private static void ConfigureCommunications(this Container @this)
         {
             @this.Register<IWcfApplicationRuntime, AspNetCoreWebRuntime>(Lifestyle.Transient);
-
-            var egm = EgmFactory.Create(
-                e =>
-                {
-                    e.UsesNamespace("Aristocrat.G2S.Protocol.v21");
-                    e.ListenOn(ConfigureBinding);
-                    e.WithEgmId(
-                        ServiceManager.GetInstance().GetService<IPropertiesManager>()
-                            .GetValue<string>(Constants.EgmId, null));
-                }, ServiceManager.GetInstance().GetService<IWcfApplicationRuntime>());
-
             @this.Register<IDeviceFactory, DeviceFactory>(Lifestyle.Singleton);
             @this.Register<IGatComponentFactory, GatComponentFactory>(Lifestyle.Singleton);
             @this.Register<IHostFactory, HostFactory>(Lifestyle.Singleton);
@@ -188,7 +177,20 @@
             @this.Register<IMetersSubscriptionManager, MetersSubscriptionManager>(Lifestyle.Singleton);
             @this.Register<ISelfTest, SelfTest>(Lifestyle.Singleton);
 
-            @this.RegisterInstance(typeof(IG2SEgm), egm);
+            @this.Register(typeof(IG2SEgm), () =>
+                {
+                    var egm = EgmFactory.Create(
+                    e =>
+                    {
+                        e.UsesNamespace("Aristocrat.G2S.Protocol.v21");
+                        e.ListenOn(ConfigureBinding);
+                        var propertiesManager = @this.GetInstance<IPropertiesManager>();
+                        var egmValue = propertiesManager.GetValue<string>(Constants.EgmId, null);
+                        e.WithEgmId(egmValue);
+                    }, @this.GetInstance<IWcfApplicationRuntime>());
+                    return egm;
+                },
+            Lifestyle.Singleton);
         }
 
         private static void ConfigureHandlers(this Container @this)
