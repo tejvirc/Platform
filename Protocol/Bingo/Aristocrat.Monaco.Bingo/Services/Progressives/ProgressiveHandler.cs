@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Services.Progressives
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
@@ -18,7 +19,7 @@
     using log4net;
     using Timer = System.Timers.Timer;
 
-    public class ProgressiveHandler : IProgressiveInfoHandler, IProgressiveUpdateHandler, IProgressiveClaimHandler, IDisposable
+    public class ProgressiveHandler : IProgressiveInfoHandler, IProgressiveUpdateHandler, IDisposable
     {
         private const int MaximumProgressiveUpdateSeconds = 10;
         private const int MonitorPollTimeSeconds = 5;
@@ -26,8 +27,8 @@
         private readonly IEventBus _eventBus;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly ISystemDisableManager _systemDisable;
-        private readonly Dictionary<int, long> _progressiveIdMapping = new();
-        private readonly Dictionary<long, DateTime> _progressiveUpdateLastTime = new();
+        private readonly IProgressiveLevelInfoProvider _progressiveLevelInfoProvider;
+        private readonly ConcurrentDictionary<long, DateTime> _progressiveUpdateLastTime = new();
         private readonly List<long> _failedProgressiveLevels = new();
         private readonly double _pollingInterval = TimeSpan.FromSeconds(MonitorPollTimeSeconds).TotalMilliseconds;
         private readonly object _lock = new();
@@ -37,11 +38,13 @@
         public ProgressiveHandler(
             IEventBus eventBus,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
-            ISystemDisableManager systemDisable)
+            ISystemDisableManager systemDisable,
+            IProgressiveLevelInfoProvider progressiveLevelInfoProvider)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
+            _progressiveLevelInfoProvider = progressiveLevelInfoProvider ?? throw new ArgumentNullException(nameof(progressiveLevelInfoProvider));
         }
 
         public Task<bool> ProcessProgressiveInfo(ProgressiveInfoMessage info, CancellationToken token)
@@ -53,33 +56,9 @@
                 throw new ArgumentNullException(nameof(info));
             }
 
-            token.ThrowIfCancellationRequested();
-
-            Logger.Debug($"ResponseCode={info.ResponseCode}, Accepted={info.Accepted}, GameTitle={info.GameTitleId}");
-
-            lock (_lock)
-            {
-                _progressiveIdMapping.Clear();
-                _progressiveUpdateLastTime.Clear();
-                Logger.Debug("Progressive Levels:");
-                foreach (var progLevel in info.ProgressiveLevels)
-                {
-                    Logger.Debug(
-                        $"SequenceNumber={progLevel.SequenceNumber}, ProgressiveLevel={progLevel.ProgressiveLevel}");
-                    _progressiveIdMapping.Add(progLevel.SequenceNumber - 1, progLevel.ProgressiveLevel);
-                    _progressiveUpdateLastTime.Add(progLevel.ProgressiveLevel, DateTime.Now);
-                }
-            }
-
-            Logger.Debug("Meters To Report:");
-            foreach (var meter in info.MetersToReport)
-            {
-                Logger.Debug($"Meter={meter}");
-            }
-
             SetTimer();
 
-            return Task.FromResult(info.ResponseCode == ResponseCode.Ok);
+            return Task.FromResult(true);
         }
 
         public Task<bool> ProcessProgressiveUpdate(ProgressiveUpdateMessage update, CancellationToken token)
@@ -105,9 +84,9 @@
             var progressiveLevels = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels();
             foreach (var progressiveLevel in progressiveLevels)
             {
-                if (_progressiveIdMapping.ContainsKey(progressiveLevel.LevelId))
+                var mappedLevelId = _progressiveLevelInfoProvider.GetProgressiveLevelId(progressiveLevel.LevelId + 1);
+                if (mappedLevelId >= 0)
                 {
-                    var mappedLevelId = _progressiveIdMapping[progressiveLevel.LevelId];
                     if (mappedLevelId == update.ProgressiveLevel)
                     {
                         Logger.Debug($"Found mapping of levelId = {progressiveLevel.LevelId} to progressive level = {mappedLevelId}");
@@ -129,41 +108,13 @@
                         return Task.FromResult(true);
                     }
                 }
-            }
-
-            Logger.Info($"Ignoring progressive update with unknown progressive level {update.ProgressiveLevel}");
-            return Task.FromResult(false);
-        }
-
-        public Task<bool> ProcessProgressiveClaim(ProgressiveClaimMessage claim, CancellationToken token)
-        {
-            if (claim == null)
-            {
-                throw new ArgumentNullException(nameof(claim));
-            }
-
-            token.ThrowIfCancellationRequested();
-
-            Logger.Debug($"Received a progressive claim message, ProgLevelId={claim.ProgressiveLevelId}, Amount={claim.Amount}, AwardId={claim.AwardId}");
-
-            var progressiveLevels = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels();
-            foreach (var progressiveLevel in progressiveLevels)
-            {
-                if (_progressiveIdMapping.ContainsKey(progressiveLevel.LevelId))
+                else
                 {
-                    var mappedLevelId = _progressiveIdMapping[progressiveLevel.LevelId];
-                    if (mappedLevelId == claim.ProgressiveLevelId)
-                    {
-                        Logger.Debug($"ClaimLinkedProgressiveLevels LevelName={progressiveLevel.LevelName}, Amount={claim.Amount}");
-
-                        // TODO store the claimed win values for later when the progressives are actually processed.
-
-                        return Task.FromResult(true);
-                    }
+                    Logger.Warn($"Invalid ProgressiveLevelId {progressiveLevel.LevelId + 1} on progressive update");
                 }
             }
 
-            Logger.Info($"Process progressive claim for unknown progressive level {claim.ProgressiveLevelId}");
+            Logger.Info($"Ignoring progressive update with unknown progressive level {update.ProgressiveLevel}");
             return Task.FromResult(false);
         }
 

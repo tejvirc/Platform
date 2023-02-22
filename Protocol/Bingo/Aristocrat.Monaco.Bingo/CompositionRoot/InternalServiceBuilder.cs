@@ -75,9 +75,9 @@
 
         private static Container SetupProgressives(this Container container)
         {
-            container.RegisterSingleton<IProgressiveInfoHandler, ProgressiveHandler>();
             container.RegisterSingleton<IProgressiveUpdateHandler, ProgressiveHandler>();
-            container.RegisterSingleton<IProgressiveClaimHandler, ProgressiveHandler>();
+            container.RegisterSingleton<IProgressiveLevelInfoProvider, ProgressiveLevelInfoProvider>();
+            container.RegisterSingleton<IProgressiveInfoHandler, ProgressiveHandler>();
             return container;
         }
 

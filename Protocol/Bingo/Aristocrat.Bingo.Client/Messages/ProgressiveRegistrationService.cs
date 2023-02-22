@@ -23,18 +23,21 @@
         private readonly IEnumerable<IClient> _clients;
         private readonly IMessageHandlerFactory _messageHandlerFactory;
         private readonly IProgressiveAuthorizationProvider _authorization;
+        private readonly IProgressiveLevelInfoProvider _progressiveLevelInfoProvider;
         private bool _disposed;
 
         public ProgressiveRegistrationService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
             IEnumerable<IClient> clients,
             IMessageHandlerFactory messageHandlerFactory,
-            IProgressiveAuthorizationProvider authorization)
+            IProgressiveAuthorizationProvider authorization,
+            IProgressiveLevelInfoProvider progressiveLevelInfoProvider)
             : base(endpointProvider)
         {
             _clients = clients ?? throw new ArgumentNullException(nameof(clients));
             _authorization = authorization ?? throw new ArgumentNullException(nameof(authorization));
             _messageHandlerFactory = messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
+            _progressiveLevelInfoProvider = progressiveLevelInfoProvider ?? throw new ArgumentNullException(nameof(progressiveLevelInfoProvider));
 
             foreach (var client in _clients)
             {
@@ -59,11 +62,17 @@
 
             _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
 
+            _progressiveLevelInfoProvider.ClearProgressiveLevelInfo();
+
             var progressiveLevels = new List<ProgressiveLevelInfo>();
             foreach (var progressiveMapping in result.ProgressiveLevels)
             {
                 Logger.Debug($"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevelId}, sequence={progressiveMapping.SequenceNumber}");
                 progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevelId, progressiveMapping.SequenceNumber));
+
+                _progressiveLevelInfoProvider.AddProgressiveLevelInfo(
+                        progressiveMapping.ProgressiveLevelId,
+                        progressiveMapping.SequenceNumber);
             }
 
             Logger.Debug("Meters To Report:");

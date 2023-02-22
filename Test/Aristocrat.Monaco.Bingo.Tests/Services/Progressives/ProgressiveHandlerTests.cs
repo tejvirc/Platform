@@ -14,7 +14,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Common;
-    using Localization.Properties;
 
     [TestClass]
     public class ProgressiveHandlerTests
@@ -22,6 +21,7 @@
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private readonly Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
+        private readonly Mock<IProgressiveLevelInfoProvider> _progressiveLevelInfoProvider = new(MockBehavior.Default);
 
         private ProgressiveHandler _target;
 
@@ -31,20 +31,23 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, false, DisplayName="Null IEventBus")]
-        [DataRow(false, true, false, DisplayName= "Null IProtocolLinkedProgressiveAdapter")]
-        [DataRow(false, false, true, DisplayName = "Null ISystemDisableManager")]
+        [DataRow(true, false, false, false, DisplayName="Null IEventBus")]
+        [DataRow(false, true, false, false, DisplayName= "Null IProtocolLinkedProgressiveAdapter")]
+        [DataRow(false, false, true, false, DisplayName = "Null ISystemDisableManager")]
+        [DataRow(false, false, false, true, DisplayName = "Null IProgressiveLevelInfoProvider")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorArgumentTest(
             bool nullEventBus,
             bool nullProtocolLinkedProgressiveAdapter,
-            bool nullSystemDisableManager)
+            bool nullSystemDisableManager,
+            bool nullProgressiveLevelInfoProvider)
         {
             _target = CreateTarget(
                 nullEventBus,
                 nullProtocolLinkedProgressiveAdapter,
-                nullSystemDisableManager);
+                nullSystemDisableManager,
+                nullProgressiveLevelInfoProvider);
         }
 
         [TestMethod]
@@ -105,6 +108,9 @@
 
             _protocolLinkedProgressiveAdapter.Setup(x => x.ViewConfiguredProgressiveLevels()).Returns(viewableProgressives);
             _protocolLinkedProgressiveAdapter.Setup(x => x.UpdateLinkedProgressiveLevels(It.IsAny<LinkedProgressiveLevel[]>(), ProtocolNames.Bingo));
+
+            var mappedId = progressiveLevel;
+            _progressiveLevelInfoProvider.Setup(x => x.GetProgressiveLevelId(It.IsAny<int>())).Returns(mappedId);
 
             // Must first call ProcessProgressiveInfo to set internal variables
             var metersToReport = new List<int> { 10, 100, 200 };
@@ -222,12 +228,14 @@
         private ProgressiveHandler CreateTarget(
             bool nullEventBus = false,
             bool nullProtocolLinkedProgressiveAdapter = false,
-            bool nullSystemDisableManager = false)
+            bool nullSystemDisableManager = false,
+            bool nullProgressiveLevelInfoProvider = false)
         {
             return new(
                 nullEventBus ? null : _eventBus.Object,
                 nullProtocolLinkedProgressiveAdapter ? null : _protocolLinkedProgressiveAdapter.Object,
-                nullSystemDisableManager ? null : _systemDisableManager.Object);
+                nullSystemDisableManager ? null : _systemDisableManager.Object,
+                nullProgressiveLevelInfoProvider ? null : _progressiveLevelInfoProvider.Object);
         }
 
         private IViewableProgressiveLevel CreateViewableProgressive(int levelId, long amount)
