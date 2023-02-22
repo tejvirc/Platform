@@ -17,7 +17,7 @@
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
-    <SelectableJurisdiction name="Georgia" description="Top level Georgia jurisdiction group" id="JUR000300,JUR000998,JUR000999,JUR000033">
+    <SelectableJurisdiction name="GeorgiaCOAM" description="Top level Georgia jurisdiction group" id="JUR000300,JUR000998,JUR000999,JUR000033">
       <AddinConfigurationGroupReference name="BaseOperatorMenus" />
       <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
       <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
