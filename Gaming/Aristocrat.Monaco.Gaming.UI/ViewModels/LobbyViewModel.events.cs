@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Linq;
@@ -292,17 +292,18 @@
                     {
                         if (!IsResponsibleGamingInfoFullScreen)
                         {
-                            ExitResponsibleGamingInfoDialog();
-                        }
+                            if (!IsResponsibleGamingInfoFullScreen)
+                            {
+                                ExitResponsibleGamingInfoDialog();
+                            }
 
-                        if (IsInState(LobbyState.Chooser))
-                        {
-                            if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
+                            if (IsInState(LobbyState.Chooser))
                             {
                                     if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0 || reportCashoutButtonPress)
                                     {
                                 HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
                             }
+                            OnUserInteraction();
                         }
                             }
                         OnUserInteraction();

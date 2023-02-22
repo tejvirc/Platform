@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -193,7 +193,7 @@
                             }
                         }
 
-                        NoteAcceptor.StackDocument();
+            NoteAcceptor.StackDocument();
 #endif
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Accounting.Contracts;
     using Application.Contracts.Extensions;

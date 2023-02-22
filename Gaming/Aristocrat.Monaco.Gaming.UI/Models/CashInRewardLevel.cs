@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System.ComponentModel.DataAnnotations;
     using Aristocrat.Monaco.Accounting.Contracts;

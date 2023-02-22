@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;

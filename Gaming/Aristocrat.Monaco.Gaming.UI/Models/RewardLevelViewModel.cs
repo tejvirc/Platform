@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using Aristocrat.Monaco.Gaming.Contracts.Barkeeper;
     using CommunityToolkit.Mvvm.ComponentModel;

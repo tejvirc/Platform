@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

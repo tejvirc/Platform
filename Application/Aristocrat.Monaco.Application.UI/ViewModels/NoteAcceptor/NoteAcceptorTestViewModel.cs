@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Collections.ObjectModel;
@@ -89,6 +89,24 @@
         protected void UnInitialize()
         {
             ResetDisabledReasons();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (field == null && value == null)
+            {
+                return;
+            }
+
+            field = value;
+            OnPropertyChanged(propertyName);
         }
 
         private void SubscribeToEvents()

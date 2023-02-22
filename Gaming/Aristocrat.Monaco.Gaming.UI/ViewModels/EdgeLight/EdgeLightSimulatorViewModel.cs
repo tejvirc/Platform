@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
 {
     using System;
     using System.Collections.Generic;

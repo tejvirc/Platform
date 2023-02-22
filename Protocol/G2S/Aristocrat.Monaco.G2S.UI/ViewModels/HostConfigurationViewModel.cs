@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;

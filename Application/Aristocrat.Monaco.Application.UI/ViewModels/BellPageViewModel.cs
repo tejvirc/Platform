@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -24,7 +24,7 @@
         private decimal _intervalBellValue;
 
         public BellPageViewModel(bool isWizard)
-            : this(ServiceManager.GetInstance().TryGetService<IBell>(), isWizard)
+            :this(ServiceManager.GetInstance().TryGetService<IBell>(), isWizard)
         {
         }
 

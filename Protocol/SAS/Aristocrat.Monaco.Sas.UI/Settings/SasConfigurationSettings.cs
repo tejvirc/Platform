@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Sas.UI.Settings
+namespace Aristocrat.Monaco.Sas.UI.Settings
 {
     using System;
     using System.Collections.ObjectModel;

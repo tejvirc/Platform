@@ -612,6 +612,11 @@
                 return;
             }
 
+            if (_isInspection)
+            {
+                return;
+            }
+
             if (_touchCalibrationService.IsCalibrating)
             {
                 _touchCalibrationService.CalibrateNextDevice();

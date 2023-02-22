@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Concurrent;
@@ -387,6 +387,14 @@
                 ReserveOverlayViewModel.IsDialogVisible = true;
             }
             
+            MessageOverlayData.IsDialogVisible =
+                !IsPresentationOverridden() &&
+                (IsLockupMessageVisible &&
+                 (HardErrorMessages.Count > 1 ||
+                  !_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.ReserveDisableKey) &&
+                  HardErrorMessages.Count >= 1) || IsCashingOutDlgVisible || IsCashingInDlgVisible ||
+                 IsNonCashOverlayDlgVisible || ShowProgressiveGameDisabledNotification || ShowVoucherNotification);
+
             MessageOverlayData.IsDialogVisible =
                 !IsPresentationOverridden() &&
                 (IsLockupMessageVisible &&
