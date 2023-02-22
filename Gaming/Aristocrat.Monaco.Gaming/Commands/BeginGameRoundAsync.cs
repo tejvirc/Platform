@@ -7,31 +7,30 @@ namespace Aristocrat.Monaco.Gaming.Commands
     /// </summary>
     public class BeginGameRoundAsync
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BeginGameRound" /> class.
-        /// </summary>
-        /// <param name="denom">The denom of the game round.</param>
-        /// <param name="wager">The initial wager amount for the game round</param>
-        /// <param name="betLinePresetId">The bet-line-preset-id for the game round</param>
-        /// <param name="data">The initial recovery blob</param>
-        /// <param name="request">Outcome request</param>
-        /// <param name="wagerCategoryId">Wager category for the game round</param>///
-        public BeginGameRoundAsync(
-            long denom,
-            long wager,
-            int betLinePresetId,
-            byte[] data,
-            IOutcomeRequest request,
-            int wagerCategoryId)
-        {
-            Denom = denom;
-            Wager = wager;
-            BetLinePresetId = betLinePresetId;
-            WagerCategoryId = wagerCategoryId;
-            Data = data;
-            Request = request;
-            WagerCategoryId = wagerCategoryId;
-        }
+        /// <summary> 
+        ///     Initializes a new instance of the <see cref="BeginGameRound" /> class. 
+        /// </summary> 
+        /// <param name="denom">The denom of the game round.</param> 
+        /// <param name="wager">The initial wager amount for the game round</param> 
+        /// <param name="betLinePresetId">The bet-line-preset-id for the game round</param> 
+        /// <param name="data">The initial recovery blob</param> 
+        /// <param name="request">Outcome request</param> 
+        /// <param name="wagerCategoryId">Wager category for the game round</param>/// 
+        public BeginGameRoundAsync( 
+            long denom, 
+            long wager, 
+            int betLinePresetId, 
+            byte[] data, 
+            IOutcomeRequest request, 
+            int wagerCategoryId) 
+        { 
+            Denom = denom; 
+            Wager = wager; 
+            BetLinePresetId = betLinePresetId; 
+            Data = data; 
+            Request = request; 
+            WagerCategoryId = wagerCategoryId; 
+        } 
 
         /// <summary>
         ///     Gets the selected denomination.

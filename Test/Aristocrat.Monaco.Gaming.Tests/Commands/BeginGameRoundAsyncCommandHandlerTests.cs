@@ -78,12 +78,13 @@
             game.Setup(x => x.WagerCategories).Returns(new [] { wagerCategory1.Object, wagerCategory2.Object });
 
             _properties.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, false)).Returns(true);
-
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(12345L);
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(1);
             _properties.Setup(x => x.GetProperty(GamingConstants.Games, null)).Returns(new [] { game.Object });
+            _gameProvider.Setup(x => x.GetActiveGame()).Returns((game.Object, denom.Object));
             _recovery.Setup(x => x.IsRecovering).Returns(false);
             _gameDiagnostics.Setup(x => x.IsActive).Returns(true);
+
             _properties.Setup(x => x.SetProperty(GamingConstants.SelectedWagerCategory, wagerCategory2.Object))
                 .Verifiable();
             _runtime.Setup(x => x.BeginGameRoundResponse(BeginGameRoundResult.Success, Enumerable.Empty<Outcome>(), null))
@@ -121,12 +122,13 @@
             game.Setup(x => x.WagerCategories).Returns(new [] { wagerCategory1.Object, wagerCategory2.Object });
 
             _properties.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, false)).Returns(true);
-
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(12345L);
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(1);
             _properties.Setup(x => x.GetProperty(GamingConstants.Games, null)).Returns(new [] { game.Object });
+            _gameProvider.Setup(x => x.GetActiveGame()).Returns((game.Object, denom.Object));
             _recovery.Setup(x => x.IsRecovering).Returns(false);
             _gameDiagnostics.Setup(x => x.IsActive).Returns(true);
+
             _properties.Setup(x => x.SetProperty(GamingConstants.SelectedWagerCategory, wagerCategory1.Object))
                 .Verifiable();
             _runtime.Setup(x => x.BeginGameRoundResponse(BeginGameRoundResult.Success, Enumerable.Empty<Outcome>(), null))
