@@ -46,8 +46,8 @@
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.9.0" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.9.0" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.9.0" />
-    <PackageReference Include="Aristocrat.Snapp" Version="0.1.9" />
-    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.9" />
+    <PackageReference Include="Aristocrat.Snapp" Version="0.1.11" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.11" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
 
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
