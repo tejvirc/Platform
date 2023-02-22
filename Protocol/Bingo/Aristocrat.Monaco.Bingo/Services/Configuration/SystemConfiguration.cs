@@ -112,6 +112,7 @@
                     break;
                 case SystemConfigurationConstants.MinJackpotValue:
                     model.MinimumJackpotValue = long.Parse(value);
+                    ValidateHandpayLimit(model.MinimumJackpotValue.Value);
                     break;
                 case SystemConfigurationConstants.AudibleAlarmSetting:
                     model.AlarmConfiguration = StringToBool(value);
@@ -202,6 +203,16 @@
                 new SasFeatures()).Clone();
             action.Invoke(features);
             return features;
+        }
+
+        private void ValidateHandpayLimit(long minimumJackpotValue)
+        {
+            var handpayLimit = (long)PropertiesManager.GetProperty(AccountingConstants.HandpayLimit, long.MinValue);
+            var jackpotLimitInMillicents = minimumJackpotValue.CentsToMillicents();
+            if (jackpotLimitInMillicents > handpayLimit)
+            {
+                PropertiesManager.SetProperty(AccountingConstants.HandpayLimit, jackpotLimitInMillicents);
+            }
         }
     }
 }

@@ -8,7 +8,6 @@
     using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
-    using Common;
     using Common.Exceptions;
     using Common.Extensions;
     using Common.Storage.Model;
