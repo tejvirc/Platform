@@ -237,15 +237,12 @@
             Logger.Debug("MessageOverlayData cleared. " +
                          $"MessageOverlayState={_messageOverlayState}, " +
                          $"CashOutState={_lobbyStateManager.CashOutState}, " +
-                         $"DialogVisible={MessageOverlayData.IsDialogVisible}");
+                         $"IsDialogVisible={MessageOverlayData.IsDialogVisible}");
 
             _messageOverlayState = GetMessageOverlayState();
-
-            HandleOverlayWindowDialogVisibility();
-
             MessageOverlayData.DisplayImageResourceKey = GetDisplayImageKey();
 
-            bool messageSent = false;
+            var messageSent = false;
             switch (_messageOverlayState)
             {
                 case MessageOverlayState.VoucherNotification:
@@ -357,6 +354,9 @@
             _eventBus.Publish(new MessageOverlayDataEvent(MessageOverlayData));
 #endif
 
+            // Wait until after message data has been re-set instead of updating visibility immediately after clearing it
+            // This will prevent message flickering
+            HandleOverlayWindowDialogVisibility();
             RaisePropertyChanged(nameof(MessageOverlayData));
         }
 
@@ -378,24 +378,30 @@
             {
                 ReserveOverlayViewModel.IsDialogVisible = true;
             }
-            
-            MessageOverlayData.IsDialogVisible = (IsLockupMessageVisible &&
-                                                             ((HardErrorMessages.Count > 1) ||
-                                                              (!_systemDisableManager.CurrentDisableKeys.Contains(
-                                                                   ApplicationConstants.ReserveDisableKey) &&
-                                                               HardErrorMessages.Count >= 1))) ||
-                                                            IsCashingOutDlgVisible ||
-                                                            IsCashingInDlgVisible ||
-                                                            IsNonCashOverlayDlgVisible ||
-                                                            ShowProgressiveGameDisabledNotification ||
-                                                            ShowVoucherNotification;
+
+            // Keep message overlay dialog visible when handpay PAID banner is up
+            var isHandpayPaidDialogVisible = _lobbyStateManager.CashOutState == LobbyCashOutState.HandPay &&
+                                         _messageOverlayState == MessageOverlayState.CashOut &&
+                                         !string.IsNullOrEmpty(MessageOverlayData.Text);
+
+            var hasHardLockup = HardErrorMessages.Count > 1 ||
+                                !_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.ReserveDisableKey) && HardErrorMessages.Count >= 1;
+
+            MessageOverlayData.IsDialogVisible = IsLockupMessageVisible && hasHardLockup ||
+                                                 isHandpayPaidDialogVisible ||
+                                                 IsCashingOutDlgVisible ||
+                                                 IsCashingInDlgVisible ||
+                                                 IsNonCashOverlayDlgVisible ||
+                                                 ShowProgressiveGameDisabledNotification ||
+                                                 ShowVoucherNotification;
 
             if (MessageOverlayData.IsDialogVisible)
             {
                 ReserveOverlayViewModel.IsDialogVisible = false;
             }
 
-            IsOverlayWindowVisible = !IsPresentationOverridden()  &&
+            var isPresentationOverridden = IsPresentationOverridden();
+            IsOverlayWindowVisible = !isPresentationOverridden &&
                                      (IsReplayRecoveryDlgVisible ||
                                       IsAgeWarningDlgVisible ||
                                       IsResponsibleGamingInfoOverlayDlgVisible ||
@@ -404,6 +410,22 @@
                                       _playerMenuPopup.IsMenuVisible ||
                                       _playerInfoDisplayManager.IsActive() ||
                                       CustomMainViewElementVisible);
+
+            Logger.Debug("HandleOverlayWindowDialogVisibility: " +
+                         $"CurrentState={_lobbyStateManager.CurrentState}, " +
+                         $"IsLockupMessageVisible={IsLockupMessageVisible}, " +
+                         $"HardErrorMessages={string.Join("; ", HardErrorMessages.Keys)}, " +
+                         $"CurrentDisableKeys={string.Join("; ", _systemDisableManager.CurrentDisableKeys)}, " +
+                         $"hasHardLockup={hasHardLockup}, " +
+                         $"isHandpayPaidDialogVisible={isHandpayPaidDialogVisible}, " +
+                         $"IsCashingOutDlgVisible={IsCashingOutDlgVisible}, " +
+                         $"IsCashingInDlgVisible={IsCashingInDlgVisible}, " +
+                         $"IsNonCashOverlayDlgVisible={IsNonCashOverlayDlgVisible}, " +
+                         $"ShowProgressiveGameDisabledNotification={ShowProgressiveGameDisabledNotification}, " +
+                         $"ShowVoucherNotification={ShowVoucherNotification}, " +
+                         $"MessageOverlayData.IsDialogVisible={MessageOverlayData.IsDialogVisible}, " +
+                         $"IsPresentationOverridden={isPresentationOverridden}" +
+                         $"IsOverlayWindowVisible={IsOverlayWindowVisible}, ");
         }
 
         private string BuildLockupMessageText()
@@ -551,13 +573,13 @@
 
             return (_overlayMessageStrategyController.GameRegistered && !ForceBuildLockupText) &&
                    (isCashoutOverridden ||
-                   isCashWinOverridden ||
-                   isTransferOutOverridden ||
-                   isHandpayOverridden ||
-                   isBonusHandpayOverridden ||
-                   isCancelledCreditHandpayOverridden ||
-                   isCashInOverridden ||
-                   IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
+                    isCashWinOverridden ||
+                    isTransferOutOverridden ||
+                    isHandpayOverridden ||
+                    isBonusHandpayOverridden ||
+                    isCancelledCreditHandpayOverridden ||
+                    isCashInOverridden ||
+                    IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
         }
 
         private void SubscribeToEvents()
