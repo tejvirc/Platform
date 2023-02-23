@@ -19,12 +19,12 @@
         /// <inheritdoc />
         public long GetProgressiveLevelId(int sequenceNumber)
         {
-            if (!_progressiveIdMapping.ContainsKey(sequenceNumber))
+            if (_progressiveIdMapping.TryGetValue(sequenceNumber, out var value))
             {
-                return -1L;
+                return value;
             }
 
-            return _progressiveIdMapping[sequenceNumber];
+            return -1L;
         }
 
         /// <inheritdoc />
