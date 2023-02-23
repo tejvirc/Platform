@@ -52,6 +52,7 @@
             container.RegisterSingleton<LoggingInterceptor>();
             container.RegisterSingleton<IRegistrationService, RegistrationService>();
             container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
+            container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
             container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
             container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
 

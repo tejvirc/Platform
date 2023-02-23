@@ -20,6 +20,8 @@
         private readonly Mock<IMessageHandlerFactory> _messageHandler = new Mock<IMessageHandlerFactory>(MockBehavior.Default);
         private readonly Mock<IProgressiveAuthorizationProvider> _authorizationProvider =
             new Mock<IProgressiveAuthorizationProvider>(MockBehavior.Default);
+        private readonly Mock<IProgressiveLevelInfoProvider> _progressiveLevelInfoProvider =
+            new Mock<IProgressiveLevelInfoProvider>(MockBehavior.Default);
         private IEnumerable<IClient> _clients = new List<IClient>();
         private ProgressiveRegistrationService _target;
 
@@ -29,15 +31,16 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, false, false)]
-        [DataRow(false, true, false, false)]
-        [DataRow(false, false, true, false)]
-        [DataRow(false, false, false, true)]
+        [DataRow(true, false, false, false, false)]
+        [DataRow(false, true, false, false, false)]
+        [DataRow(false, false, true, false, false)]
+        [DataRow(false, false, false, true, false)]
+        [DataRow(false, false, false, false, true)]
         [ExpectedException(typeof(ArgumentNullException))]
         [DataTestMethod]
-        public void NullConstructorArgumentsTest(bool nullMessage, bool nullEnpoint, bool nullAuthorization, bool nullClients)
+        public void NullConstructorArgumentsTest(bool nullMessage, bool nullEnpoint, bool nullAuthorization, bool nullClients, bool nullLevelInfoProvider)
         {
-            _target = CreateTarget(nullEnpoint, nullMessage, nullAuthorization, nullClients);
+            _target = CreateTarget(nullEnpoint, nullMessage, nullAuthorization, nullClients, nullLevelInfoProvider);
         }
 
         [TestMethod]
@@ -81,6 +84,9 @@
                 .Returns(Task.FromResult(handledResponse))
                 .Verifiable();
 
+            _progressiveLevelInfoProvider.Setup(x => x.ClearProgressiveLevelInfo());
+            _progressiveLevelInfoProvider.Setup(x => x.AddProgressiveLevelInfo(It.IsAny<long>(), It.IsAny<int>()));
+
             var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId);
             var result = await _target.RegisterClient(message, CancellationToken.None);
 
@@ -89,13 +95,14 @@
             Assert.IsTrue(result.ResponseCode == ResponseCode.Ok);
         }
 
-        private ProgressiveRegistrationService CreateTarget(bool nullMessage = false, bool nullEnpoint = false, bool nullAuthorization = false, bool nullClients = false)
+        private ProgressiveRegistrationService CreateTarget(bool nullMessage = false, bool nullEnpoint = false, bool nullAuthorization = false, bool nullClients = false, bool nullLevelInfoProvider = false)
         {
             return new ProgressiveRegistrationService(
                 nullEnpoint ? null : _clientEnpointProvider.Object,
                 nullClients ? null : _clients,
                 nullMessage ? null : _messageHandler.Object,
-                nullAuthorization ? null : _authorizationProvider.Object);
+                nullAuthorization ? null : _authorizationProvider.Object,
+                nullLevelInfoProvider ? null : _progressiveLevelInfoProvider.Object);
         }
 
         private ProgressiveInfoResponse CreateProgressiveInfoResponse(int gameTitleId)
