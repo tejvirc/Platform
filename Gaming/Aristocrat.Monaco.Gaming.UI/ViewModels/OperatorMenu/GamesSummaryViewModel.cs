@@ -125,10 +125,6 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public bool ShowProgressiveRtpAsRange => ProgressiveRtpsVisible && ShowGameRtpAsRange; 
- 
-        public bool ShowProgressiveRtpSeparately => ProgressiveRtpsVisible && !ShowGameRtpAsRange; 
-
         protected override void OnLoaded()
         {
             var maxBetLimitDollars = ((long)PropertiesManager.GetProperty(

@@ -260,7 +260,22 @@
 
         public int[] MechanicalReelHomeSteps { get; set; }
 
-        public bool HasExtendedRtpInformation => WagerCategories.All(w => w.HasExtendedRtpInformation);
+        public bool HasExtendedRtpInformation
+        {
+            get
+            {
+                return WagerCategories.Any(
+                    w =>
+                        w.MinBaseRtpPercent != default ||
+                        w.MaxBaseRtpPercent != default ||
+                        w.MinSapStartupRtpPercent != default ||
+                        w.MaxSapStartupRtpPercent != default ||
+                        w.SapIncrementRtpPercent != default ||
+                        w.MinLinkStartupRtpPercent != default ||
+                        w.MaxLinkStartupRtpPercent != default ||
+                        w.LinkIncrementRtpPercent != default);
+            }
+        }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

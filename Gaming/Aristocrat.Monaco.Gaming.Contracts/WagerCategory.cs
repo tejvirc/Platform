@@ -132,18 +132,6 @@
         /// <inheritdoc />
         public decimal LinkIncrementRtpPercent { get; set; }
 
-        /// <inheritdoc />
-        [JsonIgnore]
-        public bool HasExtendedRtpInformation =>
-            MinBaseRtpPercent != default ||
-            MaxBaseRtpPercent != default ||
-            MinSapStartupRtpPercent != default ||
-            MaxSapStartupRtpPercent != default ||
-            SapIncrementRtpPercent != default ||
-            MinLinkStartupRtpPercent != default ||
-            MaxLinkStartupRtpPercent != default ||
-            LinkIncrementRtpPercent != default;
-
         /// <summary>
         ///     Converts to a string.
         /// </summary>

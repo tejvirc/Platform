@@ -72,11 +72,5 @@
         ///     Gets or sets the Link progressive increment RTP in percent
         /// </summary>
         decimal LinkIncrementRtpPercent { get; }
-
-        /// <summary>
-        ///     Gets a value indicating whether this <see cref="IWagerCategory"/> includes extended RTP information. After the release of GDK 5.0, games are
-        ///     required to supply additional information about how the Total RTP is broken down.
-        /// </summary>
-        bool HasExtendedRtpInformation { get; }
     }
 }
