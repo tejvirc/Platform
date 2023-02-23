@@ -3,6 +3,8 @@
     using System;
     using Accounting.Contracts.HandCount;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Accounting.HandCount;
+    using CefSharp.Internals;
     using Contracts;
     using Contracts.Events;
     using Hardware.Contracts.Persistence;
@@ -65,6 +67,8 @@
                 scope.Complete();
 
                 _runtime.UpdateBalance(_bank.Credits);
+                //_runtime.UpdateParameters();
+                //_runtime.UpdateHandCount(_handCount.HandCount);
 
             }
 

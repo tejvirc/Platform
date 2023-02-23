@@ -160,6 +160,7 @@
             container.Register<DisplayableMessageRemover>(Lifestyle.Singleton);
             container.Register<IAttractConfigurationProvider, AttractConfigurationProvider>(Lifestyle.Singleton);
             container.Register<BeagleBoneHandler>(Lifestyle.Singleton);
+            container.Register<LobbyInitializeHandler>(Lifestyle.Singleton);
 
             var gameInstaller = Lifestyle.Singleton.CreateRegistration<GameInstaller>(container);
             container.AddRegistration(typeof(IGameInstaller), gameInstaller);

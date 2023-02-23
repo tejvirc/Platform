@@ -24,5 +24,13 @@
                 ServiceManager.GetInstance().GetService<IHandCountService>().IncrementHandCount();
             }
         }
+
+        public void SendHandCountChangedEvent()
+        {
+            if (ServiceManager.GetInstance().IsServiceAvailable<IHandCountService>())
+            {
+                ServiceManager.GetInstance().GetService<IHandCountService>().SendHandCountChangedEvent();
+            }
+        }
     }
 }

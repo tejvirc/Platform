@@ -15,5 +15,10 @@
         ///     Increment hand count
         /// </summary>
         void IncrementHandCount();
+
+        /// <summary>
+        ///     Send HandCountChangedEvent
+        /// </summary>
+        void SendHandCountChangedEvent();
     }
 }

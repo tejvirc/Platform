@@ -118,6 +118,10 @@
         {
             Invoke(runtime => runtime.OnVolumeUpdate(level));
         }
+        public void UpdateHandCount(int handCount)
+        {
+            //Invoke(runtime => runtime.OnHandCountUpdate(handCount));
+        }
 
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)
         {

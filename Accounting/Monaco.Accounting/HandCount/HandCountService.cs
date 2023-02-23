@@ -77,5 +77,9 @@
             _eventBus.Publish(new HandCountChangedEvent(HandCount));
             Logger.Info($"ResetHandCount:{HandCount}");
         }
+        public void SendHandCountChangedEvent()
+        {
+            _eventBus.Publish(new HandCountChangedEvent(HandCount));
+        }
     }
 }

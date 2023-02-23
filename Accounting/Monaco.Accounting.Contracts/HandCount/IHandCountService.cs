@@ -28,5 +28,10 @@
         ///     Reset hand count
         /// </summary>
         void ResetHandCount();
+
+        /// <summary>
+        ///     Send HandCountChangedEvent
+        /// </summary>
+        void SendHandCountChangedEvent();
     }
 }
