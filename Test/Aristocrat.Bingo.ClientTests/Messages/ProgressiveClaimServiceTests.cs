@@ -49,7 +49,7 @@
             _clientEnpointProvider.Setup(x => x.Client).Returns(client.Object).Verifiable();
 
             var mappedProgressiveId = 10001L;
-            _progressiveLevelInfoProvider.Setup(x => x.GetProgressiveLevelId(It.IsAny<int>())).Returns(mappedProgressiveId);
+            _progressiveLevelInfoProvider.Setup(x => x.GetServerProgressiveLevelId(It.IsAny<int>())).Returns(mappedProgressiveId);
             var request = new ClaimProgressiveWinRequest
             {
                 MachineSerial = machineSerial,

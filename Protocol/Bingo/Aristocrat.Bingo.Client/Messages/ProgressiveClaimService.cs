@@ -28,7 +28,7 @@
 
         public async Task<ProgressiveClaimResponse> ClaimProgressive(ProgressiveClaimRequestMessage message, CancellationToken token)
         {
-            var serverProgressiveLevelIdId = _progressiveLevelInfoProvider.GetProgressiveLevelId(Convert.ToInt32(message.ProgressiveLevelId));
+            var serverProgressiveLevelIdId = _progressiveLevelInfoProvider.GetServerProgressiveLevelId(Convert.ToInt32(message.ProgressiveLevelId));
             if (serverProgressiveLevelIdId < 0)
             {
                 throw new ArgumentException("Invalid progressive level id in ProgressiveClaimRequestMessage");

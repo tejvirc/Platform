@@ -110,7 +110,7 @@
             _protocolLinkedProgressiveAdapter.Setup(x => x.UpdateLinkedProgressiveLevels(It.IsAny<LinkedProgressiveLevel[]>(), ProtocolNames.Bingo));
 
             var mappedId = progressiveLevel;
-            _progressiveLevelInfoProvider.Setup(x => x.GetProgressiveLevelId(It.IsAny<int>())).Returns(mappedId);
+            _progressiveLevelInfoProvider.Setup(x => x.GetServerProgressiveLevelId(It.IsAny<int>())).Returns(mappedId);
 
             // Must first call ProcessProgressiveInfo to set internal variables
             var metersToReport = new List<int> { 10, 100, 200 };

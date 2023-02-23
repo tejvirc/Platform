@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     /// <summary>
-    ///     The provider for the progressive level information returned from the progressive server.
+    ///     The provider for mapping platform progressive level Ids to progressive server progressive level Ids.
     /// </summary>
     public interface IProgressiveLevelInfoProvider
     {
@@ -13,18 +13,11 @@
         void AddProgressiveLevelInfo(long progressiveLevelId, int sequenceNumber);
 
         /// <summary>
-        ///     Gets the progressive server progressive level id for the specified platform configured progressive Id
+        ///     Gets the progressive server progressive level id for the specified platform configured progressive level Id
         /// </summary>
-        /// <param name="progressiveId">The 0-based progressive Id configured for the platform progressive level</param>
+        /// <param name="progressiveLevelId">The 0-based platform progressive level Id configured for the progressive level</param>
         /// <returns>The progressive server progressive level Id or -1</returns>
-        long GetProgressiveLevelId(int progressiveId);
-
-        /// <summary>
-        ///     Gets the progressive server progressive sequence number for the specified progressive server progressive level id
-        /// </summary>
-        /// <param name="progressiveLevelId">The progressive level id from the progressive server</param>
-        /// <returns>The progressive server progressive sequence number or -1</returns>
-        int GetProgressiveSequenceNumber(long progressiveLevelId);
+        long GetServerProgressiveLevelId(int progressiveLevelId);
 
         /// <summary>
         ///     Clears the existing progressive level information

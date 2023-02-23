@@ -84,12 +84,12 @@
             var progressiveLevels = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels();
             foreach (var progressiveLevel in progressiveLevels)
             {
-                var mappedLevelId = _progressiveLevelInfoProvider.GetProgressiveLevelId(progressiveLevel.LevelId + 1);
-                if (mappedLevelId >= 0)
+                var serverProgressiveLevelId = _progressiveLevelInfoProvider.GetServerProgressiveLevelId(progressiveLevel.LevelId + 1);
+                if (serverProgressiveLevelId >= 0)
                 {
-                    if (mappedLevelId == update.ProgressiveLevel)
+                    if (serverProgressiveLevelId == update.ProgressiveLevel)
                     {
-                        Logger.Debug($"Found mapping of levelId = {progressiveLevel.LevelId} to progressive level = {mappedLevelId}");
+                        Logger.Debug($"Found mapping of levelId = {progressiveLevel.LevelId} to progressive level = {serverProgressiveLevelId}");
 
                         var linkedLevel = new LinkedProgressiveLevel()
                         {
