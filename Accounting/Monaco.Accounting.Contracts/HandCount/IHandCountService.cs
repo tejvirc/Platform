@@ -4,9 +4,9 @@
 
 
     /// <summary>
-    ///     Contract for hand count session service instance.
+    ///     Contract for hand count service instance.
     /// </summary>
-    public interface IHandCountSessionService : IService
+    public interface IHandCountService : IService
     {
         /// <summary>
         ///     Gets hand count

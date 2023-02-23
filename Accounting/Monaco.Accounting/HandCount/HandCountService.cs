@@ -11,9 +11,9 @@
     using log4net;
 
     /// <summary>
-    ///     Definition of the HandCountSessionService class.
+    ///     Definition of the HandCountService class.
     /// </summary>
-    public class HandCountSessionService : IHandCountSessionService
+    public class HandCountService : IHandCountService
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -22,7 +22,7 @@
         private readonly IMeterManager _meters;
         private readonly IMeter _handCountMeter;
 
-        public HandCountSessionService()
+        public HandCountService()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
@@ -31,7 +31,7 @@
         {
         }
 
-        public HandCountSessionService(
+        public HandCountService(
             IEventBus eventBus,
             IMeterManager meters,
             IPropertiesManager properties)
@@ -42,23 +42,15 @@
             _handCountMeter = _meters.GetMeter(AccountingMeters.HandCount);
         }
 
-        public string Name => typeof(HandCountSessionService).FullName;
+        public string Name => typeof(HandCountService).FullName;
 
         public int HandCount => (int)_handCountMeter.GetValue(MeterTimeframe.Lifetime);
 
-        public ICollection<Type> ServiceTypes => new[] { typeof(IHandCountSessionService) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(IHandCountService) };
 
         public void Initialize()
         {
-            //_eventBus.Subscribe<PrimaryGameStartedEvent>(this, HandlePrimaryGameStartedEvent);
         }
-
-        //private void HandlePrimaryGameStartedEvent(PrimaryGameStartedEvent evt)
-        //{
-        //    IncrementHandCount();
-        //}
-
-
 
         public void IncrementHandCount()
         {
@@ -81,9 +73,7 @@
 
         public void ResetHandCount()
         {
-            var currentCount = _handCountMeter.GetValue(MeterTimeframe.Lifetime);
-            _handCountMeter.Increment(-currentCount);
-
+            _handCountMeter.Increment(-HandCount);
             _eventBus.Publish(new HandCountChangedEvent(HandCount));
             Logger.Info($"ResetHandCount:{HandCount}");
         }

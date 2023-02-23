@@ -189,6 +189,6 @@
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>
   <Extension path="/Accounting/Services" filterid="NevadaAccountingServices">
-    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountSessionService" />
+    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountService" />
   </Extension>
 </Addin>
