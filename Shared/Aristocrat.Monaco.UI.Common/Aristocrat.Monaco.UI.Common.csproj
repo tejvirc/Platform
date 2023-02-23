@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <Platform>x64</Platform>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <NoWarn>$(NoWarn);CS3001;CS1574</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -76,7 +76,8 @@
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="106.0.260" />
-    <PackageReference Include="CefSharp.Common.NETCore" Version="106.0.260" />    
+    <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" /> 
   </ItemGroup>
 </Project>

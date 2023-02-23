@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <Platform>x64</Platform>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -63,7 +63,9 @@
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0013" />
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="106.0.260" />
+    <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -75,5 +77,10 @@
     <PackageReference Include="Mono.Addins" Version="1.4.1" />
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="CefSharp.BrowserSubprocess.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

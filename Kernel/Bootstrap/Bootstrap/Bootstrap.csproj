@@ -6,6 +6,7 @@
     <AssemblyTitle>Bootstrap</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
     <NoWarn>SYSLIB0003</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -48,11 +49,6 @@
     <ProjectReference Include="..\..\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.manifest">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.8" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
@@ -63,6 +59,9 @@
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="app.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="logging.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

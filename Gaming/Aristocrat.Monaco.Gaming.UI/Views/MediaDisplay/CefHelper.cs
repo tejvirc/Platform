@@ -48,35 +48,57 @@
 //  We can whitelist it, but it grows without bounds (which is bad)
                 LogSeverity = LogSeverity.Disable,
 #endif
-                //Locale = ViewModel.ActiveLocaleCode, // Is this needed?
                 CachePath = directory.FullName,
                 WindowlessRenderingEnabled = true,
                 IgnoreCertificateErrors = true
             };
 
-            // This should result in better off screen rendering performance and the expense of disabling WebGL (which is currently not required)
+            //disable - gpu and disable-gpu - compositing are added by SetOffScreenRenderingBestPerformanceArgs. disable - gpu - vsync is not
+            settings.DisableGpuAcceleration();
             settings.SetOffScreenRenderingBestPerformanceArgs();
-
-            // disable-gpu and disable-gpu-compositing are added by SetOffScreenRenderingBestPerformanceArgs. disable-gpu-vsync is not
-            if (!settings.CefCommandLineArgs.ContainsKey("disable-gpu"))
-            {
-                settings.CefCommandLineArgs.Add("disable-gpu", "1");
-            }
 
             if (!settings.CefCommandLineArgs.ContainsKey("disable-gpu-vsync"))
             {
-                settings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
+                settings.CefCommandLineArgs.Add("disable-gpu-vsync"); //Disable Vsync
             }
 
-            if (!settings.CefCommandLineArgs.ContainsKey("disable-gpu-compositing"))
+            if (!settings.CefCommandLineArgs.ContainsKey("force-renderer-accessibility"))
             {
-                settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
+                settings.CefCommandLineArgs.Add("force-renderer-accessibility");
+            }
+
+            if (!settings.CefCommandLineArgs.ContainsKey("disable-renderer-accessibility"))
+            {
+                settings.CefCommandLineArgs.Add("disable-renderer-accessibility");
+            }
+
+            if (!settings.CefCommandLineArgs.ContainsKey("allow-running-insecure-content"))
+            {
+                settings.CefCommandLineArgs.Add("allow-running-insecure-content");
+            }
+
+            if (!settings.CefCommandLineArgs.ContainsKey("renderer-startup-dialog"))
+            {
+                settings.CefCommandLineArgs.Add("renderer-startup-dialog");
+            }
+
+            if (!settings.CefCommandLineArgs.ContainsKey("disable-site-isolation-trials"))
+            {
+                settings.CefCommandLineArgs.Add("disable-site-isolation-trials");
+            }
+
+            if (!settings.CefCommandLineArgs.ContainsKey("enable-media-stream"))
+            {
+                settings.CefCommandLineArgs.Add("enable-media-stream");
             }
 
             try
             {
                 var initialized = false;
-                Application.Current.Dispatcher.Invoke(() => initialized = Cef.Initialize(settings, true, (IBrowserProcessHandler)null));
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    initialized = Cef.Initialize(settings, true, (IBrowserProcessHandler)null);
+                });
 
                 Logger.Info($"CEF Initialized={initialized}");
             }
