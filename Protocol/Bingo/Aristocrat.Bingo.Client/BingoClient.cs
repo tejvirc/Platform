@@ -1,12 +1,13 @@
-﻿namespace Aristocrat.Bingo.Client
+namespace Aristocrat.Bingo.Client
 {
     using System;
-    using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Configuration;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
+    using Grpc.Net.Client;
     using log4net;
     using Messages.Interceptor;
     using ClientApi = ServerApiGateway.ClientApi.ClientApiClient;
@@ -20,7 +21,7 @@
         private readonly BingoClientInterceptor _communicationInterceptor;
         private readonly object _clientLock = new();
 
-        private Channel _channel;
+        private GrpcChannel _channel;
         private bool _disposed;
         private ClientApi _client;
         private RpcConnectionState _state;
@@ -73,16 +74,13 @@
             {
                 await Stop().ConfigureAwait(false);
                 var configuration = _configurationProvider.Configuration;
-                var credentials = configuration.Certificates.Any()
-                    ? new SslCredentials(
-                        string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
-                    : ChannelCredentials.Insecure;
-                _channel = new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
+                var channelOptions = new GrpcChannelOptions(); // TODO Add GRPC Logging for debugging purposes
+                _channel = GrpcChannel.ForAddress(configuration.Address, channelOptions);
                 var callInvoker = _channel.Intercept(_communicationInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
-                    await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout)
-                        .ConfigureAwait(false);
+                    using var source = new CancellationTokenSource(configuration.ConnectionTimeout);
+                    await _channel.ConnectAsync(source.Token).ConfigureAwait(false);
                 }
 
                 Client = new ClientApi(callInvoker);
@@ -119,6 +117,7 @@
                 if (channel != null)
                 {
                     await channel.ShutdownAsync().ConfigureAwait(false);
+                    channel.Dispose();
                     Disconnected?.Invoke(this, new DisconnectedEventArgs());
                 }
             }
@@ -155,11 +154,11 @@
             _disposed = true;
         }
 
-        private static bool StateIsConnected(ChannelState? state) =>
-            state is ChannelState.Ready or
-                ChannelState.Idle or
-                ChannelState.TransientFailure or
-                ChannelState.Connecting;
+        private static bool StateIsConnected(ConnectivityState? state) =>
+            state is ConnectivityState.Ready or
+                ConnectivityState.Idle or
+                ConnectivityState.TransientFailure or
+                ConnectivityState.Connecting;
 
         private void OnMessageReceived(object sender, EventArgs e)
         {
@@ -177,34 +176,33 @@
                 TaskContinuationOptions.OnlyOnFaulted);
         }
 
-        private static RpcConnectionState GetConnectionState(ChannelState state) =>
+        private static RpcConnectionState GetConnectionState(ConnectivityState state) =>
             state switch
             {
-                ChannelState.Idle => RpcConnectionState.Disconnected,
-                ChannelState.Connecting => RpcConnectionState.Connecting,
-                ChannelState.Ready => RpcConnectionState.Connected,
-                ChannelState.TransientFailure => RpcConnectionState.Disconnected,
-                ChannelState.Shutdown => RpcConnectionState.Closed,
+                ConnectivityState.Idle => RpcConnectionState.Disconnected,
+                ConnectivityState.Connecting => RpcConnectionState.Connecting,
+                ConnectivityState.Ready => RpcConnectionState.Connected,
+                ConnectivityState.TransientFailure => RpcConnectionState.Disconnected,
+                ConnectivityState.Shutdown => RpcConnectionState.Closed,
                 _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
             };
 
-        private static async Task<ChannelState> WaitForStateChanges(Channel channel, ChannelState lastObservedState)
+        private static async Task<ConnectivityState> WaitForStateChanges(GrpcChannel channel, ConnectivityState lastObservedState)
         {
-            if (lastObservedState is ChannelState.Ready)
+            if (lastObservedState is ConnectivityState.Ready)
             {
-                await channel.TryWaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
+                await channel.WaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
             }
             else
             {
-                await channel.TryWaitForStateChangedAsync(
-                    lastObservedState,
-                    DateTime.UtcNow.Add(StateChangeTimeOut)).ConfigureAwait(false);
+                using var source = new CancellationTokenSource(StateChangeTimeOut);
+                await channel.WaitForStateChangedAsync(lastObservedState, source.Token).ConfigureAwait(false);
             }
 
             return channel.State;
         }
 
-        private async Task MonitorConnectionAsync(Channel channel)
+        private async Task MonitorConnectionAsync(GrpcChannel channel)
         {
             if (channel is null)
             {
@@ -217,7 +215,7 @@
             while (StateIsConnected(lastObservedState))
             {
                 var observedState = await WaitForStateChanges(channel, lastObservedState).ConfigureAwait(false);
-                if (lastObservedState is not ChannelState.Ready && observedState == lastObservedState)
+                if (lastObservedState is not ConnectivityState.Ready && observedState == lastObservedState)
                 {
                     break;
                 }
