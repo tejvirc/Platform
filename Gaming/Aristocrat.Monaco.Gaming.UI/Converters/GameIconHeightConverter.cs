@@ -11,6 +11,7 @@
         private const double LargeIconHeight = 308;
         private const int GameCountSize = 8;
         private const double BaseScreenHeight = 1080;
+        private const int GameHeightWithSubTabAdjustment = 30;
         private readonly double _scaleBy = Screen.PrimaryScreen.Bounds.Height / BaseScreenHeight;
 
 
@@ -34,7 +35,15 @@
                 {
                     // Lobby layout icon sizes based on number of games. Affects the size of the icon image
                     var size = inputs.GameCount > GameCountSize || inputs.TabView ? SmallIconHeight : LargeIconHeight;
-                    result = inputs.ScreenHeight > BaseScreenHeight ? size * _scaleBy : size;
+                    var scaleBy = inputs.ScreenHeight / BaseScreenHeight;
+                    result = size * scaleBy;
+
+                    if (inputs.GameCount > GameCountSize && inputs.SubTabVisible)
+                    {
+                        // If there are sub tabs, it means we will have less space on the screen
+                        // so we have to reduce the image height a bit
+                        result -= GameHeightWithSubTabAdjustment;
+                    }
                 }
 
                 return result;
@@ -45,7 +54,7 @@
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

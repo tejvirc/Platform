@@ -70,5 +70,11 @@
         /// </summary>
         [ProtoMember(5)]
         public bool SystemIdleStateAffected { get; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return base.ToString() + " (" + DisableReasons + ")";
+        }
     }
 }

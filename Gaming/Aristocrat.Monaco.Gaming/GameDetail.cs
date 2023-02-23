@@ -139,5 +139,10 @@
         public GameSubCategory SubCategory { get; set; }
 
         public IEnumerable<Feature> Features { get; set; }
+
+        public GameDetail ShallowClone()
+        {
+            return (GameDetail)MemberwiseClone();
+        }
     }
 }

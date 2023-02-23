@@ -12,7 +12,7 @@
     /// <summary>
     ///     Definition of the TestVoucherValidator class.
     /// </summary>
-    public class TestVoucherValidator : IVoucherValidator, IService
+    public class TestVoucherValidator : IVoucherValidator
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -126,7 +126,7 @@
                 IssueAccountType,
                 barcode,
                 expirationDays,
-                string.Empty);
+                string.Empty) { HostAcknowledged = true};
 
             return transaction;
         }
