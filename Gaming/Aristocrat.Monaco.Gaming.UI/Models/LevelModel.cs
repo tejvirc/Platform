@@ -325,19 +325,6 @@
             }
         }
 
-        /// <summary>
-        ///     Gets or sets the minimum required value (for selectable levels) as initially supplied by the game
-        /// </summary>
-        public decimal MinimumRequiredValue
-        {
-            get => _minimumRequiredValue;
-            set
-            {
-                _minimumRequiredValue = value;
-                RaisePropertyChanged(nameof(MinimumRequiredValue));
-            }
-        }
-
         public bool CanSetInitialValue => LevelType == ProgressiveLevelType.Sap && _canEdit;
 
         public bool LevelSelectionEnabled => LevelType != ProgressiveLevelType.Sap &&

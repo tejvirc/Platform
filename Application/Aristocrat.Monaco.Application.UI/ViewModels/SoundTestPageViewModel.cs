@@ -304,24 +304,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (field == null && value == null)
-            {
-                return;
-            }
-
-            field = value;
-            OnPropertyChanged(propertyName);
-        }
-
         private void StopSound()
         {
             if (Sound != null)  // VLT-12533 : Fix null reference exception in sound page when switching tabs when cable unplugged
