@@ -17,9 +17,10 @@
         }
 
         /// <inheritdoc />
-        public long GetProgressiveLevelId(int sequenceNumber)
+        public long GetProgressiveLevelId(int progressiveId)
         {
-            if (_progressiveIdMapping.TryGetValue(sequenceNumber, out var value))
+            // Sequence numbers from the progressive server are 1-based and platform configured progressive Ids are 1-based so adding +1
+            if (_progressiveIdMapping.TryGetValue(progressiveId + 1, out var value))
             {
                 return value;
             }

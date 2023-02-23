@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -29,8 +28,8 @@
 
         public async Task<ProgressiveClaimResponse> ClaimProgressive(ProgressiveClaimRequestMessage message, CancellationToken token)
         {
-            var mappedProgressiveId = _progressiveLevelInfoProvider.GetProgressiveLevelId(Convert.ToInt32(message.ProgressiveLevelId + 1));
-            if (mappedProgressiveId < 0)
+            var serverProgressiveLevelIdId = _progressiveLevelInfoProvider.GetProgressiveLevelId(Convert.ToInt32(message.ProgressiveLevelId));
+            if (serverProgressiveLevelIdId < 0)
             {
                 throw new ArgumentException("Invalid progressive level id in ProgressiveClaimRequestMessage");
             }
@@ -38,7 +37,7 @@
             var request = new ClaimProgressiveWinRequest
             {
                 MachineSerial = message.MachineSerial,
-                ProgressiveLevelId = mappedProgressiveId,
+                ProgressiveLevelId = serverProgressiveLevelIdId,
                 ProgressiveWinAmount = message.ProgressiveWinAmount
             };
 
