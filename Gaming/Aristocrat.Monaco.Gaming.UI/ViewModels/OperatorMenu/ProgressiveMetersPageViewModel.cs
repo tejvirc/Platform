@@ -14,6 +14,7 @@
     using Common;
     using Contracts;
     using Contracts.Meters;
+    using Contracts.Models;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
     using Contracts.Tickets;
@@ -113,6 +114,8 @@
 
         public bool SelectByGameNameAndDenomination { get; }
 
+        public bool DenomSelectorIsVisible => SelectedGame.Category != GameCategory.LightningLink;
+
         public IGameDetail SelectedGame
         {
             get => _selectedGame;
@@ -131,7 +134,7 @@
                 RaisePropertyChanged(nameof(Denoms));
                 SelectedDenomIndex = 0;
 
-                RaisePropertyChanged(nameof(SelectedGame));
+                RaisePropertyChanged(nameof(SelectedGame), nameof(DenomSelectorIsVisible));
                 InitializeMeters();
             }
         }
@@ -276,12 +279,12 @@
             }
         }
 
-        public bool ViewBetOptionFilter 
+        public bool ViewBetOptionFilter
         {
             get => _viewBetOptionFilter;
             set
             {
-                if(value != _viewBetOptionFilter)
+                if (value != _viewBetOptionFilter)
                 {
                     _viewBetOptionFilter = value;
                     RaisePropertyChanged(nameof(ViewBetOptionFilter));
