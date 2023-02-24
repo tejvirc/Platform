@@ -47,6 +47,8 @@
         private decimal _forcedMinBet;
         private decimal _betMinimum;
         private decimal _betMaximum;
+        private decimal _maxInsideBet;
+        private decimal _maxOutsideBet;
         private decimal _forcedMaxBet;
         private decimal _forcedMaxBetOutside;
         private ObservableCollection<int> _bonusBets = new ObservableCollection<int>();
@@ -521,6 +523,18 @@
 
         public int MaximumWagerOutsideCredits => (int)(ForcedMaxBetOutside * _denomMultiplier / BaseDenom);
 
+        public decimal MaximumInsideBet
+        {
+            get => _maxInsideBet;
+            set => SetProperty(ref _maxInsideBet, value, nameof(MaximumInsideBet));
+        }
+
+        public decimal MaximumOutsideBet
+        {
+            get => _maxOutsideBet;
+            set => SetProperty(ref _maxOutsideBet, value, nameof(MaximumOutsideBet));
+        }
+
         public string SubGameType => Game?.GameSubtype;
 
         private IEnumerable<IGameDetail> FilteredAvailableGames => AvailableGames.Where(
@@ -581,13 +595,25 @@
 
             _assignedLevels?.Clear();
 
-            MaxDenomEntriesReached = false;
             Enabled = denomination?.Active ?? false;
             Gamble = denomination?.SecondaryAllowed ?? false;
             LetItRide = denomination?.LetItRideAllowed ?? false;
+
             ForcedMinBet = denomination?.MinimumWagerCredits * Denom ?? BetMinimum;
             ForcedMaxBet = denomination?.MaximumWagerCredits * Denom ?? BetMaximum;
             ForcedMaxBetOutside = denomination?.MaximumWagerOutsideCredits * Denom ?? BetMaximum;
+
+            if (Game.GameType == GameType.Roulette)
+            {
+                MaximumInsideBet = Game?.MaximumWagerInsideCredits > 0
+                    ? Game.MaximumWagerInsideCredits * Denom
+                    : BetMaximum;
+
+                MaximumOutsideBet = Game?.MaximumWagerOutsideCredits > 0
+                    ? Game.MaximumWagerOutsideCredits * Denom
+                    : BetMaximum;
+            }
+
             SelectedBetOption = string.IsNullOrEmpty(denomination?.BetOption)
                 ? null
                 : BetOptions?.FirstOrDefault(o => o.Name == denomination.BetOption) ?? BetOptions?.FirstOrDefault();
@@ -736,12 +762,14 @@
             // It turns out that this maths is invalid for other games like poker or slots, as the relationship between the
             // MaximumWagerCredits and MaxBet is not simple. Hence we only perform this check on Roulette for now.
             var game = FilteredAvailableGames.FirstOrDefault();
-            if (game?.GameType == GameType.Roulette)
+
+            if (game is not { GameType: GameType.Roulette })
             {
-                return (ForcedMaxBet < ForcedMinBet || ForcedMaxBetOutside < ForcedMinBet || ForcedMaxBetOutside < ForcedMaxBet);
+                return false;
             }
 
-            return false;
+            return ForcedMinBet > ForcedMaxBet + ForcedMaxBetOutside ||
+                   ForcedMaxBet > ForcedMaxBetOutside;
         }
 
         private void LoadBetOptions()

@@ -131,5 +131,7 @@
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
 
         public PlatformTarget PlatformTarget { get; set; }
+        public int MaximumWagerInsideCredits { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int MaximumWagerOutsideCredits { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

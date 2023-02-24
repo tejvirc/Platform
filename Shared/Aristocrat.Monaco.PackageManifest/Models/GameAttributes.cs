@@ -184,5 +184,15 @@
         ///     Specifies the platform target to expect for a certain game context.
         /// </summary>
         public t_platformTarget? PlatformTarget { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the maximum wager for higher-odd bets, for example, betting on a specific number in roulette.
+        /// </summary>
+        public int MaxWagerInsideCredits { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the maximum wager for low-odds bets, for example betting in roulette on just red/black or odd/even
+        /// </summary>
+        public int MaxWagerOutsideCredits { get; set; }
     }
 }

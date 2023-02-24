@@ -1011,6 +1011,9 @@
                         (PlatformTarget)game.PlatformTarget
                         : PlatformTarget.None;
 
+                    gameDetail.MaximumWagerInsideCredits = game.MaxWagerInsideCredits;
+                    gameDetail.MaximumWagerOutsideCredits = game.MaxWagerOutsideCredits;
+
                     _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
 
                     gameThemeId = game.ThemeId;
@@ -1405,6 +1408,21 @@
                 ? game.WagerCategories.Max(wc => wc.MinWagerCredits)
                 : activeBetOption.Bets.Max(b => b.Multiplier) * activeLineOption.Lines.Max(l => l.Cost);
 
+            var maxWagerOutsideCredits = maxWagerCredits;
+
+            if (game.GameType == t_gameType.Roulette)
+            {
+                if (game.MaxWagerInsideCredits > 0)
+                {
+                    maxWagerCredits = game.MaxWagerInsideCredits;
+                }
+
+                if (game.MaxWagerOutsideCredits > 0)
+                {
+                    maxWagerOutsideCredits = game.MaxWagerOutsideCredits;
+                }
+            }
+
             var denoms = supportedDenoms.Select(
                 denomination => new Denomination
                 {
@@ -1414,7 +1432,7 @@
                     LineOption = activeLineOption?.Name,
                     MinimumWagerCredits = minWagerCredits,
                     MaximumWagerCredits = maxWagerCredits,
-                    MaximumWagerOutsideCredits = maxWagerCredits,
+                    MaximumWagerOutsideCredits = maxWagerOutsideCredits,
                     SecondaryAllowed = game.SecondaryAllowed || game.SecondaryEnabled,
                     SecondaryEnabled = game.SecondaryEnabled, // default value
                     LetItRideAllowed = game.LetItRideAllowed || game.LetItRideEnabled,

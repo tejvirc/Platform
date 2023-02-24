@@ -1891,6 +1891,10 @@ Max: Should be less than the Large Win Limit</value>
     <value>Initializing</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
+  <data name="DisabledHost0CommunicationsOffline" xml:space="preserve">
+    <value>Communications Offline (SAS Host 0)</value>
+    <comment>Aristocrat.Monaco.Sas</comment>
+  </data>
   <data name="DisabledHost1CommunicationsOffline" xml:space="preserve">
     <value>Communications Offline (SAS Host 1)</value>
     <comment>Aristocrat.Monaco.Sas</comment>
@@ -4555,7 +4559,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="InvalidBetRangeForDenom" xml:space="preserve">
-    <value>Invalid min/max bet range, min bet must be smaller than inside max, and inside max must be smaller than or equal to outside max.</value>
+    <value>Invalid min/max bet range, min bet must be smaller than or equal to the sum of the inside max and outside max, and the inside max must be smaller than or equal to the outside max.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="NoKenoGames" xml:space="preserve">
@@ -9911,7 +9915,7 @@ See manual for details</value>
     <comment>Aristocrat.Monaco.Mgam</comment>
   </data>
   <data name="MaxEnabledDenomsReached" xml:space="preserve">
-    <value>Maximum unique denominations reached for {0}</value>
+    <value>Maximum Unique Denominations Reached For This Game Type</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="MachineTopAward" xml:space="preserve">
@@ -10472,10 +10476,10 @@ Use of this game, including the hardware and software embodied herein, is subjec
 the original purchaser of the game and Aristocrat Technologies Australia Pty Ltd and/or its affiliates (Aristocrat). 
 Further, the game is protected by patents, copyrights, and other intellectual property rights of Aristocrat.
 
-By pressing "Accept" to continue, you confirm that you: 
+By pressing "Accept" or any physical button to continue, you confirm that you: 
 
         1. are the holder of the necessary gaming licenses, gaming permits or authorizations in the 
-            jurisdiction in which this game will be used;
+             jurisdiction in which this game will be used;
         2. will operate the game in a manner that does not violate any right of Aristocrat;
         3. understand that Aristocrat owns intellectual property rights that protect this game; and
         4. understand that a user or operator of this game may be subject to legal action for: (a) improper 
