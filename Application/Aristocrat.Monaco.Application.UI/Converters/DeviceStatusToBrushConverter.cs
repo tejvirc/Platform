@@ -37,12 +37,14 @@
                 return Brushes.Yellow;
             }
 
-            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorText)) || status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed)))
+            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorText)) || status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed)) ||
+                status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected)) || status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate)))
             {
                 return Brushes.Red;
             }
 
-            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareDiscoveryCompleteLabel)))
+            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareDiscoveryCompleteLabel)) ||
+                status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected)))
             {
                 return Brushes.LimeGreen;
             }

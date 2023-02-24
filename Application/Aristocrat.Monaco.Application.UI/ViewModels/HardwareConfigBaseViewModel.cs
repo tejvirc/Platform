@@ -228,7 +228,24 @@
         public bool IsDetecting
         {
             get => _isDetecting;
-            set => SetProperty(ref _isDetecting, value, nameof(IsDetecting));
+            set
+            {
+                if (!SetProperty(ref _isDetecting, value, nameof(IsDetecting)))
+                {
+                    return;
+                }
+
+                if (value)
+                {
+                    EventBus.Subscribe<DeviceDetectedEvent>(this, e => Handle(e));
+                    EventBus.Subscribe<DeviceNotDetectedEvent>(this, e => Handle(e));
+                }
+                else
+                {
+                    EventBus.Unsubscribe<DeviceDetectedEvent>(this);
+                    EventBus.Unsubscribe<DeviceNotDetectedEvent>(this);
+                }
+            }
         }
 
         public bool ShowHardMeters { get; private set; }
@@ -746,66 +763,66 @@
                         StopTimer();
                         break;
                     case NoteAcceptorInspectionSucceededEvent _:
-                    {
-                        if (_serviceManager.IsServiceAvailable<INoteAcceptor>())
                         {
-                            var device = GetDevice<INoteAcceptor>();
-                            SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, GetUpdateStatus(device), true);
-                        }
+                            if (_serviceManager.IsServiceAvailable<INoteAcceptor>())
+                            {
+                                var device = GetDevice<INoteAcceptor>();
+                                SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, GetUpdateStatus(device), true);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case PrinterInspectionSucceededEvent _:
-                    {
-                        if (_serviceManager.IsServiceAvailable<IPrinter>())
                         {
-                            var device = GetDevice<IPrinter>();
-                            SetDeviceStatusAndValidate(DeviceType.Printer, GetUpdateStatus(device), true);
-                        }
+                            if (_serviceManager.IsServiceAvailable<IPrinter>())
+                            {
+                                var device = GetDevice<IPrinter>();
+                                SetDeviceStatusAndValidate(DeviceType.Printer, GetUpdateStatus(device), true);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case ReelInspectionFailedEvent _:
-                    {
-                        _deviceDiscoveryStatus[DeviceType.ReelController] = false;
-                        SetDeviceStatusAndValidate(DeviceType.ReelController, errorText, false);
-                        break;
-                    }
+                        {
+                            _deviceDiscoveryStatus[DeviceType.ReelController] = false;
+                            SetDeviceStatusAndValidate(DeviceType.ReelController, errorText, false);
+                            break;
+                        }
 
                     case ReelInspectedEvent _:
-                    {
-                        if (_serviceManager.IsServiceAvailable<IReelController>())
                         {
-                            var device = GetDevice<IReelController>();
-                            SetDeviceStatusAndValidate(DeviceType.ReelController, GetUpdateStatus(device), true);
-                        }
+                            if (_serviceManager.IsServiceAvailable<IReelController>())
+                            {
+                                var device = GetDevice<IReelController>();
+                                SetDeviceStatusAndValidate(DeviceType.ReelController, GetUpdateStatus(device), true);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case IdReaderInspectionSucceededEvent ev:
-                    {
-                        if (_serviceManager.IsServiceAvailable<IIdReaderProvider>())
                         {
-                            var provider = _serviceManager.GetService<IIdReaderProvider>();
-                            var device = provider.DeviceConfiguration(ev.IdReaderId);
-                            if (device == null || device.Manufacturer == null)
+                            if (_serviceManager.IsServiceAvailable<IIdReaderProvider>())
                             {
-                                break;
+                                var provider = _serviceManager.GetService<IIdReaderProvider>();
+                                var device = provider.DeviceConfiguration(ev.IdReaderId);
+                                if (device == null || device.Manufacturer == null)
+                                {
+                                    break;
+                                }
+
+                                if (!device.Manufacturer.Contains(ApplicationConstants.Fake))
+                                {
+                                    _deviceDiscoveryStatus[DeviceType.IdReader] = true;
+                                }
+
+                                SetDeviceStatusAndValidate(DeviceType.IdReader, GetUpdateStatus(device), true);
                             }
 
-                            if (!device.Manufacturer.Contains(ApplicationConstants.Fake))
-                            {
-                                _deviceDiscoveryStatus[DeviceType.IdReader] = true;
-                            }
-
-                            SetDeviceStatusAndValidate(DeviceType.IdReader, GetUpdateStatus(device), true);
+                            break;
                         }
-
-                        break;
-                    }
 
                     case IdReaderInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.IdReader] = false;
@@ -1453,33 +1470,64 @@
         {
             IsDetecting = true;
 
-            EventBus.Subscribe<DeviceDetectionCompletedEvent>(this, e => Handle(e));
-
-            EnabledDevices.ToList().ForEach(d => d.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching));
+            foreach (var device in EnabledDevices)
+            {
+                device.StartDetection();
+                _deviceDiscoveryStatus[device.DeviceType] = false;
+            }
 
             _deviceDetection.BeginDetection(EnabledDevices.Select(d => d.DeviceType));
         }
 
         private void StopDetection(object _)
         {
-            IsDetecting = false;
-
             _deviceDetection.CancelDetection();
         }
 
-        private void Handle(DeviceDetectionCompletedEvent _)
+        private void Handle(DeviceDetectedEvent evt)
         {
-            foreach (var device in EnabledDevices)
-            {
-                if (_deviceDiscoveryStatus[device.DeviceType])
+            var deviceType = (DeviceType)Enum.Parse(typeof(DeviceType), evt.Device.Type);
+
+            MvvmHelper.ExecuteOnUI(
+                () =>
                 {
-                    continue;
-                }
+                    // Some devices aren't supported at all in Monaco.
+                    // Some devices are supported in general, but not in the present jurisdiction.
+                    var deviceConfig = _deviceConfigurationDictionary[deviceType];
+                    if (!deviceConfig.ContainsPlatformConfiguration(evt.Device))
+                    {
+                        Logger.Debug($"Detected invalid device for {deviceType}: {evt.Device.Name}");
+                        deviceConfig.IsDetectionComplete = true;
+                        deviceConfig.Status = $"{evt.Device.Name} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate)}";
+                    }
+                    else
+                    {
+                        Logger.Debug($"Detected valid device for {deviceType}: {evt.Device.Name}");
+                        _deviceDiscoveryStatus[deviceType] = true;
+                        deviceConfig.SetDetectedPlatformConfiguration(evt.Device);
+                    }
 
-                device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed);
-            }
+                    IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
+                });
+        }
 
-            IsDetecting = false;
+        private void Handle(DeviceNotDetectedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    var device = EnabledDevices.FirstOrDefault(d => d.DeviceType == evt.DeviceType);
+                    if (device is null || device.IsDetectionComplete)
+                    {
+                        return;
+                    }
+
+                    Logger.Debug($"Undetected for {device.DeviceType}");
+                    device.IsDetectionComplete = true;
+                    device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
+
+                    IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
+                });
         }
 
         private void UpdateScreen(bool clearValidation = false)

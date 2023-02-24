@@ -1,6 +1,5 @@
 namespace Aristocrat.Monaco.Application.Contracts.Detection
 {
-    using Hardware.Contracts.SharedDevice;
     using Kernel;
 
     /// <summary>
@@ -12,7 +11,7 @@ namespace Aristocrat.Monaco.Application.Contracts.Detection
         ///     Constructor
         /// </summary>
         /// <param name="device">device</param>
-        public DeviceDetectedEvent(IDevice device)
+        public DeviceDetectedEvent(SupportedDevicesDevice device)
         {
             Device = device;
         }
@@ -20,6 +19,15 @@ namespace Aristocrat.Monaco.Application.Contracts.Detection
         /// <summary>
         ///     Get the device
         /// </summary>
-        public IDevice Device { get; }
+        public SupportedDevicesDevice Device { get; }
+
+        /// <summary>
+        ///     ToString override
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"{GetType().Name} {Device.Type} {Device.Name}";
+        }
     }
 }
