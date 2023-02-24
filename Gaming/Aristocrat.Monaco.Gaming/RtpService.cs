@@ -29,6 +29,8 @@
 
         public decimal GetAverageRtp(IEnumerable<IGameProfile> games)
         {
+            // TODO: Handle games without ExtendedRTP Info
+
             var rtpValuesForGames = new List<decimal>();
 
             foreach (var game in games)
@@ -50,6 +52,8 @@
 
         public RtpRange GetTotalRtp(IEnumerable<IGameProfile> games)
         {
+            // TODO: Handle games without ExtendedRTP Info
+
             var totalRtp = new RtpRange();
 
             foreach (var game in games)
@@ -62,6 +66,11 @@
 
         public RtpRange GetTotalRtp(IGameProfile game)
         {
+            if (!game.HasExtendedRtpInformation)
+            {
+                return new RtpRange(game.MinimumPaybackPercent, game.MaximumPaybackPercent);
+            }
+
             var totalRtp = new RtpRange();
 
             foreach (var wagerCategory in game.WagerCategories)
@@ -76,6 +85,12 @@
 
         public RtpBreakdown GetRtpBreakdown(IGameProfile game, string wagerCategoryId)
         {
+            if (!game.HasExtendedRtpInformation)
+            {
+                throw new ArgumentException(
+                    $"Cannot get an RTP Breakdown for a game that has {nameof(game.HasExtendedRtpInformation)}=false", nameof(game));
+            }
+
             var wagerCategory = game.WagerCategories.FirstOrDefault(w => w.Id.Equals(wagerCategoryId))
                 ?? throw new ArgumentException(nameof(wagerCategoryId), $"No WagerCategory exists with id={wagerCategoryId}");
 
@@ -95,6 +110,7 @@
 
         public RtpValidationReport GetValidationReport(IEnumerable<IGameProfile> games)
         {
+            // TODO: Handle games without ExtendedRTP Info
             var validationDataForReport = new List<(IGameProfile game, RtpValidation validation)>();
 
             foreach (var game in games)

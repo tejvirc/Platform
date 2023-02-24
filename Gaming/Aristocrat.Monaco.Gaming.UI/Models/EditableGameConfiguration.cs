@@ -813,7 +813,12 @@
         {
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
-                .Select(g => new PaytableDisplay(g, _rtpService.GetTotalRtp(g), _showGameRtpAsRange)).ToList();
+                .Select(g =>
+                {
+                    var rtp = _rtpService.GetTotalRtp(g);
+                    var paytableDisplay = new PaytableDisplay(g, rtp, _showGameRtpAsRange);
+                    return paytableDisplay;
+                }).ToList();
         }
 
         private static int GetBetWidth(decimal betAmount)
