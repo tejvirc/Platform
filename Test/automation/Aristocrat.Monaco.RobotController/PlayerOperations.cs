@@ -13,14 +13,14 @@
         private readonly RobotLogger _logger;
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotController _robotController;
         private Timer _actionPlayerTimer;
         private bool _disposed;
 
         public PlayerOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
@@ -99,7 +99,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.IsGame && !_sc.IsGameLoading;
+            return !isBlocked && _stateChecker.IsGame && !_stateChecker.IsGameLoading;
         }
 
         private void InitializeActionPlayer()
@@ -117,6 +117,7 @@
                 _logger.Info("Changing bet level", GetType().Name);
                 var betIndices = _robotController.Config.GetBetIndices();
                 var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
+                if (index == 1) return; // Input Key 23 is mapped to GameMenu which triggers BeginLobby request
                 _automator.SetBetLevel(index);
             });
 

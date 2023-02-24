@@ -1,15 +1,17 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
 
     internal class ServiceRequestOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private readonly RobotController _robotController;
@@ -19,7 +21,7 @@
 
         public ServiceRequestOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
@@ -36,6 +38,7 @@
         public void Execute()
         {
             _logger.Info("ServiceRequestOperations Has Been Initiated!", GetType().Name);
+            SubscribeToEvents();
             _serviceRequestTimer = new Timer(
                                (sender) =>
                                {
@@ -44,6 +47,20 @@
                                null,
                                _robotController.Config.Active.IntervalServiceRequest,
                                _robotController.Config.Active.IntervalServiceRequest);
+        }
+
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<CallAttendantButtonOnEvent>(
+                this,
+                _ =>
+                {
+                    Task.Delay(Constants.ServiceRequestDelayDuration).ContinueWith(
+                    _ =>
+                    {
+                        _eventBus.Publish(new CallAttendantButtonOffEvent());
+                    });
+                });
         }
 
         public void Halt()
@@ -91,21 +108,12 @@
             }
             _logger.Info("RequestService Received!", GetType().Name);
             _automator.ServiceButton(true);
-            _handlerTimer = new Timer(
-                (sender) =>
-                {
-                    _automator.ServiceButton(false);
-                    _handlerTimer.Dispose();
-                },
-                null,
-                Constants.ServiceRequestDelayDuration,
-                System.Threading.Timeout.Infinite);
         }
 
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return isBlocked && _sc.IsGame && !_sc.IsGameLoading;
+            return !isBlocked && _stateChecker.IsGame && !_stateChecker.IsGameLoading;
         }
     }
 }

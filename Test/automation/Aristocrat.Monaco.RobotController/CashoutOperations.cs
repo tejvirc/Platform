@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
     using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Operations;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
@@ -13,19 +11,17 @@
     {
         private readonly IEventBus _eventBus;
         private readonly RobotLogger _logger;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotController _robotController;
-        private readonly Automation _automator;
         private Timer _actionCashoutTimer;
         private bool _disposed;
 
-        public CashoutOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController, Automation automator)
+        public CashoutOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _logger = logger;
             _eventBus = eventBus;
             _robotController = robotController;
-            _automator = automator;
         }
 
         ~CashoutOperations() => Dispose(false);
@@ -58,7 +54,6 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.EnableCashOut(true);
             _eventBus.UnsubscribeAll(this);
             _actionCashoutTimer?.Dispose();
         }
@@ -90,7 +85,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return isBlocked && _sc.CashoutOperationValid;
+            return !isBlocked && _stateChecker.CashoutOperationValid && !_stateChecker.IsDisabled;
         }
 
         private void SubscribeToEvents()
@@ -120,18 +115,6 @@
                     _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutOperation);
                     _logger.Info($"CashOutStartedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
-            _eventBus.Subscribe<GameInitializationCompletedEvent>(
-                 this,
-                 evt =>
-                 {
-                     _automator.EnableCashOut(false);
-                 });
-            _eventBus.Subscribe<GameProcessExitedEvent>(
-                 this,
-                 evt =>
-                 {
-                     _automator.EnableCashOut(true);
-                 });
         }
 
         private void RequestCashOut()
@@ -141,7 +124,6 @@
                 return;
             }
             _logger.Info("Requesting Cashout", GetType().Name);
-            _automator.EnableCashOut(true);
             _eventBus.Publish(new CashOutButtonPressedEvent());
         }
     }

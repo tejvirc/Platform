@@ -80,7 +80,7 @@
                     }
                     else
                     {
-                        command.Result = IsPlayable() && _properties.GetValue("Automation.HandleExitToLobby", true);
+                        command.Result = IsPlayable();
                     }
 
                     if (command.Result)

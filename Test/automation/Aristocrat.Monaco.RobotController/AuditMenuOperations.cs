@@ -12,7 +12,7 @@
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
         private readonly RobotLogger _logger;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotController _robotController;
         private Timer _loadAuditMenuTimer;
         private Timer _exitAuditMenuTimer;
@@ -20,7 +20,7 @@
 
         public AuditMenuOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
@@ -129,7 +129,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.AuditMenuOperationValid;
+            return !isBlocked && _stateChecker.AuditMenuOperationValid;
         }
     }
 }

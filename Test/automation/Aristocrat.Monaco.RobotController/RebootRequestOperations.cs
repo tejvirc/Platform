@@ -10,7 +10,7 @@
     internal class RebootRequestOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly RobotController _robotController;
         private Timer _rebootTimer;
@@ -19,7 +19,7 @@
 
         public RebootRequestOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _logger = logger;
             _eventBus = eventBus;
             _robotController = robotController;
@@ -113,13 +113,13 @@
 
         private bool IsSoftRebootValid()
         {
-            return _sc.IsChooser || _sc.IsGame;
+            return _stateChecker.IsChooser || _stateChecker.IsGame;
         }
 
         private bool IsRebootValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.IsInRecovery && (_sc.IsChooser || _sc.IsGame);
+            return !isBlocked && _stateChecker.IsInRecovery && (_stateChecker.IsChooser || _stateChecker.IsGame);
         }
     }
 }

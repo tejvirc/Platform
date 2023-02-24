@@ -193,13 +193,13 @@
         ///     (ms) Interval between balance check
         /// </summary>
         [XmlElement]
-        public int IntervalBalanceCheck { get; set; } = 20000;
+        public int IntervalBalanceCheck { get; set; } = (int)TimeSpan.FromSeconds(20).TotalMilliseconds;
 
         /// <summary>
         ///     (minutes) how long the Responsible Gaming Session time will be set to on every _intervalAction;
         /// </summary>
         [XmlElement]
-        public int IntervalResponsibleGamingSession { get; set; } = 60;
+        public int IntervalResponsibleGamingSession { get; set; } = (int)TimeSpan.FromMinutes(15).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) how long between any lobby action is possible
@@ -211,43 +211,43 @@
         ///     (ms) how long between any lobby action is possible
         /// </summary>
         [XmlElement]
-        public int IntervalForceGameExit { get; set; } = 600000;
+        public int IntervalForceGameExit { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between a game loaded or reloaded
         /// </summary>
         [XmlElement]
-        public int IntervalLoadGame { get; set; } = 600000;
+        public int IntervalLoadGame { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between Audit Menu loads
         /// </summary>
         [XmlElement]
-        public int IntervalLoadAuditMenu { get; set; } = 600000;
+        public int IntervalLoadAuditMenu { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between lockups
         /// </summary>
         [XmlElement]
-        public int IntervalTriggerLockup { get; set; }
+        public int IntervalTriggerLockup { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between cash outs
         /// </summary>
         [XmlElement]
-        public int IntervalCashOut { get; set; }
+        public int IntervalCashOut { get; set; } = (int)TimeSpan.FromSeconds(30).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between soft reboots
         /// </summary>
         [XmlElement]
-        public int IntervalSoftReboot { get; set; } = 700000;
+        public int IntervalSoftReboot { get; set; } = (int)TimeSpan.FromSeconds(700).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval the RG time elapsed will be set on
         /// </summary>
         [XmlElement]
-        public int IntervalRgSet { get; set; } = 10000;
+        public int IntervalRgSet { get; set; } = (int)TimeSpan.FromMinutes(15).TotalMilliseconds;
 
         /// <summary>
         ///     (seconds) overrides time elapsed for RG
@@ -287,7 +287,7 @@
         public int RgSessionCountOverride { get; set; } = 1;
 
         [XmlElement]
-        public int IntervalServiceRequest { get; set; } = 60000;
+        public int IntervalServiceRequest { get; set; } = (int)TimeSpan.FromMinutes(15).TotalMilliseconds;
 
         [XmlElement]
         public int IntervalValidation { get; set; } = 10000;

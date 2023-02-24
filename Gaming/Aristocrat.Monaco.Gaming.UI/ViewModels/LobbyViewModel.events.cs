@@ -431,8 +431,9 @@
                 if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
                 {
                     Logger.Debug("Sending InitiateRecovery Trigger");
+                    var action = !unexpected ? LobbyTrigger.InitiateRecovery : LobbyTrigger.GameUnexpectedExit;
                     SendTrigger(
-                        LobbyTrigger.InitiateRecovery,
+                        action,
                         CurrentState == LobbyState.Game &&
                         unexpected); //only check with runtime if we get an unexpected exit during game state.
                 }

@@ -124,7 +124,6 @@
         public void RequestGameExit()
         {
             Log("Requesting game exit");
-            EnableExitToLobby(true);
             _eventBus.Publish(new GameRequestExitEvent());
         }
 
@@ -199,18 +198,6 @@
             //}
 
             return result;
-        }
-
-        public void EnableExitToLobby(bool enable)
-        {
-            Log((enable ? "Enabling" : "Disabling") + " Exit To Lobby");
-            _pm.SetProperty("Automation.HandleExitToLobby", enable);
-        }
-
-        public void EnableCashOut(bool enable)
-        {
-            Log((enable ? "Enabling" : "Disabling") + " Cash Out");
-            _pm.SetProperty("Automation.HandleCashOut", enable);
         }
 
         public void TouchMainScreen(int x, int y)

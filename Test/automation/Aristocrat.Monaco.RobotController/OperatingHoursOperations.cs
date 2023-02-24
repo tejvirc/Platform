@@ -10,19 +10,19 @@
     internal class OperatingHoursOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotLogger _logger;
-        private readonly IPropertiesManager _pm;
+        private readonly IPropertiesManager _propertyManager;
         private readonly RobotController _robotController;
         private Timer _operatingHoursTimer;
         private bool _disposed;
 
         public OperatingHoursOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, IPropertiesManager pm, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _logger = logger;
             _eventBus = eventBus;
-            _pm = pm;
+            _propertyManager = pm;
             _robotController = robotController;
         }
 
@@ -103,7 +103,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return isBlocked && (_sc.IsChooser || (_sc.IsGame && !_sc.IsGameLoading));
+            return isBlocked && (_stateChecker.IsChooser || (_stateChecker.IsGame && !_stateChecker.IsGameLoading));
         }
 
         private void SetOperatingHours()
@@ -124,7 +124,7 @@
                 new OperatingHours {Day = soon.DayOfWeek, Enabled = false, Time = (int)soon.TimeOfDay.TotalMilliseconds },
                 new OperatingHours {Day = then.DayOfWeek, Enabled = true, Time = (int)then.TimeOfDay.TotalMilliseconds }
             };
-            _pm.SetProperty(ApplicationConstants.OperatingHours, updatedOperatingHours);
+            _propertyManager.SetProperty(ApplicationConstants.OperatingHours, updatedOperatingHours);
         }
     }
 }

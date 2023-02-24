@@ -16,7 +16,7 @@
     internal class BalanceOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private readonly RobotController _robotController;
@@ -26,7 +26,7 @@
 
         public BalanceOperations(IEventBus eventBus,IBank bank, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
@@ -133,7 +133,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.BalanceOperationValid;
+            return !isBlocked && _stateChecker.BalanceOperationValid;
         }
 
         private void InsertCredit()
@@ -144,7 +144,7 @@
             var hasEdgeCase = _robotController.Config?.Active?.InsertCreditsDuringGameRound == true;
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
-            if (enoughBlanace || (!_sc.IsIdle && !hasEdgeCase))
+            if (enoughBlanace || (!_stateChecker.IsIdle && !hasEdgeCase))
             {
                 return;
             }
