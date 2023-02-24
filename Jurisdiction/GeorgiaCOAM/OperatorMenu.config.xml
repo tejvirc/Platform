@@ -10,28 +10,28 @@ as follows:
     the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
 -->
 <OperatorMenuConfiguration>
-	<Setting Name="PrintCurrentPage" Value="false" />
-	<Setting Name="PrintLast15" Value="false" />
-	<Setting Name="PrintSelected" Value="false" />
-	<Setting Name="ShowTimeFormat" Value="false" />
-	<Setting Name="CreditBalanceVisible" Value="true" />
-	<Setting Name="HardwareDiagnosticsEnabled" Value="true" />
-	<Setting Name="RequireEKeyDeviceGameReconfiguration" Value="true" />
+  <Setting Name="PrintCurrentPage" Value="false" />
+  <Setting Name="PrintLast15" Value="false" />
+  <Setting Name="PrintSelected" Value="false" />
+  <Setting Name="ShowTimeFormat" Value="false" />
+  <Setting Name="CreditBalanceVisible" Value="true" />
+  <Setting Name="HardwareDiagnosticsEnabled" Value="true" />
+  <Setting Name="RequireEKeyDeviceGameReconfiguration" Value="true" />
     <Menu Type="StatusMainPageLoader">
         <Page Type="StatusPageViewModel" Access="GameIdleZeroCredits" />
     </Menu>
-	<Menu Type="IdentificationMainPageLoader">
-		<Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" Access="LogicMainZeroCreditsZeroGamesPlayed" />
-		<Page Type="JurisdictionSettingsPageViewModel" PrintButtonEnabled="true" />
-	</Menu>
-	<Menu Type="LogsMainPageLoader">
-		<Page Type="EventLoggingPageViewModel">
-			<Setting Name="ShowSubscriptionText" Value="true"/>
-		</Page>
-		<Page Type="VoucherOutLogViewModel">
-			<Setting Name="VoucherIDVisible" Value="true" />
-			<Setting Name="VoucherIDMask" Value="true" />
-		</Page>
+  <Menu Type="IdentificationMainPageLoader">
+    <Page Type="MachineSettingsPageViewModel" Access="LogicMainZeroCreditsZeroGamesPlayed" />
+    <Page Type="JurisdictionSettingsPageViewModel" />
+  </Menu>
+  <Menu Type="LogsMainPageLoader">
+    <Page Type="EventLoggingPageViewModel">
+      <Setting Name="ShowSubscriptionText" Value="true"/>
+    </Page>
+    <Page Type="VoucherOutLogViewModel">
+      <Setting Name="VoucherIDVisible" Value="true" />
+      <Setting Name="VoucherIDMask" Value="true" />
+    </Page>
         <Page TabType="AllLogPageLoader" PageName="AllLogsWindowTitle" />
         <Page TabType="EventLoggingPageLoader" Visible="false" />
         <Page TabType="TransactionHistoryLogLoader" Visible="false" />
@@ -39,169 +39,169 @@ as follows:
         <Page TabType="AlteredMediaPageLoader" PageName="SoftwareChange" />
         <Page TabType="GPULogLoader" Visible="false" />
         <Page TabType="KeyedCreditsHistoryLogLoader" Visible="false"/>
-	</Menu>
-	<Menu Type="MetersMainPageLoader">
-		<Page Type="MainMetersPageViewModel" PrintButtonEnabled="true">
-			<Setting Name="PrintVerificationVisible" Value="false" />
-		</Page>
-		<Page Type="VoucherMetersPageViewModel" PrintButtonEnabled="false"/>
-		<Page Type="GameMetersViewModel" PrintButtonEnabled="true" />
-		<Page Type="DenomMetersPageViewModel" PrintButtonEnabled="true" />
-		<Page Type="ProgressiveMetersPageViewModel" PrintButtonEnabled="true" />
-		<Page Type="CustomSAPMetersPageViewModel" PrintButtonEnabled="false"/>
-		<Page Type="BillsMetersPageViewModel" PrintButtonEnabled="false"/>
-		<Page Type="HardwareMetersPageViewModel" PrintButtonEnabled="false"/>
-		<Page Type="WatMetersPageViewModel" TabType="WatMetersPageLoader" Visible="true" PrintButtonEnabled="false"/>
-		<Page Type="HandpayMetersPageViewModel" TabType="HandpayMetersPageLoader" Visible="false" PrintButtonEnabled="false"/>
-    	<Page Type="KeyedCreditsMetersPageViewModel" TabType="KeyedCreditsMetersPageLoader" Visible="false"/>
-    	<Page Type="BonusMetersPageViewModel" PrintButtonEnabled="false"/>
-	</Menu>
-	<Menu Type="HardwareMainPageLoader">
-		<Page Type="PrinterViewModel" PrintButtonEnabled="true" >
-			<Setting Name="ActivationTimeVisible" Value="false" />
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
-		<Page Type="NoteAcceptorViewModel" PrintButtonEnabled="true" Access="MainLogicZeroCreditsGameIdle">
-			<Setting Name="ActivationTimeVisible" Value="false" />
-			<Setting Name="EgmCanEnableDenominations" Value="true" />
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
-		<Page Type="LampsPageViewModel" PrintButtonEnabled="false" >
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
-		<Page Type="ButtonPageViewModel" PrintButtonEnabled="false">
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
-		<Page Type="EdgeLightingPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
-		<Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
-		<Page Type="DisplaysPageViewModel" PrintButtonEnabled="false" Access="MainZeroCreditsGameIdle">
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
-		<Page Type="IdReaderPageViewModel" TabType="IDReaderPageLoader" Visible="false" PrintButtonEnabled="false"/>
-		<Page Type="KeyPageViewModel" TabType="KeyPageLoader" Visible="false" PrintButtonEnabled="false" />
-		<Page Type="BatteryPageViewModel" TabType="BatteryPageLoader" Visible="false" PrintButtonEnabled="false"/>
-		<Page Type="HardwareManagerPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits" FieldAccess="ReadOnly"/>
-		<Page Type="NoteAcceptorTestViewModel" Access="MainDoor" />
-		<Page Type="ButtonTestViewModel" Access="MainDoor" />
-		<Page Type="SoundTestPageViewModel" Access="MainDoor" />
-		<Page Type="BellPageViewModel" Access="MainDoorGameIdle">
-			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-		</Page>
+  </Menu>
+  <Menu Type="MetersMainPageLoader">
+    <Page Type="MainMetersPageViewModel" >
+      <Setting Name="PrintVerificationVisible" Value="false" />
+    </Page>
+    <Page Type="VoucherMetersPageViewModel" />
+    <Page Type="GameMetersViewModel" />
+    <Page Type="DenomMetersPageViewModel" />
+    <Page Type="ProgressiveMetersPageViewModel" />
+    <Page Type="CustomSAPMetersPageViewModel" />
+    <Page Type="BillsMetersPageViewModel" />
+    <Page Type="HardwareMetersPageViewModel" />
+    <Page Type="WatMetersPageViewModel" TabType="WatMetersPageLoader" Visible="true" />
+    <Page Type="HandpayMetersPageViewModel" TabType="HandpayMetersPageLoader" Visible="false" />
+      <Page Type="KeyedCreditsMetersPageViewModel" TabType="KeyedCreditsMetersPageLoader" Visible="false"/>
+      <Page Type="BonusMetersPageViewModel" />
+  </Menu>
+  <Menu Type="HardwareMainPageLoader">
+    <Page Type="PrinterViewModel" >
+      <Setting Name="ActivationTimeVisible" Value="false" />
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
+    <Page Type="NoteAcceptorViewModel"  Access="MainLogicZeroCreditsGameIdle">
+      <Setting Name="ActivationTimeVisible" Value="false" />
+      <Setting Name="EgmCanEnableDenominations" Value="true" />
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
+    <Page Type="LampsPageViewModel" >
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
+    <Page Type="ButtonPageViewModel" >
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
+    <Page Type="EdgeLightingPageViewModel" Access="GameIdleZeroCredits">
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
+    <Page Type="SoundConfigPageViewModel" Access="GameIdleZeroCredits">
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
+    <Page Type="DisplaysPageViewModel" Access="MainZeroCreditsGameIdle">
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
+    <Page Type="IdReaderPageViewModel" TabType="IDReaderPageLoader" Visible="false" />
+    <Page Type="KeyPageViewModel" TabType="KeyPageLoader" Visible="false" />
+    <Page Type="BatteryPageViewModel" TabType="BatteryPageLoader" Visible="false" />
+    <Page Type="HardwareManagerPageViewModel" Access="GameIdleZeroCredits" FieldAccess="ReadOnly"/>
+    <Page Type="NoteAcceptorTestViewModel" Access="MainDoor" />
+    <Page Type="ButtonTestViewModel" Access="MainDoor" />
+    <Page Type="SoundTestPageViewModel" Access="MainDoor" />
+    <Page Type="BellPageViewModel" Access="MainDoorGameIdle">
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
+    </Page>
         <Page Type="MechanicalReelsPageViewModel" Access="MainZeroCreditsGameIdle">
             <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
         </Page>
-	</Menu>
-	<Menu Type="SystemMainPageLoader">
-		<Page Type="TimeConfigPageViewModel" Access="MainZeroCredits"/>
-		<Page Type="LimitsPageViewModel" Access="LogicZeroCreditsZeroGamesPlayed"/>
-		<Page Type="VoucherSettingsPageViewModel" Access="MainZeroCreditsGameIdle" FieldAccess="MainLogicZeroCreditsGameIdle"/>
-		<Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle"/>
-		<Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
-		<Page Type="BarkeeperConfigurationViewModel" Access="MainZeroCreditsGameIdle"/>
+  </Menu>
+  <Menu Type="SystemMainPageLoader">
+    <Page Type="TimeConfigPageViewModel" Access="MainZeroCredits"/>
+    <Page Type="LimitsPageViewModel" Access="LogicZeroCreditsZeroGamesPlayed"/>
+    <Page Type="VoucherSettingsPageViewModel" Access="MainZeroCreditsGameIdle" FieldAccess="MainLogicZeroCreditsGameIdle"/>
+    <Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle"/>
+    <Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
+    <Page Type="BarkeeperConfigurationViewModel" Access="MainZeroCreditsGameIdle"/>
         <Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCredits"/>
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
-	<Menu Type="GamesMainPageLoader">
-		<Page Type="AdvancedGameSetupViewModel" Access="EKeyLogicZeroCreditGameIdle" FieldAccess="EKeyLogicDoor">
-			<Setting Name="AllowImportExport" Value="true" />
-			<Setting Name="ShowGlobalOptions" Value="true" />
-			<Setting Name="EnableAdvancedConfig" Value="true" />
-			<Setting Name="EnableQuickConfig" Value="false" />
-		</Page>
-		<Page Type="GameHistoryViewModel" Access="LogicDoor">
-			<Setting Name="ShowGameInfoButtons" Value="true" />
-			<Setting Name="PrintGameRoundInfo" Value="false" />
-		</Page>
-		<Page Type="GamePreferencesViewModel" Access="GameIdleZeroCredits" FieldAccess="MainLogicZeroCreditsGameIdle" />
-		<Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
-		<Page Type="CombinationTestViewModel" Access="MainDoorGameIdle" />
-	</Menu>
-	<Menu Type="CommsMainPageLoader">
-		<Page Type="NetworkConfigPageViewModel" Access="GameIdleZeroCredits"/>
-		<Page Type="CertificatesViewModel" Access="LogicDoor" />
-		<Page Type="SasConfigurationViewModel" Access="LogicMainZeroCreditsZeroGamesPlayed" />
-		<Page Type="SasFeatureViewModel" Access="LogicMainZeroCreditsZeroGamesPlayed" />
-	</Menu>
+  <Menu Type="GamesMainPageLoader">
+    <Page Type="AdvancedGameSetupViewModel" Access="EKeyLogicZeroCreditGameIdle" FieldAccess="EKeyLogicDoor">
+      <Setting Name="AllowImportExport" Value="true" />
+      <Setting Name="ShowGlobalOptions" Value="true" />
+      <Setting Name="EnableAdvancedConfig" Value="true" />
+      <Setting Name="EnableQuickConfig" Value="false" />
+    </Page>
+    <Page Type="GameHistoryViewModel" Access="LogicDoor">
+      <Setting Name="ShowGameInfoButtons" Value="true" />
+      <Setting Name="PrintGameRoundInfo" Value="false" />
+    </Page>
+    <Page Type="GamePreferencesViewModel" Access="GameIdleZeroCredits" FieldAccess="MainLogicZeroCreditsGameIdle" />
+    <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
+    <Page Type="CombinationTestViewModel" Access="MainDoorGameIdle" />
+  </Menu>
+  <Menu Type="CommsMainPageLoader">
+    <Page Type="NetworkConfigPageViewModel" Access="GameIdleZeroCredits"/>
+    <Page Type="CertificatesViewModel" Access="LogicDoor" />
+    <Page Type="SasConfigurationViewModel" Access="LogicMainZeroCreditsZeroGamesPlayed" />
+    <Page Type="SasFeatureViewModel" Access="LogicMainZeroCreditsZeroGamesPlayed" />
+  </Menu>
     <Menu Type="DiagnosticMainPageLoader">
-		<Page Type="IOPageViewModel" PrintButtonEnabled="true" />
-	</Menu>
+    <Page Type="IOPageViewModel" />
+  </Menu>
     <Menu Type="ExportMachineSettingsLoader" Access="EKeyPresent">
-		<Page Type="ExportMachineSettingsViewModel" PrintButtonEnabled="false" />
-	</Menu>
-	<Menu Type="OptionsMainPageLoader" Visible="false" />
-	<Menu Type="SystemResetPageLoader" Visible="false" />
-	
-   	<AccessRules>
-		<AccessRuleSet Name="TestMode">
-			<Rule Restriction="GameIdle" />
-			<Rule DeviceName="Main" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="MainDoor">
-			<Rule DeviceName="Main" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="LogicDoor">
-			<Rule DeviceName="Logic" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="ZeroCredits">
-			<Rule Restriction="ZeroCredits" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="ReadOnly">
-			<Rule Restriction="ReadOnly" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="LogicZeroCredits">
-			<Rule Restriction="ZeroCredits" />
-			<Rule DeviceName="Logic" />	
-		</AccessRuleSet>
+    <Page Type="ExportMachineSettingsViewModel" />
+  </Menu>
+  <Menu Type="OptionsMainPageLoader" Visible="false" />
+  <Menu Type="SystemResetPageLoader" Visible="false" />
+
+    <AccessRules>
+    <AccessRuleSet Name="TestMode">
+      <Rule Restriction="GameIdle" />
+      <Rule DeviceName="Main" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="MainDoor">
+      <Rule DeviceName="Main" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="LogicDoor">
+      <Rule DeviceName="Logic" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="ZeroCredits">
+      <Rule Restriction="ZeroCredits" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="ReadOnly">
+      <Rule Restriction="ReadOnly" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="LogicZeroCredits">
+      <Rule Restriction="ZeroCredits" />
+      <Rule DeviceName="Logic" />	
+    </AccessRuleSet>
         <AccessRuleSet Name="MainZeroCredits">
-			<Rule Restriction="ZeroCredits" />
-	        <Rule DeviceName="Main" />
+      <Rule Restriction="ZeroCredits" />
+          <Rule DeviceName="Main" />
         </AccessRuleSet>
         <AccessRuleSet Name="GameIdleZeroCredits">
             <Rule Restriction="GameIdle" />
             <Rule Restriction="ZeroCredits" />
         </AccessRuleSet>
-		<AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
-			<Rule Restriction="ZeroCredits" />
-			<Rule DeviceName="Logic" />
-			<Rule Restriction="ZeroGamesPlayed" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
-			<Rule Restriction="ZeroCredits" />
-			<Rule DeviceName="Logic" />
-			<Rule DeviceName="Main" />
-			<Rule Restriction="ZeroGamesPlayed" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="MainDoorGameIdle">
-			<Rule Restriction="GameIdle" />
-			<Rule DeviceName="Main" />	
-		</AccessRuleSet>
-		<AccessRuleSet Name="MainZeroCreditsGameIdle">
-			<Rule Restriction="GameIdle" />
-			<Rule Restriction="ZeroCredits" />
-			<Rule DeviceName="Main" />	
-		</AccessRuleSet>
-		<AccessRuleSet Name="MainLogicZeroCreditsGameIdle">
-			<Rule Restriction="GameIdle" />
-			<Rule Restriction="ZeroCredits" />
-			<Rule DeviceName="Main" />	
-			<Rule DeviceName="Logic" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="EKeyPresent">
-			<Rule Restriction="EKeyVerified" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="EKeyLogicZeroCreditGameIdle">
-			<Rule Restriction="InitialGameConfigNotCompleteOrEKeyVerified" />
-			<Rule DeviceName="Logic" />
-			<Rule Restriction="ZeroCredits" />
-			<Rule Restriction="GameIdle" />
-		</AccessRuleSet>
-		<AccessRuleSet Name="EKeyLogicDoor">
-			<Rule Restriction="InitialGameConfigNotCompleteOrEKeyVerified" />
-			<Rule DeviceName="Logic" />
-		</AccessRuleSet>
-	</AccessRules>
+    <AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
+      <Rule Restriction="ZeroCredits" />
+      <Rule DeviceName="Logic" />
+      <Rule Restriction="ZeroGamesPlayed" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
+      <Rule Restriction="ZeroCredits" />
+      <Rule DeviceName="Logic" />
+      <Rule DeviceName="Main" />
+      <Rule Restriction="ZeroGamesPlayed" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="MainDoorGameIdle">
+      <Rule Restriction="GameIdle" />
+      <Rule DeviceName="Main" />	
+    </AccessRuleSet>
+    <AccessRuleSet Name="MainZeroCreditsGameIdle">
+      <Rule Restriction="GameIdle" />
+      <Rule Restriction="ZeroCredits" />
+      <Rule DeviceName="Main" />	
+    </AccessRuleSet>
+    <AccessRuleSet Name="MainLogicZeroCreditsGameIdle">
+      <Rule Restriction="GameIdle" />
+      <Rule Restriction="ZeroCredits" />
+      <Rule DeviceName="Main" />	
+      <Rule DeviceName="Logic" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="EKeyPresent">
+      <Rule Restriction="EKeyVerified" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="EKeyLogicZeroCreditGameIdle">
+      <Rule Restriction="InitialGameConfigNotCompleteOrEKeyVerified" />
+      <Rule DeviceName="Logic" />
+      <Rule Restriction="ZeroCredits" />
+      <Rule Restriction="GameIdle" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="EKeyLogicDoor">
+      <Rule Restriction="InitialGameConfigNotCompleteOrEKeyVerified" />
+      <Rule DeviceName="Logic" />
+    </AccessRuleSet>
+  </AccessRules>
 </OperatorMenuConfiguration>

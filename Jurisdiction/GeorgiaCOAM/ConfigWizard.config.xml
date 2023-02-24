@@ -11,21 +11,20 @@ as follows:
 -->
 <ConfigWizardConfiguration>
     <MachineSetupConfig Visibility="Visible">
-      <EnterOutOfServiceWithCredits Enabled="true"/>
+      <EnterOutOfServiceWithCredits Enabled="false" Editable="false"/>
     </MachineSetupConfig>
     <IOConfigPage>
         <UseSelection Enabled="false"/>
-    </IOConfigPage>  
+    </IOConfigPage>
+    <LimitsPage>
+      <HandpayLimit CheckboxEditable="false"/>
+    </LimitsPage>
     <CompletionPage ShowGameSetupMessage="true"/>
-    <HardMetersConfig Configurable="true" Enable="false"/>
+    <HardMetersConfig Configurable="false" Enable="true"/>
     <ProtocolConfiguration>
         <ProtocolsAllowed>
-            <Protocol Name="G2S"/>
-            <Protocol Name="SAS"/>
+            <Protocol Name="SAS" IsMandatory="true"/>
             <Protocol Name="Test"/>
         </ProtocolsAllowed>
-        <ExclusiveProtocols>
-            <ExclusiveProtocol Name="SAS" Function="Validation" />
-        </ExclusiveProtocols>
     </ProtocolConfiguration>
 </ConfigWizardConfiguration>

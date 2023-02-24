@@ -11,11 +11,11 @@ as follows:
 -->
 <SASDefaultConfiguration>
     <SASHostPage>
-		<!--
-		TransferLimit :
-			Default (Optional): The default max transfer limit (in cents).
-			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
-		-->
-		<TransferLimit Default="10000" />
+    <!--
+    TransferLimit :
+      Default (Optional): The default max transfer limit (in cents).
+      MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
+    -->
+    <TransferLimit Default="10000" />
     </SASHostPage>  
 </SASDefaultConfiguration>

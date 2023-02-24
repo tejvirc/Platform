@@ -99,7 +99,7 @@
     <DPR name="AltCashValueText2" id="132" x="508" px="00235" y="1051" py="00080" dx="24" pdx="00031" dy="1020" pdy="01020" rot="4" jst="2" type="F=006" m1="1" m2="1" attr="001" property="value in words 2">
       <D></D>
     </DPR>
-	<DPR name="CashSlipPaperLevel" id="134" x="28" px="00028" y="85" py="00085" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="paper level">
-      <D></D>                                                                                                   
-    </DPR>     	
+    <DPR name="CashSlipPaperLevel" id="134" x="28" px="00028" y="85" py="00085" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="paper level">
+      <D></D>
+    </DPR>
 </DPR_Collection>

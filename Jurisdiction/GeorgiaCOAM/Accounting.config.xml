@@ -28,12 +28,14 @@ as follows:
     <MaxCreditsIn Default="119999000" />
   </TenderIn>
   <CreditLimits>
-	<MaxCreditMeter Default="119999000" MaxAllowed="9999999000"/>
+    <MaxCreditMeter MaxAllowed="9999999000"/>
+    <MaxBetLimit Default="500000" LimitMax="500000"/>
   </CreditLimits>
   <WinLimits>
-	<LargeWinLimit Default="120000000" MaxAllowed="120000000" Editable="true"/>
+    <LargeWinLimit Editable="false" />
+    <HandpayResetOptions Visible="false"/>
   </WinLimits>
-  <VoucherIn State="Enabled" LimitDefault="119999000"/>
+  <VoucherIn State="Disabled" />
 <!--
     VoucherOut Settings:
        State:
@@ -48,9 +50,7 @@ as follows:
            "Days" = Number of days by which ticket will expire. "0" means Never Expire.
            "Editable" = This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
 -->
-  <VoucherOut State="Enabled" LimitDefault="119999000" AllowCashWinTicket="true">
-    <Expiration Days="0" />
-  </VoucherOut>
+  <VoucherOut State="Disabled" />
 <!--
     RebootWhilePrinting Behavior:
        "Reprint" = After operator key-off of reboot while printing error, will remove remaining credits and automatically reprint a cashout ticket.
@@ -75,4 +75,7 @@ as follows:
        "|" = Requiring multiple doors can be accomplished by combining, for example "Main|Logic" will require both Main and Logic door to be open.
 -->
   <ReprintLoggedVoucher Behavior="None" />
+  <Handpay>
+    <RemoteHandpayReset Allowed="false"/>
+  </Handpay>
 </AccountingConfiguration>

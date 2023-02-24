@@ -10,16 +10,17 @@ as follows:
     the corresponding class definition in csharp (GamingConfiguration.cs).
 -->
 <GamingConfiguration>
-	<GameEnd CashOutStrategy="None" />
-	<FreeGames MeterIndependently="false" />
-	<Messages ShowMessages="true" >
-		<JackpotOdds MustDisplay="true" />
-		<PlayerNotification NewReelSetSelected="true" />
-	</Messages>
-	<StateChangeOverride DisableStrategy="None" />
-	<OperatorMenu DisableDuringGame="true" />
-	<LockupBehavior CashableLockupStrategy="Allowed" />
-	<GameCategory ApplyGameCategorySettings="true" />
+  <GameEnd CashOutStrategy="None" />
+  <GameWin LargeWinCashOutStrategy="None"/>
+  <FreeGames MeterIndependently="false" />
+  <Messages ShowMessages="true" >
+    <JackpotOdds MustDisplay="true" />
+    <PlayerNotification NewReelSetSelected="true" />
+  </Messages>
+  <StateChangeOverride DisableStrategy="None" />
+  <OperatorMenu DisableDuringGame="true" />
+  <LockupBehavior CashableLockupStrategy="Allowed" />
+  <GameCategory ApplyGameCategorySettings="true" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:
@@ -40,9 +41,12 @@ as follows:
 				GameType:
 					"Slot", "Keno", "Poker"... = Disable specific game type
 -->
-	<GameRestrictions>
-		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="75000" />
-		</ReturnToPlayerLimits>
-	</GameRestrictions>
+  <GameRestrictions>
+    <ReturnToPlayerLimits>
+      <ReturnToPlayer GameType="Any" Minimum="75000" />
+    </ReturnToPlayerLimits>
+  </GameRestrictions>
+  <PhysicalButtons>
+    <GameStartButtons Method="None" />
+  </PhysicalButtons>
 </GamingConfiguration>
