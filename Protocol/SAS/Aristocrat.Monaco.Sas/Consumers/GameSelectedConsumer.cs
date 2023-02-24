@@ -39,7 +39,7 @@
             var lastGameId = _propertiesManager.GetValue(SasProperties.PreviousSelectedGameId, DefaultSelectedGame);
             var gameId = (int)(_gameProvider.GetGameId(theEvent.GameId, theEvent.Denomination) ?? DefaultSelectedGame);
 
-            if (gameId == lastGameId)
+            if (theEvent.IsReplay || gameId == lastGameId)
             {
                 return;
             }
