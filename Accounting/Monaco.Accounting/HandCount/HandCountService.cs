@@ -6,6 +6,7 @@
     using Application.Contracts.Metering;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.Contracts;
+    using Aristocrat.Monaco.Kernel.Contracts.Events;
     using Contracts.HandCount;
     using Kernel;
     using log4net;
@@ -50,31 +51,31 @@
 
         public void Initialize()
         {
+            _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
+        }
+        private void HandleEvent(InitializationCompletedEvent obj)
+        {
+            SendHandCountChangedEvent();
         }
 
         public void IncrementHandCount()
         {
             _handCountMeter.Increment(1);
-
-            _eventBus.Publish(new HandCountChangedEvent(HandCount));
-
-            Logger.Info($"IncrementHandCount:{HandCount}");
+            SendHandCountChangedEvent();
+            Logger.Info($"IncrementHandCount to {HandCount}");
         }
 
         public void DecreaseHandCount(int n)
         {
             _handCountMeter.Increment(-n);
-
-            //_runtime.UpdateParameter(_bank.Credits);
-
-            _eventBus.Publish(new HandCountChangedEvent(HandCount));
+            SendHandCountChangedEvent();
             Logger.Info($"DecreaseHandCount by {n} to {HandCount}");
         }
 
         public void ResetHandCount()
         {
             _handCountMeter.Increment(-HandCount);
-            _eventBus.Publish(new HandCountChangedEvent(HandCount));
+            SendHandCountChangedEvent();
             Logger.Info($"ResetHandCount:{HandCount}");
         }
         public void SendHandCountChangedEvent()

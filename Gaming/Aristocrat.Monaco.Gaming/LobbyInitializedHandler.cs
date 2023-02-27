@@ -14,12 +14,10 @@
     /// <remarks>
     ///     SystemDrivenAutoPlayHandler handles the SystemDrivenAutoPlayEvent event and if allowed will initiate auto play
     /// </remarks>
-    public class LobbyInitializeHandler : IDisposable
+    public class LobbyInitializeHandler 
     {
         private readonly IHandCount _handCount;
         private readonly IEventBus _eventBus;
-
-        private bool _disposed;
 
         public LobbyInitializeHandler(IHandCount handCount, IEventBus eventBus)
         {
@@ -27,12 +25,6 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
             _eventBus.Subscribe<LobbyInitializedEvent>(this, Handle);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
