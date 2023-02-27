@@ -10,7 +10,7 @@
     <Copyright>Copyright © Aristocrat Technologies Inc. 2022</Copyright>
     <Company>Aristocrat Technologies Inc.</Company>
     <Authors>Monaco Platform Team</Authors>
-    <LangVersion>9</LangVersion>
+    <LangVersion>10</LangVersion>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
