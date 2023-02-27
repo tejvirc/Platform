@@ -93,7 +93,7 @@
                 <xs:element minOccurs="0" maxOccurs="1" name="VoucherIn">
                     <xs:complexType>
                         <xs:attribute name="State" type="xs:string" use="required" />
-						<xs:attribute name="EnableLimit" type="xs:boolean" use="optional" default="true" />
+                        <xs:attribute name="EnableLimit" type="xs:boolean" use="optional" default="true" />
                         <xs:attribute name="LimitDefault" type="xs:long" use="optional" default="9223372036854775807" />
                         <xs:attribute name="LimitMax" type="xs:long" use="optional" default="9223372036854775807" />
                         <xs:attribute name="AllowLimitEdit" type="xs:boolean" use="optional" default="true" />
@@ -162,7 +162,13 @@
                         <xs:attribute name="HandpayReceiptsRequired" type="xs:boolean" use="optional" default="false" />
                     </xs:complexType>
                 </xs:element>
-                <xs:element minOccurs="0" maxOccurs="1" name="MysteryProgressive">
+              <xs:element minOccurs="0" maxOccurs="1" name="HandCount">
+                <xs:complexType>
+                  <xs:attribute name="CashoutAmountPerHandCount" type="xs:long" use="optional" default="500000" />
+                  <xs:attribute name="HandCountResetCreditLimit" type="xs:long" use="optional" default="25000" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="MysteryProgressive">
                     <xs:complexType>
                         <xs:attribute name="WinAsExternalBonus" type="xs:boolean" use="optional" default="false" />
                     </xs:complexType>
