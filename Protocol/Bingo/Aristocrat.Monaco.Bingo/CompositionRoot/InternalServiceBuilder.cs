@@ -66,6 +66,7 @@
             container.RegisterSingleton<ICertificateService, CertificateService>();
             container.RegisterSingleton<DynamicHelpMonitor>();
             container.RegisterSingleton<ClientActivityService>();
+            container.RegisterSingleton<IBingoPaytableInstaller, BingoPaytableInstaller>();
             container.RegisterManyAsCollection(typeof(IMeterMonitor), Assembly.GetExecutingAssembly());
             return container;
         }

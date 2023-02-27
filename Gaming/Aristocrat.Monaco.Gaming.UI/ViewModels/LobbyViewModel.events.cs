@@ -837,6 +837,7 @@
             // If game is ready but not loaded due to disable, load it now
             if (GameReady)
             {
+                Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
                 MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameLoaded));
             }
         }
