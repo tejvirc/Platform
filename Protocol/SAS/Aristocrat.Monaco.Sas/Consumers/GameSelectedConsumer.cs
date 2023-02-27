@@ -37,12 +37,13 @@
         public override void Consume(GameSelectedEvent theEvent)
         {
             var lastGameId = _propertiesManager.GetValue(SasProperties.PreviousSelectedGameId, DefaultSelectedGame);
-            if (theEvent.GameId == lastGameId)
+            var gameId = (int)(_gameProvider.GetGameId(theEvent.GameId, theEvent.Denomination) ?? DefaultSelectedGame);
+
+            if (gameId == lastGameId)
             {
                 return;
             }
 
-            var gameId = (int)(_gameProvider.GetGameId(theEvent.GameId, theEvent.Denomination) ?? DefaultSelectedGame);
             _exceptionHandler.ReportException(new GameSelectedExceptionBuilder(gameId));
             _propertiesManager.SetProperty(SasProperties.PreviousSelectedGameId, gameId);
         }
