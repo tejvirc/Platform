@@ -5,7 +5,6 @@
     <AssemblyTitle>Aristocrat.Monaco.G2S.UI</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

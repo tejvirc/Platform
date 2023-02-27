@@ -7,7 +7,6 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Configurations>Debug;Release;Retail</Configurations>
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3270</MSBuildWarningsAsMessages>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

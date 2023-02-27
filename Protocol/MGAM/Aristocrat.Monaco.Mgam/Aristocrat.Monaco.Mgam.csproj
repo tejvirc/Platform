@@ -4,7 +4,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Mgam</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <Platform>x64</Platform>
     <NoWarn>1701;1702;CA1416</NoWarn>    
   </PropertyGroup>

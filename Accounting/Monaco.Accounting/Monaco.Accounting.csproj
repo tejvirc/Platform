@@ -4,7 +4,6 @@
     <RootNamespace>Aristocrat.Monaco.Accounting</RootNamespace>
     <AssemblyTitle>Monaco.Accounting</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
   </PropertyGroup>

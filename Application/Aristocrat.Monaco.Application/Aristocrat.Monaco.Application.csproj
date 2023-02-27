@@ -6,7 +6,6 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
     <Platform>x64</Platform>
   </PropertyGroup>

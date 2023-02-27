@@ -7,7 +7,6 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <UseWPF>true</UseWPF>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <Platform>x64</Platform>
     <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>

@@ -6,7 +6,6 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>

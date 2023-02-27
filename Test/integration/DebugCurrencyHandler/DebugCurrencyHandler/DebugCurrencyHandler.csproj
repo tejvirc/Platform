@@ -6,7 +6,6 @@
     <AssemblyTitle>DebugCurrencyHandler</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Platform>x64</Platform>
   </PropertyGroup>

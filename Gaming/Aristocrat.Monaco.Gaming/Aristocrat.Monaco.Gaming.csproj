@@ -5,7 +5,6 @@
     <AssemblyTitle>Monaco.Gaming</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <Platform>x64</Platform>
     <NoWarn>1701;1702;CA1416;SYSLIB0011</NoWarn>    
   </PropertyGroup>

@@ -5,7 +5,6 @@
     <AssemblyTitle>Aristocrat.Monaco.Sas.UI</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Platform>x64</Platform>
   </PropertyGroup>

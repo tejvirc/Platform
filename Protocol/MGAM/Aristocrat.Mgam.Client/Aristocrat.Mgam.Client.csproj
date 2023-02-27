@@ -5,7 +5,6 @@
     <AssemblyTitle>Aristocrat.Mgam.Client</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

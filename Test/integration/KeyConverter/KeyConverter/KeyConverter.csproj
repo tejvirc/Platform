@@ -5,7 +5,6 @@
     <RootNamespace>Aristocrat.Monaco.Test.KeyConverter</RootNamespace>
     <AssemblyTitle>KeyConverter</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Platform>x64</Platform>
   </PropertyGroup>
