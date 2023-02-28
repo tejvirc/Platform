@@ -182,7 +182,8 @@
         {
             if (_gatApplication.Connected)
             {
-                _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Immediate, GetStatus);
+                var status = GetStatus();
+                _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Immediate, () => status);
             }
             else
             {
