@@ -1094,7 +1094,7 @@
                         x.Id,
                         configuration.TheoPaybackPercentRtp,
                         x.MinWagerCredits,
-                        x.MinWagerCredits,
+                        x.MaxWagerCredits,
                         x.MaxWinAmount);
                 });
             }
