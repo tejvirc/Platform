@@ -1912,7 +1912,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         public GamingConfigurationGamble() {
             this.allowedField = true;
             this.enabledField = false;
-            this.wagerLimitField = ((long)(9223372036854775807));
+            this.wagerLimitField = ((long)(50000000));
             this.winLimitField = ((long)(9223372036854775807));
             this.wagerLimitConfigurableField = true;
             this.winLimitConfigurableField = false;
@@ -1946,7 +1946,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(typeof(long), "9223372036854775807")]
+        [System.ComponentModel.DefaultValueAttribute(typeof(long), "50000000")]
         public long WagerLimit {
             get {
                 return this.wagerLimitField;

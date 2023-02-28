@@ -58,7 +58,7 @@
         private bool _dualHostSetup;
         private decimal _accountingDenom1 = 0.01M;
         private decimal _accountingDenom2 = 0.01M;
-        private int _progressiveGroupId = 1;
+        private int _progressiveGroupId;
         private string _progressiveGroupIdErrorText = string.Empty;
         private int _progressiveGroupIdMaxLength = 10;
 
@@ -693,7 +693,7 @@
 
             var ports = new PortAssignment();
 
-            var host1 =  new Host { ComPort = Host1ComPort };
+            var host1 = new Host { ComPort = Host1ComPort };
             var host2 = new Host { ComPort = Host2ComPort };
             host1.AccountingDenom = AccountingDenom1.DollarsToCents();
             host1.SasAddress = (byte)CommunicationAddress1;
@@ -720,9 +720,8 @@
                 ports,
                 new PortAssignmentEqualityComparer());
 
-            var progHostId = ProgressiveOnHost1 ? CommunicationAddress1 : (ProgressiveOnHost2 && DualHostSetup) ? CommunicationAddress2 : 0;
             var settings = (SasFeatures)PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).Clone();
-            settings.ProgressiveGroupId = progHostId;
+            settings.ProgressiveGroupId = ProgressiveGroupId;
             settings.NonSasProgressiveHitReporting = NonSasProgressiveHitReportingHost1 || NonSasProgressiveHitReportingHost2;
             restartProtocol |= PropertiesManager.UpdateProperty(
                 SasProperties.SasFeatureSettings,
@@ -819,9 +818,9 @@
                 CommunicationAddress2 = ((sbyte)address2);
             }
 
-            ProgressiveGroupId = 0;
             var settings = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
             ProgressiveGroupId = settings.ProgressiveGroupId;
+
             if (settings.AddressConfigurableOnlyOnce)
             {
                 AddressHost1Editable = string.IsNullOrEmpty(CheckError(CommunicationAddress1, MaxAddress));
