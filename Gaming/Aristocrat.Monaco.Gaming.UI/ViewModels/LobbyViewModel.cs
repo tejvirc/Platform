@@ -1320,7 +1320,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// <summary>
         ///     Gets a value indicating whether the cash out button is lit (it's enabled or in attract mode).
         /// </summary>
-        public bool IsCashOutButtonLit => CashOutEnabled || IsAttractModePlaying;
+        public bool IsCashOutButtonLit => CashOutEnabled && !IsAttractModePlaying;
 
         /// <summary>
         ///     Gets a value indicating whether the cash out button is enabled.
