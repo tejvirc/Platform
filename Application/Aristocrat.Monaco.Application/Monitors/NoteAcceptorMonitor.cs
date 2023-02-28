@@ -203,6 +203,7 @@
                 _ =>
                 {
                     SetBinary(SelfTestFailedKey, false);
+                    ClearStackerDisconnected();
                     HandleSelfTestComplete();
                 });
             _eventBus.Subscribe<SelfTestFailedEvent>(
@@ -457,6 +458,36 @@
                 NoteAcceptorDocumentCheckDisableKey,
                 SystemDisablePriority.Immediate,
                 () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.NoteAcceptorFaultTypes_DocumentCheck));
+        }
+
+        private void ClearStackerDisconnected()
+        {
+            bool disconnected = false;
+            using (var scope = _persistentStorage.ScopedTransaction())
+            {
+                var block = _persistentStorage.GetBlock(BlockName);
+                if (block != null)
+                {
+                    disconnected = (bool)block[StackerDisconnected];
+                    if (disconnected)
+                    {
+                        using (var transaction = block.StartTransaction())
+                        {
+                            // if connected, clear stacker disconnected error in transaction
+                            transaction[StackerDisconnected] = false;
+                            transaction.Commit();
+                        }
+                    }
+
+                    scope.Complete();
+                }
+            }
+
+            // clear stacker disconnected lockup
+            if (disconnected)
+            {
+                ClearFault(NoteAcceptorFaultTypes.StackerDisconnected);
+            }
         }
 
         private void HandleSelfTestComplete()
