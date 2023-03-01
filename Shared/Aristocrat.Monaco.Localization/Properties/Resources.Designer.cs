@@ -8321,18 +8321,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledByHost0 {
-			get {
-				return ResourceManager.GetString("DisabledByHost0", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -23831,18 +23819,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string PowerUpDisabledByHost0 {
-			get {
-				return ResourceManager.GetString("PowerUpDisabledByHost0", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -23851,6 +23827,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PowerUpDisabledByHost1 {
 			get {
 				return ResourceManager.GetString("PowerUpDisabledByHost1", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 2).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas
+        /// </remarks>
+		public static string PowerUpDisabledByHost2 {
+			get {
+				return ResourceManager.GetString("PowerUpDisabledByHost2", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -42730,18 +42718,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledByHost0 {
-			get {
-				return "DisabledByHost0";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -58240,18 +58216,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to PowerUp Disabled (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string PowerUpDisabledByHost0 {
-			get {
-				return "PowerUpDisabledByHost0";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to PowerUp Disabled (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -58260,6 +58224,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PowerUpDisabledByHost1 {
 			get {
 				return "PowerUpDisabledByHost1";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to PowerUp Disabled (SAS Host 2).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas
+        /// </remarks>
+		public static string PowerUpDisabledByHost2 {
+			get {
+				return "PowerUpDisabledByHost2";
 			}
 		}
 
@@ -73596,13 +73572,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		DisabledByHost,
 		/// <summary>
-		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		DisabledByHost0,
-		/// <summary>
 		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -82431,19 +82400,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PowerResetText,
 		/// <summary>
-		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		PowerUpDisabledByHost0,
-		/// <summary>
 		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 1).
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas
         /// </remarks>
 		PowerUpDisabledByHost1,
+		/// <summary>
+		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 2).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas
+        /// </remarks>
+		PowerUpDisabledByHost2,
 		/// <summary>
 		///   Looks up a localized string similar to Power Ups.
 		/// </summary>
