@@ -268,6 +268,7 @@
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
+        private int _handCount;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -1721,6 +1722,23 @@
         public bool IsSingleGameMode => (_lobbyStateManager?.AllowGameInCharge ?? false) && UniqueThemeIds <= 1;
 
         private int UniqueThemeIds => (GameList?.Where(g => g.Enabled).Select(o => o.ThemeId).Distinct().Count() ?? 0);
+
+        /// <summary>
+        /// Display Hand count for Georgia COAM jurisdiction
+        /// </summary>
+        public int HandCount
+        {
+            get => _handCount;
+            set
+            {
+                if (_handCount.Equals(value))
+                {
+                    return;
+                }
+                _handCount = value;
+                RaisePropertyChanged(nameof(HandCount));
+            }
+        }
 
         /// <summary>
         ///     Dispose
