@@ -16,7 +16,7 @@
         ///     Initializes a new instance of the <see cref="RtpValidationReport" /> class.
         /// </summary>
         /// <param name="validations">The validations.</param>
-        public RtpValidationReport(IList<(IGameProfile game, RtpValidation validation)> validations)
+        public RtpValidationReport((IGameProfile game, RtpValidation validation)[] validations)
         {
             if (!validations.Any())
             {
@@ -25,7 +25,7 @@
                     nameof(validations));
             }
 
-            _validations = new Collection<(IGameProfile, RtpValidation)>(validations.ToArray());
+            _validations = new Collection<(IGameProfile, RtpValidation)>(validations);
         }
 
         /// <summary>

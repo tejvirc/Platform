@@ -108,7 +108,7 @@
                 .Aggregate((r1, r2) => r1.TotalWith(r2));
         }
 
-        public RtpValidationReport GetValidationReport(IEnumerable<IGameProfile> games)
+        public RtpValidationReport ValidateGames(IEnumerable<IGameProfile> games)
         {
             // TODO: Handle games without ExtendedRTP Info
             var validationDataForReport = new List<(IGameProfile game, RtpValidation validation)>();
@@ -136,7 +136,34 @@
                 validationDataForReport.Add((game, validation));
             } // End foreach game
 
-            var validationReport = new RtpValidationReport(validationDataForReport);
+            var validationReport = new RtpValidationReport(validationDataForReport.ToArray());
+
+            return validationReport;
+        }
+
+        public RtpValidationReport ValidateGame(IGameProfile game)
+        {
+            // TODO: Handle games without ExtendedRTP Info
+
+            var resultEntries = new List<(string wagerCategoryId, RtpValidationResult validationResult)>();
+
+            foreach (var wagerCategory in game.WagerCategories)
+            {
+                var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
+
+                RunRtpValidation(breakdown, game.GameType);
+
+                resultEntries.Add((wagerCategory.Id, breakdown.ValidationResult));
+            }
+
+            var validation = new RtpValidation
+            {
+                Game = game,
+                IsValid = resultEntries.All(r => r.validationResult.IsValid),
+                ValidationResults = resultEntries
+            };
+
+            var validationReport = new RtpValidationReport(new [] {(game, validation)});
 
             return validationReport;
         }

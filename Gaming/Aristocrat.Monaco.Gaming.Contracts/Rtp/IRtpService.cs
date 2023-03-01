@@ -76,11 +76,18 @@
         RtpBreakdown GetRtpBreakdown(IGameProfile game, string wagerCategoryId);
 
         /// <summary>
-        ///     Validates that all RTP values, contained in a set of games, are in conformity to specific jurisdictional and
+        ///     Validates that all RTP values, contained in a set of games, conform to jurisdictional and
         ///     business rules.
         /// </summary>
         /// <param name="games">The games to run RTP validation on.</param>
-        RtpValidationReport GetValidationReport(IEnumerable<IGameProfile> games);
+        RtpValidationReport ValidateGames(IEnumerable<IGameProfile> games);
+
+        /// <summary>
+        ///     Validates that all RTP values, contained in a game, conforms to jurisdictional and
+        ///     business rules.
+        /// </summary>
+        /// <param name="game">The game to run RTP validation on.</param>
+        RtpValidationReport ValidateGame(IGameProfile game);
 
         /// <summary>
         ///     Gets the jurisdiction RTP rules for a specific GameType.
