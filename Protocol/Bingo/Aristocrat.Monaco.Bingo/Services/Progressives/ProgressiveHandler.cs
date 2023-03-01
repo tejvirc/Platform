@@ -84,7 +84,7 @@
             var progressiveLevels = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels();
             foreach (var progressiveLevel in progressiveLevels)
             {
-                var serverProgressiveLevelId = _progressiveLevelInfoProvider.GetServerProgressiveLevelId(progressiveLevel.LevelId + 1);
+                var serverProgressiveLevelId = _progressiveLevelInfoProvider.GetServerProgressiveLevelId(progressiveLevel.LevelId);
                 if (serverProgressiveLevelId >= 0)
                 {
                     if (serverProgressiveLevelId == update.ProgressiveLevel)
@@ -110,7 +110,7 @@
                 }
                 else
                 {
-                    Logger.Warn($"Invalid ProgressiveLevelId {progressiveLevel.LevelId + 1} on progressive update");
+                    Logger.Warn($"Invalid ProgressiveLevelId {progressiveLevel.LevelId} on progressive update");
                 }
             }
 
