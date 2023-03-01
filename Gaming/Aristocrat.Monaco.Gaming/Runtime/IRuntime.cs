@@ -23,6 +23,8 @@
 
         void UpdateVolume(float level);
 
+        void UpdateHandCount(int handCount);
+
         void UpdateBalance(long credits);
 
         void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state);

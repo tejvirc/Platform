@@ -184,4 +184,7 @@
   <Extension path="/Accounting/BootExtender" filterid="GeorgiaCOAMAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>
+  <Extension path="/Accounting/HandCountService" filterid="GeorgiaCOAMAAccountingHandCountService">
+    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountService" />
+  </Extension>
 </Addin>

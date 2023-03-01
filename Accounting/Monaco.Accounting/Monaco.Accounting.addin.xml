@@ -54,6 +54,7 @@
 
   <Extension path="/Application/Metering/Providers">
     <MeterProvider type="Aristocrat.Monaco.Accounting.Handpay.HandpayMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.CurrencyInMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherInMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherOutMetersProvider" />
