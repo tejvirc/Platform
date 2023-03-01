@@ -85,6 +85,9 @@
       <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
         <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMAccountingRunnable" />
       </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/HandCountService">
+        <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMAccountingHandCountService" />
+      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
         <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMErrorMessageConfig" />
       </ExtensionPointConfiguration>
@@ -184,7 +187,7 @@
   <Extension path="/Accounting/BootExtender" filterid="GeorgiaCOAMAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>
-  <Extension path="/Accounting/HandCountService" filterid="GeorgiaCOAMAAccountingHandCountService">
-    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountService" />
+  <Extension path="/Accounting/HandCountService" filterid="GeorgiaCOAMAccountingHandCountService">
+    <HandCountService type="Aristocrat.Monaco.Accounting.HandCount.HandCountService" />
   </Extension>
 </Addin>
