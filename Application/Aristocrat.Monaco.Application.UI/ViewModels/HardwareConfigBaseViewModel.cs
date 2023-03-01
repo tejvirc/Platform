@@ -138,8 +138,8 @@
                     return CanValidate;
                 });
 
-            StartDetectionCommand = new ActionCommand<object>(StartDetection);
-            StopDetectionCommand = new ActionCommand<object>(StopDetection);
+            StartDetectionCommand = new ActionCommand<object>(_ => StartDetection());
+            StopDetectionCommand = new ActionCommand<object>(_ => StopDetection());
 
             InitialHardMeter = _hardMetersEnabled;
 
@@ -679,6 +679,11 @@
             }
 
             UpdateTowerLightTypeSelection(null, true);
+
+            if ((bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false))
+            {
+                StartDetection();
+            }
         }
 
         private void UpdateTowerLightTypeSelection(TowerLightTierTypes? selection, bool isInitializing)
@@ -1466,7 +1471,7 @@
             StartTimer(DiscoveryTimeoutSeconds * MilliSecondsPerSecond);
         }
 
-        private void StartDetection(object _)
+        private void StartDetection()
         {
             IsDetecting = true;
 
@@ -1479,7 +1484,7 @@
             _deviceDetection.BeginDetection(EnabledDevices.Select(d => d.DeviceType));
         }
 
-        private void StopDetection(object _)
+        private void StopDetection()
         {
             _deviceDetection.CancelDetection();
         }
