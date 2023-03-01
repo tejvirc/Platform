@@ -85,6 +85,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -108,6 +109,11 @@
                     </Grid>
                 </Button>
                 <TextBlock Grid.Column="2"
+                           Text="{Binding TestNameText, UpdateSourceTrigger=PropertyChanged}"
+                           Foreground="SkyBlue"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3"
                            Text="{Binding ReportText, UpdateSourceTrigger=PropertyChanged}"
                            Margin="20 0"
                            HorizontalAlignment="Right"
@@ -130,22 +136,22 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <Button Grid.Column="3"
+                <Button Grid.Column="4"
                         Name="ClearConfigButton" Command="{Binding ClearConfigButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearConfig}}"
                         Visibility="{Binding IsClearConfigVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="3"
+                <Button Grid.Column="4"
                         Name="AutoTestButton" Command="{Binding AutoTestButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.AutoTest}}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="4"
+                <Button Grid.Column="5"
                         Name="BackButton" Command="{Binding BackButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="5"
+                <Button Grid.Column="6"
                         Name="NextButton" Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"

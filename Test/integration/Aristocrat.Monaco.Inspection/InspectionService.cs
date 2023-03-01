@@ -10,6 +10,9 @@
     using System.Windows.Automation.Provider;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
+    using System.Windows.Media;
+    using System.Windows.Media.Animation;
+    using System.Windows.Media.Effects;
     using System.Xml.Serialization;
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.HardwareDiagnostics;
@@ -32,6 +35,7 @@
         private readonly IEventBus _events;
         private readonly IPropertiesManager _properties;
         private readonly Dictionary<HardwareDiagnosticDeviceCategory, InspectionResultData> _results = new ();
+        private readonly List<UIElement> _currentDecoratedElements = new ();
 
         private InspectionAutomationConfiguration _automationConfig;
         private InspectionAutomationConfigurationPageAutomation _currentAutomationPage;
@@ -42,6 +46,7 @@
         private IOperatorMenuPageLoader _currentPageLoader;
         private HardwareDiagnosticDeviceCategory _currentCategory = HardwareDiagnosticDeviceCategory.Unknown;
         private string _currentTestCondition;
+        private bool _isDecoratedElementsListComplete;
         private bool _isDisposed;
 
         public string Name => "InspectionSummaryService";
@@ -91,10 +96,12 @@
                 });
             }
 
+            _wizard.TestNameText = string.Empty;
             _currentTestCondition = null;
             Logger.Debug($"SetDeviceCategory {CurrentData.Category}.");
             RaiseChangeEvent();
 
+            KillControlDecoration();
             TryAutomationPage(false);
 
             return _currentCategory;
@@ -130,6 +137,8 @@
                 CurrentData.Status = InspectionPageStatus.Good;
             }
 
+            _isDecoratedElementsListComplete = true;
+            _wizard.TestNameText = testName;
             _currentTestCondition = testName;
             Logger.Debug($"SetTestName {CurrentData.Category}/{_currentTestCondition}.");
             RaiseChangeEvent();
@@ -290,6 +299,7 @@
                                 var peer = new ButtonAutomationPeer(button);
                                 var invokeProvider = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
                                 invokeProvider?.Invoke();
+                                DecorateControl(button);
                                 continue;
                             }
 
@@ -306,6 +316,7 @@
                                 var peer = new ToggleButtonAutomationPeer(toggle);
                                 var toggleProvider = peer.GetPattern(PatternInterface.Toggle) as IToggleProvider;
                                 toggleProvider?.Toggle();
+                                DecorateControl(toggle);
                                 continue;
                             }
 
@@ -359,6 +370,42 @@
                 });
         }
 
+        private void DecorateControl(UIElement element)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    KillControlDecoration();
+
+                    _currentDecoratedElements.Add(element);
+                    element.Effect = new DropShadowEffect
+                    {
+                        BlurRadius = 40,
+                        Color = Colors.SkyBlue,
+                        Opacity = 1.0,
+                        ShadowDepth = 0
+                    };
+
+                    var animation = new DoubleAnimationUsingKeyFrames{ RepeatBehavior = RepeatBehavior.Forever };
+                    animation.KeyFrames.Add(new LinearDoubleKeyFrame(1.0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(400))));
+                    animation.KeyFrames.Add(new LinearDoubleKeyFrame(0.0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(800))));
+
+                    element.Effect.BeginAnimation(DropShadowEffect.OpacityProperty, animation);
+                });
+        }
+
+        private void KillControlDecoration()
+        {
+            if (!_isDecoratedElementsListComplete)
+            {
+                return;
+            }
+
+            _currentDecoratedElements.ForEach(e => e.Effect = null);
+            _currentDecoratedElements.Clear();
+            _isDecoratedElementsListComplete = false;
+        }
+
         private bool SelectorPeerSelect(
             SelectorAutomationPeer peer,
             InspectionAutomationConfigurationPageAutomationAction action)
@@ -374,6 +421,8 @@
 
                     var selector = item.GetPattern(PatternInterface.SelectionItem) as ISelectionItemProvider;
                     selector?.Select();
+
+                    DecorateControl(peer.Owner);
 
                     return true;
                 }

@@ -41,6 +41,7 @@
         private bool _isBackButtonVisible;
         private bool _isClearConfigVisible;
         private bool _isReportFailureVisible;
+        private string _testNameText;
         private string _pageTitle;
         private string _nextButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NextButtonText);
         private bool _nextButtonFocused;
@@ -174,6 +175,12 @@
                 }
 
             }
+        }
+
+        public string TestNameText
+        {
+            get => _testNameText;
+            set => SetProperty(ref _testNameText, value, nameof(TestNameText));
         }
 
         public bool IsBackButtonVisible

@@ -309,8 +309,9 @@
 
         private void SetTowerLightFlashState(object parameter)
         {
-            _towerLight?.SetFlashState(SelectedTowerLight?.Tier ?? LightTier.Tier1, SelectedFlashState, Timeout.InfiniteTimeSpan);
-            Inspection?.SetTestName($"{SelectedTowerLight} {SelectedFlashState}");
+            var tier = SelectedTowerLight?.Tier ?? LightTier.Tier1;
+            _towerLight?.SetFlashState(tier, SelectedFlashState, Timeout.InfiniteTimeSpan);
+            Inspection?.SetTestName($"Tower light {tier} {SelectedFlashState}");
         }
 
         private void HandleTowerLightEvent(LightTier lightTier, bool lightOn, FlashState flashState)

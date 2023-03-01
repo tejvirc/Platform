@@ -2,10 +2,10 @@
 <InspectionAutomationConfiguration>
   <PageAutomation category="Printer">
     <Action waitMs="500" controlName="SelfTestButton" />
-    <Action waitMs="500" controlName="PrintTestTicketButton" />
+    <Action waitMs="1000" controlName="PrintTestTicketButton" />
   </PageAutomation>
   <PageAutomation category="NoteAcceptor">
-    <Action waitMs="1000" controlName="SelfTestButton" />
+    <Action waitMs="2500" controlName="SelfTestButton" />
   </PageAutomation>
   <PageAutomation category="IdReader">
     <Action waitMs="1000" controlName="SelfTestButton" />
@@ -19,31 +19,31 @@
     <Action waitMs="1000" controlName="EnterIdentifyScreenBtn" />
   </PageAutomation>
   <PageAutomation category="EdgeLighting">
-    <Action waitMs="10"  controlName="ColorsComboBox" parameter="Purple" />
-    <Action waitMs="500" controlName="ColorsComboBox" parameter="Blue" />
-    <Action waitMs="500" controlName="ColorsComboBox" parameter="Green" />
-    <Action waitMs="500" controlName="ColorsComboBox" parameter="Yellow" />
-    <Action waitMs="500" controlName="ColorsComboBox" parameter="Orange" />
-    <Action waitMs="500" controlName="ColorsComboBox" parameter="Red" />
-    <Action waitMs="500" controlName="ColorsComboBox" parameter="White" />
+    <Action waitMs="500"  controlName="ColorsComboBox" parameter="Purple" />
+    <Action waitMs="1000" controlName="ColorsComboBox" parameter="Blue" />
+    <Action waitMs="1000" controlName="ColorsComboBox" parameter="Green" />
+    <Action waitMs="1000" controlName="ColorsComboBox" parameter="Yellow" />
+    <Action waitMs="1000" controlName="ColorsComboBox" parameter="Orange" />
+    <Action waitMs="1000" controlName="ColorsComboBox" parameter="Red" />
+    <Action waitMs="1000" controlName="ColorsComboBox" parameter="White" />
     <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x00)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="0" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x01)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="1" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x02)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="2" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x03)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="3" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x20)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="32" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x29)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="41" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x31)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="49" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x32)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="50" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x33)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="51" />
-    <Action waitMs="500" controlName="StripsComboBox" parameter="(0x34)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="52" />
-    <Action waitMs="500" controlName="LightShowsComboBox" parameter="Rainbow" parameterProperty="Name" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x01)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="1" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x02)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="2" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x03)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="3" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x20)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="32" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x29)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="41" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x31)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="49" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x32)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="50" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x33)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="51" />
+    <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x34)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="52" />
+    <Action waitMs="1000" controlName="LightShowsComboBox" parameter="Rainbow" parameterProperty="Name" />
     <Action waitMs="4000" controlName="LightShowsComboBox" parameter="Chaser" parameterProperty="Name" />
   </PageAutomation>
   <PageAutomation category="Sound">
     <Action waitMs="500" controlName="SoundLevelComboBox" parameter="Medium-High" parameterProperty="Description" />
     <Action waitMs="10" controlName="PlayButton" />
     <Action waitMs="1250" controlName="StopButton" />
-    <Action waitMs="250" conditionViewModel="TestViewModel" controlName="FrontLeftSpeakerButton" conditionProperty="FrontLeftSpeaker" />
+    <Action waitMs="1000" conditionViewModel="TestViewModel" controlName="FrontLeftSpeakerButton" conditionProperty="FrontLeftSpeaker" />
     <Action waitMs="1500" conditionViewModel="TestViewModel" controlName="FrontRightSpeakerButton" conditionProperty="FrontRightSpeaker" />
     <Action waitMs="1500" conditionViewModel="TestViewModel" controlName="SideLeftSpeakerButton" conditionProperty="SideLeftSpeaker" />
     <Action waitMs="1500" conditionViewModel="TestViewModel" controlName="SideRightSpeakerButton" conditionProperty="SideRightSpeaker" />
@@ -56,36 +56,36 @@
     <Action waitMs="500"  controlName="ButtonLampsListBox" parameter="Bash/Play Button"      conditionProperty="ButtonLampsAvailable" />
     <Action waitMs="1000" controlName="ButtonLampsListBox" parameter="Test All Button Lamps" conditionProperty="ButtonLampsAvailable" />
     <Action waitMs="1000" controlName="ButtonLampsListBox" parameter="None"                  conditionProperty="ButtonLampsAvailable" />
-    <Action waitMs="1000" controlName="TowerLightTiersComboBox"      parameter="Tier 1" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 2" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 3" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 4" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Strobe" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="1500" controlName="TowerLightTiersComboBox"      parameter="Tier 1" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="0" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 2" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="1" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 3" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="2" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Tier 4" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="3" />
-    <Action waitMs="200" controlName="TowerLightTiersComboBox"       parameter="Strobe" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="4" />
-    <Action waitMs="10"  controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Tier 1" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Tier 2" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Tier 3" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Tier 4" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Strobe" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="On"                              conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="1500" controlName="TowerLightTiersComboBox"       parameter="Tier 1" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="0" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Tier 2" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="1" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Tier 3" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="2" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Tier 4" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="3" />
+    <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Strobe" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="4" />
   </PageAutomation>
   <PageAutomation category="Bell">
     <Action waitMs="1000" controlName="BellToggleSwitch" />
@@ -98,78 +98,78 @@
     <Action waitMs="4000" controlName="NudgeButton" />
     <Action waitMs="2000" controlName="SpinButton" />
     <Action waitMs="4000" controlName="TestLightsButton" />
-    <Action waitMs="500" controlName="ReelLightNamesComboBox" parameter="All" />
-    <Action waitMs="10"  controlName="ReelLightColorsComboBox" parameter="Purple" />
-    <Action waitMs="10" controlName="LightToggleButton" />
-    <Action waitMs="500" controlName="LightToggleButton" />
-    <Action waitMs="10" controlName="ReelLightColorsComboBox" parameter="Blue" />
-    <Action waitMs="10" controlName="LightToggleButton" />
-    <Action waitMs="500" controlName="LightToggleButton" />
-    <Action waitMs="10" controlName="ReelLightColorsComboBox" parameter="Green" />
-    <Action waitMs="10" controlName="LightToggleButton" />
-    <Action waitMs="500" controlName="LightToggleButton" />
-    <Action waitMs="10" controlName="ReelLightColorsComboBox" parameter="Yellow" />
-    <Action waitMs="10" controlName="LightToggleButton" />
-    <Action waitMs="500" controlName="LightToggleButton" />
-    <Action waitMs="10" controlName="ReelLightColorsComboBox" parameter="Orange" />
-    <Action waitMs="10" controlName="LightToggleButton" />
-    <Action waitMs="500" controlName="LightToggleButton" />
-    <Action waitMs="10" controlName="ReelLightColorsComboBox" parameter="Red" />
-    <Action waitMs="10" controlName="LightToggleButton" />
-    <Action waitMs="500" controlName="LightToggleButton" />
-    <Action waitMs="10" controlName="ReelLightColorsComboBox" parameter="White" />
-    <Action waitMs="10" controlName="LightToggleButton" />
-    <Action waitMs="500" controlName="LightToggleButton" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 1" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="1" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="1" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="1" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 2" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="2" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="2" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="2" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 3" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="3" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="3" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="3" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 4" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="4" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="4" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="4" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 5" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="5" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="5" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="5" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 6" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="6" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="6" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="6" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 7" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="7" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="7" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="7" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 8" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="8" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="8" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="8" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter=" 9" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="9" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="9" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="9" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter="10" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="10" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="10" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="10" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter="11" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="11" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="11" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="11" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter="12" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="12" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="12" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="12" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter="13" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="13" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="13" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="13" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter="14" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="14" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="14" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="14" />
-    <Action waitMs="10"  controlName="ReelLightNamesComboBox" parameter="15" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
-    <Action waitMs="10"  controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
-    <Action waitMs="500" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
+    <Action waitMs="1000" controlName="ReelLightNamesComboBox" parameter="All" />
+    <Action waitMs="10"   controlName="ReelLightColorsComboBox" parameter="Purple" />
+    <Action waitMs="10"   controlName="LightToggleButton" />
+    <Action waitMs="1000" controlName="LightToggleButton" />
+    <Action waitMs="10"   controlName="ReelLightColorsComboBox" parameter="Blue" />
+    <Action waitMs="10"   controlName="LightToggleButton" />
+    <Action waitMs="1000" controlName="LightToggleButton" />
+    <Action waitMs="10"   controlName="ReelLightColorsComboBox" parameter="Green" />
+    <Action waitMs="10"   controlName="LightToggleButton" />
+    <Action waitMs="1000" controlName="LightToggleButton" />
+    <Action waitMs="10"   controlName="ReelLightColorsComboBox" parameter="Yellow" />
+    <Action waitMs="10"   controlName="LightToggleButton" />
+    <Action waitMs="1000" controlName="LightToggleButton" />
+    <Action waitMs="10"   controlName="ReelLightColorsComboBox" parameter="Orange" />
+    <Action waitMs="10"   controlName="LightToggleButton" />
+    <Action waitMs="1000" controlName="LightToggleButton" />
+    <Action waitMs="10"   controlName="ReelLightColorsComboBox" parameter="Red" />
+    <Action waitMs="10"   controlName="LightToggleButton" />
+    <Action waitMs="1000" controlName="LightToggleButton" />
+    <Action waitMs="10"   controlName="ReelLightColorsComboBox" parameter="White" />
+    <Action waitMs="10"   controlName="LightToggleButton" />
+    <Action waitMs="1000" controlName="LightToggleButton" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 1" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="1" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="1" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="1" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 2" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="2" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="2" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="2" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 3" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="3" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="3" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="3" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 4" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="4" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="4" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="4" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 5" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="5" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="5" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="5" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 6" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="6" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="6" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="6" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 7" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="7" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="7" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="7" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 8" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="8" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="8" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="8" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter=" 9" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="9" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="9" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="9" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter="10" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="10" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="10" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="10" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter="11" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="11" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="11" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="11" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter="12" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="12" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="12" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="12" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter="13" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="13" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="13" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="13" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter="14" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="14" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="14" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="14" />
+    <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter="15" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
+    <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
+    <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
   </PageAutomation>
   <PageAutomation category="BeagleBone">
-    <Action waitMs="500" controlName="LightShowsComboBox" parameter="Attract" />
-    <Action waitMs="10" controlName="SendShowButton" />
+    <Action waitMs="1000" controlName="LightShowsComboBox" parameter="Attract" />
+    <Action waitMs="10"   controlName="SendShowButton" />
     <Action waitMs="2000" controlName="LightShowsComboBox" parameter="Default" />
-    <Action waitMs="10" controlName="SendShowButton" />
+    <Action waitMs="10"   controlName="SendShowButton" />
   </PageAutomation>
 </InspectionAutomationConfiguration>
