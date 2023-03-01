@@ -9,6 +9,7 @@
     using Common.Storage;
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
+    using Kernel;
     using Services.Reporting;
     using TransactionType = Common.TransactionType;
 
@@ -19,6 +20,9 @@
         private readonly IBonusHandler _bonusHandler;
         private readonly IGameHistory _gameHistory;
         private readonly ITransactionHistory _transactionHistory;
+        private readonly IEventBus _eventBus;
+
+        private bool _disposed;
 
         /// <summary>
         ///     Creates an instance of <see cref="EgmPaidGameWinBonusAmountMeterMonitor"/>
@@ -36,7 +40,8 @@
             IReportTransactionQueueService transactionQueue,
             IBonusHandler bonusHandler,
             IGameHistory gameHistory,
-            ITransactionHistory transactionHistory)
+            ITransactionHistory transactionHistory,
+            IEventBus eventBus)
             : base(
                 BonusMeters.EgmPaidGameWinBonusAmount,
                 meterManager,
@@ -49,6 +54,9 @@
             _bonusHandler = bonusHandler ?? throw new ArgumentNullException(nameof(bonusHandler));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _eventBus.Subscribe<GameAddedEvent>(this, _ => OnMeterChanged());
+            _eventBus.Subscribe<GameRemovedEvent>(this, _ => OnMeterChanged());
         }
 
         /// <inheritdoc />
@@ -62,6 +70,22 @@
             }
 
             HandleGameWins(changedEventArgs, log, bingoGame);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus.UnsubscribeAll(this);
+            }
+
+            _disposed = true;
+            base.Dispose(disposing);
         }
 
         private void HandleGameWins(
