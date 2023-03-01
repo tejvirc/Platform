@@ -64,6 +64,7 @@
             <StackPanel Orientation="Horizontal">
                 <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"
                                              IsEnabled="{Binding IsToggleEnabled}"
+                                             IsOn="{Binding ToggleBell, Mode=TwoWay}"
                                              helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
                                              helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
                 <Button Content="{lex:Loc Ring}"

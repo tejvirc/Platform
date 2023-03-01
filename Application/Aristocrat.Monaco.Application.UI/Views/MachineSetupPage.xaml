@@ -71,6 +71,7 @@
         <Label Grid.Column="0" Grid.Row="6" Margin="0 20 0 0"
                Content="{lex:Loc RequireZeroCredit}"/>
         <controls:ToggleSwitch Grid.Column="0" Grid.Row="7" 
+                                     IsOn="{Binding RequireZeroCredit}"
                                      IsEnabled="{Binding RequireZeroCreditChangeAllowed}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"

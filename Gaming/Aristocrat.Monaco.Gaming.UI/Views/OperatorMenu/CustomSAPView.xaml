@@ -35,6 +35,7 @@
 
         <controls:ToggleSwitch Grid.Row="0" Grid.Column="0" Margin="0,-10,0,0"
                                      IsEnabled="True"
+                                     IsOn="{Binding GameTypeSelect}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
                                      helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Poker}"

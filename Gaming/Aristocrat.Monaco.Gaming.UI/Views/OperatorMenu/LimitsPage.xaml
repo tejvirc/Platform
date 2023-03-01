@@ -180,6 +180,7 @@
                         Visibility="{Binding AllowRemoteHandpayResetVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                 <Label Content="{lex:Loc AllowRemoteHandpayReset}"/>
                 <controls:ToggleSwitch IsEnabled="{Binding AllowRemoteHandpayResetIsEnabled}"
+                                             IsOn="{Binding AllowRemoteHandpayReset}"
                                              controls:ControlsHelper.ContentCharacterCasing="Upper"
                                              controls:ControlsHelper.CornerRadius="0"
                                              helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"

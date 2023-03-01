@@ -249,6 +249,7 @@
             <Label Content="{lex:Loc ReplayPause}" VerticalAlignment="Center"/>
             <controls:ToggleSwitch Margin="20 5 0 0"
                                          IsEnabled="{Binding ReplayPauseEnabled}"
+                                         IsOn="{Binding ReplayPauseActive}"
                                          controls:ControlsHelper.ContentCharacterCasing="Upper"
                                          controls:ControlsHelper.CornerRadius="0"
                                          common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"

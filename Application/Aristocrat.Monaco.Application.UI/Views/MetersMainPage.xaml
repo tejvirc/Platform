@@ -87,6 +87,7 @@
                                          Margin="0 0 0 10"
                                          Style="{StaticResource MetersToggleSwitchButton}"
                                          Command="{Binding PeriodMasterButtonClickedCommand}"
+                                         IsOn="{Binding IsPeriodMasterButtonChecked}"
                                          controls:ControlsHelper.ContentCharacterCasing="Upper"
                                          controls:ControlsHelper.CornerRadius="0"
                                          common:ToggleSwitchButtonHelper.OffContent="{lex:Loc PeriodText}"

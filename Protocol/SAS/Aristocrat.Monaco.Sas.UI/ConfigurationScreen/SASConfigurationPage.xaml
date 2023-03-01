@@ -75,6 +75,7 @@
         <controls:ToggleSwitch Grid.Row="1" 
                                      Grid.Column="0"
                                      IsEnabled="{Binding InputEnabled}"
+                                     IsOn="{Binding DualHostSetup}"
                                      controls:ControlsHelper.CornerRadius="0"
                                      helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
                                      helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>

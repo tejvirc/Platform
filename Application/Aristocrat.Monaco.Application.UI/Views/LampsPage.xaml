@@ -46,7 +46,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Grid.Column="0">
-                                    <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"/>
+                                    <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}" IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0">

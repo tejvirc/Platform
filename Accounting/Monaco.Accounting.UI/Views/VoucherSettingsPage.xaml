@@ -75,6 +75,7 @@
 
             <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc AllowVoucherIn}" Margin="0 0 0 4"/>
             <controls:ToggleSwitch Grid.Row="1" Grid.Column="0" 
+                                     IsOn="{Binding AllowVoucherIn}"
                                      IsEnabled="{Binding InputEnabledByRuleOverride}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
@@ -122,6 +123,7 @@
             <Label Grid.Row="4" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc AllowVoucherOut}" />
             <StackPanel Grid.Row="5" Grid.Column ="0" Orientation="Horizontal">
                 <controls:ToggleSwitch 
+                    IsOn="{Binding AllowVoucherOut}"
                     controls:ControlsHelper.ContentCharacterCasing="Upper"
                     controls:ControlsHelper.CornerRadius="0"
                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
@@ -190,6 +192,7 @@
                    Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             <StackPanel Grid.Row="9" Grid.Column ="0" Orientation="Horizontal">
                 <controls:ToggleSwitch 
+                                     IsOn="{Binding AllowNonCashVoucherOut}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
                                          helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
@@ -220,6 +223,7 @@
             <Label Grid.Row="10" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc PrintHandpayReceipt}" />
             <StackPanel Grid.Row="11" Grid.Column ="0" Orientation="Horizontal">
                 <controls:ToggleSwitch  
+                    IsOn="{Binding PrintHandpayReceipt}"
                     controls:ControlsHelper.ContentCharacterCasing="Upper"
                     controls:ControlsHelper.CornerRadius="0"
                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"

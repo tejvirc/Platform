@@ -41,6 +41,7 @@
             <Label Content="{lex:Loc EnableMachineReserve}"/>
             <mah:ToggleSwitch
                 IsEnabled="{Binding IsReserveMachineOptionEnabled, UpdateSourceTrigger=PropertyChanged}"
+                IsOn="{Binding AllowPlayerToReserveMachine, UpdateSourceTrigger=PropertyChanged}"
                 mah:ControlsHelper.ContentCharacterCasing="Upper"
                 mah:ControlsHelper.CornerRadius="0"
                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"

@@ -70,6 +70,7 @@
         </StackPanel>
         <controls:ToggleSwitch Grid.Row="1"
                                      IsEnabled="{Binding InputEnabledByRuleOverride}"
+                                     IsOn="{Binding RewardLevelsEnabled}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
                                      helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
