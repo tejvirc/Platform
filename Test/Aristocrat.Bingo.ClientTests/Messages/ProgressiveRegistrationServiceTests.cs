@@ -31,11 +31,11 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, false, false, false)]
-        [DataRow(false, true, false, false, false)]
-        [DataRow(false, false, true, false, false)]
-        [DataRow(false, false, false, true, false)]
-        [DataRow(false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, DisplayName = "Null IMessageHandlerFactory")]
+        [DataRow(false, true, false, false, false, DisplayName = "Null IClientEndpointProvider")]
+        [DataRow(false, false, true, false, false, DisplayName = "Null IProgressiveAuthorizationProvider")]
+        [DataRow(false, false, false, true, false, DisplayName = "Null IClient")]
+        [DataRow(false, false, false, false, true, DisplayName = "Null IProgressiveLevelInfoProvider")]
         [ExpectedException(typeof(ArgumentNullException))]
         [DataTestMethod]
         public void NullConstructorArgumentsTest(bool nullMessage, bool nullEnpoint, bool nullAuthorization, bool nullClients, bool nullLevelInfoProvider)

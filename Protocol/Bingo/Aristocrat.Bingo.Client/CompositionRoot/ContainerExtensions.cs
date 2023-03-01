@@ -53,6 +53,7 @@
             container.RegisterSingleton<IRegistrationService, RegistrationService>();
             container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
             container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
+            container.RegisterSingleton<IProgressiveAwardService, ProgressiveAwardService>();
             container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
             container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
 

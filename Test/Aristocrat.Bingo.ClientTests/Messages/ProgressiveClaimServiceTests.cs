@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Grpc.Core;
@@ -26,8 +25,8 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false )]
-        [DataRow(false, true)]
+        [DataRow(true, false, DisplayName = "Null IProgressiveLevelInfoProvider")]
+        [DataRow(false, true, DisplayName = "Null IClientEndpointProvider")]
         [ExpectedException(typeof(ArgumentNullException))]
         [DataTestMethod]
         public void NullConstructorArgumentsTest(bool nullLevelInfoProvider, bool nullEnpoint)
@@ -84,6 +83,21 @@
             Assert.AreEqual(result.ProgressiveLevelId, progressiveLevelId);
             Assert.AreEqual(result.ProgressiveWinAmount, winAmount);
             Assert.AreEqual(result.ProgressiveAwardId, awardId);
+        }
+
+        [ExpectedException(typeof(ArgumentException))]
+        [TestMethod]
+        public async Task ProgressiveClaimInvalidLevelIdTest()
+        {
+            int gameTitleId = 5;
+            var machineSerial = "123";
+            var progressiveLevelId = 1L;
+            var winAmount = 101L;
+
+            _progressiveLevelInfoProvider.Setup(x => x.GetServerProgressiveLevelId(It.IsAny<int>())).Returns(-1L);
+
+            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId);
+            var result = await _target.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, progressiveLevelId, winAmount), CancellationToken.None);
         }
 
         private ProgressiveClaimService CreateTarget(bool nullLevelInfoProvider = false, bool nullEnpoint = false)
