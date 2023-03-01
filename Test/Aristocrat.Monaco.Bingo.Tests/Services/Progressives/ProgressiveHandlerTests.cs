@@ -132,6 +132,43 @@
         }
 
         [TestMethod]
+        public async Task ProcessProgressiveUpdateInvalidLevelIdTest()
+        {
+            const long progressiveLevel = 10001;
+            const long amount = 1000;
+            using var source = new CancellationTokenSource();
+            var progressiveUpdateMessage = new ProgressiveUpdateMessage(progressiveLevel, amount);
+
+            // Viewable progressives use 0-based id values, not the one link id values
+            var viewableProgressives = new List<IViewableProgressiveLevel>()
+            {
+                CreateViewableProgressive(0, 500),
+                CreateViewableProgressive(1, 700),
+                CreateViewableProgressive(2, 900),
+            };
+
+            _protocolLinkedProgressiveAdapter.Setup(x => x.ViewConfiguredProgressiveLevels()).Returns(viewableProgressives);
+            _progressiveLevelInfoProvider.Setup(x => x.GetServerProgressiveLevelId(It.IsAny<int>())).Returns(-1L);
+
+            // Must first call ProcessProgressiveInfo to set internal variables
+            var metersToReport = new List<int> { 10, 100, 200 };
+            var progressiveLevels = new List<ProgressiveLevelInfo>
+            {
+                new ProgressiveLevelInfo(10001, 1),
+                new ProgressiveLevelInfo(10002, 2),
+                new ProgressiveLevelInfo(10003, 3),
+            };
+
+            var progressiveInfoMessage = new ProgressiveInfoMessage(ResponseCode.Ok, true, 123, "ABC123", progressiveLevels, metersToReport);
+            var result = await _target.ProcessProgressiveInfo(progressiveInfoMessage, source.Token);
+            Assert.IsTrue(result);
+
+            result = await _target.ProcessProgressiveUpdate(progressiveUpdateMessage, source.Token);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public async Task ProcessProgressiveUpdateUnknownProgressive()
         {
             const long progressiveLevel = 10005;

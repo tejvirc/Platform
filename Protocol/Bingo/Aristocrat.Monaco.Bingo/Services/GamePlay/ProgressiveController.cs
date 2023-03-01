@@ -29,6 +29,7 @@
         private readonly IProtocolProgressiveEventsRegistry _multiProtocolEventBusRegistry;
         private readonly IGameHistory _gameHistory;
         private readonly IProgressiveClaimService _progressiveClaimService;
+        private readonly IProgressiveAwardService _progressiveAwardService;
         private readonly IPropertiesManager _propertiesManager;
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
@@ -54,6 +55,7 @@
             IGameHistory gameHistory,
             IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry,
             IProgressiveClaimService progressiveClaimService,
+            IProgressiveAwardService progressiveAwardService,
             IPropertiesManager propertiesManager
             )
         {
@@ -63,6 +65,7 @@
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _multiProtocolEventBusRegistry = multiProtocolEventBusRegistry ?? throw new ArgumentNullException(nameof(multiProtocolEventBusRegistry));
             _progressiveClaimService = progressiveClaimService ?? throw new ArgumentNullException(nameof(progressiveClaimService));
+            _progressiveAwardService = progressiveAwardService ?? throw new ArgumentNullException(nameof(progressiveAwardService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
             SubscribeToEvents();
