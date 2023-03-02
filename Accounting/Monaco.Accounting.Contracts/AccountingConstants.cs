@@ -724,5 +724,8 @@
 
         /// <summary>   Minimum Increment Threshold in millicents </summary>
         public const long MinimumIncrementThreshold = 1_00_000L;
+
+        /// <summary>   Hand count service enabled </summary>
+        public const string HandCountServiceEnabled = "HandCountServiceEnabled";
     }
 }

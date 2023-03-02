@@ -47,12 +47,6 @@
     <ExtensionNode name="Service" />
   </ExtensionPoint>
 
-  <!--Must implement Vgt.Client12.Kernel.IService-->
-  <ExtensionPoint path="/Accounting/HandCountService">
-    <ExtensionNode name="HandCountService" />
-  </ExtensionPoint>
-
-
   <!--Must implement Vgt.Client12.Kernel.IRunnable-->
   <ExtensionPoint path="/Accounting/Runnables">
     <ExtensionNode name="Runnable" />

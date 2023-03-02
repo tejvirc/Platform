@@ -78,4 +78,5 @@ as follows:
   <Handpay>
     <RemoteHandpayReset Allowed="false"/>
   </Handpay>
+  <HandCount HandCountServiceEnabled="true" />
 </AccountingConfiguration>

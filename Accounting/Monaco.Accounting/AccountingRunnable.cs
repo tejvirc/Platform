@@ -7,6 +7,8 @@ namespace Aristocrat.Monaco.Accounting
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
     using Common;
+    using Contracts;
+    using HandCount;
     using Kernel;
     using log4net;
     using Mono.Addins;
@@ -23,7 +25,6 @@ namespace Aristocrat.Monaco.Accounting
         private const string TransactionHistoryExtensionPath = "/Accounting/TransactionHistory";
 
         private const string ServicesExtensionPath = "/Accounting/Services";
-        private const string HandCountServiceExtensionPath = "/Accounting/HandCountService";
         private const string RunnablesExtensionPath = "/Accounting/Runnables";
         private const string ExtenderExtensionPath = "/Accounting/BootExtender";
 
@@ -145,10 +146,12 @@ namespace Aristocrat.Monaco.Accounting
         }
         private void LoadHandCountService()
         {
-            var nodes = MonoAddinsHelper.GetSelectedNodes<TypeExtensionNode>(HandCountServiceExtensionPath);
-            foreach (var node in nodes)
+            var handCountServiceEnabled=(bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+                .GetProperty(AccountingConstants.HandCountServiceEnabled, false);
+
+            if (handCountServiceEnabled)
             {
-                var service = (IService)node.CreateInstance();
+                var service = new HandCountService();
                 service.Initialize();
                 ServiceManager.GetInstance().AddService(service);
                 _services.Add(service);

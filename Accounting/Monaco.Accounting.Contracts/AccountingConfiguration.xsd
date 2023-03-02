@@ -164,6 +164,7 @@
                 </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="HandCount">
                 <xs:complexType>
+                  <xs:attribute name="HandCountServiceEnabled" type="xs:boolean" use="optional" default="false" />
                   <xs:attribute name="CashoutAmountPerHandCount" type="xs:long" use="optional" default="500000" />
                   <xs:attribute name="HandCountResetCreditLimit" type="xs:long" use="optional" default="25000" />
                 </xs:complexType>

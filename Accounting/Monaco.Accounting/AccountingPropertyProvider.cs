@@ -253,6 +253,10 @@
                     Tuple.Create(InitFromStorage(AccountingConstants.HandpayLimitEnabled), true)
                 },
                 {
+                    AccountingConstants.HandCountServiceEnabled,
+                    Tuple.Create((object)configuration.HandCount?.HandCountServiceEnabled??false, false)
+                },
+                {
                     AccountingConstants.LargeWinLimit,
                     Tuple.Create(InitFromStorage(AccountingConstants.LargeWinLimit), true)
                 },
