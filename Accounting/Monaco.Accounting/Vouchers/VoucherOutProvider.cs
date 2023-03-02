@@ -91,16 +91,10 @@
                 Logger.Info($"No validator - {transactionId}");
                 return TransferResult.Failed;
             }
-            
+
             if (!_properties.GetValue(AccountingConstants.VoucherOut, true))
             {
                 Logger.Info($"Voucher Out Not Allowed - {transactionId}");
-                return TransferResult.Failed;
-            }
-
-            if (!CheckVoucherOutLimit(cashableAmount))
-            {
-                Logger.Info($"Cashable amount exceeds the voucher-out limit - {transactionId}");
                 return TransferResult.Failed;
             }
 
@@ -155,6 +149,7 @@
             // There is nothing to recover for vouchers
             return await Task.FromResult(false);
         }
+
         private async Task<bool> Transfer(
             IVoucherValidator validator,
             Guid transactionId,
@@ -175,35 +170,41 @@
                 return false;
             }
 
+            if (!CheckVoucherOutLimit(amount.Amount))
+            {
+                Logger.Info($"Amount exceeds the voucher-out limit - {transactionId}");
+                return false;
+            }
+
             if (reason.AffectsBalance() && !amount.CheckBankBalance(_bank))
             {
                 Logger.Error($"Balance less than amount requested - {transactionId}");
-                return await Task.FromResult(false);
+                return false;
             }
 
             if (token.IsCancellationRequested)
             {
-                return await Task.FromResult(false);
+                return false;
             }
 
             var printer = await GetPrinter(token);
             if (printer == null)
             {
                 Logger.Info($"Failed to acquire printer - {transactionId}");
-                return await Task.FromResult(false);
+                return false;
             }
 
             if (!validator.CanValidateVoucherOut(amount.Amount, accountType))
             {
                 Logger.Info($"Cannot validate the voucher out - {transactionId}");
-                return await Task.FromResult(false);
+                return false;
             }
 
             var transaction = await validator.IssueVoucher(amount, accountType, transactionId, reason);
             if (transaction == null)
             {
                 Logger.Error($"Failed to issue voucher transaction - {transactionId}");
-                return await Task.FromResult(false);
+                return false;
             }
 
             _bus.Publish(new VoucherOutStartedEvent(amount.Amount));
@@ -335,9 +336,7 @@
                     {
                         _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoCount).Increment(1);
                     }
-                    
                 }
-                
             }
             else
             {
