@@ -171,7 +171,7 @@
         /// <summary>
         ///     The default time to cycle patterns
         /// </summary>
-        public const int DefaultPatternCycleTime = 3;
+        public const int DefaultPatternCycleTimeMilliseconds = 3000;
 
         /// <summary>
         ///     Property name for the activity time requested for bingo

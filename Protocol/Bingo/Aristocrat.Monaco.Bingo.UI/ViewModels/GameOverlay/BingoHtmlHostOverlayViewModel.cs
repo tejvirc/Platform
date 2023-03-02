@@ -860,7 +860,7 @@
                         _lastBingoCard is null
                             ? Enumerable.Empty<BingoCardNumber>()
                             : ConvertBingoCardNumberArrayToList(_lastBingoCard.Numbers).ToList(),
-                    PatternCycleTime = _currentBingoSettings.PatternCyclePeriod
+                    PatternCycleTimeMs = _currentBingoSettings.PatternCyclePeriodMilliseconds
                 };
 
                 Logger.Debug("Starting overlay server");
