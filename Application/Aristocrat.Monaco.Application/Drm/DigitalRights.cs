@@ -132,11 +132,6 @@
 
             _protectionModule = new SmartCardModule(smartCardKeyFile);
 
-            Task.Run(() =>
-            {
-                _serviceWaiter.AddServiceToWaitFor<ITiltLogger>();
-                _serviceWaiter.WaitForServices();
-
                 try
                 {
                     _protectionModule.Initialize().Wait();
@@ -163,7 +158,6 @@
 
                     Logger.Error("Failed to initialize the module", e);
                 }
-            });
         }
 
         public string Name => typeof(IDigitalRights).FullName;
@@ -200,10 +194,16 @@
                         }
                     }
                 }
+
+                if (_serviceWaiter is not null)
+                {
+                    _serviceWaiter.Dispose();
+                }
             }
 
             _connectedTimer = null;
             _protectionModule = null;
+            _serviceWaiter = null;
 
             _disposed = true;
         }
@@ -343,7 +343,13 @@
         private void HandleDigitalRightsError<T>(T @event, Func<string> message, Guid disableKey)
             where T : IEvent
         {
-            _bus.Publish(@event);
+            Task.Run(() =>
+            {
+                _serviceWaiter.AddServiceToWaitFor<ITiltLogger>();
+                _serviceWaiter.WaitForServices();
+
+                _bus.Publish(@event);
+            });
 
             _disableManager.Disable(disableKey, SystemDisablePriority.Immediate, message);
         }
