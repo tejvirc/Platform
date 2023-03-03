@@ -140,5 +140,9 @@
         public GameSubCategory SubCategory { get; set; }
 
         public IEnumerable<Feature> Features { get; set; }
+
+        public int MaximumWagerInsideCredits { get; set; }
+
+        public int MaximumWagerOutsideCredits { get; set; }
     }
 }

@@ -128,8 +128,8 @@
             {
                 ThemeId = gameInfo.themeId,
                 PaytableId = gameInfo.paytableId,
-                MaxPaybackPercent = gameInfo.maxPaybackPct,
-                MinPaybackPercent = gameInfo.minPaybackPct,
+                MaxPaybackPercent = (long) gameInfo.maxPaybackPct,
+                MinPaybackPercent = (long) gameInfo.minPaybackPct,
                 DisplayMeterName = gameInfo.displayMeterName,
                 AssociatedSapDisplayMeterName = gameInfo.associatedSapDisplayMeterName,
                 InitialValue = gameInfo.initialValue,
@@ -162,7 +162,9 @@
                     StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
                 }).ToList(),
                 NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
-                PlatformTarget = gameInfo.platformTarget
+                PlatformTarget = gameInfo.platformTarget,
+                MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
+                MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits
             };
         }
 
@@ -219,11 +221,11 @@
         {
             return new WagerCategory
             {
-                Id = wagerCategory.wagerCategory,
+                Id = wagerCategory.wagerCategory.ToString(),
                 MaxWagerCredits = wagerCategory.maxWagerCredits,
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
-                TheoPaybackPercent = wagerCategory.theoPaybackPct,
+                TheoPaybackPercent = (long) wagerCategory.theoPaybackPct,
             };
         }
 
