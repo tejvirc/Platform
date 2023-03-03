@@ -5,7 +5,6 @@
     using System.Linq;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
-    using Accounting.Contracts.Transactions;
     using Accounting.Contracts.Wat;
     using Bonus;
     using Contracts;
@@ -48,7 +47,7 @@
             {
                 using var transaction = _accessor.StartTransaction();
                 transaction[AmountInKey] = _amountIn = value;
-                transaction.Commit();
+                 transaction.Commit();
             }
         }
 
@@ -97,6 +96,17 @@
                 case HandpayTransaction:
                     break;
                 case WatTransaction trans:
+                    transactionInfo.CashableAmount = trans.TransferredCashableAmount;
+                    transactionInfo.CashablePromoAmount = trans.TransferredPromoAmount;
+                    transactionInfo.NonCashablePromoAmount = trans.TransferredNonCashAmount;
+                    currencyOut = true;
+                    break;
+                case KeyedOnCreditsTransaction trans:
+                    transactionInfo.CashableAmount = trans.TransferredCashableAmount;
+                    transactionInfo.CashablePromoAmount = trans.TransferredPromoAmount;
+                    transactionInfo.NonCashablePromoAmount = trans.TransferredNonCashAmount;
+                    break;
+                case KeyedOffCreditsTransaction trans:
                     transactionInfo.CashableAmount = trans.TransferredCashableAmount;
                     transactionInfo.CashablePromoAmount = trans.TransferredPromoAmount;
                     transactionInfo.NonCashablePromoAmount = trans.TransferredNonCashAmount;
@@ -164,11 +174,18 @@
                     amount = trans.PromoAmount + trans.NonCashAmount + trans.CashableAmount;
                     currencyOut = true;
                     break;
-                case KeyedCreditsTransaction trans:
-                    amount = trans.Amount;
+                case KeyedOnCreditsTransaction trans:
+                    amount = trans.TransactionAmount;
                     transactionInfo.CashableAmount = trans.TransferredCashableAmount;
                     transactionInfo.CashablePromoAmount = trans.TransferredPromoAmount;
                     transactionInfo.NonCashablePromoAmount = trans.TransferredNonCashAmount;
+                    break;
+                case KeyedOffCreditsTransaction trans:
+                    amount = trans.TransactionAmount;
+                    transactionInfo.CashableAmount = trans.TransferredCashableAmount;
+                    transactionInfo.CashablePromoAmount = trans.TransferredPromoAmount;
+                    transactionInfo.NonCashablePromoAmount = trans.TransferredNonCashAmount;
+                    currencyOut = true;
                     break;
                 case WatTransaction trans:
                     amount = trans.TransactionAmount;

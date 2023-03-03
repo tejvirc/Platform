@@ -18,13 +18,13 @@
         /// <summary>
         /// Gets the underlying Transaction
         /// </summary>
-        public KeyedCreditsTransaction Transaction { get; }
+        public KeyedOnCreditsTransaction Transaction { get; }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="KeyedCreditOnEvent" /> class, setting the underlying 'Transaction'
         /// </summary>
         /// <param name="transaction">the underlying transaction</param>
-        public KeyedCreditOnEvent(KeyedCreditsTransaction transaction)
+        public KeyedCreditOnEvent(KeyedOnCreditsTransaction transaction)
         {
             Transaction = transaction;
         }

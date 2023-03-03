@@ -40,7 +40,9 @@
             [Description("SoftwareChange")] SoftwareChange = 15,
             /// <summary>Progressive</summary>
             [Description("Progressive")] Progressive = 16,
-            /// <summary>KeyedCredit</summary>
-            [Description("KeyedCredit")] KeyedCredit = 17,
+            /// <summary>KeyedOnCredits</summary>
+            [Description("KeyedOnCredits")] KeyedOnCredits = 18,
+            /// <summary>KeyedOffCredits</summary>
+            [Description("KeyedOffCredits")] KeyedOffCredits = 19,
     }
 }

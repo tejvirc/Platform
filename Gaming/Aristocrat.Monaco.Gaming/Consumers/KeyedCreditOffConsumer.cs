@@ -63,7 +63,7 @@
             }
 
             var transaction = @event.Transaction;
-            var amount = ((KeyedCreditsTransaction)transaction).Amount;
+            var amount = transaction.TransactionAmount;
 
             using (var scope = _persistentStorage.ScopedTransaction())
             {

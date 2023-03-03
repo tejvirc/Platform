@@ -49,7 +49,7 @@
 
             switch (transaction)
             {
-                case KeyedCreditsTransaction t:
+                case KeyedOffCreditsTransaction t:
                     cashableAmount = t.TransferredCashableAmount;
                     cashablePromoAmount = t.TransferredPromoAmount;
                     nonCashablePromoAmount = t.TransferredNonCashAmount;

@@ -75,7 +75,8 @@
                 MoqServiceManager.CreateAndAddService<IPersistentStorageManager>(MockBehavior.Loose);
             _persistentStorageManager.Setup(m => m.ScopedTransaction().Complete());
             _transactionHistory = MoqServiceManager.CreateAndAddService<ITransactionHistory>(MockBehavior.Loose);
-            _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedCreditsTransaction>()));
+            _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedOnCreditsTransaction>()));
+            _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedOffCreditsTransaction>()));
             _target = new KeyedCreditsPageViewModel();
             _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOnEvent>())).Verifiable();
             _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOffEvent>())).Verifiable();

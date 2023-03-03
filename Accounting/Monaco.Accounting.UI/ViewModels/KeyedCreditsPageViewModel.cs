@@ -202,10 +202,16 @@
                 }
             };
 
-            var trans = new KeyedCreditsTransaction(1, DateTime.UtcNow, accountType, true, amount);
-            trans.TransferredCashableAmount = (accountType == AccountType.Cashable) ? amount : 0;
-            trans.TransferredNonCashAmount = (accountType == AccountType.NonCash) ? amount : 0;
-            trans.TransferredPromoAmount = (accountType == AccountType.Promo) ? amount : 0;
+            var transferredCashableAmount = (accountType == AccountType.Cashable) ? amount : 0;
+            var transferredNonCashAmount = (accountType == AccountType.NonCash) ? amount : 0;
+            var transferredPromoAmount = (accountType == AccountType.Promo) ? amount : 0;
+            var trans = new KeyedOnCreditsTransaction(
+                1,
+                DateTime.UtcNow,
+                accountType,
+                transferredCashableAmount,
+                transferredPromoAmount,
+                transferredNonCashAmount);
             using (var scope = _persistentStorageManager.ScopedTransaction())
             {
                 if (_bank.CheckDeposit(accountType, amount, transactionId) && amount > 0)
@@ -258,10 +264,16 @@
                     }
                 };
 
-                var trans = new KeyedCreditsTransaction(1, DateTime.UtcNow, accountType, false, amount);
-                trans.TransferredCashableAmount = (accountType == AccountType.Cashable) ? amount : 0;
-                trans.TransferredNonCashAmount = (accountType == AccountType.NonCash) ? amount : 0;
-                trans.TransferredPromoAmount = (accountType == AccountType.Promo) ? amount : 0;
+                var transferredCashableAmount = (accountType == AccountType.Cashable) ? amount : 0;
+                var transferredNonCashAmount = (accountType == AccountType.NonCash) ? amount : 0;
+                var transferredPromoAmount = (accountType == AccountType.Promo) ? amount : 0;
+                var trans = new KeyedOffCreditsTransaction(
+                    1,
+                    DateTime.UtcNow,
+                    accountType,
+                    transferredCashableAmount,
+                    transferredPromoAmount,
+                    transferredNonCashAmount);
                 using (var scope = _persistentStorageManager.ScopedTransaction())
                 {
                     if (_bank.CheckWithdraw(accountType, amount, transactionId) && amount > 0)

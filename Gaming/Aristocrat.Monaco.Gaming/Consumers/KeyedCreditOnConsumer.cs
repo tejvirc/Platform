@@ -53,7 +53,7 @@
             using (var scope = _persistentStorage.ScopedTransaction())
             {
                 _currencyHandler.Credit(transaction);
-                _barkeeperHandler.OnCreditsInserted(((KeyedCreditsTransaction)transaction).Amount);
+                _barkeeperHandler.OnCreditsInserted(transaction.TransactionAmount);
                 _sessionInfoService.HandleTransaction(transaction);
                 scope.Complete();
             }

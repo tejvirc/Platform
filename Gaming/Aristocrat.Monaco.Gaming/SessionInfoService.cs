@@ -88,18 +88,14 @@ namespace Aristocrat.Monaco.Gaming
 
             switch (transaction)
             {
-                case KeyedCreditsTransaction tran:
-                    if (!tran.KeyedOn)
-                    {
-                        HandleCreditOutEvent(
-                            SessionEventType.KeyedOff,
-                            tran.TransactionId,
-                            tran.Amount);
-                    }
-                    else
-                    {
-                        TraceStartSession(tran.TransactionId);
-                    }
+                case KeyedOffCreditsTransaction tran:
+                    HandleCreditOutEvent(
+                        SessionEventType.KeyedOff,
+                        tran.TransactionId,
+                        tran.TransactionAmount);
+                    break;
+                case KeyedOnCreditsTransaction tran:
+                    TraceStartSession(tran.TransactionId);
                     break;
                 case VoucherInTransaction _:
                 case WatOnTransaction _:
@@ -137,9 +133,9 @@ namespace Aristocrat.Monaco.Gaming
                         switch (_endEventType)
                         {
                             case SessionEventType.KeyedOff:
-                                var keyedOffTransactions = _transactionHistory?.RecallTransactions<KeyedCreditsTransaction>().Where(x=>!x.KeyedOn);
+                                var keyedOffTransactions = _transactionHistory?.RecallTransactions<KeyedOffCreditsTransaction>();
                                 var lastKeyedOff = keyedOffTransactions?.OrderByDescending(x => x.LogSequence).FirstOrDefault();
-                                amount = lastKeyedOff?.Amount ?? 0;
+                                amount = lastKeyedOff?.TransactionAmount ?? 0;
                                 lastTransactionId = lastKeyedOff?.TransactionId ?? 0;
                                 break;
                             case SessionEventType.Handpay:
