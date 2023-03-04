@@ -29,13 +29,13 @@
                 <Setter Property="Width" Value="Auto" />
                 <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding Status}" Value="Untested">
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Untested">
                         <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Status}" Value="Good">
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Good">
                         <Setter Property="Foreground" Value="{DynamicResource GreenBrush}"/>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Status}" Value="Bad">
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Bad">
                         <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
                     </DataTrigger>
                 </Style.Triggers>
