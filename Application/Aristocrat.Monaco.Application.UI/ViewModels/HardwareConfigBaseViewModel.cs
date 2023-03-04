@@ -412,6 +412,11 @@
             IsValidating = false;
 
             SubscribeToEvents();
+
+            if ((bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false))
+            {
+                StartDetection();
+            }
         }
 
         protected override void OnUnloaded()
@@ -679,11 +684,6 @@
             }
 
             UpdateTowerLightTypeSelection(null, true);
-
-            if ((bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false))
-            {
-                StartDetection();
-            }
         }
 
         private void UpdateTowerLightTypeSelection(TowerLightTierTypes? selection, bool isInitializing)

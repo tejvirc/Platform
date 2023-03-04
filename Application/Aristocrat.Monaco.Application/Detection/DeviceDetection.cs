@@ -27,6 +27,7 @@
         private readonly IEventBus _eventBus;
         private readonly IHardwareConfiguration _hardwareConfiguration;
         private readonly ISerialPortsService _serialPortsService;
+        private readonly ISerialDeviceSearcher _serialDeviceSearcher;
         private readonly Dictionary<string, object> _comPortLocks = new ();
         private readonly Dictionary<DeviceType, List<SupportedDevicesDevice>> _usbSupportedDevices = new();
         private readonly Dictionary<DeviceType, List<SupportedDevicesDevice>> _serialSupportedDevices = new();
@@ -37,18 +38,21 @@
         public DeviceDetection()
             : this(ServiceManager.GetInstance().TryGetService<IEventBus>(),
                   ServiceManager.GetInstance().TryGetService<IHardwareConfiguration>(),
-                  ServiceManager.GetInstance().TryGetService<ISerialPortsService>())
+                  ServiceManager.GetInstance().TryGetService<ISerialPortsService>(),
+                  ServiceManager.GetInstance().TryGetService<ISerialDeviceSearcher>())
         {
         }
 
         public DeviceDetection(
             IEventBus eventBus,
             IHardwareConfiguration hardwareConfiguration,
-            ISerialPortsService serialPortsService)
+            ISerialPortsService serialPortsService,
+            ISerialDeviceSearcher serialDeviceSearcher)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _hardwareConfiguration = hardwareConfiguration ?? throw new ArgumentNullException(nameof(hardwareConfiguration));
             _serialPortsService = serialPortsService ?? throw new ArgumentNullException(nameof(serialPortsService));
+            _serialDeviceSearcher = serialDeviceSearcher ?? throw new ArgumentNullException(nameof(serialDeviceSearcher));
 
             _comPortLocks.Clear();
             foreach (var port in _serialPortsService.GetAllLogicalPortNames())
@@ -166,41 +170,25 @@
             }
             Logger.Debug($"{deviceType} ports: {string.Join("/", comPorts.ToArray())}");
 
-            // Which protocols will we try?
-            var protocols = _serialSupportedDevices[deviceType]
-                .Select(d => d.Protocol)
-                .Distinct();
-            Logger.Debug($"{deviceType} protocols: {string.Join("/", protocols.ToArray())}");
-
             foreach (var comPort in comPorts)
             {
                 lock (_comPortLocks[comPort])
                 {
                     Logger.Debug($"Start {deviceType} {comPort}");
-                    foreach (var protocol in protocols)
+
+                    var serialDevice = _serialDeviceSearcher.Search(comPort, _serialSupportedDevices[deviceType], tokenSource.Token);
+                    if (serialDevice is not null)
                     {
-                        var serialDevice = SearchSerialProtocolAndPort(deviceType, protocol, comPort, tokenSource);
-                        if (serialDevice is not null)
-                        {
-                            _eventBus.Publish(new DeviceDetectedEvent(serialDevice));
-                            return true;
-                        }
+                        _eventBus.Publish(new DeviceDetectedEvent(serialDevice));
+                        Logger.Debug($"Finish {deviceType} {comPort}, found {serialDevice}");
+                        return true;
                     }
-                    Logger.Debug($"Finish {deviceType} {comPort}");
+
+                    Logger.Debug($"Finish {deviceType} {comPort}, not found");
                 }
             }
 
             return false;
-        }
-
-        private SupportedDevicesDevice SearchSerialProtocolAndPort(DeviceType deviceType, string protocol, string port, CancellationTokenSource tokenSource)
-        {
-            // TODO:
-            // ask the Hardware.Serial library to search for a device
-            // that responds to this protocol on the designated port.
-            Logger.Debug($"wait on {deviceType} {protocol} {port}");
-            Task.Delay(1000, tokenSource.Token).Wait();
-            return null;
         }
 
         private void GetUsbInstances()
