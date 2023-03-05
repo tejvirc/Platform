@@ -43,41 +43,43 @@
         {
             var (currentGame, currentDenom) = _properties.GetActiveGame();
 
-            var selectedDenom = command.Denomination.CentsToMillicents();
+            var selectedDenomValue = command.Denomination.CentsToMillicents();
 
             // While the theme will be the same the underlying Id may change based on the denomination
             var selectedGame = _gameProvider.GetEnabledGames().FirstOrDefault(
-                g => g.ThemeId == currentGame.ThemeId && g.ActiveDenominations.Contains(selectedDenom));
+                g => g.ThemeId == currentGame.ThemeId && g.ActiveDenominations.Contains(selectedDenomValue));
 
             if (selectedGame == null)
             {
-                Logger.Warn($"There are no enabled games for the selected denom: {currentGame.ThemeId} - {selectedDenom}");
+                Logger.Warn($"There are no enabled games for the selected denom: {currentGame.ThemeId} - {selectedDenomValue}");
                 return;
             }
 
             // Even if we haven't technically "changed" denomination, we still need to publish this
             // event so we can report coming out of the "game selection screen".
-            _eventBus.Publish(new DenominationSelectedEvent(selectedGame.Id, selectedDenom));
+            _eventBus.Publish(new DenominationSelectedEvent(selectedGame.Id, selectedDenomValue));
 
-            if (currentDenom.Id == selectedDenom)
+            var selectedDenom = selectedGame.Denominations.Single(d => d.Value == selectedDenomValue);
+
+            if (currentDenom.Id == selectedDenom.Id)
             {
                 Logger.Debug($"In-game denom selection ignored.  The active denom is {currentDenom.Id}");
                 return;
             }
 
-            var betOption = selectedGame.Denominations.First(d => d.Value == selectedDenom).BetOption;
+            var betOption = selectedDenom.BetOption;
 
             _gameService.ReInitialize(
                 new GameInitRequest
                 {
                     GameId = selectedGame.Id,
-                    Denomination = selectedDenom,
+                    Denomination = selectedDenomValue,
                     BetOption = betOption
                 });
 
             _runtime.UpdateState(RuntimeState.Reconfigure);
 
-            Logger.Debug($"In-game denom selection changed: {selectedGame.Id} - {selectedDenom}");
+            Logger.Debug($"In-game denom selection changed: {selectedGame.Id} - {selectedDenomValue}");
         }
     }
 }
