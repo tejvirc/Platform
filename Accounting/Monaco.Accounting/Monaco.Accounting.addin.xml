@@ -37,6 +37,7 @@
     <Service type="Aristocrat.Monaco.Accounting.NoteAcceptorActivityTimeWatcher" />
     <Service type="Aristocrat.Monaco.Accounting.VoucherInProvider" />
     <Service type="Aristocrat.Monaco.Accounting.CabinetSwapDetectionService" />
+    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountServiceProvider" />
   </Extension>
 
   <ExtensionPoint path="/Accounting/TransactionHistories">

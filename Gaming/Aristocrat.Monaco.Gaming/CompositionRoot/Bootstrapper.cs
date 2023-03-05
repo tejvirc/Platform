@@ -66,7 +66,6 @@
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);
             container.Register<IRuntime, RuntimeProxy>(Lifestyle.Singleton);
-            container.Register<IHandCount, HandCount>(Lifestyle.Singleton);
             container.Register<IReelService, ReelServiceProxy>(Lifestyle.Singleton);
             container.Register<IPresentationService, PresentationServiceProxy>(Lifestyle.Singleton);
             container.Register<IClientEndpointProvider<IRuntime>, RuntimeEndpointProvider>(Lifestyle.Singleton);

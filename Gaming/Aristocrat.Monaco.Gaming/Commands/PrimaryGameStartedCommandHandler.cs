@@ -20,7 +20,7 @@
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IGameHistory _gameHistory;
         private readonly IProgressiveGameProvider _progressiveGame;
-        private readonly IHandCount _handCount;
+        private readonly IHandCountServiceProvider _handCount;
         private readonly IPersistentStorageManager _storage;
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -32,7 +32,7 @@
             IEventBus eventBus,
             IPlayerBank bank,
             IRuntime runtime,
-            IHandCount handCount,
+            IHandCountServiceProvider handCount,
             IGameHistory gameHistory,
             IPersistentStorageManager storage,
             IProgressiveGameProvider progressiveGame,

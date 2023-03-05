@@ -10,6 +10,7 @@
     using Application.Contracts.Protocol;
     using Application.Contracts.Settings;
     using Application.Contracts.TiltLogger;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Bell;
     using Hardware.Contracts.Button;
@@ -88,6 +89,7 @@
             @this.RegisterInstance(serviceManager.GetService<IBeagleBoneController>());
             @this.RegisterInstance(serviceManager.GetService<ITime>());
             @this.RegisterInstance(serviceManager.GetService<IMoneyLaunderingMonitor>());
+            @this.RegisterInstance(serviceManager.GetService<IHandCountServiceProvider>());
         }
     }
 }

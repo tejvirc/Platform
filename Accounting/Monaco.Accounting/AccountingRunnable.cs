@@ -60,8 +60,6 @@ namespace Aristocrat.Monaco.Accounting
 
             LoadServices();
 
-            LoadHandCountService();
-
             RegisterLogAdapters();
 
             LoadRunnables();
@@ -139,19 +137,6 @@ namespace Aristocrat.Monaco.Accounting
             foreach (var node in nodes)
             {
                 var service = (IService)node.CreateInstance();
-                service.Initialize();
-                ServiceManager.GetInstance().AddService(service);
-                _services.Add(service);
-            }
-        }
-        private void LoadHandCountService()
-        {
-            var handCountServiceEnabled=(bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
-                .GetProperty(AccountingConstants.HandCountServiceEnabled, false);
-
-            if (handCountServiceEnabled)
-            {
-                var service = new HandCountService();
                 service.Initialize();
                 ServiceManager.GetInstance().AddService(service);
                 _services.Add(service);
