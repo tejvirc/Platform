@@ -586,6 +586,13 @@
                 SetupPaytableOptions(gameProfiles, groupKey);
             }
 
+            // Apply valid restrictions to all game profiles
+            foreach (var gameProfile in _editableGames.Values.Where(g => g.Restrictions.Any()))
+            {
+                gameProfile.UpdateValidRestrictions();
+                SetGameRestriction(gameProfile, gameProfile.SelectedRestriction);
+            }
+
             foreach (var entry in _editableGameConfigByGameTypeMapping)
             {
                 CheckForMaximumDenominations(entry.Value, _gameTypeToActiveDenomMapping[entry.Key]);
@@ -753,12 +760,17 @@
                 return;
             }
 
+            SetGameRestriction(SelectedGame, restriction);
+        }
+
+        private void SetGameRestriction(EditableGameProfile profile, IConfigurationRestriction restriction)
+        {
             // Process mappings (Single Game Multi Denom, or "Player Selectable Denoms")
-            foreach (var game in SelectedGame.GameConfigurations)
+            foreach (var game in profile.GameConfigurations)
             {
                 // If there are configured restrictions but none is chosen or none were valid, then
                 // we don't want to show any denoms for configuration.
-                if (ConfiguredRestrictions.Any() && restriction is null)
+                if (profile.Restrictions.Any() && restriction is null)
                 {
                     game.RestrictedToReadOnly = true;
                     game.Enabled = false;
@@ -812,8 +824,10 @@
                     }
                 }
 
-                Logger.Debug(
-                    $"Restriction set - Id:{restriction.RestrictionDetails.Id} Name:{restriction.RestrictionDetails.Name} MinRtp:{restriction.RestrictionDetails.MinimumPaybackPercent} MaxRtp:{restriction.RestrictionDetails.MaximumPaybackPercent}");
+                Logger.Debug($"{restriction.Name} Restriction set for {game.Game.ThemeId} - " +
+                             $"Name:{restriction.RestrictionDetails.Name} " +
+                             $"MinRtp:{restriction.RestrictionDetails.MinimumPaybackPercent} " +
+                             $"MaxRtp:{restriction.RestrictionDetails.MaximumPaybackPercent}");
             }
         }
 
