@@ -11,6 +11,7 @@
     using Bingo.Services.Reporting;
     using Common.Storage;
     using Gaming.Contracts;
+    using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using TransactionType = Common.TransactionType;
@@ -24,6 +25,7 @@
         private readonly Mock<IBingoGameProvider> _bingoGameProvider = new(MockBehavior.Default);
         private readonly Mock<ITransactionHistory> _transactionHistory = new(MockBehavior.Default);
         private readonly Mock<IGameHistory> _gameHistory = new(MockBehavior.Default);
+        private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
 
         private TestMeter _meter;
         private EgmPaidGameWonAmtMeterMonitor _target;
@@ -42,18 +44,20 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, false)]
-        [DataRow(false, true, false, false, false)]
-        [DataRow(false, false, true, false, false)]
-        [DataRow(false, false, false, true, false)]
-        [DataRow(false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false)]
+        [DataRow(false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, true)]
         [DataTestMethod]
         public void NullConstructorParametersTest(
             bool meterNull,
             bool bingoGameNull,
             bool reportingNull,
             bool transactionHistoryNull,
-            bool gameHistoryNull)
+            bool gameHistoryNull,
+            bool eventBusNull)
         {
             Assert.ThrowsException<ArgumentNullException>(
                 () => _ = CreateTarget(
@@ -61,7 +65,8 @@
                     bingoGameNull,
                     reportingNull,
                     transactionHistoryNull,
-                    gameHistoryNull));
+                    gameHistoryNull,
+                    eventBusNull));
         }
 
         [TestMethod]
@@ -322,14 +327,16 @@
             bool bingoGameNull = false,
             bool reportingNull = false,
             bool transactionHistoryNull = false,
-            bool gameHistoryNull = false)
+            bool gameHistoryNull = false,
+            bool eventBusNull = false)
         {
             return new EgmPaidGameWonAmtMeterMonitor(
                 meterNull ? null : _meterManager.Object,
                 bingoGameNull ? null : _bingoGameProvider.Object,
                 reportingNull ? null : _bingoTransactionReportHandler.Object,
                 transactionHistoryNull ? null : _transactionHistory.Object,
-                gameHistoryNull ? null : _gameHistory.Object);
+                gameHistoryNull ? null : _gameHistory.Object,
+                eventBusNull ? null : _eventBus.Object);
         }
     }
 }
