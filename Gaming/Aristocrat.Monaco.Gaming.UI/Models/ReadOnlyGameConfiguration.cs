@@ -86,10 +86,10 @@
 
         private GameRtpDisplay SetRtpDisplayValues(IGameDetail game, long denom)
         {
-            // TODO: WIP
             var validationReport = _rtpService.ValidateGame(game);
 
-            var (progressiveRtp, rtpState) = _progressiveProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name);
+            // TODO: SAP & LP WIP
+            //var (progressiveRtp, rtpState) = _progressiveProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name);
 
             GameRtpDisplay rtpDisplay;
 
@@ -138,16 +138,20 @@
             }
             else
             {
-                var baseRtp = _rtpService.GetTotalRtp(game);
+                var totalRtp = _rtpService.GetTotalRtp(game);
 
                 rtpDisplay = new GameRtpDisplay
                 {
                     HasExtendedRtpInformation = false,
 
-                    BaseGameRtp = baseRtp.ToString(),
+                    BaseGameRtp = totalRtp.ToString(),
 
-                    StandaloneProgressiveResetRtpState = RtpVerifiedState.Verified,
-                    StandaloneProgressiveIncrementRtpState = RtpVerifiedState.Verified,
+                    TotalJurisdictionalRtp = totalRtp.ToString(),
+                    TotalJurisdictionalRtpMin = totalRtp.Minimum.ToRtpString(),
+                    TotalJurisdictionalRtpMax = totalRtp.Maximum.ToRtpString(),
+
+                    StandaloneProgressiveResetRtpState = RtpVerifiedState.NotAvailable,
+                    StandaloneProgressiveIncrementRtpState = RtpVerifiedState.NotAvailable,
                     LinkedProgressiveResetRtpState = RtpVerifiedState.NotAvailable,
                     LinkedProgressiveIncrementRtpState = RtpVerifiedState.NotAvailable,
                 };

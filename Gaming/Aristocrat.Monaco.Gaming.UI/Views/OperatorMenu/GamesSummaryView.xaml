@@ -22,7 +22,6 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <sharedConverters:ToUpperConverter x:Key="ToUpperConverter"/>
             <converters:FormattedCurrencyConverter x:Key="CurrencyConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -57,7 +56,7 @@
 
         <DataGrid Grid.Row="1"
                   Margin="0 10"
-                  ItemsSource="{Binding EnabledGames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding EnabledGames, Mode=OneWay}"
                   VerticalAlignment="Stretch"
                   ScrollViewer.CanContentScroll="True"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -141,10 +140,11 @@
                         <DataTemplate>
                             <Grid>
                                 <Button Name="RtpBreakdownDialogBtn" Style="{StaticResource MonacoInfoButton}" 
-                                        Margin="-20,0, 0,0" 
+                                        Margin="-35,0, 0,0" 
                                         HorizontalAlignment="Left"
                                         Command="{Binding DataContext.ShowRtpBreakdownDialogCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                        CommandParameter="{Binding}" />
+                                        CommandParameter="{Binding}"
+                                        Visibility="{Binding Path=RtpDisplayValues.HasExtendedRtpInformation, Converter={StaticResource TrueVisibleFalseHidden}}"/>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
