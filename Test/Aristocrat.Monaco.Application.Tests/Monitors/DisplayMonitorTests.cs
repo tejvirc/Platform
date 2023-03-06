@@ -739,6 +739,7 @@
             _cabinetDetectionService.Setup(x => x.MapTouchscreens(false)).Returns(true);
 
             _cabinetDetectionService.Setup(x => x.GetDisplayMappedToTouchDevice(It.IsAny<ITouchDevice>())).Returns(mainVideo.Object);
+            _cabinetDetectionService.Setup(x => x.GetDisplayRoleMappedToTouchDevice(It.IsAny<ITouchDevice>())).Returns(mainVideo.Object.Role);
 
             _eventBus.Setup(x => x.Publish(It.IsAny<DisplayMonitorStatusChangeEvent>()));
         }
@@ -827,10 +828,10 @@
             vbdTouch.SetupGet(v => v.Id).Returns(104);
             _touchDeviceMocks.Add(vbdTouch);
 
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 103))).Returns(mainVideo.Object);
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 102))).Returns(topVideo.Object);
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 104))).Returns(vbdVideo.Object);
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 101))).Returns((IDisplayDevice) null);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 103))).Returns(mainVideo.Object.Role);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 102))).Returns(topVideo.Object.Role);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 104))).Returns(vbdVideo.Object.Role);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 101))).Returns((DisplayRole?) null);
         }
     }
 }

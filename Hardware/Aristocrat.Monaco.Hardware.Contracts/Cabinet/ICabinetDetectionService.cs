@@ -69,6 +69,13 @@
         bool TouchscreensMapped { get; }
 
         /// <summary>
+        /// Gets the <see cref="DisplayRole"/> mapped to the given <see cref="ITouchDevice"/>.
+        /// </summary>
+        /// <param name="touchDevice"></param>
+        /// <returns></returns>
+        DisplayRole? GetDisplayRoleMappedToTouchDevice(ITouchDevice touchDevice);
+
+        /// <summary>
         ///     Gets the <see cref="IDisplayDevice"/> mapped to the given <see cref="ITouchDevice"/>.
         /// </summary>
         /// <param name="touchDevice">The touch device.</param>

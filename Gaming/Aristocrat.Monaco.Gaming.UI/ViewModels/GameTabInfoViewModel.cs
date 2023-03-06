@@ -318,6 +318,7 @@
                 _enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 RaisePropertyChanged(nameof(LabelResourceKey));
+                RaisePropertyChanged(nameof(LabelAnimatedResourcePath));
                 RaisePropertyChanged(nameof(HasAnimatedResource));
                 RaisePropertyChanged(nameof(TabResourceKey));
             }
