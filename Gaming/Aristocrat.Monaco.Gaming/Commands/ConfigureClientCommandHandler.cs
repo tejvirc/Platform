@@ -8,6 +8,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Cabinet.Contracts;
     using Common;
     using Consumers;
@@ -37,6 +38,7 @@
         private readonly IPlayerBank _playerBank;
         private readonly IPropertiesManager _properties;
         private readonly IRuntime _runtime;
+        private readonly IHandCountServiceProvider _handCountProvider;
         private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameProvider _gameProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
@@ -50,6 +52,7 @@
         /// </summary>
         public ConfigureClientCommandHandler(
             IRuntime runtime,
+            IHandCountServiceProvider handCountProvider,
             IGameHistory gameHistory,
             IGameRecovery gameRecovery,
             IGameDiagnostics gameDiagnostics,
@@ -66,6 +69,7 @@
             IGameConfigurationProvider gameConfiguration)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
+            _handCountProvider = handCountProvider ?? throw new ArgumentNullException(nameof(handCountProvider));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _gameRecovery = gameRecovery ?? throw new ArgumentNullException(nameof(gameRecovery));
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
@@ -333,6 +337,12 @@
                 {
                     parameters.Add("/Runtime/DenomSelectionLobby&optional", "true");
                 }
+            }
+
+            if (_handCountProvider.HandCountServiceEnabled)
+            {
+                parameters.Add("/Runtime/DisplayHandCount", "true");
+                parameters.Add("/Runtime/HandCountValue",_handCountProvider.HandCount.ToString());
             }
 
             if (_gameRecovery.IsRecovering && _gameHistory.LoadRecoveryPoint(out var data))

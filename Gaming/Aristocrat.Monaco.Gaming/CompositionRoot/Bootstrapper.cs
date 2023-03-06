@@ -101,6 +101,7 @@
             container.Register<IPlayerBank, PlayerBank>(Lifestyle.Singleton);
             container.Register<IGameStorage, GameStorageManager>(Lifestyle.Singleton);
             container.Register<IRuntimeFlagHandler, RuntimeFlagHandler>(Lifestyle.Singleton);
+            container.Register<HandCountChangedHandler>(Lifestyle.Singleton);
             container.Register<IButtonLamps, ButtonLamps>(Lifestyle.Singleton);
             container.Register<IGameOrderSettings, GameOrderSettings>(Lifestyle.Singleton);
             container.Register<IOperatorMenuGamePlayMonitor, OperatorMenuGamePlayMonitor>(Lifestyle.Singleton);

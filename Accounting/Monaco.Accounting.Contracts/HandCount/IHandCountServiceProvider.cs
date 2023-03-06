@@ -15,6 +15,11 @@
         /// <summary>
         /// Return hand count
         /// </summary>
+        bool HandCountServiceEnabled { get; }
+
+        /// <summary>
+        /// Return hand count
+        /// </summary>
         int HandCount { get; }
 
         /// <summary>

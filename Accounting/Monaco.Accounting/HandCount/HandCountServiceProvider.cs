@@ -28,12 +28,12 @@
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IHandCountServiceProvider) };
 
+        public bool HandCountServiceEnabled => (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+            .GetProperty(AccountingConstants.HandCountServiceEnabled, false);
+
         public void Initialize()
         {
-            var handCountServiceEnabled = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
-                .GetProperty(AccountingConstants.HandCountServiceEnabled, false);
-
-            if (handCountServiceEnabled)
+            if (HandCountServiceEnabled)
             {
                 _handCountService = new HandCountService();
                 _handCountService.Initialize();

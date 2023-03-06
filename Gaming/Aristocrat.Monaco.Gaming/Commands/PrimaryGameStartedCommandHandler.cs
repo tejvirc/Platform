@@ -20,7 +20,7 @@
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IGameHistory _gameHistory;
         private readonly IProgressiveGameProvider _progressiveGame;
-        private readonly IHandCountServiceProvider _handCount;
+        private readonly IHandCountServiceProvider _handCountProvider;
         private readonly IPersistentStorageManager _storage;
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -32,7 +32,7 @@
             IEventBus eventBus,
             IPlayerBank bank,
             IRuntime runtime,
-            IHandCountServiceProvider handCount,
+            IHandCountServiceProvider handCountProvider,
             IGameHistory gameHistory,
             IPersistentStorageManager storage,
             IProgressiveGameProvider progressiveGame,
@@ -46,7 +46,7 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
-            _handCount = handCount;
+            _handCountProvider = handCountProvider;
         }
 
         /// <inheritdoc />
@@ -62,7 +62,7 @@
                 _commandFactory.Create<Wager>().Handle(new Wager(command.GameId, command.Denomination, command.Wager));
 
                 //assumption this will be only trigger for the jurisdiction
-                _handCount.IncrementHandCount();
+                _handCountProvider.IncrementHandCount();
 
                 scope.Complete();
 

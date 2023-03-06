@@ -120,7 +120,11 @@
         }
         public void UpdateHandCount(int handCount)
         {
-            //Invoke(runtime => runtime.OnHandCountUpdate(handCount));
+            var parameters = new Dictionary<string, string>
+            {
+                { "/Runtime/HandCountValue", handCount.ToString() }
+            };
+            UpdateParameters(parameters, ConfigurationTarget.GameConfiguration);
         }
 
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)

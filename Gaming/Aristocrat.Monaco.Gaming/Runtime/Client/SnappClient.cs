@@ -152,7 +152,11 @@
 
         public void UpdateHandCount(int handCount)
         {
-//            Invoke(client => client.UpdateHandCount(new HandCountUpdateNotification { HandCount = handCount }));
+            var parameters = new Dictionary<string, string>
+            {
+                { "/Runtime/HandCountValue", handCount.ToString() }
+            };
+            UpdateParameters(parameters, ConfigurationTarget.GameConfiguration);
         }
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)
         {

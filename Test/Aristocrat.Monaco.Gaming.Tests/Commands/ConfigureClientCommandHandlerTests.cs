@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Gaming.Contracts.Configuration;
     using Contracts;
     using Contracts.Lobby;
@@ -21,6 +22,7 @@
     {
         private Mock<IPlayerBank> _playerBank;
         private Mock<IRuntime> _runtime;
+        private Mock<IHandCountServiceProvider> _handCount;
         private Mock<IGameHistory> _gameHistory;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<ILobbyStateManager> _lobbyStateManager;
@@ -51,6 +53,7 @@
             _helpTextProvider = new Mock<IGameHelpTextProvider>();
             _hardwareHelper = new Mock<IHardwareHelper>();
             _runtime = new Mock<IRuntime>();
+            _handCount = new Mock<IHandCountServiceProvider>();
             _attendantService = new Mock<IAttendantService>();
             _gameConfiguration = new Mock<IGameConfigurationProvider>();
             _attendantService.Setup(attendant => attendant.IsServiceRequested).Returns(true);
@@ -91,6 +94,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -115,6 +119,32 @@
                 null,
                 null,
                 null,
+                null,
+                null);
+
+            Assert.IsNull(handler);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenHandCountServiceProviderIsNullExpectException()
+        {
+            var handler = new ConfigureClientCommandHandler(
+                _runtime.Object,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null);
 
             Assert.IsNull(handler);
@@ -126,6 +156,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 null,
                 null,
@@ -150,6 +181,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 null,
@@ -174,6 +206,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -198,6 +231,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -222,6 +256,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -246,6 +281,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -270,6 +306,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -294,6 +331,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -318,6 +356,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -342,6 +381,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -366,6 +406,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -390,6 +431,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -413,6 +455,7 @@
         {
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -447,6 +490,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -488,6 +532,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -533,6 +578,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -575,6 +621,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
