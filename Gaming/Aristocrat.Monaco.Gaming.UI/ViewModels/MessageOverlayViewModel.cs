@@ -304,6 +304,10 @@
                     }
                     break;
                 case MessageOverlayState.Disabled:
+                    if (_lobbyStateManager.ContainsAnyState(LobbyState.CashIn))
+                    {
+                        _lobbyStateManager.RemoveStackableState(LobbyState.CashIn);
+                    }
                     if (MessageOverlayData.IsDialogFadingOut && !MessageOverlayData.DisplayForEvents && !MessageOverlayData.DisplayForPopUp)
                     {
                         MessageOverlayData.Text = MessageOverlayData.Text;
