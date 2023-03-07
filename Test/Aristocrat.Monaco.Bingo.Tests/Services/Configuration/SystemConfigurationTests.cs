@@ -227,6 +227,7 @@
             const long expectedMinJackpotValue = 100000L;
             const string initialMinJackpotValue = "100000";
             const string minJackpotValue = "100000000";
+            const long initialHandpayLimit = 10L;
             var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
             {
                 new ConfigurationResponse.Types.ClientAttribute
@@ -237,6 +238,13 @@
 
             _propertiesManager
                 .Setup(m => m.SetProperty(AccountingConstants.LargeWinLimit, Convert.ToInt64(minJackpotValue)))
+                .Verifiable();
+            _propertiesManager
+                .Setup(m => m.GetProperty(AccountingConstants.HandpayLimit, long.MinValue))
+                .Returns(initialHandpayLimit)
+                .Verifiable();
+            _propertiesManager
+                .Setup(m => m.SetProperty(AccountingConstants.HandpayLimit, Convert.ToInt64(minJackpotValue)))
                 .Verifiable();
 
             _target.Configure(messageConfigurationAttribute, _model);
