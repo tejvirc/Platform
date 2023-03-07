@@ -113,20 +113,20 @@
     <string>ATI_JokerPoker10</string>
     <string>ATI_CasinoRiches</string>
     <string>ATI_FireIdol</string>
-    <string>ATI_XtraCardBonusPoker</string>
-    <string>ATI_XtraCardBonusDeluxePoker</string>
-    <string>ATI_XtraCardAcesKickerPoker</string>
-    <string>ATI_XtraCardSuperAcesKickerPoker</string>
-    <string>ATI_XtraCardDeucesWild</string>
-    <string>ATI_XtraCardDeucesWildBonus</string>
+    <string>ATI_BonusPokerXtraCard</string>
+    <string>ATI_BonusDeluxePokerXtraCard</string>
+    <string>ATI_AcesKickerPokerXtraCard</string>
+    <string>ATI_SuperAcesKickerPokerXtraCard</string>
+    <string>ATI_DeucesWildXtraCard</string>
+    <string>ATI_DeucesWildBonusXtraCard</string>
     <string>ATI_CasinoRiches</string>
     <string>ATI_FireIdol</string>
-    <string>ATI_XtraCardBonusPoker3</string>
-    <string>ATI_XtraCardBonusDeluxePoker3</string>
-    <string>ATI_XtraCardAcesKickerPoker3</string>
-    <string>ATI_XtraCardSuperAcesKickerPoker3</string>
-    <string>ATI_XtraCardDeucesWild3</string>
-    <string>ATI_XtraCardDeucesWildBonus3</string>
+    <string>ATI_BonusPokerThreeHandXtraCard</string>
+    <string>ATI_BonusDeluxe3HandXtraCard</string>
+    <string>ATI_AcesKickerPoker3HandXtraCard</string>
+    <string>ATI_SuperAcesKicker3HandXtraCard</string>
+    <string>ATI_DeucesWildThreeHandXtraCard</string>
+    <string>ATI_DeucesWildBonus3HandXtraCard</string>
     <string>ATI_CasinoRiches</string>
     <string>ATI_FireIdol</string>
     <string>ATI_SpotKeno</string>
@@ -224,20 +224,20 @@
     <string>ATI_JokerPoker10</string>
     <string>ATI_BuffaloGold</string>
     <string>ATI_BuffaloKeno</string>
-    <string>ATI_XtraCardBonusPoker</string>
-    <string>ATI_XtraCardBonusDeluxePoker</string>
-    <string>ATI_XtraCardAcesKickerPoker</string>
-    <string>ATI_XtraCardSuperAcesKickerPoker</string>
-    <string>ATI_XtraCardDeucesWild</string>
-    <string>ATI_XtraCardDeucesWildBonus</string>
+    <string>ATI_BonusPokerXtraCard</string>
+    <string>ATI_BonusDeluxePokerXtraCard</string>
+    <string>ATI_AcesKickerPokerXtraCard</string>
+    <string>ATI_SuperAcesKickerPokerXtraCard</string>
+    <string>ATI_DeucesWildXtraCard</string>
+    <string>ATI_DeucesWildBonusXtraCard</string>
     <string>ATI_BuffaloGold</string>
     <string>ATI_BuffaloKeno</string>
-    <string>ATI_XtraCardBonusPoker3</string>
-    <string>ATI_XtraCardBonusDeluxePoker3</string>
-    <string>ATI_XtraCardAcesKickerPoker3</string>
-    <string>ATI_XtraCardSuperAcesKickerPoker3</string>
-    <string>ATI_XtraCardDeucesWild3</string>
-    <string>ATI_XtraCardDeucesWildBonus3</string>
+    <string>ATI_BonusPokerThreeHandXtraCard</string>
+    <string>ATI_BonusDeluxe3HandXtraCard</string>
+    <string>ATI_AcesKickerPoker3HandXtraCard</string>
+    <string>ATI_SuperAcesKicker3HandXtraCard</string>
+    <string>ATI_DeucesWildThreeHandXtraCard</string>
+    <string>ATI_DeucesWildBonus3HandXtraCard</string>
     <string>ATI_BuffaloGold</string>
     <string>ATI_BuffaloKeno</string>
     <string>ATI_SpotKeno</string>
@@ -264,6 +264,5 @@
     <string>ATI_Blackjack</string>
     <string>ATI_Roulette</string>
   </DefaultGameOrderLightningLinkDisabled>
-  <NonCashCashoutFailureMessageEnabled>true</NonCashCashoutFailureMessageEnabled>
   <DisplayPaidMeter>false</DisplayPaidMeter>
 </LobbyConfiguration>
