@@ -307,7 +307,7 @@
                         }
                         else if (reportCashoutButtonPress
                         && Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId)
-                        && (LcdButtonDeckLobby) platformEvent.LogicalId == LcdButtonDeckLobby.CashOut
+                        && (LcdButtonDeckLobby)platformEvent.LogicalId == LcdButtonDeckLobby.CashOut
                         && _bank.QueryBalance() == 0
                         && _gameState.Idle)
                         {
@@ -552,7 +552,7 @@
             {
                 CashInStarted(CashInType.Wat);
             }
-            
+
             if (bonusEvent.Transaction.Mode == BonusMode.GameWin &&
                 bonusEvent.Transaction.PayMethod == PayMethod.Voucher)
             {
@@ -753,7 +753,7 @@
                     }, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
             }
 
-            if (platformEvent.Handpay == HandpayType.GameWin)
+            if (platformEvent.Handpay is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 PlayGameWinHandPaySound();
             }
@@ -772,7 +772,7 @@
         {
             _eventBus.Unsubscribe<DownEvent>(this);
 
-            if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
+            if (platformEvent.Transaction.HandpayType is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 _playCollectSound = false;
                 _audio.Stop();
