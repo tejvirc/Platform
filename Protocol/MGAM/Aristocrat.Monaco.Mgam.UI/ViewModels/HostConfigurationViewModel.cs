@@ -177,6 +177,7 @@
 
             using (var context = new MgamContext(new DefaultConnectionStringResolver(PathMapper)))
             {
+                context.Database.EnsureCreated();
                 // get existing device GUID; else generate
                 DeviceId = context.Devices.Any()
                     ? context.Devices.First().DeviceGuid
