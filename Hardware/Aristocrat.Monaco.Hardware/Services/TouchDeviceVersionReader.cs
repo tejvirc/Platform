@@ -2,12 +2,16 @@
 {
     using System;
     using System.Linq;
+    using System.Reflection;
     using Cabinet.Contracts;
+    using log4net;
     using Vgt.Client12.Hardware.HidLibrary;
 
     public static class TouchDeviceVersionReader
     {
         private const string Kortek = "kortek";
+        private const string Tovis = "nanots touch controller";
+        private const int TovisVendorId = 0x126C;
         private const string VendorInterfaceName = "&mi_01#";
 
         public static string FirmwareVersion(this ITouchDevice touchDevice)
@@ -15,7 +19,8 @@
             string versionStr = null;
             try
             {
-                if (touchDevice.ProductString.ToLower().Contains(Kortek))
+                if (touchDevice.ProductString.ToLower().Contains(Kortek) ||
+                    (touchDevice.ProductString.ToLower().Contains(Tovis) && touchDevice.VendorId == TovisVendorId))
                 {
                     versionStr = ReadKortekVersion(touchDevice);
                 }
