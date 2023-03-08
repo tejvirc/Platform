@@ -31,15 +31,12 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
   </ItemGroup>
-  
   <ItemGroup>
     <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0006" />
     <PackageReference Include="CoreWCF.NetTcp" Version="1.1.0" />
     <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.1.0" />
     <PackageReference Include="CoreWCF.Http" Version="1.1.0" />
     <PackageReference Include="CoreWCF.Primitives" Version="1.1.0" />
-
-
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Stateless" Version="4.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
@@ -47,8 +44,8 @@
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.9.0" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.9.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.13"/>
   </ItemGroup>
   
   <ItemGroup>
