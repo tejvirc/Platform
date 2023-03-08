@@ -11631,6 +11631,10 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Please Wait...</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="PendingAcceptedText" xml:space="preserve">
+    <value>Pending Acceptance</value>
+    <comment>Monaco.Accounting</comment>
+  </data>
   <data name="Inspection" xml:space="preserve">
     <value>Inspection</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>

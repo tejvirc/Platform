@@ -36,9 +36,10 @@ namespace Aristocrat.Monaco.Accounting.Contracts
         }
 
         /// <summary>Creates a message that tells the bill rejection reason.</summary>
+        /// <param name="currentState">The current state of the currency, so we do not display messages before they happen</param>
         /// <param name="exceptionCode">The bill rejection exception code.</param>
         /// <returns>The details of the exception.</returns>
-        public static string GetDetailsMessage(int exceptionCode)
+        public static string GetDetailsMessage(CurrencyState currentState, int exceptionCode)
         {
             switch ((CurrencyInExceptionCode)exceptionCode)
             {
@@ -59,6 +60,9 @@ namespace Aristocrat.Monaco.Accounting.Contracts
 
                 case CurrencyInExceptionCode.PowerFailure:
                     return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerFailure);
+
+                case CurrencyInExceptionCode.None when currentState is CurrencyState.Accepting:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PendingAcceptedText);
 
                 case CurrencyInExceptionCode.None:
                     return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AcceptedText);
