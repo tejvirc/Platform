@@ -11,12 +11,14 @@
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
+    using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Communications;
     using Aristocrat.G2S.Client.Configuration;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Client.Security;
+    using Aristocrat.G2S.Communicator.ServiceModel;
     using Aristocrat.G2S.Emdi;
     using Common.CertificateManager;
     using Data.Hosts;
@@ -28,6 +30,7 @@
     using Kernel;
     using log4net;
     using Meters;
+    using Microsoft.Extensions.DependencyInjection;
     using Monaco.Common.Container;
     using Monaco.Common.Scheduler;
     using Monaco.Common.Storage;
@@ -159,7 +162,25 @@
 
         private static void ConfigureCommunications(this Container @this)
         {
-            @this.Register<IWcfApplicationRuntime, AspNetCoreWebRuntime>(Lifestyle.Transient);
+            @this.Register<MessageBuilder>(Lifestyle.Singleton);
+            @this.Register<ReceiveEndpointProvider>(Lifestyle.Singleton);
+            @this.Register<ICommunicator>(() => @this.GetInstance<ReceiveEndpointProvider>(), Lifestyle.Singleton);
+            @this.Register<G2SService>(Lifestyle.Singleton);
+            @this.Register<IWcfApplicationRuntime>(() =>
+            {
+                var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+                var port = properties.GetValue(Constants.Port, Constants.DefaultPort);
+                return new AspNetCoreWebRuntime(port, r =>
+                {
+                    MapService<ICommunicator>();
+                    MapService<G2SService>();
+                    MapService<MessageBuilder>();
+                    MapInterfacedService<IReceiveEndpointProvider, ReceiveEndpointProvider>();
+
+                    void MapService<T>() where T : class => r.AddSingleton(@this.GetInstance<T>());
+                    void MapInterfacedService<I, T>() where I : class where T : class, I => r.AddSingleton<I>(@this.GetInstance<T>());
+                });
+            });
             @this.Register<IDeviceFactory, DeviceFactory>(Lifestyle.Singleton);
             @this.Register<IGatComponentFactory, GatComponentFactory>(Lifestyle.Singleton);
             @this.Register<IHostFactory, HostFactory>(Lifestyle.Singleton);
@@ -347,7 +368,7 @@
                     Constants.ResourcePath);
 
                 bindingInfo.Address = clientAddress.Uri;
-                bindingInfo.Certificate = certificate;      
+                bindingInfo.Certificate = certificate;
                 bindingInfo.Validator = new ClientCertificateValidator(certificateService);
 
                 Logger.Debug($"Created endpoint at {clientAddress.Uri} using certificate {certificate.Thumbprint}");

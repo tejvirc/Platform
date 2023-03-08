@@ -1,16 +1,14 @@
 ﻿namespace Aristocrat.Monaco.G2S.CompositionRoot
 {
-    using Microsoft.Extensions.DependencyInjection;
-
+    using System;
+    using System.Threading.Tasks;
+    using Aristocrat.G2S.Client.Communications;
+    using CoreWCF;
     using CoreWCF.Configuration;
     using CoreWCF.Description;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Aristocrat.G2S.Client.Communications;
-    using System.Threading.Tasks;
-    using System;
-    using CoreWCF;
+    using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
     /// Responsible for creating and configuring WebApplication object.
@@ -20,17 +18,19 @@
         /// <summary>
         /// Create a web application object
         /// </summary>
-        public static WebApplication GetWcfApplicationRuntime()
+        public static WebApplication GetWcfApplicationRuntime(int port, Action<IServiceCollection> serviceBuilder)
         {
             var builder = WebApplication.CreateBuilder();
             builder.WebHost.ConfigureKestrel((context, option) =>
             {
+                option.ListenAnyIP(port);
                 option.AllowSynchronousIO = true;
             });
 
             // Add WSDL support
             builder.Services.AddServiceModelServices().AddServiceModelMetadata();
             builder.Services.AddSingleton<IServiceBehavior, UseRequestHeadersForMetadataAddressBehavior>();
+            serviceBuilder?.Invoke(builder.Services);
 
             var app = builder.Build();
 
@@ -47,9 +47,9 @@
 
         public CommunicationState State { get; private set; }
 
-        public AspNetCoreWebRuntime()
+        public AspNetCoreWebRuntime(int port, Action<IServiceCollection> serviceBuilder)
         {
-            _app = WebApplicationBuilder.GetWcfApplicationRuntime();
+            _app = WebApplicationBuilder.GetWcfApplicationRuntime(port, serviceBuilder);
             State = CommunicationState.Created;
         }
 
@@ -72,7 +72,7 @@
         }
 
         public void UseServiceModel(Action<IServiceBuilder> builder)
-        {            
+        {
             _app.UseServiceModel(builder);
         }
 

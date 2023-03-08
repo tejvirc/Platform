@@ -1,13 +1,12 @@
 ﻿namespace Aristocrat.G2S.Client.Configuration
 {
     using System;
-    using CoreWCF.IdentityModel.Selectors;
     using System.Linq;
     using System.Net.NetworkInformation;
     using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
     using Communications;
-    using Communicator.ServiceModel;
+    using CoreWCF.IdentityModel.Selectors;
     using Devices;
 
     /// <summary>
@@ -31,9 +30,9 @@
         /// </summary>
         public EgmFactoryConfigurator(IWcfApplicationRuntime app)
         {
-            _messageBuilder = new MessageBuilder();
+            _messageBuilder = app.GetRequiredService<MessageBuilder>();
             _messageBuilder.LoadSecurityNamespace(SchemaVersion.m105, null);
-            _app = app;                 
+            _app = app;
         }
 
         /// <inheritdoc />
@@ -63,16 +62,15 @@
             // Most (not all) are all meant to be extensibility points.
             // Just need to expose them as needed.
             var endpointProvider = new SendEndpointProvider(_messageBuilder, _certificate);
-            var receiveEndpointProvider = new ReceiveEndpointProvider(_messageBuilder);
 
             var idProvider = new IdProvider<int>();
             var deviceConnector = new DeviceConnector();
             var handlerConnector = new HandlerConnector();
             var commandDispatcher = new CommandDispatcher(handlerConnector, deviceConnector);
 
-            var service = new G2SService(receiveEndpointProvider);
-            
-            var receiver = new ReceiveEndpoint(service, _address, _certificate, _certificateValidator, _app);
+            var receiveEndpointProvider = _app.GetRequiredService<IReceiveEndpointProvider>();
+
+            var receiver = new ReceiveEndpoint(_address, _certificate, _certificateValidator, _app);
 
             var messageConsumer = new MessageConsumer(egm);
             receiveEndpointProvider.ConnectConsumer(messageConsumer);

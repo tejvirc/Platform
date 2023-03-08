@@ -9,7 +9,6 @@
     using CoreWCF.Description;
     using CoreWCF.IdentityModel.Selectors;
     using CoreWCF.Security;
-    using Aristocrat.G2S.Client.Communications;
 
     /// <summary>
     ///     Defines an instance of an IReceiveEndpoint.
@@ -18,7 +17,6 @@
     {
         private readonly X509Certificate2 _certificate;
         private readonly CoreWCF.Description.ServiceEndpoint _endpoint;
-        private readonly IG2SService _service;
         private readonly X509CertificateValidator _validator;
 
         private bool _disposed;
@@ -28,13 +26,11 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="ReceiveEndpoint" /> class.
         /// </summary>
-        /// <param name="service">An instance of the IG2SService.</param>
         /// <param name="address">The address to listen on.</param>
         /// <param name="certificate">The certificate</param>
         /// <param name="validator">An optional <see cref="X509CertificateValidator" /> validator</param>
         /// <param name="app"></param>
         public ReceiveEndpoint(
-            IG2SService service,
             Uri address,
             X509Certificate2 certificate,
             X509CertificateValidator validator,
@@ -49,8 +45,7 @@
             {
                 throw new ArgumentException(@"The Uri scheme is not valid it must be https or http.", nameof(address));
             }
-            
-            _service = service ?? throw new ArgumentNullException(nameof(service));
+
             _certificate = certificate;
             _validator = validator;
             _app = app ?? throw new ArgumentNullException(nameof(app));
@@ -70,7 +65,7 @@
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-                
+
         /// <inheritdoc />
         public void Open()
         {
@@ -113,28 +108,31 @@
         /// <param name="address"></param>
         /// <param name="certificate"></param>
         /// <param name="validator"></param>
-        private void RegisterEndpoint(            
+        private void RegisterEndpoint(
             Uri address,
             X509Certificate2 certificate,
             X509CertificateValidator validator)
         {
             _app.UseServiceModel(builder =>
             {
-                var serviceBuilder = builder.AddService<IG2SService>((options) => { });
+                var serviceBuilder = builder.AddService<G2SService>((options) => { });
+                const int maxReceiveMessageSize = 2147483647;
 
                 if (!address.IsSecure())
+                {
                     // Add a BasicHttpBinding at a specific endpoint
-                    serviceBuilder.AddServiceEndpoint<IG2SService, IG2SService>(new BasicHttpBinding(), address);
+                    serviceBuilder.AddServiceEndpoint<G2SService, IG2SService>(new BasicHttpBinding { MaxReceivedMessageSize = maxReceiveMessageSize }, address);
+                }
                 else
                 {
                     // Configure an explicit none credential type for WSHttpBinding as it defaults to Windows which requires extra configuration in ASP.NET
                     var myWSHttpBinding = new WSHttpBinding(SecurityMode.Transport);
                     myWSHttpBinding.Security.Transport.ClientCredentialType = HttpClientCredentialType.None;
-
+                    myWSHttpBinding.MaxReceivedMessageSize = maxReceiveMessageSize;
                     // Add a WSHttpBinding with Transport Security for TLS
-                    serviceBuilder.AddServiceEndpoint<IG2SService, IG2SService>(myWSHttpBinding, address);
+                    serviceBuilder.AddServiceEndpoint<G2SService, IG2SService>(myWSHttpBinding, address);
                 }
-                builder.ConfigureServiceHostBase<IG2SService>(serviceHost =>
+                builder.ConfigureServiceHostBase<G2SService>(serviceHost =>
                 {
                     serviceHost.Credentials.ServiceCertificate.Certificate = certificate;
 
