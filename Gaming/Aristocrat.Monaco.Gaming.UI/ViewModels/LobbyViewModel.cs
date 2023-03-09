@@ -1965,9 +1965,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             var gameList = GetOrderedGames(games);
 
             GameTabInfo.SetupGameTypeTabs(gameList);
-            ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
-
             GameList = gameList;
+            ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
         }
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
