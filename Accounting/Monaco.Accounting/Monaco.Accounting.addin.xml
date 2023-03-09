@@ -81,6 +81,7 @@
   <Extension path="/Accounting/TransferOutProviders">
     <TransactionService type="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" />
+    <TransactionService type="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" />
   </Extension>
 
