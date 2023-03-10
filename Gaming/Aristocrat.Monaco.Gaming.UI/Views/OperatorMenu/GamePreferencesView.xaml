@@ -316,20 +316,6 @@
                 <TextBlock x:Name="LobbyOptionsTextBlock"
                        Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameUILobbyOptions}}"/>
 
-                <!-- Volume Control Location Section -->
-                <StackPanel Orientation="Horizontal"
-                            Margin="0 5 0 0">
-                    <ComboBox HorizontalAlignment="Left"
-                              ItemsSource="{Binding VolumeControlLocationOptions}"
-                              SelectedValue="{Binding VolumeControlLocation, Mode=TwoWay}"
-                              DisplayMemberPath="Description"
-                              SelectedValuePath="Value"
-                              IsEnabled="{Binding Path=InputEnabled}"/>
-                    <Label Margin="5 5 0 0"
-                           VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.VolumeControlLocationTitle}}"/>
-                </StackPanel>
-
                 <!-- Show Service Section -->
                 <CheckBox x:Name="ShowServiceCheckBox"
                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowService}}" 

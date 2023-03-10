@@ -36,12 +36,12 @@ namespace Aristocrat.Monaco.Sas.Base
                 {
                     DisableState.DisabledByHost0, new DisableData(
                         ApplicationConstants.DisabledByHost0Key,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost0))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost1))
                 },
                 {
                     DisableState.DisabledByHost1, new DisableData(
                         ApplicationConstants.DisabledByHost1Key,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost1))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost2))
                 },
                 {
                     DisableState.Host0CommunicationsOffline, new DisableData(
@@ -79,12 +79,12 @@ namespace Aristocrat.Monaco.Sas.Base
                 {
                     DisableState.PowerUpDisabledByHost0, new DisableData(
                         PowerUpDisabledGuidHost0,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost0))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost1))
                 },
                 {
                     DisableState.PowerUpDisabledByHost1, new DisableData(
                         PowerUpDisabledGuidHost1,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost1))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost2))
                 }
             };
 

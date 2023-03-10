@@ -1377,9 +1377,6 @@
                 case LobbySettingType.ServiceButtonVisible:
                     GetServiceButtonVisible();
                     break;
-                case LobbySettingType.VolumeButtonVisible:
-                    GetVolumeButtonVisible();
-                    break;
                 case LobbySettingType.ShowTopPickBanners:
                     MvvmHelper.ExecuteOnUI(LoadGameInfo);
                     break;

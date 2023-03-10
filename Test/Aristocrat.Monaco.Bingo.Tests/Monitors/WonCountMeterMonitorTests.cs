@@ -6,6 +6,7 @@
     using Bingo.Services.Reporting;
     using Common.Storage;
     using Gaming.Contracts;
+    using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using TransactionType = Common.TransactionType;
@@ -17,6 +18,7 @@
         private readonly Mock<IReportTransactionQueueService> _bingoTransactionReportHandler = new(MockBehavior.Default);
         private readonly Mock<IMeterManager> _meterManager = new(MockBehavior.Default);
         private readonly Mock<IBingoGameProvider> _bingoGameProvider = new(MockBehavior.Default);
+        private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
 
         private TestMeter _meter;
         private WonCountMeterMonitor _target;
@@ -35,17 +37,19 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, DisplayName = "MeterManager Null")]
-        [DataRow(false, true, false, DisplayName = "BingoGameProvider Null")]
-        [DataRow(false, false, true, DisplayName = "TransactionReportHandler Null")]
+        [DataRow(true, false, false, false, DisplayName = "MeterManager Null")]
+        [DataRow(false, true, false, false, DisplayName = "BingoGameProvider Null")]
+        [DataRow(false, false, true, false, DisplayName = "TransactionReportHandler Null")]
+        [DataRow(false, false, false, true, DisplayName = "EventBus Null")]
         [DataTestMethod]
         public void NullConstructorParametersTest(
             bool meterNull,
             bool bingoGameNull,
-            bool reportingNull)
+            bool reportingNull,
+            bool eventBusNull)
         {
             Assert.ThrowsException<ArgumentNullException>(
-                () => _ = CreateTarget(meterNull, bingoGameNull, reportingNull));
+                () => _ = CreateTarget(meterNull, bingoGameNull, reportingNull, eventBusNull));
         }
 
         [TestMethod]
@@ -117,12 +121,14 @@
         private WonCountMeterMonitor CreateTarget(
             bool meterNull = false,
             bool bingoGameNull = false,
-            bool reportingNull = false)
+            bool reportingNull = false,
+            bool eventBusNull = false)
         {
             return new WonCountMeterMonitor(
                 meterNull ? null : _meterManager.Object,
                 bingoGameNull ? null : _bingoGameProvider.Object,
-                reportingNull ? null : _bingoTransactionReportHandler.Object);
+                reportingNull ? null : _bingoTransactionReportHandler.Object,
+                eventBusNull ? null : _eventBus.Object);
         }
     }
 }
