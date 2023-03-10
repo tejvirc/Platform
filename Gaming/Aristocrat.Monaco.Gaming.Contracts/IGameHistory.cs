@@ -63,6 +63,11 @@
         PlayState LastPlayState { get; }
 
         /// <summary>
+        ///     Used to Adding Metering SnapShot in GameHistory Log, include persistent into DB
+        /// </summary>
+        void AddMeterSnapShotWithPersistentLog();
+
+        /// <summary>
         ///     Used to start a game round in the escrowed state.  This will only be used for central determinant games
         /// </summary>
         /// <param name="initialWager">The initial wager.</param>
