@@ -1558,6 +1558,25 @@
                         continue;
                     }
 
+                    if (configuration.GameOptionsEnabled)
+                    {
+                        var restriction = GetRestrictionFromVariationId(configuration.Game.VariationId);
+
+                        if (restriction != null && SelectedGame.ThemeId.Equals(configuration.Game.ThemeId))
+                        {
+                            SelectedRestriction = restriction;
+                        }
+                        else if (restriction != null)
+                        {
+                            var gameProfile = Games.FirstOrDefault(g => g.ThemeId.Equals(configuration.Game.ThemeId));
+
+                            if (gameProfile != null)
+                            {
+                                gameProfile.SelectedRestriction = restriction;
+                            }
+                        }
+                    }
+
                     configuration.Enabled = denomination.Active;
                     configuration.SelectedBetOption = string.IsNullOrEmpty(denomination.BetOption)
                         ? null
@@ -1856,6 +1875,13 @@
                     config.Enabled = true;
                 }
             }
+        }
+
+        private IConfigurationRestriction GetRestrictionFromVariationId(string variationId)
+        {
+            return ValidRestrictions.FirstOrDefault(
+                v => v.RestrictionDetails.Mapping.Any(
+                    v2 => v2.VariationId.Equals(variationId)));
         }
 
         private class GamesGrouping
