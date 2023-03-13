@@ -17,8 +17,8 @@
         [JsonProperty("Denomination")]
         public long Denomination { get; set; }
 
-        [JsonProperty("Bets")]
-        public IReadOnlyCollection<long> Bets { get; set; } = Array.Empty<long>();
+        [JsonProperty("BetInformation")]
+        public IReadOnlyCollection<BetInformationDetail> BetInformation { get; set; } = Array.Empty<BetInformationDetail>();
 
         [JsonProperty("EvaluationTypePaytable")]
         [JsonConverter(typeof(StringEnumConverter))]

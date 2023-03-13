@@ -52,7 +52,6 @@
                 typeof(IAsyncConsumer<>),
                 true,
                 Assembly.GetExecutingAssembly());
-
             return container;
         }
     }

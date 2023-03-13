@@ -11,12 +11,12 @@
     {
         public Task<IMessage> ProcessCommand(Command command, CancellationToken token)
         {
-            var ping = command.Command_.Unpack<PingCommand>();
+            var ping = command.Command_.Unpack<ActivityRequest>();
             return Task.FromResult<IMessage>(
-                new PingResponse
+                new ActivityResponse()
                 {
-                    PingRequestTime = ping.PingRequestTime,
-                    PingResponseTime = Timestamp.FromDateTime(DateTime.UtcNow)
+                    //ActivityTime = ping.PingRequestTime,
+                    ActivityResponseTime = Timestamp.FromDateTime(DateTime.UtcNow)
                 });
         }
     }

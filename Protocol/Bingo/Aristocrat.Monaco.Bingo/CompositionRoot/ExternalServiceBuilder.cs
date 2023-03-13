@@ -47,6 +47,7 @@
             container.RegisterInstance(serviceManager.GetService<IConfigurationProvider>());
             container.RegisterInstance(serviceManager.GetService<IProtocolLinkedProgressiveAdapter>());
             container.RegisterInstance(serviceManager.GetService<IProtocolProgressiveEventsRegistry>());
+			
             return container;
         }
     }

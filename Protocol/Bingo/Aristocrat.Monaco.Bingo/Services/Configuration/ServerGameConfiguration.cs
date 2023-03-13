@@ -20,8 +20,8 @@
         [JsonProperty("Denomination")]
         public long Denomination { get; set; }
 
-        [JsonProperty("Bets")]
-        public IReadOnlyCollection<long> Bets { get; set; } = Array.Empty<long>();
+        [JsonProperty("BetInformation")]
+        public IReadOnlyCollection<ServerBetInformationDetail> BetInformationDetails { get; set; }
 
         [JsonProperty("Progressive")]
         public int Progressive { get; set; }

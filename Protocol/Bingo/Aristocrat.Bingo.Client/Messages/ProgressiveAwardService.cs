@@ -39,12 +39,12 @@
             {
                 MachineSerial = message.MachineSerial,
                 ProgressiveAwardId = message.ProgressiveAwardId,
-                LevelId = Convert.ToInt32(serverProgressiveLevelIdId), // TODO remove convert with new progressive.proto version
+                ProgressiveLevelId = serverProgressiveLevelIdId,
                 Amount = message.Amount,
                 Pending = message.Pending
             };
 
-            Logger.Debug($"ProgressiveAwardPaid, MachineSerial={request.MachineSerial}, ProgressiveAwardId={request.ProgressiveAwardId}, LevelId={request.LevelId}, Amount={request.Amount}, Pending={request.Pending}");
+            Logger.Debug($"ProgressiveAwardPaid, MachineSerial={request.MachineSerial}, ProgressiveAwardId={request.ProgressiveAwardId}, LevelId={request.ProgressiveLevelId}, Amount={request.Amount}, Pending={request.Pending}");
 
             var result = await Invoke(async x => await x.AcknowledgeProgressiveWinAsync(request, null, null, token));
 
