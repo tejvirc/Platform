@@ -525,7 +525,7 @@
         /// </summary>
         [JsonIgnore]
         public string MaxCreditMeterDisplay =>
-            _maxCreditMeter < _maxCreditMeterMaxAllowed
+            _maxCreditMeter <= _maxCreditMeterMaxAllowed
                 ? _maxCreditMeter.MillicentsToDollars().FormattedCurrencyString()
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
