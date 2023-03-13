@@ -448,7 +448,7 @@
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
                     MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
-                    Label = metric.GetAttribute<LabelAttribute>().Label,
+                    Label = metric.GetAttribute<LabelAttribute>().Label + " " + metric.GetAttribute<UnitAttribute>().Unit
                 };
 
                 m.PropertyChanged += ViewMetric_PropertyChanged;

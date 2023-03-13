@@ -48,7 +48,7 @@
                               (ResourceKeys.AcceptedTimeHeader, transaction.State == CurrencyState.Accepted ? timeService.GetFormattedLocationTime(TimeZoneInfo.ConvertTimeFromUtc(transaction.Accepted, timeService.TimeZoneInformation), dateTimeFormat) : "N/A"),
                               (ResourceKeys.AmountCreditedHeader,transaction.State == CurrencyState.Accepted  ? transaction.Amount.MillicentsToDollars().FormattedCurrencyString() : "N/A"),
                               (ResourceKeys.StatusHeader,  CurrencyAccountingExtensions.GetStatusText(transaction.State)),
-                              (ResourceKeys.DetailsHeader, CurrencyAccountingExtensions.GetDetailsMessage(transaction.Exception))}
+                              (ResourceKeys.DetailsHeader, CurrencyAccountingExtensions.GetDetailsMessage(transaction.State, transaction.Exception))}
                           let name = string.Join(
                               EventLogUtilities.EventDescriptionNameDelimiter,
                               Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillIn),

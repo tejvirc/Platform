@@ -11,6 +11,7 @@
     using Common.Storage;
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
+    using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using TransactionType = Common.TransactionType;
@@ -25,6 +26,7 @@
         private readonly Mock<ITransactionHistory> _transactionHistory = new(MockBehavior.Default);
         private readonly Mock<IBonusHandler> _bonusHandler = new(MockBehavior.Default);
         private readonly Mock<IGameHistory> _gameHistory = new(MockBehavior.Default);
+        private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
 
         private TestMeter _meter;
         private EgmPaidGameWinBonusAmountMeterMonitor _target;
@@ -43,12 +45,13 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false)]
-        [DataRow(false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false, false)]
+        [DataRow(false, false, false, true, false, false, false)]
+        [DataRow(false, false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, false, true)]
         [DataTestMethod]
         public void NullConstructorParametersTest(
             bool meterNull,
@@ -56,7 +59,8 @@
             bool reportingNull,
             bool bonusHandlerNull,
             bool gameHistoryNull,
-            bool transactionHistoryNull)
+            bool transactionHistoryNull,
+            bool eventBusNull)
         {
             Assert.ThrowsException<ArgumentNullException>(
                 () => _ = CreateTarget(
@@ -65,7 +69,8 @@
                     reportingNull,
                     bonusHandlerNull,
                     gameHistoryNull,
-                    transactionHistoryNull));
+                    transactionHistoryNull,
+                    eventBusNull));
         }
 
         [TestMethod]
@@ -328,7 +333,8 @@
             bool reportingNull = false,
             bool bonusHandlerNull = false,
             bool gameHistoryNull = false,
-            bool transactionHistoryNull = false)
+            bool transactionHistoryNull = false,
+            bool eventBusNull = false)
         {
             return new EgmPaidGameWinBonusAmountMeterMonitor(
                 meterNull ? null : _meterManager.Object,
@@ -336,7 +342,8 @@
                 reportingNull ? null : _bingoTransactionReportHandler.Object,
                 bonusHandlerNull ? null : _bonusHandler.Object,
                 gameHistoryNull ? null : _gameHistory.Object,
-                transactionHistoryNull ? null : _transactionHistory.Object);
+                transactionHistoryNull ? null : _transactionHistory.Object,
+                eventBusNull ? null : _eventBus.Object);
         }
     }
 }

@@ -175,8 +175,7 @@
             model.TotalVouchersIn =
                 snapshot.VoucherInCashableAmount +
                 snapshot.VoucherInCashablePromoAmount +
-                snapshot.VoucherInNonCashableAmount +
-                snapshot.HandPaidGameWonAmount;
+                snapshot.VoucherInNonCashableAmount;
 
             model.TotalVouchersOut =
                 snapshot.VoucherOutCashableAmount +
