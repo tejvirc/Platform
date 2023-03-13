@@ -35,6 +35,15 @@
             var localizedInfo = product.localization.FirstOrDefault(l => IsLocaleMatch(l.localeCode)) ??
                                 product.localization.First();
 
+            var configs = product.configurationList?
+                .configuration?
+                .Select(Map)
+                .ToList();
+
+            var gamePackConfigs = configs?
+                .SelectMany(c => c.GameConfiguration.ConfigurationMapping)
+                .ToArray();
+
             var game = new GameContent
             {
                 Name = localizedInfo.productName,
@@ -49,11 +58,12 @@
                 InstallSequence = "<installSeq />",
                 UninstallSequence = "<uninstallSeq />",
                 Package = Map(manifest.packageList, product.requiredPackage.FirstOrDefault()),
-                GameAttributes = product.gameAttributes.Select(Map)
+                GameAttributes = product.gameAttributes
+                    .Select(attr => Map(attr, gamePackConfigs))
                     .OrderByDescending(g => g.VariationId == DefaultVariationId)
                     .ThenBy(g => Convert.ToInt32(g.VariationId)).ToList(),
                 UpgradeActions = manifest.upgradeActionList?.upgradeAction?.Select(Map).ToList(),
-                Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
+                Configurations = configs,
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
                 MechanicalReels = product.mechanicalReels,
                 MechanicalReelHomeStops = product.mechanicalReelHomeStops?.Split(' ').Select(int.Parse).ToArray()
@@ -95,21 +105,49 @@
             }
         }
 
-        private static GameAttributes Map(c_gameAttributes gameInfo)
+        private static GameAttributes Map(c_gameAttributes gameInfo,
+            IEnumerable<GameConfigurationMap> gamePackConfigs)
         {
             var betOptionList = new BetOptionList(gameInfo.Item?.betOption);
-            var activeBetOptionName = gameInfo.Item?.activeOption;
-            var activeBetOption = !string.IsNullOrEmpty(activeBetOptionName)
-                ? betOptionList.FirstOrDefault(o => o.Name == activeBetOptionName)
-                : null;
-
+            BetOption activeBetOption = null;
+            
             var lineOptionList = new LineOptionList(gameInfo.lineOptionList?.lineOption);
-            var activeLineOptionName = gameInfo.lineOptionList?.activeOption;
-            var activeLineOption = !string.IsNullOrEmpty(activeLineOptionName)
-                ? lineOptionList.FirstOrDefault(o => o.Name == activeLineOptionName)
-                : null;
-     
-            var betLinePresetList = new BetLinePresetList(gameInfo.betLinePresetList, betOptionList, lineOptionList);
+            LineOption activeLineOption = null;
+
+            var betLinePresetList = new BetLinePresetList(
+                gameInfo.betLinePresetList,
+                betOptionList,
+                lineOptionList
+            );
+
+            var gameConfig = gamePackConfigs?
+                .FirstOrDefault(g => g.Variation == gameInfo.variationId);
+
+            if (gameConfig != null)
+            {
+                var betLinePreset = betLinePresetList
+                    .FirstOrDefault(p => p.Id == gameConfig.DefaultBetLinePreset);
+
+                if (betLinePreset != null)
+                {
+                    activeBetOption = betLinePreset.BetOption;
+                    activeLineOption = betLinePreset.LineOption;
+                }
+            }
+
+            if (activeBetOption == null &&
+                !string.IsNullOrWhiteSpace(gameInfo.Item?.activeOption))
+            {
+                activeBetOption = betOptionList
+                    .FirstOrDefault(b => b.Name == gameInfo.Item.activeOption);
+            }
+
+            if (activeLineOption == null &&
+                !string.IsNullOrWhiteSpace(gameInfo.lineOptionList?.activeOption))
+            {
+                activeLineOption = lineOptionList
+                    .FirstOrDefault(l => l.Name == gameInfo.lineOptionList?.activeOption);
+            }
 
             // Verify that ActiveLineOption and ActiveBetOption pair are legal. If either of these
             // active options are null, this check can be skipped. This may be the case, for
