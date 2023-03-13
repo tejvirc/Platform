@@ -23,6 +23,10 @@
 	<string>fr-ca</string>
 	<string>en-us</string>
   </LocaleCodes>
+  <LanguageButtonResourceKeys>
+  <string>FrenchOff</string>
+	<string>EnglishOff</string>
+  </LanguageButtonResourceKeys>
   <DefaultLoadingScreenFilename>../jurisdiction/Quebec-VLT/ui/Images/BS_LoadingScreen.png</DefaultLoadingScreenFilename>
   <DefaultTopAttractVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopAttractVideoFilename>
   <DefaultTopperAttractVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopperAttractVideoFilename>
