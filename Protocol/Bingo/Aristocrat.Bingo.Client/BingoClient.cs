@@ -65,8 +65,6 @@
 
         public bool IsConnected => StateIsConnected(_channel?.State);
 
-        public ClientConfigurationOptions Configuration => _configurationProvider.Configuration;
-
         private RpcConnectionState State
         {
             set
@@ -86,7 +84,7 @@
             try
             {
                 await Stop();
-                var configuration = _configurationProvider.Configuration;
+                using var configuration = _configurationProvider.CreateConfiguration();
                 var credentials = configuration.Certificates.Any()
                     ? new SslCredentials(
                         string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))

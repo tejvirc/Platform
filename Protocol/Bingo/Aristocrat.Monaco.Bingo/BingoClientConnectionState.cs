@@ -7,6 +7,7 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Bingo.Client;
+    using Aristocrat.Bingo.Client.Configuration;
     using Commands;
     using Common;
     using Common.Events;
@@ -28,6 +29,7 @@
         private readonly IClient _client;
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly ISystemDisableManager _systemDisable;
+        private readonly IClientConfigurationProvider _configurationProvider;
         private readonly Timer _timeoutTimer;
 
         private CancellationTokenSource _tokenSource;
@@ -46,12 +48,14 @@
             IEventBus eventBus,
             IClient client,
             ICommandHandlerFactory commandFactory,
-            ISystemDisableManager systemDisable)
+            ISystemDisableManager systemDisable,
+            IClientConfigurationProvider configurationProvider)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
+            _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
 
             CreateStateMachine();
             RegisterEventListeners();
@@ -367,7 +371,8 @@
         private void SetupFirewallRule()
         {
             const string firewallRuleName = "Platform.Bingo.Server";
-            Firewall.AddRule(firewallRuleName, (ushort)_client.Configuration.Address.Port, Firewall.Direction.Out);
+            using var configuration = _configurationProvider.CreateConfiguration();
+            Firewall.AddRule(firewallRuleName, (ushort)configuration.Address.Port, Firewall.Direction.Out);
         }
 
         private void RegisterEventListeners()
