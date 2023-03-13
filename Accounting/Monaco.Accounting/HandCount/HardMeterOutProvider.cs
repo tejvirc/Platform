@@ -27,6 +27,7 @@
         private readonly IPersistentStorageManager _storage;
         private readonly ITransactionHistory _transactions;
         private readonly IValidationProvider _validationProvider;
+        private readonly IHandCountService _handCountService;
 
         public HardMeterOutProvider()
             : this(
@@ -35,6 +36,7 @@
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IHandCountService>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IIdProvider>(),
                 ServiceManager.GetInstance().GetService<IValidationProvider>())
@@ -47,6 +49,7 @@
             IMeterManager meters,
             IPersistentStorageManager storage,
             IEventBus bus,
+            IHandCountService handCountService,
             IPropertiesManager properties,
             IIdProvider idProvider,
             IValidationProvider validationProvider)
@@ -56,6 +59,7 @@
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
@@ -238,6 +242,8 @@
                         _idProvider.GetNextLogSequence<VoucherOutTransaction>();
 
                         _transactions.AddTransaction(transaction);
+
+                        _handCountService.DecreaseHandCount( (int)Math.Ceiling(VoucherTicketsCreator.GetDollarAmount(transaction.Amount)/5));
 
                         Logger.Debug("Entering UpdateMeters");
 

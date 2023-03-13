@@ -89,9 +89,9 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.LargePayoutDisableKey,
                 SystemDisablePriority.Immediate,
-                () => "Cashout Amount more than $20, call attendant",
+                () => "COLLECT LIMIT REACHED. SEE ATTENDANT.",
                 true,
-                () => "Cashout Amount more than $20");
+                () => "COLLECT LIMIT REACHED. SEE ATTENDANT.");
 
             return keyOff;
         }
