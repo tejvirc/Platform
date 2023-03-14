@@ -193,7 +193,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts
                 TypeOfAccount,
                 CurrencyId,
                 CurrencyAccountingExtensions.GetStatusText(State),
-                CurrencyAccountingExtensions.GetDetailsMessage(State, Exception));
+                CurrencyAccountingExtensions.GetDetailsMessage(Exception));
 
             return builder.ToString();
         }
