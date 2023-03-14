@@ -26,13 +26,14 @@
                 case RedemptionStatusCode.TransferAmountNotEvenMultiple:
                 case RedemptionStatusCode.TransferAmountDoesNotMatchTicket:
                 case RedemptionStatusCode.GamingMachineUnableToAcceptTransfer:
-                case RedemptionStatusCode.TicketRejectedDueToTimeout:
                 case RedemptionStatusCode.TicketRejectedDueToCommunicationLinkDown:
                 case RedemptionStatusCode.TicketRedemptionDisabled:
                 case RedemptionStatusCode.TicketRejectedDueToValidatorFailure:
                 case RedemptionStatusCode.NotCompatibleWithCurrentRedemptionCycle:
                 case RedemptionStatusCode.NoValidationInfoAvailable:
                     return VoucherInExceptionCode.ValidationFailed;
+                case RedemptionStatusCode.TicketRejectedDueToTimeout:
+                    return VoucherInExceptionCode.TimedOut;
                 case RedemptionStatusCode.TransferAmountExceededGameLimit:
                     return VoucherInExceptionCode.CreditInLimitExceeded;
                 default:

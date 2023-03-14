@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Services.Configuration
 {
-    using System;
     using System.Collections.Generic;
     using Common.Storage.Model;
     using Newtonsoft.Json;

@@ -27,7 +27,7 @@
                 SideBetGames = configuration.SideBetGames
             };
         }
-		
+
         public static BetInformationDetail ToBetInformationDetail(this ServerBetInformationDetail detail)
         {
             return new BetInformationDetail
@@ -36,6 +36,5 @@
                 Rtp = detail.Rtp
             };
         }
-		
     }
 }

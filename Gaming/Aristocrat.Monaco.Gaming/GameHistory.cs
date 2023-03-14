@@ -497,9 +497,8 @@
             log.EndTransactionId = _idProvider.CurrentTransactionId;
             log.PlayState = PlayState.GameEnded;
             log.LastUpdate = endTime;
-
+            AddMeterSnapshot();
             Persist(log);
-
             Logger.Debug($"[Game End {CurrentLogIndex}] End Time {endTime}");
         }
 
@@ -515,7 +514,6 @@
             var log = _currentLog;
 
             UpdateTransactions(log, true);
-            AddMeterSnapshot();
 
             log.PlayState = PlayState.Idle;
             log.Events = _loggedEventContainer.HandOffEvents();

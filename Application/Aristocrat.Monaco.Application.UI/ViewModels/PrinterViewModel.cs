@@ -36,7 +36,7 @@
         private bool _printLanguageOverrideIsChecked;
         private readonly string[] _playerTicketSelectableLocales;
 
-        public PrinterViewModel() : base(DeviceType.Printer)
+        public PrinterViewModel(bool isWizard) : base(DeviceType.Printer, isWizard)
         {
             var playerAvailableLocales = (string[])PropertiesManager.GetProperty(ApplicationConstants.LocalizationPlayerAvailable, new[] { CultureInfo.CurrentCulture.Name });
             PlayerLocalesAvailable = playerAvailableLocales.Length > 1;
@@ -162,6 +162,8 @@
         public bool DiagnosticsEnabled { get; set; }
 
         public override bool TestModeEnabledSupplementary => Printer is { Faults: PrinterFaultTypes.None, Connected: true };
+
+        public override bool PrinterButtonsEnabled => IsWizardPage || base.PrinterButtonsEnabled;
 
         public ICommand FormFeedButtonCommand { get; }
 
@@ -337,6 +339,7 @@
 
             if (PrinterButtonsEnabled)
             {
+                Inspection?.SetTestName("Form feed");
                 _formFeedActive = true;
                 EventBus.Publish(new OperatorMenuPrintJobStartedEvent());
                 Task.Run(
@@ -354,11 +357,13 @@
 
         private void SelfTestButtonClicked(object obj)
         {
+            Inspection?.SetTestName("Self test");
             RunSelfTest(false);
         }
 
         private void SelfTestClearNvmButtonClicked(object obj)
         {
+            Inspection?.SetTestName("Self test clear NVM");
             RunSelfTest(true);
         }
 
@@ -745,6 +750,8 @@
             }
             else if (typeof(InspectionFailedEvent) == eventType)
             {
+                Inspection?.SetTestName("Inspection");
+                Inspection?.ReportTestFailure();
                 UpdateStatusError(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText), false);
                 _updateDeviceInformation = true;
             }
@@ -755,6 +762,7 @@
             }
             else if (typeof(SelfTestFailedEvent) == eventType)
             {
+                Inspection?.ReportTestFailure();
                 SelfTestCurrentState = SelfTestState.Failed;
                 EventBus.Publish(new OperatorMenuPrintJobCompletedEvent());
             }
@@ -886,6 +894,8 @@
                             temp += "\n";
                         }
                     }
+                    Inspection?.SetTestName(text);
+                    Inspection?.ReportTestFailure();
 
                     temp += text;
 

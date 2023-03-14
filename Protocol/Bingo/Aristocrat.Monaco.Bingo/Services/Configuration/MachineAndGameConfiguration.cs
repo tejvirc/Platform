@@ -4,31 +4,25 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
     using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Common;
-    using Common.Extensions;
     using Common.Storage.Model;
-    using Gaming.Contracts;
-    using Gaming.Contracts.Configuration;
     using Kernel;
     using Newtonsoft.Json;
 
     public class MachineAndGameConfiguration : BaseConfiguration
     {
         private const int InvalidResult = -1;
+        private static readonly GameDetailsRequiresResetComparer GameDetailsRequiresResetComparer = new();
 
-        private readonly IGameProvider _gameProvider;
-        private readonly IConfigurationProvider _restrictionProvider;
+        private readonly IBingoPaytableInstaller _bingoConfigurationProvider;
 
         public MachineAndGameConfiguration(
             IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisableManager,
-            IGameProvider gameProvider,
-            IConfigurationProvider restrictionProvider)
+            IBingoPaytableInstaller bingoConfigurationProvider)
             : base(propertiesManager, systemDisableManager)
         {
-            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
-            _restrictionProvider = restrictionProvider ?? throw new ArgumentNullException(nameof(restrictionProvider));
+            _bingoConfigurationProvider = bingoConfigurationProvider ?? throw new ArgumentNullException(nameof(bingoConfigurationProvider));
             ConfigurationConversion =
                 new Dictionary<string, (string, Func<string, object>)>
                 {
@@ -74,56 +68,19 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                 case MachineAndGameConfigurationConstants.GamesConfigured when string.IsNullOrEmpty(model.ServerGameConfiguration):
                     model.ServerGameConfiguration = value;
                     var configured = JsonConvert.DeserializeObject<List<ServerGameConfiguration>>(value);
-                    var results = ConfigureGames(configured).ToList();
+                    var results = _bingoConfigurationProvider.ConfigureGames(configured).ToList();
                     model.GamesConfigurationText = JsonConvert.SerializeObject(results);
                     break;
                 case MachineAndGameConfigurationConstants.GamesConfigured:
                     model.ServerGameConfiguration = value;
                     var serverSettings = JsonConvert.DeserializeObject<List<ServerGameConfiguration>>(value);
-                    var updateConfiguration = BuildUpdateConfiguration(serverSettings);
+                    var updateConfiguration = _bingoConfigurationProvider.UpdateConfiguration(serverSettings);
                     model.GamesConfigurationText = JsonConvert.SerializeObject(updateConfiguration);
                     break;
                 default:
                     LogUnhandledSetting(name, value);
                     break;
             }
-        }
-
-        private IEnumerable<BingoGameConfiguration> BuildUpdateConfiguration(IEnumerable<ServerGameConfiguration> configured)
-        {
-            foreach (var (gameDetail, setting) in GetGameConfigurations(configured).SelectMany(x => x))
-            {
-                yield return setting.ToGameConfiguration(gameDetail);
-            }
-        }
-
-        private IEnumerable<BingoGameConfiguration> ConfigureGames(IEnumerable<ServerGameConfiguration> configured)
-        {
-            foreach (var gameConfiguration in GetGameConfigurations(configured))
-            {
-                _gameProvider.SetActiveDenominations(
-                    gameConfiguration.Key.Id,
-                    gameConfiguration.Select(x => x.Settings.Denomination.CentsToMillicents()).ToList());
-
-                foreach (var (gameDetail, setting) in gameConfiguration)
-                {
-                    yield return setting.ToGameConfiguration(gameDetail);
-                }
-            }
-        }
-
-        private IEnumerable<IGrouping<(int Id, string ThemeId), (IGameDetail GameDetails, ServerGameConfiguration Settings)>>
-            GetGameConfigurations(IEnumerable<ServerGameConfiguration> configured)
-        {
-            var gameDetails = _gameProvider.GetGames();
-            var gameConfigurations = configured.Select(
-                    c => (
-                        GameDetails: gameDetails.First(
-                            d => d.GetBingoTitleId() == c.GameTitleId.ToString() &&
-                                 d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
-                        Settings: c))
-                .GroupBy(x => (x.GameDetails.Id, x.GameDetails.ThemeId));
-            return gameConfigurations;
         }
 
         protected override bool IsSettingInvalid(string name, string value)
@@ -171,21 +128,9 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                    newSettings.Any(r => oldSettings.FirstOrDefault(c => GameSettingsMatch(r, c)) is null);
         }
 
-        private static bool GameSettingsMatch(
-            ServerGameConfiguration newSetting,
-            ServerGameConfiguration oldSetting)
+        private static bool GameSettingsMatch(ServerGameConfiguration newSetting, ServerGameConfiguration oldSetting)
         {
-            return newSetting is not null &&
-                   oldSetting is not null &&
-                   newSetting.QuickStopMode == oldSetting.QuickStopMode &&
-                   newSetting.Denomination == oldSetting.Denomination &&
-                   newSetting.PaytableId == oldSetting.PaytableId &&
-                   newSetting.GameTitleId == oldSetting.GameTitleId &&
-                   newSetting.ThemeSkinId == oldSetting.ThemeSkinId &&
-                   newSetting.EvaluationTypePaytable == oldSetting.EvaluationTypePaytable &&
-                   newSetting.CrossGameProgressiveEnabled == oldSetting.CrossGameProgressiveEnabled &&
-                   oldSetting.BetInformationDetails != null && newSetting.BetInformationDetails != null &&
-                   newSetting.BetInformationDetails.SequenceEqual(oldSetting.BetInformationDetails);
+            return GameDetailsRequiresResetComparer.Equals(newSetting, oldSetting);
         }
 
         private static bool UsingGlobalSetting(string value)
@@ -202,12 +147,6 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                    !string.Equals(value, MachineAndGameConfigurationConstants.TopScreen, StringComparison.Ordinal);
         }
 
-        private static bool IsHelpUriValid(ServerGameConfiguration configuration)
-        {
-            var helpUrl = configuration.HelpUrl;
-            return string.IsNullOrEmpty(helpUrl) || helpUrl.IsValidHelpUri();
-        }
-
         private bool ValidGamesConfiguration(string value)
         {
             if (string.IsNullOrEmpty(value))
@@ -218,34 +157,13 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
             try
             {
                 var result = JsonConvert.DeserializeObject<List<ServerGameConfiguration>>(value);
-                var gameDetails = _gameProvider.GetGames();
-                var gameConfigurations = result.Select(
-                        c => (
-                            GameDetails: gameDetails.FirstOrDefault(
-                                d => d.GetBingoTitleId() == c.GameTitleId.ToString() && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
-                            Settings: c))
-                    .GroupBy(x => x.GameDetails?.Id ?? -1);
-                return result.Any() &&
-                       result.All(IsHelpUriValid) &&
-                       gameConfigurations.All(x => x.Key != -1 && IsConfigurationValid(x.ToList()));
+                return _bingoConfigurationProvider.IsConfigurationValid(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Warn("Failed parsing the configuration data", ex);
                 return false;
             }
-        }
-
-        private bool IsConfigurationValid(
-            IReadOnlyCollection<(IGameDetail GameDetails, ServerGameConfiguration Settings)> configurations)
-        {
-            var gameDetail = configurations.First().GameDetails;
-            var denoms = configurations.Select(c => c.Settings).ToList();
-            var restrictions = _restrictionProvider.GetByThemeId(gameDetail.ThemeId).Select(x => x.RestrictionDetails).Where(
-                x => x.MaxDenomsEnabled is not null || x.Mapping.Any(m => m.Active)).ToList();
-            return restrictions.Count == 0 || restrictions.Any(
-                x => x.MaxDenomsEnabled is not null && x.MaxDenomsEnabled >= denoms.Count ||
-                     x.Mapping.Count(m => m.Active) == denoms.Count && x.Mapping.All(
-                         m => m.Active && denoms.Any(d => d.Denomination.CentsToMillicents() == m.Denomination)));
         }
     }
 }

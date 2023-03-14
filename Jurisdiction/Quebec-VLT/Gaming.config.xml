@@ -12,7 +12,7 @@ as follows:
 <GamingConfiguration>
 	<GameHistory KeepGameRoundEvents="false" KeepGameRoundMeterSnapshots="false" />
 	<GameEnd CashOutStrategy="Full" />
-	<FreeGames MeterIndependently="false" />
+	<FreeGames MeterIndependently="true" />
 	<Messages>
 		<MinBetMessage MustDisplay="false" Format="Currency" />
 	</Messages>

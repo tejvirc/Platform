@@ -57,7 +57,7 @@ as follows:
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
     <DefaultVolumeLevel>2</DefaultVolumeLevel>
-    <AlertVolume Minimum="70" Configurable="true" />
+    <AlertVolume Minimum="80" Configurable="true" />
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
 <!--

@@ -3,6 +3,16 @@
     public interface ISasExceptionQueue : ISasExceptionAcknowledgeHandler
     {
         /// <summary>
+        ///     Gets or sets a value indicating whether to notify when the exception queue is empty or not
+        /// </summary>
+        bool NotifyWhenExceptionQueueIsEmpty { get; set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether the exception queue is empty or not
+        /// </summary>
+        bool ExceptionQueueIsEmpty { get; }
+
+        /// <summary>
         ///     Gets the client number for the exception queue
         /// </summary>
         byte ClientNumber { get; }

@@ -15,18 +15,21 @@
         /// <param name="betLinePresetId">The bet-line-preset-id for the game round</param>
         /// <param name="data">The initial recovery blob</param>
         /// <param name="request">Outcome request</param>
+        /// <param name="wagerCategoryId">Wager category for the game round</param>///
         public BeginGameRoundAsync(
             long denom,
             long wager,
             int betLinePresetId,
             byte[] data,
-            IOutcomeRequest request)
+            IOutcomeRequest request,
+            int wagerCategoryId)
         {
             Denom = denom;
             Wager = wager;
             BetLinePresetId = betLinePresetId;
             Data = data;
             Request = request;
+            WagerCategoryId = wagerCategoryId;
         }
 
         /// <summary>
@@ -43,6 +46,11 @@
         ///     Gets the bet-line-preset-id
         /// </summary>
         public int BetLinePresetId { get; }
+
+        /// <summary>
+        ///     Gets the wager category id
+        /// </summary>
+        public int WagerCategoryId { get; }
 
         /// <summary>
         ///     Gets the recovery blob associated with beginning of the game round

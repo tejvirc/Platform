@@ -984,6 +984,8 @@
                     continue;
                 }
 
+                var postFaultEvent = !ContainsError(value.ToString());
+
                 switch (value)
                 {
                     case NoteAcceptorFaultTypes.FirmwareFault:
@@ -1019,7 +1021,10 @@
                         continue;
                 }
 
-                PostEvent(new HardwareFaultEvent(NoteAcceptorId, value));
+                if (postFaultEvent)
+                {
+                    PostEvent(new HardwareFaultEvent(NoteAcceptorId, value));
+                }
             }
         }
 

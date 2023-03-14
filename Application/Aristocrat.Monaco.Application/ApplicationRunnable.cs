@@ -23,6 +23,7 @@ namespace Aristocrat.Monaco.Application
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.VHD;
     using Kernel;
+    using Kernel.Contracts;
     using Kernel.Contracts.Components;
     using Kernel.Contracts.Events;
     using log4net;
@@ -39,6 +40,7 @@ namespace Aristocrat.Monaco.Application
         private const string TimeServiceExtensionPath = "/Application/Time";
         private const string DisableByOperatorManagerServiceExtensionPath = "/Application/DisableByOperatorManager";
         private const string ConfigurationWizardExtensionPath = "/Application/ConfigurationWizard";
+        private const string InspectionWizardExtensionPath = "/Application/InspectionWizard";
         private const string ConfigurationSettingsManagerExtensionPath = "/Application/Configuration/SettingsManager";
         private const string MeterManagerExtensionPath = "/Application/MeterManager";
         private const string PersistenceClearArbiterPathExtensionPath = "/Application/PersistenceClearArbiter";
@@ -59,7 +61,7 @@ namespace Aristocrat.Monaco.Application
         // The int representing a verbose logging level for MonoLogger
         private const int VerboseMonoLogLevel = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private IPathMapper _pathMapper;
         private IVirtualDisk _virtualDisk;
@@ -71,6 +73,7 @@ namespace Aristocrat.Monaco.Application
         private readonly object _thisLock = new object();
 
         private IRunnable _configurationWizard;
+        private IRunnable _inspectionWizard;
         private IService _disableByOperatorManager;
         private IRunnable _extender;
         private bool _firstBoot;
@@ -150,7 +153,16 @@ namespace Aristocrat.Monaco.Application
                 LoadServices();
 
                 RegisterLogAdapters();
+            }
 
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var isInspection = (bool)propertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+            if (isInspection)
+            {
+                CheckInspection();
+            }
+            else if (RunState == RunnableState.Running)
+            {
                 LoadDisableByOperatorManager();
 
                 LoadRunnables();
@@ -182,10 +194,18 @@ namespace Aristocrat.Monaco.Application
             {
                 if (_configurationWizard != null)
                 {
-                    Logger.Debug("Disposing wizard in Stop");
+                    Logger.Debug("Disposing config wizard in Stop");
                     _configurationWizard.Stop();
                     ((IDisposable)_configurationWizard).Dispose();
                     _configurationWizard = null;
+                }
+
+                if (_inspectionWizard != null)
+                {
+                    Logger.Debug("Disposing inspection wizard in Stop");
+                    _inspectionWizard.Stop();
+                    ((IDisposable)_inspectionWizard).Dispose();
+                    _inspectionWizard = null;
                 }
             }
 
@@ -524,6 +544,31 @@ namespace Aristocrat.Monaco.Application
             }
         }
 
+        private void CheckInspection()
+        {
+            WritePendingActionToMessageDisplay(ResourceKeys.CheckingInspection);
+
+            if (RunState == RunnableState.Running)
+            {
+                var node =
+                    MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(
+                        InspectionWizardExtensionPath);
+                _inspectionWizard = (IRunnable)node.CreateInstance();
+                _inspectionWizard.Initialize();
+                WritePendingActionToMessageDisplay(ResourceKeys.RunningInspectionWizard);
+                _inspectionWizard.Run();
+                lock (_thisLock)
+                {
+                    // Stop could have set the wizard to null on another thread
+                    if (_inspectionWizard != null)
+                    {
+                        ((IDisposable)_inspectionWizard).Dispose();
+                        _inspectionWizard = null;
+                    }
+                }
+            }
+        }
+
         private bool ImportIncomplete(IPropertiesManager propertiesManager)
         {
             var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
@@ -549,7 +594,6 @@ namespace Aristocrat.Monaco.Application
         private void RemoveUnusedStartupEventListener()
         {
             var serviceMan = ServiceManager.GetInstance();
-            var propertiesMan = serviceMan.GetService<IPropertiesManager>();
             var selectedProtocols = serviceMan.GetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration.Select(x => x.Protocol);
             List<string> protocols = new List<string>(
                 MonoAddinsHelper.GetSelectableConfigurationAddins(ApplicationConstants.Protocol));

@@ -324,6 +324,10 @@
         protected override void OnLoaded()
         {
             base.OnLoaded();
+            if (!_gameDiagnostics?.IsActive ?? false)
+            {
+                IsReplaying = false;
+            }
 
             EventBus.Publish(new GameHistoryPageLoadedEvent());
 

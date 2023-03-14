@@ -304,7 +304,7 @@
                 SasMeterId.TotalHandPaidPaytableWin, // 0x1F - per cabinet, game, & denom
                 new SasMeter(
                     SasMeterId.TotalHandPaidPaytableWin,
-                    GamingMeters.TotalHandPaidGameWonAmount,
+                    GamingMeters.HandPaidGameWonAmount,
                     false,
                     true,
                     MeterCategory.Credit)

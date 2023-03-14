@@ -27,7 +27,8 @@
                     return RedemptionStatusCode.GamingMachineUnableToAcceptTransfer;
                 case VoucherInExceptionCode.ZeroAmount:
                     return RedemptionStatusCode.NotAValidTransferAmount;
-
+                case VoucherInExceptionCode.TimedOut:
+                    return RedemptionStatusCode.TicketRejectedDueToTimeout;
                 default:
                     return RedemptionStatusCode.TicketRejectedByHost;
             }

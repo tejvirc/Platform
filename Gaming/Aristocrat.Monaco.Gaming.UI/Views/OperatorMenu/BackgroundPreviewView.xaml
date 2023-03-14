@@ -20,7 +20,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Height="{Binding BackgroundPreviewHeight}">
-        <Image Source="{Binding BackgroundImagePath}" />
+    <Grid Height="{Binding BackgroundPreviewHeight}" 
+          Width="{Binding BackgroundPreviewWidth}"
+          MaxHeight="720"
+          MaxWidth="1280">
+        <Image Source="{Binding BackgroundImagePath}" Stretch="UniformToFill" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

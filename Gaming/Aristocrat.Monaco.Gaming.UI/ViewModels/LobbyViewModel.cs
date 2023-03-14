@@ -1453,6 +1453,7 @@
                 return new GameGridMarginInputs(
                     gameCount,
                     IsTabView,
+                    GameTabInfo.SelectedSubTab?.IsVisible ?? false,
                     DisplayedGameList?.Reverse().Take(rows <= 0 ? 0 : gameCount - ((rows - 1) * cols))
                         .Any(x => x.HasProgressiveLabelDisplay) ?? false,
                     GameControlHeight,
@@ -2020,12 +2021,11 @@
 
         private ObservableCollection<GameInfo> GetOrderedGames(IReadOnlyCollection<IGameDetail> games)
         {
-            GameCount = games.Where(g => g.Enabled).Sum(g => g.ActiveDenominations.Count());
             ChooseGameOffsetY = UseSmallIcons ? 25.0 : 50.0;
 
             var gameCombos = (from game in games
                               from denom in game.ActiveDenominations
-                              where game.Active
+                              where game.Enabled
                               select new GameInfo
                               {
                                   GameId = game.Id,
@@ -3729,6 +3729,8 @@
                         DisplayedGameList.Add(gi);
                     }
                 }
+
+                GameCount = DisplayedGameList.Count;
             }
 
             if (IsTabView)

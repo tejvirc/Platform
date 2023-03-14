@@ -7,6 +7,7 @@
     using System.Threading;
     using Accounting.Contracts;
     using Contracts;
+    using Contracts.ConfigWizard;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.NoteAcceptor;
@@ -48,6 +49,7 @@
         {
             AddinManager.Initialize(Directory.GetCurrentDirectory());
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            MoqServiceManager.CreateAndAddService<IInspectionService>(MockBehavior.Strict);
             MockLocalization.Setup(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(PropertyKey.VoucherIn, false)).Returns(false);
@@ -133,6 +135,7 @@
 
             var doors = new Mock<IDoorService>(MockBehavior.Default);
             MoqServiceManager.AddService<IDoorService>(doors.As<IService>().Object);
+            MoqServiceManager.CreateAndAddService<IDialogService>(MockBehavior.Strict);
 
             var config = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
             config.Setup(m => m.GetAccessRuleSet(It.IsAny<NoteAcceptorViewModel>())).Returns(It.IsAny<string>());
@@ -183,7 +186,7 @@
         private void InitTargets()
         {
             _targetView = new NoteAcceptorPage();
-            _target = new NoteAcceptorViewModel();
+            _target = new NoteAcceptorViewModel(false);
         }
 
         [TestMethod]

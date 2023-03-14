@@ -18,7 +18,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new EdgeLightingPageViewModel();
+            return new EdgeLightingPageViewModel(IsWizardPage);
         }
 
         public override bool GetVisible()

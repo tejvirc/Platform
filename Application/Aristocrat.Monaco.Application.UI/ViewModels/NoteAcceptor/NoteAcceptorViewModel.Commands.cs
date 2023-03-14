@@ -7,8 +7,8 @@
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.SharedDevice;
-    using Kernel;
     using Monaco.Localization.Properties;
+    using Kernel;
     using MVVM;
     using MVVM.Command;
     using Views;
@@ -102,6 +102,7 @@
         private void HandleInspectButtonCommand(object obj)
         {
             Logger.Debug("Inspect btn clicked");
+            Inspection?.SetTestName("Inspection");
 
             if (NoteAcceptor == null)
             {
@@ -119,7 +120,7 @@
             var viewModel = new NoteAcceptorTestViewModel();
 
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
-            
+
             dialogService.ShowInfoDialog<NoteAcceptorTestView>(
                 this,
                 viewModel,
@@ -130,16 +131,19 @@
 
         private void HandleReturnButtonCommand(object obj)
         {
+            Inspection?.SetTestName("Return note");
             NoteAcceptor?.Return();
         }
 
         private void HandleSelfTestButtonCommand(object obj)
         {
+            Inspection?.SetTestName("Self test");
             RunSelfTest(false);
         }
 
         private void HandleSelfTestClearNvmButtonCommand(object obj)
         {
+            Inspection?.SetTestName("Self test clear NVM");
             RunSelfTest(true);
         }
 
@@ -184,15 +188,16 @@
             }
 
 #if USE_STACK_BUTTON
-                        if (_noteAcceptorDiagnosticsEnabled)
-                        {
-                            if (ExtendTimeoutTimer.Enabled)
-                            {
-                                ExtendTimeoutTimer.Stop();
-                            }
-                        }
+            Inspection?.SetTestName("Stack");
+            if (_noteAcceptorDiagnosticsEnabled)
+            {
+                if (ExtendTimeoutTimer.Enabled)
+                {
+                    ExtendTimeoutTimer.Stop();
+                }
+            }
 
-                        NoteAcceptor.StackDocument();
+            NoteAcceptor.StackDocument();
 #endif
         }
     }

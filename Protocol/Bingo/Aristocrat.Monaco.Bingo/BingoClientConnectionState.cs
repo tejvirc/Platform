@@ -5,7 +5,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Timers;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Bingo.Client;
@@ -20,24 +19,23 @@
     using Monaco.Common;
     using Protocol.Common.Storage.Entity;
     using Stateless;
+    using Timer = System.Threading.Timer;
 
-    public class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
+    public sealed class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
     {
-        private const int NoMessagesTimeout = 40_000;
-
+        private static readonly TimeSpan NoMessagesTimeout = TimeSpan.FromMilliseconds(40_000);
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IEnumerable<IClient> _clients;
         private readonly ICommandHandlerFactory _commandFactory;
-        private readonly ICommandService _commandService;
-        private readonly IProgressiveCommandService _progressiveCommandService;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISystemDisableManager _systemDisable;
+        private readonly IProgressiveCommandService _progressiveCommandService;
+        private readonly Timer _timeoutTimer;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
         private CancellationTokenSource _tokenSource;
-        private System.Timers.Timer _timeoutTimer;
 
         private StateMachine<State, Trigger> _registrationState;
 
@@ -53,7 +51,6 @@
             IEventBus eventBus,
             IEnumerable<IClient> clients,
             ICommandHandlerFactory commandFactory,
-            ICommandService commandService,
             IProgressiveCommandService progressiveCommandService,
             IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisable,
@@ -62,71 +59,60 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _clients = clients ?? throw new ArgumentNullException(nameof(clients));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
-            _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            _progressiveCommandService = progressiveCommandService ?? throw new ArgumentNullException(nameof(progressiveCommandService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _progressiveCommandService = progressiveCommandService ?? throw new ArgumentNullException(nameof(progressiveCommandService));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
 
             CreateStateMachine();
             RegisterEventListeners();
-            CreateTimeoutTimer();
+            _timeoutTimer = new Timer(TimeoutOccurred);
         }
 
         public event EventHandler ClientConnected;
 
         public event EventHandler ClientDisconnected;
 
-        public int NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
+        public TimeSpan NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
 
         private bool IsCrossGameProgressiveEnabled => _unitOfWorkFactory.IsCrossGameProgressiveEnabledForMainGame(_propertiesManager);
 
         public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public async Task Start()
-        {
-            await _registrationState.FireAsync(Trigger.Initialized);
-        }
-
-        public async Task Stop()
-        {
-            await _registrationState.FireAsync(Trigger.Shutdown);
-        }
-
-        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
                 return;
             }
 
-            if (disposing)
+            _eventBus.UnsubscribeAll(this);
+            _registrationState.Deactivate();
+            foreach(var client in _clients)
             {
-                _eventBus.UnsubscribeAll(this);
-                _registrationState.Deactivate();
-                foreach(var client in _clients)
-                {
-                    client.Disconnected -= OnClientDisconnected;
-                    client.Connected -= OnClientConnected;
-                    client.MessageReceived -= OnMessageReceived;
-                }
-                _timeoutTimer.Elapsed -= TimeoutOccurred;
-                _timeoutTimer.Dispose();
-                var tokenSource = _tokenSource;
-                if (tokenSource != null)
-                {
-                    tokenSource.Cancel();
-                    tokenSource.Dispose();
-                }
-
-                _tokenSource = null;
+                client.Disconnected -= OnClientDisconnected;
+                client.Connected -= OnClientConnected;
+                client.MessageReceived -= OnMessageReceived;
             }
 
+            _timeoutTimer.Dispose();
+            var tokenSource = _tokenSource;
+            if (tokenSource != null)
+            {
+                tokenSource.Cancel();
+                tokenSource.Dispose();
+            }
+
+            _tokenSource = null;
             _disposed = true;
+        }
+
+        public async Task Start()
+        {
+            await _registrationState.FireAsync(Trigger.Initialized).ConfigureAwait(false);
+        }
+
+        public async Task Stop()
+        {
+            await _registrationState.FireAsync(Trigger.Shutdown).ConfigureAwait(false);
         }
 
         private static State HandleConfigurationFailure(ConfigurationFailureReason reason)
@@ -166,19 +152,19 @@
         {
             try
             {
-                await _commandFactory.Execute(new RegistrationCommand(), _tokenSource.Token);
+                await _commandFactory.Execute(new RegistrationCommand(), _tokenSource.Token).ConfigureAwait(false);
 
                 if (IsCrossGameProgressiveEnabled)
                 {
-                    await _commandFactory.Execute(new ProgressiveRegistrationCommand(), _tokenSource.Token);
+                    await _commandFactory.Execute(new ProgressiveRegistrationCommand(), _tokenSource.Token).ConfigureAwait(false);
                 }
 
-                await _registrationState.FireAsync(Trigger.Registered);
+                await _registrationState.FireAsync(Trigger.Registered).ConfigureAwait(false);
             }
             catch (RegistrationException exception)
             {
                 Logger.Error("Registration failed", exception);
-                await _registrationState.FireAsync(_failedRegistrationTrigger, exception.Reason);
+                await _registrationState.FireAsync(_failedRegistrationTrigger, exception.Reason).ConfigureAwait(false);
             }
         }
 
@@ -265,7 +251,7 @@
 
             foreach (var client in _clients)
             {
-                await client.Stop();
+                await client.Stop().ConfigureAwait(false);
             }
         }
 
@@ -305,13 +291,13 @@
         {
             try
             {
-                await _commandFactory.Execute(new ConfigureCommand(), _tokenSource.Token);
-                await _registrationState.FireAsync(Trigger.Configured);
+                await _commandFactory.Execute(new ConfigureCommand(), _tokenSource.Token).ConfigureAwait(false);
+                await _registrationState.FireAsync(Trigger.Configured).ConfigureAwait(false);
             }
             catch (ConfigurationException exception)
             {
                 Logger.Error("Configuration failed", exception);
-                await _registrationState.FireAsync(_failedConfigurationTrigger, exception.Reason);
+                await _registrationState.FireAsync(_failedConfigurationTrigger, exception.Reason).ConfigureAwait(false);
             }
         }
 
@@ -344,10 +330,8 @@
             _eventBus.Publish(new HostConnectedEvent());
             _systemDisable.Enable(BingoConstants.BingoHostDisconnectedKey);
             ClientConnected?.Invoke(this, EventArgs.Empty);
-            _commandService.HandleCommands(
-                _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
-                _tokenSource.Token).FireAndForget();
-
+            _commandFactory.Execute(new ClientConnectedCommand(), _tokenSource.Token).FireAndForget();
+						
             if (IsCrossGameProgressiveEnabled)
             {
                 var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
@@ -357,11 +341,9 @@
                     gameTitleId,
                     _tokenSource.Token).FireAndForget();
             }
-
-            _timeoutTimer.Start();
         }
 
-        private void TimeoutOccurred(object sender, ElapsedEventArgs e)
+        private void TimeoutOccurred(object _)
         {
             _registrationState.FireAsync(Trigger.Disconnected).FireAndForget();
         }
@@ -378,8 +360,12 @@
 
         private void OnMessageReceived(object sender, EventArgs e)
         {
-            _timeoutTimer.Stop();
-            _timeoutTimer.Start();
+            if (_registrationState.State is not State.Connected)
+            {
+                return;
+            }
+
+            _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
         }
 
         private async Task OnDisconnected()
@@ -392,10 +378,10 @@
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoHostDisconnectedHelp));
 
-            _timeoutTimer.Stop();
+            _timeoutTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
 
             ClientDisconnected?.Invoke(this, EventArgs.Empty);
-            await _registrationState.FireAsync(Trigger.Connecting);
+            await _registrationState.FireAsync(Trigger.Connecting).ConfigureAwait(false);
         }
 
         private void OnConnecting()
@@ -409,10 +395,13 @@
             SetupFirewallRule();
             foreach (var client in _clients)
             {
-                while (!await client.Start() && !token.IsCancellationRequested)
+                while (!await client.Start().ConfigureAwait(false) && !token.IsCancellationRequested)
                 {
-                }
+                    Logger.Info($"Client failed to connect retrying.  IsCancelled={token.IsCancellationRequested}");
+				}
             }
+
+            _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
         }
 
         private void SetupFirewallRule()
@@ -429,8 +418,8 @@
                 this,
                 HandleRestartingEvent,
                 evt =>
-                    string.Equals(ApplicationConstants.MachineId, evt.PropertyName) ||
-                    string.Equals(ApplicationConstants.SerialNumber, evt.PropertyName));
+                    string.Equals(ApplicationConstants.MachineId, evt.PropertyName, StringComparison.Ordinal) ||
+                    string.Equals(ApplicationConstants.SerialNumber, evt.PropertyName, StringComparison.Ordinal));
             _eventBus.Subscribe<ForceReconnectionEvent>(this, HandleRestartingEvent);
             foreach (var client in _clients)
             {
@@ -443,14 +432,7 @@
         private async Task HandleRestartingEvent<TEvent>(TEvent evt, CancellationToken token)
         {
             SetupFirewallRule();
-            await _registrationState.FireAsync(Trigger.Reconfigure);
-        }
-
-        private void CreateTimeoutTimer()
-        {
-            _timeoutTimer = new System.Timers.Timer(NoMessagesConnectionTimeout);
-            _timeoutTimer.AutoReset = false;
-            _timeoutTimer.Elapsed += TimeoutOccurred;
+            await _registrationState.FireAsync(Trigger.Reconfigure).ConfigureAwait(false);
         }
 
         private enum State
