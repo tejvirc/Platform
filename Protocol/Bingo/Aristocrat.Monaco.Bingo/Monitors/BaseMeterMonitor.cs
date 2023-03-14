@@ -12,6 +12,8 @@
     /// </summary>
     public abstract class BaseMeterMonitor : IMeterMonitor, IDisposable
     {
+        private readonly string _meterId;
+        private readonly IMeterManager _meterManager;
         private readonly IBingoGameProvider _bingoGameProvider;
         private readonly TransactionType _transactionType;
         private readonly IReportTransactionQueueService _transactionQueue;
@@ -34,21 +36,17 @@
             TransactionType transactionType,
             IReportTransactionQueueService transactionQueue)
         {
-            if (meterManager == null)
-            {
-                throw new ArgumentNullException(nameof(meterManager));
-            }
-
             if (string.IsNullOrEmpty(meterId))
             {
                 throw new ArgumentException(@"Value cannot be null or empty.", nameof(meterId));
             }
 
+            _meterId = meterId;
+            _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
             _bingoGameProvider = bingoGameProvider ?? throw new ArgumentNullException(nameof(bingoGameProvider));
             _transactionType = transactionType;
             _transactionQueue = transactionQueue ?? throw new ArgumentNullException(nameof(transactionQueue));
-            Meter = meterManager.GetMeter(meterId);
-            Meter.MeterChangedEvent += MeterOnMeterChangedEvent;
+            OnMeterChanged();
         }
 
         /// <summary>
@@ -59,7 +57,7 @@
         /// <summary>
         ///     Gets the <see cref="IMeter"/> that was registered for changes
         /// </summary>
-        protected IMeter Meter { get; }
+        protected IMeter Meter { get; private set; }
 
         /// <inheritdoc />
         public void Dispose()
@@ -113,6 +111,17 @@
                 gameSerial,
                 paytableId,
                 barcode);
+        }
+
+        protected void OnMeterChanged()
+        {
+            if (Meter is not null)
+            {
+                Meter.MeterChangedEvent -= MeterOnMeterChangedEvent;
+            }
+
+            Meter = _meterManager.GetMeter(_meterId);
+            Meter.MeterChangedEvent += MeterOnMeterChangedEvent;
         }
 
         /// <summary>

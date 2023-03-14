@@ -8,20 +8,16 @@
     using Accounting.Contracts.Transactions;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts;
-    using Common.Storage;
     using Gaming.Contracts;
+    using Kernel;
     using Services.Reporting;
-    using TransactionType = Common.TransactionType;
 
     /// <summary>
     ///     A meter monitor for total egm paid
     /// </summary>
-    public sealed class EgmPaidGameWonAmtMeterMonitor : BaseCurrencyMeterMonitor
+    public sealed class EgmPaidGameWonAmtMeterMonitor : BaseGameWinAmountMeterMonitor
     {
-        private readonly IBingoGameProvider _bingoGameProvider;
-        private readonly IReportTransactionQueueService _transactionQueue;
         private readonly ITransactionHistory _transactionHistory;
-        private readonly IGameHistory _gameHistory;
 
         /// <summary>
         ///     Creates an instance of <see cref="EgmPaidGameWonAmtMeterMonitor"/>
@@ -31,54 +27,27 @@
         /// <param name="transactionQueue">An instance of <see cref="IReportTransactionQueueService"/></param>
         /// <param name="transactionHistory">An instance of <see cref="ITransactionHistory"/></param>
         /// <param name="gameHistory">An instance of <see cref="IGameHistory"/></param>
+        /// <param name="eventBus">An instance of <see cref="IEventBus"/></param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="gameHistory"/>, <paramref name="bingoGameProvider"/>, <paramref name="transactionQueue"/>, or <paramref name="gameHistory"/></exception>
         public EgmPaidGameWonAmtMeterMonitor(
             IMeterManager meterManager,
             IBingoGameProvider bingoGameProvider,
             IReportTransactionQueueService transactionQueue,
             ITransactionHistory transactionHistory,
-            IGameHistory gameHistory)
+            IGameHistory gameHistory,
+            IEventBus eventBus)
             : base(
                 GamingMeters.EgmPaidGameWonAmount,
                 meterManager,
                 bingoGameProvider,
-                TransactionType.CashWon,
-                transactionQueue)
+                transactionQueue,
+                gameHistory,
+                eventBus)
         {
-            _bingoGameProvider = bingoGameProvider ?? throw new ArgumentNullException(nameof(bingoGameProvider));
-            _transactionQueue = transactionQueue ?? throw new ArgumentNullException(nameof(transactionQueue));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
-            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
         }
 
-        /// <inheritdoc />
-        protected override void ReportTransaction(MeterChangedEventArgs changedEventArgs)
-        {
-            var log = _gameHistory.CurrentLog;
-            var bingoGame = _bingoGameProvider.GetBingoGame();
-            if (log is null || bingoGame is null || changedEventArgs.Amount <= 0)
-            {
-                return;
-            }
-
-            HandleGameWins(changedEventArgs, log, bingoGame);
-        }
-
-        private void HandleGameWins(
-            MeterChangedEventArgs changedEventArgs,
-            IGameHistoryLog log,
-            BingoGameDescription bingoGame)
-        {
-            _transactionQueue.ReportEgmPaidTransactions(
-                GetCreditHandpays(log),
-                changedEventArgs.Amount,
-                GetTitleId(changedEventArgs, bingoGame),
-                GetDenominationId(changedEventArgs, bingoGame),
-                GetGameSerial(changedEventArgs, bingoGame),
-                GetPaytableId(changedEventArgs, bingoGame));
-        }
-
-        private IEnumerable<HandpayTransaction> GetCreditHandpays(IGameHistoryLog log)
+        protected override IEnumerable<HandpayTransaction> GetCreditHandpays(IGameHistoryLog log)
         {
             return _transactionHistory.RecallTransactions<HandpayTransaction>()
                 .Where(t => t.IsCreditType() && IsForGameRound(t));
