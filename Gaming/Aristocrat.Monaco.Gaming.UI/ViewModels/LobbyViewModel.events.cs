@@ -779,7 +779,7 @@
                     }, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
             }
 
-            if (platformEvent.Handpay == HandpayType.GameWin)
+            if (platformEvent.Handpay is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 PlayGameWinHandPaySound();
             }
@@ -799,7 +799,7 @@
         {
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
 
-            if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
+            if (platformEvent.Transaction.HandpayType is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 _playCollectSound = false;
                 _audio.Stop();
