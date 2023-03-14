@@ -14,6 +14,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
     using Contracts.Gds;
     using Contracts.Gds.Reel;
     using Contracts.Reel;
+    using Contracts.SharedDevice;
     using log4net;
     using Messages;
     using Protocols;
@@ -22,6 +23,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         System.Collections.Concurrent.ConcurrentQueue<System.Action<Messages.HarkeySerializableMessage>>;
     using Nudge = Messages.Nudge;
 
+    [SearchableSerialProtocol(DeviceType.ReelController)]
     public class HarkeyProtocol : SerialReelController
     {
         private const int LightResetDelayMs = 100;

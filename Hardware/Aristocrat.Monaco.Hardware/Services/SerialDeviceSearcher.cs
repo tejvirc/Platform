@@ -5,6 +5,7 @@
     using System.IO.Ports;
     using System.Linq;
     using System.Reflection;
+    using System.Text.RegularExpressions;
     using System.Threading;
     using Contracts.Communicator;
     using Contracts.SharedDevice;
@@ -30,59 +31,52 @@
 
         public SupportedDevicesDevice Search(string port, List<SupportedDevicesDevice> supportedDevices, CancellationToken token)
         {
-            try
+            if (!supportedDevices.Any())
             {
-                Logger.Debug("Search");
-                if (!supportedDevices.Any())
+                return null;
+            }
+
+            var deviceType = (DeviceType)Enum.Parse(typeof(DeviceType), supportedDevices.First().Type);
+            Logger.Debug($"Search port {port} for deviceType {deviceType}");
+
+            var protocolTypes = new List<Type>();
+            var allTypes = typeof(SerialDeviceProtocol).Assembly.GetTypes().ToList();
+            foreach (var type in allTypes)
+            {
+                if (type.GetCustomAttributes(typeof(SearchableSerialProtocolAttribute), false).Length > 0)
                 {
-                    return null;
-                }
-
-                var deviceType = (DeviceType)Enum.Parse(typeof(DeviceType), supportedDevices.First().Type);
-                Logger.Debug($"Search port {port} for device {deviceType}");
-
-                var protocolTypes = new List<Type>();
-                var allTypes = typeof(SerialDeviceProtocol).Assembly.GetTypes().ToList();
-
-                switch (deviceType)
-                {
-                    case DeviceType.NoteAcceptor:
-                        protocolTypes.AddRange(allTypes.Where(t => t.IsSubclassOf(typeof(SerialNoteAcceptor)) && !t.IsAbstract));
-                        break;
-
-                    case DeviceType.Printer:
-                        protocolTypes.AddRange(allTypes.Where(t => t.IsSubclassOf(typeof(SerialPrinter)) && !t.IsAbstract));
-                        break;
-
-                    case DeviceType.ReelController:
-                        protocolTypes.AddRange(allTypes.Where(t => t.IsSubclassOf(typeof(SerialReelController)) && !t.IsAbstract));
-                        break;
-
-                    default:
-                        // Monaco has no serial IdReader protocols
-                        break;
-                }
-
-                Logger.Debug($"{protocolTypes.Count} protocol types");
-
-                foreach (var protocolType in protocolTypes)
-                {
-                    // Use this protocol
-                    var protocol = (SerialDeviceProtocol)protocolType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                        null, Type.EmptyTypes, null)?.Invoke(new object[] { });
-                    if (protocol is null)
+                    var attr = type.GetCustomAttribute(typeof(SearchableSerialProtocolAttribute)) as SearchableSerialProtocolAttribute;
+                    if (attr.DeviceType == deviceType)
                     {
-                        Logger.Debug($"Couldn't find constructor() for {protocolType.Name}");
-                        continue;
+                        protocolTypes.Add(type);
                     }
+                }
+            }
 
-                    var protocolDevices = supportedDevices.Where
-                        (d => protocol.GetType().Name.ToLower().Contains(d.Protocol.ToLower()) || d.Protocol.ToLower().Contains(protocol.GetType().Name.ToLower()))
-                        .ToList();
-                    Logger.Debug($"Protocol {protocolType} used by {protocolDevices.Count} devices");
+            Logger.Debug($"({deviceType}) {protocolTypes.Count} protocol types");
 
-                    foreach (var protocolDevice in protocolDevices)
+            foreach (var protocolType in protocolTypes)
+            {
+                var protocolDevices = supportedDevices.Where
+                    (d => protocolType.Name.ToLower().Contains(d.Protocol.ToLower()) || d.Protocol.ToLower().Contains(protocolType.Name.ToLower()))
+                    .ToList();
+                Logger.Debug($"({deviceType}) Protocol {protocolType} used by {protocolDevices.Count} devices");
+
+                foreach (var protocolDevice in protocolDevices)
+                {
+                    SerialDeviceProtocol protocol = null;
+
+                    try
                     {
+                        // Use this protocol
+                        protocol = (SerialDeviceProtocol)protocolType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                            null, Type.EmptyTypes, null)?.Invoke(new object[] { });
+                        if (protocol is null)
+                        {
+                            Logger.Debug($"({deviceType}) Couldn't find constructor() for {protocolType.Name}");
+                            continue;
+                        }
+
                         // Use this IComConfiguration
                         var config = new ComConfiguration
                         {
@@ -94,25 +88,30 @@
                             Handshake = (Handshake)Enum.Parse(typeof(Handshake), GetDeviceItemByName(protocolDevice, ItemsChoiceType.Handshake))
                         };
 
-                        Logger.Debug($"Configure? name={protocol.Name} setup={GetDeviceDescription(protocolDevice)}");
+                        Logger.Debug($"({deviceType}) Configure? {protocolDevice.Name} setup=({GetDeviceDescription(protocolDevice)})");
                         protocol.Device = new Device(null, null);
                         protocol.Manufacturer = string.Empty;
-                        if (protocol.Configure(config) && !string.IsNullOrEmpty(protocol.Manufacturer))
+                        if (protocol.Configure(config))
                         {
                             // Find device to match the results
-                            Logger.Debug($"Found name={protocol.Name} mfg={protocol.Manufacturer} model={protocol.Model} proto={protocol.Protocol}");
-                            protocol.Dispose();
-                            return supportedDevices.FirstOrDefault(d => d.Name.StartsWith(protocol.Manufacturer));
+                            Logger.Debug($"({deviceType}) Tried {protocolDevice.Name} mfg={protocol.Manufacturer} model={protocol.Model} proto={protocol.Protocol} firmware={protocol.FirmwareVersion}");
+                            if (DoesDeviceFirmwareMatch(protocol.FirmwareVersion, GetDeviceItemByName(protocolDevice, ItemsChoiceType.FirmwareVersionRegex)))
+                            {
+                                return protocolDevice;
+                            }
                         }
                     }
-
-                    protocol.Dispose();
+                    catch (Exception ex)
+                    {
+                        Logger.Error($"({deviceType}) ({port}) {ex.Message} : {ex.StackTrace}");
+                        throw;
+                    }
+                    finally
+                    {
+                        // This executes whether we continue the loop, return, or catch an exception.
+                        protocol?.Dispose();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"{ex.Message} : {ex.StackTrace}");
-                throw;
             }
 
             return null;
@@ -139,6 +138,25 @@
                 GetDeviceItemByName(x, ItemsChoiceType.StopBits),
                 GetDeviceItemByName(x, ItemsChoiceType.Parity),
                 GetDeviceItemByName(x, ItemsChoiceType.Handshake) });
+        }
+
+        private bool DoesDeviceFirmwareMatch(string reportedFirmware, string matchRegex)
+        {
+            if (string.IsNullOrEmpty(reportedFirmware))
+            {
+                Logger.Debug($"Compare fw '{reportedFirmware}' to regex '{matchRegex}': False, empty reported");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(matchRegex))
+            {
+                Logger.Debug($"Compare fw '{reportedFirmware}' to regex '{matchRegex}': True, empty matchregex");
+                return true;
+            }
+
+            var isMatch = new Regex(matchRegex).IsMatch(reportedFirmware);
+            Logger.Debug($"Compare fw '{reportedFirmware}' to regex '{matchRegex}': {isMatch}");
+            return isMatch;
         }
     }
 }
