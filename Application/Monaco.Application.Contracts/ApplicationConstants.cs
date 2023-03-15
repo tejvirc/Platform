@@ -734,9 +734,9 @@
         public const string LocalizationOperatorTicketSelectable = "Localization.OperatorTicket.Selectable";
 
         /// <summary>
-		///     Property manager key for LocalizationPlayerTicketCurrentCulture.
-		/// </summary>
-		public const string LocalizationPlayerTicketCurrentCulture = "Localization.PlayerTicket.CurrentCulture";
+        ///     Property manager key for LocalizationPlayerTicketCurrentCulture.
+        /// </summary>
+        public const string LocalizationPlayerTicketCurrentCulture = "Localization.PlayerTicket.CurrentCulture";
 
         /// <summary>
         ///     Property manager key for LocalizationPlayerTicketLocale
@@ -774,9 +774,9 @@
         public const string LocalizationPlayerTicketOverride = "Localization.PlayerTicket.Override";
 
         /// <summary>
-		///     Property manager key for LocalizationOperatorDefault.
-		/// </summary>
-		public const string LocalizationOperatorDefault = "Localization.Operator.Default";
+        ///     Property manager key for LocalizationOperatorDefault.
+        /// </summary>
+        public const string LocalizationOperatorDefault = "Localization.Operator.Default";
 
         /// <summary>
         ///    Property manager key for LocalizationOperatorAvailable.
@@ -937,7 +937,7 @@
         public const string MachineSettingsReimported = "MachineSettings.Reimported";
 
         /// <summary> Fake </summary>
-		public const string Fake = "Fake";
+        public const string Fake = "Fake";
 
         /// <summary> GDS </summary>
         public const string GDS = "GDS";
@@ -1374,7 +1374,7 @@
         public const string ProtocolsAllowedKey = "Protocols.Allowed";
 
         /// <summary> Property manager key for mandatory protocol required for jurisdiction</summary>
-        public const string MandatoryProtocol = "MandarotyProtocols";
+        public const string MandatoryProtocol = "MandatoryProtocols";
 
         /// <summary>The original screen width the Platform UI was designed around</summary>
         public const int TargetResolutionWidth = 1920;
