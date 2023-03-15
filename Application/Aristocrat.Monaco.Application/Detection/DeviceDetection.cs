@@ -180,7 +180,7 @@
                     if (serialDevice is not null)
                     {
                         _eventBus.Publish(new DeviceDetectedEvent(serialDevice));
-                        Logger.Debug($"Finish {deviceType} {comPort}, found {serialDevice}");
+                        Logger.Debug($"Finish {deviceType} {comPort}, found {serialDevice.Name}");
                         return true;
                     }
 

@@ -103,6 +103,8 @@
         private string _hardMeterMapSelection;
         private bool _configurableBellyPanelDoor;
         private bool _bellyPanelDoorEnabled;
+        private bool _isInspection;
+        private int _notYetDiscovered;
 
         protected Action UpdateChanges;
         protected bool InitialHardMeter;
@@ -413,7 +415,8 @@
 
             SubscribeToEvents();
 
-            if ((bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false))
+            _isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+            if (_isInspection)
             {
                 StartDetection();
             }
@@ -1474,11 +1477,13 @@
         private void StartDetection()
         {
             IsDetecting = true;
+            _notYetDiscovered = 0;
 
             foreach (var device in EnabledDevices)
             {
                 device.StartDetection();
                 _deviceDiscoveryStatus[device.DeviceType] = false;
+                _notYetDiscovered++;
             }
 
             _deviceDetection.BeginDetection(EnabledDevices.Select(d => d.DeviceType));
@@ -1510,9 +1515,18 @@
                         Logger.Debug($"Detected valid device for {deviceType}: {evt.Device.Name}");
                         _deviceDiscoveryStatus[deviceType] = true;
                         deviceConfig.SetDetectedPlatformConfiguration(evt.Device);
+                        _notYetDiscovered--;
                     }
 
                     IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
+
+                    if (_isInspection &&
+                        !IsDetecting &&
+                        _notYetDiscovered == 0 &&
+                        ValidateCommand.CanExecute(new object()))
+                    {
+                        ValidateConfig();
+                    }
                 });
         }
 
