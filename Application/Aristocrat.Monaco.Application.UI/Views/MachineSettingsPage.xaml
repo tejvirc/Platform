@@ -10,6 +10,7 @@
                               xmlns:uiconverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                              helpers:DialogParticipation.Register="{Binding}"
                               mc:Ignorable="d"
                               d:DataContext="{d:DesignInstance viewModels:MachineSettingsPageViewModel}">
 
@@ -362,10 +363,24 @@
                    Grid.Column="0" 
                    loc:Localizer.For="Operator"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.GraphicsCard}}" />
-            <TextBlock x:Name="GraphicsCardTextBlock" 
-                       Grid.Row="2" 
-                       Grid.Column="1" 
-                       Text="{Binding GraphicsCard, Mode=OneWay}" />
+
+            <Grid x:Name="GraphicsCardGrid" 
+                  Grid.Row="2" 
+                  Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="GraphicsCardTextBlock"
+                           Grid.Column="0"
+                           Text="{Binding GraphicsCard, Mode=OneWay}" />
+                <Button x:Name="GpuExtraInfoButton" IsTabStop="False"
+                        Grid.Column="1" 
+                    Style="{StaticResource MonacoInfoButton}"
+                    Command="{Binding ViewGpuCommand}"
+                    Margin="10 0 0 0">
+            </Button>
+                </Grid>
 
             <!-- Button Deck Section -->
             <Label x:Name="ButtonDeckLabel" 

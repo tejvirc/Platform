@@ -5,6 +5,8 @@
     using System.Windows.Input;
     using Application.Helpers;
     using Application.Settings;
+using Aristocrat.Monaco.Application.UI.Views;
+using Aristocrat.MVVM.View;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -20,6 +22,7 @@
     using Kernel.Contracts;
     using MVVM.Command;
     using OperatorMenu;
+    using IDialogService = Contracts.OperatorMenu.IDialogService;
 
     /// <summary>
     ///     Contains logic for MachineSettingsPageViewModel.
@@ -27,6 +30,7 @@
     [CLSCompliant(false)]
     public class MachineSettingsPageViewModel : IdentityPageViewModel
     {
+        private readonly IDialogService _dialogService;
         private const string HardBootTimeKey = "System.HardBoot.Time";
         private const string SoftBootTimeKey = "System.SoftBoot.Time";
 
@@ -62,12 +66,16 @@
             DefaultPrintButtonEnabled = true;
 
             VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+
+            _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+            ViewGpuCommand = new ActionCommand<object>(ViewGpuInfo);
         }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
         public ICommand VisibilityChangedCommand { get; }
+        public ICommand ViewGpuCommand { get; }
 
         public string IpAddress
         {
@@ -388,6 +396,21 @@
                 .TryGetService<IMachineInfoTicketCreator>();
 
             return ticketCreator?.Create();
+        }
+
+        private void ViewGpuInfo(object obj) // pops the view memory dialog
+        {
+            var viewModel = new GpuInfoDialogViewModel();
+            
+            _dialogService.ShowInfoDialog<GpuInfoDialogView>(
+                this,
+                viewModel,"GPU Detailed Information");
+            // var viewModel = new DiagnosticViewMemoryViewModel();
+            //
+            // _dialogService.ShowInfoDialog<DiagnosticViewMemoryView>(
+            //     this,
+            //     viewModel,
+            //     "Test");
         }
 
         private void UpdateBootTimeInformation()
