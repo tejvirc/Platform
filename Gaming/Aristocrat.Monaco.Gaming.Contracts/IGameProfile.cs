@@ -174,7 +174,7 @@
         /// <summary>
         ///     Gets the win threshold
         /// </summary>
-        long WinThreshold { get; }
+        long? WinThreshold { get; }
 
         /// <summary>
         ///    Gets whether autoplay is supported

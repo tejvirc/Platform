@@ -149,7 +149,7 @@
                 LineOptionList = lineOptionList,
                 ActiveLineOption = activeLineOption,
                 BetLinePresetList = betLinePresetList,
-                WinThreshold = gameInfo.winThreshold,
+                WinThreshold = gameInfo.winThresholdSpecified ? gameInfo.winThreshold : null,
                 MaximumProgressivePerDenom = gameInfo.maxProgPerDenomSpecified ? gameInfo.maxProgPerDenom : null,
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
                 Category = gameInfo.categorySpecified ? gameInfo.category : null,

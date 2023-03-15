@@ -107,7 +107,7 @@
 
         public BetLinePresetList BetLinePresetList { get; }
 
-        public long WinThreshold { get; }
+        public long? WinThreshold { get; }
 
         public int? MaximumProgressivePerDenom { get; }
 

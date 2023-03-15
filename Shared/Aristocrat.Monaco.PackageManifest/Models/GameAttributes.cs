@@ -153,7 +153,7 @@
         /// <summary>
         ///     Gets or sets the Win Threshold.
         /// </summary>
-        public long WinThreshold { get; set; }
+        public long? WinThreshold { get; set; }
 
         /// <summary>
         ///     Gets or sets the Max Progressives per Denomination.

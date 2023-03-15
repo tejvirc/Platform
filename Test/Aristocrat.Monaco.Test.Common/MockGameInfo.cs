@@ -176,7 +176,7 @@
 
         public BetLinePresetList BetLinePresetList { get; set; }
 
-        public long WinThreshold { get; set; }
+        public long? WinThreshold { get; set; }
 
         public bool AutoPlaySupported { get; }
 

@@ -18,7 +18,7 @@
         public DateTime ReleaseDate { get; set; }
 
         public DateTime InstallDate { get; set; }
-
+        
         public bool Upgraded { get; set; }
 
         public int Id { get; set; }
@@ -91,7 +91,7 @@
 
         public BetLinePresetList BetLinePresetList { get; }
 
-        public long WinThreshold { get; }
+        public long? WinThreshold { get; }
 
         public int? MaximumProgressivePerDenom { get; }
 

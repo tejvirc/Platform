@@ -215,17 +215,24 @@
         /// <param name="lineOption">The line option</param>
         public static long TopAward(this IGameDetail @this, IDenomination denomination, BetOption betOption, LineOption lineOption)
         {
-            if (@this == null)
-            {
-                throw new ArgumentNullException(nameof(@this));
-            }
-
             if (denomination == null)
             {
                 return 0L;
             }
 
-            return @this.MaximumWagerCredits(betOption, lineOption) * @this.WinThreshold * denomination.Value;
+            var winThresholdProvided = @this.WinThreshold is not null;
+
+            // NOTE: Legacy games do not have WinThreshold, but instead use MaxWinAmount
+            if (!winThresholdProvided)
+            {
+                return @this.WagerCategories.MaxOrDefault(w => w.MaxWinAmount, 0L);
+            }
+
+            var maxWagerCredits = @this.MaximumWagerCredits(betOption, lineOption);
+
+            var topAward = maxWagerCredits * @this.WinThreshold.Value * denomination.Value;
+
+            return topAward;
         }
 
         private static int BaseMinWagerCredits(this IGameDetail @this, LineOption lineOption)
