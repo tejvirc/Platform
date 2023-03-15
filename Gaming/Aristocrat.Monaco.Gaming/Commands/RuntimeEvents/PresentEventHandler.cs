@@ -153,6 +153,11 @@
         {
             if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
             {
+                if (gameRoundEvent.PlayMode is PlayMode.Recovery && !_gameCashOutRecovery.HasPending)
+                {
+                    ClearHandpayPendingFlag();
+                }
+
                 return;
             }
 
