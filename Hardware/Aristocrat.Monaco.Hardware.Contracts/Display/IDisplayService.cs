@@ -26,6 +26,11 @@
         string GraphicsCard { get; }
 
         /// <summary>
+        /// TODO:set 
+        /// </summary>
+        public GpuInfo GraphicsCardInfo { get; }
+
+        /// <summary>
         ///     Gets the maximum frame rate for the active graphics card.  If uncapped -1 will be returned.
         /// </summary>
         int MaximumFrameRate { get; }

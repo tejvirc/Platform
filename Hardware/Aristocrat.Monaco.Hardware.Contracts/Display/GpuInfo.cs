@@ -1,23 +1,22 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Display
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
+#pragma warning disable CS1591
     public class GpuInfo
+
     {
-        public string BiosVersion { get; set; }
+        public string GpuFullName { get; set; }
 
-        public string ModelName { get; set; }
-
-        public string GpuName { get; set; }
+        public string GpuArchitectureName { get; set; }
 
         public string SerialNumber { get; set; }
 
-        public string ImageVersion { get; set; }
+        public string BiosVersion { get; set; }
 
-        public uint TotalRam { get; set; }
+        public string DriverVersion { get; set; }
+
+        public string TotalGpuRam { get; set; }
+
+        public int CurrentGpuTemp { get; set; }
     }
 }
+#pragma warning restore CS1591

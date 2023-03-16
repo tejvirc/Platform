@@ -8,7 +8,7 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               Width="600"
+                               Width="Auto"
                                d:DataContext="{d:DesignInstance viewModels:GpuInfoDialogViewModel}">
 
     <UserControl.Resources>
@@ -19,11 +19,159 @@
 
             <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="10 0 0 0"/>
+                <Setter Property="Margin" Value="10 0 20 0"/>
             </Style>
+            <Thickness x:Key="LabelMargin">0,0,10,0</Thickness>
         </ResourceDictionary>
+
+
     </UserControl.Resources>
 
-    <Label>test</Label>
-       
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="LeftSideGrid" 
+              Grid.Row="0" 
+              Grid.Column="0" 
+              HorizontalAlignment="Left"
+              loc:Localizer.For="Operator">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Full name  Section -->
+                <Label x:Name="FullNameLabel" 
+                   Grid.Row="0" 
+                   Grid.Column="0" 
+                   Margin="{StaticResource LabelMargin}"
+                   Content="Graphic Card Name" />
+                <TextBlock x:Name="FullNameTextBlock" 
+                           Grid.Row="0" 
+                           Grid.Column="1" 
+                           Text="{Binding GraphicsCardInfo.GpuFullName, Mode=OneWay}" />
+
+                <!-- ArchName Section -->
+                <Label x:Name="ArchNameLabel" 
+                   Grid.Row="1" 
+                   Grid.Column="0" 
+                   Margin="{StaticResource LabelMargin}"
+                   Content="Architecture Short Name" />
+                <TextBlock x:Name="ArchNameTextBlock" 
+                           Grid.Row="1" 
+                           Grid.Column="1" 
+                           Text="{Binding GraphicsCardInfo.GpuArchitectureName, Mode=OneWay}" />
+
+
+                <!-- SerialNumber Section -->
+                <Label x:Name="SerialNumberLabel" 
+                       Grid.Row="2" 
+                       Grid.Column="0" 
+                       Margin="{StaticResource LabelMargin}"
+                       Content="Serial Number" />
+                <TextBlock x:Name="SerialNumberTextBlock" 
+                           Grid.Row="2" 
+                           Grid.Column="1" 
+                           Text="{Binding GraphicsCardInfo.SerialNumber, Mode=OneWay}" />
+
+                <!-- BiosVersion Section -->
+                <Label x:Name="BiosVersionLabel" 
+                       Grid.Row="3" 
+                       Grid.Column="0" 
+                       Margin="{StaticResource LabelMargin}"
+                       Content="Bios Version" />
+                <TextBlock x:Name="BiosVersionTextBlock" 
+                           Grid.Row="3" 
+                           Grid.Column="1" 
+                           Text="{Binding GraphicsCardInfo.BiosVersion, Mode=OneWay}" />
+
+            </Grid>
+        </Grid>
+        <Grid x:Name="RightSideGrid" 
+              Grid.Row="0" 
+              Grid.Column="1" 
+              HorizontalAlignment="Left"
+              loc:Localizer.For="Operator">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Driver Version Section -->
+                <Label x:Name="DriverVersionLabel" 
+                   Grid.Row="0" 
+                   Grid.Column="0" 
+                   Margin="{StaticResource LabelMargin}"
+                   Content="Driver Version" />
+                <TextBlock x:Name="DriverVersionTextBlock" 
+                           Grid.Row="0" 
+                           Grid.Column="1" 
+                           Text="{Binding GraphicsCardInfo.DriverVersion, Mode=OneWay}" />
+
+                <!-- TotalRam Section -->
+                <Label x:Name="TotalRamLabel" 
+                   Grid.Row="1" 
+                   Grid.Column="0" 
+                   Margin="{StaticResource LabelMargin}"
+                   Content="Total GPU RAM" />
+                <TextBlock x:Name="TotalRamTextBlock" 
+                           Grid.Row="1" 
+                           Grid.Column="1" 
+                           Text="{Binding RAM, Mode=OneWay}" />
+
+
+                <!-- CurrentTemp Section -->
+                <Label x:Name="CurrentTempLabel" 
+                       Grid.Row="2" 
+                       Grid.Column="0" 
+                       Margin="{StaticResource LabelMargin}"
+                       Content="Current Temperature" />
+                <TextBlock x:Name="CurrentTempTextBlock" 
+                           Grid.Row="2" 
+                           Grid.Column="1" 
+                           Text="{Binding GraphicsCardInfo.CurrentGpuTemp, Mode=OneWay}" />
+
+                <!-- BiosVersion Section -->
+                <Label x:Name="TBDLabel" 
+                       Grid.Row="3" 
+                       Grid.Column="0" 
+                       Margin="{StaticResource  LabelMargin}"
+                       Content="TBD" />
+                <TextBlock x:Name="TBDTB" 
+                           Grid.Row="3" 
+                           Grid.Column="1" 
+                           Text="TBD" />
+
+            </Grid>
+        </Grid>
+    </Grid>
+
 </operatorMenu:OperatorMenuPage>

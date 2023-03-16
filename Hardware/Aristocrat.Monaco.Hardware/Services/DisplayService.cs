@@ -4,9 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Management;
+    using System.Text;
     using Contracts.Cabinet;
     using Contracts.Display;
     using Kernel;
+    using NvAPIWrapper.GPU;
+    using NvAPIWrapper;
 
     public class DisplayService : IService, IDisplayService
     {
@@ -34,6 +37,8 @@
         public int ExpectedCount { get; private set; }
 
         public string GraphicsCard => GetGraphicsCard();
+
+        public GpuInfo GraphicsCardInfo => GetGraphicsCardDetails();
 
         public int MaximumFrameRate
         {
@@ -74,6 +79,30 @@
 
                 return string.Empty;
             }
+        }
+
+        private static GpuInfo GetGraphicsCardDetails()
+        {
+            NVIDIA.Initialize();
+            var driverVersion = NVIDIA.DriverVersion.ToString();
+            var physicalGpUs = PhysicalGPU.GetPhysicalGPUs();
+            var fullName = physicalGpUs[0].FullName;
+            var gpuArchitectureName = physicalGpUs[0].ArchitectInformation.ShortName;
+            var serial = Encoding.ASCII.GetString(physicalGpUs[0].Board.SerialNumber).Replace("\0", "0");
+            var vBios = physicalGpUs[0].Bios.VersionString;
+            var totalGpuRam = ((int)physicalGpUs[0].MemoryInformation.DedicatedVideoMemoryInkB / 1024).ToString(); //kb to mB
+            var currentTemp = physicalGpUs[0].ThermalInformation.ThermalSensors.ToList()[0].CurrentTemperature;
+
+            return new GpuInfo
+            {
+                GpuFullName = fullName,
+                GpuArchitectureName = gpuArchitectureName,
+                SerialNumber = serial,
+                BiosVersion = vBios,
+                DriverVersion = driverVersion,
+                TotalGpuRam = totalGpuRam,
+                CurrentGpuTemp = currentTemp
+            };
         }
     }
 }
