@@ -42,12 +42,6 @@
 
         private static Container RegisterClient(this Container container)
         {
-            // TODO mainline is using this code to auto register but it is not working with the refactor
-            // TODO having two IClients for bingo and progressives. Need to update to work with both.   
-            //container.RegisterSingleton<IAuthorizationProvider, BingoAuthorizationProvider>();
-            //container.RegisterAllInterfaces<BingoClient>()
-            //    .RegisterCommunicationServices();
-
             var clientRegistration = Lifestyle.Singleton.CreateRegistration<BingoClient>(container);
             var progressiveClientRegistration = Lifestyle.Singleton.CreateRegistration<ProgressiveClient>(container);
             container.Collection.Register<IClient>(new Registration[] { clientRegistration, progressiveClientRegistration });
@@ -55,6 +49,8 @@
             container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
             container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
 
+            container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
+            container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
             container.RegisterSingleton<BingoClientAuthorizationInterceptor>();
             container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
             container.RegisterSingleton<LoggingInterceptor>();
@@ -62,8 +58,6 @@
             container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
             container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
             container.RegisterSingleton<IProgressiveAwardService, ProgressiveAwardService>();
-            container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
-            container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
 
             container.RegisterSingleton<IReportTransactionService, ReportTransactionService>();
             container.RegisterSingleton<IReportEventService, ReportEventService>();
@@ -88,7 +82,8 @@
         private static Container RegisterCommunicationServices(this Container container)
         {
             var communicationServices = Assembly.GetExecutingAssembly().GetExportedTypes()
-                .Where(x => x.IsSubclassOf(typeof(BaseClientCommunicationService<ClientApi.ClientApiClient>)) && !x.IsAbstract);
+                .Where(x => x.IsSubclassOf(typeof(BaseClientCommunicationService<ClientApi.ClientApiClient>)) ||
+                                 x.IsSubclassOf(typeof(BaseClientCommunicationService<ProgressiveApi.ProgressiveApiClient>)) && !x.IsAbstract);
             foreach (var service in communicationServices)
             {
                 container.RegisterAllInterfaces(service);
