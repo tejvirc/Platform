@@ -85,7 +85,6 @@
         private long _maxBetLimit;
 
         private string _saveWarningText = string.Empty;
-        private bool _saveWarningEnabled;
 
         public AdvancedGameSetupViewModel()
         {
@@ -191,7 +190,9 @@
 
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
-        public override bool CanSave => !HasErrors && InputEnabled && !Committed && (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded;
+        public override bool CanSave => !HasErrors && InputEnabled && !Committed &&
+                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded &&
+                                        !_editableGames.Any(g => g.Value.HasErrors);
 
         public bool ShowSaveButtonOverride => ShowSaveButton && IsInEditMode;
 
@@ -352,11 +353,7 @@
         public bool ResetScrollIntoView
         {
             get => _resetScrollIntoView;
-            set
-            {
-                _resetScrollIntoView = value;
-                RaisePropertyChanged(nameof(ResetScrollIntoView));
-            }
+            set => SetProperty(ref _resetScrollIntoView, value);
         }
 
         public bool IsEnabledGamesLimitExceeded => TotalEnabledGames > _digitalRights.LicenseCount;
@@ -368,15 +365,7 @@
         public string SaveWarningText
         {
             get => _saveWarningText;
-
             set => SetProperty(ref _saveWarningText, value);
-        }
-
-        public bool SaveWarningEnabled
-        {
-            get => _saveWarningEnabled;
-
-            set => SetProperty(ref _saveWarningEnabled, value);
         }
 
         public void HandlePropertyChangedEvent(PropertyChangedEvent eventObject)
@@ -720,12 +709,10 @@
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledGamesLimitExceeded),
                     TotalEnabledGames,
                     _digitalRights.LicenseCount);
-                SaveWarningEnabled = true;
             }
             else
             {
                 SaveWarningText = string.Empty;
-                SaveWarningEnabled = false;
             }
         }
 
@@ -828,6 +815,24 @@
                              $"Name:{restriction.RestrictionDetails.Name} " +
                              $"MinRtp:{restriction.RestrictionDetails.MinimumPaybackPercent} " +
                              $"MaxRtp:{restriction.RestrictionDetails.MaximumPaybackPercent}");
+            }
+
+            CheckForRestrictionMismatch(profile, restriction);
+        }
+
+        private void CheckForRestrictionMismatch(EditableGameProfile profile, IConfigurationRestriction restriction)
+        {
+            if (!profile.ValidRestrictions.Any())
+            {
+                return;
+            }
+
+            var gamesWithRestrictions = Games.Where(g => g.ValidRestrictions.Any()).ToList();
+            var restrictionMismatch = restriction != null &&
+                                      gamesWithRestrictions.Any(g => g.SelectedRestriction?.Name != restriction.Name);
+            foreach (var game in gamesWithRestrictions)
+            {
+                game.SetRestrictionError(restrictionMismatch);
             }
         }
 

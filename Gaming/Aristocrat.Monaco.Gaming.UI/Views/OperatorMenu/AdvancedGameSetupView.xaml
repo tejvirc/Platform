@@ -121,13 +121,31 @@
                     <Run Text="{Binding ReadOnlyStatus, Mode=OneWay}"/>
                 </TextBlock>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal" ZIndex="1" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource BoolToVisConverter}}">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PackageLabel}}" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="16" />
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            ZIndex="1"
+                            Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource BoolToVisConverter}}">
+                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PackageLabel}}"
+                               VerticalAlignment="Center"
+                               Margin="0 0 5 0"
+                               FontSize="16" />
                     <ComboBox MinWidth="250" MinHeight="40"
                               DisplayMemberPath="Name"
                               ItemsSource="{Binding ValidRestrictions, Mode=OneWay}"
                               SelectedItem="{Binding SelectedRestriction, Mode=TwoWay}"
                               IsEnabled="{Binding GameOptionsEnabled}"/>
+                    <Button Name="RestrictionWarningButton"
+                            Margin="10"
+                            Style="{StaticResource MonacoWarningButton}"
+                            Command="{Binding ShowInfoPopupCommand}"
+                            Visibility="{Binding SelectedGame.RestrictionWarningText, Converter={StaticResource EmptyStringIsCollapsedConverter}}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="RestrictionWarningButton" />
+                                <Binding Path="SelectedGame.RestrictionWarningText" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
                 </StackPanel>
 
                 <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource BoolToVisConverter}}">
@@ -137,7 +155,7 @@
                     <Run Text="{Binding DenomSelectionLimit, Mode=OneWay}"/>
                 </TextBlock>
 
-                <DataGrid Grid.Row="2" Margin="0 -40 0 0" 
+                <DataGrid Grid.Row="2"
                           ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
                           Height="{Binding ElementName=GridGameConfigs, Path=ActualHeight}"
                           Width="{Binding ElementName=GridGameConfigs, Path=ActualWidth}"
@@ -423,7 +441,7 @@
                                     <Button Name="WarningButton" 
                                             Style="{StaticResource MonacoWarningButton}"
                                             Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            Visibility="{Binding WarningTextIsVisible, Converter={StaticResource BoolToVisConverter}}">
+                                            Visibility="{Binding WarningText, Converter={StaticResource EmptyStringIsCollapsedConverter}}">
                                         <Button.CommandParameter>
                                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                                 <Binding ElementName="WarningButton"/>
@@ -475,9 +493,9 @@
                         IsEnabled="{Binding CanSave, UpdateSourceTrigger=PropertyChanged}"
                         Visibility="{Binding ShowSaveButtonOverride, Converter={StaticResource BoolToVisConverter}}"
                         Width="Auto"/>
-                <Button Name="SaveWarningButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
+                <Button Name="SaveWarningButton" Style="{StaticResource MonacoInfoButton}" Margin="10"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding Path=SaveWarningEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}">
+                        Visibility="{Binding Path=SaveWarningText, Converter={StaticResource EmptyStringIsCollapsedConverter}}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="SaveWarningButton" />
