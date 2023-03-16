@@ -1,9 +1,5 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Accounting.Contracts.Vouchers;
@@ -12,11 +8,15 @@
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
-    internal sealed class BalanceOperations : IRobotOperations
+    internal class BalanceOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private readonly RobotController _robotController;
@@ -24,9 +24,9 @@
         private Timer _balanceCheckTimer;
         private bool _disposed;
 
-        public BalanceOperations(IEventBus eventBus, IBank bank, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
+        public BalanceOperations(IEventBus eventBus,IBank bank, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
@@ -34,42 +34,49 @@
             _bank = bank;
         }
 
+        ~BalanceOperations() => Dispose(false);
+
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public void Reset()
+        {
+            _disposed = false;
+        }
+
+        public void Execute()
+        {
+            _logger.Info("BalanceOperations Has Been Initiated!", GetType().Name);
+            SubscribeToEvents();
+            _balanceCheckTimer = new Timer(
+                                (sender) =>
+                                {
+                                    CheckBalance();
+                                },
+                                null,
+                                _robotController.Config.Active.IntervalBalanceCheck,
+                                _robotController.Config.Active.IntervalBalanceCheck);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
                 return;
             }
-
-            if (_balanceCheckTimer != null)
+            if (disposing)
             {
-                _balanceCheckTimer.Dispose();
+                if (_balanceCheckTimer is not null)
+                {
+                    _balanceCheckTimer.Dispose();
+                }
                 _balanceCheckTimer = null;
+                _eventBus.UnsubscribeAll(this);
             }
-
-            _eventBus.UnsubscribeAll(this);
-
             _disposed = true;
-        }
-
-        public void Reset()
-        {
-        }
-
-        public void Execute()
-        {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(BalanceOperations));
-            }
-
-            _logger.Info("BalanceOperations Has Been Initiated!", GetType().Name);
-            SubscribeToEvents();
-            _balanceCheckTimer = new Timer(
-                                _ => CheckBalance(),
-                                null,
-                                _robotController.Config.Active.IntervalBalanceCheck,
-                                _robotController.Config.Active.IntervalBalanceCheck);
         }
 
         private void CheckBalance()
@@ -78,21 +85,16 @@
             {
                 return;
             }
-            _logger.Info("BalanceCheck Requested.", GetType().Name);
+            _logger.Info($"BalanceCheck Requested.", GetType().Name);
             CheckNegativeBalance(_bank, _logger);
             InsertCredit();
         }
 
         public void Halt()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(BalanceOperations));
-            }
-
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _balanceCheckTimer?.Halt();
+            _balanceCheckTimer?.Dispose();
         }
 
         private void SubscribeToEvents()
@@ -131,7 +133,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.BalanceOperationValid;
+            return !isBlocked && _stateChecker.BalanceOperationValid;
         }
 
         private void InsertCredit()
@@ -142,7 +144,7 @@
             var hasEdgeCase = _robotController.Config?.Active?.InsertCreditsDuringGameRound == true;
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
-            if (enoughBlanace || (!_sc.IsIdle && !hasEdgeCase))
+            if (enoughBlanace || (!_stateChecker.IsIdle && !hasEdgeCase))
             {
                 return;
             }
