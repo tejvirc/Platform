@@ -29501,7 +29501,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Start Detection ....
+		///   Looks up a localized string similar to Start Detection.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -29747,7 +29747,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Stop Detection ....
+		///   Looks up a localized string similar to Stop Detection.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -64123,7 +64123,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Start Detection ....
+		///		Looks up a localized string similar to Start Detection.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -64369,7 +64369,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Stop Detection ....
+		///		Looks up a localized string similar to Stop Detection.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -86092,7 +86092,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		StartDateText,
 		/// <summary>
-		///   Looks up a localized string similar to Start Detection ....
+		///   Looks up a localized string similar to Start Detection.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -86233,7 +86233,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		StatusText,
 		/// <summary>
-		///   Looks up a localized string similar to Stop Detection ....
+		///   Looks up a localized string similar to Stop Detection.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI

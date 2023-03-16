@@ -16,7 +16,10 @@
     using Contracts.Detection;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
+    using Contracts.TowerLight;
     using Hardware.Contracts;
+    using Hardware.Contracts.Cabinet;
+    using Hardware.Contracts.Door;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.NoteAcceptor;
@@ -27,10 +30,12 @@
     using Helpers;
     using Kernel;
     using Kernel.Contracts;
+    using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
     using MVVM.Command;
+    using CabinetType = Cabinet.Contracts.CabinetType;
     using IdReaderInspectionFailedEvent = Hardware.Contracts.IdReader.InspectionFailedEvent;
     using IdReaderInspectionSucceededEvent = Hardware.Contracts.IdReader.InspectedEvent;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
@@ -41,9 +46,6 @@
     using PrinterInspectionSucceededEvent = Hardware.Contracts.Printer.InspectedEvent;
     using ReelInspectedEvent = Hardware.Contracts.Reel.InspectedEvent;
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.InspectionFailedEvent;
-    using Aristocrat.Monaco.Hardware.Contracts.Door;
-    using Contracts.TowerLight;
-    using Monaco.Common;
 
     [CLSCompliant(false)]
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
@@ -103,7 +105,6 @@
         private string _hardMeterMapSelection;
         private bool _configurableBellyPanelDoor;
         private bool _bellyPanelDoorEnabled;
-        private bool _isInspection;
         private int _notYetDiscovered;
 
         protected Action UpdateChanges;
@@ -232,7 +233,7 @@
             get => _isDetecting;
             set
             {
-                if (!SetProperty(ref _isDetecting, value, nameof(IsDetecting)))
+                if (!SetProperty(ref _isDetecting, value, nameof(IsDetecting), nameof(ShowStartDetectionButton), nameof(ShowStopDetectionButton)))
                 {
                     return;
                 }
@@ -249,6 +250,10 @@
                 }
             }
         }
+
+        public bool ShowStartDetectionButton => !IsDetecting && IsWizardPage;
+
+        public bool ShowStopDetectionButton => IsDetecting && IsWizardPage;
 
         public bool ShowHardMeters { get; private set; }
 
@@ -415,8 +420,7 @@
 
             SubscribeToEvents();
 
-            _isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
-            if (_isInspection)
+            if (IsWizardPage)
             {
                 StartDetection();
             }
@@ -1147,6 +1151,12 @@
                                 isRequired = true;
                                 canChange = false;
                                 break;
+                            case DeviceType.ReelController when IsWizardPage:
+                                var cabinetType = _serviceManager.GetService<ICabinetDetectionService>().Type;
+                                isEnabled |=
+                                    cabinetType == CabinetType.LSWith1600MainScreen ||
+                                    cabinetType == CabinetType.LSWith1280MainScreen;
+                                break;
                         }
 
                         if (IsWizardPage &&
@@ -1520,13 +1530,7 @@
 
                     IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
 
-                    if (_isInspection &&
-                        !IsDetecting &&
-                        _notYetDiscovered == 0 &&
-                        ValidateCommand.CanExecute(new object()))
-                    {
-                        ValidateConfig();
-                    }
+                    TryValidationAfterDetection();
                 });
         }
 
@@ -1545,8 +1549,31 @@
                     device.IsDetectionComplete = true;
                     device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
 
+#if !RETAIL
+                    // Nothing was found, so use the Fake
+                    Logger.Debug($"Select Fake device for {evt.DeviceType}");
+                    _deviceDiscoveryStatus[evt.DeviceType] = true;
+                    _deviceConfigurationDictionary[evt.DeviceType].SetDetectedPlatformConfiguration(
+                        new SupportedDevicesDevice
+                        {
+                            Name = ApplicationConstants.Fake,
+                            Protocol = ApplicationConstants.Fake,
+                            Port = ApplicationConstants.Fake
+                        });
+                    _notYetDiscovered--;
+#endif
                     IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
+
+                    TryValidationAfterDetection();
                 });
+        }
+
+        private void TryValidationAfterDetection()
+        {
+            if (!IsDetecting && IsWizardPage && _notYetDiscovered == 0)
+            {
+                ValidateCommand.Execute(new object());
+            }
         }
 
         private void UpdateScreen(bool clearValidation = false)
