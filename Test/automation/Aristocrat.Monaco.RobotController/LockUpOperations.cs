@@ -1,16 +1,15 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using System.Threading.Tasks;
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
 
-    internal sealed class LockUpOperations : IRobotOperations
+    internal class LockUpOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private readonly RobotController _robotController;
@@ -19,63 +18,67 @@
 
         public LockUpOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
             _robotController = robotController;
         }
 
+        ~LockUpOperations() => Dispose(false);
 
         public void Dispose()
         {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (_lockupTimer is not null)
-            {
-                _lockupTimer.Dispose();
-                _lockupTimer = null;
-            }
-
-            _eventBus.UnsubscribeAll(this);
-            _disposed = true;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public void Reset()
         {
+            _disposed = false;
         }
 
         public void Execute()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(LockUpOperations));
-            }
-
             _logger.Info("LockUpOperations Has Been Initiated!", GetType().Name);
             if (_robotController.Config.Active.IntervalTriggerLockup == 0)
             {
                 return;
             }
-
             _lockupTimer = new Timer(
-                _ => RequestLockUp(),
-                null,
-                _robotController.Config.Active.IntervalTriggerLockup,
-                _robotController.Config.Active.IntervalTriggerLockup);
+                               (sender) =>
+                               {
+                                   RequestLockUp();
+                               },
+                               null,
+                               _robotController.Config.Active.IntervalTriggerLockup,
+                               _robotController.Config.Active.IntervalTriggerLockup);
         }
 
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-
-            _lockupTimer?.Halt();
-
+            _lockupTimer?.Dispose();
             _automator.ExitLockup();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            if (disposing)
+            {
+                if (_lockupTimer is not null)
+                {
+                    _lockupTimer.Dispose();
+                }
+                _lockupTimer = null;
+                _eventBus.UnsubscribeAll(this);
+            }
+            _disposed = true;
         }
 
         private void RequestLockUp()
@@ -84,22 +87,22 @@
             {
                 return;
             }
-
             _robotController.BlockOtherOperations(RobotStateAndOperations.LockUpOperation);
             _logger.Info("RequestLockUp Received!", GetType().Name);
             _automator.EnterLockup();
-
-            _ = Task.Delay((int)Constants.LockupDuration).ContinueWith(_ =>
+            _lockupTimer = new Timer(
+            (sender) =>
             {
+                _logger.Info("RequestExitLockup Received!", GetType().Name);
                 _automator.ExitLockup();
                 _robotController.UnBlockOtherOperations(RobotStateAndOperations.LockUpOperation);
-            });
+            }, null, Constants.LockupDuration, Timeout.Infinite);
         }
 
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && (_sc.IsChooser || _sc.IsAllowSingleGameAutoLaunch);
+            return isBlocked && _stateChecker.IsChooser;
         }
     }
 }
