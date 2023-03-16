@@ -827,7 +827,7 @@
                 return;
             }
 
-            var gamesWithRestrictions = Games.Where(g => g.ValidRestrictions.Any()).ToList();
+            var gamesWithRestrictions = Games.Where(g => g.ValidRestrictions != null && g.ValidRestrictions.Any()).ToList();
             var restrictionMismatch = restriction != null &&
                                       gamesWithRestrictions.Any(g => g.SelectedRestriction?.Name != restriction.Name);
             foreach (var game in gamesWithRestrictions)
