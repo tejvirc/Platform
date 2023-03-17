@@ -127,6 +127,106 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="TimeLimitQuebecDialogTemplate">
+        <Grid>
+            <!-- Toggle background image based on whether lobby or game is visible -->
+            <Image Stretch="Fill" 
+               Source="{DynamicResource TimeLimitLobbyBackground}"
+               Visibility="{Binding IsInLobby, Converter={StaticResource TrueVisibleFalseHidden}}"/>
+
+            <Rectangle Stretch="Fill" Fill="Black" Opacity="0.5"
+                   Visibility="{Binding IsInLobby, Converter={StaticResource TrueHiddenFalseVisible}}"/>
+
+            <Grid x:Name="TimePromptGrid" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                
+                <Image Stretch="None" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    uicommon:ImageHelper.SourceResourceKey="{Binding ResponsibleGamingDialogResourceKey}" />
+                <!--380 113--> 
+                <Button x:Name="btn15Min"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="150 250 0 0"
+                    Command="{Binding TimeLimitDlgCommand}"
+                    CommandParameter="0"
+                    Visibility="{Binding ResponsibleGamingCurrentDialogState, Converter={StaticResource TimeLimitDialogConverter},ConverterParameter='TimeoutButtons'}"
+                    Style="{StaticResource stlFlatButton}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image Name="btn15MinImage" Stretch="None" Source="{DynamicResource TimeLimit15MinNormal}"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="btn15MinImage" Property="Source" Value="{DynamicResource TimeLimit15MinPressed}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button x:Name="btn30Min"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="530 250 0 0"
+                    Command="{Binding TimeLimitDlgCommand}"
+                    CommandParameter="1"
+                    Visibility="{Binding ResponsibleGamingCurrentDialogState, Converter={StaticResource TimeLimitDialogConverter},ConverterParameter='TimeoutButtons'}"
+                    Style="{StaticResource stlFlatButton}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image Name="btn30MinImage" Stretch="None" Source="{DynamicResource TimeLimit30MinNormal}"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="btn30MinImage" Property="Source" Value="{DynamicResource TimeLimit30MinPressed}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button x:Name="btn45Min"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="150 363 0 0"
+                    Command="{Binding TimeLimitDlgCommand}"
+                    Visibility="{Binding ResponsibleGamingCurrentDialogState, Converter={StaticResource TimeLimitDialogConverter},ConverterParameter='TimeoutButtons'}"
+                    CommandParameter="2"
+                    Style="{StaticResource stlFlatButton}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image Name="btn45MinImage" Stretch="None" Source="{DynamicResource TimeLimit45MinNormal}"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="btn45MinImage" Property="Source" Value="{DynamicResource TimeLimit45MinPressed}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button x:Name="btn60Min"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="530 363 0 0"
+                    Command="{Binding TimeLimitDlgCommand}"
+                    CommandParameter="3"
+                    Visibility="{Binding ResponsibleGamingCurrentDialogState, Converter={StaticResource TimeLimitDialogConverter},ConverterParameter='TimeoutButtons'}"
+                    Style="{StaticResource stlFlatButton}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image Name="btn60MinImage" Stretch="None" Source="{DynamicResource TimeLimit60MinNormal}"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="btn60MinImage" Property="Source" Value="{DynamicResource TimeLimit60MinPressed}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="TimeLimitAlcDialogTemplate">
         <Grid>
             <!-- Toggle background image based on whether lobby or game is visible --> 

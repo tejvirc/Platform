@@ -51,6 +51,7 @@
       <string>ATI_CaptainCoinsKeno_500</string>
       <string>ATI_CaptainCoinsKeno_1000</string>
   </DefaultGameDisplayOrderByThemeId>
+  <TimeLimitDialogTemplate>TimeLimitQuebecDialogTemplate</TimeLimitDialogTemplate>
   <EdgeLightingOverrideUseGen8IdleMode>false</EdgeLightingOverrideUseGen8IdleMode>
   <RemoveIdlePaidMessageOnSessionStart>true</RemoveIdlePaidMessageOnSessionStart>
 </LobbyConfiguration>  
