@@ -1909,6 +1909,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private bool showGambleDynamicHelpField;
         
+        private bool skipByJackpotHitField;
+        
         public GamingConfigurationGamble() {
             this.allowedField = true;
             this.enabledField = false;
@@ -1918,6 +1920,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             this.winLimitConfigurableField = false;
             this.useWinLimitField = false;
             this.showGambleDynamicHelpField = false;
+            this.skipByJackpotHitField = false;
         }
         
         /// <remarks/>
@@ -2013,6 +2016,18 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.showGambleDynamicHelpField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool SkipByJackpotHit {
+            get {
+                return this.skipByJackpotHitField;
+            }
+            set {
+                this.skipByJackpotHitField = value;
             }
         }
     }

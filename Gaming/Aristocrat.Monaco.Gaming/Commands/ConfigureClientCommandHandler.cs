@@ -170,6 +170,7 @@
                 { "/Runtime/DefaultBetInAttract", ApplicationConstants.DefaultBetInAttract.ToString() },
                 { "/Runtime/DenomPatch", ApplicationConstants.DefaultAllowDenomPatch.ToString() },
                 { "/Runtime/Gamble&maxRounds", GamingConstants.MaxRounds.ToString() },
+                { "/Runtime/Gamble&skipByJackpotHit", _properties.GetValue(GamingConstants.GambleSkipByJackpotHit, false).ToString() },
                 { "/Runtime/GameDuration&kenoSpeed", _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString() },
                 { "/Runtime/GameDuration&reelSpeed", GamingConstants.ReelSpeed.ToString(CultureInfo.InvariantCulture) },
                 { "/Runtime/GameRules&gameDisabled", ApplicationConstants.DefaultGameDisabledUse },
