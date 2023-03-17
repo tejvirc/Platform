@@ -152,33 +152,33 @@
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" 
                     Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
             <CheckBox Margin="0,5" Width="46"
-                      IsChecked="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Mode=TwoWay}"
+                      IsChecked="{Binding CoinInRateEnabled, Mode=TwoWay}"
                       IsEnabled="{Binding InputEnabledByRuleOverride}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked" >
                         <i:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                               CommandParameter="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled}"/>
+                                               CommandParameter="{Binding CoinInRateEnabled}"/>
                     </i:EventTrigger>
                     <i:EventTrigger EventName="Unchecked" >
                         <i:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                               CommandParameter="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled}"/>
+                                               CommandParameter="{Binding CoinInRateEnabled}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </CheckBox>
             <helpers:CurrencyTextBox Margin="20 0 0 0" MinWidth="200"
                                      IsReadOnly="False" PreventNegatives="True" InputScope="Number"
                                      Number="{Binding RewardLevelCoinInAmount, Converter={StaticResource CurrencyConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                                     Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                                     Visibility="{Binding CoinInRateEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
                 <helpers:CurrencyTextBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                         <Binding Path="InputEnabledByRuleOverride" />
-                        <Binding Path="RewardLevels.CoinInStrategy.CoinInRate.Enabled" />
+                        <Binding Path="CoinInRateEnabled" />
                     </MultiBinding>
                 </helpers:CurrencyTextBox.IsEnabled>
             </helpers:CurrencyTextBox>
             <Label Margin="20 0 0 0"
                    Content="{lex:Loc Key=Disabled}" VerticalAlignment="Center"
-                   Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                   Visibility="{Binding CoinInRateEnabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 15 0 0">
