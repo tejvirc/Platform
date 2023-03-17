@@ -28,20 +28,14 @@
                 throw new ArgumentNullException(nameof(egmPaidLargeWins));
             }
 
-            var handpayAmount = 0L;
-            foreach (var handpayTransaction in egmPaidLargeWins)
-            {
-                var amount = handpayTransaction.TransactionAmount;
-                transactionQueue.AddNewTransactionToQueue(
-                    TransactionType.LargeWin,
-                    amount.MillicentsToCents(),
-                    gameTitleId,
-                    denominationId,
-                    gameSerial,
-                    paytableId,
-                    handpayTransaction.Barcode);
-                handpayAmount += amount;
-            }
+            var handpayAmount = ReportHandPaidTransactions(
+                transactionQueue,
+                egmPaidLargeWins,
+                gameTitleId,
+                denominationId,
+                gameSerial,
+                paytableId,
+                TransactionType.LargeWin);
 
             var nonHandpaid = totalPaidAmount - handpayAmount;
             if (nonHandpaid > 0)
@@ -55,6 +49,52 @@
                     paytableId,
                     string.Empty);
             }
+        }
+
+        public static void ReportJackpotTransactions(
+            this IReportTransactionQueueService transactionQueue,
+            IEnumerable<HandpayTransaction> egmPaidLargeWins,
+            uint gameTitleId,
+            int denominationId,
+            long gameSerial,
+            int paytableId)
+        {
+            ReportHandPaidTransactions(
+                transactionQueue,
+                egmPaidLargeWins,
+                gameTitleId,
+                denominationId,
+                gameSerial,
+                paytableId,
+                TransactionType.Jackpot);
+        }
+
+        private static long ReportHandPaidTransactions(
+            this IReportTransactionQueueService transactionQueue,
+            IEnumerable<HandpayTransaction> egmPaidLargeWins,
+            uint gameTitleId,
+            int denominationId,
+            long gameSerial,
+            int paytableId,
+            TransactionType transactionType)
+        {
+            var handpayAmount = 0L;
+            foreach (var handpayTransaction in egmPaidLargeWins)
+            {
+                var amount = handpayTransaction.TransactionAmount;
+
+                transactionQueue.AddNewTransactionToQueue(
+                    transactionType,
+                    amount.MillicentsToCents(),
+                    gameTitleId,
+                    denominationId,
+                    gameSerial,
+                    paytableId,
+                    handpayTransaction.Barcode);
+                handpayAmount += amount;
+            }
+
+            return handpayAmount;
         }
     }
 }
