@@ -52,12 +52,12 @@
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
-    using Vgt.Client12.Testing.Tools;
     using Views.Controls;
     using Views.Lobby;
     using Size = System.Windows.Size;
 #if !(RETAIL)
     using Events;
+    using Vgt.Client12.Testing.Tools;
 #endif
 
     /// <summary>
