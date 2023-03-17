@@ -3,12 +3,15 @@
   <PageAutomation category="Printer">
     <Action waitMs="500" controlName="SelfTestButton" />
     <Action waitMs="1000" controlName="PrintTestTicketButton" />
+    <Action waitMs="2500" final="true" />
   </PageAutomation>
   <PageAutomation category="NoteAcceptor">
     <Action waitMs="2500" controlName="SelfTestButton" />
+    <Action waitMs="1500" final="true" />
   </PageAutomation>
   <PageAutomation category="IdReader">
     <Action waitMs="1000" controlName="SelfTestButton" />
+    <Action waitMs="1500" final="true" />
   </PageAutomation>
   <PageAutomation category="Displays">
     <Action waitMs="500" controlName="EnterColorTestButton" />
@@ -17,6 +20,7 @@
     <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ColorTestsComboBox" parameter="Black Purity" parameterProperty="Name" />
     <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ExitButton" />
     <Action waitMs="1000" controlName="EnterIdentifyScreenBtn" />
+    <Action waitMs="4000" final="true" />
   </PageAutomation>
   <PageAutomation category="EdgeLighting">
     <Action waitMs="500"  controlName="ColorsComboBox" parameter="Purple" />
@@ -38,6 +42,7 @@
     <Action waitMs="1000" controlName="StripsComboBox" parameter="(0x34)" parameterProperty="StripName" conditionViewModel="TestViewModel" conditionMethod="HasEdgeLightStrip" conditionEnum="52" />
     <Action waitMs="1000" controlName="LightShowsComboBox" parameter="Rainbow" parameterProperty="Name" />
     <Action waitMs="4000" controlName="LightShowsComboBox" parameter="Chaser" parameterProperty="Name" />
+    <Action waitMs="15000" final="true" />
   </PageAutomation>
   <PageAutomation category="Sound">
     <Action waitMs="500" controlName="SoundLevelComboBox" parameter="Medium-High" parameterProperty="Description" />
@@ -51,6 +56,7 @@
     <Action waitMs="1500" conditionViewModel="TestViewModel" controlName="RearRightSpeakerButton" conditionProperty="RearRightSpeaker" />
     <Action waitMs="1500" conditionViewModel="TestViewModel" controlName="CenterSpeakerButton" conditionProperty="CenterSpeaker" />
     <Action waitMs="1500" conditionViewModel="TestViewModel" controlName="LowFrequencySpeakerButton" conditionProperty="LowFrequencySpeaker" />
+    <Action waitMs="1500" final="true" />
   </PageAutomation>
   <PageAutomation category="Lamps">
     <Action waitMs="500"  controlName="ButtonLampsListBox" parameter="Bash/Play Button"      conditionProperty="ButtonLampsAvailable" />
@@ -86,10 +92,12 @@
     <Action waitMs="1000" controlName="TowerLightTiersComboBox"       parameter="Strobe" parameterProperty="Name" conditionMethod="HasTowerLight" conditionEnum="4" />
     <Action waitMs="10"   controlName="TowerLightFlashStatesComboBox" parameter="Off"                             conditionMethod="HasTowerLight" conditionEnum="4" />
     <Action waitMs="10"   controlName="SetTowerLightFlashStateButton"                                             conditionMethod="HasTowerLight" conditionEnum="4" />
+    <Action waitMs="1500" final="true" />
   </PageAutomation>
   <PageAutomation category="Bell">
     <Action waitMs="1000" controlName="BellToggleSwitch" />
     <Action waitMs="1000" controlName="BellToggleSwitch" />
+    <Action waitMs="1000" final="true" />
   </PageAutomation>
   <PageAutomation category="MechanicalReels">
     <Action waitMs="1000" controlName="SelfTestButton" />
@@ -165,11 +173,13 @@
     <Action waitMs="10"   controlName="ReelLightNamesComboBox" parameter="15" conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
     <Action waitMs="10"   controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
     <Action waitMs="1000" controlName="LightToggleButton"                     conditionViewModel="LightTestViewModel" conditionMethod="HasLightId" conditionEnum="15" />
+    <Action waitMs="1500" final="true" />
   </PageAutomation>
   <PageAutomation category="BeagleBone">
     <Action waitMs="1000" controlName="LightShowsComboBox" parameter="Attract" />
     <Action waitMs="10"   controlName="SendShowButton" />
     <Action waitMs="2000" controlName="LightShowsComboBox" parameter="Default" />
     <Action waitMs="10"   controlName="SendShowButton" />
+    <Action waitMs="3000" final="true" />
   </PageAutomation>
 </InspectionAutomationConfiguration>

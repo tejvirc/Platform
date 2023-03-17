@@ -246,7 +246,12 @@
         {
             _automationTimer.Stop();
 
-            PerformCurrentAction(_currentAutomationPage?.Action[_automationActionCounter++]);
+            if (_currentAutomationPage is null)
+            {
+                return;
+            }
+
+            PerformCurrentAction(_currentAutomationPage.Action[_automationActionCounter++]);
         }
 
         private void FinishCurrentAction(bool performed)
@@ -257,12 +262,22 @@
 
         private void PerformCurrentAction(InspectionAutomationConfigurationPageAutomationAction action)
         {
-            Logger.Debug($"Automation event after {_automationTimer.Interval}ms: {_currentCategory}...{action.controlName}({action.parameter}),"
-                         + $" if {action.conditionViewModel}.{(!string.IsNullOrEmpty(action.conditionMethod) ? $"{action.conditionMethod}({action.conditionEnum})" : action.conditionProperty)}");
-
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
+                    if (action.final)
+                    {
+                        Logger.Debug($"Automation final event after {_automationTimer.Interval}ms");
+                        _isDecoratedElementsListComplete = true;
+                        _wizard.TestNameText = string.Empty;
+                        SetAutoTestButtonEnable(true);
+                        KillControlDecoration();
+                        return;
+                    }
+
+                    Logger.Debug($"Automation event after {_automationTimer.Interval}ms: {_currentCategory}...{action.controlName}({action.parameter}),"
+                                 + $" if {action.conditionViewModel}.{(!string.IsNullOrEmpty(action.conditionMethod) ? $"{action.conditionMethod}({action.conditionEnum})" : action.conditionProperty)}");
+
                     // Check if there's a condition attached to the instruction
                     if (_currentPageLoader.Page is UserControl pageControl && IsViewModelConditionMet(action))
                     {

@@ -9,7 +9,8 @@
               <xs:element minOccurs="0" maxOccurs="unbounded" name="Action">
                 <xs:complexType>
                   <xs:attribute name="waitMs" type="xs:int" use="required" />
-                  <xs:attribute name="controlName" type="xs:string" use="required" />
+                  <xs:attribute name="controlName" type="xs:string" use="optional" />
+                  <xs:attribute name="final" type="xs:boolean" use="optional" default="false" />
                   <xs:attribute name="parameter" type="xs:string" use="optional" />
                   <xs:attribute name="parameterProperty" type="xs:string" use="optional" />
                   <xs:attribute name="conditionProperty" type="xs:string" use="optional" />

@@ -85,6 +85,8 @@ namespace Aristocrat.Monaco.Inspection {
         
         private string controlNameField;
         
+        private bool finalField;
+        
         private string parameterField;
         
         private string parameterPropertyField;
@@ -104,6 +106,7 @@ namespace Aristocrat.Monaco.Inspection {
         private bool childWindowMustBeMainField;
         
         public InspectionAutomationConfigurationPageAutomationAction() {
+            this.finalField = false;
             this.useChildWindowsField = false;
             this.childWindowMustBeMainField = false;
         }
@@ -127,6 +130,18 @@ namespace Aristocrat.Monaco.Inspection {
             }
             set {
                 this.controlNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool final {
+            get {
+                return this.finalField;
+            }
+            set {
+                this.finalField = value;
             }
         }
         
