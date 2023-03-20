@@ -68976,10 +68976,25 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///		Looks up a localized string similar to Wednesday.
-		/// </summary>
-		public static string Wednesday {
+        /// <summary>
+        ///		Looks up a localized string similar to Hand count out.
+        /// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+        public static string HandCountTransactionName
+        {
+            get
+            {
+                return "HandCountTransactionName";
+            }
+        }
+
+
+        /// <summary>
+        ///		Looks up a localized string similar to Wednesday.
+        /// </summary>
+        public static string Wednesday {
 			get {
 				return "Wednesday";
 			}

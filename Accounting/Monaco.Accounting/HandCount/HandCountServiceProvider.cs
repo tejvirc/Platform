@@ -39,6 +39,8 @@
                 _handCountService.Initialize();
 
                 ServiceManager.GetInstance().AddService(_handCountService);
+
+                ServiceManager.GetInstance().AddServiceAndInitialize(new CashOutAmountCalculator());
             }
         }
 

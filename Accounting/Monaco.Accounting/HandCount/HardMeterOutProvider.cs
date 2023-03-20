@@ -6,15 +6,15 @@
     using Contracts.TransferOut;
     using Contracts.HandCount;
     using Hardware.Contracts.Persistence;
-    using Hardware.Contracts.Printer;
     using Kernel;
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Xceed.Wpf.Toolkit;
 
     /// <summary>
-    ///     An <see cref="ITransferOutProvider" /> for vouchers
+    ///     An <see cref="ITransferOutProvider" /> 
     /// </summary>
     [CLSCompliant(false)]
     public class HardMeterOutProvider : TransferOutProviderBase, IHardMeterOutProvider
@@ -26,8 +26,8 @@
         private readonly IPropertiesManager _properties;
         private readonly IPersistentStorageManager _storage;
         private readonly ITransactionHistory _transactions;
-        private readonly IValidationProvider _validationProvider;
         private readonly IHandCountService _handCountService;
+        private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
 
         public HardMeterOutProvider()
             : this(
@@ -37,9 +37,9 @@
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IHandCountService>(),
+                ServiceManager.GetInstance().GetService<ICashOutAmountCalculator>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                ServiceManager.GetInstance().GetService<IIdProvider>(),
-                ServiceManager.GetInstance().GetService<IValidationProvider>())
+                ServiceManager.GetInstance().GetService<IIdProvider>())
         {
         }
 
@@ -50,9 +50,9 @@
             IPersistentStorageManager storage,
             IEventBus bus,
             IHandCountService handCountService,
+            ICashOutAmountCalculator cashOutAmountCalculator,
             IPropertiesManager properties,
-            IIdProvider idProvider,
-            IValidationProvider validationProvider)
+            IIdProvider idProvider)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
@@ -60,9 +60,9 @@
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
+            _cashOutAmountCalculator = cashOutAmountCalculator ?? throw new ArgumentNullException(nameof(cashOutAmountCalculator));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
-            _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
         }
 
         public string Name => typeof(HardMeterOutProvider).ToString();
@@ -85,13 +85,6 @@
             Guid traceId,
             CancellationToken cancellationToken)
         {
-            var validator = _validationProvider.GetVoucherValidator();
-            if (validator == null)
-            {
-                Logger.Info($"No validator - {transactionId}");
-                return TransferResult.Failed;
-            }
-
             var transferredCashable = 0L;
             var transferredPromo = 0L;
             var transferredNonCash = 0L;
@@ -100,32 +93,12 @@
             {
                 Active = true;
 
-                if (validator.CanCombineCashableAmounts)
-                {
-                    if ((cashableAmount > 0 || promoAmount > 0) &&
-                        await Transfer(validator, transactionId, AccountType.Cashable, new VoucherAmount(cashableAmount, promoAmount, 0), associatedTransactions, reason, traceId, cancellationToken))
-                    {
-                        transferredCashable = cashableAmount;
-                        transferredPromo = promoAmount;
-                    }
-                }
-                else
-                {
-                    if (cashableAmount > 0 && await Transfer(validator, transactionId, AccountType.Cashable, new VoucherAmount(cashableAmount, 0, 0), associatedTransactions, reason, traceId, cancellationToken))
-                    {
-                        transferredCashable = cashableAmount;
-                    }
+                var cashOutAmount = _cashOutAmountCalculator.GetCashableAmount(cashableAmount);
 
-                    if (promoAmount > 0 && await Transfer(validator, transactionId, AccountType.Promo, new VoucherAmount(0, promoAmount, 0), associatedTransactions, reason, traceId, cancellationToken))
-                    {
-                        transferredPromo = promoAmount;
-                    }
-                }
-
-                if (nonCashAmount > 0 && _properties.GetValue(AccountingConstants.VoucherOutNonCash, false) &&
-                    await Transfer(validator, transactionId, AccountType.NonCash, new VoucherAmount(0, 0, nonCashAmount), associatedTransactions, reason, traceId, cancellationToken))
+                if ((cashOutAmount > 0) &&
+                    await Transfer(transactionId, cashOutAmount, associatedTransactions, reason, traceId, cancellationToken))
                 {
-                    transferredNonCash = nonCashAmount;
+                    transferredCashable = cashOutAmount;
                 }
 
                 return new TransferResult(transferredCashable, transferredPromo, transferredNonCash);
@@ -140,87 +113,34 @@
 
         public async Task<bool> Recover(Guid transactionId, CancellationToken cancellationToken)
         {
-            // There is nothing to recover for vouchers
+            // There is nothing to recover
             return await Task.FromResult(false);
         }
         private async Task<bool> Transfer(
-            IVoucherValidator validator,
             Guid transactionId,
-            AccountType accountType,
-            VoucherAmount amount,
+            long amount,
             IEnumerable<long> associatedTransactions,
             TransferOutReason reason,
             Guid traceId,
             CancellationToken token)
         {
-            if (!UpdateTransferOutContext(
-                context =>
-                {
-                    context.Barcode = null;
-                    return true;
-                }))
-            {
-                return false;
-            }
-
-            if (reason.AffectsBalance() && !amount.CheckBankBalance(_bank))
-            {
-                Logger.Error($"Balance less than amount requested - {transactionId}");
-                return await Task.FromResult(false);
-            }
-
             if (token.IsCancellationRequested)
             {
                 return await Task.FromResult(false);
             }
 
-            if (!validator.CanValidateVoucherOut(amount.Amount, accountType))
+            var transaction = new HandCountTransaction(transactionId, DateTime.Now, amount, reason)
             {
-                Logger.Info($"Cannot validate the voucher out - {transactionId}");
-                return await Task.FromResult(false);
-            }
-
-            var transaction = await validator.IssueVoucher(amount, accountType, transactionId, reason);
-            if (transaction == null)
-            {
-                Logger.Error($"Failed to issue voucher transaction - {transactionId}");
-                return await Task.FromResult(false);
-            }
-
-            _bus.Publish(new VoucherOutStartedEvent(amount.Amount));
-
-            if (!UpdateTransferOutContext(
-                context =>
-                {
-                    context.Barcode = transaction.Barcode;
-                    return true;
-                }))
-            {
-                return false;
-            }
-
-            transaction.BankTransactionId = transactionId;
-            transaction.AssociatedTransactions = associatedTransactions;
-            transaction.TraceId = traceId;
-            transaction.Reason = reason;
-            transaction.HostOnline = validator.HostOnline;
-
-            return await IssueVoucher(transaction, amount);
-        }
-
-        private async Task<bool> IssueVoucher(VoucherOutTransaction transaction, VoucherAmount voucherAmount)
-        {
-            transaction.VoucherSequence = GetTicketSequence(_idProvider.GetCurrentLogSequence<VoucherOutTransaction>() + 1);
-
-            var ticket = VoucherTicketsCreator.GetTicket(transaction);
+                TraceId = traceId
+            };
 
             await Commit();
 
-            return await Task.FromResult(transaction.VoucherPrinted);
+            return await Task.FromResult(true);
 
             Task Commit()
             {
-                Logger.Debug($"Committing the voucher transaction {transaction}");
+                Logger.Debug($"Committing the hand count transaction {transaction}");
 
                 try
                 {
@@ -228,26 +148,22 @@
                     {
                         if (transaction.Reason.AffectsBalance())
                         {
-                            voucherAmount.Withdraw(_bank, transaction.BankTransactionId);
+                            _bank.Withdraw(AccountType.Cashable, amount, transaction.BankTransactionId);
                         }
 
-                        transaction.VoucherPrinted = true;
-
                         // Unique log sequence number assigned by the EGM; a series that strictly increases by 1 (one) starting at 1 (one).
-                        transaction.LogSequence = _idProvider.GetNextLogSequence<VoucherBaseTransaction>();
+                        transaction.LogSequence = _idProvider.GetNextLogSequence<HandCountTransaction>();
 
-                        transaction.HostSequence = _idProvider.GetNextLogSequence<IAcknowledgeableTransaction>();
+                        //_transactions.AddTransaction(transaction);
 
-                        // Force the increment, since we just read it before printing
-                        _idProvider.GetNextLogSequence<VoucherOutTransaction>();
+                        var handCount = _cashOutAmountCalculator.GetHandCountUsed(amount);
 
-                        _transactions.AddTransaction(transaction);
 
-                        _handCountService.DecreaseHandCount( (int)Math.Ceiling(VoucherTicketsCreator.GetDollarAmount(transaction.Amount)/5));
+                        _handCountService.DecreaseHandCount(handCount);
 
                         Logger.Debug("Entering UpdateMeters");
 
-                        UpdateMeters(transaction, voucherAmount);
+                        UpdateMeters(transaction, amount);
                         Logger.Debug("Finished UpdateMeters");
 
                         scope.Complete();
@@ -265,97 +181,20 @@
 
                 Logger.Debug("Preparing to publish VoucherIssuedEvent");
 
-                _bus.Publish(new VoucherIssuedEvent(transaction, ticket));
-
-                Logger.Info($"Voucher issued: {transaction}");
+                //_bus.Publish(new VoucherIssuedEvent(transaction, ticket));
+                //Logger.Info($"Voucher issued: {transaction}");
 
                 return Task.CompletedTask;
             }
         }
 
-        private void UpdateMeters(VoucherBaseTransaction transaction, VoucherAmount voucherAmount)
+        private void UpdateMeters(HandCountTransaction transaction, long amount)
         {
-            if (voucherAmount != null && transaction.TypeOfAccount.Equals(AccountType.Cashable) &&
-                voucherAmount.PromoAmount > 0)
-            {
-                var validator = _validationProvider.GetVoucherValidator();
-
-                var separateMeteringCashableAmounts = _properties.GetValue(AccountingConstants.SeparateMeteringCashableAndPromoOutAmounts, false);
-
-                if (validator.CanCombineCashableAmounts && !separateMeteringCashableAmounts)
-                {
-                    UpdateCashableMeters(transaction.Amount);
-                    return;
-                }
-
-                if (separateMeteringCashableAmounts)
-                {
-                    _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoAmount).Increment(voucherAmount.PromoAmount);
-                    _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoCount).Increment(1);
-
-                    if (voucherAmount.CashAmount > 0)
-                    {
-                        UpdateCashableMeters(voucherAmount.CashAmount);
-                    }
-                }
-                else
-                {
-                    _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoAmount).Increment(voucherAmount.PromoAmount);
-
-                    if (voucherAmount.CashAmount > 0)
-                    {
-                        UpdateCashableMeters(voucherAmount.CashAmount);
-                    }
-                    else
-                    {
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoCount).Increment(1);
-                    }
-                }
-            }
-            else
-            {
-                switch (transaction.TypeOfAccount)
-                {
-                    case AccountType.Cashable:
-                        UpdateCashableMeters(transaction.Amount);
-                        break;
-                    case AccountType.Promo:
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoAmount).Increment(transaction.Amount);
-                        _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoCount).Increment(1);
-                        break;
-                    case AccountType.NonCash:
-                        _meters.GetMeter(AccountingMeters.VoucherOutNonCashableAmount).Increment(transaction.Amount);
-                        _meters.GetMeter(AccountingMeters.VoucherOutNonCashableCount).Increment(1);
-                        break;
-                }
-            }
-
-            void UpdateCashableMeters(long amount)
+            if (amount > 0)
             {
                 _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount).Increment(amount);
                 _meters.GetMeter(AccountingMeters.VoucherOutCashableCount).Increment(1);
             }
-        }
-
-        private bool UpdateTransferOutContext(Func<ITransferOutContext, bool> update)
-        {
-            var context = (ITransferOutContext)_properties.GetProperty(AccountingConstants.TransferOutContext, null);
-
-            if (context == null)
-            {
-                Logger.Error("No transfer out context.");
-                return false;
-            }
-
-            var success = update(context);
-            _properties.SetProperty(AccountingConstants.TransferOutContext, context);
-
-            if (!success)
-            {
-                Logger.Error("Failed to update transfer out context.");
-            }
-
-            return success;
         }
     }
 }
