@@ -169,8 +169,14 @@
   <ExtensionPoint path="/Application/Quebec/Runnables">
     <ExtensionNode name="Runnable" />
   </ExtensionPoint>
-  <Extension path="/Application/Quebec/Runnables">&gt;
-    <Runnable type="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor" /></Extension>
+  <Extension path="/Application/Quebec/Runnables">
+    <Runnable type="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor" />
+  </Extension>
+  <Extension path="/AuditTicketMonitor/Configuration" filterid="QuebecAuditTicketMonitorConfig">
+    <Triggers>
+      <Door name="Logic Door" />
+    </Triggers>
+  </Extension>
   <Extension path="/Accounting/TransactionHistories" filterid="QuebecTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="100" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
