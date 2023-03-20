@@ -1,5 +1,6 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
+    using System;
     using Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Models;
@@ -10,12 +11,15 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Application.Contracts.Localization;
+    using Localization.Properties;
+    using Monaco.UI.Common.Extensions;
 
     public class ReadOnlyGameConfiguration
     {
         private readonly double _denomMultiplier;
         private readonly IRtpService _rtpService;
-        private readonly IProgressiveConfigurationProvider _progressiveProvider;
+        private readonly IProgressiveConfigurationProvider _progressiveConfigProvider;
 
         public ReadOnlyGameConfiguration(
             IGameDetail game,
@@ -31,7 +35,7 @@
 
             var container = ServiceManager.GetInstance().GetService<IContainerService>().Container;
             _rtpService = container.GetInstance<IRtpService>();
-            _progressiveProvider = container.GetInstance<IProgressiveConfigurationProvider>();
+            _progressiveConfigProvider = container.GetInstance<IProgressiveConfigurationProvider>();
 
             RuntimeVersion = Path.GetFileName(GameDetail.TargetRuntime);
             var denomination = GameDetail.Denominations.Single(d => d.Value == denom);
@@ -88,8 +92,28 @@
         {
             var validationReport = _rtpService.ValidateGame(game);
 
-            // TODO: SAP & LP WIP
-            //var (progressiveRtp, rtpState) = _progressiveProvider.GetProgressivePackRtp(game.Id, denom, game.GetBetOption(denom)?.Name);
+            var betOption = game.GetBetOption(denom)?.Name;
+
+            var (progressiveRtp, progressiveRtpState) = _progressiveConfigProvider.GetProgressivePackRtp(game.Id, denom, betOption);
+            var hasSap = progressiveRtpState == RtpVerifiedState.Verified;
+
+            var standaloneProgressiveResetRtpState = !validationReport.IsValid
+                ? RtpVerifiedState.NotAvailable
+                : !_rtpService.GetJurisdictionalRtpRules(game.GameType).IncludeStandaloneProgressiveStartUpRtp
+                    ? RtpVerifiedState.NotUsed
+                    : !hasSap
+                        ? RtpVerifiedState.NotAvailable
+                        : RtpVerifiedState.Verified;
+
+            var standaloneProgressiveIncrementRtpState = !validationReport.IsValid
+                ? RtpVerifiedState.NotAvailable
+                : !_rtpService.GetJurisdictionalRtpRules(game.GameType).IncludeStandaloneProgressiveIncrementRtp
+                    ? RtpVerifiedState.NotUsed
+                    : !hasSap
+                        ? RtpVerifiedState.NotAvailable
+                        : RtpVerifiedState.Verified;
+
+            var notAvailableLocalized = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
 
             GameRtpDisplay rtpDisplay;
 
@@ -97,31 +121,69 @@
             {
                 var breakdown = _rtpService.GetTotalRtpBreakdown(game);
 
-                //var sapResetRtpState = 
-                //var sapIncrementRtpState = 
-                //var lpResetRtpState =
-                //var lpIncrementRtpState =
-
                 rtpDisplay = new GameRtpDisplay
                 {
                     HasExtendedRtpInformation = true,
 
-                    BaseGameRtp = breakdown.Base.ToString(),
+                    StandaloneProgressiveResetRtpState = standaloneProgressiveResetRtpState,
+                    StandaloneProgressiveIncrementRtpState = standaloneProgressiveIncrementRtpState,
+
+                    LinkedProgressiveResetRtpState = RtpVerifiedState.NotAvailable,
                     BaseGameRtpMin = breakdown.Base.Minimum.ToRtpString(),
                     BaseGameRtpMax = breakdown.Base.Maximum.ToRtpString(),
 
-                    StandaloneProgressiveResetRtp = breakdown.StandaloneProgressiveReset.ToString(),
-                    StandaloneProgressiveResetRtpMin = breakdown.StandaloneProgressiveReset.Minimum.ToRtpString(),
-                    StandaloneProgressiveResetRtpMax = breakdown.StandaloneProgressiveReset.Maximum.ToRtpString(),
+                    // Standalone Progressive Reset
+                    StandaloneProgressiveResetRtp = standaloneProgressiveResetRtpState switch
+                    {
+                        RtpVerifiedState.Verified => breakdown.StandaloneProgressiveReset.ToString(),
+                        RtpVerifiedState.NotUsed => RtpVerifiedState.NotUsed.GetDescription(typeof(RtpVerifiedState)),
+                        RtpVerifiedState.NotAvailable => notAvailableLocalized,
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    StandaloneProgressiveResetRtpMin = standaloneProgressiveResetRtpState switch
+                    {
+                        RtpVerifiedState.Verified => breakdown.StandaloneProgressiveReset.Minimum.ToRtpString(),
+                        RtpVerifiedState.NotUsed => RtpVerifiedState.NotUsed.GetDescription(typeof(RtpVerifiedState)),
+                        RtpVerifiedState.NotAvailable => notAvailableLocalized,
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    StandaloneProgressiveResetRtpMax = standaloneProgressiveResetRtpState switch
+                    {
+                        RtpVerifiedState.Verified => breakdown.StandaloneProgressiveReset.Maximum.ToRtpString(),
+                        RtpVerifiedState.NotUsed => RtpVerifiedState.NotUsed.GetDescription(typeof(RtpVerifiedState)),
+                        RtpVerifiedState.NotAvailable => notAvailableLocalized,
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
 
-                    StandaloneProgressiveIncrementRtp = breakdown.StandaloneProgressiveIncrement.ToString(),
-                    StandaloneProgressiveIncrementRtpMin = breakdown.StandaloneProgressiveIncrement.Minimum.ToRtpString(),
-                    StandaloneProgressiveIncrementRtpMax = breakdown.StandaloneProgressiveIncrement.Maximum.ToRtpString(),
+                    // Standalone Progressive Increment
+                    StandaloneProgressiveIncrementRtp = standaloneProgressiveIncrementRtpState switch
+                    {
+                        RtpVerifiedState.Verified => breakdown.StandaloneProgressiveIncrement.ToString(),
+                        RtpVerifiedState.NotUsed => RtpVerifiedState.NotUsed.GetDescription(typeof(RtpVerifiedState)),
+                        RtpVerifiedState.NotAvailable => notAvailableLocalized,
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    StandaloneProgressiveIncrementRtpMin = standaloneProgressiveIncrementRtpState switch
+                    {
+                        RtpVerifiedState.Verified => breakdown.StandaloneProgressiveIncrement.Minimum.ToRtpString(),
+                        RtpVerifiedState.NotUsed => RtpVerifiedState.NotUsed.GetDescription(typeof(RtpVerifiedState)),
+                        RtpVerifiedState.NotAvailable => notAvailableLocalized,
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
+                    StandaloneProgressiveIncrementRtpMax = standaloneProgressiveIncrementRtpState switch
+                    {
+                        RtpVerifiedState.Verified => breakdown.StandaloneProgressiveIncrement.Maximum.ToRtpString(),
+                        RtpVerifiedState.NotUsed => RtpVerifiedState.NotUsed.GetDescription(typeof(RtpVerifiedState)),
+                        RtpVerifiedState.NotAvailable => notAvailableLocalized,
+                        _ => throw new ArgumentOutOfRangeException()
+                    },
 
+                    // Linked Progressive Reset
                     LinkedProgressiveResetRtp = breakdown.LinkedProgressiveReset.ToString(),
                     LinkedProgressiveResetRtpMin = breakdown.LinkedProgressiveReset.Minimum.ToRtpString(),
                     LinkedProgressiveResetRtpMax = breakdown.LinkedProgressiveReset.Maximum.ToRtpString(),
 
+                    // Linked Progressive Increment
                     LinkedProgressiveIncrementRtp = breakdown.LinkedProgressiveIncrement.ToString(),
                     LinkedProgressiveIncrementRtpMin = breakdown.LinkedProgressiveIncrement.Minimum.ToRtpString(),
                     LinkedProgressiveIncrementRtpMax = breakdown.LinkedProgressiveIncrement.Maximum.ToRtpString(),
@@ -129,11 +191,6 @@
                     TotalJurisdictionalRtp = breakdown.TotalRtp.ToString(),
                     TotalJurisdictionalRtpMin = breakdown.TotalRtp.Minimum.ToRtpString(),
                     TotalJurisdictionalRtpMax = breakdown.TotalRtp.Maximum.ToRtpString(),
-
-                    StandaloneProgressiveResetRtpState = validationReport.IsValid ? RtpVerifiedState.Verified : RtpVerifiedState.NotUsed,
-                    StandaloneProgressiveIncrementRtpState = validationReport.IsValid ? RtpVerifiedState.Verified : RtpVerifiedState.NotUsed,
-                    LinkedProgressiveResetRtpState = validationReport.IsValid ? RtpVerifiedState.Verified : RtpVerifiedState.NotUsed,
-                    LinkedProgressiveIncrementRtpState = validationReport.IsValid ? RtpVerifiedState.Verified : RtpVerifiedState.NotUsed,
                 };
             }
             else
@@ -156,23 +213,6 @@
                     LinkedProgressiveIncrementRtpState = RtpVerifiedState.NotAvailable,
                 };
             }
-
-            //var sapResetState = !rules.IncludeStandaloneProgressiveStartUpRtp && rtpState == RtpVerifiedState.Verified
-            //    ? RtpVerifiedState.NotUsed
-            //    : rtpState;
-
-            //var sapIncrementState = !rules.IncludeStandaloneProgressiveIncrementRtp && rtpState == RtpVerifiedState.Verified
-            //    ? RtpVerifiedState.NotUsed
-            //    : rtpState;
-
-            //var lpResetState = !rules.IncludeLinkProgressiveStartUpRtp && rtpState == RtpVerifiedState.Verified
-            //    ? RtpVerifiedState.NotUsed
-            //    : rtpState;
-
-            //var lpIncrementState = !rules.IncludeLinkProgressiveIncrementRtp && rtpState == RtpVerifiedState.Verified
-            //    ? RtpVerifiedState.NotUsed
-            //    : rtpState;
-
 
             return rtpDisplay;
         }

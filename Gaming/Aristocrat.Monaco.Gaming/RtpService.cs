@@ -252,7 +252,7 @@
         {
             ValidateRtpRangeBoundaries(breakdown);
 
-            ValidatePrecision(breakdown, GamingConstants.NumberOfDecimalPlacesForRtpDisplay);
+            ValidatePrecision(breakdown, GamingConstants.NumberOfDecimalPlacesForRtpCalculations);
 
             ValidateJurisdictionalLimits(breakdown, gameType);
         }
