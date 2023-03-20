@@ -37,6 +37,7 @@
         private readonly Dictionary<int, bool> _doors = new Dictionary<int, bool>();
         private readonly IEventBus _eventBus;
         private readonly IDoorMonitor _doorMonitor;
+        private readonly IPropertiesManager _propertiesManager;
         private readonly IAuditTicketCreator _auditTicketCreator;
         private readonly IVerificationTicketCreator _verificationTicketCreator;
 
@@ -70,17 +71,13 @@
             IVerificationTicketCreator verificationTicketCreator)
         {
             _doorMonitor = doorMonitor ?? throw new ArgumentNullException(nameof(doorMonitor));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _auditTicketCreator = auditTicketCreator ?? throw new ArgumentNullException(nameof(auditTicketCreator));
             _verificationTicketCreator = verificationTicketCreator ??
                                          throw new ArgumentNullException(nameof(verificationTicketCreator));
 
-            if (propertiesManager == null)
-            {
-                throw new ArgumentNullException(nameof(propertiesManager));
-            }
-
-            _useAuditTicketCreator = !(bool)propertiesManager
+            _useAuditTicketCreator = !(bool)_propertiesManager
                 .GetProperty(ApplicationConstants.DetailedAuditTickets, false);
         }
 
@@ -226,9 +223,10 @@
         private void Configure()
         {
             var logicDoors = _doorMonitor.GetLogicalDoors();
+            var jurisdiction = _propertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
 
             var triggers = MonoAddinsHelper.GetSelectedNodes<TriggersNode>(ConfigurationExtensionPath)
-                .FirstOrDefault();
+                .FirstOrDefault(node => node.Addin.Id.Contains(jurisdiction));
 
             if (triggers == null)
             {
@@ -312,7 +310,7 @@
 
         private void PrintAuditTickets(DoorOpenMeteredEvent data = null)
         {
-            if (_useAuditTicketCreator && data != null)
+            if (_useAuditTicketCreator && data != null && data.LogicalId != ((int)DoorLogicalId.Logic) )
             {
                 _pendingTickets[TicketField] =
                     _auditTicketCreator.CreateAuditTicket(_doorMonitor.Doors[data.LogicalId]);
@@ -321,13 +319,13 @@
             {
                 _pendingTickets[TicketField] = _verificationTicketCreator.Create(
                     0,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AuditTicketTitle));
+                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VerificationTicketTitle));
                 _pendingTickets[Ticket1Field] = _verificationTicketCreator.Create(
                     1,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AuditTicketTitle));
+                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VerificationTicketTitle));
                 _pendingTickets[Ticket2Field] = _verificationTicketCreator.Create(
                     2,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AuditTicketTitle));
+                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VerificationTicketTitle));
             }
 
             _block[TicketField] = Serialize(_pendingTickets[TicketField]);
