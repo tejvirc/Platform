@@ -1080,6 +1080,11 @@
         public const string FudgePay = @"FudgePay";
 
         /// <summary>
+        ///
+        /// </summary>
+        public const string ServerControlledPaytables = @"ServerControlledPaytables";
+
+        /// <summary>
         ///     "true" / "false" to indicate whether we display the Additional Info button.
         /// </summary>
         public const string AdditionalInfoButton = @"AdditionalInfoButton";

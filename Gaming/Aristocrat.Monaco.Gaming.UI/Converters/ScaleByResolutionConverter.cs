@@ -4,16 +4,14 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Forms;
 
     public class ScaleByResolutionConverter : IValueConverter
     {
-        private const double BaseScreenWidth = 1920;
-        private readonly double _scaleBy = Screen.PrimaryScreen.Bounds.Width / BaseScreenWidth;
+        private readonly double _scaleBy = ScaleUtility.GetScale();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value == null)
+            if (value == null)
             {
                 return null;
             }

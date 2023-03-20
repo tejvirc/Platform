@@ -1,16 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Converters
 {
-    using ViewModels;
     using System;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Forms;
+    using ViewModels;
 
     internal class DenomPanelWidthConverter : IMultiValueConverter
     {
-        private const double BaseScreenWidth = 1920;
+        private readonly double _scaleBy = ScaleUtility.GetScale();
 
         /// <summary>
         ///     Covert multiple parameters to form the element width
@@ -40,9 +39,8 @@
             var moreWidth = extraPadding ? 2 * margin.Left : 0;
 
             // Scale if required
-            var scaleAmount = Screen.PrimaryScreen.Bounds.Width / BaseScreenWidth;
             var newWidth = scale
-                ? (width + marginWidth + moreWidth) * scaleAmount
+                ? (width + marginWidth + moreWidth) * _scaleBy
                 : width + marginWidth + moreWidth;
 
             return newWidth;

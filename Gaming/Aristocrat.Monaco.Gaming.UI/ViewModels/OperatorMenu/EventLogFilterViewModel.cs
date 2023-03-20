@@ -7,6 +7,7 @@
     using System.ComponentModel;
     using System.Globalization;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Application.Contracts;
     using Application.Contracts.Localization;
@@ -35,7 +36,6 @@
         private EventLog _selectedItem;
         private string _subscriptionStatus;
         private bool _subscriptionTextVisible = true;
-        private bool _isReloadingEventHistory;
         private TimeSpan _offset;
         private readonly ITiltLogger _tiltLogger;
         private readonly IPropertiesManager _propertiesManager;
@@ -164,19 +164,6 @@
 
         public override bool DataEmpty => EventLogCollection == null || !EventLogCollection.Any();
 
-        /// <summary>
-        ///     Indicates whether or not we are currently reloading the event history.
-        /// </summary>
-        public bool IsReloadingEventHistory
-        {
-            get => !base.IsLoadingData && _isReloadingEventHistory;
-            set
-            {
-                _isReloadingEventHistory = value;
-                RaisePropertyChanged(nameof(IsReloadingEventHistory));
-            }
-        }
-
         public ObservableCollection<EventFilterInfo> EventFilterCollection
         {
             get => _eventFilterCollection;
@@ -230,10 +217,10 @@
                             ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EventInLog)
                             : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EventsInLog)),
                         count);
-                    RaisePropertyChanged(nameof(DataEmpty));
+                    RaisePropertyChanged(nameof(DataEmpty), nameof(FilteredLogCollection));
                 });
         }
-        
+
         private void UpdateMaxEntries()
         {
             var loggerType = IsAllFiltersSelected
@@ -290,8 +277,9 @@
             UpdateMaxEntries();
 
             var eventLogs = new List<EventLog>(events.Select(e => new EventLog(e)));
-            
-            EventLogCollection = 
+
+            EventLogCollection.CollectionChanged -= EventLogCollection_OnCollectionChanged;
+            EventLogCollection =
                 new ObservableCollection<EventLog>(eventLogs.OrderByDescending(e => e.Description.TransactionId));
             EventLogCollection.CollectionChanged += EventLogCollection_OnCollectionChanged;
             UpdateEventCount();
@@ -311,14 +299,10 @@
         private void ReloadEventHistory()
         {
             FilterMenuEnabled = false;
-            MvvmHelper.ExecuteOnUI(
-                () => { IsReloadingEventHistory = true; });
 
-            ClearEventLogCollection();
-            InitializeDataAsync();
+            MvvmHelper.ExecuteOnUI(() => { IsLoadingData = true; });
 
-            MvvmHelper.ExecuteOnUI(
-                () => { IsReloadingEventHistory = false; });
+            Task.Run(InitializeData);
         }
 
         private void EventLogAppended(object sender, TiltLogAppendedEventArgs e)
@@ -407,6 +391,7 @@
             }
 
             FilterMenuEnabled = true;
+            IsLoadingData = false;
         }
 
         protected override void OnLoaded()

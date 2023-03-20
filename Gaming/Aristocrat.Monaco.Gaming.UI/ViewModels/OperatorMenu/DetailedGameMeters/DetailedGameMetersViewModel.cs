@@ -399,8 +399,7 @@
         private static long GetAttendantPaidJackpot
             (GameRoundMeterSnapshotViewModel meters)
         {
-            return meters.Snapshot.HandPaidBonusAmount +
-                   meters.TotalHandPaidAmount;
+            return meters.TotalHandPaidAmount;
         }
     }
 }

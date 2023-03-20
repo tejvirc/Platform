@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Services.Configuration
 {
-    using System;
     using System.Collections.Generic;
     using Common.Storage.Model;
     using Newtonsoft.Json;
@@ -20,8 +19,8 @@
         [JsonProperty("Denomination")]
         public long Denomination { get; set; }
 
-        [JsonProperty("Bets")]
-        public IReadOnlyCollection<long> Bets { get; set; } = Array.Empty<long>();
+        [JsonProperty("BetInformation")]
+        public IReadOnlyCollection<ServerBetInformationDetail> BetInformationDetails { get; set; }
 
         [JsonProperty("QuickStopMode")]
         public bool QuickStopMode { get; set; }

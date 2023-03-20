@@ -44,6 +44,7 @@
             container.RegisterInstance(serviceManager.GetService<IGameDiagnostics>());
             container.RegisterInstance(serviceManager.GetService<IGameConfigurationProvider>());
             container.RegisterInstance(serviceManager.GetService<IConfigurationProvider>());
+            container.RegisterInstance(serviceManager.GetService<IServerPaytableInstaller>());
             return container;
         }
     }

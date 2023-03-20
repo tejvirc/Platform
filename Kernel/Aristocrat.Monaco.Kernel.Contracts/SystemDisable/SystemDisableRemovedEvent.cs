@@ -55,5 +55,11 @@
         ///     Gets a flag indicating whether the system idle state is still affected after removing this disable element.
         /// </summary>
         public bool SystemIdleStateAffected { get; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return base.ToString() + " (" + DisableReasons + ")";
+        }
     }
 }

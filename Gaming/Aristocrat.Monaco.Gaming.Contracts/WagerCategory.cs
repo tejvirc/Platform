@@ -35,8 +35,8 @@
         public WagerCategory(
             string id,
             decimal theoPaybackPercent,
-            int minWagerCredits,
-            int maxWagerCredits,
+            int? minWagerCredits,
+            int? maxWagerCredits,
             long maxWinAmount)
             : this(id, theoPaybackPercent)
         {

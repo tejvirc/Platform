@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System;
     using System.Collections.Generic;
@@ -228,11 +228,21 @@
                 return @this.WagerCategories.MaxOrDefault(w => w.MaxWinAmount, 0L);
             }
 
-            var maxWagerCredits = @this.MaximumWagerCredits(betOption, lineOption);
+            var topAward = @this.WinThreshold.Value * denomination.Value;
 
-            var topAward = maxWagerCredits * @this.WinThreshold.Value * denomination.Value;
+            if (betOption?.MaxInitialBet is not null)
+            {
+                return betOption.MaxInitialBet.Value * topAward;
+            }
 
-            return topAward;
+            if (betOption?.Bets is null)
+            {
+                return @this.MaximumWagerCredits * topAward;
+            }
+
+            return @this.TopAwardMultiplier(betOption) *
+                   @this.BaseMaxWagerCredits(lineOption) *
+                   topAward;
         }
 
         private static int BaseMinWagerCredits(this IGameDetail @this, LineOption lineOption)
@@ -259,6 +269,21 @@
             var maxBetMultiplier =
                 @this.BetOptionList?.MaxOrDefault(o => o.Bets.MaxOrDefault(b => b.Multiplier, 0), 0) ?? 0;
             return maxBetMultiplier <= 1 ? @this.MaximumWagerCredits : @this.MaximumWagerCredits / maxBetMultiplier;
+        }
+
+        private static int TopAwardMultiplier(this IGameDetail @this, BetOption betOption)
+        {
+            var orderedMultipliers = betOption.Bets
+                .Select(b => b.Multiplier)
+                .OrderByDescending(b => b)
+                .ToArray();
+
+            var multiplier = @this.Category == GameCategory.MultiDrawPoker &&
+                             orderedMultipliers.Length > 1
+                ? orderedMultipliers[1]
+                : orderedMultipliers.FirstOrDefault();
+
+            return Math.Max(multiplier, 1);
         }
     }
 }

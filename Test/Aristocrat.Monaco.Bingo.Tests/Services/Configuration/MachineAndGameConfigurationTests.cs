@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts;
+    using Bingo.Services;
     using Bingo.Services.Configuration;
     using Common;
     using Common.Exceptions;
@@ -67,8 +68,7 @@
         private readonly BingoServerSettingsModel _model = new();
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _disableManager = new(MockBehavior.Default);
-        private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
-        private readonly Mock<IConfigurationProvider> _configurationProvider = new(MockBehavior.Default);
+        private readonly Mock<IBingoPaytableInstaller> _bingoGameConfiguration = new(MockBehavior.Default);
 
         [TestInitialize]
         public void Initialize()
@@ -76,23 +76,17 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, false, false)]
-        [DataRow(false, true, false, false)]
-        [DataRow(false, false, true, false)]
-        [DataRow(false, false, false, true)]
+        [DataRow(true, false, false)]
+        [DataRow(false, true, false)]
+        [DataRow(false, false, true)]
         [DataTestMethod]
         public void NullConstructorArgumentsTest(
             bool nullProperties,
             bool nullDisable,
-            bool nullGameProvider,
-            bool nullRestrictions)
+            bool nullBingoGameConfiguration)
         {
             Assert.ThrowsException<ArgumentNullException>(
-                () => _ = CreateTarget(
-                    nullProperties,
-                    nullDisable,
-                    nullGameProvider,
-                    nullRestrictions));
+                () => _ = CreateTarget(nullProperties, nullDisable, nullBingoGameConfiguration));
         }
 
         [TestMethod]
@@ -110,7 +104,6 @@
             const string initialDispBingoCard = BingoConstants.ServerSettingOn;
             const bool expectedHideWhenInactive = true;
             const string initialHideWhenInactive = BingoConstants.ServerSettingOn;
-            const string themeId = "TestTheme";
 
             var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
             {
@@ -160,15 +153,8 @@
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.Position, locationPositionValue)).Verifiable();
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.BingoCardPlacement, initialBingoCardPlacement)).Verifiable();
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.DisplayBingoCardEgm, initialDispBingoCard)).Verifiable();
-
-            var mockGame = new Mock<IGameDetail>();
-            mockGame.Setup(x => x.CdsTitleId).Returns("272");
-            mockGame.Setup(x => x.SupportedDenominations).Returns(new[] { 1000L, 2000L });
-            mockGame.Setup(x => x.ThemeId).Returns(themeId);
-            mockGame.Setup(x => x.Active).Returns(true);
-            _gameProvider.Setup(x => x.GetGames()).Returns(new List<IGameDetail> { mockGame.Object });
-            _configurationProvider.Setup(x => x.GetByThemeId(themeId))
-                .Returns(Enumerable.Empty<IConfigurationRestriction>());
+            _bingoGameConfiguration.Setup(x => x.IsConfigurationValid(It.IsAny<IEnumerable<ServerGameConfiguration>>()))
+                .Returns(true);
 
             _target.Configure(messageConfigurationAttribute, _model);
 
@@ -243,52 +229,15 @@
             Assert.ThrowsException<ConfigurationException>(() => _target.Configure(messageConfigurationAttribute, _model));
         }
 
-        [TestMethod]
-        public void GamesDenomRestrictionTest()
-        {
-            const string themeId = "TestTheme";
-            var mockGame = new Mock<IGameDetail>();
-            mockGame.Setup(x => x.CdsTitleId).Returns("272");
-            mockGame.Setup(x => x.SupportedDenominations).Returns(new[] { 1000L, 2000L });
-            mockGame.Setup(x => x.ThemeId).Returns(themeId);
-            mockGame.Setup(x => x.Active).Returns(true);
-            _gameProvider.Setup(x => x.GetGames()).Returns(new List<IGameDetail> { mockGame.Object });
-
-            var mockRestrictions = new Mock<IConfigurationRestriction>();
-            var mockRestrictionDetails = new Mock<IRestrictionDetails>();
-            mockRestrictionDetails.Setup(x => x.MaxDenomsEnabled).Returns(1);
-            mockRestrictionDetails.Setup(x => x.Mapping).Returns(Enumerable.Empty<IDenomToPaytable>());
-            mockRestrictions.Setup(x => x.RestrictionDetails).Returns(mockRestrictionDetails.Object);
-            _configurationProvider.Setup(x => x.GetByThemeId(themeId))
-                .Returns(new List<IConfigurationRestriction>
-                {
-                    mockRestrictions.Object
-                });
-
-            var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
-            {
-                new ConfigurationResponse.Types.ClientAttribute
-                {
-                    Value = GamesConfigurationString,
-                    Name = MachineAndGameConfigurationConstants.GamesConfigured
-                }
-            };
-
-            Assert.ThrowsException<ConfigurationException>(
-                () => _target.Configure(messageConfigurationAttribute, _model));
-        }
-
         private MachineAndGameConfiguration CreateTarget(
             bool nullProperties = false,
             bool nullDisable = false,
-            bool nullGameProvider = false,
-            bool nullRestrictions = false)
+            bool nullBingoGameConfiguration = false)
         {
             return new MachineAndGameConfiguration(
                 nullProperties ? null : _propertiesManager.Object,
                 nullDisable ? null : _disableManager.Object,
-                nullGameProvider ? null : _gameProvider.Object,
-                nullRestrictions ? null : _configurationProvider.Object);
+                nullBingoGameConfiguration ? null : _bingoGameConfiguration.Object);
         }
     }
 }

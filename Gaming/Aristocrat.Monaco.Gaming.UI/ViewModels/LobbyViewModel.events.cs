@@ -779,7 +779,7 @@
                     }, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
             }
 
-            if (platformEvent.Handpay == HandpayType.GameWin)
+            if (platformEvent.Handpay is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 PlayGameWinHandPaySound();
             }
@@ -799,7 +799,7 @@
         {
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
 
-            if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
+            if (platformEvent.Transaction.HandpayType is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 _playCollectSound = false;
                 _audio.Stop();
@@ -837,6 +837,7 @@
             // If game is ready but not loaded due to disable, load it now
             if (GameReady)
             {
+                Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
                 MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameLoaded));
             }
         }
@@ -1373,9 +1374,6 @@
             {
                 case LobbySettingType.ServiceButtonVisible:
                     GetServiceButtonVisible();
-                    break;
-                case LobbySettingType.VolumeButtonVisible:
-                    GetVolumeButtonVisible();
                     break;
                 case LobbySettingType.ShowTopPickBanners:
                     MvvmHelper.ExecuteOnUI(LoadGameInfo);

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Tests
+namespace Aristocrat.Monaco.Gaming.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -192,8 +192,7 @@
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMinimumReturnToPlayer, It.IsAny<int>())).Returns(int.MinValue);
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMaximumReturnToPlayer, It.IsAny<int>())).Returns(int.MaxValue);
             _properties.Setup(p => p.GetProperty(AccountingConstants.MaxBetLimit, It.IsAny<long>())).Returns(AccountingConstants.DefaultMaxBetLimit);
-            _properties.Setup(p => p.GetProperty(It.IsAny<string>(), It.IsAny<bool>())).Returns(false);
-            _properties.Setup(p => p.GetProperty(It.IsAny<string>(), It.IsAny<decimal>())).Returns(1.0m);
+            _properties.Setup(p => p.GetProperty(GamingConstants.ServerControlledPaytables, It.IsAny<bool>())).Returns(false);
         }
 
         private void SetupStorage()
@@ -221,10 +220,11 @@
                     ["Game.Category"] = 0,
                     ["Game.SubCategory"] = 0,
                     ["Game.Features"] = "",
-                    ["Game.CdsGameInfos"] = ""
+                    ["Game.CdsGameInfos"] = "",
+                    ["Game.MinimumPaybackPercent"] = "90.222",
+                    ["Game.MaximumPaybackPercent"] = "91.2222"
                 }
             };
-
 
             block.Setup(b => b.GetAll()).Returns(results);
             block.Setup(m => m.StartTransaction()).Returns(storageTransaction.Object);

@@ -1,4 +1,4 @@
-namespace Aristocrat.Monaco.Gaming.UI.Models
+﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System;
     using Application.Contracts.Extensions;

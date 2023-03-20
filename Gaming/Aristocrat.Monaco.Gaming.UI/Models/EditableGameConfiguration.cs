@@ -153,7 +153,7 @@
                 value,
                 nameof(WarningText),
                 nameof(CanEdit),
-                nameof(WarningTextHidden));
+                nameof(WarningTextIsVisible));
         }
 
         public long BaseDenom { get; }
@@ -266,7 +266,7 @@
                 _enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 RaisePropertyChanged(nameof(CanEdit));
-                RaisePropertyChanged(nameof(WarningTextHidden));
+                RaisePropertyChanged(nameof(WarningTextIsVisible));
                 RaisePropertyChanged(nameof(CanEditAndEnabled));
                 RaisePropertyChanged(nameof(CanEditAndEnableGamble));
                 RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
@@ -350,7 +350,7 @@
                 nameof(ProgressiveViewVisibility));
         }
 
-        public bool MaxDenomEntriesExceeded
+        public bool MaxDenomEntriesReached
         {
             get => _maxDenomEntriesReached;
             set
@@ -366,7 +366,7 @@
                     nameof(CanEditAndEnabled),
                     nameof(CanEditAndEnableGamble),
                     nameof(CanEditAndEnableLetItRide),
-                    nameof(WarningTextHidden),
+                    nameof(WarningTextIsVisible),
                     nameof(CanEdit));
                 SetWarningText();
             }
@@ -379,9 +379,10 @@
         // VLT-12434 : prevent en/disabling games when credits are on the machine
         public bool CanToggleEnabled => (EnabledByHost || _allowEditHostDisabled) && AvailablePaytables.Any() &&
                                         GameOptionsEnabled &&
+                                        !MaxDenomEntriesReached &&
                                         !RestrictedToReadOnly;
 
-        public bool WarningTextHidden => string.IsNullOrEmpty(WarningText);
+        public bool WarningTextIsVisible => !string.IsNullOrEmpty(WarningText);
 
         public bool CanEdit => GameOptionsEnabled;
 
@@ -578,7 +579,7 @@
 
             _assignedLevels?.Clear();
 
-            MaxDenomEntriesExceeded = false;
+            MaxDenomEntriesReached = false;
             Enabled = denomination?.Active ?? false;
             Gamble = denomination?.SecondaryAllowed ?? false;
             LetItRide = denomination?.LetItRideAllowed ?? false;
@@ -597,7 +598,7 @@
         public void RaiseEnabledByHostChanged()
         {
             RaisePropertyChanged(nameof(EnabledByHost));
-            RaisePropertyChanged(nameof(WarningTextHidden));
+            RaisePropertyChanged(nameof(WarningTextIsVisible));
             RaisePropertyChanged(nameof(CanEdit));
             RaisePropertyChanged(nameof(CanEditAndEnabled));
             RaisePropertyChanged(nameof(CanEditAndEnableGamble));
@@ -689,9 +690,13 @@
                     WarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameDisabled);
                 }
             }
-            else if (MaxDenomEntriesExceeded)
+            else if (MaxDenomEntriesReached)
             {
-                WarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaxEnabledDenomsReached);
+                // Include game sub type that has reached the max for user clarity
+                var gameType = !string.IsNullOrEmpty(Game.GameSubtype)
+                    ? Game.GameSubtype + " " + Game.GameType
+                    : Game.GameType.ToString();
+                WarningText = string.Format(CultureInfo.CurrentCulture, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaxEnabledDenomsReached), gameType);
             }
             else if (BetRangesInvalid())
             {

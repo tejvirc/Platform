@@ -77,7 +77,7 @@
                 { SystemConfigurationConstants.TicketReprint, (model, _, value) => model.TicketReprint = StringToBool(value) },
                 { SystemConfigurationConstants.Gen8MaxCashIn, (model, _, value) => model.BillAcceptanceLimit = long.Parse(value) },
                 { SystemConfigurationConstants.VoucherThreshold, (model, _, value) => model.MaximumVoucherValue = long.Parse(value) },
-                { SystemConfigurationConstants.MinJackpotValue, (model, _, value) => model.MinimumJackpotValue = long.Parse(value) },
+                { SystemConfigurationConstants.MinJackpotValue, HandleMinJackpotValue },
                 { SystemConfigurationConstants.AudibleAlarmSetting, (model, _, value) => model.AlarmConfiguration = StringToBool(value) },
                 { SystemConfigurationConstants.RecordGamePlay, (model, _, value) => model.CaptureGameAnalytics = StringToBool(value) },
                 { SystemConfigurationConstants.CaptureGameAnalytics, (model, _, value) => model.CaptureGameAnalytics = StringToBool(value) },
@@ -218,6 +218,20 @@
                 new SasFeatures()).Clone();
             action.Invoke(features);
             return features;
+        }
+
+        private static void HandleMinJackpotValue(
+            BingoServerSettingsModel model,
+            IPropertiesManager propertiesManager,
+            string value)
+        {
+            model.MinimumJackpotValue = long.Parse(value);
+            var handpayLimit = (long)propertiesManager.GetProperty(AccountingConstants.HandpayLimit, long.MinValue);
+            var jackpotLimitInMillicents = model.MinimumJackpotValue.Value.CentsToMillicents();
+            if (jackpotLimitInMillicents > handpayLimit)
+            {
+                propertiesManager.SetProperty(AccountingConstants.HandpayLimit, jackpotLimitInMillicents);
+            }
         }
     }
 }

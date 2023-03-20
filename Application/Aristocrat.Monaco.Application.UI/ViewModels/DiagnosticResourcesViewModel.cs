@@ -137,6 +137,8 @@
 
             SetYAxesFormatters();
 
+            SetYAxesTitles();
+
             EventBus.Subscribe<ChangeChartSeriesVisibilityEvent>(this, OnMetricEnabledCheckedCommand);
 
             MonacoChart = new CartesianChart
@@ -178,7 +180,7 @@
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
                     MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
-                    Label = metric.GetAttribute<LabelAttribute>().Label
+                    Label = metric.GetAttribute<LabelAttribute>().Label + " " + metric.GetAttribute<UnitAttribute>().Unit
                 };
 
                 Metrics.Add(m);
@@ -303,6 +305,15 @@
             RaisePropertyChanged(nameof(AxisXStep));
 
             SetXAxisScale(DateTime.Now);
+        }
+
+        private void SetYAxesTitles()
+        {
+            for (int index = 0; index < Metrics.Count; index++)
+            {
+                var axis = YAxes[index];
+                axis.Title = Metrics[index].Label;
+            }
         }
 
         private void GetAllMetricsSnapShot()

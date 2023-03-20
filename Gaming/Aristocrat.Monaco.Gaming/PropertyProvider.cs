@@ -253,6 +253,7 @@
                 { GamingConstants.SelectedBetMultiplier, (InitFromStorage(GamingConstants.SelectedBetMultiplier), true) },
                 { GamingConstants.SelectedLineCost, (InitFromStorage(GamingConstants.SelectedLineCost), true) },
                 { GamingConstants.FudgePay, (configuration.FudgePay?.Enabled ?? false, false) },
+                { GamingConstants.ServerControlledPaytables, (configuration.GameRestrictions?.ServerControlledPaytables ?? false, false) },
                 { GamingConstants.AdditionalInfoButton, (configuration.AdditionalInfoButton?.Enabled ?? false, false) },
                 { GamingConstants.ExcessiveMeterIncrementTestEnabled, (configuration.ExcessiveMeterIncrementTest?.Enabled ?? false, false)},
                 { GamingConstants.ExcessiveMeterIncrementTestBanknoteLimit,(configuration.ExcessiveMeterIncrementTest?.BanknoteLimit ?? GamingConstants.ExcessiveMeterIncrementTestDefaultBanknoteLimit, false)},

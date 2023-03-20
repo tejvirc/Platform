@@ -4,18 +4,15 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Forms;
 
     internal class DenomPanelMarginConverter : IMultiValueConverter
     {
-        private const double BaseScreenWidth = 1920;
         // Move the denom panel up a bit so that it overlays on 10% of the game icon
         private const double DenomPanelOverlayOnGameIconPct = 1.0 / 10.0;
-        // If the game icon passes this height, we need to shift to denom panel up a bit
-        private const double GameIconHeightThreshold = 376;
         // If the game icon passes this height, and there a major multi game sap, shift the denom panel up a bit
         private const double GameIconHeightThresholdMajorSap = 540;
-        private readonly double _scaleBy = Screen.PrimaryScreen.Bounds.Width / BaseScreenWidth;
+
+        private readonly double _scaleBy = ScaleUtility.GetScale();
 
         /// <summary>
         ///     Covert multiple parameters to form the margin for the denomination panel
@@ -38,8 +35,8 @@
 
             // If the game icon height is too great, we must shift up the denom panel by some amount, otherwise
             // it will overlap onto the touch screen to play message.
-            var heightDifference = inputs.GameIconSize.Height > GameIconHeightThreshold 
-                ? inputs.GameIconSize.Height - GameIconHeightThreshold
+            var heightDifference = inputs.GameIconSize.Height > ScaleUtility.GameIconHeightThreshold
+                ? inputs.GameIconSize.Height - ScaleUtility.GameIconHeightThreshold
                 : 0;
 
             var heightDifferenceMajorSap = inputs.GameIconSize.Height > GameIconHeightThresholdMajorSap
