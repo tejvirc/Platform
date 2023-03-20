@@ -28,9 +28,9 @@
                () => new AccountingConfiguration
                {
                    Handpay = new AccountingConfigurationHandpay()
-               }) ;
+               });
             var storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-            
+
 
             var storageName = GetType().ToString();
 
@@ -244,7 +244,7 @@
                     SetProperty(AccountingConstants.CanKeyOffWhileInLockUp, propertiesManager.GetValue(AccountingConstants.CanKeyOffWhileInLockUp, configuration.Handpay?.CanKeyOffWhileInLockUp ?? true));
                     SetProperty(AccountingConstants.ValidateHandpays, propertiesManager.GetValue(AccountingConstants.ValidateHandpays, false));
                     SetProperty(AccountingConstants.RemoteHandpayResetAllowed, propertiesManager.GetValue(AccountingConstants.RemoteHandpayResetAllowed, true));
-                    SetProperty(AccountingConstants.AllowGameWinReceipts, propertiesManager.GetValue(AccountingConstants.AllowGameWinReceipts, configuration.Handpay?.AllowGameWinReceipt.Enabled ?? true));
+                    SetProperty(AccountingConstants.AllowGameWinReceipts, propertiesManager.GetValue(AccountingConstants.AllowGameWinReceipts, configuration.Handpay?.AllowGameWinReceipt?.Enabled ?? true));
 
                     machineSettingsImported |= ImportMachineSettings.HandpayPropertiesLoaded;
                     propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);
