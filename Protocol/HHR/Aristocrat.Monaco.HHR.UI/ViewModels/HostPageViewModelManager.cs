@@ -554,9 +554,10 @@
         {
             return _bank.Balance != 0 &&
                    (evt.DisableId == ApplicationConstants.DisabledByHost0Key ||
-                    evt.DisableId == ApplicationConstants.DisabledByHost1Key) ||
+                   evt.DisableId == ApplicationConstants.DisabledByHost1Key) ||
                    evt.DisableId == ApplicationConstants.Host0CommunicationsOfflineDisableKey ||
-                   evt.DisableId == ApplicationConstants.Host1CommunicationsOfflineDisableKey;
+                   evt.DisableId == ApplicationConstants.Host1CommunicationsOfflineDisableKey ||
+                   evt.DisableId == ApplicationConstants.MaintenanceModeGuid;
         }
 
         /// <inheritdoc />

@@ -501,6 +501,11 @@
         public static readonly Guid HostCashOutFailedDisableKey = new Guid("{AD40EFCE-63C0-42E9-8FE4-68B222D2DC8D}");
 
         /// <summary>
+        ///     Key used to disable the system when SAS Host request maintaince mode
+        /// </summary>
+        public static readonly Guid MaintenanceModeGuid = new Guid("{D45C666A-C4AA-43b8-8E02-F6B5EB5C7B25}");
+
+        /// <summary>
         ///     Key used to disable the system when SAS Host 0 is disabled
         /// </summary>
         public static readonly Guid DisabledByHost0Key = new Guid("{145119C8-E099-4630-B1D9-B1FF85F7381D}");
