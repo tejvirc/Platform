@@ -15,7 +15,9 @@
     public class GameTabInfoViewModel : BaseViewModel
     {
         private const double SubTabsTopMargin = 158;
-        private readonly double[] _subTabsLeftMargin = { 350, 650, 950, 1250, 855, 1145 };
+        private readonly double[] _subTabsLeftMargin = { 350, 650, 950, 1255, 848, 1145 };
+        private const double Tab3SpecialMargin = 332;
+        private const double SubTabWidth = 217;
 
         private List<GameTabInfo> _tabs = new List<GameTabInfo>();
 
@@ -62,6 +64,16 @@
             get
             {
                 var left = SelectedTabIndex < _subTabsLeftMargin.Length ? _subTabsLeftMargin[SelectedTabIndex] : 0;
+                if (SelectedTabIndex == 3 && SubTabs.Count == 3)
+                {
+                    // If there are 3 sub tabs on tab 3, the sub tabs should be to the left of the main tab
+                    left = Tab3SpecialMargin;
+                }
+                if (SelectedTabIndex == 4 && SubTabs.Count == 3)
+                {
+                    // If there are 3 sub tabs on tab 4, the sub tabs need to be shifted left an additional sub tab's width
+                    left -= SubTabWidth;
+                }
                 return new Thickness(left, SubTabsTopMargin, 0, 0);
             }
         }
@@ -175,6 +187,8 @@
                     subTab.IsVisible = visible;
                 }
             }
+
+            RaisePropertyChanged(nameof(SubTabsMargin));
         }
 
         public void SelectSubTab(SubTabInfoViewModel selectedSubTab, bool notify = true)

@@ -53,7 +53,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
-    using Views.Controls;
     using Views.Lobby;
     using Size = System.Windows.Size;
 #if !(RETAIL)
@@ -1430,20 +1429,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get
             {
                 var gameCount = DisplayedGameList?.Count ?? 0;
-                var (rows, cols) = IsExtraLargeGameIconTabActive
-                    ? GameRowColumnCalculator.ExtraLargeIconRowColCount
-                    : GameRowColumnCalculator.CalculateRowColCount(gameCount);
+                var gameControlHeight = GameControlHeight;
+                var gameIconSize = DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty;
+                var anyVisibleGameHasProgressiveLabel = DisplayedGameList?.Any(x => x.HasProgressiveLabelDisplay) ?? false;
+                Logger.Debug($"MarginInputs: GameWindowHeight={gameControlHeight}, GameIconSize={gameIconSize}");
                 return new GameGridMarginInputs(
                     gameCount,
                     IsTabView,
                     GameTabInfo.SelectedSubTab?.IsVisible ?? false,
-                    DisplayedGameList?.Reverse().Take(rows <= 0 ? 0 : gameCount - ((rows - 1) * cols))
-                        .Any(x => x.HasProgressiveLabelDisplay) ?? false,
-                    GameControlHeight,
+                    anyVisibleGameHasProgressiveLabel,
+                    gameControlHeight,
                     IsExtraLargeGameIconTabActive,
-                    DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty,
-                    ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled,
-                    DisplayedGameList?.Any(g => g.HasProgressiveLabelDisplay) ?? false);
+                    gameIconSize);
             }
         }
 

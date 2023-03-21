@@ -46,7 +46,6 @@
     <converters:GameIconWidthConverter x:Key="GameIconWidthConv"/>
     <converters:GameIconStretchConverter x:Key="GameIconStretchConv"/>
     <converters:GameIconImageHeightConverter x:Key="GameIconImageHeightConv"/>
-    <converters:GameIconImageWidthConverter x:Key="GameIconImageWidthConv"/>
     <converters:GameIconAlignmentConverter x:Key="GameIconAlignmentConv"/>
     <converters:GameIconImageMarginConverter x:Key="GameIconImageMarginConv"/>
     <converters:GameTabMarginConverter x:Key="GameTabMarginConv" />
@@ -346,7 +345,7 @@
                                             HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                             VerticalAlignment="Top"
                                             Tag="{Binding Name}"
-                                            Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
+                                            Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
                                             Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
                                             Command="{Binding Path=DataContext.GameSelectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                             CommandParameter="{Binding}">
@@ -370,9 +369,9 @@
                                                             <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}" Value="True">
                                                                 <Setter Property="Content">
                                                                     <Setter.Value>
-                                                                        <bink:BinkViewerControl Stretch="None"
+                                                                        <bink:BinkViewerControl Stretch="Uniform"
                                                                                                 Filename="{Binding ImagePath}"
-                                                                                                Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
+                                                                                                Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
                                                                                                 Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
                                                                     </Setter.Value>
                                                                 </Setter>
@@ -381,8 +380,9 @@
                                                                 <Setter Property="Content">
                                                                     <Setter.Value>
                                                                         <Image RenderOptions.BitmapScalingMode="HighQuality"
+                                                                               Stretch="Uniform"
                                                                                gif:ImageBehavior.AnimatedSource="{Binding ImagePath}"
-                                                                               Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
+                                                                               Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
                                                                                Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
                                                                     </Setter.Value>
                                                                 </Setter>
@@ -396,7 +396,7 @@
                                                    Source="{DynamicResource GameSelectedOverlay}"
                                                    RenderOptions.BitmapScalingMode="HighQuality"
                                                    Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}"
-                                                   Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
+                                                   Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
                                                    Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
                                                    HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                                    VerticalAlignment="Top">
@@ -855,7 +855,10 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="{Binding GameCount, Converter={StaticResource MarginConverter}, ConverterParameter=Banner}">
+            <Grid Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="3"
+                  Margin="19 0 20 8">
                 <lobby:LobbyBannerView />
                 <Viewbox HorizontalAlignment="Left">
                     <Border Background="#FF000000"
