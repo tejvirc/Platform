@@ -653,7 +653,7 @@
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             var multiplier = (double)propertiesManager.GetProperty(ApplicationConstants.CurrencyMultiplierKey, null);
-            return (long)((long)amount * (decimal)multiplier);
+            return (long)(amount * (decimal)multiplier);
         }
         /// <summary>
         ///     Format Mac address like "xx:xx:xx:xx:xx:xx"

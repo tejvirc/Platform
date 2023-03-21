@@ -28,6 +28,7 @@
         private readonly ITransactionHistory _transactions;
         private readonly IHandCountService _handCountService;
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
+        private readonly ITransferOutExtension _transferOutExtension;
 
         public HardMeterOutProvider()
             : this(
@@ -38,6 +39,7 @@
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IHandCountService>(),
                 ServiceManager.GetInstance().GetService<ICashOutAmountCalculator>(),
+                ServiceManager.GetInstance().GetService<ITransferOutExtension>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IIdProvider>())
         {
@@ -51,6 +53,7 @@
             IEventBus bus,
             IHandCountService handCountService,
             ICashOutAmountCalculator cashOutAmountCalculator,
+            ITransferOutExtension transferOutExtension,
             IPropertiesManager properties,
             IIdProvider idProvider)
         {
@@ -61,6 +64,7 @@
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
             _cashOutAmountCalculator = cashOutAmountCalculator ?? throw new ArgumentNullException(nameof(cashOutAmountCalculator));
+            _transferOutExtension = transferOutExtension ?? throw new ArgumentNullException(nameof(transferOutExtension));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
         }
@@ -92,21 +96,25 @@
             try
             {
                 Active = true;
-
-                var cashOutAmount = _cashOutAmountCalculator.GetCashableAmount(cashableAmount);
-
+                var cashOutAmount = _transferOutExtension.PreProcessor(cashableAmount);
                 if ((cashOutAmount > 0) &&
-                    await Transfer(transactionId, cashOutAmount, associatedTransactions, reason, traceId, cancellationToken))
+                    await Transfer(
+                        transactionId,
+                        cashOutAmount,
+                        associatedTransactions,
+                        reason,
+                        traceId,
+                        cancellationToken))
                 {
                     transferredCashable = cashOutAmount;
                 }
-
-                return new TransferResult(transferredCashable, transferredPromo, transferredNonCash);
             }
             finally
             {
                 Active = false;
             }
+
+            return new TransferResult(transferredCashable, transferredPromo, transferredNonCash);
         }
 
         public bool CanRecover(Guid transactionId) => false;
@@ -156,10 +164,8 @@
 
                         //_transactions.AddTransaction(transaction);
 
-                        var handCount = _cashOutAmountCalculator.GetHandCountUsed(amount);
+                        _transferOutExtension.PosProcessor(amount);
 
-
-                        _handCountService.DecreaseHandCount(handCount);
 
                         Logger.Debug("Entering UpdateMeters");
 

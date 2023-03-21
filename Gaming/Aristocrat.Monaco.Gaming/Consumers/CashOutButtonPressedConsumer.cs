@@ -55,7 +55,13 @@
                 return;
             }
 
-            Task.Run(CashOutAsync);
+            if (!_playerBank.CashOut())
+            {
+                Logger.Error("Player bank cashout failed");
+            }
+
+
+//            Task.Run(CashOutAsync);
         }
 
         private async Task CashOutAsync()
