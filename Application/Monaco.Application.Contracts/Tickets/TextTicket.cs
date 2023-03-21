@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using ConfigWizard;
     using Extensions;
     using Hardware.Contracts.IO;
@@ -34,7 +35,7 @@
         /// <summary>
         ///     The number of lines in the ticket header
         /// </summary>
-        public virtual int TicketHeaderLineCount => 10;
+        public virtual int TicketHeaderLineCount => 11;
 
         /// <summary>
         ///     The number of lines in the ticket footer (currently same for all tickets)
@@ -271,14 +272,20 @@
                         PropertiesManager.GetValue(ApplicationConstants.SerialNumber, scope.GetString(ResourceKeys.DataUnavailable))));
 
                 AddLine(
-                    $"{scope.GetString(ResourceKeys.SoftwareVersionText)}:",
+                    $"{scope.GetString(ResourceKeys.OSImageVersionText)}:",
                     null,
                     string.Format(
                         CultureInfo.CurrentCulture,
                         "{0}",
-                        PropertiesManager.GetProperty(
-                            KernelConstants.SystemVersion,
-                            scope.GetString(ResourceKeys.NotSet)))); // Resources.FirmwareVersionText
+                        ServiceManager.TryGetService<IOSService>()?.OsImageVersion.ToString() ?? scope.GetString(ResourceKeys.DataUnavailable)));
+
+                AddLine(
+                    $"{scope.GetString(ResourceKeys.PlatformVersionText)}:",
+                    null,
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "{0}",
+                        PropertiesManager.GetValue(KernelConstants.SystemVersion, scope.GetString(ResourceKeys.DataUnavailable))));
 
                 AddLine(
                   $"{scope.GetString(ResourceKeys.Currency)}:",
