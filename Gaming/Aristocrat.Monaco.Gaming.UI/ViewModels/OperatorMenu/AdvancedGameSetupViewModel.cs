@@ -1563,22 +1563,14 @@
                         continue;
                     }
 
-                    if (configuration.GameOptionsEnabled)
+                    var gameProfile = _editableGames.Values.FirstOrDefault(g => g.ThemeId.Equals(configuration.Game.ThemeId));
+
+                    if (gameProfile != null)
                     {
-                        var restriction = GetRestrictionFromVariationId(configuration.Game.VariationId);
-
-                        if (restriction != null && SelectedGame.ThemeId.Equals(configuration.Game.ThemeId))
+                        var restriction = GetRestrictionFromVariationId(configuration.Game.VariationId, gameProfile);
+                        if (restriction != null)
                         {
-                            SelectedRestriction = restriction;
-                        }
-                        else if (restriction != null)
-                        {
-                            var gameProfile = Games.FirstOrDefault(g => g.ThemeId.Equals(configuration.Game.ThemeId));
-
-                            if (gameProfile != null)
-                            {
-                                gameProfile.SelectedRestriction = restriction;
-                            }
+                            gameProfile.SelectedRestriction = restriction;
                         }
                     }
 
@@ -1621,6 +1613,8 @@
                 }
 
                 _pendingImportSettings = new Dictionary<string, object>(values);
+
+                SelectedGameType = GameTypes.FirstOrDefault();
             }
             catch (Exception e)
             {
@@ -1882,9 +1876,9 @@
             }
         }
 
-        private IConfigurationRestriction GetRestrictionFromVariationId(string variationId)
+        private IConfigurationRestriction GetRestrictionFromVariationId(string variationId, EditableGameProfile gameProfile)
         {
-            return ValidRestrictions.FirstOrDefault(
+            return gameProfile.ValidRestrictions.FirstOrDefault(
                 v => v.RestrictionDetails.Mapping.Any(
                     v2 => v2.VariationId.Equals(variationId)));
         }
