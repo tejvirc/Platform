@@ -951,7 +951,16 @@
                     w.TheoPaybackPercent,
                     w.MinWagerCredits,
                     w.MaxWagerCredits,
-                    w.MaxWinAmount)).ToList();
+                    w.MaxWinAmount,
+                    w.MinBaseRtpPercent,
+                    w.MaxBaseRtpPercent,
+                    w.MinSapStartupRtpPercent,
+                    w.MaxSapStartupRtpPercent,
+                    w.SapIncrementRtpPercent,
+                    w.MinLinkStartupRtpPercent,
+                    w.MaxLinkStartupRtpPercent,
+                    w.LinkIncrementRtpPercent)).ToList();
+
             var centralAllowed = false;
 
             if (game.CentralInfo.Any())
@@ -1088,9 +1097,7 @@
             gameDetail.Features = features;
             return (gameDetail, progressiveDetails);
         }
-                    
-
-
+        
         private IGameDetail InstallNewGame(
             GameDetail gameDetail,
             ServerPaytableConfiguration paytableConfiguration = null)

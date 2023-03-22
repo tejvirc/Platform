@@ -80,7 +80,7 @@
         ///     business rules.
         /// </summary>
         /// <param name="games">The games to run RTP validation on.</param>
-        RtpValidationReport ValidateGames(IEnumerable<IGameProfile> games);
+        RtpValidationReport ValidateMultipleGames(IEnumerable<IGameProfile> games);
 
         /// <summary>
         ///     Validates that all RTP values, contained in a game, conforms to jurisdictional and

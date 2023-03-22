@@ -108,7 +108,7 @@
                 .Aggregate((r1, r2) => r1.TotalWith(r2));
         }
 
-        public RtpValidationReport ValidateGames(IEnumerable<IGameProfile> games)
+        public RtpValidationReport ValidateMultipleGames(IEnumerable<IGameProfile> games)
         {
             // TODO: Handle games without ExtendedRTP Info
             var validationDataForReport = new List<(IGameProfile game, RtpValidation validation)>();
