@@ -18,7 +18,6 @@ as follows:
   <Included>
     <Device Name="MEI USB GDS" />
     <Device Name="JCM IVizion USB GDS" />
-    <Device Name="FutureLogic Gen2 USB GDS" />
     <Device Name="JCM Gen5 USB GDS" />
     <Device Name="Nanoptix NextGen USB GDS" />
   </Included>
