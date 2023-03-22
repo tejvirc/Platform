@@ -80,7 +80,7 @@ as follows:
 		<Page Type="IdReaderPageViewModel" TabType="IDReaderPageLoader" Visible="false" PrintButtonEnabled="false"/>
 		<Page Type="KeyPageViewModel" PrintButtonEnabled="false" />
 		<Page Type="BatteryPageViewModel" PrintButtonEnabled="false"/>
-		<Page Type="HardwareManagerPageViewModel" TabType="HardwareManagerPageLoader" PrintButtonEnabled="false" FieldAccess="ReadOnly" Visible="false" />
+		<Page Type="HardwareManagerPageViewModel" TabType="HardwareManagerPageLoader" PrintButtonEnabled="false" FieldAccess="ReadOnly" Visible="true" />
 		<Page Type="NoteAcceptorTestViewModel" Access="Technician" />
 		<Page Type="ButtonTestViewModel" Access="Technician" />
 		<Page Type="SoundTestPageViewModel" Access="Technician" />
@@ -120,7 +120,7 @@ as follows:
 		<Page Type="IOPageViewModel" PrintButtonEnabled="true" />
 	</Menu>
 	<Menu Type="OptionsMainPageLoader" Visible="false" />
-	
+  <Menu Type="SystemResetPageLoader" Access="Technician" />
    <AccessRules>
 		<AccessRuleSet Name="Technician">
 			<Rule DeviceName="Jackpot" />
