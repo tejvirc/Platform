@@ -3,6 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="../../bin/Template.xsd">
   <DPT name="text" id="101" t_dim_da="500" t_dim_pa="2020">100 101 102 103</DPT>
-  <DPT name="cashout" id="102" t_dim_da="508" t_dim_pa="1240">107 121 122 123 106 117 108 109 110 111 112 113 114 115 116</DPT>
+  <DPT name="cashout" id="102" t_dim_da="508" t_dim_pa="1240">107 121 122 106 117 108 109 110 111 112 113 114 115 116</DPT>
   <DPT name="auditText" id="104" t_dim_da="500" t_dim_pa="2020">100 101 102 103</DPT>
 </DPT_Collection>

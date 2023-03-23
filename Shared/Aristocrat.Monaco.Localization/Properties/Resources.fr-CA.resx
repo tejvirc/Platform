@@ -460,7 +460,7 @@
   <data name="CashOutImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAANYAAADWCAYAAACt43wuAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
-        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsIAAA7CARUoSoAAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsAAAA7AAWrWiQkAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
         vUJCJ5QAUqSolIA06Z9UpfsHFBArCAKCAh8BBQEBAekiRcQCFkRRBCmCNEURKR9SRUSKFFGwk/1fv5l5
         z11nn33avTeBhJnneXNu5szMmdmzfrPWXrtMFkKoVKnSECu58nVS3zOP3DPtpcd+Pf20Yw9f85M7bfTd
         s/Z6+zPf/tDy/7x2/yVeu+XgRcMvD18o3HfM1PDgcQuGR7+wQHj8lAXC709dMPzxjAWGVE99qdCfzlyw
@@ -905,5 +905,29 @@
   </data>
   <data name="Handpay" xml:space="preserve">
     <value>Handpay</value>
+  </data>
+  <data name="AssetNumber" xml:space="preserve">
+    <value>Vignette</value>
+  </data>
+  <data name="CashoutTicket" xml:space="preserve">
+    <value>COUPON DE REMBOURSEMENT</value>
+  </data>
+  <data name="PaperLevelText" xml:space="preserve">
+    <value>Niveau Du Papier</value>
+  </data>
+  <data name="RetailerNumber" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="SequenceNumber" xml:space="preserve">
+    <value>NO. Du Coupon</value>
+  </data>
+  <data name="StatusLow" xml:space="preserve">
+    <value>BAS</value>
+  </data>
+  <data name="StatusOk" xml:space="preserve">
+    <value>BON</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
   </data>
 </root>
