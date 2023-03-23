@@ -154,7 +154,7 @@
 
         private void ConfigureStackButton()
         {
-            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed)
+            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed && !_inNoteAcceptorTest)
             {
                 ReturnButtonVisible = true;
                 ReturnButtonEnabled = true;
