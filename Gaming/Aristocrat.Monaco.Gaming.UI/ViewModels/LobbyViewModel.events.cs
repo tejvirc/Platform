@@ -578,16 +578,22 @@
             }
         }
 
+        private bool BonusTransferPlaySound => (bool)_properties.GetProperty(GamingConstants.BonusTransferPlaySound, true);
+
         private void HandleEvent(PartialBonusPaidEvent bonusEvent)
         {
-            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusAwardedEvent bonusEvent)
         {
-            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusFailedEvent bonusEvent)
