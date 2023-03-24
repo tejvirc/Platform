@@ -11684,4 +11684,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Auto Test</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="DoorRequiresTest" xml:space="preserve">
+    <value>Door requires test: open and close</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>

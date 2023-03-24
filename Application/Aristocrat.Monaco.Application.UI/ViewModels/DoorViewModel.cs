@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
@@ -15,53 +14,45 @@
     {
         private readonly object _context = new object();
         private readonly IInspectionService _reporter;
+        private readonly string _testMessage;
 
         private bool _closed;
         private DateTime? _lastOpened;
         private string _name;
 
-        public DoorViewModel(IInspectionService reporter, int id, bool ignored = false)
+        public DoorViewModel(IInspectionService reporter, int id, bool ignored, bool isTestRequired = false)
         {
             _reporter = reporter;
             Id = id;
             Ignored = ignored;
+            IsTestRequired = isTestRequired;
+
+            if (IsTestRequired)
+            {
+                _testMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DoorRequiresTest);
+            }
         }
 
         public string Name
         {
             get => _name;
-
-            private set
-            {
-                if (_name == value)
-                {
-                    return;
-                }
-
-                _name = value;
-                RaisePropertyChanged(nameof(Name));
-            }
+            private set => SetProperty(ref _name, value, nameof(Name));
         }
 
         public int Id { get; }
 
         public bool Ignored { get; }
 
+        public bool IsTestRequired { get; }
+
+        public bool IsTestPassed => !IsTestRequired || Closed && LastOpened != null && LastOpened > DateTime.MinValue;
+
+        public string Message => IsTestPassed ? string.Empty : _testMessage;
+
         public bool Closed
         {
             get => _closed;
-
-            private set
-            {
-                if (_closed == value)
-                {
-                    return;
-                }
-
-                _closed = value;
-
-                RaisePropertyChanged(nameof(Action));
-            }
+            private set => SetProperty(ref _closed, value, nameof(Closed), nameof(Action), nameof(Message), nameof(IsTestPassed));
         }
 
         public string Action => Closed ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosedText) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenText);
@@ -69,17 +60,7 @@
         public DateTime? LastOpened
         {
             get => _lastOpened;
-
-            private set
-            {
-                if (_lastOpened == value)
-                {
-                    return;
-                }
-
-                _lastOpened = value;
-                RaisePropertyChanged(nameof(LastOpened));
-            }
+            private set => SetProperty(ref _lastOpened, value, nameof(LastOpened), nameof(Message), nameof(IsTestPassed));
         }
 
         public void OnLoaded()

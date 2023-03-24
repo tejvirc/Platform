@@ -304,6 +304,8 @@
             }
         }
 
+        public bool IsHardwareOperational => !CheckStoppedResponding(_io, AllMeters);
+
         /// <inheritdoc />
         public string Name => typeof(HardMeterService).ToString();
 

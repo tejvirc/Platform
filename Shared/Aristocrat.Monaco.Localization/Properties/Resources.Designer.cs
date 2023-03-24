@@ -9008,6 +9008,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return ResourceManager.GetString("DoorRequiresTest", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Door.
 		/// </summary>
         /// <remarks>
@@ -43582,6 +43594,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return "DoorRequiresTest";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Door.
 		/// </summary>
         /// <remarks>
@@ -74312,6 +74336,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		DoorOpticSensorEnabled,
+		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		DoorRequiresTest,
 		/// <summary>
 		///   Looks up a localized string similar to Door.
 		/// </summary>

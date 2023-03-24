@@ -6,11 +6,13 @@
     using Application.Helpers;
     using Application.Settings;
     using Contracts;
+    using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Contracts.Tickets;
     using Hardware.Contracts;
     using Hardware.Contracts.Display;
+    using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Printer;
@@ -239,7 +241,7 @@
         {
             if (WizardNavigator != null)
             {
-                WizardNavigator.CanNavigateForward = true;
+                WizardNavigator.CanNavigateForward = !HasErrors;
             }
         }
 
@@ -365,6 +367,23 @@
             PlatformVersion = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
 
             ReportVersions();
+
+            if (IsVisibleForInspection)
+            {
+                EventBus.Publish(new InspectionResultsChangedEvent(null));
+
+                if (PropertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false))
+                {
+                    Inspection?.SetTestName(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel));
+
+                    if (!ServiceManager.GetInstance().GetService<IHardMeter>().IsHardwareOperational)
+                    {
+                        Inspection?.ReportTestFailure();
+                        SetError(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel),
+                            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterError));
+                    }
+                }
+            }
         }
 
         private bool SaveVariableData()

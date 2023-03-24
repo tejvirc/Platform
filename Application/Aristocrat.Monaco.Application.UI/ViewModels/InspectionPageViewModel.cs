@@ -244,7 +244,7 @@
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
-                if (evt.InspectionResult is null || !IsReportFailureVisible)
+                if (evt.InspectionResult is null)
                 {
                     ReportText = string.Empty;
                     return;
