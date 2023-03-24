@@ -40,8 +40,8 @@
         {
             try
             {
-                _sensorHandle = OpenCPUTemperatureSensor();
-            }
+            _sensorHandle = OpenCPUTemperatureSensor();
+        }
             catch(DllNotFoundException)
             {
                 _sensorHandle = null;
