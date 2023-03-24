@@ -125,6 +125,18 @@
         [Label("Game Memory")]
         [Unit("MB")]
         [MaxRange(1000)]
-        GdkPrivateBytes
+        GdkPrivateBytes,
+
+        /// <summary>
+        ///     CPU Temperature
+        /// </summary>
+        [CounterType("CPUTemp")]
+        [Instance("Bootstrap")]
+        [Category("CPUTemp")]
+        [Counter("CPU Temp")]
+        [Label("CPU Temperature")]
+        [Unit("*")]
+        [MaxRange(100)]
+        CpuTemperature
     }
 }
