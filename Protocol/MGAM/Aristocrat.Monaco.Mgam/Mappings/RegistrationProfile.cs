@@ -68,7 +68,7 @@
                 .ForMember(d => d.PayTableDescription, m => m.MapFrom(s => s.PaytableName))
                 .ForMember(d => d.PayTableIndex, m => m.Ignore());
 
-            CreateMap<IWagerCategory, RegisterGame>()
+            CreateMap<ICdsGameInfo, RegisterGame>()
                 .ForMember(d => d.InstanceId, m => m.Ignore())
                 .ForMember(d => d.GameDescription, m => m.Ignore())
                 .ForMember(d => d.GameUpcNumber, m => m.Ignore())

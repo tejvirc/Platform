@@ -14,6 +14,7 @@
     public class BingoClient : IClient, IClientEndpointProvider<ClientApi>
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly TimeSpan StateChangeTimeOut = TimeSpan.FromSeconds(3);
 
         private readonly IClientConfigurationProvider _configurationProvider;
         private readonly BingoClientInterceptor _communicationInterceptor;
@@ -22,6 +23,7 @@
         private Channel _channel;
         private bool _disposed;
         private ClientApi _client;
+        private RpcConnectionState _state;
 
         public BingoClient(
             IClientConfigurationProvider configurationProvider,
@@ -40,6 +42,8 @@
         public event EventHandler<DisconnectedEventArgs> Disconnected;
 
         public event EventHandler<EventArgs> MessageReceived;
+
+        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         public ClientApi Client
         {
@@ -127,11 +131,6 @@
             return true;
         }
 
-        public void OnMessageReceived(object sender, EventArgs e)
-        {
-            MessageReceived?.Invoke(this, EventArgs.Empty);
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -157,7 +156,15 @@
         }
 
         private static bool StateIsConnected(ChannelState? state) =>
-            state is ChannelState.Ready or ChannelState.Idle or ChannelState.TransientFailure;
+            state is ChannelState.Ready or
+                ChannelState.Idle or
+                ChannelState.TransientFailure or
+                ChannelState.Connecting;
+
+        private void OnMessageReceived(object sender, EventArgs e)
+        {
+            MessageReceived?.Invoke(this, EventArgs.Empty);
+        }
 
         private void MonitorConnection()
         {
@@ -170,6 +177,33 @@
                 TaskContinuationOptions.OnlyOnFaulted);
         }
 
+        private static RpcConnectionState GetConnectionState(ChannelState state) =>
+            state switch
+            {
+                ChannelState.Idle => RpcConnectionState.Disconnected,
+                ChannelState.Connecting => RpcConnectionState.Connecting,
+                ChannelState.Ready => RpcConnectionState.Connected,
+                ChannelState.TransientFailure => RpcConnectionState.Disconnected,
+                ChannelState.Shutdown => RpcConnectionState.Closed,
+                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            };
+
+        private static async Task<ChannelState> WaitForStateChanges(Channel channel, ChannelState lastObservedState)
+        {
+            if (lastObservedState is ChannelState.Ready)
+            {
+                await channel.TryWaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
+            }
+            else
+            {
+                await channel.TryWaitForStateChangedAsync(
+                    lastObservedState,
+                    DateTime.UtcNow.Add(StateChangeTimeOut)).ConfigureAwait(false);
+            }
+
+            return channel.State;
+        }
+
         private async Task MonitorConnectionAsync(Channel channel)
         {
             if (channel is null)
@@ -178,15 +212,34 @@
             }
 
             var lastObservedState = channel.State;
+            Logger.Info($"Channel connection state changed: {lastObservedState}");
+            UpdateState(GetConnectionState(lastObservedState));
             while (StateIsConnected(lastObservedState))
             {
-                await channel.WaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
-                lastObservedState = channel.State;
+                var observedState = await WaitForStateChanges(channel, lastObservedState).ConfigureAwait(false);
+                if (lastObservedState is not ChannelState.Ready && observedState == lastObservedState)
+                {
+                    break;
+                }
+
+                lastObservedState = observedState;
+                UpdateState(GetConnectionState(lastObservedState));
                 Logger.Info($"Channel connection state changed: {lastObservedState}");
             }
 
             Logger.Error($"Channel connection is no longer connected: {lastObservedState}");
             await Stop().ConfigureAwait(false);
+        }
+
+        private void UpdateState(RpcConnectionState state)
+        {
+            if (state == _state || _disposed)
+            {
+                return;
+            }
+
+            _state = state;
+            ConnectionStateChanged?.Invoke(this, new ConnectionStateChangedEventArgs(state));
         }
     }
 }

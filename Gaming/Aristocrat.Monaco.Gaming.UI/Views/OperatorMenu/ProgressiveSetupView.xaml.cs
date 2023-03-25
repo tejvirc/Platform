@@ -27,16 +27,27 @@
             UpdateSelectableLevelNameTooLong(sender as ComboBox);
         }
 
-        private void UpdateSelectableLevelNameTooLong(ComboBox comboBox)
+        private void SelectableLevelNameComboBox_OnDataContextChanged(object sender,
+            DependencyPropertyChangedEventArgs _)
         {
-            var context = comboBox?.DataContext as LevelModel;
-            if (context is null)
+            UpdateSelectableLevelNameTooLong(sender as ComboBox);
+        }
+
+        private static void UpdateSelectableLevelNameTooLong(ComboBox comboBox)
+        {
+            if (comboBox?.DataContext is not LevelModel context)
             {
                 return;
             }
 
+            var selectableLevelName = (
+                string.IsNullOrWhiteSpace(comboBox.Text)
+                    ? context.SelectableLevel?.Name
+                    : comboBox.Text
+            ) ?? "";
+
             var measuredTextWidth = TextMeasurementHelper.MeasureTextWidth(
-                comboBox.Text,
+                selectableLevelName,
                 comboBox.FontFamily,
                 comboBox.FontStyle,
                 comboBox.FontWeight,

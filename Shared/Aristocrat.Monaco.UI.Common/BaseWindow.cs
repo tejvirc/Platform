@@ -11,10 +11,10 @@
     public class BaseWindow : Window
     {
         /// <summary>The default screen height in pixels.</summary>
-        public static readonly string DefaultWindowedHeight = "768";
+        public static readonly string DefaultWindowedHeight = "1080";
 
         /// <summary>The default screen width in pixels.</summary>
-        public static readonly string DefaultWindowedWidth = "1024";
+        public static readonly string DefaultWindowedWidth = "1920";
 
         /// <summary>
         ///     The property name from command line arguments for the windowed screen width

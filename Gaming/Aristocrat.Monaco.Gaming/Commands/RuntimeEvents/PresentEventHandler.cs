@@ -149,13 +149,8 @@
             SetAllowSubgameRound(true);
         }
 
-        private void HandleInvoked(GameRoundEvent gameRoundEvent)
+        private void HandleGameEnded()
         {
-            if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
-            {
-                return;
-            }
-
             if (!MeterFreeGames && _gameCashOutRecovery.HasPending)
             {
                 if (!CanExitRecovery())
@@ -173,6 +168,22 @@
 
             SetAllowSubgameRound(true);
             _gamePlayState.End(_gameHistory.CurrentLog.FinalWin);
+        }
+
+        private void HandleInvoked(GameRoundEvent gameRoundEvent)
+        {
+            if (gameRoundEvent.PlayMode is PlayMode.Recovery && !_gameCashOutRecovery.HasPending)
+            {
+                ClearHandpayPendingFlag();
+                return;
+            }
+
+            if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
+            {
+                return;
+            }
+
+            HandleGameEnded();
         }
 
         private void HandlePending()

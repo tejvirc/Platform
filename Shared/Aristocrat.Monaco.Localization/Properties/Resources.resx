@@ -1875,10 +1875,6 @@ Max: Should be less than the Large Win Limit</value>
     <value>Disabled by the {0}[{1}] device</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
-  <data name="DisabledByHost0" xml:space="preserve">
-    <value>Shutdown/Lock Out Commanded (SAS Host 0)</value>
-    <comment>Aristocrat.Monaco.Sas</comment>
-  </data>
   <data name="DisabledByHost1" xml:space="preserve">
     <value>Shutdown/Lock Out Commanded (SAS Host 1)</value>
     <comment>Aristocrat.Monaco.Sas</comment>
@@ -1894,10 +1890,6 @@ Max: Should be less than the Large Win Limit</value>
   <data name="DisabledDuringInitialization" xml:space="preserve">
     <value>Initializing</value>
     <comment>Aristocrat.Monaco.G2S</comment>
-  </data>
-  <data name="DisabledHost0CommunicationsOffline" xml:space="preserve">
-    <value>Communications Offline (SAS Host 0)</value>
-    <comment>Aristocrat.Monaco.Sas</comment>
   </data>
   <data name="DisabledHost1CommunicationsOffline" xml:space="preserve">
     <value>Communications Offline (SAS Host 1)</value>
@@ -5327,12 +5319,12 @@ Do you really want to do partial reset?</value>
     <value>Power Reset</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
-  <data name="PowerUpDisabledByHost0" xml:space="preserve">
-    <value>PowerUp Disabled (SAS Host 0)</value>
-    <comment>Aristocrat.Monaco.Sas</comment>
-  </data>
   <data name="PowerUpDisabledByHost1" xml:space="preserve">
     <value>PowerUp Disabled (SAS Host 1)</value>
+    <comment>Aristocrat.Monaco.Sas</comment>
+  </data>
+  <data name="PowerUpDisabledByHost2" xml:space="preserve">
+    <value>PowerUp Disabled (SAS Host 2)</value>
     <comment>Aristocrat.Monaco.Sas</comment>
   </data>
   <data name="Preferences" xml:space="preserve">
@@ -9923,7 +9915,7 @@ See manual for details</value>
     <comment>Aristocrat.Monaco.Mgam</comment>
   </data>
   <data name="MaxEnabledDenomsReached" xml:space="preserve">
-    <value>Maximum Unique Denominations Reached For This Game Type</value>
+    <value>Maximum unique denominations reached for {0}</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="MachineTopAward" xml:space="preserve">
@@ -10484,10 +10476,10 @@ Use of this game, including the hardware and software embodied herein, is subjec
 the original purchaser of the game and Aristocrat Technologies Australia Pty Ltd and/or its affiliates (Aristocrat). 
 Further, the game is protected by patents, copyrights, and other intellectual property rights of Aristocrat.
 
-By pressing "Accept" or any physical button to continue, you confirm that you: 
+By pressing "Accept" to continue, you confirm that you: 
 
         1. are the holder of the necessary gaming licenses, gaming permits or authorizations in the 
-             jurisdiction in which this game will be used;
+            jurisdiction in which this game will be used;
         2. will operate the game in a manner that does not violate any right of Aristocrat;
         3. understand that Aristocrat owns intellectual property rights that protect this game; and
         4. understand that a user or operator of this game may be subject to legal action for: (a) improper 
@@ -11249,18 +11241,6 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
     <value>Game Win Bonus Awarded: {0}</value>
   </data>
-  <data name="VolumeControlLocationLobbyLabel" xml:space="preserve">
-    <value>Lobby</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
-  <data name="VolumeControlLocationGameLabel" xml:space="preserve">
-    <value>Game</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
-  <data name="VolumeControlLocationLobbyAndGameLabel" xml:space="preserve">
-    <value>Lobby and Game</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
   <data name="VolumeControlLocationTitle" xml:space="preserve">
     <value>Volume Control Location</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
@@ -11639,6 +11619,10 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Please Wait...</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="PendingAcceptedText" xml:space="preserve">
+    <value>Pending Acceptance</value>
+    <comment>Monaco.Accounting</comment>
+  </data>
   <data name="Inspection" xml:space="preserve">
     <value>Inspection</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
@@ -11687,5 +11671,9 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="DoorRequiresTest" xml:space="preserve">
     <value>Door requires test: open and close</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TransactionReportingQueueAlmostFullHelp" xml:space="preserve">
+    <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
 </root>

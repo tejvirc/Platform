@@ -346,7 +346,7 @@
                                     if (validator != null)
                                     {
                                         await validator.StackedVoucher(transaction);
-                                }
+                                    }
                                 }
                                 else
                                 {
@@ -373,7 +373,6 @@
                     break;
                 default:
                     Decline(transaction, transactionId);
-
                     validator?.CommitVoucher(transaction);
                     break;
             }

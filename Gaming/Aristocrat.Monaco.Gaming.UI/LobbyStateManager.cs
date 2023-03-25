@@ -203,6 +203,11 @@
                     {
                         _state.Fire(_initiateRecoveryTrigger, state);
                     }
+                    else if (trigger == LobbyTrigger.GameUnexpectedExit && parameter is bool stat)
+                    {
+                        _state.Fire(LobbyTrigger.GameUnexpectedExit);
+                        _state.Fire(_initiateRecoveryTrigger, stat);
+                    }
                     else
                     {
                         throw new ArgumentException($"Unsupported Trigger Parameter Type {parameter}");

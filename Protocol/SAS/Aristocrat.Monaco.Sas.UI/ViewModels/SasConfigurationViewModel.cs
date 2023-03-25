@@ -9,6 +9,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Protocol;
     using Application.UI.ConfigWizard;
+    using Aristocrat.Sas.Client;
     using Contracts;
     using Contracts.Events;
     using Contracts.SASProperties;
@@ -58,7 +59,7 @@
         private bool _dualHostSetup;
         private decimal _accountingDenom1 = 0.01M;
         private decimal _accountingDenom2 = 0.01M;
-        private int _progressiveGroupId = 1;
+        private int _progressiveGroupId;
         private string _progressiveGroupIdErrorText = string.Empty;
         private int _progressiveGroupIdMaxLength = 10;
 
@@ -555,19 +556,19 @@
             const byte host2Id = 2;
             bool ValidHost(byte hostId)
             {
-                return hostId == 0 || hostId == host1Id || hostId == host2Id;
+                return hostId is 0 or host1Id or host2Id;
             }
 
             var boolValue = false;
             var stringValue = string.Empty;
             var autoConfigured = true;
 
-            if (AutoConfigurator.GetValue("SasDualHost", ref boolValue))
+            if (AutoConfigurator.GetValue(SasConstants.SasDualHost, ref boolValue))
             {
                 DualHostSetup = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("SasAddressHost1", ref stringValue) && AddressHost1Editable)
+            if (AutoConfigurator.GetValue(SasConstants.SasAddressHost1, ref stringValue) && AddressHost1Editable)
             {
                 autoConfigured &= sbyte.TryParse(stringValue, out var address) && (address == 0 || string.IsNullOrEmpty(CheckError(address, MaxAddress)));
                 if (autoConfigured)
@@ -576,7 +577,7 @@
                 }
             }
 
-            if (AutoConfigurator.GetValue("SasAddressHost2", ref stringValue) && AddressHost2Editable)
+            if (AutoConfigurator.GetValue(SasConstants.SasAddressHost2, ref stringValue) && AddressHost2Editable)
             {
                 autoConfigured &= sbyte.TryParse(stringValue, out var address) && (address == 0 || string.IsNullOrEmpty(CheckError(address, MaxAddress)));
                 if (autoConfigured)
@@ -585,37 +586,7 @@
                 }
             }
 
-            if (AutoConfigurator.GetValue("SasValidationHost", ref stringValue))
-            {
-                autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
-                if (autoConfigured)
-                {
-                    ValidationOnHost1 = hostId == host1Id;
-                    ValidationOnHost2 = hostId == host2Id;
-                }
-            }
-
-            if (AutoConfigurator.GetValue("SasAftHost", ref stringValue))
-            {
-                autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
-                if (autoConfigured)
-                {
-                    AftOnHost1 = hostId == host1Id;
-                    AftOnHost2 = hostId == host2Id;
-                }
-            }
-
-            if (AutoConfigurator.GetValue("SasLegacyBonusHost", ref stringValue))
-            {
-                autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
-                if (autoConfigured)
-                {
-                    LegacyBonusOnHost1 = hostId == host1Id;
-                    LegacyBonusOnHost2 = hostId == host2Id;
-                }
-            }
-
-            if (AutoConfigurator.GetValue("SasGeneralControlHost", ref stringValue) && GeneralControlEditable)
+            if (AutoConfigurator.GetValue(SasConstants.SasGeneralControlPortHost, ref stringValue) && GeneralControlEditable)
             {
                 autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
                 if (autoConfigured)
@@ -625,7 +596,56 @@
                 }
             }
 
-            if (AutoConfigurator.GetValue("SasProgressiveHost", ref stringValue))
+            if (AutoConfigurator.GetValue(SasConstants.SasAccountingDenom, ref stringValue))
+            {
+                autoConfigured &= decimal.TryParse(stringValue, out var denom) && AccountingDenoms.Contains(denom);
+                if (autoConfigured)
+                {
+                    AccountingDenom1 = AccountingDenom2 = denom;
+                }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.SasValidationPortHost, ref stringValue))
+            {
+                autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
+                if (autoConfigured)
+                {
+                    ValidationOnHost1 = hostId == host1Id;
+                    ValidationOnHost2 = hostId == host2Id;
+                }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.SasAftPortHost, ref stringValue))
+            {
+                autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
+                if (autoConfigured)
+                {
+                    AftOnHost1 = hostId == host1Id;
+                    AftOnHost2 = hostId == host2Id;
+                }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.SasLegacyBonusPortHost, ref stringValue))
+            {
+                autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
+                if (autoConfigured)
+                {
+                    LegacyBonusOnHost1 = hostId == host1Id;
+                    LegacyBonusOnHost2 = hostId == host2Id;
+                }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.SasGameStartEndReporting, ref stringValue))
+            {
+                autoConfigured &= Enum.TryParse(stringValue, out GameStartEndHost host);
+                if (autoConfigured)
+                {
+                    GameStartEndOnHost1 = host is GameStartEndHost.Host1 or GameStartEndHost.Both;
+                    GameStartEndOnHost2 = host is GameStartEndHost.Host2 or GameStartEndHost.Both;
+                }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.SasProgressivePortHost, ref stringValue))
             {
                 autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
                 if (autoConfigured)
@@ -635,31 +655,22 @@
                 }
             }
 
-            if (AutoConfigurator.GetValue("SasGameStartEndHost", ref stringValue))
+            if (AutoConfigurator.GetValue(SasConstants.NonSasProgressiveHitReportingHost1, ref boolValue))
             {
-                autoConfigured &= Enum.TryParse(stringValue, out GameStartEndHost host);
-                if (autoConfigured)
-                {
-                    GameStartEndOnHost1 = host == GameStartEndHost.Host1 || host == GameStartEndHost.Both;
-                    GameStartEndOnHost2 = host == GameStartEndHost.Host2 || host == GameStartEndHost.Both;
-                }
+                NonSasProgressiveHitReportingHost1 = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("Host1NonSasProgressiveHitReporting", ref stringValue))
+            if (AutoConfigurator.GetValue(SasConstants.NonSasProgressiveHitReportingHost2, ref boolValue))
             {
-                autoConfigured &= bool.TryParse(stringValue, out var nonSasProgressiveHit);
-                if (autoConfigured)
-                {
-                    NonSasProgressiveHitReportingHost1 = nonSasProgressiveHit;
-                }
+                NonSasProgressiveHitReportingHost2 = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("Host2NonSasProgressiveHitReporting", ref stringValue))
+            if (AutoConfigurator.GetValue(SasConstants.ProgressiveGroupId, ref stringValue))
             {
-                autoConfigured &= bool.TryParse(stringValue, out var nonSasProgressiveHit);
+                autoConfigured &= int.TryParse(stringValue, out var groupId);
                 if (autoConfigured)
                 {
-                    NonSasProgressiveHitReportingHost2 = nonSasProgressiveHit;
+                    ProgressiveGroupId = groupId;
                 }
             }
 
@@ -693,7 +704,7 @@
 
             var ports = new PortAssignment();
 
-            var host1 =  new Host { ComPort = Host1ComPort };
+            var host1 = new Host { ComPort = Host1ComPort };
             var host2 = new Host { ComPort = Host2ComPort };
             host1.AccountingDenom = AccountingDenom1.DollarsToCents();
             host1.SasAddress = (byte)CommunicationAddress1;
@@ -720,9 +731,8 @@
                 ports,
                 new PortAssignmentEqualityComparer());
 
-            var progHostId = ProgressiveOnHost1 ? CommunicationAddress1 : (ProgressiveOnHost2 && DualHostSetup) ? CommunicationAddress2 : 0;
             var settings = (SasFeatures)PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).Clone();
-            settings.ProgressiveGroupId = progHostId;
+            settings.ProgressiveGroupId = ProgressiveGroupId;
             settings.NonSasProgressiveHitReporting = NonSasProgressiveHitReportingHost1 || NonSasProgressiveHitReportingHost2;
             restartProtocol |= PropertiesManager.UpdateProperty(
                 SasProperties.SasFeatureSettings,
@@ -819,9 +829,9 @@
                 CommunicationAddress2 = ((sbyte)address2);
             }
 
-            ProgressiveGroupId = 0;
             var settings = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
             ProgressiveGroupId = settings.ProgressiveGroupId;
+
             if (settings.AddressConfigurableOnlyOnce)
             {
                 AddressHost1Editable = string.IsNullOrEmpty(CheckError(CommunicationAddress1, MaxAddress));

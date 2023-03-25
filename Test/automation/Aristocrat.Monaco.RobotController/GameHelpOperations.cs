@@ -7,7 +7,7 @@
     using JetBrains.Annotations;
     using Kernel;
 
-    internal sealed class GameHelpOperations : IRobotOperations
+    internal class GameHelpOperations : IRobotOperations
     {
         private static readonly TimeSpan LengthOfTimeToLeaveHelpUpBeforeActing = TimeSpan.FromSeconds(5);
 
@@ -28,15 +28,11 @@
 
         public void Reset()
         {
+            _disposed = false;
         }
 
         public void Execute()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(GameHelpOperations));
-            }
-
             SubscribeToEvents();
         }
 
@@ -81,7 +77,13 @@
 
         public void Dispose()
         {
-            if (_disposed)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed || !disposing)
             {
                 return;
             }

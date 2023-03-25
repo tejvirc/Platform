@@ -144,5 +144,47 @@
             _audioMock.VerifyAll();
             _propertiesManagerMock.VerifyAll();
         }
+
+        [TestMethod]
+        public void CorrectSliderToVolumeConversion()
+        {
+            var expectedSliderVolumes = new Dictionary<byte, byte>
+            {
+                { 10, 1 },
+                { 15, 2 },
+                { 30, 9 },
+                { 40, 16 },
+                { 55, 30 },
+                { 75, 56 },
+                { 80, 64 },
+                { 100, 100 }
+            };
+
+            foreach (var sliderVolumePair in expectedSliderVolumes)
+            {
+                Assert.AreEqual(sliderVolumePair.Value, SoundConfigPageViewModel.ConvertSliderToVolume(sliderVolumePair.Key));
+            }
+        }
+
+        [TestMethod]
+        public void CorrectVolumeToSliderConversion()
+        {
+            var expectedSliderVolumes = new Dictionary<byte, byte>
+            {
+                { 10, 1 },
+                { 15, 2 },
+                { 30, 9 },
+                { 40, 16 },
+                { 55, 30 },
+                { 75, 56 },
+                { 80, 64 },
+                { 100, 100 }
+            };
+
+            foreach (var sliderVolumePair in expectedSliderVolumes)
+            {
+                Assert.AreEqual(sliderVolumePair.Key, SoundConfigPageViewModel.ConvertVolumeToSlider(sliderVolumePair.Value));
+            }
+        }
     }
 }

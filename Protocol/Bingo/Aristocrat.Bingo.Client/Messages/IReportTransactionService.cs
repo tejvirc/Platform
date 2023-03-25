@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using ServerApiGateway;
 
     /// <summary>
     ///     Provides methods to support reporting Transactions to the bingo server
@@ -15,6 +14,6 @@
         /// <param name="message">The transaction message</param>
         /// <param name="token">The cancellation token</param>
         /// <returns>Returns the task for acknowledging the transaction</returns>
-        Task<ReportTransactionAck> ReportTransaction(ReportTransactionMessage message, CancellationToken token);
+        Task<ReportTransactionResponse> ReportTransaction(ReportTransactionMessage message, CancellationToken token);
     }
 }

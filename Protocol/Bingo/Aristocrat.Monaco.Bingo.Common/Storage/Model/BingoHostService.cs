@@ -17,7 +17,7 @@
         public Host GetHost()
         {
             using var context = _factory.Create();
-            return _repository.GetSingle(context) ?? new Host { HostName = string.Empty, Port = 5080 };
+            return _repository.GetSingle(context) ?? new Host { HostName = string.Empty, Port = 443 };
         }
 
         public void SaveHost(Host host)

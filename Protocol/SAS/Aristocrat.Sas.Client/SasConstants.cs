@@ -26,7 +26,7 @@
         public const int SasAddressIndex = 0;
 
         /// <summary> Length of  the field in byte in a long poll </summary>
-        public  const int FieldLength = 1;
+        public const int FieldLength = 1;
 
         /// <summary>The index of the SAS command in a long poll</summary>
         public const int SasCommandIndex = 1;
@@ -133,5 +133,74 @@
         ///     The barcode length on the ticket when using SAS None Validation type.
         /// </summary>
         public const int SasNoneValidationTicketBarcodeLength = 8;
+
+        /// <summary> AutoConfig key for SAS Dual Host Setup toggle </summary>
+        public const string SasDualHost = "SasDualHost";
+
+        /// <summary> AutoConfig key for SAS Host 1 Address </summary>
+        public const string SasAddressHost1 = "SasAddressHost1";
+
+        /// <summary> AutoConfig key for SAS Host 2 Address </summary>
+        public const string SasAddressHost2 = "SasAddressHost2";
+
+        /// <summary> AutoConfig key for SAS General Control Port host </summary>
+        public const string SasGeneralControlPortHost = "SasGeneralControlHost";
+
+        /// <summary> AutoConfig key for SAS Accounting Denom </summary>
+        public const string SasAccountingDenom = "SasAccountingDenom";
+
+        /// <summary> AutoConfig key for SAS Validation Port host </summary>
+        public const string SasValidationPortHost = "SasValidationHost";
+
+        /// <summary> AutoConfig key for SAS AFT Port host </summary>
+        public const string SasAftPortHost = "SasAftHost";
+
+        /// <summary> AutoConfig key for SAS Legacy Bonus Port host </summary>
+        public const string SasLegacyBonusPortHost = "SasLegacyBonusHost";
+
+        /// <summary> AutoConfig key for SAS Game Start/End Reporting (GameStartEndHost enum values of None, Host1, Host2, Both) </summary>
+        public const string SasGameStartEndReporting = "SasGameStartEndHost";
+
+        /// <summary> AutoConfig key for SAS Progressive Port host </summary>
+        public const string SasProgressivePortHost = "SasProgressiveHost";
+
+        /// <summary> AutoConfig key for SAS Non-SAS Progressive Hit Reporting (Host 1) </summary>
+        public const string NonSasProgressiveHitReportingHost1 = "Host1NonSasProgressiveHitReporting";
+
+        /// <summary> AutoConfig key for SAS Non-SAS Progressive Hit Reporting (Host 2) </summary>
+        public const string NonSasProgressiveHitReportingHost2 = "Host2NonSasProgressiveHitReporting";
+
+        /// <summary> AutoConfig key for SAS Progressive Group ID </summary>
+        public const string ProgressiveGroupId = "SASProgressiveGroupID";
+
+        /// <summary> AutoConfig key for SAS AFT In </summary>
+        public const string AftInEnabled = "AftInEnabled";
+
+        /// <summary> AutoConfig key for SAS AFT Out </summary>
+        public const string AftOutEnabled = "AftOutEnabled";
+
+        /// <summary> AutoConfig key for SAS AFT Partial Transfer Allowed </summary>
+        public const string AftPartialTransferAllowed = "AftPartialTransferEnabled";
+
+        /// <summary> AutoConfig key for SAS AFT Bonusing Allowed </summary>
+        public const string AftBonusAllowed = "AftBonusEnabled";
+
+        /// <summary> AutoConfig key for SAS AFT Win To Host Allowed </summary>
+        public const string AftWinToHostAllowed = "AftWinAmountToHostEnabled";
+
+        /// <summary> AutoConfig key for SAS AFT Transfer Limit </summary>
+        public const string AftTransferLimit = "AftTransferLimit";
+
+        /// <summary> AutoConfig key for SAS Validation Type </summary>
+        public const string SasValidationType = "SasValidationType";
+
+        /// <summary> AutoConfig key for SAS Handpay Reporting Mode </summary>
+        public const string HandpayReportingType = "HandpayReportingType";
+
+        /// <summary> AutoConfig key for SAS Configuration Change Notification </summary>
+        public const string ConfigChangeNotification = "ConfigurationChangeNotification";
+
+        /// <summary> AutoConfig key for SAS Legacy Bonus Allowed </summary>
+        public const string LegacyBonusEnabled = "LegacyBonusEnabled";
     }
 }

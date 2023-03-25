@@ -23,6 +23,10 @@
         private const bool ShowModeDefault = false;
         private const byte ShowModeAlertVolumeDefault = 100;
         private const byte ShowModeAlertVolumeMinimum = 70;
+        private const byte AlertTickFrequency = 5;
+        private const float VolumeToSliderFactor = 10f;
+        private const float SliderToVolumeFactor = 100f;
+        private const double SliderToVolumeSquareIndex = 2;
 
         private readonly IAudio _audio;
         private readonly ISystemDisableManager _disableManager;
@@ -40,7 +44,7 @@
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
         }
 
         private void LoadVolumeSettings()
@@ -56,7 +60,8 @@
             _soundFile = PropertiesManager.GetValue(ApplicationConstants.DingSoundKey, "");
 
             // Load alert volume level and settings
-            var alertVolume = PropertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, ShowModeAlertVolumeDefault);
+            var alertVolume = ConvertVolumeToSlider(
+                PropertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, ShowModeAlertVolumeDefault));
             _alertVolume = showMode
                 ? alertVolume >= ShowModeAlertVolumeMinimum
                     ? alertVolume
@@ -76,19 +81,6 @@
 
         public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
 
-        public override bool TestModeEnabled
-        {
-            get => base.TestModeEnabled;
-            set
-            {
-                base.TestModeEnabled = value;
-                if (ToggleTestModeCommand is IActionCommand actionCommand)
-                {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
-                }
-            }
-        }
-
         private bool IsSystemDisabled =>
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioDisconnectedLockKey) ||
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioReconnectedLockKey);
@@ -98,31 +90,32 @@
         public int AlertMinimumVolume
         {
             get => _alertMinimumVolume;
-            set => SetProperty(ref _alertMinimumVolume, (byte)value, nameof(AlertMinimumVolume));
+            set => SetProperty(ref _alertMinimumVolume, (byte)value);
         }
+
+        public static int AlertVolumeTickFrequency => AlertTickFrequency;
 
         public string InfoText
         {
             get => _infoText;
             set
             {
-                if (!SetProperty(ref _infoText, value, nameof(InfoText)))
-                {
-                    return;
-                }
-
+                _infoText = value;
+                RaisePropertyChanged(nameof(InfoText));
                 UpdateStatusText();
             }
         }
 
         public bool IsAlertConfigurable { get; private set; }
 
+        public SoundTestPageViewModel TestViewModel { get; } = new SoundTestPageViewModel();
+
         public bool InTestMode
         {
             get => _inTestMode;
             set
             {
-                if (!SetProperty(ref _inTestMode, value, nameof(InTestMode)))
+                if (_inTestMode == value)
                 {
                     return;
                 }
@@ -142,6 +135,8 @@
                     EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Sound));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
                 }
+
+                SetProperty(ref _inTestMode, value, nameof(InTestMode));
             }
         }
 
@@ -151,11 +146,13 @@
 
             set
             {
-                if (!SetProperty(ref _soundLevel, value, nameof(SoundLevel)))
+                if (_soundLevel == value)
                 {
                     return;
                 }
 
+                _soundLevel = value;
+                RaisePropertyChanged(nameof(SoundLevel));
                 PropertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
             }
         }
@@ -167,16 +164,17 @@
             get => _alertVolume;
             set
             {
-                if (value >= _alertMinimumVolume)
+                var scaledVolume = ConvertSliderToVolume(value);
+
+                if (_alertVolume != value && value >= _alertMinimumVolume)
                 {
-                    if (SetProperty(ref _alertVolume, value, nameof(AlertVolume)))
-                    {
-                        PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, value);
-                    }
+                    _alertVolume = value;
+                    RaisePropertyChanged(nameof(AlertVolume));
+                    PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, scaledVolume);
                 }
                 if (_playTestAlertSound)
                 {
-                    _audio.Play(_soundFile, value);
+                    _audio.Play(_soundFile, scaledVolume);
                 }
             }
         }
@@ -261,8 +259,16 @@
             });
         }
 
-        public SoundTestPageViewModel TestViewModel { get; } = new ();
-
         public override bool TestModeEnabledSupplementary => !IsAudioDisabled && !IsSystemDisabled;
+
+        public static byte ConvertSliderToVolume(byte sliderValue) =>
+            (byte)(Math.Pow(sliderValue, SliderToVolumeSquareIndex) / SliderToVolumeFactor);
+        
+
+        public static byte ConvertVolumeToSlider(byte volume)
+        {
+            var sliderValue = Math.Sqrt(volume) * VolumeToSliderFactor;
+            return (byte)(Math.Round(sliderValue / AlertTickFrequency) * AlertTickFrequency);
+        }
     }
 }

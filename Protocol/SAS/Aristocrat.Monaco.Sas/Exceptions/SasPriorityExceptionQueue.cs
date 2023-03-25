@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Sas.Contracts.Events;
     using Aristocrat.Sas.Client;
     using Hardware.Contracts;
     using log4net;
@@ -21,7 +23,7 @@
     /// </summary>
     public class SasPriorityExceptionQueue : ISasExceptionQueue, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IEnumerable<GeneralExceptionCode> PersistedPriorityExceptions = new List<GeneralExceptionCode>
         {
@@ -64,6 +66,7 @@
         
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly ISasExceptionHandler _exceptionHandler;
+        private readonly IEventBus _eventBus;
         private readonly IList<SasGroup> _registeredGroups = new List<SasGroup>();
 
         /// <summary>
@@ -84,7 +87,8 @@
         /// <param name="unitOfWorkFactory"></param>
         /// <param name="exceptionHandler"></param>
         /// <param name="configuration"></param>
-        public SasPriorityExceptionQueue(byte client, IUnitOfWorkFactory unitOfWorkFactory, ISasExceptionHandler exceptionHandler, SasClientConfiguration configuration)
+        /// <param name="eventBus"></param>
+        public SasPriorityExceptionQueue(byte client, IUnitOfWorkFactory unitOfWorkFactory, ISasExceptionHandler exceptionHandler, SasClientConfiguration configuration, IEventBus eventBus)
         {
             if (configuration.LegacyHandpayReporting)
             {
@@ -103,6 +107,7 @@
             ClientNumber = client;
             _unitOfWorkFactory = unitOfWorkFactory;
             _exceptionHandler = exceptionHandler;
+            _eventBus = eventBus;
 
             var exceptionQueue = _unitOfWorkFactory.Invoke(
                 x => x.Repository<ExceptionQueue>().Queryable().FirstOrDefault(e => e.ClientId == ClientNumber));
@@ -125,9 +130,15 @@
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the queue is full or not
+        ///     Gets a value indicating whether the exception queue is full or not
         /// </summary>
         public bool ExceptionQueueIsFull => _exceptions.Count == QueueSize;
+
+        /// <inheritdoc/>
+        public bool NotifyWhenExceptionQueueIsEmpty { get; set; }
+
+        /// <inheritdoc/>
+        public bool ExceptionQueueIsEmpty => _exceptions.Count <= 0 && _pendingPriorityException <= 0;
 
         /// <inheritdoc/>
         public byte ClientNumber { get; }
@@ -175,6 +186,7 @@
                     {
                         addCurrentException = false; //keeping oldest exception, so drop current one
                     }
+
                     QueuePriorityException(GeneralExceptionCode.ExceptionBufferOverflow);
                 }
 
@@ -403,16 +415,29 @@
                         priority = _pendingPriorityException;
                     }
 
-                    using var work = _unitOfWorkFactory.Create();
-                    work.BeginTransaction(IsolationLevel.Serializable);
-                    var repository = work.Repository<ExceptionQueue>();
-                    var persistence = repository.Queryable().FirstOrDefault(x => x.ClientId == ClientNumber) ??
-                                      new ExceptionQueue { ClientId = ClientNumber };
-                    persistence.Queue = queue;
-                    persistence.PriorityQueue = priority;
+                    try
+                    {
+                        using (var work = _unitOfWorkFactory.Create())
+                        {
+                            work.BeginTransaction(IsolationLevel.Serializable);
+                            var repository = work.Repository<ExceptionQueue>();
+                            var persistence = repository.Queryable().FirstOrDefault(x => x.ClientId == ClientNumber) ??
+                                              new ExceptionQueue { ClientId = ClientNumber };
+                            persistence.Queue = queue;
+                            persistence.PriorityQueue = priority;
+                            repository.AddOrUpdate(persistence);
+                            work.Commit();
+                        }
+                    }
+                    catch (Exception e) when (e is ObjectDisposedException || e is InvalidOperationException)
+                    {
+                        Logger.Warn($"Failed to persist ExceptionQueue for ClientNumber {ClientNumber}: {e}");
+                    }
 
-                    repository.AddOrUpdate(persistence);
-                    work.Commit();
+                    if (NotifyWhenExceptionQueueIsEmpty && ExceptionQueueIsEmpty)
+                    {
+                        _eventBus.Publish(new ExceptionQueueEmptyEvent());
+                    }
                 });
         }
 

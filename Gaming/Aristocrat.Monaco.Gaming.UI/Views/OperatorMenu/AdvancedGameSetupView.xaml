@@ -117,8 +117,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Style="{StaticResource TextBlockStyle}" Text="{Binding ThemePlusOptions}" />
-
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" ZIndex="1" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                     <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PackageLabel}}" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="16" />
                     <ComboBox MinWidth="250" MinHeight="40"
                               DisplayMemberPath="Name"
@@ -343,7 +342,7 @@
                                                                              Maximum="{Binding BetMaximum, Mode=OneWay}" 
                                                                              Value="{Binding ForcedMinBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                              Style="{StaticResource MonacoDecimalUpDown}"
-                                                                             AllowTextInput="True"
+                                                                             AllowTextInput="{Binding Path=DataContext.IsRouletteGameSelected, RelativeSource={RelativeSource AncestorType={x:Type operatorMenu:OperatorMenuPage}}, Mode=OneWay}"
                                                                              IsEnabled="{Binding CanEditAndEnabled}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -360,7 +359,7 @@
                                                                    Increment="{Binding Denom}"
                                                                    Value="{Binding ForcedMinBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                    Style="{StaticResource MonacoDecimalUpDown}"
-                                                                   AllowTextInput="True"
+                                                                   AllowTextInput="{Binding Path=DataContext.IsRouletteGameSelected, RelativeSource={RelativeSource AncestorType={x:Type operatorMenu:OperatorMenuPage}}, Mode=OneWay}"
                                                                    IsEnabled="{Binding CanEditAndEnabled}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -406,7 +405,7 @@
                                     <Button Name="WarningButton" 
                                             Style="{StaticResource MonacoWarningButton}"
                                             Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                            Visibility="{Binding WarningTextHidden, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}" >
+                                            Visibility="{Binding WarningTextIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                                         <Button.CommandParameter>
                                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                                 <Binding ElementName="WarningButton"/>

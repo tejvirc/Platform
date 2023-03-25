@@ -1,22 +1,37 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Google.Protobuf.WellKnownTypes;
     using ServerApiGateway;
 
-    public class ReportEventService :
-        BaseClientCommunicationService,
-        IReportEventService
+    /// <inheritdoc cref="Aristocrat.Bingo.Client.Messages.IReportEventService" />
+    public class ReportEventService : BaseClientCommunicationService, IReportEventService
     {
+        /// <summary>
+        ///     Creates an instance of <see cref="ReportEventService"/>
+        /// </summary>
+        /// <param name="endpointProvider">An instance of <see cref="IClientEndpointProvider{T}"/></param>
         public ReportEventService(IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider)
             : base(endpointProvider)
         {
         }
 
-        public async Task<ReportEventAck> ReportEvent(ReportEventMessage message, CancellationToken token)
+        /// <inheritdoc />
+        public Task<ReportEventResponse> ReportEvent(ReportEventMessage message, CancellationToken token)
         {
-            var request = new EventReport()
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
+            return ReportEventInternal(message, token);
+        }
+
+        private async Task<ReportEventResponse> ReportEventInternal(ReportEventMessage message, CancellationToken token)
+        {
+            var request = new EventReport
             {
                 MachineSerial = message.MachineSerial,
                 TimeStamp = message.TimeStamp.ToUniversalTime().ToTimestamp(),
@@ -24,9 +39,12 @@
                 EventType = message.EventType
             };
 
-            var result = await Invoke(async x => await x.ReportEventAsync(request, null, null, token));
-
-            return new ReportEventAck(result);
+            var result = await Invoke(
+                    async (x, m, t) => await x.ReportEventAsync(m, null, null, t).ConfigureAwait(false),
+                    request,
+                    token)
+                .ConfigureAwait(false);
+            return new ReportEventResponse(result.Succeeded ? ResponseCode.Ok : ResponseCode.Rejected, result.EventId);
         }
     }
 }

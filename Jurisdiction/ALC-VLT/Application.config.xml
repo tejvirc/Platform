@@ -57,7 +57,7 @@ as follows:
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
     <DefaultVolumeLevel>1</DefaultVolumeLevel>
-    <AlertVolume Value="50" />
+    <AlertVolume Value="70" />
 	<UseGameTypeVolume>false</UseGameTypeVolume>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />

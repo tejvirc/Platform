@@ -88,9 +88,11 @@
             {
                 _gameHistory.EndGame();
 
-                _barkeeperHandler.GameEnded(_gameHistory.CurrentLog);
-
                 IncrementMeters();
+
+                _gameHistory.AddMeterSnapShotWithPersistentLog();
+
+                _barkeeperHandler.GameEnded(_gameHistory.CurrentLog);
 
                 _bank.Unlock();
 

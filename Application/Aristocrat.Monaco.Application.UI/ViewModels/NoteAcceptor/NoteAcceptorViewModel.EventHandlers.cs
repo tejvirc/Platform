@@ -126,7 +126,7 @@
             }
 
             UpdateWarningMessage();
-            SetDiagnosticButtonsEnabled(IsEnableAllowedForTesting());
+            SetDiagnosticButtonsEnabled(true);
             UpdateStatus();
         }
 

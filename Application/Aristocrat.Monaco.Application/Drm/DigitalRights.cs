@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
+    using Aristocrat.Monaco.Application.Contracts.TiltLogger;
     using Common.Ant;
     using Contracts;
     using Contracts.Drm;
@@ -34,6 +36,7 @@
 
         private IProtectionModule _protectionModule;
         private Timer _connectedTimer;
+        private ServiceWaiter _serviceWaiter;
 
         private bool _disposed;
 
@@ -56,6 +59,7 @@
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _serviceWaiter = new ServiceWaiter(_bus);
         }
 
         private bool InternalDisabled => Disabled ||
@@ -190,10 +194,16 @@
                         }
                     }
                 }
+
+                if (_serviceWaiter is not null)
+                {
+                    _serviceWaiter.Dispose();
+                }
             }
 
             _connectedTimer = null;
             _protectionModule = null;
+            _serviceWaiter = null;
 
             _disposed = true;
         }
@@ -333,7 +343,13 @@
         private void HandleDigitalRightsError<T>(T @event, Func<string> message, Guid disableKey)
             where T : IEvent
         {
-            _bus.Publish(@event);
+            Task.Run(() =>
+            {
+                _serviceWaiter.AddServiceToWaitFor<ITiltLogger>();
+                _serviceWaiter.WaitForServices();
+
+                _bus.Publish(@event);
+            });
 
             _disableManager.Disable(disableKey, SystemDisablePriority.Immediate, message);
         }

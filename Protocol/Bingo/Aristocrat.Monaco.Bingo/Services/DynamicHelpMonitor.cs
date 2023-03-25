@@ -95,7 +95,7 @@
             {
                 _disableManager.Disable(
                     BingoConstants.BingoHostHelpUrlInvalidKey,
-                    SystemDisablePriority.Immediate,
+                    SystemDisablePriority.Normal,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoDynamicHelpInvalidConfiguration),
                     true,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoDynamicHelpInvalidConfigurationHelp));

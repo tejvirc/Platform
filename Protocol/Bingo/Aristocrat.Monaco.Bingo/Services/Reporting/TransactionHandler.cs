@@ -8,7 +8,6 @@
     using Common.Events;
     using Kernel;
     using Monaco.Common;
-    using ServerApiGateway;
     using TransactionType = Common.TransactionType;
 
     /// <summary>
@@ -21,7 +20,7 @@
     public sealed class TransactionHandler : IReportTransactionQueueService, IDisposable
     {
         private const int RetryDelay = 500;
-        private readonly IAcknowledgedQueue<ReportTransactionMessage, int> _queue;
+        private readonly IAcknowledgedQueue<ReportTransactionMessage, long> _queue;
         private readonly IPropertiesManager _properties;
         private readonly IBingoClientConnectionState _connectionState;
         private readonly IReportTransactionService _reportTransactionService;
@@ -33,7 +32,7 @@
         public TransactionHandler(
             IPropertiesManager properties,
             IBingoClientConnectionState connectionState,
-            IAcknowledgedQueue<ReportTransactionMessage, int> queue,
+            IAcknowledgedQueue<ReportTransactionMessage, long> queue,
             IReportTransactionService reportTransactionService,
             IIdProvider idProvider,
             IEventBus eventBus)
@@ -66,7 +65,7 @@
                 amount,
                 gameSerial,
                 gameTitleId,
-                (int)_idProvider.GetNextLogSequence<TransactionHandler>(),
+                _idProvider.GetNextLogSequence<TransactionHandler>(),
                 paytableId,
                 denominationId,
                 (int)transactionType,
@@ -117,29 +116,29 @@
             while (!token.IsCancellationRequested)
             {
                 // this will block until an item is available or the token is cancelled
-                var item = await _queue.GetNextItem(token);
+                var item = await _queue.GetNextItem(token).ConfigureAwait(false);
                 if (item is null)
                 {
                     continue;
                 }
 
-                ReportTransactionAck ack = null;
+                ReportTransactionResponse ack = null;
                 try
                 {
-                    ack = await _reportTransactionService.ReportTransaction(item, token);
+                    ack = await _reportTransactionService.ReportTransaction(item, token).ConfigureAwait(false);
                 }
                 catch (Exception e) when(e is not OperationCanceledException)
                 {
                 }
 
-                if (ack is not null && ack.Succeeded)
+                if (ack is { ResponseCode: ResponseCode.Ok })
                 {
                     _queue.Acknowledge(ack.TransactionId);
                 }
                 else
                 {
                     // delay 1/2 second before retrying failed reports
-                    await Task.Delay(TimeSpan.FromMilliseconds(RetryDelay), token);
+                    await Task.Delay(TimeSpan.FromMilliseconds(RetryDelay), token).ConfigureAwait(false);
                 }
             }
         }

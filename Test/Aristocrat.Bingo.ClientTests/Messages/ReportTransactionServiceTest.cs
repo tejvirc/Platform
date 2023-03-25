@@ -66,7 +66,7 @@
 
             var result = await _target.ReportTransaction(_message, CancellationToken.None);
             Assert.AreEqual(TransactionId, result.TransactionId);
-            Assert.IsTrue(result.Succeeded);
+            Assert.AreEqual(result.ResponseCode, ResponseCode.Ok);
         }
 
         [TestMethod]
@@ -101,7 +101,7 @@
 
             var result = await _target.ReportTransaction(message, CancellationToken.None);
             Assert.AreEqual(TransactionId, result.TransactionId);
-            Assert.IsTrue(result.Succeeded);
+            Assert.AreEqual(result.ResponseCode, ResponseCode.Ok);
         }
 
         [ExpectedException(typeof(InvalidOperationException))]
