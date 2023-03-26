@@ -477,14 +477,20 @@
             IsInEditMode = _canEdit && !InitialConfigComplete;
 
             SetEditMode();
-            AutoEnableGames();
+            lock (_gamesMapping)
+            {
+                AutoEnableGames();
+            }
             UpdateSaveWarning();
         }
 
         protected override void InitializeData()
         {
             base.InitializeData();
-            LoadGames();
+            lock (_gamesMapping)
+            {
+                LoadGames();
+            }
         }
 
         protected override void OnUnloaded()
