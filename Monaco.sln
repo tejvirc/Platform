@@ -245,6 +245,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Bingo.Client.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.Serial.Tests", "Test\Aristocrat.Monaco.Hardware.Serial.Tests\Aristocrat.Monaco.Hardware.Serial.Tests.csproj", "{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Gaming.Lobby", "Gaming\Aristocrat.Monaco.Gaming.Lobby\Aristocrat.Monaco.Gaming.Lobby.csproj", "{F248C6CF-367C-4979-9F4F-79CF106701F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1785,6 +1787,24 @@ Global
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|x64.ActiveCfg = Retail|Any CPU
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Debug|x64.Build.0 = Debug|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Debug|x86.Build.0 = Debug|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Release|x64.ActiveCfg = Release|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Release|x64.Build.0 = Release|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Release|x86.ActiveCfg = Release|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Release|x86.Build.0 = Release|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Retail|Any CPU.Build.0 = Retail|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Retail|x64.ActiveCfg = Retail|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Retail|x64.Build.0 = Retail|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{F248C6CF-367C-4979-9F4F-79CF106701F0}.Retail|x86.Build.0 = Retail|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1897,9 +1917,10 @@ Global
 		{D0BF18CE-DBE9-49A5-9FED-94BA58891ED6} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{D6A438DF-687F-4685-A665-957FB7744DAA} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
+		{F248C6CF-367C-4979-9F4F-79CF106701F0} = {7FDC33CF-35D7-4C55-AFF8-8CFB1D5793FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 		RESX_RemoveEmptyEntries = True
+		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 	EndGlobalSection
 EndGlobal

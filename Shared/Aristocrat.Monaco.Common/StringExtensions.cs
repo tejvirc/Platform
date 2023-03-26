@@ -132,5 +132,22 @@
 
             return new StringBuilder(input.Length * count).Insert(0, input, count).ToString();
         }
+
+        /// <summary>
+        ///     Removes a string value from the end of this string. 
+        /// </summary>
+        /// <param name="input">String to trim</param>
+        /// <param name="suffix">String value to remove from end</param>
+        /// <param name="comparisonType">Comparison rules to use</param>
+        /// <returns>The the string with suffix removed.</returns>
+        public static string TrimEnd(this string input, string suffix, StringComparison comparisonType = StringComparison.CurrentCulture)
+        {
+            if (suffix != null && input.EndsWith(suffix, comparisonType))
+            {
+                return input[..^suffix.Length];
+            }
+
+            return input;
+        }
     }
 }

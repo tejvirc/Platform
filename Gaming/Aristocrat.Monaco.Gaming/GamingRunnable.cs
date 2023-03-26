@@ -1,8 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
+    using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Runtime.Loader;
     using System.Threading;
     using Application.Contracts;
     using Application.Contracts.Localization;
@@ -23,13 +27,19 @@
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
     using Hardware.Contracts;
+    using Katalogo;
     using Kernel;
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
+    using Log4Net.Extensions.Logging;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Progressives;
     using Runtime;
     using SimpleInjector;
+    using IConfigurationProvider = Contracts.Configuration.IConfigurationProvider;
 
     /// <summary>
     ///     This the base class for all gaming layers.
@@ -46,6 +56,8 @@
         private SharedConsumerContext _sharedConsumerContext;
 
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
+
+        private IHost _host;
 
         /// <inheritdoc />
         protected override void OnInitialize()
@@ -163,8 +175,42 @@
 
             RegisterLogAdapters();
 
-            // This will forcibly resolve all instances, which will create the Consumers
+            var binPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            Debug.Assert(binPath != null);
+
+            var assemblies = Directory.GetFiles(binPath, "Aristocrat.Monaco.Gaming.*.dll")
+                .Select(
+                    file => AssemblyLoadContext.Default
+                        .LoadFromAssemblyPath(file))
+                .ToList();
+
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureHostConfiguration(config => { })
+                .ConfigureAppConfiguration((context, config) => config
+                    .SetBasePath(binPath))
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddLogging();
+                    services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+                    services.AddSimpleInjector(_container, options =>
+                    {
+                        // options.AddHostedService<MyHostedService>();
+
+                        options.AddLocalization();
+                    });
+
+                    services.Scan(scan => scan.FromAssemblies(assemblies).RegisterCatalogs());
+                })
+                .ConfigureLogging((context, config) => config
+                    .AddLog4Net())
+                .UseConsoleLifetime()
+                .Build()
+                .UseSimpleInjector(_container);
+
             _container.Verify();
+
+            _host.Start();
 
             // NOTE: This is just to ensure we don't have an orphan process running
             _container.GetInstance<IGameService>().TerminateAny(false, true);
