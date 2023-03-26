@@ -20,9 +20,11 @@
     /// </summary>
     public partial class ChooserView : UserControl
     {
-        public ChooserView()
+        public ChooserView(object viewModel)
         {
             InitializeComponent();
+
+            DataContext = viewModel;
         }
     }
 }

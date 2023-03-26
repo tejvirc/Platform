@@ -62,7 +62,7 @@
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            _container = Bootstrapper.InitializeContainer();
+            _container = Bootstrapper.InitializeContainer(ConfigureHost);
 
             _container.Options.AllowOverridingRegistrations = true;
 
@@ -70,7 +70,49 @@
 
             _container.Options.AllowOverridingRegistrations = false;
 
+            _container.Verify();
+
+            var properties = _host.Services.GetRequiredService<IPropertiesManager>();
+
             Logger.Info("Initialized");
+        }
+
+        private void ConfigureHost(Container container)
+        {
+            var binPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            Debug.Assert(binPath != null);
+
+            var assemblies = Directory.GetFiles(binPath, "Aristocrat.Monaco.Gaming.*.dll")
+                .Select(
+                    file => AssemblyLoadContext.Default
+                        .LoadFromAssemblyPath(file))
+                .ToList();
+
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureHostConfiguration(config => { })
+                .ConfigureAppConfiguration((context, config) => config
+                    .SetBasePath(binPath))
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddLogging();
+                    services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+                    services.AddSimpleInjector(container, options =>
+                    {
+                        options.DisposeContainerWithServiceProvider = false;
+
+                        // options.AddHostedService<MyHostedService>();
+
+                        options.AddLocalization();
+
+                        options.Services.Scan(scan => scan.FromAssemblies(assemblies).RegisterCatalogs());
+                    });
+                })
+                .ConfigureLogging((context, config) => config
+                    .AddLog4Net())
+                .UseConsoleLifetime()
+                .Build()
+                .UseSimpleInjector(container);
         }
 
         /// <inheritdoc />
@@ -174,41 +216,6 @@
             AddServices();
 
             RegisterLogAdapters();
-
-            var binPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            Debug.Assert(binPath != null);
-
-            var assemblies = Directory.GetFiles(binPath, "Aristocrat.Monaco.Gaming.*.dll")
-                .Select(
-                    file => AssemblyLoadContext.Default
-                        .LoadFromAssemblyPath(file))
-                .ToList();
-
-            _host = Host.CreateDefaultBuilder()
-                .ConfigureHostConfiguration(config => { })
-                .ConfigureAppConfiguration((context, config) => config
-                    .SetBasePath(binPath))
-                .ConfigureServices((context, services) =>
-                {
-                    services.AddLogging();
-                    services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-                    services.AddSimpleInjector(_container, options =>
-                    {
-                        // options.AddHostedService<MyHostedService>();
-
-                        options.AddLocalization();
-                    });
-
-                    services.Scan(scan => scan.FromAssemblies(assemblies).RegisterCatalogs());
-                })
-                .ConfigureLogging((context, config) => config
-                    .AddLog4Net())
-                .UseConsoleLifetime()
-                .Build()
-                .UseSimpleInjector(_container);
-
-            _container.Verify();
 
             _host.Start();
 

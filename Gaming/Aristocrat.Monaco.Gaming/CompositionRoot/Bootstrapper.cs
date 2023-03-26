@@ -38,6 +38,7 @@
     using Runtime.Client;
     using Runtime.Server;
     using SimpleInjector;
+    using SimpleInjector.Lifestyles;
     using TowerLight;
 
     /// <summary>
@@ -48,15 +49,20 @@
         /// <summary>
         ///     Initialize the container
         /// </summary>
+        /// <param name="configureHost"></param>
         /// <returns>A container</returns>
-        public static Container InitializeContainer()
+        public static Container InitializeContainer(Action<Container> configureHost)
         {
-            return ConfigureContainer();
+            return ConfigureContainer(configureHost);
         }
 
-        private static Container ConfigureContainer()
+        private static Container ConfigureContainer(Action<Container> configureHost)
         {
             var container = new Container();
+
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
+            configureHost?.Invoke(container);
 
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);

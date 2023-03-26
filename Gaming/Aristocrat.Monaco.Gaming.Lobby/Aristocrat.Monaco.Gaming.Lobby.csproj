@@ -29,7 +29,6 @@
     <PackageReference Include="Fluxor.Selectors" Version="1.0.0-preview.1" />
     <PackageReference Include="Katalogo" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
