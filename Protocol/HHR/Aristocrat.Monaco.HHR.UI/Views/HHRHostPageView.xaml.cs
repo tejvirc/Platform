@@ -74,9 +74,9 @@
             ((IMenuAccessService)DataContext).Hide();
         }
 
-        public void Unhide()
+        public void UnHide()
         {
-            ((IMenuAccessService)DataContext).Unhide();
+            ((IMenuAccessService)DataContext).UnHide();
         }
     }
 }

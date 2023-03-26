@@ -107,6 +107,7 @@
         [DataRow(PlayMode.Demo, false, true, true, false, false, false)]
         [DataRow(PlayMode.Demo, true, true, false, false, true, true)]
         [DataRow(PlayMode.Recovery, false, true, false, false, false, false)]
+        [DataRow(PlayMode.Recovery, false, false, false, true, false, false)]
         [DataRow(PlayMode.Replay, false, true, false, false, false, false)]
         public void HandleInvokedGameRoundEvent(
             PlayMode playMode,

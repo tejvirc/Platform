@@ -20,6 +20,7 @@ as follows:
 	<OperatorMenu DisableDuringGame="true" />
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
+    <Gamble SkipByJackpotHit="true" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

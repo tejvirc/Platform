@@ -1,8 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Monitors
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Transactions;
@@ -11,16 +8,16 @@
     using Gaming.Contracts;
     using Kernel;
     using Services.Reporting;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    /// <summary>
-    ///     A meter monitor for total egm paid
-    /// </summary>
-    public sealed class EgmPaidGameWonAmtMeterMonitor : BaseGameWinAmountMeterMonitor
+    public sealed class HandPaidGameWonAmtMeterMonitor : BaseGameWinAmountMeterMonitor
     {
         private readonly ITransactionHistory _transactionHistory;
 
         /// <summary>
-        ///     Creates an instance of <see cref="EgmPaidGameWonAmtMeterMonitor"/>
+        ///     Creates an instance of <see cref="HandPaidGameWonAmtMeterMonitor"/>
         /// </summary>
         /// <param name="meterManager">An instance of <see cref="IMeterManager"/></param>
         /// <param name="bingoGameProvider">An instance of <see cref="IBingoGameProvider"/></param>
@@ -29,7 +26,7 @@
         /// <param name="gameHistory">An instance of <see cref="IGameHistory"/></param>
         /// <param name="eventBus">An instance of <see cref="IEventBus"/></param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="gameHistory"/>, <paramref name="bingoGameProvider"/>, <paramref name="transactionQueue"/>, or <paramref name="gameHistory"/></exception>
-        public EgmPaidGameWonAmtMeterMonitor(
+        public HandPaidGameWonAmtMeterMonitor(
             IMeterManager meterManager,
             IBingoGameProvider bingoGameProvider,
             IReportTransactionQueueService transactionQueue,
@@ -37,8 +34,8 @@
             IGameHistory gameHistory,
             IEventBus eventBus)
             : base(
-                GamingMeters.EgmPaidGameWonAmount,
-                true,
+                GamingMeters.HandPaidGameWonAmount,
+                false,
                 meterManager,
                 bingoGameProvider,
                 transactionQueue,
@@ -51,7 +48,7 @@
         protected override IEnumerable<HandpayTransaction> GetHandpays(IGameHistoryLog log)
         {
             return _transactionHistory.RecallTransactions<HandpayTransaction>()
-                .Where(t => t.IsCreditType() && IsForGameRound(t));
+                .Where(t => !t.IsCreditType() && IsForGameRound(t));
 
             bool IsForGameRound(ITransactionContext handpayTransaction) =>
                 log.CashOutInfo.Any(
