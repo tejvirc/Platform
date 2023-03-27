@@ -12,7 +12,8 @@
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance viewModels:ExportMachineSettingsViewModel}"
-                               common:DialogParticipation.Register="{Binding}">
+                               common:DialogParticipation.Register="{Binding}"
+                               loc:Localizer.For="PlayerTicket">
 
     <UserControl.Resources>
         <ResourceDictionary>
