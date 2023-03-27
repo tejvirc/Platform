@@ -57,7 +57,7 @@ as follows:
 	<ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
-    <DefaultVolumeLevel>2</DefaultVolumeLevel>
+    <DefaultVolumeLevel>4</DefaultVolumeLevel>
   </SoundConfiguration>
   <ReadOnlyMedia Required="true" />
 <!--
