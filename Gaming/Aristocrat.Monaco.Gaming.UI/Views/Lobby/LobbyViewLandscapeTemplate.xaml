@@ -197,16 +197,19 @@
                 </Image>
             </Viewbox>
 
-            <Button Grid.Row="0"
-                    Grid.Column="2"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Margin="0 40 40 0"
-                    Style="{StaticResource stlFlatButton}"
-                    Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
-                    Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                <Image Source="{DynamicResource ResponsibleGaming}" Stretch="None"/>
-            </Button>
+            <Viewbox Grid.Row="0"
+                     Grid.Column="2"
+                     Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                <Button Style="{StaticResource stlFlatButton}"
+                        Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
+                        Margin="0,0,0,-20"
+                        RenderTransformOrigin="0.5 0.5">
+                    <Image Source="{DynamicResource ResponsibleGaming}" Stretch="None"/>
+                    <Button.RenderTransform>
+                        <TranslateTransform X="-50" Y="{Binding ChooseGameOffsetY}"/>
+                    </Button.RenderTransform>
+                </Button>
+            </Viewbox>
 
             <!-- **** Bartop UI **** -->
             <Viewbox Stretch="Uniform"
