@@ -1,4 +1,4 @@
-namespace SI;
+namespace Aristocrat.Monaco;
 
 public class PropertiesManager : IPropertiesManager
 {

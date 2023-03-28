@@ -60,7 +60,7 @@
         {
             var container = new Container();
 
-            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            container.Options.DefaultScopedLifestyle = ScopedLifestyle.Flowing;
 
             configureHost?.Invoke(container);
 

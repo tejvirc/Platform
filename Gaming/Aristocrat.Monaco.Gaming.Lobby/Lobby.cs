@@ -2,13 +2,15 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using Aristocrat.Monaco.UI.Common;
 using Contracts;
+using Contracts.Lobby;
 using Fluxor;
 using Kernel;
 using Microsoft.Extensions.Hosting;
 using Store;
 
-public class Lobby : IHostedService
+public class Lobby : ILobby
 {
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
@@ -32,8 +34,28 @@ public class Lobby : IHostedService
         }
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public void CreateWindow()
     {
-        return Task.CompletedTask;
+        _store.InitializeAsync().Wait();
+
+        var config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
+        if (config != null)
+        {
+            _dispatcher.Dispatch(new LobbyConfigAction(config));
+        }
+
+        ServiceManager.GetInstance().GetService<IWpfWindowLauncher>();
+    }
+
+    public void Show()
+    {
+    }
+
+    public void Hide()
+    {
+    }
+
+    public void Close()
+    {
     }
 }

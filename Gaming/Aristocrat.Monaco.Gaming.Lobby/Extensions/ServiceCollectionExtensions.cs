@@ -1,19 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby;
 
 using System;
-using Aristocrat.Monaco.Kernel;
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Threading;
 using Common;
+using Kernel;
+using Microsoft.Extensions.DependencyInjection;
+using Toolkit.Mvvm.Extensions;
 
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddView<TView>(this IServiceCollection services)
         where TView : class
     {
-        var viewModelType = GetViewModelType(typeof(TView));
+        var viewType =typeof(TView);
 
+        var viewModelType = GetViewModelType(viewType);
         if (viewModelType == null)
         {
             services.AddTransient<TView>();
@@ -23,14 +27,28 @@ public static class ServiceCollectionExtensions
             services.AddTransient(viewModelType);
 
             var objectFactory = ActivatorUtilities.CreateFactory(
-                typeof(TView),
+                viewType,
                 new[] { typeof(object) });
 
             services.Add(
                 ServiceDescriptor.Describe(
                     typeof(TView),
-                    sp => (TView)objectFactory(sp, new object[] { sp.GetRequiredService(viewModelType) }),
+                    sp =>
+                    {
+                        object view = null;
+
+                        var dispatcher = Application.Current.Dispatcher;
+
+                        dispatcher.Invoke(DispatcherPriority.Send, new Action(() => view = CreateView(sp)));
+
+                        return view ?? throw new InvalidOperationException($"Unable to instantiate {viewType}");
+                    },
                     ServiceLifetime.Transient));
+
+            TView CreateView(IServiceProvider sp)
+            {
+                return (TView)objectFactory(sp, new[] { sp.GetRequiredService(viewModelType) });
+            }
         }
 
         return services;

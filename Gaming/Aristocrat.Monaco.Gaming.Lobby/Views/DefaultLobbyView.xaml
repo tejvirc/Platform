@@ -12,8 +12,5 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding Title.Value}" />
-        <views:ChooserView />
-
     </Grid>
 </Window>

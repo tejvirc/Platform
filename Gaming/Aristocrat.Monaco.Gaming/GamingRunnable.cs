@@ -8,6 +8,7 @@
     using System.Reflection;
     using System.Runtime.Loader;
     using System.Threading;
+    using System.Windows;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.Media;
@@ -62,24 +63,32 @@
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            _container = Bootstrapper.InitializeContainer(ConfigureHost);
 
-            _container.Options.AllowOverridingRegistrations = true;
+            var dispatcher = Application.Current.Dispatcher;
 
-            ConfigureContainer(_container);
+            dispatcher.BeginInvoke(new Action(
+                () =>
+                {
+                    _container = Bootstrapper.InitializeContainer(ConfigureHost);
 
-            _container.Options.AllowOverridingRegistrations = false;
+                    _container.Options.AllowOverridingRegistrations = true;
 
-            _container.Verify();
+                    ConfigureContainer(_container);
 
-            var properties = _host.Services.GetRequiredService<IPropertiesManager>();
+                    _container.Options.AllowOverridingRegistrations = false;
+
+                    _container.Verify();
+                })).Wait();
 
             Logger.Info("Initialized");
         }
 
         private void ConfigureHost(Container container)
         {
-            var binPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var assembly = Assembly.GetEntryAssembly();
+            Debug.Assert(assembly != null);
+
+            var binPath = Path.GetDirectoryName(assembly.Location);
             Debug.Assert(binPath != null);
 
             var assemblies = Directory.GetFiles(binPath, "Aristocrat.Monaco.Gaming.*.dll")
@@ -105,7 +114,38 @@
 
                         options.AddLocalization();
 
-                        options.Services.Scan(scan => scan.FromAssemblies(assemblies).RegisterCatalogs());
+                        var s = new ServiceCollection();
+
+                        s.Scan(scan => scan.FromAssemblies(assemblies).RegisterCatalogs());
+
+                        foreach (var d in s)
+                        {
+                            var lifetime = d.Lifetime switch
+                            {
+                                ServiceLifetime.Singleton => Lifestyle.Singleton,
+                                ServiceLifetime.Scoped => Lifestyle.Singleton,
+                                _ => Lifestyle.Transient
+                            };
+
+                            if (d.ImplementationType != null)
+                            {
+                                container.Register(d.ServiceType, d.ImplementationType, lifetime);
+                            }
+                            else if (d.ImplementationInstance != null)
+                            {
+                                container.Register(d.ServiceType, () => d.ImplementationInstance, lifetime);
+                            }
+                            else if (d.ImplementationFactory != null)
+                            {
+                                container.Register(d.ServiceType, () => d.ImplementationFactory.Invoke(container), lifetime);
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException($"Unable to register {d.ServiceType}");
+                            }
+
+                            // TODO Handle IEnumerable registration conversion between MS DI and SimpleInjector
+                        }
                     });
                 })
                 .ConfigureLogging((context, config) => config
