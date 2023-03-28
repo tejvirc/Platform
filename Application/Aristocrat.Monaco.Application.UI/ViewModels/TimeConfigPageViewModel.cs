@@ -306,6 +306,7 @@
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
+
                 var oldLanguage = DatePickerLanguage;
                 var newLanguage = XmlLanguage.GetLanguage(Localizer.For(CultureFor.Operator).CurrentCulture.Name);
 
@@ -315,6 +316,10 @@
                 }
 
                 DatePickerLanguage = newLanguage;
+
+                // Needed to immediately invalidate existing watermark text in the datepicker
+                PickerDate = PickerDate + TimeSpan.FromTicks(1);
+                PickerDate = PickerDate - TimeSpan.FromTicks(1);
             });
         }
     }

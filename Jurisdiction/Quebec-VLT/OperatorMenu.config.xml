@@ -10,25 +10,25 @@ as follows:
     the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
 -->
 <OperatorMenuConfiguration>
-    <Setting Name="ShowToggleLanguageButton" Value="true" />
-    <Setting Name="ShowExitButton" Value="true" />
-    <Setting Name="PrintCurrentPage" Value="false" />
-    <Setting Name="PrintLast15" Value="true" />
-    <Setting Name="PrintSelected" Value="true" />
-    <Setting Name="ShowTimeFormat" Value="false" />
-    <Setting Name="CreditBalanceVisible" Value="true" />
-    <Setting Name="HardwareDiagnosticsEnabled" Value="true" />
-    <Setting Name="ShowOperatorRole" Value="true" />
-    <Menu Type="IdentificationMainPageLoader">
-        <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="false" Access="ZeroGamesPlayed" />
-        <Page TabType="SerialGatPageLoader" Visible="false" />
-    </Menu>
-    <Menu Type="LogsMainPageLoader">
-        <Page Type="EventLoggingPageViewModel" PrintButtonEnabled="true" />
-        <Page Type="VoucherOutLogViewModel" PrintButtonEnabled="true" />
-        <Page Type="VoucherInLogViewModel" PrintButtonEnabled="true" />
-        <Page Type="TransactionHistoryViewModel" PrintButtonEnabled="true" />
-        <Page Type="BillEventHistoryLogLoader" PrintButtonEnabled="true" />
+  <Setting Name="ShowToggleLanguageButton" Value="true" />
+  <Setting Name="ShowExitButton" Value="true" />
+	<Setting Name="PrintCurrentPage" Value="false" />
+	<Setting Name="PrintLast15" Value="true" />
+	<Setting Name="PrintSelected" Value="true" />
+	<Setting Name="ShowTimeFormat" Value="false" />
+	<Setting Name="CreditBalanceVisible" Value="true" />
+	<Setting Name="HardwareDiagnosticsEnabled" Value="true" />
+	<Setting Name="ShowOperatorRole" Value="true" />
+	<Menu Type="IdentificationMainPageLoader">
+		<Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="false" Access="ZeroGamesPlayed" />
+		<Page TabType="SerialGatPageLoader" Visible="false" />
+	</Menu>
+	<Menu Type="LogsMainPageLoader">
+		<Page Type="EventLoggingPageViewModel" PrintButtonEnabled="true" />
+		<Page Type="VoucherOutLogViewModel" PrintButtonEnabled="true" />
+		<Page Type="VoucherInLogViewModel" PrintButtonEnabled="true" />
+		<Page Type="TransactionHistoryViewModel" PrintButtonEnabled="true" />
+		<Page Type="BillEventHistoryLogLoader" PrintButtonEnabled="true" />
         <Page TabType="AllLogPageLoader" Visible="false" />
         <Page TabType="HandpayLogLoader" Visible="false" />
         <Page TabType="AlteredMediaPageLoader" Visible="false" />

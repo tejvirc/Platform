@@ -1098,7 +1098,7 @@
 
         private CultureInfo GetTogglableCulture()
         {
-            return Localizer.For(CultureFor.Operator).CurrentCulture.Equals(_primaryCulture) ? _secondaryCulture : _primaryCulture;
+            return Localizer.For(CultureFor.Operator).CurrentCulture == _primaryCulture ? _secondaryCulture : _primaryCulture;
         }
 
         private void Dispose(bool disposing)
