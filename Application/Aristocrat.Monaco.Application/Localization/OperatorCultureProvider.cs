@@ -45,7 +45,7 @@
         }
 
         [JsonProperty]
-        private CultureInfo DefaultCulture { get; set; }
+        public CultureInfo DefaultCulture { get; set; }
 
         /// <inheritdoc />
         public override string ProviderName => CultureFor.Operator;

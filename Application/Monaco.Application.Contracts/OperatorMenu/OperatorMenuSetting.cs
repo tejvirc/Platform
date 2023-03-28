@@ -125,5 +125,7 @@
         public const string ShowSAPMeters = "ShowSAPMeters";
         /// <summary/>
         public const string ShowGameRtpAsRange = "ShowGameRtpAsRange";
+        /// <summary/>
+        public const string ShowToggleLanguageButton = "ShowToggleLanguageButton";
     }
 }

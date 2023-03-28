@@ -59,7 +59,8 @@
                         DisplayDateStart="1/01/16"
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Center" 
-                        IsEnabled="{Binding InputEnabled}" />
+                        IsEnabled="{Binding InputEnabled}" 
+                        Language="{Binding DatePickerLanguage}"/>
 
             <!-- Time -->
             <Label Grid.Row="6" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeLabel}}" />

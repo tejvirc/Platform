@@ -14,12 +14,13 @@ as follows:
     <LanguageSetting Visible="true" OperatorOverride="false" ShowCheckBox="true"/>
   </PlayerTicket>
   <OperatorTicket Locale="en-US" DateFormat="yyyy-MM-dd"/>
-  <Operator Default="en-CA">
+  <Operator Default="fr-CA">
       <Available>
           <string>en-CA</string>
+          <string>fr-CA</string>
       </Available>
   </Operator>
-  <Player Primary="en-CA">
+  <Player Primary="fr-CA">
       <Available>
           <string>en-CA</string>
           <string>fr-CA</string>

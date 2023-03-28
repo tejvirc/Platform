@@ -237,7 +237,14 @@
                         </common:TouchListBox.ItemContainerStyle>
                     </common:TouchListBox>
 
-                    <Grid Grid.Row="1" Margin="0,20,0,0">
+                    <Button Name="ToggleLanguageButton" Margin="0,20,0,0" TabIndex="100" Grid.Row="1" Width="196" Height="45" 
+                            Command="{Binding LanguageChangedCommand}" 
+                            Content="{Binding ToggleLanguageButtonText}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Visibility="{Binding ShowToggleLanguageButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+
+                    <Grid Grid.Row="2" Margin="0,20,0,0">
                         <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource TrueVisibleFalseCollapsed}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
