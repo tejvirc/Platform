@@ -10,6 +10,8 @@ as follows:
     the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
 -->
 <OperatorMenuConfiguration>
+  <Setting Name="ShowToggleLanguageButton" Value="true" />
+  <Setting Name="ShowExitButton" Value="true" />
 	<Setting Name="PrintCurrentPage" Value="false" />
 	<Setting Name="PrintLast15" Value="true" />
 	<Setting Name="PrintSelected" Value="true" />
