@@ -4,14 +4,11 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Forms;
 
     internal class GameTileMarginConverter : IMultiValueConverter
     {
-        private const double BaseScreenWidth = 1920;
-        private const double GameIconHeightThreshold = 376;
         private const double LowerMarginShift = -100;
-        private readonly double _scaleBy = Screen.PrimaryScreen.Bounds.Width / BaseScreenWidth;
+        private readonly double _scaleBy = ScaleUtility.GetScale();
 
         /// <summary>
         ///     Covert a parameter to form the margin for the game tile
@@ -34,7 +31,7 @@
             // Handle case where there is a banner above each game tile
             // If the game icon height is so large it pushes the upper major banner and lower denom panel off the grid,
             // pull out the lower margin so that it it may overlap
-            if (!isLevelForMultipleGames && inputs.GameIconSize.Height > GameIconHeightThreshold)
+            if (!isLevelForMultipleGames && inputs.GameIconSize.Height > ScaleUtility.GameIconHeightThreshold)
             {
                 // Note: pulling out the lower margin by 100 gives plenty of room for the controls to not be cut off.
                 // At this point if the game icon gets any bigger it will not look right anyway

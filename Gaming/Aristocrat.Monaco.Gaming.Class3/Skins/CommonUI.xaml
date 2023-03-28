@@ -30,7 +30,7 @@
 	<BitmapImage x:Key="TabPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPokerDisabled.png" />
 	<BitmapImage x:Key="TabRouletteDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabRouletteDisabled.png" />
 	<BitmapImage x:Key="TabTableDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabTableDisabled.png" />
-	<BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabLightningLinkDisabled.png" />
+	<BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabStormingJackpotsDisabled.png" />
 	<BitmapImage x:Key="TabMultiDrawPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabMultiDrawPokerDisabled.png" />
 	<BitmapImage x:Key="GameSelectedOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Game_Title_On.png" />
 	<BitmapImage x:Key="ProgressiveOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Progressive Meter_Frame.png" />
@@ -132,15 +132,6 @@
 	<BitmapImage x:Key="VBDButton16" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/BartopLCD9BD/VBDButton16.png" />
 	<BitmapImage x:Key="VBDButtonBlankLit" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/BartopLCD9BD/VBDButtonBlankLit.png" />
 	<BitmapImage x:Key="BottomBackgroundPortrait" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/BS_BackGround.png" />
-
-	<sys:String x:Key="FrontLeft">..\jurisdiction\DefaultAssets\FrontLeft.ogg</sys:String>
-	<sys:String x:Key="FrontRight">..\jurisdiction\DefaultAssets\FrontRight.ogg</sys:String>
-	<sys:String x:Key="SideLeft">..\jurisdiction\DefaultAssets\SideLeft.ogg</sys:String>
-	<sys:String x:Key="SideRight">..\jurisdiction\DefaultAssets\SideRight.ogg</sys:String>
-	<sys:String x:Key="RearLeft">..\jurisdiction\DefaultAssets\RearLeft.ogg</sys:String>
-	<sys:String x:Key="RearRight">..\jurisdiction\DefaultAssets\RearRight.ogg</sys:String>
-	<sys:String x:Key="Center">..\jurisdiction\DefaultAssets\Center.ogg</sys:String>
-    <sys:String x:Key="LowFrequency">..\jurisdiction\DefaultAssets\LowFrequency.ogg"</sys:String>
 
 	<sys:String x:Key="VBD_Helix_ChooseGame">../jurisdiction/DefaultAssets/ui/Videos/Vbd/Helix/VBD_ChooseGame_EN.bk2</sys:String>
 	<sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/DefaultAssets/ui/Videos/Vbd/Helix/VBD_InsertMoney_EN.bk2</sys:String>

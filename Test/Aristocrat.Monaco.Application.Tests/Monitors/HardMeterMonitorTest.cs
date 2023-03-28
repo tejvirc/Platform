@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
+    using Aristocrat.Monaco.Application.Contracts;
     using Hardware.Contracts.HardMeter;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,6 +23,7 @@
         private Mock<IPropertiesManager> _properties;
         private HardMeterMonitor _target;
         private Mock<IHardMeter> _hardMeters;
+        private Mock<IMeterManager> _meterManager;
 
         // Use TestInitialize to run code before running each test 
         [TestInitialize]
@@ -33,6 +35,7 @@
             _disableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Strict);
             _properties = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _hardMeters = MoqServiceManager.CreateAndAddService<IHardMeter>(MockBehavior.Loose);
+            _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Strict);
             _target = new HardMeterMonitor();
 
             var selectedConfiguration = new Dictionary<int, int>

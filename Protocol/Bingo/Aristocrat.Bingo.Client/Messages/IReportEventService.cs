@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using ServerApiGateway;
 
     /// <summary>
     ///     Provides methods to support reporting events to the bingo server
@@ -15,6 +14,6 @@
         /// <param name="message">The event message</param>
         /// <param name="token">The cancellation token</param>
         /// <returns>Returns the task for acknowledging the event report</returns>
-        Task<ReportEventAck> ReportEvent(ReportEventMessage message, CancellationToken token);
+        Task<ReportEventResponse> ReportEvent(ReportEventMessage message, CancellationToken token);
     }
 }

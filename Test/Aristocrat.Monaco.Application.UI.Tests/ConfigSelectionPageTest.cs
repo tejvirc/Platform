@@ -125,6 +125,9 @@
                 .Setup(m => m.GetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, It.IsAny<bool>()))
                 .Returns(false);
 
+            _propertiesManager.Setup(m => m.GetProperty(KernelConstants.IsInspectionOnly, false)).Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(KernelConstants.InspectionNameAndVersion, It.IsAny<string>())).Returns("Test");
+
             _targetView = new ConfigSelectionPage();
             _target = _targetView.DataContext as ConfigSelectionPageViewModel;
 
@@ -395,7 +398,7 @@
 
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>())).Returns(string.Empty);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>()));
-
+            _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, It.IsAny<bool>()));
 
             _target.NextButtonClicked.Execute(null);
 
@@ -500,6 +503,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>()));
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>()));
+            _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, It.IsAny<bool>()));
 
             _eventBus.Setup(m => m.Publish(It.IsAny<ExitRequestedEvent>()));
 

@@ -14,7 +14,7 @@
         private readonly Mock<IMonacoContextFactory> _factory = new Mock<IMonacoContextFactory>(MockBehavior.Default);
         private readonly Mock<IRepository<Host>> _repository = new Mock<IRepository<Host>>(MockBehavior.Default);
         private string defaultHostName = string.Empty;
-        private const int defaultPort = 5080;
+        private const int defaultPort = 443;
 
         [TestMethod]
         public void Constructor()

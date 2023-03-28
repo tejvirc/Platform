@@ -185,6 +185,7 @@
   </Extension>
   <Extension path="/NIGC/Certificate/Configuration">
     <FilePath FilePath="..\jurisdiction\NIGC\Aristocrat.Bingo.Development.Client.cer" Name="Certificate" filterid="NIGCCertificateConfig" />
+    <FilePath FilePath="..\jurisdiction\NIGC\Aristocrat.Bingo.Release.Client.cer" Name="Certificate" filterid="NIGCCertificateConfig" />
   </Extension>
   <Extension path="/Accounting/TransactionHistories" filterid="NIGCTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />

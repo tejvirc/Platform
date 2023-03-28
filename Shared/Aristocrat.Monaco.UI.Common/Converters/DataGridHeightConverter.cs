@@ -30,8 +30,6 @@
         {
             if (values != null && values.Length > 1 && values[0] is DataGrid grid)
             {
-                // Tag to alert HighDpiWindowBehavior that the grid is the correct size and can be scaled
-                grid.Tag = true;
                 var actualHeight = grid.ActualHeight;
 
                 double horizontalScrollButtonsHeight = 0;

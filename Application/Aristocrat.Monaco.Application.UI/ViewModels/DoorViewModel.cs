@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using ConfigWizard;
     using Contracts;
+    using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.Door;
     using Kernel;
@@ -12,12 +14,15 @@
     public class DoorViewModel : BaseViewModel
     {
         private readonly object _context = new object();
+        private readonly IInspectionService _reporter;
+
         private bool _closed;
         private DateTime? _lastOpened;
         private string _name;
 
-        public DoorViewModel(int id, bool ignored = false)
+        public DoorViewModel(IInspectionService reporter, int id, bool ignored = false)
         {
+            _reporter = reporter;
             Id = id;
             Ignored = ignored;
         }
@@ -100,6 +105,8 @@
             }
 
             Update();
+
+            _reporter?.SetTestName($"Open {Name}");
         }
 
         private void HandleEvent(ClosedEvent evt)
@@ -110,6 +117,8 @@
             }
 
             Update();
+
+            _reporter?.SetTestName($"Closed {Name}");
         }
 
         private void Update()

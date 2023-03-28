@@ -8,7 +8,7 @@
     {
         protected IAuthorizationProvider AuthorizationProvider;
 
-        public int MessageTimeoutMs { get; set; } = 30000;
+        public TimeSpan MessageTimeoutMs { get; set; } = TimeSpan.FromMilliseconds(3000);
 
         public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
             TRequest request,
@@ -105,7 +105,7 @@
             return new (
                 context.Method,
                 context.Host,
-                context.Options.WithDeadline(DateTime.UtcNow.AddMilliseconds(MessageTimeoutMs)));
+                context.Options.WithDeadline(DateTime.UtcNow.Add(MessageTimeoutMs)));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Bingo.Client.CompositionRoot
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Messages;
@@ -47,6 +49,8 @@
             container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
             container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
 
+            container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
+            container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
             container.RegisterSingleton<BingoClientAuthorizationInterceptor>();
             container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
             container.RegisterSingleton<LoggingInterceptor>();
@@ -54,8 +58,11 @@
             container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
             container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
             container.RegisterSingleton<IProgressiveAwardService, ProgressiveAwardService>();
-            container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
-            container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
+
+            container.RegisterSingleton<IReportTransactionService, ReportTransactionService>();
+            container.RegisterSingleton<IReportEventService, ReportEventService>();
+            container.RegisterSingleton<IActivityReportService, ActivityReportService>();
+            container.RegisterSingleton<IStatusReportingService, StatusReportingService>();
 
             var command = Lifestyle.Singleton.CreateRegistration<CommandService>(container);
             container.AddRegistration<ICommandService>(command);
@@ -72,6 +79,44 @@
             return container;
         }
 
+        private static Container RegisterCommunicationServices(this Container container)
+        {
+            var communicationServices = Assembly.GetExecutingAssembly().GetExportedTypes()
+                .Where(x => x.IsSubclassOf(typeof(BaseClientCommunicationService<ClientApi.ClientApiClient>)) ||
+                                 x.IsSubclassOf(typeof(BaseClientCommunicationService<ProgressiveApi.ProgressiveApiClient>)) && !x.IsAbstract);
+            foreach (var service in communicationServices)
+            {
+                container.RegisterAllInterfaces(service);
+            }
+
+            return container;
+        }
+
+        private static Container RegisterAllInterfaces<TType>(this Container container, Func<Type, bool> filter = null)
+        {
+            return container.RegisterAllInterfaces(typeof(TType), filter);
+        }
+
+        private static Container RegisterAllInterfaces(
+            this Container container,
+            Type type,
+            Func<Type, bool> filter = null)
+        {
+            filter ??= t => t != typeof(IDisposable) && t != typeof(IEnumerable<>) && t != typeof(IEnumerable);
+            var registration = Lifestyle.Singleton.CreateRegistration(type, container);
+            foreach (var @interface in type.GetInterfaces())
+            {
+                if (!filter(@interface))
+                {
+                    continue;
+                }
+
+                container.AddRegistration(@interface, registration);
+            }
+
+            return container;
+        }
+
         private static Container RegisterMessageHandlers(this Container container, params Assembly[] assemblies)
         {
             container.RegisterSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
@@ -84,7 +129,6 @@
             var factory = new CommandProcessorFactory(container);
             factory.Register<EnableCommandProcessor>(EnableCommand.Descriptor, Lifestyle.Transient);
             factory.Register<DisableCommandProcessor>(DisableCommand.Descriptor, Lifestyle.Transient);
-            factory.Register<PingCommandProcessor>(PingCommand.Descriptor, Lifestyle.Transient);
             container.RegisterInstance<ICommandProcessorFactory>(factory);
 
             var progressiveFactory = new ProgressiveCommandProcessorFactory(container);

@@ -171,10 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.GdkRuntime.Contract" Version="1.0.8" />
-    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.9" />
-    <PackageReference Include="Aristocrat.Snapp" Version="0.1.9" />
-    <PackageReference Include="Google.Protobuf" Version="3.19.4" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Contract" Version="1.0.9" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.11" />
+    <PackageReference Include="Google.Protobuf" Version="3.22.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

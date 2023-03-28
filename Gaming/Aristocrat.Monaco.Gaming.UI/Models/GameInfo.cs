@@ -9,6 +9,7 @@
     using Kernel;
     using Contracts;
     using Contracts.Models;
+    using ManagedBink;
     using Monaco.UI.Common.Extensions;
     using MVVM.Model;
     using ViewModels;
@@ -104,11 +105,25 @@
                     return _gameIconSize;
                 }
 
-                Image image = Image.FromFile(_imagePath);
-                _gameIconSize = new Size(image.Width, image.Height);
+                if (ImageIsBink)
+                {
+                    var bink = new BinkVideoDecoder();
+                    bink.Open(_imagePath);
+                    _gameIconSize = new Size(bink.VideoWidth, bink.VideoHeight);
+                    bink.Dispose();
+                }
+                else
+                {
+                    var image = Image.FromFile(_imagePath);
+                    _gameIconSize = new Size(image.Width, image.Height);
+                    image.Dispose();
+                }
+
                 return _gameIconSize;
             }
         }
+
+        public bool ImageIsBink => ImagePath.EndsWith(".bk2");
 
         /// <summary>
         ///     Gets or sets the game image path
@@ -126,14 +141,7 @@
                 return _imagePath;
             }
 
-            set
-            {
-                if (_imagePath != value)
-                {
-                    _imagePath = value;
-                    RaisePropertyChanged(nameof(ImagePath));
-                }
-            }
+            set => SetProperty(ref _imagePath, value, nameof(ImagePath), nameof(ImageIsBink));
         }
 
         /// <summary>

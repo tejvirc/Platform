@@ -56,5 +56,6 @@ as follows:
 		<ReturnToPlayerLimits>
 			<ReturnToPlayer GameType="Any" />
 		</ReturnToPlayerLimits>
+		<ServerControlledPaytables>true</ServerControlledPaytables>
 	</GameRestrictions>
 </GamingConfiguration>

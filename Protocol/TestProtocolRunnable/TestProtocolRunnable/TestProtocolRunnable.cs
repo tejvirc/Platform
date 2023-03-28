@@ -29,7 +29,7 @@
     // ReSharper disable once UnusedMember.Global
     public class TestProtocolRunnable : BaseRunnable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private ServiceWaiter _serviceWaiter = new ServiceWaiter(ServiceManager.GetInstance().GetService<IEventBus>());
 
@@ -132,8 +132,9 @@
 
             _centralHandler = new CentralHandler();
 
-            // TODO : Move this to a central location after all protocols are initialized when multiple protocols are supported.
-            serviceManager.GetService<IEventBus>().Publish(new ProtocolsInitializedEvent());
+            var eventBus = serviceManager.GetService<IEventBus>();
+            eventBus.Publish(new ProtocolsInitializedEvent());
+            eventBus.Subscribe<GameAddedEvent>(this, _ => EnableGames());
 
             Logger.Debug("Initialized.");
         }
@@ -154,6 +155,7 @@
             _waitForWat = false;
 
             var serviceManager = ServiceManager.GetInstance();
+            serviceManager.GetService<IEventBus>().UnsubscribeAll(this);
 
             if ((serviceManager.GetService<IValidationProvider>().UnRegister(
                 ProtocolNames.Test,

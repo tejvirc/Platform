@@ -5,7 +5,6 @@
     using System.Threading;
     using Accounting.Contracts;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Sas.Client;
     using Common.Container;
@@ -39,7 +38,7 @@
         isCentralDeterminationSystemSupported: false)]
     public sealed class SasBase : BaseRunnable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _disposed;
         private ManualResetEvent _shutdownEvent = new(false);
         private ManualResetEvent _startupWaiter = new(false);
@@ -57,17 +56,7 @@
         {
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<InitializationCompletedEvent>(this, _ => _startupWaiter.Set());
-            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
-
-            Logger.Debug("Runnable initialized!");
-        }
-
-        /// <inheritdoc />
-        /// <exception cref="RunnableException">Thrown when Run() is called a second time without calling Stop().</exception>
-        protected override void OnRun()
-        {
-            Logger.Debug("OnRun started");
-
+            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnRestart());
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
             disableManager.Disable(BaseConstants.ProtocolDisabledKey, SystemDisablePriority.Immediate, () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasProtocolInitializing));
 
@@ -81,6 +70,16 @@
             }
 
             propertiesManager.SetProperty(SasProperties.SasShutdownCommandReceivedKey, false);
+            Logger.Debug("Runnable initialized!");
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="RunnableException">Thrown when Run() is called a second time without calling Stop().</exception>
+        protected override void OnRun()
+        {
+            Logger.Debug("OnRun started");
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
 
             Logger.Debug("OnRun got InitializationCompletedEvent");
             if (RunState == RunnableState.Running)
@@ -248,6 +247,12 @@
             }
 
             _disposed = true;
+        }
+
+        private void OnRestart()
+        {
+            _sasHost.HandlePendingExceptions();
+            OnStop();
         }
 
         private void SubscribeProgressiveEvents()

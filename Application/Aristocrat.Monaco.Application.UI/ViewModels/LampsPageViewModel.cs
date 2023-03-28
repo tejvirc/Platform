@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Timers;
     using System.Windows.Input;
+    using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;
     using Contracts.LampTest;
@@ -19,11 +20,10 @@
     using Models;
     using Monaco.Localization.Properties;
     using MVVM.Command;
-    using OperatorMenu;
     using Timer = System.Timers.Timer;
 
     [CLSCompliant(false)]
-    public class LampsPageViewModel : OperatorMenuPageViewModelBase
+    public class LampsPageViewModel : InspectionWizardViewModelBase
     {
         private bool _flashState;
         private Timer _flashTimer;
@@ -36,7 +36,7 @@
         private readonly List<FlashState> _allFlashStates = new List<FlashState>();
         private readonly List<FlashState> _strobeFlashStates = new List<FlashState>();
 
-        public LampsPageViewModel()
+        public LampsPageViewModel(bool isWizard) : base(isWizard)
         {
             ButtonLampsAvailable = ButtonDeckUtilities.HasLamps();
 
@@ -45,7 +45,7 @@
             _towerLightManager = ServiceManager.GetInstance().TryGetService<ITowerLightManager>();
             _towerLight = ServiceManager.GetInstance().TryGetService<ITowerLight>();
 
-            TowerLightsEnabled = !_towerLightManager.TowerLightsDisabled;
+            TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true);
             TowerLights = new List<TowerLight>();
             _allFlashStates.AddRange((FlashState[])Enum.GetValues(typeof(FlashState)));
             _strobeFlashStates.AddRange(new []{ FlashState.Off, FlashState.On });
@@ -97,7 +97,7 @@
         }
 
         public List<FlashState> FlashStates =>
-            SelectedTowerLight.Tier == LightTier.Strobe ? _strobeFlashStates : _allFlashStates;
+            SelectedTowerLight?.Tier == LightTier.Strobe ? _strobeFlashStates : _allFlashStates;
 
         public FlashState SelectedFlashState { get; set; }
 
@@ -212,6 +212,20 @@
             EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Lamps));
 
             _lampTest?.SetEnabled(false);
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void OnTestModeEnabledChanged()
@@ -269,6 +283,10 @@
 
         private void SetSelectedLamps(string s)
         {
+            if (!string.IsNullOrEmpty(s))
+            {
+                Inspection?.SetTestName(s);
+            }
             var selectedLamp = SelectedLamps.None;
             if (string.Equals(s, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BashButtonLamp)))
             {
@@ -284,6 +302,7 @@
         private void SetTowerLightFlashState(object parameter)
         {
             _towerLight?.SetFlashState(SelectedTowerLight?.Tier ?? LightTier.Tier1, SelectedFlashState, Timeout.InfiniteTimeSpan);
+            Inspection?.SetTestName($"{SelectedTowerLight} {SelectedFlashState}");
         }
 
         private void HandleTowerLightEvent(LightTier lightTier, bool lightOn, FlashState flashState)

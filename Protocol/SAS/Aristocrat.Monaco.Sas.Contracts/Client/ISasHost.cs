@@ -42,6 +42,11 @@
         bool Client1HandlesGeneralControl { get; }
 
         /// <summary>
+        ///     Handles any pending exceptions prior to restarting
+        /// </summary>
+        void HandlePendingExceptions();
+
+        /// <summary>
         ///     Register the handlers
         /// </summary>
         /// <param name="exceptionHandler">An instance of <see cref="ISasExceptionHandler"/></param>

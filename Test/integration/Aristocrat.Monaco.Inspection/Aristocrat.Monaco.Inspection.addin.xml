@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="Monaco.Inspection" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Inspection.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/Services">
+    <Service type="Aristocrat.Monaco.Inspection.InspectionService" />
+  </Extension>
+</Addin>

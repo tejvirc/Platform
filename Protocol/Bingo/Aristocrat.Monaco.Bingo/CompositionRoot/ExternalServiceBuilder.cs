@@ -45,8 +45,10 @@
             container.RegisterInstance(serviceManager.GetService<IGameDiagnostics>());
             container.RegisterInstance(serviceManager.GetService<IGameConfigurationProvider>());
             container.RegisterInstance(serviceManager.GetService<IConfigurationProvider>());
+            container.RegisterInstance(serviceManager.GetService<IServerPaytableInstaller>());
             container.RegisterInstance(serviceManager.GetService<IProtocolLinkedProgressiveAdapter>());
             container.RegisterInstance(serviceManager.GetService<IProtocolProgressiveEventsRegistry>());
+			
             return container;
         }
     }

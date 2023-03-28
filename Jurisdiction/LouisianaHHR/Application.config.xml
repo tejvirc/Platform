@@ -57,7 +57,7 @@ as follows:
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
     <DefaultVolumeLevel>4</DefaultVolumeLevel>
-    <AlertVolume Value="80" />
+    <AlertVolume Value="90" Minimum="10" Configurable="true" PlayTestSound="true" />
     <VolumeControl Location="Game" />
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
@@ -75,6 +75,7 @@ as follows:
   <CoinOutSound FilePath="..\jurisdiction\DefaultAssets\coinout.ogg" />
   <FeatureBellSound FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" />
   <CollectSound FilePath="..\jurisdiction\DefaultAssets\collect.ogg" />
+  <DingSound FilePath="..\jurisdiction\DefaultAssets\ding.ogg" />
   <LogTypesAllowedForDisplay>
     <string>BillIn</string>
     <string>Handpay</string>

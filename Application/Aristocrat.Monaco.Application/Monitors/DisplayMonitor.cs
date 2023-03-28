@@ -215,7 +215,7 @@
                         break;
 
                     case ITouchDevice touchDevice:
-                        role = _cabinetDetectionService.GetDisplayMappedToTouchDevice(touchDevice)?.Role ?? DisplayRole.Unknown;
+                        role = _cabinetDetectionService.GetDisplayRoleMappedToTouchDevice(touchDevice) ?? DisplayRole.Unknown;
                         break;
                 }
 
