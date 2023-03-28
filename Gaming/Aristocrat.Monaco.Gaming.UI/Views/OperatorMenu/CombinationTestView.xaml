@@ -53,6 +53,7 @@
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}" Binding="{Binding PaytableId}" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}" Binding="{Binding Denomination, Converter={StaticResource CurrencyConverter}}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VariationText}}" Binding="{Binding Variation}" />
             </DataGrid.Columns>
 
         </DataGrid>
