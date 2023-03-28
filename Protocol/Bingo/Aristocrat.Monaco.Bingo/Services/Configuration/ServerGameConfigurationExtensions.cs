@@ -36,14 +36,5 @@
                 Rtp = detail.Rtp
             };
         }
-
-        public static BetInformationDetail ToBetInformationDetail(this ServerBetInformationDetail detail)
-        {
-            return new BetInformationDetail
-            {
-                Bet = detail.Bet,
-                Rtp = detail.Rtp
-            };
-        }
     }
 }
