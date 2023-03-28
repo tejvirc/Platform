@@ -86,12 +86,13 @@
                 call.Dispose);
         }
 
-        protected static async Task<TResponse> LogResponse<TResponse>(Task<TResponse> callingTask)
+        protected async Task<TResponse> LogResponse<TResponse>(Task<TResponse> callingTask)
         {
             try
             {
                 var response = await callingTask;
                 Logger.Debug($"Response Received: {response}");
+                OnMessageReceived();
                 return response;
             }
             catch (Exception ex)
