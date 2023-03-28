@@ -36,7 +36,6 @@
   <LcdChooseVideoLanguage2>../jurisdiction/Quebec-VLT/ui/Videos/LCD_ChooseGame_EN.bk2</LcdChooseVideoLanguage2>
   <AttractVideoNoBonusFilename>../jurisdiction/Quebec-VLT/ui/Videos/Attract_NoBonus.bk2</AttractVideoNoBonusFilename>
   <AttractVideoWithBonusFilename>../jurisdiction/Quebec-VLT/ui/Videos/Attract_Bonus.bk2</AttractVideoWithBonusFilename>
-  <TopperLobbyVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</TopperLobbyVideoFilename>
   <ClockMode>Military</ClockMode>
   <DefaultGameDisplayOrderByThemeId>
       <string>ATI_WildYukon</string>
