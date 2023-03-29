@@ -957,4 +957,145 @@
   <data name="Value" xml:space="preserve">
     <value>??Value??</value>
   </data>
+  <data name="ActionLabel" xml:space="preserve">
+    <value>??Action??</value>
+  </data>
+  <data name="BellyDoorName" xml:space="preserve">
+    <value>??Belly Door??</value>
+  </data>
+  <data name="Cashable" xml:space="preserve">
+    <value>??Cashable??</value>
+  </data>
+  <data name="CashablePromotional" xml:space="preserve">
+    <value>??Cashable Promotional??</value>
+  </data>
+  <data name="CashDoorName" xml:space="preserve">
+    <value>??Stacker Door??</value>
+  </data>
+  <data name="ClosedText" xml:space="preserve">
+    <value>??Closed??</value>
+  </data>
+  <data name="CreditType" xml:space="preserve">
+    <value>??Credit Type??</value>
+  </data>
+  <data name="CreditTypeHeader" xml:space="preserve">
+    <value>??CREDIT TYPE??</value>
+  </data>
+  <data name="CurrentCredits" xml:space="preserve">
+    <value>??Current Credits??</value>
+  </data>
+  <data name="CurrentErrors" xml:space="preserve">
+    <value>??Current Errors??</value>
+  </data>
+  <data name="Denom" xml:space="preserve">
+    <value>??DENOM??</value>
+  </data>
+  <data name="DiagnosticMainPageTitle" xml:space="preserve">
+    <value>??Diagnostics??</value>
+  </data>
+  <data name="DisableEGM" xml:space="preserve">
+    <value>??Out of Service Mode??</value>
+  </data>
+  <data name="DoorLabel" xml:space="preserve">
+    <value>??Doors??</value>
+  </data>
+  <data name="DropDoorName" xml:space="preserve">
+    <value>??Drop Door??</value>
+  </data>
+  <data name="EventLogTitle" xml:space="preserve">
+    <value>??Logs??</value>
+  </data>
+  <data name="Games" xml:space="preserve">
+    <value>??Games??</value>
+  </data>
+  <data name="HardwareLabel" xml:space="preserve">
+    <value>??Hardware??</value>
+  </data>
+  <data name="HostsInfoViewTitle" xml:space="preserve">
+    <value>??Comms??</value>
+  </data>
+  <data name="Identification" xml:space="preserve">
+    <value>??Identification??</value>
+  </data>
+  <data name="IdleTextDefault" xml:space="preserve">
+    <value>??INSERT MONEY TO PLAY??</value>
+  </data>
+  <data name="JackpotKeyRequired" xml:space="preserve">
+    <value>??Jackpot Key must be turned to change these settings??</value>
+  </data>
+  <data name="LastOpenedLabel" xml:space="preserve">
+    <value>??Last Opened??</value>
+  </data>
+  <data name="LogicDoorName" xml:space="preserve">
+    <value>??Logic Door??</value>
+  </data>
+  <data name="MainDoorName" xml:space="preserve">
+    <value>??Main Door??</value>
+  </data>
+  <data name="MainOpticDoorName" xml:space="preserve">
+    <value>??Main Optic Door??</value>
+  </data>
+  <data name="MechanicalMeterDoorName" xml:space="preserve">
+    <value>??Mechanical Meter Door??</value>
+  </data>
+  <data name="MenuTitleRoleAdmin" xml:space="preserve">
+    <value>??Retailer??</value>
+  </data>
+  <data name="MetersScreen" xml:space="preserve">
+    <value>??Meters??</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>??Name??</value>
+  </data>
+  <data name="NonCashablePromotional" xml:space="preserve">
+    <value>??Non-Cashable Promotional??</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>??N/A??</value>
+  </data>
+  <data name="OpenText" xml:space="preserve">
+    <value>??Open??</value>
+  </data>
+  <data name="OperatorMenu" xml:space="preserve">
+    <value>??Operator Menu??</value>
+  </data>
+  <data name="OperatorMenuActive" xml:space="preserve">
+    <value>??Operator Menu Active??</value>
+  </data>
+  <data name="PaytableRTP" xml:space="preserve">
+    <value>??Paytable RTP??</value>
+  </data>
+  <data name="ReconfigureGames" xml:space="preserve">
+    <value>??Reconfigure Games??</value>
+  </data>
+  <data name="StatusLabel" xml:space="preserve">
+    <value>??Status??</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>??System??</value>
+  </data>
+  <data name="SystemReset" xml:space="preserve">
+    <value>??SystemReset??</value>
+  </data>
+  <data name="ToolsMainPageLabel" xml:space="preserve">
+    <value>??ToolsMainPageLabel??</value>
+  </data>
+  <data name="TopBoxDoorName" xml:space="preserve">
+    <value>??Top Box Door??</value>
+  </data>
+  <data name="TopBoxOpticDoorName" xml:space="preserve">
+    <value>??Top Box Optic Door??</value>
+  </data>
+  <data name="TotalCredits" xml:space="preserve">
+    <value>??Total Current Credits??</value>
+  </data>
+  <data name="UniversalInterfaceBoxDoorName" xml:space="preserve">
+    <value>??Universal Interface Box Door??</value>
+  </data>
+  <data name="ViewProgressiveSummary" xml:space="preserve">
+    <value>??View Progressive Summary??</value>
+  </data>
+  <data name="ViewRTPSummary" xml:space="preserve">
+    <value>??View RTP Summary??</value>
+  </data>
 </root>
