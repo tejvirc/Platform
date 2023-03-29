@@ -5106,12 +5106,8 @@ Max: Should be less than the Large Win Limit</value>
     <value>What will be saved?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="PartialClearSummeryText" xml:space="preserve">
+  <data name="PartialClearSummaryText" xml:space="preserve">
     <value>This will reset the machine back to the state it was in after initial configuration.</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
-  </data>
-  <data name="PartialResetConditionText" xml:space="preserve">
-    <value>Please remove all credits from the machine and ensure not in game round to enable Reset.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="PartialResetDialogText" xml:space="preserve">
@@ -11663,6 +11659,39 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="TransactionReportingQueueAlmostFullHelp" xml:space="preserve">
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
+  </data>
+  <data name="FullClearButtonContent" xml:space="preserve">
+    <value>Full Reset</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText1" xml:space="preserve">
+    <value>What will be cleared?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText2" xml:space="preserve">
+    <value>Static data, history data, meters.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText3" xml:space="preserve">
+    <value>What will be saved?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText4" xml:space="preserve">
+    <value>Games.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearHeadingText" xml:space="preserve">
+    <value>Full Reset</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearSummaryText" xml:space="preserve">
+    <value>This will reset the machine back to the state it was in after initial configuration.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullResetDialogText" xml:space="preserve">
+    <value>This operation cannot be reversed.
+Do you really want to do full reset?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="NoGamesForThisLanguage" xml:space="preserve">
     <value>No games are available for this language</value>

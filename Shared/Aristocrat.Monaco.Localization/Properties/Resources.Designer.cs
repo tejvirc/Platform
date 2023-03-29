@@ -12077,6 +12077,102 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearButtonContent {
+			get {
+				return ResourceManager.GetString("FullClearButtonContent", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to What will be cleared?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText1 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText1", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Static data, history data, meters..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText2 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText2", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to What will be saved?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText3 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText3", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText4 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText4", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearHeadingText {
+			get {
+				return ResourceManager.GetString("FullClearHeadingText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to This will reset the machine back to the state it w....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearSummaryText {
+			get {
+				return ResourceManager.GetString("FullClearSummaryText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullResetDialogText {
+			get {
+				return ResourceManager.GetString("FullResetDialogText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Functional group not found.
 		/// </summary>
         /// <remarks>
@@ -23014,9 +23110,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-		public static string PartialClearSummeryText {
+		public static string PartialClearSummaryText {
 			get {
-				return ResourceManager.GetString("PartialClearSummeryText", resourceCulture) ?? string.Empty;
+				return ResourceManager.GetString("PartialClearSummaryText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -23026,18 +23122,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PartialHandpays {
 			get {
 				return ResourceManager.GetString("PartialHandpays", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Please remove all credits from the machine and ens....
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string PartialResetConditionText {
-			get {
-				return ResourceManager.GetString("PartialResetConditionText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -46603,6 +46687,102 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearButtonContent {
+			get {
+				return "FullClearButtonContent";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to What will be cleared?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText1 {
+			get {
+				return "FullClearDetailsText1";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Static data, history data, meters..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText2 {
+			get {
+				return "FullClearDetailsText2";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to What will be saved?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText3 {
+			get {
+				return "FullClearDetailsText3";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText4 {
+			get {
+				return "FullClearDetailsText4";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearHeadingText {
+			get {
+				return "FullClearHeadingText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to This will reset the machine back to the state it w....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearSummaryText {
+			get {
+				return "FullClearSummaryText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullResetDialogText {
+			get {
+				return "FullResetDialogText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Functional group not found.
 		/// </summary>
         /// <remarks>
@@ -57540,9 +57720,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-		public static string PartialClearSummeryText {
+		public static string PartialClearSummaryText {
 			get {
-				return "PartialClearSummeryText";
+				return "PartialClearSummaryText";
 			}
 		}
 
@@ -57552,18 +57732,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PartialHandpays {
 			get {
 				return "PartialHandpays";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Please remove all credits from the machine and ens....
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string PartialResetConditionText {
-			get {
-				return "PartialResetConditionText";
 			}
 		}
 
@@ -75946,6 +76114,62 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		FrontRightText,
 		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearButtonContent,
+		/// <summary>
+		///   Looks up a localized string similar to What will be cleared?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText1,
+		/// <summary>
+		///   Looks up a localized string similar to Static data, history data, meters..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText2,
+		/// <summary>
+		///   Looks up a localized string similar to What will be saved?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText3,
+		/// <summary>
+		///   Looks up a localized string similar to Games..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText4,
+		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearHeadingText,
+		/// <summary>
+		///   Looks up a localized string similar to This will reset the machine back to the state it w....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearSummaryText,
+		/// <summary>
+		///   Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullResetDialogText,
+		/// <summary>
 		///   Looks up a localized string similar to Functional group not found.
 		/// </summary>
         /// <remarks>
@@ -82198,18 +82422,11 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-		PartialClearSummeryText,
+		PartialClearSummaryText,
 		/// <summary>
 		///   Looks up a localized string similar to Partial Handpays.
 		/// </summary>
 		PartialHandpays,
-		/// <summary>
-		///   Looks up a localized string similar to Please remove all credits from the machine and ens....
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		PartialResetConditionText,
 		/// <summary>
 		///   Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
 		/// </summary>

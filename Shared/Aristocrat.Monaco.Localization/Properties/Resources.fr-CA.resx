@@ -460,7 +460,7 @@
   <data name="CashOutImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAANYAAADWCAYAAACt43wuAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
-        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsAAAA7AAWrWiQkAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADr4AAA6+AepCscAAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
         vUJCJ5QAUqSolIA06Z9UpfsHFBArCAKCAh8BBQEBAekiRcQCFkRRBCmCNEURKR9SRUSKFFGwk/1fv5l5
         z11nn33avTeBhJnneXNu5szMmdmzfrPWXrtMFkKoVKnSECu58nVS3zOP3DPtpcd+Pf20Yw9f85M7bfTd
         s/Z6+zPf/tDy/7x2/yVeu+XgRcMvD18o3HfM1PDgcQuGR7+wQHj8lAXC709dMPzxjAWGVE99qdCfzlyw
@@ -929,5 +929,71 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="FullClearButtonContent" xml:space="preserve">
+    <value>???Full Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText1" xml:space="preserve">
+    <value>???What will be cleared????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText2" xml:space="preserve">
+    <value>???Static data, history data, meters.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText3" xml:space="preserve">
+    <value>???What will be saved????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText4" xml:space="preserve">
+    <value>???Games????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearHeadingText" xml:space="preserve">
+    <value>???Full Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearSummaryText" xml:space="preserve">
+    <value>???This will reset the machine back to the state it was in after initial configuration.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullResetDialogText" xml:space="preserve">
+    <value>???This operation cannot be reversed.???
+Do you really want to do full reset????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialClearButtonContent" xml:space="preserve">
+    <value>???Partial Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialClearDetailsText1" xml:space="preserve">
+    <value>???What will be cleared????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialClearDetailsText2" xml:space="preserve">
+    <value>???Critical data, history data, meters.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialClearDetailsText3" xml:space="preserve">
+    <value>???What will be saved????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialClearDetailsText4" xml:space="preserve">
+    <value>???Static data, games.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialClearHeadingText" xml:space="preserve">
+    <value>???Partial Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialClearSummaryText" xml:space="preserve">
+    <value>???This will reset the machine back to the state it was in after initial configuration.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PartialResetDialogText" xml:space="preserve">
+    <value>???This operation cannot be reversed.???
+Do you really want to do partial reset????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>
