@@ -55,7 +55,7 @@
             <!-- Date -->
             <Label Grid.Row="4" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Date}}" />
             <DatePicker Grid.Row="5"
-                        SelectedDateFormat="Long" SelectedDate="{Binding PickerDate}"
+                        SelectedDateFormat="Long" Text="{Binding PickerDate, Mode=TwoWay}"
                         DisplayDateStart="1/01/16"
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Center" 
