@@ -111,9 +111,6 @@
         public ICollection<Type> ServiceTypes => new[] { typeof(ISerialTouchService) };
 
         /// <inheritdoc />
-        public bool IsManualTabletInputService { get; private set; }
-
-        /// <inheritdoc />
         public bool Initialized { get; private set; }
 
         /// <inheritdoc />
@@ -283,7 +280,6 @@
         private void ConfigureComPort()
         {
             Logger.Debug("SerialTouchService - Is LS cabinet");
-            IsManualTabletInputService = IsManualTabletInputService();
 
             var port = _serialPortsService.LogicalToPhysicalName(SerialTouchComPort);
             var keepAlive = CheckDisconnectTimeoutMs;

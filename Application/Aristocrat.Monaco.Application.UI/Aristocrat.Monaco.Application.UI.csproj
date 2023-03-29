@@ -46,6 +46,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="MonacoDefaultQwertyLayout.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Aristocrat_Logo_White_Large.png" />
     <Resource Include="Resources\AristocratLogoPortrait.png" />
     <Content Include="StatusPages.addin.xml">
@@ -111,6 +114,7 @@
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="1.9.1" />
+    <PackageReference Include="MindFusion.Keyboard.Wpf" Version="5.0.3" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="OxyPlot.Wpf" Version="1.0.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />

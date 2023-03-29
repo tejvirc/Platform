@@ -6281,6 +6281,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string CreatingKeyboardService {
+			get {
+				return ResourceManager.GetString("CreatingKeyboardService", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		public static string CreatingLiveAuthenticationManager {
@@ -40795,6 +40807,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string CreatingKeyboardService {
+			get {
+				return "CreatingKeyboardService";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		public static string CreatingLiveAuthenticationManager {
@@ -72635,6 +72659,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Creating {0}.
 		/// </summary>
 		CreatingFormat,
+		/// <summary>
+		///   Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		CreatingKeyboardService,
 		/// <summary>
 		///   Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>

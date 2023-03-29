@@ -456,6 +456,12 @@
         public static string BeagleBoneEnabled = "BeagleBoneEnabled";
 
         /// <summary>
+        ///     Key used to get the type of keyboard to use.  (Embedded, Windows, Default)
+
+        /// </summary>
+        public static string KeyboardProvider = "KeyboardProvider";
+
+        /// <summary>
         ///     used to get mask of enabled speakers
         /// </summary>
         public static string EnabledSpeakersMask = "EnabledSpeakersMask";
