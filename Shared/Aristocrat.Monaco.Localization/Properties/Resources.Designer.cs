@@ -20879,6 +20879,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to No games are available for this language.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string NoGamesForThisLanguage {
+			get {
+				return ResourceManager.GetString("NoGamesForThisLanguage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to No Keno Games Found.
 		/// </summary>
         /// <remarks>
@@ -55393,6 +55405,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to No games are available for this language.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string NoGamesForThisLanguage {
+			get {
+				return "NoGamesForThisLanguage";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to No Keno Games Found.
 		/// </summary>
         /// <remarks>
@@ -80938,6 +80962,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		NoGameOptionsAtMaxBetLimit,
+		/// <summary>
+		///   Looks up a localized string similar to No games are available for this language.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		NoGamesForThisLanguage,
 		/// <summary>
 		///   Looks up a localized string similar to No Keno Games Found.
 		/// </summary>

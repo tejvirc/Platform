@@ -11,6 +11,7 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameHistoryView"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d" 
@@ -28,15 +29,19 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="HeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                <Setter Property="Height" Value="Auto"/>
                 <Setter Property="MinWidth" Value="50" />
                 <Setter Property="MinHeight" Value="65" />
                 <Setter Property="FontSize" Value="17"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
 
             <Style x:Key="WrappedHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                <Setter Property="Height" Value="Auto"/>
                 <Setter Property="MinWidth" Value="50" />
                 <Setter Property="MinHeight" Value="65" />
                 <Setter Property="FontSize" Value="17"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
 
             <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MonacoDataGridCell}">
@@ -78,21 +83,21 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <ScrollViewer x:Name="LB_ScrollViewer" Padding="{TemplateBinding Padding}"
-                                          CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
-                                          Focusable="False"
-                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                          viewModels:ScrollViewerBehavior.AutoScrollToTop="{Binding ResetScrollToTop, Mode=TwoWay}">
+                                                  CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                                  Focusable="False"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                                  viewModels:ScrollViewerBehavior.AutoScrollToTop="{Binding ResetScrollToTop, Mode=TwoWay}">
                                         <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                     </ScrollViewer>
                                     <!--DockPanel doesn't seem to work like it does for ScrollButtonDataGrid-->
                                     <DockPanel Grid.Column="1" LastChildFill="False">
                                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Top">
                                             <common:DataGridUpDownScrollButtons HorizontalAlignment="Right"
-                                                                                  VerticalAlignment="Center"
-                                                                                  ScrollGrid="{Binding ElementName=LB_ScrollViewer}"
-                                                                                  Visibility="{Binding CanContentScroll, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource Self}}"/>
+                                                                                VerticalAlignment="Center"
+                                                                                ScrollGrid="{Binding ElementName=LB_ScrollViewer}"
+                                                                                Visibility="{Binding CanContentScroll, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource Self}}"/>
                                         </StackPanel>
                                     </DockPanel>
                                 </Grid>
@@ -113,7 +118,7 @@
         </Grid.RowDefinitions>
 
         <DataGrid SelectedItem="{Binding SelectedGameItem, Mode=TwoWay}"
-                  ItemsSource="{Binding GameHistory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding FilteredGameHistory}"
                   ScrollViewer.CanContentScroll="True"
                   Height="Auto"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
@@ -124,24 +129,38 @@
             </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" 
-                                    Binding="{Binding LogSequenceText}" 
+                                    Binding="{Binding (models:GameRoundHistoryItem.LogSequenceText)}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"
                                     Visibility="{Binding ElementName=EventViewer, Path=DataContext.ShowSequenceNumber, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ReferenceNumberText}}" 
-                                    Binding="{Binding RefNoText}" 
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ReferenceNumberText}}"
+                                    Binding="{Binding (models:GameRoundHistoryItem.RefNoText)}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}" 
-                                    MinWidth="230" Binding="{Binding GameName}" 
+                <DataGridTextColumn MinWidth="230"
+                                    Binding="{Binding (models:GameRoundHistoryItem.GameName)}"
                                     HeaderStyle="{StaticResource HeaderStyle}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}"
+                                                 FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid}"/>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
-                    <Style>
-                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                    </Style>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StartTimeText}}" 
-                                    Binding="{Binding StartTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}" 
-                                    HeaderStyle="{StaticResource HeaderStyle}"/>
+                <DataGridTextColumn Binding="{Binding StartTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
+                                    HeaderStyle="{StaticResource HeaderStyle}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <common:FilterByDateButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StartTimeText}}"
+                                                       StartDate="{Binding Path=DataContext.FilterStartDate, ElementName=MainGrid}"
+                                                       EndDate="{Binding Path=DataContext.FilterEndDate, ElementName=MainGrid}"
+                                                       SelectedDate="{Binding Path=DataContext.FilterSelectedDate, ElementName=MainGrid, Mode=TwoWay}"/>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndTimeText}}" 
                                     Binding="{Binding EndTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"/>
@@ -169,9 +188,15 @@
                                     MinWidth="90" 
                                     Binding="{Binding EndCredits, Converter={StaticResource CurrencyConverter}}" 
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}" 
-                                    Binding="{Binding Status}" 
-                                    HeaderStyle="{StaticResource HeaderStyle}"/>
+                <DataGridTextColumn Binding="{Binding Status}"
+                                    HeaderStyle="{StaticResource HeaderStyle}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
+                                                 FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid}" />
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

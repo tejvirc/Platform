@@ -129,6 +129,7 @@
                 <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource TrueVisibleFalseCollapsed}}" Text="{Binding SelectedDenoms}" />
 
                 <DataGrid Grid.Row="2" Margin="0 -15 0 0" 
+                          Style="{StaticResource MonacoScrollButtonDataGrid}"
                           ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
                           Height="{Binding ElementName=GridGameConfigs, Path=ActualHeight}"
                           Width="{Binding ElementName=GridGameConfigs, Path=ActualWidth}"
@@ -136,8 +137,6 @@
                           RowHeight="75"
                           RowStyle="{StaticResource MonacoUnselectableDataGridRow}"
                           CellStyle="{StaticResource MonacoExtraCompactDataGridCell}"
-                          AutoGenerateColumns="False"
-                          VerticalAlignment="Top"
                           ScrollViewer.PanningMode="VerticalOnly"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -150,14 +149,7 @@
                           VirtualizingPanel.ScrollUnit="Item"
                           EnableRowVirtualization="True"
                           EnableColumnVirtualization="True"
-                          SelectedItem="{Binding SelectedConfig}"
-                          CanUserAddRows="False"
-                          CanUserResizeColumns="False"
-                          CanUserResizeRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True">
+                          SelectedItem="{Binding SelectedConfig}">
                     <DataGrid.Resources>
                         <common:BindingProxy x:Key="PageModel" Data="{Binding}"/>
                         <Style TargetType="ComboBox" BasedOn="{StaticResource MonacoComboBox}">

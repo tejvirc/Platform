@@ -53,6 +53,7 @@
 
         private readonly IDictionary<string, EditableGameProfile> _editableGames;
         private readonly IDictionary<GameType, List<EditableGameProfile>> _gamesMapping;
+        private readonly object _gamesMappingLock = new object();
         private readonly IDictionary<GameType, List<EditableGameConfiguration>> _editableGameConfigByGameTypeMapping;
 
         private readonly IDictionary<(GameType gameType, string subType), List<EditableGameConfiguration>>
@@ -149,18 +150,13 @@
 
         public ActionCommand<object> ExportCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveSetupCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveViewCommand { get; }
 
         public string ReadOnlyStatus
         {
             get => _readOnlyStatus;
-            // ReSharper disable once MemberCanBePrivate.Global - used by xaml
             set => SetProperty(ref _readOnlyStatus, value, nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
         }
 
@@ -238,9 +234,12 @@
             get => _selectedGameType;
             set
             {
-                if (!_gamesMapping.ContainsKey(value) || !_gamesMapping[value].Any())
+                lock (_gamesMappingLock)
                 {
-                    return;
+                    if (!_gamesMapping.ContainsKey(value) || !_gamesMapping[value].Any())
+                    {
+                        return;
+                    }
                 }
 
                 SetProperty(ref _selectedGameType, value);
@@ -293,7 +292,7 @@
             .Where(c => c.Active)
             .OrderBy(c => c.Denom);
 
-        public string ThemePlusOptions => $"{SelectedGame.ThemeName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOptions)} {ReadOnlyStatus}";
+        public string ThemePlusOptions => $"{SelectedGame?.ThemeName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOptions)} {ReadOnlyStatus}";
 
         public bool HasTopAward => _topAwardValue > 0;
 
@@ -361,9 +360,18 @@
 
         public bool IsEnabledGamesLimitExceeded => TotalEnabledGames > _digitalRights.LicenseCount;
 
-        public int TotalEnabledGames => _gamesMapping.Values
-            .SelectMany(m => m)
-            .Count(m => m.Enabled);
+        public int TotalEnabledGames
+        {
+            get
+            {
+                lock (_gamesMappingLock)
+                {
+                    return _gamesMapping.Values
+                        .SelectMany(m => m)
+                        .Count(m => m.Enabled);
+                }
+            }
+        }
 
         public string SaveWarningText
         {
@@ -392,7 +400,14 @@
             });
         }
 
-        public override bool HasChanges() => _gamesMapping.Values.SelectMany(gameProfiles => gameProfiles).Any(gameProfile => gameProfile.HasChanges());
+        public override bool HasChanges()
+        {
+            lock (_gamesMappingLock)
+            {
+                return _gamesMapping.Values.SelectMany(gameProfiles => gameProfiles)
+                    .Any(gameProfile => gameProfile.HasChanges());
+            }
+        }
 
         public override void Save()
         {
@@ -477,7 +492,6 @@
             IsInEditMode = _canEdit && !InitialConfigComplete;
 
             SetEditMode();
-            AutoEnableGames();
             UpdateSaveWarning();
         }
 
@@ -572,7 +586,11 @@
                     AccountingConstants.DefaultMaxBetLimit))
                 .MillicentsToCents();
 
-            _gamesMapping.Clear();
+            lock (_gamesMappingLock)
+            {
+                _gamesMapping.Clear();
+            }
+
             ClearEditableGames();
 
             Logger.Debug("Loading games...");
@@ -611,6 +629,9 @@
             SelectedGameType = GameTypes.FirstOrDefault();
             CalculateTopAward();
             ScaleEnabledRtpValues();
+
+            // This must be done after the _gamesMapping setup is finished in SetupPaytableOptions
+            AutoEnableGames();
         }
 
         private void CheckForMaximumDenominations(List<EditableGameConfiguration> gameConfigs, ICollection<long> activeDenoms)
@@ -948,13 +969,16 @@
                     _restrictionProvider,
                     _gameConfiguration);
                 _editableGames.Add(groupKey.ThemeName, gameProfile);
-                if (_gamesMapping.ContainsKey(groupKey.GameType))
+                lock (_gamesMappingLock)
                 {
-                    _gamesMapping[groupKey.GameType].Add(gameProfile);
-                }
-                else
-                {
-                    _gamesMapping.Add(groupKey.GameType, new List<EditableGameProfile> { gameProfile });
+                    if (_gamesMapping.ContainsKey(groupKey.GameType))
+                    {
+                        _gamesMapping[groupKey.GameType].Add(gameProfile);
+                    }
+                    else
+                    {
+                        _gamesMapping.Add(groupKey.GameType, new List<EditableGameProfile> { gameProfile });
+                    }
                 }
             }
 
@@ -1386,10 +1410,13 @@
 
         private void ApplySelectedGameType()
         {
-            Games = new ObservableCollection<EditableGameProfile>(
-                _gamesMapping.TryGetValue(SelectedGameType, out var gameProfiles)
-                    ? gameProfiles.OrderBy(g => g.ThemeName)
-                    : Enumerable.Empty<EditableGameProfile>());
+            lock (_gamesMappingLock)
+            {
+                Games = new ObservableCollection<EditableGameProfile>(
+                    _gamesMapping.TryGetValue(SelectedGameType, out var gameProfiles)
+                        ? gameProfiles.OrderBy(g => g.ThemeName)
+                        : Enumerable.Empty<EditableGameProfile>());
+            }
 
             SelectedGame = Games.FirstOrDefault();
 
@@ -1847,9 +1874,12 @@
 
         private void AutoEnableGames()
         {
-            foreach (var key in _gamesMapping.Keys.ToList())
+            lock (_gamesMappingLock)
             {
-                _gamesMapping[key].ForEach(AutoEnableGame);
+                foreach (var key in _gamesMapping.Keys.ToList())
+                {
+                    _gamesMapping[key].ForEach(AutoEnableGame);
+                }
             }
         }
 
@@ -1859,10 +1889,10 @@
             {
                 return;
             }
-            
-            for (var i = 0; i < gameProfile.GameConfigurations.Count; i++)
+
+            foreach (var config in gameProfile.GameConfigurations)
             {
-                gameProfile.GameConfigurations[i].Enabled = true;
+                config.Enabled = true;
             }
         }
 

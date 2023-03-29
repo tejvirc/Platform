@@ -14,6 +14,7 @@
                    xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
                    xmlns:loc="http://monaco.aristocrat.com/localization"
                    xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar"
+                   xmlns:lex="http://wpflocalizeextension.codeplex.com"
                    loc:Localizer.For="Player"
                    mc:Ignorable="d"
                    Title="{Binding MainTitle}"
@@ -121,6 +122,19 @@
                         <ContentControl x:Name="LobbyControl"
                                         Content="{Binding}"
                                         ContentTemplateSelector="{StaticResource LobbyViewTemplateSelector}"/>
+
+                        <!-- No Games Enabled for this language warning -->
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="20"
+                                   FontSize="30"
+                                   FontFamily="Arial"
+                                   FontWeight="ExtraBold"
+                                   Foreground="Gold"
+                                   TextAlignment="Center"
+                                   Text="{lex:Loc {x:Static loc:ResourceKeys.NoGamesForThisLanguage}}"
+                                   Visibility="{Binding NoGamesForThisLanguageErrorIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+
                         <!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. -->
                         <bink:BinkGpuControl x:Name="GameAttract"
                                              Grid.Row="0"

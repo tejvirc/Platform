@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.UI.Common.Controls.FilterByDateButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical">
+        <ToggleButton x:Name="FilterDateToggleButton" Style="{StaticResource FilterToggleButton}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <mah:ContentControlEx Style="{StaticResource FilterContent}" Content="{Binding HeaderText}"/>
+                <iconPacks:PackIconMaterial Style="{StaticResource FilterIcon}"/>
+            </StackPanel>
+        </ToggleButton>
+        <Popup Style="{StaticResource FilterPopup}"
+               PlacementTarget="{Binding ElementName=FilterDateToggleButton}"
+               IsOpen="{Binding ElementName=FilterDateToggleButton, Path=IsChecked}">
+            <Border Style="{StaticResource FilterPopupBorder}">
+                <DatePicker IsTodayHighlighted="False"
+                            DisplayDateStart="{Binding StartDate}"
+                            DisplayDateEnd="{Binding EndDate}"
+                            SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+            </Border>
+        </Popup>
+    </StackPanel>
+</UserControl>

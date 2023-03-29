@@ -722,6 +722,7 @@
                     RaisePropertyChanged(nameof(IsSingleTabView));
                     RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
                     RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+                    RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
                 }
             }
         }
@@ -753,6 +754,8 @@
             get => _multiLanguageEnabled;
             set => SetProperty(ref _multiLanguageEnabled, value);
         }
+
+        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && DisplayedGameList.All(g => g.ImagePath == null);
 
         /// <summary>
         ///     Gets or sets a value indicating whether VBD rendering is disabled (as it is in system lockup).
@@ -3896,6 +3899,7 @@
 
             ClockTimer.UpdateTime();
             SendLanguageChangedEvent();
+            RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
         }
 
         private void GameList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
