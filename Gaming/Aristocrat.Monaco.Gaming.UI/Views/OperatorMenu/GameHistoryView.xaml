@@ -141,7 +141,8 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}"
-                                                 FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid}"/>
+                                                 FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid}"
+                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
@@ -157,7 +158,8 @@
                             <common:FilterByDateButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StartTimeText}}"
                                                        StartDate="{Binding Path=DataContext.FilterStartDate, ElementName=MainGrid}"
                                                        EndDate="{Binding Path=DataContext.FilterEndDate, ElementName=MainGrid}"
-                                                       SelectedDate="{Binding Path=DataContext.FilterSelectedDate, ElementName=MainGrid, Mode=TwoWay}"/>
+                                                       SelectedDate="{Binding Path=DataContext.FilterSelectedDate, ElementName=MainGrid, Mode=TwoWay}"
+                                                       IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}" />
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
@@ -193,7 +195,8 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
-                                                 FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid}" />
+                                                 FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid}"
+                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
