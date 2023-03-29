@@ -11684,4 +11684,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>All games of this type must use the same package</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="NoGamesForThisLanguage" xml:space="preserve">
+    <value>No games are available for this language</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

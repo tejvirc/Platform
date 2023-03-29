@@ -1,24 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Controls.Border.xaml"/>
-        <ResourceDictionary Source="Controls.Button.xaml" />
-        <ResourceDictionary Source="Controls.Calendar.xaml" />
-        <ResourceDictionary Source="Controls.CheckBox.xaml" />
-        <ResourceDictionary Source="Controls.ComboBox.xaml" />
-        <ResourceDictionary Source="Controls.ContextMenu.xaml" />
-        <ResourceDictionary Source="Controls.DataGrid.xaml" />
-        <ResourceDictionary Source="Controls.DatePicker.xaml" />
-        <ResourceDictionary Source="Controls.GroupBox.xaml" />
-        <ResourceDictionary Source="Controls.Label.xaml" />
-        <ResourceDictionary Source="Controls.ListBox.xaml" />
-        <ResourceDictionary Source="Controls.ListView.xaml" />
-        <ResourceDictionary Source="Controls.RadioButton.xaml" />
-        <ResourceDictionary Source="Controls.RepeatButton.xaml" />
-        <ResourceDictionary Source="Controls.Slider.xaml" />
-        <ResourceDictionary Source="Controls.TabControl.xaml" />
-        <ResourceDictionary Source="Controls.TextBlock.xaml" />
-        <ResourceDictionary Source="Controls.TextBox.xaml" />
-        <ResourceDictionary Source="Controls.ToggleButton.xaml" />
-        <ResourceDictionary Source="Controls.ToggleSwitch.xaml" />
+        <ResourceDictionary Source="Controls.Button.xaml"/>
+        <ResourceDictionary Source="Controls.Calendar.xaml"/>
+        <ResourceDictionary Source="Controls.CheckBox.xaml"/>
+        <ResourceDictionary Source="Controls.ComboBox.xaml"/>
+        <ResourceDictionary Source="Controls.ContextMenu.xaml"/>
+        <ResourceDictionary Source="Controls.DataGrid.xaml"/>
+        <ResourceDictionary Source="Controls.DatePicker.xaml"/>
+        <ResourceDictionary Source="Controls.GroupBox.xaml"/>
+        <ResourceDictionary Source="Controls.Label.xaml"/>
+        <ResourceDictionary Source="Controls.ListBox.xaml"/>
+        <ResourceDictionary Source="Controls.ListView.xaml"/>
+        <ResourceDictionary Source="Controls.RadioButton.xaml"/>
+        <ResourceDictionary Source="Controls.RepeatButton.xaml"/>
+        <ResourceDictionary Source="Controls.Slider.xaml"/>
+        <ResourceDictionary Source="Controls.TabControl.xaml"/>
+        <ResourceDictionary Source="Controls.TextBlock.xaml"/>
+        <ResourceDictionary Source="Controls.TextBox.xaml"/>
+        <ResourceDictionary Source="Controls.ToggleButton.xaml"/>
+        <ResourceDictionary Source="Controls.ToggleSwitch.xaml"/>
+        <ResourceDictionary Source="FilterButtonStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

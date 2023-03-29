@@ -171,4 +171,7 @@
   <data name="EnabledDenominationsLabel" xml:space="preserve">
     <value>Dénominations activées:</value>
   </data>
+  <data name="NoGamesForThisLanguage" xml:space="preserve">
+    <value>Les jeux ne sont pas disponibles pour cette langue</value>
+  </data>
 </root>

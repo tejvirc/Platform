@@ -6,9 +6,9 @@
     using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Linq;
-    using Kernel;
     using Contracts;
     using Contracts.Models;
+    using Kernel;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
     using MVVM.Model;
@@ -123,7 +123,7 @@
             }
         }
 
-        public bool ImageIsBink => ImagePath.EndsWith(".bk2");
+        public bool ImageIsBink => ImagePath?.EndsWith(".bk2") ?? false;
 
         /// <summary>
         ///     Gets or sets the game image path
@@ -134,7 +134,7 @@
             {
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
-                if(!string.IsNullOrEmpty(TopPickImagePath) && propertiesManager.GetValue(GamingConstants.ShowTopPickBanners, true))
+                if (!string.IsNullOrEmpty(TopPickImagePath) && propertiesManager.GetValue(GamingConstants.ShowTopPickBanners, true))
                 {
                     return TopPickImagePath;
                 }
@@ -328,7 +328,7 @@
         /// <summary>
         ///     Gets the bet option
         /// </summary>
-        public string BetOption 
+        public string BetOption
         {
             get => _betOption;
 
@@ -503,7 +503,7 @@
         public bool RequiresMechanicalReels { get; set; }
 
         /// <summary>
-        ///     Select the approriate for the Locale Graphics
+        ///     Select the appropriate image for the Locale Graphics
         /// </summary>
         /// <param name="activeLocaleCode">locale code to use</param>
         public void SelectLocaleGraphics(string activeLocaleCode)
@@ -516,7 +516,7 @@
 
             if (localeGraphics.ContainsKey(activeLocaleCode))
             {
-                if(UseSmallIcons)
+                if (UseSmallIcons)
                 {
                     ImagePath = localeGraphics[activeLocaleCode].SmallIcon;
                     TopPickImagePath = localeGraphics[activeLocaleCode].SmallTopPickIcon;

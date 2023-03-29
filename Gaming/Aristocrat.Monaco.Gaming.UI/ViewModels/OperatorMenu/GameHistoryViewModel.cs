@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.IO;
     using System.Linq;
     using System.Windows;
@@ -34,6 +35,7 @@
     using Kernel;
     using Localization.Properties;
     using Models;
+    using Monaco.UI.Common.Models;
     using MVVM;
     using MVVM.Command;
     using Tickets;
@@ -75,6 +77,11 @@
         private bool _replayPauseEnabled;
         private bool _replayPauseActive;
         private ObservableCollection<string> _selectedGameRoundTextList;
+        private ObservableCollection<FilterObject> _filterGameNames = new ObservableCollection<FilterObject>();
+        private ObservableCollection<FilterObject> _filterStatuses = new ObservableCollection<FilterObject>();
+        private DateTime? _filterStartDate;
+        private DateTime? _filterEndDate;
+        private DateTime? _filterSelectedDate;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistoryViewModel" /> class.
@@ -86,6 +93,7 @@
             ShowGameRoundInfo = GetConfigSetting(OperatorMenuSetting.PrintGameRoundInfo, false);
             _eventsPerPage = ShowGameRoundInfo ? 1 : 2;
             GameHistory = new ObservableCollection<GameRoundHistoryItem>();
+            FilteredGameHistory = new ObservableCollection<GameRoundHistoryItem>();
 
             _meterFreeGamesIndependently = PropertiesManager.GetValue(
                 GamingConstants.MeterFreeGamesIndependently,
@@ -166,6 +174,46 @@
             }
         }
 
+        public ObservableCollection<GameRoundHistoryItem> FilteredGameHistory { get; }
+
+        public ObservableCollection<FilterObject> FilterGameNames
+        {
+            get => _filterGameNames;
+            set => SetProperty(ref _filterGameNames, value);
+        }
+
+        public ObservableCollection<FilterObject> FilterStatuses
+        {
+            get => _filterStatuses;
+            set => SetProperty(ref _filterStatuses, value);
+        }
+
+        public DateTime? FilterStartDate
+        {
+            get => _filterStartDate;
+            set => SetProperty(ref _filterStartDate, value);
+        }
+
+        public DateTime? FilterEndDate
+        {
+            get => _filterEndDate;
+            set => SetProperty(ref _filterEndDate, value);
+        }
+
+        public DateTime? FilterSelectedDate
+        {
+            get => _filterSelectedDate;
+            set
+            {
+                if (!SetProperty(ref _filterSelectedDate, value))
+                {
+                    return;
+                }
+
+                FilterGameHistory();
+            }
+        }
+
         public decimal PendingCurrencyIn => _gameHistoryProvider.PendingCurrencyIn.MillicentsToDollars();
 
         public bool ResetScrollToTop
@@ -202,7 +250,7 @@
         public ObservableCollection<string> SelectedGameRoundTextList
         {
             get => _selectedGameRoundTextList;
-            set => SetProperty(ref _selectedGameRoundTextList, value, nameof(SelectedGameRoundTextList));
+            set => SetProperty(ref _selectedGameRoundTextList, value);
         }
 
         public GameRoundHistoryItem SelectedGameItem
@@ -349,6 +397,13 @@
             RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
             RaisePropertyChanged(nameof(ReplayButtonEnabled));
             RefreshGameHistory();
+        }
+
+        protected override void OnUnloaded()
+        {
+            ClearFilterList(FilterGameNames);
+            ClearFilterList(FilterStatuses);
+            base.OnUnloaded();
         }
 
         protected override void UpdatePrinterButtons()
@@ -508,7 +563,59 @@
 
             GameHistory = new ObservableCollection<GameRoundHistoryItem>(gameHistory);
 
+            UpdateFilter(FilterGameNames, gameHistory.Select(g => g.GameName).Distinct());
+            UpdateFilter(FilterStatuses, gameHistory.Select(g => g.Status).Distinct());
+            FilterSelectedDate = null;
+            FilterEndDate = gameHistory.FirstOrDefault()?.StartTime;
+            FilterStartDate = gameHistory.LastOrDefault()?.StartTime;
+
+            FilterGameHistory();
+
             UpdatePrinterButtons();
+        }
+
+        private void FilterGameHistory()
+        {
+            FilteredGameHistory.Clear();
+            foreach (var item in GameHistory)
+            {
+                var filterName = FilterGameNames.FirstOrDefault(filter => filter.Name == item.GameName);
+                var filterStatus = FilterStatuses.FirstOrDefault(filter => filter.Name == item.Status);
+                if (filterName is { IsChecked: true } && filterStatus is { IsChecked: true } &&
+                    (FilterSelectedDate == null || item.StartTime.Date == FilterSelectedDate?.Date))
+                {
+                    FilteredGameHistory.Add(item);
+                }
+            }
+        }
+
+        private void Filter_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is nameof(FilterObject.IsChecked))
+            {
+                FilterGameHistory();
+            }
+        }
+
+        private void ClearFilterList(ICollection<FilterObject> filterList)
+        {
+            foreach (var filter in filterList)
+            {
+                filter.PropertyChanged -= Filter_PropertyChanged;
+            }
+            filterList.Clear();
+        }
+
+        private void UpdateFilter(ICollection<FilterObject> filterList, IEnumerable<string> distinctFilters)
+        {
+            ClearFilterList(filterList);
+
+            foreach (var status in distinctFilters)
+            {
+                var filter = new FilterObject(status);
+                filter.PropertyChanged += Filter_PropertyChanged;
+                filterList.Add(filter);
+            }
         }
 
         private List<GameRoundHistoryItem> GetHistory()
@@ -534,12 +641,12 @@
                     StartCredits = gameHistory.StartCredits.MillicentsToDollars(),
                     EndTime = gameHistory.EndDateTime,
                     EndCredits = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : gameHistory.EndCredits.MillicentsToDollars(),
                     DenomId = gameHistory.DenomId,
                     Denom = gameHistory.DenomId.MillicentsToCents(),
                     CreditsWon = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : gameHistory.TotalWon.CentsToDollars(),
                     CreditsWagered = gameHistory.FinalWager.CentsToDollars(),
                     AmountIn = null,
@@ -630,12 +737,12 @@
                         StartCredits = freeGame.StartCredits.MillicentsToDollars(),
                         EndTime = endTime,
                         EndCredits = freeGame.Result == GameResult.None
-                            ? (decimal?)null
+                            ? null
                             : freeGame.EndCredits.MillicentsToDollars(),
                         DenomId = gameHistory.DenomId,
                         Denom = gameHistory.DenomId.MillicentsToCents(),
                         CreditsWon =
-                            freeGame.Result == GameResult.None ? (decimal?)null : freeGame.FinalWin.CentsToDollars(),
+                            freeGame.Result == GameResult.None ? null : freeGame.FinalWin.CentsToDollars(),
                         CreditsWagered = 0,
                         AmountIn = null,
                         AmountOut = null,
@@ -708,7 +815,7 @@
                     AmountOut = null,
                     StartCredits = gameHistory.StartCredits.MillicentsToDollars(),
                     EndCredits = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : gameHistory.EndCredits.MillicentsToDollars(),
                     GameIndex = 0
                 };
@@ -721,7 +828,7 @@
                 {
                     var freeGamesTotalWon = freeGames.Sum(f => f.FinalWin);
                     round.CreditsWon = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : (gameHistory.TotalWon - freeGamesTotalWon).CentsToDollars();
                 }
 
@@ -1115,7 +1222,7 @@
             return true;
         }
 
-    protected override void GameDiagnosticsComplete()
+        protected override void GameDiagnosticsComplete()
         {
             IsReplaying = false;
         }
