@@ -930,4 +930,31 @@
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="GameStatisicsTitle" xml:space="preserve">
+    <value>??Game Statisics??</value>
+  </data>
+  <data name="GameStatisticsGambleFeature" xml:space="preserve">
+    <value>??Double Up Feature Statistics??</value>
+  </data>
+  <data name="Meter" xml:space="preserve">
+    <value>??Meter??</value>
+  </data>
+  <data name="PrimaryWonAmountLabel" xml:space="preserve">
+    <value>??Primary Game Amount Won??</value>
+  </data>
+  <data name="SecondaryPlayedCountLabel" xml:space="preserve">
+    <value>??Double Up Games Played??</value>
+  </data>
+  <data name="SecondaryTiedAndWonCountLabel" xml:space="preserve">
+    <value>??Double Up Games Won??</value>
+  </data>
+  <data name="SecondaryWageredAmountLabel" xml:space="preserve">
+    <value>??Double Up Amount Wagered??</value>
+  </data>
+  <data name="SecondaryWonAmountLabel" xml:space="preserve">
+    <value>??Double Up Amount Won??</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>??Value??</value>
+  </data>
 </root>
