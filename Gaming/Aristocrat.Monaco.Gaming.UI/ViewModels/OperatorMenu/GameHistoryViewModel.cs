@@ -361,6 +361,8 @@
 
         public bool IsHistoryItemSelected => SelectedGameItem != null;
 
+        public override bool DataEmpty => GameHistory == null || !GameHistory.Any();
+
         public override bool MainPrintButtonEnabled =>
             base.MainPrintButtonEnabled && GameHistory.Any(o => !o.EndTime.Equals(DateTime.MinValue));
 

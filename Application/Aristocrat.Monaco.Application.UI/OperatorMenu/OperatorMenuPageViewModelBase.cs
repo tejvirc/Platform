@@ -1144,7 +1144,6 @@
                     nameof(TestWarningText),
                     nameof(IsLoadingData),
                     nameof(IsLoaded),
-                    nameof(DataEmpty),
                     nameof(MainPrintButtonEnabled),
                     nameof(PageSupportsMainPrintButton),
                     nameof(PopupOpen),
