@@ -56,7 +56,9 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
         private AccountingConfigurationBillClearance billClearanceField;
         
         private AccountingConfigurationTestTicket testTicketField;
-        
+
+        private AccountingConfigurationPayOutLimit payOutLimitField;
+
         /// <remarks/>
         public AccountingConfigurationMoneyLaunderingMonitor MoneyLaunderingMonitor {
             get {
@@ -116,7 +118,18 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
                 this.voucherInField = value;
             }
         }
-        
+        /// <remarks/>
+        public AccountingConfigurationPayOutLimit PayOutLimit
+        {
+            get
+            {
+                return this.payOutLimitField;
+            }
+            set
+            {
+                this.payOutLimitField = value;
+            }
+        }
         /// <remarks/>
         public AccountingConfigurationVoucherOut VoucherOut {
             get {
@@ -1031,7 +1044,40 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
             }
         }
     }
-    
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AccountingConfigurationPayOutLimit
+    {
+
+        private long maxAllowedField;
+
+        public AccountingConfigurationPayOutLimit()
+        {
+            this.maxAllowedField = ((long)(300000000));
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(typeof(long), "300000000")]
+        public long PayOutLimitMax
+        {
+            get
+            {
+                return this.maxAllowedField;
+            }
+            set
+            {
+                this.maxAllowedField = value;
+            }
+        }
+
+
+    }
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]

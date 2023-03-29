@@ -3600,13 +3600,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///   Looks up a localized string similar to {0} REPRINT.
+        /// <summary>
+		///		Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		public static string PayOutLimit
+        {
+            get
+            {
+                return ResourceManager.GetString("PayOutLimit", resourceCulture) ?? string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} REPRINT.
+        /// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
         /// </remarks>
-		public static string CancelCreditsHandpayReprintTicket {
+        public static string CancelCreditsHandpayReprintTicket {
 			get {
 				return ResourceManager.GetString("CancelCreditsHandpayReprintTicket", resourceCulture) ?? string.Empty;
 			}
@@ -38151,13 +38165,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///		Looks up a localized string similar to {0} REPRINT.
+        /// <summary>
+		///		Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		public static string PayOutLimit
+        {
+            get
+            {
+                return "PayOutLimit";
+            }
+        }
+
+        /// <summary>
+        ///		Looks up a localized string similar to {0} REPRINT.
+        /// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
         /// </remarks>
-		public static string CancelCreditsHandpayReprintTicket {
+        public static string CancelCreditsHandpayReprintTicket {
 			get {
 				return "CancelCreditsHandpayReprintTicket";
 			}
@@ -88874,7 +88902,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ZoneTooLong,
-	}
+        /// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		PayOutLimit
+    }
 
 	/// <summary>
 	/// Specifies a localized description for an object.

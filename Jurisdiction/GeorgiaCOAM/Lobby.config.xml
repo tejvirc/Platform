@@ -2,6 +2,7 @@
 <LobbyConfiguration>
   <MultiLanguageEnabled>false</MultiLanguageEnabled>
   <ResponsibleGamingTimeLimitEnabled>false</ResponsibleGamingTimeLimitEnabled>
+  
   <LargeGameIconsEnabled>true</LargeGameIconsEnabled>
   <HasIdleAttractVideo>false</HasIdleAttractVideo>
   <HasAttractIntroVideo>true</HasAttractIntroVideo>
@@ -43,6 +44,7 @@
   <ResponsibleGamingMode>Continuous</ResponsibleGamingMode>
   <ClockMode>Locale</ClockMode>
   <UpiTemplate>GeorgiaCOAMUpiTemplate</UpiTemplate>
+  <CashoutResetHandCountWarningTemplate>CashoutResetHandCountWarningTemplate</CashoutResetHandCountWarningTemplate>
   <DefaultGameDisplayOrderByThemeId>
     <string>ATI_LepreCoins</string>
     <string>ATI_Buffalo</string>

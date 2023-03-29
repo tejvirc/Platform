@@ -4,6 +4,7 @@
   <xs:complexType name="LobbyConfiguration">
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="1" name="MultiLanguageEnabled" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CashoutResetHandCountWarningTemplate" type="xs:string" default="CashoutResetHandCountWarningTemplate" />
       <xs:element minOccurs="1" maxOccurs="1" name="ResponsibleGamingTimeLimitEnabled" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="LargeGameIconsEnabled" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="HasIdleAttractVideo" type="xs:boolean" default="false" />

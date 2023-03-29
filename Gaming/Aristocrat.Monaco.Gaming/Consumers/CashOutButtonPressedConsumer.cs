@@ -12,6 +12,7 @@
     using Aristocrat.Monaco.Kernel;
     using Contracts;
     using log4net;
+    using Aristocrat.Monaco.Localization.Properties;
 
     /// <summary>
     ///     Handles the <see cref="CashOutButtonPressedEvent" />
@@ -25,6 +26,7 @@
         private readonly IPlayerBank _playerBank;
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _systemDisableManager;
+        private const string ConfigurationExtensionPath = "/Accounting/Configuration";
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CashOutButtonPressedConsumer" /> class.
@@ -43,6 +45,14 @@
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _systemDisableManager =
                 systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            //var configuration = ConfigurationUtilities.GetConfiguration(
+            //  ConfigurationExtensionPath,
+            //  () => new AccountingConfiguration
+            //  {
+            //      PayOutLimit = new AccountingConfigurationPayOutLimit()
+            //  });
+            //var check = ServiceManager.GetInstance().GetService<IPropertiesManager>()
+            //.GetProperty(AccountingConstants.PayOutLimit, false);
         }
 
         /// <inheritdoc />
@@ -66,7 +76,7 @@
 
         private async Task CashOutAsync()
         {
-            if (_playerBank.Balance > 2000000)
+            if (_playerBank.Balance > 1200000)
             {
                 var keyOff = Initiate();
                 await keyOff.Task;
@@ -97,9 +107,9 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.LargePayoutDisableKey,
                 SystemDisablePriority.Immediate,
-                () => "COLLECT LIMIT REACHED. SEE ATTENDANT.",
+                () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PayOutLimit),
                 true,
-                () => "COLLECT LIMIT REACHED. SEE ATTENDANT.");
+                () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PayOutLimit));
 
             return keyOff;
         }

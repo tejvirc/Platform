@@ -235,6 +235,11 @@
 
         private void HandleEvent(CashOutButtonPressedEvent evt)
         {
+            //CashInStarted(CashInType.Currency);
+            //if (HandCount > 0)
+            //{
+                //IsCashOutHandCountDlgVisible = true;
+            //}
             MessageOverlayDisplay.UpdateCashoutButtonState(true);
         }
 
@@ -1500,6 +1505,7 @@
         private void HandCountChangedEvent(HandCountChangedEvent evt)
         {
             HandCount = evt.HandCount;
+            //IsCashOutHandCountDlgVisible = evt.IsCashOutHandCountDlgVisible;
         }
     }
 }
