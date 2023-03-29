@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <FontFamily x:Key="CountdownFont">./DSEG7Modern-Regular.ttf#DSEG7 Modern</FontFamily>
     <ControlTemplate x:Key="tplFlatButton" TargetType="{x:Type Button}">
         <Border Width="{TemplateBinding Width}"
             Height="{TemplateBinding Height}"

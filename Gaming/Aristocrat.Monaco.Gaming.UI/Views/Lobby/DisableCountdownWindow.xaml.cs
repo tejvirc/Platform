@@ -13,7 +13,10 @@
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Allow clicks/touches on Lobby screen when the timerDialog is shown.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);

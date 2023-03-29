@@ -61,14 +61,6 @@ as follows:
       <Setting Name="ActivationTimeVisible" Value="false" />
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
-    <Page Type="NoteAcceptorViewModel"  Access="MainLogicZeroCreditsGameIdle">
-      <Setting Name="ActivationTimeVisible" Value="false" />
-      <Setting Name="EgmCanEnableDenominations" Value="true" />
-      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-    </Page>
-    <Page Type="LampsPageViewModel" >
-      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-    </Page>
     <Page Type="ButtonPageViewModel" >
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
@@ -85,7 +77,6 @@ as follows:
     <Page Type="KeyPageViewModel" TabType="KeyPageLoader" Visible="false" />
     <Page Type="BatteryPageViewModel" TabType="BatteryPageLoader" Visible="false" />
     <Page Type="HardwareManagerPageViewModel" Access="GameIdleZeroCredits" FieldAccess="ReadOnly"/>
-    <Page Type="NoteAcceptorTestViewModel" Access="MainDoor" />
     <Page Type="ButtonTestViewModel" Access="MainDoor" />
     <Page Type="SoundTestPageViewModel" Access="MainDoor" />
     <Page Type="BellPageViewModel" Access="MainDoorGameIdle">

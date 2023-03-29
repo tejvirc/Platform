@@ -55,6 +55,7 @@
     using Vgt.Client12.Application.OperatorMenu;
     using Views.Controls;
     using Views.Lobby;
+    using Views.Overlay;
     using Size = System.Windows.Size;
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
@@ -328,7 +329,6 @@
             {
                 throw new ArgumentNullException(nameof(containerService));
             }
-
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _systemDisableManager =
@@ -458,7 +458,7 @@
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
-
+            HandCountTimerOverlay = new HandCountTimerDialogViewModel();
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
@@ -1716,6 +1716,8 @@
         public PlayerInfoDisplayMenuViewModel PlayerInfoDisplayMenuViewModel { get; }
 
         public LobbyVolumeViewModel Volume { get; }
+
+        public HandCountTimerDialogViewModel HandCountTimerOverlay { get; }
 
         public bool IsInOperatorMenu => _operatorMenu.IsShowing;
 
@@ -3053,6 +3055,7 @@
             RaisePropertyChanged(nameof(IsServiceRequested));
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            RaisePropertyChanged(nameof(HandCountTimerOverlay));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));

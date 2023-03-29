@@ -24,6 +24,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Skins\DSEG7Modern-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Aristocrat.Monaco.Gaming.UI.Config.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -81,5 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Presentation" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Skins\DSEG7Modern-Regular.ttf" />
   </ItemGroup>
 </Project>

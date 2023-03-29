@@ -8,7 +8,8 @@
 
     <FontFamily x:Key="MonacoFontFamily">Helvetica</FontFamily>
     <FontFamily x:Key="ContentFontFamily">Helvetica</FontFamily>
-
+    <FontFamily x:Key="testFont" >./DSEG7Modern-Regular.ttf#DSEG7 Modern</FontFamily>
+    
     <system:Double x:Key="ContentFontSize">18</system:Double>
     <system:Double x:Key="ClearTextButtonFontSize">16</system:Double>
     <system:Double x:Key="UpperCaseContentFontSize">10</system:Double>

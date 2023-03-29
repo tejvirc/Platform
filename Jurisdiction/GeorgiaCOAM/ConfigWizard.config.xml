@@ -23,7 +23,7 @@ as follows:
     <HardMetersConfig Configurable="false" Enable="true"/>
     <ProtocolConfiguration>
         <ProtocolsAllowed>
-            <Protocol Name="SAS" IsMandatory="true"/>
+            <Protocol Name="SAS" />
             <Protocol Name="Test"/>
         </ProtocolsAllowed>
     </ProtocolConfiguration>

@@ -41,6 +41,9 @@
     <None Include="Skins\Originals\InspectionReskin.xaml" />
     <None Include="Skins\Originals\MonacoMetroSkin.xaml" />
     <None Include="Skins\Originals\MonacoReskin.xaml" />
+    <Resource Include="Skins\DSEG7Modern-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="Translations.xsd">
       <SubType>Designer</SubType>
     </None>

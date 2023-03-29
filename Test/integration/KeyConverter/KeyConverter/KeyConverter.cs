@@ -14,6 +14,7 @@
     using System.Windows.Forms;
     using Accounting.Contracts;
     using Application.Contracts.EKey;
+    using Aristocrat.Monaco.Accounting.HandCount;
     using Gaming.Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.IO;
@@ -523,7 +524,7 @@
                 { Keys.D4, (type: typeof(DebugNoteEvent), args: new List<object> { 10 }) },
                 { Keys.D5, (type: typeof(DebugNoteEvent), args: new List<object> { 20 }) },
                 { Keys.D6, (type: typeof(DebugNoteEvent), args: new List<object> { 50 }) },
-                { Keys.D7, (type: typeof(DebugNoteEvent), args: new List<object> { 100 }) },
+                { Keys.D7, (type: typeof(HandCountResetTimerStartedEvent), args: new List<object>( )) },
                 { Keys.NumPad1, (type: typeof(DebugCoinEvent), args: new List<object> { 1000 }) },
                 { Keys.NumPad2, (type: typeof(DebugCoinEvent), args: new List<object> { 5000 }) },
                 { Keys.NumPad3, (type: typeof(DebugCoinEvent), args: new List<object> { 10000 }) },

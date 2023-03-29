@@ -22,6 +22,10 @@
         private readonly IEventBus _eventBus;
         private readonly IMeterManager _meters;
         private readonly IMeter _handCountMeter;
+        private bool resetTimerIsRunning;
+
+        public event Action OnResetTimerStarted;
+        public event Action OnResetTimerCancelled;
 
         public HandCountService()
             : this(
@@ -35,11 +39,11 @@
         public HandCountService(
             IEventBus eventBus,
             IMeterManager meters,
-            IPropertiesManager properties)
+            IPropertiesManager propertyProvider)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _properties = propertyProvider ?? throw new ArgumentNullException(nameof(propertyProvider));
             _handCountMeter = _meters.GetMeter(AccountingMeters.HandCount);
         }
 
@@ -52,7 +56,21 @@
         public void Initialize()
         {
             _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<BankBalanceChangedEvent>(this, HandleEvent);
+            //_eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, HandleEvent);
         }
+
+        private void HandleEvent(BankBalanceChangedEvent bank)
+        {
+            if (HandCount == 0)
+            {
+                return;
+            }
+
+            var balance = bank.NewBalance;
+            CheckBankBalanceIsAboveMinimumRequirement(balance);
+        }
+
         private void HandleEvent(InitializationCompletedEvent obj)
         {
             SendHandCountChangedEvent();
@@ -78,9 +96,32 @@
             SendHandCountChangedEvent();
             Logger.Info($"ResetHandCount:{HandCount}");
         }
+
         public void SendHandCountChangedEvent()
         {
             _eventBus.Publish(new HandCountChangedEvent(HandCount));
         }
+
+        public void HandCountResetTimerElapsed()
+        {
+            resetTimerIsRunning = false;
+            ResetHandCount();
+        }
+
+        private void CheckBankBalanceIsAboveMinimumRequirement(long balance)
+        {
+            var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
+                                                                       AccountingConstants.HandCountDefaultRequiredCredits);
+            if (balance < minimumRequiredCredits)
+            {
+                OnResetTimerStarted.Invoke();
+                resetTimerIsRunning = true;
+            } else if (resetTimerIsRunning && balance >= minimumRequiredCredits)
+            {
+                OnResetTimerCancelled.Invoke();
+                resetTimerIsRunning = false;
+            }
+        }
+
     }
 }

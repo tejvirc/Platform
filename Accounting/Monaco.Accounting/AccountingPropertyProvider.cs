@@ -257,6 +257,10 @@
                     Tuple.Create((object)configuration.HandCount?.HandCountServiceEnabled??false, false)
                 },
                 {
+                    AccountingConstants.HandCountMinimumRequiredCredits,
+                    Tuple.Create((object)configuration.HandCount?.HandCountResetCreditLimit ?? AccountingConstants.HandCountDefaultRequiredCredits, false)
+                },
+                {
                     AccountingConstants.LargeWinLimit,
                     Tuple.Create(InitFromStorage(AccountingConstants.LargeWinLimit), true)
                 },

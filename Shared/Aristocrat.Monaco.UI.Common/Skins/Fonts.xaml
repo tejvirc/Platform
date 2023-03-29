@@ -13,7 +13,8 @@
     <FontFamily x:Key="NormalFontFamily">Arial</FontFamily>
     <FontFamily x:Key="ButtonFontFamily">Arial</FontFamily>
     <FontFamily x:Key="HeadingFontFamily">Arial</FontFamily>
-
+    <FontFamily x:Key="testFont" >./DSEG7Modern-Regular.ttf#DSEG7 Modern</FontFamily>
+    
     <!-- Font Sizes. -->
     <system:Double x:Key="ControlTitleFontSize">14</system:Double>
     <system:Double x:Key="ContentFontSize">13</system:Double>
