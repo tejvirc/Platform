@@ -46,11 +46,11 @@ as follows:
 				IncludeLinkProgressiveIncrementRTP (bool):
 					Default is false. If set to true, will include the link progressive increment RTP in the RTP calculation
 				IncludeLinkProgressiveStartUpRTP (bool):
-					Default is false. If set to true, will include the link progressive startup/reset RTP in the RTP calculation
+					Default is true. If set to true, will include the link progressive startup/reset RTP in the RTP calculation
 				IncludeStandaloneProgressiveIncrementRTP (bool):
-					Default is true. If set to false, will NOT include the standalone progressive increment RTP in the RTP calculation
+					Default is true. If set to true, will include the standalone progressive increment RTP in the RTP calculation
 				IncludeStandaloneProgressiveStartUpRTP (bool):
-					Default is false. If set to true, will include the standalone progressive startup/reset RTP in the RTP calculation
+					Default is true. If set to true, will include the standalone progressive startup/reset RTP in the RTP calculation
 		RestrictedGameTypes:
 			Type:
 				GameType:
