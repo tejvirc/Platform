@@ -119,20 +119,27 @@ as follows:
         <Page Type="CertificatesViewModel" />
     </Menu>
     <Menu Type="DiagnosticMainPageLoader" Access="Technician">
-        <Page Type="IOPageViewModel" PrintButtonEnabled="true" />
-    </Menu>
-    <Menu Type="OptionsMainPageLoader" Visible="false" />
-    <Menu Type="SystemResetPageLoader" Access="Technician" />
-    <AccessRules>
-        <AccessRuleSet Name="Technician">
-            <Rule DeviceName="Jackpot" />
-        </AccessRuleSet>
-        <AccessRuleSet Name="ReadOnly">
-            <Rule Restriction="ReadOnly" />
-        </AccessRuleSet>
-        <AccessRuleSet Name="TechnicianZeroCredits">
-            <Rule DeviceName="Jackpot" />
-            <Rule Restriction="ZeroCredits" />
-        </AccessRuleSet>
-    </AccessRules>
+		<Page Type="IOPageViewModel" PrintButtonEnabled="true" />
+	</Menu>
+	<Menu Type="OptionsMainPageLoader" Visible="false" />
+  <Menu Type="SystemResetPageLoader" Access="Technician" >
+    <Page Type="SystemResetPageViewModel" Access="GameIdleZeroCreditsEKeyPresent" />
+  </Menu>
+   <AccessRules>
+		<AccessRuleSet Name="Technician">
+			<Rule DeviceName="Jackpot" />
+		</AccessRuleSet>
+		<AccessRuleSet Name="ReadOnly">
+			<Rule Restriction="ReadOnly" />
+		</AccessRuleSet>
+		<AccessRuleSet Name="TechnicianZeroCredits">
+			<Rule DeviceName="Jackpot" />
+			<Rule Restriction="ZeroCredits" />
+		</AccessRuleSet>
+     <AccessRuleSet Name="GameIdleZeroCreditsEKeyPresent">
+       <Rule Restriction="GameIdle" />
+       <Rule Restriction="ZeroCredits" />
+       <Rule Restriction="EKeyVerified" />
+     </AccessRuleSet>
+	</AccessRules>
 </OperatorMenuConfiguration>
