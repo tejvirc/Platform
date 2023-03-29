@@ -1916,15 +1916,8 @@
 
             foreach (var config in gameProfile.GameConfigurations)
             {
-                config.Enabled = true;
+                gameProfile.GameConfigurations[i].Enabled = true;
             }
-        }
-
-        private IConfigurationRestriction GetRestrictionFromVariationId(string variationId, EditableGameProfile gameProfile)
-        {
-            return gameProfile.ValidRestrictions.FirstOrDefault(
-                v => v.RestrictionDetails.Mapping.Any(
-                    v2 => v2.VariationId.Equals(variationId)));
         }
 
         private class GamesGrouping
