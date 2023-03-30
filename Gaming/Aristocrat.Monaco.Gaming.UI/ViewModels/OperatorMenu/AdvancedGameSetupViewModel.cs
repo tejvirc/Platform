@@ -1563,6 +1563,17 @@
                         continue;
                     }
 
+                    var gameProfile = _editableGames.Values.FirstOrDefault(g => g.ThemeId.Equals(configuration.Game.ThemeId));
+
+                    if (gameProfile != null)
+                    {
+                        var restriction = GetRestrictionFromVariationId(configuration.Game.VariationId, gameProfile);
+                        if (restriction != null)
+                        {
+                            gameProfile.SelectedRestriction = restriction;
+                        }
+                    }
+
                     configuration.Enabled = denomination.Active;
                     configuration.SelectedBetOption = string.IsNullOrEmpty(denomination.BetOption)
                         ? null
@@ -1602,6 +1613,8 @@
                 }
 
                 _pendingImportSettings = new Dictionary<string, object>(values);
+
+                SelectedGameType = GameTypes.FirstOrDefault();
             }
             catch (Exception e)
             {
@@ -1870,6 +1883,13 @@
             {
                 gameProfile.GameConfigurations[i].Enabled = true;
             }
+        }
+
+        private IConfigurationRestriction GetRestrictionFromVariationId(string variationId, EditableGameProfile gameProfile)
+        {
+            return gameProfile.ValidRestrictions.FirstOrDefault(
+                v => v.RestrictionDetails.Mapping.Any(
+                    v2 => v2.VariationId.Equals(variationId)));
         }
 
         private class GamesGrouping
