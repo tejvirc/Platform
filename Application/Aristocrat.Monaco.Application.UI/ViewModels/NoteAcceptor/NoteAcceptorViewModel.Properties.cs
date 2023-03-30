@@ -122,8 +122,6 @@
             }
         }
 
-        public Brush VoucherInEnabledTextForeground => Brushes.White;
-
         public bool CanEgmModifyDenominations => IsDenomEditable && InputEnabled;  // bound to view
 
         public bool AllowBillIn
@@ -297,7 +295,6 @@
             {
                 _variantNameText = value;
                 RaisePropertyChanged(nameof(VariantNameText));
-                RaisePropertyChanged(nameof(VariantNameForeground));
             }
         }
 
@@ -309,13 +306,8 @@
             {
                 _variantVersionText = value;
                 RaisePropertyChanged(nameof(VariantVersionText));
-                RaisePropertyChanged(nameof(VariantVersionForeground));
             }
         }
-
-        public SolidColorBrush VariantNameForeground => Brushes.White;
-
-        public SolidColorBrush VariantVersionForeground => Brushes.White;
 
         public bool SelfTestButtonVisible
         {
@@ -393,6 +385,8 @@
                 RaisePropertyChanged(nameof(InspectButtonFocused));
             }
         }
+
+        public string BillAcceptanceRate => GetBillAcceptanceRate();
 
         private INoteAcceptor NoteAcceptor => ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 

@@ -11680,6 +11680,9 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>All games of this type must use the same package</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="AcceptanceRate" xml:space="preserve">
+    <value>Acceptance Rate</value>
+  </data>
   <data name="FullClearButtonContent" xml:space="preserve">
     <value>Full Reset</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
