@@ -11668,4 +11668,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Creating Keyboard Service</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
+  <data name="PackagesMustMatch" xml:space="preserve">
+    <value>All games of this type must use the same package</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

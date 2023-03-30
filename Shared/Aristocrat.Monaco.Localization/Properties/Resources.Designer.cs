@@ -22769,6 +22769,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PackagesMustMatch {
+			get {
+				return ResourceManager.GetString("PackagesMustMatch", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
         /// <remarks>
@@ -57295,6 +57307,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PackagesMustMatch {
+			get {
+				return "PackagesMustMatch";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
         /// <remarks>
@@ -82052,6 +82076,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.Common
         /// </remarks>
 		PackageNotFoundErrorMessage,
+		/// <summary>
+		///   Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		PackagesMustMatch,
 		/// <summary>
 		///   Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
