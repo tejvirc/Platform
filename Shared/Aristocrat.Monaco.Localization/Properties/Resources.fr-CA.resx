@@ -406,10 +406,10 @@
     <value>Total des billets en</value>
   </data>
   <data name="CoinInFormat" xml:space="preserve">
-    <value>Pièces de {0:c0}</value>
+    <value>Pièces de</value>
   </data>
   <data name="BillInFormat" xml:space="preserve">
-    <value>Billets de {0:c0}</value>
+    <value>Billets de</value>
   </data>
   <data name="MainDoorOpenCount" xml:space="preserve">
     <value>Ouvertures de la porte principale</value>
@@ -929,6 +929,63 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="AmountIn" xml:space="preserve">
+    <value>??Money In??</value>
+  </data>
+  <data name="AmountOut" xml:space="preserve">
+    <value>??Money Out??</value>
+  </data>
+  <data name="CreditBalanceText" xml:space="preserve">
+    <value>??Credit Balance??</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>??Currency??</value>
+  </data>
+  <data name="IPAddressesLabel" xml:space="preserve">
+    <value>??IP Address??</value>
+  </data>
+  <data name="LastCashoutTicketSequenceText" xml:space="preserve">
+    <value>??Last Cashout Ticket Sequence??</value>
+  </data>
+  <data name="LicenseText" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="MacAddressLabel" xml:space="preserve">
+    <value>??MAC Address??</value>
+  </data>
+  <data name="ManufacturerLabel" xml:space="preserve">
+    <value>??Manufacturer??</value>
+  </data>
+  <data name="ModelLabel" xml:space="preserve">
+    <value>??Model??</value>
+  </data>
+  <data name="NetAmountText" xml:space="preserve">
+    <value>??Net Amount??</value>
+  </data>
+  <data name="NumberOfBillsInserted" xml:space="preserve">
+    <value>Nombre de billets insérés</value>
+  </data>
+  <data name="NumCoinsInText" xml:space="preserve">
+    <value>??Number of Coins Inserted??</value>
+  </data>
+  <data name="OSImageVersionText" xml:space="preserve">
+    <value>??OS Image Version??</value>
+  </data>
+  <data name="PlatformVersionText" xml:space="preserve">
+    <value>??Platform Version??</value>
+  </data>
+  <data name="PowerResets" xml:space="preserve">
+    <value>??Power Resets??</value>
+  </data>
+  <data name="SerialNumberLabel" xml:space="preserve">
+    <value>??Serial Number??</value>
+  </data>
+  <data name="AmountInText" xml:space="preserve">
+    <value>??Amount In??</value>
+  </data>
+  <data name="AmountOutText" xml:space="preserve">
+    <value>??Amount Out??</value>
   </data>
   <data name="FullClearButtonContent" xml:space="preserve">
     <value>???Full Reset???</value>

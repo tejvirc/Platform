@@ -734,6 +734,11 @@
         public const string LocalizationOperatorTicketSelectable = "Localization.OperatorTicket.Selectable";
 
         /// <summary>
+        ///     Property manager key for LocalizationOperatorTicketLanguageSettingOperatorOverride
+        /// </summary>
+        public const string LocalizationOperatorTicketLanguageSettingOperatorOverride = "Localization.OperatorTicket.LanguageSetting.OperatorOverride";
+
+        /// <summary>
         ///     Property manager key for LocalizationPlayerTicketCurrentCulture.
         /// </summary>
         public const string LocalizationPlayerTicketCurrentCulture = "Localization.PlayerTicket.CurrentCulture";

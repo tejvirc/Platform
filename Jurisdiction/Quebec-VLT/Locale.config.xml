@@ -13,7 +13,9 @@ as follows:
   <PlayerTicket Locale="fr-CA">
     <LanguageSetting Visible="true" OperatorOverride="false" ShowCheckBox="true"/>
   </PlayerTicket>
-  <OperatorTicket Locale="en-US" DateFormat="yyyy-MM-dd"/>
+  <OperatorTicket Locale="en-US" DateFormat="yyyy-MM-dd">
+    <LanguageSetting OperatorOverride="true"/>
+  </OperatorTicket>
   <Operator Default="fr-CA">
       <Available>
           <string>en-CA</string>
