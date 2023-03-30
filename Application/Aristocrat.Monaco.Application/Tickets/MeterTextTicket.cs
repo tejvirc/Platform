@@ -52,10 +52,17 @@
             get
             {
                 var noteAcceptor = Kernel.ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
+                var properties = Kernel.ServiceManager.GetInstance().TryGetService<Kernel.IPropertiesManager>();
+
+                // Can't use TicketLocalizer here due to static property
+                var localizer = (bool)properties?.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?
+                    Localizer.For(CultureFor.Operator) :
+                    Localizer.For(CultureFor.OperatorTicket) ?? Localizer.For(CultureFor.OperatorTicket);
+
                 if (noteAcceptor != null)
                 {
                     return noteAcceptor.Denominations.ToDictionary(
-                        denom => Localizer.For(CultureFor.OperatorTicket).FormatString(ResourceKeys.BillInFormat) +
+                        denom => localizer.FormatString(ResourceKeys.BillInFormat) +
                                  " " + denom.FormattedCurrencyString("C0"),
                         denom => "BillCount" + denom + "s");
                 }
