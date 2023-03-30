@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Accounting.Contracts;
     using Common;
     using Contracts;
     using Contracts.Extensions;
@@ -637,6 +638,29 @@
             }
 
             SetStateInformation(true);
+        }
+
+        private string GetBillAcceptanceRate()
+        {
+            var meters = ServiceManager.GetInstance().TryGetService<IMeterManager>();
+
+            if (meters is null)
+            {
+                return "";
+            }
+
+            var totalAcceptedBills = (double)meters.GetMeter(AccountingMeters.CurrencyInCount).Lifetime;
+            var totalBillInAttempts = totalAcceptedBills + meters.GetMeter(AccountingMeters.BillsRejectedCount).Lifetime;
+            var billAcceptanceRate = 0.00d;
+
+                // Prevent division by 0
+            if (totalBillInAttempts > 0)
+            {
+                billAcceptanceRate = totalAcceptedBills / totalBillInAttempts * 100;
+            }
+
+            billAcceptanceRate = Math.Round(billAcceptanceRate, 2);
+            return $"{billAcceptanceRate:F2}%";
         }
 
         protected void SetDeviceInformation()

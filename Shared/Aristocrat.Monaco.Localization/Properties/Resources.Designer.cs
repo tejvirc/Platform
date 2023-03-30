@@ -79,6 +79,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Acceptance Rate.
+		/// </summary>
+		public static string AcceptanceRate {
+			get {
+				return ResourceManager.GetString("AcceptanceRate", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Accepted.
 		/// </summary>
         /// <remarks>
@@ -34690,6 +34699,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Acceptance Rate.
+		/// </summary>
+		public static string AcceptanceRate {
+			get {
+				return "AcceptanceRate";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Accepted.
 		/// </summary>
         /// <remarks>
@@ -69295,6 +69313,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Accept.
 		/// </summary>
 		Accept,
+		/// <summary>
+		///   Looks up a localized string similar to Acceptance Rate.
+		/// </summary>
+		AcceptanceRate,
 		/// <summary>
 		///   Looks up a localized string similar to Accepted.
 		/// </summary>
