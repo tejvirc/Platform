@@ -38,25 +38,52 @@
 
         public CPUTemperatureSensor()
         {
-            _sensorHandle = OpenCPUTemperatureSensor();
+            try
+            {
+                _sensorHandle = OpenCPUTemperatureSensor();
+            }
+            catch(DllNotFoundException)
+            {
+                _sensorHandle = null;
+            }
         }
 
         public CPUTemperature Get()
         {
+            if (_sensorHandle == null)
+            {
+                return new CPUTemperature();
+            }
+
             return CPUTemperatureGet(_sensorHandle);
         }
         public CPUTemperatureConfig GetConfig()
         {
+            if (_sensorHandle == null)
+            {
+                return new CPUTemperatureConfig();
+            }
+
             return CPUTemperatureConfigGet(_sensorHandle);
         }
 
         public uint SetConfig(uint sampleCount, uint samplingPeriodMS)
         {
+            if (_sensorHandle == null)
+            {
+                return 0;
+            }
+
             return CPUTemperatureConfigSet(_sensorHandle, sampleCount, samplingPeriodMS);
         }
 
         public void Dispose()
         {
+            if (_sensorHandle == null)
+            {
+                return;
+            }
+            
             _sensorHandle.Dispose();
         }
     }
