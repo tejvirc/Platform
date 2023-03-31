@@ -5,7 +5,7 @@ using Fluxor;
 [FeatureState]
 public record LobbyState
 {
-    public string Title { get; set; }
+    public bool IsGamesLoaded { get; set; }
 
     public string BackgroundImagePath { get; set; }
 

@@ -1,6 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.ViewModels;
 
+using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Fluxor;
 using Fluxor.Selectors;
@@ -9,10 +12,35 @@ using Store.Chooser;
 
 public class ChooserViewModel : ObservableObject
 {
-    public ChooserViewModel(IStore store)
+    private readonly IState<ChooserState> _state;
+
+    private readonly List<IDisposable> _disposables = new();
+
+    public ChooserViewModel(IStore store, IState<ChooserState> state)
     {
-        Items = store.SubscribeSelector<ChooserState, IImmutableList<ChooserItem>>(s => s.Items);
+        _state = state;
+
+        _state.StateChanged += OnStateChanged;
+
+        var selector = SelectorFactory.CreateFeatureSelector<ChooserState>();
+        var gameSelector = SelectorFactory.CreateSelector(selector, s => s.Games);
+        _disposables.Add(store.SubscribeSelector(gameSelector, OnChanged));
     }
 
-    public ISelectorSubscription<IImmutableList<ChooserItem>> Items { get; set; }
+    private void OnChanged(IImmutableList<GameInfo> games)
+    {
+        if (games == null)
+        {
+            return;
+        }
+
+        DisplayedGameList = new ObservableCollection<GameInfo>(games);
+    }
+
+    public ObservableCollection<GameInfo> DisplayedGameList { get; set; } = new();
+
+    private void OnStateChanged(object sender, EventArgs e)
+    {
+        // DisplayedGameList = new ObservableCollection<GameInfo>(_state.Value.Games);
+    }
 }

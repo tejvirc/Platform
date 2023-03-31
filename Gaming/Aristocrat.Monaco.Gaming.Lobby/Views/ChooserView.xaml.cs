@@ -1,30 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Views
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
+    using ViewModels;
 
     /// <summary>
     /// Interaction logic for ChooserView.xaml
     /// </summary>
-    public partial class ChooserView : UserControl
+    public partial class ChooserView
     {
-        public ChooserView(object viewModel)
+        public ChooserView()
         {
             InitializeComponent();
 
-            DataContext = viewModel;
+            DataContext = Application.Current.GetService<ChooserViewModel>();
         }
     }
 }

@@ -3,10 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
+             xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Models"
+             xmlns:chooser="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views.DataTemplates.Chooser"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DataTemplates/Chooser/ChooserTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <chooser:GameButtonIconTemplateSelector x:Key="GameButtonIconTemplateSelector" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <ItemsControl x:Name="GameList"
+                      FocusVisualStyle="{x:Null}"
+                      ItemsSource="{Binding Path=DisplayedGameList}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top">
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:GameInfo}">
+                    <Viewbox x:Name="GameTile"
+                             VerticalAlignment="Top">
+                        <Border Width="Auto">
+                            <Grid HorizontalAlignment="Left"
+                                  VerticalAlignment="Top">
+                                <Grid x:Name="Progressive" 
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Bottom">
+
+                                </Grid>
+
+                                <Grid x:Name="GameIcon">
+                                    <Button x:Name="GameIconButton"
+                                            VerticalAlignment="Top"
+                                            Content="{Binding}"
+                                            Tag="{Binding Name}"
+                                            ContentTemplateSelector="{StaticResource GameButtonIconTemplateSelector}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Viewbox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
+
 </UserControl>

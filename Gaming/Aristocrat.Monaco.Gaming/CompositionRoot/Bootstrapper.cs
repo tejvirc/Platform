@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
-    using Aristocrat.CryptoRng;
     using Barkeeper;
     using BeagleBone;
     using Bonus;
@@ -24,6 +23,7 @@
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
+    using CryptoRng;
     using GameRound;
     using Hardware.Contracts;
     using Kernel;
@@ -38,7 +38,6 @@
     using Runtime.Client;
     using Runtime.Server;
     using SimpleInjector;
-    using SimpleInjector.Lifestyles;
     using TowerLight;
 
     /// <summary>

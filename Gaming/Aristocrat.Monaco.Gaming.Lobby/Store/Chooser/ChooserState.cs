@@ -7,5 +7,5 @@ using Models;
 [FeatureState]
 public record ChooserState
 {
-    public IImmutableList<ChooserItem> Items { get; set; }
+    public IImmutableList<GameInfo> Games { get; init; }
 }

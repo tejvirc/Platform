@@ -1,24 +1,31 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Consumers;
 
-using Aristocrat.Monaco.Kernel;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
+using Kernel;
 
 /// <summary>
 ///     A user-friendly event receiver.
 /// </summary>
 /// <typeparam name="TEvent">The event type.</typeparam>
-public abstract class Consumes<TEvent> : IConsumer<TEvent>
-    where TEvent : IEvent
+public abstract class Consumes<TEvent> : Kernel.Consumes<TEvent>, IConsumes<TEvent>
+    where TEvent : BaseEvent
 {
+    protected Consumes()
+        : base(
+            ServiceManager.GetInstance().GetService<IEventBus>(),
+            ServiceManager.GetInstance().GetService<ISharedConsumer>())
+    {
+    }
+
     /// <inheritdoc />
-    public void Consume(TEvent theEvent)
+    public override void Consume(TEvent theEvent)
     {
         ConsumeAsync(theEvent, CancellationToken.None).Wait();
     }
 
     /// <summary>
-    ///     Consumes an event
+    ///     Consumes an event asynchronously
     /// </summary>
     /// <param name="theEvent">The event to consume</param>
     /// <param name="cancellationToken"></param>

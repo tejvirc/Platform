@@ -1,15 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Views
 {
+    using System.Windows;
+    using ViewModels;
+
     /// <summary>
     /// Interaction logic for DefaultLobbyView.xaml
     /// </summary>
     public partial class DefaultLobbyView
     {
-        public DefaultLobbyView(object viewModel)
+        public DefaultLobbyView()
         {
             InitializeComponent();
 
-            DataContext = viewModel;
+            DataContext = Application.Current.GetService<DefaultLobbyViewModel>();
         }
     }
 }

@@ -28,7 +28,6 @@
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
     using Hardware.Contracts;
-    using Katalogo;
     using Kernel;
     using Kernel.Contracts;
     using Localization.Properties;
@@ -110,42 +109,7 @@
                     {
                         options.DisposeContainerWithServiceProvider = false;
 
-                        // options.AddHostedService<MyHostedService>();
-
                         options.AddLocalization();
-
-                        var s = new ServiceCollection();
-
-                        s.Scan(scan => scan.FromAssemblies(assemblies).RegisterCatalogs());
-
-                        foreach (var d in s)
-                        {
-                            var lifetime = d.Lifetime switch
-                            {
-                                ServiceLifetime.Singleton => Lifestyle.Singleton,
-                                ServiceLifetime.Scoped => Lifestyle.Singleton,
-                                _ => Lifestyle.Transient
-                            };
-
-                            if (d.ImplementationType != null)
-                            {
-                                container.Register(d.ServiceType, d.ImplementationType, lifetime);
-                            }
-                            else if (d.ImplementationInstance != null)
-                            {
-                                container.Register(d.ServiceType, () => d.ImplementationInstance, lifetime);
-                            }
-                            else if (d.ImplementationFactory != null)
-                            {
-                                container.Register(d.ServiceType, () => d.ImplementationFactory.Invoke(container), lifetime);
-                            }
-                            else
-                            {
-                                throw new InvalidOperationException($"Unable to register {d.ServiceType}");
-                            }
-
-                            // TODO Handle IEnumerable registration conversion between MS DI and SimpleInjector
-                        }
                     });
                 })
                 .ConfigureLogging((context, config) => config
@@ -153,6 +117,8 @@
                 .UseConsoleLifetime()
                 .Build()
                 .UseSimpleInjector(container);
+
+            container.RegisterPackages(assemblies);
         }
 
         /// <inheritdoc />

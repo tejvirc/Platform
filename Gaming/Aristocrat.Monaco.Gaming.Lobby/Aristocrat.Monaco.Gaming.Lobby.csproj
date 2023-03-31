@@ -2,7 +2,7 @@
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <AssemblyTitle>Aristocrat.Monaco.Gaming.UI</AssemblyTitle>
+    <AssemblyTitle>Aristocrat.Monaco.Gaming.Lobby</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
@@ -33,6 +33,7 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="SimpleInjector.Packaging" Version="4.9.2" />
+    <PackageReference Include="Stateless" Version="4.0.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
   <ItemGroup>
@@ -41,12 +42,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Consumers\" />
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Regions\" />
   </ItemGroup>
 </Project>

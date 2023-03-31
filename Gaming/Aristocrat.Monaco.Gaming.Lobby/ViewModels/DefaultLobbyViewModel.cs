@@ -8,24 +8,29 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Fluxor.Selectors;
 using Fluxor;
 using Store.Lobby;
+using Views;
 
-public class DefaultLobbyViewModel : ObservableObject
+public class DefaultLobbyViewModel : ObservableObject, IChooserViewTarget
 {
     private readonly IDispatcher _dispatcher;
-    private readonly IState<LobbyState> _lobbyState;
+    private readonly IState<LobbyState> _state;
 
-    public DefaultLobbyViewModel(IDispatcher dispatcher, IState<LobbyState> lobbyState)
+    private string _chooserViewName;
+
+    public DefaultLobbyViewModel(IDispatcher dispatcher, IState<LobbyState> state)
     {
         _dispatcher = dispatcher;
-        _lobbyState = lobbyState;
+        _state = state;
 
-        _lobbyState.StateChanged += LobbyStateOnStateChanged;
+        _state.StateChanged += OnStateChanged;
+
+        _chooserViewName = ViewNames.Chooser;
     }
 
-    public string Title { get; set; }
+    string IChooserViewTarget.ViewName => _chooserViewName;
 
-    private void LobbyStateOnStateChanged(object sender, EventArgs e)
+    private void OnStateChanged(object sender, EventArgs e)
     {
-        Title = _lobbyState.Value.Title;
+
     }
 }
