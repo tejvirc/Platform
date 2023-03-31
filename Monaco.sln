@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.32126.317
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kernel", "Kernel", "{6E211868-6A71-4021-B316-C76B8D1DBB7D}"
 EndProject
@@ -244,6 +244,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Bingo.Client.Tests", "Test\Aristocrat.Bingo.ClientTests\Aristocrat.Bingo.Client.Tests.csproj", "{D6A438DF-687F-4685-A665-957FB7744DAA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.Serial.Tests", "Test\Aristocrat.Monaco.Hardware.Serial.Tests\Aristocrat.Monaco.Hardware.Serial.Tests.csproj", "{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.WebApiServer", "Test\automation\Aristocrat.Monaco.WebApiServer\Aristocrat.Monaco.WebApiServer.csproj", "{C825C004-8710-47F2-80B6-B4408D531931}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1785,6 +1787,24 @@ Global
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|x64.ActiveCfg = Retail|Any CPU
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x64.Build.0 = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x86.Build.0 = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x64.ActiveCfg = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x64.Build.0 = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x86.ActiveCfg = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x86.Build.0 = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|Any CPU.Build.0 = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x64.ActiveCfg = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x64.Build.0 = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x86.Build.0 = Retail|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1897,9 +1917,10 @@ Global
 		{D0BF18CE-DBE9-49A5-9FED-94BA58891ED6} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{D6A438DF-687F-4685-A665-957FB7744DAA} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
+		{C825C004-8710-47F2-80B6-B4408D531931} = {ADB20021-B352-4404-AB81-E955809FF7E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 		RESX_RemoveEmptyEntries = True
+		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 	EndGlobalSection
 EndGlobal
