@@ -64,7 +64,6 @@
                             d => d.GetBingoTitleId() == c.GameTitleId.ToString() && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
                         Settings: c))
                 .GroupBy(x => x.GameDetails.ThemeId);
-
             return serverGameConfigurations.Any() &&
                    serverGameConfigurations.All(IsHelpUriValid) &&
                    gameConfigurations.All(x => !string.IsNullOrEmpty(x.Key) && IsConfigurationValid(x.ToList()));
@@ -136,8 +135,8 @@
             var denoms = configurations.Select(c => c.Settings).ToList();
             var restrictions = _restrictionProvider.GetByThemeId(gameDetail.ThemeId).Select(x => x.RestrictionDetails).Where(
                 x => x.MaxDenomsEnabled is not null || x.Mapping.Any(m => m.Active)).ToList();
-            var validRestrictions = restrictions.Count <= 1 || restrictions.Any(
-                x => x.MaxDenomsEnabled is not null && x.MaxDenomsEnabled <= denoms.Count ||
+            var validRestrictions = restrictions.Count == 0 || restrictions.Any(
+                x => x.MaxDenomsEnabled is not null && x.MaxDenomsEnabled >= denoms.Count ||
                      x.Mapping.Count(m => m.Active) == denoms.Count && x.Mapping.All(
                          m => m.Active && denoms.Any(d => d.Denomination.CentsToMillicents() == m.Denomination)));
             var wagerCategoryCount = gameDetail.WagerCategories.Count();
