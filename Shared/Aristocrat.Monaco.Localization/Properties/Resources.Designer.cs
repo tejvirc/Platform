@@ -22742,18 +22742,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Out Of Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string OutOfServiceReason {
-			get {
-				return ResourceManager.GetString("OutOfServiceReason", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Output Event.
 		/// </summary>
         /// <remarks>
@@ -57361,18 +57349,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Out Of Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string OutOfServiceReason {
-			get {
-				return "OutOfServiceReason";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Output Event.
 		/// </summary>
         /// <remarks>
@@ -82221,13 +82197,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		OutOfServiceModePopupText,
-		/// <summary>
-		///   Looks up a localized string similar to Out Of Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		OutOfServiceReason,
 		/// <summary>
 		///   Looks up a localized string similar to Output Event.
 		/// </summary>

@@ -9,6 +9,7 @@
                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                               common:DialogParticipation.Register="{Binding}"
                               mc:Ignorable="d"
                               FocusManager.FocusedElement="{Binding ElementName=Ok}" 
@@ -75,22 +76,13 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Grid>
-                <Button Content="{Binding OutOfServiceButtonText}" 
-                        TabIndex="2" 
-                        HorizontalAlignment="Left" 
-                        IsEnabled="{Binding OutOfServiceModeButtonActive}"
-                        Command="{Binding OutOfServiceModeButtonCommand}" 
-                        MinWidth="215"/>
-            </Grid>
-            <Grid>
-                <Button
-                        Width="200"
-                        HorizontalAlignment="Left" Margin="10 0 0 0"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitReserve}}"
-                        Command="{Binding ExitReserveCommand}"
-                        Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
+            <views:OutOfServiceButton DataContext="{Binding OutOfServiceViewModel}"
+                                      Margin="10 0 0 0"/>
+            <Button Width="250"
+                    HorizontalAlignment="Left" Margin="10 0 0 0"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitReserve}}"
+                    Command="{Binding ExitReserveCommand}"
+                    Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

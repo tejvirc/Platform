@@ -16,6 +16,8 @@
         /// <summary/>
         public const string OperatorCanOverrideMaxCreditsIn = "OperatorCanOverrideMaxCreditsIn";
         /// <summary/>
+        public const string IdleTextEditorVisible = "IdleTextVisible";
+        /// <summary/>
         public const string ShowSubscriptionText = "ShowSubscriptionText";
         /// <summary/>
         public const string EnableAdvancedConfig = "EnableAdvancedConfig";
@@ -55,8 +57,6 @@
         public const string VoucherIdVisible = "VoucherIDVisible";
         /// <summary/>
         public const string VoucherIdMask = "VoucherIDMask";
-        /// <summary/>
-        public const string AccountingConfigurationLoader = "AccountingConfigurationLoader";
         /// <summary/>
         public const string MainMetersPageViewModel = "MainMetersPageViewModel";
         /// <summary/>
@@ -127,5 +127,9 @@
         public const string ShowGameRtpAsRange = "ShowGameRtpAsRange";
         /// <summary/>
         public const string ShowToggleLanguageButton = "ShowToggleLanguageButton";
+        /// <summary/>
+        public const string OutOfServiceVisible = "OutOfServiceVisible";
+        /// <summary/>
+        public const string VolumeControlVisible = "VolumeControlVisible";
     }
 }

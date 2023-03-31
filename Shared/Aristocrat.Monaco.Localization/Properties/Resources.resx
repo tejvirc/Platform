@@ -5006,10 +5006,6 @@ Max: Should be less than the Large Win Limit</value>
     <value>Put the EGM Out of Service?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="OutOfServiceReason" xml:space="preserve">
-    <value>Out Of Service</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
-  </data>
   <data name="OutputEventText" xml:space="preserve">
     <value>Output Event</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>

@@ -95,8 +95,8 @@
         [TestMethod]
         public void OutOfServiceModeButtonActiveTest()
         {
-            _target.OutOfServiceModeButtonActive = true;
-            Assert.IsTrue(_target.OutOfServiceModeButtonActive);
+            _target.OutOfServiceViewModel.OutOfServiceModeButtonIsEnabled = true;
+            Assert.IsTrue(_target.OutOfServiceViewModel.OutOfServiceModeButtonIsEnabled);
         }
 
         [TestMethod]
@@ -121,7 +121,7 @@
         [TestMethod]
         public void OutOfServiceModeButtonCommandTest()
         {
-            Assert.IsNotNull(_target.OutOfServiceModeButtonCommand);
+            Assert.IsNotNull(_target.OutOfServiceViewModel.OutOfServiceModeButtonCommand);
         }
 
         [TestMethod]
