@@ -396,11 +396,14 @@
             // This need to include all games that have ever been active on the cabinet.
             _allGames = new ObservableCollection<IGameDetail>(
                 PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(game => game.Id));
-            Games = SelectByGameNameAndDenomination
+
+            var distinctThemeGames = SelectByGameNameAndDenomination
                 ? new ObservableCollection<IGameDetail>(
                     PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames)
                         .DistinctBy(game => game.ThemeName).OrderBy(game => game.Id))
                 : _allGames;
+            Games = new ObservableCollection<IGameDetail>(distinctThemeGames.GroupBy(game => game.PaytableName).Select(game => game.First()).ToList());
+
             RaisePropertyChanged(nameof(Games));
             SelectedGameIndex = 0;
         }
