@@ -224,6 +224,8 @@
         public bool GambleOptionVisible => GlobalOptionsVisible && SelectedGameType != GameType.Blackjack &&
                                            SelectedGameType != GameType.Keno && !IsRouletteGameSelected;
 
+        public bool MaxBetIsVisible => GlobalOptionsVisible && !IsRouletteGameSelected;
+
         public bool LetItRideOptionVisible => GlobalOptionsVisible && SelectedGameType == GameType.Blackjack;
 
         public bool CanExecuteImportCommand => CanExecuteExportCommand && _settingsManager.IsConfigurationImportFilePresent(ConfigurationGroup.Game);
@@ -1401,7 +1403,8 @@
             ApplyGameOptionsEnabled();
             RaisePropertyChanged(nameof(GambleHeaderText), nameof(GambleOptionVisible),
                 nameof(LetItRideHeaderText), nameof(LetItRideOptionVisible),
-                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected), nameof(IsPokerGameSelected));
+                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected),
+                nameof(IsPokerGameSelected), nameof(MaxBetIsVisible));
         }
 
         private void ApplyGameOptionsEnabled()
