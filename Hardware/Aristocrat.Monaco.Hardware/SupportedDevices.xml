@@ -151,7 +151,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
-      <FirmwareVersionRegex>^E001ARI</FirmwareVersionRegex>
+      <FirmwareVersionRegex>^S5</FirmwareVersionRegex>
     </Device>
 
     <Device Enabled="true" Type="IdReader" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
