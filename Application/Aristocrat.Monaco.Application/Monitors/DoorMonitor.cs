@@ -310,6 +310,9 @@
                 case (int)DoorLogicalId.TopBoxOptic:
                     return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxOpticDoorName);
 
+                case (int)DoorLogicalId.UniversalInterfaceBox:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniversalInterfaceBoxDoorName);
+
                 default:
                     return _doorService.GetDoorName(doorId);
             }

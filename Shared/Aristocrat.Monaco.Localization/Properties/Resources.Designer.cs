@@ -24047,6 +24047,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Primary Game Amount Won Test.
+		/// </summary>
+		public static string PrimaryWonAmountLabel {
+			get {
+				return ResourceManager.GetString("PrimaryWonAmountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Print Audit Ticket.
 		/// </summary>
         /// <remarks>
@@ -29405,6 +29414,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Standard.
+		/// </summary>
+		public static string Standard {
+			get {
+				return ResourceManager.GetString("Standard", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Game Start.
 		/// </summary>
         /// <remarks>
@@ -33490,6 +33508,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VignetteText2 {
 			get {
 				return ResourceManager.GetString("VignetteText2", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Vip.
+		/// </summary>
+		public static string Vip {
+			get {
+				return ResourceManager.GetString("Vip", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -58573,6 +58600,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Primary Game Amount Won Test.
+		/// </summary>
+		public static string PrimaryWonAmountLabel {
+			get {
+				return "PrimaryWonAmountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Print Audit Ticket.
 		/// </summary>
         /// <remarks>
@@ -63931,6 +63967,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Standard.
+		/// </summary>
+		public static string Standard {
+			get {
+				return "Standard";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Game Start.
 		/// </summary>
         /// <remarks>
@@ -68016,6 +68061,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VignetteText2 {
 			get {
 				return "VignetteText2";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Vip.
+		/// </summary>
+		public static string Vip {
+			get {
+				return "Vip";
 			}
 		}
 
@@ -82791,6 +82845,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		PreviouslyActive,
 		/// <summary>
+		///   Looks up a localized string similar to Primary Game Amount Won Test.
+		/// </summary>
+		PrimaryWonAmountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Print Audit Ticket.
 		/// </summary>
         /// <remarks>
@@ -85844,6 +85902,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		StandaloneProgressive,
 		/// <summary>
+		///   Looks up a localized string similar to Standard.
+		/// </summary>
+		Standard,
+		/// <summary>
 		///   Looks up a localized string similar to Game Start.
 		/// </summary>
         /// <remarks>
@@ -88167,6 +88229,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.Contracts - Changed from "VignetteText"
         /// </remarks>
 		VignetteText2,
+		/// <summary>
+		///   Looks up a localized string similar to Vip.
+		/// </summary>
+		Vip,
 		/// <summary>
 		///   Looks up a localized string similar to Virtual Buttons.
 		/// </summary>
