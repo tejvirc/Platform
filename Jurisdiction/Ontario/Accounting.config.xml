@@ -28,7 +28,7 @@ as follows:
     <MaxCreditsIn Default="119999000" />
   </TenderIn>
   <CreditLimits>
-	<MaxCreditMeter Default="119999000" MaxAllowed="300000000"/>	
+	<MaxCreditMeter Default="119999000" MaxAllowed="299999000"/>	
   </CreditLimits>
   <WinLimits>
 	<LargeWinLimit Default="99999999000"/>
