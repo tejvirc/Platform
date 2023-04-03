@@ -15,6 +15,7 @@
     using Contracts.Process;
     using GDKRuntime.Contract;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.ControlData;
     using Kernel;
     using log4net;
     using LevelId = System.UInt32;
@@ -609,11 +610,11 @@
         {
             Logger.Debug($"SpinReels");
 
-            var spinData = new Hardware.Contracts.Reel.ReelSpinData[request.Count];
+            var spinData = new Hardware.Contracts.Reel.ControlData.ReelSpinData[request.Count];
             for (var i = 0; i < request.Count; ++i)
             {
                 var direction = request[i].Direction == Direction.Forward ? SpinDirection.Forward : SpinDirection.Backwards;
-                spinData[i] = new Hardware.Contracts.Reel.ReelSpinData(
+                spinData[i] = new Hardware.Contracts.Reel.ControlData.ReelSpinData(
                     request[i].ReelId,
                     direction,
                     request[i].Speed,
@@ -687,10 +688,10 @@
         {
             Logger.Debug($"UpdateReelsSpeed");
 
-            var speedData = new Hardware.Contracts.Reel.ReelSpeedData[request.Count];
+            var speedData = new Hardware.Contracts.Reel.ControlData.ReelSpeedData[request.Count];
             for (var i = 0; i < request.Count; ++i)
             {
-                speedData[i] = new Hardware.Contracts.Reel.ReelSpeedData(
+                speedData[i] = new Hardware.Contracts.Reel.ControlData.ReelSpeedData(
                     request[i].ReelId,
                     request[i].Speed);
             }

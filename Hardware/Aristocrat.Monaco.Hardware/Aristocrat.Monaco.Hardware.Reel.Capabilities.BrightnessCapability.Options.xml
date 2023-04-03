@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.Reel.Capabilities.BrightnessCapability.Options" >
+    <Fields>
+      <Field DataType="Int32" FieldName="ReelBrightness" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

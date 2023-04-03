@@ -2,6 +2,7 @@
 {
     using System.Reflection;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
     using Kernel;
     using log4net;
 
@@ -10,15 +11,20 @@
     /// </summary>
     public class UpdateReelsSpeedCommandHandler : ICommandHandler<UpdateReelsSpeed>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IReelController _reelController;
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly IReelSpinCapabilities _spinCapabilities;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="UpdateReelsSpeedCommandHandler" /> class.
         /// </summary>
         public UpdateReelsSpeedCommandHandler()
         {
-            _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
+            var reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
+
+            if (reelController.HasCapability<IReelSpinCapabilities>())
+            {
+                _spinCapabilities = reelController.GetCapability<IReelSpinCapabilities>();
+            }
         }
 
         /// <inheritdoc />
@@ -26,9 +32,14 @@
         {
             Logger.Debug("Handle UpdateReelsSpeed command");
 
-            var result = _reelController.SetReelSpeed(command.SpeedData);
+            if (_spinCapabilities is not null)
+            {
+                var result = _spinCapabilities.SetReelSpeed(command.SpeedData);
+                command.Success = result.Result;
+                return;
+            }
 
-            command.Success = result.Result;
+            command.Success = false;
         }
     }
 }

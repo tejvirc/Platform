@@ -10,6 +10,8 @@
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Models;
@@ -28,6 +30,7 @@
         private const int MaxSupportedReels = ReelConstants.MaxSupportedReels;
         private const int LightsOffTime = 250;
         
+        private readonly IReelBrightnessCapabilities _brightnessCapabilities;
         private readonly IEdgeLightingController _edgeLightController;
         private readonly PatternParameters _solidBlackPattern = new SolidColorPatternParameters
         {
@@ -84,6 +87,11 @@
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
             SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
             ApplyBrightnessCommand = new ActionCommand<object>(_ => HandleApplyBrightness().FireAndForget());
+
+            if (ReelController.HasCapability<IReelBrightnessCapabilities>())
+            {
+                _brightnessCapabilities = ReelController.GetCapability<IReelBrightnessCapabilities>();
+            }
 
             MinimumBrightness = 1;
             MaximumBrightness = 100;
@@ -247,6 +255,20 @@
             }
         }
 
+        private int ReelControllerDefaultBrightness
+        {
+            get => _brightnessCapabilities?.DefaultReelBrightness ?? MaximumBrightness;
+
+            set
+            {
+                if (_brightnessCapabilities is not null &&
+                    _brightnessCapabilities.DefaultReelBrightness != value)
+                {
+                    _brightnessCapabilities.DefaultReelBrightness = value;
+                }
+            }
+        }
+
         private void ClearPattern(ref IEdgeLightToken token)
         {
             if (token == null)
@@ -266,7 +288,7 @@
 
             UpdateWarningMessage();
 
-            Brightness = ReelController?.DefaultReelBrightness ?? MaximumBrightness;
+            Brightness = ReelControllerDefaultBrightness;
             InitialBrightness = Brightness;
         }
 
@@ -516,20 +538,23 @@
             BrightnessChanging = true;
 
             InitialBrightness = Brightness;
-            ReelController.DefaultReelBrightness = Brightness;
+            ReelControllerDefaultBrightness = Brightness;
 
-            if (ReelController.DefaultReelBrightness == Brightness)
+            if (ReelControllerDefaultBrightness == Brightness)
             {
-                await ReelController.SetReelBrightness(Brightness);
+                if (_brightnessCapabilities is not null)
+                {
+                    await _brightnessCapabilities.SetBrightness(Brightness);
                 
-                ClearPattern(ref _offToken);
-                _offToken = _edgeLightController.AddEdgeLightRenderer(_solidBlackPattern);
-                await Task.Delay(LightsOffTime);
-                ClearPattern(ref _offToken);
+                    ClearPattern(ref _offToken);
+                    _offToken = _edgeLightController.AddEdgeLightRenderer(_solidBlackPattern);
+                    await Task.Delay(LightsOffTime);
+                    ClearPattern(ref _offToken);
+                }
             }
             else
             {
-                Brightness = ReelController.DefaultReelBrightness;
+                Brightness = ReelControllerDefaultBrightness;
                 InitialBrightness = Brightness;
             }
 
