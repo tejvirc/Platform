@@ -206,11 +206,13 @@
 
         private void StartBell()
         {
+            Inspection.SetTestName("On");
             _bell?.RingBell();
         }
 
         private void StopBell()
         {
+            Inspection.SetTestName("Off");
             _bell?.StopBell();
         }
 

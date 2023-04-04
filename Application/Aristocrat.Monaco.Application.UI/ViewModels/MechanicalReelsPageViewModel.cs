@@ -397,6 +397,16 @@
             RaisePropertyChanged(nameof(TestModeToolTipDisabled));
         }
 
+        private void OnSelfTestCmd(object obj)
+        {
+            SelfTest(false);
+        }
+
+        private void OnSelfTestClearCmd(object obj)
+        {
+            SelfTest(true);
+        }
+
         private async void SelfTest(bool clearNvm)
         {
             SelfTestEnabled = false;

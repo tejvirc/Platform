@@ -1546,6 +1546,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return ResourceManager.GetString("AutoTest", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		public static string AvailableMeterMappings {
@@ -8744,6 +8756,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return ResourceManager.GetString("Displays", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -8968,6 +8992,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DoorOpticSensorEnabled {
 			get {
 				return ResourceManager.GetString("DoorOpticSensorEnabled", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return ResourceManager.GetString("DoorRequiresTest", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36085,6 +36121,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return "AutoTest";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		public static string AvailableMeterMappings {
@@ -43282,6 +43330,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return "Displays";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -43506,6 +43566,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DoorOpticSensorEnabled {
 			get {
 				return "DoorOpticSensorEnabled";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return "DoorRequiresTest";
 			}
 		}
 
@@ -69989,6 +70061,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		AutoPlay,
 		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AutoTest,
+		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		AvailableMeterMappings,
@@ -74087,6 +74166,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisplayDisconnected,
 		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Displays,
+		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -74219,6 +74305,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		DoorOpticSensorEnabled,
+		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		DoorRequiresTest,
 		/// <summary>
 		///   Looks up a localized string similar to Door.
 		/// </summary>
