@@ -6,9 +6,9 @@
     using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Linq;
-    using Kernel;
     using Contracts;
     using Contracts.Models;
+    using Kernel;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
     using MVVM.Model;
@@ -134,7 +134,7 @@
             {
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
-                if(!string.IsNullOrEmpty(TopPickImagePath) && propertiesManager.GetValue(GamingConstants.ShowTopPickBanners, true))
+                if (!string.IsNullOrEmpty(TopPickImagePath) && propertiesManager.GetValue(GamingConstants.ShowTopPickBanners, true))
                 {
                     return TopPickImagePath;
                 }
@@ -323,12 +323,15 @@
         {
             Denominations.Clear();
             Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x) { IsVisible = true }));
+
+            // Start with all denoms unselected so it doesn't look weird on machines without the VBD denom switching
+            SetSelectedDenomination(null);
         }
 
         /// <summary>
         ///     Gets the bet option
         /// </summary>
-        public string BetOption 
+        public string BetOption
         {
             get => _betOption;
 
@@ -399,10 +402,9 @@
 
             set
             {
-                if (_isSelected != value)
+                if (SetProperty(ref _isSelected, value, nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel)))
                 {
-                    _isSelected = value;
-                    RaisePropertyChanged(nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel));
+                    SetSelectedDenomination(null);
                 }
             }
         }
@@ -497,8 +499,37 @@
         /// </summary>
         public string PositionPriorityKey { get; set; }
 
+        public void IncrementSelectedDenomination()
+        {
+            var visibleDenominations = Denominations.Where(o => o.IsVisible).ToList();
+            var selectedDenomination = visibleDenominations.FirstOrDefault(o => o.IsSelected);
+            if (selectedDenomination != null)
+            {
+                var currentIndex = visibleDenominations.IndexOf(selectedDenomination);
+                currentIndex = (currentIndex + 1) % visibleDenominations.Count;
+                SetSelectedDenomination(visibleDenominations[currentIndex]);
+            }
+            else
+            {
+                SetSelectedDenomination(visibleDenominations.FirstOrDefault());
+            }
+        }
+
+        public void SetSelectedDenomination(DenominationInfoViewModel denomination)
+        {
+            foreach (var denom in Denominations)
+            {
+                denom.IsSelected = false;
+            }
+
+            if (denomination != null)
+            {
+                denomination.IsSelected = true;
+            }
+        }
+
         /// <summary>
-        ///     Select the approriate for the Locale Graphics
+        ///     Select the appropriate for the Locale Graphics
         /// </summary>
         /// <param name="activeLocaleCode">locale code to use</param>
         public void SelectLocaleGraphics(string activeLocaleCode)
@@ -511,7 +542,7 @@
 
             if (localeGraphics.ContainsKey(activeLocaleCode))
             {
-                if(UseSmallIcons)
+                if (UseSmallIcons)
                 {
                     ImagePath = localeGraphics[activeLocaleCode].SmallIcon;
                     TopPickImagePath = localeGraphics[activeLocaleCode].SmallTopPickIcon;

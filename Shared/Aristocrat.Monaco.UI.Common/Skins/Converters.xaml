@@ -10,6 +10,9 @@
     <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueVisibleFalseCollapsed" TrueValue="Visible" FalseValue="Collapsed"/>
     <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueCollapsedFalseVisible" TrueValue="Collapsed" FalseValue="Visible"/>
 
+    <converters:LogicalOrBoolToVisibilityConverter x:Key="LogicalOrTrueVisibleFalseCollapsed" TrueValue="Visible" FalseValue="Collapsed"/>
+    <converters:LogicalOrBoolToVisibilityConverter x:Key="LogicalOrTrueCollapsedFalseVisible" TrueValue="Collapsed" FalseValue="Visible"/>
+
     <converters:StringToVisibilityConverter x:Key="EmptyStringIsCollapsedConverter"/>
     <converters:StringToVisibilityConverter x:Key="EmptyStringIsVisibleConverter" EmptyValue="Visible" NotEmptyValue="Collapsed"/>
 

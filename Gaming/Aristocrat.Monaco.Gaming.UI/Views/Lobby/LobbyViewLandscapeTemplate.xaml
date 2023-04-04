@@ -33,8 +33,6 @@
     <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True"/>
-    <converters:GameSelectedOverlayVisibilityConverter x:Key="GameSelectedOverlayVisibilityConv"/>
-    <converters:GameDisabledOverlayVisibilityConverter x:Key="GameDisabledOverlayVisibilityConv"/>
     <converters:ProgressiveLabelVisibilityConverter x:Key="ProgressiveLabelVisibilityConv"/>
     <converters:MarginConverter x:Key="MarginConverter"/>
     <converters:DenomIconHeightConverter x:Key="DenomIconHeightConv"/>
@@ -401,9 +399,9 @@
                                                    HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                                    VerticalAlignment="Top">
                                                 <Image.Visibility>
-                                                    <MultiBinding Converter="{StaticResource GameSelectedOverlayVisibilityConv}">
+                                                    <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
                                                         <Binding Path="IsSelected"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" Converter="{StaticResource InverseBoolConverter}"/>
                                                     </MultiBinding>
                                                 </Image.Visibility>
                                             </Image>
@@ -460,7 +458,7 @@
                                                        Width="{Binding ElementName=ButtonImage, Path=ActualWidth}"
                                                        Height="{Binding ElementName=ButtonImage, Path=ActualHeight}">
                                                 <Rectangle.Visibility>
-                                                    <MultiBinding Converter="{StaticResource GameDisabledOverlayVisibilityConv}">
+                                                    <MultiBinding Converter="{StaticResource LogicalOrTrueCollapsedFalseVisible}">
                                                         <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
                                                         <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                     </MultiBinding>
@@ -584,8 +582,7 @@
                                                         <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
-                                                            <Binding Source="{StaticResource FalseValue}" />
-                                                            <!-- Perform scale-->
+                                                            <Binding Source="{StaticResource FalseValue}" /> <!-- Perform scale-->
                                                         </MultiBinding>
                                                     </Image.Height>
                                                 </Image>

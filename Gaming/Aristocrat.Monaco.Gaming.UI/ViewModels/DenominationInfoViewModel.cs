@@ -31,6 +31,7 @@
                     RaisePropertyChanged(nameof(IsSelected));
                     RaisePropertyChanged(nameof(DenomText));
                     RaisePropertyChanged(nameof(DenomBackground));
+                    RaisePropertyChanged(nameof(DenomBackground2));
                 }
             }
         }

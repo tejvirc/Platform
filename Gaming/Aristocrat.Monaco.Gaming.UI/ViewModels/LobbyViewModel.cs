@@ -423,6 +423,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
             PreviousPageCommand = new ActionCommand<object>(PrevPage);
             NextPageCommand = new ActionCommand<object>(NextPage);
+            PreviousTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousTab));
+            NextTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextTab));
+            PreviousGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousGame));
+            NextGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextGame));
+            ChangeDenomCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.ChangeDenom));
             AddCreditsCommand = new ActionCommand<object>(BankPressed);
             CashOutCommand = new ActionCommand<object>(CashOutPressed);
             ServiceCommand = new ActionCommand<object>(ServicePressed);
@@ -577,6 +582,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ///     Gets the next page command
         /// </summary>
         public ICommand NextPageCommand { get; }
+
+        public ICommand PreviousTabCommand { get; set; }
+
+        public ICommand NextTabCommand { get; set; }
+
+        public ICommand PreviousGameCommand { get; set; }
+
+        public ICommand NextGameCommand { get; set; }
+
+        public ICommand ChangeDenomCommand { get; set; }
 
         /// <summary>
         ///     Gets the command to insert credits
@@ -2071,37 +2086,44 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             OnUserInteraction();
             PlayAudioFile(Sound.Touch);
-            if (info is GameInfo game)
+            if (info is not GameInfo game)
             {
-                if (IsTabView)
-                {
-                    SetSelectedGame(game);
-                }
+                game = _selectedGame;
+            }
 
-                if (CurrentState == LobbyState.AgeWarningDialog)
+            if (game == null)
+            {
+                return;
+            }
+
+            if (IsTabView)
+            {
+                SetSelectedGame(game);
+            }
+
+            if (CurrentState == LobbyState.AgeWarningDialog)
+            {
+                _launchGameAfterAgeWarning = game;
+            }
+            else
+            {
+                if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
                 {
-                    _launchGameAfterAgeWarning = game;
+                    Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
+                    SendTrigger(LobbyTrigger.Disable);
                 }
                 else
                 {
-                    if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
+                    _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
+
+                    Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
+                    if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
                     {
-                        Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
-                        SendTrigger(LobbyTrigger.Disable);
+                        SendTrigger(LobbyTrigger.LaunchGame, game);
                     }
                     else
                     {
-                        _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
-
-                        Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
-                        if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
-                        {
-                            SendTrigger(LobbyTrigger.LaunchGame, game);
-                        }
-                        else
-                        {
-                            Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
-                        }
+                        Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
                     }
                 }
             }
@@ -3449,6 +3471,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RefreshDisplayedGameList();
         }
 
+        private void VbdButtonClick(LcdButtonDeckLobby lobbyAction)
+        {
+#if DEBUG
+            OnUserInteraction();
+            HandleLcdButtonDeckButtonPress(lobbyAction);
+#endif
+        }
+
         private void LaunchGameOrRecovery()
         {
             Logger.Debug("LaunchGameOrRecovery Method");
@@ -3770,8 +3800,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         }
 
-
-        private void SetSelectedGame(GameInfo gameInfo)
+        private void SetSelectedGame(GameInfo gameInfo, bool selectFirstDenom = false)
         {
             // Unselect the previous selected game
             if (_selectedGame != null)
@@ -3785,8 +3814,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (_selectedGame != null)
             {
                 _selectedGame.IsSelected = true;
+                if (selectFirstDenom)
+                {
+                    _selectedGame.IncrementSelectedDenomination();
+                }
             }
-
         }
 
         private void NavigateSelectionTo(SelectionNavigation navigationOption)
@@ -3819,7 +3851,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
                     var gameToSelect = DisplayedGameList[selectedGameIndex];
 
-                    SetSelectedGame(gameToSelect);
+                    SetSelectedGame(gameToSelect, true);
                     break;
 
                 default:
@@ -5043,7 +5075,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.ChangeDenom:
-                    GameTabInfo.IncrementSelectedDenomination();
+                    if (_selectedGame.Category == GameCategory.LightningLink)
+                    {
+                        _selectedGame.IncrementSelectedDenomination();
+                    }
+                    else
+                    {
+                        GameTabInfo.IncrementSelectedDenomination();
+                    }
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.NextTab:

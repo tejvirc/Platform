@@ -143,6 +143,15 @@
             }
         }
 
+        public void SelectSubTab(int index)
+        {
+            var selectedIndex = SubTabs.IndexOf(SelectedSubTab);
+            if (index >= 0 && index < SubTabs.Count && index != selectedIndex)
+            {
+                SelectSubTab(SubTabs[index]);
+            }
+        }
+
         public void SetDenominations(IEnumerable<long> denominations)
         {
             Denominations.Clear();
@@ -245,6 +254,27 @@
 
         public void NextPreviousTab(bool next)
         {
+            if (SubTabs.Any())
+            {
+                // First attempt to navigate through sub tabs
+                // If we have reached the end, continue to next main Tab
+                var selectedSubTabIndex = SubTabs.IndexOf(SelectedSubTab);
+
+                if (next && selectedSubTabIndex < SubTabs.Count - 1)
+                {
+                    // Go to next sub tab
+                    SelectSubTab(selectedSubTabIndex + 1);
+                    return;
+                }
+
+                if (!next && selectedSubTabIndex > 0)
+                {
+                    // Go to previous sub tab
+                    SelectSubTab(selectedSubTabIndex - 1);
+                    return;
+                }
+            }
+
             var selectedTabIndex = SelectedTabIndex;
 
             selectedTabIndex = next ? (selectedTabIndex + 1) % TabCount : selectedTabIndex - 1;
@@ -271,6 +301,8 @@
                     return GameCategory.Poker;
                 case GameType.Roulette:
                     return GameCategory.Table;
+                case GameType.LightningLink:
+                    return GameCategory.LightningLink;
                 default:
                     return GameCategory.Undefined;
             }
@@ -288,6 +320,8 @@
                     return new List<GameType> { GameType.Poker };
                 case GameCategory.Table:
                     return new List<GameType> { GameType.Blackjack, GameType.Roulette };
+                case GameCategory.LightningLink:
+                    return new List<GameType> { GameType.LightningLink };
                 default:
                     return new List<GameType> { GameType.Undefined };
             }
