@@ -11,10 +11,7 @@
     using Contracts.SharedDevice;
     using Hardware.Contracts.SerialPorts;
     using log4net;
-    using Serial.NoteAcceptor;
-    using Serial.Printer;
     using Serial.Protocols;
-    using Serial.Reel;
 
     public class SerialDeviceSearcher : ISerialDeviceSearcher
     {

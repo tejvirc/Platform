@@ -314,12 +314,6 @@
         </Grid>
 
         <StackPanel Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="5 20 0 0">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.StartDetection}}"
-                    Visibility="{Binding ShowStartDetectionButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                    Command="{Binding StartDetectionCommand}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.StopDetection}}"
-                    Visibility="{Binding ShowStopDetectionButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                    Command="{Binding StopDetectionCommand}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Validate}}"
                     Visibility="{Binding ShowValidateButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ValidateCommand}"/>

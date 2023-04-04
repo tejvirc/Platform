@@ -105,7 +105,6 @@
         private string _hardMeterMapSelection;
         private bool _configurableBellyPanelDoor;
         private bool _bellyPanelDoorEnabled;
-        private int _notYetDiscovered;
 
         protected Action UpdateChanges;
         protected bool InitialHardMeter;
@@ -140,9 +139,6 @@
 
                     return CanValidate;
                 });
-
-            StartDetectionCommand = new ActionCommand<object>(_ => StartDetection());
-            StopDetectionCommand = new ActionCommand<object>(_ => StopDetection());
 
             InitialHardMeter = _hardMetersEnabled;
 
@@ -224,16 +220,12 @@
 
         public bool ShowValidateButton => !(this is HardwareManagerPageViewModel);
 
-        public ActionCommand<object> StartDetectionCommand { get; set; }
-
-        public ActionCommand<object> StopDetectionCommand { get; set; }
-
         public bool IsDetecting
         {
             get => _isDetecting;
             set
             {
-                if (!SetProperty(ref _isDetecting, value, nameof(IsDetecting), nameof(ShowStartDetectionButton), nameof(ShowStopDetectionButton)))
+                if (!SetProperty(ref _isDetecting, value, nameof(IsDetecting)))
                 {
                     return;
                 }
@@ -250,10 +242,6 @@
                 }
             }
         }
-
-        public bool ShowStartDetectionButton => !IsDetecting && IsWizardPage;
-
-        public bool ShowStopDetectionButton => IsDetecting && IsWizardPage;
 
         public bool ShowHardMeters { get; private set; }
 
@@ -381,11 +369,17 @@
 
         protected virtual void Device_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName.Equals("Enabled") &&
+                sender is DeviceConfigViewModel device && device.Enabled)
+            {
+                StartDetection();
+            }
+
             if (EnabledDevices.Any(
                 d =>
                 {
                     IDevice device = null;
-                    return CheckHardware(d, ref device) != true;
+                    return !CheckHardware(d, ref device);
                 }))
             {
                 ValidationStatus = string.Empty;
@@ -1151,12 +1145,6 @@
                                 isRequired = true;
                                 canChange = false;
                                 break;
-                            case DeviceType.ReelController when IsWizardPage:
-                                var cabinetType = _serviceManager.GetService<ICabinetDetectionService>().Type;
-                                isEnabled |=
-                                    cabinetType == CabinetType.LSWith1600MainScreen ||
-                                    cabinetType == CabinetType.LSWith1280MainScreen;
-                                break;
                         }
 
                         if (IsWizardPage &&
@@ -1249,13 +1237,13 @@
             _bellEnabled = _propertiesManager.GetValue(HardwareConstants.BellEnabledKey, false);
             ConfigurableBell = _propertiesManager.GetValue(ApplicationConstants.ConfigWizardBellConfigurable, false);
             VisibleBell = _propertiesManager.GetValue(ApplicationConstants.ConfigWizardBellVisible, false);
+
             DoorOpticSensorEnabled = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardDoorOpticsEnabled,
                 false);
             VisibleDoorOpticSensor = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardDoorOpticsVisible,
                 false);
-
             var configurableDoorOpticSensor = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardDoorOpticsConfigurable,
                 false);
@@ -1486,17 +1474,27 @@
 
         private void StartDetection()
         {
-            IsDetecting = true;
-            _notYetDiscovered = 0;
-
-            foreach (var device in EnabledDevices)
+            var discoverableDevices = new List<DeviceConfigViewModel>();
+            foreach (var device in Devices)
             {
+                if (device.IsDetectionComplete || !device.Enabled)
+                {
+                    continue;
+                }
+
+                discoverableDevices.Add(device);
                 device.StartDetection();
                 _deviceDiscoveryStatus[device.DeviceType] = false;
-                _notYetDiscovered++;
             }
 
-            _deviceDetection.BeginDetection(EnabledDevices.Select(d => d.DeviceType));
+            if (discoverableDevices.Any())
+            {
+                IsDetecting = true;
+                _deviceDetection.BeginDetection(discoverableDevices.Select(d => d.DeviceType));
+                return;
+            }
+
+            TryValidationAfterDetection();
         }
 
         private void StopDetection()
@@ -1525,10 +1523,7 @@
                         Logger.Debug($"Detected valid device for {deviceType}: {evt.Device.Name}");
                         _deviceDiscoveryStatus[deviceType] = true;
                         deviceConfig.SetDetectedPlatformConfiguration(evt.Device);
-                        _notYetDiscovered--;
                     }
-
-                    IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
 
                     TryValidationAfterDetection();
                 });
@@ -1560,17 +1555,15 @@
                             Protocol = ApplicationConstants.Fake,
                             Port = ApplicationConstants.Fake
                         });
-                    _notYetDiscovered--;
 #endif
-                    IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
-
                     TryValidationAfterDetection();
                 });
         }
 
         private void TryValidationAfterDetection()
         {
-            if (!IsDetecting && IsWizardPage && _notYetDiscovered == 0)
+            IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
+            if (!IsDetecting && IsWizardPage)
             {
                 ValidateCommand.Execute(new object());
             }

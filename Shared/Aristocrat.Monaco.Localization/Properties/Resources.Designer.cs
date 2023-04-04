@@ -29561,18 +29561,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Start Detection.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string StartDetection {
-			get {
-				return ResourceManager.GetString("StartDetection", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Starting Download.
 		/// </summary>
         /// <remarks>
@@ -29803,18 +29791,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return ResourceManager.GetString("StatusText", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Stop Detection.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string StopDetection {
-			get {
-				return ResourceManager.GetString("StopDetection", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -64207,18 +64183,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Start Detection.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string StartDetection {
-			get {
-				return "StartDetection";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Starting Download.
 		/// </summary>
         /// <remarks>
@@ -64449,18 +64413,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return "StatusText";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Stop Detection.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string StopDetection {
-			get {
-				return "StopDetection";
 			}
 		}
 
@@ -86175,13 +86127,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		StartDateText,
 		/// <summary>
-		///   Looks up a localized string similar to Start Detection.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		StartDetection,
-		/// <summary>
 		///   Looks up a localized string similar to Starting Download.
 		/// </summary>
         /// <remarks>
@@ -86315,13 +86260,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming
         /// </remarks>
 		StatusText,
-		/// <summary>
-		///   Looks up a localized string similar to Stop Detection.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		StopDetection,
 		/// <summary>
 		///   Looks up a localized string similar to Stopped Responding.
 		/// </summary>

@@ -11684,14 +11684,6 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>All games of this type must use the same package</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-  <data name="StartDetection" xml:space="preserve">
-    <value>Start Detection</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
-  </data>
-  <data name="StopDetection" xml:space="preserve">
-    <value>Stop Detection</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
-  </data>
   <data name="Searching" xml:space="preserve">
     <value>Searching ...</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
