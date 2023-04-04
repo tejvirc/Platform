@@ -33,13 +33,14 @@
         private const int ClientNotExisting = -1;
         private const int Client1 = 0;
         private const int Client2 = 1;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private IDictionary<SasGroup, int> _sasGroupPort;
         private SasClientConfiguration _client1Configuration;
         private SasClientConfiguration _client2Configuration;
 
         private readonly ConcurrentDictionary<int, RunningClient> _runningClients = new ConcurrentDictionary<int, RunningClient>();
+        private readonly AutoResetEvent _pendingExceptions = new AutoResetEvent(false);
         private bool _disposed;
 
         private IValidationHandler _validationHandler;
@@ -56,6 +57,7 @@
         private ISerialPortsService _serialPortService;
         private ISasVoucherInProvider _sasVoucherInProvider;
         private readonly Dictionary<int, SasDiagnostics> _sasClientDiagnostics = new Dictionary<int, SasDiagnostics>();
+        private readonly Dictionary<int, SasPriorityExceptionQueue> _sasExceptionQueue = new Dictionary<int, SasPriorityExceptionQueue>();
 
         /// <inheritdoc />
         public bool Client1HandlesGeneralControl { get; private set; }
@@ -82,6 +84,43 @@
         }
 
         /// <inheritdoc />
+        public void HandlePendingExceptions()
+        {
+            HandlePendingExceptionsClient(_client1Configuration);
+            HandlePendingExceptionsClient(_client2Configuration);
+        }
+
+        private void HandlePendingExceptionsClient(SasClientConfiguration clientConfiguration)
+        {
+            var clientNumber = clientConfiguration.ClientNumber;
+
+            _sasExceptionQueue.TryGetValue(clientNumber, out var exceptionQueue);
+            if (exceptionQueue is null)
+            {
+                Logger.Warn($"HandlePendingExceptionsClient {clientNumber} - exceptionQueue NULL, returning...");
+                return;
+            }
+
+            if (!exceptionQueue.ExceptionQueueIsEmpty)
+            {
+                if (string.IsNullOrEmpty(clientConfiguration.ComPort) || clientConfiguration.SasAddress == 0 ||
+                    !_runningClients[clientNumber].Client.LinkUp)
+                {
+                    Logger.Debug($"Clearing pending exceptions for client {clientNumber}");
+                    exceptionQueue.ClearPendingException();
+                    return;
+                }
+
+                _pendingExceptions.Reset();
+                exceptionQueue.NotifyWhenExceptionQueueIsEmpty = true;
+                Logger.Debug($"Waiting on pending exceptions for client {clientNumber}");
+                _pendingExceptions.WaitOne();
+                exceptionQueue.NotifyWhenExceptionQueueIsEmpty = false;
+                Logger.Debug($"Pending exception queue empty for client {clientNumber}");
+            }
+        }
+
+        /// <inheritdoc />
         public void InjectDependencies(
             IPropertiesManager propertiesManager,
             IEventBus eventBus,
@@ -90,6 +129,8 @@
             _propertiesManager = propertiesManager;
             _eventBus = eventBus;
             _serialPortService = serialPortService;
+
+            _eventBus.Subscribe<ExceptionQueueEmptyEvent>(this, _ => _pendingExceptions.Set());
         }
 
         /// <inheritdoc />
@@ -204,7 +245,9 @@
                 return;
             }
 
-            var exceptionQueue = new SasPriorityExceptionQueue(clientNumber, _unitOfWorkFactory, _exceptionHandler, clientConfiguration);
+            var exceptionQueue = new SasPriorityExceptionQueue(clientNumber, _unitOfWorkFactory, _exceptionHandler, clientConfiguration, _eventBus);
+            _sasExceptionQueue.Add(clientNumber, exceptionQueue);
+
             var handpayQueue = new HandpayQueue(
                 _unitOfWorkFactory,
                 _sasHandPayCommittedHandler,
@@ -437,6 +480,9 @@
 
             if (disposing)
             {
+                _eventBus.UnsubscribeAll(this);
+                _pendingExceptions.Dispose();
+
                 // make sure all the sas client threads are stopped
                 StopEventSystem();
             }

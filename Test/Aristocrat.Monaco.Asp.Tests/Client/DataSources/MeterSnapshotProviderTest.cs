@@ -26,6 +26,7 @@ namespace Aristocrat.Monaco.Asp.Tests.Client.DataSources
         private Action<GameEndedEvent> _gameEndedCallback;
         private GameEndedEvent _gameEndedEvent;
         private Dictionary<string, long> _snapshotDictionary;
+        private Dictionary<string, long> _previvousSnapshotDictionary = new Dictionary<string, long>();
 
         public IEnumerable<string> _meterNames = new List<string>()
         {
@@ -88,7 +89,14 @@ namespace Aristocrat.Monaco.Asp.Tests.Client.DataSources
 
                 foreach (var meterName in _meterNames)
                 {
-                    _snapshotDictionary[meterName] = rand.Next(0, 100);
+                    int newMeterValue = rand.Next(0, 100);
+                    while (_previvousSnapshotDictionary.ContainsValue(newMeterValue))
+                    {
+                        // get a new value if it is already used before
+                        newMeterValue = rand.Next(0, 100);
+                    }
+                    
+                    _snapshotDictionary[meterName] = newMeterValue;
                 }
 
                 return _snapshotDictionary;
@@ -112,13 +120,14 @@ namespace Aristocrat.Monaco.Asp.Tests.Client.DataSources
             _persistentStorageAccessor.SetupGet(m => m[AspConstants.AuditUpdateStatusField]).Returns(0);
             _meterSnapshotProvider.CreatePersistentSnapshot(notifyOnCompletion: true);
 
-            Dictionary<string, long> _previvousSnapshotDictionary = new Dictionary<string, long>();
+            
             foreach (var meter in _snapshotDictionary)
             {
                 Assert.AreEqual(meter.Value, _meterSnapshotProvider.GetSnapshotMeter(meter.Key));
                 _previvousSnapshotDictionary.Add(meter.Key, meter.Value);
             }
 
+            // If game play state is not idle, the snapshot values of meters should not be regenerated
             _gamePlayState.Setup(m => m.Idle).Returns(false);
             _meterSnapshotProvider.CreatePersistentSnapshot(notifyOnCompletion: true);
             CollectionAssert.AreEqual(_previvousSnapshotDictionary, _snapshotDictionary);

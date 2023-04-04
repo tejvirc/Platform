@@ -19,7 +19,7 @@
             _certificateService = certificateService ?? throw new ArgumentNullException(nameof(certificateService));
         }
 
-        public ClientConfigurationOptions Configuration =>
+        public ClientConfigurationOptions CreateConfiguration() =>
             _unitOfWorkFactory.Invoke(x => x.Repository<Host>().Queryable().Single())
             .ToConfigurationOptions(_certificateService.GetCertificates());
     }

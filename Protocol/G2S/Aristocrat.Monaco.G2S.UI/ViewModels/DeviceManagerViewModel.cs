@@ -36,6 +36,7 @@
         private EditableDevice _selectedDevice;
         private bool _isDirty;
         private bool _saveInProgress;
+        private readonly ILocalizer _operatorLocalizer;
 
         public ObservableCollection<EditableDevice> ActiveDevices { get; }
 
@@ -157,6 +158,7 @@
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             _editableDevices = new List<EditableDevice>();
+            _operatorLocalizer = Localizer.For(CultureFor.Operator);
             ActiveDevices = new ObservableCollection<EditableDevice>();
 
             EditCommand = new ActionCommand<object>(EditDevice, _ => CanEditSelected);
@@ -175,7 +177,7 @@
             ReloadEditableView();
 
             IsDirty = false;
-            InputStatusText = (GameIdle ? string.Empty : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EndGameRoundBeforeChange));
+            InputStatusText = (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
         }
 
         private void LoadDevices()
@@ -218,7 +220,7 @@
             if (device.IsHostOriented)
             {
                 Logger.Info("Device Manager - Editing device '" + device.DeviceClass + "' is host-oriented and cannot be edited.");
-                ShowPopup(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceManagerPopupIsHostOriented), 4);
+                ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupIsHostOriented), 4);
                 return;
             }
 
@@ -234,7 +236,7 @@
             var result = _dialogService.ShowDialog<EditDeviceView>(
                 this,
                 viewModel,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EditDevice));
+                _operatorLocalizer.GetString(ResourceKeys.EditDevice));
 
 
             if (result == false)
@@ -259,7 +261,7 @@
             RaisePropertyChanged(nameof(ActiveDevices));
 
             IsDirty = true;
-            InputStatusText = (GameIdle ? string.Empty : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EndGameRoundBeforeChange));
+            InputStatusText = (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
         }
 
         private void SaveChanges(object obj)
@@ -267,14 +269,14 @@
             if (_profileService == null)
             {
                 Logger.Warn("Device Manager - Profile Service is unavailable, changes not saved.");
-                ShowPopup(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceManagerPopupProfileServiceUnavailable));
+                ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupProfileServiceUnavailable));
                 return;
             }
 
             SaveInProgress = true;
 
             Logger.Info("Device Manager - Saving changes");
-            ShowPopup(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceManagerPopupSaveChanges));
+            ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupSaveChanges));
 
             var restart = false;
 
@@ -320,7 +322,7 @@
         private void CancelChanges(object obj)
         {
             Logger.Info("Device Manager - Canceling changes");
-            ShowPopup(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceManagerPopupCancelChanges));
+            ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupCancelChanges));
 
             ReloadEditableView();  // reset the view to initial load state
 
@@ -335,13 +337,13 @@
                 var result = _dialogService.ShowDialog<EditBulkDeviceView>(
                     this,
                     viewModel,
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BulkEditDevices)
+                    _operatorLocalizer.GetString(ResourceKeys.BulkEditDevices)
                 );
 
                 if (result == false)
                     return;  // user canceled out
 
-                ShowPopup(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceManagerPopupBulkChanges));
+                ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupBulkChanges));
 
                 switch (viewModel.SelectedField)
                 {
@@ -382,7 +384,7 @@
 
                 EventBus.Publish(new OperatorMenuSettingsChangedEvent());
                 IsDirty = true;
-                InputStatusText = (GameIdle ? string.Empty : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EndGameRoundBeforeChange));
+                InputStatusText = (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
             }
             catch (NullReferenceException)
             {

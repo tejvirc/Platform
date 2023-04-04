@@ -8,7 +8,6 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:InspectionSummaryPageViewModel}}">
     <UserControl.Resources>
@@ -17,7 +16,6 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <common:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 
             <Style x:Key="DefaultColumnStyle" TargetType="DataGridCell">
                 <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
@@ -26,10 +24,21 @@
             </Style>
 
             <Style x:Key="StatusColumnStyle" TargetType="DataGridCell">
-                <Setter Property="Foreground" Value="{Binding StatusColor}" />
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="Width" Value="Auto" />
+                <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Untested">
+                        <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Good">
+                        <Setter Property="Foreground" Value="{DynamicResource GreenBrush}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Bad">
+                        <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
+                    </DataTrigger>
+                </Style.Triggers>
             </Style>
 
             <Style x:Key="FailureColumnStyle" TargetType="DataGridCell">
@@ -50,14 +59,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectionSummaryTitle}}" 
+        <Label Content="{Binding PageName}" 
                Foreground="{DynamicResource LightBrush4}"/>
-        <Label Grid.Column="1"
-               Content="{Binding DateNow, Converter={StaticResource DateTimeFormatConverter}}" 
+        <Label Grid.Row="0" Grid.Column="1"
+               Content="{Binding Timestamp}" 
                Foreground="{DynamicResource LightBrush4}"/>
 
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                  ItemsSource="{Binding Reports}" Style="{DynamicResource MonacoScrollButtonDataGrid}"
+                  ItemsSource="{Binding Reports}"
+                  Style="{DynamicResource MonacoScrollButtonDataGrid}"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                   ScrollViewer.CanContentScroll="False"
                   VerticalContentAlignment="Top"

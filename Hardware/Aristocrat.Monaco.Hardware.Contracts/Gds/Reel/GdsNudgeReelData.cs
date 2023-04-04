@@ -4,6 +4,7 @@
     using System.Diagnostics.CodeAnalysis;
     using BinarySerialization;
     using Contracts.Reel;
+    using Contracts.Reel.ControlData;
 
     /// <summary>
     ///     The nudge reel data

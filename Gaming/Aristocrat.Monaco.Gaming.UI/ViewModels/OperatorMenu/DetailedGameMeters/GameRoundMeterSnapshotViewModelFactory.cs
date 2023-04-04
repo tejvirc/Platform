@@ -36,8 +36,7 @@
             result.TotalVouchersIn =
                 snapshot.VoucherInCashableAmount +
                 snapshot.VoucherInCashablePromoAmount +
-                snapshot.VoucherInNonCashableAmount +
-                snapshot.HandPaidGameWonAmount;
+                snapshot.VoucherInNonCashableAmount;
 
             result.TotalVouchersOut =
                 snapshot.VoucherOutCashableAmount +

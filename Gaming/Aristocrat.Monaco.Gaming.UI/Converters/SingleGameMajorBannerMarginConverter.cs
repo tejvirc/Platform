@@ -4,16 +4,14 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Forms;
 
     internal class SingleGameMajorBannerMarginConverter : IMultiValueConverter
     {
-        private const double BaseScreenWidth = 1920;
         // The percentage of the banner to overlay on top of the game icon.
         private const double BannerOverlayOnGameIconPct = 0.56;
         // If the game icon height passes this amount, we need to shift the banner down a bit
         private const double GameIconHeightThreshold = 406;
-        private readonly double _scaleBy = Screen.PrimaryScreen.Bounds.Width / BaseScreenWidth;
+        private readonly double _scaleBy = ScaleUtility.GetScale();
 
         /// <summary>
         ///     Covert a parameter to form the margin for the major banner above the game icon

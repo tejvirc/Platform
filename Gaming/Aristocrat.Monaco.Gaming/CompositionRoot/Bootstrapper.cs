@@ -24,7 +24,6 @@
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
     using GameRound;
-    using GDKRuntime.Contract;
     using Hardware.Contracts;
     using Kernel;
     using Monitor;
@@ -59,7 +58,6 @@
         {
             var container = new Container();
 
-            container.Register<IGameSession, WcfService>(Lifestyle.Singleton);
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);
@@ -72,10 +70,9 @@
             container.Collection.Register<IServerEndpoint>(
                 new[]
                 {
-                    Lifestyle.Singleton.CreateRegistration(typeof(SnappServer), container),
-                    Lifestyle.Singleton.CreateRegistration(typeof(WcfServer), container)
+                    Lifestyle.Singleton.CreateRegistration(typeof(SnappServer), container)
                 });
-            
+
             container.Register<IGameService, GameService>(Lifestyle.Singleton);
             container.Register<IGameProcess, GameProcess>(Lifestyle.Singleton);
             container.Register<IProcessManager, GameProcessManager>(Lifestyle.Singleton);

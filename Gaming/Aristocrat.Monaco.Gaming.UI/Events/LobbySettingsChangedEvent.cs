@@ -4,7 +4,6 @@ namespace Aristocrat.Monaco.Gaming.UI.Events
 {
     public enum LobbySettingType
     {
-        VolumeButtonVisible,
         ServiceButtonVisible,
         ShowTopPickBanners
     }

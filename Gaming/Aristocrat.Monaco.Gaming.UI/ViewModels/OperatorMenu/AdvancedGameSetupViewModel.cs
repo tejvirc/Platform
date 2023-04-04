@@ -77,7 +77,6 @@
         private GameType _selectedGameType;
         private long _topAwardValue;
         private bool _gameOptionsGridEnabled;
-        private bool _editMode;
         private bool _canEdit;
         private string _readOnlyStatus;
         private bool _resetScrollIntoView;
@@ -85,8 +84,7 @@
         private ObservableCollection<EditableGameProfile> _games = new();
         private long _maxBetLimit;
 
-        private string _saveWarningText = string.Empty;
-        private bool _saveWarningEnabled;
+        private string _saveWarningText = string.Empty; 
 
         public AdvancedGameSetupViewModel()
         {
@@ -138,12 +136,6 @@
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
-
-            EventBus.Subscribe<PropertyChangedEvent>(
-                this,
-                HandlePropertyChangedEvent,
-                evt =>
-                    evt.PropertyName is ApplicationConstants.EKeyVerified or ApplicationConstants.EKeyDrive);
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
@@ -198,15 +190,19 @@
 
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
-        public override bool CanSave => !HasErrors && InputEnabled && !Committed && (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded;
+        public override bool CanSave => !HasErrors && InputEnabled && !Committed &&
+                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded &&
+                                        !_editableGames.Any(g => g.Value.HasErrors);
 
-        public bool ShowSaveButtonOverride => ShowSaveButton && _editMode;
+        public bool ShowSaveButtonOverride => ShowSaveButton && IsInEditMode;
 
         public bool ConfigureVisible => !ShowSaveButtonOverride && _canEdit;
 
-        public bool ShowCancelButtonOverride => ShowCancelButton && _editMode && InitialConfigComplete;
+        public bool ShowCancelButtonOverride => ShowCancelButton && IsInEditMode && InitialConfigComplete;
 
-        public bool ShowSummaryButtons => !_editMode;
+        public bool IsInEditMode { get; private set; }
+
+        public bool ShowSummaryButtons => !IsInEditMode;
 
         public bool ImportExportVisible { get; }
 
@@ -357,11 +353,7 @@
         public bool ResetScrollIntoView
         {
             get => _resetScrollIntoView;
-            set
-            {
-                _resetScrollIntoView = value;
-                RaisePropertyChanged(nameof(ResetScrollIntoView), nameof(SelectedDenoms));
-            }
+            set => SetProperty(ref _resetScrollIntoView, value);
         }
 
         public bool IsEnabledGamesLimitExceeded => TotalEnabledGames > _digitalRights.LicenseCount;
@@ -373,17 +365,8 @@
         public string SaveWarningText
         {
             get => _saveWarningText;
-
             set => SetProperty(ref _saveWarningText, value);
         }
-
-        public bool SaveWarningEnabled
-        {
-            get => _saveWarningEnabled;
-
-            set => SetProperty(ref _saveWarningEnabled, value);
-        }
-
         public void HandlePropertyChangedEvent(PropertyChangedEvent eventObject)
         {
             MvvmHelper.ExecuteOnUI(
@@ -440,7 +423,7 @@
                         {
                             SaveChanges();
                             CalculateTopAward();
-                            _editMode = false;
+                            IsInEditMode = false;
                             EventBus.Publish(new GameConfigurationSaveCompleteEvent());
                             _pendingImportSettings.Clear();
                             FieldAccessStatusText = string.Empty;
@@ -472,19 +455,30 @@
 
             EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
             EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
+            EventBus.Subscribe<PropertyChangedEvent>(
+                this,
+                HandlePropertyChangedEvent,
+                evt =>
+                    evt.PropertyName is ApplicationConstants.EKeyVerified or ApplicationConstants.EKeyDrive);
 
             _canEdit = GetConfigSetting(OperatorMenuSetting.EnableAdvancedConfig, false);
-            _editMode = _canEdit && !InitialConfigComplete;
+            IsInEditMode = _canEdit && !InitialConfigComplete;
 
             SetEditMode();
-            AutoEnableGames();
+            lock (_gamesMapping)
+            {
+                AutoEnableGames();
+            }
             UpdateSaveWarning();
         }
 
         protected override void InitializeData()
         {
             base.InitializeData();
-            LoadGames();
+            lock (_gamesMapping)
+            {
+                LoadGames();
+            }
         }
 
         protected override void OnUnloaded()
@@ -537,14 +531,14 @@
 
         protected override void Cancel()
         {
-            if (!_editMode)
+            if (!IsInEditMode)
             {
                 return;
             }
 
             FieldAccessStatusText = string.Empty;
             ResetChanges();
-            _editMode = false;
+            IsInEditMode = false;
             _pendingImportSettings.Clear();
             SetEditMode();
         }
@@ -588,16 +582,16 @@
                 SetupPaytableOptions(gameProfiles, groupKey);
             }
 
+            // Apply valid restrictions to all game profiles
+            foreach (var gameProfile in _editableGames.Values.Where(g => g.Restrictions.Any()))
+            {
+                gameProfile.UpdateValidRestrictions();
+                SetGameRestriction(gameProfile, gameProfile.SelectedRestriction);
+            }
+
             foreach (var entry in _editableGameConfigByGameTypeMapping)
             {
-                var activeDenoms = _gameTypeToActiveDenomMapping[entry.Key];
-                if (activeDenoms.Count > ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
-                {
-                    foreach (var config in entry.Value)
-                    {
-                        config.MaxDenomEntriesExceeded = true;
-                    }
-                }
+                CheckForMaximumDenominations(entry.Value, _gameTypeToActiveDenomMapping[entry.Key]);
             }
 
             foreach (var entry in _editableGameConfigBySubGameTypeMapping)
@@ -605,19 +599,26 @@
                 var key = _subGameTypeToActiveDenomMapping.Keys.SingleOrDefault(
                     x => x.gameType == entry.Key.gameType && x.subType == entry.Key.subType);
 
-                var activeDenoms = _subGameTypeToActiveDenomMapping[key];
-                if (activeDenoms.Count > ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
-                {
-                    foreach (var config in entry.Value)
-                    {
-                        config.MaxDenomEntriesExceeded = true;
-                    }
-                }
+                CheckForMaximumDenominations(entry.Value, _subGameTypeToActiveDenomMapping[key]);
             }
 
             SelectedGameType = GameTypes.FirstOrDefault();
             CalculateTopAward();
             ScaleEnabledRtpValues();
+        }
+
+        private void CheckForMaximumDenominations(List<EditableGameConfiguration> gameConfigs, ICollection<long> activeDenoms)
+        {
+            if (activeDenoms.Count >= ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
+            {
+                foreach (var config in gameConfigs)
+                {
+                    if (!config.Enabled && !activeDenoms.Contains(config.BaseDenom))
+                    {
+                        config.MaxDenomEntriesReached = true;
+                    }
+                }
+            }
         }
 
         private string GetWarningText()
@@ -633,17 +634,17 @@
         private void EnterConfig()
         {
             EventBus.Subscribe<GameStatusChangedEvent>(this, OnGameStatusChanged);
-            _editMode = true;
+            IsInEditMode = true;
             SetEditMode();
         }
 
         private void SetEditMode()
         {
-            ReadOnlyStatus = _editMode
+            ReadOnlyStatus = IsInEditMode
                 ? string.Empty
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadOnlyModeText);
 
-            if (_editMode)
+            if (IsInEditMode)
             {
                 PreventOperatorMenuExit();
             }
@@ -654,7 +655,7 @@
 
             UpdateInputStatusText();
 
-            GameOptionsGridEnabled = _editMode;
+            GameOptionsGridEnabled = IsInEditMode;
 
             ApplyGameOptionsEnabled();
             RaisePropertyChanged(
@@ -662,6 +663,7 @@
                 nameof(ShowSaveButtonOverride),
                 nameof(ShowCancelButtonOverride),
                 nameof(ShowSummaryButtons),
+                nameof(IsInEditMode),
                 nameof(CanSave),
                 nameof(ExportVisibleOverride),
                 nameof(ImportVisibleOverride),
@@ -692,7 +694,8 @@
                     foreach (var gameConfig in GameConfigurations)
                     {
                         gameConfig.SetWarningText();
-                        if (!string.IsNullOrEmpty(gameConfig.WarningText))
+                        // If the warning is due to max denoms reached, we can still Save and don't need to set error for this page
+                        if (!string.IsNullOrEmpty(gameConfig.WarningText) && (!gameConfig.MaxDenomEntriesReached || !gameConfig.EnabledByHost))
                         {
                             SetError(nameof(InputStatusText), InputStatusText);
                             break;
@@ -713,12 +716,10 @@
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledGamesLimitExceeded),
                     TotalEnabledGames,
                     _digitalRights.LicenseCount);
-                SaveWarningEnabled = true;
             }
             else
             {
                 SaveWarningText = string.Empty;
-                SaveWarningEnabled = false;
             }
         }
 
@@ -753,12 +754,17 @@
                 return;
             }
 
+            SetGameRestriction(SelectedGame, restriction);
+        }
+
+        private void SetGameRestriction(EditableGameProfile profile, IConfigurationRestriction restriction)
+        {
             // Process mappings (Single Game Multi Denom, or "Player Selectable Denoms")
-            foreach (var game in SelectedGame.GameConfigurations)
+            foreach (var game in profile.GameConfigurations)
             {
                 // If there are configured restrictions but none is chosen or none were valid, then
                 // we don't want to show any denoms for configuration.
-                if (ConfiguredRestrictions.Any() && restriction is null)
+                if (profile.Restrictions.Any() && restriction is null)
                 {
                     game.RestrictedToReadOnly = true;
                     game.Enabled = false;
@@ -812,8 +818,28 @@
                     }
                 }
 
-                Logger.Debug(
-                    $"Restriction set - Id:{restriction.RestrictionDetails.Id} Name:{restriction.RestrictionDetails.Name} MinRtp:{restriction.RestrictionDetails.MinimumPaybackPercent} MaxRtp:{restriction.RestrictionDetails.MaximumPaybackPercent}");
+                Logger.Debug($"{restriction.Name} Restriction set for {game.Game.ThemeId} - " +
+                             $"Name:{restriction.RestrictionDetails.Name} " +
+                             $"MinRtp:{restriction.RestrictionDetails.MinimumPaybackPercent} " +
+                             $"MaxRtp:{restriction.RestrictionDetails.MaximumPaybackPercent}");
+            }
+
+            CheckForRestrictionMismatch(profile, restriction);
+        }
+
+        private void CheckForRestrictionMismatch(EditableGameProfile profile, IConfigurationRestriction restriction)
+        {
+            if (!profile.ValidRestrictions.Any())
+            {
+                return;
+            }
+
+            var gamesWithRestrictions = Games.Where(g => g.ValidRestrictions != null && g.ValidRestrictions.Any()).ToList();
+            var restrictionMismatch = restriction != null &&
+                                      gamesWithRestrictions.Any(g => g.SelectedRestriction?.Name != restriction.Name);
+            foreach (var game in gamesWithRestrictions)
+            {
+                game.SetRestrictionError(restrictionMismatch);
             }
         }
 
@@ -1235,17 +1261,15 @@
 
                 if (!string.IsNullOrEmpty(config.SubGameType))
                 {
-                    if (_subGameTypeToActiveDenomMapping.Keys.Any(
-                        x => x.gameType == config.Game?.GameType && x.subType == config.SubGameType))
+                    if (_subGameTypeToActiveDenomMapping.Keys.Any(x => x.gameType == config.Game?.GameType && x.subType == config.SubGameType))
                     {
                         var key = _subGameTypeToActiveDenomMapping.Keys
                             .Single(x => x.gameType == config.Game.GameType && x.subType == config.SubGameType);
 
                         if (!_subGameTypeToActiveDenomMapping[key].Contains(config.BaseDenom) &&
-                            _subGameTypeToActiveDenomMapping[key].Count >
-                            ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
+                            _subGameTypeToActiveDenomMapping[key].Count >= ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
                         {
-                            config.MaxDenomEntriesExceeded = true;
+                            config.MaxDenomEntriesReached = true;
                         }
                     }
                 }
@@ -1253,10 +1277,9 @@
                 {
                     if (_gameTypeToActiveDenomMapping.ContainsKey(config.Game.GameType) &&
                         !_gameTypeToActiveDenomMapping[config.Game.GameType].Contains(config.BaseDenom) &&
-                        _gameTypeToActiveDenomMapping[config.Game.GameType].Count >
-                        ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
+                        _gameTypeToActiveDenomMapping[config.Game.GameType].Count >= ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
                     {
-                        config.MaxDenomEntriesExceeded = true;
+                        config.MaxDenomEntriesReached = true;
                     }
                 }
             }
@@ -1306,10 +1329,20 @@
                 configList = _editableGameConfigByGameTypeMapping[editableConfig.Game.GameType];
             }
 
-            var overLimit = editableConfigsCountByDenom.Count > ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby;
+            var overLimit = editableConfigsCountByDenom.Count >= ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby;
             foreach (var config in configList)
             {
-                config.MaxDenomEntriesExceeded = overLimit;
+                if (overLimit)
+                {
+                    if (!config.Enabled && !editableConfigsCountByDenom.ContainsKey(config.BaseDenom))
+                    {
+                        config.MaxDenomEntriesReached = true;
+                    }
+                }
+                else
+                {
+                    config.MaxDenomEntriesReached = false;
+                }
             }
 
             if (DenomSelectionLimitExists)
@@ -1534,6 +1567,17 @@
                         continue;
                     }
 
+                    var gameProfile = _editableGames.Values.FirstOrDefault(g => g.ThemeId.Equals(configuration.Game.ThemeId));
+
+                    if (gameProfile != null)
+                    {
+                        var restriction = GetRestrictionFromVariationId(configuration.Game.VariationId, gameProfile);
+                        if (restriction != null)
+                        {
+                            gameProfile.SelectedRestriction = restriction;
+                        }
+                    }
+
                     configuration.Enabled = denomination.Active;
                     configuration.SelectedBetOption = string.IsNullOrEmpty(denomination.BetOption)
                         ? null
@@ -1573,6 +1617,8 @@
                 }
 
                 _pendingImportSettings = new Dictionary<string, object>(values);
+
+                SelectedGameType = GameTypes.FirstOrDefault();
             }
             catch (Exception e)
             {
@@ -1841,6 +1887,13 @@
             {
                 gameProfile.GameConfigurations[i].Enabled = true;
             }
+        }
+
+        private IConfigurationRestriction GetRestrictionFromVariationId(string variationId, EditableGameProfile gameProfile)
+        {
+            return gameProfile.ValidRestrictions.FirstOrDefault(
+                v => v.RestrictionDetails.Mapping.Any(
+                    v2 => v2.VariationId.Equals(variationId)));
         }
 
         private class GamesGrouping

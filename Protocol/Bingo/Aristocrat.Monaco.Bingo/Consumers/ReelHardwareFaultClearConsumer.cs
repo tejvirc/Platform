@@ -6,10 +6,10 @@
     using Hardware.Contracts.Reel;
     using Kernel;
     using Services.Reporting;
-    using HardwareReelFaultClearEvent = Hardware.Contracts.Reel.HardwareReelFaultClearEvent;
+    using HardwareReelFaultClearEvent = Hardware.Contracts.Reel.Events.HardwareReelFaultClearEvent;
 
     /// <summary>
-    ///     Handles the <see cref="Hardware.Contracts.Reel.HardwareReelFaultClearEvent" /> event for reels.
+    ///     Handles the <see cref="Hardware.Contracts.Reel.Events.HardwareReelFaultClearEvent" /> event for reels.
     /// </summary>
     public class ReelHardwareFaultClearConsumer : Consumes<HardwareReelFaultClearEvent>
     {

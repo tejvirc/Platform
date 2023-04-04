@@ -59,12 +59,6 @@
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCancelCredits);
                     break;
                 case HandpayType.GameWin when !transaction.IsCreditType():
-                    _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        TransactionType.Jackpot,
-                        amountInCents,
-                        (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
-                        transaction.Barcode);
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffJackpot);
                     break;
                 case HandpayType.BonusPay:

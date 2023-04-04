@@ -44,8 +44,8 @@
     using PrinterDisconnectedEvent = Hardware.Contracts.Printer.DisconnectedEvent;
     using PrinterInspectionFailedEvent = Hardware.Contracts.Printer.InspectionFailedEvent;
     using PrinterInspectionSucceededEvent = Hardware.Contracts.Printer.InspectedEvent;
-    using ReelInspectedEvent = Hardware.Contracts.Reel.InspectedEvent;
-    using ReelInspectionFailedEvent = Hardware.Contracts.Reel.InspectionFailedEvent;
+    using ReelInspectedEvent = Hardware.Contracts.Reel.Events.InspectedEvent;
+    using ReelInspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
 
     [CLSCompliant(false)]
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase

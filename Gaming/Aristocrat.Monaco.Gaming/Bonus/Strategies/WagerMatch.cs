@@ -7,6 +7,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Common;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Meters;
@@ -194,20 +195,36 @@
                                + transaction.LastAuthorizedNonCashAmount
                                + transaction.LastAuthorizedPromoAmount;
 
-            switch (GetPayMethod(transaction, totalAmount))
+            try
             {
-                case PayMethod.Handpay:
-                case PayMethod.Voucher:
-                case PayMethod.Wat:
-                    (_, pending) = RecoverTransfer(
-                        transaction,
-                        transactionId,
-                        transaction.LastAuthorizedCashableAmount,
-                        transaction.LastAuthorizedNonCashAmount,
-                        transaction.LastAuthorizedPromoAmount);
-                    break;
+                switch (GetPayMethod(transaction, totalAmount))
+                {
+                    case PayMethod.Handpay:
+                    case PayMethod.Voucher:
+                    case PayMethod.Wat:
+                        (_, pending) = RecoverTransfer(
+                            transaction,
+                            transactionId,
+                            transaction.LastAuthorizedCashableAmount,
+                            transaction.LastAuthorizedNonCashAmount,
+                            transaction.LastAuthorizedPromoAmount);
+                        break;
+                }
             }
+            catch (TransactionException ex)
+            {
+                transaction.Message = BonusException.PayMethodNotAvailable.GetDescription(typeof(BonusException));
 
+                Failed(transaction, BonusException.PayMethodNotAvailable);
+
+                Logger.Error($"Failed to pay bonus: {transaction}", ex);
+            }
+            catch (Exception ex)
+            {
+                Failed(transaction, BonusException.Failed);
+
+                Logger.Error($"Failed to pay bonus: {transaction}", ex);
+            }
 
             scope.Complete();
 

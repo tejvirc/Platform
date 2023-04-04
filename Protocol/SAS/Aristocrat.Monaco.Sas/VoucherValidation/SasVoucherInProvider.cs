@@ -34,7 +34,7 @@
         private const int WaitForLongPoll70Timeout = 10000;
         private const int RedemptionTimeout = 30000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ISasExceptionHandler _exceptionHandler;
         private readonly IEventBus _bus;
@@ -396,26 +396,37 @@
             var storageData = _ticketingCoordinator.GetData();
             _ticketInInfo = StorageHelpers.Deserialize(storageData.TicketInfoField, () => new TicketInInfo());
             var lastState = storageData.VoucherInState;
-            var transaction = _transactionHistory.RecallTransactions<VoucherInTransaction>()
+            var lastKnownTransaction = _transactionHistory.RecallTransactions<VoucherInTransaction>()
                 .FirstOrDefault(x => x.TransactionId == _ticketInInfo.TransactionId);
+            var lastTransaction = _transactionHistory.RecallTransactions<VoucherInTransaction>()
+                .OrderByDescending(t => t.TransactionId).FirstOrDefault();
 
-            Logger.Debug($"Starting recovery handling for ticketing with a last known state of {lastState}");
-            if (lastState == SasVoucherInState.Idle || (transaction?.CommitAcknowledged ?? false))
+            if (lastKnownTransaction?.TransactionId != lastTransaction?.TransactionId)
+            {
+                if (lastTransaction is not null)
+                {
+                    // We have a rejected transaction that SAS was not told about. 
+                    UpdateTransaction(lastTransaction.TransactionId);
+                }
+            }
+
+            if (lastState == SasVoucherInState.Idle || (lastKnownTransaction?.CommitAcknowledged ?? false))
             {
                 return SasVoucherInState.Idle;
             }
 
-            if (lastState == SasVoucherInState.AcknowledgementPending && !(transaction?.CommitAcknowledged ?? false))
+            if (lastState == SasVoucherInState.AcknowledgementPending &&
+                !(lastKnownTransaction?.CommitAcknowledged ?? false))
             {
                 _sasExceptionTimer.StartTimer();
                 return SasVoucherInState.AcknowledgementPending;
             }
 
-            switch (transaction?.State ?? VoucherState.Rejected)
+            switch (lastKnownTransaction?.State ?? VoucherState.Rejected)
             {
                 case VoucherState.Redeemed:
                     // ReSharper disable once PossibleNullReferenceException this can't be null.  Null goes to rejected
-                    _ticketInInfo.RedemptionStatusCode = transaction.TypeOfAccount.ToRedemptionStatusCode();
+                    _ticketInInfo.RedemptionStatusCode = lastKnownTransaction.TypeOfAccount.ToRedemptionStatusCode();
                     _sasExceptionTimer.StartTimer();
                     return SasVoucherInState.AcknowledgementPending;
                 case VoucherState.Rejected:
@@ -423,14 +434,15 @@
                         lastState != SasVoucherInState.ValidationDataPending &&
                         lastState != SasVoucherInState.AcknowledgementPending)
                     {
-                        Logger.Debug($"Recovering with the last state {lastState} where SAS didn't call LP71 and no data needs to be recovered");
+                        Logger.Debug(
+                            $"Recovering with the last state {lastState} where SAS didn't call LP71 and no data needs to be recovered");
                         return SasVoucherInState.Idle;
                     }
 
                     if (_ticketInInfo.RedemptionStatusCode < RedemptionStatusCode.TicketRejectedByHost)
                     {
                         _ticketInInfo.RedemptionStatusCode =
-                            ((VoucherInExceptionCode)(transaction?.Exception ??
+                            ((VoucherInExceptionCode)(lastKnownTransaction?.Exception ??
                                                       (int)VoucherInExceptionCode.InvalidTicket))
                             .ToRedemptionStatusCode();
                         Logger.Debug(
@@ -439,6 +451,11 @@
 
                     if (lastState == SasVoucherInState.ValidationDataPending)
                     {
+                        if (lastKnownTransaction is not null)
+                        {
+                            UpdateTransaction(lastKnownTransaction.TransactionId);
+                        }
+
                         return SasVoucherInState.Idle;
                     }
 

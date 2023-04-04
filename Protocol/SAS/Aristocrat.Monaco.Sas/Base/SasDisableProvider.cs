@@ -22,7 +22,6 @@ namespace Aristocrat.Monaco.Sas.Base
     /// </summary>
     public class SasDisableProvider : ISasDisableProvider, IDisposable
     {
-        private static readonly Guid MaintenanceModeGuid = new Guid("{D45C666A-C4AA-43b8-8E02-F6B5EB5C7B25}");
         private static readonly Guid ProgressivesNotSupportedGuid = new Guid("{6AFB8906-4F6B-449d-A50A-0FB0337AE3C7}");
         private static readonly Guid ValidationQueueFullGuid = new Guid("{581CEE73-F905-4BF5-B18B-DC044B88163F}");
         private static readonly Guid PowerUpDisabledGuidHost0 = new Guid("{F72C5936-9133-41C6-B8D1-F8F94E84D990}");
@@ -36,12 +35,12 @@ namespace Aristocrat.Monaco.Sas.Base
                 {
                     DisableState.DisabledByHost0, new DisableData(
                         ApplicationConstants.DisabledByHost0Key,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost0))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost1))
                 },
                 {
                     DisableState.DisabledByHost1, new DisableData(
                         ApplicationConstants.DisabledByHost1Key,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost1))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByHost2))
                 },
                 {
                     DisableState.Host0CommunicationsOffline, new DisableData(
@@ -57,7 +56,7 @@ namespace Aristocrat.Monaco.Sas.Base
                 },
                 {
                     DisableState.MaintenanceMode, new DisableData(
-                        MaintenanceModeGuid,
+                        ApplicationConstants.MaintenanceModeGuid,
                         () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledMaintenanceMode))
                 },
                 {
@@ -79,12 +78,12 @@ namespace Aristocrat.Monaco.Sas.Base
                 {
                     DisableState.PowerUpDisabledByHost0, new DisableData(
                         PowerUpDisabledGuidHost0,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost0))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost1))
                 },
                 {
                     DisableState.PowerUpDisabledByHost1, new DisableData(
                         PowerUpDisabledGuidHost1,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost1))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerUpDisabledByHost2))
                 }
             };
 

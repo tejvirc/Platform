@@ -211,6 +211,8 @@
                         _properties.GetValue(AccountingConstants.ValidateHandpays, false),
                     VoucherInLimit =
                         _properties.GetValue(AccountingConstants.VoucherInLimit, AccountingConstants.DefaultVoucherInLimit),
+                    VoucherInLimitMaxAllowed =
+                        _properties.GetValue(AccountingConstants.VoucherInMaxAllowed, long.MaxValue),
                     VoucherOut =
                         _properties.GetValue(AccountingConstants.VoucherOut, true),
                     VoucherOutExpirationDays =
@@ -221,7 +223,7 @@
                         _properties.GetValue(AccountingConstants.VoucherOutNonCash, true),
                     VoucherOutNonCashExpirationDays =
                         _properties.GetValue(AccountingConstants.VoucherOutNonCashExpirationDays, AccountingConstants.DefaultVoucherExpirationDays),
-                    VoucherOutCheckBoxChecked = 
+                    VoucherOutCheckBoxChecked =
                         _properties.GetValue(AccountingConstants.VoucherOutLimitEnabled, true),
                     VoucherInCheckBoxChecked =
                         _properties.GetValue(AccountingConstants.VoucherInLimitEnabled, true),
@@ -229,7 +231,7 @@
                         _properties.GetValue(AccountingConstants.HandpayLimit, long.MaxValue),
                     AllowRemoteHandpayReset =
                         _properties.GetValue(AccountingConstants.RemoteHandpayResetAllowed, true),
-                    LargeWinHandpayResetMethod = 
+                    LargeWinHandpayResetMethod =
                         _properties.GetValue(AccountingConstants.LargeWinHandpayResetMethod, LargeWinHandpayResetMethod.PayByHand),
                     HandpayLimitIsChecked =
                         _properties.GetValue(AccountingConstants.HandpayLimitEnabled, true),

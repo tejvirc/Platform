@@ -1546,6 +1546,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return ResourceManager.GetString("AutoTest", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		public static string AvailableMeterMappings {
@@ -6281,6 +6293,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string CreatingKeyboardService {
+			get {
+				return ResourceManager.GetString("CreatingKeyboardService", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		public static string CreatingLiveAuthenticationManager {
@@ -8366,18 +8390,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledByHost0 {
-			get {
-				return ResourceManager.GetString("DisabledByHost0", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -8756,6 +8768,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return ResourceManager.GetString("Displays", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -8980,6 +9004,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DoorOpticSensorEnabled {
 			get {
 				return ResourceManager.GetString("DoorOpticSensorEnabled", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return ResourceManager.GetString("DoorRequiresTest", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -19544,7 +19580,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Maximum Unique Denominations Reached For This Game....
+		///   Looks up a localized string similar to Maximum unique denominations reached for {0}.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -22805,6 +22841,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PackagesMustMatch {
+			get {
+				return ResourceManager.GetString("PackagesMustMatch", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
         /// <remarks>
@@ -23254,6 +23302,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Pending {
 			get {
 				return ResourceManager.GetString("Pending", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Pending Acceptance.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string PendingAcceptedText {
+			get {
+				return ResourceManager.GetString("PendingAcceptedText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -23930,18 +23990,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string PowerUpDisabledByHost0 {
-			get {
-				return ResourceManager.GetString("PowerUpDisabledByHost0", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -23950,6 +23998,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PowerUpDisabledByHost1 {
 			get {
 				return ResourceManager.GetString("PowerUpDisabledByHost1", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 2).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas
+        /// </remarks>
+		public static string PowerUpDisabledByHost2 {
+			get {
+				return ResourceManager.GetString("PowerUpDisabledByHost2", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -33623,42 +33683,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationGameLabel {
-			get {
-				return ResourceManager.GetString("VolumeControlLocationGameLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Lobby and Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyAndGameLabel {
-			get {
-				return ResourceManager.GetString("VolumeControlLocationLobbyAndGameLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Lobby.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyLabel {
-			get {
-				return ResourceManager.GetString("VolumeControlLocationLobbyLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Volume Control Location.
 		/// </summary>
         /// <remarks>
@@ -36165,6 +36189,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string AutoPlay {
 			get {
 				return "AutoPlay";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return "AutoTest";
 			}
 		}
 
@@ -40903,6 +40939,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string CreatingKeyboardService {
+			get {
+				return "CreatingKeyboardService";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		public static string CreatingLiveAuthenticationManager {
@@ -42988,18 +43036,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string DisabledByHost0 {
-			get {
-				return "DisabledByHost0";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -43378,6 +43414,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return "Displays";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -43602,6 +43650,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DoorOpticSensorEnabled {
 			get {
 				return "DoorOpticSensorEnabled";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return "DoorRequiresTest";
 			}
 		}
 
@@ -54166,7 +54226,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Maximum Unique Denominations Reached For This Game....
+		///		Looks up a localized string similar to Maximum unique denominations reached for {0}.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -57427,6 +57487,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PackagesMustMatch {
+			get {
+				return "PackagesMustMatch";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
         /// <remarks>
@@ -57876,6 +57948,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Pending {
 			get {
 				return "Pending";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Pending Acceptance.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string PendingAcceptedText {
+			get {
+				return "PendingAcceptedText";
 			}
 		}
 
@@ -58552,18 +58636,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to PowerUp Disabled (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		public static string PowerUpDisabledByHost0 {
-			get {
-				return "PowerUpDisabledByHost0";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to PowerUp Disabled (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -58572,6 +58644,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PowerUpDisabledByHost1 {
 			get {
 				return "PowerUpDisabledByHost1";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to PowerUp Disabled (SAS Host 2).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas
+        /// </remarks>
+		public static string PowerUpDisabledByHost2 {
+			get {
+				return "PowerUpDisabledByHost2";
 			}
 		}
 
@@ -68245,42 +68329,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationGameLabel {
-			get {
-				return "VolumeControlLocationGameLabel";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Lobby and Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyAndGameLabel {
-			get {
-				return "VolumeControlLocationLobbyAndGameLabel";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Lobby.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyLabel {
-			get {
-				return "VolumeControlLocationLobbyLabel";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Volume Control Location.
 		/// </summary>
         /// <remarks>
@@ -70156,6 +70204,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		AutoPlay,
+		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AutoTest,
 		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>
@@ -72852,6 +72907,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		CreatingFormat,
 		/// <summary>
+		///   Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		CreatingKeyboardService,
+		/// <summary>
 		///   Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		CreatingLiveAuthenticationManager,
@@ -74047,13 +74109,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		DisabledByHost,
 		/// <summary>
-		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		DisabledByHost0,
-		/// <summary>
 		///   Looks up a localized string similar to Shutdown/Lock Out Commanded (SAS Host 1).
 		/// </summary>
         /// <remarks>
@@ -74262,6 +74317,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisplayDisconnected,
 		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Displays,
+		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -74394,6 +74456,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		DoorOpticSensorEnabled,
+		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		DoorRequiresTest,
 		/// <summary>
 		///   Looks up a localized string similar to Door.
 		/// </summary>
@@ -80405,7 +80474,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MaxCreditsInLabel,
 		/// <summary>
-		///   Looks up a localized string similar to Maximum Unique Denominations Reached For This Game....
+		///   Looks up a localized string similar to Maximum unique denominations reached for {0}.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -82266,6 +82335,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PackageNotFoundErrorMessage,
 		/// <summary>
+		///   Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		PackagesMustMatch,
+		/// <summary>
 		///   Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
         /// <remarks>
@@ -82528,6 +82604,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		Pending,
+		/// <summary>
+		///   Looks up a localized string similar to Pending Acceptance.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		PendingAcceptedText,
 		/// <summary>
 		///   Looks up a localized string similar to Pending Cash In:.
 		/// </summary>
@@ -82916,19 +82999,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PowerResetText,
 		/// <summary>
-		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 0).
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas
-        /// </remarks>
-		PowerUpDisabledByHost0,
-		/// <summary>
 		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 1).
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas
         /// </remarks>
 		PowerUpDisabledByHost1,
+		/// <summary>
+		///   Looks up a localized string similar to PowerUp Disabled (SAS Host 2).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas
+        /// </remarks>
+		PowerUpDisabledByHost2,
 		/// <summary>
 		///   Looks up a localized string similar to Power Ups.
 		/// </summary>
@@ -88433,27 +88516,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		Volume,
-		/// <summary>
-		///   Looks up a localized string similar to Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VolumeControlLocationGameLabel,
-		/// <summary>
-		///   Looks up a localized string similar to Lobby and Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VolumeControlLocationLobbyAndGameLabel,
-		/// <summary>
-		///   Looks up a localized string similar to Lobby.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VolumeControlLocationLobbyLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Volume Control Location.
 		/// </summary>
