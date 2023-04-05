@@ -22,7 +22,7 @@ namespace Aristocrat.Bingo.Client.Extensions
                     }
                 },
                 CancellationToken.None,
-                TaskContinuationOptions.NotOnFaulted,
+                TaskContinuationOptions.OnlyOnFaulted,
                 TaskScheduler.Current);
         }
     }
