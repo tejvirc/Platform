@@ -11664,4 +11664,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
+  <data name="PayoutLimit" xml:space="preserve">
+    <value>Payout Limit</value>
+  </data>
 </root>

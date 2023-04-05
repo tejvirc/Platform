@@ -45,6 +45,12 @@ as follows:
     <ReturnToPlayerLimits>
       <ReturnToPlayer GameType="Any" Minimum="75000" />
     </ReturnToPlayerLimits>
+    <RestrictedGameTypes>
+      <Type GameType="Keno"/>
+      <Type GameType="Poker"/>
+      <Type GameType="Blackjack"/>
+      <Type GameType="Roulette"/>
+    </RestrictedGameTypes>
   </GameRestrictions>
   <PhysicalButtons>
     <GameStartButtons Method="None" />

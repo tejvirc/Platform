@@ -11,12 +11,13 @@ as follows:
 -->
 <ConfiguredDevices>
   <Defaults>
-    <Device Name="JCM Serial ID003" />
-    <Device Name="TransAct Epic950 Serial EpicTTL" Enabled="false" />
-    <Device Name="UNIFORM USB GDS" Enabled="false" />
+    <Device Name="MEI USB GDS"/>
   </Defaults>
 
   <Included>
+    <Device Name="JCM IVizion USB GDS" Enabled="false"/>
+    <Device Name="MEI USB GDS" Enabled="false"/>
+    <Device Name="JCM UBA500 USB GDS" Enabled="false"/>
   </Included>
 
   <Excluded>

@@ -78,5 +78,8 @@ as follows:
   <Handpay>
     <RemoteHandpayReset Allowed="false"/>
   </Handpay>
-  <HandCount HandCountServiceEnabled="true" />
+  <HandCount HandCountServiceEnabled="true" >
+    <HandCountPayoutLimit Visible="true" LimitDefault="119900000"/>
+    <BillAcceptanceLimit Visible="true"/>
+  </HandCount>
 </AccountingConfiguration>

@@ -23162,6 +23162,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		public static string PayoutLimit {
+			get {
+				return ResourceManager.GetString("PayoutLimit", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Paytable.
 		/// </summary>
         /// <remarks>
@@ -57676,6 +57685,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		public static string PayoutLimit {
+			get {
+				return "PayoutLimit";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Paytable.
 		/// </summary>
         /// <remarks>
@@ -82256,6 +82274,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		PayMethod,
+		/// <summary>
+		///   Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		PayoutLimit,
 		/// <summary>
 		///   Looks up a localized string similar to Paytable.
 		/// </summary>

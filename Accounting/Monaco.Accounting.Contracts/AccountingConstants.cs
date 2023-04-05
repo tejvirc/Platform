@@ -86,6 +86,21 @@
         public const string DisplayLargeWinRatio = "Cabinet.DisplayLargeWinRatio";
 
         /// <summary>
+        ///     Indicates whether HandCountPayoutLimit is Visible
+        /// </summary>
+        public const string HandCountPayoutLimitVisible = "HandCount.PayoutLimitVisible";
+
+        /// <summary>
+        ///     A Value to represent the Handcount payout limit
+        /// </summary>
+        public const string HandCountPayoutLimit = "HandCount.PayoutLimit";
+
+        /// <summary>
+        ///     Indicates whether HandCountPayoutLimit is Visible
+        /// </summary>
+        public const string BillAcceptanceLimitVisible = "HandCount.BillAcceptanceLimitVisible";
+
+        /// <summary>
         ///     The threshold absolute value at which the large win ratio kicks in. For example, the $600 amount mentioned
         ///     for <see cref="LargeWinRatio"/>
         /// </summary>
@@ -276,6 +291,11 @@
         ///     Default large win limit in millicents. Represents No Limit
         /// </summary>
         public const long DefaultLargeWinLimit = 9_999_999_999_00_000L;
+
+        /// <summary>
+        ///     Maximum HandCount PayoutLimit in Millicents
+        /// </summary>
+        public const long MaximumHandCountPayoutLimit = 1_199_00_000L;
 
         /// <summary>
         ///     Default large win ratio in terms of amount won divided by wagered amount. The default value of zero is so that

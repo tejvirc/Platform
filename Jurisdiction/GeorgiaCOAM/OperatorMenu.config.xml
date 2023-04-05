@@ -44,23 +44,21 @@ as follows:
     <Page Type="MainMetersPageViewModel" >
       <Setting Name="PrintVerificationVisible" Value="false" />
     </Page>
-    <Page Type="VoucherMetersPageViewModel" />
+    <Page Type="VoucherMetersPageViewModel" TabType="VoucherMetersPageLoader" Visible="false"/>
     <Page Type="GameMetersViewModel" />
     <Page Type="DenomMetersPageViewModel" />
     <Page Type="ProgressiveMetersPageViewModel" />
-    <Page Type="CustomSAPMetersPageViewModel" />
+    <Page Type="CustomSAPMetersPageViewModel" TabType="CustomSAPMetersPageLoader" Visible="false"/>
     <Page Type="BillsMetersPageViewModel" />
     <Page Type="HardwareMetersPageViewModel" />
-    <Page Type="WatMetersPageViewModel" TabType="WatMetersPageLoader" Visible="true" />
+    <Page Type="WatMetersPageViewModel" TabType="WatMetersPageLoader" Visible="false" />
     <Page Type="HandpayMetersPageViewModel" TabType="HandpayMetersPageLoader" Visible="false" />
-      <Page Type="KeyedCreditsMetersPageViewModel" TabType="KeyedCreditsMetersPageLoader" Visible="false"/>
-      <Page Type="BonusMetersPageViewModel" />
+    <Page Type="KeyedCreditsMetersPageViewModel" TabType="KeyedCreditsMetersPageLoader" Visible="false"/>
+    <Page Type="BonusMetersPageViewModel" TabType="BonusMetersPageLoader" Visible="false"/>
   </Menu>
+  <Menu Type="ToolsMainPageLoader" Visible="false"/>
   <Menu Type="HardwareMainPageLoader">
-    <Page Type="PrinterViewModel" >
-      <Setting Name="ActivationTimeVisible" Value="false" />
-      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-    </Page>
+    <Page Type="PrinterViewModel" TabType="PrinterPageLoader" Visible="false"/>
     <Page Type="NoteAcceptorViewModel"  Access="MainLogicZeroCreditsGameIdle">
       <Setting Name="ActivationTimeVisible" Value="false" />
       <Setting Name="EgmCanEnableDenominations" Value="true" />
@@ -81,7 +79,7 @@ as follows:
     <Page Type="DisplaysPageViewModel" Access="MainZeroCreditsGameIdle">
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
-    <Page Type="IdReaderPageViewModel" TabType="IDReaderPageLoader" Visible="false" />
+    <Page Type="IdReaderPageViewModel" TabType="IdReaderPageLoader" Visible="false" />
     <Page Type="KeyPageViewModel" TabType="KeyPageLoader" Visible="false" />
     <Page Type="BatteryPageViewModel" TabType="BatteryPageLoader" Visible="false" />
     <Page Type="HardwareManagerPageViewModel" Access="GameIdleZeroCredits" FieldAccess="ReadOnly"/>
@@ -97,12 +95,21 @@ as follows:
   </Menu>
   <Menu Type="SystemMainPageLoader">
     <Page Type="TimeConfigPageViewModel" Access="MainZeroCredits"/>
-    <Page Type="LimitsPageViewModel" Access="LogicZeroCreditsZeroGamesPlayed"/>
-    <Page Type="VoucherSettingsPageViewModel" Access="MainZeroCreditsGameIdle" FieldAccess="MainLogicZeroCreditsGameIdle"/>
-    <Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle"/>
+    <Page Type="LimitsPageViewModel" Access="LogicZeroCreditsZeroGamesPlayed">
+      <Setting Name="HandCountPayoutLimitVisible" Value="true" />
+      <Setting Name="BillAcceptanceLimitVisible" Value="true" />
+      <Setting Name="HandpayLimitVisible" Value="false" />
+      <Setting Name="MaxBetLimitVisible" Value="false" />
+      <Setting Name="CelebrationLockupLimitVisible" Value="false" />
+      <Setting Name="AllowRemoteHandpayResetVisible" Value="false" />
+      <Setting Name="LargeWinHandpayResetMethodVisible" Value="false" />
+      <Setting Name="LargeWinLimitVisible" Value="false" />
+      <Setting Name="GambleWagerLimitVisible" Value="false" />
+    </Page>
+    <Page Type="VoucherSettingsPageViewModel" TabType="VoucherSettingsPageLoader" Visible="false"/>
     <Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
     <Page Type="BarkeeperConfigurationViewModel" Access="MainZeroCreditsGameIdle"/>
-        <Page Type="ReserveMachineViewModel" FieldAccess="LogicZeroCredits"/>
+    <Page Type="ReserveMachineViewModel" TabType="ReserveMachinePageLoader" Visible="false"/>
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
   <Menu Type="GamesMainPageLoader">
@@ -116,7 +123,9 @@ as follows:
       <Setting Name="ShowGameInfoButtons" Value="true" />
       <Setting Name="PrintGameRoundInfo" Value="false" />
     </Page>
-    <Page Type="GamePreferencesViewModel" Access="GameIdleZeroCredits" FieldAccess="MainLogicZeroCreditsGameIdle" />
+    <Page Type="CustomSAPViewModel" TabType="CustomSAPViewLoader" Visible="false"/>
+    <Page Type="GameStatisticsViewModel" TabType="GameStatisticsViewLoader" Visible="false"/>
+    <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false"/>
     <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
     <Page Type="CombinationTestViewModel" Access="MainDoorGameIdle" />
   </Menu>
@@ -129,8 +138,8 @@ as follows:
     <Menu Type="DiagnosticMainPageLoader">
     <Page Type="IOPageViewModel" />
   </Menu>
-    <Menu Type="ExportMachineSettingsLoader" Access="EKeyPresent">
-    <Page Type="ExportMachineSettingsViewModel" />
+  <Menu Type="ExportMachineSettingsLoader" Visible="false">
+    <Page Type="ExportMachineSettingsViewModel" TabType="ExportMachineSettingsLoader" Visible="false"/>
   </Menu>
   <Menu Type="OptionsMainPageLoader" Visible="false" />
   <Menu Type="SystemResetPageLoader" Visible="false" />
