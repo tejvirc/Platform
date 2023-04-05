@@ -16,7 +16,7 @@
                           TextElement.FontWeight="{TemplateBinding FontWeight}"/>
         </Border>
     </ControlTemplate>
-
+    <FontFamily x:Key="CountdownFont">./DSEG7Modern-Regular.ttf#DSEG7 Modern</FontFamily>
     <!-- null FocusVisualStyle fixes the dotted line border around focused buttons -->
     <Style x:Key="stlFlatButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{x:Null}" />

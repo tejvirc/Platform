@@ -14,6 +14,7 @@
     using Application.Contracts;
     using Application.Contracts.Media;
     using Application.UI.Views;
+    using Aristocrat.Monaco.Gaming.UI.Events;
     using ButtonDeck;
     using Cabinet.Contracts;
     using Common;
@@ -73,6 +74,7 @@
         private ResponsibleGamingWindow _responsibleGamingWindow;
         private VirtualButtonDeckView _vbd;
         private bool _vbdLoaded;
+        private HandCountTimerDialog _handCountTimerOverlay;
 
         private Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)> _customOverlays;
 
@@ -130,6 +132,8 @@
             Logger.Debug("Creating overlay view");
             _overlayWindow = new OverlayWindow(this);
 
+            _handCountTimerOverlay = new HandCountTimerDialog(this);
+
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();
             ViewModel.CustomEventViewChangedEvent += ViewModelOnCustomEventViewChangedEvent;
@@ -153,6 +157,7 @@
             }
 
             _lobbyWindows.Add(_overlayWindow);
+            _lobbyWindows.Add(_handCountTimerOverlay);
 
             if (_responsibleGamingWindow != null)
             {
@@ -190,7 +195,31 @@
 
             InitializeCustomOverlays();
 
+            _eventBus.Subscribe<HandCountTimerOverlayVisibilityChangedEvent>(this, HandCountTimerResetOverlayVisiblityChangedEvent);
             _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleOverlayWindowVisibilityChanged);
+        }
+
+        private void HandCountTimerResetOverlayVisiblityChangedEvent(HandCountTimerOverlayVisibilityChangedEvent e)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                try
+                {
+                    if (e.IsVisible)
+                    {
+                        Dispatcher?.Invoke(() => ShowWithTouch(_handCountTimerOverlay));
+                    }
+                    else
+                    {
+                        Dispatcher?.Invoke(() => _handCountTimerOverlay.Hide());
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+            });
         }
 
         private void HandleOverlayWindowVisibilityChanged(OverlayWindowVisibilityChangedEvent e)
@@ -393,6 +422,7 @@
                 {
                     _topperView.DataContext = value;
                 }
+                _handCountTimerOverlay.DataContext = ViewModel.HandCountTimerOverlay;
                 _overlayWindow.ViewModel = ViewModel;
                 AddOverlayBindings(_overlayWindow, ViewModel);
 
@@ -761,11 +791,13 @@
 
             if (_mediaDisplayWindow != null)
             {
+                _handCountTimerOverlay.Owner = _mediaDisplayWindow;
                 _overlayWindow.Owner = _mediaDisplayWindow;
                 _mediaDisplayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
             }
             else
             {
+                _handCountTimerOverlay.Owner = _responsibleGamingWindow ?? (Window)this;
                 _overlayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
             }
 
@@ -810,6 +842,7 @@
                 _windowToScreenMapper.MapWindow(_mediaDisplayWindow);
                 _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
                 _windowToScreenMapper.MapWindow(_overlayWindow);
+                _windowToScreenMapper.MapWindow(_handCountTimerOverlay);
             });
         }
 

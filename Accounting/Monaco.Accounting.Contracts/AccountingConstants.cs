@@ -727,5 +727,11 @@
 
         /// <summary>   Hand count service enabled </summary>
         public const string HandCountServiceEnabled = "HandCountServiceEnabled";
+
+        /// <summary>   Hand count minimum required credits </summary>
+        public const string HandCountMinimumRequiredCredits = "HandCountResetCreditLimit";
+
+        /// <summary>   Hand count default required credits </summary>
+        public const long HandCountDefaultRequiredCredits = 25_000L;
     }
 }
