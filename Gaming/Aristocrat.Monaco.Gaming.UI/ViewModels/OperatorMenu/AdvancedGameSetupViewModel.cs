@@ -132,7 +132,7 @@
 
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
-            SelectedGameType = GameTypes.FirstOrDefault();
+            _selectedGameType = GameTypes.FirstOrDefault();
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
