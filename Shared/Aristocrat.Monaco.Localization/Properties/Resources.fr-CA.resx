@@ -1307,4 +1307,247 @@ See manual for details??</value>
   <data name="ZoneText" xml:space="preserve">
     <value>??Zone ID??</value>
   </data>
+  <data name="ActivationTimeLabel" xml:space="preserve">
+    <value>??Activation Time??</value>
+  </data>
+  <data name="AllowBillInLabel" xml:space="preserve">
+    <value>??Allow Bill In??</value>
+  </data>
+  <data name="BadRead" xml:space="preserve">
+    <value>??Bad Read??</value>
+  </data>
+  <data name="BillAcceptanceLimit" xml:space="preserve">
+    <value>??Bill Acceptance Limit??</value>
+  </data>
+  <data name="ButtonPressed" xml:space="preserve">
+    <value>??Pressed??</value>
+  </data>
+  <data name="ButtonsLabel" xml:space="preserve">
+    <value>??Buttons??</value>
+  </data>
+  <data name="ButtonTest" xml:space="preserve">
+    <value>??Button Test??</value>
+  </data>
+  <data name="ButtonTestInstructions" xml:space="preserve">
+    <value>??Press any button...??</value>
+  </data>
+  <data name="ButtonText" xml:space="preserve">
+    <value>??Button {0}??</value>
+  </data>
+  <data name="CenterText" xml:space="preserve">
+    <value>??Center??</value>
+  </data>
+  <data name="ConnectedText" xml:space="preserve">
+    <value>??Connected??</value>
+  </data>
+  <data name="DataFromIdCardLabel" xml:space="preserve">
+    <value>??Data Read??</value>
+  </data>
+  <data name="Detected" xml:space="preserve">
+    <value>??Detected??</value>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>??Disconnected??</value>
+  </data>
+  <data name="EdgeLightingDisconnectionText" xml:space="preserve">
+    <value>??Edge Lighting is not connected??</value>
+  </data>
+  <data name="EnterDisplayColorTest" xml:space="preserve">
+    <value>??Colors Test??</value>
+  </data>
+  <data name="EnterSoundTest" xml:space="preserve">
+    <value>??Enter Sound Test??</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>??Error??</value>
+  </data>
+  <data name="Escrowed" xml:space="preserve">
+    <value>??Escrowed??</value>
+  </data>
+  <data name="ExitSoundTest" xml:space="preserve">
+    <value>??Exit Sound Test??</value>
+  </data>
+  <data name="Fault" xml:space="preserve">
+    <value>??Fault??</value>
+  </data>
+  <data name="FirmwareCRCLabel" xml:space="preserve">
+    <value>??Firmware CRC??</value>
+  </data>
+  <data name="FirmwareRevisionLabel" xml:space="preserve">
+    <value>??Firmware Revision??</value>
+  </data>
+  <data name="FirmwareVersionLabel" xml:space="preserve">
+    <value>??Firmware Version??</value>
+  </data>
+  <data name="FormFeedButton" xml:space="preserve">
+    <value>??Form Feed??</value>
+  </data>
+  <data name="FrontLeftText" xml:space="preserve">
+    <value>??Front Left??</value>
+  </data>
+  <data name="FrontRightText" xml:space="preserve">
+    <value>??Front Right??</value>
+  </data>
+  <data name="Full" xml:space="preserve">
+    <value>??Full??</value>
+  </data>
+  <data name="IdentifyVideoDisplay" xml:space="preserve">
+    <value>??Identify Video Display??</value>
+  </data>
+  <data name="Idle" xml:space="preserve">
+    <value>??Idle??</value>
+  </data>
+  <data name="IdReaderLabel" xml:space="preserve">
+    <value>??ID Reader??</value>
+  </data>
+  <data name="InEscrow" xml:space="preserve">
+    <value>??In Escrow??</value>
+  </data>
+  <data name="Initializing" xml:space="preserve">
+    <value>??Initializing??</value>
+  </data>
+  <data name="Inserted" xml:space="preserve">
+    <value>??Inserted??</value>
+  </data>
+  <data name="Inspecting" xml:space="preserve">
+    <value>??Inspecting??</value>
+  </data>
+  <data name="Jammed" xml:space="preserve">
+    <value>??Jammed??</value>
+  </data>
+  <data name="LastDocumentResultLabel" xml:space="preserve">
+    <value>??Last Document Result??</value>
+  </data>
+  <data name="LightingBrightnessLabel" xml:space="preserve">
+    <value>??Lighting Brightness??</value>
+  </data>
+  <data name="LightingLabel" xml:space="preserve">
+    <value>??Lighting??</value>
+  </data>
+  <data name="LowFrequencyText" xml:space="preserve">
+    <value>??LFE??</value>
+  </data>
+  <data name="ManufacturerLabel" xml:space="preserve">
+    <value>??Manufacturer??</value>
+  </data>
+  <data name="MasterSoundVolumeLabel" xml:space="preserve">
+    <value>??Master Sound Volume??</value>
+  </data>
+  <data name="MenuTitleRoleTechnician" xml:space="preserve">
+    <value>??Technician??</value>
+  </data>
+  <data name="NoErrors" xml:space="preserve">
+    <value>??No Errors??</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>??None??</value>
+  </data>
+  <data name="NoteAcceptorTest" xml:space="preserve">
+    <value>??Note Acceptor Test??</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>??Port??</value>
+  </data>
+  <data name="PrintDiagnosticButton" xml:space="preserve">
+    <value>??Print Diagnostic??</value>
+  </data>
+  <data name="Printing" xml:space="preserve">
+    <value>??Printing??</value>
+  </data>
+  <data name="PrintLanguage" xml:space="preserve">
+    <value>??Print Language??</value>
+  </data>
+  <data name="PrintTestTicket" xml:space="preserve">
+    <value>??Print Test Ticket??</value>
+  </data>
+  <data name="ProtocolLabel" xml:space="preserve">
+    <value>??Protocol??</value>
+  </data>
+  <data name="Reading" xml:space="preserve">
+    <value>??Reading??</value>
+  </data>
+  <data name="RearLeftText" xml:space="preserve">
+    <value>??Rear Left??</value>
+  </data>
+  <data name="RearRightText" xml:space="preserve">
+    <value>??Rear Right??</value>
+  </data>
+  <data name="RejectedText" xml:space="preserve">
+    <value>??RejectedText??</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>??Removed??</value>
+  </data>
+  <data name="ReturnedText" xml:space="preserve">
+    <value>??Returned??</value>
+  </data>
+  <data name="Returning" xml:space="preserve">
+    <value>??Returning??</value>
+  </data>
+  <data name="SampleSoundTest" xml:space="preserve">
+    <value>??Sample Sound Test??</value>
+  </data>
+  <data name="SelfTestClearNVM" xml:space="preserve">
+    <value>??Self Test Clear NVM??</value>
+  </data>
+  <data name="SelfTestLabel" xml:space="preserve">
+    <value>??Self Test??</value>
+  </data>
+  <data name="SideLeftText" xml:space="preserve">
+    <value>??Side Left??</value>
+  </data>
+  <data name="SideRightText" xml:space="preserve">
+    <value>??Side Right??</value>
+  </data>
+  <data name="SoundIconLabel" xml:space="preserve">
+    <value>??Sound??</value>
+  </data>
+  <data name="SoundSpeakerTest" xml:space="preserve">
+    <value>??Sound Speaker Test??</value>
+  </data>
+  <data name="SoundVolumeTest" xml:space="preserve">
+    <value>??Sound Volume Test??</value>
+  </data>
+  <data name="StackedText" xml:space="preserve">
+    <value>??Stacked??</value>
+  </data>
+  <data name="StackerLabel" xml:space="preserve">
+    <value>??Stacker State??</value>
+  </data>
+  <data name="Stacking" xml:space="preserve">
+    <value>??Stacking??</value>
+  </data>
+  <data name="StateLabel" xml:space="preserve">
+    <value>??State??</value>
+  </data>
+  <data name="TestEdgeLightingLabel" xml:space="preserve">
+    <value>??Test Edge Lighting??</value>
+  </data>
+  <data name="TouchScreenName" xml:space="preserve">
+    <value>??Touch Screen {0}??</value>
+  </data>
+  <data name="TouchScreenPixelLabel" xml:space="preserve">
+    <value>??Displays??</value>
+  </data>
+  <data name="Uninitialized" xml:space="preserve">
+    <value>??Uninitialized??</value>
+  </data>
+  <data name="Validated" xml:space="preserve">
+    <value>??Validated??</value>
+  </data>
+  <data name="ValidatingText" xml:space="preserve">
+    <value>??Validating??</value>
+  </data>
+  <data name="VariantNameLabel" xml:space="preserve">
+    <value>??Variant Name??</value>
+  </data>
+  <data name="VariantVersionLabel" xml:space="preserve">
+    <value>??Variant Version??</value>
+  </data>
+  <data name="VideoDisplayName" xml:space="preserve">
+    <value>??Video Display {0}??</value>
+  </data>
+  <data name="VoucherIn" xml:space="preserve">
+    <value>??Voucher In??</value>
+  </data>
 </root>

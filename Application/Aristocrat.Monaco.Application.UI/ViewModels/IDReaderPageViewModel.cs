@@ -92,7 +92,7 @@
 
             if (IdReader == null)
             {
-                StateText = Regex.Replace(IdReaderLogicalState.Uninitialized.ToString(), "[A-Z]", " $0");
+                StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
                 StatusText = string.Empty;
                 return;
             }
@@ -461,8 +461,7 @@
         {
             var logicalState = idReader?.LogicalState ?? IdReaderLogicalState.Disabled;
 
-            // Insert space before capital letters
-            StateText = Regex.Replace(logicalState.ToString(), "[A-Z]", " $0");
+            SetStateText(logicalState);
 
             // This only occurs when the ID Reader Hardware panel is first opened
             if (idReader != null && string.IsNullOrEmpty(StatusText))
@@ -499,6 +498,47 @@
             }
 
             SetIdCardReadData();
+        }
+
+        private void SetStateText(IdReaderLogicalState state)
+        {
+            switch(state)
+            {
+                case IdReaderLogicalState.Uninitialized:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
+                    break;
+                case IdReaderLogicalState.Inspecting:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inspecting);
+                    break;
+                case IdReaderLogicalState.Idle:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle);
+                    break;
+                case IdReaderLogicalState.Reading:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Reading);
+                    break;
+                case IdReaderLogicalState.Validating:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidatingText);
+                    break;
+                case IdReaderLogicalState.Validated:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validated);
+                    break;
+                case IdReaderLogicalState.BadRead:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BadRead);
+                    break;
+                case IdReaderLogicalState.Error:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
+                    break;
+                case IdReaderLogicalState.Disabled:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
+                    break;
+                case IdReaderLogicalState.Disconnected:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
+                    break;
+                default:
+                    // Insert space before capital letters
+                    StateText = Regex.Replace(state.ToString(), "[A-Z]", " $0");
+                    break;
+            }
         }
 
         private void SetDeviceInformation()

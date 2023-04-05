@@ -11677,4 +11677,60 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="Vip" xml:space="preserve">
     <value>Vip</value>
   </data>
+  <data name="BadRead" xml:space="preserve">
+    <value>Bad Read</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Escrowed" xml:space="preserve">
+    <value>Escrowed</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Fault" xml:space="preserve">
+    <value>Fault</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Full" xml:space="preserve">
+    <value>Full</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InEscrow" xml:space="preserve">
+    <value>In Escrow</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Initializing" xml:space="preserve">
+    <value>Initializing</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Inserted" xml:space="preserve">
+    <value>Inserted</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Jammed" xml:space="preserve">
+    <value>Jammed</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Reading" xml:space="preserve">
+    <value>Reading</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Removed</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Returning" xml:space="preserve">
+    <value>Returning</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Stacking" xml:space="preserve">
+    <value>Stacking</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Validated" xml:space="preserve">
+    <value>Validated</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ValidatingText" xml:space="preserve">
+    <value>Validating</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>

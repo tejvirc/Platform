@@ -472,7 +472,7 @@
 
             var logicalState = printer?.LogicalState ?? PrinterLogicalState.Disabled;
 
-            StateText = logicalState.ToString();
+            SetStateText(logicalState);
 
             switch (logicalState)
             {
@@ -502,6 +502,37 @@
                 StatusText = StatusCurrentMode != StatusMode.None && StateCurrentMode != StateMode.Normal
                     ? StatusCurrentMode.ToString()
                     : string.Empty;
+            }
+        }
+
+        private void SetStateText(PrinterLogicalState state)
+        {
+            switch(state)
+            {
+                case PrinterLogicalState.Uninitialized:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
+                    break;
+                case PrinterLogicalState.Inspecting:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inspecting);
+                    break;
+                case PrinterLogicalState.Initializing:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Initializing);
+                    break;
+                case PrinterLogicalState.Idle:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle);
+                    break;
+                case PrinterLogicalState.Printing:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printing);
+                    break;
+                case PrinterLogicalState.Disabled:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
+                    break;
+                case PrinterLogicalState.Disconnected:
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
+                    break;
+                default:
+                    StateText = state.ToString();
+                    break;
             }
         }
 
