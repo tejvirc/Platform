@@ -26,8 +26,7 @@
                 ? new SslCredentials(
                     string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
                 : ChannelCredentials.Insecure;
-            // TODO: For now must use port 5085 for progressive communications. This will change when server is updated in the future.
-            return new Channel(configuration.Address.Host, 5085, credentials);
+            return new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
         }
 
         public override ClientApi CreateClient(CallInvoker callInvoker)
