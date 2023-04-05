@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Bootstrap": {
+      "commandName": "Executable",
+      "executablePath": "../../bin/net6.0-windows/Platform.exe",
+      "nativeDebugging": true
+    }
+  }
+}
