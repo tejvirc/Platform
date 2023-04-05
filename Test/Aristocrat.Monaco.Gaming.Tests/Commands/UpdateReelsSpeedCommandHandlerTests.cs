@@ -15,8 +15,6 @@
     [TestClass]
     public class UpdateReelsSpeedCommandHandlerTests
     {
-        private Mock<IReelController> _reelController;
-
         /// <summary>
         ///     Gets or sets the test context which provides
         ///     information about and functionality for the current test run.
@@ -27,8 +25,6 @@
         public void TestInitialization()
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
-            _reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
-            _reelController.Setup(x => x.HasCapability<IReelSpinCapabilities>()).Returns(true);
         }
 
         [TestCleanup]
@@ -38,8 +34,17 @@
         }
 
         [TestMethod]
+        public void NullControllerIsHandledTest()
+        {
+            Factory_CreateHandler();
+        }
+
+        [TestMethod]
         public void HandleTest()
         {
+            Mock<IReelController> reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
+            reelController.Setup(x => x.HasCapability<IReelSpinCapabilities>()).Returns(true);
+
             var reelSpeedData = new ReelSpeedData[3];
             reelSpeedData[0] = new ReelSpeedData(1, 10);
             reelSpeedData[1] = new ReelSpeedData(2, 20);
@@ -47,12 +52,12 @@
 
             var command = new UpdateReelsSpeed(reelSpeedData);
 
-            _reelController.Setup(r => r.GetCapability<IReelSpinCapabilities>().SetReelSpeed(command.SpeedData)).Returns(Task.FromResult(true));
+            reelController.Setup(r => r.GetCapability<IReelSpinCapabilities>().SetReelSpeed(command.SpeedData)).Returns(Task.FromResult(true));
 
             var handler = Factory_CreateHandler();
             handler.Handle(command);
 
-            _reelController.Verify(r => r.GetCapability<IReelSpinCapabilities>().SetReelSpeed(command.SpeedData), Times.Once);
+            reelController.Verify(r => r.GetCapability<IReelSpinCapabilities>().SetReelSpeed(command.SpeedData), Times.Once);
             Assert.AreEqual(command.Success, true);
         }
 

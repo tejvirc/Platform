@@ -21,7 +21,7 @@
         {
             var reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
 
-            if (reelController.HasCapability<IReelSpinCapabilities>())
+            if (reelController?.HasCapability<IReelSpinCapabilities>() ?? false)
             {
                 _spinCapabilities = reelController.GetCapability<IReelSpinCapabilities>();
             }
