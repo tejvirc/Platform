@@ -107,6 +107,20 @@
             }
         }
 
+        public IReadOnlyCollection<StripData> ExternalLogicalStrips
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _logicalStrips.Values
+                        .Where(x => !_platformControlledColorStrips.Contains(x.StripId))
+                        .Select(x => new StripData { StripId = x.StripId, LedCount = x.LedCount })
+                        .ToList().AsReadOnly();
+                }
+            }
+        }
+
         public IEnumerable<EdgeLightDeviceInfo> DevicesInfo => _edgeLightDevice.DevicesInfo;
 
         public bool PowerMode

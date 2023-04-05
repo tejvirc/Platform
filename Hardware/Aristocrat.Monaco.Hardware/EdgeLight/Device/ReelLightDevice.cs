@@ -11,6 +11,9 @@
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
+    using Hardware.Contracts.Reel.Events;
     using Kernel;
     using log4net;
     using Strips;
@@ -20,6 +23,10 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly object _lock = new();
+        private readonly int _maxBrightness = 100;
+
+        private IReelBrightnessCapabilities _brightnessCapabilities;
+        private IReelLightingCapabilities _lightingCapabilities;
         private bool _disposed;
         private int _lightsPerReel;
         private int _lastReelCount;
@@ -37,6 +44,7 @@
             }
 
             public bool IsLampOn { get; set; }
+
             public int ArgbColor { get; set; }
 
             public int Brightness { get; set; }
@@ -58,6 +66,8 @@
         public event EventHandler<EventArgs> ConnectionChanged;
 
         private IReelController Controller { get; set; }
+
+        private int ReelControllerDefaultBrightness => _brightnessCapabilities?.DefaultReelBrightness ?? _maxBrightness;
 
         public ReelLightDevice()
             : this(ServiceManager.GetInstance().GetService<IEventBus>())
@@ -106,10 +116,24 @@
                 return;
             }
 
+            if (_brightnessCapabilities is null && Controller.HasCapability<IReelBrightnessCapabilities>())
+            {
+                _brightnessCapabilities = Controller.GetCapability<IReelBrightnessCapabilities>();
+            }
+
+            if (_lightingCapabilities is null && Controller.HasCapability<IReelLightingCapabilities>())
+            {
+                _lightingCapabilities = Controller.GetCapability<IReelLightingCapabilities>();
+            }
+
             IList<int> lightIdentifiers = null;
             try
             {
-                lightIdentifiers = await Controller.GetReelLightIdentifiers();
+
+                if (_lightingCapabilities is not null)
+                {
+                    lightIdentifiers = await _lightingCapabilities.GetReelLightIdentifiers();
+                }
             }
             catch (Exception ex)
             {
@@ -181,7 +205,7 @@
                         var ledColorBuffer = strip.ColorBuffer[ledIndex];
                         var isLampOn = IsLampStateOn(ledColorBuffer);
                         var lightId = (stripIndex * _lightsPerReel) + ledIndex + 1;
-                        reelLampBrightness.Add(lightId, strip.Brightness * Controller.DefaultReelBrightness / 100);
+                        reelLampBrightness.Add(lightId, strip.Brightness * ReelControllerDefaultBrightness / _maxBrightness);
                         var lastDataIndex = lightId - 1;
 
                         if (_lastLightData.Count <= lastDataIndex)
@@ -213,20 +237,17 @@
                     }
                 }
 
-                if (!lampStateMatch || !colorsMatch)
+                if ((!lampStateMatch || !colorsMatch) &&
+                    (_lightingCapabilities is null || !_lightingCapabilities.SetLights(reelLampData.ToArray()).WaitForCompletion()))
                 {
-                    if (!Controller.SetLights(reelLampData.ToArray()).WaitForCompletion())
-                    {
-                        return;
-                    }
+                    return;
                 }
 
-                if (!brightnessMatch)
+                if (!brightnessMatch &&
+                    _brightnessCapabilities is not null &&
+                    _brightnessCapabilities.SetBrightness(reelLampBrightness).WaitForCompletion())
                 {
-                    if (!Controller.SetReelBrightness(reelLampBrightness).WaitForCompletion())
-                    {
-                        return;
-                    }
+                    return;
                 }
 
                 if (!brightnessMatch || !lampStateMatch || !colorsMatch)
@@ -257,14 +278,15 @@
 
         private void SetSystemBrightness()
         {
-            if (!IsOpen || !Controller.Enabled || !Controller.Initialized || _lastReelBrightness == Controller.DefaultReelBrightness)
+            if (!IsOpen || !Controller.Enabled || !Controller.Initialized || _lastReelBrightness == ReelControllerDefaultBrightness)
             {
                 return;
             }
 
-            if (Controller.SetReelBrightness(Controller.DefaultReelBrightness).WaitForCompletion())
+            if (_brightnessCapabilities is not null &&
+                _brightnessCapabilities.SetBrightness(ReelControllerDefaultBrightness).WaitForCompletion())
             {
-                _lastReelBrightness = Controller.DefaultReelBrightness;
+                _lastReelBrightness = ReelControllerDefaultBrightness;
                 _lastLightData = new List<LightData>();
             }
         }

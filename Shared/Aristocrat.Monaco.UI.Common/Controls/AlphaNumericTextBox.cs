@@ -4,21 +4,15 @@
     using System.Windows;
     using System.Windows.Controls;
     using Application.Contracts.Localization;
-    using Hardware.Contracts.Touch;
-    using Kernel;
     using Localization.Properties;
 
     /// <summary>
     ///     Class definition for an AlphaNumericTextBox
     /// </summary>
-    public class AlphaNumericTextBox : TextBox
+    public class AlphaNumericTextBox : TouchTextBox
     {
-        private static readonly IEventBus EventBus;
-
         static AlphaNumericTextBox()
         {
-            EventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(AlphaNumericTextBox),
                 new FrameworkPropertyMetadata(typeof(AlphaNumericTextBox)));
@@ -36,8 +30,6 @@
             DataObject.AddPastingHandler(this, PastingEventHandler);
 
             CaretIndex = Text.Length;
-            GotFocus += TextBox_GotFocus;
-            LostFocus += TextBox_LostFocus;
             TextChanged += AlphaNumericTextBox_TextChanged;
             ContextMenu = null;
         }
@@ -76,16 +68,6 @@
         {
             // Prevent copy/paste
             e.CancelCommand();
-        }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
         }
 
         #region Dependency Properties

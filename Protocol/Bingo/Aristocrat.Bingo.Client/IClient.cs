@@ -30,11 +30,6 @@
         event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         /// <summary>
-        ///     The client's configuration.
-        /// </summary>
-        ClientConfigurationOptions Configuration { get; }
-
-        /// <summary>
         ///     Starts the client running
         /// </summary>
         /// <returns>The task for starting the client</returns>

@@ -13,7 +13,7 @@
     public class TowerLightXmlValidationTest
     {
         private static readonly string XsdFilePath = Path.GetFullPath(
-            Path.Combine(Helper.StartupPath, @"..\..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\TowerLight\TowerLightConfiguration.xsd"));
+            Path.Combine(Helper.StartupPath, @"..\..\..\..\Application\Monaco.Application.Contracts\TowerLight\TowerLightConfiguration.xsd"));
 
         private string[] _directoriesList;
         private string[] _fileList;

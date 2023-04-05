@@ -13,7 +13,7 @@
     using Monaco.UI.Common.Models;
 
     [CLSCompliant(false)]
-    public class MachineSetupViewModelBase : ConfigWizardViewModelBase
+    public class MachineSetupViewModelBase : InspectionWizardViewModelBase
     {
         protected bool ProtocolIsSAS;
         public LiveStringSetting SerialNumber { get; private set; }

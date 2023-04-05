@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.ConfigWizard
 {
-    using System.Linq;
     using System.Collections.Generic;
     using HardwareDiagnostics;
     using Kernel;
+    using OperatorMenu;
 
     /// <summary>
     ///     Defines interface for inspection details
@@ -16,16 +16,28 @@
         ICollection<InspectionResultData> Results { get; }
 
         /// <summary>
-        ///     Set up the device category for following tests.
+        ///     Set up the current page loader.
         /// </summary>
-        /// <param name="category">Device category</param>
-        void SetDeviceCategory(HardwareDiagnosticDeviceCategory category);
+        /// <param name="loader">Current page loader</param>
+
+        HardwareDiagnosticDeviceCategory SetCurrentPageLoader(IOperatorMenuPageLoader loader);
 
         /// <summary>
         ///     Set the firmware version of current category.
         /// </summary>
         /// <param name="firmwareVersion">Firmware version</param>
         void SetFirmwareVersion(string firmwareVersion);
+
+        /// <summary>
+        ///     Set a reference to the inspection wizard.
+        /// </summary>
+        /// <param name="wizard">That man behind the curtain.</param>
+        void SetWizard(IInspectionWizard wizard);
+
+        /// <summary>
+        ///     Manually start the automated test.
+        /// </summary>
+        void ManuallyStartAutoTest();
 
         /// <summary>
         ///     Set up the following test's name.
@@ -37,57 +49,5 @@
         ///     Report a test failure.
         /// </summary>
         void ReportTestFailure();
-    }
-
-    /// <summary>
-    ///     Inspection result data
-    /// </summary>
-    public class InspectionResultData
-    {
-        /// <summary>
-        ///     Device category
-        /// </summary>
-        public HardwareDiagnosticDeviceCategory Category { get; set; }
-
-        /// <summary>
-        ///     Firmware version
-        /// </summary>
-        public string FirmwareVersion { get; set; }
-
-        /// <summary>
-        ///     Page test status
-        /// </summary>
-        public InspectionPageStatus Status { get; set; }
-
-        /// <summary>
-        ///     List of failure messages
-        /// </summary>
-        public IList<string> FailureMessages { get; set; }
-
-        /// <summary>
-        ///     Get combined test failures string.
-        /// </summary>
-        public string CombinedTestFailures => string.Join("; ", FailureMessages.Distinct());
-    }
-
-    /// <summary>
-    ///     Enumeration of status of page testign
-    /// </summary>
-    public enum InspectionPageStatus
-    {
-        /// <summary>
-        ///     Untested
-        /// </summary>
-        Untested,
-
-        /// <summary>
-        ///     Good
-        /// </summary>
-        Good,
-
-        /// <summary>
-        ///     Bad
-        /// </summary>
-        Bad
     }
 }

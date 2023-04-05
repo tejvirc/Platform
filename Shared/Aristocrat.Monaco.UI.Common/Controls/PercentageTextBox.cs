@@ -5,20 +5,14 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
-    using Hardware.Contracts.Touch;
-    using Kernel;
     using Converters;
     using Helpers;
 
     /// <inheritdoc />
-    public class PercentageTextBox : TextBox
+    public class PercentageTextBox : TouchTextBox
     {
-        private static readonly IEventBus EventBus;
-
         static PercentageTextBox()
         {
-            EventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(PercentageTextBox),
                 new FrameworkPropertyMetadata(typeof(PercentageTextBox)));
@@ -192,13 +186,11 @@
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             UpdateTextBinding((TextBox)sender, EditingFormatter, DisplayFormatter, ZeroPercentage);
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             UpdateTextBinding((TextBox)sender, EditingFormatter, DisplayFormatter, ZeroPercentage);
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
         }
 
         private static void TextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)

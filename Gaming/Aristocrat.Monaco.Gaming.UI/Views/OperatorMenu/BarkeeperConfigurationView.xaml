@@ -81,7 +81,9 @@
                 <local:BarkeeperCashInReward/>
             </TabItem>
             <TabItem Header="Coin-In Reward">
-                <local:BarkeeperCoinInReward/>
+                <AdornerDecorator>
+                    <local:BarkeeperCoinInReward/>
+                </AdornerDecorator>
             </TabItem>
         </TabControl>
     </Grid>

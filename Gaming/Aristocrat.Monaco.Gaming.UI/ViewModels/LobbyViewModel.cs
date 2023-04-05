@@ -2294,7 +2294,7 @@
                 if (!GameReady && !IsInState(LobbyState.GameLoading))
                 {
                     Logger.Debug("Automatically launch single game");
-                    var currentGame = GameCount == 1 ? GameList.Single(g => g.Enabled) : GetSelectedGame();
+                    var currentGame = GetSelectedGame();
 
                     if (currentGame != null)
                     {

@@ -2,6 +2,8 @@
 {
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
     using Gaming.Commands;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -26,6 +28,7 @@
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             _reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
+            _reelController.Setup(x => x.HasCapability<IReelSpinCapabilities>()).Returns(true);
         }
 
         [TestCleanup]
@@ -44,12 +47,12 @@
 
             var command = new NudgeReels(nudgeSpinData);
 
-            _reelController.Setup(r => r.NudgeReel(command.NudgeSpinData)).Returns(Task.FromResult(true));
+            _reelController.Setup(r => r.GetCapability<IReelSpinCapabilities>().NudgeReels(command.NudgeSpinData)).Returns(Task.FromResult(true));
 
             var handler = Factory_CreateHandler();
             handler.Handle(command);
 
-            _reelController.Verify(r => r.NudgeReel(command.NudgeSpinData), Times.Once);
+            _reelController.Verify(r => r.GetCapability<IReelSpinCapabilities>().NudgeReels(command.NudgeSpinData), Times.Once);
             Assert.AreEqual(command.Success, true);
         }
 

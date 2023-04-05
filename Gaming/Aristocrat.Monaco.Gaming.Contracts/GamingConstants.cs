@@ -1159,6 +1159,11 @@
         public const string ShowPlayerSpeedButtonEnabled = @"ShowPlayerSpeedButton.Enabled";
 
         /// <summary>
+        ///     Determines if platform need to play the sound on bonus transfer.
+        /// </summary>
+        public const string BonusTransferPlaySound = @"BonusTransfer.PlaySound";
+
+        /// <summary>
         ///     Requesting game exit for the game menu button when using a multi-game setup
         /// </summary>
         public const string RequestExitGame = "RequestExitGame";

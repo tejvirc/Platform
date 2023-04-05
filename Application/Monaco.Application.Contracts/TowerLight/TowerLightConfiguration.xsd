@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="SetType">
+    <xs:attribute name="lightTier" type="xs:string" use="required"/>
+    <xs:attribute name="flashState" type="xs:string" use="required"/>
+    <xs:attribute name="duration" type="xs:long" use="optional" default="0"/>
+  </xs:complexType>
+
+  <xs:complexType name="DoorConditionType">
+    <xs:sequence>
+      <xs:element name="Set" type="SetType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="condition" type="xs:string" use="required"/>
+    <xs:attribute name="Reset" type="xs:boolean" use="optional" default="false" />
+  </xs:complexType>
+
+  <xs:complexType name="OperationalConditionType">
+    <xs:sequence>
+      <xs:element name="DoorCondition" type="DoorConditionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="condition" type="OperationList" use="required"/>
+    <xs:attribute name="CanBeOverriddenByLowerIfOff" type="xs:boolean" use="optional" default="true"/>
+  </xs:complexType>
+
+  <xs:complexType name="SignalDefinitionsType">
+    <xs:sequence>
+      <xs:element name="OperationalCondition" type="OperationalConditionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Tier" type="TierType" use="optional"/>
+    <xs:attribute name="UpdateTowerLightSignalBehaviour" type="UpdateTowerLightSignalBehaviourType" default="Default" use="optional"/>
+  </xs:complexType>
+
+  <xs:simpleType name="UpdateTowerLightSignalBehaviourType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="Default|PriorityHigherCanBeOverriddenIfNoneOrOff" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TierType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="Undefined|TwoTier|FourTier" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DoorType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="Belly|Logic|Top|CashBox|SecondaryCashBox|DropDoor|MechanicalMeter|MainOptic|TopBoxOptic" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OperationList">
+    <xs:list itemType="OperationType"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="OperationType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="None|Idle|Service|SoftError|Tilt|Handpay|AuditMenu|OutOfService|CancelCredit" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="TiltDoorsType">
+    <xs:sequence>
+      <xs:element name="DoorName" type="DoorType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="TowerLightConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SignalDefinitions" type="SignalDefinitionsType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="TiltDoors" type="TiltDoorsType" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="disableTowerLights" type="xs:boolean" default="false" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

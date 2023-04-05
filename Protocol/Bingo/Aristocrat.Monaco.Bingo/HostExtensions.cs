@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Security.Cryptography.X509Certificates;
     using Aristocrat.Bingo.Client.Configuration;
     using Common;
@@ -11,11 +12,28 @@
     {
         public static ClientConfigurationOptions ToConfigurationOptions(this Host host, IEnumerable<X509Certificate2> certificates)
         {
-            var uriBuilder = new UriBuilder { Host = host.HostName, Port = host.Port };
+            if (host == null)
+            {
+                throw new ArgumentNullException(nameof(host));
+            }
+
+            if (certificates == null)
+            {
+                throw new ArgumentNullException(nameof(certificates));
+            }
+
+            var allCertificates = certificates.ToList();
+            var uriBuilder = new UriBuilder
+            {
+                Host = host.HostName,
+                Port = host.Port,
+                Scheme = allCertificates.Any() ? Uri.UriSchemeHttps : Uri.UriSchemeHttp
+            };
+
             return new ClientConfigurationOptions(
                 uriBuilder.Uri,
                 BingoConstants.DefaultConnectionTimeout,
-                certificates);
+                allCertificates);
         }
     }
 }

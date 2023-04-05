@@ -391,7 +391,7 @@
             ProtocolText = device.Protocol;
             PortText = SetPortText();
 
-            Inspection?.SetFirmwareVersion($"{FirmwareVersionText} {FirmwareRevisionText}");
+            Inspection?.SetFirmwareVersion($"{ManufacturerText} {ModelText}: {FirmwareVersionText} {FirmwareRevisionText}");
 
             string SetPortText()
             {

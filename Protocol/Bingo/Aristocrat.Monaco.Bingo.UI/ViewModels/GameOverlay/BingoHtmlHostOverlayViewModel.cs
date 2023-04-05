@@ -829,10 +829,12 @@
             }
 
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
+            var previousVisibility = IsInfoVisible;
             await UpdateAppearance();
             await _overlayServer.StopAsync();
             await InitializeOverlay(_lastSelectedGame);
-            await SetInfoVisibility(true);
+            // Restore visibility to the state prior to the overlay restart
+            await SetInfoVisibility(previousVisibility);
         }
 
         private async Task InitializeOverlay(IGameDetail detail)

@@ -29,8 +29,8 @@
     using NoteAcceptorHardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
     using PrinterDisconnectedEvent = Hardware.Contracts.Printer.DisconnectedEvent;
     using PrinterHardwareFaultEvent = Hardware.Contracts.Printer.HardwareFaultEvent;
-    using ReelControllerHardwareFaultEvent = Hardware.Contracts.Reel.HardwareFaultEvent;
-    using ReelControllerReelFaultEvent = Hardware.Contracts.Reel.HardwareReelFaultEvent;
+    using ReelControllerHardwareFaultEvent = Hardware.Contracts.Reel.Events.HardwareFaultEvent;
+    using ReelControllerReelFaultEvent = Hardware.Contracts.Reel.Events.HardwareReelFaultEvent;
 
     [CLSCompliant(false)]
     public sealed class StatusPageViewModel : OperatorMenuPageViewModelBase, IMessageDisplayHandler
