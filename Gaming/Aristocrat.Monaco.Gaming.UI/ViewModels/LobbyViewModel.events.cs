@@ -609,6 +609,7 @@
         private void HandleEvent(TransferOutFailedEvent platformEvent)
         {
             Logger.Debug("Detected TransferOutFailedEvent");
+            MessageOverlayDisplay.TransferOutFailed(platformEvent);
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
@@ -693,6 +694,7 @@
 
         private void HandleEvent(WatTransferInitiatedEvent platformEvent)
         {
+            MessageOverlayDisplay.WatTransferInitiated(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -708,6 +710,7 @@
 
         private void HandleEvent(VoucherOutStartedEvent platformEvent)
         {
+            MessageOverlayDisplay.VoucherOutStarted(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -715,6 +718,8 @@
         private void HandleEvent(HandpayStartedEvent platformEvent)
         {
             Logger.Debug($"Detected HandpayStartedEvent.  HandpayType: {platformEvent.Handpay}");
+
+            MessageOverlayDisplay.HandpayStarted(platformEvent);
 
             SetEdgeLighting();
 
@@ -765,12 +770,14 @@
 
         private async Task HandleEvent(HandpayCanceledEvent platformEvent, CancellationToken token)
         {
+            MessageOverlayDisplay.HandpayCancelled();
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
         }
 
         private async Task HandleEvent(HandpayKeyedOffEvent platformEvent, CancellationToken token)
         {
+            MessageOverlayDisplay.HandpayKeyedOff(platformEvent);
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
 
             if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
