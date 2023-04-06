@@ -222,5 +222,11 @@
         ///     required to supply additional information about how the Total RTP is broken down.
         /// </summary>
         bool HasExtendedRtpInformation { get; }
+
+        /// <summary>
+        ///     Gets a value indicating whether the RTP information from the game matches the same RTP on the Linked Progressive
+        ///     Host. If boost check is disabled, this will be false.
+        /// </summary>
+        bool BoostCheckMatched { get; set; }
     }
 }

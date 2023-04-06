@@ -77,6 +77,7 @@
         private string _kenoSoundFilePath;
         private string _cardSoundFilePath;
         private ProgressiveLobbyIndicator _progressiveIndicator;
+        private bool _boostCheckEnabled;
 
         public GamePreferencesViewModel()
         {
@@ -165,6 +166,10 @@
             var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container
                 ?.GetInstance<ILobbyStateManager>();
             IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+
+            GameExistsWithExtendedRtpInfo = gameProvider.GetAllGames().Any(game => game.HasExtendedRtpInformation);
+
+            BoostCheckEnabled = PropertiesManager.GetValue(GamingConstants.BoostCheckEnabled, true);
         }
 
         public List<GameStartMethodInfo> GameStartMethods => new List<GameStartMethodInfo>
@@ -967,6 +972,24 @@
                 }
             }
         }
+
+        public bool BoostCheckEnabled
+        {
+            get => _boostCheckEnabled;
+            set
+            {
+                if (_boostCheckEnabled == value)
+                {
+                    return;
+                }
+
+                _boostCheckEnabled = value;
+                RaisePropertyChanged(nameof(BoostCheckEnabled));
+                Save(GamingConstants.BoostCheckEnabled, _boostCheckEnabled);
+            }
+        }
+
+        public bool GameExistsWithExtendedRtpInfo { get; set; }
 
         protected override void OnFieldAccessRestrictionChange()
         {

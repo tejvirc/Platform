@@ -65,7 +65,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Left Side Section -->
+            <!-- Left Side Panel -->
             <StackPanel Orientation="Vertical"
               Grid.Column="0" 
               Grid.Row="0">
@@ -73,8 +73,9 @@
               <StackPanel x:Name="AttractModeStackPanel"
                           Orientation="Vertical"
                           IsEnabled="{Binding AttractOptionsEnabled}">
-                  <TextBlock
-                      Text="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModeOptions}}"/>
+
+                  <!-- Attract Mode Options Section -->
+                  <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModeOptions}}"/>
                   <CheckBox
                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAttractCheckBoxText}}"
                       IsChecked="{Binding AttractEnabled, Mode=TwoWay}"
@@ -100,7 +101,7 @@
                        Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameCensorshipOptions}}"
                        Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
-                <!-- Censor Violent Content Section -->
+                <!-- Censor Violent Content -->
                 <CheckBox x:Name="CensorViolentContentCheckBox"
                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorViolentContent}}"
                       IsChecked="{Binding CensorViolentContent}"
@@ -113,7 +114,7 @@
                     </CheckBox.IsEnabled>
                 </CheckBox>
 
-                <!-- Censor Drug Use Content Section -->
+                <!-- Censor Drug Use Content -->
                 <CheckBox x:Name="CensorDrugUseContentCheckBox"
                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorDrugUseContent}}"
                       IsChecked="{Binding CensorDrugUseContent}"
@@ -126,7 +127,7 @@
                     </CheckBox.IsEnabled>
                 </CheckBox>
 
-                <!-- Censor Sexual Content Section -->
+                <!-- Censor Sexual Content -->
                 <CheckBox x:Name="CensorSexualContentCheckBox"
                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorSexualContent}}"
                       IsChecked="{Binding CensorSexualContent}"
@@ -139,7 +140,7 @@
                     </CheckBox.IsEnabled>
                 </CheckBox>
 
-                <!-- Censor Offensive Language Section -->
+                <!-- Censor Offensive Language -->
                 <CheckBox x:Name="CensorOffensiveLanguageCheckBox"
                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorOffensiveLanguage}}"
                       IsChecked="{Binding CensorOffensiveContent}"
@@ -157,7 +158,7 @@
                        Margin="0 30 0 0"
                        Text="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonBehaviorOptions}}"/>
 
-                <!-- Button Continuous Play Section -->
+                <!-- Button Continuous Play -->
                 <StackPanel x:Name="ContinuousPlaySectionStackPanel" 
                         Orientation="Horizontal"
                         Visibility="Collapsed">
@@ -186,7 +187,7 @@
                     </Button>
                 </StackPanel>
 
-                <!-- Game Round Time Settings Section -->
+                <!-- Game Round Time Settings -->
                 <StackPanel x:Name="GameRoundTimeSettingStackPanel"
                             Orientation="Horizontal">
                     <Label x:Name="GameRoundTimeSettingLabel"
@@ -203,7 +204,7 @@
                                         IsEnabled="{Binding Path=InputEnabled}"/>
                 </StackPanel>
 
-                <!-- Double Tap Force Reel Stop Section -->
+                <!-- Double Tap Force Reel Stop -->
                 <StackPanel x:Name="DoubleTapForceReelStopSectionStackPanel" 
                         Orientation="Horizontal">
                     <CheckBox x:Name="DoubleTapReelStopCheckBox"
@@ -305,9 +306,21 @@
                           IsChecked="{Binding ShowProgramEnableResetCredits}"
                           IsEnabled="{Binding FieldAccessEnabled}" 
                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+
+                <!-- Progressive Options Section -->
+                <TextBlock x:Name="ProgressiveOptionsTextBlock"
+                           Margin="0 30 0 0"
+                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveOptions}}"
+                           Visibility="{Binding Path=GameExistsWithExtendedRtpInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}"/> 
+
+                <CheckBox x:Name="ProgressiveOptionsBoostCheckEnabledCheckBox"
+                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.BoostCheckEnabledLabel}}"
+                          IsChecked="{Binding BoostCheckEnabled}"
+                          Visibility="{Binding Path=GameExistsWithExtendedRtpInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+
             </StackPanel>
 
-            <!-- Middle Grid Section -->
+            <!-- Middle Grid Panel -->
             <StackPanel Orientation="Vertical"
                         Grid.Column="2"
                         Grid.Row="0">
@@ -508,7 +521,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <!-- Right Side Grid Section -->
+            <!-- Right Side Grid Panel -->
             <StackPanel Orientation="Vertical"
                         Grid.Column="4"
                         Grid.Row="0">

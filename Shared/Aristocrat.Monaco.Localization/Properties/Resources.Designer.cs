@@ -3076,6 +3076,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Vertex BoostCheck Enabled.
+		/// </summary>
+		public static string BoostCheckEnabledLabel {
+			get {
+				return ResourceManager.GetString("BoostCheckEnabledLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Bottom.
 		/// </summary>
         /// <remarks>
@@ -37663,6 +37672,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Vertex BoostCheck Enabled.
+		/// </summary>
+		public static string BoostCheckEnabledLabel {
+			get {
+				return "BoostCheckEnabledLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Bottom.
 		/// </summary>
         /// <remarks>
@@ -70954,6 +70972,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.Contracts
         /// </remarks>
 		BonusTransactionName,
+		/// <summary>
+		///   Looks up a localized string similar to Vertex BoostCheck Enabled.
+		/// </summary>
+		BoostCheckEnabledLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Bottom.
 		/// </summary>

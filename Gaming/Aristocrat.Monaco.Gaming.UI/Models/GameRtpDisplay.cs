@@ -4,50 +4,50 @@
 
     public class GameRtpDisplay
     {
-        public bool HasExtendedRtpInformation { get; init; }
+        public bool HasExtendedRtpInformation { get; set; }
 
-        public string BaseGameRtp { get; init; } 
+        public string BaseGameRtp { get; set; } 
  
-        public string BaseGameRtpMin { get; init; } 
+        public string BaseGameRtpMin { get; set; } 
  
-        public string BaseGameRtpMax { get; init; }
+        public string BaseGameRtpMax { get; set; }
 
-        public string StandaloneProgressiveResetRtp { get; init; } 
+        public string StandaloneProgressiveResetRtp { get; set; } 
  
-        public string StandaloneProgressiveResetRtpMin { get; init; } 
+        public string StandaloneProgressiveResetRtpMin { get; set; } 
  
-        public string StandaloneProgressiveResetRtpMax { get; init; }
+        public string StandaloneProgressiveResetRtpMax { get; set; }
 
-        public string StandaloneProgressiveIncrementRtp { get; init; } 
+        public string StandaloneProgressiveIncrementRtp { get; set; } 
  
-        public string StandaloneProgressiveIncrementRtpMin { get; init; } 
+        public string StandaloneProgressiveIncrementRtpMin { get; set; } 
  
-        public string StandaloneProgressiveIncrementRtpMax { get; init; }
+        public string StandaloneProgressiveIncrementRtpMax { get; set; }
 
-        public string LinkedProgressiveResetRtp { get; init; } 
+        public string LinkedProgressiveResetRtp { get; set; } 
  
-        public string LinkedProgressiveResetRtpMin { get; init; } 
+        public string LinkedProgressiveResetRtpMin { get; set; } 
  
-        public string LinkedProgressiveResetRtpMax { get; init; }
+        public string LinkedProgressiveResetRtpMax { get; set; }
 
-        public string LinkedProgressiveIncrementRtp { get; init; } 
+        public string LinkedProgressiveIncrementRtp { get; set; } 
  
-        public string LinkedProgressiveIncrementRtpMin { get; init; } 
+        public string LinkedProgressiveIncrementRtpMin { get; set; } 
  
-        public string LinkedProgressiveIncrementRtpMax { get; init; }
+        public string LinkedProgressiveIncrementRtpMax { get; set; }
 
-        public string TotalJurisdictionalRtp { get; init; }
+        public string TotalJurisdictionalRtp { get; set; }
 
-        public string TotalJurisdictionalRtpMin { get; init; }
+        public string TotalJurisdictionalRtpMin { get; set; }
 
-        public string TotalJurisdictionalRtpMax { get; init; }
+        public string TotalJurisdictionalRtpMax { get; set; }
 
-        public RtpVerifiedState StandaloneProgressiveResetRtpState { get; init; }
+        public RtpVerifiedState StandaloneProgressiveResetRtpState { get; set; }
 
-        public RtpVerifiedState StandaloneProgressiveIncrementRtpState { get; init; }
+        public RtpVerifiedState StandaloneProgressiveIncrementRtpState { get; set; }
 
-        public RtpVerifiedState LinkedProgressiveResetRtpState { get; init; }
+        public RtpVerifiedState LinkedProgressiveResetRtpState { get; set; }
 
-        public RtpVerifiedState LinkedProgressiveIncrementRtpState { get; init; }
+        public RtpVerifiedState LinkedProgressiveIncrementRtpState { get; set; }
     }
 }

@@ -158,7 +158,9 @@
                         w.MaxLinkStartupRtpPercent != default ||
                         w.LinkIncrementRtpPercent != default);
             }
-        } 
+        }
+
+        public bool BoostCheckMatched { get; set; }
     }
 
     internal class TestDenomination : IDenomination

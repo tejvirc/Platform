@@ -276,6 +276,8 @@
                         w.LinkIncrementRtpPercent != default);
             }
         }
+
+        public bool BoostCheckMatched { get; set; }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

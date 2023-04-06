@@ -7,11 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:progressive="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Progressives;assembly=Aristocrat.Monaco.Gaming.Contracts"
-                               xmlns:sharedConverters="http://metro.mahapps.com/winfx/xaml/shared"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamesSummaryViewModel}}"
                                common:DialogParticipation.Register="{Binding}">
@@ -80,7 +77,7 @@
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Width="30" Binding="{Binding UniqueId}" />
+                <DataGridTextColumn Header="#" Width="30" Binding="{Binding Id}" />
 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}" Binding="{Binding ThemeName}"/>
 

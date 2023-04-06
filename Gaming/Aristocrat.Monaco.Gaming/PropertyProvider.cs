@@ -201,6 +201,7 @@
                 { GamingConstants.RouletteIncludeStandaloneProgressiveStartUpRtp, (rouletteRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
                 { GamingConstants.KenoIncludeStandaloneProgressiveStartUpRtp, (kenoRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
                 { GamingConstants.BlackjackIncludeStandaloneProgressiveStartUpRtp, (blackjackRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
+                { GamingConstants.BoostCheckEnabled, (InitFromStorage(GamingConstants.BoostCheckEnabled), true) },
                 // RTP Properties End
                 { GamingConstants.InGameDisplayFormat, (configuration.InGameDisplay?.DisplayFormat ?? DisplayFormat.Any, false) },
                 { GamingConstants.AllowCashInDuringPlay, ((object)configuration.InGamePlay?.AllowCashInDuringPlay ?? false, false) },
@@ -293,11 +294,11 @@
                 SetProperty(GamingConstants.ShowProgramPin, GamingConstants.DefaultShowProgramPin);
                 SetProperty(GamingConstants.ShowProgramEnableResetCredits, true);
                 SetProperty(GamingConstants.AttractModeEnabled, (configuration.AttractModeOptions?.AttractEnabled ?? true));
-                SetProperty(GamingConstants.ProgressiveLobbyIndicatorType,
-                    configuration.ProgressiveLobbyIndicator?.Indicator ?? ProgressiveLobbyIndicator.ProgressiveValue);
+                SetProperty(GamingConstants.ProgressiveLobbyIndicatorType, configuration.ProgressiveLobbyIndicator?.Indicator ?? ProgressiveLobbyIndicator.ProgressiveValue);
                 SetProperty(GamingConstants.ShowTopPickBanners,true);
                 SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
                 SetProperty(GamingConstants.LaunchGameAfterReboot, false);
+                SetProperty(GamingConstants.BoostCheckEnabled, true);
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
                 if (machineSettingsImported == ImportMachineSettings.None)

@@ -147,5 +147,7 @@
                         w.LinkIncrementRtpPercent != default);
             }
         }
+
+        public bool BoostCheckMatched { get; set; }
     }
 }

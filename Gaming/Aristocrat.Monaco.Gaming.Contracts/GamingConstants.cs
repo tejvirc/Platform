@@ -1157,7 +1157,6 @@
         /// </summary>
         public const string AdditionalInfoGameInProgress = @"AdditionalInfoGameInProgress";
 
-
         /// <summary>
         ///     Flag will indicate the value of AwaitingPlayerSelection sent to runtime
         /// </summary>
@@ -1234,7 +1233,13 @@
         public const string DenomSelectionLobby = "GamingConfiguration.DenomSelectionLobby.Mode";
 
         /// <summary>
-        ///     encapsulate Player Information Display options
+        ///     Key for the BoostCheckEnabled flag in Property Manager. This flag, which if enabled, will verify that Linked
+        ///     Progressive RTP values match the Game's RTP values.
+        /// </summary>
+        public static string BoostCheckEnabled = "BoostCheckEnabled";
+
+        /// <summary>
+        ///     Encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay
         {

@@ -93,6 +93,9 @@
             }
         }
 
+        // Remove hard setting to true after Vertex Progressives are finished.
+        public bool BoostCheckMatched { get; set; } = true; 
+
         public IEnumerable<IWinLevel> WinLevels { get; set; }
 
         public string VariationId { get; set; }
