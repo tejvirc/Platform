@@ -175,6 +175,7 @@
                 _resetTimer?.Stop();
                 ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
             }
+            _disposed = true;
         }
     }
 }
