@@ -29,7 +29,7 @@ as follows:
   </TenderIn>
   <CreditLimits>
     <MaxCreditMeter MaxAllowed="9999999000"/>
-    <MaxBetLimit Default="500000" LimitMax="500000"/>
+    <MaxBetLimit Default="1000000" LimitMax="1000000"/>
   </CreditLimits>
   <WinLimits>
     <LargeWinLimit Editable="false" />

@@ -717,5 +717,15 @@
         ///     Count of hand played by the player in this hand count session
         /// </summary>
         public const string HandCount = "HandCount";
+
+        /// <summary>
+        ///     Voucher out cashable amount
+        /// </summary>
+        public const string HardMeterOutAmount = "HardMeterOutAmount";
+
+        /// <summary>
+        ///     Voucher out cashable count
+        /// </summary>
+        public const string HardMeterOutCount = "HardMeterOutCount";
     }
 }

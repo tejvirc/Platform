@@ -9,6 +9,7 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
@@ -760,7 +761,8 @@
                     round.AmountIn += transaction.Amount.MillicentsToDollars();
                 }
                 else if (transaction.TransactionType == typeof(VoucherOutTransaction) ||
-                         transaction.TransactionType == typeof(WatTransaction))
+                         transaction.TransactionType == typeof(WatTransaction) ||
+                         transaction.TransactionType == typeof(HardMeterOutTransaction))
                 {
                     if (round.AmountOut == null)
                     {

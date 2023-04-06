@@ -33,8 +33,11 @@ namespace Aristocrat.Monaco.Accounting.Contracts
 
         /// <summary> The session started because of wat</summary>
         WatOn,
+
+        /// <summary> The session ended by a HardMeterOut</summary>
+        HardMeterOut,
     }
-    
+
     /// <summary>
     ///     Provides information and services around session start and end
     /// </summary>

@@ -753,5 +753,8 @@
 
         /// <summary>   Hand count default required credits </summary>
         public const long HandCountDefaultRequiredCredits = 25_000L;
+
+        /// <summary>   Cashout amount per hand </summary>
+        public const string CashoutAmountPerHandCount = "CashoutAmountPerHandCount";
     }
 }

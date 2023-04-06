@@ -496,6 +496,11 @@
         public static readonly Guid HandpayPendingDisableKey = new Guid("{9F4A85A2-F478-4AA2-A5FF-D387D74894F2}");
 
         /// <summary>
+        ///     Key used to disable the system when a handpay is pending
+        /// </summary>
+        public static readonly Guid LargePayoutDisableKey = new Guid("{49FB79B0-2FFB-4982-81EA-F4CE36F51C00}");
+
+        /// <summary>
         ///     Key used to disable the system when a cashout failed
         /// </summary>
         public static readonly Guid HostCashOutFailedDisableKey = new Guid("{AD40EFCE-63C0-42E9-8FE4-68B222D2DC8D}");

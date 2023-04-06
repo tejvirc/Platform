@@ -7068,6 +7068,10 @@ See manual for details</value>
     <value>TRANSFER TO GAME</value>
     <comment>Aristocrat.Monaco.Sas</comment>
   </data>
+  <data name="HardMeterOut" xml:space="preserve">
+    <value>Hard Meter Out Amount:</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
   <data name="TriggerLabel" xml:space="preserve">
     <value>Progressive Trigger</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>

@@ -20,14 +20,11 @@ as follows:
       <HandpayLimit CheckboxEditable="false"/>
     </LimitsPage>
     <CompletionPage ShowGameSetupMessage="true"/>
-    <HardMetersConfig Configurable="false" Enable="true" />
+    <HardMetersConfig Configurable="true" Enable="false" TickValueConfigurable="true"/>
     <ProtocolConfiguration>
-      <ProtocolsAllowed>
-          <Protocol Name="SAS" IsMandatory="true"/>
-          <Protocol Name="Test"/>
-      </ProtocolsAllowed>
-      <ExclusiveProtocols>
-        <ExclusiveProtocol Name="SAS" Function="Validation" />
-      </ExclusiveProtocols>
+        <ProtocolsAllowed>
+            <Protocol Name="SAS" IsMandatory="false"/>
+            <Protocol Name="Test"/>
+        </ProtocolsAllowed>
     </ProtocolConfiguration>
 </ConfigWizardConfiguration>

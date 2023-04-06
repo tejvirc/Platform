@@ -66588,13 +66588,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///		Looks up a localized string similar to Progressive Trigger.
-		/// </summary>
+        /// <summary>
+        ///		Looks up a localized string similar to Transfer Out Failed Amount:.
+        /// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+        public static string HardMeterOut
+        {
+            get
+            {
+                return "HardMeterOut";
+            }
+        }
+
+        /// <summary>
+        ///		Looks up a localized string similar to Progressive Trigger.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		public static string TriggerLabel {
+        public static string TriggerLabel {
 			get {
 				return "TriggerLabel";
 			}
@@ -68922,10 +68936,25 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///		Looks up a localized string similar to Wednesday.
-		/// </summary>
-		public static string Wednesday {
+        /// <summary>
+        ///		Looks up a localized string similar to Hand count out.
+        /// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+        public static string HardMeterOutTransactionName
+        {
+            get
+            {
+                return "HardMeterOutTransactionName";
+            }
+        }
+
+
+        /// <summary>
+        ///		Looks up a localized string similar to Wednesday.
+        /// </summary>
+        public static string Wednesday {
 			get {
 				return "Wednesday";
 			}

@@ -15,7 +15,7 @@
     using UI.Views.Lobby;
     using UI.Views.MediaDisplay.Handlers;
 
-    public sealed class Class3Runnable : GamingRunnable
+    public  class Class3Runnable : GamingRunnable
     {
         protected override void ConfigureContainer(Container container)
         {

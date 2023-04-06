@@ -271,6 +271,10 @@
                 {
                     AccountingConstants.HandCountMinimumRequiredCredits,
                     Tuple.Create((object)configuration.HandCount?.HandCountResetCreditLimit ?? AccountingConstants.HandCountDefaultRequiredCredits, false)
+				},
+				{
+                    AccountingConstants.CashoutAmountPerHandCount,
+                    Tuple.Create((object)configuration.HandCount?.CashoutAmountPerHandCount,false)
                 },
                 {
                     AccountingConstants.LargeWinLimit,

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HardMeterMappingConfiguration>
+	<HardMeterMapping Name="(1)Total In,(2)Total Out" Default="true">
+		<HardMeter LogicalId="4" Name="Total In" TickValueConfigurable="true">
+			<SoftMeter Name="TotalIn" />
+    </HardMeter>
+		<HardMeter LogicalId="5" Name="Total Out" TickValueConfigurable="true">
+			<SoftMeter Name="TotalOut" />
+		</HardMeter>
+    <HardMeter LogicalId="6" Name="Hard Meter Out" TickValueConfigurable="true">
+      <SoftMeter Name="HardMeterOutAmount" />
+    </HardMeter>
+  </HardMeterMapping>
+</HardMeterMappingConfiguration>

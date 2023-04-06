@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="Aristocrat.Monaco.Gaming.C3Coam" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Gaming.C3Coam.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+  </Dependencies>
+</Addin>
