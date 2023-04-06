@@ -48,7 +48,7 @@ as follows:
            "Days" = Number of days by which ticket will expire. "0" means Never Expire.
            "Editable" = This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
 -->
-  <VoucherOut State="Enabled" AllowNonCashableTicket="Disabled"/>
+  <VoucherOut State="Enabled" AllowNonCashableTicket="Disabled" LimitDefault="100000000000" />
 <!--
     RebootWhilePrinting Behavior: 
        "Reprint" = After operator key-off of reboot while printing error, will remove remaining credits and automatically reprint a cashout ticket.
