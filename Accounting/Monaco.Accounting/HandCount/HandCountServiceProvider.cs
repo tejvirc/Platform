@@ -36,7 +36,7 @@
             if (HandCountServiceEnabled)
             {
                 _handCountService = new HandCountService();
-                _handCountService.Initialize();
+                ServiceManager.GetInstance().AddServiceAndInitialize(_handCountService);
             }
         }
 

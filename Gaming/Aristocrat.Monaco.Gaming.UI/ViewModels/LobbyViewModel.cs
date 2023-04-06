@@ -459,6 +459,7 @@
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
 
+            HandCountTimerOverlay = new HandCountTimerDialogViewModel();
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
@@ -1739,6 +1740,11 @@
                 RaisePropertyChanged(nameof(HandCount));
             }
         }
+
+        /// <summary>
+        /// HandCountTimerDialog view model
+        /// </summary>
+        public HandCountTimerDialogViewModel HandCountTimerOverlay { get; }
 
         /// <summary>
         ///     Dispose
@@ -3053,6 +3059,7 @@
             RaisePropertyChanged(nameof(IsServiceRequested));
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            RaisePropertyChanged(nameof(HandCountTimerOverlay));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
