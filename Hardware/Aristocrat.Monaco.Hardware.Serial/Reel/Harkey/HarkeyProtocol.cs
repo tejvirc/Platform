@@ -169,6 +169,13 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
         protected override bool GetDeviceInformation()
         {
+            if (UseQuickerDetection)
+            {
+                // In this special case, wait for a response; don't care about reels count
+                var response = SendAndReceive<Rm6VersionResponse>(new GetRm6Version());
+                return response is not null;
+            }
+
             DiscoverReels();
             HandleModel();
             SendCommand(new GetRm6Version());

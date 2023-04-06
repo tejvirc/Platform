@@ -112,6 +112,8 @@
         /// <inheritdoc/>
         public int ProductIdDfu { get; set; }
 
+        public virtual bool UseQuickerDetection { get; set; }
+
         /// <summary>Gets or sets a value indicating whether the device is enabled.</summary>
         protected bool IsEnabled { get; set; }
 

@@ -88,6 +88,8 @@
                         Logger.Debug($"({deviceType}) Configure? {protocolDevice.Name} setup=({GetDeviceDescription(protocolDevice)})");
                         protocol.Device = new Device(null, null);
                         protocol.Manufacturer = string.Empty;
+                        protocol.UseQuickerDetection = true;
+
                         if (protocol.Configure(config))
                         {
                             // Find device to match the results
