@@ -32,8 +32,6 @@
 
         public bool IsBasic => false;
 
-        public long HandCountAmount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
         public GameControlledOverlayMessageStrategy(IOverlayMessageStrategyController overlayMessageStrategyController, IPresentationService presentationService)
         {
             _overlayMessageStrategyController = overlayMessageStrategyController ??
@@ -208,16 +206,6 @@
         private static string GeneratePresentationMessage(string text, string subtext, string subtext2)
         {
             return text + "\n" + subtext + "\n" + subtext2;
-        }
-
-        public IMessageOverlayData HandleMessageOverlayHandCount(IMessageOverlayData data, string subText2, string amount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IMessageOverlayData HandleMessageOverlayHandCount(IMessageOverlayData data)
-        {
-            throw new NotImplementedException();
         }
     }
 }

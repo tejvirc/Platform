@@ -5,38 +5,58 @@
     using System.Windows.Input;
     using Aristocrat.MVVM.Model;
     using Aristocrat.MVVM.ViewModel;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
 
     public class CashoutResetHandCountWarningViewModel : BaseEntityViewModel
     {
-
-        //private readonly LobbyViewModel _lobby;
+        private readonly IEventBus _eventBus;
+        private bool _showDialog;
 
         public ICommand CashoutResetDialogYesNoCommand { get; }
 
-        //public CashoutResetHandCountWarningViewModel(LobbyViewModel lobbyViewModel)
-        //{
-        //    _lobby = lobbyViewModel ?? throw new ArgumentNullException(nameof(lobbyViewModel));
-        //    CashoutResetDialogYesNoCommand = new ActionCommand<object>(CashoutResetDialogYesNoPressed);
-        //    IsCashOutDialogVisible = true;
-        //}
-        public CashoutResetHandCountWarningViewModel()
+        public bool ShowDialog
         {
-            CashoutResetDialogYesNoCommand = new ActionCommand<object>(CashoutResetDialogYesNoPressed);
+            get
+            {
+                return _showDialog;
+            }
+            set
+            {
+                _showDialog = value;
+                _eventBus.Publish(new CashoutResetHandCountVisibilityChangedEvent(_showDialog));
+                RaisePropertyChanged(nameof(ShowDialog));
+            }
         }
-        private bool isCashOutDialogVisible;
-        public bool IsCashOutDialogVisible
+        
+        public CashoutResetHandCountWarningViewModel() : this(ServiceManager.GetInstance().TryGetService<IEventBus>())
         {
-            get => isCashOutDialogVisible;
-            set => SetProperty(ref isCashOutDialogVisible, value);
+        }
+
+        public CashoutResetHandCountWarningViewModel(IEventBus eventBus)
+        {
+            _eventBus = eventBus;
+            CashoutResetDialogYesNoCommand = new ActionCommand<object>(CashoutResetDialogYesNoPressed);
+            _eventBus.Subscribe<HandCountCashoutEvent>(this, Handle);
+        }
+
+        private void Handle(HandCountCashoutEvent obj)
+        {
+            ShowDialog = true;
         }
 
         private void CashoutResetDialogYesNoPressed(object obj)
         {
             if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
             {
+                _eventBus.Publish(new HandCountDialogEvent(true));
             }
-
-           // _lobby.IsCashOutDialogVisible = false;
+            else
+            {
+                _eventBus.Publish(new HandCountDialogEvent(false));
+            }
+            ShowDialog = false;
         }
     }
 }

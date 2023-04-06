@@ -17,10 +17,7 @@
         ///     The current handpay amount
         /// </summary>
         long HandpayAmount { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        long HandCountAmount { get; set; }
+        
         /// <summary>
         ///     The current handpay amount
         /// </summary>
@@ -64,12 +61,5 @@
         /// <param name="data">The message data to be displayed</param>
         /// <param name="subText2">Additional text if needed</param>
         IMessageOverlayData HandleMessageOverlayHandPay(IMessageOverlayData data, string subText2);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        IMessageOverlayData HandleMessageOverlayHandCount(IMessageOverlayData data);
     }
 }

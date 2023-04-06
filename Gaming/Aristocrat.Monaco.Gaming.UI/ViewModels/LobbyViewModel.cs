@@ -270,21 +270,6 @@
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
         private int _handCount;
-        //private CashoutResetHandCountWarningViewModel _cashoutResetHandCountWarningViewModel;
-        private bool _isCashOutHandCountDlgVisible;
-        public bool IsCashOutHandCountDlgVisible
-        {
-            get => _isCashOutHandCountDlgVisible;
-
-            private set
-            {
-                //if (_isCashOutHandCountDlgVisible != value)
-                //{
-                    _isCashOutHandCountDlgVisible = value;
-                    _eventBus.Publish(new CashoutResetHandCountVisibilityChangedEvent(_isCashOutHandCountDlgVisible));
-                //}
-            }
-        }
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
 
@@ -374,7 +359,6 @@
             _gameService = containerService.Container.GetInstance<IGameService>();
             _cashableLockupProvider = containerService.Container.GetInstance<ICashableLockupProvider>();
             _reserveService = containerService.Container.GetInstance<IReserveService>();
-            //_cashoutResetHandCountWarningViewModel = new CashoutResetHandCountWarningViewModel();
             PlayerInfoDisplayMenuViewModel = new PlayerInfoDisplayMenuViewModel(containerService.Container.GetInstance<IPlayerInfoDisplayFeatureProvider>());
             var factory = containerService.Container.GetInstance<IPlayerInfoDisplayManagerFactory>();
             _playerInfoDisplayManager = factory.Create(this);
@@ -412,7 +396,6 @@
             }
 
             ClockTimer = new ClockTimer(Config, _responsibleGaming, _runtime, _lobbyStateManager);
-            //DisplayCashoutResetHandCountWarning = Config.CashoutResetHandCountWarningEnabled;
             if (MultiLanguageEnabled)
             {
                 var localeCode = _properties.GetValue(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode)
@@ -473,7 +456,7 @@
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
-
+            CashoutResetHandCount = new CashoutResetHandCountWarningViewModel();
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
@@ -1729,6 +1712,7 @@
 
         public PlayerMenuPopupViewModel PlayerMenuPopupViewModel { get; }
 
+        public CashoutResetHandCountWarningViewModel CashoutResetHandCount { get; }
         public PlayerInfoDisplayMenuViewModel PlayerInfoDisplayMenuViewModel { get; }
 
         public LobbyVolumeViewModel Volume { get; }
@@ -3070,6 +3054,8 @@
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
 
+            RaisePropertyChanged(nameof(CashoutResetHandCount));
+
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
 #endif
@@ -3572,13 +3558,11 @@
             }
         }
 
-        private CashoutResetHandCount _cashoutResetHandCount;
         private void CashOutPressed(object obj)
         {
-            //IsCashOutDialogVisible = true;
             // TODO:  Not sure about time limit dialog here
             if (!(IsTimeLimitDlgVisible && (_responsibleGaming?.IsSessionLimitHit ?? false)) &&
-                obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
+                obj != null && obj.ToString().ToUpperInvariant() == "VBD")
             {
                 IsVbdCashOutDialogVisible = true;
                 PlayAudioFile(Sound.Touch);
@@ -3591,10 +3575,6 @@
                 }
 
                 ExecuteOnUserCashOut();
-            }
-            if (IsCashOutHandCountDlgVisible)
-            {
-                _cashoutResetHandCount = new CashoutResetHandCount { ViewModel =  this};
             }
         }
 
@@ -4364,10 +4344,6 @@
 
         private void CashInStarted(CashInType cashInType, bool showDialog = true)
         {
-            //if (HandCount > 0)
-            //{
-            //    IsCashOutHandCountDlgVisible = showDialog;
-            //}
             _cashInStartZeroCredits = HasZeroCredits;
             Logger.Debug($"Cash In Started at Zero Credits: {_cashInStartZeroCredits}");
             MessageOverlayDisplay.CashInType = cashInType;

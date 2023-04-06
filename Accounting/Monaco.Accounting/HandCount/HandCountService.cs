@@ -47,7 +47,6 @@
 
         public int HandCount => (int)_handCountMeter.GetValue(MeterTimeframe.Lifetime);
 
-       // public bool IsCashOutHandCountDlgVisible { get; set; }
         public ICollection<Type> ServiceTypes => new[] { typeof(IHandCountService) };
 
         public void Initialize()
@@ -81,7 +80,7 @@
         }
         public void SendHandCountChangedEvent()
         {
-            _eventBus.Publish(new HandCountChangedEvent(HandCount, 0));
+            _eventBus.Publish(new HandCountChangedEvent(HandCount));
         }
     }
 }

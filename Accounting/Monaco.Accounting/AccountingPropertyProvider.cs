@@ -257,10 +257,6 @@
                     Tuple.Create((object)configuration.HandCount?.HandCountServiceEnabled??false, false)
                 },
                 {
-                    AccountingConstants.PayOutLimit,
-                    Tuple.Create((object)configuration.PayOutLimit?.PayOutLimitMax??true, false)
-                },
-                {
                     AccountingConstants.LargeWinLimit,
                     Tuple.Create(InitFromStorage(AccountingConstants.LargeWinLimit), true)
                 },

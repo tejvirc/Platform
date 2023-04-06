@@ -304,11 +304,7 @@
         /// <summary> Voucher </summary>
         Voucher,
         /// <summary> HandPay </summary>
-        HandPay,
-        /// <summary>
-        /// 
-        /// </summary>
-        HandCount
+        HandPay
     }
 
     /// <summary>
@@ -348,11 +344,7 @@
         /// <summary> Diagnostics </summary>
         Diagnostics,
         /// <summary> Progressive Game Disabled Notification </summary>
-        ProgressiveGameDisabledNotification,
-        /// <summary>
-        /// 
-        /// </summary>
-        HandCount
+        ProgressiveGameDisabledNotification
     }
 
     /// <summary>

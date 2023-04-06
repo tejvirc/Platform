@@ -14,27 +14,14 @@
         ///     Initializes a new instance of the <see cref="HandCountChangedEvent" /> class.
         /// </summary>
         /// <param name="handCount"> Current hand count.</param>
-        /// <param name="amount"></param>
-        public HandCountChangedEvent(int handCount, long amount)
+        public HandCountChangedEvent(int handCount)
         {
             HandCount = handCount;
-            CashableAmount = amount;
-            //IsCashOutHandCountDlgVisible = isCashOutHandCountDlgVisible;, bool isCashOutHandCountDlgVisible
         }
 
         /// <summary>
         ///     Gets the current hand count.
         /// </summary>
         public int HandCount { get; }
-
-        /// <summary>
-        ///     Gets the cashable amount
-        /// </summary>
-        public long CashableAmount { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool IsCashOutHandCountDlgVisible { get; set; }
     }
 }

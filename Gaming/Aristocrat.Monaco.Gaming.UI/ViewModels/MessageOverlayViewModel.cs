@@ -346,11 +346,6 @@
                     MessageOverlayData.Text = Localizer.For(CultureFor.Player).GetString(ResourceKeys.GameDisabledProgressiveError)
                         .Replace("\\r\\n", Environment.NewLine);
                     break;
-                //case MessageOverlayState.HandCount:
-                //    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayHandCount(MessageOverlayData);
-                //    //_bank.QueryBalance(AccountType.Cashable).FormattedCurrencyString()); OverlayMessageUtils.ToCredits(_bank.QueryBalance(AccountType.Cashable)).FormattedCurrencyString()
-                //    messageSent = true;
-                //    break;
             }
 
             if (!messageSent && _overlayMessageStrategyController.GameRegistered)
@@ -487,14 +482,6 @@
                 {
                     state = MessageOverlayState.CashOut;
                 }
-                //else if (_lobbyStateManager.CashOutState == LobbyCashOutState.Undefined)
-                //{
-                //    state = MessageOverlayState.HandCount;
-                //}
-                //else if (_lobbyStateManager.CashOutState == LobbyCashOutState.HandCount)
-                //{
-                //    state = MessageOverlayState.HandCount;
-                //}
                 else if (ShowVoucherNotification)
                 {
                     state = MessageOverlayState.VoucherNotification;
@@ -520,9 +507,6 @@
                         }
                         break;
                     case LobbyCashOutState.HandPay:
-                        displayImageResourceKey = HandPayDisplayKey;
-                        break;
-                    case LobbyCashOutState.HandCount:
                         displayImageResourceKey = HandPayDisplayKey;
                         break;
                 }
@@ -589,15 +573,8 @@
             _eventBus.Subscribe<HandpayKeyedOffEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandpayStartedEvent>(this, HandleEvent);
             _eventBus.Subscribe<TransferOutFailedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandCountChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<WatTransferInitiatedEvent>(this, HandleEvent);
             _eventBus.Subscribe<VoucherOutStartedEvent>(this, HandleEvent);
-        }
-
-        private void HandleEvent(HandCountChangedEvent evt)
-        {
-            _lobbyStateManager.CashOutState = LobbyCashOutState.HandCount;
-            _overlayMessageStrategyController.SetHandCountCashableAmount(evt.CashableAmount);
         }
 
         private void HandleEvent(HandpayCanceledEvent evt)

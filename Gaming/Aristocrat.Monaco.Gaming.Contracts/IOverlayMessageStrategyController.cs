@@ -57,9 +57,5 @@
         /// </summary>
         void ClearGameDrivenPresentation();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        void SetHandCountCashableAmount(long cashOutAmount);
     }
 }

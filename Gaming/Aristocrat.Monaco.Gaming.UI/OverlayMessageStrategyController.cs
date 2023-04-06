@@ -98,10 +98,7 @@
             OverlayStrategy.LastCashOutAmount = cashOutAmount;
             FallBackStrategy.LastCashOutAmount = cashOutAmount;
         }
-        public void SetHandCountCashableAmount(long cashOutAmount)
-        {
-            OverlayStrategy.HandCountAmount = cashOutAmount;
-        }
+
         public void SetHandpayAmountAndType(long handpayAmount, HandpayType handpayType, long wagerAmount)
         {
             OverlayStrategy.HandpayAmount = handpayAmount;

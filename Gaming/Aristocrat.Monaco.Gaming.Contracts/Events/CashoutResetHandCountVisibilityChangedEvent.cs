@@ -14,6 +14,7 @@
         public CashoutResetHandCountVisibilityChangedEvent(bool isVisible)
         {
             IsVisible = isVisible;
+            // IsCashOut = isCashOut;, bool isCashOut
         }
 
         /// <summary>

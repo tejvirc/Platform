@@ -75,7 +75,7 @@
         private bool _vbdLoaded;
         private CashoutResetHandCount _cashoutResetHandCount;
         private Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)> _customOverlays;
-        //private CashoutResetHandCountWarningViewModel _cashoutResetHandCountWarningViewModel;
+      
         /// <summary>
         ///     Initializes a new instance of the <see cref="LobbyView" /> class
         /// </summary>
@@ -126,11 +126,10 @@
                 Logger.Debug("Creating topper view");
                 _topperView = new LobbyTopperView();
             }
-            //_cashoutResetHandCountWarningViewModel = new CashoutResetHandCountWarningViewModel();
-            _cashoutResetHandCount = new CashoutResetHandCount { ViewModel = ViewModel };
             Logger.Debug("Creating overlay view");
             _overlayWindow = new OverlayWindow(this);
 
+            _cashoutResetHandCount = new CashoutResetHandCount(this);
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();
             ViewModel.CustomEventViewChangedEvent += ViewModelOnCustomEventViewChangedEvent;
@@ -161,11 +160,8 @@
             }
             if (_cashoutResetHandCount != null)
             {
-                SetStylusSettings(_cashoutResetHandCount);
                 _lobbyWindows.Add(_cashoutResetHandCount);
-                
-
-                //ShowWithTouch(_cashoutResetHandCount);
+                SetStylusSettings(_cashoutResetHandCount);
             }
             if (mediaEnabled)
             {
@@ -200,8 +196,10 @@
 
             _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleOverlayWindowVisibilityChanged);
             _eventBus.Subscribe<CashoutResetHandCountVisibilityChangedEvent>(this, HandleCashoutResetHandCountVisibilityChanged);
+            windowHelper = new WindowInteropHelper(_cashoutResetHandCount).Handle;
         }
 
+        private IntPtr windowHelper;
         private void HandleCashoutResetHandCountVisibilityChanged(CashoutResetHandCountVisibilityChangedEvent e)
         {
             MvvmHelper.ExecuteOnUI(() =>
@@ -210,9 +208,15 @@
                 {
                     if (e.IsVisible)
                     {
-                        ShowCashoutHandCountResetWarningDialog();
+                        Dispatcher?.Invoke(() => ShowWithTouch(_cashoutResetHandCount));
+                        //var hWnd = new WindowInteropHelper(_cashoutResetHandCount).Handle;
+                    }
+                    else
+                    {
+                        Dispatcher?.Invoke(() => _cashoutResetHandCount.Hide());
                     }
 
+                    WindowsServices.SetWindowExTransparent(windowHelper, !e.IsVisible);
                 }
                 catch (Exception ex)
                 {
@@ -428,10 +432,7 @@
                 {
                     _responsibleGamingWindow.ViewModel = ViewModel;
                 }
-                if (_cashoutResetHandCount != null)
-                {
-                    _cashoutResetHandCount.ViewModel = ViewModel;
-                }
+                 _cashoutResetHandCount.DataContext = ViewModel.CashoutResetHandCount;
                 ////_timeLimitDlg.DataContext = value;
                 ////_msgOverlay.DataContext = value;
             }
@@ -793,11 +794,13 @@
 
             if (_mediaDisplayWindow != null)
             {
+                _cashoutResetHandCount.Owner = _mediaDisplayWindow;
                 _overlayWindow.Owner = _mediaDisplayWindow;
                 _mediaDisplayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
             }
             else
             {
+                _cashoutResetHandCount.Owner = _responsibleGamingWindow ?? (Window)this;
                 _overlayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
             }
 
@@ -842,6 +845,7 @@
                 _windowToScreenMapper.MapWindow(_mediaDisplayWindow);
                 _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
                 _windowToScreenMapper.MapWindow(_overlayWindow);
+                _windowToScreenMapper.MapWindow(_cashoutResetHandCount);
             });
         }
 
@@ -884,18 +888,6 @@
                     HideOverlayWindow();
                 }
             }
-            if (e.PropertyName == "IsCashOutHandCountDlgVisible")
-            {
-                if (ViewModel.IsCashOutHandCountDlgVisible)
-                {
-                    ShowCashoutHandCountResetWarningDialog();
-                }
-            }
-        }
-
-        private void ShowCashoutHandCountResetWarningDialog()
-        {
-            Dispatcher?.Invoke(() => ShowWithTouch(_cashoutResetHandCount));
         }
 
         private void LobbyView_OnClosed(object sender, EventArgs e)

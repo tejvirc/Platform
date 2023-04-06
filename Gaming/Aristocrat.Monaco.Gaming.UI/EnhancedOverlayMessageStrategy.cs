@@ -23,7 +23,6 @@
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string HandPayOverrideDisplayKey = "HandPayOverrideImage";
-        private const string HandCountDisplayKey = "HandPayImage";
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -43,8 +42,6 @@
         public long LastCashOutAmount { get; set; }
 
         public long HandpayAmount { get; set; }
-
-        public long HandCountAmount { get; set; }
 
         public long LargeWinWager { get; set; }
 
@@ -84,35 +81,7 @@
                     case LobbyCashOutState.Wat:
                         data = HandleMessageOverlayWat(data, lastCashOutForcedByMaxBank);
                         break;
-                    //case LobbyCashOutState.HandCount:
-                    //    data = HandleMessageOverlayHandCountCashout(data);
-                    //    break;
                 }
-            }
-
-            return data;
-        }
-
-        private IMessageOverlayData HandleMessageOverlayHandCountCashout(IMessageOverlayData data)
-        {
-            // Do not set the message overlay to PAID yet if the handcount is still pending
-            if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.LargePayoutDisableKey))
-            {
-                Logger.Debug("HandleMessageOverlayHandPayCashout ignored due to handpay pending");
-                return data;
-            }
-
-            Logger.Debug("HandleMessageOverlayHandPayCashout entered");
-
-            data.SubText = OverlayMessageUtils.ToCredits(HandCountAmount).FormattedCurrencyString();
-            data.Text = Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.HandPayPaidPresentationText);
-            data.DisplayImageResourceKey = HandPayDisplayKey;
-
-            var printHandpayReceipt = _properties.GetValue(AccountingConstants.EnableReceipts, false);
-            if (printHandpayReceipt)
-            {
-                data.IsSubText2Visible = true;
-                data.SubText2 = Localizer.For(CultureFor.Player).GetString(ResourceKeys.PrintHandPayText);
             }
 
             return data;
@@ -148,22 +117,7 @@
 
             return data;
         }
-        public IMessageOverlayData HandleMessageOverlayHandCount(IMessageOverlayData data)
-        {
-            Logger.Debug("HandleMessageOverlayHandCount entered");
-
-            data.DisplayForEvents = true;
-            
-            data.DisplayImageResourceKey = HandCountDisplayKey;
-            //data.IsSubText2Visible = true;
-
-            data.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PayOutLimit);
-
-            data.SubText = OverlayMessageUtils.ToCredits(HandCountAmount).FormattedCurrencyString();
-
-            return data;
-        }
-
+       
         public IMessageOverlayData HandleMessageOverlayHandPay(IMessageOverlayData data, string subText2)
         {
             Logger.Debug("HandleMessageOverlayHandPay entered");

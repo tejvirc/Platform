@@ -22,9 +22,9 @@
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _systemDisableManager;
-        
         private readonly IPropertiesManager _properties;
-
+        private bool isCashOut { get; set; }
+        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
         public string Name => typeof(HandCountTransferOutExtension).FullName;
 
         public ICollection<Type> ServiceTypes => new[] { typeof(ITransferOutExtension) };
@@ -51,30 +51,45 @@
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _bus.Subscribe<HandCountDialogEvent>(this, Handle);
+        }
+        
+        private void Handle(HandCountDialogEvent obj)
+        {
+            isCashOut = obj.IsCashout;
+            autoResetEvent.Set();
         }
 
         public long PreProcessor(long amount)
         {
             amount = _cashOutAmountCalculator.GetCashableAmount(amount);
-            _bus.Publish(new HandCountChangedEvent(_handCountService.HandCount, amount));
-            //Thread.Sleep(5000);
-            CashOutAsync(amount).Wait();
-            //_bus.Publish(new HandCountChangedEvent(_handCountService.HandCount, amount, false));
+            _bus.Publish(new HandCountChangedEvent(_handCountService.HandCount));
+            _bus.Publish(new HandCountCashoutEvent());
+            autoResetEvent.WaitOne();
+            if (isCashOut)
+            {
+                CashOutAsync(amount).Wait();
+            }
+            
+            else
+            {
+                return 0;
+            }
             return amount;
         }
 
         private async Task CashOutAsync(long amount)
         {
-            if (amount > 1200000) 
+            if (amount > 2000000) 
             {
-                var keyOff = Initiate(amount);
+                var keyOff = Initiate();
                 await keyOff.Task;
 
                 _systemDisableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
             }
         }
 
-        private TaskCompletionSource<object> Initiate(long amount)
+        private TaskCompletionSource<object> Initiate()
         {
             var keyOff = new TaskCompletionSource<object>();
 
@@ -85,24 +100,12 @@
                     keyOff.TrySetResult(null);
                 },
                 evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
-            //var divisor = _properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
-            //OverlayMessageUtils.ToCredits(HandpayAmount).FormattedCurrencyString();
-            //var check = (double)amount.MillicentsToDollars();
-            //var res = check.FormattedCurrencyString();
-            //Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PayOutLimit),
-            //var divisor = _properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
-            //var amt = amount / divisor;
-            //Localizer.For(CultureFor.PlayerTicket).FormatString(ResourceKeys.PayOutLimit,
-            //                amt.FormattedCurrencyString());
-
-            //() => Localizer.For(CultureFor.PlayerTicket).FormatString(ResourceKeys.PayOutLimit,
-            //            amt.FormattedCurrencyString())
             _systemDisableManager.Disable(
-                ApplicationConstants.LargePayoutDisableKey,
-                SystemDisablePriority.Immediate,
-                () =>Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PayOutLimit),
-            true,
-                () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PayOutLimit));
+                 ApplicationConstants.LargePayoutDisableKey,
+                 SystemDisablePriority.Immediate,
+                 () => "COLLECT LIMIT REACHED. SEE ATTENDANT.",
+                 true,
+                 () => "COLLECT LIMIT REACHED. SEE ATTENDANT.");
             return keyOff;
         }
 

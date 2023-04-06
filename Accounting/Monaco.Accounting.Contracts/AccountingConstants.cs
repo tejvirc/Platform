@@ -470,10 +470,6 @@
         ///     Indicates whether non-validated handpay receipts are enabled.
         /// </summary>
         public const string EnableReceipts = "Handpay.EnableReceipts";
-        ///// <summary>
-        /////     Indicates whether non-validated handpay receipts are enabled.
-        ///// </summary>
-        //public const string EnableReceiptsForHandCount = "HandCount.EnableReceipts";
         /// <summary>
         ///     Indicates whether game win receipts are enabled.
         /// </summary>
@@ -730,10 +726,5 @@
 
         /// <summary>   Hand count service enabled </summary>
         public const string HandCountServiceEnabled = "HandCountServiceEnabled";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const string PayOutLimit = "PayOutLimit";
     }
 }

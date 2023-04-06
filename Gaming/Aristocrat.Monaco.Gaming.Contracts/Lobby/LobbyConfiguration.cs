@@ -35,7 +35,6 @@ public partial class LobbyConfiguration {
     private bool bottomAttractVideoEnabledField;
     
     private double daysAsNewField;
-    private string cashoutResetHandCountWarningTemplateField;
 
     private double[] responsibleGamingTimeLimitsField;
     
@@ -172,22 +171,8 @@ public partial class LobbyConfiguration {
         this.edgeLightingOverrideUseGen8IdleModeField = true;
         this.removeIdlePaidMessageOnSessionStartField = false;
         this.disableMalfunctionMessageField = false;
-        this.cashoutResetHandCountWarningTemplateField = "CashoutResetHandCountWarningTemplate";
     }
 
-    /// <remarks/>
-    [System.ComponentModel.DefaultValueAttribute("CashoutResetHandCountWarningTemplate")]
-    public string CashoutResetHandCountWarningTemplate
-    {
-        get
-        {
-            return this.cashoutResetHandCountWarningTemplateField;
-        }
-        set
-        {
-            this.cashoutResetHandCountWarningTemplateField = value;
-        }
-    }
     /// <remarks/>
     public bool MultiLanguageEnabled {
         get {

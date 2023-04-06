@@ -35,7 +35,6 @@ as follows:
     <LargeWinLimit Editable="false" />
     <HandpayResetOptions Visible="false"/>
   </WinLimits>
-  <PayOutLimit MaxAllowed="119999000"/>
   <VoucherIn State="Disabled" />
 <!--
     VoucherOut Settings:
