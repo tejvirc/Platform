@@ -23,7 +23,7 @@
         private IHandCountService _handCountService;
         private bool _showDialog;
         private TimeSpan _timeLeft;
-        private bool _disposed;
+        private bool _disposed = false;
 
         /// <summary>
         /// HandCount timer dialog will be shown if true
@@ -175,6 +175,7 @@
                 _resetTimer?.Stop();
                 ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
             }
+            _disposed = true;
         }
     }
 }
