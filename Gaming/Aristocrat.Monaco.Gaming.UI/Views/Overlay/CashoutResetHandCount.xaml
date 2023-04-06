@@ -14,9 +14,9 @@
                     d:DataContext="{d:DesignInstance {x:Type viewModels:CashoutResetHandCountWarningViewModel}}"
                    IsVisibleChanged="OnIsVisibleChanged">
 
-    <!--<Window.Background>
+    <Window.Background>
         <SolidColorBrush Color="Black" Opacity="0.1" />
-    </Window.Background>-->
+    </Window.Background>
     <Window.Resources>
         <ResourceDictionary>
 
@@ -41,9 +41,6 @@
     </Window.Resources>
 
     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
-    <!--<Grid>
-        <Rectangle Fill="Black" Opacity="0.5" />-->
-        <!--<Border Background="Blue">-->
         <Grid >
             <Image Stretch="Uniform" Source="{DynamicResource VBD_CashoutDlgBanner}"/>
             <Button x:Name="btnYes"
@@ -53,16 +50,13 @@
                     Style="{StaticResource stlFlatButton}">
                 <Image Stretch="None" Source ="{DynamicResource VBD_CashoutDlgYes}"/>
             </Button>
-                <Button x:Name="btnNo"
+            <Button x:Name="btnNo"
                     Margin="256 120 0 0"
                     Command="{Binding CashoutResetDialogYesNoCommand}"
                     CommandParameter="no"
                     Style="{StaticResource stlFlatButton}">
-                    <Image Stretch="None" Source ="{DynamicResource VBD_CashoutDlgNo}"/>
-                </Button>
-            </Grid>
-        <!--</Border>-->
-
-        <!--</Grid>-->
+                <Image Stretch="None" Source ="{DynamicResource VBD_CashoutDlgNo}"/>
+            </Button>
+        </Grid>
     </Viewbox>
     </common:BaseWindow>
