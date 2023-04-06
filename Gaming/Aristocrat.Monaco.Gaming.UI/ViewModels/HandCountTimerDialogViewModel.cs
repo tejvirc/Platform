@@ -23,6 +23,7 @@
         private IHandCountService _handCountService;
         private bool _showDialog;
         private TimeSpan _timeLeft;
+        private bool _disposed;
 
         /// <summary>
         /// HandCount timer dialog will be shown if true
@@ -144,6 +145,36 @@
         private bool OtherLockupsExist()
         {
             return _systemDisableManager.CurrentDisableKeys.Any();
+        }
+
+        /// <summary>
+        ///  Dispose
+        /// </summary>
+        public void Dispose()
+        {
+            // Dispose of unmanaged resources.
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Cleanup.
+        /// </summary>
+        /// <param name="disposing">True if disposing; false if finalizing.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus?.UnsubscribeAll(this);
+                _resetTimer?.Stop();
+                ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
+            }
         }
     }
 }

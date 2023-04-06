@@ -64,15 +64,14 @@
             SendHandCountChangedEvent();
         }
 
-        private void HandleEvent(BankBalanceChangedEvent bank)
+        private void HandleEvent(BankBalanceChangedEvent balanceChangedEvent)
         {
             if (HandCount == 0)
             {
                 return;
             }
 
-            var balance = bank.NewBalance;
-            CheckBankBalanceIsAboveMinimumRequirement(balance);
+            CheckBankBalanceIsAboveMinimumRequirement(balanceChangedEvent.NewBalance);
         }
 
         public void HandCountResetTimerElapsed()

@@ -933,7 +933,10 @@
                 Logger.Debug("Closing TopLayoutOverlayWindow");
                 CloseTopLayoutOverlayWindow();
             }
-
+            if(_handCountTimerOverlay != null)
+            {
+                ViewModel.HandCountTimerOverlay?.Dispose();
+            }
             /*
             if (_timeLimitDlg != null)
             {

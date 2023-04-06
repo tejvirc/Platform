@@ -1740,6 +1740,7 @@
                 RaisePropertyChanged(nameof(HandCount));
             }
         }
+
         /// <summary>
         /// HandCountTimerDialog view model
         /// </summary>
