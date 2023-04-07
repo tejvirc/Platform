@@ -32,6 +32,8 @@
         /// <summary/>
         public const string ShowGameInfoButtons = "ShowGameInfoButtons";
         /// <summary/>
+        public const string ShowProgressiveDetails = "ShowProgressiveDetails";
+        /// <summary/>
         public const string RetailerInfoVisible = "RetailerInfoVisible";
         /// <summary/>
         public const string AllowImportExport = "AllowImportExport";

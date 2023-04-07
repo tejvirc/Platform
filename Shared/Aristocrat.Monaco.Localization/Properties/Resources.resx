@@ -11720,4 +11720,11 @@ Do you really want to do full reset?</value>
     <value>No games are available for this language</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="EndJackpot" xml:space="preserve">
+    <value>End Jackpot</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ProgressiveDetails" xml:space="preserve">
+    <value>Progressive Details</value>
+  </data>
 </root>

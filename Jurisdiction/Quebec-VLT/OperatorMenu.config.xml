@@ -109,6 +109,7 @@ as follows:
         <Page Type="GameHistoryViewModel">
             <Setting Name="ShowGameInfoButtons" Value="false" />
             <Setting Name="PrintGameRoundInfo" Value="false" />
+            <Setting Name="ShowProgressiveDetails" Value="true" />
         </Page>
         <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false" />
         <Page Type="GameInfoViewModel" Access="TechnicianZeroCredits" />

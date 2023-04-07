@@ -10058,6 +10058,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to End Jackpot.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EndJackpot {
+			get {
+				return ResourceManager.GetString("EndJackpot", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to End offset is negative.
 		/// </summary>
         /// <remarks>
@@ -24850,6 +24862,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveColumnHeader {
 			get {
 				return ResourceManager.GetString("ProgressiveColumnHeader", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Details.
+		/// </summary>
+		public static string ProgressiveDetails {
+			get {
+				return ResourceManager.GetString("ProgressiveDetails", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -44737,6 +44758,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to End Jackpot.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EndJackpot {
+			get {
+				return "EndJackpot";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to End offset is negative.
 		/// </summary>
         /// <remarks>
@@ -59529,6 +59562,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveColumnHeader {
 			get {
 				return "ProgressiveColumnHeader";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Progressive Details.
+		/// </summary>
+		public static string ProgressiveDetails {
+			get {
+				return "ProgressiveDetails";
 			}
 		}
 
@@ -75103,6 +75145,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		EndGameRoundBeforeReplay,
 		/// <summary>
+		///   Looks up a localized string similar to End Jackpot.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		EndJackpot,
+		/// <summary>
 		///   Looks up a localized string similar to End offset is negative.
 		/// </summary>
         /// <remarks>
@@ -83563,6 +83612,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		ProgressiveColumnHeader,
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Details.
+		/// </summary>
+		ProgressiveDetails,
 		/// <summary>
 		///   Looks up a localized string similar to Progressive Disable.
 		/// </summary>

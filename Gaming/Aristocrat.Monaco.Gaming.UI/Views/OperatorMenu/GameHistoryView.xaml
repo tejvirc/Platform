@@ -50,7 +50,7 @@
 
             <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
                 <Setter Property="Margin" Value="0 0 20 0"/>
-                <Setter Property="Width" Value="200"/>
+                <Setter Property="MinWidth" Value="200"/>
             </Style>
 
             <Style x:Key="MonacoScrollListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MonacoUnselectableListBoxItem}">
@@ -128,7 +128,7 @@
                 </events:RoutedEventTrigger>
             </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" 
+                <DataGridTextColumn Header="#"
                                     Binding="{Binding (models:GameRoundHistoryItem.LogSequenceText)}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"
                                     Visibility="{Binding ElementName=EventViewer, Path=DataContext.ShowSequenceNumber, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
@@ -151,6 +151,12 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                                    Binding="{Binding Denom, Converter={StaticResource CurrencyConverter}}"
+                                    HeaderStyle="{StaticResource HeaderStyle}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Version}}"
+                                    Binding="{Binding GameVersion}"
+                                    HeaderStyle="{StaticResource HeaderStyle}"/>
                 <DataGridTextColumn Binding="{Binding StartTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     HeaderStyle="{StaticResource HeaderStyle}">
                     <DataGridTextColumn.HeaderTemplate>
@@ -184,12 +190,16 @@
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CreditsWonText}}" 
                                     MinWidth="90" 
-                                    Binding="{Binding CreditsWon, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndCreditsText}}" 
-                                    MinWidth="90" 
-                                    Binding="{Binding EndCredits, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
+                                    Binding="{Binding CreditsWon, Converter={StaticResource CurrencyConverter}}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndCreditsText}}"
+                                    MinWidth="90"
+                                    Binding="{Binding EndCredits, Converter={StaticResource CurrencyConverter}}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndJackpot}}" 
+                                    Binding="{Binding EndJackpot}" 
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    Visibility="{Binding ShowProgressiveDetails, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <DataGridTextColumn Binding="{Binding Status}"
                                     HeaderStyle="{StaticResource HeaderStyle}">
                     <DataGridTextColumn.HeaderTemplate>
@@ -268,6 +278,10 @@
                     IsEnabled="{Binding IsGameRoundComplete}"
                     Command="{Binding ShowGameDetailsCommand}"
                     Visibility="{Binding ShowGameDetailsButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveDetails}}"
+                    IsEnabled="{Binding SelectedGameHasProgressiveDetails}"
+                    Command="{Binding ShowProgressiveDetailsCommand}"
+                    Visibility="{Binding ShowProgressiveDetails, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 -16">
