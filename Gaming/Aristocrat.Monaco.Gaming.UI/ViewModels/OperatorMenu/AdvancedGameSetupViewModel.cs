@@ -1916,7 +1916,7 @@
 
             foreach (var config in gameProfile.GameConfigurations)
             {
-                gameProfile.GameConfigurations[i].Enabled = true;
+                config.Enabled = true;
             }
         }
 
