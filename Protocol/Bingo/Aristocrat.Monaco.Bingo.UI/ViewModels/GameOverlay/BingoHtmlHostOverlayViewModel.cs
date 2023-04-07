@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
+namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 {
     using System;
     using System.Collections;
@@ -85,7 +85,7 @@
         private double _infoOpacity;
         private double _gameControlledHeight;
         private double _dynamicMessageOpacity;
-        private IGameDetail _lastSelectedGame; 
+        private IGameDetail _lastSelectedGame;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -293,14 +293,7 @@
 
             if (disposing)
             {
-                if (_helpTimer != null)
-                {
-                    _helpTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-                    var timer = _helpTimer;
-                    _helpTimer = null;
-                    timer.Dispose();
-                }
-
+                _eventBus.UnsubscribeAll(this);
                 _overlayServer.ServerStarted -= HandleServerStarted;
                 _overlayServer.AttractCompleted -= AttractCompleted;
                 _overlayServer.ClientConnected -= OverlayClientConnected;
@@ -311,7 +304,14 @@
                     _bingoInfoWebBrowser.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
                 }
 
-                _eventBus.UnsubscribeAll(this);
+                var timer = _helpTimer;
+                _helpTimer = null;
+                if (timer != null)
+                {
+                    timer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+                    timer.Dispose();
+                }
+
                 _overlayServer.Dispose();
             }
 
@@ -995,6 +995,12 @@
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
+                    if (IsHelpVisible == visible &&
+                        string.Equals(helpAddress, BingoHelpAddress, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return;
+                    }
+
                     IsHelpVisible = visible;
                     BingoHelpAddress = helpAddress;
                     NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
