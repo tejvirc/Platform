@@ -85,7 +85,7 @@
         private ObservableCollection<EditableGameProfile> _games = new();
         private long _maxBetLimit;
 
-        private string _saveWarningText = string.Empty; 
+        private string _saveWarningText = string.Empty;
 
         public AdvancedGameSetupViewModel()
         {
@@ -1918,6 +1918,13 @@
             {
                 config.Enabled = true;
             }
+        }
+
+        private IConfigurationRestriction GetRestrictionFromVariationId(string variationId, EditableGameProfile gameProfile)
+        {
+            return gameProfile.ValidRestrictions.FirstOrDefault(
+                v => v.RestrictionDetails.Mapping.Any(
+                    v2 => v2.VariationId.Equals(variationId)));
         }
 
         private class GamesGrouping
