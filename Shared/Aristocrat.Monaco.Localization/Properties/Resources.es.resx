@@ -1093,7 +1093,7 @@ La reproducción de {0} operaciones no es compatible</value>
   <data name="OrClearCredits" xml:space="preserve">
     <value>???Or Clear Credits???</value>
   </data>
-  <data name="OutOfServiceReason" xml:space="preserve">
+  <data name="OutOfService" xml:space="preserve">
     <value>???Out Of Service???</value>
   </data>
   <data name="OutputEventText" xml:space="preserve">

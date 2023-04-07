@@ -11,5 +11,8 @@
     <EmbeddedResource Update="NSW\resources\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Update="Quebec-VLT\resources\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

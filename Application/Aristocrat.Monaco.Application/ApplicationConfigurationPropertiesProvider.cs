@@ -80,7 +80,9 @@
 
             var deletePackageAfterInstall = configuration.SoftwareInstall?.DeletePackageAfter ?? false;
             var mediaDisplayEnabled = configuration.MediaDisplay?.Enabled ?? false;
-            var defaultVolumeLevel = configuration.SoundConfiguration?.DefaultVolumeLevel ?? ApplicationConstants.DefaultVolumeLevel;
+            var defaultVolumeLevel = configuration.SoundConfiguration?.DefaultVolumeLevelSpecified == true
+                ? configuration.SoundConfiguration.DefaultVolumeLevel
+                : ApplicationConstants.DefaultVolumeLevel;
             var defaultVolumeControlLocation = configuration.SoundConfiguration?.VolumeControl?.Location ??
                                                (VolumeControlLocation)ApplicationConstants.VolumeControlLocationDefault;
             var excessiveDocumentRejectCount = configuration.ExcessiveDocumentReject?.ConsecutiveRejectsBeforeLockup ??

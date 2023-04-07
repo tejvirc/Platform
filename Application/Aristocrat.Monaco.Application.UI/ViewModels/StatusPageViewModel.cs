@@ -153,63 +153,36 @@
             { ApplicationConstants.MemoryBelowThresholdDisableKey, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessageDescription) }
         };
 
-        private bool _outOfServiceModeButtonActive;
         private bool _isExitReserveButtonEnabled;
 
         public StatusPageViewModel()
         {
             InputStatusText = string.Empty;
 
-            // Initially it should always be active until it's set by the rule access service.
-            OutOfServiceModeButtonActive = true;
-
-            OutOfServiceModeButtonCommand = new ActionCommand<object>(_ => OutOfServiceModeButtonCommandHandler());
-
             ExitReserveCommand = new ActionCommand<object>(ExitReserve);
+
+            OutOfServiceViewModel = new OutOfServiceViewModel();
         }
 
         public ICommand ExitReserveCommand { get; }
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether [out of service mode button active].
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if [out of service mode button active]; otherwise, <c>false</c>.
-        /// </value>
-        public bool OutOfServiceModeButtonActive
-        {
-            get => _outOfServiceModeButtonActive;
-
-            set
-            {
-                _outOfServiceModeButtonActive = value;
-                RaisePropertyChanged(nameof(OutOfServiceModeButtonActive));
-            }
-        }
 
         /// <summary>
         ///     Gets disable reasons.
         /// </summary>
         public ObservableCollection<StatusMessage> DisableReasons { get; } = new ObservableCollection<StatusMessage>();
 
-        public string OutOfServiceButtonText => DisableByOperatorManager.DisabledByOperator ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnableEGM) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisableEGM);
-
-        /// <summary>
-        ///     Gets or sets action command that handles Out of Service Mode button click.
-        /// </summary>
-        public ICommand OutOfServiceModeButtonCommand { get; set; }
-
         public bool IsExitReserveButtonVisible
         {
             get => _isExitReserveButtonEnabled;
-            private set => SetProperty(ref _isExitReserveButtonEnabled, value, nameof(IsExitReserveButtonVisible));
+            private set => SetProperty(ref _isExitReserveButtonEnabled, value);
         }
 
         private IDisableByOperatorManager DisableByOperatorManager
             => ServiceManager.GetInstance().GetService<IDisableByOperatorManager>();
 
-        private IMessageDisplay MessageDisplay
-            => ServiceManager.GetInstance().GetService<IMessageDisplay>();
+        public OutOfServiceViewModel OutOfServiceViewModel { get; }
+
+        private IMessageDisplay MessageDisplay => ServiceManager.GetInstance().GetService<IMessageDisplay>();
 
         public void DisplayMessage(DisplayableMessage displayableMessage)
         {
@@ -301,16 +274,17 @@
         protected override void OnLoaded()
         {
             MessageDisplay.AddMessageDisplayHandler(this);
-            if (DisableByOperatorManager.DisabledByOperator)
-            {
-                InputStatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfServiceReason);
-            }
+            HandleSystemDisabledByOperatorEvent(!DisableByOperatorManager.DisabledByOperator);
 
             IsExitReserveButtonVisible = (bool)PropertiesManager.GetProperty(
                 ApplicationConstants.ReserveServiceLockupPresent,
                 false);
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+            EventBus?.Subscribe<SystemEnabledByOperatorEvent>(this, _ => HandleSystemDisabledByOperatorEvent(true));
+            EventBus?.Subscribe<SystemDisabledByOperatorEvent>(this, _ => HandleSystemDisabledByOperatorEvent(false));
+
+            OutOfServiceViewModel.OnLoaded();
         }
 
         /// <summary>
@@ -324,8 +298,8 @@
 
         protected override void OnInputStatusChanged()
         {
-            bool active = true;
-            string text = string.Empty;
+            var active = true;
+            var text = string.Empty;
             switch (AccessRestriction)
             {
                 case OperatorMenuAccessRestriction.InGameRound:
@@ -344,7 +318,7 @@
                     break;
             }
 
-            OutOfServiceModeButtonActive = active;
+            OutOfServiceViewModel.OutOfServiceModeButtonIsEnabled = active;
             InputStatusText = text;
 
             if (!active && PopupOpen)
@@ -362,22 +336,6 @@
             EventBus?.Publish(new ExitReserveButtonPressedEvent());
         }
 
-        private void OutOfServiceModeButtonCommandHandler()
-        {
-            if (DisableByOperatorManager.DisabledByOperator)
-            {
-                DisableByOperatorManager.Enable();
-                InputStatusText = string.Empty;
-            }
-            else
-            {
-                DisableByOperatorManager.Disable(() => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfServiceReason));
-                InputStatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfServiceReason);
-            }
-
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
-        }
-
         private void HandleEvent(PropertyChangedEvent @event)
         {
             switch (@event.PropertyName)
@@ -389,6 +347,11 @@
                         false);
                     break;
             }
+        }
+
+        private void HandleSystemDisabledByOperatorEvent(bool enabled)
+        {
+            InputStatusText = enabled ? string.Empty : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService);
         }
     }
 }
