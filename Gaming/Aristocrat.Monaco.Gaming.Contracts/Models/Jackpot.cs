@@ -19,10 +19,11 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="Jackpot" /> class.
         /// </summary>
-        public Jackpot(int deviceId, int levelId, long value)
+        public Jackpot(int deviceId, int levelId, string levelName, long value)
         {
             DeviceId = deviceId;
             LevelId = levelId;
+            LevelName = levelName;
             Value = value;
         }
 
@@ -39,6 +40,7 @@
 
             DeviceId = jackpot.DeviceId;
             LevelId = jackpot.LevelId;
+            LevelName = jackpot.LevelName;
             Value = jackpot.Value;
         }
 
@@ -53,7 +55,12 @@
         public int LevelId { get; set; }
 
         /// <summary>
-        ///     Gets the current jackpot value
+        ///     Gets the string identifier of the level
+        /// </summary>
+        public string LevelName { get; set; }
+
+        /// <summary>
+        ///     Gets the current jackpot value in millicents
         /// </summary>
         public long Value { get; set; }
 

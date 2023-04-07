@@ -5,13 +5,12 @@
     using System.Windows.Input;
     using ConfigWizard;
     using Contracts;
+    using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Events;
     using Hardware.Contracts;
     using Hardware.Contracts.Audio;
-    using Contracts.HardwareDiagnostics;
     using Kernel;
-    using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
@@ -31,7 +30,6 @@
         private readonly IAudio _audio;
         private readonly ISystemDisableManager _disableManager;
 
-        private VolumeLevel _soundLevel;
         private byte _alertVolume;
         private byte _alertMinimumVolume;
         private string _infoText;
@@ -45,6 +43,7 @@
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            VolumeViewModel = new VolumeViewModel();
         }
 
         private void LoadVolumeSettings()
@@ -72,20 +71,15 @@
 
             IsAlertConfigurable = showMode || PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeConfigurable, IsAlertConfigurableDefault);
             RaisePropertyChanged(nameof(IsAlertConfigurable));
-
-            // Load default volume level
-            _soundLevel = (VolumeLevel)PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
-            RaisePropertyChanged(nameof(SoundLevel));
         }
-
-        public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
 
         private bool IsSystemDisabled =>
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioDisconnectedLockKey) ||
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioReconnectedLockKey);
 
         private bool IsAudioDisabled => !_audio?.IsAvailable ?? true;
+
+        public VolumeViewModel VolumeViewModel { get; }
 
         public int AlertMinimumVolume
         {
@@ -136,24 +130,7 @@
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
                 }
 
-                SetProperty(ref _inTestMode, value, nameof(InTestMode));
-            }
-        }
-
-        public VolumeLevel SoundLevel
-        {
-            get => _soundLevel;
-
-            set
-            {
-                if (_soundLevel == value)
-                {
-                    return;
-                }
-
-                _soundLevel = value;
-                RaisePropertyChanged(nameof(SoundLevel));
-                PropertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
+                SetProperty(ref _inTestMode, value);
             }
         }
 
@@ -188,7 +165,7 @@
 
             if (IsSystemDisabled)
             {
-                RaisePropertyChanged(nameof(CanEditVolume), nameof(TestModeEnabled));
+                RaisePropertyChanged(nameof(TestModeEnabled));
 
                 InfoText = Localizer.For(CultureFor.Operator).GetString(
                     _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioReconnectedLockKey)
@@ -201,6 +178,8 @@
                 InTestMode = true;
             }
 
+            VolumeViewModel.OnLoaded();
+
             base.OnLoaded();
         }
 
@@ -208,6 +187,8 @@
         {
             InTestMode = false;
             EventBus.UnsubscribeAll(this);
+
+            VolumeViewModel.OnUnloaded();
 
             base.OnUnloaded();
         }
@@ -238,14 +219,14 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanEditVolume));
+            VolumeViewModel.InputEnabled = InputEnabled;
         }
 
         private void OnEnabledEvent(EnabledEvent theEvent)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
-                RaisePropertyChanged(nameof(CanEditVolume), nameof(TestModeEnabled));
+                RaisePropertyChanged(nameof(TestModeEnabled));
                 InfoText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AudioConnected);
             });
         }
@@ -254,7 +235,7 @@
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
-                RaisePropertyChanged(nameof(CanEditVolume), nameof(TestModeEnabled));
+                RaisePropertyChanged(nameof(TestModeEnabled));
                 InfoText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AudioDisconnect);
             });
         }
@@ -263,7 +244,7 @@
 
         public static byte ConvertSliderToVolume(byte sliderValue) =>
             (byte)(Math.Pow(sliderValue, SliderToVolumeSquareIndex) / SliderToVolumeFactor);
-        
+
 
         public static byte ConvertVolumeToSlider(byte volume)
         {

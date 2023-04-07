@@ -154,7 +154,7 @@
 
         public IEnumerable<Jackpot> GetJackpotSnapshot(string packName)
         {
-            return GetUniqueLevelIDs().Select(level => new Jackpot(level.DeviceId, level.LevelId, level.CurrentValue));
+            return GetUniqueLevelIDs().Select(level => new Jackpot(level.DeviceId, level.LevelId, level.LevelName, level.CurrentValue));
         }
 
         public IEnumerable<IViewableProgressiveLevel> GetActiveProgressiveLevels()

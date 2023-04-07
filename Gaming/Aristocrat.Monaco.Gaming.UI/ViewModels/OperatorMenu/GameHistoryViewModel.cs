@@ -6,6 +6,7 @@
     using System.ComponentModel;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -100,6 +101,7 @@
                 false);
 
             ShowGameInfoButtons = GetConfigSetting(OperatorMenuSetting.ShowGameInfoButtons, false);
+            ShowProgressiveDetails = GetConfigSetting(OperatorMenuSetting.ShowProgressiveDetails, false);
 
             if (!InDesigner)
             {
@@ -136,6 +138,7 @@
             ShowGameProgressiveWinCommand = new ActionCommand<object>(ShowGameProgressiveWin);
             ShowGameEventLogsCommand = new ActionCommand<object>(ShowGameEventLogs);
             ShowGameDetailsCommand = new ActionCommand<object>(ShowGameDetails);
+            ShowProgressiveDetailsCommand = new ActionCommand<object>(ShowProgressiveDetailsPopup);
 
             ReplayPauseActive = PropertiesManager.GetValue(GamingConstants.ReplayPauseActive, true);
             ReplayPauseEnabled = PropertiesManager.GetValue(GamingConstants.ReplayPauseEnable, true);
@@ -158,6 +161,8 @@
         public ICommand ShowGameEventLogsCommand { get; }
 
         public ICommand ShowGameDetailsCommand { get; }
+
+        public ICommand ShowProgressiveDetailsCommand { get; }
 
         public bool ShowSequenceNumber { get; }
 
@@ -285,6 +290,7 @@
                     RaisePropertyChanged(nameof(IsHistoryItemSelected));
                     RaisePropertyChanged(nameof(GameProgressiveWinButtonEnabled));
                     RaisePropertyChanged(nameof(IsMeteredGameSelected));
+                    RaisePropertyChanged(nameof(SelectedGameHasProgressiveDetails));
                     UpdateStatusText();
                     ResetScrollToTop = false;
                 }
@@ -359,6 +365,10 @@
         public bool ShowGameDetailsButton { get; }
 
         public bool ShowGameEventLogsButton { get; }
+
+        public bool ShowProgressiveDetails { get; }
+
+        public bool SelectedGameHasProgressiveDetails => IsGameRoundComplete && (SelectedGameItem?.EndJackpots?.Any() ?? false);
 
         public bool IsHistoryItemSelected => SelectedGameItem != null;
 
@@ -645,8 +655,10 @@
                     EndCredits = gameHistory.PlayState != PlayState.Idle
                         ? null
                         : gameHistory.EndCredits.MillicentsToDollars(),
+                    EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
+                    EndJackpots = gameHistory.JackpotSnapshotEnd,
                     DenomId = gameHistory.DenomId,
-                    Denom = gameHistory.DenomId.MillicentsToCents(),
+                    Denom = gameHistory.DenomId.MillicentsToDollars(),
                     CreditsWon = gameHistory.PlayState != PlayState.Idle
                         ? null
                         : gameHistory.TotalWon.CentsToDollars(),
@@ -665,6 +677,7 @@
                 if (game != null)
                 {
                     round.GameName = $"{game.ThemeName} ({game.VariationId})";
+                    round.GameVersion = game.Version;
                 }
 
                 FillTransactionData(ref round, gameHistory.Transactions);
@@ -735,14 +748,17 @@
                     {
                         GameId = gameHistory.GameId,
                         GameName = game?.ThemeName,
+                        GameVersion = game?.Version,
                         StartTime = freeGame.StartDateTime,
                         StartCredits = freeGame.StartCredits.MillicentsToDollars(),
                         EndTime = endTime,
                         EndCredits = freeGame.Result == GameResult.None
                             ? null
                             : freeGame.EndCredits.MillicentsToDollars(),
+                        EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
+                        EndJackpots = gameHistory.JackpotSnapshotEnd,
                         DenomId = gameHistory.DenomId,
-                        Denom = gameHistory.DenomId.MillicentsToCents(),
+                        Denom = gameHistory.DenomId.MillicentsToDollars(),
                         CreditsWon =
                             freeGame.Result == GameResult.None ? null : freeGame.FinalWin.CentsToDollars(),
                         CreditsWagered = 0,
@@ -800,8 +816,9 @@
                 {
                     GameId = gameHistory.GameId,
                     GameName = game?.ThemeName,
+                    GameVersion = game?.Version,
                     DenomId = gameHistory.DenomId,
-                    Denom = gameHistory.DenomId / GamingConstants.Millicents,
+                    Denom = gameHistory.DenomId.MillicentsToDollars(),
                     StartTime = gameHistory.StartDateTime,
                     EndTime = endTime,
                     LogSequence = gameHistory.LogSequence,
@@ -819,6 +836,8 @@
                     EndCredits = gameHistory.PlayState != PlayState.Idle
                         ? null
                         : gameHistory.EndCredits.MillicentsToDollars(),
+                    EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
+                    EndJackpots = gameHistory.JackpotSnapshotEnd,
                     GameIndex = 0
                 };
 
@@ -910,6 +929,22 @@
             {
                 round.AmountOut = null;
             }
+        }
+
+        private string BuildJackpotString(IList<Jackpot> jackpots)
+        {
+            if (jackpots == null || !jackpots.Any())
+            {
+                return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            }
+
+            var str = new StringBuilder();
+            foreach (var jackpot in jackpots)
+            {
+                str.Append($"{jackpot.Value.MillicentsToDollars().FormattedCurrencyString()} ");
+            }
+
+            return str.ToString().Trim();
         }
 
         private bool IsBaseGameCommitted(IGameHistoryLog gameHistory)
@@ -1201,6 +1236,19 @@
                 _dialogService,
                 $"#{SelectedGameItem.LogSequenceText} {SelectedGameItem.GameName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameRoundDetailsText)}",
                 transaction.TransactionId);
+        }
+
+        private void ShowProgressiveDetailsPopup(object o)
+        {
+            if (SelectedGameItem == null)
+            {
+                return;
+            }
+            var viewModel = new ProgressiveSummaryViewModel(SelectedGameItem);
+            _dialogService.ShowInfoDialog<ProgressiveSummaryView>(
+                this,
+                viewModel,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSummaryTitle));
         }
 
         private bool IsReelControllerAvailable()

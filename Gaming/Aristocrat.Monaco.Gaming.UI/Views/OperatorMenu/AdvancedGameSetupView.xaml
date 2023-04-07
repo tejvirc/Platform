@@ -146,7 +146,8 @@
 
                 <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource TrueVisibleFalseCollapsed}}" Text="{Binding SelectedDenoms}" />
 
-                <DataGrid Grid.Row="2"
+                <DataGrid Grid.Row="2" Margin="0 -15 0 0" 
+                          Style="{StaticResource MonacoScrollButtonDataGrid}"
                           ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
                           Height="{Binding ElementName=GridGameConfigs, Path=ActualHeight}"
                           Width="{Binding ElementName=GridGameConfigs, Path=ActualWidth}"

@@ -2,9 +2,9 @@
 {
     using Contracts.Localization;
     using Contracts.OperatorMenu;
+    using Monaco.Localization.Properties;
     using ViewModels;
     using Views;
-    using Monaco.Localization.Properties;
 
     public class OptionsPageLoader : OperatorMenuPageLoader
     {
@@ -22,12 +22,7 @@
 
         public override bool GetVisible()
         {
-            // If not a subpage, check AccountingConfig visibility to determine if options main page is visible
-            // If it is, do not also include Options page as a non-subpage
-            var optionsPageVisible = Configuration.GetVisible(this);
-            return IsSubPage
-                ? optionsPageVisible
-                : !Configuration.GetVisible(OperatorMenuSetting.AccountingConfigurationLoader) && optionsPageVisible;
+            return Configuration.GetVisible(this);
         }
     }
 }
