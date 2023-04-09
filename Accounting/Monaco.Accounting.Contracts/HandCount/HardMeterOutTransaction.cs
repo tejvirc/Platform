@@ -12,7 +12,7 @@
     using TransferOut;
 
     /// <summary>
-    ///     Definition of the WatTransaction class
+    ///     Definition of the HardMeterOutTransaction class
     /// </summary>
     public class HardMeterOutTransaction : BaseTransaction, ITransactionContext
     {

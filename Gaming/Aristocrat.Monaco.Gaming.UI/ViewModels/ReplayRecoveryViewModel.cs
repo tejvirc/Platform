@@ -442,7 +442,6 @@
                      CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString());
             }
         }
-        
 
         private void AppendVoucherInfo(ReplayContext context)
         {

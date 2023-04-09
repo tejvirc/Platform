@@ -107,7 +107,7 @@
 
             if (mapping != null)
             {
-                return mapping.HardMeter.First(m=>m.SoftMeter.Any(s => s.Name== AccountingMeters.HardMeterOutAmount)).LogicalId;
+                return mapping.HardMeter.First(m => m.SoftMeter.Any(s => s.Name == AccountingMeters.HardMeterOutAmount)).LogicalId;
             }
 
             return 0;
@@ -149,18 +149,16 @@
             try
             {
                 Active = true;
-                //var cashOutAmount = _transferOutExtension.PreProcessor(cashableAmount);
-                var cashOutAmount = cashableAmount;
-                if ((cashOutAmount > 0) &&
+                if ((cashableAmount > 0) &&
                     await Transfer(
                         transactionId,
-                        cashOutAmount,
+                        cashableAmount,
                         associatedTransactions,
                         reason,
                         traceId,
                         cancellationToken))
                 {
-                    transferredCashable = cashOutAmount;
+                    transferredCashable = cashableAmount;
                 }
             }
             finally
@@ -191,7 +189,7 @@
                 await keyOff.Task;
 
             CompleteTransaction(transaction);
-            _systemDisableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
+            _systemDisableManager.Enable(ApplicationConstants.PrintingTicketDisableKey);
         }
 
         private TaskCompletionSource<object> Initiate()
@@ -215,18 +213,13 @@
                 evt => evt.LogicalId == _cashOutHardMeterId);
 
             _systemDisableManager.Disable(
-                ApplicationConstants.LargePayoutDisableKey,
+                ApplicationConstants.PrintingTicketDisableKey,
                 SystemDisablePriority.Immediate,
                 () => "PRINTING TICKET...",
                 true,
                 () => "PRINTING TICKET...");
 
             return keyOff;
-        }
-
-        private void Unlock()
-        {
-            _systemDisableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
         }
 
         public async Task<bool> Recover(Guid transactionId, CancellationToken cancellationToken)
@@ -300,10 +293,7 @@
                         var handCount = _cashOutAmountCalculator.GetHandCountUsed(amount);
                         _handCountService.DecreaseHandCount(handCount);
 
-                        Logger.Debug("Entering UpdateMeters");
-
                         UpdateMeters(transaction, amount);
-                        Logger.Debug("Finished UpdateMeters");
 
                         scope.Complete();
                     }
@@ -330,11 +320,13 @@
 
         private void UpdateMeters(HardMeterOutTransaction transaction, long amount)
         {
+            Logger.Debug("Entering UpdateMeters");
             if (amount > 0)
             {
                 _meters.GetMeter(AccountingMeters.HardMeterOutAmount).Increment(amount);
                 _meters.GetMeter(AccountingMeters.HardMeterOutCount).Increment(1);
             }
+            Logger.Debug("Finished UpdateMeters");
         }
     }
 }

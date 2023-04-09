@@ -16,7 +16,6 @@ namespace Aristocrat.Monaco.Accounting
     using Kernel;
     using log4net;
     using Mono.Addins;
-    using Xceed.Wpf.Toolkit;
 
     [CLSCompliant(false)]
     public class TransferOutHandler : ITransferOutHandler, IService, IDisposable
@@ -559,8 +558,6 @@ namespace Aristocrat.Monaco.Accounting
             var cashable = _bank.QueryBalance(AccountType.Cashable);
             var promo = _bank.QueryBalance(AccountType.Promo);
             var nonCash = _bank.QueryBalance(AccountType.NonCash);
-
-            //var payoutAmount = ICalculator.CalculatePayoutAmount(cashable);
 
             await TransferAsync(
                 transaction,

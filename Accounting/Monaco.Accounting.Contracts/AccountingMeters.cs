@@ -719,12 +719,12 @@
         public const string HandCount = "HandCount";
 
         /// <summary>
-        ///     Voucher out cashable amount
+        ///     Hard meter out cashable amount
         /// </summary>
         public const string HardMeterOutAmount = "HardMeterOutAmount";
 
         /// <summary>
-        ///     Voucher out cashable count
+        ///     Hard meter out cashable count
         /// </summary>
         public const string HardMeterOutCount = "HardMeterOutCount";
     }
