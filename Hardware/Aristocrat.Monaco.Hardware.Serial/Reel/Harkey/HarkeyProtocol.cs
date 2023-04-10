@@ -24,7 +24,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         System.Collections.Concurrent.ConcurrentQueue<System.Action<Messages.HarkeySerializableMessage>>;
     using Nudge = Messages.Nudge;
 
-    [SearchableSerialProtocol(DeviceType.ReelController)]
+    [SearchableSerialProtocol(DeviceType.ReelController, 8000)]
     public class HarkeyProtocol : SerialReelController
     {
         private const int LightResetDelayMs = 100;
@@ -1161,6 +1161,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
             var messageBytes = message.Serialize();
 
+            Logger.Debug($"Send Message {message}");
             if (message.UseCommandInsteadOfProtocol)
             {
                 SendCommand(messageBytes, GetNoProtocolMessageTemplate(messageBytes.Length));

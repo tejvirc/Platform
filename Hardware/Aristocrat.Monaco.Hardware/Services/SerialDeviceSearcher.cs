@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Text.RegularExpressions;
     using System.Threading;
+    using System.Threading.Tasks;
     using Contracts.Communicator;
     using Contracts.SharedDevice;
     using Hardware.Contracts.SerialPorts;
@@ -88,10 +89,18 @@
                         Logger.Debug($"({deviceType}) Configure? {protocolDevice.Name} setup=({GetDeviceDescription(protocolDevice)})");
                         protocol.Device = new Device(null, null);
                         protocol.Manufacturer = string.Empty;
-                        protocol.UseQuickerDetection = true;
 
                         if (protocol.Configure(config))
                         {
+                            var delay = (protocolType.GetCustomAttribute(typeof(SearchableSerialProtocolAttribute)) as SearchableSerialProtocolAttribute).MaxWaitForResponse;
+                            while (delay > 0 && string.IsNullOrEmpty(protocol.FirmwareVersion))
+                            {
+                                const int millisecondsPerSecond = 1000;
+
+                                delay -= millisecondsPerSecond;
+                                Task.Delay(millisecondsPerSecond).Wait();
+                            }
+
                             // Find device to match the results
                             Logger.Debug($"({deviceType}) Tried {protocolDevice.Name} mfg={protocol.Manufacturer} model={protocol.Model} proto={protocol.Protocol} firmware={protocol.FirmwareVersion}");
                             if (DoesDeviceFirmwareMatch(protocol.FirmwareVersion, GetDeviceItemByName(protocolDevice, ItemsChoiceType.FirmwareVersionRegex)))
