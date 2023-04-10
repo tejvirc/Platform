@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Threading.Tasks;
     using Configuration;
+    using Extensions;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
     using log4net;
@@ -35,6 +36,7 @@
                                         throw new ArgumentNullException(nameof(communicationInterceptor));
 
             _communicationInterceptor.MessageReceived += OnMessageReceived;
+            _communicationInterceptor.AuthorizationFailed += OnAuthorizationFailed;
         }
 
         public event EventHandler<ConnectedEventArgs> Connected;
@@ -145,9 +147,7 @@
             if (disposing)
             {
                 _communicationInterceptor.MessageReceived -= OnMessageReceived;
-                Stop().ContinueWith(
-                    _ => Logger.Error("Stopping client failed while disposing"),
-                    TaskContinuationOptions.OnlyOnFaulted);
+                Stop().RunAndForget();
             }
 
             _disposed = true;
@@ -158,22 +158,6 @@
                 ChannelState.Idle or
                 ChannelState.TransientFailure or
                 ChannelState.Connecting;
-
-        private void OnMessageReceived(object sender, EventArgs e)
-        {
-            MessageReceived?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void MonitorConnection()
-        {
-            Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
-                async _ =>
-                {
-                    Logger.Error("Monitor Connection Failed Forcing a disconnect");
-                    await Stop();
-                },
-                TaskContinuationOptions.OnlyOnFaulted);
-        }
 
         private static RpcConnectionState GetConnectionState(ChannelState state) =>
             state switch
@@ -200,6 +184,26 @@
             }
 
             return channel.State;
+        }
+
+        private void OnMessageReceived(object sender, EventArgs e)
+        {
+            MessageReceived?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnAuthorizationFailed(object sender, EventArgs e)
+        {
+            Stop().RunAndForget();
+        }
+
+        private void MonitorConnection()
+        {
+            Task.Run(async () => await MonitorConnectionAsync(_channel).ConfigureAwait(false)).RunAndForget(
+                async e =>
+                {
+                    Logger.Error("Monitor Connection Failed Forcing a disconnect", e);
+                    await Stop().ConfigureAwait(false);
+                });
         }
 
         private async Task MonitorConnectionAsync(Channel channel)
