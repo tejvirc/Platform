@@ -1562,8 +1562,203 @@ See manual for details??</value>
   <data name="BatteryLabel" xml:space="preserve">
     <value>??Battery??</value>
   </data>
+  <data name="BellyDoorDiscrepancy" xml:space="preserve">
+    <value>??Belly Door Discrepancy??</value>
+  </data>
+  <data name="ClearLockupAudioDisconnectedKeyMessage" xml:space="preserve">
+    <value>??Reconnect Audio USB cable to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupBellyDoor" xml:space="preserve">
+    <value>??Close the Belly Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupCashDoor" xml:space="preserve">
+    <value>??Close the Stacker Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupDisabledDueToCarrierBoardRemovalKeyMessage" xml:space="preserve">
+    <value>??Carrier board or storage media was removed with credits on the machine. To clear this lockup, perform handpay of the remaining credits and turn the jackpot reset key.??</value>
+  </data>
+  <data name="ClearLockupDropDoor" xml:space="preserve">
+    <value>??Close the Drop Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupExcessiveDocumentReject" xml:space="preserve">
+    <value>??Check if the Note or Voucher being inserted by the player is valid. Open and close Main Door to re-enable Note Acceptor device and clear the lockup.??</value>
+  </data>
+  <data name="ClearLockupExcessiveMeterIncrement" xml:space="preserve">
+    <value>??Excessive meter increment, turn on Jackpot Key to clear this lockup??</value>
+  </data>
+  <data name="ClearLockupFatalGameErrorGuidMessage" xml:space="preserve">
+    <value>??Please contact Aristocrat field service technician.??</value>
+  </data>
+  <data name="ClearLockupHardMeterDisabledMessage" xml:space="preserve">
+    <value>??Ensure mechanical meter device is connected and functioning properly.??</value>
+  </data>
+  <data name="ClearLockupLogicDoor" xml:space="preserve">
+    <value>??Close the Logic Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupLogicSealBroken" xml:space="preserve">
+    <value>??Reset from the Site Controller to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupMainDoor" xml:space="preserve">
+    <value>??Close the Main Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupMainOpticDoor" xml:space="preserve">
+    <value>??Close the Main Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.??</value>
+  </data>
+  <data name="ClearLockupMechanicalMeterDoor" xml:space="preserve">
+    <value>??Close the Mechanical Meter Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupNoteAcceptorFirmwareFaultMessage" xml:space="preserve">
+    <value>??To clear this lockup, remove any bill or voucher jam in Note Acceptor. If problem persists, replace Note Acceptor device with correct firmware.??</value>
+  </data>
+  <data name="ClearLockupNoteAcceptorHardwareFaultMessage" xml:space="preserve">
+    <value>??Hardware device failure, replace Note Acceptor to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupNoteAcceptorSelfTestFailedMessage" xml:space="preserve">
+    <value>??To clear this lockup, resolve all existing Note Acceptor errors and run Self Test in Note Acceptor menu page.??</value>
+  </data>
+  <data name="ClearLockupNoteAcceptorUnspecifiedFaultMessage" xml:space="preserve">
+    <value>??Hardware device failure, replace Note Acceptor to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupOperatingHoursDisableGuidMessage" xml:space="preserve">
+    <value>??This lockup will automatically be removed during start of operating hours.??</value>
+  </data>
+  <data name="ClearLockupOperatorKeyNotRemovedDisableKeyMessage" xml:space="preserve">
+    <value>??Exit operator menu and remove operator key.??</value>
+  </data>
+  <data name="ClearLockupOperatorMenuLauncherDisableGuidMessage" xml:space="preserve">
+    <value>??Exit operator menu to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupOperatorResetMessage" xml:space="preserve">
+    <value>??Clear other lockups First.\r\nTurn Jackpot key on, then off, to clear the Lockup.??</value>
+  </data>
+  <data name="ClearLockupPrinterChassisOpenFaultMessage" xml:space="preserve">
+    <value>??Close printer chassis to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupPrinterHardwareFaultMessage" xml:space="preserve">
+    <value>??Hardware device failure, replace Printer to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupPrinterPaperNotTopOfFormFaultMessage" xml:space="preserve">
+    <value>??Check printer paper.??</value>
+  </data>
+  <data name="ClearLockupProgressiveTimeout" xml:space="preserve">
+    <value>??Ensure the Progressive Host is connected and configured to send Progressive Broadcasts.??</value>
+  </data>
+  <data name="ClearLockupReconnectedRebootKeyMessage" xml:space="preserve">
+    <value>??Reboot the machine to clear this lockup.??</value>
+  </data>
+  <data name="ClearLockupSecondaryCashDoor" xml:space="preserve">
+    <value>??Close the Secondary Stacker Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupTopBoxDoor" xml:space="preserve">
+    <value>??Close the Top Box Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearLockupTopBoxOpticDoor" xml:space="preserve">
+    <value>??Close the Top Box Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.??</value>
+  </data>
+  <data name="ClearLockupUniversalInterfaceBoxDoor" xml:space="preserve">
+    <value>??Close the Universal Interface Box Door to Clear the Lockup??</value>
+  </data>
+  <data name="ClearMinimumThresholdError" xml:space="preserve">
+    <value>??To clear this lockup ensure all configured progressive levels' current value meets or exceeds the game expected minimum value.??</value>
+  </data>
+  <data name="ClearProgressiveCommitTimeout" xml:space="preserve">
+    <value>??Ensure the Progressive Host is connected and configured to accept claims.??</value>
+  </data>
+  <data name="ClearProgressiveDisconnectError" xml:space="preserve">
+    <value>??Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communication.??</value>
+  </data>
   <data name="DeviceLabel" xml:space="preserve">
     <value>??Device??</value>
+  </data>
+  <data name="ErrorInfoBattery1" xml:space="preserve">
+    <value>??Replace battery #1 and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoBattery2" xml:space="preserve">
+    <value>??Replace battery #2 and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoCloseDoor" xml:space="preserve">
+    <value>??Close door to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoConfigureGame" xml:space="preserve">
+    <value>??Install and/or configure game to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoContactTechnician" xml:space="preserve">
+    <value>??Please contact Aristocrat field service technician. Memory Reset is required to clear this error.??</value>
+  </data>
+  <data name="ErrorInfoEKeyVerified" xml:space="preserve">
+    <value>??Game play is not allowed when EKey USB device is inserted. After using the EKey, please remove it from the EGM to resolve this lockup??</value>
+  </data>
+  <data name="ErrorInfoHandpayPending" xml:space="preserve">
+    <value>??Complete any relevant paperwork, and then insert and turn Attendant Reset key to clear the handpay lockup, or perform remote handpay reset from the host system.??</value>
+  </data>
+  <data name="ErrorInfoNADisconnected" xml:space="preserve">
+    <value>??Open Main Door, ensure Note Acceptor data and/or power cable is properly connected, and then close Main Door to clear this lockup. If lockup persists, reconnect Note Acceptor device and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoNADocumentCheck" xml:space="preserve">
+    <value>??The machine was accepting a document when it detected a note acceptor error or was powered down.  Documents in the stacker should be reconciled with the meters in the log screens.  To reset this fault, ensure the device is not jammed and that there are no partially stacked documents in the stacker, then run a Self Test.  If a fault persists, power cycle the machine.??</value>
+  </data>
+  <data name="ErrorInfoNAError" xml:space="preserve">
+    <value>??Open Main Door, troubleshoot Note Acceptor device issue, and then close Main Door to clear this lockup. If lockup persists, reconnect Note Acceptor data and/or power cable and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoNAIllegalActivity" xml:space="preserve">
+    <value>??To clear this lockup, remove the Note Stacker, reconcile with Bill or Voucher In meters and logs for potential cheating, then reinsert the Note Stacker.??</value>
+  </data>
+  <data name="ErrorInfoNAJammed" xml:space="preserve">
+    <value>??Open Main Door, check Note Acceptor device and remove the jammed note, and then close Main Door to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoNAMechanicalError" xml:space="preserve">
+    <value>??A Note Acceptor Mechanical Fault has occurred. Inspect the Note Acceptor for any open doors, jammed internal mechanisms, or disconnected cables. Run the Self Test to clear the lockup??</value>
+  </data>
+  <data name="ErrorInfoNAStackerFull" xml:space="preserve">
+    <value>??Note Stacker is full.  Remove Note Stacker, empty its content, and then reinsert Note Stacker to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoNAStackerRemoved" xml:space="preserve">
+    <value>??Reinsert Note Stacker to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoOutOfService" xml:space="preserve">
+    <value>??From game screen in Out-Of-Service mode, insert and turn Operator Key to exit OOS and enter Operator Menu.??</value>
+  </data>
+  <data name="ErrorInfoPlayerButtonDisconnected" xml:space="preserve">
+    <value>??Open Main Door, ensure player button cable is connected properly, and then close Main Door to clear this lockup. If lockup persists, reconnect player button cable and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoPrinterDisconnected" xml:space="preserve">
+    <value>??Open Main Door, ensure Printer data and/or power cable is properly connected, and then close Main Door to clear this lockup. If lockup persists, reconnect Printer device and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoPrinterError" xml:space="preserve">
+    <value>??Open Main Door, troubleshoot Printer device issue, and then close Main Door to clear this lockup. If lockup persists, reconnect Printer data and/or power cable and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoPrinterHeadOpen" xml:space="preserve">
+    <value>??Open Main Door, check and close Printer head, and then close Main Door to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoPrinterJammed" xml:space="preserve">
+    <value>??Open Main Door, check Printer device and remove the jammed paper, and then close Main Door to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoPrinterPaperEmpty" xml:space="preserve">
+    <value>??Open Main Door, load Printer paper, and then close Main Door to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoReelControllerDisconnected" xml:space="preserve">
+    <value>??Open Main Door, ensure Reel Controller data and/or power cable is properly connected, and then close Main Door to clear this lockup. If lockup persists, reconnect Reel Controller device and reboot the machine.??</value>
+  </data>
+  <data name="ErrorInfoReelError" xml:space="preserve">
+    <value>??Open Main Door and then close Main Door to clear this lockup. If lockup persists the Reel hardware needs to be replaced.??</value>
+  </data>
+  <data name="ErrorInfoSasCashoutFailure" xml:space="preserve">
+    <value>??Check SAS host connection and AFT host cashout settings. Cashout can also be handpaid as a failback method - insert and turn Attendant Reset Key to clear this lockup.??</value>
+  </data>
+  <data name="ErrorInfoSasHostComm" xml:space="preserve">
+    <value>??Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communcation.??</value>
+  </data>
+  <data name="ErrorInfoSasHostDisabled" xml:space="preserve">
+    <value>??This lockup can only be cleared by the host system by sending enable command or completing host-related settings.??</value>
+  </data>
+  <data name="ErrorInfoScreenDisconnected" xml:space="preserve">
+    <value>??Open Main Door, ensure video display cable is connected properly, and then close Main Door to clear this lockup. If lockup persists, reconnect video display cable and reboot the machine. Note that you may see screen flickering for few seconds during touch or display device reinitialization.??</value>
+  </data>
+  <data name="ErrorInfoTouchScreenDisconnected" xml:space="preserve">
+    <value>??Open Main Door, ensure touch screen cable is connected properly, and then close Main Door to clear this lockup. If lockup persists, reconnect touch screen cable and reboot the machine. Note that you may see screen flickering for few seconds during touch or display device reinitialization.??</value>
+  </data>
+  <data name="ErrorInfoValidationIdNotSet" xml:space="preserve">
+    <value>??Make sure Validation device related settings are configured properly in this machine. This error will be cleared once Validation data is received from the Validation host system.??</value>
   </data>
   <data name="FlashIntervals" xml:space="preserve">
     <value>??Test Flash Intervals??</value>
@@ -1583,11 +1778,41 @@ See manual for details??</value>
   <data name="LampsLabel" xml:space="preserve">
     <value>??Lamps??</value>
   </data>
+  <data name="LicenseFileErrorFaultMessage" xml:space="preserve">
+    <value>??Review the Smart Card license information in Identification &gt; License tab and verify it is correct for the software loaded. Insert the correct Smart Card and reboot the machine.??</value>
+  </data>
   <data name="MillisecondIntervalText" xml:space="preserve">
     <value>??ms??</value>
   </data>
+  <data name="OutOfMemoryMessageDescription" xml:space="preserve">
+    <value>??To clear this lockup, restart the machine.??</value>
+  </data>
+  <data name="OutOfServiceAdditionalInfo" xml:space="preserve">
+    <value>??Press Put EGM Into Service to put the EGM into Service??</value>
+  </data>
+  <data name="ReadOnlyMediaFaultMessage" xml:space="preserve">
+    <value>??This jurisdiction requires secondary program storage media to be in read-only mode. If the secondary media is not present or it is present but not write-protected, the media needs to be replaced. If the media has write-protection switch, set it to ON and reboot the machine.??</value>
+  </data>
+  <data name="ReservedMachineErrorFaultMessage" xml:space="preserve">
+    <value>??This machine is reserved by the player. Player needs to exit reserve from the game screen and enter the PIN which was created while reserving the machine. Alternatively, operator can override and remove the reserved state by pressing the “Exit Reserve” button below, or wait for the reserve timer to expire to remove the reserved state automatically.??</value>
+  </data>
+  <data name="SecondaryStorageMediaConnectedButNotSupportedMessage" xml:space="preserve">
+    <value>??To clear this lockup, remove secondary storage and reboot the machine.??</value>
+  </data>
+  <data name="SecondaryStorageMediaNotConnectedMessage" xml:space="preserve">
+    <value>??To clear this lockup, insert secondary storage and reboot the machine.??</value>
+  </data>
   <data name="Set" xml:space="preserve">
     <value>??Set??</value>
+  </data>
+  <data name="SmartCardExpiredFaultMessage" xml:space="preserve">
+    <value>??Replace Smart Card and reboot the machine.??</value>
+  </data>
+  <data name="SmartCardMissingFaultMessage" xml:space="preserve">
+    <value>??Insert a valid Smart Card and reboot the machine.??</value>
+  </data>
+  <data name="SmartCardRemovedFaultMessage" xml:space="preserve">
+    <value>??Insert Smart Card and reboot the machine.??</value>
   </data>
   <data name="TestAllButtonLamps" xml:space="preserve">
     <value>??Test All Button Lamps??</value>
