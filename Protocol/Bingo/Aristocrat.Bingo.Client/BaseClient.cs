@@ -139,6 +139,44 @@
             GC.SuppressFinalize(this);
         }
 
+        public void OnMessageReceived(object sender, EventArgs e)
+        {
+            MessageReceived?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected static RpcConnectionState GetConnectionState(ChannelState state) =>
+            state switch
+            {
+                ChannelState.Idle => RpcConnectionState.Disconnected,
+                ChannelState.Connecting => RpcConnectionState.Connecting,
+                ChannelState.Ready => RpcConnectionState.Connected,
+                ChannelState.TransientFailure => RpcConnectionState.Disconnected,
+                ChannelState.Shutdown => RpcConnectionState.Closed,
+                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            };
+
+        protected static bool StateIsConnected(ChannelState? state) =>
+            state is ChannelState.Ready or
+                ChannelState.Idle or
+                ChannelState.TransientFailure or
+                ChannelState.Connecting;
+
+        protected static async Task<ChannelState> WaitForStateChanges(Channel channel, ChannelState lastObservedState)
+        {
+            if (lastObservedState is ChannelState.Ready)
+            {
+                await channel.TryWaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
+            }
+            else
+            {
+                await channel.TryWaitForStateChangedAsync(
+                    lastObservedState,
+                    DateTime.UtcNow.Add(StateChangeTimeOut)).ConfigureAwait(false);
+            }
+
+            return channel.State;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -157,55 +195,7 @@
             _disposed = true;
         }
 
-        public void OnMessageReceived(object sender, EventArgs e)
-        {
-            MessageReceived?.Invoke(this, EventArgs.Empty);
-        }
-
-        private static bool StateIsConnected(ChannelState? state) =>
-            state is ChannelState.Ready or
-                ChannelState.Idle or
-                ChannelState.TransientFailure or
-                ChannelState.Connecting;
-        private void MonitorConnection()
-        {
-            Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
-                async _ =>
-                {
-                    Logger.Error($"Monitor Connection Failed for {GetType().Name} failed Forcing a disconnect");
-                    await Stop();
-                },
-                TaskContinuationOptions.OnlyOnFaulted);
-        }
-
-        private static RpcConnectionState GetConnectionState(ChannelState state) =>
-            state switch
-            {
-                ChannelState.Idle => RpcConnectionState.Disconnected,
-                ChannelState.Connecting => RpcConnectionState.Connecting,
-                ChannelState.Ready => RpcConnectionState.Connected,
-                ChannelState.TransientFailure => RpcConnectionState.Disconnected,
-                ChannelState.Shutdown => RpcConnectionState.Closed,
-                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
-            };
-
-        private static async Task<ChannelState> WaitForStateChanges(Channel channel, ChannelState lastObservedState)
-        {
-            if (lastObservedState is ChannelState.Ready)
-            {
-                await channel.TryWaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
-            }
-            else
-            {
-                await channel.TryWaitForStateChangedAsync(
-                    lastObservedState,
-                    DateTime.UtcNow.Add(StateChangeTimeOut)).ConfigureAwait(false);
-            }
-
-            return channel.State;
-        }
-
-        private async Task MonitorConnectionAsync(Channel channel)
+        protected virtual async Task MonitorConnectionAsync(Channel channel)
         {
             if (channel is null)
             {
@@ -213,7 +203,7 @@
             }
 
             var lastObservedState = channel.State;
-            Logger.Info($"Channel connection state changed: {lastObservedState}");
+            Logger.Info($"{GetType().Name} Channel last observed state: {lastObservedState}");
             UpdateState(GetConnectionState(lastObservedState));
             while (StateIsConnected(lastObservedState))
             {
@@ -225,14 +215,14 @@
 
                 lastObservedState = observedState;
                 UpdateState(GetConnectionState(lastObservedState));
-                Logger.Info($"Channel connection state changed: {lastObservedState}");
+                Logger.Info($"{GetType().Name} Channel connection state changed: {lastObservedState}");
             }
 
-            Logger.Error($"Channel connection is no longer connected: {lastObservedState}");
+            Logger.Error($"{GetType().Name} Channel connection is no longer connected: {lastObservedState}");
             await Stop().ConfigureAwait(false);
         }
 
-        private void UpdateState(RpcConnectionState state)
+        protected void UpdateState(RpcConnectionState state)
         {
             if (state == _state || _disposed)
             {
@@ -241,6 +231,17 @@
 
             _state = state;
             ConnectionStateChanged?.Invoke(this, new ConnectionStateChangedEventArgs(state));
+        }
+
+        private void MonitorConnection()
+        {
+            Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
+                async _ =>
+                {
+                    Logger.Error($"Monitor Connection Failed for {GetType().Name} failed Forcing a disconnect");
+                    await Stop();
+                },
+                TaskContinuationOptions.OnlyOnFaulted);
         }
     }
 }
