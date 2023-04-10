@@ -1550,4 +1550,52 @@ See manual for details??</value>
   <data name="VoucherIn" xml:space="preserve">
     <value>??Voucher In??</value>
   </data>
+  <data name="AvailableMeterMappings" xml:space="preserve">
+    <value>??Meter Mapping??</value>
+  </data>
+  <data name="BashButtonLamp" xml:space="preserve">
+    <value>??Bash/Play Button??</value>
+  </data>
+  <data name="BatteriesLabel" xml:space="preserve">
+    <value>??Batteries??</value>
+  </data>
+  <data name="BatteryLabel" xml:space="preserve">
+    <value>??Battery??</value>
+  </data>
+  <data name="DeviceLabel" xml:space="preserve">
+    <value>??Device??</value>
+  </data>
+  <data name="FlashIntervals" xml:space="preserve">
+    <value>??Test Flash Intervals??</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>??Good??</value>
+  </data>
+  <data name="HardMetersLabel" xml:space="preserve">
+    <value>??Hard Meters??</value>
+  </data>
+  <data name="HardwareSelectionTitle" xml:space="preserve">
+    <value>??Hardware Manager??</value>
+  </data>
+  <data name="KeysLabel" xml:space="preserve">
+    <value>??Keys??</value>
+  </data>
+  <data name="LampsLabel" xml:space="preserve">
+    <value>??Lamps??</value>
+  </data>
+  <data name="MillisecondIntervalText" xml:space="preserve">
+    <value>??ms??</value>
+  </data>
+  <data name="Set" xml:space="preserve">
+    <value>??Set??</value>
+  </data>
+  <data name="TestAllButtonLamps" xml:space="preserve">
+    <value>??Test All Button Lamps??</value>
+  </data>
+  <data name="TestButtonLamps" xml:space="preserve">
+    <value>??Test Button Lamps??</value>
+  </data>
+  <data name="TestTowerLights" xml:space="preserve">
+    <value>??Test Tower Lights??</value>
+  </data>
 </root>
