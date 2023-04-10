@@ -140,13 +140,13 @@
             {
                 var minBetCredits = @this.MinimumWagerCredits;
                 var maxBetCredits = @this.MaximumWagerCredits;
-                return Enumerable.Range(minBetCredits, (maxBetCredits - minBetCredits)+1).Select(x => x * denom);
+                return Enumerable.Range(minBetCredits, maxBetCredits - minBetCredits+1).Select(x => x * denom);
             }
 
             if (betOption.MaxInitialBet != null)
             {
                 var minMultiplier = betOption.Bets.Min(b => b.Multiplier);
-                return Enumerable.Range(minMultiplier, (betOption.MaxInitialBet.Value - minMultiplier)+1)
+                return Enumerable.Range(minMultiplier, betOption.MaxInitialBet.Value - minMultiplier+1)
                     .Select(m => m * denom);
             }
 
@@ -225,6 +225,11 @@
                 return 0L;
             }
 
+            if (@this.GameType == GameType.Roulette)
+            {
+                return CalculateRouletteTopAward(@this, denomination);
+            }
+
             var topAward = @this.WinThreshold * denomination.Value;
 
             if (betOption?.MaxInitialBet is not null)
@@ -241,6 +246,7 @@
                    @this.BaseMaxWagerCredits(lineOption) *
                    topAward;
         }
+
 
         private static int BaseMinWagerCredits(this IGameDetail @this, LineOption lineOption)
         {
@@ -283,6 +289,16 @@
                 : orderedMultipliers.FirstOrDefault();
 
             return Math.Max(multiplier, 1);
+        }
+
+        private static long CalculateRouletteTopAward(IGameProfile game, IDenomination denomination)
+        {
+            const int insideMultiplier = 36;
+            const int outsideMultiplier = 3;
+
+            return (game.MaximumWagerInsideCredits * insideMultiplier +
+                    game.MaximumWagerOutsideCredits * outsideMultiplier) *
+                   denomination.Value;
         }
     }
 }
