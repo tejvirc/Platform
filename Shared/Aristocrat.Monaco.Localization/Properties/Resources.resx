@@ -11677,7 +11677,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
   <data name="PayOutLimit" xml:space="preserve">
-    <value />
+    <value>COLLECT LIMIT REACHED. SEE ATTENDANT.</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
   </data>
 </root>

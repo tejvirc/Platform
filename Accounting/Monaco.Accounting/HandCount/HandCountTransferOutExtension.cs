@@ -53,7 +53,11 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bus.Subscribe<HandCountDialogEvent>(this, Handle);
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsVisible { get; set; }
+
         private void Handle(HandCountDialogEvent obj)
         {
             isCashOut = obj.IsCashout;
@@ -64,7 +68,7 @@
         {
             amount = _cashOutAmountCalculator.GetCashableAmount(amount);
             _bus.Publish(new HandCountChangedEvent(_handCountService.HandCount));
-            _bus.Publish(new HandCountCashoutEvent());
+            _bus.Publish(new HandCountCashoutEvent(amount));
             autoResetEvent.WaitOne();
             if (isCashOut)
             {
@@ -82,6 +86,7 @@
         {
             if (amount > 2000000) 
             {
+                _bus.Publish(new CashOutVisiblEventcs(true));
                 var keyOff = Initiate();
                 await keyOff.Task;
 
@@ -103,9 +108,9 @@
             _systemDisableManager.Disable(
                  ApplicationConstants.LargePayoutDisableKey,
                  SystemDisablePriority.Immediate,
-                 () => "COLLECT LIMIT REACHED. SEE ATTENDANT.",
-                 true,
-                 () => "COLLECT LIMIT REACHED. SEE ATTENDANT.");
+                  () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PayOutLimit),
+            true,
+                () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PayOutLimit));
             return keyOff;
         }
 

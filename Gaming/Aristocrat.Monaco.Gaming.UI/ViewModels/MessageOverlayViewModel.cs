@@ -304,6 +304,10 @@
                         messageSent = true;
                     }
                     break;
+                case MessageOverlayState.PayOut:
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
+                    messageSent = true;
+                    break;
                 case MessageOverlayState.Disabled:
                     if (MessageOverlayData.IsDialogFadingOut && !MessageOverlayData.DisplayForEvents && !MessageOverlayData.DisplayForPopUp)
                     {
@@ -405,7 +409,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     MessageOverlayData.IsDialogVisible ||
+                                     (MessageOverlayData.IsDialogVisible && MessageOverlayData.IsCashOutDialogVisible) ||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
@@ -482,6 +486,14 @@
                 {
                     state = MessageOverlayState.CashOut;
                 }
+                else if (_lobbyStateManager.CashOutState == LobbyCashOutState.Undefined)
+                {
+                    state = MessageOverlayState.PayOut;
+                }
+                else if (_lobbyStateManager.CashOutState == LobbyCashOutState.PayOut)
+                {
+                    state = MessageOverlayState.PayOut;
+                }
                 else if (ShowVoucherNotification)
                 {
                     state = MessageOverlayState.VoucherNotification;
@@ -509,6 +521,9 @@
                     case LobbyCashOutState.HandPay:
                         displayImageResourceKey = HandPayDisplayKey;
                         break;
+                    //case LobbyCashOutState.PayOut:
+                    //    displayImageResourceKey = HandPayDisplayKey;
+                    //    break;
                 }
             }
 
@@ -575,11 +590,23 @@
             _eventBus.Subscribe<TransferOutFailedEvent>(this, HandleEvent);
             _eventBus.Subscribe<WatTransferInitiatedEvent>(this, HandleEvent);
             _eventBus.Subscribe<VoucherOutStartedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<HandCountChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<HandCountCashoutEvent>(this, Handle);
+        }
+
+        private void Handle(HandCountCashoutEvent evt)
+        {
+            _overlayMessageStrategyController.SetHandCountCashableAmount(evt.CashableAmount);
         }
 
         private void HandleEvent(HandpayCanceledEvent evt)
         {
             _overlayMessageStrategyController.SetLastCashOutAmount(0);
+        }
+
+        private void HandleEvent(HandCountChangedEvent evt)
+        {
+            _lobbyStateManager.CashOutState = LobbyCashOutState.PayOut;
         }
 
         private void HandleEvent(HandpayKeyedOffEvent evt)

@@ -7,15 +7,20 @@
     /// </summary>
     public class HandCountCashoutEvent: BaseEvent
     {
+        /// <summary>
+        ///     Gets the cashable amount
+        /// </summary>
+        public long CashableAmount { get; }
 
-        ///// <summary>
-        /////     Constructor
-        ///// </summary>
-        ///// <param name="isCashOut">True if overlay window is visible</param>
-        //public HandCountCashoutEvent(bool isCashOut)
-        //{
-        //    IsCashOut = isCashOut;
-        //}
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="amount">True if overlay window is visible</param>
+        public HandCountCashoutEvent(long amount)
+        {
+            CashableAmount = amount;
+        }
         ///// <summary>
         ///// 
         ///// </summary>

@@ -28,6 +28,11 @@
             private set => _gameRegistered = value;
         }
 
+        public void SetHandCountCashableAmount(long cashOutAmount)
+        {
+            OverlayStrategy.HandCountAmount = cashOutAmount;
+        }
+
         public IList<PresentationOverrideTypes> RegisteredPresentations { get; set; }
 
         public IOverlayMessageStrategy OverlayStrategy { get; private set; }

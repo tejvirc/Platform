@@ -88,6 +88,10 @@
         bool IsDialogVisible { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        bool IsCashOutDialogVisible { get; set; }
+        /// <summary>
         ///     Whether dialog is fading out or not
         /// </summary>
         bool IsDialogFadingOut { get; set; }

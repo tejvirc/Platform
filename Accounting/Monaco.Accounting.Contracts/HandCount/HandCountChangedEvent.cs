@@ -17,11 +17,17 @@
         public HandCountChangedEvent(int handCount)
         {
             HandCount = handCount;
+            //CashableAmount = amount;
         }
 
         /// <summary>
         ///     Gets the current hand count.
         /// </summary>
         public int HandCount { get; }
+
+        ///// <summary>
+        /////     Gets the cashable amount
+        ///// </summary>
+        //public long CashableAmount { get; }
     }
 }

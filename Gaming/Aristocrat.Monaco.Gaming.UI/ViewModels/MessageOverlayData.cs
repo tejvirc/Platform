@@ -150,6 +150,21 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
+        private bool _isCashOutDialogVisible;
+        public bool IsCashOutDialogVisible
+        {
+            get => _isCashOutDialogVisible;
+
+            set
+            {
+                if (_isCashOutDialogVisible != value)
+                {
+                    _isCashOutDialogVisible = value;
+                    RaisePropertyChanged(nameof(IsCashOutDialogVisible));
+                }
+            }
+        }
+
         public bool IsDialogFadingOut
         {
             get => _isDialogFadingOut;

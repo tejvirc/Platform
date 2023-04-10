@@ -216,7 +216,7 @@
                         Dispatcher?.Invoke(() => _cashoutResetHandCount.Hide());
                     }
 
-                    WindowsServices.SetWindowExTransparent(windowHelper, !e.IsVisible);
+                    //WindowsServices.SetWindowExTransparent(windowHelper, !e.IsVisible);
                 }
                 catch (Exception ex)
                 {

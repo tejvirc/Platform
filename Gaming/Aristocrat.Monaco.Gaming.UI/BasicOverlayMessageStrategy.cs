@@ -35,6 +35,8 @@
 
         public bool IsBasic => true;
 
+        public long HandCountAmount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public IMessageOverlayData HandleMessageOverlayCashOut(IMessageOverlayData data, bool lastCashOutForcedByMaxBank, LobbyCashOutState cashOutState)
         {
             Logger.Debug("BasicOverlayMessageStrategy HandleMessageOverlayCashout entered");
@@ -80,6 +82,10 @@
             // Nothing to be done here. Basic does not use MessageOverlayState.Handpay
 
             return data;
+        }
+        public IMessageOverlayData HandleMessageOverlayPayOut(IMessageOverlayData data)
+        {
+            throw new NotImplementedException();
         }
     }
 }
