@@ -2,19 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
-    using Microsoft.Data.Sqlite;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using Contracts.Persistence;
     using Hardware.Serial;
     using Hardware.StorageAdapters;
     using Kernel;
+    using Microsoft.Data.Sqlite;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
     using Moq;
     using Test.Common;
-    using System.Text;
 
     [TestClass]
     public class SqlSecondaryStorageManagerTest
@@ -385,7 +384,7 @@
                     {
                         //command.CommandText = CreateTableCommand;
                         command.ExecuteNonQuery();
-                       
+
                     }
                     catch (SqliteException)
                     {
@@ -395,25 +394,23 @@
                         // ignored
                     }
                 }
-                
+
             }
         }
 
         private SqliteConnection CreateConnection(string filePath)
         {
-            var connection = new SqliteConnection(ConnectionString(filePath));
-
-            //connection.SetPassword(DbFilePassword);
-
+            var connection = new SqliteConnection(ConnectionString(filePath, DbFilePassword));
             return connection;
         }
 
-        private string ConnectionString(string filePath)
+        private string ConnectionString(string filePath, string password)
         {
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = filePath,
-                Pooling = true
+                Pooling = true,
+                Password = password
             };
 
             return $"{sqlBuilder.ConnectionString};";
