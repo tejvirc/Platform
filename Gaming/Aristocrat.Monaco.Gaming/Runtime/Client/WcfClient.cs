@@ -120,11 +120,7 @@
         }
         public void UpdateHandCount(int handCount)
         {
-            var parameters = new Dictionary<string, string>
-            {
-                { "/Runtime/HandCountValue", handCount.ToString() }
-            };
-            UpdateParameters(parameters, ConfigurationTarget.GameConfiguration);
+            //WCF need not be supported for Georgia COAM 
         }
 
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)
