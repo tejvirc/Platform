@@ -460,6 +460,7 @@
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
 
             HandCountTimerOverlay = new HandCountTimerDialogViewModel();
+            MaxWinOverlay = new MaxWinDialogViewModel();
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
@@ -1745,6 +1746,11 @@
         /// HandCountTimerDialog view model
         /// </summary>
         public HandCountTimerDialogViewModel HandCountTimerOverlay { get; }
+
+        /// <summary>
+        /// Maximum Win View Model
+        /// </summary>
+        public MaxWinDialogViewModel MaxWinOverlay { get; }
 
         /// <summary>
         ///     Dispose
@@ -3060,6 +3066,7 @@
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
             RaisePropertyChanged(nameof(HandCountTimerOverlay));
+            RaisePropertyChanged(nameof(MaxWinOverlay));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
