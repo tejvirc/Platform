@@ -17,11 +17,6 @@
         /// </summary>
         public bool IsCashout { get; set; }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public bool IsVisible { get; set; }
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -29,9 +24,6 @@
         public HandCountDialogEvent(bool isCashOut)
         {
             IsCashout = isCashOut;
-            //IsVisible = isVisible;
         }
-
-
     }
 }

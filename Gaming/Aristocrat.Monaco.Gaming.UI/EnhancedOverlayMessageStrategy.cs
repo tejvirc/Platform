@@ -52,7 +52,6 @@
 
         public bool IsBasic => false;
 
-        public long CashOutAmount { get; set; }
         public long HandCountAmount { get; set; }
 
         public IMessageOverlayData HandleMessageOverlayCashOut(
@@ -85,9 +84,9 @@
                     case LobbyCashOutState.Wat:
                         data = HandleMessageOverlayWat(data, lastCashOutForcedByMaxBank);
                         break;
-                    case LobbyCashOutState.PayOut:
-                        data = HandleMessageOverlayHandCountPayOut(data);
-                        break;
+                    //case LobbyCashOutState.PayOut:
+                    //    data = HandleMessageOverlayHandCountPayOut(data);
+                    //    break;
                 }
             }
 
@@ -105,7 +104,7 @@
 
             Logger.Debug("HandleMessageOverlayHandPayCashout entered");
 
-            data.SubText = OverlayMessageUtils.ToCredits(CashOutAmount).FormattedCurrencyString();
+            data.SubText = OverlayMessageUtils.ToCredits(HandCountAmount).FormattedCurrencyString();
             data.Text = Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.HandPayPaidPresentationText);
             data.DisplayImageResourceKey = HandPayDisplayKey;
 

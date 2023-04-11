@@ -8,7 +8,7 @@
     public class CashOutVisiblEventcs : BaseEvent
     {
         /// <summary>
-        /// 
+        /// True when 'Yes' is clicked in Cash out dialog
         /// </summary>
         public bool IsVisible { get; set; }
 

@@ -12,7 +12,6 @@
         /// </summary>
         public long CashableAmount { get; }
 
-
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -21,9 +20,5 @@
         {
             CashableAmount = amount;
         }
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public bool IsCashOut { get; }
     }
 }

@@ -304,10 +304,10 @@
                         messageSent = true;
                     }
                     break;
-                case MessageOverlayState.PayOut:
-                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
-                    messageSent = true;
-                    break;
+                //case MessageOverlayState.PayOut:
+                //    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
+                //    messageSent = true;
+                //    break;
                 case MessageOverlayState.Disabled:
                     if (MessageOverlayData.IsDialogFadingOut && !MessageOverlayData.DisplayForEvents && !MessageOverlayData.DisplayForPopUp)
                     {
@@ -486,14 +486,14 @@
                 {
                     state = MessageOverlayState.CashOut;
                 }
-                else if (_lobbyStateManager.CashOutState == LobbyCashOutState.Undefined)
-                {
-                    state = MessageOverlayState.PayOut;
-                }
-                else if (_lobbyStateManager.CashOutState == LobbyCashOutState.PayOut)
-                {
-                    state = MessageOverlayState.PayOut;
-                }
+                //else if (_lobbyStateManager.CashOutState == LobbyCashOutState.Undefined)
+                //{
+                //    state = MessageOverlayState.PayOut;
+                //}
+                //else if (_lobbyStateManager.CashOutState == LobbyCashOutState.PayOut)
+                //{
+                //    state = MessageOverlayState.PayOut;
+                //}
                 else if (ShowVoucherNotification)
                 {
                     state = MessageOverlayState.VoucherNotification;
