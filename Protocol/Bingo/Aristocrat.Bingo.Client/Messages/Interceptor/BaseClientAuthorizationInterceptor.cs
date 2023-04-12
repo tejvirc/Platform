@@ -59,15 +59,23 @@
                 throw new ArgumentNullException(nameof(continuation));
             }
 
-            context = AddAuthorization(context);
-            var call = continuation(context);
-            return new AsyncDuplexStreamingCall<TRequest, TResponse>(
-                call.RequestStream,
-                call.ResponseStream,
-                call.ResponseHeadersAsync,
-                call.GetStatus,
-                call.GetTrailers,
-                call.Dispose);
+            try
+            {
+                context = AddAuthorization(context);
+                var call = continuation(context);
+                return new AsyncDuplexStreamingCall<TRequest, TResponse>(
+                    call.RequestStream,
+                    call.ResponseStream,
+                    call.ResponseHeadersAsync,
+                    call.GetStatus,
+                    call.GetTrailers,
+                    call.Dispose);
+            }
+            catch (RpcException rpcException)
+            {
+                OnRpcException(rpcException);
+                throw;
+            }
         }
 
         public override AsyncServerStreamingCall<TResponse> AsyncServerStreamingCall<TRequest, TResponse>(
@@ -80,14 +88,22 @@
                 throw new ArgumentNullException(nameof(continuation));
             }
 
-            context = AddAuthorization(context);
-            var call = continuation(request, context);
-            return new AsyncServerStreamingCall<TResponse>(
-                call.ResponseStream,
-                call.ResponseHeadersAsync,
-                call.GetStatus,
-                call.GetTrailers,
-                call.Dispose);
+            try
+            {
+                context = AddAuthorization(context);
+                var call = continuation(request, context);
+                return new AsyncServerStreamingCall<TResponse>(
+                    call.ResponseStream,
+                    call.ResponseHeadersAsync,
+                    call.GetStatus,
+                    call.GetTrailers,
+                    call.Dispose);
+            }
+            catch (RpcException rpcException)
+            {
+                OnRpcException(rpcException);
+                throw;
+            }
         }
 
         public override AsyncClientStreamingCall<TRequest, TResponse> AsyncClientStreamingCall<TRequest, TResponse>(
@@ -110,7 +126,18 @@
                 call.Dispose);
         }
 
-        public void OnAuthorizationFailed()
+        protected ClientInterceptorContext<TRequest, TResponse> AddTimeout<TRequest, TResponse>(
+            ClientInterceptorContext<TRequest, TResponse> context)
+            where TRequest : class
+            where TResponse : class
+        {
+            return new(
+                context.Method,
+                context.Host,
+                context.Options.WithDeadline(DateTime.UtcNow.Add(MessageTimeoutMs)));
+        }
+
+        private void OnAuthorizationFailed()
         {
             AuthorizationFailed?.Invoke(this, EventArgs.Empty);
         }
@@ -130,17 +157,6 @@
                 context.Method,
                 context.Host,
                 context.Options.WithHeaders(metadata));
-        }
-
-        protected ClientInterceptorContext<TRequest, TResponse> AddTimeout<TRequest, TResponse>(
-            ClientInterceptorContext<TRequest, TResponse> context)
-            where TRequest : class
-            where TResponse : class
-        {
-            return new (
-                context.Method,
-                context.Host,
-                context.Options.WithDeadline(DateTime.UtcNow.Add(MessageTimeoutMs)));
         }
 
         private void OnRpcException(RpcException rpcException)
