@@ -77,38 +77,6 @@
         /// <inheritdoc />
         public Guid TraceId { get; set; }
 
-        /// <summary>
-        ///     Checks two transactions to see if they are the same.
-        /// </summary>
-        /// <param name="hardMeterOutTransaction1">The first transaction</param>
-        /// <param name="hardMeterOutTransaction2">The second transaction</param>
-        /// <returns>True if the object are equivalent, false otherwise.</returns>
-        public static bool operator ==(HardMeterOutTransaction hardMeterOutTransaction1, HardMeterOutTransaction hardMeterOutTransaction2)
-        {
-            if (ReferenceEquals(hardMeterOutTransaction1, hardMeterOutTransaction2))
-            {
-                return true;
-            }
-
-            if (hardMeterOutTransaction1 is null || hardMeterOutTransaction2 is null)
-            {
-                return false;
-            }
-
-            return hardMeterOutTransaction1.Equals(hardMeterOutTransaction2);
-        }
-
-        /// <summary>
-        ///     Checks two transactions to see if they are different.
-        /// </summary>
-        /// <param name="hardMeterOutTransaction1">The first transaction</param>
-        /// <param name="hardMeterOutTransaction2">The second transaction</param>
-        /// <returns>False if the object are equivalent, true otherwise.</returns>
-        public static bool operator !=(HardMeterOutTransaction hardMeterOutTransaction1, HardMeterOutTransaction hardMeterOutTransaction2)
-        {
-            return !(hardMeterOutTransaction1 == hardMeterOutTransaction2);
-        }
-
         /// <inheritdoc />
         public override bool SetData(IDictionary<string, object> values)
         {
@@ -204,17 +172,6 @@
             };
 
             return copy;
-        }
-
-        /// <summary>
-        ///     Checks that two HardMeterOutTransaction are the same by value.
-        /// </summary>
-        /// <param name="hardMeterOutTransaction">The transaction to check against.</param>
-        /// <returns>True if they are the same, false otherwise.</returns>
-        public bool Equals(HardMeterOutTransaction hardMeterOutTransaction)
-        {
-            return hardMeterOutTransaction != null &&
-                   base.Equals(hardMeterOutTransaction);
         }
     }
 }
