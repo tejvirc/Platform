@@ -11733,4 +11733,12 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Validating</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="ExtendedLayout" xml:space="preserve">
+    <value>Extended Layout</value>
+    <comment>Aristocrat.Monaco.Accounting.UI</comment>
+  </data>
+  <data name="BarcodeInterleave2Of5" xml:space="preserve">
+    <value>Interleave 2 of 5</value>
+    <comment>Aristocrat.Monaco.Accounting.UI</comment>
+  </data>
 </root>

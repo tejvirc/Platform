@@ -1729,6 +1729,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string BarcodeInterleave2Of5 {
+			get {
+				return ResourceManager.GetString("BarcodeInterleave2Of5", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Barcode Type.
 		/// </summary>
         /// <remarks>
@@ -11569,6 +11581,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ExportSettingsText {
 			get {
 				return ResourceManager.GetString("ExportSettingsText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Extended Layout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string ExtendedLayout {
+			get {
+				return ResourceManager.GetString("ExtendedLayout", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36451,6 +36475,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string BarcodeInterleave2Of5 {
+			get {
+				return "BarcodeInterleave2Of5";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Barcode Type.
 		/// </summary>
         /// <remarks>
@@ -46290,6 +46326,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ExportSettingsText {
 			get {
 				return "ExportSettingsText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Extended Layout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string ExtendedLayout {
+			get {
+				return "ExtendedLayout";
 			}
 		}
 
@@ -70458,6 +70506,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BankTooLong,
 		/// <summary>
+		///   Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		BarcodeInterleave2Of5,
+		/// <summary>
 		///   Looks up a localized string similar to Barcode Type.
 		/// </summary>
         /// <remarks>
@@ -76046,6 +76101,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Current Machine Settings Summary.
 		/// </summary>
 		ExportSettingsText,
+		/// <summary>
+		///   Looks up a localized string similar to Extended Layout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		ExtendedLayout,
 		/// <summary>
 		///   Looks up a localized string similar to Extended Meters Supported.
 		/// </summary>

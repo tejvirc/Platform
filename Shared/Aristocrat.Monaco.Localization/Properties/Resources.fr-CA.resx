@@ -1823,4 +1823,112 @@ See manual for details??</value>
   <data name="TestTowerLights" xml:space="preserve">
     <value>??Test Tower Lights??</value>
   </data>
+  <data name="AllowNonCashableVoucherOut" xml:space="preserve">
+    <value>??Allow Non-Cashable Voucher Out??</value>
+  </data>
+  <data name="AllowRemoteHandpayReset" xml:space="preserve">
+    <value>??Allow Remote Handpay Reset??</value>
+  </data>
+  <data name="AllowVoucherIn" xml:space="preserve">
+    <value>??Allow Voucher In??</value>
+  </data>
+  <data name="AllowVoucherOut" xml:space="preserve">
+    <value>??Allow Voucher Out??</value>
+  </data>
+  <data name="BarcodeType" xml:space="preserve">
+    <value>??Barcode Type??</value>
+  </data>
+  <data name="CreditLimit" xml:space="preserve">
+    <value>??Credit Limit??</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>??Date??</value>
+  </data>
+  <data name="DateAndTime" xml:space="preserve">
+    <value>??Date and Time??</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>??Enable??</value>
+  </data>
+  <data name="HandpayLimit" xml:space="preserve">
+    <value>??Handpay Limit??</value>
+  </data>
+  <data name="LargeWinHandpayResetMethod" xml:space="preserve">
+    <value>??Large Win Handpay Reset Method??</value>
+  </data>
+  <data name="LargeWinLimit" xml:space="preserve">
+    <value>??Large Win Limit??</value>
+  </data>
+  <data name="LayoutType" xml:space="preserve">
+    <value>??Layout Type??</value>
+  </data>
+  <data name="LimitPageTitleText" xml:space="preserve">
+    <value>??Limits??</value>
+  </data>
+  <data name="MaxBetLimit" xml:space="preserve">
+    <value>??Max Bet Limit??</value>
+  </data>
+  <data name="PayByHand" xml:space="preserve">
+    <value>??Pay by Hand??</value>
+  </data>
+  <data name="PayByHostSystem" xml:space="preserve">
+    <value>??Pay by Host System??</value>
+  </data>
+  <data name="PayByMenuSelection" xml:space="preserve">
+    <value>??Pay by Menu Selection??</value>
+  </data>
+  <data name="PrintHandpayReceipt" xml:space="preserve">
+    <value>??Print Handpay Receipt??</value>
+  </data>
+  <data name="PropertyAddressLine1" xml:space="preserve">
+    <value>??Property Address Line 1??</value>
+  </data>
+  <data name="PropertyAddressLine2" xml:space="preserve">
+    <value>??Property Address Line 2??</value>
+  </data>
+  <data name="PropertyName" xml:space="preserve">
+    <value>??Property Name??</value>
+  </data>
+  <data name="TimeLabel" xml:space="preserve">
+    <value>??Time??</value>
+  </data>
+  <data name="TimeZoneLabel" xml:space="preserve">
+    <value>??Time Zone??</value>
+  </data>
+  <data name="ValidationLength" xml:space="preserve">
+    <value>??Validation Length??</value>
+  </data>
+  <data name="VoucherCashExpiration" xml:space="preserve">
+    <value>??Cashable Voucher Expiration??</value>
+  </data>
+  <data name="VoucherInLimit" xml:space="preserve">
+    <value>??Voucher In Limit??</value>
+  </data>
+  <data name="VoucherNonCashExpiration" xml:space="preserve">
+    <value>??Non-Cashable Voucher Expiration??</value>
+  </data>
+  <data name="VoucherOutLimit" xml:space="preserve">
+    <value>??Voucher Out Limit??</value>
+  </data>
+  <data name="BarcodeInterleave2Of5" xml:space="preserve">
+    <value>??Interleave 2 of 5??</value>
+  </data>
+  <data name="DaysFormatter" xml:space="preserve">
+    <value>??{0} Days??</value>
+  </data>
+  <data name="ExtendedLayout" xml:space="preserve">
+    <value>??Extended Layout??</value>
+  </data>
+  <data name="MetersVouchers" xml:space="preserve">
+    <value>??Vouchers??</value>
+  </data>
+  <data name="NeverExpires" xml:space="preserve">
+    <value>??Never Expires??</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>??Off??</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>??On??</value>
+  </data>
 </root>
