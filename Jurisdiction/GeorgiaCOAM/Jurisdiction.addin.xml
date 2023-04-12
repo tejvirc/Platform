@@ -184,6 +184,6 @@
     <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
   </Extension>
   <Extension path="/Accounting/BootExtender" filterid="GeorgiaCOAMAccountingRunnable">
-    <BootExtender type="Aristocrat.Monaco.Gaming.C3Coam.C3CoamRunnable" />
+    <BootExtender type="Aristocrat.Monaco.Gaming.C3Coam.CoamPlayerBankDecorator" />
   </Extension>
 </Addin>
