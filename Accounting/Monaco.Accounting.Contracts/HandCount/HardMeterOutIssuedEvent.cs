@@ -12,8 +12,6 @@ namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
     [Serializable]
     public class HardMeterOutIssuedEvent : BaseEvent
     {
-        private const decimal ConvertMillicentToDollar = 100000M;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="HardMeterOutIssuedEvent" /> class.
         /// </summary>
@@ -32,7 +30,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
         public override string ToString()
         {
             return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterOut) + " " +
-                   (Transaction.Amount / ConvertMillicentToDollar).FormattedCurrencyString();
+                   Transaction.Amount.MillicentsToDollars().FormattedCurrencyString();
         }
 
     }
