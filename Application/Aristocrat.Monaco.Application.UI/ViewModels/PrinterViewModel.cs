@@ -313,7 +313,6 @@
             EventBus.Subscribe<DisconnectedEvent>(this, ErrorEvent);
             EventBus.Subscribe<ConnectedEvent>(this, ErrorClearEvent);
             EventBus.Subscribe<ResolverErrorEvent>(this, ErrorEvent);
-            EventBus.Subscribe<TransferStatusEvent>(this, ErrorEvent);
             EventBus.Subscribe<LoadingRegionsAndTemplatesEvent>(this, ErrorClearEvent);
 
             EventBus.Subscribe<HardwareFaultClearEvent>(this, ClearFault);
