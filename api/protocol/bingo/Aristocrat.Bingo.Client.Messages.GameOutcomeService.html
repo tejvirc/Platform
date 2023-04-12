@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class GameOutcomeService
    ">
-    <meta name="generator" content="docfx 2.59.3.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../../../favicon.ico">
     <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
@@ -86,7 +86,7 @@
   
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html">BaseClientCommunicationService</a></div>
     <div class="level2"><span class="xref">GameOutcomeService</span></div>
   </div>
@@ -95,13 +95,22 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
+      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_CreatePolicy_System_Int32_System_Func_System_Int32_System_TimeSpan__">BaseClientCommunicationService.CreatePolicy(Int32, Func&lt;Int32, TimeSpan&gt;)</a>
+    </div>
+    <div>
       <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__1_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient_System_Threading_Tasks_Task___0___Polly_IAsyncPolicy_">BaseClientCommunicationService.Invoke&lt;TResult&gt;(Func&lt;ClientApi.ClientApiClient, Task&lt;TResult&gt;&gt;, IAsyncPolicy)</a>
     </div>
     <div>
-      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__1_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient_System_Threading_CancellationToken_System_Threading_Tasks_Task___0___System_Threading_CancellationToken_Polly_IAsyncPolicy_">BaseClientCommunicationService.Invoke&lt;TResult&gt;(Func&lt;ClientApi.ClientApiClient, CancellationToken, Task&lt;TResult&gt;&gt;, CancellationToken, IAsyncPolicy)</a>
+      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__1_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient_System_Threading_CancellationToken_System_Threading_Tasks_Task___0___System_Threading_CancellationToken_">BaseClientCommunicationService.Invoke&lt;TResult&gt;(Func&lt;ClientApi.ClientApiClient, CancellationToken, Task&lt;TResult&gt;&gt;, CancellationToken)</a>
     </div>
     <div>
-      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_CreatePolicy_System_Int32_System_Func_System_Int32_System_TimeSpan__">BaseClientCommunicationService.CreatePolicy(Int32, Func&lt;Int32, TimeSpan&gt;)</a>
+      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__1_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient_System_Threading_CancellationToken_System_Threading_Tasks_Task___0___Polly_IAsyncPolicy_System_Threading_CancellationToken_">BaseClientCommunicationService.Invoke&lt;TResult&gt;(Func&lt;ClientApi.ClientApiClient, CancellationToken, Task&lt;TResult&gt;&gt;, IAsyncPolicy, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__2_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient___1_System_Threading_CancellationToken_System_Threading_Tasks_Task___0_____1_System_Threading_CancellationToken_">BaseClientCommunicationService.Invoke&lt;TResult, TMessage&gt;(Func&lt;ClientApi.ClientApiClient, TMessage, CancellationToken, Task&lt;TResult&gt;&gt;, TMessage, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__2_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient___1_System_Threading_CancellationToken_System_Threading_Tasks_Task___0_____1_Polly_IAsyncPolicy_System_Threading_CancellationToken_">BaseClientCommunicationService.Invoke&lt;TResult, TMessage&gt;(Func&lt;ClientApi.ClientApiClient, TMessage, CancellationToken, Task&lt;TResult&gt;&gt;, TMessage, IAsyncPolicy, CancellationToken)</a>
     </div>
     <div>
       <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__2_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient_Grpc_Core_AsyncDuplexStreamingCall___0___1___">BaseClientCommunicationService.Invoke&lt;TInput, TOutput&gt;(Func&lt;ClientApi.ClientApiClient, AsyncDuplexStreamingCall&lt;TInput, TOutput&gt;&gt;)</a>
@@ -116,25 +125,28 @@
       <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__1_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient_System_Threading_CancellationToken_Grpc_Core_AsyncServerStreamingCall___0___System_Threading_CancellationToken_">BaseClientCommunicationService.Invoke&lt;TOutput&gt;(Func&lt;ClientApi.ClientApiClient, CancellationToken, AsyncServerStreamingCall&lt;TOutput&gt;&gt;, CancellationToken)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+      <a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html#Aristocrat_Bingo_Client_Messages_BaseClientCommunicationService_Invoke__2_System_Func_Aristocrat_ServerApiGateway_ClientApi_ClientApiClient___1_System_Threading_CancellationToken_Grpc_Core_AsyncServerStreamingCall___0_____1_System_Threading_CancellationToken_">BaseClientCommunicationService.Invoke&lt;TOutput, TMessage&gt;(Func&lt;ClientApi.ClientApiClient, TMessage, CancellationToken, AsyncServerStreamingCall&lt;TOutput&gt;&gt;, TMessage, CancellationToken)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
     </div>
   </div>
   
@@ -211,7 +223,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_GameOutcomeService_ClaimWin_Aristocrat_Bingo_Client_Messages_GamePlay_RequestClaimWinMessage_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.GameOutcomeService.ClaimWin(Aristocrat.Bingo.Client.Messages.GamePlay.RequestClaimWinMessage%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/GameOutcomeService.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/GameOutcomeService.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_GameOutcomeService_ClaimWin_" data-uid="Aristocrat.Bingo.Client.Messages.GameOutcomeService.ClaimWin*"></a>
@@ -224,7 +236,7 @@
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task&lt;ClaimWinResults&gt; ClaimWin(RequestClaimWinMessage message, CancellationToken token)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ClaimWinResults&gt; ClaimWin(RequestClaimWinMessage message, CancellationToken token)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -238,7 +250,7 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
         <span class="parametername">token</span>
         <p>
       </td>
@@ -249,7 +261,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ClaimWinResults.html">ClaimWinResults</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ClaimWinResults.html">ClaimWinResults</a>&gt;
         <p>
       </td>
     </tr>
@@ -273,7 +285,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_GameOutcomeService_ReportGameOutcome_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.GameOutcomeService.ReportGameOutcome(Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/GameOutcomeService.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/GameOutcomeService.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_GameOutcomeService_ReportGameOutcome_" data-uid="Aristocrat.Bingo.Client.Messages.GameOutcomeService.ReportGameOutcome*"></a>
@@ -300,7 +312,7 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
         <span class="parametername">token</span>
         <p>
       </td>
@@ -311,7 +323,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeResponse.html">ReportGameOutcomeResponse</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeResponse.html">ReportGameOutcomeResponse</a>&gt;
         <p>
       </td>
     </tr>
@@ -348,7 +360,7 @@
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; RequestGame(RequestGameOutcomeMessage message, CancellationToken token)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; RequestGame(RequestGameOutcomeMessage message, CancellationToken token)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -362,7 +374,7 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
         <span class="parametername">token</span>
         <p>
       </td>
@@ -373,7 +385,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p>
       </td>
     </tr>

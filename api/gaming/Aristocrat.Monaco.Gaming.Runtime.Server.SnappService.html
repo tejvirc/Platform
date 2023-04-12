@@ -1,0 +1,2094 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SnappService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SnappService
+   ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService">
+  <h1 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService">Class SnappService
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Aristocrat.Snapp.ServiceCallback</span></div>
+    <div class="level2"><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback</span></div>
+    <div class="level3"><span class="xref">SnappService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalJoin(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalLeave(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalFatalError(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalRuntimeEvent(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalRuntimeFlagChange(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalRuntimeRequest(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalRuntimeStateChange(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalButtonDeckImageChanged(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalButtonStatesChanged(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalBeginGameRound(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalBeginGameRoundAsync(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalBeginGameRoundResult(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalGameRoundEvent(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalRecoveryPoint(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalGetLocalStorage(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalUpdateLocalStorage(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalGetMeters(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalUpdateMeters(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalGetRandomNumber32(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalGetRandomNumber64(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalShuffle(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalUpdateBonusKey(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalEndGameRound(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalUpdateBetOptions(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalConnectJackpotPool(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalGetJackpotValues(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalUpdateJackpotValues(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalTriggerJackpot(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalClaimJackpot(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalSetJackpotLevelWagers(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.InternalSelectDenomination(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.GetServiceName()</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.Snapp.ServiceCallback.CallbackFunctions</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.Snapp.ServiceCallback.GetResponse(Aristocrat.Snapp.Serializer, Aristocrat.Snapp.Request, Aristocrat.Snapp.Buffer)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.Server.html">Aristocrat.Monaco.Gaming.Runtime.Server</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SnappService : IGameServiceCallback</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Commands_ICommandHandlerFactory_Aristocrat_Monaco_Gaming_Contracts_IGameDiagnostics_Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IRuntime__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IReelService__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IPresentationService__Aristocrat_Monaco_Gaming_Contracts_Process_IProcessManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.%23ctor(Aristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Gaming.Commands.ICommandHandlerFactory%2CAristocrat.Monaco.Gaming.Contracts.IGameDiagnostics%2CAristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider%7BAristocrat.Monaco.Gaming.Runtime.IRuntime%7D%2CAristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider%7BAristocrat.Monaco.Gaming.Runtime.IReelService%7D%2CAristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider%7BAristocrat.Monaco.Gaming.Runtime.IPresentationService%7D%2CAristocrat.Monaco.Gaming.Contracts.Process.IProcessManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService__ctor_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Commands_ICommandHandlerFactory_Aristocrat_Monaco_Gaming_Contracts_IGameDiagnostics_Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IRuntime__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IReelService__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IPresentationService__Aristocrat_Monaco_Gaming_Contracts_Process_IProcessManager_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.#ctor(Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Gaming.Commands.ICommandHandlerFactory,Aristocrat.Monaco.Gaming.Contracts.IGameDiagnostics,Aristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider{Aristocrat.Monaco.Gaming.Runtime.IRuntime},Aristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider{Aristocrat.Monaco.Gaming.Runtime.IReelService},Aristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider{Aristocrat.Monaco.Gaming.Runtime.IPresentationService},Aristocrat.Monaco.Gaming.Contracts.Process.IProcessManager)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Commands_ICommandHandlerFactory_Aristocrat_Monaco_Gaming_Contracts_IGameDiagnostics_Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IRuntime__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IReelService__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IPresentationService__Aristocrat_Monaco_Gaming_Contracts_Process_IProcessManager_" class="expander" data-toggle="collapse">SnappService(IEventBus, ICommandHandlerFactory, IGameDiagnostics, IClientEndpointProvider&lt;IRuntime&gt;, IClientEndpointProvider&lt;IReelService&gt;, IClientEndpointProvider&lt;IPresentationService&gt;, IProcessManager)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Commands_ICommandHandlerFactory_Aristocrat_Monaco_Gaming_Contracts_IGameDiagnostics_Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IRuntime__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IReelService__Aristocrat_Monaco_Gaming_Runtime_Client_IClientEndpointProvider_Aristocrat_Monaco_Gaming_Runtime_IPresentationService__Aristocrat_Monaco_Gaming_Contracts_Process_IProcessManager_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SnappService(IEventBus bus, ICommandHandlerFactory handlerFactory, IGameDiagnostics gameDiagnostics, IClientEndpointProvider&lt;IRuntime&gt; serviceProvider, IClientEndpointProvider&lt;IReelService&gt; reelServiceProvider, IClientEndpointProvider&lt;IPresentationService&gt; presentationServiceProvider, IProcessManager processManager)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">bus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Commands.ICommandHandlerFactory.html">ICommandHandlerFactory</a></span>
+        <span class="parametername">handlerFactory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDiagnostics.html">IGameDiagnostics</a></span>
+        <span class="parametername">gameDiagnostics</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider-1.html">IClientEndpointProvider</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.IRuntime.html">IRuntime</a>&gt;</span>
+        <span class="parametername">serviceProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider-1.html">IClientEndpointProvider</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.IReelService.html">IReelService</a>&gt;</span>
+        <span class="parametername">reelServiceProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.Client.IClientEndpointProvider-1.html">IClientEndpointProvider</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.IPresentationService.html">IPresentationService</a>&gt;</span>
+        <span class="parametername">presentationServiceProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Process.IProcessManager.html">IProcessManager</a></span>
+        <span class="parametername">processManager</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRound_Aristocrat_GdkRuntime_V1_BeginGameRoundRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRound(Aristocrat.GdkRuntime.V1.BeginGameRoundRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRound_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRound*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRound_Aristocrat_GdkRuntime_V1_BeginGameRoundRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRound(Aristocrat.GdkRuntime.V1.BeginGameRoundRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRound_Aristocrat_GdkRuntime_V1_BeginGameRoundRequest_" class="expander" data-toggle="collapse">BeginGameRound(BeginGameRoundRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRound_Aristocrat_GdkRuntime_V1_BeginGameRoundRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BeginGameRoundResponse BeginGameRound(BeginGameRoundRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.BeginGameRoundRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.BeginGameRoundResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.BeginGameRound(Aristocrat.GdkRuntime.V1.BeginGameRoundRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundAsync_Aristocrat_GdkRuntime_V1_BeginGameRoundAsyncRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRoundAsync(Aristocrat.GdkRuntime.V1.BeginGameRoundAsyncRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L262" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundAsync_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRoundAsync*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundAsync_Aristocrat_GdkRuntime_V1_BeginGameRoundAsyncRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRoundAsync(Aristocrat.GdkRuntime.V1.BeginGameRoundAsyncRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundAsync_Aristocrat_GdkRuntime_V1_BeginGameRoundAsyncRequest_" class="expander" data-toggle="collapse">BeginGameRoundAsync(BeginGameRoundAsyncRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundAsync_Aristocrat_GdkRuntime_V1_BeginGameRoundAsyncRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty BeginGameRoundAsync(BeginGameRoundAsyncRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.BeginGameRoundAsyncRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.BeginGameRoundAsync(Aristocrat.GdkRuntime.V1.BeginGameRoundAsyncRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundResult_Aristocrat_GdkRuntime_V1_BeginGameRoundResultNotification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRoundResult(Aristocrat.GdkRuntime.V1.BeginGameRoundResultNotification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L294" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundResult_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRoundResult*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundResult_Aristocrat_GdkRuntime_V1_BeginGameRoundResultNotification_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.BeginGameRoundResult(Aristocrat.GdkRuntime.V1.BeginGameRoundResultNotification)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundResult_Aristocrat_GdkRuntime_V1_BeginGameRoundResultNotification_" class="expander" data-toggle="collapse">BeginGameRoundResult(BeginGameRoundResultNotification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_BeginGameRoundResult_Aristocrat_GdkRuntime_V1_BeginGameRoundResultNotification_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty BeginGameRoundResult(BeginGameRoundResultNotification request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.BeginGameRoundResultNotification</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.BeginGameRoundResult(Aristocrat.GdkRuntime.V1.BeginGameRoundResultNotification)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonDeckImageChanged_Aristocrat_GdkRuntime_V1_Empty_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ButtonDeckImageChanged(Aristocrat.GdkRuntime.V1.Empty)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L222" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonDeckImageChanged_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ButtonDeckImageChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonDeckImageChanged_Aristocrat_GdkRuntime_V1_Empty_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ButtonDeckImageChanged(Aristocrat.GdkRuntime.V1.Empty)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonDeckImageChanged_Aristocrat_GdkRuntime_V1_Empty_" class="expander" data-toggle="collapse">ButtonDeckImageChanged(Empty)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonDeckImageChanged_Aristocrat_GdkRuntime_V1_Empty_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty ButtonDeckImageChanged(Empty request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.Empty</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.ButtonDeckImageChanged(Aristocrat.GdkRuntime.V1.Empty)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonStatesChanged_Aristocrat_GdkRuntime_V1_ButtonStatesChangedNotfication_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ButtonStatesChanged(Aristocrat.GdkRuntime.V1.ButtonStatesChangedNotfication)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L229" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonStatesChanged_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ButtonStatesChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonStatesChanged_Aristocrat_GdkRuntime_V1_ButtonStatesChangedNotfication_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ButtonStatesChanged(Aristocrat.GdkRuntime.V1.ButtonStatesChangedNotfication)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonStatesChanged_Aristocrat_GdkRuntime_V1_ButtonStatesChangedNotfication_" class="expander" data-toggle="collapse">ButtonStatesChanged(ButtonStatesChangedNotfication)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ButtonStatesChanged_Aristocrat_GdkRuntime_V1_ButtonStatesChangedNotfication_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty ButtonStatesChanged(ButtonStatesChangedNotfication request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.ButtonStatesChangedNotfication</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.ButtonStatesChanged(Aristocrat.GdkRuntime.V1.ButtonStatesChangedNotfication)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ClaimJackpot_Aristocrat_GdkRuntime_V1_ClaimJackpotRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ClaimJackpot(Aristocrat.GdkRuntime.V1.ClaimJackpotRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L590" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ClaimJackpot_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ClaimJackpot*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ClaimJackpot_Aristocrat_GdkRuntime_V1_ClaimJackpotRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ClaimJackpot(Aristocrat.GdkRuntime.V1.ClaimJackpotRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ClaimJackpot_Aristocrat_GdkRuntime_V1_ClaimJackpotRequest_" class="expander" data-toggle="collapse">ClaimJackpot(ClaimJackpotRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ClaimJackpot_Aristocrat_GdkRuntime_V1_ClaimJackpotRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override LevelInfoResponse ClaimJackpot(ClaimJackpotRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.ClaimJackpotRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.LevelInfoResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.ClaimJackpot(Aristocrat.GdkRuntime.V1.ClaimJackpotRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ConnectJackpotPool_Aristocrat_GdkRuntime_V1_ConnectJackpotPoolRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ConnectJackpotPool(Aristocrat.GdkRuntime.V1.ConnectJackpotPoolRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L516" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ConnectJackpotPool_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ConnectJackpotPool*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ConnectJackpotPool_Aristocrat_GdkRuntime_V1_ConnectJackpotPoolRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.ConnectJackpotPool(Aristocrat.GdkRuntime.V1.ConnectJackpotPoolRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ConnectJackpotPool_Aristocrat_GdkRuntime_V1_ConnectJackpotPoolRequest_" class="expander" data-toggle="collapse">ConnectJackpotPool(ConnectJackpotPoolRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_ConnectJackpotPool_Aristocrat_GdkRuntime_V1_ConnectJackpotPoolRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ConnectJackpotPoolResponse ConnectJackpotPool(ConnectJackpotPoolRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.ConnectJackpotPoolRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.ConnectJackpotPoolResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.ConnectJackpotPool(Aristocrat.GdkRuntime.V1.ConnectJackpotPoolRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_EndGameRound_Aristocrat_GdkRuntime_V1_EndGameRoundRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.EndGameRound(Aristocrat.GdkRuntime.V1.EndGameRoundRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L502" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_EndGameRound_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.EndGameRound*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_EndGameRound_Aristocrat_GdkRuntime_V1_EndGameRoundRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.EndGameRound(Aristocrat.GdkRuntime.V1.EndGameRoundRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_EndGameRound_Aristocrat_GdkRuntime_V1_EndGameRoundRequest_" class="expander" data-toggle="collapse">EndGameRound(EndGameRoundRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_EndGameRound_Aristocrat_GdkRuntime_V1_EndGameRoundRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty EndGameRound(EndGameRoundRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.EndGameRoundRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.EndGameRound(Aristocrat.GdkRuntime.V1.EndGameRoundRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_FatalError_Aristocrat_GdkRuntime_V1_FatalErrorNotification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.FatalError(Aristocrat.GdkRuntime.V1.FatalErrorNotification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_FatalError_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.FatalError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_FatalError_Aristocrat_GdkRuntime_V1_FatalErrorNotification_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.FatalError(Aristocrat.GdkRuntime.V1.FatalErrorNotification)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_FatalError_Aristocrat_GdkRuntime_V1_FatalErrorNotification_" class="expander" data-toggle="collapse">FatalError(FatalErrorNotification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_FatalError_Aristocrat_GdkRuntime_V1_FatalErrorNotification_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty FatalError(FatalErrorNotification request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.FatalErrorNotification</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.FatalError(Aristocrat.GdkRuntime.V1.FatalErrorNotification)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GameRoundEvent_Aristocrat_GdkRuntime_V1_GameRoundEventRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GameRoundEvent(Aristocrat.GdkRuntime.V1.GameRoundEventRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L323" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GameRoundEvent_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GameRoundEvent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GameRoundEvent_Aristocrat_GdkRuntime_V1_GameRoundEventRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GameRoundEvent(Aristocrat.GdkRuntime.V1.GameRoundEventRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GameRoundEvent_Aristocrat_GdkRuntime_V1_GameRoundEventRequest_" class="expander" data-toggle="collapse">GameRoundEvent(GameRoundEventRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GameRoundEvent_Aristocrat_GdkRuntime_V1_GameRoundEventRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty GameRoundEvent(GameRoundEventRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.GameRoundEventRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.GameRoundEvent(Aristocrat.GdkRuntime.V1.GameRoundEventRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetJackpotValues_Aristocrat_GdkRuntime_V1_GetJackpotValuesRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetJackpotValues(Aristocrat.GdkRuntime.V1.GetJackpotValuesRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L528" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetJackpotValues_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetJackpotValues*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetJackpotValues_Aristocrat_GdkRuntime_V1_GetJackpotValuesRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetJackpotValues(Aristocrat.GdkRuntime.V1.GetJackpotValuesRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetJackpotValues_Aristocrat_GdkRuntime_V1_GetJackpotValuesRequest_" class="expander" data-toggle="collapse">GetJackpotValues(GetJackpotValuesRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetJackpotValues_Aristocrat_GdkRuntime_V1_GetJackpotValuesRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override LevelInfoResponse GetJackpotValues(GetJackpotValuesRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.GetJackpotValuesRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.LevelInfoResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.GetJackpotValues(Aristocrat.GdkRuntime.V1.GetJackpotValuesRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetLocalStorage_Aristocrat_GdkRuntime_V1_GetLocalStorageRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetLocalStorage(Aristocrat.GdkRuntime.V1.GetLocalStorageRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L375" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetLocalStorage_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetLocalStorage*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetLocalStorage_Aristocrat_GdkRuntime_V1_GetLocalStorageRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetLocalStorage(Aristocrat.GdkRuntime.V1.GetLocalStorageRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetLocalStorage_Aristocrat_GdkRuntime_V1_GetLocalStorageRequest_" class="expander" data-toggle="collapse">GetLocalStorage(GetLocalStorageRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetLocalStorage_Aristocrat_GdkRuntime_V1_GetLocalStorageRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override GetLocalStorageResponse GetLocalStorage(GetLocalStorageRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.GetLocalStorageRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.GetLocalStorageResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.GetLocalStorage(Aristocrat.GdkRuntime.V1.GetLocalStorageRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetMeters_Aristocrat_GdkRuntime_V1_Empty_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetMeters(Aristocrat.GdkRuntime.V1.Empty)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L416" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetMeters_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetMeters_Aristocrat_GdkRuntime_V1_Empty_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetMeters(Aristocrat.GdkRuntime.V1.Empty)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetMeters_Aristocrat_GdkRuntime_V1_Empty_" class="expander" data-toggle="collapse">GetMeters(Empty)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetMeters_Aristocrat_GdkRuntime_V1_Empty_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override GetMetersResponse GetMeters(Empty request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.Empty</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.GetMetersResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.GetMeters(Aristocrat.GdkRuntime.V1.Empty)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber32_Aristocrat_GdkRuntime_V1_GetRandomNumber32Request_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetRandomNumber32(Aristocrat.GdkRuntime.V1.GetRandomNumber32Request)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L457" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber32_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetRandomNumber32*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber32_Aristocrat_GdkRuntime_V1_GetRandomNumber32Request_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetRandomNumber32(Aristocrat.GdkRuntime.V1.GetRandomNumber32Request)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber32_Aristocrat_GdkRuntime_V1_GetRandomNumber32Request_" class="expander" data-toggle="collapse">GetRandomNumber32(GetRandomNumber32Request)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber32_Aristocrat_GdkRuntime_V1_GetRandomNumber32Request_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override GetRandomNumber32Response GetRandomNumber32(GetRandomNumber32Request request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.GetRandomNumber32Request</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.GetRandomNumber32Response</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.GetRandomNumber32(Aristocrat.GdkRuntime.V1.GetRandomNumber32Request)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber64_Aristocrat_GdkRuntime_V1_GetRandomNumber64Request_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetRandomNumber64(Aristocrat.GdkRuntime.V1.GetRandomNumber64Request)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L467" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber64_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetRandomNumber64*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber64_Aristocrat_GdkRuntime_V1_GetRandomNumber64Request_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.GetRandomNumber64(Aristocrat.GdkRuntime.V1.GetRandomNumber64Request)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber64_Aristocrat_GdkRuntime_V1_GetRandomNumber64Request_" class="expander" data-toggle="collapse">GetRandomNumber64(GetRandomNumber64Request)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_GetRandomNumber64_Aristocrat_GdkRuntime_V1_GetRandomNumber64Request_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override GetRandomNumber64Response GetRandomNumber64(GetRandomNumber64Request request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.GetRandomNumber64Request</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.GetRandomNumber64Response</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.GetRandomNumber64(Aristocrat.GdkRuntime.V1.GetRandomNumber64Request)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Join_Aristocrat_GdkRuntime_V1_JoinRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Join(Aristocrat.GdkRuntime.V1.JoinRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Join_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Join*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Join_Aristocrat_GdkRuntime_V1_JoinRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Join(Aristocrat.GdkRuntime.V1.JoinRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Join_Aristocrat_GdkRuntime_V1_JoinRequest_" class="expander" data-toggle="collapse">Join(JoinRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Join_Aristocrat_GdkRuntime_V1_JoinRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty Join(JoinRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.JoinRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.Join(Aristocrat.GdkRuntime.V1.JoinRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Leave_Aristocrat_GdkRuntime_V1_LeaveRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Leave(Aristocrat.GdkRuntime.V1.LeaveRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Leave_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Leave*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Leave_Aristocrat_GdkRuntime_V1_LeaveRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Leave(Aristocrat.GdkRuntime.V1.LeaveRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Leave_Aristocrat_GdkRuntime_V1_LeaveRequest_" class="expander" data-toggle="collapse">Leave(LeaveRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Leave_Aristocrat_GdkRuntime_V1_LeaveRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty Leave(LeaveRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.LeaveRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.Leave(Aristocrat.GdkRuntime.V1.LeaveRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RecoveryPoint_Aristocrat_GdkRuntime_V1_RecoveryPointNotification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RecoveryPoint(Aristocrat.GdkRuntime.V1.RecoveryPointNotification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L365" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RecoveryPoint_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RecoveryPoint*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RecoveryPoint_Aristocrat_GdkRuntime_V1_RecoveryPointNotification_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RecoveryPoint(Aristocrat.GdkRuntime.V1.RecoveryPointNotification)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RecoveryPoint_Aristocrat_GdkRuntime_V1_RecoveryPointNotification_" class="expander" data-toggle="collapse">RecoveryPoint(RecoveryPointNotification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RecoveryPoint_Aristocrat_GdkRuntime_V1_RecoveryPointNotification_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty RecoveryPoint(RecoveryPointNotification request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.RecoveryPointNotification</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.RecoveryPoint(Aristocrat.GdkRuntime.V1.RecoveryPointNotification)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeEvent_Aristocrat_GdkRuntime_V1_RuntimeEventNotification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeEvent(Aristocrat.GdkRuntime.V1.RuntimeEventNotification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeEvent_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeEvent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeEvent_Aristocrat_GdkRuntime_V1_RuntimeEventNotification_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeEvent(Aristocrat.GdkRuntime.V1.RuntimeEventNotification)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeEvent_Aristocrat_GdkRuntime_V1_RuntimeEventNotification_" class="expander" data-toggle="collapse">RuntimeEvent(RuntimeEventNotification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeEvent_Aristocrat_GdkRuntime_V1_RuntimeEventNotification_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty RuntimeEvent(RuntimeEventNotification request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.RuntimeEventNotification</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.RuntimeEvent(Aristocrat.GdkRuntime.V1.RuntimeEventNotification)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeFlagChange_Aristocrat_GdkRuntime_V1_RuntimeFlagNotification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeFlagChange(Aristocrat.GdkRuntime.V1.RuntimeFlagNotification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L192" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeFlagChange_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeFlagChange*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeFlagChange_Aristocrat_GdkRuntime_V1_RuntimeFlagNotification_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeFlagChange(Aristocrat.GdkRuntime.V1.RuntimeFlagNotification)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeFlagChange_Aristocrat_GdkRuntime_V1_RuntimeFlagNotification_" class="expander" data-toggle="collapse">RuntimeFlagChange(RuntimeFlagNotification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeFlagChange_Aristocrat_GdkRuntime_V1_RuntimeFlagNotification_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty RuntimeFlagChange(RuntimeFlagNotification request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.RuntimeFlagNotification</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.RuntimeFlagChange(Aristocrat.GdkRuntime.V1.RuntimeFlagNotification)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeRequest_Aristocrat_GdkRuntime_V1_RuntimeRequestNotification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeRequest(Aristocrat.GdkRuntime.V1.RuntimeRequestNotification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L202" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeRequest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeRequest_Aristocrat_GdkRuntime_V1_RuntimeRequestNotification_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeRequest(Aristocrat.GdkRuntime.V1.RuntimeRequestNotification)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeRequest_Aristocrat_GdkRuntime_V1_RuntimeRequestNotification_" class="expander" data-toggle="collapse">RuntimeRequest(RuntimeRequestNotification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeRequest_Aristocrat_GdkRuntime_V1_RuntimeRequestNotification_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override RuntimeRequestResponse RuntimeRequest(RuntimeRequestNotification request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.RuntimeRequestNotification</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.RuntimeRequestResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.RuntimeRequest(Aristocrat.GdkRuntime.V1.RuntimeRequestNotification)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeStateChange_Aristocrat_GdkRuntime_V1_RuntimeStateNotication_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeStateChange(Aristocrat.GdkRuntime.V1.RuntimeStateNotication)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L215" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeStateChange_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeStateChange*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeStateChange_Aristocrat_GdkRuntime_V1_RuntimeStateNotication_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.RuntimeStateChange(Aristocrat.GdkRuntime.V1.RuntimeStateNotication)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeStateChange_Aristocrat_GdkRuntime_V1_RuntimeStateNotication_" class="expander" data-toggle="collapse">RuntimeStateChange(RuntimeStateNotication)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_RuntimeStateChange_Aristocrat_GdkRuntime_V1_RuntimeStateNotication_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty RuntimeStateChange(RuntimeStateNotication request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.RuntimeStateNotication</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.RuntimeStateChange(Aristocrat.GdkRuntime.V1.RuntimeStateNotication)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SelectDenomination_Aristocrat_GdkRuntime_V1_SelectDenominationRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.SelectDenomination(Aristocrat.GdkRuntime.V1.SelectDenominationRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L626" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SelectDenomination_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.SelectDenomination*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SelectDenomination_Aristocrat_GdkRuntime_V1_SelectDenominationRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.SelectDenomination(Aristocrat.GdkRuntime.V1.SelectDenominationRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SelectDenomination_Aristocrat_GdkRuntime_V1_SelectDenominationRequest_" class="expander" data-toggle="collapse">SelectDenomination(SelectDenominationRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SelectDenomination_Aristocrat_GdkRuntime_V1_SelectDenominationRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty SelectDenomination(SelectDenominationRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.SelectDenominationRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.SelectDenomination(Aristocrat.GdkRuntime.V1.SelectDenominationRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SetJackpotLevelWagers_Aristocrat_GdkRuntime_V1_LevelWagerRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.SetJackpotLevelWagers(Aristocrat.GdkRuntime.V1.LevelWagerRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L613" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SetJackpotLevelWagers_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.SetJackpotLevelWagers*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SetJackpotLevelWagers_Aristocrat_GdkRuntime_V1_LevelWagerRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.SetJackpotLevelWagers(Aristocrat.GdkRuntime.V1.LevelWagerRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SetJackpotLevelWagers_Aristocrat_GdkRuntime_V1_LevelWagerRequest_" class="expander" data-toggle="collapse">SetJackpotLevelWagers(LevelWagerRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_SetJackpotLevelWagers_Aristocrat_GdkRuntime_V1_LevelWagerRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty SetJackpotLevelWagers(LevelWagerRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.LevelWagerRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.SetJackpotLevelWagers(Aristocrat.GdkRuntime.V1.LevelWagerRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Shuffle_Aristocrat_GdkRuntime_V1_ShuffleRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Shuffle(Aristocrat.GdkRuntime.V1.ShuffleRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L477" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Shuffle_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Shuffle*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Shuffle_Aristocrat_GdkRuntime_V1_ShuffleRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.Shuffle(Aristocrat.GdkRuntime.V1.ShuffleRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Shuffle_Aristocrat_GdkRuntime_V1_ShuffleRequest_" class="expander" data-toggle="collapse">Shuffle(ShuffleRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_Shuffle_Aristocrat_GdkRuntime_V1_ShuffleRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ShuffleResponse Shuffle(ShuffleRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.ShuffleRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.ShuffleResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.Shuffle(Aristocrat.GdkRuntime.V1.ShuffleRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_TriggerJackpot_Aristocrat_GdkRuntime_V1_TriggerJackpotRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.TriggerJackpot(Aristocrat.GdkRuntime.V1.TriggerJackpotRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L564" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_TriggerJackpot_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.TriggerJackpot*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_TriggerJackpot_Aristocrat_GdkRuntime_V1_TriggerJackpotRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.TriggerJackpot(Aristocrat.GdkRuntime.V1.TriggerJackpotRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_TriggerJackpot_Aristocrat_GdkRuntime_V1_TriggerJackpotRequest_" class="expander" data-toggle="collapse">TriggerJackpot(TriggerJackpotRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_TriggerJackpot_Aristocrat_GdkRuntime_V1_TriggerJackpotRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override TriggerJackpotResponse TriggerJackpot(TriggerJackpotRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.TriggerJackpotRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.TriggerJackpotResponse</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.TriggerJackpot(Aristocrat.GdkRuntime.V1.TriggerJackpotRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBetOptions_Aristocrat_GdkRuntime_V1_UpdateBetOptionsRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateBetOptions(Aristocrat.GdkRuntime.V1.UpdateBetOptionsRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L637" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBetOptions_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateBetOptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBetOptions_Aristocrat_GdkRuntime_V1_UpdateBetOptionsRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateBetOptions(Aristocrat.GdkRuntime.V1.UpdateBetOptionsRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBetOptions_Aristocrat_GdkRuntime_V1_UpdateBetOptionsRequest_" class="expander" data-toggle="collapse">UpdateBetOptions(UpdateBetOptionsRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBetOptions_Aristocrat_GdkRuntime_V1_UpdateBetOptionsRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.UpdateBetOptionsRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.UpdateBetOptions(Aristocrat.GdkRuntime.V1.UpdateBetOptionsRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBonusKey_Aristocrat_GdkRuntime_V1_UpdateBonusKeyRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateBonusKey(Aristocrat.GdkRuntime.V1.UpdateBonusKeyRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L490" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBonusKey_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateBonusKey*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBonusKey_Aristocrat_GdkRuntime_V1_UpdateBonusKeyRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateBonusKey(Aristocrat.GdkRuntime.V1.UpdateBonusKeyRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBonusKey_Aristocrat_GdkRuntime_V1_UpdateBonusKeyRequest_" class="expander" data-toggle="collapse">UpdateBonusKey(UpdateBonusKeyRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateBonusKey_Aristocrat_GdkRuntime_V1_UpdateBonusKeyRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty UpdateBonusKey(UpdateBonusKeyRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.UpdateBonusKeyRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.UpdateBonusKey(Aristocrat.GdkRuntime.V1.UpdateBonusKeyRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateJackpotValues_Aristocrat_GdkRuntime_V1_UpdateJackpotValuesRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateJackpotValues(Aristocrat.GdkRuntime.V1.UpdateJackpotValuesRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L544" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateJackpotValues_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateJackpotValues*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateJackpotValues_Aristocrat_GdkRuntime_V1_UpdateJackpotValuesRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateJackpotValues(Aristocrat.GdkRuntime.V1.UpdateJackpotValuesRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateJackpotValues_Aristocrat_GdkRuntime_V1_UpdateJackpotValuesRequest_" class="expander" data-toggle="collapse">UpdateJackpotValues(UpdateJackpotValuesRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateJackpotValues_Aristocrat_GdkRuntime_V1_UpdateJackpotValuesRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty UpdateJackpotValues(UpdateJackpotValuesRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.UpdateJackpotValuesRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.UpdateJackpotValues(Aristocrat.GdkRuntime.V1.UpdateJackpotValuesRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateLocalStorage_Aristocrat_GdkRuntime_V1_UpdateLocalStorageRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateLocalStorage(Aristocrat.GdkRuntime.V1.UpdateLocalStorageRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L399" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateLocalStorage_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateLocalStorage*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateLocalStorage_Aristocrat_GdkRuntime_V1_UpdateLocalStorageRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateLocalStorage(Aristocrat.GdkRuntime.V1.UpdateLocalStorageRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateLocalStorage_Aristocrat_GdkRuntime_V1_UpdateLocalStorageRequest_" class="expander" data-toggle="collapse">UpdateLocalStorage(UpdateLocalStorageRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateLocalStorage_Aristocrat_GdkRuntime_V1_UpdateLocalStorageRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty UpdateLocalStorage(UpdateLocalStorageRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.UpdateLocalStorageRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.UpdateLocalStorage(Aristocrat.GdkRuntime.V1.UpdateLocalStorageRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateMeters_Aristocrat_GdkRuntime_V1_UpdateMetersRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateMeters(Aristocrat.GdkRuntime.V1.UpdateMetersRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L439" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateMeters_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateMeters_Aristocrat_GdkRuntime_V1_UpdateMetersRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.UpdateMeters(Aristocrat.GdkRuntime.V1.UpdateMetersRequest)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateMeters_Aristocrat_GdkRuntime_V1_UpdateMetersRequest_" class="expander" data-toggle="collapse">UpdateMeters(UpdateMetersRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_SnappService_UpdateMeters_Aristocrat_GdkRuntime_V1_UpdateMetersRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Empty UpdateMeters(UpdateMetersRequest request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GdkRuntime.V1.UpdateMetersRequest</span></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.GdkRuntime.V1.Empty</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.GdkRuntime.V1.IGameServiceCallback.UpdateMeters(Aristocrat.GdkRuntime.V1.UpdateMetersRequest)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_SnappService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.SnappService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/SnappService.cs/#L22" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

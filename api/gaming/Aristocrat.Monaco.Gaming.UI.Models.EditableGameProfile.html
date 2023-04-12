@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class EditableGameProfile
    ">
-    <meta name="generator" content="docfx 2.59.3.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -86,15 +86,58 @@
   
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">Aristocrat.MVVM.Model.BaseNotify</span></div>
     <div class="level2"><span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel</span></div>
-    <div class="level3"><span class="xref">EditableGameProfile</span></div>
+    <div class="level3"><span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel</span></div>
+    <div class="level4"><span class="xref">EditableGameProfile</span></div>
   </div>
   
   
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.ValidateAll()</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.OnCommitted()</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.GetErrors(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.SetError(System.String, System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.ClearErrors(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.SetErrors(System.String, System.Collections.Generic.IEnumerable&lt;System.String&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.RaiseErrorsChanged(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.PropertyHasErrors(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.IgnorePropertyForCommitted(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.IgnorePropertyForCommitted(System.Collections.Generic.List&lt;System.String&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.Error</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.Item[System.String]</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.Committed</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.CommitCommand</span>
+    </div>
     <div>
       <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.RegisterVisualState(System.String, System.Action&lt;System.String, System.Boolean&gt;)</span>
     </div>
@@ -162,22 +205,22 @@
       <span class="xref">Aristocrat.MVVM.Model.BaseNotify.PropertyChanged</span>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
     </div>
   </div>
   
@@ -186,7 +229,7 @@
   
   <h5 id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class EditableGameProfile : BaseViewModel, IViewModel, INotifyPropertyChanged, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class EditableGameProfile : BaseEntityViewModel, IViewModel, INotifyPropertyChanged, IDataErrorInfo, IDisposable</code></pre>
   </div>
   
   
@@ -201,7 +244,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile__ctor_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_UI_Models_EditableGameConfiguration__System_Boolean_Aristocrat_Monaco_Gaming_Contracts_Configuration_IConfigurationProvider_Aristocrat_Monaco_Gaming_Contracts_Configuration_IGameConfigurationProvider_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.%23ctor(System.String%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration%7D%2CSystem.Boolean%2CAristocrat.Monaco.Gaming.Contracts.Configuration.IConfigurationProvider%2CAristocrat.Monaco.Gaming.Contracts.Configuration.IGameConfigurationProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L20" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile__ctor_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.#ctor*"></a>
@@ -221,28 +264,28 @@
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
         <span class="parametername">themeId</span>
         <p>
       </td>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
         <span class="parametername">themeName</span>
         <p>
       </td>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration.html">EditableGameConfiguration</a>&gt;</span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration.html">EditableGameConfiguration</a>&gt;</span>
         <span class="parametername">configs</span>
         <p>
       </td>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
         <span class="parametername">enableRtpScaling</span>
         <p>
       </td>
@@ -282,7 +325,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Enabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Enabled_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Enabled*"></a>
@@ -306,7 +349,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
         <p>
       </td>
     </tr>
@@ -325,7 +368,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_EnabledGameConfigurationsCount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.EnabledGameConfigurationsCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_EnabledGameConfigurationsCount_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.EnabledGameConfigurationsCount*"></a>
@@ -349,7 +392,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
         <p>
       </td>
     </tr>
@@ -368,7 +411,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_GameConfigurations.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.GameConfigurations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_GameConfigurations_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.GameConfigurations*"></a>
@@ -392,7 +435,50 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration.html">EditableGameConfiguration</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration.html">EditableGameConfiguration</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasErrors.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.HasErrors%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasErrors_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.HasErrors*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasErrors" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.HasErrors"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasErrors" class="expander" data-toggle="collapse">HasErrors</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasErrors" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasErrors { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
         <p>
       </td>
     </tr>
@@ -411,7 +497,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_OriginalRestriction.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.OriginalRestriction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_OriginalRestriction_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.OriginalRestriction*"></a>
@@ -454,7 +540,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Restrictions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Restrictions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Restrictions_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Restrictions*"></a>
@@ -478,7 +564,50 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Configuration.IConfigurationRestriction.html">IConfigurationRestriction</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Configuration.IConfigurationRestriction.html">IConfigurationRestriction</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_RestrictionWarningText.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.RestrictionWarningText%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_RestrictionWarningText_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.RestrictionWarningText*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_RestrictionWarningText" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.RestrictionWarningText"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_RestrictionWarningText" class="expander" data-toggle="collapse">RestrictionWarningText</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_RestrictionWarningText" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RestrictionWarningText { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
         <p>
       </td>
     </tr>
@@ -497,7 +626,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_SelectedRestriction.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.SelectedRestriction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_SelectedRestriction_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.SelectedRestriction*"></a>
@@ -540,7 +669,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_ThemeId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.ThemeId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_ThemeId_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.ThemeId*"></a>
@@ -564,7 +693,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
         <p>
       </td>
     </tr>
@@ -583,7 +712,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_ThemeName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.ThemeName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_ThemeName_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.ThemeName*"></a>
@@ -607,7 +736,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
         <p>
       </td>
     </tr>
@@ -626,7 +755,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_ValidRestrictions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.ValidRestrictions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_ValidRestrictions_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.ValidRestrictions*"></a>
@@ -650,7 +779,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Configuration.IConfigurationRestriction.html">IConfigurationRestriction</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Configuration.IConfigurationRestriction.html">IConfigurationRestriction</a>&gt;
         <p>
       </td>
     </tr>
@@ -671,7 +800,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_AddConfigs_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_UI_Models_EditableGameConfiguration__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.AddConfigs(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L112" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_AddConfigs_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.AddConfigs*"></a>
@@ -691,7 +820,7 @@
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration.html">EditableGameConfiguration</a>&gt;</span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration.html">EditableGameConfiguration</a>&gt;</span>
         <span class="parametername">configs</span>
         <p>
       </td>
@@ -715,7 +844,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Dispose_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Dispose*"></a>
@@ -739,7 +868,7 @@
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
   
   
   
@@ -751,7 +880,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasChanges.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.HasChanges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasChanges_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.HasChanges*"></a>
@@ -772,7 +901,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
         <p>
       </td>
     </tr>
@@ -794,7 +923,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasRestrictionChanges.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.HasRestrictionChanges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_HasRestrictionChanges_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.HasRestrictionChanges*"></a>
@@ -815,7 +944,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
         <p>
       </td>
     </tr>
@@ -837,7 +966,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_OnSave.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.OnSave%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_OnSave_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.OnSave*"></a>
@@ -871,7 +1000,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Refresh.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Refresh%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Refresh_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Refresh*"></a>
@@ -905,7 +1034,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Reset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Reset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L113" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_Reset_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.Reset*"></a>
@@ -936,10 +1065,54 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_SetRestrictionError_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.SetRestrictionError(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L140" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_SetRestrictionError_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.SetRestrictionError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_SetRestrictionError_System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.SetRestrictionError(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_SetRestrictionError_System_Boolean_" class="expander" data-toggle="collapse">SetRestrictionError(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_SetRestrictionError_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetRestrictionError(bool hasError)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">hasError</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_UpdateValidRestrictions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.UpdateValidRestrictions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile_UpdateValidRestrictions_" data-uid="Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile.UpdateValidRestrictions*"></a>
@@ -973,7 +1146,7 @@
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Models_EditableGameProfile.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Models.EditableGameProfile%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L12" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Models/EditableGameProfile.cs/#L14" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

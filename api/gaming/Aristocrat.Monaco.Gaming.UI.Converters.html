@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace Aristocrat.Monaco.Gaming.UI.Converters
    ">
-    <meta name="generator" content="docfx 2.59.3.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -151,6 +151,12 @@
       </tr>
       <tr>
         <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.UI.Converters.GameIconImageMarginConverter.html">GameIconImageMarginConverter</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.UI.Converters.GameIconImageWidthConverter.html">GameIconImageWidthConverter</a></p>
           <p>
         </td>
@@ -164,6 +170,12 @@
       <tr>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.UI.Converters.GameIconWidthConverter.html">GameIconWidthConverter</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.UI.Converters.GameTabMarginConverter.html">GameTabMarginConverter</a></p>
           <p>
         </td>
       </tr>
@@ -239,13 +251,6 @@
       </tr>
       <tr>
         <td>
-          <p><a class="xref" href="Aristocrat.Monaco.Gaming.UI.Converters.PaytableDisplayTextConverter.html">PaytableDisplayTextConverter</a></p>
-          <p><p>Takes multiple parameters to determine how the paytable rtp string should be displayed as</p>
-</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.UI.Converters.ProgressiveLabelSizeConverter.html">ProgressiveLabelSizeConverter</a></p>
           <p>
         </td>
@@ -297,8 +302,8 @@ and False value properties, the default behavior can be customized.
 In particular, you can use this to invert the default behavior to
 make something collapsed when true.
 Xaml usage:
-converters:BoolToVisibilityConverter x:Key=&quot;BoolToCollapsed&quot; TrueValue=&quot;Collapsed&quot; FalseValue=&quot;Visible&quot;
-Grid x:Name=&quot;GameTopScreenRoot&quot; Visibility=&quot;{Binding IsLobbyVisible, Converter={StaticResource BoolToCollapsed}}&quot;</p>
+converters:TabIndexToVisibilityConverter x:Key=&quot;TabIndexConverter&quot;
+Visibility=&quot;{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=0}&quot;</p>
 </p>
         </td>
       </tr>

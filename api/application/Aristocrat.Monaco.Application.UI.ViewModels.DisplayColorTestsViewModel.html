@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class DisplayColorTestsViewModel
    ">
-    <meta name="generator" content="docfx 2.59.3.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -86,33 +86,49 @@
   
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">DisplayColorTestsViewModel</span></div>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Aristocrat.MVVM.Model.BaseNotify</span></div>
+    <div class="level2"><span class="xref">DisplayColorTestsViewModel</span></div>
   </div>
   
   
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.RaisePropertyChanged(System.String)</span>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.RaisePropertyChanged(System.String[])</span>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.SetProperty&lt;T&gt;(T, T, System.String)</span>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.SetProperty&lt;T&gt;(T, T, System.String[])</span>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.PropertyChanged</span>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
     </div>
   </div>
   
@@ -121,7 +137,8 @@
   
   <h5 id="Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DisplayColorTestsViewModel</code></pre>
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public class DisplayColorTestsViewModel : BaseNotify, INotifyPropertyChanged</code></pre>
   </div>
   
   
@@ -133,25 +150,35 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor_Aristocrat_Monaco_Application_Contracts_ConfigWizard_IInspectionService_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.%23ctor(Aristocrat.Monaco.Application.Contracts.ConfigWizard.IInspectionService)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L24" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.#ctor"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor" class="expander" data-toggle="collapse">DisplayColorTestsViewModel()</a></h4>
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor_Aristocrat_Monaco_Application_Contracts_ConfigWizard_IInspectionService_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.#ctor(Aristocrat.Monaco.Application.Contracts.ConfigWizard.IInspectionService)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor_Aristocrat_Monaco_Application_Contracts_ConfigWizard_IInspectionService_" class="expander" data-toggle="collapse">DisplayColorTestsViewModel(IInspectionService)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel__ctor_Aristocrat_Monaco_Application_Contracts_ConfigWizard_IInspectionService_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DisplayColorTestsViewModel()</code></pre>
+    <pre><code class="lang-csharp hljs">public DisplayColorTestsViewModel(IInspectionService reporter)</code></pre>
   </div>
   
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.Contracts.ConfigWizard.IInspectionService.html">IInspectionService</a></span>
+        <span class="parametername">reporter</span>
+        <p>
+      </td>
+    </tr>
+  </table>
   
   
   
@@ -172,7 +199,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel_ColorTests.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.ColorTests%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L37" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel_ColorTests_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.ColorTests*"></a>
@@ -196,7 +223,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.TestData.html">DisplayColorTestsViewModel.TestData</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.TestData.html">DisplayColorTestsViewModel.TestData</a>&gt;
         <p>
       </td>
     </tr>
@@ -215,7 +242,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel_SelectedTest.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.SelectedTest%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel_SelectedTest_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel.SelectedTest*"></a>
@@ -258,7 +285,7 @@
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_DisplayColorTestsViewModel.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.DisplayColorTestsViewModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L10" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/DisplayColorTestsViewModel.cs/#L12" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

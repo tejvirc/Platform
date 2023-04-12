@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ReelControllerGds
    ">
-    <meta name="generator" content="docfx 2.59.3.0">
+    <meta name="generator" content="docfx 2.59.4.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -87,7 +87,7 @@
   
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html">DfuDeviceBase</a></div>
     <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html">GdsDeviceBase</a></div>
     <div class="level3"><span class="xref">ReelControllerGds</span></div>
@@ -197,6 +197,9 @@
     </div>
     <div>
       <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_CalculateCrc_System_Int32_">GdsDeviceBase.CalculateCrc(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Dispose_System_Boolean_">GdsDeviceBase.Dispose(Boolean)</a>
     </div>
     <div>
       <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SendCommand_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_System_Threading_CancellationToken_">GdsDeviceBase.SendCommand(GdsSerializableMessage, CancellationToken)</a>
@@ -310,25 +313,25 @@
       <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_OnDownloadProgressed_Aristocrat_Monaco_Hardware_Contracts_Communicator_ProgressEventArgs_">DfuDeviceBase.OnDownloadProgressed(ProgressEventArgs)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
     </div>
     <div>
-      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
     </div>
   </div>
   
@@ -337,7 +340,7 @@
   
   <h5 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ReelControllerGds : GdsDeviceBase, IReelControllerImplementation, IGdsDevice, IDfuDevice, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class ReelControllerGds : GdsDeviceBase, IReelControllerImplementation, IGdsDevice, IDfuDevice, IDisposable, IReelSpinImplementation, IReelLightingImplementation, IReelBrightnessImplementation, IReelImplementationCapability</code></pre>
   </div>
   
   
@@ -352,7 +355,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds__ctor_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.#ctor*"></a>
@@ -385,10 +388,56 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_DefaultSpinSpeed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.DefaultSpinSpeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_DefaultSpinSpeed_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.DefaultSpinSpeed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_DefaultSpinSpeed" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.DefaultSpinSpeed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_DefaultSpinSpeed" class="expander" data-toggle="collapse">DefaultSpinSpeed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_DefaultSpinSpeed" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the default speed for reels to spin.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DefaultSpinSpeed { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelSpinImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelSpinImplementation_DefaultSpinSpeed">IReelSpinImplementation.DefaultSpinSpeed</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Faults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.Faults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Faults_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.Faults*"></a>
@@ -413,7 +462,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaults.html">ReelFaults</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaults.html">ReelFaults</a>&gt;
         <p>
       </td>
     </tr>
@@ -434,7 +483,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelControllerFaults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelControllerFaults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelControllerFaults_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelControllerFaults*"></a>
@@ -480,7 +529,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelIds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelIds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelIds_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelIds*"></a>
@@ -505,7 +554,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
         <p>
       </td>
     </tr>
@@ -526,7 +575,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelsStatus.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelsStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelsStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelsStatus*"></a>
@@ -551,7 +600,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.html">ReelStatus</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.html">ReelStatus</a>&gt;
         <p>
       </td>
     </tr>
@@ -571,35 +620,33 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapabilities.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetCapabilities%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L209" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L126" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.Dispose*"></a>
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapabilities_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetCapabilities*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapabilities" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetCapabilities"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapabilities" class="expander" data-toggle="collapse">GetCapabilities()</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Dispose_System_Boolean_" class="collapse in">
-  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the Aristocrat.Monaco.Hardware.DfuDeviceBase and optionally
-releases the managed resources.</p>
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapabilities" class="collapse in">
+  <div class="markdown level1 summary"><p>Get all capabilities of the reel controller</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Type&gt; GetCapabilities()</code></pre>
   </div>
   
-  <h5 class="parameters">Parameters</h5>
+  
+  <h5 class="returns">Returns</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
-        <span class="parametername">disposing</span>
-        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
-resources.</p>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p><p>An enumeration of capabilities.</p>
 </p>
       </td>
     </tr>
@@ -610,9 +657,65 @@ resources.</p>
   
   
   
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Dispose_System_Boolean_">GdsDeviceBase.Dispose(Boolean)</a></div>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_GetCapabilities">IReelControllerImplementation.GetCapabilities()</a></div>
   
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapability__1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetCapability%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L115" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapability_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetCapability*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapability__1" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetCapability``1"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapability__1" class="expander" data-toggle="collapse">GetCapability&lt;T&gt;()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetCapability__1" class="collapse in">
+  <div class="markdown level1 summary"><p>Get the implementation for the capability.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T GetCapability&lt;T&gt;()
+    where T : class, IReelImplementationCapability</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">T</span>
+        <p><p>The capability for the controller</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">T</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_GetCapability__1">IReelControllerImplementation.GetCapability&lt;T&gt;()</a></div>
   
   
   
@@ -624,7 +727,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetReelLightIdentifiers.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetReelLightIdentifiers%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L190" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L238" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_GetReelLightIdentifiers_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.GetReelLightIdentifiers*"></a>
@@ -646,7 +749,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;&gt;
         <p><p>A list of reel light identifiers for the reel controller</p>
 </p>
       </td>
@@ -659,7 +762,65 @@ resources.</p>
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_GetReelLightIdentifiers">IReelControllerImplementation.GetReelLightIdentifiers()</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelLightingImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelLightingImplementation_GetReelLightIdentifiers">IReelLightingImplementation.GetReelLightIdentifiers()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HasCapability__1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HasCapability%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HasCapability_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HasCapability*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HasCapability__1" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HasCapability``1"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HasCapability__1" class="expander" data-toggle="collapse">HasCapability&lt;T&gt;()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HasCapability__1" class="collapse in">
+  <div class="markdown level1 summary"><p>Whether or not the reel controller has a given capability.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasCapability&lt;T&gt;()
+    where T : class, IReelImplementationCapability</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Return true if the controller has the capability, otherwise false.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">T</span>
+        <p><p>The capability type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_HasCapability__1">IReelControllerImplementation.HasCapability&lt;T&gt;()</a></div>
   
   
   
@@ -671,7 +832,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HomeReel_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HomeReel(System.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L142" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HomeReel_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HomeReel*"></a>
@@ -692,7 +853,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
         <span class="parametername">reelId</span>
         <p><p>The reel ID to home</p>
 </p>
@@ -700,7 +861,7 @@ resources.</p>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
         <span class="parametername">stop</span>
         <p><p>The stop to home the reel to</p>
 </p>
@@ -708,7 +869,7 @@ resources.</p>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
         <span class="parametername">resetStatus</span>
         <p><p>Indicates whether or not to reset the status for this reel</p>
 </p>
@@ -720,7 +881,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p><p>Whether or not the reel was homed</p>
 </p>
       </td>
@@ -745,7 +906,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HomeReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HomeReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L112" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HomeReels_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HomeReels*"></a>
@@ -767,7 +928,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p><p>Whether or not the reels were homed</p>
 </p>
       </td>
@@ -789,17 +950,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_NudgeReelData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.NudgeReels(Aristocrat.Monaco.Hardware.Contracts.Reel.NudgeReelData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_NudgeReelData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.NudgeReels(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.NudgeReelData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L134" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L177" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.NudgeReels*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_NudgeReelData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.NudgeReels(Aristocrat.Monaco.Hardware.Contracts.Reel.NudgeReelData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_NudgeReelData___" class="expander" data-toggle="collapse">NudgeReels(NudgeReelData[])</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_NudgeReelData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.NudgeReels(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.NudgeReelData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_NudgeReelData___" class="expander" data-toggle="collapse">NudgeReels(NudgeReelData[])</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_NudgeReelData___" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_NudgeReelData___" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -812,7 +973,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.NudgeReelData.html">NudgeReelData</a>[]</span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.NudgeReelData.html">NudgeReelData</a>[]</span>
         <span class="parametername">nudgeReelData</span>
         <p>
       </td>
@@ -823,7 +984,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p>
       </td>
     </tr>
@@ -835,7 +996,7 @@ resources.</p>
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_NudgeReelData___">IReelControllerImplementation.NudgeReels(NudgeReelData[])</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelSpinImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelSpinImplementation_NudgeReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_NudgeReelData___">IReelSpinImplementation.NudgeReels(NudgeReelData[])</a></div>
   
   
   
@@ -844,17 +1005,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L328" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L416" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultCleared*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_" class="expander" data-toggle="collapse">OnControllerFaultCleared(ReelControllerFaultedEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_" class="expander" data-toggle="collapse">OnControllerFaultCleared(ReelControllerFaultedEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel controller fault is cleared</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -868,7 +1029,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -890,17 +1051,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L309" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L387" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultOccurred*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_" class="expander" data-toggle="collapse">OnControllerFaultOccurred(ReelControllerFaultedEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnControllerFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_" class="expander" data-toggle="collapse">OnControllerFaultOccurred(ReelControllerFaultedEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelControllerFaultedEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnControllerFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelControllerFaultedEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel controller fault occurs</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -914,7 +1075,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -936,17 +1097,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L278" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L359" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultCleared*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_" class="expander" data-toggle="collapse">OnFaultCleared(ReelFaultedEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_" class="expander" data-toggle="collapse">OnFaultCleared(ReelFaultedEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel fault is cleared</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -960,7 +1121,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -982,17 +1143,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L347" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L445" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultOccurred*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_" class="expander" data-toggle="collapse">OnFaultOccurred(ReelFaultedEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_" class="expander" data-toggle="collapse">OnFaultOccurred(ReelFaultedEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelFaultedEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelFaultedEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel fault occurs</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1006,7 +1167,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -1028,26 +1189,36 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnHardwareInitialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitializedReceived_Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ControllerInitializedStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnHardwareInitializedReceived(Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ControllerInitializedStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L377" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L472" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitialized_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnHardwareInitialized*"></a>
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitializedReceived_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnHardwareInitializedReceived*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitialized" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnHardwareInitialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitialized" class="expander" data-toggle="collapse">OnHardwareInitialized()</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitializedReceived_Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ControllerInitializedStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnHardwareInitializedReceived(Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ControllerInitializedStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitializedReceived_Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ControllerInitializedStatus_" class="expander" data-toggle="collapse">OnHardwareInitializedReceived(ControllerInitializedStatus)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitialized" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnHardwareInitializedReceived_Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ControllerInitializedStatus_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when the controller hardware is initialized</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnHardwareInitialized()</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual void OnHardwareInitializedReceived(ControllerInitializedStatus status)</code></pre>
   </div>
   
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ControllerInitializedStatus.html">ControllerInitializedStatus</a></span>
+        <span class="parametername">status</span>
+        <p>
+      </td>
+    </tr>
+  </table>
   
   
   
@@ -1063,17 +1234,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelConnected(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelConnected(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L218" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L290" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelConnected*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelConnected(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelConnected(ReelEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelConnected(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelConnected(ReelEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelConnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel is connected</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1087,7 +1258,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -1109,17 +1280,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelDisconnected(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelDisconnected(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L229" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L301" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelDisconnected*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelDisconnected(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelDisconnected(ReelEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelDisconnected(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelDisconnected(ReelEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelDisconnected_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel is disconnected</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1133,7 +1304,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -1155,17 +1326,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSlowSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSlowSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L240" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L312" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSlowSpinning*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSlowSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelSlowSpinning(ReelEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSlowSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelSlowSpinning(ReelEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSlowSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel is slow spinning</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1179,7 +1350,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -1201,17 +1372,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L249" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L321" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSpinning*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelSpinning(ReelEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelSpinning(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelSpinning(ReelEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelSpinning_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel is spinning</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1225,7 +1396,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -1247,17 +1418,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopped(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopped(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L258" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L340" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopped*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopped(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelStopped(ReelEventArgs)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopped(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelStopped(ReelEventArgs)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelEventArgs_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopped_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="collapse in">
   <div class="markdown level1 summary"><p>Called when a reel is stopped</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1271,7 +1442,54 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>The event arguments</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopping_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopping(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L331" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopping_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopping*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopping_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.OnReelStopping(Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopping_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="expander" data-toggle="collapse">OnReelStopping(ReelEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_OnReelStopping_Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a reel is stopping.
+Not used for Harkey reels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnReelStopping(ReelEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a></span>
         <span class="parametername">e</span>
         <p><p>The event arguments</p>
 </p>
@@ -1296,7 +1514,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Reset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.Reset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L383" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L257" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_Reset_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.Reset*"></a>
@@ -1318,7 +1536,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
 </p>
       </td>
@@ -1343,7 +1561,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L129" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SelfTest*"></a>
@@ -1364,7 +1582,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
         <span class="parametername">nvm</span>
         <p><p>An flag indicating if Non-volatile Memory (NVM MUST be cleared before the self-test is performed.</p>
 </p>
@@ -1376,7 +1594,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
 </p>
       </td>
@@ -1406,7 +1624,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Collections_Generic_IReadOnlyDictionary_System_Int32_System_Int32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness(System.Collections.Generic.IReadOnlyDictionary%7BSystem.Int32%2CSystem.Int32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L142" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L185" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness*"></a>
@@ -1414,7 +1632,7 @@ resources.</p>
   <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Collections_Generic_IReadOnlyDictionary_System_Int32_System_Int32__" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness(System.Collections.Generic.IReadOnlyDictionary{System.Int32,System.Int32})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Collections_Generic_IReadOnlyDictionary_System_Int32_System_Int32__" class="expander" data-toggle="collapse">SetBrightness(IReadOnlyDictionary&lt;Int32, Int32&gt;)</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Collections_Generic_IReadOnlyDictionary_System_Int32_System_Int32__" class="collapse in">
-  <div class="markdown level1 summary"><p>Sets the brightness for the specified reel lights</p>
+  <div class="markdown level1 summary"><p>Sets the brightness for the reel lights</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -1427,65 +1645,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</span>
-        <span class="parametername">brightness</span>
-        <p><p>The reel and brightness to set for the lights</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
-        <p><p>Whether or not the light brightness was set</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_SetBrightness_System_Collections_Generic_IReadOnlyDictionary_System_Int32_System_Int32__">IReelControllerImplementation.SetBrightness(IReadOnlyDictionary&lt;Int32, Int32&gt;)</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L153" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_" class="expander" data-toggle="collapse">SetBrightness(Int32)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_" class="collapse in">
-  <div class="markdown level1 summary"><p>Sets the brightness for the reel lights</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; SetBrightness(int brightness)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</span>
         <span class="parametername">brightness</span>
         <p><p>The brightness to set for the lights</p>
 </p>
@@ -1497,8 +1657,8 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
-        <p><p>Whether or not the light brightness was set</p>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the lamp brightness was updated</p>
 </p>
       </td>
     </tr>
@@ -1510,7 +1670,7 @@ resources.</p>
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_SetBrightness_System_Int32_">IReelControllerImplementation.SetBrightness(Int32)</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelBrightnessImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelBrightnessImplementation_SetBrightness_System_Collections_Generic_IReadOnlyDictionary_System_Int32_System_Int32__">IReelBrightnessImplementation.SetBrightness(IReadOnlyDictionary&lt;Int32, Int32&gt;)</a></div>
   
   
   
@@ -1519,31 +1679,89 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLampData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetLights(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelLampData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L168" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L196" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetLights*"></a>
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLampData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetLights(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelLampData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLampData___" class="expander" data-toggle="collapse">SetLights(ReelLampData[])</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetBrightness(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_" class="expander" data-toggle="collapse">SetBrightness(Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLampData___" class="collapse in">
-  <div class="markdown level1 summary"><p>Sets the light state and color</p>
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetBrightness_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the brightness for the all reel lights</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; SetLights(params ReelLampData[] lampData)</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; SetBrightness(int brightness)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelLampData.html">ReelLampData</a>[]</span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">brightness</span>
+        <p><p>The brightness to set for the lights</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the lamp brightness was updated</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelBrightnessImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelBrightnessImplementation_SetBrightness_System_Int32_">IReelBrightnessImplementation.SetBrightness(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelLampData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetLights(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelLampData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L213" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetLights*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelLampData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetLights(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelLampData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelLampData___" class="expander" data-toggle="collapse">SetLights(ReelLampData[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelLampData___" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the requested lamp data</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; SetLights(params ReelLampData[] lampData)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelLampData.html">ReelLampData</a>[]</span>
         <span class="parametername">lampData</span>
         <p><p>The lamp data to set for the reels</p>
 </p>
@@ -1555,8 +1773,8 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
-        <p><p>Whether or not the light was set</p>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the lamps were updated</p>
 </p>
       </td>
     </tr>
@@ -1568,7 +1786,7 @@ resources.</p>
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLampData___">IReelControllerImplementation.SetLights(ReelLampData[])</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelLightingImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelLightingImplementation_SetLights_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelLampData___">IReelLightingImplementation.SetLights(ReelLampData[])</a></div>
   
   
   
@@ -1580,7 +1798,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelOffsets_System_Int32___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetReelOffsets(System.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L223" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelOffsets_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetReelOffsets*"></a>
@@ -1601,7 +1819,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>[]</span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>[]</span>
         <span class="parametername">offsets</span>
         <p><p>The offsets to set for the reels</p>
 </p>
@@ -1613,7 +1831,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p><p>Whether or not the offsets were set</p>
 </p>
       </td>
@@ -1635,17 +1853,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpeedData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetReelSpeed(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelSpeedData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpeedData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetReelSpeed(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelSpeedData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L205" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetReelSpeed*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpeedData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetReelSpeed(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelSpeedData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpeedData___" class="expander" data-toggle="collapse">SetReelSpeed(ReelSpeedData[])</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpeedData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SetReelSpeed(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelSpeedData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpeedData___" class="expander" data-toggle="collapse">SetReelSpeed(ReelSpeedData[])</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpeedData___" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpeedData___" class="collapse in">
   <div class="markdown level1 summary"><p>Sets the speed for all reels</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1659,9 +1877,9 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelSpeedData.html">ReelSpeedData</a>[]</span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelSpeedData.html">ReelSpeedData</a>[]</span>
         <span class="parametername">speedData</span>
-        <p><p>The speed data to set for the reels</p>
+        <p><p>The reel speed data</p>
 </p>
       </td>
     </tr>
@@ -1671,8 +1889,8 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
-        <p><p>Whether or not the speed was set</p>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the reel speed was updated</p>
 </p>
       </td>
     </tr>
@@ -1684,7 +1902,7 @@ resources.</p>
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpeedData___">IReelControllerImplementation.SetReelSpeed(ReelSpeedData[])</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelSpinImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelSpinImplementation_SetReelSpeed_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpeedData___">IReelSpinImplementation.SetReelSpeed(ReelSpeedData[])</a></div>
   
   
   
@@ -1693,17 +1911,17 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpinData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SpinReels(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelSpinData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpinData___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SpinReels(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelSpinData%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L126" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L169" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SpinReels*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpinData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SpinReels(Aristocrat.Monaco.Hardware.Contracts.Reel.ReelSpinData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpinData___" class="expander" data-toggle="collapse">SpinReels(ReelSpinData[])</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpinData___" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.SpinReels(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelSpinData[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpinData___" class="expander" data-toggle="collapse">SpinReels(ReelSpinData[])</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpinData___" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpinData___" class="collapse in">
   <div class="markdown level1 summary"><p>Spins the reels with the requested spin data</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1717,7 +1935,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelSpinData.html">ReelSpinData</a>[]</span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelSpinData.html">ReelSpinData</a>[]</span>
         <span class="parametername">spinData</span>
         <p>
       </td>
@@ -1728,7 +1946,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p><p>Whether or not the reels were started spinning</p>
 </p>
       </td>
@@ -1741,7 +1959,7 @@ resources.</p>
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelSpinData___">IReelControllerImplementation.SpinReels(ReelSpinData[])</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities.IReelSpinImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_ImplementationCapabilities_IReelSpinImplementation_SpinReels_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelSpinData___">IReelSpinImplementation.SpinReels(ReelSpinData[])</a></div>
   
   
   
@@ -1753,7 +1971,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_TiltReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.TiltReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L183" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L230" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_TiltReels_" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.TiltReels*"></a>
@@ -1767,7 +1985,7 @@ resources.</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; TiltReels()</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; TiltReels()</code></pre>
   </div>
   
   
@@ -1775,7 +1993,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
         <p><p>Whether or not the reels where tilted</p>
 </p>
       </td>
@@ -1802,7 +2020,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ControllerFaultCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ControllerFaultCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -1827,7 +2045,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -1847,7 +2065,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ControllerFaultOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ControllerFaultOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -1872,7 +2090,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -1892,7 +2110,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_FaultCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.FaultCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -1917,7 +2135,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -1937,7 +2155,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_FaultOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.FaultOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -1962,7 +2180,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -1982,7 +2200,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_HardwareInitialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.HardwareInitialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -2007,7 +2225,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a>
         <p>
       </td>
     </tr>
@@ -2027,7 +2245,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelConnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -2052,7 +2270,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -2072,7 +2290,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelDisconnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelDisconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -2097,7 +2315,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -2117,7 +2335,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelSlowSpinning.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelSlowSpinning%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -2142,7 +2360,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -2162,7 +2380,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelSpinning.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelSpinning%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -2187,7 +2405,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -2207,7 +2425,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelStopped.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelStopped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -2232,7 +2450,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -2247,12 +2465,57 @@ resources.</p>
   
   </div>
   
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelStopping.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelStopping%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelStopping" data-uid="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds.ReelStopping"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelStopping" class="expander" data-toggle="collapse">ReelStopping</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds_ReelStopping" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel begins to stop spinning </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelEventArgs&gt; ReelStopping</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelStopping">IReelControllerImplementation.ReelStopping</a></div>
+  
+  
+  
+  
+  </div>
+  
   
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Reel_ReelControllerGds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L18" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Reel/ReelControllerGds.cs/#L23" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
