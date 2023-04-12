@@ -164,7 +164,7 @@
         /// <summary>
         ///     Indicates whether the Max Bet Limit checkbox is checked or not
         /// </summary>
-        public const string MaxBetLimitEnabled= "Cabinet.MaxBetLimitEnabled";
+        public const string MaxBetLimitEnabled = "Cabinet.MaxBetLimitEnabled";
 
         /// <summary>
         ///     The Highest Limit allowed on MaxBetLimit
@@ -670,7 +670,7 @@
         /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
         public const string ConfigWizardLimitsPageEnabled = "ConfigWizard.LimitsPage.Enabled";
 
-       /// <summary> Property manager key for HandpayRemoteHandpayResetAllowed </summary>
+        /// <summary> Property manager key for HandpayRemoteHandpayResetAllowed </summary>
         public const string RemoteHandpayResetAllowed = "Handpay.RemoteHandpayReset.Allowed";
 
         /// <summary> Property manager key for RemoteHandpayResetConfigurable  </summary>

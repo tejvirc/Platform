@@ -645,17 +645,6 @@
         }
 
         /// <summary>
-        ///     Converts the transaction amount from dollars to millicents
-        /// </summary>
-        /// <param name="amount">The amount to convert from dollars to millicents</param>
-        /// <returns>The amount in millicents.</returns>
-        public static long GetMillicentAmount(decimal amount)
-        {
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var multiplier = (double)propertiesManager.GetProperty(ApplicationConstants.CurrencyMultiplierKey, null);
-            return (long)(amount * (decimal)multiplier);
-        }
-        /// <summary>
         ///     Format Mac address like "xx:xx:xx:xx:xx:xx"
         /// </summary>
         /// <param name="address"></param>
