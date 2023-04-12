@@ -415,7 +415,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     MessageOverlayData.IsDialogVisible ||
+                                     (MessageOverlayData.IsDialogVisible && MessageOverlayData.IsCashOutDialogVisible) ||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||

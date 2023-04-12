@@ -30,6 +30,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _isButtonVisible;
         private ICommand _buttonCommand;
         private bool _gameHandlesHandPayPresentation;
+        private bool _isCashOutDialogVisible;
 
         public bool GameHandlesHandPayPresentation
         {
@@ -177,6 +178,19 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public bool IsScalingNeeded => !string.IsNullOrEmpty(_displayImageResourceKey) && DisplayForEvents;
 
+        public bool IsCashOutDialogVisible
+        {
+            get => _isCashOutDialogVisible;
+
+            set
+            {
+                if (_isCashOutDialogVisible != value)
+                {
+                    _isCashOutDialogVisible = value;
+                    RaisePropertyChanged(nameof(IsCashOutDialogVisible));
+                }
+            }
+        }
 
         /// <summary>
         /// Log Text Generation method
