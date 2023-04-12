@@ -6,54 +6,40 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
 
-    internal sealed class TouchOperations : IRobotOperations
+    internal class TouchOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
         private readonly RobotLogger _logger;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotController _robotController;
         private Timer _actionTouchTimer;
         private bool _disposed;
 
         public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
             _robotController = robotController;
         }
 
+        ~TouchOperations() => Dispose(false);
+
         public void Dispose()
         {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (_actionTouchTimer != null)
-            {
-                _actionTouchTimer.Dispose();
-                _actionTouchTimer = null;
-            }
-
-            _eventBus.UnsubscribeAll(this);
-            _disposed = true;
-
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public void Reset()
         {
+            _disposed = true;
         }
 
         public void Execute()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(ServiceRequestOperations));
-            }
-
             _logger.Info("TouchOperations Has Been Initiated!", GetType().Name);
             _actionTouchTimer = new Timer(
                                 (sender) =>
@@ -67,14 +53,28 @@
 
         public void Halt()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(ServiceRequestOperations));
-            }
-
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _actionTouchTimer?.Halt();
+            _actionTouchTimer?.Dispose();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                if (_actionTouchTimer is not null)
+                {
+                    _actionTouchTimer.Dispose();
+                }
+                _actionTouchTimer = null;
+                _eventBus.UnsubscribeAll(this);
+            }
+            _disposed = true;
         }
 
         private void TouchRequest()
@@ -99,7 +99,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.IsGame && !_sc.IsGameLoading;
+            return !isBlocked && _stateChecker.IsGame && !_stateChecker.IsGameLoading;
         }
 
         private void TouchAnyAuxiliaryVbdAreas(Random Rng)

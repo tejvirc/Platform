@@ -522,6 +522,11 @@
         public const string GambleAllowed = @"GamePlay.Gamble.Allowed";
 
         /// <summary>
+        ///     Whether gamble is skipped on jackpot hit or not
+        /// </summary>
+        public const string GambleSkipByJackpotHit = @"GamePlay.Gamble.SkipByJackpotHit";
+
+        /// <summary>
         ///     Whether gamble Game Rules will show dynamic settings
         /// </summary>
         public const string ShowGambleDynamicHelp = @"GamePlay.Gamble.ShowGambleDynamicHelp";
@@ -1152,6 +1157,11 @@
         ///     Flag will control whether the player speed button will be enabled or disabled
         /// </summary>
         public const string ShowPlayerSpeedButtonEnabled = @"ShowPlayerSpeedButton.Enabled";
+
+        /// <summary>
+        ///     Determines if platform need to play the sound on bonus transfer.
+        /// </summary>
+        public const string BonusTransferPlaySound = @"BonusTransfer.PlaySound";
 
         /// <summary>
         ///     Requesting game exit for the game menu button when using a multi-game setup

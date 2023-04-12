@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Accounting.Contracts;
     using Gaming.Contracts.Central;
     using Gaming.Contracts.Payment;
@@ -20,13 +21,20 @@
             long winInMillicents,
             CentralTransaction transaction)
         {
+            if (transaction == null)
+            {
+                throw new ArgumentNullException(nameof(transaction));
+            }
+
             var largeWinLimit =
                 _properties.GetValue(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit);
+            var totalOutcomes = transaction.Outcomes.Sum(x => x.Value);
+            var paymentResult = Math.Max(winInMillicents, totalOutcomes);
             return new List<PaymentDeterminationResult>
             {
-                winInMillicents >= largeWinLimit
-                    ? new PaymentDeterminationResult(0, winInMillicents, Guid.NewGuid())
-                    : new PaymentDeterminationResult(winInMillicents, 0, Guid.NewGuid())
+                paymentResult >= largeWinLimit
+                    ? new PaymentDeterminationResult(0, paymentResult, Guid.NewGuid())
+                    : new PaymentDeterminationResult(paymentResult, 0, Guid.NewGuid())
             };
         }
     }

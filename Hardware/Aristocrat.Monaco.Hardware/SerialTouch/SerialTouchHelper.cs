@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Management;
     using System.Reflection;
     using System.Windows;
     using log4net;
@@ -42,32 +41,6 @@
             var yCoord = Convert.ToInt32(Math.Round(flipY > 0 ? flipY / adjustY : 0));
 
             return (xCoord, yCoord);
-        }
-
-        public static bool IsManualTabletInputService()
-        {
-            var isManualTabletInputService = false;
-            ConnectionOptions connectionOptions = new ConnectionOptions { Impersonation = ImpersonationLevel.Impersonate };
-            ManagementScope scope = new ManagementScope(@"\\" + Environment.MachineName + @"\root\cimv2")
-            {
-                Options = connectionOptions
-            };
-            SelectQuery query = new SelectQuery("select * from Win32_Service");
-
-            using ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
-            ManagementObjectCollection collection = searcher.Get();
-            foreach (var o in collection)
-            {
-                var service = (ManagementObject)o;
-                if (service.Properties["Name"].Value.ToString() == "TabletInputService" &&
-                    service.Properties["StartMode"].Value.Equals("Manual"))
-                {
-                    Logger.Debug($"IsManualTabletInputService - Found {service.Properties["Name"].Value} with StartMode {service.Properties["StartMode"].Value}");
-                    isManualTabletInputService = true;
-                }
-            }
-
-            return isManualTabletInputService;
         }
 
         public static string ToHexString(this byte b)

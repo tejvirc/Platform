@@ -15,7 +15,7 @@
     public class RaceInfoButtonConsumer : Consumes<AdditionalInfoButtonPressedEvent>
     {
         private HHRHostPageView _raceInfoView;
-        private IEventBus _eventBus;
+        private readonly IEventBus _eventBus;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RaceInfoButtonConsumer" /> class.
@@ -42,7 +42,7 @@
         private void Handle(GameInitializationCompletedEvent theEvent)
         {
             UiProperties.GameLoaded = true;
-            Application.Current.Dispatcher.Invoke(() => { _raceInfoView.Unhide(); });
+            Application.Current.Dispatcher.Invoke(() => { _raceInfoView.UnHide(); });
         }
 
         /// <inheritdoc />

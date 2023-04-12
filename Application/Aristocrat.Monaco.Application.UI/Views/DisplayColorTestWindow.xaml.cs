@@ -10,6 +10,7 @@
     public partial class DisplayColorTestWindow
     {
         private WindowToScreenMapper _mapper;
+        private DisplayRole _displayRole;
 
         public DisplayColorTestWindow()
         {
@@ -23,8 +24,10 @@
 
         public DisplayRole DisplayRole
         {
+            get => _displayRole;
             set
             {
+                _displayRole = value;
                 _mapper = new WindowToScreenMapper(value);
                 Topmost = _mapper.IsFullscreen;
                 _mapper.MapWindow(this);

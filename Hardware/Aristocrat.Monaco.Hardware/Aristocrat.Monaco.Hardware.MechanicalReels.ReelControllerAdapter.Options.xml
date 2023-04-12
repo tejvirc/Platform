@@ -6,4 +6,9 @@
       <Field DataType="Int32" Count="6" FieldName="ReelOffsets" />
     </Fields>
   </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Hardware.MechanicalReels.ReelControllerAdapter.Options" >
+    <Fields>
+      <Field DataType="Int32" Count="6" FieldName="ReelOffsets" />
+    </Fields>
+  </BlockFormat>
 </ArrayOfBlockFormat>

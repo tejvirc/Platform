@@ -9,6 +9,7 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:common="http://monaco.aristocrat.com/common"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SoftwareVerificationPageViewModel}, IsDesignTimeCreatable=False}"
                                Background="Transparent" >
 
@@ -47,14 +48,14 @@
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelectHashType}}" />
         <ComboBox Grid.Column="0" Grid.Row="2" Name="AlgorithmComboBox" Style="{DynamicResource MonacoComboBox}"
                   IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
-                  ItemsSource="{Binding AlgorithmTypes}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAlgorithmType}"
+                  ItemsSource="{Binding AlgorithmTypes, Mode=OneTime}" SelectedItem="{Binding SelectedAlgorithmType}"
                   MinWidth="300" HorizontalAlignment="Left"/>
 
         <WrapPanel Grid.Column="2" Grid.Row="2" Margin="0" IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}">
-            <TextBox x:Name="HmacTextBox" Style="{DynamicResource MonacoTextBox}" CommandManager.PreviewCanExecute="HandleCanExecute" MaxWidth="830" TextWrapping="Wrap"
+            <common:TouchTextBox x:Name="HmacTextBox" Style="{DynamicResource MonacoTextBox}" CommandManager.PreviewCanExecute="HandleCanExecute" MaxWidth="830" TextWrapping="Wrap"
                      Text="{Binding Path=FormattedHmacKey, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ShaConverter}}"
                      IsEnabled="{Binding Path=CanUseHmacKey}" CharacterCasing="Upper"
-                     PreviewTextInput="HmacTextBox_PreviewTextInput" InputScope="AlphanumericFullWidth" FontFamily="Consolas" 
+                     PreviewTextInput="HmacTextBox_PreviewTextInput" InputScope="AlphanumericFullWidth" FontFamily="Consolas"
                      HorizontalAlignment="Right" FontSize="18" PreviewKeyDown="HmacTextBox_PreviewKeyDown" IsUndoEnabled="False"  />
         </WrapPanel>
 
@@ -67,8 +68,8 @@
                 IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.CalculateSignatures}}" />
 
-        <DataGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" Margin="0 20 0 35" 
-                  ItemsSource="{Binding ComponentSet}" Style="{DynamicResource MonacoScrollButtonDataGrid}" 
+        <DataGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" Margin="0 20 0 35"
+                  ItemsSource="{Binding ComponentSet}" Style="{DynamicResource MonacoScrollButtonDataGrid}"
                   ColumnHeaderHeight="40"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                   ScrollViewer.CanContentScroll="True"
@@ -77,7 +78,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ComponentIdVersion}}" Width="Auto" MinWidth="320"
                                     Binding="{Binding ComponentId}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HashResult}}" FontFamily="Consolas" MinWidth="600" MaxWidth="800" 
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HashResult}}" FontFamily="Consolas" MinWidth="600" MaxWidth="800"
                                     ElementStyle="{StaticResource WrapText}" Binding="{Binding HashResult, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ShaConverter}}" />
             </DataGrid.Columns>
         </DataGrid>

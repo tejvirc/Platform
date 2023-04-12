@@ -7,6 +7,7 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:IdleTextViewModel}}"
                                Background="Transparent">
@@ -32,7 +33,7 @@
         <Label Grid.Row="0"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.IdleTextTitle}}" />
 
-        <TextBox Grid.Row="1"
+        <common:TouchTextBox Grid.Row="1"
                  Height="200"
                  Width="800"
                  IsReadOnly="False"
