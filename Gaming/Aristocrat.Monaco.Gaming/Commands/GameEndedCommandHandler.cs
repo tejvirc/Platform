@@ -9,6 +9,7 @@
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Common.PerformanceCounters;
     using Contracts;
     using Contracts.Barkeeper;
@@ -42,6 +43,7 @@
         private readonly ITransactionHistory _transactionHistory;
         private readonly IBarkeeperHandler _barkeeperHandler;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
+        private readonly IHandCountServiceProvider _handCountServiceProvider;
 
         private readonly bool _meterFreeGames;
         private IProgressiveLevelProvider _progressiveLevelProvider;
@@ -62,7 +64,8 @@
             ITransactionHistory transactionHistory,
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
-            IProgressiveLevelProvider progressiveLevelProvider)
+            IProgressiveLevelProvider progressiveLevelProvider,
+            IHandCountServiceProvider handCountServiceProvider)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -77,6 +80,7 @@
             _barkeeperHandler = barkeeperHandler ?? throw new ArgumentNullException(nameof(barkeeperHandler));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
             _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _handCountServiceProvider = handCountServiceProvider ?? throw new ArgumentNullException(nameof(handCountServiceProvider));
 
             _meterFreeGames = _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false);
         }
@@ -101,6 +105,7 @@
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
             _runtime.UpdateBalance(_bank.Credits);
+            _handCountServiceProvider.CheckAndResetHandCount();
         }
 
         private void IncrementMeters()
