@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
-    using ReelSpinData = Hardware.Contracts.Reel.ReelSpinData;
+    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
 
     /// <summary>
     ///     Spins the mechanical reels

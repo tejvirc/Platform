@@ -61,6 +61,7 @@
                   Visibility="{Binding ShowToggle, Converter={StaticResource TrueHiddenFalseVisible}}">
             <StackPanel Orientation="Horizontal">
                 <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
+                                             Name="BellToggleSwitch"
                                              IsEnabled="{Binding IsToggleEnabled}"
                                              IsChecked="{Binding ToggleBell, Mode=TwoWay}"
                                              helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"

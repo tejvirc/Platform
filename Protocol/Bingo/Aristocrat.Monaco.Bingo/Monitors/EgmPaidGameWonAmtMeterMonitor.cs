@@ -38,6 +38,7 @@
             IEventBus eventBus)
             : base(
                 GamingMeters.EgmPaidGameWonAmount,
+                true,
                 meterManager,
                 bingoGameProvider,
                 transactionQueue,
@@ -47,7 +48,7 @@
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
         }
 
-        protected override IEnumerable<HandpayTransaction> GetCreditHandpays(IGameHistoryLog log)
+        protected override IEnumerable<HandpayTransaction> GetHandpays(IGameHistoryLog log)
         {
             return _transactionHistory.RecallTransactions<HandpayTransaction>()
                 .Where(t => t.IsCreditType() && IsForGameRound(t));

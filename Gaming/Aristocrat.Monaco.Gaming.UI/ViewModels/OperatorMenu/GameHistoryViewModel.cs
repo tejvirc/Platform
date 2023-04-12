@@ -30,6 +30,7 @@
     using Diagnostics;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;

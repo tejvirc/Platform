@@ -33,6 +33,7 @@
     public class DisplaysPageViewModel : InspectionWizardViewModelBase
     {
         private static readonly TimeSpan IdentifyWindowDisplayTime = TimeSpan.FromSeconds(3);
+        private static readonly TimeSpan IdentifyWindowDisplayTimeForInspection = TimeSpan.FromSeconds(1);
 
         private readonly object _lock = new object();
 
@@ -176,22 +177,22 @@
                 EventBus.Subscribe<DeviceConnectedEvent>(this, _ => RefreshDisplays());
                 EventBus.Subscribe<DeviceDisconnectedEvent>(this, _ => RefreshDisplays());
 
+                var isInspection = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(KernelConstants.IsInspectionOnly, false);
                 if (CabinetService.ExpectedDisplayDevicesWithSerialTouch != null)
                 {
-                    CalibrateTouchScreenVisible = TestTouchScreenVisible = CabinetService.ExpectedDisplayDevicesWithSerialTouch.Count() > 0;
+                    CalibrateTouchScreenVisible = TestTouchScreenVisible = CabinetService.ExpectedDisplayDevicesWithSerialTouch.Count() > 0 || isInspection;
                 }
                 else
                 {
                     var touchDevicesAvailable = DisplaysDetected.Where(d => d.TouchDevice != null).ToList();
-                    TestTouchScreenVisible = touchDevicesAvailable.Any();
+                    TestTouchScreenVisible = touchDevicesAvailable.Any() || isInspection;
                 }
 
                 RefreshDisplays();
             }
 
-            var monitorInfo = "Monitor: ??"; // TODO
-            var touchInfo = "Touch: " +
-                            MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
+            var monitorInfo = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
+            var touchInfo = $"Touch: {MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator))}";
             Inspection?.SetFirmwareVersion(string.Join(Environment.NewLine, monitorInfo, touchInfo));
 
             base.OnLoaded();
@@ -439,7 +440,8 @@
                     };
 
                     screenIdentifyWindow.Show();
-                    await Task.Delay(IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
+                    var isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+                    await Task.Delay(isInspection ? IdentifyWindowDisplayTimeForInspection : IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
                     screenIdentifyWindow.Close();
                     screenIdentifyWindow = null;
                 }

@@ -165,6 +165,13 @@
         public bool IsDiagnosticsActive => _gameDiagnostics?.IsActive ?? false;
 
         /// <inheritdoc />
+        public void AddMeterSnapShotWithPersistentLog()
+        {
+            AddMeterSnapshot();
+            Persist(_currentLog);
+        }
+
+        /// <inheritdoc />
         public void Escrow(long initialWager, byte[] data)
         {
             InitializeLog(PlayState.PrimaryGameEscrow, initialWager, data, Enumerable.Empty<Jackpot>());
@@ -498,8 +505,7 @@
             log.EndTransactionId = _idProvider.CurrentTransactionId;
             log.PlayState = PlayState.GameEnded;
             log.LastUpdate = endTime;
-            AddMeterSnapshot();
-            Persist(log);
+            
             Logger.Debug($"[Game End {CurrentLogIndex}] End Time {endTime}");
         }
 

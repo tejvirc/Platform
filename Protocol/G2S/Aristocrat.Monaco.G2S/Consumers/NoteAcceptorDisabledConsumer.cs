@@ -58,7 +58,7 @@
 
                 var device = _deviceRegistry.GetDevice<INoteAcceptor>();
 
-                if (device?.StackerState == NoteAcceptorStackerState.Removed)
+                if (device?.StackerState == NoteAcceptorStackerState.Removed && !noteAcceptor.RequiredForPlay)
                 {
                     _egm.GetDevice<ICabinetDevice>().AddCondition(
                         noteAcceptor,

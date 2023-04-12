@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
-    using Contracts.Reel;
+    using Contracts.Reel.ControlData;
     using Protocols;
 
     public static class HarkeyConstants

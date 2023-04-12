@@ -3,9 +3,10 @@
     using System;
     using Aristocrat.Sas.Client;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
 
     /// <summary>
-    ///     Handles the <see cref="Hardware.Contracts.Reel.HardwareReelFaultEvent" /> event for reels.
+    ///     Handles the <see cref="Hardware.Contracts.Reel.Events.HardwareReelFaultEvent" /> event for reels.
     /// </summary>
     public class ReelFaultedConsumer : Consumes<HardwareReelFaultEvent>
     {

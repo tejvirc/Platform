@@ -7,7 +7,7 @@
     /// <summary>
     ///     Contract for hand count service instance.
     /// </summary>
-    public interface IHandCountService : IService
+    public interface IHandCountService : IService, IDisposable
     {
         /// <summary>
         ///     Gets hand count
@@ -25,10 +25,11 @@
         /// <param name="n">Decrease hand count by n.</param>
         /// </summary>
         void DecreaseHandCount(int n);
+
         /// <summary>
-        ///     Reset hand count
+        ///     Check and run if Reset hand count is required
         /// </summary>
-        void ResetHandCount();
+        void CheckAndResetHandCount();
 
         /// <summary>
         ///     Send HandCountChangedEvent

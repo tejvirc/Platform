@@ -18,6 +18,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private IHandCountService _handCountService;
+        private bool _disposed;
 
         /// <summary>
         /// Get hand counts if hand counts are enabled for jurisdiction, else returns 0
@@ -56,6 +57,32 @@
         public void IncrementHandCount()
         {
             _handCountService?.IncrementHandCount();
+        }
+
+        public void CheckAndResetHandCount()
+        {
+            _handCountService?.CheckAndResetHandCount();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _handCountService.Dispose();
+            }
+
+            _disposed = true;
         }
     }
 }

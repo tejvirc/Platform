@@ -5,14 +5,17 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Contracts.Configuration;
+    using Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM.ViewModel;
 
-    public class EditableGameProfile : BaseViewModel, IDisposable
+    public class EditableGameProfile : BaseEntityViewModel, IDisposable
     {
         private readonly bool _enableRtpScaling;
         private IConfigurationRestriction _selectedRestriction;
+        private string _restrictionWarningText;
 
         public EditableGameProfile(
             string themeId,
@@ -53,11 +56,19 @@
 
         public IReadOnlyList<IConfigurationRestriction> ValidRestrictions { get; private set; }
 
+        public string RestrictionWarningText
+        {
+            get => _restrictionWarningText;
+            set => SetProperty(ref _restrictionWarningText, value);
+        }
+
         public bool Enabled => GameConfigurations.Any(c => c.Enabled);
 
         public int EnabledGameConfigurationsCount => GameConfigurations.Count(c => c.Enabled);
 
         public ObservableCollection<EditableGameConfiguration> GameConfigurations { get; }
+
+        public new bool HasErrors => base.HasErrors;
 
         public void Dispose()
         {
@@ -123,6 +134,20 @@
                 var sortedConfigs = GameConfigurations.OrderBy(g => g.Denom).ToList();
                 GameConfigurations.Clear();
                 GameConfigurations.AddRange(sortedConfigs);
+            }
+        }
+
+        public void SetRestrictionError(bool hasError)
+        {
+            if (hasError)
+            {
+                RestrictionWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PackagesMustMatch);
+                SetError(nameof(RestrictionWarningText), RestrictionWarningText);
+            }
+            else
+            {
+                RestrictionWarningText = string.Empty;
+                ClearErrors(nameof(RestrictionWarningText));
             }
         }
 
