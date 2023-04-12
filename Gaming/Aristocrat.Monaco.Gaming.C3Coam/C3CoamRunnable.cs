@@ -35,7 +35,7 @@
             // This is just a stub since the core gaming layer currently has dependencies on IResponsibleGaming.  It needs to be re-factored out
             container.Register<IResponsibleGaming, ResponsibleGaming>(Lifestyle.Singleton);
 
-            container.Register<IPlayerBank, CoamPlayerBank>(Lifestyle.Singleton);
+            container.Register<IPlayerBank, CoamPlayerBankDecorator>(Lifestyle.Singleton);
             container.Register(() => ServiceManager.GetInstance().GetService<ICashOutAmountCalculator>(), Lifestyle.Singleton);
 
             // Additional registrations go here
