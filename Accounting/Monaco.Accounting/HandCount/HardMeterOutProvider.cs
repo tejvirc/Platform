@@ -16,6 +16,8 @@
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using System.Linq;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Localization.Properties;
 
     /// <summary>
     ///     An <see cref="ITransferOutProvider" /> 
@@ -215,9 +217,9 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.PrintingTicketDisableKey,
                 SystemDisablePriority.Immediate,
-                () => "PRINTING TICKET...",
+                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.PrintingTicket),
                 true,
-                () => "PRINTING TICKET...");
+                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.PrintingTicket));
 
             return keyOff;
         }

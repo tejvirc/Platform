@@ -14,6 +14,8 @@
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Localization.Properties;
 
     /// <summary>
     ///     An <see cref="IPlayerBank" /> implementation.
@@ -88,9 +90,9 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.LargePayoutDisableKey,
                 SystemDisablePriority.Immediate,
-                () => "COLLECT LIMIT REACHED. SEE ATTENDANT.",
+                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.LargePayoutReached),
                 true,
-                () => "COLLECT LIMIT REACHED. SEE ATTENDANT.");
+                () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.LargePayoutReachedHelpMessage));
 
             return keyOff;
         }
