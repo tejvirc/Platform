@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "j5IYsDTzLrzFyO1X0oUKa9hlFD2Y3Kq/eDqpE8GQMW8="
+          "hash": "cSSlCkFm8V0VGqFYGWo9CWzD4z0IiTw3jT1PtsTXJOI="
         }
       },
       "is_incremental": false,
@@ -12528,7 +12528,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintHandler.html",
-          "hash": "IjCLB9a0kI+98+O/GcuM3tokwawGHPE9uCHFgevnmSs="
+          "hash": "swUxQpPMX06jjtSRzpLUEVOSn0G/Hhokd2/36B+W/6Y="
         }
       },
       "is_incremental": false,
@@ -12576,7 +12576,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.OperatorMenu.PrinterStatusPrinting.html",
-          "hash": "FnHpGVqvJRKakpanXJ86L4QsGwok7GjbluGmrktvEhA="
+          "hash": "XlMxbyxDN3aE8i9VDm+uTmEKo5IpXR7PRouQu/o2sPs="
         }
       },
       "is_incremental": false,
@@ -13656,7 +13656,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.PrinterViewModel.html",
-          "hash": "hfbhXnPab3xM9jSPlNR3Tz0LOOpUoyVRhNUwTUUDxD8="
+          "hash": "5+x4l1hOWDHldT/QHLmMG5HpD2nUxKLHRvRXhI4M8ig="
         }
       },
       "is_incremental": false,
@@ -62466,7 +62466,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterBaseEvent.html",
-          "hash": "fJJ64u0MGdQrMdnlqrrOeeYiKAalzUt6PWjVaM+Mygk="
+          "hash": "gOWtHZaErWtHSzC64n8ZoGMyscjHr9arqiLGQPGOssE="
         }
       },
       "is_incremental": false,
@@ -62582,42 +62582,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEvent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEvent.html",
-          "hash": "3PnJSLwnlL7VDyuBbeQHliFZ3wSLVEDskk5vxGZo5Xk="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEventCode.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEventCode.html",
-          "hash": "6/EOW5XLQarocqd60Xsbz+/lIgJ608Bdmo4ZAsKUwxw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEventType.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEventType.html",
-          "hash": "7ghPMWxkZBiFhd2MBCKJtBvxD7uZWav9VQSx9p0U/Go="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs.yml",
       "output": {
         ".html": {
@@ -62634,7 +62598,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Printer.html",
-          "hash": "HDH1+CQZmvpbGU65fsslWXacpU21LHK6svYu9XHJcXs="
+          "hash": "pD1+cF5NcYNeBJEJOxCnTDiWr3fDb0d8fejp8N66IJE="
         }
       },
       "is_incremental": false,
@@ -82149,7 +82113,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6812,
+          "total_file_count": 6809,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
