@@ -5,7 +5,6 @@
     using System.Globalization;
     using System.Text;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using Hardware.Contracts.Persistence;
     using Localization.Properties;
     using Transactions;

@@ -2,7 +2,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
 {
     using System;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Application.Contracts.Localization;
     using Kernel;
     using Localization.Properties;
 
