@@ -386,9 +386,9 @@
                 case RuntimeEvent.RequestAllowGameRound:
                     // Not used
                     break;
-                //case EventTypes.MaxWinReached:
-                //    _bus.Publish(new MaxWinReachedEvent());
-                //    break;
+                case EventTypes.MaxWinReached:
+                    _eventBus.Publish(new MaxWinReachedEvent());
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

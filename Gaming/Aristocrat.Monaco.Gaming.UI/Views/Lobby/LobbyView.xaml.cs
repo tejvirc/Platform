@@ -450,7 +450,7 @@
                     _topperView.DataContext = value;
                 }
                 _handCountTimerOverlay.DataContext = ViewModel.HandCountTimerOverlay;
-                _maxWinDialogOverlay.DataContext = ViewModel.MaxWinOverlay;
+                _maxWinDialogOverlay.DataContext = ViewModel.MaxWinViewModel;
                 _overlayWindow.ViewModel = ViewModel;
                 AddOverlayBindings(_overlayWindow, ViewModel);
 
@@ -967,7 +967,7 @@
             }
             if (_maxWinDialogOverlay != null)
             {
-                ViewModel.MaxWinOverlay?.Dispose();
+                ViewModel.MaxWinViewModel?.Dispose();
             }
             /*
             if (_timeLimitDlg != null)

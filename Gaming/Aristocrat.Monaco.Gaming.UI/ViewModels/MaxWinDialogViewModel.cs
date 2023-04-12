@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.UI.Events;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.UI.Common;
@@ -18,7 +19,7 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly DispatcherTimerAdapter _resetTimer;
         private bool _showDialog;
-        private long _maxWinAmount;
+        private int? _maxWinAmount;
         private bool _disposed = false;
 
         /// <summary>
@@ -38,7 +39,10 @@
             }
         }
 
-        public long MaxWinAmount
+        /// <summary>
+        /// Maximum win amount value
+        /// </summary>
+        public int? MaxWinAmount
         {
             get
             {
@@ -50,6 +54,7 @@
                 RaisePropertyChanged(nameof(MaxWinAmount));
             }
         }
+
         /// <summary>
         /// Holds the time left to show the max win reached pop up
         /// </summary>
@@ -75,13 +80,10 @@
             _resetTimer = new DispatcherTimerAdapter() { Interval = oneSecondElapsed };
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
             _resetTimer.Tick += resetTimer_Tick;
-            MaxWinAmount = 100;
-            // _eventBus.Subscribe<MaxWinReachedEvent>(this, Handle);
-
-            _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, Handle);
+            _eventBus.Subscribe<MaxWinReachedEvent>(this, Handle);
         }
 
-        private void Handle(HandCountResetTimerStartedEvent evt)
+        private void Handle(MaxWinReachedEvent evt)
         {
             ShowDialog = true;
             // Start Timer
@@ -89,14 +91,6 @@
             _resetTimer.Start();
             _resetTimer.IsEnabled = true;
         }
-        //private void Handle(MaxWinReachedEvent evt)
-        //{
-        //    ShowDialog = true;
-        //    // Start Timer
-        //    TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
-        //    _resetTimer.Start();
-        //    _resetTimer.IsEnabled = true;
-        //}
 
         private void resetTimer_Tick(object sender, EventArgs e)
         {
