@@ -8,6 +8,8 @@
     {
         protected IAuthorizationProvider AuthorizationProvider;
 
+        public event EventHandler<EventArgs> AuthorizationFailed;
+
         public TimeSpan MessageTimeoutMs { get; set; } = TimeSpan.FromMilliseconds(3000);
 
         public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
@@ -15,6 +17,11 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncUnaryCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             context = AddTimeout(AddAuthorization(context));
             var call = continuation(request, context);
             return new AsyncUnaryCall<TResponse>(
@@ -30,15 +37,28 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             BlockingUnaryCallContinuation<TRequest, TResponse> continuation)
         {
-            context = AddTimeout(AddAuthorization(context));
-            var response = base.BlockingUnaryCall(request, context, continuation);
-            return response;
+            try
+            {
+                context = AddTimeout(AddAuthorization(context));
+                var response = base.BlockingUnaryCall(request, context, continuation);
+                return response;
+            }
+            catch (RpcException rpcException)
+            {
+                OnRpcException(rpcException);
+                throw;
+            }
         }
 
         public override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncDuplexStreamingCall<TRequest, TResponse>(
@@ -55,6 +75,11 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             context = AddAuthorization(context);
             var call = continuation(request, context);
             return new AsyncServerStreamingCall<TResponse>(
@@ -69,6 +94,11 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncClientStreamingCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
@@ -80,7 +110,12 @@
                 call.Dispose);
         }
 
-        protected ClientInterceptorContext<TRequest, TResponse> AddAuthorization<TRequest, TResponse>(
+        public void OnAuthorizationFailed()
+        {
+            AuthorizationFailed?.Invoke(this, EventArgs.Empty);
+        }
+
+        private ClientInterceptorContext<TRequest, TResponse> AddAuthorization<TRequest, TResponse>(
             ClientInterceptorContext<TRequest, TResponse> context)
             where TRequest : class
             where TResponse : class
@@ -106,6 +141,17 @@
                 context.Method,
                 context.Host,
                 context.Options.WithDeadline(DateTime.UtcNow.Add(MessageTimeoutMs)));
+        }
+
+        private void OnRpcException(RpcException rpcException)
+        {
+            if (AuthorizationProvider.AuthorizationData is null ||
+                rpcException.StatusCode is not (StatusCode.Unauthenticated or StatusCode.PermissionDenied))
+            {
+                return;
+            }
+            
+            OnAuthorizationFailed();
         }
     }
 }

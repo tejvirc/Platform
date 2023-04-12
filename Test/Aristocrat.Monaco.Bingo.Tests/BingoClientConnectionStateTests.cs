@@ -32,6 +32,7 @@
         private readonly Mock<IProgressiveCommandService> _progressiveCommandService = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
+        private readonly Mock<IClientConfigurationProvider> _configurationProvider = new(MockBehavior.Default);
         private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new Mock<IUnitOfWorkFactory>(MockBehavior.Strict);
 
@@ -43,7 +44,11 @@
         {
             var uriBuilder = new UriBuilder { Host = "localhost", Port = 5000 };
             _client.Setup(m => m.Start()).Returns(Task.FromResult(true));
-            _client.SetupGet(m => m.Configuration).Returns(new ClientConfigurationOptions(uriBuilder.Uri, TimeSpan.FromSeconds(2), Enumerable.Empty<X509Certificate2>()));
+            _configurationProvider.Setup(m => m.CreateConfiguration()).Returns(
+                new ClientConfigurationOptions(
+                    uriBuilder.Uri,
+                    TimeSpan.FromSeconds(2),
+                    Enumerable.Empty<X509Certificate2>()));
             _client.Setup(m => m.FirewallRuleName).Returns("TestFirewall");
 
             _eventBus.Setup(
@@ -85,6 +90,7 @@
                 _eventBus.Object,
                 clients,
                 _commandFactory.Object,
+                _configurationProvider.Object,
                 _progressiveCommandService.Object,
                 _propertiesManager.Object,
                 _systemDisableManager.Object,
@@ -98,19 +104,21 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, false, false, false, DisplayName = "EventBus null")]
-        [DataRow(false, true, false, false, false, false, false, DisplayName = "Client null")]
-        [DataRow(false, false, true, false, false, false, false, DisplayName = "CommandFactory null")]
-        [DataRow(false, false, false, true, false, false, false, DisplayName = "ProgressiveCommandService null")]
-        [DataRow(false, false, false, false, true, false, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, false, false, false, false, true, false, DisplayName = "SystemDisableManager null")]
-        [DataRow(false, false, false, false, false, false, true, DisplayName = "UnitOfWorkFactory null")]
+        [DataRow(true, false, false, false, false, false, false, false, DisplayName = "EventBus null")]
+        [DataRow(false, true, false, false, false, false, false, false, DisplayName = "Client null")]
+        [DataRow(false, false, true, false, false, false, false, false, DisplayName = "CommandFactory null")]
+        [DataRow(false, false, false, true, false, false, false, false, DisplayName = "ConfigurationProvider null")]
+        [DataRow(false, false, false, false, true, false, false, false, DisplayName = "ProgressiveCommandService null")]
+        [DataRow(false, false, false, false, false, true, false, false, DisplayName = "PropertiesManager null")]
+        [DataRow(false, false, false, false, false, false, true, false, DisplayName = "SystemDisableManager null")]
+        [DataRow(false, false, false, false, false, false, false, true, DisplayName = "UnitOfWorkFactory null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
             bool eventBusNull,
             bool clientNull,
             bool commandFactoryNull,
+            bool configurationNull,
             bool progressiveCommandServiceNull,
             bool propertiesManagerNull,
             bool systemDisableManagerNull,
@@ -120,6 +128,7 @@
                 eventBusNull ? null : _eventBus.Object,
                 clientNull ? null : new List<IClient> { _client.Object },
                 commandFactoryNull ? null : _commandFactory.Object,
+                configurationNull ? null : _configurationProvider.Object,
                 progressiveCommandServiceNull ? null : _progressiveCommandService.Object,
                 propertiesManagerNull ? null : _propertiesManager.Object,
                 systemDisableManagerNull ? null : _systemDisableManager.Object,

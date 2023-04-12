@@ -4,6 +4,7 @@
     using Aristocrat.Monaco.Bingo.Common;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Events;
     using Bingo.Consumers;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

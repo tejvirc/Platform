@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Aristocrat.Monaco.TestController
+﻿namespace Aristocrat.Monaco.TestController
 {
+    using System;
+    using System.Collections.Generic;
     using DataModel;
-    using Gaming.Contracts;
     using Hardware.Contracts.IO;
     using Kernel;
 
     public class IoManager
     {
+        private readonly IIO _iio = ServiceManager.GetInstance().GetService<IIO>();
+
+        /// <summary>
+        ///     Set an IO override for a given input
+        /// </summary>
         public void SetInput(string input, bool high)
         {
             if (!Enum.TryParse<SharedInput>(input, out var sharedInput))
-            {
-                return;
-            }
-
-            if (HandleSpecialCases(sharedInput))
             {
                 return;
             }
@@ -47,11 +45,13 @@ namespace Aristocrat.Monaco.TestController
             }
         }
 
-        public Dictionary<string,string> GetInputs()
+        /// <summary>
+        ///     Get the current state of all inputs
+        /// </summary>
+        public Dictionary<string, string> GetInputs()
         {
-            Dictionary<string,string> state = new Dictionary<string, string>();
-
-            var inputs = (int)ServiceManager.GetInstance().GetService<IIO>().GetInputs;
+            Dictionary<string, string> state = new Dictionary<string, string>();
+            var inputs = _iio.GetInputs;
 
             foreach (var input in _inputMap)
             {
@@ -65,40 +65,27 @@ namespace Aristocrat.Monaco.TestController
                     continue;
                 }
 
-                //report the override if it exists
+                // Report the override if it exists
                 if (_override.ContainsKey(input.Key))
                 {
-                    state[Enum.GetName(typeof(SharedInput), input.Key)] = _override[input.Key] ? "1" : "0";
+                    state[input.Key.ToString()] = _override[input.Key] ? "1" : "0";
                 }
                 else
                 {
-                    state[Enum.GetName(typeof(SharedInput), input.Key)] = ((int)Math.Pow(_inputMap[input.Key], 2) & inputs) != 0 ? "1" : "0";
+                    state[input.Key.ToString()] = ((1ul << _inputMap[input.Key]) & inputs) != 0 ? "1" : "0";
                 }
             }
 
             return state;
         }
 
-        private bool HandleSpecialCases(SharedInput input)
-        {
-            switch (input)
-            {
-                case SharedInput.ReserveKey:
-                {
-                    
-                    break;
-                }
-            }
-            return false;
-        }
-
         /// <summary>
-        /// Current IO overrides
+        ///     Current IO overrides
         /// </summary>
         private readonly Dictionary<SharedInput, bool> _override = new Dictionary<SharedInput, bool>();
 
         /// <summary>
-        /// Map of SharedInput enum to physical id
+        ///     Map of SharedInput enum to physical ID
         /// </summary>
         private readonly Dictionary<SharedInput, int> _inputMap = new Dictionary<SharedInput, int>
         {
@@ -133,11 +120,6 @@ namespace Aristocrat.Monaco.TestController
             [SharedInput.MainDoor] = 49,
             [SharedInput.NoteDoor] = 48,
             [SharedInput.BellyDoor] = 51,
-        };
-
-        private readonly Dictionary<SharedInput, Type> _specialCases = new Dictionary<SharedInput, Type>
-        {
-            [SharedInput.ReserveKey] = typeof(CallAttendantButtonOnEvent),
         };
     }
 }

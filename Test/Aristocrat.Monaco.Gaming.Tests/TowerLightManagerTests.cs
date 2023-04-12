@@ -10,8 +10,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using Application.Contracts;
     using Application.Contracts.EdgeLight;
     using Application.Contracts.OperatorMenu;
+    using Application.Contracts.TowerLight;
     using Contracts;
-    using Contracts.TowerLight;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.TowerLight;
     using Kernel;

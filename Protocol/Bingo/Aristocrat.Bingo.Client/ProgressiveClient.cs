@@ -22,7 +22,7 @@
 
         public override Channel CreateChannel()
         {
-            var configuration = ConfigurationProvider.Configuration;
+            var configuration = ConfigurationProvider.CreateConfiguration();
             var credentials = configuration.Certificates.Any()
                 ? new SslCredentials(
                     string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))

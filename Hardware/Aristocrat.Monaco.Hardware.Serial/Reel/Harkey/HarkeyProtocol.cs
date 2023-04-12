@@ -14,6 +14,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
     using Contracts.Gds;
     using Contracts.Gds.Reel;
     using Contracts.Reel;
+    using Contracts.Reel.ControlData;
     using log4net;
     using Messages;
     using Protocols;

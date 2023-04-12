@@ -443,8 +443,9 @@
                 if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
                 {
                     Logger.Debug("Sending InitiateRecovery Trigger");
+                    var action = !unexpected ? LobbyTrigger.InitiateRecovery : LobbyTrigger.GameUnexpectedExit;
                     SendTrigger(
-                        LobbyTrigger.InitiateRecovery,
+                        action,
                         CurrentState == LobbyState.Game &&
                         unexpected); //only check with runtime if we get an unexpected exit during game state.
                 }
@@ -577,16 +578,22 @@
             }
         }
 
+        private bool BonusTransferPlaySound => (bool)_properties.GetProperty(GamingConstants.BonusTransferPlaySound, true);
+
         private void HandleEvent(PartialBonusPaidEvent bonusEvent)
         {
-            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusAwardedEvent bonusEvent)
         {
-            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusFailedEvent bonusEvent)
@@ -635,6 +642,7 @@
         private void HandleEvent(TransferOutFailedEvent platformEvent)
         {
             Logger.Debug("Detected TransferOutFailedEvent");
+            MessageOverlayDisplay.TransferOutFailed(platformEvent);
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
@@ -719,6 +727,7 @@
 
         private void HandleEvent(WatTransferInitiatedEvent platformEvent)
         {
+            MessageOverlayDisplay.WatTransferInitiated(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -734,6 +743,7 @@
 
         private void HandleEvent(VoucherOutStartedEvent platformEvent)
         {
+            MessageOverlayDisplay.VoucherOutStarted(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -741,6 +751,8 @@
         private void HandleEvent(HandpayStartedEvent platformEvent)
         {
             Logger.Debug($"Detected HandpayStartedEvent.  HandpayType: {platformEvent.Handpay}");
+
+            MessageOverlayDisplay.HandpayStarted(platformEvent);
 
             SetEdgeLighting();
 
@@ -779,7 +791,7 @@
                     }, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
             }
 
-            if (platformEvent.Handpay == HandpayType.GameWin)
+            if (platformEvent.Handpay is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 PlayGameWinHandPaySound();
             }
@@ -791,15 +803,17 @@
 
         private async Task HandleEvent(HandpayCanceledEvent platformEvent, CancellationToken token)
         {
+            MessageOverlayDisplay.HandpayCancelled();
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
         }
 
         private async Task HandleEvent(HandpayKeyedOffEvent platformEvent, CancellationToken token)
         {
+            MessageOverlayDisplay.HandpayKeyedOff(platformEvent);
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
 
-            if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
+            if (platformEvent.Transaction.HandpayType is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 _playCollectSound = false;
                 _audio.Stop();

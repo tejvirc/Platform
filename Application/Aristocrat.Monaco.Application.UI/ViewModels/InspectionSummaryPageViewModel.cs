@@ -1,14 +1,20 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Windows.Media;
+    using System.Linq;
+    using System.Text;
     using ConfigWizard;
+    using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
+    using Hardware.Contracts.Ticket;
+    using Kernel;
+    using Models;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
+    using OperatorMenu;
 
     /// <summary>
     ///     Page to display inspection summary
@@ -16,6 +22,9 @@
     [CLSCompliant(false)]
     public class InspectionSummaryPageViewModel : InspectionWizardViewModelBase
     {
+        private const int DataLinesPerPage = 36;
+        private const string TicketType = "text";
+
         public InspectionSummaryPageViewModel() : base(true)
         {
         }
@@ -33,66 +42,89 @@
                 Reports.Add(new InspectionCategoryResult(result));
             }
 
+            var serviceManager = ServiceManager.GetInstance();
+            var dateFormat = serviceManager.GetService<IPropertiesManager>().GetValue(
+                ApplicationConstants.LocalizationOperatorDateFormat,
+                ApplicationConstants.DefaultDateFormat);
+            Timestamp = serviceManager.GetService<ITime>().GetFormattedLocationTime(DateTime.Now, $"{dateFormat} {ApplicationConstants.DefaultTimeFormat}");
+
             base.OnLoaded();
         }
 
         public string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionSummaryTitle);
 
-        public DateTime DateNow => DateTime.Now;
+        public string Timestamp { get; private set; }
 
         public ObservableCollection<InspectionCategoryResult> Reports { get; } = new ();
 
         protected override void SaveChanges()
         {
         }
-    }
 
-    [CLSCompliant(false)]
-    public class InspectionCategoryResult : BaseEntityViewModel
-    {
-        private static readonly SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
-        private static readonly SolidColorBrush YellowBrush = new SolidColorBrush(Colors.Yellow);
-        private static readonly SolidColorBrush GreenBrush = new SolidColorBrush(Colors.LightGreen);
-
-        public InspectionCategoryResult(InspectionResultData data)
+        protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
-            Category = Enum.GetName(typeof(HardwareDiagnosticDeviceCategory), data.Category);
+            var tickets = new List<Ticket>();
 
-            switch (data.Status)
+            var pageNum = 1;
+            var text = string.Empty;
+
+            foreach (var result in Inspection.Results)
             {
-                case InspectionPageStatus.Untested:
-                    StatusText = "?";
-                    StatusColor = YellowBrush;
-                    break;
-                case InspectionPageStatus.Good:
-                    StatusText = "\x221A"; // check mark
-                    StatusColor = GreenBrush;
-                    break;
-                case InspectionPageStatus.Bad:
-                    StatusText = "X";
-                    StatusColor = RedBrush;
-                    break;
+                if (result.Category == HardwareDiagnosticDeviceCategory.Unknown)
+                {
+                    continue;
+                }
+
+                var categoryText = BuildCategoryText(result);
+
+                if (CountLines(text + categoryText) > DataLinesPerPage)
+                {
+                    tickets.Add(CreateTicket(text, pageNum));
+
+                    pageNum++;
+                    text = string.Empty;
+                }
+
+                text += categoryText;
             }
 
-            FirmwareMessage = data.FirmwareVersion;
-            FailureMessage = string.Join("; ", data.CombinedTestFailures);
+            tickets.Add(CreateTicket(text, pageNum));
 
-            RaisePropertyChanged(
-                nameof(Category),
-                nameof(StatusText),
-                nameof(StatusColor),
-                nameof(FirmwareMessage),
-                nameof(FailureMessage));
+            return tickets;
         }
 
-        public string Category { get; set; }
+        private string BuildCategoryText(InspectionResultData result)
+        {
+            var text = new StringBuilder();
+            text.AppendLine();
+            text.AppendLine($"{result.Category}  {(result.Status == InspectionPageStatus.Good ? "OK" : result.Status == InspectionPageStatus.Bad ? "FAIL" : "?")}");
 
-        public string StatusText { get; set; }
+            if (!string.IsNullOrEmpty(result.FirmwareVersion))
+            {
+                result.FirmwareVersion.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList().ForEach(f => text.AppendLine($"{f}"));
+            }
 
-        public Brush StatusColor { get; set; }
+            result.FailureMessages.ToList().ForEach(m => text.AppendLine($" FAIL {m}"));
 
-        public string FirmwareMessage { get; set; }
+            return text.ToString();
+        }
 
-        public string FailureMessage { get; set; }
+        private Ticket CreateTicket(string text, int pageNum)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"{PageName}  {Timestamp}  p.{pageNum}");
+            sb.Append(text);
+
+            return new Ticket
+            {
+                [TicketConstants.TicketType] = TicketType,
+                [TicketConstants.Left] = sb.ToString()
+            };
+        }
+
+        private int CountLines(string field)
+        {
+            return field.Split(new [] { Environment.NewLine }, StringSplitOptions.None).Length;
+        }
     }
 }

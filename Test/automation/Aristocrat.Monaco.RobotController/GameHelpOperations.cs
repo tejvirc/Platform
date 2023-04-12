@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.RobotController
+namespace Aristocrat.Monaco.RobotController
 {
     using System;
     using System.Threading.Tasks;
@@ -7,7 +7,7 @@
     using JetBrains.Annotations;
     using Kernel;
 
-    internal sealed class GameHelpOperations : IRobotOperations
+    internal class GameHelpOperations : IRobotOperations
     {
         private static readonly TimeSpan LengthOfTimeToLeaveHelpUpBeforeActing = TimeSpan.FromSeconds(5);
 
@@ -28,15 +28,11 @@
 
         public void Reset()
         {
+            _disposed = false;
         }
 
         public void Execute()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(GameHelpOperations));
-            }
-
             SubscribeToEvents();
         }
 
@@ -55,7 +51,11 @@
         private void Handle(GameRequestedPlatformHelpEvent evt)
         {
             _logger.Info("Game requested platform help", GetType().Name);
-            IsHelpDisplayed = true;
+            IsHelpDisplayed = evt.Visible;
+            if (!IsHelpDisplayed)
+            {
+                return;
+            }
 
             // We should clear help by clicking on the button to exit help (this is handled by TouchOperations),
             // but, if that takes too long (or doesn't happen at all), we need to just exit help so play can continue.
@@ -81,7 +81,13 @@
 
         public void Dispose()
         {
-            if (_disposed)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed || !disposing)
             {
                 return;
             }

@@ -55,6 +55,11 @@
         public int BottomRightY { get; set; }
     }
 
+    [CollectionDataContract(ItemName = "Actions")]
+    public class RobotActions : HashSet<Actions>
+    {
+    }
+
     [CollectionDataContract(ItemName = "Index")]
     public class BetLevels : List<int>
     {
@@ -78,8 +83,6 @@
         {
             GameName = string.Empty;
             Type = GameType.Reel;
-            MinimumBalanceCents = 1000;
-            RobotActions = new HashSet<Actions>();
             ExtraMainTouchAreas = new List<TouchBoxes>();
             ExtraVbdTouchAreas = new List<TouchBoxes>();
             MainTouchDeadZones = new List<TouchBoxes>();
@@ -89,11 +92,11 @@
         [XmlElement]
         public GameType Type { get; set; }
 
-        [XmlElement]
-        public int MinimumBalanceCents { get; set; }
+        [XmlElement(ElementName = "MinimumBalanceCents")]
+        public int MinimumBalanceCents { get; set; } = 500000;
 
         [XmlElement]
-        public int InsertedDollars { get; set; } = 20;
+        public int InsertedDollars { get; set; } = 100;
 
         [XmlArray]
         [XmlArrayItem("Index")]
@@ -104,7 +107,7 @@
         public LineSettings LineSettings { get; set; }
 
         [XmlArray]
-        [XmlArrayItem("Action")]
+        [XmlArrayItem("Actions")]
         public HashSet<Actions> RobotActions { get; set; }
 
         [XmlArray]
@@ -190,13 +193,13 @@
         ///     (ms) Interval between balance check
         /// </summary>
         [XmlElement]
-        public int IntervalBalanceCheck { get; set; } = 20000;
+        public int IntervalBalanceCheck { get; set; } = (int)TimeSpan.FromSeconds(20).TotalMilliseconds;
 
         /// <summary>
         ///     (minutes) how long the Responsible Gaming Session time will be set to on every _intervalAction;
         /// </summary>
         [XmlElement]
-        public int IntervalResponsibleGamingSession { get; set; } = 60;
+        public int IntervalResponsibleGamingSession { get; set; } = (int)TimeSpan.FromMinutes(15).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) how long between any lobby action is possible
@@ -208,43 +211,43 @@
         ///     (ms) how long between any lobby action is possible
         /// </summary>
         [XmlElement]
-        public int IntervalForceGameExit { get; set; } = 600000;
+        public int IntervalForceGameExit { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between a game loaded or reloaded
         /// </summary>
         [XmlElement]
-        public int IntervalLoadGame { get; set; } = 600000;
+        public int IntervalLoadGame { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between Audit Menu loads
         /// </summary>
         [XmlElement]
-        public int IntervalLoadAuditMenu { get; set; } = 600000;
+        public int IntervalLoadAuditMenu { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between lockups
         /// </summary>
         [XmlElement]
-        public int IntervalTriggerLockup { get; set; }
+        public int IntervalTriggerLockup { get; set; } = (int)TimeSpan.FromSeconds(600).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between cash outs
         /// </summary>
         [XmlElement]
-        public int IntervalCashOut { get; set; }
+        public int IntervalCashOut { get; set; } = (int)TimeSpan.FromSeconds(30).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval between soft reboots
         /// </summary>
         [XmlElement]
-        public int IntervalSoftReboot { get; set; } = 700000;
+        public int IntervalSoftReboot { get; set; } = (int)TimeSpan.FromSeconds(700).TotalMilliseconds;
 
         /// <summary>
         ///     (ms) interval the RG time elapsed will be set on
         /// </summary>
         [XmlElement]
-        public int IntervalRgSet { get; set; } = 10000;
+        public int IntervalRgSet { get; set; } = (int)TimeSpan.FromMinutes(15).TotalMilliseconds;
 
         /// <summary>
         ///     (seconds) overrides time elapsed for RG
@@ -284,7 +287,7 @@
         public int RgSessionCountOverride { get; set; } = 1;
 
         [XmlElement]
-        public int IntervalServiceRequest { get; set; } = 60000;
+        public int IntervalServiceRequest { get; set; } = (int)TimeSpan.FromMinutes(15).TotalMilliseconds;
 
         [XmlElement]
         public int IntervalValidation { get; set; } = 10000;
@@ -351,8 +354,7 @@
 
     public class Configuration
     {
-        [XmlIgnore]
-        private static readonly ILog Logger =
+        [XmlIgnore] private static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         [XmlIgnore] private static readonly Random Rng = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
@@ -388,8 +390,6 @@
             GameScreen = new Screen { Width = width, Height = height };
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
             CurrentGame = "";
-            CurrentGameProfile = new GameProfile();
-            GameProfiles = new List<GameProfile>();
         }
 
         [XmlElement]
@@ -511,20 +511,34 @@
 
         public List<int> GetBetIndices()
         {
-            var bets = CurrentGameProfile?.BetLevels;
-
-            return bets == null || !bets.Any()
-                ? new List<int> { 1, 2, 3, 4, 5 }
-                : bets;
+            if (CurrentGameProfile?.BetLevels?.Count > 0)
+            {
+                return CurrentGameProfile.BetLevels;
+            }
+            return new List<int>
+            {
+                1,
+                2,
+                3,
+                4,
+                5
+            };
         }
 
         public List<int> GetLineIndices()
         {
-            var lines = CurrentGameProfile?.LineSettings;
-
-            return lines == null || !lines.Any()
-                ? new List<int> { 1, 2, 3, 4, 5 }
-                : lines;
+            if (CurrentGameProfile?.LineSettings?.Count > 0)
+            {
+                return CurrentGameProfile.LineSettings;
+            }
+            return new List<int>
+            {
+                1,
+                2,
+                3,
+                4,
+                5
+            };
         }
 
         public HashSet<Actions> GetRobotActions()
@@ -582,11 +596,12 @@
 
         public string SelectNextGame()
         {
-            if (Active.GameList is { Count: > 0 })
+            if (Active.GameList != null && Active.GameList.Count > 0)
             {
                 switch (Active.Selection)
                 {
                     case GameSelection.Sequence:
+                    {
                         if (string.IsNullOrEmpty(CurrentGame))
                         {
                             CurrentGame = Active.GameList.First();
@@ -601,13 +616,18 @@
                         }
 
                         break;
+                    }
                     case GameSelection.Random:
+                    {
                         var random = Rng.Next(Active.GameList.Count);
                         CurrentGame = Active.GameList[random];
                         break;
+                    }
                     case GameSelection.Single:
+                    {
                         CurrentGame = Active.GameList.First();
                         break;
+                    }
                 }
             }
 
@@ -624,7 +644,6 @@
             Modes = new List<Mode> { new Mode() };
             GameScreen = new Screen { Width = 2560, Height = 1560 };
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
-            CurrentGameProfile = new GameProfile();
             CurrentGame = "";
         }
 

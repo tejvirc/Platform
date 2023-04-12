@@ -4,11 +4,14 @@
     using System.IO;
     using System.IO.Ports;
     using System.Reflection;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Timers;
     using Communicator;
     using Kernel;
     using log4net;
     using SharedDevice;
+    using Timer = System.Timers.Timer;
 
     /// <summary>
     ///     Expands on System.IO.Ports.SerialPort
@@ -215,6 +218,14 @@
                 Logger.Debug($"Exception: {e}");
             }
         }
+
+        /// <inheritdoc />
+        public Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken token) =>
+            BaseStream.ReadAsync(buffer, offset, count, token);
+
+        /// <inheritdoc />
+        public Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken token) =>
+            BaseStream.WriteAsync(buffer, offset, count, token);
 
         /// <inheritdoc />
         protected override void Dispose(bool disposing)

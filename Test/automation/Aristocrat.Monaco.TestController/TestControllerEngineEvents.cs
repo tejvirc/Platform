@@ -17,6 +17,8 @@
 
     public partial class TestControllerEngine : ITestController
     {
+        private const int vouchersIssuedLimit = 30;
+
         public void SubscribeToEvents()
         {
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
@@ -241,6 +243,8 @@
             _eventBus.Subscribe<VoucherIssuedEvent>(this, evt =>
             {
                 _lastVoucherIssued = evt;
+                if (_vouchersIssued.Count >= vouchersIssuedLimit)
+                    _vouchersIssued.RemoveAt(0);
                 _vouchersIssued.Add(_lastVoucherIssued);
             });
 

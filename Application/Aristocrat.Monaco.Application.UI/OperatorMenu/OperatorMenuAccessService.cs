@@ -56,6 +56,7 @@
         private readonly Dictionary<string, List<RuleData>> _rules = new Dictionary<string, List<RuleData>>();
         private readonly List<AccessRuleSet> _ruleSets = new List<AccessRuleSet>();
         private readonly ISet<Guid> _disables;
+        private readonly bool _maxMetersEnabled;
 
         private bool _ignoreDoors;
         private bool _ignoreSwitches;
@@ -124,6 +125,8 @@
                 x => x.PropertyName == ApplicationConstants.EKeyVerified ||
                      x.PropertyName == ApplicationConstants.CommunicationsOnline ||
                      x.PropertyName == ApplicationConstants.WaitForProgressiveInitialization);
+
+            _maxMetersEnabled = _properties.GetValue(@"maxmeters", "false") == "true";
         }
 
         public void Dispose()
@@ -447,9 +450,9 @@
                     break;
 
                 case OperatorMenuAccessRestriction.InitialGameConfigNotCompleteOrEKeyVerified:
-                    access = (GetRestrictionStatus(OperatorMenuAccessRestriction.GamesPlayed) &&
-                              !GetRestrictionStatus(OperatorMenuAccessRestriction.InitialGameConfigurationComplete))
-                             || GetRestrictionStatus(OperatorMenuAccessRestriction.EKeyVerified);
+                    access =  ((_maxMetersEnabled || GetRestrictionStatus(OperatorMenuAccessRestriction.GamesPlayed)) &&
+                              !GetRestrictionStatus(OperatorMenuAccessRestriction.InitialGameConfigurationComplete)) ||
+                              GetRestrictionStatus(OperatorMenuAccessRestriction.EKeyVerified);
                     break;
                 case OperatorMenuAccessRestriction.NoHardLockups:
                     access = NoHardLockupStatus();

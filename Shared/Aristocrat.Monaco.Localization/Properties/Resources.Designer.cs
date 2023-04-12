@@ -1546,6 +1546,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return ResourceManager.GetString("AutoTest", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		public static string AvailableMeterMappings {
@@ -6281,6 +6293,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string CreatingKeyboardService {
+			get {
+				return ResourceManager.GetString("CreatingKeyboardService", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		public static string CreatingLiveAuthenticationManager {
@@ -8744,6 +8768,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return ResourceManager.GetString("Displays", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -8968,6 +9004,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DoorOpticSensorEnabled {
 			get {
 				return ResourceManager.GetString("DoorOpticSensorEnabled", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return ResourceManager.GetString("DoorRequiresTest", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -22769,6 +22817,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PackagesMustMatch {
+			get {
+				return ResourceManager.GetString("PackagesMustMatch", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
         /// <remarks>
@@ -36085,6 +36145,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AutoTest {
+			get {
+				return "AutoTest";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		public static string AvailableMeterMappings {
@@ -40819,6 +40891,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string CreatingKeyboardService {
+			get {
+				return "CreatingKeyboardService";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		public static string CreatingLiveAuthenticationManager {
@@ -43282,6 +43366,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Displays {
+			get {
+				return "Displays";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -43506,6 +43602,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DoorOpticSensorEnabled {
 			get {
 				return "DoorOpticSensorEnabled";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DoorRequiresTest {
+			get {
+				return "DoorRequiresTest";
 			}
 		}
 
@@ -57307,6 +57415,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PackagesMustMatch {
+			get {
+				return "PackagesMustMatch";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>
         /// <remarks>
@@ -69989,6 +70109,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		AutoPlay,
 		/// <summary>
+		///   Looks up a localized string similar to Auto Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AutoTest,
+		/// <summary>
 		///   Looks up a localized string similar to Meter Mapping.
 		/// </summary>
 		AvailableMeterMappings,
@@ -72684,6 +72811,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		CreatingFormat,
 		/// <summary>
+		///   Looks up a localized string similar to Creating Keyboard Service.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		CreatingKeyboardService,
+		/// <summary>
 		///   Looks up a localized string similar to Creating Live Authentication Manager.
 		/// </summary>
 		CreatingLiveAuthenticationManager,
@@ -74087,6 +74221,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisplayDisconnected,
 		/// <summary>
+		///   Looks up a localized string similar to Displays.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Displays,
+		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
         /// <remarks>
@@ -74219,6 +74360,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		DoorOpticSensorEnabled,
+		/// <summary>
+		///   Looks up a localized string similar to Door requires test: open and close.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		DoorRequiresTest,
 		/// <summary>
 		///   Looks up a localized string similar to Door.
 		/// </summary>
@@ -82076,6 +82224,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.Common
         /// </remarks>
 		PackageNotFoundErrorMessage,
+		/// <summary>
+		///   Looks up a localized string similar to All games of this type must use the same package.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		PackagesMustMatch,
 		/// <summary>
 		///   Looks up a localized string similar to Package transfer record was not found..
 		/// </summary>

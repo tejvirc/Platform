@@ -5,6 +5,7 @@
     using Aristocrat.Monaco.Gaming.Runtime;
     using Consumers;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;

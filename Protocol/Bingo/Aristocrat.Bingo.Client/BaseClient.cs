@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
     using System;
-    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
     using Configuration;
@@ -67,8 +66,6 @@
 
 		public bool IsConnected => StateIsConnected(_channel?.State);
 		
-        public ClientConfigurationOptions Configuration => ConfigurationProvider.Configuration;
-
         public abstract Channel CreateChannel();
 
         public abstract TClientApi CreateClient(CallInvoker callInvoker);
@@ -79,8 +76,8 @@
             {
                 await Stop().ConfigureAwait(false);
                 _channel = CreateChannel();
-                var configuration = ConfigurationProvider.Configuration;
                 var callInvoker = _channel.Intercept(ClientAuthorizationInterceptor, LoggingInterceptor);
+                var configuration = ConfigurationProvider.CreateConfiguration();
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
                     await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout)
@@ -120,7 +117,7 @@
 
                 if (channel != null)
                 {
-                    await channel.ShutdownAsync();
+                    await channel.ShutdownAsync().ConfigureAwait(false);
                     Disconnected?.Invoke(this, new DisconnectedEventArgs());
                 }
             }

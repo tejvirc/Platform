@@ -8,6 +8,7 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Bingo.Client;
+    using Aristocrat.Bingo.Client.Configuration;
     using Aristocrat.Bingo.Client.Messages;
     using Commands;
     using Common;
@@ -31,6 +32,7 @@
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISystemDisableManager _systemDisable;
+        private readonly IClientConfigurationProvider _configurationProvider;
         private readonly IProgressiveCommandService _progressiveCommandService;
         private readonly Timer _timeoutTimer;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
@@ -51,6 +53,7 @@
             IEventBus eventBus,
             IEnumerable<IClient> clients,
             ICommandHandlerFactory commandFactory,
+            IClientConfigurationProvider configurationProvider,
             IProgressiveCommandService progressiveCommandService,
             IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisable,
@@ -62,6 +65,7 @@
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _progressiveCommandService = progressiveCommandService ?? throw new ArgumentNullException(nameof(progressiveCommandService));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
+            _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
 
             CreateStateMachine();
@@ -406,9 +410,10 @@
 
         private void SetupFirewallRule()
         {
+            using var configuration = _configurationProvider.CreateConfiguration();
             foreach (var client in _clients)
             {
-                Firewall.AddRule(client.FirewallRuleName, (ushort)client.Configuration.Address.Port, Firewall.Direction.Out);
+                Firewall.AddRule(client.FirewallRuleName, (ushort)configuration.Address.Port, Firewall.Direction.Out);
             }
         }
 

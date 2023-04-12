@@ -45,6 +45,7 @@
         private bool _allowBillIn;
         private bool _allowBillInEnabled;
         private string _voucherInEnabledText;
+        private bool _inNoteAcceptorTest;
 
         public bool IsNoteAcceptorConnected => NoteAcceptor != null;
 

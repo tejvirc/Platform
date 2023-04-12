@@ -17,5 +17,6 @@ as follows:
 	<OperatorMenu DisableDuringGame="true" />
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
+    <Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Configurable="true" />
 </GamingConfiguration>

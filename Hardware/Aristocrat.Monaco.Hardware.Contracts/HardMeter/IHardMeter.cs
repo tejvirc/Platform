@@ -68,5 +68,8 @@
         /// <param name="hardMeterId">Logical Id of HardMeter</param>
         /// <returns></returns>
         long GetHardMeterValue(int hardMeterId);
+
+        /// <summary>Check hardware status</summary>
+        bool IsHardwareOperational { get; }
     }
 }

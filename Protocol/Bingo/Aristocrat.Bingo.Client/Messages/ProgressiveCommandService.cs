@@ -20,11 +20,13 @@
         private readonly IProgressiveCommandProcessorFactory _processorFactory;
         private readonly IAsyncPolicy _commandRetryPolicy;
         private readonly IProgressiveAuthorizationProvider _authorization;
-
+        private CancellationTokenSource _tokenSource;
         private AsyncDuplexStreamingCall<Progressive, ProgressiveUpdate> _commandHandler;
         private IAsyncStreamReader<ProgressiveUpdate> _responseStream;
         private IClientStreamWriter<Progressive> _requestStream;
         private bool _disposed;
+
+        public TimeSpan BackOffTime { get; set; } = TimeSpan.FromMilliseconds(200);
 
         public ProgressiveCommandService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
@@ -41,47 +43,39 @@
         {
             try
             {
-                _commandHandler = Invoke(
-                    (client, token) => client.ProgressiveUpdates(cancellationToken: token),
-                    cancellationToken);
-                _responseStream = _commandHandler.ResponseStream;
-                _requestStream = _commandHandler.RequestStream;
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to open progressive stream", e);
-            }
-
-            try
-            {
-                // Send the progressive message to start the progressive updates to the EGM
-                await Respond(_requestStream, machineSerial, cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to process progressive command to start progressive updates", e);
-            }
-
-            try
-            {
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    await ProcessCommands(machineSerial, cancellationToken);
-                    Logger.Debug($"Progressive command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}");
-                }
+                    using var source = _tokenSource = new CancellationTokenSource();
 
-                return true;
+                    try
+                    {
+                        using var shared = CancellationTokenSource.CreateLinkedTokenSource(
+                            source.Token,
+                            cancellationToken);
+
+                        if (OpenStream(shared.Token).Result)
+                        {
+                            if (StartProgressiveUpdates(machineSerial, shared.Token).Result)
+                            {
+                                await ProcessCommandsOnStream(machineSerial, shared.Token);
+                            }
+                        }
+
+                        await Task.Delay(BackOffTime, cancellationToken);
+                    }
+                    finally
+                    {
+                        _tokenSource = null;
+                    }
+                }
             }
             catch (Exception e)
             {
                 Logger.Error($"Progressive command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}", e);
                 return false;
             }
-            finally
-            {
-                await _requestStream.CompleteAsync();
-                CloseCommandHandler();
-            }
+
+            return true;
         }
 
         private async Task ProcessCommands(string machineSerial, CancellationToken cancellationToken)
@@ -97,6 +91,10 @@
             catch (Exception e)
             {
                 Logger.Error("Failed to process progressive commands", e);
+            }
+            finally
+            {
+                CloseCommandHandler();
             }
         }
 
@@ -120,6 +118,70 @@
             }
 
             _disposed = true;
+        }
+
+        private Task<bool> OpenStream(CancellationToken cancellationToken)
+        {
+            _responseStream = null;
+            _requestStream = null;
+
+            try
+            {
+                _commandHandler = Invoke(
+                    (client, token) => client.ProgressiveUpdates(cancellationToken: token),
+                    cancellationToken);
+                _responseStream = _commandHandler.ResponseStream;
+                _requestStream = _commandHandler.RequestStream;
+                return Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to open progressive stream", e);
+            }
+
+            return Task.FromResult(false);
+        }
+
+        /// <summary>
+        /// Send the progressive command to the server which starts the progressive updates to the EGM
+        /// </summary>
+        /// <param name="machineSerial">The machine serial number</param>
+        /// <param name="cancellationToken">The cancellation token</param>
+        /// <returns></returns>
+        private async Task<bool> StartProgressiveUpdates(string machineSerial, CancellationToken cancellationToken)
+        {
+            if (_requestStream is null)
+            {
+                Logger.Error("Failed to start progressive update as request stream is null");
+                return false;
+            }
+
+            try
+            {
+                await Respond(_requestStream, machineSerial, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to process progressive command to start progressive updates", e);
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task ProcessCommandsOnStream(string machineSerial, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await ProcessCommands(machineSerial, cancellationToken);
+                Logger.Debug($"Progressive command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}");
+
+                await _requestStream.CompleteAsync();
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Progressive command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}", e);
+            }
         }
 
         private void CloseCommandHandler()

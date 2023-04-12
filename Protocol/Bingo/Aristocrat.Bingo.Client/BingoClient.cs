@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Configuration;
+    using Extensions;
     using Grpc.Core;
     using Messages.Interceptor;
     using ClientApi = ServerApiGateway.ClientApi.ClientApiClient;
@@ -21,7 +22,7 @@
 
         public override Channel CreateChannel()
         {
-            var configuration = ConfigurationProvider.Configuration;
+            var configuration = ConfigurationProvider.CreateConfiguration();
             var credentials = configuration.Certificates.Any()
                 ? new SslCredentials(
                     string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))

@@ -1,65 +1,51 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Kernel;
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Operations;
-    using Aristocrat.Monaco.Gaming.Contracts;
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
 
-    internal sealed class CashoutOperations : IRobotOperations
+    internal class CashoutOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly RobotLogger _logger;
-        private readonly StateChecker _sc;
+        private readonly StateChecker _stateChecker;
         private readonly RobotController _robotController;
-        private readonly Automation _automator;
         private Timer _actionCashoutTimer;
         private bool _disposed;
 
-        public CashoutOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController, Automation automator)
+        public CashoutOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController)
         {
-            _sc = sc;
+            _stateChecker = sc;
             _logger = logger;
             _eventBus = eventBus;
             _robotController = robotController;
-            _automator = automator;
         }
+
+        ~CashoutOperations() => Dispose(false);
 
         public void Dispose()
         {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (_actionCashoutTimer != null)
-            {
-                _actionCashoutTimer.Dispose();
-                _actionCashoutTimer = null;
-            }
-
-            _eventBus.UnsubscribeAll(this);
-            _disposed = true;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public void Reset()
         {
+            _disposed = false;
         }
 
         public void Execute()
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(nameof(CashoutOperations));
-            }
-
             _logger.Info("CashoutOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
             _actionCashoutTimer = new Timer(
-                                _ => RequestCashOut(),
+                                (sender) =>
+                                {
+                                    RequestCashOut();
+                                },
                                 null,
                                 _robotController.Config.Active.IntervalCashOut,
                                 _robotController.Config.Active.IntervalCashOut);
@@ -68,9 +54,27 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.EnableCashOut(true);
             _eventBus.UnsubscribeAll(this);
-            _actionCashoutTimer?.Halt();
+            _actionCashoutTimer?.Dispose();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                if (_actionCashoutTimer is not null)
+                {
+                    _actionCashoutTimer.Dispose();
+                }
+                _actionCashoutTimer = null;
+                _eventBus.UnsubscribeAll(this);
+            }
+            _disposed = true;
         }
 
         private void HandleEvent(CashoutRequestEvent obj)
@@ -81,7 +85,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.CashoutOperationValid;
+            return !isBlocked && _stateChecker.CashoutOperationValid && !_stateChecker.IsDisabled;
         }
 
         private void SubscribeToEvents()
@@ -91,7 +95,7 @@
                  _ =>
                  {
                      _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutOperation);
-                     _logger.Info($"TransferOutFailedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _logger.Info($"TransferOutFailedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                  });
             _eventBus.Subscribe<TransferOutCompletedEvent>(this,
                 _ =>
@@ -111,18 +115,6 @@
                     _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutOperation);
                     _logger.Info($"CashOutStartedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
-            _eventBus.Subscribe<GameInitializationCompletedEvent>(
-                 this,
-                 evt =>
-                 {
-                     _automator.EnableCashOut(false);
-                 });
-            _eventBus.Subscribe<GameProcessExitedEvent>(
-                 this,
-                 evt =>
-                 {
-                     _automator.EnableCashOut(true);
-                 });
         }
 
         private void RequestCashOut()
@@ -132,7 +124,6 @@
                 return;
             }
             _logger.Info("Requesting Cashout", GetType().Name);
-            _automator.EnableCashOut(true);
             _eventBus.Publish(new CashOutButtonPressedEvent());
         }
     }
