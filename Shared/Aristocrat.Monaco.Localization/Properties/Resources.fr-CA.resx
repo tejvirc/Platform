@@ -1068,7 +1068,7 @@
   <data name="FpgaVersion" xml:space="preserve">
     <value>??FPGA Version??</value>
   </data>
-  <data name="GameName" xml:space="preserve">
+  <data name="GameNameText" xml:space="preserve">
     <value>??Game Name??</value>
   </data>
   <data name="Games" xml:space="preserve">
@@ -1910,17 +1910,107 @@ See manual for details??</value>
   <data name="VoucherOutLimit" xml:space="preserve">
     <value>??Voucher Out Limit??</value>
   </data>
+  <data name="ActiveGame" xml:space="preserve">
+    <value>??Active Game??</value>
+  </data>
+  <data name="ActualHold" xml:space="preserve">
+    <value>??Actual Hold??</value>
+  </data>
+  <data name="AllGameTypes" xml:space="preserve">
+    <value>??All??</value>
+  </data>
+  <data name="AmountIn" xml:space="preserve">
+    <value>??Money In??</value>
+  </data>
+  <data name="AmountOut" xml:space="preserve">
+    <value>??Money Out??</value>
+  </data>
+  <data name="AverageBet" xml:space="preserve">
+    <value>??Avg Bet??</value>
+  </data>
   <data name="BarcodeInterleave2Of5" xml:space="preserve">
     <value>??Interleave 2 of 5??</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>??Close??</value>
+  </data>
+  <data name="CoinInText" xml:space="preserve">
+    <value>??Coin In??</value>
+  </data>
+  <data name="CoinOutText" xml:space="preserve">
+    <value>??Coin Out??</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>??Configuration??</value>
+  </data>
+  <data name="DaysActive" xml:space="preserve">
+    <value>??Days Active??</value>
   </data>
   <data name="DaysFormatter" xml:space="preserve">
     <value>??{0} Days??</value>
   </data>
+  <data name="EgmPaidGameWonAmtLabel" xml:space="preserve">
+    <value>??Cash Won??</value>
+  </data>
+  <data name="EndTimeText" xml:space="preserve">
+    <value>??End??</value>
+  </data>
   <data name="ExtendedLayout" xml:space="preserve">
     <value>??Extended Layout??</value>
   </data>
+  <data name="Game" xml:space="preserve">
+    <value>??Game??</value>
+  </data>
+  <data name="GameHistoryTitle" xml:space="preserve">
+    <value>??Game History??</value>
+  </data>
+  <data name="GameInfoViewTitle" xml:space="preserve">
+    <value>??Game Info??</value>
+  </data>
+  <data name="GameOptions" xml:space="preserve">
+    <value>??Game Options??</value>
+  </data>
+  <data name="GamePerformance" xml:space="preserve">
+    <value>??Game Performance??</value>
+  </data>
+  <data name="GamePerformanceMetersCaption" xml:space="preserve">
+    <value>??Game Performance Meters??</value>
+  </data>
+  <data name="GameRoundEventInfoText" xml:space="preserve">
+    <value>??GAME ROUND EVENT INFO??</value>
+  </data>
+  <data name="GameStatisticsTitle" xml:space="preserve">
+    <value>??Game Statistics??</value>
+  </data>
+  <data name="GameViewFilter" xml:space="preserve">
+    <value>??Game View Filter??</value>
+  </data>
+  <data name="HideNeverActive" xml:space="preserve">
+    <value>??Hide Never Active??</value>
+  </data>
+  <data name="HidePreviouslyActive" xml:space="preserve">
+    <value>??Hide Previously Active??</value>
+  </data>
+  <data name="MachineActualPayback" xml:space="preserve">
+    <value>??Machine Actual Operating Payback??</value>
+  </data>
+  <data name="MachineTopAward" xml:space="preserve">
+    <value>??Machine Top Award??</value>
+  </data>
+  <data name="MachineWeightedPayback" xml:space="preserve">
+    <value>??Machine Weighted Theoretical Payback??</value>
+  </data>
   <data name="MetersVouchers" xml:space="preserve">
     <value>??Vouchers??</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>??More??</value>
+  </data>
+  <data name="MoreMeters" xml:space="preserve">
+    <value>??More Meters??</value>
+  </data>
+  <data name="NeverActive" xml:space="preserve">
+    <value>??Never Active??</value>
   </data>
   <data name="NeverExpires" xml:space="preserve">
     <value>??Never Expires??</value>
@@ -1930,5 +2020,56 @@ See manual for details??</value>
   </data>
   <data name="On" xml:space="preserve">
     <value>??On??</value>
+  </data>
+  <data name="PendingCashInText" xml:space="preserve">
+    <value>??Pending Cash In:??</value>
+  </data>
+  <data name="PlayedCountLabel" xml:space="preserve">
+    <value>??Games Played??</value>
+  </data>
+  <data name="PreviouslyActive" xml:space="preserve">
+    <value>??Previously Active??</value>
+  </data>
+  <data name="PrintLast15RecordsButtonText" xml:space="preserve">
+    <value>??Print Last 15 Records??</value>
+  </data>
+  <data name="PrintSelectedButtonText" xml:space="preserve">
+    <value>??Print Selected??</value>
+  </data>
+  <data name="ReadOnlyModeText" xml:space="preserve">
+    <value>??Read-Only Mode??</value>
+  </data>
+  <data name="ReplayPause" xml:space="preserve">
+    <value>??Replay Pause??</value>
+  </data>
+  <data name="RTP" xml:space="preserve">
+    <value>??RTP??</value>
+  </data>
+  <data name="SetGameOrder" xml:space="preserve">
+    <value>??Set Game Order??</value>
+  </data>
+  <data name="StartTimeText" xml:space="preserve">
+    <value>??Start??</value>
+  </data>
+  <data name="TheoPaybackPctLabelText" xml:space="preserve">
+    <value>??Theoretical RTP??</value>
+  </data>
+  <data name="TheoreticalHold" xml:space="preserve">
+    <value>??Theo Hold??</value>
+  </data>
+  <data name="WagerCategoryTitle" xml:space="preserve">
+    <value>??Wager Category Meters??</value>
+  </data>
+  <data name="WagerCategoryWeightedAvgCaption" xml:space="preserve">
+    <value>??Weighted Average Theoretical Payback??</value>
+  </data>
+  <data name="Wagered" xml:space="preserve">
+    <value>??Wagered??</value>
+  </data>
+  <data name="WageredAmountLabel" xml:space="preserve">
+    <value>??Cash Played??</value>
+  </data>
+  <data name="WonCountLabel" xml:space="preserve">
+    <value>??Games Won??</value>
   </data>
 </root>

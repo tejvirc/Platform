@@ -11741,4 +11741,20 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Interleave 2 of 5</value>
     <comment>Aristocrat.Monaco.Accounting.UI</comment>
   </data>
+  <data name="EgmPaidGameWonAmtLabel" xml:space="preserve">
+    <value>Cash Won</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="PlayedCountLabel" xml:space="preserve">
+    <value>Games Played</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="WageredAmountLabel" xml:space="preserve">
+    <value>Cash Played</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="WonCountLabel" xml:space="preserve">
+    <value>Games Won</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

@@ -9353,6 +9353,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Cash Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EgmPaidGameWonAmtLabel {
+			get {
+				return ResourceManager.GetString("EgmPaidGameWonAmtLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to EGM Settings.
 		/// </summary>
         /// <remarks>
@@ -23747,6 +23759,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PlayedCountLabel {
+			get {
+				return ResourceManager.GetString("PlayedCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Player Card Must Be Inserted.
 		/// </summary>
         /// <remarks>
@@ -34397,6 +34421,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WageredAmountLabel {
+			get {
+				return ResourceManager.GetString("WageredAmountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Wager Match Bonus.
 		/// </summary>
         /// <remarks>
@@ -34696,6 +34732,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string WinLevelHeader {
 			get {
 				return ResourceManager.GetString("WinLevelHeader", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WonCountLabel {
+			get {
+				return ResourceManager.GetString("WonCountLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -44094,6 +44142,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EgmIdLabel {
 			get {
 				return "EgmIdLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Cash Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EgmPaidGameWonAmtLabel {
+			get {
+				return "EgmPaidGameWonAmtLabel";
 			}
 		}
 
@@ -58492,6 +58552,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PlayedCountLabel {
+			get {
+				return "PlayedCountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Player Card Must Be Inserted.
 		/// </summary>
         /// <remarks>
@@ -69142,6 +69214,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WageredAmountLabel {
+			get {
+				return "WageredAmountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Wager Match Bonus.
 		/// </summary>
         /// <remarks>
@@ -69441,6 +69525,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string WinLevelHeader {
 			get {
 				return "WinLevelHeader";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WonCountLabel {
+			get {
+				return "WonCountLabel";
 			}
 		}
 
@@ -74849,6 +74945,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to EGM ID.
 		/// </summary>
 		EgmIdLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Cash Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		EgmPaidGameWonAmtLabel,
 		/// <summary>
 		///   Looks up a localized string similar to EGM Settings.
 		/// </summary>
@@ -83059,6 +83162,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PlayCount,
 		/// <summary>
+		///   Looks up a localized string similar to Games Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		PlayedCountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Player Card Must Be Inserted.
 		/// </summary>
         /// <remarks>
@@ -89124,6 +89234,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Wagered,
 		/// <summary>
+		///   Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		WageredAmountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Wager Match Bonus.
 		/// </summary>
         /// <remarks>
@@ -89296,6 +89413,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to WIN LEVEL.
 		/// </summary>
 		WinLevelHeader,
+		/// <summary>
+		///   Looks up a localized string similar to Games Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		WonCountLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Yes.
 		/// </summary>
