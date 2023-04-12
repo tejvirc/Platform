@@ -12,7 +12,7 @@
     /// <summary>
     ///  Defines the HandCountTimerDialogViewModel class
     /// </summary>
-    public class HandCountTimerDialogViewModel : BaseViewModel
+    public class HandCountTimerDialogViewModel : BaseViewModel, IDisposable
     {
         private const double initialTimeSeconds = 45.0;
         private const double resetTimerIntervalSeconds = 1.0;

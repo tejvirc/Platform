@@ -8,7 +8,7 @@
     using System;
     using System.Linq;
 
-    public class MaxWinDialogViewModel : BaseViewModel
+    public class MaxWinDialogViewModel : BaseViewModel, IDisposable
     {
         private const double initialTimeSeconds = 5.0;
         private const double resetTimerIntervalSeconds = 1.0;
