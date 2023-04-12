@@ -246,6 +246,7 @@
             // There is nothing to recover
             return await Task.FromResult(false);
         }
+
         private async Task<bool> Transfer(
             Guid transactionId,
             long amount,
@@ -314,8 +315,6 @@
 
                 return Task.CompletedTask;
             }
-
-
         }
 
         private void UpdateMeters(HardMeterOutTransaction transaction, long amount)
