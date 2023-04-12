@@ -112,7 +112,7 @@
             Assert.AreEqual(result.ResponseCode, ResponseCode.Rejected);
         }
 
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         [TestMethod]
         public async Task ProgressiveClaimInvalidLevelIdTest()
         {
