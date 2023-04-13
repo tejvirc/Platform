@@ -11687,4 +11687,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="PayoutLimit" xml:space="preserve">
     <value>Payout Limit</value>
   </data>
+  <data name="BetOptionMaxWin" xml:space="preserve">
+    <value>Max Win</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

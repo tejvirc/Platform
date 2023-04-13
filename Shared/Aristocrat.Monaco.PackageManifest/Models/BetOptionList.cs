@@ -32,6 +32,7 @@ namespace Aristocrat.Monaco.PackageManifest.Models
                     Description = o.description,
                     MaxInitialBet = o.maxInitialBetSpecified ? new int?(o.maxInitialBet) : null,
                     MaxTotalBet = o.maxTotalBetSpecified ? new int?(o.maxTotalBet) : null,
+                    MaxWin = o.maxWinSpecified ? o.maxWin : null,
                     Bets =
                         from b in o.bet
                         select new Bet { Button = b.button, ButtonName = b.buttonName, Multiplier = b.multiplier },
