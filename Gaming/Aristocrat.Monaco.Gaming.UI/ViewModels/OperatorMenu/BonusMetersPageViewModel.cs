@@ -19,24 +19,24 @@
     {
         private readonly (string meterLabel, string meterName)[] _egmPaidBonusAwards =
         {
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AftCashableBonusLabel), BonusMeters.BonusBaseCashableInAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AftNonCashableBonusLabel), GamingMeters.EgmPaidBonusNonCashInAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AftPromotionalBonusLabel), GamingMeters.EgmPaidBonusPromoInAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MjtBonusLabel), BonusMeters.EgmPaidMjtBonusAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.WagerMatchBonusLabel), GamingMeters.EgmPaidBonusWagerMatchAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.SasLegacyBonusTaxDeductibleLabel), GamingMeters.EgmPaidBonusDeductibleAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.SasLegacyBonusNonTaxDeductibleLabel), GamingMeters.EgmPaidBonusNonDeductibleAmount)
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftCashableBonusLabel), BonusMeters.BonusBaseCashableInAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftNonCashableBonusLabel), GamingMeters.EgmPaidBonusNonCashInAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftPromotionalBonusLabel), GamingMeters.EgmPaidBonusPromoInAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MjtBonusLabel), BonusMeters.EgmPaidMjtBonusAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.WagerMatchBonusLabel), GamingMeters.EgmPaidBonusWagerMatchAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasLegacyBonusTaxDeductibleLabel), GamingMeters.EgmPaidBonusDeductibleAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasLegacyBonusNonTaxDeductibleLabel), GamingMeters.EgmPaidBonusNonDeductibleAmount)
         };
 
         private readonly (string meterLabel, string meterName)[] _handPaidBonusAwards =
         {
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AftCashableBonusLabel), BonusMeters.HandPaidBonusBaseCashableInAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AftNonCashableBonusLabel), GamingMeters.HandPaidBonusNonCashInAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AftPromotionalBonusLabel), GamingMeters.HandPaidBonusPromoInAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MjtBonusLabel), BonusMeters.HandPaidMjtBonusAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.WagerMatchBonusLabel), GamingMeters.HandPaidBonusWagerMatchAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.SasLegacyBonusTaxDeductibleLabel), GamingMeters.HandPaidBonusDeductibleAmount),
-            ( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.SasLegacyBonusNonTaxDeductibleLabel), GamingMeters.HandPaidBonusNonDeductibleAmount)
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftCashableBonusLabel), BonusMeters.HandPaidBonusBaseCashableInAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftNonCashableBonusLabel), GamingMeters.HandPaidBonusNonCashInAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftPromotionalBonusLabel), GamingMeters.HandPaidBonusPromoInAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MjtBonusLabel), BonusMeters.HandPaidMjtBonusAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.WagerMatchBonusLabel), GamingMeters.HandPaidBonusWagerMatchAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasLegacyBonusTaxDeductibleLabel), GamingMeters.HandPaidBonusDeductibleAmount),
+            ( Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasLegacyBonusNonTaxDeductibleLabel), GamingMeters.HandPaidBonusNonDeductibleAmount)
         };
 
         private string _egmPaidBonusAwardsTotalAmountFormatted;

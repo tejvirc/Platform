@@ -12,7 +12,11 @@
     using Kernel;
     using MeterPage;
     using Monaco.UI.Common.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Monaco.Localization.Markup;
+    using Org.BouncyCastle.Utilities;
 
+    using localizer = Aristocrat.Monaco.Application.Contracts.Localization.Localizer;
     /// <summary>
     ///     A MetersPageViewModelBase contains the base logic for meters page view models
     /// </summary>
@@ -114,7 +118,10 @@
                 if (meterManager.IsMeterProvided(meterNode.Name))
                 {
                     var meter = meterManager.GetMeter(meterNode.Name);
-                    Meters.Add(new DisplayMeter(meterNode.DisplayName, meter, ShowLifetime, meterNode.Order, meterNode.Period));
+                    string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
+                            meterNode.DisplayNameKey,
+                            _ => meterDisplayName = meterNode.DisplayName);
+                    Meters.Add(new DisplayMeter(meterDisplayName, meter, ShowLifetime, meterNode.Order, meterNode.Period));
                 }
                 else
                 {

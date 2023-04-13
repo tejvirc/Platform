@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Aristocrat.Monaco.JurisdictionData.QuebecVLT.Resources {
+namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
     using System;
     
     

@@ -129,7 +129,7 @@
         </Grid>
 
         <Grid Grid.Column="1">
-            <Label Content="Filter By" VerticalAlignment="Top"/>
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackerRemoved}}" VerticalAlignment="Top"/>
             <DataGrid Margin="0 20 0 0"
                       x:Name="FilterByDataGrid"
                       ItemsSource="{Binding EventFilterCollection}"
@@ -149,7 +149,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <CheckBox Content="All"
+                                <CheckBox Content = "{lex:Loc Key={x:Static loc:ResourceKeys.All}}"
                                           Margin="0 5 0 0"
                                           FontSize="16"
                                           IsChecked="{Binding DataContext.IsAllFiltersSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"
