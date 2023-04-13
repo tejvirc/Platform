@@ -127,7 +127,7 @@
 
             historyLog.Setup(m => m.InitialWager).Returns(2_00); // $2.00 wager
             historyLog.Setup(m => m.ShallowCopy()).Returns(historyLog.Object);
-            var game = new Mock<IGameDetail>(MockBehavior.Strict);
+            var game = new Mock<IGameDetail>(MockBehavior.Default);
             game.Setup(m => m.Denominations).Returns(_denominations);
             game.Setup(m => m.BetOptionList).Returns(new BetOptionList(_betOptions));
             game.Setup(m => m.LineOptionList).Returns(new LineOptionList(_lineOptions));
@@ -194,7 +194,7 @@
 
             historyLog.Setup(m => m.InitialWager).Returns(2_00); // $2.00 wager
             historyLog.Setup(m => m.ShallowCopy()).Returns(historyLog.Object);
-            var game = new Mock<IGameDetail>(MockBehavior.Strict);
+            var game = new Mock<IGameDetail>(MockBehavior.Default);
             game.Setup(m => m.Denominations).Returns(_denominations);
             game.Setup(m => m.BetOptionList).Returns(new BetOptionList(_betOptions));
             game.Setup(m => m.LineOptionList).Returns(new LineOptionList(_lineOptions));

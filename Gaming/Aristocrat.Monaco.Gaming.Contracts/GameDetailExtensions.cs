@@ -106,6 +106,11 @@
                 throw new ArgumentNullException(nameof(@this));
             }
 
+            if (@this.GameType == GameType.Roulette)
+            {
+                return @this.MaximumWagerInsideCredits + @this.MaximumWagerOutsideCredits;
+            }
+
             if (betOption?.MaxInitialBet != null) // independent of any line option
             {
                 return betOption.MaxInitialBet.Value;
