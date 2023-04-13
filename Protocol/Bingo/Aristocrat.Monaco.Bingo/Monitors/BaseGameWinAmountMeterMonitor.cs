@@ -14,6 +14,7 @@
     /// <inheritdoc />
     public abstract class BaseGameWinAmountMeterMonitor : BaseMeterMonitor
     {
+        private readonly bool _isEgmPaid;
         private readonly IBingoGameProvider _bingoGameProvider;
         private readonly IReportTransactionQueueService _transactionQueue;
         private readonly IGameHistory _gameHistory;
@@ -24,6 +25,7 @@
         /// <inheritdoc />
         protected BaseGameWinAmountMeterMonitor(
             string meterId,
+            bool isEgmPaid,
             IMeterManager meterManager,
             IBingoGameProvider bingoGameProvider,
             IReportTransactionQueueService transactionQueue,
@@ -31,6 +33,7 @@
             IEventBus eventBus)
             : base(meterId, meterManager, bingoGameProvider, TransactionType.CashWon, transactionQueue)
         {
+            _isEgmPaid = isEgmPaid;
             _bingoGameProvider = bingoGameProvider ?? throw new ArgumentNullException(nameof(bingoGameProvider));
             _transactionQueue = transactionQueue ?? throw new ArgumentNullException(nameof(transactionQueue));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
@@ -73,20 +76,32 @@
             HandleGameWins(changedEventArgs, log, bingoGame);
         }
 
-        protected abstract IEnumerable<HandpayTransaction> GetCreditHandpays(IGameHistoryLog log);
+        protected abstract IEnumerable<HandpayTransaction> GetHandpays(IGameHistoryLog log);
 
         private void HandleGameWins(
             MeterChangedEventArgs changedEventArgs,
             IGameHistoryLog log,
             BingoGameDescription bingoGame)
         {
-            _transactionQueue.ReportEgmPaidTransactions(
-                GetCreditHandpays(log),
-                changedEventArgs.Amount,
-                GetTitleId(changedEventArgs, bingoGame),
-                GetDenominationId(changedEventArgs, bingoGame),
-                GetGameSerial(changedEventArgs, bingoGame),
-                GetPaytableId(changedEventArgs, bingoGame));
+            if (_isEgmPaid)
+            {
+                _transactionQueue.ReportEgmPaidTransactions(
+                    GetHandpays(log),
+                    changedEventArgs.Amount,
+                    GetTitleId(changedEventArgs, bingoGame),
+                    GetDenominationId(changedEventArgs, bingoGame),
+                    GetGameSerial(changedEventArgs, bingoGame),
+                    GetPaytableId(changedEventArgs, bingoGame));
+            }
+            else
+            {
+                _transactionQueue.ReportJackpotTransactions(
+                    GetHandpays(log),
+                    GetTitleId(changedEventArgs, bingoGame),
+                    GetDenominationId(changedEventArgs, bingoGame),
+                    GetGameSerial(changedEventArgs, bingoGame),
+                    GetPaytableId(changedEventArgs, bingoGame));
+            }
         }
     }
 }

@@ -36,6 +36,9 @@
         private bool _multipleGameAssociatedSapLevelOneEnabled;
         private bool _multipleGameAssociatedSapLevelTwoEnabled;
 
+        private const string GrandJackpotLevelName = "Grand";
+        private const string MajorJackpotLevelName = "Major";
+
         public ProgressiveLobbyIndicatorViewModel(LobbyViewModel lobby)
             : this(
                 lobby,
@@ -206,71 +209,61 @@
 
         public void UpdateMultipleGameAssociativeSapText()
         {
-            Dictionary<string, (int, string)> levelUpdates = new Dictionary<string, (int, string)>();
-            var levels = _progressiveLevelProvider.GetProgressiveLevels().ToList();
-            var gameDetails = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
-
-            foreach (var game in _lobby.GameList)
-            {
-                // Currently, lobby display for associated sap levels apply only to games in the LightningLink category
-                if (game.Category != GameCategory.LightningLink)
-                {
-                    continue;
-                }
-
-                var gameDetail = gameDetails.SingleOrDefault(g => g.Id == game.GameId);
-                if (gameDetail is null || gameDetail.AssociatedSapDisplayMeterName == null)
-                {
-                    continue;
-                }
-
-                // The order of the AssociatedSapDisplayMeterName must be from largest(grand) to smallest
-                for (int lvIdx = 0; lvIdx < gameDetail.AssociatedSapDisplayMeterName.Count(); lvIdx++)
-                {
-                    var gameDetailAsapName = gameDetail.AssociatedSapDisplayMeterName.ElementAt(lvIdx);
-                    foreach (var sharedLevel in _sharedSapProvider.ViewSharedSapLevels())
-                    {
-                        // This level is shared across multiple games
-                        if (sharedLevel.Name == gameDetailAsapName)
-                        {
-                            if (game.ProgressiveErrorVisible)
-                            {
-                                levelUpdates[sharedLevel.LevelAssignmentKey] = (lvIdx,
-                                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyError));
-                            }
-                            else if (game.ProgressiveIndicator == ProgressiveLobbyIndicator.ProgressiveLabel)
-                            {
-                                levelUpdates[sharedLevel.LevelAssignmentKey] = (lvIdx,
-                                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyLabel));
-                            }
-                            else
-                            {
-                                levelUpdates[sharedLevel.LevelAssignmentKey] = sharedLevel.CurrentValue <= 0
-                                    ? (lvIdx, Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyLabel))
-                                    : (lvIdx, sharedLevel.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString());
-                            }
-                        }
-                    }
-                }
-            }
-
             MultipleGameAssociatedSapLevelOneEnabled = false;
             MultipleGameAssociatedSapLevelTwoEnabled = false;
 
-            if (levelUpdates.Any())
+            string grandJackpotText = string.Empty;
+            string majorJackpotText = string.Empty;
+
+            // Currently, lobby display for associated sap levels apply only to games in the LightningLink category
+            var games = _lobby.GameList.Where(g => g.Category == GameCategory.LightningLink);
+
+            if (!games.Any())
             {
-                var updatesInOrder = levelUpdates.Values.ToDictionary(x => x.Item1, x => x.Item2);
+                return;
+            }
 
-                // levelUpdates[0] will be the grand amount
-                MultipleGameAssociatedSapLevelOneAmount = updatesInOrder[0].ToList();
-                MultipleGameAssociatedSapLevelOneEnabled = true;
+            var progressiveErrorGame = games.FirstOrDefault(g => g.ProgressiveErrorVisible);
+            var progressiveLabelGame = games.FirstOrDefault( g => g.ProgressiveIndicator == ProgressiveLobbyIndicator.ProgressiveLabel);
 
-                if (updatesInOrder.ContainsKey(1))
+            if (progressiveErrorGame != null)
+            {
+                grandJackpotText = majorJackpotText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyError);
+            }
+            else if (progressiveLabelGame != null)
+            {
+                grandJackpotText = majorJackpotText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyLabel);
+            }
+            else
+            {
+                // Only need to check first game as all associated sap level games should use same progressive levels
+                var levels = _progressiveConfiguration.ViewProgressiveLevels(
+                    games.First().GameId,
+                    games.First().Denomination).ToList();
+
+                var grandJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(GrandJackpotLevelName));
+                if (grandJackpotLevel != null)
                 {
-                    // levelUpdates[1] will be the major amount (if shared across games)
-                    MultipleGameAssociatedSapLevelTwoAmount = updatesInOrder[1].ToList();
-                    MultipleGameAssociatedSapLevelTwoEnabled = true;
+                    grandJackpotText = grandJackpotLevel.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
                 }
+
+                var majorJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(MajorJackpotLevelName));
+                if (majorJackpotLevel != null)
+                {
+                    majorJackpotText = majorJackpotLevel.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+                }
+            }
+
+            if (!string.IsNullOrEmpty(grandJackpotText))
+            {
+                MultipleGameAssociatedSapLevelOneAmount = grandJackpotText;
+                MultipleGameAssociatedSapLevelOneEnabled = true;
+            }
+
+            if (!string.IsNullOrEmpty(majorJackpotText))
+            {
+                MultipleGameAssociatedSapLevelTwoAmount = majorJackpotText;
+                MultipleGameAssociatedSapLevelTwoEnabled = true;
             }
         }
 

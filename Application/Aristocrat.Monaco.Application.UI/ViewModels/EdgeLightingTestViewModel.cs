@@ -321,6 +321,11 @@
             _token = _edgeLightingController.AddEdgeLightRenderer(SelectedLightShow.PatternParameters);
         }
 
+        private bool HasEdgeLightStrip(int stripId)
+        {
+            return Strips.Any(s => s.StripId == stripId);
+        }
+
         public class StripData
         {
             public StripData(int stripId, int ledCount = 0)

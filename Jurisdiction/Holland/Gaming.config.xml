@@ -21,6 +21,7 @@ as follows:
 	<ReelStop Enabled="false" Configurable="false" />
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
+    <Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Mode="Continuous" Configurable="true" />
 <!--
 	GameRestrictions Settings:

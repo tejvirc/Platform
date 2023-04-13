@@ -2,6 +2,7 @@
 {
     using System;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Aristocrat.Sas.Client;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -8,7 +8,7 @@
     using ViewModels;
 
     /// <summary>
-    ///     This class is used by Lobby view to pick the portrait or lanscape view
+    ///     This class is used by Lobby view to pick the portrait or landscape view
     /// </summary>
     public class LobbyViewTemplateSelector : DataTemplateSelector
     {
@@ -18,7 +18,7 @@
         /// <inheritdoc />
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (!(item is LobbyViewModel viewModel))
+            if (item is not LobbyViewModel)
             {
                 return null;
             }

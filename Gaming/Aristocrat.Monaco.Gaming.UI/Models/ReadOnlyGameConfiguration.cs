@@ -136,15 +136,15 @@
             BaseGameRTPMin = baseGameRtp.Minimum.GetRtpString();
             BaseGameRTPMax = baseGameRtp.Maximum.GetRtpString();
 
-            ProgressiveResetRTP = progressiveResetRtp?.ToString();
+            ProgressiveResetRTP = GameConfigHelper.GetRtpRangeString(progressiveResetRtp);
             ProgressiveResetRTPMin = progressiveResetRtp?.Minimum.GetRtpString();
             ProgressiveResetRTPMax = progressiveResetRtp?.Maximum.GetRtpString();
 
-            ProgressiveIncrementRTP = progressiveIncrementRtp?.ToString();
+            ProgressiveIncrementRTP = GameConfigHelper.GetRtpRangeString(progressiveIncrementRtp);
             ProgressiveIncrementRTPMin = progressiveIncrementRtp?.Minimum.GetRtpString();
             ProgressiveIncrementRTPMax = progressiveIncrementRtp?.Maximum.GetRtpString();
 
-            TotalJurisdictionalRTP = totalJurisdictionRtp?.ToString();
+            TotalJurisdictionalRTP = GameConfigHelper.GetRtpRangeString(totalJurisdictionRtp);
             TotalJurisdictionalRTPMin = totalJurisdictionRtp?.Minimum.GetRtpString();
             TotalJurisdictionalRTPMax = totalJurisdictionRtp?.Maximum.GetRtpString();
 

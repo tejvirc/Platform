@@ -108,6 +108,7 @@
                                           IsEnabled="{Binding LevelSelectionEnabled}"
                                           DropDownClosed="SelectableLevelNameComboBox_OnDropDownClosed"
                                           Loaded="SelectableLevelNameComboBox_OnLoaded"
+                                          DataContextChanged="SelectableLevelNameComboBox_OnDataContextChanged"
                                           MaxWidth="310"/>
                                 <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}"
                                         Margin="10,0,0,0"

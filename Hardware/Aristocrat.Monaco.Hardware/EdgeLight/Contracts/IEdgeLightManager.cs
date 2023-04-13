@@ -21,6 +21,12 @@
         /// </summary>
         IReadOnlyCollection<StripData> LogicalStrips { get; }
 
+        /// <summary>
+        ///     List of all logical strips that can be controlled by game -
+        ///     excluding strips that are purely platform controlled
+        /// </summary>
+        IReadOnlyCollection<StripData> ExternalLogicalStrips { get; }
+
         IEnumerable<EdgeLightDeviceInfo> DevicesInfo { get; }
 
         /// <summary>

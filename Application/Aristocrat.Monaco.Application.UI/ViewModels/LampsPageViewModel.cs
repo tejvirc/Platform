@@ -12,10 +12,12 @@
     using Contracts.HardwareDiagnostics;
     using Contracts.LampTest;
     using Contracts.Localization;
+    using Contracts.TowerLight;
     using Events;
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.TowerLight;
     using Kernel;
+    using Kernel.Contracts;
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
@@ -25,6 +27,8 @@
     [CLSCompliant(false)]
     public class LampsPageViewModel : InspectionWizardViewModelBase
     {
+        private const string TowerLightConfigPath = "/TowerLight/Configuration";
+
         private bool _flashState;
         private Timer _flashTimer;
         private int? _selectedInterval;
@@ -45,20 +49,24 @@
             _towerLightManager = ServiceManager.GetInstance().TryGetService<ITowerLightManager>();
             _towerLight = ServiceManager.GetInstance().TryGetService<ITowerLight>();
 
-            TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true);
+            TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true) || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             TowerLights = new List<TowerLight>();
             _allFlashStates.AddRange((FlashState[])Enum.GetValues(typeof(FlashState)));
             _strobeFlashStates.AddRange(new []{ FlashState.Off, FlashState.On });
 
-            var tiers = _towerLightManager?.ConfiguredLightTiers?.ToList();
-            if (tiers != null)
+            var towerLightConfig = ServiceManager.GetInstance().GetService<IConfigurationUtility>()
+                .GetConfiguration(TowerLightConfigPath, () => new TowerLightConfiguration());
+            var tiers = towerLightConfig.SignalDefinitions
+                .SelectMany(s => s.OperationalCondition
+                .SelectMany(c => c.DoorCondition
+                .SelectMany(d => d.Set
+                .Select(s => (LightTier)Enum.Parse(typeof(LightTier), s.lightTier)
+                )))).Distinct().ToList();
+            foreach (var tier in tiers)
             {
-                foreach (var tier in tiers)
-                {
-                    var state = _towerLight?.GetFlashState(tier);
-                    var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
-                    TowerLights.Add(lamp);
-                }
+                var state = _towerLight?.GetFlashState(tier);
+                var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
+                TowerLights.Add(lamp);
             }
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
@@ -301,8 +309,9 @@
 
         private void SetTowerLightFlashState(object parameter)
         {
-            _towerLight?.SetFlashState(SelectedTowerLight?.Tier ?? LightTier.Tier1, SelectedFlashState, Timeout.InfiniteTimeSpan);
-            Inspection?.SetTestName($"{SelectedTowerLight} {SelectedFlashState}");
+            var tier = SelectedTowerLight?.Tier ?? LightTier.Tier1;
+            _towerLight?.SetFlashState(tier, SelectedFlashState, Timeout.InfiniteTimeSpan);
+            Inspection?.SetTestName($"Tower light {tier} {SelectedFlashState}");
         }
 
         private void HandleTowerLightEvent(LightTier lightTier, bool lightOn, FlashState flashState)
@@ -313,6 +322,11 @@
                 towerLight.FlashState = flashState;
                 towerLight.State = lightOn;
             }
+        }
+
+        private bool HasTowerLight(int tier)
+        {
+            return TowerLights.Any(t => t.Tier == (LightTier)tier);
         }
     }
 }

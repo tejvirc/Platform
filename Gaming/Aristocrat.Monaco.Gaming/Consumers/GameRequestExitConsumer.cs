@@ -26,11 +26,6 @@
         /// <inheritdoc />
         public override void Consume(GameRequestExitEvent theEvent)
         {
-            if (!_properties.GetValue("Automation.HandleExitToLobby", true))
-            {
-                return;
-            }
-
             _gameService.ShutdownBegin();
         }
     }
