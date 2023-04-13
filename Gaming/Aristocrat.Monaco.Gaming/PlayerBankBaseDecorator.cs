@@ -53,11 +53,6 @@
             PlayerBank = new PlayerBank(bank, transactionCoordinator, transferOut, persistentStorage, meters, players, bus, history);
         }
 
-        public void Dispose()
-        {
-            PlayerBank.Dispose();
-        }
-
         public void NotifyTransactionReady(Guid requestId)
         {
             PlayerBank.NotifyTransactionReady(requestId);
@@ -167,6 +162,32 @@
         /// <inheritdoc />
         public void Initialize()
         {
+        }
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether
+        ///     this object has been disposed or not
+        /// </summary>
+        protected bool Disposed { get; set; }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed)
+            {
+                Disposed = true;
+
+                if (disposing)
+                {
+                    PlayerBank?.Dispose();
+                }
+            }
         }
     }
 }

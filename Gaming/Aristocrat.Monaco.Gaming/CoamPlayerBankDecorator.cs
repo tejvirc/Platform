@@ -66,12 +66,28 @@
 
         private async Task CheckLargePayoutAsync(long amount)
         {
+            Logger.Debug($"Check Payout Limit: {amount}");
             if (amount > _handCountPayoutLimit)
             {
                 var keyOff = Initiate();
                 await keyOff.Task;
 
                 _systemDisableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (Disposed)
+            {
+                return;
+            }
+
+            base.Dispose(disposing);
+
+            if (disposing)
+            {
+                _bus.UnsubscribeAll(this);
             }
         }
 
@@ -96,7 +112,6 @@
 
             return keyOff;
         }
-
 
         /// <inheritdoc />
         public override bool CashOut()
