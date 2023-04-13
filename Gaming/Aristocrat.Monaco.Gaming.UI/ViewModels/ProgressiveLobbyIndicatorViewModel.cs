@@ -223,16 +223,17 @@
                 return;
             }
 
+            var localizer = Localizer.For(CultureFor.Player);
             var progressiveErrorGame = games.FirstOrDefault(g => g.ProgressiveErrorVisible);
             var progressiveLabelGame = games.FirstOrDefault( g => g.ProgressiveIndicator == ProgressiveLobbyIndicator.ProgressiveLabel);
 
             if (progressiveErrorGame != null)
             {
-                grandJackpotText = majorJackpotText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyError);
+                grandJackpotText = majorJackpotText = localizer.GetString(ResourceKeys.ProgressiveLobbyError);
             }
             else if (progressiveLabelGame != null)
             {
-                grandJackpotText = majorJackpotText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyLabel);
+                grandJackpotText = majorJackpotText = localizer.GetString(ResourceKeys.ProgressiveLobbyLabel);
             }
             else
             {
@@ -244,13 +245,19 @@
                 var grandJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(GrandJackpotLevelName));
                 if (grandJackpotLevel != null)
                 {
-                    grandJackpotText = grandJackpotLevel.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+                    grandJackpotText = grandJackpotLevel.CurrentValue
+                        .MillicentsToDollarsNoFraction()
+                        .FormattedCurrencyString()
+                        .ToUpper(localizer.CurrentCulture);
                 }
 
                 var majorJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(MajorJackpotLevelName));
                 if (majorJackpotLevel != null)
                 {
-                    majorJackpotText = majorJackpotLevel.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+                    majorJackpotText = majorJackpotLevel.CurrentValue
+                        .MillicentsToDollarsNoFraction()
+                        .FormattedCurrencyString()
+                        .ToUpper(localizer.CurrentCulture);
                 }
             }
 
