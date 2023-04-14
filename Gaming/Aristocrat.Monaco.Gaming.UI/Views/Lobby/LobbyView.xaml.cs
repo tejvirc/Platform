@@ -75,6 +75,7 @@
         private VirtualButtonDeckView _vbd;
         private bool _vbdLoaded;
         private HandCountTimerDialog _handCountTimerOverlay;
+        private MaxWinDialog _maxWinDialogOverlay;
 
         private Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)> _customOverlays;
 
@@ -133,6 +134,7 @@
             _overlayWindow = new OverlayWindow(this);
 
             _handCountTimerOverlay = new HandCountTimerDialog(this);
+            _maxWinDialogOverlay = new MaxWinDialog(this);
 
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();
@@ -158,6 +160,7 @@
 
             _lobbyWindows.Add(_overlayWindow);
             _lobbyWindows.Add(_handCountTimerOverlay);
+            _lobbyWindows.Add(_maxWinDialogOverlay);
 
             if (_responsibleGamingWindow != null)
             {
@@ -197,6 +200,30 @@
 
             _eventBus.Subscribe<HandCountTimerOverlayVisibilityChangedEvent>(this, HandCountTimerResetOverlayVisiblityChangedEvent);
             _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleOverlayWindowVisibilityChanged);
+            _eventBus.Subscribe<MaxWinOverlayVisibilityChangedEvent>(this, HandleMaxWinOverlayVisibilityChangedEvent);
+        }
+
+        private void HandleMaxWinOverlayVisibilityChangedEvent(MaxWinOverlayVisibilityChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                try
+                {
+                    if (evt.IsVisible)
+                    {
+                        Dispatcher?.Invoke(() => ShowWithTouch(_maxWinDialogOverlay));
+                    }
+                    else
+                    {
+                        Dispatcher?.Invoke(() => _maxWinDialogOverlay.Hide());
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+            });
         }
 
         private void HandCountTimerResetOverlayVisiblityChangedEvent(HandCountTimerOverlayVisibilityChangedEvent e)
@@ -423,6 +450,7 @@
                     _topperView.DataContext = value;
                 }
                 _handCountTimerOverlay.DataContext = ViewModel.HandCountTimerOverlay;
+                _maxWinDialogOverlay.DataContext = ViewModel.MaxWinViewModel;
                 _overlayWindow.ViewModel = ViewModel;
                 AddOverlayBindings(_overlayWindow, ViewModel);
 
@@ -792,12 +820,14 @@
             if (_mediaDisplayWindow != null)
             {
                 _handCountTimerOverlay.Owner = _mediaDisplayWindow;
+                _maxWinDialogOverlay.Owner = _mediaDisplayWindow;
                 _overlayWindow.Owner = _mediaDisplayWindow;
                 _mediaDisplayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
             }
             else
             {
                 _handCountTimerOverlay.Owner = _responsibleGamingWindow ?? (Window)this;
+                _maxWinDialogOverlay.Owner = _responsibleGamingWindow ?? (Window)this;
                 _overlayWindow.Owner = _responsibleGamingWindow ?? (Window)this;
             }
 
@@ -843,6 +873,7 @@
                 _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
                 _windowToScreenMapper.MapWindow(_overlayWindow);
                 _windowToScreenMapper.MapWindow(_handCountTimerOverlay);
+                _windowToScreenMapper.MapWindow(_maxWinDialogOverlay);
             });
         }
 
@@ -936,6 +967,10 @@
             if(_handCountTimerOverlay != null)
             {
                 ViewModel.HandCountTimerOverlay?.Dispose();
+            }
+            if (_maxWinDialogOverlay != null)
+            {
+                ViewModel.MaxWinViewModel?.Dispose();
             }
             /*
             if (_timeLimitDlg != null)
