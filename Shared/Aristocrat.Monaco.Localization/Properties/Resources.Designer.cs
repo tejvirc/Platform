@@ -7637,6 +7637,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Device detected!.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DeviceDetected {
+			get {
+				return ResourceManager.GetString("DeviceDetected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Device GUID.
 		/// </summary>
         /// <remarks>
@@ -16400,6 +16412,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to detected but is invalid.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InvalidDeviceDetectedTemplate {
+			get {
+				return ResourceManager.GetString("InvalidDeviceDetectedTemplate", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Invalid Bill or Voucher Inserted.
 		/// </summary>
         /// <remarks>
@@ -20854,6 +20878,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoCustomSapLevelsAdded {
 			get {
 				return ResourceManager.GetString("NoCustomSapLevelsAdded", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to No device detected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoDeviceDetected {
+			get {
+				return ResourceManager.GetString("NoDeviceDetected", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -27469,6 +27505,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ScrollToLabel {
 			get {
 				return ResourceManager.GetString("ScrollToLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Searching {
+			get {
+				return ResourceManager.GetString("Searching", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -42211,6 +42259,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Device detected!.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DeviceDetected {
+			get {
+				return "DeviceDetected";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Device GUID.
 		/// </summary>
         /// <remarks>
@@ -50974,6 +51034,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to detected but is invalid.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InvalidDeviceDetectedTemplate {
+			get {
+				return "InvalidDeviceDetectedTemplate";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Invalid Bill or Voucher Inserted.
 		/// </summary>
         /// <remarks>
@@ -55428,6 +55500,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoCustomSapLevelsAdded {
 			get {
 				return "NoCustomSapLevelsAdded";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to No device detected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoDeviceDetected {
+			get {
+				return "NoDeviceDetected";
 			}
 		}
 
@@ -62043,6 +62127,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ScrollToLabel {
 			get {
 				return "ScrollToLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Searching {
+			get {
+				return "Searching";
 			}
 		}
 
@@ -73532,6 +73628,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Detected,
 		/// <summary>
+		///   Looks up a localized string similar to Device detected!.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		DeviceDetected,
+		/// <summary>
 		///   Looks up a localized string similar to Device GUID.
 		/// </summary>
         /// <remarks>
@@ -78510,6 +78613,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InvalidCertificateIssuerErrorMessage,
 		/// <summary>
+		///   Looks up a localized string similar to detected but is invalid.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		InvalidDeviceDetectedTemplate,
+		/// <summary>
 		///   Looks up a localized string similar to Invalid Bill or Voucher Inserted.
 		/// </summary>
         /// <remarks>
@@ -81047,6 +81157,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to No Custom SAP Levels Added.
 		/// </summary>
 		NoCustomSapLevelsAdded,
+		/// <summary>
+		///   Looks up a localized string similar to No device detected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		NoDeviceDetected,
 		/// <summary>
 		///   Looks up a localized string similar to NO DOLLARS EXACTLY.
 		/// </summary>
@@ -84832,6 +84949,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		ScrollToLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Searching,
 		/// <summary>
 		///   Looks up a localized string similar to Secondary Stacker Door Closed.
 		/// </summary>

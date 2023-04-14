@@ -80,6 +80,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
+      <FirmwareVersionRegex>^GUR</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="JCM Gen5 USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -96,6 +97,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
+      <FirmwareVersionRegex>^5RUSA</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen Serial TCL" Protocol="Nanoptix TCL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -105,6 +107,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
+      <FirmwareVersionRegex>1.28C$</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -121,6 +124,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
+      <FirmwareVersionRegex>6.10D$</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="TransAct Epic Edge USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -137,6 +141,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
+      <FirmwareVersionRegex>^S0</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="TransAct EpicEdge Serial EpicTTL" Protocol="EpicTTL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -146,6 +151,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
+      <FirmwareVersionRegex>^S5</FirmwareVersionRegex>
     </Device>
 
     <Device Enabled="true" Type="IdReader" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
