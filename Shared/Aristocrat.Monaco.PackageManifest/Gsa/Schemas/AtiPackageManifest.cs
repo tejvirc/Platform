@@ -345,6 +345,10 @@ namespace Aristocrat.PackageManifest.Extension.v100
 
         private bool maxInitialBetFieldSpecified;
 
+        private long maxWinField;
+
+        private bool maxWinFieldSpecified;
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bet")]
         public c_bet[] bet {
@@ -430,6 +434,34 @@ namespace Aristocrat.PackageManifest.Extension.v100
             }
             set {
                 this.maxInitialBetFieldSpecified = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public long maxWin
+        {
+            get
+            {
+                return this.maxWinField;
+            }
+            set
+            {
+                this.maxWinField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool maxWinSpecified
+        {
+            get
+            {
+                return this.maxWinFieldSpecified;
+            }
+            set
+            {
+                this.maxWinFieldSpecified = value;
             }
         }
     }

@@ -248,6 +248,16 @@ namespace Aristocrat.Monaco.Gaming.Commands
             if (denomination.BetOption != null) // check that the bet option has been set by the operator
             {
                 parameters.Add("/Runtime/BetOption", denomination.BetOption);
+                if (currentGame.ActiveBetOption?.MaxWin != null)
+                {
+                    parameters["/Runtime/MaximumGameRoundWin&use"] = "allowed";
+                    parameters["/Runtime/MaximumGameRoundWin&valueCents"] = (currentGame.ActiveBetOption.MaxWin.Value * denomination.Value).MillicentsToCents().ToString(CultureInfo.InvariantCulture);
+                    parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = "endgame";
+                }
+                else
+                {
+                    parameters["/Runtime/MaximumGameRoundWin&use"] = "disallowed";
+                }
             }
 
             if (denomination.LineOption != null)

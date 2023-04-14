@@ -2097,13 +2097,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///   Looks up a localized string similar to Bet (Turnover).
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Bet (Turnover).
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		public static string BetTurnover {
+        public static string BetTurnover {
 			get {
 				return ResourceManager.GetString("BetTurnover", resourceCulture) ?? string.Empty;
 			}
@@ -57174,13 +57174,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///		Looks up a localized string similar to Or Clear Credits.
-		/// </summary>
+        /// <summary>
+        ///		Looks up a localized string similar to BetOption MaxWin.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+        public static string BetOptionMaxWin
+        {
+            get
+            {
+                return "BetOptionMaxWin";
+            }
+        }
+
+        /// <summary>
+        ///		Looks up a localized string similar to Or Clear Credits.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application
         /// </remarks>
-		public static string OrClearCredits {
+        public static string OrClearCredits {
 			get {
 				return "OrClearCredits";
 			}

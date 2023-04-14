@@ -53,12 +53,12 @@
 		<Compile Update="Template.designer.cs">
 			<DependentUpon>Template.cs</DependentUpon>
 		</Compile>
-		<Compile Update="SerialPorts\SerialPortController.cs">
-			<SubType>Component</SubType>
-		</Compile>
-		<Compile Update="SharedDevice\Device.cs">
-			<SubType>Component</SubType>
-		</Compile>
+    <Compile Update="SerialPorts\SerialPortController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="SharedDevice\Device.cs">
+      <SubType>Component</SubType>
+    </Compile>
 	</ItemGroup>
 	<ItemGroup>
 		<CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">

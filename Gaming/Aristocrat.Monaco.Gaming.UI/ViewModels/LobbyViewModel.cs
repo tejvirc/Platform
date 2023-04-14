@@ -269,6 +269,7 @@
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
         private int _handCount;
+        private MaxWinDialogViewModel _maxWinViewModel;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -460,6 +461,7 @@
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
 
             HandCountTimerOverlay = new HandCountTimerDialogViewModel();
+            MaxWinViewModel = new MaxWinDialogViewModel();
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
@@ -1745,6 +1747,19 @@
         /// HandCountTimerDialog view model
         /// </summary>
         public HandCountTimerDialogViewModel HandCountTimerOverlay { get; }
+
+        /// <summary>
+        /// Maximum Win View Model
+        /// </summary>
+        public MaxWinDialogViewModel MaxWinViewModel
+        {
+            get => _maxWinViewModel;
+            set
+            {
+                _maxWinViewModel = value;
+                RaisePropertyChanged(nameof(MaxWinViewModel));
+            }
+        }
 
         /// <summary>
         ///     Dispose
@@ -3060,6 +3075,7 @@
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
             RaisePropertyChanged(nameof(HandCountTimerOverlay));
+            RaisePropertyChanged(nameof(MaxWinViewModel));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -4049,6 +4065,7 @@
         private string GetProgressiveOrBonusValue(int gameId, long denomId)
         {
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
+            MaxWinViewModel.MaxWinAmount = game.ActiveBetOption?.MaxWin;
             if (string.IsNullOrEmpty(game?.DisplayMeterName))
             {
                 return string.Empty;

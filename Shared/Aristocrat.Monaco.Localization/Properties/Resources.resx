@@ -11703,4 +11703,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>COLLECT LIMIT REACHED. SEE ATTENDANT.</value>
     <comment>Aristocrat.Account</comment>
   </data>
+  <data name="BetOptionMaxWin" xml:space="preserve">
+    <value>Max Win</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>
