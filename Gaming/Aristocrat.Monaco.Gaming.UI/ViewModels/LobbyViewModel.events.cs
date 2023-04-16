@@ -140,6 +140,7 @@
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandCountChangedEvent>(this, HandCountChangedEvent);
+            _eventBus.Subscribe<HardMeterOutStartedEvent>(this, HandleEvent);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -824,6 +825,11 @@
             MessageOverlayDisplay.MessageOverlayData.GameHandlesHandPayPresentation = false;
 
             SetEdgeLighting();
+        }
+
+        private void HandleEvent(HardMeterOutStartedEvent platformEvent)
+        {
+            MessageOverlayDisplay.PayOut(platformEvent);
         }
 
         private void HandleEvent(ReprintTicketEvent platformEvent)

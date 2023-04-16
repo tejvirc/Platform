@@ -180,6 +180,9 @@
 
         private async Task Lockup(HardMeterOutTransaction transaction, bool inRecovery)
         {
+            _bus.Publish(new PayOutLimitVisibility(true, true));
+            //_bus.Publish(new HardMeterOutStartedEvent());
+
             var keyOff = Initiate();
 
             if (inRecovery)
@@ -197,7 +200,6 @@
         private TaskCompletionSource<object> Initiate()
         {
             var keyOff = new TaskCompletionSource<object>();
-
             _bus.Subscribe<DownEvent>(
                 this,
                 _ =>

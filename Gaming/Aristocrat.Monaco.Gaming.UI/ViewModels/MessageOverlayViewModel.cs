@@ -12,6 +12,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -95,8 +96,28 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
+            _eventBus.Subscribe<CashOutDialogVisibilityEvent>(this, Handle);
+            _eventBus.Subscribe<HandCountChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<PayOutLimitVisibility>(this, Handle);
         }
-
+        private void Handle(CashOutDialogVisibilityEvent evt)
+        {
+            _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
+        }
+        private void HandleEvent(HandCountChangedEvent evt)
+        {
+            _lobbyStateManager.CashOutState = LobbyCashOutState.PayOut;
+        }
+        private void Handle(PayOutLimitVisibility evt)
+        {
+            MessageOverlayData.IsPrintingStarted = evt.IsPrintingVisible;
+            if(MessageOverlayData.IsPrintingStarted)
+            {
+                _lobbyStateManager.CashOutState = LobbyCashOutState.PayOutPrinting;
+                HandleMessageOverlayText(string.Empty);
+            }
+            
+        }
         public IMessageOverlayData MessageOverlayData { get; set; }
 
         public ReserveOverlayViewModel ReserveOverlayViewModel { get; }
@@ -106,7 +127,7 @@
         public bool ShowProgressiveGameDisabledNotification { get; set; }
 
         public bool CustomMainViewElementVisible { get; set; }
-
+        
         /// <summary>
         ///     Gets or sets a value indicating whether we need to show a lockup message.
         /// </summary>
@@ -245,7 +266,6 @@
 
             _messageOverlayState = GetMessageOverlayState();
             MessageOverlayData.DisplayImageResourceKey = GetDisplayImageKey();
-
             var messageSent = false;
             switch (_messageOverlayState)
             {
@@ -258,7 +278,7 @@
                     {
                         ShowPaidMeterForAutoCashout = true;
                     }
-
+                    
                     MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
                     messageSent = true;
                     break;
@@ -295,6 +315,15 @@
                         MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayHandPay(MessageOverlayData, message);
                         messageSent = true;
                     }
+                    break;
+                case MessageOverlayState.PayOut:
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
+
+                    //if (MessageOverlayData.IsPrintingStarted)
+                    //{
+                    //    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                    //}
+                    messageSent = true;
                     break;
                 case MessageOverlayState.Disabled:
                     if (_lobbyStateManager.ContainsAnyState(LobbyState.CashIn))
@@ -415,7 +444,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     MessageOverlayData.IsDialogVisible ||
+                                     (MessageOverlayData.IsDialogVisible && MessageOverlayData.IsCashOutDialogVisible) ||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
@@ -508,6 +537,20 @@
                 {
                     state = MessageOverlayState.CashOut;
                 }
+                else if (_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.LargePayoutDisableKey) &&
+                         HardErrorMessages.Count == 1 && !_overlayMessageStrategyController.OverlayStrategy.IsBasic)
+                {
+                    state = MessageOverlayState.PayOut;
+                }
+                //else if (_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey) &&
+                //         HardErrorMessages.Count == 1 && !_overlayMessageStrategyController.OverlayStrategy.IsBasic)
+                //{   || _lobbyStateManager.CashOutState == LobbyCashOutState.PayOutPrinting
+                //    state = MessageOverlayState.PayOutPrinting;
+                //}
+                //else if (_lobbyStateManager.CashOutState == LobbyCashOutState.PayOut)
+                //{
+                //    state = MessageOverlayState.PayOut;
+                //}
                 else if (ShowVoucherNotification)
                 {
                     state = MessageOverlayState.VoucherNotification;
@@ -627,6 +670,11 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
+        public void PayOut(HardMeterOutStartedEvent evt)
+        {
+            //_lobbyStateManager.CashOutState = LobbyCashOutState.PayOutPrinting;
+            //HandleMessageOverlayText(string.Empty);
+        }
         public void HandpayStarted(HandpayStartedEvent evt)
         {
             var forcedKeyOff = _properties.GetValue(AccountingConstants.HandpayLargeWinForcedKeyOff, false);

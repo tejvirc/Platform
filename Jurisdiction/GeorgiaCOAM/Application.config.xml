@@ -11,7 +11,7 @@ as follows:
 -->
 <ApplicationConfiguration>
   <Currency Id="USD"/>
-  <HardMeterMonitor DisableOnError="true"/>
+  <HardMeterMonitor DisableOnError="false"/>
   <NoteAcceptorMonitor DisableOnError="Immediate" LockupOnDisconnect="false" SoftErrorOnStackerFull="true"/>
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
   <TicketMode Audit="Inspection"/>

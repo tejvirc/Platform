@@ -108,6 +108,15 @@
         bool IsScalingNeeded { get; }
 
         /// <summary>
+        /// Visible when amount exceeds payout limit
+        /// </summary>
+        bool IsCashOutDialogVisible { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsPrintingStarted { get; set; }
+        /// <summary>
         ///     Log Text Generation method
         /// </summary>
         /// <returns>a string containing the generated log text</returns>

@@ -23,6 +23,7 @@
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string HandPayOverrideDisplayKey = "HandPayOverrideImage";
+        private const string PayOutDisplayKey = "HandPayImage";
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -50,6 +51,8 @@
         public bool CashOutButtonPressed { get; set; } = false;
 
         public bool IsBasic => false;
+
+        public long CashableAmount { get ; set ; }
 
         public IMessageOverlayData HandleMessageOverlayCashOut(
             IMessageOverlayData data,
@@ -81,9 +84,36 @@
                     case LobbyCashOutState.Wat:
                         data = HandleMessageOverlayWat(data, lastCashOutForcedByMaxBank);
                         break;
+                    //case LobbyCashOutState.PayOutPrinting:
+                    //    data = HandleMessageOverlayHandCountPayOut(data);
+                    //    break;
                 }
             }
 
+            return data;
+        }
+        private IMessageOverlayData HandleMessageOverlayHandCountPayOut(IMessageOverlayData data)
+        {
+            // Do not set the message overlay to PAID yet if the handcount is still pending
+            if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.LargePayoutDisableKey))
+            {
+                Logger.Debug("HandleMessageOverlayCashout ignored due to handpay pending");
+                return data;
+            }
+
+            Logger.Debug("HandleMessageOverlayCashout entered");
+
+            data.SubText = OverlayMessageUtils.ToCredits(CashableAmount).FormattedCurrencyString();
+            data.Text = Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.PrintingTicket);
+            data.DisplayImageResourceKey = HandPayDisplayKey;
+
+            var printHandpayReceipt = _properties.GetValue(AccountingConstants.EnableReceipts, false);
+            if (printHandpayReceipt)
+            {
+                data.IsSubText2Visible = true;
+                data.SubText2 = Localizer.For(CultureFor.Player).GetString(ResourceKeys.PrintingTicket);
+            }
+            data.GameHandlesHandPayPresentation = true;
             return data;
         }
 
@@ -260,6 +290,21 @@
         private void OnExitHandpayPendingPressed(object obj)
         {
             _eventBus.Publish(new HandpayPendingCanceledEvent());
+        }
+
+        public IMessageOverlayData HandleMessageOverlayPayOut(IMessageOverlayData data)
+        {
+            Logger.Debug("HandleMessageOverlayHandCount entered");
+
+            data.DisplayForEvents = true;
+
+            data.DisplayImageResourceKey = PayOutDisplayKey;
+
+            data.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LargePayoutReached);
+
+            data.SubText = OverlayMessageUtils.ToCredits(CashableAmount).FormattedCurrencyString();
+
+            return data;
         }
     }
 }

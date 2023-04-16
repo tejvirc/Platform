@@ -304,7 +304,15 @@
         /// <summary> Voucher </summary>
         Voucher,
         /// <summary> HandPay </summary>
-        HandPay
+        HandPay,
+        /// <summary>
+        /// 
+        /// </summary>
+        PayOut,
+        /// <summary>
+        /// 
+        /// </summary>
+        PayOutPrinting
     }
 
     /// <summary>
@@ -346,7 +354,15 @@
         /// <summary> Progressive Game Disabled Notification </summary>
         ProgressiveGameDisabledNotification,
         /// <summary> Handcount Timer Dialog Window </summary>
-        HandCountTimerDialog
+        HandCountTimerDialog,
+        /// <summary>
+        /// 
+        /// </summary>
+        PayOut,
+        /// <summary>
+        /// 
+        /// </summary>
+        PayOutPrinting
     }
 
     /// <summary>

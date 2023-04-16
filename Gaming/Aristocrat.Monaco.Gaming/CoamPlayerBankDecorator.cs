@@ -16,6 +16,7 @@
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Localization.Properties;
+    using System.Threading;
 
     /// <summary>
     ///     An <see cref="IPlayerBank" /> implementation.
@@ -28,7 +29,8 @@
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly long _handCountPayoutLimit;
-
+        private bool isCashOut { get; set; }
+        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
         /// <summary>
         ///     Initializes a new instance of the <see cref="PlayerBank" /> class.
         /// </summary>
@@ -62,17 +64,30 @@
             _systemDisableManager = systemDisableManager;
 
             _handCountPayoutLimit = properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
+            _bus.Subscribe<CashOutEvent>(this, Handle);
+        }
+
+        private void Handle(CashOutEvent evt)
+        {
+            isCashOut = evt.IsCashout;
+            autoResetEvent.Set();
         }
 
         private async Task CheckLargePayoutAsync(long amount)
         {
             Logger.Debug($"Check Payout Limit: {amount}");
-            if (amount > _handCountPayoutLimit)
+            _bus.Publish(new CashOutDialogVisibilityEvent(amount));
+            autoResetEvent.WaitOne();
+            if (isCashOut)
             {
-                var keyOff = Initiate();
-                await keyOff.Task;
+                if (amount > 20000)
+                {
+                    _bus.Publish(new PayOutLimitVisibility(true, false));
+                    var keyOff = Initiate();
+                    await keyOff.Task;
 
-                _systemDisableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
+                    _systemDisableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
+                }
             }
         }
 
@@ -120,17 +135,23 @@
             if (amountCashable > 0)
             {
                 CheckLargePayoutAsync(amountCashable).Wait();
+                if(isCashOut)
+                {
+                    _bus.Publish(new CashOutStartedEvent(false, true));
 
-                _bus.Publish(new CashOutStartedEvent(false, true));
+                    var success = PlayerBank.CashOut(amountCashable);
 
-                var success = PlayerBank.CashOut(amountCashable);
-
-                if (!success)
+                    //if (!success)
+                    //{
+                    //    _bus.Publish(new CashOutAbortedEvent());
+                    //}
+                    return success;
+                }
+                else
                 {
                     _bus.Publish(new CashOutAbortedEvent());
+                    return false;
                 }
-
-                return success;
             }
 
             return true;

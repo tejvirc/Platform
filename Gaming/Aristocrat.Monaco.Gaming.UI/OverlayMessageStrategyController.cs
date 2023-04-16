@@ -146,5 +146,10 @@
         {
             GameRegistered = false;
         }
+
+        public void SetCashableAmount(long cashOutAmount)
+        {
+            OverlayStrategy.CashableAmount = cashOutAmount;
+        }
     }
 }

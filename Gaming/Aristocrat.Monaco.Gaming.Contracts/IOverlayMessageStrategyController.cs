@@ -56,5 +56,10 @@
         ///     Tells the game to remove any presentation
         /// </summary>
         void ClearGameDrivenPresentation();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void SetCashableAmount(long cashOutAmount);
     }
 }
