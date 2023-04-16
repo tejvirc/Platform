@@ -108,7 +108,7 @@
                     ScrollViewer.CanContentScroll="True"
                     ColumnHeaderHeight="0"
                     HeadersVisibility="None"
-                    Margin="10 0 0 0">
+                    Margin="10 10 0 0">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>

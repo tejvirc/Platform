@@ -18,7 +18,7 @@
         {
             if (value is DataGridHeadersVisibility vis && vis == DataGridHeadersVisibility.None)
             {
-                return Visibility.Hidden;
+                return Visibility.Collapsed;
             }
 
             return DataGrid.HeadersVisibilityConverter.Convert(value, targetType, parameter, culture);
