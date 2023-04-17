@@ -47,7 +47,6 @@
         {
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
-            SoundLevelConfigurationParser(_audio.SoundLevelCollection);
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
         }
@@ -86,14 +85,18 @@
 
         public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
 
-        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection { get; } = new();
-        private void SoundLevelConfigurationParser(IEnumerable<Tuple<byte,string>> enumValues)
+        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection
         {
-            SoundLevelConfigCollection.Clear();
-            foreach (var level in enumValues)
+            get
             {
-                SoundLevelConfigCollection.Add(new EnumerationExtension.EnumerationMember()
-                    {Description = level.Item2, Value = level.Item1});
+                var soundLevelCollection = new ObservableCollection<EnumerationExtension.EnumerationMember>();
+
+                foreach (var soundLevel in _audio.SoundLevelCollection)
+                {
+                    soundLevelCollection.Add(new EnumerationExtension.EnumerationMember() { Description = soundLevel.Item2, Value = soundLevel.Item1 });
+                }
+
+                return soundLevelCollection;
             }
         }
 

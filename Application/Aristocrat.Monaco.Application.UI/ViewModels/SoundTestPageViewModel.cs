@@ -19,6 +19,7 @@
     using log4net;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
+    using Monaco.UI.Common.Markup;
     using MVVM;
     using MVVM.Command;
 
@@ -581,7 +582,19 @@
                 });
         }
 
-        public System.Collections.IEnumerable SoundLevelConfigCollection =>
-            ServiceManager.GetInstance().TryGetService<IAudio>().SoundLevelCollection;
+        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection
+        {
+            get
+            {
+                var  soundLevelCollection = new ObservableCollection<EnumerationExtension.EnumerationMember>();
+
+                foreach (var soundLevel in _audio.SoundLevelCollection)
+                {
+                    soundLevelCollection.Add(new EnumerationExtension.EnumerationMember(){ Description = soundLevel.Item2, Value = soundLevel.Item1});
+                }
+
+                return soundLevelCollection;
+            }
+        }
     }
 }

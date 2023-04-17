@@ -3,32 +3,32 @@
   <xs:element name="ApplicationConfiguration">
     <xs:complexType>
       <xs:sequence>
-		  <xs:element minOccurs="0" maxOccurs="1" name="MasterVolumeSettings">
-			  <xs:complexType>
-				  <xs:sequence>
-					  <xs:element maxOccurs="unbounded" name="VolumeNode">
-						  <xs:complexType>
-							  <xs:complexContent>
-								  <xs:extension base="VolumeLevel">
-								  </xs:extension>
-							  </xs:complexContent>
-						  </xs:complexType>
-					  </xs:element>
-				  </xs:sequence>
-			  </xs:complexType>
-		  </xs:element>
-		  <xs:element minOccurs="0" maxOccurs="1" name="VolumeScalarSettings">
-			  <xs:complexType>
-				  <xs:sequence>
-					  <xs:element minOccurs="5" maxOccurs="5" name="Scalar">
-						  <xs:complexType>
-							  <xs:attribute name="Value" type="xs:float" use="required"/>
-						  </xs:complexType>
-					  </xs:element>
-				  </xs:sequence>
-			  </xs:complexType>
-	    </xs:element>
-		<xs:element minOccurs="0" maxOccurs="1" name="AllowedLocales" type="ArrayOfString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="MasterVolumeSettings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="VolumeNode">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="VolumeLevel">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="VolumeScalarSettings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="5" maxOccurs="5" name="Scalar">
+                <xs:complexType>
+                  <xs:attribute name="Value" type="xs:float" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AllowedLocales" type="ArrayOfString" />
         <xs:element minOccurs="0" maxOccurs="1" name="Currency">
           <xs:complexType>
             <xs:attribute default="USD" name="Id" type="xs:string" />
@@ -37,9 +37,9 @@
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="EdgeLightConfiguration">
           <xs:complexType>
-	          <xs:attribute default="Blue" name="LobbyModeColor" type="xs:string" />
-	          <xs:attribute default="Transparent" name="AttractModeColor" type="xs:string" />
-	          <xs:attribute default="Blue" name="DefaultColor" type="xs:string" />
+            <xs:attribute default="Blue" name="LobbyModeColor" type="xs:string" />
+            <xs:attribute default="Transparent" name="AttractModeColor" type="xs:string" />
+            <xs:attribute default="Blue" name="DefaultColor" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="GatSerial">
@@ -247,14 +247,14 @@
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="BellConfiguration">
           <xs:complexType>
-              <xs:attribute name="InitialValue" type="xs:long" use="optional" default="1000000"/>
-              <xs:attribute name="IntervalValue" type="xs:long" use="optional" default="1000000"/>
-              <xs:attribute name="MaxBellValue" type="xs:long" use="optional" default="10000000000"/>
+            <xs:attribute name="InitialValue" type="xs:long" use="optional" default="1000000"/>
+            <xs:attribute name="IntervalValue" type="xs:long" use="optional" default="1000000"/>
+            <xs:attribute name="MaxBellValue" type="xs:long" use="optional" default="10000000000"/>
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="StackerRemoveBehavior">
           <xs:complexType>
-              <xs:attribute name="AutoClearPeriodMeters" type="xs:boolean" />
+            <xs:attribute name="AutoClearPeriodMeters" type="xs:boolean" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="AutoClearPeriodMetersBehavior">
@@ -358,9 +358,9 @@
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="PrinterWarningSound">
-            <xs:complexType>
-                <xs:attribute default="" name="FilePath" type="xs:string" />
-            </xs:complexType>
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="NoteAcceptorErrorSound">
           <xs:complexType>
@@ -408,9 +408,9 @@
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="HostOfflineSound">
-	        <xs:complexType>
-		        <xs:attribute default="" name="FilePath" type="xs:string" />
-	        </xs:complexType>
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="DingSound">
           <xs:complexType>
@@ -571,14 +571,14 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="iVolumeScalar">
-  	<xs:attribute name="Key" type="xs:unsignedByte " use="required" />
-	<xs:attribute name="Value" type="xs:float" use="required" />
+    <xs:attribute name="Key" type="xs:unsignedByte " use="required" />
+    <xs:attribute name="Value" type="xs:float" use="required" />
   </xs:complexType>
-  
+
   <xs:complexType name="VolumeLevel">
-  	<xs:attribute name="Key" type="xs:unsignedByte " use="required" />
-	  <xs:attribute name="Description" type="xs:string" use="required" />
-	  <xs:attribute name="Value" type="xs:float" use="required" />
+    <xs:attribute name="Key" type="xs:unsignedByte " use="required" />
+    <xs:attribute name="Description" type="xs:string" use="required" />
+    <xs:attribute name="Value" type="xs:float" use="required" />
   </xs:complexType>
- 
+
 </xs:schema>
