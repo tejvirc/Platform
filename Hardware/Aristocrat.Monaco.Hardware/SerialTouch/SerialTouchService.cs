@@ -131,6 +131,8 @@
 
         private CalibrationCrosshairColors CrosshairColorUpperRight { get; set; }
 
+        public bool HasReceivedData { get; private set; }
+
         /// <inheritdoc />
         public void Initialize()
         {
@@ -404,6 +406,7 @@
             IsDisconnected = true;
             CloseSerialPort();
             _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(Model)));
+            HasReceivedData = false;
         }
 
         private bool Fire(SerialTouchTrigger trigger)
@@ -906,6 +909,8 @@
                 }
 
                 HandleResponse(packet);
+
+                HasReceivedData = true;
             }
         }
 

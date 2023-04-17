@@ -16,6 +16,7 @@
     using Contracts.Touch;
     using Kernel;
     using log4net;
+    using TouchDevice = Cabinet.TouchDevice;
 
     public sealed class CabinetDetectionService : IService, ICabinetDetectionService
     {
@@ -103,14 +104,6 @@
                 {
                     var identifiedDevicesList = _cabinet.IdentifiedDevices.ToList();
 
-// TODO: Remove this if _cabinet identifies serial touch
-                    if (SerialTouchDevice != null)
-                    {
-                        var touchDevices = new List<ITouchDevice>();
-                        touchDevices.Add(SerialTouchDevice);
-                        identifiedDevicesList.Add(touchDevices[0]);
-                    }
-
                     return identifiedDevicesList;
                 }
             }
@@ -160,8 +153,6 @@
                 }
             }
         }
-
-        public Aristocrat.Cabinet.TouchDevice SerialTouchDevice { get; private set; }
 
         public IDisplayDevice GetDisplayDeviceByItsRole(DisplayRole role)
         {
@@ -251,6 +242,7 @@
                 var serialTouchName = "?";
                 var serialTouchProductString = "?";
                 var serialTouchVersionNumber = 0;
+                var serialTouchService = ServiceManager.GetInstance().TryGetService<ISerialTouchService>();
 
                 Logger.Debug($"MapTouchscreens - ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}");
 
@@ -263,7 +255,6 @@
                     ExpectedDisplayDevicesWithSerialTouch = expectedDisplayDevicesWithSerialTouch;
  
                     // Try to get serial touch model and firmware
-                    var serialTouchService = ServiceManager.GetInstance().TryGetService<ISerialTouchService>();
                     if (serialTouchService != null && serialTouchService.Initialized)
                     {
                         serialTouchName = serialTouchService.Model;
@@ -277,28 +268,18 @@
                         Logger.Debug($"MapTouchscreens - Serial touch product {serialTouchProductString} model {serialTouchName} version {serialTouchVersionNumber}");
                     }
 
-                    // Inject a serial touch device
-                    var serialTouchDevice = new Aristocrat.Cabinet.TouchDevice
+                    TouchDevice serialTouchDevice = _cabinet.IdentifiedDevices.OfType<TouchDevice>().FirstOrDefault(t =>
+                        t.CommunicationType == CommunicationTypes.Serial);
+
+                    if (serialTouchDevice != null)
                     {
-                        ProductString = serialTouchProductString,
-                        VendorId = mainDisplayDevice.TouchVendorId,
-                        ProductId = mainDisplayDevice.TouchProductId,
-                        MaxActiveContacts = 0,
-                        StartingCursorId = 0,
-                        DisplayOrientation = 0,
-                        DeviceHandle = (IntPtr)0,
-                        Vid = mainDisplayDevice.TouchVendorId.ToString(),
-                        Pid = mainDisplayDevice.TouchProductId.ToString(),
-                        VersionNumber = serialTouchVersionNumber, 
-                        Name = serialTouchName,
-                        DeviceType = DeviceType.Touch,
-                        Status = DeviceStatus.Connected
-                    };
+                        serialTouchDevice.ProductString = serialTouchProductString;
+                        serialTouchDevice.VersionNumber = serialTouchVersionNumber;
+                        serialTouchDevice.Name = serialTouchName;
+                    }
 
                     Logger.Debug($"MapTouchscreens - LS cabinet matched, injecting {serialTouchProductString} serial touch {serialTouchName} version {serialTouchVersionNumber} " +
-                        $"for main display device {mainDisplayDevice.Name} Touch VID {mainDisplayDevice.TouchVendorId} Touch PID {mainDisplayDevice.TouchProductId}");
-
-                    SerialTouchDevice = serialTouchDevice;
+                                 $"for main display device {mainDisplayDevice.Name} Touch VID {mainDisplayDevice.TouchVendorId} Touch PID {mainDisplayDevice.TouchProductId}");
 
                     var expectedSerialTouchDevices = new List<ITouchDevice>();
                     expectedSerialTouchDevices.Add(serialTouchDevice);
@@ -308,16 +289,6 @@
                 // Invalidate current mapping
                 TouchscreensMapped = false;
                 _displayToTouchMappings.Clear();
-
-                // Do we have a serial touch device?
-                if (SerialTouchDevice != null)
-                {
-                    // Yes, add it to the display mappings
-                    var mappings = new List<(IDisplayDevice Display, ITouchDevice Touch)>();
-                    mappings.Add((mainDisplayDevice, SerialTouchDevice));
-                    _displayToTouchMappings.AddRange(mappings.Select(m => (m.Display, m.Touch)).ToList());
-                    Logger.Debug($"MapTouchscreens - Mapped serial touch {serialTouchName}");
-                }
 
                 // Map touchscreens to displays
                 var success = _cabinetDisplaySettings.MapTouchscreens(_cabinet, out var map);
@@ -336,21 +307,26 @@
                 // If missing some displays (developer mode) then we return true for success but with an empty mappings collection.
                 if (!ExpectedDisplayDevices.Any() || !ExpectedTouchDevices.Any())
                 {
-                     Logger.Debug("MapTouchscreens - ExpectedDisplayDevices.Any() {ExpecteddisplayDevices.Any()} ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}, returning TouchscreensMapped TRUE");
+                     Logger.Debug($"MapTouchscreens - ExpectedDisplayDevices.Any() {ExpectedDisplayDevices.Any()} ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}, returning TouchscreensMapped TRUE");
                      return TouchscreensMapped = true;
                 }
 
                 // Persist if requested
                 if (persistMappings)
                 {
-                    var cabinetXml = _cabinet.ToXml();
-                    CabinetXml = cabinetXml;
-                    Logger.Info($"MapTouchscreens - Persisted cabinet mapped touch screens. Detected cabinet :- {CabinetXml}");
+                    PersistCabinet();
                 }
 
                 Logger.Debug($"MapTouchscreens - returning TouchscreensMapped {TouchscreensMapped}");
                 return TouchscreensMapped;
             }
+        }
+
+        private void PersistCabinet()
+        {
+            var cabinetXml = _cabinet.ToXml();
+            CabinetXml = cabinetXml;
+            Logger.Info($"MapTouchscreens - Persisted cabinet mapped touch screens. Detected cabinet :- {CabinetXml}");
         }
 
         public ITouchDevice TouchDeviceByCursorId(int touchDeviceId)
