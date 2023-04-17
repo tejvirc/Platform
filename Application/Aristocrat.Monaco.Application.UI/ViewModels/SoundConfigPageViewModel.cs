@@ -48,7 +48,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
-            _propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
@@ -90,14 +89,18 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             //RaisePropertyChanged(nameof(SoundLevel));
         }
 
-        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection { get; } = new();
-        private void SoundLevelConfigurationParser(IEnumerable<Tuple<byte,string>> enumValues)
+        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection
         {
-            SoundLevelConfigCollection.Clear();
-            foreach (var level in enumValues)
+            get
             {
-                SoundLevelConfigCollection.Add(new EnumerationExtension.EnumerationMember()
-                    {Description = level.Item2, Value = level.Item1});
+                var soundLevelCollection = new ObservableCollection<EnumerationExtension.EnumerationMember>();
+
+                foreach (var soundLevel in _audio.SoundLevelCollection)
+                {
+                    soundLevelCollection.Add(new EnumerationExtension.EnumerationMember() { Description = soundLevel.Item2, Value = soundLevel.Item1 });
+                }
+
+                return soundLevelCollection;
             }
         }
 
