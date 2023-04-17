@@ -10,9 +10,8 @@ using Store;
 using Toolkit.Mvvm.Extensions;
 using UI.Common;
 using Views;
-using ILobby = Contracts.Lobby.ILobby;
 
-internal class LobbyLauncher : ILobby
+internal class LobbyLauncher : Contracts.Lobby.ILobby
 {
     private const string StatusWindowName = "StatusWindow";
 

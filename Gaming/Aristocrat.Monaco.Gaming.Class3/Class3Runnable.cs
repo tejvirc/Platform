@@ -19,7 +19,7 @@
     {
         protected override void ConfigureContainer(Container container)
         {
-            // container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
+            container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
             container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
             container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
             container.AddOverlayMessageStrategies();

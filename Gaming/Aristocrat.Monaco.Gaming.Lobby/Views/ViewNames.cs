@@ -22,7 +22,11 @@ public static class ViewNames
 
     public const string InfoBanner = "InfoBanner";
 
-    public const string Upi = "Upi";
+    public const string StandardUpi = "Upi";
+
+    public const string MultiLingualUpi = "Upi";
 
     public const string PaidMeter = "PaidMeter";
+
+    public const string Reserve = "Reserve";
 }

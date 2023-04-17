@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
 
 using System.Windows;
+using Aristocrat.Monaco.Gaming.Lobby.Services.ResponsibleGaming;
 using Consumers;
 using Kernel;
-using Lobby;
 using ResponsibleGaming;
 using Services;
 using SimpleInjector;

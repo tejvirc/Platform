@@ -47,12 +47,12 @@
               DataContext="{Binding ElementName=Root, Path=DataContext}"
               Background="Black">
             <Grid x:Name="TopScreenGameRoot">
-                <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded" x:Name="GameTopScreenRoot"
-                                            Visibility="{Binding IsGameTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                            VerticalAlignment="Stretch"
-                                            HorizontalAlignment="Stretch">
-                <controls1:NativeFormsControl x:Name="GameTopWindowCtrl" BackColor="Black" Dock="Fill"></controls1:NativeFormsControl>
-                </controls1:ExtendedWindowsFormsHost>
+                <uicommon:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded" x:Name="GameTopScreenRoot"
+                                                   Visibility="{Binding IsGameTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                                   VerticalAlignment="Stretch"
+                                                   HorizontalAlignment="Stretch">
+                    <uicommon:NativeFormsControl x:Name="GameTopWindowCtrl" BackColor="Black" Dock="Fill"></uicommon:NativeFormsControl>
+                </uicommon:ExtendedWindowsFormsHost>
             </Grid>
             <Grid x:Name="LobbyTopScreenRoot" Visibility="{Binding IsLobbyTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
 

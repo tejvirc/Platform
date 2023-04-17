@@ -47,6 +47,10 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Regions\" />
+    <Folder Include="Services\Game\" />
+    <Folder Include="Services\EdgeLighting\" />
+    <Folder Include="Services\Sound\" />
+    <Folder Include="Services\PlayerMenu\" />
+    <Folder Include="Store\PlayerMenu\" />
   </ItemGroup>
 </Project>

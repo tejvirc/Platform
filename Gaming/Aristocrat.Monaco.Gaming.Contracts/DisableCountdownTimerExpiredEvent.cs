@@ -7,5 +7,9 @@
     /// </summary>
     public class DisableCountdownTimerExpiredEvent : BaseEvent
     {
+        public DisableCountdownTimerExpiredEvent()
+        {
+            
+        }
     }
 }
