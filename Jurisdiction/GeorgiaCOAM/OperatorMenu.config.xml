@@ -56,7 +56,7 @@ as follows:
     <Page Type="KeyedCreditsMetersPageViewModel" TabType="KeyedCreditsMetersPageLoader" Visible="false"/>
     <Page Type="BonusMetersPageViewModel" TabType="BonusMetersPageLoader" Visible="false"/>
   </Menu>
-  <Menu Type="ToolsMainPageLoader" Visible="false"/>
+  <Menu Type="ToolsMainPageLoader"/>
   <Menu Type="HardwareMainPageLoader">
     <Page Type="PrinterViewModel" TabType="PrinterPageLoader" Visible="false"/>
     <Page Type="NoteAcceptorViewModel"  Access="MainLogicZeroCreditsGameIdle">
@@ -138,8 +138,8 @@ as follows:
     <Menu Type="DiagnosticMainPageLoader">
     <Page Type="IOPageViewModel" />
   </Menu>
-  <Menu Type="ExportMachineSettingsLoader" Visible="false">
-    <Page Type="ExportMachineSettingsViewModel" TabType="ExportMachineSettingsLoader" Visible="false"/>
+  <Menu Type="ExportMachineSettingsLoader" Access="EKeyPresent">
+    <Page Type="ExportMachineSettingsViewModel" />
   </Menu>
   <Menu Type="OptionsMainPageLoader" Visible="false" />
   <Menu Type="SystemResetPageLoader" Visible="false" />
