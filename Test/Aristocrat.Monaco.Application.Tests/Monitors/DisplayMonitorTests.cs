@@ -49,6 +49,7 @@
         private Mock<IButtonDeckDisplay> _buttonDeckDisplay;
         private Mock<IPersistentStorageAccessor> _storageAccessorMock;
         private Mock<IPersistentStorageTransaction> _transactionMock;
+        private Mock<ISerialTouchService> _serialTouchService;
         private MockRepository _mockRepository;
         private Action<DeviceConnectedEvent> _connectedHandler;
         private Action<DeviceDisconnectedEvent> _disconnectedHandler;
@@ -69,6 +70,7 @@
             _buttonDeckDisplay = _mockRepository.Create<IButtonDeckDisplay>();
             _storageAccessorMock = _mockRepository.Create<IPersistentStorageAccessor>();
             _transactionMock = _mockRepository.Create<IPersistentStorageTransaction>(MockBehavior.Loose);
+            _serialTouchService = _mockRepository.Create<ISerialTouchService>();
             _meterMock = _mockRepository.Create<IMeter>();
             _displayDeviceMocks.Clear();
             _touchDeviceMocks.Clear();
@@ -485,6 +487,38 @@
             dm.Dispose();
         }
 
+        [TestMethod]
+        public void SerialTouchDeviceDisconnect()
+        {
+            SetupCabinetDetectionMockForSerialTouch();
+            SetupPersistence();
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            _serialTouchService = MoqServiceManager.CreateAndAddService<ISerialTouchService>(MockBehavior.Default);
+
+            _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
+            _serialTouchService.Setup(x => x.IsDisconnected).Returns(true);
+            _disableManager.Setup(m => m.CurrentDisableKeys).Returns(_disabledDevices);
+
+            var dm = new DisplayMonitor(
+                _eventBus.Object,
+                _disableManager.Object,
+                _meterManager.Object,
+                _persistentStorage.Object,
+                _cabinetDetectionService.Object,
+                _buttonDeckDisplay.Object);
+            SetupEventBusSubscription(dm);
+            dm.Initialize();
+
+            VerifyDisconnectDevices<TouchDisplayDisconnectedEvent, ITouchDevice>(
+                _touchDeviceMocks,
+                ApplicationConstants.TouchDisplayDisconnectedLockupKey,
+                TouchScreenMeter);
+
+            _cabinetDetectionService.Verify(x => x.MapTouchscreens(false), Times.Exactly(1));
+            _meterMock.Verify(x => x.Increment(1), Times.Exactly(_touchDeviceMocks.Count));
+            dm.Dispose();
+        }
+
         private void VerifyConnectDevices<TEvent, TDevice>(
             List<Mock<TDevice>> deviceMocks,
             Guid lockupKey,
@@ -685,6 +719,31 @@
             _eventBus.Setup(x => x.Publish(It.IsAny<DisplayMonitorStatusChangeEvent>()));
         }
 
+        private void SetupCabinetDetectionMockForSerialTouch()
+        {
+            var mainVideo = CreateDeviceMock<IDisplayDevice>(DeviceType.Display);
+            mainVideo.SetupGet(v => v.Role).Returns(DisplayRole.Main);
+            mainVideo.SetupGet(v => v.Name).Returns("mane");
+            mainVideo.SetupGet(v => v.Id).Returns(103);
+            _displayDeviceMocks.Add(mainVideo);
+
+            var mainTouch = CreateDeviceMock<ITouchDevice>(DeviceType.Touch);
+            mainTouch.SetupGet(v => v.Name).Returns("mane");
+            mainTouch.SetupGet(v => v.Id).Returns(0);
+            mainTouch.SetupSet(v => v.Status = DeviceStatus.Disconnected);
+            _touchDeviceMocks.Add(mainTouch);
+
+            _cabinetDetectionService.Setup(x => x.CabinetExpectedDevices).Returns(Devices);
+            _cabinetDetectionService.Setup(x => x.RefreshCabinetDeviceStatus());
+
+            _cabinetDetectionService.Setup(x => x.MapTouchscreens(false)).Returns(true);
+
+            _cabinetDetectionService.Setup(x => x.GetDisplayMappedToTouchDevice(It.IsAny<ITouchDevice>())).Returns(mainVideo.Object);
+            _cabinetDetectionService.Setup(x => x.GetDisplayRoleMappedToTouchDevice(It.IsAny<ITouchDevice>())).Returns(mainVideo.Object.Role);
+
+            _eventBus.Setup(x => x.Publish(It.IsAny<DisplayMonitorStatusChangeEvent>()));
+        }
+
         private void SetupPersistence(bool exists = true, bool lcdExpected = true, bool vbdExpected = true)
         {
             _persistentStorage.Setup(x => x.BlockExists(BlockName)).Returns(exists);
@@ -769,10 +828,10 @@
             vbdTouch.SetupGet(v => v.Id).Returns(104);
             _touchDeviceMocks.Add(vbdTouch);
 
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 103))).Returns(mainVideo.Object);
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 102))).Returns(topVideo.Object);
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 104))).Returns(vbdVideo.Object);
-            _cabinetDetectionService.Setup(s => s.GetDisplayMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 101))).Returns((IDisplayDevice) null);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 103))).Returns(mainVideo.Object.Role);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 102))).Returns(topVideo.Object.Role);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 104))).Returns(vbdVideo.Object.Role);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 101))).Returns((DisplayRole?) null);
         }
     }
 }

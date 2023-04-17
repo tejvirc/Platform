@@ -13,47 +13,35 @@
     using Contracts.Gds.Reel;
     using Contracts.Persistence;
     using Contracts.Reel;
+    using Contracts.Reel.Capabilities;
+    using Contracts.Reel.Events;
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using Stateless;
 
     public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>, IReelController,
         IStorageAccessor<ReelControllerOptions>
     {
         private const string DeviceImplementationsExtensionPath = "/Hardware/ReelController/ReelControllerImplementations";
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.MechanicalReels.ReelControllerAdapter.Options";
-        private const string ReelBrightnessOption = "ReelBrightness";
         private const string ReelOffsetsOption = "ReelOffsets";
+        private const string ReelController = "Reel Controller";
         private const int ReelOffsetDefaultValue = 0;
-        private const int MaxBrightness = 100;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private static readonly IReadOnlyList<ReelLogicalState> NonIdleStates = new List<ReelLogicalState>
-        {
-            ReelLogicalState.Spinning,
-            ReelLogicalState.Homing,
-            ReelLogicalState.Stopping,
-            ReelLogicalState.SpinningBackwards,
-            ReelLogicalState.SpinningForward,
-            ReelLogicalState.Tilted
-        };
-
-        private readonly StateMachine<ReelControllerState, ReelControllerTrigger> _state;
-        private readonly ConcurrentDictionary<int, StateMachineWithStoppingTrigger> _reelStates = new();
-        private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
+        private readonly ReelControllerStateManager _stateManager;
         private readonly SemaphoreSlim _reelSpinningLock = new(1, 1);
         private readonly ConcurrentDictionary<int, int> _steps = new();
 
-        private IReelControllerImplementation _reelController;
-
-        private int _reelBrightness = MaxBrightness;
+        private IReelControllerImplementation _reelControllerImplementation;
+        private Dictionary<Type, IReelControllerCapability> _supportedCapabilities = new();
         private int[] _reelOffsets = new int[ReelConstants.MaxSupportedReels];
+        private int _controllerId = 1;
 
         public ReelControllerAdapter()
         {
-            _state = CreateStateMachine();
+            _stateManager = new ReelControllerStateManager(ReelControllerId, () => Enabled);
         }
 
         public override DeviceType DeviceType => DeviceType.ReelController;
@@ -66,8 +54,20 @@
 
         public override bool Connected => Implementation?.IsConnected ?? false;
 
-        /// <inheritdoc />
-        public int ReelControllerId { get; set; } = 1; // Default to deviceId 1 since 0 isn't valid in G2S
+        public int ReelControllerId
+        {
+            get => _controllerId;
+
+            set
+            {
+                _controllerId = value;
+
+                if (_stateManager is not null)
+                {
+                    _stateManager.ControllerId = value;
+                }
+            }
+        }
 
         public ReelControllerFaults ReelControllerFaults =>
             Implementation?.ReelControllerFaults ?? new ReelControllerFaults();
@@ -75,72 +75,15 @@
         public IReadOnlyDictionary<int, ReelFaults> Faults =>
             Implementation?.Faults ?? new Dictionary<int, ReelFaults>();
 
-        public IReadOnlyDictionary<int, ReelLogicalState> ReelStates
-        {
-            get
-            {
-                _stateLock.EnterReadLock();
-                try
-                {
-                    return _reelStates.ToDictionary(x => x.Key, x => x.Value.StateMachine.State);
-                }
-                finally
-                {
-                    _stateLock.ExitReadLock();
-                }
-            }
-        }
+        public IReadOnlyDictionary<int, ReelLogicalState> ReelStates => _stateManager.ReelStates;
 
         public IReadOnlyDictionary<int, ReelStatus> ReelsStatus => Implementation?.ReelsStatus;
 
         public IReadOnlyDictionary<int, int> Steps => _steps;
 
-        public ReelControllerState LogicalState
-        {
-            get
-            {
-                _stateLock.EnterReadLock();
-                try
-                {
-                    return _state.State;
-                }
-                finally
-                {
-                    _stateLock.ExitReadLock();
-                }
-            }
-        }
+        public ReelControllerState LogicalState => _stateManager.LogicalState;
 
-        public IReadOnlyCollection<int> ConnectedReels =>
-            ReelStates.Where(x => x.Value != ReelLogicalState.Disconnected).Select(x => x.Key).ToList();
-
-        public int DefaultReelBrightness
-        {
-            get => _reelBrightness;
-
-            set
-            {
-                if (value is < 1 or > 100)
-                {
-                    return;
-                }
-
-                if (_reelBrightness == value)
-                {
-                    return;
-                }
-
-                _reelBrightness = value;
-                this.ModifyBlock(
-                    OptionsBlock,
-                    (transaction, index) =>
-                    {
-                        transaction[index, ReelBrightnessOption] = _reelBrightness;
-                        return true;
-                    },
-                    ReelControllerId - 1);
-            }
-        }
+        public IReadOnlyCollection<int> ConnectedReels => _stateManager.ConnectedReels;
 
         public IEnumerable<int> ReelOffsets
         {
@@ -175,48 +118,25 @@
 
         public IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; } = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
 
-        protected override IReelControllerImplementation Implementation => _reelController;
+        protected override IReelControllerImplementation Implementation => _reelControllerImplementation;
 
-        protected override string Description => string.Empty;
+        protected override string Description => ReelController;
 
-        protected override string Path => string.Empty;
+        protected override string Path => Kernel.Contracts.Components.Constants.ReelControllerPath;
 
-        private bool CanSendCommand => LogicalState is
-                    not ReelControllerState.Uninitialized and
-                    not ReelControllerState.IdleUnknown and
-                    not ReelControllerState.Inspecting and
-                    not ReelControllerState.Disabled and
-                    not ReelControllerState.Homing;
+        public bool HasCapability<T>() where T : class, IReelControllerCapability => _supportedCapabilities.ContainsKey(typeof(T));
 
-        public Task<bool> SpinReels(params ReelSpinData[] reelData)
+        public T GetCapability<T>() where T : class, IReelControllerCapability
         {
-            return SpinReelsInternal(reelData);
+            if (!HasCapability<T>())
+            {
+                throw new InvalidOperationException("capability not available");
+            }
+
+            return _supportedCapabilities[typeof(T)] as T;
         }
 
-        public Task<bool> SetLights(params ReelLampData[] lampData)
-        {
-            return CanSendCommand ? Implementation.SetLights(lampData) : Task.FromResult(false);
-        }
-
-        public Task<IList<int>> GetReelLightIdentifiers()
-        {
-            return Implementation.GetReelLightIdentifiers();
-        }
-
-        public Task<bool> SetReelBrightness(IReadOnlyDictionary<int, int> brightness)
-        {
-            return CanSendCommand ? Implementation.SetBrightness(brightness) : Task.FromResult(false);
-        }
-
-        public Task<bool> SetReelBrightness(int brightness)
-        {
-            return CanSendCommand ? Implementation.SetBrightness(brightness) : Task.FromResult(false);
-        }
-
-        public Task<bool> SetReelSpeed(params ReelSpeedData[] speedData)
-        {
-            return CanSendCommand ? Implementation.SetReelSpeed(speedData) : Task.FromResult(false);
-        }
+        public IEnumerable<Type> GetCapabilities() => _supportedCapabilities.Keys;
 
         public async Task<bool> HomeReels()
         {
@@ -228,31 +148,22 @@
             return HandleReelSpinningActionAsync(() => HomeReelsInternal(reelOffsets));
         }
 
-        public Task<bool> NudgeReel(params NudgeReelData[] reelData)
-        {
-            return HandleReelSpinningActionAsync(() => NudgeReelsInternal(reelData));
-        }
-
-        /// <inheritdoc />
         public bool TryAddBlock(IPersistentStorageAccessor accessor, int blockIndex, out ReelControllerOptions block)
         {
-            block = new ReelControllerOptions { ReelBrightness = DefaultReelBrightness, ReelOffsets = ReelOffsets.ToArray() };
+            block = new ReelControllerOptions { ReelOffsets = ReelOffsets.ToArray() };
 
             using var transaction = accessor.StartTransaction();
-            transaction[blockIndex, ReelBrightnessOption] = block.ReelBrightness;
             transaction[blockIndex, ReelOffsetsOption] = block.ReelOffsets;
 
             transaction.Commit();
             return true;
         }
 
-        /// <inheritdoc />
         public bool TryGetBlock(IPersistentStorageAccessor accessor, int blockIndex, out ReelControllerOptions block)
         {
             block = new ReelControllerOptions
             {
-                ReelBrightness = (int)accessor[blockIndex, ReelBrightnessOption],
-                ReelOffsets = (int[])accessor[blockIndex, ReelOffsetsOption],
+                ReelOffsets = (int[])accessor[blockIndex, ReelOffsetsOption]
             };
 
             return true;
@@ -276,7 +187,7 @@
                 return;
             }
 
-            if (!Fire(ReelControllerTrigger.Disable, new DisabledEvent(ReelControllerId, ReasonDisabled)))
+            if (!_stateManager.Fire(ReelControllerTrigger.Disable, new DisabledEvent(ReelControllerId, ReasonDisabled)))
             {
                 return;
             }
@@ -289,7 +200,7 @@
         {
             if (Enabled)
             {
-                if (Fire(ReelControllerTrigger.Enable, new EnabledEvent(ReelControllerId, reason)))
+                if (_stateManager.Fire(ReelControllerTrigger.Enable, new EnabledEvent(ReelControllerId, reason)))
                 {
                     Implementation?.Enable()?.WaitForCompletion();
                 }
@@ -338,10 +249,10 @@
                     Implementation.Initialized -= ReelControllerInitialized;
                     Implementation.HardwareInitialized -= HardwareInitialized;
                     Implementation.Dispose();
-                    _reelController = null;
+                    _reelControllerImplementation = null;
                 }
 
-                _stateLock.Dispose();
+                _stateManager.Dispose();
                 _reelSpinningLock.Dispose();
             }
 
@@ -350,15 +261,18 @@
 
         protected override void Initializing()
         {
-            _reelController = AddinFactory.CreateAddin<IReelControllerImplementation>(
+            _reelControllerImplementation = AddinFactory.CreateAddin<IReelControllerImplementation>(
                 DeviceImplementationsExtensionPath,
                 ServiceProtocol);
-            if (_reelController == null)
+            if (_reelControllerImplementation == null)
             {
                 throw new InvalidOperationException("reel controller addin not available");
             }
 
             ReadOrCreateOptions();
+
+            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             Implementation.FaultCleared += ReelControllerFaultCleared;
             Implementation.FaultOccurred += ReelControllerFaultOccurred;
@@ -380,7 +294,7 @@
 
         protected override void Inspecting(IComConfiguration comConfiguration, int timeout)
         {
-            Fire(ReelControllerTrigger.Inspecting);
+            _stateManager.Fire(ReelControllerTrigger.Inspecting);
         }
 
         protected override void SubscribeToEvents(IEventBus eventBus)
@@ -391,7 +305,7 @@
         {
             Logger.Debug("HomeReels with stops called");
 
-            if (!Fire(ReelControllerTrigger.HomeReels))
+            if (!_stateManager.Fire(ReelControllerTrigger.HomeReels))
             {
                 Logger.Debug("HomeReels - Fire FAILED - CAN NOT HOME");
                 return false;
@@ -407,7 +321,7 @@
                                 return Task.FromResult(true);
                             }
 
-                            if (!Fire(ReelControllerTrigger.HomeReels, x.Key))
+                            if (!_stateManager.Fire(ReelControllerTrigger.HomeReels, x.Key))
                             {
                                 Logger.Debug($"HomeReels - Fire FAILED for reel {x.Key} - CAN NOT HOME");
                                 return Task.FromResult(false);
@@ -427,468 +341,14 @@
 
         private async Task<bool> TiltReelsInternal()
         {
-            FireAll(ReelControllerTrigger.TiltReels);
+            _stateManager.FireAll(ReelControllerTrigger.TiltReels);
             var result = await (Implementation?.TiltReels() ?? Task.FromResult(false));
             return result;
         }
 
-        private async Task<bool> NudgeReelsInternal(NudgeReelData[] reelData)
-        {
-            Logger.Debug("NudgeReels with stops called");
-            var reelTriggers = reelData.Select(
-                reel => (
-                    reel.Direction == SpinDirection.Forward
-                        ? ReelControllerTrigger.SpinReel
-                        : ReelControllerTrigger.SpinReelBackwards, reel.ReelId));
-
-            if (!Fire(reelTriggers))
-            {
-                return false;
-            }
-
-            return await (Implementation?.NudgeReels(reelData) ?? Task.FromResult(false));
-        }
-
-        private async Task<bool> SpinReelsInternal(ReelSpinData[] reelData)
-        {
-            Logger.Debug("SpinReels with stops called");
-            var reelTriggers = reelData.Select(
-                reel => (
-                    reel.Direction == SpinDirection.Forward
-                        ? ReelControllerTrigger.SpinReel
-                        : ReelControllerTrigger.SpinReelBackwards, reel.ReelId));
-            if (!Fire(reelTriggers))
-            {
-                return false;
-            }
-
-            return await (Implementation?.SpinReels(reelData) ?? Task.FromResult(false));
-        }
-
-        private StateMachineWithStoppingTrigger CreateReelStateMachine(ReelLogicalState state = ReelLogicalState.IdleUnknown)
-        {
-            var stateMachine = new StateMachine<ReelLogicalState, ReelControllerTrigger>(state);
-            var reelStoppedTriggerParameters = stateMachine.SetTriggerParameters<ReelLogicalState, ReelEventArgs>(ReelControllerTrigger.ReelStopped);
-
-            stateMachine.Configure(ReelLogicalState.IdleUnknown)
-                .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
-                .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
-                .Permit(ReelControllerTrigger.HomeReels, ReelLogicalState.Homing)
-                .Ignore(ReelControllerTrigger.Connected);
-
-            stateMachine.Configure(ReelLogicalState.IdleAtStop)
-                .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
-                .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
-                .Permit(ReelControllerTrigger.SpinReel, ReelLogicalState.SpinningForward)
-                .Permit(ReelControllerTrigger.SpinReelBackwards, ReelLogicalState.SpinningBackwards)
-                .Permit(ReelControllerTrigger.HomeReels, ReelLogicalState.Homing)
-                .OnEntryFrom(reelStoppedTriggerParameters, (logicalState, args) => PostEvent(new ReelStoppedEvent(args.ReelId, args.Step, logicalState == ReelLogicalState.Homing)));
-
-            stateMachine.Configure(ReelLogicalState.Tilted)
-                .Ignore(ReelControllerTrigger.TiltReels)
-                .Permit(ReelControllerTrigger.HomeReels, ReelLogicalState.Homing)
-                .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected);
-
-            stateMachine.Configure(ReelLogicalState.Spinning)
-                .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
-                .Permit(ReelControllerTrigger.ReelStopped, ReelLogicalState.IdleAtStop)
-                .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted);
-
-            stateMachine.Configure(ReelLogicalState.Homing)
-                .SubstateOf(ReelLogicalState.Spinning);
-
-            stateMachine.Configure(ReelLogicalState.Disconnected)
-                .Permit(ReelControllerTrigger.Connected, ReelLogicalState.IdleUnknown);
-
-            stateMachine.Configure(ReelLogicalState.SpinningForward).SubstateOf(ReelLogicalState.Spinning);
-            stateMachine.Configure(ReelLogicalState.SpinningBackwards).SubstateOf(ReelLogicalState.Spinning);
-
-            stateMachine.OnTransitioned(
-                transition =>
-                {
-                    Logger.Debug(
-                        $"ReelStateMachine(Reel) - Trigger {transition.Trigger} Transitioned From {transition.Source} To {transition.Destination}");
-                });
-
-            stateMachine.OnUnhandledTrigger(
-                (unHandledState, trigger) =>
-                {
-                    Logger.Error($"ReelStateMachine(Reel) - Invalid State {unHandledState} For Trigger {trigger}");
-                });
-
-            return new StateMachineWithStoppingTrigger(stateMachine, reelStoppedTriggerParameters);
-        }
-
-        private StateMachine<ReelControllerState, ReelControllerTrigger> CreateStateMachine()
-        {
-            var stateMachine = new StateMachine<ReelControllerState, ReelControllerTrigger>(ReelControllerState.Uninitialized);
-            stateMachine.Configure(ReelControllerState.Uninitialized)
-                .Permit(ReelControllerTrigger.Inspecting, ReelControllerState.Inspecting)
-                .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled)
-                .PermitDynamic(
-                    ReelControllerTrigger.Initialized,
-                    () => Enabled ? ReelControllerState.IdleUnknown : ReelControllerState.Disabled);
-
-            stateMachine.Configure(ReelControllerState.Inspecting)
-                .Ignore(ReelControllerTrigger.Disable)
-                .Ignore(ReelControllerTrigger.ReelStopped)
-                .Permit(ReelControllerTrigger.InspectionFailed, ReelControllerState.Uninitialized)
-                .PermitDynamic(
-                    ReelControllerTrigger.Initialized,
-                    () => Enabled ? ReelControllerState.IdleUnknown : ReelControllerState.Disabled)
-                .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected);
-
-            stateMachine.Configure(ReelControllerState.IdleUnknown)
-                .Ignore(ReelControllerTrigger.Connected)
-                .Ignore(ReelControllerTrigger.Enable)
-                .Ignore(ReelControllerTrigger.Initialized)
-                .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
-                .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
-                .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing)
-                .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled);
-
-            stateMachine.Configure(ReelControllerState.IdleAtStops)
-                .Ignore(ReelControllerTrigger.Connected)
-                .Ignore(ReelControllerTrigger.Enable)
-                .Ignore(ReelControllerTrigger.Initialized)
-                .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
-                .Permit(ReelControllerTrigger.SpinReel, ReelControllerState.Spinning)
-                .Permit(ReelControllerTrigger.SpinReelBackwards, ReelControllerState.Spinning)
-                .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
-                .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing)
-                .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled);
-
-            stateMachine.Configure(ReelControllerState.Homing)
-                .PermitReentry(ReelControllerTrigger.HomeReels)
-                .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled)
-                .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
-                .PermitDynamic(
-                    ReelControllerTrigger.ReelStopped,
-                    () => ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)
-                        ? ReelControllerState.IdleAtStops
-                        : ReelControllerState.Homing)
-                .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted);
-
-            stateMachine.Configure(ReelControllerState.Tilted)
-                .SubstateOf(ReelControllerState.Disabled)
-                .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing);
-
-            stateMachine.Configure(ReelControllerState.Disabled)
-                .Ignore(ReelControllerTrigger.ReelStopped)
-                .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
-                .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
-                .Ignore(ReelControllerTrigger.Disable)
-                .PermitDynamic(
-                    ReelControllerTrigger.Enable,
-                    GetEnabledState);
-
-            stateMachine.Configure(ReelControllerState.Disconnected)
-                .Permit(ReelControllerTrigger.Connected, ReelControllerState.Inspecting);
-
-            stateMachine.Configure(ReelControllerState.Spinning)
-                .PermitReentry(ReelControllerTrigger.SpinReel)
-                .PermitReentry(ReelControllerTrigger.SpinReelBackwards)
-                .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
-                .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
-                .PermitDynamic(
-                    ReelControllerTrigger.ReelStopped,
-                    () => ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)
-                        ? ReelControllerState.IdleAtStops
-                        : ReelControllerState.Spinning);
-
-            stateMachine.OnUnhandledTrigger(
-                (state, trigger) =>
-                {
-                    Logger.Error($"Invalid State {state} For Trigger {trigger}");
-                });
-
-            stateMachine.OnTransitioned(
-                transition =>
-                {
-                    Logger.Debug(
-                        $"ReelControllerStateMachine - Trigger {transition.Trigger} Transitioned From {transition.Source} To {transition.Destination}");
-                });
-
-            return stateMachine;
-        }
-
-        private ReelControllerState GetEnabledState()
-        {
-            var nonIdleReels = ReelStates.Where(x => NonIdleStates.Contains(x.Value)).ToList();
-            if (nonIdleReels.Any())
-            {
-                return nonIdleReels.FirstOrDefault().Value switch
-                {
-                    ReelLogicalState.Spinning or ReelLogicalState.SpinningBackwards or ReelLogicalState.SpinningForward
-                        or ReelLogicalState.Stopping => ReelControllerState.Spinning,
-                    ReelLogicalState.Homing => ReelControllerState.Homing,
-                    ReelLogicalState.Tilted => ReelControllerState.Tilted,
-                    _ => ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)
-                        ? ReelControllerState.IdleAtStops
-                        : ReelControllerState.IdleUnknown
-                };
-            }
-
-            return ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)
-                ? ReelControllerState.IdleAtStops
-                : ReelControllerState.IdleUnknown;
-        }
-
-        private bool CanFire(ReelControllerTrigger trigger)
-        {
-            _stateLock.EnterReadLock();
-            try
-            {
-                var canFire = _state.CanFire(trigger);
-                if (!canFire)
-                {
-                    Logger.Debug($"CanFire - FAILED for trigger {trigger} in state {_state.State}");
-                }
-
-                return canFire;
-            }
-            finally
-            {
-                _stateLock.ExitReadLock();
-            }
-        }
-
-        private bool FireAll(ReelControllerTrigger trigger)
-        {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                var reels = ConnectedReels;
-                var fireAll = reels.All(reel => CanFire(trigger, reel)) &&
-                              reels.All(reel => Fire(trigger, reel)) &&
-                              (reels.Any() || Fire(trigger)); // If we have reels don't transition the state it is handled above
-
-                if (!fireAll)
-                {
-                    Logger.Debug($"FireAll - FAILED for trigger {trigger}");
-                }
-
-                return fireAll;
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-        }
-
-        private bool Fire(ReelControllerTrigger trigger)
-        {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                if (!CanFire(trigger))
-                {
-                    Logger.Debug($"Fire - FAILED CanFire for trigger {trigger}");
-                    return false;
-                }
-
-                _state.Fire(trigger);
-                return true;
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-        }
-
-        private bool Fire<TEvent>(ReelControllerTrigger trigger, TEvent @event)
-            where TEvent : BaseEvent
-        {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                if (!Fire(trigger))
-                {
-                    Logger.Debug($"Fire - FAILED for trigger {trigger}");
-                    return false;
-                }
-
-                if (@event != null)
-                {
-                    PostEvent(@event);
-                }
-
-                return true;
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-        }
-
-        private bool CanFire(ReelControllerTrigger trigger, int reelId, bool checkControllerState = true)
-        {
-            _stateLock.EnterReadLock();
-            bool canFire;
-            try
-            {
-                canFire = !checkControllerState || CanFire(trigger);
-                if (!canFire)
-                {
-                    Logger.Debug($"CanFire - FAILED for trigger {trigger} and reel {reelId} in state {_state.State}");
-                }
-                else
-                {
-                    canFire = _reelStates.TryGetValue(reelId, out var reelState);
-                    if (!canFire)
-                    {
-                        Logger.Debug($"CanFire - FAILED getting reel state for trigger {trigger} and reel {reelId} in state {_state.State}");
-                    }
-                    else
-                    {
-                        canFire = reelState.StateMachine.CanFire(trigger);
-                        if (!canFire)
-                        {
-                            Logger.Debug($"CanFire - FAILED for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
-                        }
-                    }
-                }
-            }
-            finally
-            {
-                _stateLock.ExitReadLock();
-            }
-
-            return canFire;
-        }
-
-        private bool Fire(ReelControllerTrigger trigger, int reelId, bool updateControllerState = true)
-        {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                var canFire = _reelStates.TryGetValue(reelId, out var reelState);
-                if (!canFire)
-                {
-                    Logger.Debug($"Fire - FAILED getting reel state for trigger {trigger} and reel {reelId} in state {_state.State}");
-                    return false;
-                }
-                else
-                {
-                    canFire = CanFire(trigger, reelId, updateControllerState);
-                    if (!canFire)
-                    {
-                        Logger.Debug($"Fire - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
-                        return false;
-                    }
-                    else if (updateControllerState)
-                    {
-                        canFire = CanFire(trigger);
-                        if (!canFire)
-                        {
-                            Logger.Debug($"Fire - FAILED CanFire for trigger {trigger} with reelState {reelState.StateMachine} in state {_state.State}");
-                            return false;
-                        }
-                    }
-                }
-
-                reelState.StateMachine.Fire(trigger);
-                return !updateControllerState || Fire(trigger);
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-        }
-
-        private bool Fire(IEnumerable<(ReelControllerTrigger trigger, int reelId)> reelTriggers, bool updateControllerState = true)
-        {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                var reelData = reelTriggers.ToList();
-                return reelData.All(x => CanFire(x.trigger, x.reelId, updateControllerState)) &&
-                       reelData.All(x => Fire(x.trigger, x.reelId, updateControllerState));
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-        }
-
-        private bool FireReelStopped(ReelControllerTrigger trigger, int reelId, ReelEventArgs args)
-        {
-            Logger.Debug($"FireReelStopped with trigger {trigger} for reel {reelId}");
-            _stateLock.EnterWriteLock();
-            try
-            {
-                var canFire = _reelStates.TryGetValue(reelId, out var reelState);
-                if (!canFire)
-                {
-                    Logger.Debug($"FireReelStopped - FAILED getting reel state for trigger {trigger} and reel {reelId} in state {_state.State}");
-                    return false;
-                }
-                else
-                {
-                    canFire = CanFire(trigger, reelId);
-                    if (!canFire)
-                    {
-                        Logger.Debug($"FireReelStopped - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
-                        return false;
-                    }
-                }
-
-                Logger.Debug($"Stopping with trigger {reelState.StoppingTrigger} from state {reelState.StateMachine.State}");
-                reelState.StateMachine.Fire(reelState.StoppingTrigger, reelState.StateMachine.State, args);
-                return Fire(trigger);
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-        }
-
-        private void Fire<TEvent>(
-            ReelControllerTrigger trigger,
-            int reelId,
-            TEvent @event,
-            bool updateControllerState = true)
-            where TEvent : IEvent
-        {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                if (!Fire(trigger, reelId, updateControllerState))
-                {
-                    Logger.Debug($"Fire - FAILED for trigger {trigger} and reel {reelId} with updateControllerState {updateControllerState}");
-                    return;
-                }
-
-                PostEvent(@event);
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
-        }
-
         private void ReelControllerOnReelConnected(object sender, ReelEventArgs e)
         {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                _reelStates.AddOrUpdate(
-                    e.ReelId,
-                    i =>
-                    {
-                        PostEvent(new ReelConnectedEvent(i, ReelControllerId));
-                        return CreateReelStateMachine();
-                    },
-                    (i, s) =>
-                    {
-                        Fire(ReelControllerTrigger.Connected, i, new ReelConnectedEvent(i, ReelControllerId), false);
-                        return s;
-                    });
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
+            _stateManager.HandleReelConnected(e);
         }
 
         private void ReelControllerOnReelDisconnected(object sender, ReelEventArgs e)
@@ -898,38 +358,19 @@
                 return;
             }
 
-            _stateLock.EnterWriteLock();
-            try
-            {
-                _reelStates.AddOrUpdate(
-                    e.ReelId,
-                    i =>
-                    {
-                        PostEvent(new ReelDisconnectedEvent(i, ReelControllerId));
-                        return CreateReelStateMachine(ReelLogicalState.Disconnected);
-                    },
-                    (i, s) =>
-                    {
-                        Fire(ReelControllerTrigger.Disconnected, i, new ReelDisconnectedEvent(i, ReelControllerId), false);
-                        return s;
-                    });
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
+            _stateManager.HandleReelDisconnected(e);
         }
 
         private void ReelControllerSpinning(object sender, ReelEventArgs e)
         {
             Logger.Debug($"ReelControllerSpinning reel {e.ReelId}");
-            Fire(ReelControllerTrigger.SpinReel, e.ReelId);
+            _stateManager.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
         }
 
         private void ReelControllerReelStopped(object sender, ReelEventArgs e)
         {
             _steps[e.ReelId] = e.Step;
-            if (!FireReelStopped(ReelControllerTrigger.ReelStopped, e.ReelId, e))
+            if (!_stateManager.FireReelStopped(ReelControllerTrigger.ReelStopped, e.ReelId, e))
             {
                 Logger.Debug($"ReelControllerReelStopped - FAILED FireReelStopped for reel {e.ReelId}");
             }
@@ -937,7 +378,7 @@
 
         private void ReelControllerInitialized(object sender, EventArgs e)
         {
-            if (!CanFire(ReelControllerTrigger.Initialized))
+            if (!_stateManager.CanFire(ReelControllerTrigger.Initialized))
             {
                 return;
             }
@@ -961,7 +402,7 @@
             InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());
 
-            Fire(ReelControllerTrigger.Initialized, new InspectedEvent(ReelControllerId));
+            _stateManager.Fire(ReelControllerTrigger.Initialized, new InspectedEvent(ReelControllerId));
             if (Enabled)
             {
                 Implementation?.Enable()?.WaitForCompletion();
@@ -1008,60 +449,35 @@
             Logger.Warn("ReelControllerInitializationFailed - Inspection Failed");
             Disable(DisabledReasons.Device);
 
-            Fire(ReelControllerTrigger.InspectionFailed, new InspectionFailedEvent(ReelControllerId));
+            _stateManager.Fire(ReelControllerTrigger.InspectionFailed, new InspectionFailedEvent(ReelControllerId));
             PostEvent(new DisabledEvent(DisabledReasons.Error));
         }
 
         private void ReelControllerEnabled(object sender, EventArgs e)
         {
-            Fire(ReelControllerTrigger.Enable);
+            _stateManager.Fire(ReelControllerTrigger.Enable);
         }
 
         private void ReelControllerDisabled(object sender, EventArgs e)
         {
             Logger.Debug("ReelControllerDisabled called");
-            Fire(ReelControllerTrigger.Disable);
+            _stateManager.Fire(ReelControllerTrigger.Disable);
         }
 
         private void ReelControllerDisconnected(object sender, EventArgs e)
         {
-            _stateLock.EnterWriteLock();
-            try
-            {
-                _reelStates.Clear();
-                Disable(DisabledReasons.Device);
-                Fire(ReelControllerTrigger.Disconnected, new DisconnectedEvent(ReelControllerId));
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
+            _stateManager.HandleReelControllerDisconnected(Disable);
         }
 
         private void ReelControllerConnected(object sender, EventArgs e)
         {
-            Fire(ReelControllerTrigger.Connected, new ConnectedEvent(ReelControllerId));
+            _stateManager.Fire(ReelControllerTrigger.Connected, new ConnectedEvent(ReelControllerId));
         }
 
         private void ReelControllerSlowSpinning(object sender, ReelEventArgs e)
         {
             Logger.Debug($"ReelControllerSlowSpinning {e.ReelId}");
-
-            _stateLock.EnterWriteLock();
-            try
-            {
-                if (!_reelStates.TryGetValue(e.ReelId, out _))
-                {
-                    Logger.Warn($"ReelControllerSlowSpinning Ignoring event for invalid reel: {e.ReelId}");
-                    return;
-                }
-
-                Fire(ReelControllerTrigger.TiltReels, e.ReelId);
-            }
-            finally
-            {
-                _stateLock.ExitWriteLock();
-            }
+            _stateManager.HandleReelControllerSlowSpinning(e);
         }
 
         private void ReelControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)
@@ -1074,22 +490,6 @@
             Logger.Info($"ReelControllerFaultOccurred - ADDED {e.Faults} from the error list");
             Disable(DisabledReasons.Error);
             PostEvent(new HardwareFaultEvent(e.Faults));
-        }
-
-        private void ReelControllerFaultCleared(object sender, ReelControllerFaultedEventArgs e)
-        {
-            if (e.Faults == ReelControllerFaults.None || !ClearError(e.Faults))
-            {
-                return;
-            }
-
-            Logger.Info($"ReelControllerFaultCleared - REMOVED {e.Faults} from the error list");
-            if (!AnyErrors)
-            {
-                Enable(EnabledReasons.Reset);
-            }
-
-            PostEvent(new HardwareFaultClearEvent(ReelControllerId, e.Faults));
         }
 
         private void ReelControllerFaultOccurred(object sender, ReelFaultedEventArgs e)
@@ -1143,6 +543,22 @@
             }
         }
 
+        private void ReelControllerFaultCleared(object sender, ReelControllerFaultedEventArgs e)
+        {
+            if (e.Faults == ReelControllerFaults.None || !ClearError(e.Faults))
+            {
+                return;
+            }
+
+            Logger.Info($"ReelControllerFaultCleared - REMOVED {e.Faults} from the error list");
+            if (!AnyErrors)
+            {
+                Enable(EnabledReasons.Reset);
+            }
+
+            PostEvent(new HardwareFaultClearEvent(ReelControllerId, e.Faults));
+        }
+
         private void ReadOrCreateOptions()
         {
             if (!this.GetOrAddBlock(OptionsBlock, out var options, ReelControllerId - 1))
@@ -1151,7 +567,6 @@
                 return;
             }
 
-            _reelBrightness = options.ReelBrightness;
             _reelOffsets = options.ReelOffsets;
 
             Logger.Debug($"Block successfully read {OptionsBlock} {ReelControllerId - 1}");
@@ -1177,21 +592,6 @@
             finally
             {
                 _reelSpinningLock.Release();
-            }
-        }
-
-        private class StateMachineWithStoppingTrigger
-        {
-            public StateMachine<ReelLogicalState, ReelControllerTrigger> StateMachine { get; }
-
-            public StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelLogicalState, ReelEventArgs> StoppingTrigger { get; }
-
-            public StateMachineWithStoppingTrigger(
-                StateMachine<ReelLogicalState, ReelControllerTrigger> stateMachine,
-                StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelLogicalState, ReelEventArgs> stoppingTrigger)
-            {
-                StateMachine = stateMachine;
-                StoppingTrigger = stoppingTrigger;
             }
         }
     }

@@ -28,7 +28,7 @@
 
     public class MessageOverlayViewModel : BaseEntityViewModel
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string CashoutDisplayKey = "CashOutImage";
@@ -95,8 +95,6 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
-
-            SubscribeToEvents();
         }
 
         public IMessageOverlayData MessageOverlayData { get; set; }
@@ -115,7 +113,7 @@
         public bool IsLockupMessageVisible
         {
             get => _isLockupMessageVisible;
-            set => SetProperty(ref _isLockupMessageVisible, value, nameof(IsLockupMessageVisible));
+            set => SetProperty(ref _isLockupMessageVisible, value);
         }
 
         /// <summary>
@@ -124,9 +122,7 @@
         public bool IsReplayRecoveryDlgVisible
         {
             get => _isReplayRecoveryDlgVisible;
-            set => SetProperty(ref _isReplayRecoveryDlgVisible,
-                value,
-                nameof(IsReplayRecoveryDlgVisible));
+            set => SetProperty(ref _isReplayRecoveryDlgVisible, value);
         }
 
         public bool IsAgeWarningDlgVisible
@@ -157,6 +153,12 @@
                 return _lobbyStateManager.ContainsAnyState(LobbyState.CashOut, LobbyState.PrintHelpline) &&
                        !_lobbyStateManager.ContainsAnyState(LobbyState.CashIn, LobbyState.CashOutFailure);
             }
+        }
+
+        public bool IsSelectPayModeVisible
+        {
+            get => _isSelectPayModeVisible;
+            set => SetProperty(ref _isSelectPayModeVisible, value);
         }
 
         /// <summary>
@@ -191,6 +193,8 @@
 
         public readonly ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages =
             new ConcurrentDictionary<string, DisplayableMessage>();
+
+        private bool _isSelectPayModeVisible;
 
         public void UpdateCashoutButtonState(bool state)
         {
@@ -237,15 +241,12 @@
             Logger.Debug("MessageOverlayData cleared. " +
                          $"MessageOverlayState={_messageOverlayState}, " +
                          $"CashOutState={_lobbyStateManager.CashOutState}, " +
-                         $"DialogVisible={MessageOverlayData.IsDialogVisible}");
+                         $"IsDialogVisible={MessageOverlayData.IsDialogVisible}");
 
             _messageOverlayState = GetMessageOverlayState();
-
-            HandleOverlayWindowDialogVisibility();
-
             MessageOverlayData.DisplayImageResourceKey = GetDisplayImageKey();
 
-            bool messageSent = false;
+            var messageSent = false;
             switch (_messageOverlayState)
             {
                 case MessageOverlayState.VoucherNotification:
@@ -296,6 +297,10 @@
                     }
                     break;
                 case MessageOverlayState.Disabled:
+                    if (_lobbyStateManager.ContainsAnyState(LobbyState.CashIn))
+                    {
+                        _lobbyStateManager.RemoveStackableState(LobbyState.CashIn);
+                    }
                     if (MessageOverlayData.IsDialogFadingOut && !MessageOverlayData.DisplayForEvents && !MessageOverlayData.DisplayForPopUp)
                     {
                         MessageOverlayData.Text = MessageOverlayData.Text;
@@ -357,6 +362,9 @@
             _eventBus.Publish(new MessageOverlayDataEvent(MessageOverlayData));
 #endif
 
+            // Wait until after message data has been re-set instead of updating visibility immediately after clearing it
+            // This will prevent message flickering
+            HandleOverlayWindowDialogVisibility();
             RaisePropertyChanged(nameof(MessageOverlayData));
         }
 
@@ -378,32 +386,56 @@
             {
                 ReserveOverlayViewModel.IsDialogVisible = true;
             }
-            
-            MessageOverlayData.IsDialogVisible = (IsLockupMessageVisible &&
-                                                             ((HardErrorMessages.Count > 1) ||
-                                                              (!_systemDisableManager.CurrentDisableKeys.Contains(
-                                                                   ApplicationConstants.ReserveDisableKey) &&
-                                                               HardErrorMessages.Count >= 1))) ||
-                                                            IsCashingOutDlgVisible ||
-                                                            IsCashingInDlgVisible ||
-                                                            IsNonCashOverlayDlgVisible ||
-                                                            ShowProgressiveGameDisabledNotification ||
-                                                            ShowVoucherNotification;
+
+            // Keep message overlay dialog visible when handpay PAID banner is up
+            var isHandpayPaidDialogVisible = _lobbyStateManager.CashOutState == LobbyCashOutState.HandPay &&
+                                         _messageOverlayState == MessageOverlayState.CashOut &&
+                                         !string.IsNullOrEmpty(MessageOverlayData.Text);
+
+            var hasHardLockup = HardErrorMessages.Count > 1 ||
+                                !_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.ReserveDisableKey) && HardErrorMessages.Count >= 1;
+
+            var isPresentationOverridden = IsPresentationOverridden();
+
+            MessageOverlayData.IsDialogVisible = !isPresentationOverridden &&
+                                                 IsLockupMessageVisible && hasHardLockup ||
+                                                 isHandpayPaidDialogVisible ||
+                                                 IsCashingOutDlgVisible ||
+                                                 IsCashingInDlgVisible ||
+                                                 IsNonCashOverlayDlgVisible ||
+                                                 ShowProgressiveGameDisabledNotification ||
+                                                 ShowVoucherNotification;
 
             if (MessageOverlayData.IsDialogVisible)
             {
                 ReserveOverlayViewModel.IsDialogVisible = false;
             }
 
-            IsOverlayWindowVisible = !IsPresentationOverridden()  &&
-                                     (IsReplayRecoveryDlgVisible ||
-                                      IsAgeWarningDlgVisible ||
-                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                      MessageOverlayData.IsDialogVisible ||
-                                      ReserveOverlayViewModel.IsDialogVisible ||
-                                      _playerMenuPopup.IsMenuVisible ||
-                                      _playerInfoDisplayManager.IsActive() ||
-                                      CustomMainViewElementVisible);
+            IsOverlayWindowVisible = IsReplayRecoveryDlgVisible ||
+                                     IsAgeWarningDlgVisible ||
+                                     IsSelectPayModeVisible ||
+                                     IsResponsibleGamingInfoOverlayDlgVisible ||
+                                     MessageOverlayData.IsDialogVisible ||
+                                     ReserveOverlayViewModel.IsDialogVisible ||
+                                     _playerMenuPopup.IsMenuVisible ||
+                                     _playerInfoDisplayManager.IsActive() ||
+                                     CustomMainViewElementVisible;
+
+            Logger.Debug("HandleOverlayWindowDialogVisibility: " +
+                         $"CurrentState={_lobbyStateManager.CurrentState}, " +
+                         $"IsLockupMessageVisible={IsLockupMessageVisible}, " +
+                         $"HardErrorMessages={string.Join("; ", HardErrorMessages.Keys)}, " +
+                         $"CurrentDisableKeys={string.Join("; ", _systemDisableManager.CurrentDisableKeys)}, " +
+                         $"hasHardLockup={hasHardLockup}, " +
+                         $"isHandpayPaidDialogVisible={isHandpayPaidDialogVisible}, " +
+                         $"IsCashingOutDlgVisible={IsCashingOutDlgVisible}, " +
+                         $"IsCashingInDlgVisible={IsCashingInDlgVisible}, " +
+                         $"IsNonCashOverlayDlgVisible={IsNonCashOverlayDlgVisible}, " +
+                         $"ShowProgressiveGameDisabledNotification={ShowProgressiveGameDisabledNotification}, " +
+                         $"ShowVoucherNotification={ShowVoucherNotification}, " +
+                         $"MessageOverlayData.IsDialogVisible={MessageOverlayData.IsDialogVisible}, " +
+                         $"IsPresentationOverridden={isPresentationOverridden}" +
+                         $"IsOverlayWindowVisible={IsOverlayWindowVisible}, ");
         }
 
         private string BuildLockupMessageText()
@@ -551,32 +583,21 @@
 
             return (_overlayMessageStrategyController.GameRegistered && !ForceBuildLockupText) &&
                    (isCashoutOverridden ||
-                   isCashWinOverridden ||
-                   isTransferOutOverridden ||
-                   isHandpayOverridden ||
-                   isBonusHandpayOverridden ||
-                   isCancelledCreditHandpayOverridden ||
-                   isCashInOverridden ||
-                   IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
+                    isCashWinOverridden ||
+                    isTransferOutOverridden ||
+                    isHandpayOverridden ||
+                    isBonusHandpayOverridden ||
+                    isCancelledCreditHandpayOverridden ||
+                    isCashInOverridden ||
+                    IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
         }
-
-        private void SubscribeToEvents()
-        {
-            _eventBus.Subscribe<MissedStartupEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayCanceledEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayKeyedOffEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayStartedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<TransferOutFailedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<WatTransferInitiatedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<VoucherOutStartedEvent>(this, HandleEvent);
-        }
-
-        private void HandleEvent(HandpayCanceledEvent evt)
+        
+        public void HandpayCancelled()
         {
             _overlayMessageStrategyController.SetLastCashOutAmount(0);
         }
 
-        private void HandleEvent(HandpayKeyedOffEvent evt)
+        public void HandpayKeyedOff(HandpayKeyedOffEvent evt)
         {
             var cashOutState = LobbyCashOutState.Undefined;
 
@@ -606,7 +627,7 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
-        private void HandleEvent(HandpayStartedEvent evt)
+        public void HandpayStarted(HandpayStartedEvent evt)
         {
             var forcedKeyOff = _properties.GetValue(AccountingConstants.HandpayLargeWinForcedKeyOff, false);
             var jurisdictionLargeWinKeyOffType = _properties.GetValue(AccountingConstants.HandpayLargeWinKeyOffStrategy, KeyOffType.LocalHandpay);
@@ -625,7 +646,7 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
-        private void HandleEvent(TransferOutFailedEvent evt)
+        public void TransferOutFailed(TransferOutFailedEvent evt)
         {
             var config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
             if (config == null || !config.NonCashCashoutFailureMessageEnabled || evt.NonCashableAmount <= 0)
@@ -636,7 +657,7 @@
             _overlayMessageStrategyController.SetLastCashOutAmount(evt.NonCashableAmount);
         }
 
-        private void HandleEvent(VoucherOutStartedEvent evt)
+        public void VoucherOutStarted(VoucherOutStartedEvent evt)
         {
             _lobbyStateManager.CashOutState = LobbyCashOutState.Voucher;
 
@@ -649,7 +670,7 @@
             HandleMessageOverlayText(string.Empty);
         }
 
-        private void HandleEvent(WatTransferInitiatedEvent evt)
+        public void WatTransferInitiated(WatTransferInitiatedEvent evt)
         {
             _lobbyStateManager.CashOutState = LobbyCashOutState.Wat;
 
@@ -660,24 +681,6 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
 
             HandleMessageOverlayText(string.Empty);
-        }
-
-        private void HandleEvent(MissedStartupEvent evt)
-        {
-            Logger.Debug($"Detected MissedStartupEvent:  {evt.MissedEvent.GetType()}");
-            dynamic param = evt.MissedEvent;
-
-            HandleEvent(param);
-        }
-
-        /// <summary>
-        ///     This is to handle missed events not handled by MessageOverlayViewModel.
-        /// </summary>
-        /// <param name="evt"></param>
-        // ReSharper disable once UnusedParameter.Local
-        private static void HandleEvent(IEvent evt)
-        {
-            // no implementation intentionally
         }
     }
 }

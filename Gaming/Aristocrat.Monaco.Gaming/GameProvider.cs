@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -34,7 +35,7 @@
     /// <summary>
     ///     An <see cref="T:Aristocrat.Monaco.Gaming.Contracts.IGameProvider" />
     /// </summary>
-    public class GameProvider : IGameProvider, IPropertyProvider, IService
+    public sealed class GameProvider : IGameProvider, IPropertyProvider, IService, IServerPaytableInstaller
     {
         private const string ManifestFilter = @"*.gsaManifest";
         private const string AtiPrefix = @"ATI_";
@@ -48,6 +49,7 @@
         private const string GameStatusField = @"Game.Status";
         private const string GameDenominationsField = @"Game.Denominations";
         private const string GameWagerCategoriesField = @"Game.WagerCategories";
+        private const string CdsGameInfosField = @"Game.CdsGameInfos";
         private const string GameInstallDateField = @"Game.InstallDate";
         private const string GameTagsField = @"Game.Tags";
         private const string GameUpgradedField = @"Game.Upgraded";
@@ -55,15 +57,18 @@
         private const string GameCategoryField = @"Game.Category";
         private const string GameSubCategoryField = @"Game.SubCategory";
         private const string GameFeaturesField = @"Game.Features";
+        private const string GameMinimumPaybackPercentField = @"Game.MinimumPaybackPercent";
+        private const string GameMaximumPaybackPercentField = @"Game.MaximumPaybackPercent";
 
         private const string ProgressivesConfigFilename = @"progressives.xml";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;
         private readonly IGameOrderSettings _gameOrder;
-        private readonly List<GameDetail> _games = new List<GameDetail>();
+        private readonly List<GameDetail> _games = new();
+        private readonly List<(GameDetail, List<ProgressiveDetail>)> _availableGames = new();
         private readonly IManifest<GameContent> _manifest;
         private readonly IGameMeterManager _meters;
         private readonly IPathMapper _pathMapper;
@@ -78,7 +83,7 @@
         private readonly ICabinetDetectionService _cabinetDetectionService;
 
         private readonly double _multiplier;
-        private readonly object _sync = new object();
+        private readonly object _sync = new();
 
         private bool _initialized;
 
@@ -387,28 +392,7 @@
         }
 
         /// <inheritdoc />
-        public bool Add(string path)
-        {
-            var manifest = GetManifest(path);
-            if (string.IsNullOrEmpty(manifest))
-            {
-                return false;
-            }
-
-            using (var scope = _storageManager.ScopedTransaction())
-            {
-                if (!LoadFromManifest(manifest))
-                {
-                    return false;
-                }
-
-                scope.Complete();
-            }
-
-            CheckState();
-
-            return true;
-        }
+        public bool Add(string path) => Add(path, false);
 
         /// <inheritdoc />
         public bool Remove(string path)
@@ -441,15 +425,14 @@
                 current.GameDll = null;
             }
 
-            return Add(path);
+            return Add(path, true);
         }
 
         /// <inheritdoc />
         public bool Register(string path)
         {
             var manifest = GetManifest(path);
-
-            return !string.IsNullOrEmpty(manifest) && LoadFromManifest(manifest, false);
+            return !string.IsNullOrEmpty(manifest) && LoadFromManifest(manifest, false, false);
         }
 
         /// <inheritdoc />
@@ -566,7 +549,7 @@
         public string Name => GetType().ToString();
 
         /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(IGameProvider) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(IGameProvider), typeof(IServerPaytableInstaller) };
 
         /// <inheritdoc />
         public void Initialize()
@@ -584,9 +567,81 @@
             _initialized = true;
         }
 
+        IGameDetail IServerPaytableInstaller.GetGame(int gameId)
+        {
+            if (!_properties.GetValue(GamingConstants.ServerControlledPaytables, false))
+            {
+                return null;
+            }
+
+            lock (_sync)
+            {
+                return _availableGames.Select(x => x.Item1).SingleOrDefault(g => g.Id == gameId);
+            }
+        }
+
+        IGameDetail IServerPaytableInstaller.InstallGame(int gameId, ServerPaytableConfiguration paytableConfiguration)
+        {
+            if (!_properties.GetValue(GamingConstants.ServerControlledPaytables, false))
+            {
+                return null;
+            }
+
+            GameDetail game;
+            List<ProgressiveDetail> progressiveDetails;
+            lock (_sync)
+            {
+                (game, progressiveDetails) = _availableGames.SingleOrDefault(g => g.Item1.Id == gameId);
+                game = game?.ShallowClone();
+            }
+
+            if (game is null)
+            {
+                return null;
+            }
+
+            using var scope = _storageManager.ScopedTransaction();
+            var result = InstallNewGame(game, paytableConfiguration);
+            _progressiveProvider.LoadProgressiveLevels(result, progressiveDetails);
+            scope.Complete();
+
+            return result;
+        }
+
+        IReadOnlyCollection<IGameDetail> IServerPaytableInstaller.GetAvailableGames()
+        {
+            lock (_sync)
+            {
+                return _availableGames.Select(x => x.Item1).ToList();
+            }
+        }
+
         private static string GetManifest(string path)
         {
             return Directory.GetFiles(path, ManifestFilter, SearchOption.AllDirectories).FirstOrDefault();
+        }
+
+        private bool Add(string path, bool upgradeExisting)
+        {
+            var manifest = GetManifest(path);
+            if (string.IsNullOrEmpty(manifest))
+            {
+                return false;
+            }
+
+            using (var scope = _storageManager.ScopedTransaction())
+            {
+                if (!LoadFromManifest(manifest, true, upgradeExisting))
+                {
+                    return false;
+                }
+
+                scope.Complete();
+            }
+
+            CheckState();
+
+            return true;
         }
 
         private Dictionary<string, ILocaleGameGraphics> BuildLocaleGraphics(Product gameContent, string gameFolder)
@@ -763,6 +818,14 @@
             return value > 10000 ? new decimal(value / 1000.0) : new decimal(value / 100.0);
         }
 
+        private static string GetPaytableName(string paytableId)
+        {
+            var prefixIndex = paytableId.IndexOf(AtiPrefix, StringComparison.Ordinal);
+            return prefixIndex < 0
+                ? paytableId
+                : paytableId.Remove(prefixIndex, AtiPrefix.Length);
+        }
+
         private void Scan()
         {
             Logger.Debug("Initiating game discovery");
@@ -809,15 +872,285 @@
             Logger.Debug("Completed game discovery scan");
         }
 
-        private bool LoadFromManifest(string file, bool addIfNotExists = true)
+        private IEnumerable<(GameDetail, List<ProgressiveDetail>)> GetGameDetailFromManifest(GameContent gameContent, string file, bool upgrade, bool addIfNotExists)
         {
             const string binFolder = @"bin";
+
+            var gameFolder = Path.GetDirectoryName(file);
+            if (gameFolder == null)
+            {
+                Logger.Error($"Unable to get the directory for {file}");
+                yield break;
+            }
+
+            var gameDll = @"bin\" + gameContent.GameDll;
+            var fullGameDllPath = Path.Combine(gameFolder, gameDll);
+
+            var definedGames = gameContent.GameAttributes.ToList();
+
+            var progressives = LoadProgressiveDetails(Path.Combine(gameFolder, binFolder)).ToList();
+
+            var isComplex = definedGames.Count > 1;
+
+            var denomLimit = _digitalRights.License.Configuration == Application.Contracts.Drm.Configuration.Vip
+                ? long.MaxValue
+                : AccountingConstants.DefaultDenominationLimit;
+
+            foreach (var game in definedGames)
+            {
+                var (gameDetail, progressiveDetails) = CreateGameDetail(progressives, game, denomLimit, gameContent, fullGameDllPath, gameFolder, isComplex, upgrade, addIfNotExists);
+                if (gameDetail is null)
+                {
+                    continue;
+                }
+
+                yield return (gameDetail, progressiveDetails);
+            }
+        }
+
+        private (GameDetail, List<ProgressiveDetail>) CreateGameDetail(
+            IEnumerable<ProgressiveDetail> progressives,
+            GameAttributes game,
+            long denomLimit,
+            GameContent gameContent,
+            string fullGameDllPath,
+            string gameFolder,
+            bool isComplex,
+            bool upgrade,
+            bool addIfNotExists)
+        {
+            var progressiveDetails =
+                progressives.Where(
+                    p => p.Variation == "ALL" || p.Variation.Split(',')
+                        .Any(v => Convert.ToInt32(v) == Convert.ToInt32(game.VariationId))).ToList();
+
+            if (!IsTypeAllowed(game))
+            {
+                Logger.Info(
+                    $"{game.ThemeId}:{game.PaytableId}'s {game.GameType} type is not allowed in Jurisdiction");
+                return (null, null);
+            }
+
+            if (!IsValidRtp(game, progressiveDetails))
+            {
+                Logger.Info($"{game.ThemeId}:{game.PaytableId}'s RTP is not allowed in Jurisdiction");
+                return (null, null);
+            }
+
+            var wagerCategories = game.WagerCategories.Select(
+                w => new WagerCategory(
+                    w.Id,
+                    ConvertToRtp(w.TheoPaybackPercent),
+                    w.MinWagerCredits,
+                    w.MaxWagerCredits,
+                    w.MaxWinAmount)).ToList();
+            var centralAllowed = false;
+
+            if (game.CentralInfo.Any())
+            {
+                centralAllowed = true;
+                _properties.SetProperty(ApplicationConstants.CentralAllowed, true);
+            }
+
+            var cdsGameInfos = game.CentralInfo?.GroupBy(
+                c => c.Id,
+                c => c.Bet,
+                (id, bet) =>
+                {
+                    var betList = bet.ToList();
+                    return new CdsGameInfo(
+                        id.ToString(),
+                        betList.Min(),
+                        betList.Max());
+                }).ToList() ?? new List<CdsGameInfo>();
+
+            var validDenoms = GetValidDenoms(game, denomLimit).ToList();
+            if (!validDenoms.Any())
+            {
+                Logger.Info($"{game.ThemeId}:{game.PaytableId} has no valid denominations for this jurisdiction");
+                return (null, null);
+            }
+
+            var features = game.Features?.Select(
+                x => new Feature
+                {
+                    Name = x.Name,
+                    Enable = x.Enable,
+                    Editable = x.Editable,
+                    StatInfo = x.StatInfo.Select(
+                            statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName })
+                        .ToList()
+                }).ToList();
+
+            isComplex = isComplex || game.Denominations.Count() > 1;
+            var gameDetail = FindGame(game.ThemeId, game.PaytableId, gameContent.ReleaseNumber);
+            if (gameDetail is null)
+            {
+                if (!addIfNotExists)
+                {
+                    return (null, null);
+                }
+
+                var installDate = GetInstallDate();
+                gameDetail = new GameDetail
+                {
+                    ThemeId = game.ThemeId,
+                    ThemeName = gameContent.Name,
+                    PaytableId = game.PaytableId,
+                    Version = gameContent.ReleaseNumber,
+                    Status = GameStatus.DisabledByBackend,
+                    Denominations =
+                        FromValueBasedDenominations(game, validDenoms, isComplex ? 0 : game.Denominations.Single()),
+                    WagerCategories = wagerCategories,
+                    New = true,
+                    InstallDate = installDate,
+                    Upgraded = installDate == DateTime.MinValue,
+                    GameTags = new List<string>(),
+                    SecondaryAllowed = game.SecondaryAllowed,
+                    Category = game.Category != null ? (GameCategory)game.Category : GameCategory.Undefined,
+                    SubCategory = game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined,
+                    Features = features,
+                    CdsGameInfos = cdsGameInfos,
+                    MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent),
+                    MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent)
+                };
+            }
+
+            gameDetail.Active = true;
+            if (!File.Exists(fullGameDllPath))
+            {
+                gameDetail.Status |= GameStatus.GameFilesNotFound;
+            }
+
+            gameDetail.PaytableName = GetPaytableName(game.PaytableId);
+            gameDetail.VariationId = game.VariationId;
+            if (upgrade)
+            {
+                gameDetail.MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent);
+                gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
+            }
+
+            gameDetail.CentralAllowed = centralAllowed;
+            gameDetail.CdsThemeId = game.CdsThemeId;
+            gameDetail.CdsTitleId = game.CdsTitleId;
+            gameDetail.ProductCode = game.CentralInfo?.FirstOrDefault()?.Upc;
+            gameDetail.WinLevels = Enumerable.Empty<IWinLevel>();
+            gameDetail.BetOptionList = game.BetOptionList;
+            gameDetail.ActiveBetOption = game.ActiveBetOption;
+            gameDetail.LineOptionList = game.LineOptionList;
+            gameDetail.ActiveLineOption = game.ActiveLineOption;
+            gameDetail.BetLinePresetList = game.BetLinePresetList;
+            gameDetail.WinThreshold = game.WinThreshold;
+            gameDetail.MaximumProgressivePerDenom = game.MaximumProgressivePerDenom;
+            gameDetail.ReleaseDate = gameContent.ReleaseDate;
+            gameDetail.MechanicalReels = gameContent.MechanicalReels;
+            gameDetail.MechanicalReelHomeSteps = gameContent.MechanicalReelHomeSteps;
+            gameDetail.Folder = gameFolder;
+            gameDetail.GameDll = fullGameDllPath;
+            gameDetail.GameIconType = (GameIconType)gameContent.IconType;
+            gameDetail.InitialValue = game.InitialValue;
+            gameDetail.DisplayMeterName = game.DisplayMeterName;
+            gameDetail.AssociatedSapDisplayMeterName = !string.IsNullOrEmpty(game.AssociatedSapDisplayMeterName)
+                ? Array.ConvertAll(
+                        game.AssociatedSapDisplayMeterName.Split(','),
+                        meterName => meterName.Trim())
+                    ?.ToList()
+                : default(IEnumerable<string>);
+
+            gameDetail.GameType = (GameType)game.GameType;
+            gameDetail.GameSubtype = game.GameSubtype;
+
+            gameDetail.LocaleGraphics = BuildLocaleGraphics(gameContent, gameFolder);
+            gameDetail.UpgradeActions = GetUpgradeActions(gameContent, gameDetail.PaytableId);
+            gameDetail.TargetRuntime = GetTargetRuntime(gameContent);
+
+            gameDetail.ReferenceId = game.ReferenceId;
+            gameDetail.Category = game.Category != null ? (GameCategory)game.Category : GameCategory.Undefined;
+            gameDetail.SubCategory = game.SubCategory != null
+                ? (GameSubCategory)game.SubCategory
+                : GameSubCategory.Undefined;
+            gameDetail.Features = features;
+            return (gameDetail, progressiveDetails);
+        }
+
+        private IGameDetail InstallNewGame(
+            GameDetail gameDetail,
+            ServerPaytableConfiguration paytableConfiguration = null)
+        {
+            if (!gameDetail.New)
+            {
+                return gameDetail;
+            }
+
+            gameDetail.Id = _idProvider.GetNextDeviceId<GameDetail>();
+            if (paytableConfiguration is not null)
+            {
+                var categoryMap = paytableConfiguration.WagerCategoryOptions.ToDictionary(x => x.Id, x => x);
+                gameDetail.MaximumPaybackPercent = paytableConfiguration.MaximumPaybackPercent;
+                gameDetail.MinimumPaybackPercent = paytableConfiguration.MinimumPaybackPercent;
+                gameDetail.WagerCategories = gameDetail.WagerCategories.Select(x =>
+                {
+                    if (!categoryMap.TryGetValue(x.Id, out var configuration))
+                    {
+                        return x;
+                    }
+
+                    return new WagerCategory(
+                        x.Id,
+                        configuration.TheoPaybackPercentRtp,
+                        x.MinWagerCredits,
+                        x.MinWagerCredits,
+                        x.MaxWinAmount);
+                });
+            }
+
+            gameDetail.Denominations = gameDetail.Denominations.Where(
+                x => paytableConfiguration is null ||
+                     paytableConfiguration.DenominationConfigurations.Any(d => d.Value == x.Value))
+                .Select(
+                x => new Denomination(_idProvider.GetNextDeviceId<IDenomination>(), x.Value, x.Active)
+                {
+                    ActiveDate = x.ActiveDate,
+                    BetOption = x.BetOption,
+                    BonusBet = x.BonusBet,
+                    LetItRideAllowed = x.LetItRideAllowed,
+                    LetItRideEnabled = x.LetItRideEnabled,
+                    LineOption = x.LineOption,
+                    MaximumWagerCredits = x.MaximumWagerCredits,
+                    MaximumWagerOutsideCredits = x.MaximumWagerOutsideCredits,
+                    MinimumWagerCredits = x.MinimumWagerCredits,
+                    SecondaryAllowed = x.SecondaryAllowed,
+                    SecondaryEnabled = x.SecondaryEnabled,
+                    PreviousActiveTime = x.PreviousActiveTime
+                }).ToList();
+
+            lock (_sync)
+            {
+                _storageManager.ResizeBlock(GetBlockName(DataBlock), gameDetail.Id);
+                UpdatePersistence(gameDetail);
+                _games.Add(gameDetail);
+
+                if (_initialized)
+                {
+                    _meters.AddGame(gameDetail);
+                }
+
+                // This is only used to track whether or not the game was added in GetOrCreateGame. Reset to avoid reentry
+                gameDetail.New = false;
+
+                _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
+            }
+
+            return gameDetail;
+        }
+
+        private bool LoadFromManifest(string file, bool addIfNotExists, bool upgradeExisting)
+        {
             var success = false;
 
             try
             {
                 var gameContent = _manifest.Read(file);
-
                 var gameFolder = Path.GetDirectoryName(file);
                 if (gameFolder == null)
                 {
@@ -825,208 +1158,37 @@
                     return false;
                 }
 
-                var gameDll = @"bin\" + gameContent.GameDll;
-                var fullGameDllPath = Path.Combine(gameFolder, gameDll);
-
-                var definedGames = gameContent.GameAttributes.ToList();
-
-                var progressives = LoadProgressiveDetails(Path.Combine(gameFolder, binFolder)).ToList();
-
-                var isComplex = definedGames.Count > 1;
-
-                var denomLimit = _digitalRights.License.Configuration == Application.Contracts.Drm.Configuration.Vip
-                    ? long.MaxValue
-                    : AccountingConstants.DefaultDenominationLimit;
-
-                if (addIfNotExists)
-                {
-                    var block = _storageManager.GetBlock(GetBlockName(DataBlock));
-
-                    _storageManager.ResizeBlock(GetBlockName(DataBlock), block.Count + definedGames.Count);
-                }
-
                 string gameThemeId = null;
-
-                foreach (var game in definedGames)
+                var serverControlledPaytables = _properties.GetValue(GamingConstants.ServerControlledPaytables, false);
+                foreach (var (gameDetail, progressiveDetails) in GetGameDetailFromManifest(gameContent, file, upgradeExisting, addIfNotExists))
                 {
-                    var progressiveDetails =
-                        progressives.Where(
-                            p => p.Variation == "ALL" || p.Variation.Split(',')
-                                .Any(v => Convert.ToInt32(v) == Convert.ToInt32(game.VariationId))).ToList();
-
-                    if (!IsTypeAllowed(game))
+                    if (gameDetail is null)
                     {
-                        Logger.Info($"{game.ThemeId}:{game.PaytableId}'s {game.GameType} type is not allowed in Jurisdiction");
                         continue;
                     }
 
-                    if (!IsValidRtp(game, progressiveDetails))
+                    if (gameDetail.Id is not default(int))
                     {
-                        Logger.Info($"{game.ThemeId}:{game.PaytableId}'s RTP is not allowed in Jurisdiction");
-                        continue;
+                        UpdatePersistence(gameDetail);
+                        _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
                     }
-
-                    List<WagerCategory> wagerCategories;
-                    var centralAllowed = false;
-
-                    if (game.CentralInfo.Any())
+                    else if (!serverControlledPaytables)
                     {
-                        centralAllowed = true;
-                        _properties.SetProperty(ApplicationConstants.CentralAllowed, true);
-                        // IMPORTANT: For central determinant games the wager categories are comprised of the cds info templates instead of the
-                        // actual WagerCategory information from the GSA Manifest.
-                        wagerCategories = game.CentralInfo.GroupBy(c => c.Id, c => c.Bet,
-                            (id, bet) =>
-                            {
-                                var betList = bet.ToList();
-                                return new WagerCategory(
-                                    id.ToString(),
-                                    ConvertToRtp(game.MaxPaybackPercent),
-                                    betList.Min(),
-                                    betList.Max(),
-                                    0);
-                            }).ToList();
+                        InstallNewGame(gameDetail);
+                        _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
                     }
                     else
-                    {
-                        wagerCategories = game.WagerCategories.Select(
-                            w => new WagerCategory(
-                                w.Id,
-                                ConvertToRtp(w.TheoPaybackPercent),
-                                w.MinWagerCredits,
-                                w.MaxWagerCredits,
-                                w.MaxWinAmount)).ToList();
-                    }
-
-                    var validDenoms = GetValidDenoms(game, denomLimit).ToList();
-                    if (!validDenoms.Any())
-                    {
-                        Logger.Info($"{game.ThemeId}:{game.PaytableId} has no valid denominations for this jurisdiction");
-                        continue;
-                    }
-
-                    GameDetail gameDetail;
-
-                    var features = game?.Features?.Select(
-                        x => new Feature
-                        {
-                            Name = x.Name,
-                            Enable = x.Enable,
-                            Editable = x.Editable,
-                            StatInfo = x.StatInfo.Select(
-                                statInfo => new StatInfo
-                                {
-                                    Name = statInfo.Name, DisplayName = statInfo.DisplayName
-                                }).ToList()
-                        }).ToList();
-
-                    if (addIfNotExists)
-                    {
-                        if (!isComplex)
-                        {
-                            isComplex = game.Denominations.Count() > 1;
-                        }
-
-                        var supportedDenominations = FromValueBasedDenominations(
-                            game,
-                            validDenoms,
-                            isComplex ? 0 : game.Denominations.Single());
-
-                        gameDetail = GetOrAddGame(
-                            game.ThemeId,
-                            gameContent.Name,
-                            game.PaytableId,
-                            gameContent.ReleaseNumber,
-                            supportedDenominations,
-                            wagerCategories,
-                            GameStatus.DisabledByBackend,
-                            game.SecondaryAllowed,
-                            game.Category != null ? (GameCategory)game.Category : GameCategory.Undefined,
-                            game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined,
-                            features);
-                    }
-                    else
-                    {
-                        gameDetail = FindGame(game.ThemeId, game.PaytableId, gameContent.ReleaseNumber);
-                    }
-
-                    if (gameDetail == null)
-                    {
-                        continue;
-                    }
-
-                    gameDetail.Active = true;
-                    if (!File.Exists(fullGameDllPath))
-                    {
-                        gameDetail.Status |= GameStatus.GameFilesNotFound;
-                    }
-
-                    gameDetail.PaytableName = GetPaytableName(game.PaytableId);
-                    gameDetail.VariationId = game.VariationId;
-                    gameDetail.MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent);
-                    gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
-                    gameDetail.CentralAllowed = centralAllowed;
-                    gameDetail.CdsThemeId = game.CdsThemeId;
-                    gameDetail.CdsTitleId = game.CdsTitleId;
-                    gameDetail.ProductCode = game.CentralInfo.FirstOrDefault()?.Upc;
-                    gameDetail.WinLevels = Enumerable.Empty<IWinLevel>();
-                    gameDetail.BetOptionList = game.BetOptionList;
-                    gameDetail.ActiveBetOption = game.ActiveBetOption;
-                    gameDetail.LineOptionList = game.LineOptionList;
-                    gameDetail.ActiveLineOption = game.ActiveLineOption;
-                    gameDetail.BetLinePresetList = game.BetLinePresetList;
-                    gameDetail.WinThreshold = game.WinThreshold;
-                    gameDetail.MaximumProgressivePerDenom = game.MaximumProgressivePerDenom;
-                    gameDetail.ReleaseDate = gameContent.ReleaseDate;
-                    gameDetail.MechanicalReels = gameContent.MechanicalReels;
-                    gameDetail.MechanicalReelHomeSteps = gameContent.MechanicalReelHomeSteps;
-
-                    gameDetail.Folder = gameFolder;
-                    gameDetail.GameDll = fullGameDllPath;
-                    gameDetail.GameIconType = (GameIconType)gameContent.IconType;
-                    gameDetail.InitialValue = game.InitialValue;
-                    gameDetail.DisplayMeterName = game.DisplayMeterName;
-                    gameDetail.AssociatedSapDisplayMeterName = !string.IsNullOrEmpty(game.AssociatedSapDisplayMeterName)
-                        ? Array.ConvertAll(
-                                game.AssociatedSapDisplayMeterName.Split(','),
-                                meterName => meterName.Trim())
-                            ?.ToList()
-                        : default(IEnumerable<string>);
-
-                    gameDetail.GameType = (GameType)game.GameType;
-                    gameDetail.GameSubtype = game.GameSubtype;
-
-                    gameDetail.LocaleGraphics = BuildLocaleGraphics(gameContent, gameFolder);
-
-                    gameDetail.UpgradeActions = GetUpgradeActions(gameContent, gameDetail.PaytableId);
-
-                    gameDetail.TargetRuntime = GetTargetRuntime(gameContent);
-
-                    gameDetail.ReferenceId = game.ReferenceId;
-                    gameDetail.Category = game.Category != null ? (GameCategory)game.Category : GameCategory.Undefined;
-                    gameDetail.SubCategory = game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined;
-                    gameDetail.Features = features;
-
-                    _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
-
-                    gameThemeId = game.ThemeId;
-
-                    if (gameDetail.New)
                     {
                         lock (_sync)
                         {
-                            _games.Add(gameDetail);
-
-                            if (_initialized)
-                            {
-                                _meters.AddGame(gameDetail);
-                            }
-
-                            // This is only used to track whether or not the game was added in GetOrCreateGame. Reset to avoid reentry
-                            gameDetail.New = false;
+                            gameDetail.Id = _availableGames.MaxOrDefault(x => x.Item1.Id, 0) + 1;
                         }
+                    }
 
-                        _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
+                    lock (_sync)
+                    {
+                        _availableGames.Add((gameDetail, progressiveDetails));
+                        gameThemeId = gameDetail.ThemeId;
                     }
                 }
 
@@ -1106,130 +1268,88 @@
                         continue;
                     }
 
-                    _games.Add(
-                        new GameDetail
-                        {
-                            Id = (int)gameInfo[GameIdField],
-                            ThemeId = (string)gameInfo[GameThemeIdField],
-                            ThemeName = (string)gameInfo[GameThemeNameField],
-                            PaytableId = (string)gameInfo[GamePayTableIdField],
-                            PaytableName = GetPaytableName((string)gameInfo[GamePayTableIdField]),
-                            Version = (string)gameInfo[GameVersionField],
-                            Status = (GameStatus)gameInfo[GameStatusField],
-                            Denominations =
-                                JsonConvert.DeserializeObject<List<Denomination>>(
-                                    (string)gameInfo[GameDenominationsField]),
-                            WagerCategories =
-                                JsonConvert.DeserializeObject<List<WagerCategory>>(
-                                    (string)gameInfo[GameWagerCategoriesField]),
-                            Active = false,
-                            InstallDate =
-                                DateTime.TryParse(gameInfo[GameInstallDateField].ToString(), out var dt)
-                                    ? dt
-                                    : DateTime.MinValue,
-                            GameTags =
-                                JsonConvert.DeserializeObject<List<string>>((string)gameInfo[GameTagsField]) ??
-                                new List<string>(),
-                            Upgraded = (bool)gameInfo[GameUpgradedField],
-                            Category = (GameCategory)gameInfo[GameCategoryField],
-                            SubCategory = (GameSubCategory)gameInfo[GameSubCategoryField],
-                            Features =
-                                JsonConvert.DeserializeObject<List<Feature>>(
-                                    (string)gameInfo[GameFeaturesField])
-                        });
+                    var paytableId = (string)gameInfo[GamePayTableIdField];
+                    var paytableName = GetPaytableName(paytableId);
+                    var gameDetail = new GameDetail
+                    {
+                        Id = (int)gameInfo[GameIdField],
+                        ThemeId = (string)gameInfo[GameThemeIdField],
+                        ThemeName = (string)gameInfo[GameThemeNameField],
+                        PaytableId = paytableId,
+                        PaytableName = paytableName,
+                        Version = (string)gameInfo[GameVersionField],
+                        Status = (GameStatus)gameInfo[GameStatusField],
+                        Denominations =
+                            JsonConvert.DeserializeObject<List<Denomination>>(
+                                (string)gameInfo[GameDenominationsField]),
+                        WagerCategories =
+                            JsonConvert.DeserializeObject<List<WagerCategory>>(
+                                (string)gameInfo[GameWagerCategoriesField]),
+                        CdsGameInfos =
+                            JsonConvert.DeserializeObject<List<CdsGameInfo>>(
+                                (string)gameInfo[CdsGameInfosField]),
+                        Active = false,
+                        InstallDate =
+                            DateTime.TryParse(gameInfo[GameInstallDateField].ToString(), out var dt)
+                                ? dt
+                                : DateTime.MinValue,
+                        GameTags =
+                            JsonConvert.DeserializeObject<List<string>>((string)gameInfo[GameTagsField]) ??
+                            new List<string>(),
+                        Upgraded = (bool)gameInfo[GameUpgradedField],
+                        Category = (GameCategory)gameInfo[GameCategoryField],
+                        SubCategory = (GameSubCategory)gameInfo[GameSubCategoryField],
+                        Features =
+                            JsonConvert.DeserializeObject<List<Feature>>(
+                                (string)gameInfo[GameFeaturesField]),
+                        MinimumPaybackPercent =
+                            decimal.Parse(
+                                (string)gameInfo[GameMinimumPaybackPercentField],
+                                NumberStyles.Any,
+                                CultureInfo.InvariantCulture),
+                        MaximumPaybackPercent = decimal.Parse(
+                            (string)gameInfo[GameMaximumPaybackPercentField],
+                            NumberStyles.Any,
+                            CultureInfo.InvariantCulture)
+                    };
+
+                    _games.Add(gameDetail);
                 }
             }
         }
 
-        private static string GetPaytableName(string paytableId)
+        private void UpdatePersistence(IGameDetail game)
         {
-            var prefixIndex = paytableId.IndexOf(AtiPrefix, StringComparison.Ordinal);
-            return prefixIndex < 0
-                ? paytableId
-                : paytableId.Remove(prefixIndex, AtiPrefix.Length);
-        }
-
-        private GameDetail GetOrAddGame(
-            string themeId,
-            string themeName,
-            string paytableId,
-            string version,
-            IEnumerable<IDenomination> supportedDenominations,
-            IEnumerable<WagerCategory> wagerCategories,
-            GameStatus initialStatus,
-            bool secondaryAllowed,
-            GameCategory category,
-            GameSubCategory subCategory,
-            IEnumerable<Feature> features)
-        {
-            var game = FindGame(themeId, paytableId);
-            if (game != null)
-            {
-                game.Version = version;
-                game.Denominations = supportedDenominations;
-                game.WagerCategories = wagerCategories;
-            }
-            else
-            {
-                var gamePlayId = _idProvider.GetNextDeviceId<GameDetail>();
-
-                var installDateTime = GetInstallDate();
-
-                _storageManager.ResizeBlock(GetBlockName(DataBlock), gamePlayId);
-
-                // Games added after initial boot will always be upgraded.
-                //  For the initial set of games just mark them as upgraded
-                var upgraded = installDateTime == DateTime.MinValue;
-
-                game = new GameDetail
-                {
-                    Id = gamePlayId,
-                    ThemeId = themeId,
-                    ThemeName = themeName,
-                    PaytableId = paytableId,
-                    Version = version,
-                    Status = initialStatus,
-                    Denominations = supportedDenominations,
-                    WagerCategories = wagerCategories,
-                    New = true,
-                    InstallDate = installDateTime,
-                    Upgraded = upgraded,
-                    GameTags = new List<string>(),
-                    SecondaryAllowed = secondaryAllowed,
-                    Category = category,
-                    SubCategory = subCategory,
-                    Features = features
-                };
-            }
-
             var dataBlock = GetAccessor(DataBlock);
 
             var blockIndex = game.Id - 1;
 
-            using (var transaction = dataBlock.StartTransaction())
-            {
-                transaction[blockIndex, GameIdField] = game.Id;
-                transaction[blockIndex, GameThemeIdField] = game.ThemeId;
-                transaction[blockIndex, GameThemeNameField] = game.ThemeName;
-                transaction[blockIndex, GamePayTableIdField] = game.PaytableId;
-                transaction[blockIndex, GameVersionField] = game.Version;
-                transaction[blockIndex, GameStatusField] = game.Status;
-                transaction[blockIndex, GameDenominationsField] =
-                    JsonConvert.SerializeObject(game.Denominations, Formatting.None);
-                transaction[blockIndex, GameWagerCategoriesField] =
-                    JsonConvert.SerializeObject(game.WagerCategories, Formatting.None);
-                transaction[blockIndex, GameInstallDateField] = $"{game.InstallDate:g}";
-                transaction[blockIndex, GameUpgradedField] = game.Upgraded;
-                transaction[blockIndex, GameMaximumWagerCreditsField] = game.MaximumWagerCredits;
-                transaction[blockIndex, GameCategoryField] = game.Category;
-                transaction[blockIndex, GameSubCategoryField] = game.SubCategory;
-                transaction[blockIndex, GameFeaturesField] =
-                    JsonConvert.SerializeObject(game.Features, Formatting.None);
+            using var transaction = dataBlock.StartTransaction();
+            transaction[blockIndex, GameIdField] = game.Id;
+            transaction[blockIndex, GameThemeIdField] = game.ThemeId;
+            transaction[blockIndex, GameThemeNameField] = game.ThemeName;
+            transaction[blockIndex, GamePayTableIdField] = game.PaytableId;
+            transaction[blockIndex, GameVersionField] = game.Version;
+            transaction[blockIndex, GameStatusField] = game.Status;
+            transaction[blockIndex, GameDenominationsField] =
+                JsonConvert.SerializeObject(game.Denominations, Formatting.None);
+            transaction[blockIndex, GameWagerCategoriesField] =
+                JsonConvert.SerializeObject(game.WagerCategories, Formatting.None);
+            transaction[blockIndex, CdsGameInfosField] =
+                JsonConvert.SerializeObject(game.CdsGameInfos, Formatting.None);
+            transaction[blockIndex, GameInstallDateField] = $"{game.InstallDate:g}";
+            transaction[blockIndex, GameUpgradedField] = game.Upgraded;
+            transaction[blockIndex, GameMaximumWagerCreditsField] = game.MaximumWagerCredits;
+            transaction[blockIndex, GameCategoryField] = game.Category;
+            transaction[blockIndex, GameSubCategoryField] = game.SubCategory;
+            transaction[blockIndex, GameFeaturesField] =
+                JsonConvert.SerializeObject(game.Features, Formatting.None);
+            transaction[blockIndex, GameMinimumPaybackPercentField] =
+                game.MinimumPaybackPercent.ToString(CultureInfo.InvariantCulture);
+            transaction[blockIndex, GameMaximumPaybackPercentField] =
+                game.MaximumPaybackPercent.ToString(CultureInfo.InvariantCulture);
 
-                transaction.Commit();
-            }
-
-            return game;
+            transaction.Commit();
         }
 
         private IPersistentStorageAccessor GetAccessor(string name = null, int blockSize = 1)
@@ -1412,7 +1532,6 @@
             var denoms = supportedDenoms.Select(
                 denomination => new Denomination
                 {
-                    Id = _idProvider.GetNextDeviceId<IDenomination>(),
                     Value = denomination,
                     BetOption = activeBetOption?.Name,
                     LineOption = activeLineOption?.Name,

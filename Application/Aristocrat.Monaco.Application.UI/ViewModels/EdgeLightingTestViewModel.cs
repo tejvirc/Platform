@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Text.RegularExpressions;
+    using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
@@ -35,6 +36,7 @@
         private int _selectedStripIndex;
         private int _startLed;
         private int _endLed;
+        private IInspectionService _reporter;
 
         public EdgeLightingTestViewModel()
             : this(
@@ -48,6 +50,11 @@
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        }
+
+        public void SetTestReporter(IInspectionService reporter)
+        {
+            _reporter = reporter;
         }
 
         public ObservableCollection<StripData> Strips { get; } = new ObservableCollection<StripData>();
@@ -267,7 +274,7 @@
             RemoveRenderer();
             if (SelectedLightShow?.PatternParameters != null)
             {
-                RunTestPatterChoice();
+                RunTestPatternChoice();
             }
             else
             {
@@ -283,11 +290,13 @@
 
             if (SelectedStripIndex == 0)
             {
+                _reporter?.SetTestName($"Test Strips Color {color}");
                 _token = _edgeLightingController.AddEdgeLightRenderer(
                     new SolidColorPatternParameters { Priority = StripPriority.PlatformTest, Color = color });
             }
             else
             {
+                _reporter?.SetTestName($"Test Strip {SelectedStrip.StripId}, LEDs {StartLed - 1}-{EndLed}, multiple colors");
                 _token = _edgeLightingController.AddEdgeLightRenderer(
                     new IndividualLedPatternParameters
                     {
@@ -306,9 +315,15 @@
                 .Select(x => x >= StartLed - 1 && x < EndLed ? color : Color.Black).ToArray();
         }
 
-        private void RunTestPatterChoice()
+        private void RunTestPatternChoice()
         {
+            _reporter?.SetTestName($"Test Pattern {SelectedLightShow.ResourceKey}");
             _token = _edgeLightingController.AddEdgeLightRenderer(SelectedLightShow.PatternParameters);
+        }
+
+        private bool HasEdgeLightStrip(int stripId)
+        {
+            return Strips.Any(s => s.StripId == stripId);
         }
 
         public class StripData

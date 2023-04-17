@@ -30,6 +30,7 @@
         /// <param name="gameId">The originating game play Id</param>
         /// <param name="denomination">The originating denomination</param>
         /// <param name="wagerCategory">The originating wager category</param>
+        /// <param name="templateId">The template identifier that was used</param>
         /// <param name="wagerAmount">The initial wager amount</param>
         /// <param name="outcomesRequested">The number of requested outcomes</param>
         public CentralTransaction(
@@ -38,6 +39,7 @@
             int gameId,
             long denomination,
             string wagerCategory,
+            string templateId,
             long wagerAmount,
             int outcomesRequested)
             : base(deviceId, transactionDateTime)
@@ -45,6 +47,7 @@
             GameId = gameId;
             Denomination = denomination;
             WagerCategory = wagerCategory;
+            TemplateId = templateId;
             WagerAmount = wagerAmount;
             OutcomesRequested = outcomesRequested;
 
@@ -73,6 +76,11 @@
         ///     Gets the wager category associated with the outcome
         /// </summary>
         public string WagerCategory { get; private set; }
+
+        /// <summary>
+        ///     Gets the template identifier used for the outcome
+        /// </summary>
+        public string TemplateId { get; private set; }
 
         /// <summary>
         ///     Gets the wager amount
@@ -150,6 +158,7 @@
                 GameId,
                 Denomination,
                 WagerCategory,
+                TemplateId,
                 WagerAmount,
                 OutcomesRequested)
             {
@@ -175,6 +184,7 @@
             GameId = (int)values["GameId"];
             Denomination = (long)values["Denomination"];
             WagerCategory = (string)values["WagerCategory"];
+            TemplateId = (string)values["TemplateId"];
             WagerAmount = (long)values["WagerAmount"];
             OutcomesRequested = (int)values["OutcomesRequested"];
 
@@ -211,6 +221,7 @@
                 transaction[element, "GameId"] = GameId;
                 transaction[element, "Denomination"] = Denomination;
                 transaction[element, "WagerCategory"] = WagerCategory;
+                transaction[element, "TemplateId"] = TemplateId;
                 transaction[element, "WagerAmount"] = WagerAmount;
                 transaction[element, "OutcomesRequested"] = OutcomesRequested;
                 transaction[element, "Outcomes"] = JsonConvert.SerializeObject(Outcomes, Formatting.None);

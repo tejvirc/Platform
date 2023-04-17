@@ -4,16 +4,18 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Application.Settings;
     using Aristocrat.Monaco.Hardware.Contracts.ButtonDeck;
     using ButtonTestDeck;
+    using ConfigWizard;
     using Contracts.HardwareDiagnostics;
+    using Contracts.Localization;
     using Hardware.Contracts.Button;
     using Kernel;
     using MVVM;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class ButtonPageViewModel : OperatorMenuPageViewModelBase
+    public class ButtonPageViewModel : InspectionWizardViewModelBase
     {
         private const int PlayButtonId = 113;
         private const int JackPotId = 130;
@@ -27,7 +29,7 @@
         private string _firmwareCrc;
         private string _crcSeed;
 
-        public ButtonPageViewModel()
+        public ButtonPageViewModel(bool isWizard) : base(isWizard)
         {
             _buttonService = ServiceManager.GetInstance().GetService<IButtonService>();
             if (ButtonDeckUtilities.GetButtonDeckType() == ButtonDeckUtilities.ButtonDeckType.LCD)
@@ -111,6 +113,11 @@
             _buttonDeck?.OnLoaded();
 
             LoadButtonViewModels();
+
+            Inspection?.SetFirmwareVersion(
+                MachineSettingsUtilities.GetButtonDeckIdentification(Localizer.For(CultureFor.Operator)));
+
+            base.OnLoaded();
         }
 
         protected override void OnUnloaded()
@@ -122,6 +129,20 @@
             _buttonDeck?.OnUnloaded();
 
             DisposeInternal();
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void DisposeInternal()
@@ -167,7 +188,7 @@
 
             foreach (int buttonId in buttonIds)
             {
-                var viewModel = new ButtonViewModel(buttonId);
+                var viewModel = new ButtonViewModel(buttonId, null);
 
                 Buttons.Add(viewModel);
 
@@ -190,6 +211,8 @@
                 _buttonService.GetButtonName(evt.LogicalId));
 
             MvvmHelper.ExecuteOnUI(() => PressedButtonsData.Insert(0, pressedData));
+
+            Inspection?.SetTestName(_buttonService.GetButtonName(evt.LogicalId));
         }
 
         private void HandleEvent(UpEvent evt)

@@ -18,6 +18,7 @@
         private readonly IDoorMonitor _doorMonitor;
         private readonly IOperatorMenuLauncher _menuLauncher;
         private readonly ISystemDisableManager _systemDisable;
+        private readonly IReportTransactionQueueService _transactionService;
         private readonly IGamePlayState _playState;
 
         /// <summary>
@@ -28,17 +29,20 @@
         /// <param name="menuLauncher">interface to the Operator Menu</param>
         /// <param name="systemDisable">provides access to system disabled reasons</param>
         /// <param name="playState">interface to the game state</param>
+        /// <param name="transactionService"></param>
         public EgmStatusHandler(
             IPropertiesManager propertiesManager,
             IDoorMonitor doorMonitor,
             IGamePlayState playState,
             IOperatorMenuLauncher menuLauncher,
-            ISystemDisableManager systemDisable)
+            ISystemDisableManager systemDisable,
+            IReportTransactionQueueService transactionService)
         {
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _doorMonitor = doorMonitor ?? throw new ArgumentNullException(nameof(doorMonitor));
             _menuLauncher = menuLauncher ?? throw new ArgumentNullException(nameof(menuLauncher));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
+            _transactionService = transactionService ?? throw new ArgumentNullException(nameof(transactionService));
             _playState = playState ?? throw new ArgumentNullException(nameof(playState));
         }
 
@@ -94,9 +98,14 @@
         private static EgmStatusFlag GetReelControllerStatus()
         {
             var reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
-            if (reelController?.ConnectedReels == null)
+            if (reelController is null)
             {
                 return EgmStatusFlag.None;
+            }
+
+            if (reelController.ReelControllerFaults != ReelControllerFaults.None)
+            {
+                return EgmStatusFlag.ReelMalfunction;
             }
 
             var reelFaults = reelController.Faults;
@@ -114,8 +123,7 @@
         private EgmStatusFlag GetBatteryStatus() =>
             !_propertiesManager.GetValue(HardwareConstants.Battery1Low, true) ||
             !_propertiesManager.GetValue(HardwareConstants.Battery2Low, true)
-                ? EgmStatusFlag.NvramBatteryLow
-                : EgmStatusFlag.None;
+                ? EgmStatusFlag.NvramBatteryLow : EgmStatusFlag.None;
 
         private EgmStatusFlag GetSerialNumberStatus() =>
             string.IsNullOrEmpty(_propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty))
@@ -123,9 +131,7 @@
                 : EgmStatusFlag.None;
 
         private EgmStatusFlag GetDoorStatus() =>
-            _doorMonitor.GetLogicalDoors().ContainsValue(true)
-                ? EgmStatusFlag.DoorOpen
-                : EgmStatusFlag.None;
+            _doorMonitor.GetLogicalDoors().ContainsValue(true) ? EgmStatusFlag.DoorOpen : EgmStatusFlag.None;
 
         private EgmStatusFlag GetOperatorMenuStatus() =>
             _menuLauncher.IsShowing ? EgmStatusFlag.InOperatorMenu : EgmStatusFlag.None;
@@ -133,26 +139,28 @@
         private EgmStatusFlag GetSystemDisableStatus()
         {
             var flags = EgmStatusFlag.None;
-            if (_systemDisable.CurrentDisableKeys.Contains(ApplicationConstants.SystemDisableGuid))
-            {
-                flags |= EgmStatusFlag.MachineDisabled;
-            }
-
-            if (_systemDisable.CurrentDisableKeys.Contains(ApplicationConstants.OperatingHoursDisableGuid))
+            var currentDisableKeys = _systemDisable.CurrentDisableKeys;
+            if (currentDisableKeys.Contains(ApplicationConstants.OperatingHoursDisableGuid))
             {
                 flags |= EgmStatusFlag.Operator;
             }
 
-            if (_systemDisable.CurrentDisableKeys.Contains(ApplicationConstants.DisabledByHost0Key) ||
-                _systemDisable.CurrentDisableKeys.Contains(ApplicationConstants.DisabledByHost1Key))
+            if (currentDisableKeys.Any(
+                    guid => guid == ApplicationConstants.DisabledByHost0Key ||
+                            guid == ApplicationConstants.DisabledByHost1Key))
             {
                 flags |= EgmStatusFlag.DisabledByCmsBackend;
+            }
+
+            if (_transactionService.IsFull)
+            {
+                flags |= EgmStatusFlag.TxLogFull;
             }
 
             return flags;
         }
 
         private EgmStatusFlag GetPlayStateStatus() =>
-            _playState.Enabled ? EgmStatusFlag.None : EgmStatusFlag.GameNotOnline;
+            _playState.Enabled ? EgmStatusFlag.None : EgmStatusFlag.MachineDisabled;
     }
 }

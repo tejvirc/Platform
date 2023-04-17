@@ -60,7 +60,6 @@
     <Compile Update="TiltLogger\TiltLoggerConfiguration.cs">
       <DependentUpon>TiltLoggerConfiguration.xsd</DependentUpon>
     </Compile>
-    <Compile Remove="TowerLight\TowerLightConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
@@ -100,7 +99,9 @@
     <None Include="TiltLogger\TiltLoggerConfiguration.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Remove="TowerLight\TowerLightConfiguration.xsd" />
+    <None Include="TowerLight\TowerLightConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">

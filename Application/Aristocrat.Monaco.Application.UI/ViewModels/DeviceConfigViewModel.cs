@@ -37,6 +37,7 @@
 
         private string _port;
         private string _status;
+        private bool _isDetectionComplete;
 
         public DeviceConfigViewModel(DeviceType type, bool readOnly = false)
         {
@@ -165,11 +166,6 @@
             get => _port;
             set
             {
-                if (_port == value)
-                {
-                    return;
-                }
-
                 if (Protocol == ApplicationConstants.GDS && value != ApplicationConstants.USB)
                 {
                     _config.Port = 0;
@@ -179,9 +175,8 @@
                     _config.Port = value.ToPortNumber();
                 }
 
-                _port = value;
                 Status = string.Empty;
-                RaisePropertyChanged(nameof(Port));
+                SetProperty(ref _port, value, nameof(Port));
                 Logger.DebugFormat($"{DeviceType} Port {Port} selected");
             }
         }
@@ -193,16 +188,7 @@
         public string Status
         {
             get => _status;
-            set
-            {
-                if (_status == value)
-                {
-                    return;
-                }
-
-                _status = value;
-                RaisePropertyChanged(nameof(Status));
-            }
+            set => SetProperty(ref _status, value, nameof(Status));
         }
 
         public void AddPlatformConfiguration(SupportedDevicesDevice config, bool defaultConfig, bool enabled = true, bool isRequired = false, bool canChange = true)
@@ -227,6 +213,29 @@
             }
 
             RaisePropertyChanged(nameof(IsVisible));
+        }
+
+        public void StartDetection()
+        {
+            IsDetectionComplete = false;
+            Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching);
+        }
+
+        public bool IsDetectionComplete
+        {
+            get => _isDetectionComplete;
+            set => SetProperty(ref _isDetectionComplete, value, nameof(IsDetectionComplete));
+        }
+
+        public bool ContainsPlatformConfiguration(SupportedDevicesDevice config) => _platformConfigs.Contains(config);
+
+        public void SetDetectedPlatformConfiguration(SupportedDevicesDevice config)
+        {
+            IsDetectionComplete = true;
+            Manufacturer = config.Name;
+            Protocol = config.Protocol;
+            Port = config.Port;
+            Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected);
         }
 
         private void AddManufacturer(string manufacturer)

@@ -5,9 +5,9 @@
     using GdkRuntime.V1;
     using Commands;
     using log4net;
-    using NudgeReelData = Hardware.Contracts.Reel.NudgeReelData;
-    using ReelSpinData = Hardware.Contracts.Reel.ReelSpinData;
-    using ReelSpeedData = Hardware.Contracts.Reel.ReelSpeedData;
+    using NudgeReelData = Hardware.Contracts.Reel.ControlData.NudgeReelData;
+    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
+    using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
     using SpinDirection = Hardware.Contracts.Reel.SpinDirection;
 
     public class SnappReelService : IReelServiceCallback

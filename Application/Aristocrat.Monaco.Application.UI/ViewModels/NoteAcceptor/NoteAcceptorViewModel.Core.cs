@@ -36,7 +36,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="NoteAcceptorViewModel" /> class.
         /// </summary>
-        public NoteAcceptorViewModel() : base(DeviceType.NoteAcceptor)
+        public NoteAcceptorViewModel(bool isWizard) : base(DeviceType.NoteAcceptor, isWizard)
         {
             Logger.Debug("Start Note Acceptor (MVVM)");
 
@@ -154,7 +154,7 @@
 
         private void ConfigureStackButton()
         {
-            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed)
+            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed && !_inNoteAcceptorTest)
             {
                 ReturnButtonVisible = true;
                 ReturnButtonEnabled = true;
@@ -401,11 +401,7 @@
                 var canEnableSelfTest = false;
                 if (!NoteAcceptor.Enabled)
                 {
-                    if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
-                    {
-                        canEnableSelfTest = SelfTestCurrentState != SelfTestState.Running;
-                    }
-                    else if (IsEnableAllowedForTesting(HasDocumentCheckFault))
+                    if (IsEnableAllowedForTesting(HasDocumentCheckFault))
                     {
                         canEnableSelfTest = true;
                     }
@@ -565,6 +561,8 @@
                 var highestStatusMode = StatusMode.None;
                 foreach (var fault in faults)
                 {
+                    Inspection?.SetTestName($"hardware fault {fault}");
+                    Inspection?.ReportTestFailure();
                     status += fault + Environment.NewLine;
                     highestStatusMode = StatusMode.Error;
                 }
@@ -844,7 +842,7 @@
                 return false;
             }
 
-            return NoteAcceptor.ReasonDisabled > 0 && (GameIdle || allowDuringGameRound) &&
+            if (NoteAcceptor.ReasonDisabled > 0 && (GameIdle || allowDuringGameRound) &&
                    (NoteAcceptor.ReasonDisabled |
                     DisabledReasons.System |
                     DisabledReasons.Backend |
@@ -855,7 +853,17 @@
                     DisabledReasons.Backend |
                     DisabledReasons.Device |
                     DisabledReasons.Configuration |
-                    DisabledReasons.GamePlay);
+                    DisabledReasons.GamePlay))
+            {
+                return true;
+            }
+
+            if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
+            {
+                return SelfTestCurrentState != SelfTestState.Running;
+            }
+
+            return false;
         }
     }
 

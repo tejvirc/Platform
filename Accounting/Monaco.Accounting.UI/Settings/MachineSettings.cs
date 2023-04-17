@@ -76,6 +76,7 @@
         private bool _usePlayerIdReader;
         private bool _validateHandpays;
         private long _voucherInLimit;
+        private long _voucherInLimitMaxAllowed;
         private bool _voucherOut;
         private bool _voucherOutCheckBoxChecked;
         private bool _voucherInCheckBoxChecked;
@@ -525,7 +526,7 @@
         /// </summary>
         [JsonIgnore]
         public string MaxCreditMeterDisplay =>
-            _maxCreditMeter < _maxCreditMeterMaxAllowed
+            _maxCreditMeter <= _maxCreditMeterMaxAllowed
                 ? _maxCreditMeter.MillicentsToDollars().FormattedCurrencyString()
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
@@ -859,9 +860,19 @@
         /// </summary>
         [JsonIgnore]
         public string VoucherInLimitDisplay =>
-            _voucherInLimit < Math.Min(_maxCreditMeterMaxAllowed, long.MaxValue)
+            _voucherInLimit <= Math.Min(Math.Max(_voucherInLimitMaxAllowed, _maxCreditMeterMaxAllowed), long.MaxValue)
                 ? _voucherInLimit.MillicentsToDollars().FormattedCurrencyString()
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
+
+        /// <summary>
+        ///     Gets or sets the voucher in limit max allowed
+        /// </summary>
+        public long VoucherInLimitMaxAllowed
+        {
+            get => _voucherInLimitMaxAllowed;
+
+            set => SetProperty(ref _voucherInLimitMaxAllowed, value);
+        }
 
         /// <summary>
         ///     Gets or sets a value that indicates whether to allow voucher out.

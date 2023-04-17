@@ -4,11 +4,10 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Timers;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Bingo.Client;
-    using Aristocrat.Bingo.Client.Messages;
+    using Aristocrat.Bingo.Client.Configuration;
     using Commands;
     using Common;
     using Common.Events;
@@ -18,22 +17,22 @@
     using log4net;
     using Monaco.Common;
     using Stateless;
+    using Timer = System.Threading.Timer;
 
-    public class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
+    public sealed class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
     {
-        private const int NoMessagesTimeout = 40_000;
+        private static readonly TimeSpan NoMessagesTimeout = TimeSpan.FromMilliseconds(40_000);
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IClient _client;
         private readonly ICommandHandlerFactory _commandFactory;
-        private readonly ICommandService _commandService;
-        private readonly IPropertiesManager _propertiesManager;
         private readonly ISystemDisableManager _systemDisable;
+        private readonly IClientConfigurationProvider _configurationProvider;
+        private readonly Timer _timeoutTimer;
 
         private CancellationTokenSource _tokenSource;
-        private System.Timers.Timer _timeoutTimer;
 
         private StateMachine<State, Trigger> _registrationState;
 
@@ -49,71 +48,59 @@
             IEventBus eventBus,
             IClient client,
             ICommandHandlerFactory commandFactory,
-            ICommandService commandService,
-            IPropertiesManager propertiesManager,
-            ISystemDisableManager systemDisable)
+            ISystemDisableManager systemDisable,
+            IClientConfigurationProvider configurationProvider)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
-            _commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
+            _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
 
             CreateStateMachine();
             RegisterEventListeners();
-            CreateTimeoutTimer();
+            _timeoutTimer = new Timer(TimeoutOccurred);
         }
 
         public event EventHandler ClientConnected;
 
         public event EventHandler ClientDisconnected;
 
-        public int NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
+        public TimeSpan NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
 
         public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public async Task Start()
-        {
-            await _registrationState.FireAsync(Trigger.Initialized);
-        }
-
-        public async Task Stop()
-        {
-            await _registrationState.FireAsync(Trigger.Shutdown);
-        }
-
-        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
                 return;
             }
 
-            if (disposing)
+            _eventBus.UnsubscribeAll(this);
+            _registrationState.Deactivate();
+            _client.Disconnected -= OnClientDisconnected;
+            _client.Connected -= OnClientConnected;
+            _client.MessageReceived -= OnMessageReceived;
+            _timeoutTimer.Dispose();
+            var tokenSource = _tokenSource;
+            if (tokenSource != null)
             {
-                _eventBus.UnsubscribeAll(this);
-                _registrationState.Deactivate();
-                _client.Disconnected -= OnClientDisconnected;
-                _client.Connected -= OnClientConnected;
-                _client.MessageReceived -= OnMessageReceived;
-                _timeoutTimer.Elapsed -= TimeoutOccurred;
-                _timeoutTimer.Dispose();
-                var tokenSource = _tokenSource;
-                if (tokenSource != null)
-                {
-                    tokenSource.Cancel();
-                    tokenSource.Dispose();
-                }
-
-                _tokenSource = null;
+                tokenSource.Cancel();
+                tokenSource.Dispose();
             }
 
+            _tokenSource = null;
+
             _disposed = true;
+        }
+
+        public async Task Start()
+        {
+            await _registrationState.FireAsync(Trigger.Initialized).ConfigureAwait(false);
+        }
+
+        public async Task Stop()
+        {
+            await _registrationState.FireAsync(Trigger.Shutdown).ConfigureAwait(false);
         }
 
         private static State HandleConfigurationFailure(ConfigurationFailureReason reason)
@@ -153,13 +140,13 @@
         {
             try
             {
-                await _commandFactory.Execute(new RegistrationCommand(), _tokenSource.Token);
-                await _registrationState.FireAsync(Trigger.Registered);
+                await _commandFactory.Execute(new RegistrationCommand(), _tokenSource.Token).ConfigureAwait(false);
+                await _registrationState.FireAsync(Trigger.Registered).ConfigureAwait(false);
             }
             catch (RegistrationException exception)
             {
                 Logger.Error("Registration failed", exception);
-                await _registrationState.FireAsync(_failedRegistrationTrigger, exception.Reason);
+                await _registrationState.FireAsync(_failedRegistrationTrigger, exception.Reason).ConfigureAwait(false);
             }
         }
 
@@ -243,7 +230,7 @@
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
             _tokenSource = null;
-            await _client.Stop();
+            await _client.Stop().ConfigureAwait(false);
         }
 
         private void OnRegisteringExit(StateMachine<State, Trigger>.Transition t)
@@ -282,13 +269,13 @@
         {
             try
             {
-                await _commandFactory.Execute(new ConfigureCommand(), _tokenSource.Token);
-                await _registrationState.FireAsync(Trigger.Configured);
+                await _commandFactory.Execute(new ConfigureCommand(), _tokenSource.Token).ConfigureAwait(false);
+                await _registrationState.FireAsync(Trigger.Configured).ConfigureAwait(false);
             }
             catch (ConfigurationException exception)
             {
                 Logger.Error("Configuration failed", exception);
-                await _registrationState.FireAsync(_failedConfigurationTrigger, exception.Reason);
+                await _registrationState.FireAsync(_failedConfigurationTrigger, exception.Reason).ConfigureAwait(false);
             }
         }
 
@@ -321,14 +308,10 @@
             _eventBus.Publish(new HostConnectedEvent());
             _systemDisable.Enable(BingoConstants.BingoHostDisconnectedKey);
             ClientConnected?.Invoke(this, EventArgs.Empty);
-            _commandService.HandleCommands(
-                _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
-                _tokenSource.Token).FireAndForget();
-
-            _timeoutTimer.Start();
+            _commandFactory.Execute(new ClientConnectedCommand(), _tokenSource.Token).FireAndForget();
         }
 
-        private void TimeoutOccurred(object sender, ElapsedEventArgs e)
+        private void TimeoutOccurred(object _)
         {
             _registrationState.FireAsync(Trigger.Disconnected).FireAndForget();
         }
@@ -345,8 +328,12 @@
 
         private void OnMessageReceived(object sender, EventArgs e)
         {
-            _timeoutTimer.Stop();
-            _timeoutTimer.Start();
+            if (_registrationState.State is not State.Connected)
+            {
+                return;
+            }
+
+            _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
         }
 
         private async Task OnDisconnected()
@@ -359,10 +346,10 @@
                 true,
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BingoHostDisconnectedHelp));
 
-            _timeoutTimer.Stop();
+            _timeoutTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
 
             ClientDisconnected?.Invoke(this, EventArgs.Empty);
-            await _registrationState.FireAsync(Trigger.Connecting);
+            await _registrationState.FireAsync(Trigger.Connecting).ConfigureAwait(false);
         }
 
         private void OnConnecting()
@@ -374,15 +361,19 @@
         private async Task ConnectClient(CancellationToken token)
         {
             SetupFirewallRule();
-            while (!await _client.Start() && !token.IsCancellationRequested)
+            while (!await _client.Start().ConfigureAwait(false) && !token.IsCancellationRequested)
             {
+                Logger.Info($"Client failed to connect retrying.  IsCancelled={token.IsCancellationRequested}");
             }
+
+            _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
         }
 
         private void SetupFirewallRule()
         {
             const string firewallRuleName = "Platform.Bingo.Server";
-            Firewall.AddRule(firewallRuleName, (ushort)_client.Configuration.Address.Port, Firewall.Direction.Out);
+            using var configuration = _configurationProvider.CreateConfiguration();
+            Firewall.AddRule(firewallRuleName, (ushort)configuration.Address.Port, Firewall.Direction.Out);
         }
 
         private void RegisterEventListeners()
@@ -391,8 +382,8 @@
                 this,
                 HandleRestartingEvent,
                 evt =>
-                    string.Equals(ApplicationConstants.MachineId, evt.PropertyName) ||
-                    string.Equals(ApplicationConstants.SerialNumber, evt.PropertyName));
+                    string.Equals(ApplicationConstants.MachineId, evt.PropertyName, StringComparison.Ordinal) ||
+                    string.Equals(ApplicationConstants.SerialNumber, evt.PropertyName, StringComparison.Ordinal));
             _eventBus.Subscribe<ForceReconnectionEvent>(this, HandleRestartingEvent);
             _client.Connected += OnClientConnected;
             _client.Disconnected += OnClientDisconnected;
@@ -402,14 +393,7 @@
         private async Task HandleRestartingEvent<TEvent>(TEvent evt, CancellationToken token)
         {
             SetupFirewallRule();
-            await _registrationState.FireAsync(Trigger.Reconfigure);
-        }
-
-        private void CreateTimeoutTimer()
-        {
-            _timeoutTimer = new System.Timers.Timer(NoMessagesConnectionTimeout);
-            _timeoutTimer.AutoReset = false;
-            _timeoutTimer.Elapsed += TimeoutOccurred;
+            await _registrationState.FireAsync(Trigger.Reconfigure).ConfigureAwait(false);
         }
 
         private enum State

@@ -100,12 +100,23 @@
                             Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.AccountBalanceLabel),
                             GetDollarAmount(AftData.AccountBalance - total).FormattedCurrencyString());
                     }
+                    else
+                    {
+                        AddLine();
+                    }
                 }
                 else
                 {
-                    AddLine(
+                    if (AftData.ReceiptData.AccountBalance > 0)
+                    {
+                        AddLine(
                         Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.AccountBalanceLabel),
                         GetDollarAmount(AftData.AccountBalance + total).FormattedCurrencyString());
+                    }
+                    else
+                    {
+                        AddLine();
+                    }
                 }
             }
 

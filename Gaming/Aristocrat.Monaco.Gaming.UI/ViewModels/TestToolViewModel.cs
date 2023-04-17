@@ -213,7 +213,7 @@
             _properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _config = (LobbyConfiguration)_properties.GetProperty(GamingConstants.LobbyConfig, null);
-            _responsibleGamingMode = _config.ResponsibleGamingMode;
+            _responsibleGamingMode = _config?.ResponsibleGamingMode ?? ResponsibleGamingMode.Segmented;
 
             var containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
             if (null != containerService)
@@ -1523,14 +1523,19 @@
 
         private void ResetDefaults(object parameter)
         {
-            var timeLimits = new double[_config.ResponsibleGamingTimeLimits.Length];
-            var playBreaks = new double[_config.ResponsibleGamingPlayBreaks.Length];
-            //have to deep copy since I'm going to alter it to seconds (possibly) later in function.
-            //don't want to alter value in _config.
-            _config.ResponsibleGamingTimeLimits.CopyTo(timeLimits, 0);
-            _config.ResponsibleGamingPlayBreaks.CopyTo(playBreaks, 0);
-            _properties.SetProperty(LobbyConstants.RGTimeLimitsInMinutes, _config.ResponsibleGamingTimeLimits);
-            _properties.SetProperty(LobbyConstants.RGPlayBreaksInMinutes, _config.ResponsibleGamingPlayBreaks);
+            var timeLimits = new double[0];
+            var playBreaks = new double[0];
+            if (_config != null)
+            {
+                timeLimits = new double[_config.ResponsibleGamingTimeLimits.Length];
+                playBreaks = new double[_config.ResponsibleGamingPlayBreaks.Length];
+                //have to deep copy since I'm going to alter it to seconds (possibly) later in function.
+                //don't want to alter value in _config.
+                _config.ResponsibleGamingTimeLimits.CopyTo(timeLimits, 0);
+                _config.ResponsibleGamingPlayBreaks.CopyTo(playBreaks, 0);
+                _properties.SetProperty(LobbyConstants.RGTimeLimitsInMinutes, _config.ResponsibleGamingTimeLimits);
+                _properties.SetProperty(LobbyConstants.RGPlayBreaksInMinutes, _config.ResponsibleGamingPlayBreaks);
+            }
             var dialogTimeoutDefault = _responsibleGamingMode == ResponsibleGamingMode.Continuous
                 ? LobbyPlayTimeDialogTimeoutInSecondsDefault
                 : LobbyPlayTimeDialogTimeoutInSecondsManitobaDefault;

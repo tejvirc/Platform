@@ -19,6 +19,7 @@
         private string _voucherInLimit;
         private bool _isPlayerMayHideBingoCardSettingVisible;
         private bool _isDisplayBingoCardSettingVisible;
+        private bool _isBingoCardPlacementSettingVisible;
         private string _billAcceptanceLimit;
         private string _ticketReprint;
         private string _captureGameAnalytics;
@@ -109,6 +110,12 @@
         {
             get => _isDisplayBingoCardSettingVisible;
             private set => SetProperty(ref _isDisplayBingoCardSettingVisible, value);
+        }
+
+        public bool IsBingoCardPlacementSettingVisible
+        {
+            get => _isBingoCardPlacementSettingVisible;
+            private set => SetProperty(ref _isBingoCardPlacementSettingVisible, value);
         }
 
         public GameEndWinStrategy GameEndingPrize
@@ -274,6 +281,7 @@
                 false);
             IsPlayerMayHideBingoCardSettingVisible = cabinetControlsDisplayElements;
             IsDisplayBingoCardSettingVisible = cabinetControlsDisplayElements;
+            IsBingoCardPlacementSettingVisible = cabinetControlsDisplayElements;
             base.OnLoaded();
         }
     }

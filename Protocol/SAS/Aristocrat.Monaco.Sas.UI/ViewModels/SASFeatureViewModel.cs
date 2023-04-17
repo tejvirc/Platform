@@ -59,8 +59,6 @@
         private bool _isRequireLP02OnPowerUpEnabled;
 
         private decimal _aftTransferLimit;
-        private decimal _creditLimit;
-        private decimal _maxCreditLimit;
 
         private decimal _maxAllowedTransferLimit;
 
@@ -276,7 +274,7 @@
             get => _aftTransferLimit;
             set
             {
-                if ((_maxAftTransferLimit > value || IsCreditLimitMaxed) && PreviousAftTransferLimit != value)
+                if (_maxAftTransferLimit > value && PreviousAftTransferLimit != value)
                 {
                     PreviousAftTransferLimit = _aftTransferLimit;
                 }
@@ -321,7 +319,7 @@
                 _aftTransferLimitEnabled = value;
 
                 var aftTransferLimit = GetPropertiesAftTransferLimitToDollars();
-                if (_aftTransferLimitEnabled && (aftTransferLimit == MaxTransferLimit || IsCreditLimitMaxed))
+                if (_aftTransferLimitEnabled && aftTransferLimit == MaxTransferLimit)
                 {
                     aftTransferLimit = PreviousAftTransferLimit;
                 }
@@ -453,10 +451,7 @@
             }
         }
 
-        private bool IsCreditLimitMaxed => _creditLimit == _maxCreditLimit;
-
-        private decimal MaxTransferLimit =>
-            _maxAllowedTransferLimit < _creditLimit ? _maxAllowedTransferLimit : _creditLimit;
+        private decimal MaxTransferLimit => _maxAllowedTransferLimit;
 
         /// <summary>
         ///     Gets and sets the SAS Protocol Configuration
@@ -486,14 +481,6 @@
             var ports = PropertiesManager.GetValue(SasProperties.SasPortAssignments, new PortAssignment());
             var settings = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
             IsAftSettingsConfigurable = ports.AftPort != HostId.None;
-
-            _creditLimit = PropertiesManager
-                .GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue)
-                .MillicentsToDollars();
-
-            _maxCreditLimit = PropertiesManager
-                .GetValue(AccountingConstants.MaxCreditMeterMaxAllowed, long.MaxValue)
-                .MillicentsToDollars();
 
             _maxAllowedTransferLimit = settings.MaxAllowedTransferLimits.CentsToDollars();
             var aftTransferLimit = CapAmount(settings.TransferLimit.CentsToDollars(), MaxTransferLimit, (amount) =>
@@ -655,46 +642,35 @@
             var stringValue = string.Empty;
             var boolValue = false;
             var autoConfigured = true;
-            if (AutoConfigurator.GetValue("SasValidationType", ref stringValue))
-            {
-                autoConfigured &= ValidationItems.Contains(stringValue);
-                if (autoConfigured)
-                {
-                    _selectedValidationItem = stringValue;
-                }
-            }
 
-            if (AutoConfigurator.GetValue("AftInEnabled", ref boolValue))
+            // SAS AFT Configuration
+
+            if (AutoConfigurator.GetValue(SasConstants.AftInEnabled, ref boolValue))
             {
                 _isAftInEnabled = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("AftOutEnabled", ref boolValue))
+            if (AutoConfigurator.GetValue(SasConstants.AftOutEnabled, ref boolValue))
             {
                 _isAftOutEnabled = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("AftBonusEnabled", ref boolValue))
-            {
-                _isAftBonusingEnabled = boolValue;
-            }
-
-            if (AutoConfigurator.GetValue("AftPartialTransferEnabled", ref boolValue))
+            if (AutoConfigurator.GetValue(SasConstants.AftPartialTransferAllowed, ref boolValue))
             {
                 _isAftPartialTransfersEnabled = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("AftWinAmountToHostEnabled", ref boolValue))
+            if (AutoConfigurator.GetValue(SasConstants.AftBonusAllowed, ref boolValue))
+            {
+                _isAftBonusingEnabled = boolValue;
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.AftWinToHostAllowed, ref boolValue))
             {
                 _isAftWinAmountToHostTransfersEnabled = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("LegacyBonusEnabled", ref boolValue))
-            {
-                _isLegacyBonusEnabled = boolValue;
-            }
-
-            if (AutoConfigurator.GetValue("AftTransferLimit", ref stringValue))
+            if (AutoConfigurator.GetValue(SasConstants.AftTransferLimit, ref stringValue))
             {
                 autoConfigured &= long.TryParse(stringValue, out var temp);
                 if (autoConfigured)
@@ -703,13 +679,38 @@
                 }
             }
 
-            if (AutoConfigurator.GetValue("HandpayReportingType", ref stringValue))
+            // SAS Miscellaneous
+
+            if (AutoConfigurator.GetValue(SasConstants.SasValidationType, ref stringValue))
+            {
+                autoConfigured &= ValidationItems.Contains(stringValue);
+                if (autoConfigured)
+                {
+                    _selectedValidationItem = stringValue;
+                }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.HandpayReportingType, ref stringValue))
             {
                 autoConfigured &= HandpayModeItems.Contains(stringValue);
                 if (autoConfigured)
                 {
                     _selectedHandpayModeItem = stringValue;
                 }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.ConfigChangeNotification, ref stringValue))
+            {
+                autoConfigured &= Enum.TryParse(stringValue, out ConfigNotificationTypes type);
+                if (autoConfigured)
+                {
+                    _configChangeNotification = type;
+                }
+            }
+
+            if (AutoConfigurator.GetValue(SasConstants.LegacyBonusEnabled, ref boolValue))
+            {
+                _isLegacyBonusEnabled = boolValue;
             }
 
             if (autoConfigured)
@@ -720,7 +721,7 @@
 
         private void SetAftTransferLimitState()
         {
-            AftTransferLimitCheckboxEnabled = IsCreditLimitMaxed && (IsAftInEnabled || IsAftOutEnabled);
+            AftTransferLimitCheckboxEnabled = IsAftInEnabled || IsAftOutEnabled;
 
             if (!IsAftInEnabled && !IsAftOutEnabled && AftTransferLimitEnabled)
             {
@@ -732,16 +733,12 @@
                 {
                     AftTransferLimitEnabled = true;
 
-                    var limit = _creditLimit <= _defaultAftTransferLimit
-                        ? _creditLimit
-                        : _defaultAftTransferLimit;
-
-                    AftTransferLimit = limit;
-                    PreviousAftTransferLimit = limit;
+                    AftTransferLimit = _defaultAftTransferLimit;
+                    PreviousAftTransferLimit = _defaultAftTransferLimit;
                 }
                 else if (!IsLoaded)
                 {
-                    if (PreviousAftTransferLimit == MaxTransferLimit && IsCreditLimitMaxed || AftTransferLimit > MaxTransferLimit)
+                    if (PreviousAftTransferLimit == MaxTransferLimit || AftTransferLimit > MaxTransferLimit)
                     {
                         AftTransferLimitEnabled = false;
                     }

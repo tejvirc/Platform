@@ -11,17 +11,16 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using ServerApiGateway;
 
     [TestClass]
     public class ReportEventHandlerTests
     {
         private const string MachineSerial = "1";
         private const int ReportId = 123;
-        private readonly ReportEventAck _ack = new() { Succeeded = true, EventId = ReportId };
+        private readonly ReportEventResponse _ack = new(ResponseCode.Ok, ReportId);
         private ReportEventHandler _target;
-        private readonly Mock<IAcknowledgedQueueHelper<ReportEventMessage, int>> _helper = new (MockBehavior.Strict);
-        private AcknowledgedQueue<ReportEventMessage, int> _queue;
+        private readonly Mock<IAcknowledgedQueueHelper<ReportEventMessage, long>> _helper = new (MockBehavior.Strict);
+        private AcknowledgedQueue<ReportEventMessage, long> _queue;
         private readonly Mock<IPropertiesManager> _properties = new(MockBehavior.Strict);
         private readonly Mock<IReportEventService> _reportEventService = new(MockBehavior.Strict);
         private readonly Mock<IIdProvider> _idProvider = new(MockBehavior.Strict);
@@ -77,10 +76,10 @@
         [TestMethod]
         public void AddNewEventToQueue()
         {
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _target.AddNewEventToQueue(ReportableEvent.MainDoorOpened);
 
-            Assert.AreEqual(1, _queue.Count());
+            Assert.AreEqual(1, _queue.Count);
         }
 
         [TestMethod]
@@ -92,17 +91,17 @@
                 .Callback(() => wait.Set())
                 .Returns(Task.FromResult(_ack));
 
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _target.AddNewEventToQueue(ReportableEvent.MainDoorOpened);
 
-            Assert.AreEqual(1, _queue.Count());
+            Assert.AreEqual(1, _queue.Count);
 
             _clientConnection.Raise(x => x.ClientConnected += null, this, EventArgs.Empty);
 
             wait.WaitOne();
             Thread.Sleep(100); // give time for the event acknowledge to be processed
 
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _clientConnection.Raise(x => x.ClientDisconnected += null, this, EventArgs.Empty);
 
             Thread.Sleep(100); // give time for the Cancel to be processed
@@ -112,16 +111,16 @@
         public void DisconnectWhileProcessingQueue()
         {
             var wait = new AutoResetEvent(false);
-            var completion = new TaskCompletionSource<ReportEventAck>();
+            var completion = new TaskCompletionSource<ReportEventResponse>();
 
             _reportEventService.Setup(m => m.ReportEvent(It.IsAny<ReportEventMessage>(), It.IsAny<CancellationToken>()))
                 .Callback(() => wait.Set())
                 .Returns(completion.Task);
 
-            Assert.IsTrue(_queue.IsEmpty());
+            Assert.IsTrue(_queue.IsEmpty);
             _target.AddNewEventToQueue(ReportableEvent.MainDoorOpened);
 
-            Assert.AreEqual(1, _queue.Count());
+            Assert.AreEqual(1, _queue.Count);
 
             _clientConnection.Raise(x => x.ClientConnected += null, this, EventArgs.Empty);
 
@@ -130,7 +129,7 @@
             _clientConnection.Raise(x => x.ClientDisconnected += null, this, EventArgs.Empty);
             completion.SetResult(null);
 
-            Assert.IsFalse(_queue.IsEmpty());
+            Assert.IsFalse(_queue.IsEmpty);
         }
     }
 }

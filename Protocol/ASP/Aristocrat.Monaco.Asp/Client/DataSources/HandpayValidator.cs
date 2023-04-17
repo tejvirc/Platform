@@ -35,6 +35,8 @@
 
         public Task RequestHandpay(HandpayTransaction transaction) => Task.CompletedTask;
 
+        public Task HandpayKeyedOff(HandpayTransaction transaction) => Task.CompletedTask;
+
         public bool ValidateHandpay(long cashableAmount, long promoAmount, long nonCashAmount, HandpayType handpayType)
         {
             Logger.Debug($"Validating handpay (cashable={cashableAmount}, promo={promoAmount}, nonCash={nonCashAmount}, handpayType={handpayType})");

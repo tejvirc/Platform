@@ -6,6 +6,7 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
@@ -34,7 +35,12 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="0 10" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Margin="0 10" 
+                    VerticalAlignment="Top" HorizontalAlignment="Left">
             <Label VerticalAlignment="Center"
                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}"/>
             <ComboBox MinWidth="250"
@@ -57,20 +63,31 @@
                         Style="{StaticResource MonacoSlider}"  
                         Value="{Binding AlertVolume}" 
                         MinWidth="400" 
-                        HorizontalAlignment="Left" Minimum="{Binding AlertMinimumVolume}" Maximum="100" TickFrequency="10" IsSnapToTickEnabled="True" 
+                        HorizontalAlignment="Left" 
+                        Minimum="{Binding AlertMinimumVolume}" 
+                        Maximum="100" 
+                        TickFrequency="{Binding AlertVolumeTickFrequency}" 
+                        IsSnapToTickEnabled="True" 
                         IsEnabled="{Binding Path=CanEditVolume}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Name="TestPanel" Visibility="{Binding Visibility, ElementName=ExitTestModeButton}">
+            <local:SoundTestPage x:Name="TestControl" DataContext="{Binding TestViewModel}" />
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="0 10"
                     VerticalAlignment="Bottom" 
                     Orientation="Horizontal"
-                    HorizontalAlignment="Left">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundTest}}"
-                        Command="{Binding SoundTestCommand}"
-                        IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                    HorizontalAlignment="Left"
+                    Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}">
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterSoundTest}}"
+                        Command="{Binding ToggleTestModeCommand}"
+                        Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+            <Button Name="ExitTestModeButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitSoundTest}}"
+                        Command="{Binding ToggleTestModeCommand}"
+                        Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
             <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled,UpdateSourceTrigger=PropertyChanged , Converter={StaticResource TrueCollapsedFalseVisible}}">
+                        Visibility="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="WarningButton"/>

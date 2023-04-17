@@ -53,7 +53,7 @@
         {
             var dateTime = new DateTime(2000);
             var outcome =
-                new CentralTransaction(2, dateTime, 3, 1, "standard", 1000, 4)
+                new CentralTransaction(2, dateTime, 3, 1, "standard", "standard", 1000, 4)
                 {
                     OutcomeState = OutcomeState.Committed
                 };
@@ -156,7 +156,7 @@
 
             var dateTime = new DateTime(2000);
 
-            var outcome = new CentralTransaction(2, dateTime, currentTransactionGameId, 1, "standard", 1000, 4);
+            var outcome = new CentralTransaction(2, dateTime, currentTransactionGameId, 1, "standard", "standard", 1000, 4);
             _gamePlayState.Setup(x => x.SetGameEndHold(true)).Verifiable();
             _gameProvider.Setup(x => x.GetGame(currentTransactionGameId)).Returns(gameDetail.Object).Verifiable();
             _properties.Setup(x => x.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns(machineSerial).Verifiable();
@@ -355,7 +355,7 @@
                 .Returns(
                     new List<CentralTransaction>
                     {
-                        new(0, DateTime.Now, 123, 1000, string.Empty, 100, 1)
+                        new(0, DateTime.Now, 123, 1000, string.Empty, string.Empty, 100, 1)
                         {
                             Descriptions = new List<IOutcomeDescription>
                             {

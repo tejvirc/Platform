@@ -456,6 +456,12 @@
         public static string BeagleBoneEnabled = "BeagleBoneEnabled";
 
         /// <summary>
+        ///     Key used to get the type of keyboard to use.  (Embedded, Windows, Default)
+
+        /// </summary>
+        public static string KeyboardProvider = "KeyboardProvider";
+
+        /// <summary>
         ///     used to get mask of enabled speakers
         /// </summary>
         public static string EnabledSpeakersMask = "EnabledSpeakersMask";
@@ -464,6 +470,11 @@
         /// used to get the MalfunctionMessage enabled or not.
         /// </summary>
         public static string EnabledMalfunctionMessage = "MalfunctionMessage";
+
+        /// <summary>
+        /// used to get whether or not to display the Edge Lighting Page
+        /// </summary>
+        public static string DisplayLightingPage = "DisplayLightingPage";
 
         /// <summary>
         ///     Key used to disable the system when the display is disconnected
@@ -494,6 +505,11 @@
         ///     Key used to disable the system when a cashout failed
         /// </summary>
         public static readonly Guid HostCashOutFailedDisableKey = new Guid("{AD40EFCE-63C0-42E9-8FE4-68B222D2DC8D}");
+
+        /// <summary>
+        ///     Key used to disable the system when SAS Host request maintaince mode
+        /// </summary>
+        public static readonly Guid MaintenanceModeGuid = new Guid("{D45C666A-C4AA-43b8-8E02-F6B5EB5C7B25}");
 
         /// <summary>
         ///     Key used to disable the system when SAS Host 0 is disabled
@@ -729,9 +745,9 @@
         public const string LocalizationOperatorTicketSelectable = "Localization.OperatorTicket.Selectable";
 
         /// <summary>
-		///     Property manager key for LocalizationPlayerTicketCurrentCulture.
-		/// </summary>
-		public const string LocalizationPlayerTicketCurrentCulture = "Localization.PlayerTicket.CurrentCulture";
+        ///     Property manager key for LocalizationPlayerTicketCurrentCulture.
+        /// </summary>
+        public const string LocalizationPlayerTicketCurrentCulture = "Localization.PlayerTicket.CurrentCulture";
 
         /// <summary>
         ///     Property manager key for LocalizationPlayerTicketLocale
@@ -769,9 +785,9 @@
         public const string LocalizationPlayerTicketOverride = "Localization.PlayerTicket.Override";
 
         /// <summary>
-		///     Property manager key for LocalizationOperatorDefault.
-		/// </summary>
-		public const string LocalizationOperatorDefault = "Localization.Operator.Default";
+        ///     Property manager key for LocalizationOperatorDefault.
+        /// </summary>
+        public const string LocalizationOperatorDefault = "Localization.Operator.Default";
 
         /// <summary>
         ///    Property manager key for LocalizationOperatorAvailable.
@@ -932,7 +948,7 @@
         public const string MachineSettingsReimported = "MachineSettings.Reimported";
 
         /// <summary> Fake </summary>
-		public const string Fake = "Fake";
+        public const string Fake = "Fake";
 
         /// <summary> GDS </summary>
         public const string GDS = "GDS";
@@ -1369,7 +1385,7 @@
         public const string ProtocolsAllowedKey = "Protocols.Allowed";
 
         /// <summary> Property manager key for mandatory protocol required for jurisdiction</summary>
-        public const string MandatoryProtocol = "MandarotyProtocols";
+        public const string MandatoryProtocol = "MandatoryProtocols";
 
         /// <summary>The original screen width the Platform UI was designed around</summary>
         public const int TargetResolutionWidth = 1920;

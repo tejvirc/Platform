@@ -56,35 +56,32 @@
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
                         transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CancelCredits);
+                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCancelCredits);
                     break;
-                case HandpayType.GameWin:
-                    _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        TransactionType.CashOutJackpot,
-                        amountInCents,
-                        (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
-                        transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
+                case HandpayType.GameWin when !transaction.IsCreditType():
+                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffJackpot);
                     break;
                 case HandpayType.BonusPay:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        TransactionType.BonusWin,
+                        TransactionType.ExternalBonusLargeWin,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
                         (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
                         transaction.Barcode);
-                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.BonusWinAwarded);
+                    // *NOTE* BonusLargeWinReported already added to event queue by BonusAwardedConsumer
+                    if (!transaction.IsCreditType())
+                    {
+                        _bingoTransactionReportHandler.AddNewTransactionToQueue(
+                            TransactionType.Jackpot,
+                            amountInCents,
+                            (uint)(gameConfiguration?.GameTitleId ?? 0),
+                            (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                            transaction.Barcode);
+                        _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffCashoutExternalBonus);
+                    }
+
                     break;
             }
-
-            _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                TransactionType.HandPayKeyOff,
-                amountInCents,
-                (uint)(gameConfiguration?.GameTitleId ?? 0),
-                (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
-                transaction.Barcode);
-            _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyOff);
         }
     }
 }

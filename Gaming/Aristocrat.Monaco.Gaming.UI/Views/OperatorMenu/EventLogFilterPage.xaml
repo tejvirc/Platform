@@ -5,7 +5,6 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
-                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
@@ -14,59 +13,73 @@
                                xmlns:converter="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel, IsDesignTimeCreatable=False}"
+                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel,
+                                                                IsDesignTimeCreatable=False}"
                                common:DialogParticipation.Register="{Binding}">
 
     <UserControl.Resources>
-        <ResourceDictionary >
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <converter:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+            <converter:DateTimeFormatConverter x:Key="DateTimeFormatConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="MainGrid" >
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition MinWidth="200" MaxWidth="300"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" x:Name="EventViewerGrid"
+        <Grid Grid.Column="0"
+              x:Name="EventViewerGrid"
               Margin="0 0 50 0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <DataGrid x:Name="EventViewer"
-                      Width="{Binding ElementName=EventViewerGrid, Path=ActualWidth}"      
+                      Width="{Binding ElementName=EventViewerGrid, Path=ActualWidth}"
+                      IsEnabled="{Binding IsLoadingData, Converter={StaticResource InverseBoolConverter}}"
                       ItemsSource="{Binding FilteredLogCollection, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedItem}"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      ScrollViewer.CanContentScroll="True" ScrollViewer.PanningMode="VerticalOnly">
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.PanningMode="VerticalOnly">
                 <i:Interaction.Triggers>
                     <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                         <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
                     </events:RoutedEventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}" 
-                                        MinWidth="200" Width="Auto" FontSize="18"
-                                        Binding="{Binding Description.Timestamp, Converter={StaticResource DateTimeFormatConverter}}" />
-                    <DataGridTextColumn x:Name="LogType" Header="{lex:Loc Key={x:Static loc:ResourceKeys.LogType}}"
-                                        FontSize="18" MinWidth="200" Width="Auto"
-                                        Binding="{Binding Description.TypeDisplayText}" x:FieldModifier="public" />
-                    <DataGridTemplateColumn x:Name="EventLog" Header="{lex:Loc Key={x:Static loc:ResourceKeys.EventLog}}"
-                                            MinWidth="350" Width="Auto" 
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}"
+                                        MinWidth="200"
+                                        Width="Auto"
+                                        FontSize="18"
+                                        Binding="{Binding Description.Timestamp, Converter={StaticResource DateTimeFormatConverter}}"/>
+                    <DataGridTextColumn x:Name="LogType"
+                                        Header="{lex:Loc Key={x:Static loc:ResourceKeys.LogType}}"
+                                        FontSize="18"
+                                        MinWidth="200"
+                                        Width="Auto"
+                                        Binding="{Binding Description.TypeDisplayText}"
+                                        x:FieldModifier="public"/>
+                    <DataGridTemplateColumn x:Name="EventLog"
+                                            Header="{lex:Loc Key={x:Static loc:ResourceKeys.EventLog}}"
+                                            MinWidth="350"
+                                            Width="Auto"
                                             x:FieldModifier="public">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="models:EventLog">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Description.Name}"
-                                               VerticalAlignment="Center" FontSize="18"/>
-                                    <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}"
+                                               VerticalAlignment="Center"
+                                               FontSize="18"/>
+                                    <Button Name="InfoButton"
+                                            Style="{StaticResource MonacoInfoButton}"
                                             VerticalAlignment="Center"
                                             Margin="5 0 0 0"
                                             Command="{Binding DataContext.ShowAdditionalInfoCommand, ElementName=EventViewer}"
@@ -78,43 +91,53 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <StackPanel Grid.Row="1" Margin="0 10 0 0 " Orientation="Horizontal">
+            <StackPanel Grid.Row="1"
+                        Margin="0 10 0 0"
+                        Orientation="Horizontal">
                 <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintSelectedButtonText}}"
-                        Height="45" Width="200" Margin="0 0 20 0"
+                        Height="45"
+                        Width="200"
+                        Margin="0 0 20 0"
                         Visibility="{Binding PrintSelectedButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        IsEnabled="{Binding PrintSelectedButtonEnabled}" 
+                        IsEnabled="{Binding PrintSelectedButtonEnabled}"
                         Command="{Binding PrintSelectedButtonCommand}"/>
                 <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintCurrentPageButtonText}}"
-                        Height="45" Width="200" Margin="0 0 20 0"
+                        Height="45"
+                        Width="200"
+                        Margin="0 0 20 0"
                         Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding MainPrintButtonEnabled}"
                         Command="{Binding PrintCurrentPageButtonCommand}"/>
                 <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLast15RecordsButtonText}}"
-                        Height="45" Width="200" Margin="0 0 20 0"
+                        Height="45"
+                        Width="200"
+                        Margin="0 0 20 0"
                         IsEnabled="{Binding MainPrintButtonEnabled}"
                         Command="{Binding PrintLast15ButtonCommand}"
                         Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <StackPanel Visibility="{Binding SubscriptionTextVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Collapsed}"
-                            Orientation="Horizontal" VerticalAlignment="Center">
-                    <Label FontSize="{StaticResource NormalFontSize}" Content="{Binding SubscriptionStatus}" HorizontalAlignment="Left" />
-                    <Label FontSize="{StaticResource NormalFontSize}" Content="{Binding EventCount}" HorizontalAlignment="Left" />
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                    <Label FontSize="{StaticResource NormalFontSize}"
+                           Content="{Binding SubscriptionStatus}"
+                           HorizontalAlignment="Left"/>
+                    <Label FontSize="{StaticResource NormalFontSize}"
+                           Content="{Binding EventCount}"
+                           HorizontalAlignment="Left"/>
                 </StackPanel>
             </StackPanel>
-            <controls:ProgressRing Height="100" Width="100" IsLarge="True" IsActive="True"
-                                   VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Visibility="{Binding IsReloadingEventHistory, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         </Grid>
 
         <Grid Grid.Column="1">
             <Label Content="Filter By" VerticalAlignment="Top"/>
-            <DataGrid Margin="0 20 0 0 "
-                      x:Name="FilterByDataGrid" 
+            <DataGrid Margin="0 20 0 0"
+                      x:Name="FilterByDataGrid"
                       ItemsSource="{Binding EventFilterCollection}"
                       IsEnabled="{Binding FilterMenuEnabled}"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       RowBackground="Transparent"
-                      ScrollViewer.CanContentScroll="True" 
+                      ScrollViewer.CanContentScroll="True"
                       ScrollViewer.PanningMode="VerticalOnly">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
@@ -126,7 +149,9 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <CheckBox Content="All" Margin="0 5 0 0" FontSize="16"
+                                <CheckBox Content="All"
+                                          Margin="0 5 0 0"
+                                          FontSize="16"
                                           IsChecked="{Binding DataContext.IsAllFiltersSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                           Command="{Binding DataContext.AllFiltersSelectedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                             </DataTemplate>
@@ -134,11 +159,11 @@
 
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Margin="5 5 0 0" 
-                                          IsChecked="{Binding DataContext.IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,RelativeSource={RelativeSource AncestorType=DataGridCell}}" 
-                                          Command="{Binding DataContext.FilterSelectedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" >
+                                <CheckBox Margin="5 5 0 0"
+                                          IsChecked="{Binding DataContext.IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                          Command="{Binding DataContext.FilterSelectedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
                                     <CheckBox.Content>
-                                        <TextBlock Text="{Binding DataContext.DisplayText, RelativeSource={RelativeSource AncestorType=DataGridCell}}" FontSize="16" />
+                                        <TextBlock Text="{Binding DataContext.DisplayText, RelativeSource={RelativeSource AncestorType=DataGridCell}}" FontSize="16"/>
                                     </CheckBox.Content>
                                 </CheckBox>
                             </DataTemplate>

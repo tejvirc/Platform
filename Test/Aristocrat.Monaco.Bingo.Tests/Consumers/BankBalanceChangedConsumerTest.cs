@@ -4,8 +4,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
-    using Application.Contracts;
-    using Aristocrat.Bingo.Client.Messages;
     using Bingo.Consumers;
     using Commands;
     using Kernel;
@@ -15,10 +13,9 @@
     [TestClass]
     public class BankBalanceChangedConsumerTest
     {
-        private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>(MockBehavior.Default);
-        private readonly Mock<ISharedConsumer> _sharedConsumer = new Mock<ISharedConsumer>(MockBehavior.Default);
-        private readonly Mock<ICommandHandlerFactory> _handler = new Mock<ICommandHandlerFactory>(MockBehavior.Default);
-        private readonly Mock<IPropertiesManager> _properties = new Mock<IPropertiesManager>(MockBehavior.Default);
+        private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
+        private readonly Mock<ISharedConsumer> _sharedConsumer = new(MockBehavior.Default);
+        private readonly Mock<ICommandHandlerFactory> _handler = new(MockBehavior.Default);
 
         private BankBalanceChangedConsumer _target;
 
@@ -28,31 +25,20 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, false)]
-        [DataRow(false, true, false)]
-        [DataRow(false, false, true)]
+        [DataRow(true, false)]
+        [DataRow(false, true)]
         [ExpectedException(typeof(ArgumentNullException))]
         [DataTestMethod]
-        public void NullConstructorArgumentTest(
-            bool nullEventBus,
-            bool nullHandler,
-            bool nullProperties)
+        public void NullConstructorArgumentTest(bool nullEventBus, bool nullHandler)
         {
-            _target = CreateTarget(nullEventBus, nullHandler, nullProperties);
+            _target = CreateTarget(nullEventBus, nullHandler);
         }
 
         [TestMethod]
         public async Task ConsumerTest()
         {
-            const string serialNumber = "123";
-            _properties.Setup(x => x.GetProperty(ApplicationConstants.SerialNumber, It.IsAny<string>()))
-                .Returns(serialNumber);
-            _handler.Setup(
-                    x => x.Execute(
-                        It.Is<StatusResponseMessage>(m => m.MachineSerial == serialNumber),
-                        It.IsAny<CancellationToken>()))
-                .Returns(Task.CompletedTask)
-                .Verifiable();
+            _handler.Setup(x => x.Execute(It.IsAny<ReportEgmStatusCommand>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.CompletedTask).Verifiable();
 
             await _target.Consume(new BankBalanceChangedEvent(123, 1234, Guid.Empty), CancellationToken.None);
             _handler.Verify();
@@ -60,13 +46,11 @@
 
         private BankBalanceChangedConsumer CreateTarget(
             bool nullEventBus = false,
-            bool nullHandler = false,
-            bool nullProperties = false)
+            bool nullHandler = false)
         {
             return new BankBalanceChangedConsumer(
                 nullEventBus ? null : _eventBus.Object,
                 _sharedConsumer.Object,
-                nullProperties ? null : _properties.Object,
                 nullHandler ? null : _handler.Object);
         }
     }

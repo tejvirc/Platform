@@ -1,0 +1,162 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.InspectionPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:extensions="clr-namespace:Aristocrat.Monaco.UI.Common.Extensions;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                               xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
+                               common:DialogParticipation.Register="{Binding}"
+                               mc:Ignorable="d"
+                               FocusManager.FocusedElement="{Binding ElementName=NextButton}"
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:InspectionPageViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <GridLength x:Key="GoldenRatioGridLength">1.618*</GridLength>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <i:Interaction.Triggers>
+            <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}"
+                                       Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
+            </events:RoutedEventTrigger>
+            <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
+                <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
+            </events:RoutedEventTrigger>
+        </i:Interaction.Triggers>
+
+        <Viewbox Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
+            <Image Source="../Resources/InspectionLogoPortrait.png" />
+        </Viewbox>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource ConfigTitleBarBrush}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconFontAwesome Kind="Cog"
+                                                   Width="35"
+                                                   Height="35"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10,0,5,0"
+                                                   Foreground="{StaticResource HighlightBrush1}"/>
+                    <Label HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="0,5"
+                           Content="{Binding PageTitle}"
+                           Foreground="{StaticResource LightBrush4}"
+                           FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <ContentControl Grid.Row="1" 
+                            Margin="20,10,20,0"
+                            Content="{Binding CurrentPage}" />
+
+            <Grid Grid.Row="2"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                  Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <views:InspectionIdControl HorizontalAlignment="Left" 
+                                           VerticalAlignment="Center" />
+                <Button Grid.Column="1"
+                        Name="ReportButton" Command="{Binding ReportButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
+                        Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                <Button Grid.Column="1" 
+                        Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                        Width="90" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
+                        Command="{Binding PrintButtonCommand}"
+                        Style="{StaticResource MonacoButton1}">
+                    <Grid>
+                        <iconPacks:PackIconFontAwesome Kind="Print" Width="25" Height="25"/>
+                    </Grid>
+                </Button>
+                <TextBlock Grid.Column="2"
+                           Text="{Binding TestNameText, UpdateSourceTrigger=PropertyChanged}"
+                           Foreground="SkyBlue"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3"
+                           Text="{Binding ReportText, UpdateSourceTrigger=PropertyChanged}"
+                           Margin="20 0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" 
+                               BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Untested">
+                                    <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Good">
+                                    <Setter Property="Foreground" Value="{DynamicResource GreenBrush}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Bad">
+                                    <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Button Grid.Column="4"
+                        Name="ClearConfigButton" Command="{Binding ClearConfigButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearConfig}}"
+                        Visibility="{Binding IsClearConfigVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                <Button Grid.Column="4"
+                        Name="AutoTestButton" Command="{Binding AutoTestButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.AutoTest}}"
+                        Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                <Button Grid.Column="5"
+                        Name="BackButton" Command="{Binding BackButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
+                        Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                <Button Grid.Column="6"
+                        Name="NextButton" Command="{Binding NextButtonClicked}"
+                        extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
+                        Content="{Binding NextButtonText}"
+                        Margin="0" controls:ControlsHelper.CornerRadius="3" />
+            </Grid>
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

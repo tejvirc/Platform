@@ -335,7 +335,7 @@
             return null;
         }
 
-        private void Recover()
+        private async Task Recover()
         {
             // We're not going to recover any transaction that is owned/initiated outside the scope of this class
             if (CurrentTransaction == null || CurrentTransaction.TransactionId == Guid.Empty || !CurrentTransaction.OwnedTransaction)
@@ -344,21 +344,23 @@
                 return;
             }
 
-            var tasks = new List<Task>();
+            var pending = Transactions.ToList();
+
+            foreach (var transaction in pending)
+            {
+                var strategy = _strategies.Create(transaction.Mode);
+                await (strategy?.Recover(transaction, CurrentTransaction.TransactionId) ?? Task.CompletedTask);
+            }
 
             lock (_sync)
             {
-                var pending = Transactions.ToList();
+                ClearTransaction();
 
-                foreach (var transaction in pending)
+                if (GetPendingBonusTransactions().Any())
                 {
-                    var strategy = _strategies.Create(transaction.Mode);
-                    tasks.Add(strategy?.Recover(transaction, CurrentTransaction.TransactionId));
+                    Commit();
                 }
             }
-
-            Task.WaitAll(tasks.ToArray());
-            ClearTransaction();
         }
 
         private void Handle(GameIdleEvent evt)

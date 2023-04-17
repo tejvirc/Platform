@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using Contracts.ConfigWizard;
     using Hardware.Contracts.Button;
     using Kernel;
     using MVVM.ViewModel;
@@ -11,24 +12,27 @@
         private readonly IButtonService _button;
         private readonly object _context = new object();
         private readonly IEventBus _eventBus;
+        private readonly IInspectionService _reporter;
         private ButtonAction _action;
         private string _name;
         private ButtonState _state;
 
-        public ButtonViewModel(int id)
+        public ButtonViewModel(int id, IInspectionService reporter)
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IButtonService>(),
-                id
+                id,
+                reporter
             )
         {
         }
 
-        public ButtonViewModel(IEventBus eventBus, IButtonService button, int id)
+        public ButtonViewModel(IEventBus eventBus, IButtonService button, int id, IInspectionService reporter)
         {
             _eventBus = eventBus;
             _button = button;
             Id = id;
+            _reporter = reporter;
         }
 
         public int Id { get; }
@@ -105,6 +109,7 @@
             }
 
             Update();
+            _reporter?.SetTestName($"{Name} {Action}");
         }
 
         private void HandleEvent(DownEvent evt)
@@ -115,6 +120,7 @@
             }
 
             Update();
+            _reporter?.SetTestName($"{Name} {Action}");
         }
 
         private void Update()

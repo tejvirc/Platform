@@ -24,6 +24,7 @@
         private readonly IHardMeter _hardMeters;
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _properties;
+        private readonly IMeterManager _meterManager;
 
         private bool _disposed;
 
@@ -32,16 +33,18 @@
                 ServiceManager.GetInstance().GetService<IHardMeter>(),
                 ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                ServiceManager.GetInstance().GetService<IEventBus>())
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IMeterManager>())
         {
         }
 
-        public HardMeterMonitor(IHardMeter hardMeters, ISystemDisableManager disableManager, IPropertiesManager properties, IEventBus bus)
+        public HardMeterMonitor(IHardMeter hardMeters, ISystemDisableManager disableManager, IPropertiesManager properties, IEventBus bus, IMeterManager meterManager)
         {
             _hardMeters = hardMeters ?? throw new ArgumentNullException(nameof(hardMeters));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
         }
 
         /// <inheritdoc />
@@ -103,6 +106,8 @@
             _bus.Subscribe<DisabledEvent>(this, _ => DisableSystem());
 
             _bus.Subscribe<EnabledEvent>(this, _ => EnableSystem());
+
+            _bus.Subscribe<StoppedRespondingEvent>(this, _ => HandleStoppedRespondingEvent());
         }
 
         private void DisableSystem()
@@ -116,6 +121,11 @@
         private void EnableSystem()
         {
             _disableManager.Enable(HardMeterDisabled);
+        }
+
+        private void HandleStoppedRespondingEvent()
+        {
+            _meterManager.GetMeter(ApplicationMeters.MechanicalMeterDisconnectCount).Increment(1);
         }
     }
 }

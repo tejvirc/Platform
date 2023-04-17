@@ -184,6 +184,7 @@
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMinimumReturnToPlayer, It.IsAny<int>())).Returns(int.MinValue);
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMaximumReturnToPlayer, It.IsAny<int>())).Returns(int.MaxValue);
             _properties.Setup(p => p.GetProperty(AccountingConstants.MaxBetLimit, It.IsAny<long>())).Returns(AccountingConstants.DefaultMaxBetLimit);
+            _properties.Setup(p => p.GetProperty(GamingConstants.ServerControlledPaytables, It.IsAny<bool>())).Returns(false);
         }
 
         private void SetupStorage()
@@ -210,10 +211,12 @@
                     ["Game.WagerCategories"] = "[{ \"Id\":\"1\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":75,\"MaxWagerCredits\":75,\"MaxWinAmount\":0},{ \"Id\":\"2\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":150,\"MaxWagerCredits\":150,\"MaxWinAmount\":0},{ \"Id\":\"3\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":225,\"MaxWagerCredits\":225,\"MaxWinAmount\":0},{ \"Id\":\"4\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":300,\"MaxWagerCredits\":300,\"MaxWinAmount\":0},{ \"Id\":\"5\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":450,\"MaxWagerCredits\":450,\"MaxWinAmount\":0}]",
                     ["Game.Category"] = 0,
                     ["Game.SubCategory"] = 0,
-                    ["Game.Features"] = ""
+                    ["Game.Features"] = "",
+                    ["Game.CdsGameInfos"] = "",
+                    ["Game.MinimumPaybackPercent"] = "90.222",
+                    ["Game.MaximumPaybackPercent"] = "91.2222"
                 }
             };
-
 
             block.Setup(b => b.GetAll()).Returns(results);
             block.Setup(m => m.StartTransaction()).Returns(storageTransaction.Object);

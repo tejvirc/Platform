@@ -8,7 +8,9 @@
     using System.Windows.Media;
     using Cabinet.Contracts;
     using Contracts;
+    using Contracts.Handlers;
     using Contracts.Localization;
+    using Handlers;
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Display;
@@ -24,16 +26,16 @@
         private const string BlockName = "Aristocrat.Monaco.Application.Monitors.DisplayMonitor";
         private const int ExpectedButtonDeckDisplayCount = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private static readonly Dictionary<DisplayRole, string> TouchScreenMeters = new Dictionary<DisplayRole, string>
+        private static readonly Dictionary<DisplayRole, string> TouchScreenMeters = new()
         {
             { DisplayRole.Top, ApplicationMeters.TopTouchScreenDisconnectCount },
             { DisplayRole.Main, ApplicationMeters.MainTouchScreenDisconnectCount },
             { DisplayRole.VBD, ApplicationMeters.VbdTouchScreenDisconnectCount },
         };
 
-        private static readonly Dictionary<DisplayRole, string> VideoDisplayMeters = new Dictionary<DisplayRole, string>
+        private static readonly Dictionary<DisplayRole, string> VideoDisplayMeters = new()
         {
             { DisplayRole.Topper, ApplicationMeters.TopperVideoDisplayDisconnectCount },
             { DisplayRole.Top, ApplicationMeters.TopVideoDisplayDisconnectCount },
@@ -55,13 +57,12 @@
         private readonly IMeterManager _meterManager;
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly IButtonDeckDisplay _buttonDeckDisplay;
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
         private readonly IPersistentStorageAccessor _persistentBlock;
         private readonly IPersistentStorageManager _persistentStorage;
-        private readonly List<DeviceStatusHandler> _deviceStatusHandlers = new List<DeviceStatusHandler>();
+        private readonly List<IDeviceStatusHandler> _deviceStatusHandlers = new();
         private readonly bool _lcdButtonDeckExpected;
         private bool _lcdButtonDeckConnected = true;
-        private bool _serialTouchDisconnected;
 
         private bool _disposed;
 
@@ -118,7 +119,7 @@
             GC.SuppressFinalize(this);
         }
 
-        public string Name => typeof(DisplayMonitor).Name;
+        public string Name => nameof(DisplayMonitor);
 
         public ICollection<Type> ServiceTypes => new[] { typeof(DisplayMonitor) };
 
@@ -197,8 +198,8 @@
 
         private void AddDeviceHandlers<TDevice>(
             IReadOnlyDictionary<DisplayRole, string> meters,
-            Action<DeviceStatusHandler> connectAction,
-            Action<DeviceStatusHandler> disconnectAction)
+            Action<IDeviceStatusHandler> connectAction,
+            Action<IDeviceStatusHandler> disconnectAction)
             where TDevice : class, IDevice
         {
             var devices = _cabinetDetectionService.CabinetExpectedDevices.OfType<TDevice>();
@@ -214,7 +215,7 @@
                         break;
 
                     case ITouchDevice touchDevice:
-                        role = _cabinetDetectionService.GetDisplayMappedToTouchDevice(touchDevice)?.Role ?? DisplayRole.Unknown;
+                        role = _cabinetDetectionService.GetDisplayRoleMappedToTouchDevice(touchDevice) ?? DisplayRole.Unknown;
                         break;
                 }
 
@@ -223,15 +224,30 @@
                     continue;
                 }
 
-                var deviceStatusHandler = new DeviceStatusHandler
+                if (device.Id == 0 && device.DeviceType == DeviceType.Touch)
                 {
-                    Device = device,
-                    Meter = meters[role],
-                    ConnectAction = connectAction,
-                    DisconnectAction = disconnectAction
-                };
+                     var serialTouchDeviceStatusHandler = new SerialTouchDeviceStatusHandler()
+                    {
+                        Device = device,
+                        Meter = meters[role],
+                        ConnectAction = connectAction,
+                        DisconnectAction = disconnectAction
+                    };
 
-                _deviceStatusHandlers.Add(deviceStatusHandler);
+                    _deviceStatusHandlers.Add(serialTouchDeviceStatusHandler);
+                }
+                else
+                {
+                    var deviceStatusHandler = new DefaultDeviceStatusHandler
+                    {
+                        Device = device,
+                        Meter = meters[role],
+                        ConnectAction = connectAction,
+                        DisconnectAction = disconnectAction
+                    };
+
+                    _deviceStatusHandlers.Add(deviceStatusHandler);
+                }
             }
 
             foreach (var handler in _deviceStatusHandlers)
@@ -293,10 +309,10 @@
             }
         }
 
-        private void OnDeviceStatusChanged<TEvent>(string meter, bool connected) where TEvent : IEvent, new()
+        private void OnDeviceStatusChanged<TEvent>(string meter, bool connected, bool isSerialDeviceHandler) where TEvent : IEvent, new()
         {
             Logger.Error($"{meter} connected = {connected}");
-            var oldStatus = PersistDeviceStatus(meter, connected);
+            var oldStatus = isSerialDeviceHandler || PersistDeviceStatus(meter, connected);
             if (oldStatus != connected && connected == false)
             {
                 _meterManager.GetMeter(meter).Increment(1);
@@ -305,7 +321,7 @@
             _eventBus.Publish(new TEvent());
         }
 
-        private void OnDeviceStatusChanged<TEvent>(DeviceStatusHandler sender, bool connected)
+        private void OnDeviceStatusChanged<TEvent>(IDeviceStatusHandler sender, bool connected)
             where TEvent : IEvent, new()
         {
             // Handle VBD Display status changed
@@ -335,19 +351,20 @@
                 }
             }
 
+            var isSerialDeviceHandler = sender is SerialTouchDeviceStatusHandler;
             // Update meter for device
-            OnDeviceStatusChanged<TEvent>(sender.Meter, connected);
+            OnDeviceStatusChanged<TEvent>(sender.Meter, connected, isSerialDeviceHandler);
         }
 
         private void OnButtonDeckStatusChanged(bool connected)
         {
             if (connected)
             {
-                OnDeviceStatusChanged<ButtonDeckConnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, true);
+                OnDeviceStatusChanged<ButtonDeckConnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, true, false);
             }
             else
             {
-                OnDeviceStatusChanged<ButtonDeckDisconnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, false);
+                OnDeviceStatusChanged<ButtonDeckDisconnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, false, false);
             }
 
             HandleStatusChange(
@@ -396,23 +413,12 @@
                 return displayStatus;
             }
 
-            bool CheckStatus(List<DeviceStatusHandler> handlers, Guid disableKey, string resource)
+            bool CheckStatus(List<IDeviceStatusHandler> handlers, Guid disableKey, string resource)
             {
-                var previouslyConnected = handlers.All(x => x.Status != DeviceStatus.Disconnected) && !_serialTouchDisconnected;
+                var previouslyConnected = handlers.All(x => x.Status != DeviceStatus.Disconnected);
                 handlers.ForEach(x => x.Refresh());
-                foreach (var handler in handlers)
-                {
-                    if (handler.Device.DeviceType == DeviceType.Touch && handler.Device.Id == 0)
-                    {
-                        var serialTouchService = ServiceManager.GetInstance().TryGetService<ISerialTouchService>();
-                        if (serialTouchService != null)
-                        {
-                            _serialTouchDisconnected = serialTouchService.IsDisconnected;
-                        }
-                    }
-                }
 
-                var nowConnected = handlers.All(x => x.Status != DeviceStatus.Disconnected) && !_serialTouchDisconnected;
+                var nowConnected = handlers.All(x => x.Status != DeviceStatus.Disconnected);
                 HandleStatusChange(previouslyConnected, nowConnected, disableKey, resource);
                 return nowConnected;
             }
@@ -457,58 +463,6 @@
 
             _lcdButtonDeckConnected = newStatus;
             OnButtonDeckStatusChanged(newStatus);
-        }
-
-        private class DeviceStatusHandler
-        {
-            private DeviceStatus _status = DeviceStatus.Connected;
-
-            public string Meter { get; set; }
-
-            public DeviceStatus Status
-            {
-                get => _status;
-                private set
-                {
-                    if (value == _status)
-                    {
-                        return;
-                    }
-
-                    _status = value;
-                    OnStatusChanged();
-                }
-            }
-
-            public IDevice Device { get; set; }
-
-            public Action<DeviceStatusHandler> ConnectAction { get; set; }
-
-            public Action<DeviceStatusHandler> DisconnectAction { get; set; }
-
-            public void Refresh()
-            {
-                Status = Device.Status;
-            }
-
-            private void OnStatusChanged()
-            {
-                switch (Status)
-                {
-                    case DeviceStatus.Connected:
-                        ConnectAction?.Invoke(this);
-                        break;
-                    case DeviceStatus.Disconnected:
-                        DisconnectAction?.Invoke(this);
-                        break;
-                    case DeviceStatus.Unknown:
-                        break;
-                    case DeviceStatus.Unexpected:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
         }
     }
 }

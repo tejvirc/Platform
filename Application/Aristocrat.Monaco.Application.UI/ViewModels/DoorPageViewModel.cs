@@ -2,25 +2,38 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
     using System.Linq;
+    using ConfigWizard;
     using Contracts;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Door;
     using Kernel;
-    using OperatorMenu;
+    using Kernel.Contracts;
 
     [CLSCompliant(false)]
-    public class DoorPageViewModel : OperatorMenuPageViewModelBase
+    public class DoorPageViewModel : InspectionWizardViewModelBase
     {
         private readonly IDoorService _door;
         private readonly bool _showMechanicalMeterDoor;
+        private readonly bool _requireOpticSensors;
+        private readonly bool _requireBellyDoor;
 
-        public DoorPageViewModel()
+        public DoorPageViewModel(bool isWizard) : base(isWizard)
         {
             _door = ServiceManager.GetInstance().GetService<IDoorService>();
-            _showMechanicalMeterDoor = ServiceManager.GetInstance()
-                .GetService<IPropertiesManager>()
+            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            _showMechanicalMeterDoor = properties
                 .GetValue(ApplicationConstants.ConfigWizardHardMetersConfigVisible, true);
+
+            if (properties.GetValue(KernelConstants.IsInspectionOnly, false))
+            {
+                _requireOpticSensors = properties.GetValue(ApplicationConstants.ConfigWizardDoorOpticsEnabled, false)
+                    && properties.GetValue(ApplicationConstants.ConfigWizardDoorOpticsVisible, false);
+                _requireBellyDoor = properties.GetValue(ApplicationConstants.ConfigWizardBellyPanelDoorEnabled, false)
+                    && properties.GetValue(ApplicationConstants.ConfigWizardBellyPanelDoorVisible, false);
+            }
         }
 
         public ObservableCollection<DoorViewModel> Doors { get; } = new ObservableCollection<DoorViewModel>();
@@ -28,12 +41,16 @@
         protected override void OnLoaded()
         {
             Doors.Clear();
-            Access.IgnoreDoors = true;
-
-            foreach (var logicalId in from d in _door.LogicalDoors
-                select d.Key)
+            if (!IsWizardPage)
             {
-                var viewModel = new DoorViewModel(logicalId);
+                Access.IgnoreDoors = true;
+            }
+
+            foreach (var logicalId in _door.LogicalDoors.Keys)
+            {
+                var requiredDoor = ((logicalId == (int)DoorLogicalId.MainOptic || logicalId == (int)DoorLogicalId.TopBoxOptic) && _requireOpticSensors)
+                    || (logicalId == (int)DoorLogicalId.Belly && _requireBellyDoor);
+                var viewModel = new DoorViewModel(Inspection, logicalId, false, requiredDoor);
 
                 Doors.Add(viewModel);
                 viewModel.OnLoaded();
@@ -48,24 +65,64 @@
 
                 foreach (var logicalId in _door.IgnoredDoors)
                 {
-                    var viewModel = new DoorViewModel(logicalId, true);
+                    var viewModel = new DoorViewModel(Inspection, logicalId, true);
 
                     Doors.Add(viewModel);
                     viewModel.OnLoaded();
                 }
             }
+
+            foreach (var door in Doors)
+            {
+                door.PropertyChanged += OnDoorPropertyChanged;
+            }
+
+            base.OnLoaded();
         }
 
         protected override void OnUnloaded()
         {
             foreach (var door in Doors)
             {
+                door.PropertyChanged -= OnDoorPropertyChanged;
                 door.OnUnloaded();
             }
 
             Doors.Clear();
 
-            Access.IgnoreDoors = false;
+            if (!IsWizardPage)
+            {
+                Access.IgnoreDoors = false;
+            }
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            UpdateNavigation();
+        }
+
+        protected override void SaveChanges()
+        {
+        }
+
+        private void UpdateNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = Doors.All(d => d.IsTestPassed);
+            }
+        }
+
+        private void OnDoorPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(DoorViewModel.IsTestPassed))
+            {
+                return;
+            }
+
+            UpdateNavigation();
         }
     }
 }

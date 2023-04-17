@@ -22,7 +22,7 @@
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
     public class BeginGameRoundAsyncCommandHandler : ICommandHandler<BeginGameRoundAsync>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGamePlayState _gamePlayState;
         private readonly IEventBus _eventBus;
@@ -77,24 +77,23 @@
             }
 
             var (game, denomination) = _properties.GetActiveGame();
+            var wagerCategory = game?.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
+            SetWagerCategory(wagerCategory);
 
             if (command.Request is not null)
             {
-                IWagerCategory wagerCategory = null;
-
                 if (command.Request is ITemplateRequest request)
                 {
-                    wagerCategory = game?.WagerCategories?.SingleOrDefault(w =>
-                        w.Id.Equals(request.WagerCategory.ToString()));
+                    var cdsInfo = game?.CdsGameInfos?.SingleOrDefault(w =>
+                        w.Id.Equals(request.TemplateId.ToString()));
 
-                    if (wagerCategory is null)
+                    if (cdsInfo is null)
                     {
-                        Failed($"wager category is null: {request.WagerCategory}");
+                        _gamePlayState.InitializationFailed();
+                        Failed($"wager category is null: {request.TemplateId}");
                         return;
                     }
                 }
-
-                SetWagerCategory(wagerCategory);
 
                 // Special case for recovery and replay
                 if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
@@ -112,6 +111,7 @@
 
                 if (!_gamePlayState.EscrowWager(command.Wager, command.Data, command.Request, _recovery.IsRecovering))
                 {
+                    _gamePlayState.InitializationFailed();
                     Failed("EscrowWager is false");
                     return;
                 }
@@ -126,8 +126,6 @@
             }
             else
             {
-                SetWagerCategory();
-
                 // This is required for the game round to continue.  BeginGameRoundResponse will be invoked when the outcome request completes
                 Notify(Enumerable.Empty<Outcome>());
             }
@@ -148,11 +146,10 @@
                 _eventBus.Publish(new GameRequestFailedEvent());
             }
 
-            void SetWagerCategory(IWagerCategory wagerCategory = null)
+            void SetWagerCategory(IWagerCategory category)
             {
-                wagerCategory ??= game?.WagerCategories?.FirstOrDefault();
-
-                _properties.SetProperty(GamingConstants.SelectedWagerCategory, wagerCategory);
+                category ??= game?.WagerCategories?.FirstOrDefault();
+                _properties.SetProperty(GamingConstants.SelectedWagerCategory, category);
             }
         }
     }

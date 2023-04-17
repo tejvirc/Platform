@@ -13,6 +13,9 @@
     using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
+    using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Kernel.Contracts.Events;
@@ -20,8 +23,8 @@
     using Moq;
     using Test.Common;
     using Vgt.Client12.Application.OperatorMenu;
-    using DisabledEvent = Hardware.Contracts.Reel.DisabledEvent;
-    using EnabledEvent = Hardware.Contracts.Reel.EnabledEvent;
+    using DisabledEvent = Hardware.Contracts.Reel.Events.DisabledEvent;
+    using EnabledEvent = Hardware.Contracts.Reel.Events.EnabledEvent;
 
     [TestClass]
     public class ReelControllerMonitorTests
@@ -37,6 +40,7 @@
         private Mock<IGamePlayState> _gamePlayState;
         private Mock<IEdgeLightingController> _edgeLightingController;
         private Mock<IGameService> _gameService;
+        private Mock<IGameHistory> _gameHistory;
         private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
@@ -72,6 +76,7 @@
             _disable = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
             _gameService = new Mock<IGameService>(MockBehavior.Default);
+            _gameHistory = new Mock<IGameHistory>(MockBehavior.Default);
             _operatorMenuLauncher = new Mock<IOperatorMenuLauncher>(MockBehavior.Default);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _edgeLightingController = new Mock<IEdgeLightingController>(MockBehavior.Default);
@@ -101,8 +106,9 @@
             _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.Uninitialized);
             _reelController.Setup(x => x.HomeReels()).Returns(Task.FromResult(true));
             IList<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            _reelController.Setup(x => x.GetReelLightIdentifiers()).Returns(Task.FromResult(ids));
-            _reelController.Setup(x => x.SetLights(It.IsAny<ReelLampData[]>())).Returns(Task.FromResult(true));
+            _reelController.Setup(x => x.HasCapability<IReelLightingCapabilities>()).Returns(true);
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers()).Returns(Task.FromResult(ids));
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().SetLights(It.IsAny<ReelLampData[]>())).Returns(Task.FromResult(true));
             _reelController.Setup(x => x.TiltReels()).Returns(Task.FromResult(true));
 
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<InitializationCompletedEvent, CancellationToken, Task>>()))
@@ -226,7 +232,7 @@
             _disable.Reset();
             _reelController.Reset();
 
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers())
                 .Returns(Task.FromResult<IList<int>>(new List<int>()));
             _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.IdleUnknown);
             var connectedReels = new List<int>() { 1 };
@@ -333,7 +339,7 @@
             InitializeClient(false);
             _disable.Reset();
             _reelController.Reset();
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers())
                 .Returns(Task.FromResult<IList<int>>(new List<int>()));
             _reelController.Setup(x => x.LogicalState).Returns(state);
             if (callSelfTest)
@@ -364,7 +370,7 @@
             InitializeClient(false);
             _disable.Reset();
             _reelController.Reset();
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers())
                 .Returns(Task.FromResult<IList<int>>(new List<int>()));
             _reelController.Setup(x => x.LogicalState).Returns(state);
             if (callSelfTest)
@@ -451,7 +457,7 @@
             _disable.Reset();
             _reelController.Reset();
 
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers())
                 .Returns(Task.FromResult<IList<int>>(new List<int>()));
             _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.Tilted);
 
@@ -752,7 +758,7 @@
             _disable.Reset();
             _reelController.Reset();
 
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers())
                 .Returns(Task.FromResult<IList<int>>(new List<int>()));
             _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.Tilted);
 
@@ -858,7 +864,7 @@
             _disable.Reset();
             _reelController.Reset();
 
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers())
                 .Returns(Task.FromResult<IList<int>>(new List<int>()));
             _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.Tilted);
 
@@ -880,7 +886,7 @@
             InitializeClient(false);
             _disable.Reset();
 
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers())
                 .Returns(Task.FromResult<IList<int>>(new List<int>()));
             _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.IdleUnknown);
 
@@ -1014,6 +1020,7 @@
             bool nullGameProvider = false,
             bool nullEdgeLightController = false,
             bool nullGameService = false,
+            bool nullGameHistory = false,
             bool nullOperatorMenuLauncher = false)
         {
             return new ReelControllerMonitor(
@@ -1024,6 +1031,7 @@
                 nullGameProvider ? null : _gameProvider.Object,
                 nullEdgeLightController ? null : _edgeLightingController.Object,
                 nullGameService ? null : _gameService.Object,
+                nullGameHistory ? null : _gameHistory.Object,
                 nullOperatorMenuLauncher ? null : _operatorMenuLauncher.Object);
         }
     }

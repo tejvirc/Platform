@@ -143,11 +143,11 @@
             {
                 var bus = ServiceManager.GetInstance().TryGetService<IEventBus>();
                 bus?.Publish(new OperatorMenuExitingEvent());
+                IsShowing = false;
 
                 // not sure the timeout here is right--if this event isn't signaled, something is likely really wrong.
                 _exitAllowed?.WaitOne(TimeSpan.FromSeconds(Timeout));
 
-                IsShowing = false;
                 _operatorMenu.Close();
 
                 _systemDisableManager.Enable(ApplicationConstants.OperatorMenuLauncherDisableGuid);

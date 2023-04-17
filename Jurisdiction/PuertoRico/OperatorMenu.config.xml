@@ -112,7 +112,7 @@ as follows:
 			<Setting Name="EnableAdvancedConfig" Value="true" />
 			<Setting Name="EnableQuickConfig" Value="false" />
 		</Page>
-		<Page Type="GameHistoryViewModel" Access="LogicDoor">
+		<Page Type="GameHistoryViewModel">
 			<Setting Name="ShowGameInfoButtons" Value="true" />
 			<Setting Name="PrintGameRoundInfo" Value="false" />
 		</Page>
@@ -167,11 +167,11 @@ as follows:
 			<Rule Restriction="GameIdle" />
 			<Rule Restriction="ZeroCredits" />
 		</AccessRuleSet>
-		<AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
-			<Rule Restriction="ZeroCredits" />
-			<Rule DeviceName="Logic" />
-			<Rule Restriction="ZeroGamesPlayed" />
-		</AccessRuleSet>
+        <AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
+            <Rule Restriction="ZeroGamesPlayed" />
+            <Rule Restriction="ZeroCredits" />
+            <Rule DeviceName="Logic" />
+        </AccessRuleSet>
 		<AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
 			<Rule Restriction="ZeroCredits" />
 			<Rule DeviceName="Logic" />

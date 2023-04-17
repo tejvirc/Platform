@@ -268,7 +268,7 @@
 
         private void ClearFailedRequests()
         {
-            ProtoLog.Debug($"Pending requests : {_requestsPending}, Failed requests : {_requestsPending.Where(tuple => tuple.Key.IsFailed).ToArray().Length}");
+            ProtoLog.Debug($"Pending requests: {_requestsPending.Count}, Failed requests : {_requestsPending.Where(tuple => tuple.Key.IsFailed).ToArray().Length}");
 
             _requestsPending.ForAll(
                 x =>

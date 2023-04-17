@@ -9,9 +9,8 @@
 
     public class BingoClientInterceptor : Interceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAuthorizationProvider _authorizationProvider;
-        public EventHandler<EventArgs> MessageReceived;
 
         public BingoClientInterceptor(IAuthorizationProvider authorizationProvider)
         {
@@ -19,13 +18,22 @@
                 authorizationProvider ?? throw new ArgumentNullException(nameof(authorizationProvider));
         }
 
-        public int MessageTimeoutMs { get; set; } = 30000;
+        public event EventHandler<EventArgs> MessageReceived;
+
+        public event EventHandler<EventArgs> AuthorizationFailed;
+
+        public TimeSpan MessageTimeoutMs { get; set; } = TimeSpan.FromMilliseconds(3000);
 
         public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
             TRequest request,
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncUnaryCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             Logger.Debug($"Sending Request: {request}");
             context = AddTimeout(AddAuthorization(context));
             var call = continuation(request, context);
@@ -42,22 +50,41 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             BlockingUnaryCallContinuation<TRequest, TResponse> continuation)
         {
-            Logger.Debug($"Sending Request {request}");
-            context = AddTimeout(AddAuthorization(context));
-            var response = base.BlockingUnaryCall(request, context, continuation);
-            Logger.Debug($"Response Received: {response}");
-            return response;
+            try
+            {
+                Logger.Debug($"Sending Request {request}");
+                context = AddTimeout(AddAuthorization(context));
+                var response = base.BlockingUnaryCall(request, context, continuation);
+                Logger.Debug($"Response Received: {response}");
+                OnMessageReceived();
+                return response;
+            }
+            catch (RpcException rpcException)
+            {
+                Logger.Error("Authorization failed", rpcException);
+                OnRpcException(rpcException);
+                throw;
+            }
         }
 
         public override AsyncDuplexStreamingCall<TRequest, TResponse> AsyncDuplexStreamingCall<TRequest, TResponse>(
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncDuplexStreamingCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncDuplexStreamingCall<TRequest, TResponse>(
-                new BingoClientClientStreamingLogger<TRequest>(call.RequestStream),
-                new BingoClientServerStreamingLogger<TResponse>(call.ResponseStream, this),
+                new BingoClientClientStreamingLogger<TRequest>(Logger, call.RequestStream),
+                new BingoClientServerStreamingLogger<TResponse>(
+                    Logger,
+                    call.ResponseStream,
+                    OnMessageReceived,
+                    OnRpcException),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -69,11 +96,20 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncServerStreamingCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             Logger.Debug($"Sending Request {request}");
             context = AddAuthorization(context);
             var call = continuation(request, context);
             return new AsyncServerStreamingCall<TResponse>(
-                new BingoClientServerStreamingLogger<TResponse>(call.ResponseStream, this),
+                new BingoClientServerStreamingLogger<TResponse>(
+                    Logger,
+                    call.ResponseStream,
+                    OnMessageReceived,
+                    OnRpcException),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -84,10 +120,15 @@
             ClientInterceptorContext<TRequest, TResponse> context,
             AsyncClientStreamingCallContinuation<TRequest, TResponse> continuation)
         {
+            if (continuation == null)
+            {
+                throw new ArgumentNullException(nameof(continuation));
+            }
+
             context = AddAuthorization(context);
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
-                new BingoClientClientStreamingLogger<TRequest>(call.RequestStream),
+                new BingoClientClientStreamingLogger<TRequest>(Logger, call.RequestStream),
                 LogResponse(call.ResponseAsync),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
@@ -95,18 +136,30 @@
                 call.Dispose);
         }
 
-        public void OnMessageReceived()
+        private void OnMessageReceived()
         {
             MessageReceived?.Invoke(this, EventArgs.Empty);
         }
 
-        private static async Task<TResponse> LogResponse<TResponse>(Task<TResponse> callingTask)
+        private void OnAuthorizationFailed()
+        {
+            AuthorizationFailed?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async Task<TResponse> LogResponse<TResponse>(Task<TResponse> callingTask)
         {
             try
             {
-                var response = await callingTask;
+                var response = await callingTask.ConfigureAwait(false);
                 Logger.Debug($"Response Received: {response}");
+                OnMessageReceived();
                 return response;
+            }
+            catch (RpcException rpcException)
+            {
+                Logger.Error("Authorization failed", rpcException);
+                OnRpcException(rpcException);
+                throw;
             }
             catch (Exception ex)
             {
@@ -140,7 +193,18 @@
             return new ClientInterceptorContext<TRequest, TResponse>(
                 context.Method,
                 context.Host,
-                context.Options.WithDeadline(DateTime.UtcNow.AddMilliseconds(MessageTimeoutMs)));
+                context.Options.WithDeadline(DateTime.UtcNow.Add(MessageTimeoutMs)));
+        }
+
+        private void OnRpcException(RpcException rpcException)
+        {
+            if (_authorizationProvider.AuthorizationData is null ||
+                rpcException.StatusCode is not (StatusCode.Unauthenticated or StatusCode.PermissionDenied))
+            {
+                return;
+            }
+            
+            OnAuthorizationFailed();
         }
     }
 }

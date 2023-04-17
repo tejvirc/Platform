@@ -36,11 +36,6 @@
         /// <inheritdoc />
         public void Handle(RequestCashout command)
         {
-            if (!_properties.GetValue("Automation.HandleCashOut", true))
-            {
-                return;
-            }
-
             if (_playerBank.Balance == 0)
             {
                 return;

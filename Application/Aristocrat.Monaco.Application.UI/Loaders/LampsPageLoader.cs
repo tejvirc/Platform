@@ -20,14 +20,14 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new LampsPageViewModel();
+            return new LampsPageViewModel(IsWizardPage);
         }
 
         /// <inheritdoc />
         public override bool GetVisible()
         {
-            var towerLightManager = ServiceManager.GetInstance().GetService<ITowerLightManager>();
-            return (ButtonDeckUtilities.HasLamps() || !towerLightManager.TowerLightsDisabled) && base.GetVisible();
+            var towerLightManager = ServiceManager.GetInstance().TryGetService<ITowerLightManager>();
+            return ButtonDeckUtilities.HasLamps() || !(towerLightManager?.TowerLightsDisabled ?? false) && base.GetVisible();
         }
     }
 }

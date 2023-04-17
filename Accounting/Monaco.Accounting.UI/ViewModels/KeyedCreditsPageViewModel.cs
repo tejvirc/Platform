@@ -71,6 +71,7 @@
         public bool KeyedOnInputEnabled => InputEnabled && _currentCredits < _creditLimit;
 
         public bool KeyedOnCreditsAllowed => InputEnabled && KeyedOnCreditAmount > 0 && !PropertyHasErrors(nameof(KeyedOnCreditAmount));
+        public bool KeyOffCreditsButtonEnabled => InputEnabled && Credits.Any(x => x.HasCredits);
 
         public Credit SelectedCredit
         {
@@ -141,6 +142,7 @@
         {
             RaisePropertyChanged(nameof(KeyedOnInputEnabled));
             RaisePropertyChanged(nameof(KeyedOnCreditsAllowed));
+            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void UpdateCreditData()
@@ -159,6 +161,7 @@
         {
             _currentCredits = Credits.Sum(x => x.Value);
             RaisePropertyChanged(nameof(KeyedOnInputEnabled));
+            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void ConfirmKeyOnCreditsPressed(object obj)

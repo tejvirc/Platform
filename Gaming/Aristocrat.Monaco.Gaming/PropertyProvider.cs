@@ -161,6 +161,7 @@
                 { GamingConstants.PlayOnFromPresentWins, ((object)configuration.PlayOnFromPresentWins?.Enabled ?? false, false) },
                 { GamingConstants.GambleAllowed, ((object)configuration.Gamble?.Allowed ?? true, false) },
                 { GamingConstants.GambleEnabled, ((object)configuration.Gamble?.Enabled ?? false, false) },
+                { GamingConstants.GambleSkipByJackpotHit, ((object)configuration.Gamble?.SkipByJackpotHit ?? false, false) },
                 { GamingConstants.GambleWagerLimit, (InitFromStorage(GamingConstants.GambleWagerLimit), true) },
                 { GamingConstants.GambleWagerLimitConfigurable, ((object)configuration.Gamble?.WagerLimitConfigurable ?? true, false) },
                 { GamingConstants.LetItRideAllowed, ((object)configuration.LetItRide?.Allowed ?? true, false) },
@@ -251,6 +252,7 @@
                 { GamingConstants.SelectedBetMultiplier, (InitFromStorage(GamingConstants.SelectedBetMultiplier), true) },
                 { GamingConstants.SelectedLineCost, (InitFromStorage(GamingConstants.SelectedLineCost), true) },
                 { GamingConstants.FudgePay, (configuration.FudgePay?.Enabled ?? false, false) },
+                { GamingConstants.ServerControlledPaytables, (configuration.GameRestrictions?.ServerControlledPaytables ?? false, false) },
                 { GamingConstants.AdditionalInfoButton, (configuration.AdditionalInfoButton?.Enabled ?? false, false) },
                 { GamingConstants.ExcessiveMeterIncrementTestEnabled, (configuration.ExcessiveMeterIncrementTest?.Enabled ?? false, false)},
                 { GamingConstants.ExcessiveMeterIncrementTestBanknoteLimit,(configuration.ExcessiveMeterIncrementTest?.BanknoteLimit ?? GamingConstants.ExcessiveMeterIncrementTestDefaultBanknoteLimit, false)},
@@ -269,6 +271,7 @@
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
                 { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
+                { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) }
             };

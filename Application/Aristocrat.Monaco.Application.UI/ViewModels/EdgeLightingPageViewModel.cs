@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
+    using Application.Settings;
+    using ConfigWizard;
     using Contracts;
     using Contracts.EdgeLight;
     using Contracts.HardwareDiagnostics;
@@ -12,13 +14,13 @@
     using Events;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class EdgeLightingPageViewModel : OperatorMenuPageViewModelBase
+    public class EdgeLightingPageViewModel : InspectionWizardViewModelBase
     {
         private const int MaxChannelBrightness = 100;
         private readonly IEdgeLightingController _edgeLightingController;
@@ -29,10 +31,11 @@
         private bool _bottomEdgeLightingOn;
         private bool _inTestMode;
 
-        public EdgeLightingPageViewModel()
+        public EdgeLightingPageViewModel(bool isWizard) : base(isWizard)
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            TestViewModel.SetTestReporter(Inspection);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         public ICommand ToggleTestModeCommand { get; }
@@ -82,18 +85,34 @@
                 TestViewModel.TestMode = value;
                 if (!value)
                 {
-                    if (_inTestMode) EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Lighting));
+                    if (_inTestMode)
+                    {
+                        EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.EdgeLighting));
+                    }
 
                     _edgeLightingController.ClearBrightnessForPriority(StripPriority.PlatformTest);
                     UpdateStatusText();
                 }
                 else
                 {
-                    EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Lighting));
+                    EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.EdgeLighting));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
                 }
 
                 SetProperty(ref _inTestMode, value, nameof(InTestMode));
+            }
+        }
+
+        public override bool TestModeEnabled
+        {
+            get => base.TestModeEnabled;
+            set
+            {
+                base.TestModeEnabled = value;
+                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                {
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                }
             }
         }
 
@@ -182,10 +201,15 @@
 
         protected override void OnLoaded()
         {
-            IsEdgeLightingAvailable = _edgeLightingController.IsDetected;
+            IsEdgeLightingAvailable = _edgeLightingController.IsDetected || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             InfoText = IsEdgeLightingAvailable
                 ? string.Empty
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);
+
+            if (IsEdgeLightingAvailable && IsWizardPage)
+            {
+                InTestMode = true;
+            }
 
             EventBus.Subscribe<EdgeLightingConnectedEvent>(this, HandleEdgeLightConnectedEvent);
             EventBus.Subscribe<EdgeLightingDisconnectedEvent>(this, HandleEdgeLightDisconnectedEvent);
@@ -207,6 +231,11 @@
             {
                 BottomEdgeLightingOn = PropertiesManager.GetValue(ApplicationConstants.BottomEdgeLightingOnKey, false);
             }
+
+            Inspection?.SetFirmwareVersion(
+                MachineSettingsUtilities.GetLightingIdentification(Localizer.For(CultureFor.Operator)));
+
+            base.OnLoaded();
         }
 
         protected override void OnUnloaded()
@@ -214,6 +243,20 @@
             InTestMode = false;
             _edgeLightingController.ClearBrightnessForPriority(StripPriority.PlatformTest);
             EventBus.UnsubscribeAll(this);
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void OnInputEnabledChanged()

@@ -30,7 +30,7 @@
 	<BitmapImage x:Key="TabPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPokerDisabled.png" />
 	<BitmapImage x:Key="TabRouletteDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabRouletteDisabled.png" />
 	<BitmapImage x:Key="TabTableDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabTableDisabled.png" />
-	<BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabLightningLinkDisabled.png" />
+	<BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabStormingJackpotsDisabled.png" />
 	<BitmapImage x:Key="TabMultiDrawPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabMultiDrawPokerDisabled.png" />
 	<BitmapImage x:Key="GameSelectedOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Game_Title_On.png" />
 	<BitmapImage x:Key="ProgressiveOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Progressive Meter_Frame.png" />
@@ -52,15 +52,35 @@
 	<BitmapImage x:Key="LightningLinkGrandChar7" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0037.png" />
 	<BitmapImage x:Key="LightningLinkGrandChar8" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0038.png" />
 	<BitmapImage x:Key="LightningLinkGrandChar9" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0039.png" />
-	<BitmapImage x:Key="LightningLinkGrandCharE" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0045.png" />
-	<BitmapImage x:Key="LightningLinkGrandCharG" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0047.png" />
-	<BitmapImage x:Key="LightningLinkGrandCharI" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0049.png" />
-	<BitmapImage x:Key="LightningLinkGrandCharO" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+004F.png" />
+
+    <BitmapImage x:Key="LightningLinkGrandCharA" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0041.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharB" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0042.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharC" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0043.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharD" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0044.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharE" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0045.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharF" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0046.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharG" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0047.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharH" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0048.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharI" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0049.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharJ" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+004A.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharK" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+004B.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharL" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+004C.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharM" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+004D.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharN" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+004E.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharO" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+004F.png" />
 	<BitmapImage x:Key="LightningLinkGrandCharP" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0050.png" />
-	<BitmapImage x:Key="LightningLinkGrandCharR" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0052.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharQ" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0051.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharR" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0052.png" />
 	<BitmapImage x:Key="LightningLinkGrandCharS" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0053.png" />
-	<BitmapImage x:Key="LightningLinkGrandCharV" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0056.png" />
-	<BitmapImage x:Key="LightningLinkGrandChar$" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0024.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharT" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0054.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharU" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0055.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharV" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0056.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharW" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0057.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharX" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0058.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharY" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0059.png" />
+    <BitmapImage x:Key="LightningLinkGrandCharZ" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+005A.png" />
+    
+    <BitmapImage x:Key="LightningLinkGrandChar$" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0024.png" />
 	<BitmapImage x:Key="LightningLinkGrandChar." UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+002E.png" />
 	<BitmapImage x:Key="LightningLinkGrandChar," UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+002C.png" />
 	<BitmapImage x:Key="LightningLinkGrandCharEuro" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+20AC.png" />
@@ -76,15 +96,35 @@
 	<BitmapImage x:Key="LightningLinkMajorChar7" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0037.png" />
 	<BitmapImage x:Key="LightningLinkMajorChar8" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0038.png" />
 	<BitmapImage x:Key="LightningLinkMajorChar9" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0039.png" />
-	<BitmapImage x:Key="LightningLinkMajorCharE" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0045.png" />
-	<BitmapImage x:Key="LightningLinkMajorCharG" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0047.png" />
-	<BitmapImage x:Key="LightningLinkMajorCharI" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0049.png" />
-	<BitmapImage x:Key="LightningLinkMajorCharO" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+004F.png" />
-	<BitmapImage x:Key="LightningLinkMajorCharP" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0050.png" />
-	<BitmapImage x:Key="LightningLinkMajorCharR" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0052.png" />
+
+    <BitmapImage x:Key="LightningLinkMajorCharA" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0041.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharB" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0042.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharC" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0043.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharD" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0044.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharE" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0045.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharF" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0046.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharG" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0047.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharH" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0048.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharI" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0049.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharJ" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+004A.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharK" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+004B.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharL" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+004C.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharM" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+004D.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharN" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+004E.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharO" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+004F.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharP" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0050.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharQ" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0051.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharR" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0052.png" />
 	<BitmapImage x:Key="LightningLinkMajorCharS" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0053.png" />
-	<BitmapImage x:Key="LightningLinkMajorCharV" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0056.png" />
-	<BitmapImage x:Key="LightningLinkMajorChar$" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0024.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharT" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0054.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharU" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0055.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharV" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0056.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharW" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0057.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharX" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0058.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharY" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0059.png" />
+    <BitmapImage x:Key="LightningLinkMajorCharZ" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+005A.png" />
+    
+    <BitmapImage x:Key="LightningLinkMajorChar$" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0024.png" />
 	<BitmapImage x:Key="LightningLinkMajorChar." UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+002E.png" />
 	<BitmapImage x:Key="LightningLinkMajorChar," UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+002C.png" />
 	<BitmapImage x:Key="LightningLinkMajorCharEuro" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+20AC.png" />
@@ -132,15 +172,6 @@
 	<BitmapImage x:Key="VBDButton16" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/BartopLCD9BD/VBDButton16.png" />
 	<BitmapImage x:Key="VBDButtonBlankLit" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/BartopLCD9BD/VBDButtonBlankLit.png" />
 	<BitmapImage x:Key="BottomBackgroundPortrait" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/BS_BackGround.png" />
-
-	<sys:String x:Key="FrontLeft">..\jurisdiction\DefaultAssets\FrontLeft.ogg</sys:String>
-	<sys:String x:Key="FrontRight">..\jurisdiction\DefaultAssets\FrontRight.ogg</sys:String>
-	<sys:String x:Key="SideLeft">..\jurisdiction\DefaultAssets\SideLeft.ogg</sys:String>
-	<sys:String x:Key="SideRight">..\jurisdiction\DefaultAssets\SideRight.ogg</sys:String>
-	<sys:String x:Key="RearLeft">..\jurisdiction\DefaultAssets\RearLeft.ogg</sys:String>
-	<sys:String x:Key="RearRight">..\jurisdiction\DefaultAssets\RearRight.ogg</sys:String>
-	<sys:String x:Key="Center">..\jurisdiction\DefaultAssets\Center.ogg</sys:String>
-    <sys:String x:Key="LowFrequency">..\jurisdiction\DefaultAssets\LowFrequency.ogg"</sys:String>
 
 	<sys:String x:Key="VBD_Helix_ChooseGame">../jurisdiction/DefaultAssets/ui/Videos/Vbd/Helix/VBD_ChooseGame_EN.bk2</sys:String>
 	<sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/DefaultAssets/ui/Videos/Vbd/Helix/VBD_InsertMoney_EN.bk2</sys:String>

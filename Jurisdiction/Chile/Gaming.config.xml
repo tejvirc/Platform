@@ -18,6 +18,7 @@ as follows:
 	<LockupBehavior CashableLockupStrategy="NotAllowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
 	<InGameDisplay DisplayFormat="CreditOrCurrency" />
+    <Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Configurable="true" />
 <!--
 	GameRestrictions Settings:

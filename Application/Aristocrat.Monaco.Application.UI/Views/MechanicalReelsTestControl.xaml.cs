@@ -2,7 +2,6 @@
 {
     using System.Reflection;
     using System.Windows;
-    using System.Windows.Controls;
     using Hardware.Contracts.Reel;
     using Kernel;
     using log4net;
@@ -13,11 +12,12 @@
     /// <summary>
     ///     Interaction logic for MechanicalReelsTestControl.xaml
     /// </summary>
-    public partial class MechanicalReelsTestControl : UserControl
+    public partial class MechanicalReelsTestControl
     {
         private const string GamesPath = "/Games";
+        private const string PackagesPath = "/Packages";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IReelDisplayControl _reelDisplayControl;
 
         public MechanicalReelsTestControl()
@@ -25,13 +25,15 @@
             InitializeComponent();
 
             // Populate the external reels simulation control.
-            var gamePath = ServiceManager.GetInstance().GetService<IPathMapper>()
-                .GetDirectory(GamesPath).FullName;
+            var pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
             var reelCount = ServiceManager.GetInstance().GetService<IReelController>()
                 .ConnectedReels.Count;
 
+            var gamePath = pathMapper.GetDirectory(GamesPath).FullName;
+            var packagesPath = pathMapper.GetDirectory(PackagesPath).FullName;
+
             Simulation.HarkeyReels.Logger.Log += SimulatorLog;
-            var reelsControl = new ReelSetControl(gamePath, reelCount);
+            var reelsControl = new ReelSetControl(gamePath, reelCount, packagesPath);
 
             ReelsWrapper.Child = reelsControl;
 

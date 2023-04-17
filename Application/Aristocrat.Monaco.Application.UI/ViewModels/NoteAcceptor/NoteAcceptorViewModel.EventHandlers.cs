@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
+    using System;
+    using System.Globalization;
     using Common;
     using Contracts;
     using Contracts.Extensions;
@@ -11,8 +13,9 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using System;
-    using System.Globalization;
+#if !RETAIL
+    using Vgt.Client12.Testing.Tools;
+#endif
 
     public partial class NoteAcceptorViewModel
     {
@@ -35,6 +38,9 @@
             EventBus.Subscribe<SelfTestPassedEvent>(this, HandleHardwareNoteAcceptorSelfTestPassedEvent);
             EventBus.Subscribe<SelfTestFailedEvent>(this, HandleHardwareNoteAcceptorSelfTestFailedEvent);
             EventBus.Subscribe<PropertyChangedEvent>(this, HandleEvent, e => e.PropertyName.Equals(PropertyKey.VoucherIn));
+#if !RETAIL
+            EventBus.Subscribe<DebugNoteEvent>(this, HandleDebugNoteEvent);
+#endif
         }
 
         /// <summary>
@@ -120,7 +126,7 @@
             }
 
             UpdateWarningMessage();
-            SetDiagnosticButtonsEnabled(IsEnableAllowedForTesting());
+            SetDiagnosticButtonsEnabled(true);
             UpdateStatus();
         }
 
@@ -202,6 +208,13 @@
             UpdateStatus(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StackedText));
         }
 
+#if !RETAIL
+        private void HandleDebugNoteEvent(DebugNoteEvent @event)
+        {
+            ReturnButtonVisible = true;
+        }
+#endif
+
         private void HandleDocumentRejectedEvent(DocumentRejectedEvent @event)
         {
             UpdateStatus(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RejectedText));
@@ -258,7 +271,7 @@
                 }
             }
 
-            if(@event.Fault.HasFlag(NoteAcceptorFaultTypes.StackerDisconnected) ||
+            if (@event.Fault.HasFlag(NoteAcceptorFaultTypes.StackerDisconnected) ||
                @event.Fault.HasFlag(NoteAcceptorFaultTypes.NoteJammed) ||
                (@event.Fault & NoteAcceptorFaultTypes.OtherFault) != 0)
             {
@@ -270,6 +283,7 @@
         {
             _inspecting = false;
             AddStatusMessage(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText), StatusMode.Error);
+            Inspection?.ReportTestFailure();
             SetDeviceInformation();
         }
 
@@ -284,6 +298,7 @@
         private void HandleHardwareNoteAcceptorSelfTestFailedEvent(SelfTestFailedEvent @event)
         {
             SelfTestCurrentState = SelfTestState.Failed;
+            Inspection?.ReportTestFailure();
             SetDiagnosticButtonsEnabled(true);
         }
     }

@@ -123,6 +123,7 @@
                                 <CheckBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="DataContext.IsValidating" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
+                                        <Binding Path="DataContext.IsDetecting" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
                                         <Binding Path="DataContext.(viewModels:DeviceConfigViewModel.IsRequired)" RelativeSource="{RelativeSource Self}" Mode="OneWay" Converter="{StaticResource InverseBoolConverter}"/>
                                     </MultiBinding>
                                 </CheckBox.IsEnabled>
@@ -142,6 +143,7 @@
                                 <ComboBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="DataContext.IsValidating" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
+                                        <Binding Path="DataContext.IsDetecting" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
                                         <Binding Path="DataContext.(viewModels:DeviceConfigViewModel.CanChange)" RelativeSource="{RelativeSource Self}" Mode="OneWay"/>
                                     </MultiBinding>
                                 </ComboBox.IsEnabled>
@@ -160,8 +162,14 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
                             <common:VariableItemsControl Items="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Ports), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged}"
-                                                         SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                         ComboBoxIsEnabled="{Binding DataContext.IsValidating, RelativeSource={RelativeSource AncestorType=DataGrid}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                                         SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <common:VariableItemsControl.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="DataContext.IsValidating" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
+                                        <Binding Path="DataContext.IsDetecting" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
+                                    </MultiBinding>
+                                </common:VariableItemsControl.IsEnabled>
+                            </common:VariableItemsControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -332,7 +340,14 @@
                    Foreground="{Binding ValidationStatus, Converter={StaticResource BrushConverter}}"/>
         </StackPanel>
 
-        <controls:ProgressRing Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" IsActive="{Binding IsValidating}"/>
+        <controls:ProgressRing Grid.Row="0" Grid.RowSpan="2" Foreground="{StaticResource LightBrush3}" VerticalAlignment="Center">
+            <controls:ProgressRing.IsActive>
+                <MultiBinding Converter="{StaticResource BoolOrConverter}">
+                    <Binding Path="DataContext.IsValidating" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged"/>
+                    <Binding Path="DataContext.IsDetecting" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged"/>
+                </MultiBinding>
+            </controls:ProgressRing.IsActive>
+        </controls:ProgressRing>
     </Grid>
 </operatorMenu:OperatorMenuPage>
 

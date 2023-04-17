@@ -1,5 +1,5 @@
 ﻿namespace Aristocrat.Monaco.G2S.Services
-{
+{ 
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Aristocrat.G2S;
@@ -685,7 +685,9 @@
 
         public async Task RequestHandpay(HandpayTransaction transaction)
         {
-            transaction.PrintTicket = !string.IsNullOrWhiteSpace(transaction.Barcode) || _properties.GetValue(ApplicationConstants.HandpayReceiptPrintingEnabled, true);
+            transaction.PrintTicket = !string.IsNullOrWhiteSpace(transaction.Barcode)
+                                      || _properties.GetValue(ApplicationConstants.HandpayReceiptPrintingEnabled, true)
+                                      || transaction.PrintTicket;
 
             var handpay = _egm.GetDevice<IHandpayDevice>();
             if (handpay == null)
@@ -727,6 +729,8 @@
                 await _retryCommandsQueue.SendAsync(transaction.TransactionId);
             }
         }
+
+        public Task HandpayKeyedOff(HandpayTransaction transaction) => Task.CompletedTask;
 
         private async Task OnKeyedOff(HandpayTransaction transaction)
         {

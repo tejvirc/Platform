@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Interceptor
 {
     using System;
-    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using Grpc.Core;
@@ -9,30 +8,43 @@
 
     public class BingoClientServerStreamingLogger<TRequest> : IAsyncStreamReader<TRequest>
     {
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private readonly ILog _logger;
         private readonly IAsyncStreamReader<TRequest> _caller;
+        private readonly Action _onMessageReceived;
+        private readonly Action<RpcException> _rpcExceptionOccurred;
 
-        private readonly BingoClientInterceptor _bingoClientInterceptor;
-
-        public BingoClientServerStreamingLogger(IAsyncStreamReader<TRequest> caller, BingoClientInterceptor bingoClientInterceptor)
+        public BingoClientServerStreamingLogger(
+            ILog logger,
+            IAsyncStreamReader<TRequest> caller,
+            Action messageReceived,
+            Action<RpcException> rpcExceptionOccurred)
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _caller = caller ?? throw new ArgumentNullException(nameof(caller));
-            _bingoClientInterceptor =
-                bingoClientInterceptor ?? throw new ArgumentNullException(nameof(bingoClientInterceptor));
+            _onMessageReceived = messageReceived ?? throw new ArgumentNullException(nameof(messageReceived));
+            _rpcExceptionOccurred =
+                rpcExceptionOccurred ?? throw new ArgumentNullException(nameof(rpcExceptionOccurred));
         }
 
         public async Task<bool> MoveNext(CancellationToken cancellationToken)
         {
-            var hasNext = await _caller.MoveNext(cancellationToken);
-            if (hasNext)
+            try
             {
-                Logger.Debug($"Received Response: {Current}");
-                _bingoClientInterceptor.OnMessageReceived();
-            }
+                var hasNext = await _caller.MoveNext(cancellationToken).ConfigureAwait(false);
+                if (!hasNext)
+                {
+                    return false;
+                }
 
-            return hasNext;
+                _logger.Debug($"Received Response: {Current}");
+                _onMessageReceived();
+                return true;
+            }
+            catch (RpcException rpcException)
+            {
+                _rpcExceptionOccurred(rpcException);
+                throw;
+            }
         }
 
         public TRequest Current => _caller.Current;

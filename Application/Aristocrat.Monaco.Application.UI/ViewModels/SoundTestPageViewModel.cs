@@ -3,27 +3,31 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.Configuration;
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
+    using Contracts.ConfigWizard;
     using Contracts;
-    using Contracts.HardwareDiagnostics;
     using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using Kernel.Contracts;
+    using log4net;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
     using MVVM;
     using MVVM.Command;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class SoundTestPageViewModel : OperatorMenuSaveViewModelBase
+    public class SoundTestPageViewModel : INotifyPropertyChanged
     {
         private static readonly Guid AudioDisconnectedLock = HardwareConstants.AudioDisconnectedLockKey;
         private static readonly Guid AudioReconnectedLock = HardwareConstants.AudioReconnectedLockKey;
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
 
@@ -39,34 +43,35 @@
         private bool _sideRightSpeaker;
         private bool _previousSystemMuted;
         private readonly IAudio _audio;
+        private readonly IEventBus _eventBus;
         private readonly ISystemDisableManager _disableManager;
+        private readonly IPropertiesManager _propertiesManager;
         private ITimer _playingTimer;
         private SoundFileViewModel _sound;
         private byte _soundLevel;
         private readonly SpeakerMix _enabledSpeakersMask;
         private bool IsAudioServiceAvailable => _audio != null;
-        public SoundTestPageViewModel()
-        {
-            _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
+        private IInspectionService _reporter;
 
-            _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
+        public SoundTestPageViewModel()
+            : this(
+                ServiceManager.GetInstance().GetService<IAudio>(),
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
+        {
+        }
+
+        public SoundTestPageViewModel(IAudio audio, IEventBus eventBus, ISystemDisableManager disableManager, IPropertiesManager propertiesManager)
+        {
+            _audio = audio ?? throw new ArgumentNullException(nameof(audio));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
             _isAudioDisabled = !IsAudioServiceAvailable || !_audio.IsAvailable;
 
-            _enabledSpeakersMask = PropertiesManager.GetValue(ApplicationConstants.EnabledSpeakersMask, SpeakerMix.All);
-
-            if (IsAudioServiceAvailable)
-            {
-                _audio.PlayEnded += OnPlayEnded;
-            }
-            else
-            {
-                Logger.Error("Audio service is not available");
-            }
-
-            _playingTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromMilliseconds(100) };
-
-            _playingTimer.Tick += OnPlayingTimerTick;
+            _enabledSpeakersMask = _propertiesManager.GetValue(ApplicationConstants.EnabledSpeakersMask, SpeakerMix.All);
 
             bool enablePlay = IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled;
 
@@ -93,12 +98,17 @@
             PlayCommandOnRearRightSpeaker = new ActionCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
         }
 
+        public void SetTestReporter(IInspectionService reporter)
+        {
+            _reporter = reporter;
+        }
+
         private void LoadVolumeSettings()
         {
             // Load default volume level
-            _soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _soundLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
-            RaisePropertyChanged(nameof(SoundLevel));
+            OnPropertyChanged(nameof(SoundLevel));
         }
 
         public IActionCommand PlayCommand { get; }
@@ -121,6 +131,21 @@
 
         public IActionCommand PlayCommandOnRearRightSpeaker { get; }
 
+        public bool TestMode
+        {
+            set
+            {
+                if (value)
+                {
+                    Initialize();
+                }
+                else
+                {
+                    UnInitialize();
+                }
+            }
+        }
+
         public bool IsPlaying
         {
             get => _isPlaying;
@@ -132,8 +157,7 @@
                     return;
                 }
 
-                _isPlaying = value;
-                RaisePropertyChanged(nameof(IsPlaying));
+                SetProperty(ref _isPlaying, value, nameof(IsPlaying));
                 PlayCommand?.RaiseCanExecuteChanged();
                 StopCommand?.RaiseCanExecuteChanged();
             }
@@ -150,8 +174,7 @@
                     return;
                 }
 
-                _isAudioDisabled = value;
-                RaisePropertyChanged(nameof(IsAudioDisabled));
+                SetProperty(ref _isAudioDisabled, value, nameof(IsAudioDisabled));
                 PlayCommand?.RaiseCanExecuteChanged();
                 StopCommand?.RaiseCanExecuteChanged();
             }
@@ -168,8 +191,7 @@
                     return;
                 }
 
-                _soundLevel = value;
-                RaisePropertyChanged(nameof(SoundLevel));
+                SetProperty(ref _soundLevel, value, nameof(SoundLevel));
             }
         }
 
@@ -186,8 +208,7 @@
                     return;
                 }
 
-                _sound = value;
-                RaisePropertyChanged(nameof(Sound));
+                SetProperty(ref _sound, value, nameof(Sound));
             }
         }
 
@@ -199,8 +220,7 @@
             {
                 if (_frontLeftSpeaker != value)
                 {
-                    _frontLeftSpeaker = value;
-                    RaisePropertyChanged(nameof(FrontLeftSpeaker));
+                    SetProperty(ref _frontLeftSpeaker, value, nameof(FrontLeftSpeaker));
                 }
             }
         }
@@ -213,8 +233,7 @@
             {
                 if (_frontRightSpeaker != value)
                 {
-                    _frontRightSpeaker = value;
-                    RaisePropertyChanged(nameof(FrontRightSpeaker));
+                    SetProperty(ref _frontRightSpeaker, value, nameof(FrontRightSpeaker));
                 }
             }
         }
@@ -227,8 +246,7 @@
             {
                 if (_centerSpeaker != value)
                 {
-                    _centerSpeaker = value;
-                    RaisePropertyChanged(nameof(CenterSpeaker));
+                    SetProperty(ref _centerSpeaker, value, nameof(CenterSpeaker));
                 }
             }
         }
@@ -241,8 +259,7 @@
             {
                 if (_rearLeftSpeaker != value)
                 {
-                    _rearLeftSpeaker = value;
-                    RaisePropertyChanged(nameof(RearLeftSpeaker));
+                    SetProperty(ref _rearLeftSpeaker, value, nameof(RearLeftSpeaker));
                 }
             }
         }
@@ -255,8 +272,7 @@
             {
                 if (_rearRightSpeaker != value)
                 {
-                    _rearRightSpeaker = value;
-                    RaisePropertyChanged(nameof(RearRightSpeaker));
+                    SetProperty(ref _rearRightSpeaker, value, nameof(RearRightSpeaker));
                 }
             }
         }
@@ -269,8 +285,7 @@
             {
                 if (_sideLeftSpeaker != value)
                 {
-                    _sideLeftSpeaker = value;
-                    RaisePropertyChanged(nameof(SideLeftSpeaker));
+                    SetProperty(ref _sideLeftSpeaker, value, nameof(SideLeftSpeaker));
                 }
             }
         }
@@ -283,8 +298,7 @@
             {
                 if (_sideRightSpeaker != value)
                 {
-                    _sideRightSpeaker = value;
-                    RaisePropertyChanged(nameof(SideRightSpeaker));
+                    SetProperty(ref _sideRightSpeaker, value, nameof(SideRightSpeaker));
                 }
             }
         }
@@ -297,25 +311,32 @@
             {
                 if (_lowFrequencySpeaker != value)
                 {
-                    _lowFrequencySpeaker = value;
-                    RaisePropertyChanged(nameof(LowFrequencySpeaker));
+                    SetProperty(ref _lowFrequencySpeaker, value, nameof(LowFrequencySpeaker));
                 }
             }
         }
 
-        protected override bool IsModalDialog => true;
-
-        protected override void OnLoaded()
+        protected void Initialize()
         {
-            EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Sound));
-            EventBus.Subscribe<EnabledEvent>(this, OnEnabledEvent);
-            EventBus.Subscribe<DisabledEvent>(this, OnDisabledEvent);
+            _eventBus.Subscribe<EnabledEvent>(this, OnEnabledEvent);
+            _eventBus.Subscribe<DisabledEvent>(this, OnDisabledEvent);
+
+            _playingTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromMilliseconds(100) };
+            _playingTimer.Tick += OnPlayingTimerTick;
+
+            if (IsAudioServiceAvailable)
+            {
+                _audio.PlayEnded += OnPlayEnded;
+            }
+            else
+            {
+                Logger.Error("Audio service is not available");
+            }
 
             if (_disableManager.CurrentDisableKeys.Contains(AudioDisconnectedLock) || _disableManager.CurrentDisableKeys.Contains(AudioReconnectedLock))
             {
                 IsPlaying = false;
                 IsAudioDisabled = true;
-                TestModeEnabled = false;
             }
             else
             {
@@ -325,17 +346,42 @@
                 _previousSystemMuted = _audio.GetSystemMuted();
                 _audio.SetSystemMuted(false);
             }
-
-            base.OnLoaded();
         }
 
-        protected override void OnUnloaded()
+        protected void UnInitialize()
         {
             StopSound();
             _audio.SetSystemMuted(_previousSystemMuted);
-            EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Sound));
 
-            base.OnUnloaded();
+            if (IsAudioServiceAvailable)
+            {
+                _audio.PlayEnded -= OnPlayEnded;
+            }
+
+            if (_playingTimer != null)
+            {
+                _playingTimer.Tick -= OnPlayingTimerTick;
+                _playingTimer.Stop();
+                _playingTimer = null;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (field == null && value == null)
+            {
+                return;
+            }
+
+            field = value;
+            OnPropertyChanged(propertyName);
         }
 
         private void StopSound()
@@ -353,6 +399,7 @@
                 return;
             }
 
+            _reporter?.SetTestName($"Play sound {Sound.Name}");
             var path = Sound.Path;
             var volume = _audio.GetVolume(SoundLevel);
 
@@ -369,6 +416,7 @@
                 return;
             }
 
+            _reporter?.SetTestName($"Play on {speaker} speaker");
             var volume = _audio.GetVolume(SoundLevel);
 
             IsPlaying = true;
@@ -499,30 +547,11 @@
             RearRightSpeaker = GetFlag(SpeakerMix.RearRight);
         }
 
-        protected override void DisposeInternal()
-        {
-            if (IsAudioServiceAvailable)
-            {
-                _audio.PlayEnded -= OnPlayEnded;
-            }
-
-            if (_playingTimer != null)
-            {
-                _playingTimer.Tick -= OnPlayingTimerTick;
-                _playingTimer.Stop();
-                _playingTimer = null;
-            }
-
-            base.DisposeInternal();
-        }
-
         private void OnEnabledEvent(IEvent theEvent)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
                 IsAudioDisabled = true;
-                TestModeEnabled = false;
-                DialogResult = false;
             });
         }
 
@@ -532,11 +561,7 @@
             {
                 IsPlaying = false;
                 IsAudioDisabled = true;
-                TestModeEnabled = false;
-                DialogResult = false;
             });
         }
-
-        protected override bool CloseOnRestrictedAccess => true;
     }
 }

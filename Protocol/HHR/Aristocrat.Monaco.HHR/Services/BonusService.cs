@@ -119,38 +119,40 @@
         {
             if (evt.Transaction.TotalAmount == 0) return;
 
+            var trans = evt.Transaction;
+
             try
             {
-                switch (evt.Transaction.PayMethod)
+                switch (trans.PayMethod)
                 {
                     case PayMethod.Any:
                     case PayMethod.Credit:
                         // If credit limit not exceeded, the amount went to credit meter
 
-                        if (evt.Transaction.PaidNonCashAmount != 0)
+                        if (trans.PaidNonCashAmount != 0)
                         {
-                            TrySend(CommandTransactionType.BonusWinToCreditMeter, BonusCreditType.NonCash);
+                            TrySend(trans.PaidNonCashAmount, CommandTransactionType.BonusWinToCreditMeter, BonusCreditType.NonCash);
                         }
 
-                        if (evt.Transaction.PaidCashableAmount != 0)
+                        if (trans.PaidCashableAmount != 0)
                         {
-                            TrySend(CommandTransactionType.BonusWinToCreditMeter, BonusCreditType.Cash);
+                            TrySend(trans.PaidCashableAmount, CommandTransactionType.BonusWinToCreditMeter, BonusCreditType.Cash);
                         }
 
-                        if (evt.Transaction.PaidPromoAmount != 0)
+                        if (trans.PaidPromoAmount != 0)
                         {
-                            TrySend(CommandTransactionType.BonusWinToCreditMeter, BonusCreditType.Promo);
+                            TrySend(trans.PaidPromoAmount, CommandTransactionType.BonusWinToCreditMeter, BonusCreditType.Promo);
                         }
 
                         break;
                     case PayMethod.Voucher:
                         // If credit meter limit exceeded, the amount went to voucher
-                        TrySend(CommandTransactionType.BonusWinToCashableOutTicket, BonusCreditType.Cash);
+                        TrySend(trans.TotalAmount, CommandTransactionType.BonusWinToCashableOutTicket, BonusCreditType.Cash);
 
                         break;
                     case PayMethod.Handpay:
                         // If IRS limit exceeded, the amount went to hand pay
-                        TrySend(CommandTransactionType.BonusWinToHandpayNoReceipt, BonusCreditType.Cash, HandpayType.HandpayTypeCancelledCredits);
+                        TrySend(trans.TotalAmount, CommandTransactionType.BonusWinToHandpayNoReceipt, BonusCreditType.Cash, HandpayType.HandpayTypeCancelledCredits);
 
                         break;
                     default:
@@ -178,7 +180,7 @@
         }
 
         private async Task<TransactionRequest> CreateTransactionRequest(
-            CommandTransactionType transType,
+            long amountMillicents, CommandTransactionType transType,
             uint flags = 0, HandpayType handPayType = HandpayType.HandpayTypeNone)
         {
             return new TransactionRequest
@@ -186,15 +188,16 @@
                 PlayerId = await _playerSessionService.GetCurrentPlayerId(),
                 TransactionId = (uint) _transactionIdProvider.GetNextTransactionId(),
                 TransactionType = transType,
+                Credit = (uint)amountMillicents.MillicentsToCents(),
                 Flags = flags,
                 CashBalance = (uint) _bank.QueryBalance(AccountType.Cashable).MillicentsToCents() +
                               (uint) _bank.QueryBalance(AccountType.Promo).MillicentsToCents(),
-                NonCashBalance = (uint)_bank.QueryBalance(AccountType.NonCash).MillicentsToCents(),
+                NonCashBalance = (uint) _bank.QueryBalance(AccountType.NonCash).MillicentsToCents(),
                 LastGamePlayTime = _propertiesManager.GetValue(HHRPropertyNames.LastGamePlayTime, 0u),
                 GameMapId = await _gameDataService.GetDefaultGameMapIdAsync(),
                 TimeoutInMilliseconds = HhrConstants.MsgTransactionTimeoutMs,
                 RetryCount = HhrConstants.RetryCount,
-                HandpayType = (uint)handPayType,
+                HandpayType = (uint) handPayType,
                 RequestTimeout = new LockupRequestTimeout
                 {
                     LockupKey = HhrConstants.BonusCmdTransactionErrorKey,
@@ -204,14 +207,14 @@
             };
         }
 
-        private async void TrySend(CommandTransactionType transType, BonusCreditType flags, HandpayType handpayType = HandpayType.HandpayTypeNone)
+        private void TrySend(long amountMillicents, CommandTransactionType transType, BonusCreditType flags, HandpayType handpayType = HandpayType.HandpayTypeNone)
         {
             try
             {
-                await _centralManager.Send<TransactionRequest, CloseTranResponse>(
-                    await CreateTransactionRequest(
-                        transType,
-                        (uint) flags, handpayType));
+                // Because SonarQube will freak out if I make this function async void, we have to explicitly wait here.
+                _centralManager.Send<TransactionRequest, CloseTranResponse>(
+                    CreateTransactionRequest(
+                        amountMillicents, transType, (uint) flags, handpayType).Result).Wait();
                 Logger.Debug($"Bonus info sent : (TransType{transType}, Bonus credit type={flags})");
             }
             catch (UnexpectedResponseException respEx)

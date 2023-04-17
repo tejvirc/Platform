@@ -54,20 +54,12 @@
                 </Rectangle>
                 <!--blank-->
                 <Image x:Name="VBDButton3" Stretch="Fill" Source="{DynamicResource VBDButton3}"
-                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueHiddenFalseVisible}}"
-                       Canvas.Left ="210.5" Canvas.Top ="28.5" Width="77" Height="77"
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Image x:Name="VBDButton3Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}"
-                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       Visibility="Visible"
                        Canvas.Left ="210.5" Canvas.Top ="28.5" Width="77" Height="77"
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--blank-->
                 <Image x:Name="VBDButton2" Stretch="Fill" Source="{DynamicResource VBDButton2}"
-                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueHiddenFalseVisible}}"
-                       Canvas.Left ="364.5" Canvas.Top ="28.5" Width="77" Height="77"
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Image x:Name="VBDButton2Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
-                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       Visibility="Visible"
                        Canvas.Left ="364.5" Canvas.Top ="28.5" Width="77" Height="77"
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--prev game-->

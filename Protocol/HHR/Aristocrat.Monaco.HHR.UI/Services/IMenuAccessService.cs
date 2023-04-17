@@ -22,7 +22,7 @@
         /// <summary>
         ///     Unhides the menu
         /// </summary>
-        void Unhide();
+        void UnHide();
 
         /// <summary>
         ///     Sets the host page view

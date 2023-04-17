@@ -10,12 +10,16 @@
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Models;
+    using Monaco.Common;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
+    using Color = System.Drawing.Color;
 
     /// <summary>
     ///     View model for mechanical reels
@@ -24,16 +28,36 @@
     public class MechanicalReelsPageViewModel : DeviceViewModel
     {
         private const int MaxSupportedReels = ReelConstants.MaxSupportedReels;
+        private const int LightsOffTime = 250;
+        
+        private readonly IReelBrightnessCapabilities _brightnessCapabilities;
+        private readonly IEdgeLightingController _edgeLightController;
+        private readonly PatternParameters _solidBlackPattern = new SolidColorPatternParameters
+        {
+            Color = Color.Black,
+            Priority = StripPriority.PlatformTest,
+            Strips = new[]
+            {
+                (int)StripIDs.StepperReel1,
+                (int)StripIDs.StepperReel2,
+                (int)StripIDs.StepperReel3,
+                (int)StripIDs.StepperReel4,
+                (int)StripIDs.StepperReel5
+            }
+        };
 
         private string _reelCount;
-
         private bool _reelsEnabled;
         private bool _lightTestScreenHidden = true;
         private bool _reelTestScreenHidden = true;
         private bool _settingsScreenHidden;
         private bool _selfTestEnabled = true;
+        private int _initialBrightness;
+        private int _brightness;
+        private bool _brightnessChanging;
+        private IEdgeLightToken _offToken;
 
-        public MechanicalReelsPageViewModel() : base(DeviceType.ReelController)
+        public MechanicalReelsPageViewModel(bool isWizard) : base(DeviceType.ReelController, isWizard)
         {
             ShowLightTestCommand = new ActionCommand<object>(_ =>
             {
@@ -56,12 +80,18 @@
                 LightTestViewModel?.CancelTest();
             });
 
-            var edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
-            LightTestViewModel = new(ReelController, edgeLightController);
-            ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen);
+            _edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
+            LightTestViewModel = new(ReelController, _edgeLightController, Inspection);
+            ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen, Inspection);
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
             SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
+            ApplyBrightnessCommand = new ActionCommand<object>(_ => HandleApplyBrightness().FireAndForget());
+
+            if (ReelController.HasCapability<IReelBrightnessCapabilities>())
+            {
+                _brightnessCapabilities = ReelController.GetCapability<IReelBrightnessCapabilities>();
+            }
 
             MinimumBrightness = 1;
             MaximumBrightness = 100;
@@ -94,6 +124,8 @@
                 _lightTestScreenHidden = value;
                 RaisePropertyChanged(nameof(LightTestScreenHidden));
                 RaisePropertyChanged(nameof(LightTestButtonHidden));
+
+                LightTestViewModel.CancelTest();
             }
         }
 
@@ -150,6 +182,24 @@
 
         public ICommand SelfTestClearCommand { get; }
 
+        public ICommand ApplyBrightnessCommand { get; }
+
+        public bool BrightnessChangePending => InitialBrightness != Brightness;
+
+        public bool BrightnessChanging
+        {
+            get => _brightnessChanging;
+
+            set
+            {
+                if (_brightnessChanging != value)
+                {
+                    _brightnessChanging = value;
+                    RaisePropertyChanged(nameof(BrightnessChanging));
+                }
+            }
+        }
+
         public int MinimumBrightness { get; }
 
         public int MaximumBrightness { get; }
@@ -162,13 +212,16 @@
 
         public int Brightness
         {
-            get => ReelController?.DefaultReelBrightness ?? MaximumBrightness;
+            get => _brightness;
 
             set
             {
-                ReelController.DefaultReelBrightness = value;
-                ReelController.SetReelBrightness(value);
-                RaisePropertyChanged(nameof(Brightness));
+                if (_brightness != value)
+                {
+                    _brightness = value;
+                    RaisePropertyChanged(nameof(Brightness));
+                    RaisePropertyChanged(nameof(BrightnessChangePending));
+                }
             }
         }
 
@@ -188,6 +241,45 @@
             }
         }
 
+        public int InitialBrightness
+        {
+            get => _initialBrightness;
+
+            set
+            {
+                if (_initialBrightness != value)
+                {
+                    _initialBrightness = value;
+                    RaisePropertyChanged(nameof(BrightnessChangePending));
+                }
+            }
+        }
+
+        private int ReelControllerDefaultBrightness
+        {
+            get => _brightnessCapabilities?.DefaultReelBrightness ?? MaximumBrightness;
+
+            set
+            {
+                if (_brightnessCapabilities is not null &&
+                    _brightnessCapabilities.DefaultReelBrightness != value)
+                {
+                    _brightnessCapabilities.DefaultReelBrightness = value;
+                }
+            }
+        }
+
+        private void ClearPattern(ref IEdgeLightToken token)
+        {
+            if (token == null)
+            {
+                return;
+            }
+
+            _edgeLightController.RemoveEdgeLightRenderer(token);
+            token = null;
+        }
+
         protected override void OnLoaded()
         {
             base.OnLoaded();
@@ -196,11 +288,13 @@
 
             UpdateWarningMessage();
 
-            Brightness = ReelController?.DefaultReelBrightness ?? MaximumBrightness;
+            Brightness = ReelControllerDefaultBrightness;
+            InitialBrightness = Brightness;
         }
 
         protected override void OnUnloaded()
         {
+            ClearPattern(ref _offToken);
             LightTestViewModel.CancelTest();
             EventBus.UnsubscribeAll(this);
             base.OnUnloaded();
@@ -303,9 +397,20 @@
             RaisePropertyChanged(nameof(TestModeToolTipDisabled));
         }
 
+        private void OnSelfTestCmd(object obj)
+        {
+            SelfTest(false);
+        }
+
+        private void OnSelfTestClearCmd(object obj)
+        {
+            SelfTest(true);
+        }
+
         private async void SelfTest(bool clearNvm)
         {
             SelfTestEnabled = false;
+            Inspection?.SetTestName($"Self test {(clearNvm ? " clear NVM" : "")}");
 
             await Task.Run(() =>
             {
@@ -438,6 +543,34 @@
             return localizedState;
         }
 
+        private async Task HandleApplyBrightness()
+        {
+            BrightnessChanging = true;
+
+            InitialBrightness = Brightness;
+            ReelControllerDefaultBrightness = Brightness;
+
+            if (ReelControllerDefaultBrightness == Brightness)
+            {
+                if (_brightnessCapabilities is not null)
+                {
+                    await _brightnessCapabilities.SetBrightness(Brightness);
+                
+                    ClearPattern(ref _offToken);
+                    _offToken = _edgeLightController.AddEdgeLightRenderer(_solidBlackPattern);
+                    await Task.Delay(LightsOffTime);
+                    ClearPattern(ref _offToken);
+                }
+            }
+            else
+            {
+                Brightness = ReelControllerDefaultBrightness;
+                InitialBrightness = Brightness;
+            }
+
+            BrightnessChanging = false;
+        }
+
         private void HandleEvent(DisconnectedEvent @event)
         {
             UpdateScreen();
@@ -483,11 +616,15 @@
         private void HandleEvent(HardwareFaultEvent @event)
         {
             SetHasFault();
+            Inspection?.SetTestName($"Controller fault {@event.Fault}");
+            Inspection?.ReportTestFailure();
         }
 
         private void HandleEvent(HardwareReelFaultEvent @event)
         {
             SetHasFault();
+            Inspection?.SetTestName($"Reel fault {@event.Fault}");
+            Inspection?.ReportTestFailure();
         }
 
         private void HandleEvent(HardwareDiagnosticTestStartedEvent @event)

@@ -13,6 +13,7 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                FocusManager.FocusedElement="{Binding ElementName=NextButton}"
@@ -47,7 +48,7 @@
         </i:Interaction.Triggers>
 
         <Viewbox Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
-            <Image Source="../Resources/AristocratLogoPortrait.png" />
+            <Image Source="{Binding PortraitLogoFilePath}" />
         </Viewbox>
 
         <Grid Grid.Row="1">
@@ -78,20 +79,28 @@
                             Margin="20,10,20,0"
                             Content="{Binding CurrentPage}" />
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal"
-                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                        Margin="20">
-                <Button Name="BackButton" Command="{Binding BackButtonClicked}"
+            <Grid Grid.Row="2"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                  Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <views:InspectionIdControl HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Button Grid.Column="2"
+                        Name="BackButton" Command="{Binding BackButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
-                        IsEnabled="{Binding CanNavigateBackward}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Name="NextButton" Command="{Binding NextButtonClicked}"
+                <Button Grid.Column="3"
+                        Name="NextButton" Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
-                        IsEnabled="{Binding CanNavigateForward}"
                         Margin="0" controls:ControlsHelper.CornerRadius="3" />
-            </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </operatorMenu:OperatorMenuPage>

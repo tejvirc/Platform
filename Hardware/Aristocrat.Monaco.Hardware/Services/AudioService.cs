@@ -159,12 +159,12 @@
         {
             lock (_lock)
             {
-                // TODO: This is just stopping the last played file
                 if (!IsPlaying())
                 {
                     _callbackQueue.TryDequeue(out _);
                 }
 
+                Logger.Debug("Audio stopped");
                 _channel?.stop();
             }
         }
@@ -179,6 +179,7 @@
 
             lock (_lock)
             {
+                Logger.Debug("Audio stopped");
                 _channel?.stop();
             }
         }
@@ -190,7 +191,6 @@
             {
                 var playing = false;
 
-                // TODO: This is just getting the status of the last played file
                 _channel?.isPlaying(ref playing);
 
                 return playing;

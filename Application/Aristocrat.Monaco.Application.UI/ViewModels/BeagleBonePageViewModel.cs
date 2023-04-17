@@ -2,16 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM.Command;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class BeagleBonePageViewModel : OperatorMenuPageViewModelBase
+    public class BeagleBonePageViewModel : InspectionWizardViewModelBase
     {
         private readonly IBeagleBoneController _beagleBoneController;
 
@@ -29,40 +30,9 @@
 
         private string _showOverrideSelection;
 
-        public static Dictionary<string, string> LightShowChoices =>
-            new Dictionary<string, string>
-            {
-                {
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DefaultBeagleBoneLightShowText),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DefaultBeagleBoneLightShowText)
-                },
-                {
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AttractBeagleBoneLightShowText),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AttractBeagleBoneLightShowText)
-                },
-                {
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StartBeagleBoneLightShowText),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StartBeagleBoneLightShowText)
-                },
-                {
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.REDSBeagleBoneLightShowText),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.REDSBeagleBoneLightShowText)
-                },
-                {
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NormalWinBeagleBoneLightShowText),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NormalWinBeagleBoneLightShowText)
-                },
-                {
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GoodWinBeagleBoneLightShowText),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GoodWinBeagleBoneLightShowText)
-                },
-                {
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BigWinBeagleBoneLightShowText),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BigWinBeagleBoneLightShowText)
-                }
-            };
+        public IList<string> LightShowChoices => _shows.Keys.ToList();
 
-        public BeagleBonePageViewModel()
+        public BeagleBonePageViewModel(bool isWizard) : base(isWizard)
         {
             _beagleBoneController = ServiceManager.GetInstance().GetService<IBeagleBoneController>();
 
@@ -87,9 +57,23 @@
             }
         }
 
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
+        }
+
         private void SendShow()
         {
             var show = _shows[_showOverrideSelection];
+
+            Inspection?.SetTestName($"Light show '{_showOverrideSelection}'");
 
             _beagleBoneController.SendShow(show);
         }

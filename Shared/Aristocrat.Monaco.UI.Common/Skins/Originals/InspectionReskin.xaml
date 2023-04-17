@@ -1,0 +1,112 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <FontFamily x:Key="MonacoFontFamily">Helvetica</FontFamily>
+    <FontFamily x:Key="ContentFontFamily">Helvetica</FontFamily>
+
+    <system:Double x:Key="ContentFontSize">18</system:Double>
+    <system:Double x:Key="ClearTextButtonFontSize">16</system:Double>
+    <system:Double x:Key="UpperCaseContentFontSize">10</system:Double>
+    <system:Double x:Key="HeaderFontSize">40</system:Double>
+    <system:Double x:Key="SubHeaderFontSize">29.333</system:Double>
+    <system:Double x:Key="WindowTitleFontSize">16</system:Double>
+    <system:Double x:Key="NormalFontSize">18</system:Double>
+    <system:Double x:Key="FlatButtonFontSize">14</system:Double>
+    <system:Double x:Key="TabItemFontSize">26.67</system:Double>
+    <system:Double x:Key="FloatingWatermarkFontSize">10</system:Double>
+    <system:Double x:Key="LabelFontSize">24</system:Double>
+    <system:Double x:Key="ContextMenuFontSize">14</system:Double>
+    <system:Double x:Key="RadioButtonFontSize">16</system:Double>
+    <system:Double x:Key="ButtonFontSize">18</system:Double>
+    <system:Double x:Key="SmallLabelFontSize">20</system:Double>
+
+    <Thickness x:Key="GroupBoxHeaderThemePadding">4</Thickness>
+
+    <Color x:Key="GreenColor">#32CD32</Color>
+    <Color x:Key="YellowColor">#FFFFFF00</Color>
+    <Color x:Key="RedColor">#FFFF0000</Color>
+    
+    <Color x:Key="DarkColor1">#FF262626</Color>
+    <Color x:Key="DarkColor2">#FF282828</Color>
+    <Color x:Key="DarkColor3">#FF292929</Color>
+    <Color x:Key="DarkColor4">#FF353535</Color>
+
+    <Color x:Key="Color1">#FF443333</Color>
+    <Color x:Key="Color2">#FF665544</Color>
+    <Color x:Key="Color3">#FF887755</Color>
+    <Color x:Key="Color4">#FFAA9966</Color>
+    <Color x:Key="Color5">#FFCCBB77</Color>
+    <Color x:Key="Color6">#FFEEDD88</Color>
+
+    <Color x:Key="LightColor1">#FFBB9966</Color>
+    <Color x:Key="LightColor2">#FFCCAA77</Color>
+    <Color x:Key="LightColor3">#FFDDBB88</Color>
+    <Color x:Key="LightColor4">#FFEECC99</Color>
+    <Color x:Key="LightColor5">#FFFFDDAA</Color>
+
+    <Color x:Key="MediumGray">#A9A9A9</Color>
+
+    <Color x:Key="HighlightColor1">#FFEEDDCC</Color>
+
+    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource MediumGray}" />
+    <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource GreenColor}" />
+    <SolidColorBrush x:Key="YellowBrush" Color="{StaticResource YellowColor}" />
+    <SolidColorBrush x:Key="RedBrush" Color="{StaticResource RedColor}" />
+    
+    <SolidColorBrush x:Key="DarkBrush1" Color="{StaticResource DarkColor1}" />
+    <SolidColorBrush x:Key="DarkBrush2" Color="{StaticResource DarkColor2}" />
+    <SolidColorBrush x:Key="DarkBrush3" Color="{StaticResource DarkColor3}" />
+    <SolidColorBrush x:Key="DarkBrush4" Color="{StaticResource DarkColor4}" />
+
+    <SolidColorBrush x:Key="Brush1" Color="{StaticResource Color1}" />
+    <SolidColorBrush x:Key="Brush2" Color="{StaticResource Color2}" />
+    <SolidColorBrush x:Key="Brush3" Color="{StaticResource Color3}" />
+    <SolidColorBrush x:Key="Brush4" Color="{StaticResource Color4}" />
+    <SolidColorBrush x:Key="Brush5" Color="{StaticResource Color5}" />
+    <SolidColorBrush x:Key="Brush6" Color="{StaticResource Color6}" />
+
+    <SolidColorBrush x:Key="LightBrush1" Color="{StaticResource LightColor1}" />
+    <SolidColorBrush x:Key="LightBrush2" Color="{StaticResource LightColor2}" />
+    <SolidColorBrush x:Key="LightBrush3" Color="{StaticResource LightColor3}" />
+    <SolidColorBrush x:Key="LightBrush4" Color="{StaticResource LightColor4}" />
+    <SolidColorBrush x:Key="LightBrush5" Color="{StaticResource LightColor5}" />
+
+    <SolidColorBrush x:Key="HighlightBrush1" Color="{StaticResource HighlightColor1}" />
+
+    <SolidColorBrush x:Key="MonacoDataGrid.HighlightBrush" Color="{StaticResource Color3}" />
+    <SolidColorBrush x:Key="MonacoDataGrid.HighlightTextBrush" Color="{StaticResource LightColor5}" />
+    <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightBrush" Color="#FF444444" />
+    <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightTextBrush" Color="{StaticResource Color5}" />
+    <SolidColorBrush x:Key="MonacoDataGrid.DisabledHighlightBrush" Color="{DynamicResource Gray7}" />
+
+    <SolidColorBrush x:Key="ControlsDisabledBrush" Color="{DynamicResource Color2}" />
+
+    <LinearGradientBrush x:Key="ConfigTitleBarBrush" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="{StaticResource LightColor1}" Offset="0.0" />
+                <GradientStop Color="{StaticResource DarkColor1}" Offset="1.0" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="FocusBorderBrush" StartPoint="1,1" EndPoint="0,0">
+        <GradientStop Color="{DynamicResource Color3}"
+                      Offset="0"/>
+        <GradientStop Color="{DynamicResource LightColor5}"
+                      Offset=".8"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MouseOverHighlightBrush" StartPoint="1,1" EndPoint="0,0">
+        <GradientStop Color="{DynamicResource Color4}"
+                      Offset="0"/>
+        <GradientStop Color="{DynamicResource LightColor5}"
+                      Offset=".8"/>
+    </LinearGradientBrush>
+
+</ResourceDictionary>

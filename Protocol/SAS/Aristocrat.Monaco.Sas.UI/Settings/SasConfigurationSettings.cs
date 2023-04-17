@@ -11,6 +11,7 @@
     using Kernel;
     using MVVM;
     using Storage.Models;
+    using Gaming.Contracts;
 
     /// <summary>
     ///     Implements <see cref="IConfigurationSettings"/> for SAS settings.
@@ -98,15 +99,44 @@
             var hosts = _properties.GetValue(SasProperties.SasHosts, Enumerable.Empty<Host>()).ToList();
             var portAssignment = _properties.GetValue(SasProperties.SasPortAssignments, new PortAssignment());
             var featureSettings = _properties.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
-
-            var sasHostSettings = hosts.Select(x => (SasHostSetting)x);
+            var hostDisableCashoutAction = _properties.GetValue(GamingConstants.LockupBehavior, CashableLockupStrategy.Allowed);
+            var sasHostSettings = hosts.Where(host => host.SasAddress is not 0).Select(x => (SasHostSetting)x);
+            var extendedMetersSupported = _properties.GetValue(SasProperties.ExtendedMetersSupportedKey, false);
+            var ticketsToDropMeters = _properties.GetValue(SasProperties.TicketsToDropMetersKey, true);
+            var meterModel = _properties.GetValue(SasProperties.MeterModelKey, SasMeterModel.NotSpecified);
+            var jackpotKeyoffExceptionSupported = _properties.GetValue(SasProperties.JackpotKeyoffExceptionSupportedKey, false);
+            var multiDenomExtensionsSupported = _properties.GetValue(SasProperties.MultiDenomExtensionsSupportedKey, false);
+            var maxPollingRateSupported = _properties.GetValue(SasProperties.MaxPollingRateSupportedKey, false);
+            var multipleSasProgressiveWinReportingSupported = _properties.GetValue(SasProperties.MultipleSasProgressiveWinReportingSupportedKey, false);
+            var meterChangeNotificationSupported = _properties.GetValue(SasProperties.MeterChangeNotificationSupportedKey, false);
+            var sessionPlaySupported = _properties.GetValue(SasProperties.SessionPlaySupportedKey, false);
+            var foreignCurrencyRedemptionSupported = _properties.GetValue(SasProperties.ForeignCurrencyRedemptionSupportedKey, false);
+            var enhancedProgressiveDataReporting = _properties.GetValue(SasProperties.EnhancedProgressiveDataReportingKey, false);
+            var maxProgressivePaybackSupported = _properties.GetValue(SasProperties.MaxProgressivePaybackSupportedKey, false);
+            var changeAssetNumberSupported = _properties.GetValue(SasProperties.ChangeAssetNumberSupportedKey, false);
+            var changeFloorLocationSupported = _properties.GetValue(SasProperties.ChangeFloorLocationSupportedKey, false);
 
             return await Task.FromResult(
                 new MachineSettings
                 {
                     SasHostSettings = new ObservableCollection<SasHostSetting>(sasHostSettings),
                     PortAssignmentSetting = (PortAssignmentSetting)portAssignment,
-                    SasFeaturesSettings = (SasFeaturesSettings)featureSettings
+                    SasFeaturesSettings = (SasFeaturesSettings)featureSettings,
+                    HostDisableCashoutAction = hostDisableCashoutAction,
+                    ExtendedMetersSupported = extendedMetersSupported,
+                    TicketsToDropMeters = ticketsToDropMeters,
+                    MeterModel = meterModel,
+                    JackpotKeyoffExceptionSupported = jackpotKeyoffExceptionSupported,
+                    MultiDenomExtensionsSupported = multiDenomExtensionsSupported,
+                    MaxPollingRateSupported = maxPollingRateSupported,
+                    MultipleSasProgressiveWinReportingSupported = multipleSasProgressiveWinReportingSupported,
+                    MeterChangeNotificationSupported = meterChangeNotificationSupported,
+                    SessionPlaySupported = sessionPlaySupported,
+                    ForeignCurrencyRedemptionSupported = foreignCurrencyRedemptionSupported,
+                    EnhancedProgressiveDataReporting = enhancedProgressiveDataReporting,
+                    MaxProgressivePaybackSupported = maxProgressivePaybackSupported,
+                    ChangeAssetNumberSupported = changeAssetNumberSupported,
+                    ChangeFloorLocationSupported = changeFloorLocationSupported
                 });
         }
 
@@ -114,7 +144,9 @@
         {
             _properties.SetProperty(SasProperties.SasFeatureSettings, (SasFeatures)settings.SasFeaturesSettings);
             _properties.SetProperty(SasProperties.SasPortAssignments, (PortAssignment)settings.PortAssignmentSetting);
-            _properties.SetProperty(SasProperties.SasHosts, settings.SasHostSettings.Select(x => (Host)x).ToList());
+            _properties.SetProperty(SasProperties.SasHosts, settings.SasHostSettings.Where(host => host.SasAddress is not 0).Select(x => (Host)x).ToList());
+            _properties.SetProperty(GamingConstants.LockupBehavior, settings.HostDisableCashoutAction);
+
             await Task.CompletedTask;
         }
     }

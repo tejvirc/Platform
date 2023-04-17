@@ -23,6 +23,6 @@
         ///     Within the context of a central determinant game, the finite deal (wagered amount, won amount, play count and
         ///     payback percentage) is assigned to a wager category within a paytable
         /// </remarks>
-        int WagerCategory { get; }
+        int TemplateId { get; }
     }
 }

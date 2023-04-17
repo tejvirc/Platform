@@ -3,15 +3,15 @@
     using System;
     using System.Windows.Input;
     using Aristocrat.Monaco.Localization.Properties;
+    using ConfigWizard;
     using Contracts;
     using Contracts.Extensions;
     using Hardware.Contracts.Bell;
     using Kernel;
     using MVVM.Command;
-    using OperatorMenu;
 
     [CLSCompliant(false)]
-    public class BellPageViewModel : OperatorMenuPageViewModelBase
+    public class BellPageViewModel : InspectionWizardViewModelBase
     {
         private readonly IBell _bell;
         private readonly long _maxBellValue;
@@ -22,12 +22,12 @@
         private decimal _initialBellValue;
         private decimal _intervalBellValue;
 
-        public BellPageViewModel()
-            :this(ServiceManager.GetInstance().TryGetService<IBell>())
+        public BellPageViewModel(bool isWizard)
+            :this(ServiceManager.GetInstance().TryGetService<IBell>(), isWizard)
         {
         }
 
-        public BellPageViewModel(IBell bell)
+        public BellPageViewModel(IBell bell, bool isWizard) : base(isWizard)
         {
             _bell = bell;
             _maxBellValue = PropertiesManager.GetValue(ApplicationConstants.MaxBellRing, 0L);
@@ -149,6 +149,18 @@
             UpdateProperties();
         }
 
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
+        }
+
         protected override void OnInputStatusChanged()
         {
             if (!InputEnabled)
@@ -194,16 +206,20 @@
 
         private void StartBell()
         {
+            Inspection?.SetTestName("On");
             _bell?.RingBell();
         }
 
         private void StopBell()
         {
+            Inspection?.SetTestName("Off");
             _bell?.StopBell();
         }
 
         private void RingBell_Click(object o)
         {
+            Inspection?.SetTestName($"Ring at {InitialBellValue}sec, repeat after {IntervalBellValue}sec");
+
             _bell?.RingBell(TimeSpan.FromSeconds(3));
             UpdateProperties();
         }

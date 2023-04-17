@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
@@ -441,8 +443,9 @@
                 if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
                 {
                     Logger.Debug("Sending InitiateRecovery Trigger");
+                    var action = !unexpected ? LobbyTrigger.InitiateRecovery : LobbyTrigger.GameUnexpectedExit;
                     SendTrigger(
-                        LobbyTrigger.InitiateRecovery,
+                        action,
                         CurrentState == LobbyState.Game &&
                         unexpected); //only check with runtime if we get an unexpected exit during game state.
                 }
@@ -474,6 +477,12 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
+                    if (PlayerMenuPopupViewModel.IsMenuVisible)
+                    {
+                        PlayerMenuPopupViewModel.IsMenuVisible = false;
+                        HandleMessageOverlayVisibility();
+                    }
+
                     Credits = OverlayMessageUtils.ToCredits(platformEvent.NewBalance);
                     CheckForExitGame();
                     OnUserInteraction();
@@ -553,9 +562,15 @@
             if (CurrentState != LobbyState.Disabled &&
                 bonusEvent.Transaction.Mode != BonusMode.GameWin)
             {
+                if (bonusEvent.Transaction.Protocol == CommsProtocol.SAS)
+                {
+                    CashInStarted(CashInType.Wat, false);
+                    return;
+                }
+
                 CashInStarted(CashInType.Wat);
             }
-            
+
             if (bonusEvent.Transaction.Mode == BonusMode.GameWin &&
                 bonusEvent.Transaction.PayMethod == PayMethod.Voucher)
             {
@@ -563,16 +578,22 @@
             }
         }
 
+        private bool BonusTransferPlaySound => (bool)_properties.GetProperty(GamingConstants.BonusTransferPlaySound, true);
+
         private void HandleEvent(PartialBonusPaidEvent bonusEvent)
         {
-            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusAwardedEvent bonusEvent)
         {
-            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusFailedEvent bonusEvent)
@@ -621,6 +642,7 @@
         private void HandleEvent(TransferOutFailedEvent platformEvent)
         {
             Logger.Debug("Detected TransferOutFailedEvent");
+            MessageOverlayDisplay.TransferOutFailed(platformEvent);
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
@@ -705,6 +727,7 @@
 
         private void HandleEvent(WatTransferInitiatedEvent platformEvent)
         {
+            MessageOverlayDisplay.WatTransferInitiated(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -720,6 +743,7 @@
 
         private void HandleEvent(VoucherOutStartedEvent platformEvent)
         {
+            MessageOverlayDisplay.VoucherOutStarted(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -728,35 +752,46 @@
         {
             Logger.Debug($"Detected HandpayStartedEvent.  HandpayType: {platformEvent.Handpay}");
 
+            MessageOverlayDisplay.HandpayStarted(platformEvent);
+
             SetEdgeLighting();
 
             var payResetMethod = _properties.GetValue(AccountingConstants.LargeWinHandpayResetMethod, LargeWinHandpayResetMethod.PayByHand);
-            if (payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection &&
-                platformEvent.EligibleResetToCreditMeter)
+            if (payResetMethod == LargeWinHandpayResetMethod.PayByMenuSelection && platformEvent.EligibleResetToCreditMeter)
             {
                 _eventBus.Subscribe<DownEvent>(
                     this,
-                    evt =>
+                    async (_, t) =>
                     {
-                        if (!IsSelectPayModeVisible)
+                        if (!MessageOverlayDisplay.IsSelectPayModeVisible)
                         {
-                            IsSelectPayModeVisible = true;
-                            _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, true);
-                            SelectedMenuSelectionPayOption = MenuSelectionPayOption.ReturnToLockup;
+                            MvvmHelper.ExecuteOnUI(
+                                () =>
+                                {
+                                    MessageOverlayDisplay.IsSelectPayModeVisible = true;
+                                    SelectedMenuSelectionPayOption = MenuSelectionPayOption.ReturnToLockup;
+                                    HandleMessageOverlayText();
+                                    _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, true);
+                                });
                         }
                         else
                         {
-                            IsSelectPayModeVisible = false;
-                            _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, false);
+                            MvvmHelper.ExecuteOnUI(() =>
+                            {
+                                MessageOverlayDisplay.IsSelectPayModeVisible = false;
+                                HandleMessageOverlayText();
+                                _properties.SetProperty(AccountingConstants.MenuSelectionHandpayInProgress, false);
+                            });
+
                             if (_selectedMenuSelectionPayOption != MenuSelectionPayOption.ReturnToLockup)
                             {
-                                _eventBus.Unsubscribe<DownEvent>(this);
+                                await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), t);
                             }
                         }
                     }, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
             }
 
-            if (platformEvent.Handpay == HandpayType.GameWin)
+            if (platformEvent.Handpay is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 PlayGameWinHandPaySound();
             }
@@ -766,16 +801,19 @@
             }
         }
 
-        private void HandleEvent(HandpayCanceledEvent platformEvent)
+        private async Task HandleEvent(HandpayCanceledEvent platformEvent, CancellationToken token)
         {
-            _eventBus.Unsubscribe<DownEvent>(this);
+            MessageOverlayDisplay.HandpayCancelled();
+            await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
         }
-        private void HandleEvent(HandpayKeyedOffEvent platformEvent)
-        {
-            _eventBus.Unsubscribe<DownEvent>(this);
 
-            if (platformEvent.Transaction.HandpayType == HandpayType.GameWin)
+        private async Task HandleEvent(HandpayKeyedOffEvent platformEvent, CancellationToken token)
+        {
+            MessageOverlayDisplay.HandpayKeyedOff(platformEvent);
+            await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
+
+            if (platformEvent.Transaction.HandpayType is HandpayType.GameWin or HandpayType.BonusPay)
             {
                 _playCollectSound = false;
                 _audio.Stop();
@@ -813,6 +851,7 @@
             // If game is ready but not loaded due to disable, load it now
             if (GameReady)
             {
+                Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
                 MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameLoaded));
             }
         }
@@ -1062,9 +1101,9 @@
                 {
                     // VLT-4160:  Set this so that we can reset localization after going to the Operator Menu
                     // A few pages in the operator menu share resources with the lobby, but the Operator Menu
-                    // is not localized to the same language as the lobby.  Currently we change the Resource 
+                    // is not localized to the same language as the lobby.  Currently we change the Resource
                     // Culture when we move to the Operator Menu so that everything works and then change it back
-                    // when we exit the Operator Menu.  We probably need a better solution in the future.    
+                    // when we exit the Operator Menu.  We probably need a better solution in the future.
 
                     _printingHelplineWhileResponsibleGamingReset = ContainsAnyState(LobbyState.PrintHelpline);
                     _responsibleGamingInfoWhileResponsibleGamingReset = ContainsAnyState(
@@ -1076,7 +1115,7 @@
                     //    Resources.Culture = new CultureInfo(EnglishCultureCode);
                     //}
 
-                    // set this so that if we go to the operator menu while a responsible gaming dialog is up, 
+                    // set this so that if we go to the operator menu while a responsible gaming dialog is up,
                     // we can restore the dialog on operator menu exit.
                     _responsibleGamingDialogResetWhenOperatorMenuEntered = ResetResponsibleGamingDialog(true);
 
@@ -1134,7 +1173,7 @@
 
             _responsibleGamingDialogResetWhenOperatorMenuEntered = false;
 
-            // VLT-4160:  Change back to the Resource Localization Culture that we had prior to 
+            // VLT-4160:  Change back to the Resource Localization Culture that we had prior to
             // entering the Operator Menu
             //if (Resources.Culture.Name.ToUpper() != _localeCodePreOperatorMenu)
             //{
@@ -1318,6 +1357,7 @@
             // We are waiting for a handpay key off--stop the cash out dialog timer and reset the dialog state
             _cashOutTimer?.Stop();
             CashOutDialogState = LobbyCashOutDialogState.Visible;
+            MvvmHelper.ExecuteOnUI(HandleMessageOverlayVisibility);
         }
 
         private void HandleEvent(SessionInfoEvent evt)
@@ -1348,9 +1388,6 @@
             {
                 case LobbySettingType.ServiceButtonVisible:
                     GetServiceButtonVisible();
-                    break;
-                case LobbySettingType.VolumeButtonVisible:
-                    GetVolumeButtonVisible();
                     break;
                 case LobbySettingType.ShowTopPickBanners:
                     MvvmHelper.ExecuteOnUI(LoadGameInfo);
@@ -1432,7 +1469,7 @@
                     {
                         PlayerMenuPopupViewModel.IsMenuVisible = true;
 
-                        // Reset the attract timer so that it doesn't close while 
+                        // Reset the attract timer so that it doesn't close while
                         // a player is adjusting the volume or brightness
                         StartAttractTimer();
                     }

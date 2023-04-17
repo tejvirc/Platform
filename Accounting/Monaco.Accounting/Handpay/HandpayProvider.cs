@@ -154,6 +154,7 @@
             {
                 Logger.Info($"Recovering handpay transaction: {transaction}");
 
+                IHandpayValidator validator = null;
                 if (transaction.State == HandpayState.Pending || transaction.State == HandpayState.Requested)
                 {
                     var voucher = _transactions.RecallTransactions<VoucherOutTransaction>()
@@ -180,7 +181,7 @@
 
                     var keyOff = Initiate(transaction);
 
-                    var validator = _validationProvider.GetHandPayValidator(true);
+                    validator = _validationProvider.GetHandPayValidator(true);
                     if (validator == null)
                     {
                         Logger.Info($"No validator or validation is currently not allowed - {transactionId}");
@@ -210,13 +211,13 @@
                         Logger.Error($"Failed to acquire printer: {transaction}");
                     }
 
-                    return await IssueReceipt(printer, transaction);
+                    return await IssueReceipt(printer, validator, transaction);
                 }
 
                 if (transaction.State == HandpayState.Committed && transaction.PrintTicket && !transaction.Printed &&
                     _properties.GetValue(AccountingConstants.HandpayReceiptsRequired, false))
                 {
-                    return await FinishPrintingHandpay(transaction, cancellationToken);
+                    return await FinishPrintingHandpay(validator, transaction, cancellationToken);
                 }
             }
 
@@ -225,7 +226,7 @@
             return false;
         }
 
-        private async Task<bool> FinishPrintingHandpay(HandpayTransaction transaction, CancellationToken cancellationToken)
+        private async Task<bool> FinishPrintingHandpay(IHandpayValidator validator, HandpayTransaction transaction, CancellationToken cancellationToken)
         {
             Logger.Debug("FinishPrintingHandpay");
 
@@ -245,9 +246,9 @@
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReceiptPrintingFailedInfo));
             }
 
-            _bus.Publish(new HandpayKeyedOffEvent(transaction));
+            HandpayKeyedOff(validator, transaction);
 
-            return await IssueReceipt(printer, transaction);
+            return await IssueReceipt(printer, validator, transaction);
         }
 
         private async Task<TransferResult> Transfer(
@@ -273,7 +274,7 @@
                 nonCashAmount = 0L;
             }
 
-            var validator = _validationProvider.GetHandPayValidator();
+            var validator = _validationProvider.GetHandPayValidator(true);
             if (validator == null)
             {
                 Logger.Info($"No validator or validation is currently not allowed - {transactionId}");
@@ -344,7 +345,7 @@
 
                 transaction.PrintTicket = IsPrintReceiptEnable(transaction);
                 var printer = transaction.PrintTicket ? await GetPrinter(cancellationToken) : null;
-                if (!await IssueReceipt(printer, transaction))
+                if (!await IssueReceipt(printer, validator, transaction))
                 {
                     return TransferResult.Failed;
                 }
@@ -593,9 +594,16 @@
 
             _systemDisable.Enable(ApplicationConstants.HandpayPendingDisableKey);
 
-            _bus.Publish(new HandpayKeyedOffEvent(transaction));
+            HandpayKeyedOff(validator, transaction);
 
             return await Task.FromResult(true);
+        }
+
+        private void HandpayKeyedOff(IHandpayValidator validator, HandpayTransaction transaction)
+        {
+            validator.HandpayKeyedOff(transaction);
+
+            _bus.Publish(new HandpayKeyedOffEvent(transaction));
         }
 
         private void ToHandpay(HandpayTransaction transaction)
@@ -675,7 +683,7 @@
             return result.Success;
         }
 
-        private async Task<bool> IssueReceipt(IPrinter printer, HandpayTransaction transaction)
+        private async Task<bool> IssueReceipt(IPrinter printer, IHandpayValidator validator, HandpayTransaction transaction)
         {
             var handpayTransaction = _transactions.RecallTransactions<HandpayTransaction>()
                 .First(t => t.TransactionId == transaction.TransactionId);
@@ -701,7 +709,7 @@
                         _handpayPrintRetry.Reset();
                         _bus.Subscribe<Hardware.Contracts.Printer.EnabledEvent>(this, async (_, token) =>
                         {
-                            if (printer.Enabled && await FinishPrintingHandpay(handpayTransaction, token))
+                            if (printer.Enabled && await FinishPrintingHandpay(validator, handpayTransaction, token))
                             {
                                 Logger.Info($"Handpay completed after printer reconnected: {handpayTransaction}");
 
@@ -718,7 +726,7 @@
                     }
 
                     await Task.Delay(PrintRetryDelay);
-                    return await FinishPrintingHandpay(handpayTransaction, CancellationToken.None);
+                    return await FinishPrintingHandpay(validator, handpayTransaction, CancellationToken.None);
                 }
 
                 Task Commit()

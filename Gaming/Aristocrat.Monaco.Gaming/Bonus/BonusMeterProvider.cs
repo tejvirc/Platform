@@ -19,8 +19,6 @@
     public class BonusMeterProvider : BaseMeterProvider
     {
         private const PersistenceLevel Level = PersistenceLevel.Critical;
-        private readonly bool _rolloverTest;
-        private readonly IPropertiesManager _propertiesManager;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IMeterManager _meterManager;
 
@@ -35,13 +33,12 @@
             Tuple.Create<string, MeterClassification>(BonusMeters.EgmPaidBonusCount, new OccurrenceMeterClassification()),
         };
 
-        public BonusMeterProvider(IPersistentStorageManager storage, IMeterManager meterManager, IPropertiesManager propertiesManager)
+        public BonusMeterProvider(IPersistentStorageManager storage, IMeterManager meterManager)
             : base(@"Aristocrat.Monaco.Gaming.BonusMeterProvider")
         {
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
-            _rolloverTest = _propertiesManager.GetValue(@"maxmeters", "false") == "true";
+            RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
 
             AddMeters(storage.GetAccessor(Level, Name));
 
@@ -56,34 +53,6 @@
                 AddMeter(atomicMeter);
                 SetupMeterRolloverTest(atomicMeter);
             }
-        }
-
-        private void SetupMeterRolloverTest(IMeter meter)
-        {
-            if (!_rolloverTest)
-            {
-                return;
-            }
-
-            if (meter == null || meter.Lifetime != 0)
-            {
-                return;
-            }
-
-            var preRollover = meter.Classification.UpperBounds;
-            if (meter.Classification.GetType() == typeof(CurrencyMeterClassification))
-            {
-                var currencyMultiplier = _propertiesManager.GetValue(ApplicationConstants.CurrencyMultiplierKey, ApplicationConstants.DefaultCurrencyMultiplier);
-                var oneCent = currencyMultiplier / (int)CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit;
-                preRollover -= (long)oneCent;
-            }
-            else
-            {
-                preRollover -= 1;
-            }
-
-            Logger.Debug($"Incrementing meter: {meter.Name} to {preRollover}");
-            meter.Increment(preRollover);
         }
 
         private void AddCompositeMeters()

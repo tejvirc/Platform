@@ -7,6 +7,7 @@
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:common="http://monaco.aristocrat.com/common"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DataContext="{d:DesignInstance Type=viewModels:DisplayColorTestsViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" x:Name="ColorTestWindow" Height="720" Width="1024" >
     <common:BaseWindow.Resources>
@@ -16,6 +17,11 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
+
+    <i:Interaction.Behaviors>
+        <common:TouchWindowBehavior />
+        <common:HighDpiWindowBehavior/>
+    </i:Interaction.Behaviors>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -39,8 +45,8 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Orientation="Horizontal" Name="ControlsPanel" Background="{StaticResource Brush1}">
-            <ComboBox Margin="100 10 10 10" ItemsSource="{Binding ColorTests}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTest}" SelectedIndex="0"></ComboBox>
-            <Button Padding="10 0 10 0" Margin="10"  Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Click="OnExitButtonPressed"/>
+            <ComboBox Margin="100 10 10 10" ItemsSource="{Binding ColorTests}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTest}" SelectedIndex="0" Name="ColorTestsComboBox"/>
+            <Button Padding="10 0 10 0" Margin="10" Name="ExitButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Click="OnExitButtonPressed"/>
         </StackPanel>
     </Grid>
 </common:BaseWindow>

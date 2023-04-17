@@ -386,6 +386,7 @@
             _aftData.ReceiptData.ReceiptTime = _testReceiptTime;
             _aftData.ReceiptData.TransactionFee = TestAftDebitTransactionFee;
             _aftData.ReceiptData.TransferSource = TestTransferSource;
+            _aftData.ReceiptData.AccountBalance = TestAccountBalance;
             _aftData.RestrictedAmount = TestRestrictedAmount;
             _aftData.TransactionId = TestTransactionId;
         }

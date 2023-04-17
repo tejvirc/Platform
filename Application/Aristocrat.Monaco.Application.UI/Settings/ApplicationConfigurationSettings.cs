@@ -195,6 +195,7 @@
                         reelControllerEnabled,
                     ReelControllerManufacturer = reelControllerEnabled ?
                         _propertiesManager.GetValue(ApplicationConstants.ReelControllerManufacturer, string.Empty): notAvailable,
+                    BellEnabled = _propertiesManager.GetValue(HardwareConstants.BellEnabledKey, false),
                     DoorOpticSensorEnabled =
                         _propertiesManager.GetValue(ApplicationConstants.ConfigWizardDoorOpticsEnabled, false),
                     RequireZeroCreditsForOutOfService =
@@ -265,6 +266,7 @@
             _propertiesManager.SetProperty(ApplicationConstants.LayoutType, settings.LayoutType);
             _propertiesManager.SetProperty(ApplicationConstants.ReserveServiceEnabled, settings.ReserveServiceEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.ReserveServiceTimeoutInSeconds, settings.ReserveServiceTimeoutInSeconds);
+            _propertiesManager.SetProperty(HardwareConstants.BellEnabledKey, settings.BellEnabled);
             _multiProtocolConfigurationProvider.MultiProtocolConfiguration = settings.MultiProtocolConfiguration;
 
             if (settings.DisabledNotes.Count > 0)

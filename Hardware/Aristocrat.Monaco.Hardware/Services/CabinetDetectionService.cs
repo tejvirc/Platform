@@ -21,7 +21,7 @@
     {
         private const string CabinetXmlField = "CabinetXML";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ICabinetManager _cabinetManager;
         private readonly ICabinetDisplaySettings _cabinetDisplaySettings;
         private readonly List<string> _nonTouchButtonDecks = new List<string> { VbdType.Bartop.GetDescription(typeof(VbdType)) };
@@ -202,6 +202,26 @@
         }
 
         public bool TouchscreensMapped { get; private set; }
+
+        public DisplayRole? GetDisplayRoleMappedToTouchDevice(ITouchDevice touchDevice)
+        {
+            var touchDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.TouchDevice>();
+            var displayDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.DisplayDevice>();
+
+            // DisplayDevice has the VID PID of the touch device it's mapped to
+            var mappings = displayDevices.Select(displayDevice => (
+                    Display: displayDevice,
+                    Touch: touchDevices.FirstOrDefault(touchDevice =>
+                        touchDevice.ProductId == displayDevice.TouchProductId &&
+                        touchDevice.VendorId == displayDevice.TouchVendorId)))
+                .Where(mapping => mapping.Touch != null && mapping.Display != null)
+                .Distinct()
+                .ToList();
+
+            var result = mappings.FirstOrDefault(x => x.Touch == (Aristocrat.Cabinet.TouchDevice)touchDevice);
+
+            return result.Display?.Role;
+        }
 
         public IDisplayDevice GetDisplayMappedToTouchDevice(ITouchDevice touchDevice)
         {

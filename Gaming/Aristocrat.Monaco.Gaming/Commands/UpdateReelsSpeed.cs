@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
-    using ReelSpeedData = Hardware.Contracts.Reel.ReelSpeedData;
+    using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
 
     /// <summary>
     ///     Set the reel speed for the mechanical reels

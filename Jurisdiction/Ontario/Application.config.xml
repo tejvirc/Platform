@@ -56,8 +56,8 @@ as follows:
 	<ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
-    <DefaultVolumeLevel>2</DefaultVolumeLevel>
-    <AlertVolume Minimum="70" Configurable="true" />
+    <DefaultVolumeLevel>4</DefaultVolumeLevel>
+    <AlertVolume Minimum="80" Configurable="true" />
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
 <!--

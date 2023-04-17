@@ -102,8 +102,6 @@
         {
             var viewModel = new SoundTestPageViewModel();
 
-            Assert.IsNotNull(viewModel.LoadedCommand);
-            Assert.IsNotNull(viewModel.UnloadedCommand);
             Assert.IsNotNull(viewModel.PlayCommand);
 
             Assert.IsNotNull(viewModel.SoundFiles);
@@ -118,7 +116,6 @@
                 .Returns(ApplicationConstants.DefaultVolumeLevel);
 
             var viewModel = new SoundTestPageViewModel();
-            viewModel.LoadedCommand.Execute(page);
 
             Assert.IsFalse(string.IsNullOrEmpty(viewModel.Sound.Path));
         }
@@ -132,7 +129,6 @@
 
             var page = new Page();
             var viewModel = new SoundTestPageViewModel();
-            viewModel.LoadedCommand.Execute(page);
             var volume = 20.0f;
 
             _audioMock.Setup(m => m.GetVolume(soundLevel)).Returns(volume);
@@ -143,12 +139,52 @@
 
             viewModel.PlayCommand.Execute(null);
 
-            viewModel.UnloadedCommand.Execute(page);
-
             Thread.Sleep(800);
 
             _audioMock.VerifyAll();
             _propertiesManagerMock.VerifyAll();
+        }
+
+        [TestMethod]
+        public void CorrectSliderToVolumeConversion()
+        {
+            var expectedSliderVolumes = new Dictionary<byte, byte>
+            {
+                { 10, 1 },
+                { 15, 2 },
+                { 30, 9 },
+                { 40, 16 },
+                { 55, 30 },
+                { 75, 56 },
+                { 80, 64 },
+                { 100, 100 }
+            };
+
+            foreach (var sliderVolumePair in expectedSliderVolumes)
+            {
+                Assert.AreEqual(sliderVolumePair.Value, SoundConfigPageViewModel.ConvertSliderToVolume(sliderVolumePair.Key));
+            }
+        }
+
+        [TestMethod]
+        public void CorrectVolumeToSliderConversion()
+        {
+            var expectedSliderVolumes = new Dictionary<byte, byte>
+            {
+                { 10, 1 },
+                { 15, 2 },
+                { 30, 9 },
+                { 40, 16 },
+                { 55, 30 },
+                { 75, 56 },
+                { 80, 64 },
+                { 100, 100 }
+            };
+
+            foreach (var sliderVolumePair in expectedSliderVolumes)
+            {
+                Assert.AreEqual(sliderVolumePair.Key, SoundConfigPageViewModel.ConvertVolumeToSlider(sliderVolumePair.Value));
+            }
         }
     }
 }

@@ -77,13 +77,33 @@
 		      <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
 	      </xs:complexType>
         </xs:element>
-		<xs:element maxOccurs="unbounded" name="BeagleBone">
+        <xs:element maxOccurs="unbounded" name="BeagleBone">
           <xs:complexType>
             <xs:attribute name="Enabled" type="xs:boolean" use="required" />
             <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
           </xs:complexType>
         </xs:element>
-	  </xs:sequence>
+        <xs:element maxOccurs="unbounded" name="DisplayLightingPage">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="KeyboardProvider">
+          <xs:complexType>
+            <xs:attribute name="KeyboardProviderType" type="KeyboardProviderType" use="optional" default="Default" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+	    </xs:sequence>
     </xs:complexType>
   </xs:element>
+
+  <xs:simpleType name="KeyboardProviderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default"/>
+      <xs:enumeration value="Embedded"/>
+      <xs:enumeration value="Windows"/>
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>

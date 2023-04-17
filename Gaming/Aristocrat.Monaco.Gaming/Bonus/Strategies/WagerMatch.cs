@@ -7,6 +7,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Common;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Meters;
@@ -109,6 +110,8 @@
 
             using (var scope = _storage.ScopedTransaction())
             {
+                PersistLastAuthorizedAmount(transaction, nonCash, cashable, promo);
+
                 var (_, pending) = Pay(transaction, transactionId, cashable, nonCash, promo);
 
                 // Must be committed before awaiting the pending transfer if there is one
@@ -137,6 +140,14 @@
             {
                 return (previousAward?.Context ?? gameRound.FinalWager.CentsToMillicents()) - paid;
             }
+        }
+
+        private void PersistLastAuthorizedAmount(BonusTransaction transaction, long nonCash, long cashable, long promo)
+        {
+            transaction.LastAuthorizedNonCashAmount = nonCash;
+            transaction.LastAuthorizedCashableAmount = cashable;
+            transaction.LastAuthorizedPromoAmount = promo;
+            _transactions.UpdateTransaction(transaction);
         }
 
         public bool Cancel(BonusTransaction transaction)
@@ -179,26 +190,49 @@
             TaskCompletionSource<bool> pending = null;
 
             using var scope = _storage.ScopedTransaction();
-            switch (transaction.PayMethod)
+
+            long totalAmount = transaction.LastAuthorizedCashableAmount
+                               + transaction.LastAuthorizedNonCashAmount
+                               + transaction.LastAuthorizedPromoAmount;
+
+            try
             {
-                case PayMethod.Handpay:
-                case PayMethod.Voucher:
-                case PayMethod.Wat:
-                    (_, pending) = RecoverTransfer(
-                        transaction,
-                        transactionId,
-                        transaction.CashableAmount,
-                        transaction.NonCashAmount,
-                        transaction.PromoAmount);
-                    break;
+                switch (GetPayMethod(transaction, totalAmount))
+                {
+                    case PayMethod.Handpay:
+                    case PayMethod.Voucher:
+                    case PayMethod.Wat:
+                        (_, pending) = RecoverTransfer(
+                            transaction,
+                            transactionId,
+                            transaction.LastAuthorizedCashableAmount,
+                            transaction.LastAuthorizedNonCashAmount,
+                            transaction.LastAuthorizedPromoAmount);
+                        break;
+                }
             }
+            catch (TransactionException ex)
+            {
+                transaction.Message = BonusException.PayMethodNotAvailable.GetDescription(typeof(BonusException));
+
+                Failed(transaction, BonusException.PayMethodNotAvailable);
+
+                Logger.Error($"Failed to pay bonus: {transaction}", ex);
+            }
+            catch (Exception ex)
+            {
+                Failed(transaction, BonusException.Failed);
+
+                Logger.Error($"Failed to pay bonus: {transaction}", ex);
+            }
+
+            scope.Complete();
 
             if (pending != null)
             {
                 await pending.Task;
             }
 
-            scope.Complete();
         }
 
         protected override void CompletePayment(BonusTransaction transaction, long cashableAmount, long nonCashAmount, long promoAmount)

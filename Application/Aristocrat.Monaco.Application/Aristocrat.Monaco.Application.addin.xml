@@ -72,6 +72,7 @@
     <Service type="Aristocrat.Monaco.Application.Monitors.SecondaryStorageMonitor" />
     <Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />
     <Service type="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Detection.DeviceDetection" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">
@@ -114,6 +115,7 @@
     <PropertyProvider type="Aristocrat.Monaco.Application.SystemPropertiesProvider" />
     <PropertyProvider type="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider" />
     <PropertyProvider type="Aristocrat.Monaco.Application.ConfiguredAddinsPropertiesProvider" />
+    <PropertyProvider type="Aristocrat.Monaco.Application.CabinetFeaturesPropertiesProvider" />
   </Extension>
 
   <Extension path="/Application/PreConfiguration">
@@ -124,7 +126,6 @@
   <Extension path="/Application/Configuration">
     <Configuration type="Aristocrat.Monaco.Application.OperatorMenuConfigurationPropertiesProvider" />
     <Configuration type="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider" />
-    <Configuration type="Aristocrat.Monaco.Application.CabinetFeaturesPropertiesProvider" />
   </Extension>
 
   <Extension path="/Application/Metering/Providers">

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.UI.Common</AssemblyTitle>
-    <Configurations>Debug;Release;Retail</Configurations>
+    <Configurations>Debug;Release;Retail;DebugInspection;ReleaseInspection;RetailInspection</Configurations>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
@@ -24,6 +24,31 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Page Remove="Skins\Originals\InspectionMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\InspectionReskin.xaml" />
+    <Page Remove="Skins\Originals\MonacoMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\MonacoReskin.xaml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="PlatformCommandLineArguments.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -31,6 +56,10 @@
     <Compile Update="Translations.cs">
       <DependentUpon>Translations.xsd</DependentUpon>
     </Compile>
+    <None Include="Skins\Originals\InspectionMetroSkin.xaml" />
+    <None Include="Skins\Originals\InspectionReskin.xaml" />
+    <None Include="Skins\Originals\MonacoMetroSkin.xaml" />
+    <None Include="Skins\Originals\MonacoReskin.xaml" />
     <None Include="Translations.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -52,7 +81,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.15" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
@@ -62,4 +91,10 @@
     <PackageReference Include="MahApps.Metro.IconPacks" Version="1.9.1" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition=" '$(PlatformStyle)' == 'Inspection' ">
+    <Exec Command="copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionMetroSkin.xaml&quot; &quot;$(ProjectDir)Skins\MetroSkin.xaml&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionReskin.xaml&quot; &quot;$(ProjectDir)Skins\Reskin.xaml&quot;" />
+  </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(PlatformStyle)' == 'Inspection' ">
+    <Exec Command="copy /Y &quot;$(ProjectDir)Skins\Originals\MonacoMetroSkin.xaml&quot; &quot;$(ProjectDir)Skins\MetroSkin.xaml&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)Skins\Originals\MonacoReskin.xaml&quot; &quot;$(ProjectDir)Skins\Reskin.xaml&quot;" />
+  </Target>
 </Project>

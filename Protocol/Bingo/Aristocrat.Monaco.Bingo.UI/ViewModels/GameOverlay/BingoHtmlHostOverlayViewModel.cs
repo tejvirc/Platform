@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
+namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 {
     using System;
     using System.Collections;
@@ -39,7 +39,8 @@
 
     public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
     {
-        private const string CloseEvent = "Close";
+        private const string JavascriptCloseEventMessage = "Close";
+        private const string JavascriptClickEventMessage = "Click";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
@@ -55,6 +56,7 @@
         private readonly ConcurrentDictionary<PresentationOverrideTypes, BingoDisplayConfigurationPresentationOverrideMessageFormat> _configuredOverrideMessageFormats = new();
         private readonly BingoWindow _targetWindow;
 
+        private Timer _helpTimer;
         private BingoCard _lastBingoCard;
         private IReadOnlyList<BingoNumber> _lastBallCall = new List<BingoNumber>();
         private IReadOnlyList<BingoPattern> _bingoPatterns = new List<BingoPattern>();
@@ -83,7 +85,7 @@
         private double _infoOpacity;
         private double _gameControlledHeight;
         private double _dynamicMessageOpacity;
-        private IGameDetail _lastSelectedGame; 
+        private IGameDetail _lastSelectedGame;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -158,6 +160,8 @@
             _eventBus.Subscribe<GameFatalErrorEvent>(this, (_, _) => SetHelpVisibility(false));
             _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, (e, _) => SetHelpVisibility(e.Visible));
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, Handle);
+
+            _helpTimer = new Timer(_ => ExitHelp(), null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
         }
 
         public string BingoInfoAddress
@@ -187,7 +191,25 @@
         public IWebBrowser BingoInfoWebBrowser
         {
             get => _bingoInfoWebBrowser;
-            set => SetProperty(ref _bingoInfoWebBrowser, value);
+
+            set
+            {
+                var previous = _bingoInfoWebBrowser;
+                if (!SetProperty(ref _bingoInfoWebBrowser, value))
+                {
+                    return;
+                }
+
+                if (previous is not null)
+                {
+                    previous.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
+                }
+
+                if (_bingoInfoWebBrowser is not null)
+                {
+                    _bingoInfoWebBrowser.ConsoleMessage += BingoInfoWebBrowserOnConsoleMessage;
+                }
+            }
         }
 
         public double Height
@@ -249,6 +271,19 @@
             set => SetProperty(ref _dynamicMessageOpacity, value);
         }
 
+        public void HandleJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs args)
+        {
+            switch (args.Message)
+            {
+                case JavascriptClickEventMessage:
+                    ResetHelpTimer();
+                    return;
+                case JavascriptCloseEventMessage:
+                    ExitHelp();
+                    return;
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -258,22 +293,41 @@
 
             if (disposing)
             {
+                _eventBus.UnsubscribeAll(this);
                 _overlayServer.ServerStarted -= HandleServerStarted;
                 _overlayServer.AttractCompleted -= AttractCompleted;
                 _overlayServer.ClientConnected -= OverlayClientConnected;
                 _overlayServer.ClientDisconnected -= OverlayClientDisconnected;
-                _eventBus.UnsubscribeAll(this);
+
+                if (_bingoInfoWebBrowser is not null)
+                {
+                    _bingoInfoWebBrowser.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
+                }
+
+                var timer = _helpTimer;
+                _helpTimer = null;
+                if (timer != null)
+                {
+                    timer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+                    timer.Dispose();
+                }
+
                 _overlayServer.Dispose();
             }
 
             _disposed = true;
         }
 
+        private static void BingoInfoWebBrowserOnConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        {
+            Logger.DebugFormat("Bingo Overlay - {0}", e.Message);
+        }
+
         private static double GetVisibleOpacity(bool visible) => visible ? 1.0 : 0.0;
 
-        private static void OverlayClientDisconnected(object sender, OverlayType overlayType)
+        private static void OverlayClientDisconnected(object sender, ClientDisconnectEventArgs args)
         {
-            Logger.Debug($"Overlay client disconnected: {overlayType}");
+            Logger.Debug($"Overlay client disconnected: {args.Type}, Exception: {(args.Exception == null ? "No Exception": args.Exception)}");
         }
 
         private static void ReloadBrowser(IWebBrowser browser)
@@ -353,13 +407,8 @@
             }
         }
 
-        public void ExitHelp(object sender, JavascriptMessageReceivedEventArgs args)
+        private void ExitHelp()
         {
-            if (args.Message is not CloseEvent)
-            {
-                return;
-            }
-
             _eventBus.Publish(new ExitHelpEvent());
         }
 
@@ -780,10 +829,12 @@
             }
 
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
+            var previousVisibility = IsInfoVisible;
             await UpdateAppearance();
             await _overlayServer.StopAsync();
             await InitializeOverlay(_lastSelectedGame);
-            await SetInfoVisibility(true);
+            // Restore visibility to the state prior to the overlay restart
+            await SetInfoVisibility(previousVisibility);
         }
 
         private async Task InitializeOverlay(IGameDetail detail)
@@ -918,6 +969,16 @@
 #endif
         }
 
+        private void ResetHelpTimer()
+        {
+            if (IsHelpVisible)
+            {
+                _helpTimer?.Change(
+                    TimeSpan.FromSeconds(_bingoConfigurationProvider.GetHelpAppearance().HelpScreenTimeoutS),
+                    Timeout.InfiniteTimeSpan);
+            }
+        }
+
         private void SaveDaubState(bool state)
         {
             using var unitOfWork = _unitOfWorkFactory.Create();
@@ -934,10 +995,28 @@
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
+                    if (IsHelpVisible == visible &&
+                        string.Equals(helpAddress, BingoHelpAddress, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return;
+                    }
+
                     IsHelpVisible = visible;
                     BingoHelpAddress = helpAddress;
                     NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
                     HelpOpacity = GetVisibleOpacity(visible);
+
+                    if (!visible)
+                    {
+                        ReloadBrowser(BingoHelpWebBrowser);
+                        _helpTimer?.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+                    }
+                    else
+                    {
+                        _helpTimer?.Change(
+                            TimeSpan.FromSeconds(_bingoConfigurationProvider.GetHelpAppearance().HelpScreenTimeoutS),
+                            Timeout.InfiniteTimeSpan);
+                    }
                 });
         }
 

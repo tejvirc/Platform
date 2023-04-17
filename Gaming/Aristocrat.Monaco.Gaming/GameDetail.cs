@@ -52,6 +52,8 @@
 
         public bool CentralAllowed { get; set; }
 
+        public IEnumerable<ICdsGameInfo> CdsGameInfos { get; set; }
+
         public decimal MaximumPaybackPercent { get; set; }
 
         public decimal MinimumPaybackPercent { get; set; }
@@ -137,5 +139,10 @@
         public GameSubCategory SubCategory { get; set; }
 
         public IEnumerable<Feature> Features { get; set; }
+
+        public GameDetail ShallowClone()
+        {
+            return (GameDetail)MemberwiseClone();
+        }
     }
 }

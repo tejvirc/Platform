@@ -18,6 +18,7 @@ as follows:
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
 	<Censorship Enforced="true" Editable="false" />
+    <Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Configurable="true" />
 <!--
 	GameRestrictions Settings:

@@ -6,9 +6,11 @@
     using System.Drawing;
     using System.Linq;
     using Aristocrat.Monaco.Localization.Properties;
+    using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
 
     [CLSCompliant(false)]
     public class MechanicalReelsLightTestViewModel : INotifyPropertyChanged
@@ -32,12 +34,14 @@
             Priority = StripPriority.PlatformTest,
             Strips = AllStripIds
         };
-
+        
+        private readonly IReelLightingCapabilities _lightingCapabilities;
         private readonly IReelController _reelController;
         private readonly IEdgeLightingController _edgeLightingController;
+        private readonly IInspectionService _reporter;
 
         private IEdgeLightToken _offToken;
-        private IEdgeLightToken _pattenToken;
+        private IEdgeLightToken _patternToken;
         private bool _initialized;
         private List<int> _reelLightIdentifiers;
         private int _lightsPerReel;
@@ -45,12 +49,19 @@
         
         public MechanicalReelsLightTestViewModel(
             IReelController reelController,
-            IEdgeLightingController edgeLightingController)
+            IEdgeLightingController edgeLightingController,
+            IInspectionService reporter)
         {
             _reelController =
                 reelController ?? throw new ArgumentNullException(nameof(reelController));
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
+            _reporter = reporter;
+
+            if (_reelController.HasCapability<IReelBrightnessCapabilities>())
+            {
+                _lightingCapabilities = _reelController.GetCapability<IReelLightingCapabilities>();
+            }
 
             InitializeLightIdList();
         }
@@ -112,7 +123,7 @@
         
         public void CancelTest()
         {
-            ClearPattern(ref _pattenToken);
+            ClearPattern(ref _patternToken);
             ClearPattern(ref _offToken);
             TestActive = false;
         }
@@ -138,7 +149,11 @@
             var lightText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalReels_Light);
             var allLightsText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalReels_AllLights);
 
-            var ids = await _reelController.GetReelLightIdentifiers();
+            IList<int> ids = new List<int>();
+            if (_lightingCapabilities is not null)
+            {
+                ids = await _lightingCapabilities.GetReelLightIdentifiers();
+            }
 
             ReelLightIdNames = new List<string> { allLightsText };
             _reelLightIdentifiers = new List<int>(ids);
@@ -196,8 +211,10 @@
                 Priority = StripPriority.PlatformTest
             };
 
-            ClearPattern(ref _pattenToken);
-            _pattenToken = _edgeLightingController.AddEdgeLightRenderer(pattern);
+            ClearPattern(ref _patternToken);
+            _patternToken = _edgeLightingController.AddEdgeLightRenderer(pattern);
+            var reels = SelectedReelLightIdIndex == 0 ? "all reels" : $"reel {(SelectedReelLightIdIndex - 1) / _lightsPerReel}";
+            _reporter?.SetTestName($"Lights, {reels}");
         }
 
         private void StartTest()
@@ -227,6 +244,11 @@
             }
 
             return colors.ToArray();
+        }
+
+        private bool HasLightId(int id)
+        {
+            return ReelLightIdNames.Any(i => i.Contains($" {id}"));
         }
     }
 }

@@ -6,13 +6,13 @@
     using Hardware.Contracts.SharedDevice;
     using Hardware.Contracts.Ticket;
     using Kernel;
-    using OperatorMenu;
     using System;
     using System.Collections.Generic;
     using System.Timers;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Threading;
+    using ConfigWizard;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
     using Hardware.Contracts.SerialPorts;
@@ -20,9 +20,9 @@
     /// <summary>
     ///     A DeviceViewModel contains the base logic for device config page view models
     /// </summary>
-    /// <seealso cref="OperatorMenuPageViewModelBase" />
+    /// <seealso cref="InspectionWizardViewModelBase" />
     [CLSCompliant(false)]
-    public abstract class DeviceViewModel : OperatorMenuPageViewModelBase
+    public abstract class DeviceViewModel : InspectionWizardViewModelBase
     {
         private const string CommunicatorsAddinPath = "/Hardware/CommunicatorDrivers";
         private const double DispatchWaitTimeout = 1.0;
@@ -59,7 +59,7 @@
         private StatusMode _statusMode;
         private string _statusText = string.Empty;
 
-        protected DeviceViewModel(DeviceType type) 
+        protected DeviceViewModel(DeviceType type, bool isWizard) : base(isWizard)
         {
             _deviceType = type;
             RefreshTimer = new Timer();
@@ -224,7 +224,7 @@
             }
         }
 
-        public bool IsSelfTestVisible => ShowDiagnostics;
+        public bool IsSelfTestVisible => ShowDiagnostics || IsWizardPage;
 
         public bool SelfTestButtonEnabled
         {
@@ -349,6 +349,8 @@
         {
             Logger.Debug("Page loaded");
             StartEventHandler();
+
+            base.OnLoaded();
         }
 
         protected override void OnUnloaded()
@@ -357,6 +359,20 @@
             StopEventHandler();
 
             SelfTestCurrentState = SelfTestState.None;
+
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = true;
+            }
+        }
+
+        protected override void SaveChanges()
+        {
         }
 
         protected override void UpdatePrinterButtons()
@@ -374,6 +390,8 @@
             SerialNumberText = device.SerialNumber;
             ProtocolText = device.Protocol;
             PortText = SetPortText();
+
+            Inspection?.SetFirmwareVersion($"{ManufacturerText} {ModelText}: {FirmwareVersionText} {FirmwareRevisionText}");
 
             string SetPortText()
             {

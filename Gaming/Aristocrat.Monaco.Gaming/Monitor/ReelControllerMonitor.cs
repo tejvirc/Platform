@@ -18,19 +18,20 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Kernel;
     using Localization.Properties;
     using log4net;
     using Vgt.Client12.Application.OperatorMenu;
-    using ConnectedEvent = Hardware.Contracts.Reel.ConnectedEvent;
-    using DisabledEvent = Hardware.Contracts.Reel.DisabledEvent;
-    using DisconnectedEvent = Hardware.Contracts.Reel.DisconnectedEvent;
-    using EnabledEvent = Hardware.Contracts.Reel.EnabledEvent;
-    using HardwareFaultClearEvent = Hardware.Contracts.Reel.HardwareFaultClearEvent;
-    using HardwareFaultEvent = Hardware.Contracts.Reel.HardwareFaultEvent;
-    using HardwareReelFaultEvent = Hardware.Contracts.Reel.HardwareReelFaultEvent;
-    using InspectedEvent = Hardware.Contracts.Reel.InspectedEvent;
-    using InspectionFailedEvent = Hardware.Contracts.Reel.InspectionFailedEvent;
+    using ConnectedEvent = Hardware.Contracts.Reel.Events.ConnectedEvent;
+    using DisabledEvent = Hardware.Contracts.Reel.Events.DisabledEvent;
+    using DisconnectedEvent = Hardware.Contracts.Reel.Events.DisconnectedEvent;
+    using EnabledEvent = Hardware.Contracts.Reel.Events.EnabledEvent;
+    using HardwareFaultClearEvent = Hardware.Contracts.Reel.Events.HardwareFaultClearEvent;
+    using HardwareFaultEvent = Hardware.Contracts.Reel.Events.HardwareFaultEvent;
+    using HardwareReelFaultEvent = Hardware.Contracts.Reel.Events.HardwareReelFaultEvent;
+    using InspectedEvent = Hardware.Contracts.Reel.Events.InspectedEvent;
+    using InspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
     using ReelControllerState = Hardware.Contracts.Reel.ReelControllerState;
 
     public class ReelControllerMonitor : GenericBaseMonitor
@@ -72,6 +73,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IGamePlayState _gamePlayState;
         private readonly IGameProvider _gameProvider;
         private readonly IGameService _gameService;
+        private readonly IGameHistory _gameHistory;
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
@@ -89,6 +91,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             IGameProvider gameProvider,
             IEdgeLightingController edgeLightingController,
             IGameService gameService,
+            IGameHistory gameHistory,
             IOperatorMenuLauncher operatorMenuLauncher)
             : base(message, disable)
         {
@@ -97,6 +100,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
+            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _operatorMenuLauncher = operatorMenuLauncher ?? throw new ArgumentNullException(nameof(operatorMenuLauncher));
@@ -114,8 +118,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 var inAuditMenu = _operatorMenuLauncher.IsShowing;
                 var playEnabled = _gamePlayState.Enabled;
 
-                // If in a game round we only want to review the immediate disables
-                var inGameRound = _gamePlayState.InGameRound;
+                // If in a game round or needing to recover we only want to review the immediate disables
+                var inGameRound = _gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded;
                 var disableKeys = inGameRound
                     ? _disableManager.CurrentImmediateDisableKeys
                     : _disableManager.CurrentDisableKeys;
@@ -350,7 +354,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ReelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
-                await TiltReels(_gamePlayState.InGameRound);
+                await TiltReels(_gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded);
             }
         }
 
@@ -360,7 +364,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ReelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
-                await TiltReels(_gamePlayState.InGameRound);
+                await TiltReels(_gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded);
             }
         }
 
@@ -508,7 +512,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             // On removal of any disable check, if the only remaining fault is the reelsTilted fault
             // then home the reels to attempt to clear any reel faults.
-            var inGameRound = _gamePlayState.InGameRound;
+            var inGameRound = _gamePlayState.InGameRound || _gameHistory.IsRecoveryNeeded;
             var disableKeys = inGameRound
                 ? _disableManager.CurrentImmediateDisableKeys
                 : _disableManager.CurrentDisableKeys;

@@ -36,7 +36,7 @@
         private bool _printLanguageOverrideIsChecked;
         private readonly string[] _playerTicketSelectableLocales;
 
-        public PrinterViewModel() : base(DeviceType.Printer)
+        public PrinterViewModel(bool isWizard) : base(DeviceType.Printer, isWizard)
         {
             var playerAvailableLocales = (string[])PropertiesManager.GetProperty(ApplicationConstants.LocalizationPlayerAvailable, new[] { CultureInfo.CurrentCulture.Name });
             PlayerLocalesAvailable = playerAvailableLocales.Length > 1;
@@ -163,11 +163,19 @@
 
         public override bool TestModeEnabledSupplementary => Printer is { Faults: PrinterFaultTypes.None, Connected: true };
 
+        public override bool PrinterButtonsEnabled => IsWizardPage || base.PrinterButtonsEnabled;
+
         public ICommand FormFeedButtonCommand { get; }
 
         public ICommand PrintDiagnosticButtonCommand { get; }
 
         public ICommand PrintTestTicketCommand { get; }
+
+        protected void Print(OperatorMenuPrintData dataType, bool isDiagnostic)
+        {
+            Inspection?.SetTestName($"Print ticket {dataType}");
+            base.Print(dataType, null, isDiagnostic);
+        }
 
         protected override void OnLoaded()
         {
@@ -305,7 +313,6 @@
             EventBus.Subscribe<DisconnectedEvent>(this, ErrorEvent);
             EventBus.Subscribe<ConnectedEvent>(this, ErrorClearEvent);
             EventBus.Subscribe<ResolverErrorEvent>(this, ErrorEvent);
-            EventBus.Subscribe<TransferStatusEvent>(this, ErrorEvent);
             EventBus.Subscribe<LoadingRegionsAndTemplatesEvent>(this, ErrorClearEvent);
 
             EventBus.Subscribe<HardwareFaultClearEvent>(this, ClearFault);
@@ -337,6 +344,7 @@
 
             if (PrinterButtonsEnabled)
             {
+                Inspection?.SetTestName("Form feed");
                 _formFeedActive = true;
                 EventBus.Publish(new OperatorMenuPrintJobStartedEvent());
                 Task.Run(
@@ -354,11 +362,13 @@
 
         private void SelfTestButtonClicked(object obj)
         {
+            Inspection?.SetTestName("Self test");
             RunSelfTest(false);
         }
 
         private void SelfTestClearNvmButtonClicked(object obj)
         {
+            Inspection?.SetTestName("Self test clear NVM");
             RunSelfTest(true);
         }
 
@@ -745,6 +755,8 @@
             }
             else if (typeof(InspectionFailedEvent) == eventType)
             {
+                Inspection?.SetTestName("Inspection");
+                Inspection?.ReportTestFailure();
                 UpdateStatusError(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText), false);
                 _updateDeviceInformation = true;
             }
@@ -755,6 +767,7 @@
             }
             else if (typeof(SelfTestFailedEvent) == eventType)
             {
+                Inspection?.ReportTestFailure();
                 SelfTestCurrentState = SelfTestState.Failed;
                 EventBus.Publish(new OperatorMenuPrintJobCompletedEvent());
             }
@@ -886,6 +899,8 @@
                             temp += "\n";
                         }
                     }
+                    Inspection?.SetTestName(text);
+                    Inspection?.ReportTestFailure();
 
                     temp += text;
 

@@ -9,9 +9,12 @@
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
     using Kernel;
     using log4net;
     using Models;
@@ -24,13 +27,15 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private const int DefaultSpinSpeed = 1; // TODO: Get this value from the Adapter
         private const int DefaultNudgeDelay = 0;
 
         private readonly IReelController _reelController;
         private readonly int _maxSupportedReels;
         private readonly IEventBus _eventBus;
         private readonly Action _updateScreenCallback;
+        private readonly IInspectionService _reporter;
+        private readonly IReelSpinCapabilities _spinCapabilities;
+        private readonly int _spinSpeed;
 
         private bool _homeEnabled = true;
         private bool _spinEnabled;
@@ -46,13 +51,21 @@
             IEventBus eventBus,
             int maxSupportedReels,
             ObservableCollection<ReelInfoItem> reelInfo,
-            Action updateScreenCallback)
+            Action updateScreenCallback,
+            IInspectionService reporter)
         {
             _reelController = reelController;
             _eventBus = eventBus;
             _reelInfo = reelInfo;
             _updateScreenCallback = updateScreenCallback;
             _maxSupportedReels = maxSupportedReels;
+            _reporter = reporter;
+
+            if (_reelController.HasCapability<IReelSpinCapabilities>())
+            {
+                _spinCapabilities = _reelController.GetCapability<IReelSpinCapabilities>();
+                _spinSpeed = _spinCapabilities.DefaultSpinSpeed;
+            }
 
             HomeCommand = new ActionCommand<object>(_ => HomeReels());
             SpinCommand = new ActionCommand<object>(_ => SpinReels());
@@ -118,7 +131,7 @@
 
         public bool SpinEnabled
         {
-            get => _spinEnabled && AllReelsIdle && !HasFault;
+            get => _spinEnabled && AllReelsIdle && !HasFault && _spinCapabilities is not null;
 
             set
             {
@@ -166,7 +179,7 @@
                     var nudgeReelData = nudges.ToArray();
                     if (AnyReelEnabled)
                     {
-                        _reelController.NudgeReel(nudgeReelData);
+                        _spinCapabilities?.NudgeReels(nudgeReelData);
                     }
 
                     for (var i = 1; i <= nudgeReelData.Length; i++)
@@ -187,7 +200,7 @@
                     var reelSpinData = spins.ToArray();
                     if (AnyReelEnabled)
                     {
-                        _reelController.SpinReels(reelSpinData);
+                        _spinCapabilities?.SpinReels(reelSpinData);
                     }
 
                     for (var i = 1; i <= reelSpinData.Length; i++)
@@ -252,6 +265,7 @@
                 return;
             }
 
+            _reporter?.SetTestName("Home reels");
             _eventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.MechanicalReels));
             ReelsVisible = true;
             RaisePropertyChanged(nameof(ReelsVisible));
@@ -315,6 +329,7 @@
 
         private void NudgeReels()
         {
+            _reporter?.SetTestName("Nudge reels");
             var data = new List<NudgeReelData>();
 
             for (var i = 1; i <= _maxSupportedReels; ++i)
@@ -360,6 +375,7 @@
 
         private void SpinReels()
         {
+            _reporter?.SetTestName("Spin reels");
             var data = new List<ReelSpinData>();
 
             for (var i = 1; i <= _maxSupportedReels; ++i)
@@ -379,7 +395,7 @@
                     new ReelSpinData(
                         i,
                         activeReel.DirectionToSpin ? SpinDirection.Forward : SpinDirection.Backwards,
-                        DefaultSpinSpeed,
+                        _spinSpeed,
                         activeReel.SpinStep));
 
                 activeReel.IsHoming = false;

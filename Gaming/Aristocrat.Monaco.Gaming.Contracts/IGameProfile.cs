@@ -58,6 +58,11 @@
         bool CentralAllowed { get; }
 
         /// <summary>
+        ///     Gets the cds game infos for this game
+        /// </summary>
+        IEnumerable<ICdsGameInfo> CdsGameInfos { get; }
+
+        /// <summary>
         ///     Gets the maximum theoretical payback percentage for the game; a value of 0 (zero) indicates that the attribute is
         ///     not supported; otherwise, MUST be set to the maximum payback percentage of the game, which MUST be greater than 0
         ///     (zero). For example, a value of 9637 represents a maximum payback percentage of 96.37%
