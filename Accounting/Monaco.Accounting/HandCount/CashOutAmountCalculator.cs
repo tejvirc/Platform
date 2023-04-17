@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
     using Application.Contracts.Localization;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Contracts;
     using Contracts.HandCount;
     using Hardware.Contracts.Button;
@@ -28,6 +30,8 @@
         private readonly long _handCountPayoutLimit;
 
         private bool _disposed;
+        private bool isCashOut { get; set; }
+        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 
         /// <summary>
         ///     Constructs the calculator by retrieving all necessary services from the service manager. This
@@ -59,6 +63,13 @@
                 ?? throw new ArgumentNullException(nameof(eventBus));
             _cashOutAmountPerHand = properties.GetValue(AccountingConstants.CashoutAmountPerHandCount, 0L);
             _handCountPayoutLimit = properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
+            _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
+        }
+
+        private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
+        {
+            isCashOut = evt.IsCashout;
+            autoResetEvent.Set();
         }
 
         /// <inheritdoc />
@@ -78,7 +89,12 @@
         {
             var amountCashable = Math.Min(amount, _handCountService.HandCount * _cashOutAmountPerHand);
             CheckLargePayoutAsync(amountCashable).Wait();
-            return amountCashable;
+            if (isCashOut)
+            {
+                return amountCashable;
+            }
+
+            return 0;
         }
 
         /// <inheritdoc />
@@ -102,12 +118,18 @@
         private async Task CheckLargePayoutAsync(long amount)
         {
             Logger.Debug($"Check Payout Limit: {amount}");
-            if (amount > _handCountPayoutLimit)
+            _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent(amount));
+            autoResetEvent.WaitOne();
+            if (isCashOut)
             {
-                var keyOff = Initiate();
-                await keyOff.Task;
+                if (amount > _handCountPayoutLimit)
+                {
+                    var keyOff = Initiate();
+                    _eventBus.Publish(new PayOutLimitVisibility(true));
+                    await keyOff.Task;
 
-                _disableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
+                    _disableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
+                }
             }
         }
 

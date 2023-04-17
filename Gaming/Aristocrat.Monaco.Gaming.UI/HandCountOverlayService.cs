@@ -9,6 +9,7 @@
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
     using Aristocrat.Monaco.Gaming.UI.Views.Overlay;
     using Aristocrat.Monaco.Kernel;
@@ -29,6 +30,8 @@
         private MaxWinDialog _maxWinDialog;
         private MaxWinDialogViewModel _maxWinDialogViewModel;
 
+        private CashoutResetHandCount _cashoutResetHandCountDialog;
+        private CashoutResetHandCountViewModel _cashoutResetHandCountViewModel;
         public string Name { get; } = "HandCountOverlayService";
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IService) };
@@ -53,6 +56,9 @@
 
                     _maxWinDialogViewModel = new MaxWinDialogViewModel();
                     _maxWinDialog = new MaxWinDialog(_maxWinDialogViewModel);
+
+                    _cashoutResetHandCountViewModel = new CashoutResetHandCountViewModel();
+                    _cashoutResetHandCountDialog = new CashoutResetHandCount(_cashoutResetHandCountViewModel);
                 });
 
             _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, HandleEvent);
@@ -60,6 +66,19 @@
             _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, HandleEvent);
 
             _eventBus.Subscribe<MaxWinReachedEvent>(this, HandleEvent);
+
+            _eventBus.Subscribe<CashoutAmountPlayerConfirmationRequestedEvent>(this, Handle);
+            _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
+        }
+
+        private void Handle(CashoutAmountPlayerConfirmationReceivedEvent obj)
+        {
+            _eventBus.Publish(new ViewInjectionEvent(_cashoutResetHandCountDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+        }
+
+        private void Handle(CashoutAmountPlayerConfirmationRequestedEvent evt)
+        {
+            _eventBus.Publish(new ViewInjectionEvent(_cashoutResetHandCountDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
         }
 
         private void HandleEvent(MaxWinReachedEvent obj)
