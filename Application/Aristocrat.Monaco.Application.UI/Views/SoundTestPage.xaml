@@ -154,8 +154,8 @@
         <ComboBox ItemsSource="{Binding Path=SoundLevelConfigCollection}"
                   Name="SoundLevelComboBox"
                   SelectedIndex="0"
-                  DisplayMemberPath="Description"
-                  SelectedValuePath="Value"
+                  DisplayMemberPath="Item2"
+                  SelectedValuePath="Item1"
                   SelectedValue="{Binding SoundLevel}"
                   Style="{StaticResource OptionComboStyle}"
                   AutomationProperties.AutomationId="ComboBox14_9A0249AD" />
