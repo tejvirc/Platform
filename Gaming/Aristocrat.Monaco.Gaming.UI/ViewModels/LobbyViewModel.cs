@@ -269,7 +269,6 @@
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
         private int _handCount;
-        private MaxWinDialogViewModel _maxWinViewModel;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -460,7 +459,6 @@
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
 
-            MaxWinViewModel = new MaxWinDialogViewModel();
             MessageOverlayDisplay = new MessageOverlayViewModel(PlayerMenuPopupViewModel, _playerInfoDisplayManager);
             MessageOverlayDisplay.PropertyChanged += MessageOverlayDisplay_OnPropertyChanged;
 
@@ -1739,19 +1737,6 @@
                 }
                 _handCount = value;
                 RaisePropertyChanged(nameof(HandCount));
-            }
-        }
-
-        /// <summary>
-        /// Maximum Win View Model
-        /// </summary>
-        public MaxWinDialogViewModel MaxWinViewModel
-        {
-            get => _maxWinViewModel;
-            set
-            {
-                _maxWinViewModel = value;
-                RaisePropertyChanged(nameof(MaxWinViewModel));
             }
         }
 
@@ -3068,7 +3053,6 @@
             RaisePropertyChanged(nameof(IsServiceRequested));
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
-            RaisePropertyChanged(nameof(MaxWinViewModel));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -4058,7 +4042,6 @@
         private string GetProgressiveOrBonusValue(int gameId, long denomId)
         {
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
-            MaxWinViewModel.MaxWinAmount = game.ActiveBetOption?.MaxWin;
             if (string.IsNullOrEmpty(game?.DisplayMeterName))
             {
                 return string.Empty;
