@@ -2,10 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading;
     using Aristocrat.Cabinet.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
     using Aristocrat.Monaco.Gaming.UI.Views.Overlay;
@@ -64,7 +66,8 @@
         {
             var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
-            _maxWinDialogViewModel.MaxWinAmount = game?.ActiveBetOption?.MaxWin;
+            var denomination = game.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
+            _maxWinDialogViewModel.MaxWinAmount = (game.ActiveBetOption.MaxWin.Value * denomination.Value).MillicentsToDollars().ToString(CultureInfo.InvariantCulture);
 
             _eventBus.Publish(new ViewInjectionEvent(_maxWinDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
             _maxWinShowTimer = new Timer(_ =>

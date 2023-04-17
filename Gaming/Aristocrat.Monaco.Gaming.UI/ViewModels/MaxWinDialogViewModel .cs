@@ -11,13 +11,13 @@
     public class MaxWinDialogViewModel : BaseViewModel
     {
         private readonly IEventBus _eventBus;
-        private long? _maxWinAmount;
+        private string _maxWinAmount;
         private bool _disposed = false;
 
         /// <summary>
-        /// Maximum win amount value
+        /// Maximum win amount value in $
         /// </summary>
-        public long? MaxWinAmount
+        public string MaxWinAmount
         {
             get
             {
