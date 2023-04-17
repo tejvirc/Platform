@@ -23,15 +23,16 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System.configuration" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
+    <Content Include="Aristocrat.Monaco.Accounting.Contracts.HandCount.HardMeterOutTransaction.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

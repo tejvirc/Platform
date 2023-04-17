@@ -91,7 +91,7 @@
         public const string HandCountPayoutLimitVisible = "HandCount.PayoutLimitVisible";
 
         /// <summary>
-        ///     A Value to represent the Handcount payout limit
+        ///     A Value to represent the hand count payout limit
         /// </summary>
         public const string HandCountPayoutLimit = "HandCount.PayoutLimit";
 
@@ -164,7 +164,7 @@
         /// <summary>
         ///     Indicates whether the Max Bet Limit checkbox is checked or not
         /// </summary>
-        public const string MaxBetLimitEnabled= "Cabinet.MaxBetLimitEnabled";
+        public const string MaxBetLimitEnabled = "Cabinet.MaxBetLimitEnabled";
 
         /// <summary>
         ///     The Highest Limit allowed on MaxBetLimit
@@ -187,8 +187,8 @@
         public const string MoneyInEnabled = "Cabinet.EnableMoneyIn";
 
         /// <summary>
-        ///     Determines whether or not the current bank balance should be checked before adding credits via the note or coin
-        ///     acceptor
+        ///     Determines whether or not the current bank balance should be checked before adding
+        ///     credits via the note or coin acceptor
         /// </summary>
         public const string CheckCreditsIn = "System.CheckCreditsIn";
 
@@ -543,7 +543,7 @@
         public const string TicketTitleCash = "TicketProperty.TicketTitleCash";
 
         /// <summary>
-        ///     Specified whether the user can keyoff a handpayTransaction while another Lockup is occuring.
+        ///     Specified whether the user can keyoff a handpayTransaction while another Lockup is occurring.
         /// </summary>
         public const string CanKeyOffWhileInLockUp = "Handpay.CanKeyOffWhileInLockUp";
 
@@ -613,13 +613,19 @@
         /// </summary>
         public const string TicketTitleWatNonCash = "TicketProperty.TicketTitleWatNonCash";
 
-        /// <summary> The key to access the ticket redemtion text property. </summary>
+        /// <summary>
+        ///     The key to access the ticket redemtion text property.
+        /// </summary>
         public const string RedeemText = "TicketProperty.TicketRedeemText";
 
-        /// <summary> The key to access the property indicating whether to ignore a voucher stacked during a reboot. </summary>
+        /// <summary>
+        ///     The key to access the property indicating whether to ignore a voucher stacked during a reboot.
+        /// </summary>
         public const string IgnoreVoucherStackedDuringReboot = "TicketProperty.IgnoreVoucherStackedDuringReboot";
 
-        /// <summary> The key to access the property indicating whether a ticket redemption is timed out. </summary>
+        /// <summary>
+        ///     The key to access the property indicating whether a ticket redemption is timed out.
+        /// </summary>
         public const string IsVoucherRedemptionTimedOut = "TicketProperty.IsVoucherRedemptionTimedOut";
 
         /// <summary>
@@ -653,7 +659,8 @@
         public const string HandpayLargeWinKeyOffStrategy = "Handpay.LargeWinKeyOffStrategy";
 
         /// <summary>
-        ///     The maximum win amount automatically paid to the credit meter; wins exceeding this limit will cause a lockup that requires attendant reset key for the win to be paid to Credit Meter.
+        ///     The maximum win amount automatically paid to the credit meter; wins exceeding this limit will cause a
+        ///     lockup that requires attendant reset key for the win to be paid to Credit Meter.
         /// </summary>
         public const string CelebrationLockupLimit = "Cabinet.CelebrationLockupLimit";
 
@@ -667,24 +674,34 @@
         /// </summary>
         public const string MysteryWinAsExternalBonus = "MysteryProgressive.WinAsExternalBonus";
 
-        /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
+        /// <summary>
+        ///     Property manager key for ConfigWizardLimitsPageEnabled.
+        /// </summary>
         public const string ConfigWizardLimitsPageEnabled = "ConfigWizard.LimitsPage.Enabled";
 
-       /// <summary> Property manager key for HandpayRemoteHandpayResetAllowed </summary>
+        /// <summary>
+        ///     Property manager key for HandpayRemoteHandpayResetAllowed
+        /// </summary>
         public const string RemoteHandpayResetAllowed = "Handpay.RemoteHandpayReset.Allowed";
 
-        /// <summary> Property manager key for RemoteHandpayResetConfigurable  </summary>
+        /// <summary>
+        ///     Property manager key for RemoteHandpayResetConfigurable
+        /// </summary>
         public const string RemoteHandpayResetConfigurable = "Handpay.RemoteHandpayReset.Configurable";
 
         /// <summary>
-        ///    Flag that will force cashout if carrier board or CFast was removed/changed during power-down and if there is credit
+        ///     Flag that will force cashout if carrier board or CFast was removed/changed during power-down and if there is credit
         /// </summary>
         public const string CashoutOnCarrierBoardRemovalEnabled = @"CashoutOnCarrierBoardRemovalEnabled.Enabled";
 
-        /// <summary>Property manager key for NoteAcceptorTimeLimit Enable.</summary>
+        /// <summary>
+        ///     Property manager key for NoteAcceptorTimeLimit Enable.
+        /// </summary>
         public const string NoteAcceptorTimeLimitEnabled = "Accounting.NoteAcceptorTimeLimit.Enable";
 
-        /// <summary>Property manager key for NoteAcceptorTimeLimit Value.</summary>
+        /// <summary>
+        ///     Property manager key for NoteAcceptorTimeLimit Value.
+        /// </summary>
         public const string NoteAcceptorTimeLimitValue = "Accounting.NoteAcceptorTimeLimit.Value";
 
         /// <summary>
@@ -703,55 +720,88 @@
         public const string TestTicketType = "TestTicketType";
 
         /// <summary>
-        /// Flag for Excessive Document Reject limit Lockup to persist on powercycle.
+        ///     Flag for Excessive Document Reject limit Lockup to persist on powercycle.
         /// </summary>
         public const string ExcessiveDocumentRejectLockupEnabled = "ExcessiveDocumentRejectLockupEnabled";
 
-        /// <summary>System disable guid for when carrier board is removed/replaced with credits available.</summary>
+        /// <summary>
+        ///     System disable guid for when carrier board is removed/replaced with credits available.
+        /// </summary>
         public static Guid DisabledDueToCarrierBoardRemovalKey = new Guid("{716969F6-174A-456A-A116-CF8E1DE3C791}");
 
-        /// <summary> Property manager key for SeparateMeteringCashableAndPromoOutAmounts  </summary>
+        /// <summary>
+        ///     Property manager key for SeparateMeteringCashableAndPromoOutAmounts
+        /// </summary>
         public const string SeparateMeteringCashableAndPromoOutAmounts = "System.SeparateMeteringCashableAndPromoOutAmounts";
 
-        /// <summary>The guid for the alternative cancel credit ticket message.</summary>
+        /// <summary>
+        ///     The guid for the alternative cancel credit ticket message.
+        /// </summary>
         public static Guid AlternativeCancelCreditTickerMessageGuid = new Guid("{1AA2ADE3-B978-4D5A-A477-E6E36C500366}");
 
         /// <summary>
-        /// The System Disabled the Handpay payoff if BNA connection is required
+        ///     The System Disabled the Handpay payoff if BNA connection is required
         /// </summary>
         public const string HandpayNoteAcceptorConnectedRequired = "Handpay.NoteAcceptorConnectedRequired";
 
-        /// <summary>    If player inserts a total amount above this threshold and without playing any game requests cash-out the machine will lock-up </summary>
+        /// <summary>
+        ///     If player inserts a total amount above this threshold and without playing any game requests cash-out the machine will lock-up
+        /// </summary>
         public const string IncrementThreshold = "IncrementThreshold";
 
-        /// <summary>    Determines whether or not the meter increment threshold is checked via operator menu. </summary>
+        /// <summary>
+        ///     Determines whether or not the meter increment threshold is checked via operator menu.
+        /// </summary>
         public const string IncrementThresholdIsChecked = "IncrementThresholdIsChecked";
 
-        /// <summary>    Determines whether or not the meter increment threshold applies to current jurisdiction. </summary>
+        /// <summary>
+        ///     Determines whether or not the meter increment threshold applies to current jurisdiction.
+        /// </summary>
         public const string LaunderingMonitorVisible = "LaunderingMonitorVisible";
 
-        /// <summary>   The accumulated amount of money the user has inserted </summary>
+        /// <summary>
+        ///     The accumulated amount of money the user has inserted
+        /// </summary>
         public const string ExcessiveMeterValue = "ExcessiveMeterValue";
 
-        /// <summary>   The disabled status due to excessive meter </summary>
+        /// <summary>
+        ///     The disabled status due to excessive meter
+        /// </summary>
         public const string DisabledDueToExcessiveMeter = "DisabledDueToExcessiveMeter";
 
-        /// <summary>   The properties manager key for sound file path </summary>
+        /// <summary>
+        ///     The properties manager key for sound file path
+        /// </summary>
         public const string ExcessiveMeterSound = "ExcessiveMeterSound";
 
-        /// <summary>   Default Increment Threshold in millicents </summary>
+        /// <summary>
+        ///     Default Increment Threshold in millicents
+        /// </summary>
         public const long DefaultIncrementThreshold = 1_00_000L;
 
-        /// <summary>   Minimum Increment Threshold in millicents </summary>
+        /// <summary>
+        ///     Minimum Increment Threshold in millicents
+        /// </summary>
         public const long MinimumIncrementThreshold = 1_00_000L;
 
-        /// <summary>   Hand count service enabled </summary>
+        /// <summary>
+        ///     Hand count service enabled
+        /// </summary>
         public const string HandCountServiceEnabled = "HandCountServiceEnabled";
 
-        /// <summary>   Hand count minimum required credits </summary>
+        /// <summary>
+        ///     Hand count minimum required credits
+        /// </summary>
         public const string HandCountMinimumRequiredCredits = "HandCountResetCreditLimit";
 
-        /// <summary>   Hand count default required credits </summary>
+        /// <summary>
+        ///     Hand count default minimum credits before automatic hand count and credit reset
+        /// </summary>
         public const long HandCountDefaultRequiredCredits = 25_000L;
+
+        /// <summary>
+        ///     The amount that can be cashed out per hand count
+        /// </summary>
+        public const string CashoutAmountPerHandCount = "CashoutAmountPerHandCount";
     }
 }

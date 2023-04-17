@@ -89,7 +89,8 @@
             @this.RegisterInstance(serviceManager.GetService<IBeagleBoneController>());
             @this.RegisterInstance(serviceManager.GetService<ITime>());
             @this.RegisterInstance(serviceManager.GetService<IMoneyLaunderingMonitor>());
-            @this.RegisterInstance(serviceManager.GetService<IHandCountServiceProvider>());
+            @this.RegisterInstance(serviceManager.GetService<IHandCountService>());
+            @this.RegisterInstance(serviceManager.GetService<ICashOutAmountCalculator>());
         }
     }
 }

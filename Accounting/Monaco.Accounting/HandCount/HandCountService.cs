@@ -32,6 +32,10 @@
         private bool _resetTimerIsRunning;
         private bool _disposed;
 
+        /// <summary>
+        ///     Constructs the service by retrieving all necessary services from the service manager. This
+        ///     constructor is necessary because this is a service in the accounting layer where DI is not used.
+        /// </summary>
         public HandCountService()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
@@ -41,6 +45,9 @@
         {
         }
 
+        /// <summary>
+        ///     Constructs the service taking all required services as parameters. For unit testing.
+        /// </summary>
         public HandCountService(
             IEventBus eventBus,
             IMeterManager meters,
@@ -61,6 +68,10 @@
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IHandCountService) };
 
+        /// <inheritdoc />
+        public bool HandCountServiceEnabled => (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+            .GetProperty(AccountingConstants.HandCountServiceEnabled, false);
+
         public void Initialize()
         {
             _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
@@ -69,8 +80,8 @@
             _eventBus.Subscribe<OpenEvent>(this, x => SuspendResetHandcount());
             _eventBus.Subscribe<SystemDisabledEvent>(this, x => SuspendResetHandcount());
 
-            _eventBus.Subscribe<ClosedEvent>(this, x => CheckAndResetHandCount());
-            _eventBus.Subscribe<SystemEnabledEvent>(this, x => CheckAndResetHandCount());
+            _eventBus.Subscribe<ClosedEvent>(this, x => CheckIfBelowResetThreshold());
+            _eventBus.Subscribe<SystemEnabledEvent>(this, x => CheckIfBelowResetThreshold());
 
             //If bank balance is changed and new balance is above the min required credits,
             //suspend the reset hand count if underway.
@@ -93,7 +104,7 @@
             SendHandCountChangedEvent();
 
             //Recovery scenario when machine restarted during reset hand count check
-            CheckAndResetHandCount();
+            CheckIfBelowResetThreshold();
         }
 
         private void SuspendResetHandcount()
@@ -107,7 +118,7 @@
             }
         }
 
-        public void CheckAndResetHandCount()
+        public void CheckIfBelowResetThreshold()
         {
             if (HandCount == 0)
             {
@@ -154,7 +165,7 @@
 
             //Hands count are reset when cashout happens
             //Check if need to reset hand count
-            CheckAndResetHandCount();
+            CheckIfBelowResetThreshold();
         }
 
         private void ResetHandCount()
@@ -165,7 +176,7 @@
             Logger.Info($"ResetHandCount:{HandCount}");
         }
 
-        public void SendHandCountChangedEvent()
+        private void SendHandCountChangedEvent()
         {
             _eventBus.Publish(new HandCountChangedEvent(HandCount));
         }

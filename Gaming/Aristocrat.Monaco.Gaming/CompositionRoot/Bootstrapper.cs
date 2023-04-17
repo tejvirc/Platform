@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
-    using Aristocrat.Monaco.Accounting.HandCount;
     using Barkeeper;
     using BeagleBone;
     using Bonus;

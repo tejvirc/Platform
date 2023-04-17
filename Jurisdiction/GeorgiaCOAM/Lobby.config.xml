@@ -42,7 +42,6 @@
   <DisplayVoucherNotification>true</DisplayVoucherNotification>
   <ResponsibleGamingMode>Continuous</ResponsibleGamingMode>
   <ClockMode>Locale</ClockMode>
-  <UpiTemplate>GeorgiaCOAMUpiTemplate</UpiTemplate>
   <DefaultGameDisplayOrderByThemeId>
     <string>ATI_LepreCoins</string>
     <string>ATI_Buffalo</string>
@@ -119,4 +118,5 @@
     <string>ATI_Blackjack</string>
   </DefaultGameDisplayOrderByThemeId>
   <NonCashCashoutFailureMessageEnabled>true</NonCashCashoutFailureMessageEnabled>
+  <UpiTemplate>GeorgiaCOAMUpiTemplate</UpiTemplate>
 </LobbyConfiguration>

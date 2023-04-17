@@ -43,10 +43,10 @@
         private readonly ITransactionHistory _transactionHistory;
         private readonly IBarkeeperHandler _barkeeperHandler;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
-        private readonly IHandCountServiceProvider _handCountServiceProvider;
+        private readonly IHandCountService _handCountServiceProvider;
 
         private readonly bool _meterFreeGames;
-        private IProgressiveLevelProvider _progressiveLevelProvider;
+        private readonly IProgressiveLevelProvider _progressiveLevelProvider;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameEndedCommandHandler" /> class.
@@ -65,7 +65,7 @@
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
             IProgressiveLevelProvider progressiveLevelProvider,
-            IHandCountServiceProvider handCountServiceProvider)
+            IHandCountService handCountServiceProvider)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -107,7 +107,7 @@
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
             _runtime.UpdateBalance(_bank.Credits);
-            _handCountServiceProvider.CheckAndResetHandCount();
+            _handCountServiceProvider.CheckIfBelowResetThreshold();
         }
 
         private void IncrementMeters()

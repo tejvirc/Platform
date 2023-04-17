@@ -38,7 +38,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IPlayerBank _playerBank;
         private readonly IPropertiesManager _properties;
         private readonly IRuntime _runtime;
-        private readonly IHandCountServiceProvider _handCountProvider;
+        private readonly IHandCountService _handCountProvider;
         private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameProvider _gameProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
@@ -52,7 +52,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
         /// </summary>
         public ConfigureClientCommandHandler(
             IRuntime runtime,
-            IHandCountServiceProvider handCountProvider,
+            IHandCountService handCountProvider,
             IGameHistory gameHistory,
             IGameRecovery gameRecovery,
             IGameDiagnostics gameDiagnostics,

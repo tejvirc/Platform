@@ -14072,6 +14072,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Hard Meter Out Amount:.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOut {
+			get {
+				return ResourceManager.GetString("HardMeterOut", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOutTransactionName {
+			get {
+				return ResourceManager.GetString("HardMeterOutTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Hard Meters Available Meter Mappings.
 		/// </summary>
         /// <remarks>
@@ -17371,6 +17395,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LAPSettingsLabel {
 			get {
 				return ResourceManager.GetString("LAPSettingsLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReached {
+			get {
+				return ResourceManager.GetString("LargePayoutReached", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReachedHelpMessage {
+			get {
+				return ResourceManager.GetString("LargePayoutReachedHelpMessage", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -48655,6 +48703,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Hard Meter Out Amount:.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOut {
+			get {
+				return "HardMeterOut";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOutTransactionName {
+			get {
+				return "HardMeterOutTransactionName";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Hard Meters Available Meter Mappings.
 		/// </summary>
         /// <remarks>
@@ -51954,6 +52026,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LAPSettingsLabel {
 			get {
 				return "LAPSettingsLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReached {
+			get {
+				return "LargePayoutReached";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReachedHelpMessage {
+			get {
+				return "LargePayoutReachedHelpMessage";
 			}
 		}
 
@@ -77219,6 +77315,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HardMeterLabel,
 		/// <summary>
+		///   Looks up a localized string similar to Hard Meter Out Amount:.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		HardMeterOut,
+		/// <summary>
+		///   Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		HardMeterOutTransactionName,
+		/// <summary>
 		///   Looks up a localized string similar to Hard Meters Available Meter Mappings.
 		/// </summary>
         /// <remarks>
@@ -79106,6 +79216,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Bingo.UI
         /// </remarks>
 		LAPSettingsLabel,
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		LargePayoutReached,
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		LargePayoutReachedHelpMessage,
 		/// <summary>
 		///   Looks up a localized string similar to Large Win Handpay Reset Method.
 		/// </summary>

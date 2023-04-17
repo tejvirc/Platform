@@ -31,13 +31,15 @@
     <Service type="Aristocrat.Monaco.Accounting.Transactions.DocumentRejectedService" />
     <Service type="Aristocrat.Monaco.Accounting.FundTransferProvider" />
     <Service type="Aristocrat.Monaco.Accounting.ValidationProvider" />
+    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountService" />
+    <Service type="Aristocrat.Monaco.Accounting.HandCount.CashOutAmountCalculator" />
+
     <Service type="Aristocrat.Monaco.Accounting.TransferOutHandler" />
     <Service type="Aristocrat.Monaco.Accounting.WatOnHandler" />
     <Service type="Aristocrat.Monaco.Accounting.CurrencyInProvider" />
     <Service type="Aristocrat.Monaco.Accounting.NoteAcceptorActivityTimeWatcher" />
     <Service type="Aristocrat.Monaco.Accounting.VoucherInProvider" />
     <Service type="Aristocrat.Monaco.Accounting.CabinetSwapDetectionService" />
-    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountServiceProvider" />
   </Extension>
 
   <ExtensionPoint path="/Accounting/TransactionHistories">
@@ -81,6 +83,7 @@
   <Extension path="/Accounting/TransferOutProviders">
     <TransactionService type="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" />
+    <TransactionService type="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" />
   </Extension>
 

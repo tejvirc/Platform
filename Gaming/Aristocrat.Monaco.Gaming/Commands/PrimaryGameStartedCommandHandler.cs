@@ -3,8 +3,6 @@
     using System;
     using Accounting.Contracts.HandCount;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Accounting.HandCount;
-    using CefSharp.Internals;
     using Contracts;
     using Contracts.Events;
     using Hardware.Contracts.Persistence;
@@ -20,7 +18,7 @@
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IGameHistory _gameHistory;
         private readonly IProgressiveGameProvider _progressiveGame;
-        private readonly IHandCountServiceProvider _handCountProvider;
+        private readonly IHandCountService _handCountService;
         private readonly IPersistentStorageManager _storage;
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -32,7 +30,7 @@
             IEventBus eventBus,
             IPlayerBank bank,
             IRuntime runtime,
-            IHandCountServiceProvider handCountProvider,
+            IHandCountService handCountService,
             IGameHistory gameHistory,
             IPersistentStorageManager storage,
             IProgressiveGameProvider progressiveGame,
@@ -46,7 +44,7 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
-            _handCountProvider = handCountProvider;
+            _handCountService = handCountService;
         }
 
         /// <inheritdoc />
@@ -62,7 +60,10 @@
                 _commandFactory.Create<Wager>().Handle(new Wager(command.GameId, command.Denomination, command.Wager));
 
                 //assumption this will be only trigger for the jurisdiction
-                _handCountProvider.IncrementHandCount();
+                if (_handCountService.HandCountServiceEnabled)
+                {
+                    _handCountService.IncrementHandCount();
+                }
 
                 scope.Complete();
 

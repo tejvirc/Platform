@@ -7068,6 +7068,10 @@ See manual for details</value>
     <value>TRANSFER TO GAME</value>
     <comment>Aristocrat.Monaco.Sas</comment>
   </data>
+  <data name="HardMeterOut" xml:space="preserve">
+    <value>Hard Meter Out</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
   <data name="TriggerLabel" xml:space="preserve">
     <value>Progressive Trigger</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
@@ -11686,6 +11690,18 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="PayoutLimit" xml:space="preserve">
     <value>Payout Limit</value>
+  </data>
+  <data name="LargePayoutReached" xml:space="preserve">
+    <value>COLLECT LIMIT REACHED. SEE ATTENDANT.</value>
+    <comment>Aristocrat.Account</comment>
+  </data>
+  <data name="HardMeterOutTransactionName" xml:space="preserve">
+    <value>HardMeterOutTransaction</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="LargePayoutReachedHelpMessage" xml:space="preserve">
+    <value>COLLECT LIMIT REACHED. SEE ATTENDANT.</value>
+    <comment>Aristocrat.Account</comment>
   </data>
   <data name="BetOptionMaxWin" xml:space="preserve">
     <value>Max Win</value>

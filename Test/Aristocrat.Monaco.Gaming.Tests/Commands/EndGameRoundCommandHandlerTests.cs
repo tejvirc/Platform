@@ -40,7 +40,7 @@
         private readonly Mock<IBarkeeperHandler> _barkeeperHandler = new Mock<IBarkeeperHandler>();
         private readonly Mock<IProgressiveGameProvider> _progressiveGame = new Mock<IProgressiveGameProvider>();
         private readonly Mock<IProgressiveLevelProvider> _progressiveLevel = new Mock<IProgressiveLevelProvider>();
-        private readonly Mock<IHandCountServiceProvider> _handCountServiceProvider = new Mock<IHandCountServiceProvider>();
+        private readonly Mock<IHandCountService> _handCountServiceProvider = new Mock<IHandCountService>();
         private readonly Mock<IGameHistoryLog> _gameHistory = new Mock<IGameHistoryLog>();
         private Mock<IScopedTransaction> _transactionScope;
 
@@ -130,7 +130,7 @@
 
             _history.Verify(m => m.EndGame());
             _transactionScope.Verify(m => m.Complete());
-            _handCountServiceProvider.Verify(m => m.CheckAndResetHandCount());
+            _handCountServiceProvider.Verify(m => m.CheckIfBelowResetThreshold());
         }
 
         [TestMethod]

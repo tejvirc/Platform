@@ -19,7 +19,9 @@
 
         private readonly List<Tuple<string, MeterClassification>> _meters = new List<Tuple<string, MeterClassification>>
         {
-            Tuple.Create<string, MeterClassification>(AccountingMeters.HandCount, new OccurrenceMeterClassification())
+            Tuple.Create<string, MeterClassification>(AccountingMeters.HandCount, new OccurrenceMeterClassification()),
+            Tuple.Create<string, MeterClassification>(AccountingMeters.HardMeterOutAmount, new CurrencyMeterClassification()),
+            Tuple.Create<string, MeterClassification>(AccountingMeters.HardMeterOutCount, new OccurrenceMeterClassification())
         };
 
         /// <summary>

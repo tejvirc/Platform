@@ -10,4 +10,12 @@ as follows:
     the corresponding class definition in csharp (TowerLightConfiguration.cs).
 -->
 <TowerLightConfiguration disableTowerLights="true">
+  <SignalDefinitions>
+    <OperationalCondition condition="Idle">
+      <DoorCondition condition="AllClosed">
+        <Set lightTier="Tier1" flashState="Off"/>
+        <Set lightTier="Tier2" flashState="Off"/>
+      </DoorCondition>
+    </OperationalCondition>
+  </SignalDefinitions>
 </TowerLightConfiguration>
