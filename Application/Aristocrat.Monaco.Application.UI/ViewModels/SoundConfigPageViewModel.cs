@@ -47,7 +47,6 @@
         {
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
-            SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
             SoundLevelConfigurationParser(_audio.SoundLevelCollection);
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
