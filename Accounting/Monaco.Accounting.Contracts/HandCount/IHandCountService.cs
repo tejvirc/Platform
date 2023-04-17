@@ -35,20 +35,5 @@
         ///     Send HandCountChangedEvent
         /// </summary>
         void SendHandCountChangedEvent();
-
-        /// <summary>
-        /// Method used to Reset HandCount once Timer Countdown has elapsed
-        /// </summary>
-        void HandCountResetTimerElapsed();
-
-        /// <summary>
-        /// Reset Timer On started Timer action
-        /// </summary>
-        event Action OnResetTimerStarted;
-
-        /// <summary>
-        /// Reset Timer On Cancelled Timer Action
-        /// </summary>
-        event Action OnResetTimerCancelled;
     }
 }

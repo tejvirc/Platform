@@ -21,39 +21,10 @@
     /// </summary>
     public partial class HandCountTimerDialog
     {
-        private readonly Window _parent;
-
-        public HandCountTimerDialog(Window parent)
+        public HandCountTimerDialog(object dataContext)
         {
             InitializeComponent();
-            WindowStyle = WindowStyle.None;
-            // MetroApps issue--need to set in code behind after InitializeComponent.
-            AllowsTransparency = true;
-
-            _parent = parent;
-        }
-
-        private void HandCountTimerDialog_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            var isVisible = (bool)e.NewValue;
-            if (isVisible)
-            {
-                Top = _parent.Top;
-                Left = _parent.Left;
-
-                Width = _parent.Width;
-                Height = _parent.Height;
-
-                WindowState = _parent.WindowState;
-                return;
-            }
-        }
-
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            var hwnd = new WindowInteropHelper(this).Handle;
-            WindowsServices.SetWindowExTransparent(hwnd);
+            DataContext = dataContext;
         }
     }
 }

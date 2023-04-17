@@ -1,9 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Accounting.HandCount
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Timers;
     using Application.Contracts.Metering;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.Contracts;
@@ -13,6 +9,10 @@
     using Contracts.HandCount;
     using Kernel;
     using log4net;
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Timers;
 
     /// <summary>
     ///     Definition of the HandCountService class.
@@ -31,9 +31,6 @@
 
         private bool _resetTimerIsRunning;
         private bool _disposed;
-
-        public event Action OnResetTimerStarted;
-        public event Action OnResetTimerCancelled;
 
         public HandCountService()
             : this(
@@ -67,6 +64,7 @@
         public void Initialize()
         {
             _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, x => HandCountResetTimerElapsed());
 
             _eventBus.Subscribe<OpenEvent>(this, x => SuspendResetHandcount());
             _eventBus.Subscribe<SystemDisabledEvent>(this, x => SuspendResetHandcount());
@@ -84,7 +82,7 @@
             var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
                                                                        AccountingConstants.HandCountDefaultRequiredCredits);
 
-            if (obj.NewBalance >= minimumRequiredCredits)
+            if (obj.NewBalance > obj.OldBalance && obj.NewBalance >= minimumRequiredCredits)
             {
                 SuspendResetHandcount();
             }
@@ -104,8 +102,8 @@
 
             if (_resetTimerIsRunning)
             {
-                OnResetTimerCancelled.Invoke();
-                _resetTimerIsRunning= false;
+                _eventBus.Publish(new HandCountResetTimerCancelledEvent());
+                _resetTimerIsRunning = false;
             }
         }
 
@@ -130,12 +128,12 @@
         {
             if (!_resetTimerIsRunning)
             {
-                OnResetTimerStarted.Invoke();
+                _eventBus.Publish(new HandCountResetTimerStartedEvent());
                 _resetTimerIsRunning = true;
             }
         }
 
-        public void HandCountResetTimerElapsed()
+        private void HandCountResetTimerElapsed()
         {
             _resetTimerIsRunning = false;
             ResetHandCount();

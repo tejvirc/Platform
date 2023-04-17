@@ -7,8 +7,6 @@ namespace Aristocrat.Monaco.Accounting
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
     using Common;
-    using Contracts;
-    using HandCount;
     using Kernel;
     using log4net;
     using Mono.Addins;

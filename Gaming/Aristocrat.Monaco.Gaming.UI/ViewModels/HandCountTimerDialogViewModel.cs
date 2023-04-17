@@ -1,13 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using System;
-    using System.Linq;
-    using Accounting.HandCount;
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
-    using Aristocrat.Monaco.Gaming.UI.Events;
     using Kernel;
     using Monaco.UI.Common;
     using MVVM.ViewModel;
+    using System;
 
     /// <summary>
     ///  Defines the HandCountTimerDialogViewModel class
@@ -21,27 +18,8 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly DispatcherTimerAdapter _resetTimer;
         private IHandCountService _handCountService;
-        private bool _showDialog;
         private TimeSpan _timeLeft;
         private bool _disposed = false;
-
-        /// <summary>
-        /// HandCount timer dialog will be shown if true
-        /// </summary>
-        public bool ShowDialog
-        {
-            get
-            {
-                return _showDialog;
-            }
-            set
-            {
-                _showDialog = value;
-                _eventBus.Publish(new HandCountTimerOverlayVisibilityChangedEvent(_showDialog));
-                RaisePropertyChanged(nameof(ShowDialog));
-            }
-        }
-
 
         /// <summary>
         /// Displays time left in handcount timer dialog
@@ -79,32 +57,19 @@
             _eventBus = eventBus;
             _systemDisableManager = systemDisableManager;
             _handCountService = handCountService;
+
             _resetTimer = new DispatcherTimerAdapter() { Interval = oneSecondElapsed };
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
             _resetTimer.Tick += resetTimer_Tick;
-            SetupTimerCallbacks();
-            _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, Handle);
         }
 
-        private void Handle(HandCountResetTimerStartedEvent obj)
-        {
-            OnHandCountTimerStarted();
-        }
-
-        private void SetupTimerCallbacks()
-        {
-            _handCountService.OnResetTimerStarted += OnHandCountTimerStarted;
-            _handCountService.OnResetTimerCancelled += OnHandCountTimerCancelled;
-        }
-
-        private void OnHandCountTimerCancelled()
+        public void OnHandCountTimerCancelled()
         {
             HideTimerDialog();
         }
 
-        private void OnHandCountTimerStarted()
+        public void OnHandCountTimerStarted()
         {
-            ShowDialog = true;
             // Start Timer
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
             _resetTimer.Start();
@@ -114,16 +79,11 @@
         private void resetTimer_Tick(object sender, EventArgs e)
         {
             TimeLeft = TimeLeft.Subtract(oneSecondElapsed);
-            if (OtherLockupsExist())
-            {
-                HideTimerDialog();
-                return;
-            }
 
             if (TimeLeft.Seconds == 0 && TimeLeft.Minutes == 0)
             {
                 HideTimerDialog();
-                _handCountService.HandCountResetTimerElapsed();
+                _eventBus.Publish(new HandCountResetTimerElapsedEvent());
             }
         }
 
@@ -132,7 +92,6 @@
             if (_resetTimer.IsEnabled)
             {
                 ResetAndDisableTimer();
-                ShowDialog = false;
             }
         }
 
@@ -142,11 +101,6 @@
             _resetTimer.IsEnabled = false;
         }
 
-        private bool OtherLockupsExist()
-        {
-            return _systemDisableManager.CurrentDisableKeys.Any();
-        }
-
         /// <summary>
         ///  Dispose
         /// </summary>
@@ -154,7 +108,6 @@
         {
             // Dispose of unmanaged resources.
             Dispose(true);
-
             GC.SuppressFinalize(this);
         }
 
