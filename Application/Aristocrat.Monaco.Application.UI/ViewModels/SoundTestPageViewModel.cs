@@ -50,7 +50,9 @@
         private SoundFileViewModel _sound;
         private byte _soundLevel;
         private readonly SpeakerMix _enabledSpeakersMask;
+
         private bool IsAudioServiceAvailable => _audio != null;
+
         private IInspectionService _reporter;
 
         public SoundTestPageViewModel()
@@ -62,7 +64,11 @@
         {
         }
 
-        public SoundTestPageViewModel(IAudio audio, IEventBus eventBus, ISystemDisableManager disableManager, IPropertiesManager propertiesManager)
+        public SoundTestPageViewModel(
+            IAudio audio,
+            IEventBus eventBus,
+            ISystemDisableManager disableManager,
+            IPropertiesManager propertiesManager)
         {
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -71,14 +77,18 @@
 
             _isAudioDisabled = !IsAudioServiceAvailable || !_audio.IsAvailable;
 
-            _enabledSpeakersMask = _propertiesManager.GetValue(ApplicationConstants.EnabledSpeakersMask, SpeakerMix.All);
+            _enabledSpeakersMask = _propertiesManager.GetValue(
+                ApplicationConstants.EnabledSpeakersMask,
+                SpeakerMix.All);
 
             bool enablePlay = IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled;
 
-            StopCommand = new ActionCommand<object>(_ => StopSound(),
+            StopCommand = new ActionCommand<object>(
+                _ => StopSound(),
                 _ => IsAudioServiceAvailable && !IsAudioDisabled && IsPlaying);
 
-            PlayCommand = new ActionCommand<object>(_ => PlaySound(),
+            PlayCommand = new ActionCommand<object>(
+                _ => PlaySound(),
                 _ => IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled);
 
             PlayCommandOnFrontLeftSpeaker = new ActionCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
@@ -91,7 +101,8 @@
 
             PlayCommandOnSideRightSpeaker = new ActionCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnLowFrequencySpeaker = new ActionCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
+            PlayCommandOnLowFrequencySpeaker =
+                new ActionCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
 
             PlayCommandOnRearLeftSpeaker = new ActionCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
 
@@ -106,7 +117,9 @@
         private void LoadVolumeSettings()
         {
             // Load default volume level
-            _soundLevel = _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _soundLevel = _propertiesManager.GetValue(
+                PropertyKey.DefaultVolumeLevel,
+                ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
             OnPropertyChanged(nameof(SoundLevel));
         }
@@ -195,7 +208,8 @@
             }
         }
 
-        public ObservableCollection<SoundFileViewModel> SoundFiles { get; } = new ObservableCollection<SoundFileViewModel>();
+        public ObservableCollection<SoundFileViewModel> SoundFiles { get; } =
+            new ObservableCollection<SoundFileViewModel>();
 
         public SoundFileViewModel Sound
         {
@@ -333,7 +347,8 @@
                 Logger.Error("Audio service is not available");
             }
 
-            if (_disableManager.CurrentDisableKeys.Contains(AudioDisconnectedLock) || _disableManager.CurrentDisableKeys.Contains(AudioReconnectedLock))
+            if (_disableManager.CurrentDisableKeys.Contains(AudioDisconnectedLock) ||
+                _disableManager.CurrentDisableKeys.Contains(AudioReconnectedLock))
             {
                 IsPlaying = false;
                 IsAudioDisabled = true;
@@ -386,7 +401,7 @@
 
         private void StopSound()
         {
-            if (Sound != null)  // VLT-12533 : Fix null reference exception in sound page when switching tabs when cable unplugged 
+            if (Sound != null) // VLT-12533 : Fix null reference exception in sound page when switching tabs when cable unplugged 
             {
                 _audio?.Stop(Sound.Path);
             }
@@ -468,12 +483,13 @@
 
         private void OnPlayEnded(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                _playingTimer.Stop();
-                IsPlaying = false;
-                StopCommand?.RaiseCanExecuteChanged();
-            });
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    _playingTimer.Stop();
+                    IsPlaying = false;
+                    StopCommand?.RaiseCanExecuteChanged();
+                });
         }
 
         private void GetSoundFiles()
@@ -500,6 +516,7 @@
 
                     files.Add(new SoundFileViewModel(name, path));
                 }
+
                 if (!SoundFiles.Any())
                 {
                     SoundFiles.AddRange(files.ToArray());
@@ -517,17 +534,19 @@
 
         private void OnPlayingTimerTick(object sender, EventArgs args)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                if (!IsAudioServiceAvailable)
+            MvvmHelper.ExecuteOnUI(
+                () =>
                 {
-                    return;
-                }
-                if (!_audio.IsPlaying())
-                {
-                    _audio.Stop();
-                }
-            });
+                    if (!IsAudioServiceAvailable)
+                    {
+                        return;
+                    }
+
+                    if (!_audio.IsPlaying())
+                    {
+                        _audio.Stop();
+                    }
+                });
         }
 
         private bool GetFlag(SpeakerMix speakerMix)
@@ -549,19 +568,20 @@
 
         private void OnEnabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                IsAudioDisabled = true;
-            });
+            MvvmHelper.ExecuteOnUI(() => { IsAudioDisabled = true; });
         }
 
         private void OnDisabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                IsPlaying = false;
-                IsAudioDisabled = true;
-            });
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    IsPlaying = false;
+                    IsAudioDisabled = true;
+                });
         }
+
+        public System.Collections.IEnumerable SoundLevelConfigCollection =>
+            ServiceManager.GetInstance().TryGetService<IAudio>().SoundLevelCollection;
     }
 }

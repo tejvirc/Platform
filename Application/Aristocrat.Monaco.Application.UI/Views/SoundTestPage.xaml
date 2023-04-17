@@ -111,11 +111,12 @@
         </StackPanel>
 
         <Label HorizontalAlignment="Left" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundVolumeTest}}"/>
-        <ComboBox ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
+        <ComboBox 
+                  ItemsSource ="{Binding Path=SoundLevelConfigCollection}"
                   Name="SoundLevelComboBox"
                   SelectedIndex="0"
-                  DisplayMemberPath="Description"
-                  SelectedValuePath="Value"
+                  DisplayMemberPath="Item2"
+                  SelectedValuePath="Item1"
                   SelectedValue="{Binding SoundLevel}"
                   Style="{StaticResource OptionComboStyle}"/>
 
