@@ -151,7 +151,7 @@
                        VerticalAlignment="Top" HorizontalAlignment="Left">
                     <i:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
-                            <events:EventToCommandAction Command="{Binding GameSelectCommand}"/>
+                            <events:EventToCommandAction Command="{Binding SelectGameCommand}"/>
                         </events:RoutedEventTrigger>
                     </i:Interaction.Triggers>
                 </Image>

@@ -149,6 +149,8 @@
         /// </summary>
         public string TopPickImagePath;
 
+        private DenominationInfoViewModel _selectedDenomination;
+
         /// <summary>
         ///     Gets or sets the top screen attract video path
         /// </summary>
@@ -313,6 +315,24 @@
             }
         }
 
+        public DenominationInfoViewModel SelectedDenomination
+        {
+            get => _selectedDenomination;
+            private set
+            {
+                SetProperty(ref _selectedDenomination, value);
+                foreach (var denom in Denominations)
+                {
+                    denom.IsSelected = false;
+                }
+
+                if (value != null)
+                {
+                    value.IsSelected = true;
+                }
+            }
+        }
+
         /// <summary>
         ///     The list of denomination buttons that will appear below the extra large game icons
         /// </summary>
@@ -325,7 +345,7 @@
             Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x) { IsVisible = true }));
 
             // Start with all denoms unselected so it doesn't look weird on machines without the VBD denom switching
-            SetSelectedDenomination(null);
+            SelectedDenomination = null;
         }
 
         /// <summary>
@@ -404,7 +424,7 @@
             {
                 if (SetProperty(ref _isSelected, value, nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel)))
                 {
-                    SetSelectedDenomination(null);
+                    SelectedDenomination = null;
                 }
             }
         }
@@ -507,24 +527,11 @@
             {
                 var currentIndex = visibleDenominations.IndexOf(selectedDenomination);
                 currentIndex = (currentIndex + 1) % visibleDenominations.Count;
-                SetSelectedDenomination(visibleDenominations[currentIndex]);
+                SelectedDenomination = visibleDenominations[currentIndex];
             }
             else
             {
-                SetSelectedDenomination(visibleDenominations.FirstOrDefault());
-            }
-        }
-
-        public void SetSelectedDenomination(DenominationInfoViewModel denomination)
-        {
-            foreach (var denom in Denominations)
-            {
-                denom.IsSelected = false;
-            }
-
-            if (denomination != null)
-            {
-                denomination.IsSelected = true;
+                SelectedDenomination = visibleDenominations.FirstOrDefault();
             }
         }
 
