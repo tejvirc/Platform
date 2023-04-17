@@ -147,6 +147,9 @@
             GameRegistered = false;
         }
 
+        /// <summary>
+        /// Sets the Current pay out amount
+        /// </summary>
         public void SetCashableAmount(long cashOutAmount)
         {
             OverlayStrategy.CashableAmount = cashOutAmount;

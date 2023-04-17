@@ -100,24 +100,22 @@
             _eventBus.Subscribe<HandCountChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PayOutLimitVisibility>(this, Handle);
         }
+
+        private void Handle(PayOutLimitVisibility evt)
+        {
+            MessageOverlayData.IsCashOutDialogVisible = evt.IsVisible;
+        }
+
         private void Handle(CashOutDialogVisibilityEvent evt)
         {
             _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
         }
+
         private void HandleEvent(HandCountChangedEvent evt)
         {
             _lobbyStateManager.CashOutState = LobbyCashOutState.PayOut;
         }
-        private void Handle(PayOutLimitVisibility evt)
-        {
-            MessageOverlayData.IsPrintingStarted = evt.IsPrintingVisible;
-            if(MessageOverlayData.IsPrintingStarted)
-            {
-                _lobbyStateManager.CashOutState = LobbyCashOutState.PayOutPrinting;
-                HandleMessageOverlayText(string.Empty);
-            }
-            
-        }
+        
         public IMessageOverlayData MessageOverlayData { get; set; }
 
         public ReserveOverlayViewModel ReserveOverlayViewModel { get; }
@@ -318,11 +316,6 @@
                     break;
                 case MessageOverlayState.PayOut:
                     MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
-
-                    //if (MessageOverlayData.IsPrintingStarted)
-                    //{
-                    //    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
-                    //}
                     messageSent = true;
                     break;
                 case MessageOverlayState.Disabled:
@@ -542,15 +535,6 @@
                 {
                     state = MessageOverlayState.PayOut;
                 }
-                //else if (_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey) &&
-                //         HardErrorMessages.Count == 1 && !_overlayMessageStrategyController.OverlayStrategy.IsBasic)
-                //{   || _lobbyStateManager.CashOutState == LobbyCashOutState.PayOutPrinting
-                //    state = MessageOverlayState.PayOutPrinting;
-                //}
-                //else if (_lobbyStateManager.CashOutState == LobbyCashOutState.PayOut)
-                //{
-                //    state = MessageOverlayState.PayOut;
-                //}
                 else if (ShowVoucherNotification)
                 {
                     state = MessageOverlayState.VoucherNotification;
@@ -670,11 +654,6 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
-        public void PayOut(HardMeterOutStartedEvent evt)
-        {
-            //_lobbyStateManager.CashOutState = LobbyCashOutState.PayOutPrinting;
-            //HandleMessageOverlayText(string.Empty);
-        }
         public void HandpayStarted(HandpayStartedEvent evt)
         {
             var forcedKeyOff = _properties.GetValue(AccountingConstants.HandpayLargeWinForcedKeyOff, false);

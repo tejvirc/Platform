@@ -109,20 +109,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 RaisePropertyChanged(nameof(IsScalingNeeded));
             }
         }
-        private bool _isPrintingStarted;
-        public bool IsPrintingStarted
-        {
-            get => _isPrintingStarted;
 
-            set
-            {
-                if (_isPrintingStarted != value)
-                {
-                    _isPrintingStarted = value;
-                    RaisePropertyChanged(nameof(IsPrintingStarted));
-                }
-            }
-        }
         public bool IsCashOutDialogVisible
         {
             get => _isCashOutDialogVisible;

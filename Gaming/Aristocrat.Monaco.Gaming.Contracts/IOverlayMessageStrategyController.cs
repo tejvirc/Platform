@@ -58,7 +58,7 @@
         void ClearGameDrivenPresentation();
 
         /// <summary>
-        /// 
+        /// Sets the Current pay out amount
         /// </summary>
         void SetCashableAmount(long cashOutAmount);
     }

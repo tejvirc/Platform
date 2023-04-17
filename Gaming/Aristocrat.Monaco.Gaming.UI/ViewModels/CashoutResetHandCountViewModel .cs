@@ -3,7 +3,6 @@
     using MVVM.Command;
     using System;
     using System.Windows.Input;
-    using Aristocrat.MVVM.Model;
     using Aristocrat.MVVM.ViewModel;
     using Aristocrat.Monaco.Gaming.Contracts.Events;
     using Aristocrat.Monaco.Kernel;
@@ -13,51 +12,20 @@
     public class CashoutResetHandCountViewModel : BaseEntityViewModel
     {
         private readonly IEventBus _eventBus;
-        private bool _showDialog;
 
         public ICommand CashoutResetDialogYesNoCommand { get; }
-
-        public bool ShowDialog
-        {
-            get
-            {
-                return _showDialog;
-            }
-            set
-            {
-                _showDialog = value;
-                _eventBus.Publish(new CashoutResetHandCountVisibilityChangedEvent(_showDialog));
-                RaisePropertyChanged(nameof(ShowDialog));
-            }
-        }
 
         public IMessageOverlayData MessageOverlayData { get; set; }
 
         public CashoutResetHandCountViewModel() : this(
-            ServiceManager.GetInstance().TryGetService<IEventBus>(),
-            ServiceManager.GetInstance().TryGetService<IContainerService>())
+            ServiceManager.GetInstance().TryGetService<IEventBus>())
         {
         }
 
-        public CashoutResetHandCountViewModel(IEventBus eventBus,
-            IContainerService containerService)
+        public CashoutResetHandCountViewModel(IEventBus eventBus)
         {
-            _eventBus = eventBus;
-            MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             CashoutResetDialogYesNoCommand = new ActionCommand<object>(CashoutResetDialogYesNoPressed);
-            _eventBus.Subscribe<CashOutDialogVisibilityEvent>(this, Handle);
-            _eventBus.Subscribe<PayOutLimitVisibility>(this, Handle);
-        }
-
-        private void Handle(PayOutLimitVisibility evt)
-        {
-            MessageOverlayData.IsCashOutDialogVisible = evt.IsVisible;
-            //MessageOverlayData.IsPrintingStarted = evt.IsPrintingVisible;
-        }
-
-        private void Handle(CashOutDialogVisibilityEvent evt)
-        {
-            ShowDialog = true;
         }
 
         private void CashoutResetDialogYesNoPressed(object obj)
@@ -70,9 +38,9 @@
             else
             {
                 _eventBus.Publish(new CashOutEvent(false));
-                MessageOverlayData.IsCashOutDialogVisible = false;
+                _eventBus.Publish(new PayOutLimitVisibility(false));
             }
-            ShowDialog = false;
+            _eventBus.Publish(new CashoutResetHandCountVisibilityChangedEvent(false));
         }
     }
 }

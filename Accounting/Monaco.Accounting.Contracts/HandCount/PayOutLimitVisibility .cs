@@ -13,19 +13,12 @@
         public bool IsVisible { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public bool IsPrintingVisible { get; set; }
-
-        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="isVisible"></param>
-        /// <param name="isPrintingVisible"></param>
-        public PayOutLimitVisibility(bool isVisible, bool isPrintingVisible)
+        public PayOutLimitVisibility(bool isVisible)
         {
             IsVisible = isVisible;
-            IsPrintingVisible = isPrintingVisible;
         }
     }
 }

@@ -180,8 +180,7 @@
 
         private async Task Lockup(HardMeterOutTransaction transaction, bool inRecovery)
         {
-            _bus.Publish(new PayOutLimitVisibility(true, true));
-            //_bus.Publish(new HardMeterOutStartedEvent());
+            _bus.Publish(new PayOutLimitVisibility(true));
 
             var keyOff = Initiate();
 

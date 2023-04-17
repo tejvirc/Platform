@@ -306,13 +306,9 @@
         /// <summary> HandPay </summary>
         HandPay,
         /// <summary>
-        /// 
+        /// PayOut
         /// </summary>
-        PayOut,
-        /// <summary>
-        /// 
-        /// </summary>
-        PayOutPrinting
+        PayOut
     }
 
     /// <summary>
@@ -356,13 +352,9 @@
         /// <summary> Handcount Timer Dialog Window </summary>
         HandCountTimerDialog,
         /// <summary>
-        /// 
+        /// PayOut
         /// </summary>
-        PayOut,
-        /// <summary>
-        /// 
-        /// </summary>
-        PayOutPrinting
+        PayOut
     }
 
     /// <summary>

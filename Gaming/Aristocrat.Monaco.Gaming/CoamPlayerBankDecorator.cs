@@ -64,6 +64,7 @@
             _systemDisableManager = systemDisableManager;
 
             _handCountPayoutLimit = properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
+            _bus.Publish(new CashOutDialogVisibilityEvent(0));
             _bus.Subscribe<CashOutEvent>(this, Handle);
         }
 
@@ -80,9 +81,9 @@
             autoResetEvent.WaitOne();
             if (isCashOut)
             {
-                if (amount > 20000)
+                if (amount > _handCountPayoutLimit)
                 {
-                    _bus.Publish(new PayOutLimitVisibility(true, false));
+                    _bus.Publish(new PayOutLimitVisibility(true));
                     var keyOff = Initiate();
                     await keyOff.Task;
 
@@ -140,11 +141,6 @@
                     _bus.Publish(new CashOutStartedEvent(false, true));
 
                     var success = PlayerBank.CashOut(amountCashable);
-
-                    //if (!success)
-                    //{
-                    //    _bus.Publish(new CashOutAbortedEvent());
-                    //}
                     return success;
                 }
                 else
