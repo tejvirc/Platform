@@ -585,6 +585,21 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             foreach (var volumeOption in VolumeOptions)
             {
                 volumeOption.UpdateDisplay();
+			}
+		}
+
+        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection
+        {
+            get
+            {
+                var  soundLevelCollection = new ObservableCollection<EnumerationExtension.EnumerationMember>();
+
+                foreach (var soundLevel in _audio.SoundLevelCollection)
+                {
+                    soundLevelCollection.Add(new EnumerationExtension.EnumerationMember(){ Description = soundLevel.Item2, Value = soundLevel.Item1});
+                }
+
+                return soundLevelCollection;
             }
         }
     }
