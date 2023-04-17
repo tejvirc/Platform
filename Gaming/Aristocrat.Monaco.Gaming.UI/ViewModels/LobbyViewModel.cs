@@ -2058,7 +2058,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                               }).ToList();
 
             return new ObservableCollection<GameInfo>(
-                gameCombos.OrderBy(game => _gameOrderSettings.GetPositionPriority(game.ThemeId))
+                gameCombos.OrderBy(game => _gameOrderSettings.GetIconPositionPriority(game.ThemeId))
                     .ThenBy(g => g.Denomination));
         }
 
@@ -2074,8 +2074,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             var defaultList = lightningLinkOrder ?? Config.DefaultGameDisplayOrderByThemeId;
 
-            _gameOrderSettings.SetGameOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
+            _gameOrderSettings.SetAttractOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
                                                       defaultList);
+            _gameOrderSettings.SetIconOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
+                Config.DefaultGameDisplayOrderByThemeId);
         }
 
         /// <summary>

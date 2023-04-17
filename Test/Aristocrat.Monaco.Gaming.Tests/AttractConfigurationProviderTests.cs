@@ -50,7 +50,7 @@
             MoqServiceManager.CreateAndAddService<IOperatorMenuLauncher>(MockBehavior.Strict);
 
             _gameDetail = MockGameInfo.GetMockGameDetailInfo().ToList();
-            _gameOrder.Setup(x => x.GetPositionPriority(It.IsAny<string>()))
+            _gameOrder.Setup(x => x.GetAttractPositionPriority(It.IsAny<string>()))
                 .Returns((string theme) => _gameDetail.FindIndex(x => x.ThemeId == theme));
             _gameProvider.Setup(g => g.GetEnabledGames()).Returns(_gameDetail.Where(g => g.Enabled).ToList());
             _attractInfo = MockGameInfo.GetMockAttractInfo().ToList();

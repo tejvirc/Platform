@@ -39,7 +39,7 @@
 
             _gameOrderSettings = new GameOrderSettings(storage.Object, bus.Object)
             {
-                Order = new List<string> { GameA, GameB, GameC }
+                IconOrder = new List<string> { GameA, GameB, GameC }
             };
 
             _baseGames = new List<IGameInfo>
@@ -53,9 +53,9 @@
         [TestMethod]
         public void ExpectCorrectInitialOrder()
         {
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameA);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameB);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameC);
         }
 
         [TestMethod]
@@ -64,12 +64,12 @@
         {
             var config = new List<string> { GameB, GameC, GameA };
 
-            _gameOrderSettings.Order = new List<string>();
-            _gameOrderSettings.SetGameOrderFromConfig(_baseGames, config);
+            _gameOrderSettings.IconOrder = new List<string>();
+            _gameOrderSettings.SetIconOrderFromConfig(_baseGames, config);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameB);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameC);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameA);
         }
 
         [TestMethod]
@@ -78,67 +78,67 @@
         {
             var config = new List<string> { GameB, GameC, GameA };
 
-            _gameOrderSettings.Order = new List<string>();
-            _gameOrderSettings.SetGameOrderFromConfig(_baseGames, config);
+            _gameOrderSettings.IconOrder = new List<string>();
+            _gameOrderSettings.SetIconOrderFromConfig(_baseGames, config);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameB);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameC);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameA);
 
             config = new List<string> { GameC, GameA, GameB };
 
-            _gameOrderSettings.Order = new List<string>();
-            _gameOrderSettings.SetGameOrderFromConfig(_baseGames, config);
+            _gameOrderSettings.IconOrder = new List<string>();
+            _gameOrderSettings.SetIconOrderFromConfig(_baseGames, config);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameC);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameA);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameB);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void SetGameOrder_Success()
         {
-            var order = new List<string> { GameC, GameB, GameA };
-            _gameOrderSettings.SetGameOrder(order, false);
+            var IconOrder = new List<string> { GameC, GameB, GameA };
+            _gameOrderSettings.SetIconOrder(IconOrder, false);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameC);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameB);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameA);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void UpdatePositionPriorityToBeginningOfList_Success()
         {
-            _gameOrderSettings.UpdatePositionPriority(GameB, 0);
+            _gameOrderSettings.UpdateIconPositionPriority(GameB, 0);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameB);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameA);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameC);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void UpdatePositionPriorityToEndOfList_Success()
         {
-            _gameOrderSettings.UpdatePositionPriority(GameB, 10);
+            _gameOrderSettings.UpdateIconPositionPriority(GameB, 10);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameA);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameC);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameB);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
         public void UpdatePositionPriorityForNewGame_Success()
         {
-            _gameOrderSettings.UpdatePositionPriority(GameD, 2);
+            _gameOrderSettings.UpdateIconPositionPriority(GameD, 2);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameA);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameD);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameB);
-            Assert.AreEqual(_gameOrderSettings.Order[3], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameD);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[3], GameC);
         }
 
         [TestMethod]
@@ -147,10 +147,10 @@
         {
             _gameOrderSettings.OnGameAdded(GameD);
 
-            Assert.AreEqual(_gameOrderSettings.Order[0], GameD);
-            Assert.AreEqual(_gameOrderSettings.Order[1], GameA);
-            Assert.AreEqual(_gameOrderSettings.Order[2], GameB);
-            Assert.AreEqual(_gameOrderSettings.Order[3], GameC);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[0], GameD);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[1], GameA);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[2], GameB);
+            Assert.AreEqual(_gameOrderSettings.IconOrder[3], GameC);
         }
 
         // TODO Add some more tests in LobbyViewModelTests:

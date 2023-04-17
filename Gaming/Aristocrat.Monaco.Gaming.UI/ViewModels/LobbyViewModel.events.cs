@@ -88,7 +88,7 @@
             _eventBus.Subscribe<GameDisabledEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameUninstalledEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameUpgradedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<GameOrderChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameIconOrderChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameTagsChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameRequestedLobbyEvent>(this, HandleEvent);
             _eventBus.Subscribe<PropertyChangedEvent>(this, HandleEvent, evt => evt.PropertyName == GamingConstants.IdleText);
@@ -882,7 +882,7 @@
             MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameDiagnosticsExit));
         }
 
-        private void HandleEvent(GameOrderChangedEvent evt)
+        private void HandleEvent(GameIconOrderChangedEvent evt)
         {
             // The game info needs to be reloaded, since we can't be certain no other attributes around the game have changed
             MvvmHelper.ExecuteOnUI(

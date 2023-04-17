@@ -75,7 +75,7 @@ namespace Aristocrat.Monaco.Gaming
                 }
 
                 var enabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId)
-                    .OrderBy(g => _gameOrder.GetPositionPriority(g.ThemeId)).ToList();
+                    .OrderBy(g => _gameOrder.GetAttractPositionPriority(g.ThemeId)).ToList();
 
                 var enabledAttract = new List<IAttractInfo>();
 
@@ -114,7 +114,7 @@ namespace Aristocrat.Monaco.Gaming
                     unselectedAttracts.Any(ai => _gamesEnabledInConfiguration.Any(g => g == ai.ThemeId)))
                 {
                     var allEnabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId)
-                        .OrderBy(g => _gameOrder.GetPositionPriority(g.ThemeId)).ToList();
+                        .OrderBy(g => _gameOrder.GetAttractPositionPriority(g.ThemeId)).ToList();
 
                     var newGamesToSelect = allEnabledGames
                         .Where(g => _gamesEnabledInConfiguration.Any(themeId => themeId == g.ThemeId)).ToList();
@@ -128,7 +128,7 @@ namespace Aristocrat.Monaco.Gaming
 
                     // Reorder the games.
                     newEnabledGameDetails = newEnabledGameDetails.DistinctBy(g => g.ThemeId)
-                        .OrderBy(m => _gameOrder.GetPositionPriority(m.ThemeId)).ToList();
+                        .OrderBy(m => _gameOrder.GetAttractPositionPriority(m.ThemeId)).ToList();
 
                     // Remaining unselected attract items.
                     unselectedAttracts = unselectedAttracts.Where(
@@ -216,7 +216,7 @@ namespace Aristocrat.Monaco.Gaming
             if (_lobbyConfiguration == null)
             {
                 // if no configuration loaded at this point, follow the Game Order Priority
-                var priorityOrderedGames = enabledGames.OrderBy(g => _gameOrder.GetPositionPriority(g.ThemeId)).ToList();
+                var priorityOrderedGames = enabledGames.OrderBy(g => _gameOrder.GetAttractPositionPriority(g.ThemeId)).ToList();
 
                 configuredAttractSequence = priorityOrderedGames.Select(
                                                                     game => new AttractInfo
