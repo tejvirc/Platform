@@ -207,6 +207,9 @@
             }
         }
 
+        /// <summary>
+        /// Updates the multiple game associative SAP text (jackpot text) for games with associated SAP levels
+        /// </summary>
         public void UpdateMultipleGameAssociativeSapText()
         {
             MultipleGameAssociatedSapLevelOneEnabled = false;
@@ -245,19 +248,15 @@
                 var grandJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(GrandJackpotLevelName));
                 if (grandJackpotLevel != null)
                 {
-                    grandJackpotText = grandJackpotLevel.CurrentValue
-                        .MillicentsToDollarsNoFraction()
-                        .FormattedCurrencyString()
-                        .ToUpper(localizer.CurrentCulture);
+                    var (_, amount) = GetCurrentLevelAmounts(grandJackpotLevel);
+                    grandJackpotText = amount.FormattedCurrencyString().ToUpper(localizer.CurrentCulture);
                 }
 
                 var majorJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(MajorJackpotLevelName));
                 if (majorJackpotLevel != null)
                 {
-                    majorJackpotText = majorJackpotLevel.CurrentValue
-                        .MillicentsToDollarsNoFraction()
-                        .FormattedCurrencyString()
-                        .ToUpper(localizer.CurrentCulture);
+                    var (_, amount) = GetCurrentLevelAmounts(majorJackpotLevel);
+                    majorJackpotText = amount.FormattedCurrencyString().ToUpper(localizer.CurrentCulture);
                 }
             }
 
@@ -379,15 +378,10 @@
 
         private (int LevelId, decimal CurrentValue) GetCurrentLevelAmounts(IViewableProgressiveLevel level)
         {
-            if (level.LevelType != ProgressiveLevelType.LP && level.LevelType != ProgressiveLevelType.Selectable)
-            {
-                return (level.LevelId, level.CurrentValue.MillicentsToDollarsNoFraction());
-            }
-
             switch (level.AssignedProgressiveId.AssignedProgressiveType)
             {
                 case AssignableProgressiveType.None:
-                    return (level.LevelId, -1);
+                    return (level.LevelId, level.CurrentValue.MillicentsToDollarsNoFraction());
                 case AssignableProgressiveType.AssociativeSap:
                 case AssignableProgressiveType.CustomSap:
                     return (level.LevelId,
@@ -404,7 +398,6 @@
                             ? linked.Amount.CentsToDollars()
                             : -1);
             }
-
             return (level.LevelId, level.CurrentValue.MillicentsToDollarsNoFraction());
         }
     }
