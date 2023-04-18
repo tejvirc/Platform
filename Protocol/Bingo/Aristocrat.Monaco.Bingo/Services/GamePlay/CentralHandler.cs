@@ -29,6 +29,7 @@
     using Protocol.Common.Storage.Entity;
     using GameEndWinFactory =
         Common.IBingoStrategyFactory<GameEndWin.IGameEndWinStrategy, Common.Storage.Model.GameEndWinStrategy>;
+    using GameOutcome = Aristocrat.Bingo.Client.Messages.GamePlay.GameOutcome;
 
     public class CentralHandler : ICentralHandler, IBingoGameOutcomeHandler, IDisposable
     {
@@ -427,16 +428,13 @@
                     DefaultBetDetails);
 
                 WaitingForPlayers(transaction, source.Token).FireAndForget();
+
+                var requests = transaction.GenerateMultiPlayRequest(
+                    machineSerial,
+                    details,
+                    currentGame.GetBingoTitleIdInt());
                 await _commandFactory.Execute(
-                    new RequestPlayCommand(
-                        machineSerial,
-                        transaction.WagerAmount.MillicentsToCents(),
-                        (int)transaction.Denomination.MillicentsToCents(),
-                        details.BetLinePresetId,
-                        details.BetPerLine,
-                        details.NumberLines,
-                        details.Ante,
-                        currentGame.GetBingoTitleId()),
+                    requests,
                     source.Token).ConfigureAwait(false);
             }
             catch (Exception ex)

@@ -33,6 +33,7 @@
         /// <param name="templateId">The template identifier that was used</param>
         /// <param name="wagerAmount">The initial wager amount</param>
         /// <param name="outcomesRequested">The number of requested outcomes</param>
+        /// <param name="additionalInfo">additional game info for side bet or wonder 4 games</param>
         public CentralTransaction(
             int deviceId,
             DateTime transactionDateTime,
@@ -41,7 +42,8 @@
             string wagerCategory,
             string templateId,
             long wagerAmount,
-            int outcomesRequested)
+            int outcomesRequested,
+            IEnumerable<IAdditionalGamePlayInfo> additionalInfo)
             : base(deviceId, transactionDateTime)
         {
             GameId = gameId;
@@ -55,6 +57,7 @@
             Outcomes = Enumerable.Empty<Outcome>();
             AssociatedTransactions = Enumerable.Empty<long>();
             Descriptions = Enumerable.Empty<IOutcomeDescription>();
+            AdditionalInfo = additionalInfo;
         }
 
         /// <summary>
@@ -114,6 +117,11 @@
         public IEnumerable<IOutcomeDescription> Descriptions { get; set; }
 
         /// <summary>
+        ///     Gets or sets optional additional game information when playing side bet or wonder 4 games
+        /// </summary>
+        public IEnumerable<IAdditionalGamePlayInfo> AdditionalInfo { get; set; }
+
+        /// <summary>
         ///     Checks two transactions to see if they are the same.
         /// </summary>
         /// <param name="transaction1">The first transaction</param>
@@ -160,7 +168,8 @@
                 WagerCategory,
                 TemplateId,
                 WagerAmount,
-                OutcomesRequested)
+                OutcomesRequested,
+                AdditionalInfo)
             {
                 TransactionId = TransactionId,
                 LogSequence = LogSequence,
@@ -168,7 +177,8 @@
                 Outcomes = Outcomes.ToList(),
                 Exception = Exception,
                 AssociatedTransactions = AssociatedTransactions.ToList(),
-                Descriptions = Descriptions.ToList()
+                Descriptions = Descriptions.ToList(),
+                AdditionalInfo = AdditionalInfo?.ToList() ?? Enumerable.Empty<IAdditionalGamePlayInfo>()
             };
         }
 
@@ -196,11 +206,18 @@
             Exception = (OutcomeException)values["Exception"];
 
             var descriptions = (string)values["Descriptions"];
-            Descriptions =  !string.IsNullOrEmpty(outcomes)
+            Descriptions = !string.IsNullOrEmpty(outcomes)
                 ? JsonConvert.DeserializeObject<List<IOutcomeDescription>>(
                     descriptions,
                     new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto })
                 : Enumerable.Empty<IOutcomeDescription>();
+
+            var additionalInfo = (string)values["AdditionalInfo"];
+            AdditionalInfo = !string.IsNullOrEmpty(outcomes)
+                ? JsonConvert.DeserializeObject<List<IAdditionalGamePlayInfo>>(
+                    additionalInfo,
+                    new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto })
+                : Enumerable.Empty<IAdditionalGamePlayInfo>();
 
             var associated = (string)values["AssociatedTransactions"];
             AssociatedTransactions = !string.IsNullOrEmpty(associated)
@@ -227,6 +244,10 @@
                 transaction[element, "Outcomes"] = JsonConvert.SerializeObject(Outcomes, Formatting.None);
                 transaction[element, "Descriptions"] = JsonConvert.SerializeObject(
                     Descriptions,
+                    Formatting.None,
+                    new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                transaction[element, "AdditionalInfo"] = JsonConvert.SerializeObject(
+                    AdditionalInfo,
                     Formatting.None,
                     new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
                 transaction[element, "Exception"] = Exception;

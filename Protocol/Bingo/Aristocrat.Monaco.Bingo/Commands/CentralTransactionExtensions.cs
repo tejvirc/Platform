@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Commands
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages.GamePlay;
@@ -20,7 +21,7 @@
         /// <param name="machineSerial">The machine serial number</param>
         /// <param name="log">The game history log for this transaction is for</param>
         /// <returns>The report game outcome message that gets sent to the server</returns>
-        public static ReportGameOutcomeMessage ToReportGameOutcomeMessage(
+        public static ReportMultiGameOutcomeMessage ToReportGameOutcomeMessage(
             this CentralTransaction transaction,
             string machineSerial,
             IGameHistoryLog log)
@@ -31,7 +32,7 @@
                 return null;
             }
 
-            return new ReportGameOutcomeMessage
+            return new ReportMultiGameOutcomeMessage
             {
                 TransactionId = transaction.TransactionId,
                 MachineSerial = machineSerial,
@@ -58,6 +59,55 @@
             };
 
             bool KeepPattern(BingoPattern x) => log.GameWinBonus > 0 || !x.IsGameEndWin;
+        }
+
+        /// <summary>
+        ///     Converts the transaction into a RequestMultiPlayCommand
+        /// </summary>
+        /// <param name="transaction">The Central Transaction</param>
+        /// <param name="machineSerial">The machine serial number</param>
+        /// <param name="details">The bet details</param>
+        /// <param name="titleId">The main game title id</param>
+        /// <returns></returns>
+        public static RequestMultiPlayCommand GenerateMultiPlayRequest(
+            this CentralTransaction transaction,
+            string machineSerial,
+            IBetDetails details,
+            int titleId)
+        {
+            var requests = new List<RequestSingleGameOutcomeMessage>();
+
+            // create play request for main game
+            var message = new RequestSingleGameOutcomeMessage(
+                0,
+                transaction.WagerAmount,
+                transaction.Denomination,
+                details.BetLinePresetId,
+                details.BetPerLine,
+                details.NumberLines,
+                details.Ante,
+                titleId);
+
+            requests.Add(message);
+
+            // create play requests for any additional games
+            if (transaction.AdditionalInfo.Any())
+            {
+                // create multi-game request
+                requests.AddRange(
+                    transaction.AdditionalInfo.Select(
+                        game => new RequestSingleGameOutcomeMessage(
+                            game.GameIndex,
+                            game.WagerAmount,
+                            game.Denomination,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0)));
+            }
+
+            return new RequestMultiPlayCommand(machineSerial, requests);
         }
 
         private static CardPlayed ToCardPlayed(BingoCard card)

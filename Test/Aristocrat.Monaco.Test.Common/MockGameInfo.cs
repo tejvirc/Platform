@@ -190,6 +190,16 @@
 
         public GameSubCategory SubCategory => GameSubCategory.FiveHand;
 
+        public IEnumerable<Feature> Features { get; set; }
+
+        public int MechanicalReels { get; set; }
+
+        public int[] MechanicalReelHomeSteps { get; set; }
+
+        public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }
+
+        public IEnumerable<ISubGameDetails> ActiveSubGames { get; set; }
+
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
             var gameDetail = new List<IGameDetail>();
@@ -253,12 +263,6 @@
 
             return gameGraphics;
         }
-
-        public IEnumerable<Feature> Features { get; set; }
-
-        public int MechanicalReels { get; set; }
-
-        public int[] MechanicalReelHomeSteps { get; set; }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

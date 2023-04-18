@@ -60,7 +60,7 @@
             container.RegisterSingleton<IAcknowledgedQueue<ReportEventMessage, long>, AcknowledgedQueue<ReportEventMessage, long>>();
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportEventMessage, long>, EventAcknowledgedQueueHelper>();
             container.RegisterSingleton<IAcknowledgedQueue<ReportGameOutcomeMessage, long>, AcknowledgedQueue<ReportGameOutcomeMessage, long>>();
-            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportGameOutcomeMessage, long>, GameHistoryReportAcknowledgeQueueHelper>();
+            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportMultiGameOutcomeMessage, long>, GameHistoryReportAcknowledgeQueueHelper>();
             container.RegisterSingleton<IBingoGameProvider, BingoGameProvider>();
             container.RegisterSingleton<IEgmStatusService, EgmStatusHandler>();
             container.RegisterSingleton<IGameRoundPrintFormatter, BingoRoundPrintFormatter>();

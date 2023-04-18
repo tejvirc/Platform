@@ -61,7 +61,8 @@
                 1,
                 new byte[] { 1 },
                 null,
-                (int)wagerCategoryId
+                (int)wagerCategoryId,
+                Enumerable.Empty<IAdditionalGamePlayInfo>()
             );
             var game = new Mock<IGameDetail>(MockBehavior.Strict);
             var denom = new Mock<IDenomination>();
@@ -104,7 +105,8 @@
                 1,
                 new byte[] { 1 },
                 null,
-                0 // no wager category provided
+                0, // no wager category provided
+                Enumerable.Empty<IAdditionalGamePlayInfo>()
             );
             var game = new Mock<IGameDetail>(MockBehavior.Strict);
             var denom = new Mock<IDenomination>();

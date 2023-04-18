@@ -130,5 +130,9 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
+
+        public IEnumerable<ISubGameDetails> ActiveSubGames { get; }
     }
 }

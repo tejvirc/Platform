@@ -11,6 +11,9 @@
     using ServerApiGateway;
     using GameOutcome = GamePlay.GameOutcome;
 
+    /// <summary>
+    ///     Provides outcomes of bingo games
+    /// </summary>
     public class GameOutcomeService :
         BaseClientCommunicationService<ClientApi.ClientApiClient>,
         IGameOutcomeService
@@ -29,16 +32,18 @@
                 messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
         }
 
-        public Task<bool> RequestGame(RequestGameOutcomeMessage message, CancellationToken token)
+        /// <inheritdoc/>
+        public Task<bool> RequestMultiGame(RequestMultipleGameOutcomeMessage message, CancellationToken token)
         {
             if (message == null)
             {
                 throw new ArgumentNullException(nameof(message));
             }
 
-            return RequestGameInternal(message, token);
+            return RequestMultiGameInternal(message, token);
         }
 
+        /// <inheritdoc/>
         public Task<ClaimWinResults> ClaimWin(RequestClaimWinMessage message, CancellationToken token)
         {
             if (message == null)
@@ -49,11 +54,13 @@
             return ClaimWinInternal(message, token);
         }
 
-        public async Task<ReportGameOutcomeResponse> ReportGameOutcome(ReportGameOutcomeMessage message, CancellationToken token)
+        /// <inheritdoc/>
+        public Task<ReportMultiGameOutcomeResponse> ReportMultiGameOutcome(ReportMultiGameOutcomeMessage message, CancellationToken token)
         {
-            var result = await Invoke(async x => await x.ReportGameOutcomeAsync(message.ToGameOutcome()))
-                .ConfigureAwait(false);
-            return new ReportGameOutcomeResponse(result.Succeeded ? ResponseCode.Ok : ResponseCode.Rejected);
+            // TODO: fill this in as part of the game play story
+            //var result = await Invoke(async x => await x.ReportMultiGameOutcomeAsync(message.ToGameOutcome()))
+            //    .ConfigureAwait(false);
+            return Task.FromResult(new ReportMultiGameOutcomeResponse(ResponseCode.Rejected));
         }
 
         private static GameOutcome ProcessRejectedResponse(GamePlayResponse gamePlayOutcome, GamePlayRequest request)
@@ -140,30 +147,24 @@
                 gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End);
         }
 
-        private async Task<bool> RequestGameInternal(RequestGameOutcomeMessage message, CancellationToken token)
+        private Task<bool> RequestMultiGameInternal(RequestMultipleGameOutcomeMessage message, CancellationToken token)
         {
-            Logger.Debug("Request new game");
-            var request = new GamePlayRequest
-            {
-                MachineSerial = message.MachineSerial,
-                BetAmount = message.BetAmount,
-                ActiveDenomination = message.ActiveDenomination,
-                BetLinePresetId = message.BetLinePresetId,
-                LineBet = message.LineBet,
-                Lines = message.Lines,
-                Ante = message.Ante,
-                ActiveGameTitles = message.ActiveGameTitles,
-                GamePlayMeta = Any.Pack(new BingoGamePlayMeta())
-            };
+            // TODO: implement this when we do the game play story. Need to change to an async method type.
+            //Logger.Debug("Request new games");
+            //var request = new MultiGamePlayRequest
+            //{
+            //    MachineSerial = message.MachineSerial,
+            //    GamePlayRequests = { message.GameRequests }
+            //};
 
-            using var caller = Invoke((x, c) => x.RequestGamePlay(request, null, null, c), token);
-            var responseStream = caller.ResponseStream;
-            while (await responseStream.MoveNext(token).ConfigureAwait(false) &&
-                   await ReadGameOutcome(responseStream.Current, request, token).ConfigureAwait(false))
-            {
-            }
+            //using var caller = Invoke((x, c) => x.RequestMultiGamePlay(request, null, null, c), token);
+            //var responseStream = caller.ResponseStream;
+            //while (await responseStream.MoveNext(token).ConfigureAwait(false) &&
+            //       await ReadMultiGameOutcome(responseStream.Current, request, token).ConfigureAwait(false))
+            //{
+            //}
 
-            return true;
+            return Task.FromResult(true);
         }
 
         private async Task<ClaimWinResults> ClaimWinInternal(RequestClaimWinMessage message, CancellationToken token)
@@ -199,5 +200,15 @@
                 .ConfigureAwait(false);
             return gamePlayOutcome.Status && !outcome.IsFinal && handlerResult.ResponseCode == ResponseCode.Ok;
         }
+
+        //private async Task<bool> ReadMultiGameOutcome(MultiGamePlayResponse gamePlayOutcome, GamePlayRequest request, CancellationToken token)
+        //{
+        //    var outcome = gamePlayOutcome.Status
+        //        ? ProcessAcceptedResponse(gamePlayOutcome, request)
+        //        : ProcessRejectedResponse(gamePlayOutcome, request);
+        //    var handlerResult = await _messageHandlerFactory.Handle<GameOutcomeResponse, GameOutcome>(outcome, token)
+        //        .ConfigureAwait(false);
+        //    return gamePlayOutcome.Status && !outcome.IsFinal && handlerResult.ResponseCode == ResponseCode.Ok;
+        //}
     }
 }

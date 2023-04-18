@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
+    using System.Collections.Generic;
     using Contracts;
+    using Contracts.Central;
 
     /// <summary>
     ///     Begin game round command
@@ -8,21 +10,23 @@
     public class BeginGameRoundAsync
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BeginGameRound" /> class.
+        ///     Initializes a new instance of the <see cref="BeginGameRoundAsync" /> class.
         /// </summary>
         /// <param name="denom">The denom of the game round.</param>
         /// <param name="wager">The initial wager amount for the game round</param>
         /// <param name="betLinePresetId">The bet-line-preset-id for the game round</param>
         /// <param name="data">The initial recovery blob</param>
-        /// <param name="request">Outcome request</param>
+        /// <param name="request">Outcome request(s)</param>
         /// <param name="wagerCategoryId">Wager category for the game round</param>///
+        /// <param name="additionalInfo">information about additional games to play</param>
         public BeginGameRoundAsync(
             long denom,
             long wager,
             int betLinePresetId,
             byte[] data,
             IOutcomeRequest request,
-            int wagerCategoryId)
+            int wagerCategoryId,
+            IEnumerable<IAdditionalGamePlayInfo> additionalInfo)
         {
             Denom = denom;
             Wager = wager;
@@ -30,6 +34,7 @@
             Data = data;
             Request = request;
             WagerCategoryId = wagerCategoryId;
+            AdditionalInfo = additionalInfo;
         }
 
         /// <summary>
@@ -61,5 +66,10 @@
         ///     Gets the outcome request
         /// </summary>
         public IOutcomeRequest Request { get; }
+
+        /// <summary>
+        ///     Info for additional games
+        /// </summary>
+        public IEnumerable<IAdditionalGamePlayInfo> AdditionalInfo { get; }
     }
 }

@@ -56,7 +56,8 @@
                     request.TemplateId.ToString(),
                     command.InitialWager.CentsToMillicents(),
                     command.Request,
-                    _recovery.IsRecovering),
+                    _recovery.IsRecovering,
+                    command.AdditionalInfo),
                 _ => throw new NotSupportedException()
             };
 

@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands.RuntimeEvents
 {
     using System;
+    using System.Linq;
     using Contracts;
+    using Contracts.Central;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Runtime;
@@ -9,6 +11,9 @@
     using Vgt.Client12.Application.OperatorMenu;
     using PlayMode = Runtime.Client.PlayMode;
 
+    /// <summary>
+    ///     Handles the various GameRoundEvents
+    /// </summary>
     public class PrimaryEventHandler : BaseEventHandler, IRuntimeEventHandler
     {
         private readonly IPlayerBank _bank;
@@ -47,6 +52,7 @@
             _operatorMenu = operatorMenu ?? throw new ArgumentNullException(nameof(operatorMenu));
         }
 
+        /// <inheritdoc/>
         public void HandleEvent(GameRoundEvent gameRoundEvent)
         {
             switch (gameRoundEvent.Action)
@@ -84,7 +90,7 @@
                 _gameHistory.ClearForRecovery();
             }
 
-            _gamePlayState.Start((long)gameRoundEvent.Bet, gameRoundEvent.Data, _recovery.IsRecovering);
+            _gamePlayState.Start((long)gameRoundEvent.Bet, gameRoundEvent.Data, _recovery.IsRecovering, Enumerable.Empty<IAdditionalGamePlayInfo>());
             SetAllowSubgameRound(false);
         }
 

@@ -154,7 +154,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -196,7 +196,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -239,7 +239,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -279,7 +279,7 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed
@@ -319,12 +319,12 @@
 
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed,
                     TransactionId = cdsId,
-                    AssociatedTransactions = new List<long> { gameId }
+                    AssociatedTransactions = new List<long> { gameId },
                 }
             };
 
@@ -390,7 +390,7 @@
                 GameEndWinClaimAccepted = gewAlreadyClaimed
             };
 
-            var transaction = new CentralTransaction(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
+            var transaction = new CentralTransaction(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
             {
                 Descriptions = new List<IOutcomeDescription> { description },
                 AssociatedTransactions = new List<long> { gameId },
@@ -458,7 +458,7 @@
             var joinedBalls = description.BallCallNumbers.Take(joinedBallIndex);
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1)
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed,

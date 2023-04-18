@@ -86,7 +86,8 @@
             string templateId,
             long wager,
             IOutcomeRequest request,
-            bool recovering)
+            bool recovering,
+            IEnumerable<IAdditionalGamePlayInfo> additionalInfo)
         {
             if (Handler == null)
             {
@@ -137,7 +138,8 @@
                     wagerCategory,
                     templateId,
                     wager,
-                    request.Quantity)
+                    request.Quantity,
+                    request.AdditionalInfo)
                 {
                     Exception = OutcomeException.Pending,
                     AssociatedTransactions = new List<long> { _gameHistory.CurrentLog.TransactionId }

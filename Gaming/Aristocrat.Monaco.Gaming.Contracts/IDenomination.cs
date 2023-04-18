@@ -49,5 +49,10 @@
         ///     Gets whether or not the Let It Ride feature is allowed
         /// </summary>
         bool LetItRideAllowed { get; set; }
+
+        /// <summary>
+        ///     Gets the value in millicents of each credit for the game's display
+        /// </summary>
+        long DisplayedValue { get; }
     }
 }
