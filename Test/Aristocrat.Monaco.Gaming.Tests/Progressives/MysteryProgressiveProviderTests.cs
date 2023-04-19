@@ -102,28 +102,23 @@
         public void Init()
         {
             _prng = new Mock<IPRNG>();
-            _prng
-                .Setup(x => x.GetValue(It.IsAny<ulong>()))
-                .Returns<ulong>(x => x / 2);
+            _prng.Setup(x => x.GetValue(It.IsAny<ulong>()))
+                 .Returns<ulong>(x => x / 2);
 
             _randomFactory = new Mock<IRandomFactory>();
-            _randomFactory
-                .Setup(x => x.Create(It.IsAny<RandomType>()))
-                .Returns(_prng.Object);
+            _randomFactory.Setup(x => x.Create(It.IsAny<RandomType>()))
+                          .Returns(_prng.Object);
 
             _persistentTransaction = new Mock<IPersistentTransaction>();
             _persistentBlock = new Mock<IPersistentBlock>();
-            _persistentBlock
-                .Setup(x => x.GetOrCreateValue<ConcurrentDictionary<string, decimal>>(It.IsAny<string>()))
-                .Returns(new ConcurrentDictionary<string, decimal>());
-            _persistentBlock
-                .Setup(x => x.Transaction())
-                .Returns(_persistentTransaction.Object);
+            _persistentBlock.Setup(x => x.GetOrCreateValue<ConcurrentDictionary<string, long>>(It.IsAny<string>()))
+                            .Returns(new ConcurrentDictionary<string, long>());
+            _persistentBlock.Setup(x => x.Transaction())
+                            .Returns(_persistentTransaction.Object);
 
             _persistenceProvider = new Mock<IPersistenceProvider>();
-            _persistenceProvider
-                .Setup(x => x.GetOrCreateBlock(It.IsAny<string>(), PersistenceLevel.Static))
-                .Returns(_persistentBlock.Object);
+            _persistenceProvider.Setup(x => x.GetOrCreateBlock(It.IsAny<string>(), PersistenceLevel.Static))
+                                .Returns(_persistentBlock.Object);
 
             _mysteryProgressiveProvider = new MysteryProgressiveProvider(_randomFactory.Object, _persistenceProvider.Object);
         }
@@ -162,7 +157,7 @@
 
                 Assert.IsNotNull(number);
                 Assert.IsTrue(MagicNumberIsInProgressiveRange(progressiveLevel, number));
-                Assert.AreEqual(progressiveLevel.ResetValue, number);
+                Assert.AreEqual(progressiveLevel.CurrentValue, number);
             }
         }
 
@@ -214,9 +209,13 @@
                 var hit = _mysteryProgressiveProvider.CheckMysteryJackpot(progressiveLevel);
 
                 if (shouldHit)
+                {
                     Assert.IsTrue(hit);
+                }
                 else
+                {
                     Assert.IsFalse(hit);
+                }
             }
         }
 
@@ -295,6 +294,6 @@
         }
 
         private bool MagicNumberIsInProgressiveRange(ProgressiveLevel progressiveLevel, decimal magicNumber) =>
-            progressiveLevel.ResetValue <= magicNumber && magicNumber <= progressiveLevel.MaximumValue;
+            progressiveLevel.CurrentValue <= magicNumber && magicNumber <= progressiveLevel.MaximumValue;
     }
 }
