@@ -304,11 +304,7 @@
         /// <summary> Voucher </summary>
         Voucher,
         /// <summary> HandPay </summary>
-        HandPay,
-        /// <summary>
-        /// PayOut
-        /// </summary>
-        PayOut
+        HandPay
     }
 
     /// <summary>
@@ -352,9 +348,9 @@
         /// <summary> Handcount Timer Dialog Window </summary>
         HandCountTimerDialog,
         /// <summary>
-        /// PayOut
+        /// PayOut Limit reached
         /// </summary>
-        PayOut
+        PayOutLimitReached
     }
 
     /// <summary>

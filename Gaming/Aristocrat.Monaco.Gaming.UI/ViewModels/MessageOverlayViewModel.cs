@@ -303,7 +303,7 @@
                         messageSent = true;
                     }
                     break;
-                case MessageOverlayState.PayOut:
+                case MessageOverlayState.PayOutLimitReached:
                     MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
                     messageSent = true;
                     break;
@@ -522,7 +522,7 @@
                 else if (_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.LargePayoutDisableKey) &&
                         HardErrorMessages.Count == 1 && !_overlayMessageStrategyController.OverlayStrategy.IsBasic)
                 {
-                    state = MessageOverlayState.PayOut;
+                    state = MessageOverlayState.PayOutLimitReached;
                 }
                 else if (ShowVoucherNotification)
                 {
