@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -103,9 +103,9 @@
 
         public RtpBreakdown GetTotalRtpBreakdown(IGameProfile game)
         {
-            return game.WagerCategories
+            return game.HasExtendedRtpInformation ? game.WagerCategories
                 .Select(w => GetRtpBreakdown(game, w.Id))
-                .Aggregate((r1, r2) => r1.TotalWith(r2));
+                .Aggregate((r1, r2) => r1.TotalWith(r2)) : null;
         }
 
         public RtpValidationReport ValidateMultipleGames(IEnumerable<IGameProfile> games)
