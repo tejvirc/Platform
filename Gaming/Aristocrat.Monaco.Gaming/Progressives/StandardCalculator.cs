@@ -1,12 +1,22 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
+    using System.Reflection;
     using Application.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts.Progressives;
+    using log4net;
 
     public class StandardCalculator : ICalculatorStrategy
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private IMysteryProgressiveProvider _mysteryProgressiveProvider;
+
+        public StandardCalculator(IMysteryProgressiveProvider mysteryProgressiveProvider)
+        {
+            _mysteryProgressiveProvider = mysteryProgressiveProvider ?? throw new ArgumentNullException(nameof(mysteryProgressiveProvider));
+        }
+
         public void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate, IMeter hiddenTotalMeter)
         {
             throw new NotSupportedException();
@@ -54,8 +64,44 @@
             return Claim(level, level.ResetValue);
         }
 
+        /// <summary>
+        /// Mystery Progressives require payout via the Trigger Amount (MagicNumber)
+        /// Same calculations of VLT-15592 are done as well as adding the difference of (current - trigger) to the reset amount
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="resetValue"></param>
+        /// <returns></returns>
+        public long MysteryClaim(ProgressiveLevel level, long resetValue)
+        {
+            var current = level.CurrentValue;
+
+            var success = _mysteryProgressiveProvider.TryGetMagicNumber(level, out var triggerAmountInMillicents);
+            Logger.Debug($"MagicNumber - {triggerAmountInMillicents}");
+            Logger.Debug($"CurrentAmount = {current}");
+
+            var differenceTriggerAndCurrent = current - triggerAmountInMillicents;
+
+            var triggerWinAmountNoFraction = triggerAmountInMillicents.MillicentsToDollarsNoFraction();
+            var triggerWinMillicentsNoFraction = triggerWinAmountNoFraction.DollarsToMillicents();
+            var triggerAmountInDollars = triggerAmountInMillicents.MillicentsToDollars();
+            var triggerAmountFractional = (triggerAmountInDollars - triggerWinAmountNoFraction).DollarsToMillicents();
+
+            Logger.Debug($"MillicentsNoFractional - {triggerWinMillicentsNoFraction}");
+            Logger.Debug($"CarryOnValue = {differenceTriggerAndCurrent} , Fractional = {triggerAmountFractional}");
+            Reset(level, resetValue + triggerAmountFractional + differenceTriggerAndCurrent);
+            Logger.Debug($"resetValue = {resetValue + triggerAmountFractional + differenceTriggerAndCurrent}");
+
+            return triggerWinMillicentsNoFraction;
+        }
+
         public long Claim(ProgressiveLevel level, long resetValue)
         {
+
+            if (level.TriggerControl == TriggerType.Mystery)
+            {
+                return MysteryClaim(level, resetValue);
+            }
+
             var current = level.CurrentValue;
 
             // VLT-15592 - Take the truncated fractional amount out of the level value before its claimed, 
