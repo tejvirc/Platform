@@ -10,24 +10,27 @@ as follows:
     the corresponding class definition in csharp (ConfigWizardConfiguration.cs).
 -->
 <ConfigWizardConfiguration>
-    <MachineSetupConfig Visibility="Visible">
-      <EnterOutOfServiceWithCredits Enabled="false" Editable="false"/>
-    </MachineSetupConfig>
-    <IOConfigPage>
-        <UseSelection Enabled="false"/>
-    </IOConfigPage>
-    <LimitsPage>
-      <HandpayLimit CheckboxEditable="false"/>
-    </LimitsPage>
-    <CompletionPage ShowGameSetupMessage="true"/>
-    <HardMetersConfig Configurable="false" Enable="true" />
-    <ProtocolConfiguration>
-      <ProtocolsAllowed>
-          <Protocol Name="SAS" IsMandatory="true"/>
-          <Protocol Name="Test"/>
-      </ProtocolsAllowed>
-      <ExclusiveProtocols>
-        <ExclusiveProtocol Name="SAS" Function="Validation" />
-      </ExclusiveProtocols>
-    </ProtocolConfiguration>
+  <MachineSetupConfig Visibility="Visible">
+    <EnterOutOfServiceWithCredits Enabled="false" Editable="false"/>
+  </MachineSetupConfig>
+  <IOConfigPage>
+    <UseSelection Enabled="false"/>
+  </IOConfigPage>
+  <LimitsPage>
+    <HandpayLimit CheckboxEditable="false"/>
+  </LimitsPage>
+  <CompletionPage ShowGameSetupMessage="true"/>
+  <HardMetersConfig Configurable="false" Enable="true" />
+  <ProtocolConfiguration>
+    <ProtocolsAllowed>
+      <Protocol Name="SAS" IsMandatory="true"/>
+      <Protocol Name="Test"/>
+    </ProtocolsAllowed>
+    <ExclusiveProtocols>
+      <ExclusiveProtocol Name="SAS" Function="Validation" />
+    </ExclusiveProtocols>
+    <RequiredFunctionality>
+      <FunctionalityType Type="Validation"/>
+    </RequiredFunctionality>
+  </ProtocolConfiguration>
 </ConfigWizardConfiguration>

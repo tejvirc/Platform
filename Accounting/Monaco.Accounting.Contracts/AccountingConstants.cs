@@ -295,7 +295,7 @@
         /// <summary>
         ///     Maximum HandCount PayoutLimit in Millicents
         /// </summary>
-        public const long MaximumHandCountPayoutLimit = 1_199_00_000L;
+        public const long MaximumHandCountPayoutLimit = 1_199_99_000L;
 
         /// <summary>
         ///     Default large win ratio in terms of amount won divided by wagered amount. The default value of zero is so that
