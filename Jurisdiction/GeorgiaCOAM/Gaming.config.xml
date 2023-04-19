@@ -21,6 +21,7 @@ as follows:
   <OperatorMenu DisableDuringGame="true" />
   <LockupBehavior CashableLockupStrategy="Allowed" />
   <GameCategory ApplyGameCategorySettings="true" />
+  <Gamble Allowed="false" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:
