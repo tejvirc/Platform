@@ -96,21 +96,9 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
-            _eventBus.Subscribe<HandCountChangedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<PayOutLimitVisibility>(this, Handle);
             _eventBus.Subscribe<CashoutAmountPlayerConfirmationRequestedEvent>(this, Handle);
         }
        
-        private void HandleEvent(HandCountChangedEvent evt)
-        {
-            _lobbyStateManager.CashOutState = LobbyCashOutState.PayOut;
-        }
-
-        private void Handle(PayOutLimitVisibility evt)
-        {
-            MessageOverlayData.IsCashOutDialogVisible = evt.IsVisible;
-        }
-
         private void Handle(CashoutAmountPlayerConfirmationRequestedEvent evt)
         {
             _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
@@ -438,7 +426,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     (MessageOverlayData.IsDialogVisible && MessageOverlayData.IsCashOutDialogVisible)||
+                                     MessageOverlayData.IsDialogVisible||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||

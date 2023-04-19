@@ -30,7 +30,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _isButtonVisible;
         private ICommand _buttonCommand;
         private bool _gameHandlesHandPayPresentation;
-        private bool _isCashOutDialogVisible;
 
         public bool GameHandlesHandPayPresentation
         {
@@ -126,20 +125,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             get => _buttonCommand;
             set => SetProperty(ref _buttonCommand, value);
-        }
-
-        public bool IsCashOutDialogVisible
-        {
-            get => _isCashOutDialogVisible;
-
-            set
-            {
-                if (_isCashOutDialogVisible != value)
-                {
-                    _isCashOutDialogVisible = value;
-                    RaisePropertyChanged(nameof(IsCashOutDialogVisible));
-                }
-            }
         }
 
         public bool DisplayForPopUp
