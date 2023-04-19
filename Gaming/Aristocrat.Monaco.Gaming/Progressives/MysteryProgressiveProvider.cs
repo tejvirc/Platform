@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
     public class MysteryProgressiveProvider : IMysteryProgressiveProvider
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
-        private readonly ConcurrentDictionary<string, decimal> _magicNumberIndex;
+        private readonly ConcurrentDictionary<string, long> _magicNumberIndex;
         private readonly IPersistentBlock _saveBlock;
         private readonly IPRNG _prng;
         private readonly string _saveKey;
@@ -31,14 +31,16 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             _saveBlock = persistenceProvider?.GetOrCreateBlock(_saveKey, PersistenceLevel.Static) ??
                          throw new ArgumentNullException(nameof(persistenceProvider));
 
-            _magicNumberIndex = _saveBlock.GetOrCreateValue<ConcurrentDictionary<string, decimal>>(_saveKey);
+            _magicNumberIndex = _saveBlock.GetOrCreateValue<ConcurrentDictionary<string, long>>(_saveKey);
         }
 
         /// <inheritdoc />
-        public decimal GenerateMagicNumber(IViewableProgressiveLevel progressiveLevel)
+        public long GenerateMagicNumber(IViewableProgressiveLevel progressiveLevel)
         {
-            var randomNumber = _prng.GetValue((ulong)( progressiveLevel.MaximumValue - progressiveLevel.ResetValue ));
-            var magicNumber = randomNumber + (ulong)progressiveLevel.ResetValue;
+            // When initially setting progressiveLevel CurrentValue == ResetValue
+            // After applying overflow after a progressive win, then CurrentValue > ResetValue
+            var randomNumber = _prng.GetValue((ulong)( progressiveLevel.MaximumValue - progressiveLevel.CurrentValue ));
+            var magicNumber = (long)randomNumber + progressiveLevel.CurrentValue;
 
             Save(progressiveLevel, magicNumber);
 
@@ -46,7 +48,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         }
 
         /// <inheritdoc />
-        public bool TryGetMagicNumber(IViewableProgressiveLevel progressiveLevel, out decimal magicNumber)
+        public bool TryGetMagicNumber(IViewableProgressiveLevel progressiveLevel, out long magicNumber)
         {
             var index = GetProgressiveLevelKey(progressiveLevel);
 
@@ -57,12 +59,14 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         public bool CheckMysteryJackpot(IViewableProgressiveLevel progressiveLevel)
         {
             if (!TryGetMagicNumber(progressiveLevel, out var magicNumber))
+            {
                 return false;
+            }
 
             return progressiveLevel.CurrentValue >= magicNumber;
         }
 
-        private void Save(IViewableProgressiveLevel progressiveLevel, decimal magicNumber)
+        private void Save(IViewableProgressiveLevel progressiveLevel, long magicNumber)
         {
             var index = GetProgressiveLevelKey(progressiveLevel);
 
@@ -71,7 +75,9 @@ namespace Aristocrat.Monaco.Gaming.Progressives
 
             // StandaloneProgressiveProvider does not persist levels, so we do not persist magic numbers
             if (IsStandaloneProgressive(progressiveLevel))
+            {
                 return;
+            }
 
             using var transaction = _saveBlock.Transaction();
             transaction.SetValue(_saveKey, _magicNumberIndex);
