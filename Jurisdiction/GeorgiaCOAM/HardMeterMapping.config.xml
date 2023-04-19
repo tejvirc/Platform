@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HardMeterMappingConfiguration>
-  <HardMeterMapping Name="(4)Total In,(5)Total Out" Default="true">
+  <HardMeterMapping Name="(4)Total In,(5)Hard Meter Out" Default="true">
     <HardMeter LogicalId="4" Name="Total In">
       <SoftMeter Name="TotalIn" />
     </HardMeter>
-    <HardMeter LogicalId="5" Name="Total Out">
+    <HardMeter LogicalId="5" Name="Hard Meter Out">
       <SoftMeter Name="HardMeterOutAmount" />
     </HardMeter>
   </HardMeterMapping>
