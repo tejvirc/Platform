@@ -45,9 +45,9 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static readonly bool CrashDumpRegistered =
-            Environment.GetCommandLineArgs().Any(x => x.Equals(GenerateCrashDumpArg)) ||
-            Environment.GetEnvironmentVariable(GenerateCrashDumpArg) != null;
+        private static readonly bool CrashDumpRegistered = false;
+            //Environment.GetCommandLineArgs().Any(x => x.Equals(GenerateCrashDumpArg)) ||
+            //Environment.GetEnvironmentVariable(GenerateCrashDumpArg) != null;
 
         private readonly List<IService> _optionalServices = new List<IService>();
         private readonly Dictionary<string, object> _pendingProperties = new Dictionary<string, object>();
@@ -87,12 +87,12 @@
 
             SetUnhandledExceptionHandler();
             SetUnobservedTaskExceptionHandler();
-            NativeMethods.SetErrorMode(
-                NativeMethods.ErrorModes.SemFailCriticalErrors | NativeMethods.ErrorModes.SemNoGpFaultErrorBox);
+            //NativeMethods.SetErrorMode(
+            //    NativeMethods.ErrorModes.SemFailCriticalErrors | NativeMethods.ErrorModes.SemNoGpFaultErrorBox);
             if (!CrashDumpRegistered)
             {
-                NativeMethods.SetCrashHandlerLogger(Logger.Fatal);
-                NativeMethods.RegisterCrashHandler("Monaco", @"..\logs");
+                //NativeMethods.SetCrashHandlerLogger(Logger.Fatal);
+                //NativeMethods.RegisterCrashHandler("Monaco", @"..\logs");
             }
 
             Logger.Debug($"Command line arguments: {string.Join(" ", args)}");
@@ -106,7 +106,7 @@
                 return (int) AppExitCode.Ok;
             }
 
-            NativeMethods.DisableProcessWindowsGhosting();
+            //NativeMethods.DisableProcessWindowsGhosting();
 
             foreach (var item in _pendingProperties)
             {
@@ -142,7 +142,7 @@
 
             if (!CrashDumpRegistered)
             {
-                NativeMethods.UnRegisterCrashHandler();
+                //NativeMethods.UnRegisterCrashHandler();
             }
 
             LogManager.Shutdown();

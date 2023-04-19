@@ -17,7 +17,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <RuntimeIdentifier>win</RuntimeIdentifier>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <PropertyGroup>

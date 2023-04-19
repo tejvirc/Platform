@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <AssemblyTitle>Aristocrat.Monaco.Common</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>

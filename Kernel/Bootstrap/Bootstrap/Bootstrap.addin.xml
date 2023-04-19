@@ -4,7 +4,6 @@
 
   <Runtime>
     <Import assembly="Bootstrap.dll"/>
-    <Import assembly="Aristocrat.Monaco.Hardware.dll" />
   </Runtime>
 
   <!--Must implement IServiceManager-->

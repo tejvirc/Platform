@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<Addin id="Stubs" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.Contracts.dll" />
+    <Import assembly="Stubs.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <!-- Extend the layer -->
+  <Extension path="/Kernel/BootExtender">
+    <BootExtender type="Stubs.SimpleRunnable" />
+  </Extension>
+
+  <!-- Provide Localizer service that Application layer would normally provide -->
+  <Extension path="/Kernel/Localizer">
+    <Localizer type="Stubs.StubService1" />
+  </Extension>
+
+  <!-- Provide Localizer service that Application layer would normally provide -->
+  <Extension path="/Kernel/WindowLauncher">
+    <WindowLauncher type="Stubs.StubService2" />
+  </Extension>
+
+  <!-- Provide Localizer service that Application layer would normally provide -->
+  <Extension path="/Kernel/PlatformDisplay">
+    <PlatformDisplay type="Stubs.StubService3" />
+  </Extension>
+
+</Addin>

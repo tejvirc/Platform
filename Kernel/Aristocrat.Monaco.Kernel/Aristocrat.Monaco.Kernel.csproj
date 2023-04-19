@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <AssemblyTitle>Aristocrat.Monaco.Kernel</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
@@ -28,9 +29,6 @@
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
     <Content Include="Aristocrat.Monaco.Kernel.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PlatformDirectories.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

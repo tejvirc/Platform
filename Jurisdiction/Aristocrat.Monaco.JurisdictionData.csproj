@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets/3.3.0">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <OutputPath>..\bin\$(Configuration)\Platform\bin\jurisdiction\</OutputPath>
