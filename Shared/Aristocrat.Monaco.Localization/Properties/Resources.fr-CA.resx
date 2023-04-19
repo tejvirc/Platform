@@ -1916,6 +1916,9 @@ See manual for details??</value>
   <data name="ActualHold" xml:space="preserve">
     <value>??Actual Hold??</value>
   </data>
+  <data name="AddSAPLevel" xml:space="preserve">
+    <value>??Add Level??</value>
+  </data>
   <data name="AllGameTypes" xml:space="preserve">
     <value>??All??</value>
   </data>
@@ -1931,6 +1934,9 @@ See manual for details??</value>
   <data name="BarcodeInterleave2Of5" xml:space="preserve">
     <value>??Interleave 2 of 5??</value>
   </data>
+  <data name="BonusInfoOverflowColumn" xml:space="preserve">
+    <value>??Overflow??</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>??Close??</value>
   </data>
@@ -1942,6 +1948,15 @@ See manual for details??</value>
   </data>
   <data name="Configuration" xml:space="preserve">
     <value>??Configuration??</value>
+  </data>
+  <data name="CurrentValue" xml:space="preserve">
+    <value>??Current Value??</value>
+  </data>
+  <data name="CustomSAPConfigSetup" xml:space="preserve">
+    <value>??STANDALONE PROGRESSIVE SETUP??</value>
+  </data>
+  <data name="CustomSAPTitle" xml:space="preserve">
+    <value>??Custom SAP??</value>
   </data>
   <data name="DaysActive" xml:space="preserve">
     <value>??Days Active??</value>
@@ -1991,6 +2006,21 @@ See manual for details??</value>
   <data name="HidePreviouslyActive" xml:space="preserve">
     <value>??Hide Previously Active??</value>
   </data>
+  <data name="IncrementRate" xml:space="preserve">
+    <value>??Increment Rate??</value>
+  </data>
+  <data name="InitialValue" xml:space="preserve">
+    <value>??Initial Value??</value>
+  </data>
+  <data name="Keno" xml:space="preserve">
+    <value>??Keno??</value>
+  </data>
+  <data name="LevelId" xml:space="preserve">
+    <value>??Level ID??</value>
+  </data>
+  <data name="LevelNameLabel" xml:space="preserve">
+    <value>??Level Name??</value>
+  </data>
   <data name="MachineActualPayback" xml:space="preserve">
     <value>??Machine Actual Operating Payback??</value>
   </data>
@@ -1999,6 +2029,9 @@ See manual for details??</value>
   </data>
   <data name="MachineWeightedPayback" xml:space="preserve">
     <value>??Machine Weighted Theoretical Payback??</value>
+  </data>
+  <data name="MaxValue" xml:space="preserve">
+    <value>??Max Value??</value>
   </data>
   <data name="MetersVouchers" xml:space="preserve">
     <value>??Vouchers??</value>
@@ -2027,6 +2060,9 @@ See manual for details??</value>
   <data name="PlayedCountLabel" xml:space="preserve">
     <value>??Games Played??</value>
   </data>
+  <data name="Poker" xml:space="preserve">
+    <value>??Poker??</value>
+  </data>
   <data name="PreviouslyActive" xml:space="preserve">
     <value>??Previously Active??</value>
   </data>
@@ -2041,6 +2077,9 @@ See manual for details??</value>
   </data>
   <data name="ReplayPause" xml:space="preserve">
     <value>??Replay Pause??</value>
+  </data>
+  <data name="ResetValue" xml:space="preserve">
+    <value>??Reset Value??</value>
   </data>
   <data name="RTP" xml:space="preserve">
     <value>??RTP??</value>
