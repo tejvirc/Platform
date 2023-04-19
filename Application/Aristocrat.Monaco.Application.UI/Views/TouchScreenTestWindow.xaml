@@ -19,12 +19,13 @@
     <i:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
     </i:Interaction.Behaviors>
-    <Canvas Name="TouchCanvas" Background="Transparent">
-        <Label Canvas.Top="50" Canvas.Left="50"
+
+    <InkCanvas Name="TouchCanvas" Background="Transparent" Opacity="1" EditingMode='None' ForceCursor="True" Cursor="None">
+        <Label InkCanvas.Top="50" InkCanvas.Left="50" Name="DrawLabel"
                Width="{Binding Path=ActualWidth, ElementName=TouchCanvas}"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.DrawOnTouchableArea}}" />
-        <Button Canvas.Bottom="50" Canvas.Left="50" Name="ExitButton" Click="OnExitButtonPressed"
+        <Button InkCanvas.Bottom="50" InkCanvas.Left="50" x:Name="ExitButton" Click="OnExitButtonPressed" 
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Margin="10" />
-    </Canvas>
+    </InkCanvas>
 </common:BaseWindow>
 
