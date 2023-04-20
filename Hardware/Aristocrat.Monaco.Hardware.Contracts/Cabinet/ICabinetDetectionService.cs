@@ -120,16 +120,13 @@
         /// </summary>
         bool MapTouchscreens(bool persistMapping = false);
 
-        ///// <summary>
-        /////     Maps touchscreens to displays. Passes back a collection of <see cref="DisplayDevice"/> to
-        /////     <see cref="TouchDevice"/> mappings as represented in the OS.
-        ///// </summary>
-        ///// <param name="mappings"></param>
-        ///// <param name="persistMappings"></param>
-        ///// <returns></returns>
-        //bool MapTouchscreens(
-        //    out IReadOnlyCollection<(DisplayDevice Display, TouchDevice Touch)> mappings,
-        //    bool persistMappings = false);
+        /// <summary>
+        ///     Update the touch device with the provided data
+        /// </summary>
+        /// <param name="touchDevice">The touch device to update</param>
+        /// <param name="updates">The updates to make to the touch device</param>
+        /// <returns>Whether or not the updates were applied</returns>
+        bool UpdateTouchDevice(ITouchDevice touchDevice, TouchDeviceUpdates updates);
 
         /// <summary>
         ///     Returns the touch device by touch id.
@@ -159,7 +156,7 @@
         bool IsDisplayExpected(DisplayRole role);
 
         /// <summary>
-        ///     Is the display connected 
+        ///     Is the display connected
         /// </summary>
         /// <param name="role">The display role</param>
         bool IsDisplayConnected(DisplayRole role);

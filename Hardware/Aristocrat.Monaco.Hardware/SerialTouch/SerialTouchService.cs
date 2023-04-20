@@ -12,6 +12,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
+    using Cabinet;
     using Common;
     using Contracts;
     using Contracts.Cabinet;
@@ -57,7 +58,6 @@
         private readonly ISerialPortController _serialPortController;
         private readonly StateMachine<SerialTouchState, SerialTouchTrigger> _state;
         private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
-        private readonly bool _isLsCabinet;
         private readonly object _lastUpdateLock = new();
         private readonly Timer _requeueTimer = new();
         private readonly CancellationTokenSource _cts = new();
@@ -94,14 +94,7 @@
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _serialPortsService = serialPortsService ?? throw new ArgumentNullException(nameof(serialPortsService));
             _serialPortController = serialPortController ?? throw new ArgumentNullException(nameof(serialPortController));
-
             _state = CreateStateMachine();
-            _isLsCabinet = _cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs);
-
-            if (_isLsCabinet)
-            {
-                ConfigureComPort();
-            }
         }
 
         /// <inheritdoc />
@@ -155,12 +148,13 @@
                 return;
             }
 
-            if (!_isLsCabinet)
+            if (!_cabinetDetectionService.ExpectedSerialTouchDevices.Any())
             {
-                Logger.Warn("Initialize - No match LS cabinet, returning");
+                Logger.Warn("Initialize - No match serial touch devices expected, returning");
                 return;
             }
 
+            ConfigureComPort();
             _eventBus.Subscribe<ExitRequestedEvent>(this, HandleExitRequested);
 
             Logger.Debug($"Initialize - Serial port open {_serialPortController.IsEnabled}");
@@ -542,6 +536,9 @@
 
         private void HandleOutputIdentity(byte[] response)
         {
+            const int identityLength = 6;
+            const int productLength = 2;
+
             OutputIdentity = Encoding.Default.GetString(response).TrimEnd();
             var controllerType = OutputIdentity.Substring(0, 2);
             FirmwareVersion = OutputIdentity.Substring(2, 4);
@@ -549,9 +546,20 @@
             if (!Initialized)
             {
                 Initialized = true;
-                // *NOTE* We need to remap the touch screens so that the firmware information is updated for the mapped serial touch device.
-                _cabinetDetectionService.MapTouchscreens();
-                Logger.Info($"HandleOutputIdentity - {Name} {FirmwareVersion} initialized");
+                var version = 0;
+                var product = "?";
+
+                if (OutputIdentity.Length >= identityLength)
+                {
+                    product = OutputIdentity.Substring(0, productLength);
+                    version = int.TryParse(OutputIdentity.Substring(productLength), out var result) ? result : 0;
+                }
+
+                var touchDevice = _cabinetDetectionService.ExpectedTouchDevices.FirstOrDefault(
+                    x => x.CommunicationType == CommunicationTypes.Serial);
+
+                _cabinetDetectionService.UpdateTouchDevice(touchDevice, new TouchDeviceUpdates(Model, product, version));
+                Logger.Info($"HandleOutputIdentity - {Name} {FirmwareVersion} initialized.  {OutputIdentity}, {version}");
             }
 
             Fire(SerialTouchTrigger.InterpretTouch);

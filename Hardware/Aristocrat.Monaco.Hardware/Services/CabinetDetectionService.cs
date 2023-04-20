@@ -13,7 +13,6 @@
     using Contracts.ButtonDeck;
     using Contracts.Cabinet;
     using Contracts.Persistence;
-    using Contracts.Touch;
     using Kernel;
     using log4net;
     using TouchDevice = Cabinet.TouchDevice;
@@ -25,15 +24,15 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ICabinetManager _cabinetManager;
         private readonly ICabinetDisplaySettings _cabinetDisplaySettings;
-        private readonly List<string> _nonTouchButtonDecks = new List<string> { VbdType.Bartop.GetDescription(typeof(VbdType)) };
+        private readonly List<string> _nonTouchButtonDecks = new() { VbdType.Bartop.GetDescription(typeof(VbdType)) };
         private readonly IPersistentStorageManager _storageManager;
         private readonly IPropertiesManager _propertiesManager;
-        private readonly object _lock = new object();
-        private readonly List<(IDisplayDevice, ITouchDevice)> _displayToTouchMappings = new List<(IDisplayDevice, ITouchDevice)>();
+        private readonly object _lock = new();
+        private readonly List<(IDisplayDevice, ITouchDevice)> _displayToTouchMappings = new();
         private IPersistentStorageAccessor _accessor;
         private ICabinet _cabinet = new Cabinet();
 
-        private readonly List<DisplayRole> _displayOrderInCabinet = new List<DisplayRole>
+        private readonly List<DisplayRole> _displayOrderInCabinet = new()
         {
             DisplayRole.Topper,
             DisplayRole.Top,
@@ -109,9 +108,12 @@
 
         public IEnumerable<IDisplayDevice> ExpectedDisplayDevices => CabinetExpectedDevices.OfType<IDisplayDevice>();
 
-        public IEnumerable<IDisplayDevice> ExpectedDisplayDevicesWithSerialTouch { get; private set; }
+        public IEnumerable<IDisplayDevice> ExpectedDisplayDevicesWithSerialTouch => ExpectedSerialTouchDevices.Select(
+            t => ExpectedDisplayDevices.FirstOrDefault(
+                d => d.TouchProductId == t.ProductId && d.TouchVendorId == t.VendorId));
 
-        public IEnumerable<ITouchDevice> ExpectedSerialTouchDevices { get; private set; }
+        public IEnumerable<ITouchDevice> ExpectedSerialTouchDevices =>
+            ExpectedTouchDevices.Where(x => x.CommunicationType == CommunicationTypes.Serial);
 
         public IEnumerable<ITouchDevice> ExpectedTouchDevices => CabinetExpectedDevices.OfType<ITouchDevice>();
 
@@ -138,7 +140,7 @@
         public bool IsDisplayExpectedAndConnected(DisplayRole role)
         {
             var display = GetDisplayDeviceByItsRole(role);
-            return display != null && display.Status == DeviceStatus.Connected;
+            return display is { Status: DeviceStatus.Connected };
         }
 
         public CabinetType Type
@@ -189,20 +191,17 @@
 
         public DisplayRole? GetDisplayRoleMappedToTouchDevice(ITouchDevice touchDevice)
         {
-            var touchDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.TouchDevice>();
-            var displayDevices = _cabinet.IdentifiedDevices.OfType<Aristocrat.Cabinet.DisplayDevice>();
+            var touchDevices = _cabinet.IdentifiedDevices.OfType<TouchDevice>();
+            var displayDevices = _cabinet.IdentifiedDevices.OfType<DisplayDevice>();
 
             // DisplayDevice has the VID PID of the touch device it's mapped to
-            var mappings = displayDevices.Select(displayDevice => (
-                    Display: displayDevice,
-                    Touch: touchDevices.FirstOrDefault(touchDevice =>
-                        touchDevice.ProductId == displayDevice.TouchProductId &&
-                        touchDevice.VendorId == displayDevice.TouchVendorId)))
-                .Where(mapping => mapping.Touch != null && mapping.Display != null)
-                .Distinct()
-                .ToList();
-
-            var result = mappings.FirstOrDefault(x => x.Touch == (Aristocrat.Cabinet.TouchDevice)touchDevice);
+            var mappings = displayDevices
+                .Select(
+                    d => (Display: d,
+                        Touch: touchDevices.FirstOrDefault(
+                            t => t.ProductId == d.TouchProductId && t.VendorId == d.TouchVendorId)))
+                .Where(mapping => mapping.Touch != null && mapping.Display != null).Distinct().ToList();
+            var result = mappings.FirstOrDefault(x => x.Touch == (TouchDevice)touchDevice);
 
             return result.Display?.Role;
         }
@@ -230,52 +229,6 @@
             lock (_lock)
             {
                 Logger.Info($"MapTouchscreens - CabinetType {_cabinet.CabinetType} Id {_cabinet.Id} - persistMappings {persistMapping}");
-                var mainDisplayDevice = GetDisplayDeviceByItsRole(DisplayRole.Main);
-
-                var serialTouchName = "?";
-                var serialTouchProductString = "?";
-                var serialTouchVersionNumber = 0;
-                var serialTouchService = ServiceManager.GetInstance().TryGetService<ISerialTouchService>();
-
-                Logger.Debug($"MapTouchscreens - ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}");
-
-                // Is this an LS cabinet and we have not disabled serial touch via command line?
-                if (IsCabinetType(HardwareConstants.CabinetTypeRegexLs) && _propertiesManager.GetValue(HardwareConstants.SerialTouchDisabled, "false") == "false")
-                {
-                    // No, add the main display device with serial touch
-                    var expectedDisplayDevicesWithSerialTouch = new List<IDisplayDevice> { mainDisplayDevice };
-                    ExpectedDisplayDevicesWithSerialTouch = expectedDisplayDevicesWithSerialTouch;
-
-                    // Try to get serial touch model and firmware
-                    if (serialTouchService is { Initialized: true })
-                    {
-                        serialTouchName = serialTouchService.Model;
-                        var serialTouchOutputIdentity = serialTouchService.OutputIdentity;
-                        if (serialTouchOutputIdentity.Length >= 6)
-                        {
-                            serialTouchProductString = serialTouchOutputIdentity.Substring(0, 2);
-                            serialTouchVersionNumber = int.Parse(serialTouchOutputIdentity.Substring(2));
-                        }
-
-                        Logger.Debug($"MapTouchscreens - Serial touch product {serialTouchProductString} model {serialTouchName} version {serialTouchVersionNumber}");
-                    }
-
-                    var serialTouchDevice = _cabinet.IdentifiedDevices.OfType<TouchDevice>().FirstOrDefault(t =>
-                        t.CommunicationType == CommunicationTypes.Serial);
-
-                    if (serialTouchDevice != null)
-                    {
-                        serialTouchDevice.ProductString = serialTouchProductString;
-                        serialTouchDevice.VersionNumber = serialTouchVersionNumber;
-                        serialTouchDevice.Name = serialTouchName;
-                    }
-
-                    Logger.Debug($"MapTouchscreens - LS cabinet matched, injecting {serialTouchProductString} serial touch {serialTouchName} version {serialTouchVersionNumber} " +
-                                 $"for main display device {mainDisplayDevice.Name} Touch VID {mainDisplayDevice.TouchVendorId} Touch PID {mainDisplayDevice.TouchProductId}");
-
-                    var expectedSerialTouchDevices = new List<ITouchDevice> { serialTouchDevice };
-                    ExpectedSerialTouchDevices = expectedSerialTouchDevices;
-                }
 
                 // Invalidate current mapping
                 TouchscreensMapped = false;
@@ -307,6 +260,24 @@
 
                 Logger.Debug($"MapTouchscreens - returning TouchscreensMapped {TouchscreensMapped}");
                 return TouchscreensMapped;
+            }
+        }
+
+        public bool UpdateTouchDevice(ITouchDevice touchDevice, TouchDeviceUpdates updates)
+        {
+            lock (_lock)
+            {
+                var device = _cabinet.IdentifiedDevices.OfType<TouchDevice>()
+                    .FirstOrDefault(x => x == touchDevice as TouchDevice);
+                if (device is null)
+                {
+                    return false;
+                }
+
+                device.ProductString = updates.Product;
+                device.VersionNumber = updates.VersionNumber;
+                device.Name = updates.Model;
+                return MapTouchscreens(true);
             }
         }
 

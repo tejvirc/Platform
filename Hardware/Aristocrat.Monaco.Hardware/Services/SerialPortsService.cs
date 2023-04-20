@@ -34,9 +34,9 @@
 
         public SerialPortsService(SerialPortEnumerator enumerator, ICabinetDetectionService cabinetService)
         {
+            _cabinetIdentificationService = cabinetService ?? throw new ArgumentNullException(nameof(cabinetService));
             PopulateLogicalSerialPorts();
 
-            _cabinetIdentificationService = cabinetService;
             _serialPorts = enumerator.EnumerateSerialPorts().Join(
                 _logicalSerialPorts,
                 x => new { x.Address, x.SerialPortType },
@@ -52,7 +52,9 @@
             void PopulateLogicalSerialPorts()
             {
                 // Actual EGMs start COM ports at an offset of 3, as designed in the FPGA.
-                var offset = (_cabinetIdentificationService?.Family ?? HardwareFamily.Unknown) == HardwareFamily.Unknown  ? 0 : 3;
+                var offset = (_cabinetIdentificationService?.Family ?? HardwareFamily.Unknown) == HardwareFamily.Unknown
+                    ? 0
+                    : 3;
 
                 for (var i = 0; i < 13; i++)
                 {

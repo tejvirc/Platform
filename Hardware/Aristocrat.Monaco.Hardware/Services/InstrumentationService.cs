@@ -14,6 +14,9 @@
     using log4net.Repository.Hierarchy;
 
     /// <summary>
+    ///     This class is used for logging all the usb devices attached into Monaco and their properties.
+    ///     This is useful for debugging PNP devices.  This class will create usb log files for the currently connected
+    ///     devices and their properties.  These dump files can be opened via any text editor and read.
     /// </summary>
     public class InstrumentationService : IService, IDisposable
     {
