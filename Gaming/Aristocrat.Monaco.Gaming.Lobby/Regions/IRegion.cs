@@ -18,15 +18,15 @@ public interface IRegion : IEnumerable<object>
     Task DeactivateViewAsync(object view);
 
     Task DeactivateViewAsync(string viewName);
-    object GetView(string viewName);
+    Task<object> GetViewAsync(string viewName);
 
-    void AddView(string viewName, object view);
+    Task AddViewAsync(string viewName, object view);
 
-    void RemoveView(string viewName);
+    Task RemoveViewAsync(string viewName);
 
-    void RemoveView(object view);
+    Task RemoveViewAsync(object view);
 
-    void ClearViews();
+    Task ClearViewsAsync();
 
     Task<bool> NavigateToAsync(object view);
 

@@ -2,7 +2,7 @@
 
 using System.Threading.Tasks;
 
-public class AllViewsActiveStrategy : IViewActiveStrategy
+public class AllViewsActiveStrategy : ViewActiveStrategy
 {
     public Task<bool> ActivateViewAsync(IRegion region, object view)
     {

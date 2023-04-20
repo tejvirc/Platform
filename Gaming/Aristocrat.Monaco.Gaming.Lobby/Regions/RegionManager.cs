@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using XAMLMarkupExtensions.Base;
 
 public class RegionManager : DependencyObject, IRegionManager
@@ -20,7 +21,18 @@ public class RegionManager : DependencyObject, IRegionManager
             typeof(string),
             typeof(RegionManager),
             new FrameworkPropertyMetadata(default(string),
-                FrameworkPropertyMetadataOptions.None));
+                FrameworkPropertyMetadataOptions.None, OnRegionNameChanged));
+
+    private static void OnRegionNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is ContentControl contentControl)
+        {
+            contentControl.Loaded += (sender, args) => { this.CreateRegion(); };
+
+            var adapter = _regionAdapterMapper.GetAdapter(contentControl.GetType());
+            adapter.Adapt(e.NewValue, contentControl);
+        }
+    }
 
     /// <summary>
     ///     Gets or sets the <see cref="RegionProperty"/> value.
@@ -52,9 +64,24 @@ public class RegionManager : DependencyObject, IRegionManager
         obj?.SetValueSync(RegionProperty, value);
     }
 
-    public Task RegisterViewAsync<T>(string regionName, string viewName)
+    public async Task RegisterViewAsync<T>(string regionName, string viewName)
     {
-        return Task.CompletedTask;
+        if (string.IsNullOrWhiteSpace(regionName))
+        {
+            throw new ArgumentNullException(nameof(regionName));
+        }
+
+        if (string.IsNullOrWhiteSpace(viewName))
+        {
+            throw new ArgumentNullException(nameof(viewName));
+        }
+
+        if (!_regions.TryGetValue(regionName, out var region))
+        {
+            throw new ArgumentOutOfRangeException(nameof(regionName));
+        }
+
+        await region.AddViewAsync(viewName);
     }
 
     public async Task<bool> NavigateViewAsync(string regionName, string viewName)
@@ -71,10 +98,10 @@ public class RegionManager : DependencyObject, IRegionManager
 
         if (!_regions.TryGetValue(regionName, out var region))
         {
-            throw new ArgumentOutOfRangeException(nameof(regionName))
+            throw new ArgumentOutOfRangeException(nameof(regionName));
         }
 
-        return async region.NavigateTo(viewName);
+        return await region.NavigateToAsync(viewName);
     }
 
     public IEnumerator<IRegion> GetEnumerator()

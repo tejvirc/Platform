@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 public interface IViewActiveStrategy
 {
-    Task<bool> ActivateViewAsync(IRegion region, object view);
+    bool ActivateView(IRegion region, object view);
 
-    Task<bool> DeactivateViewAsync(IRegion region, object view);
+    bool DeactivateView(IRegion region, object view);
 }

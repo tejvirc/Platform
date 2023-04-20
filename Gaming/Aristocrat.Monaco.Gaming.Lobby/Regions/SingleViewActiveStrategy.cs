@@ -1,16 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Regions;
 
-using System.Threading.Tasks;
-
 public class SingleViewActiveStrategy : IViewActiveStrategy
 {
-    public Task<bool> ActivateViewAsync(IRegion region, object view)
+    public bool ActivateView(IRegion region, object view)
     {
-        return Task.FromResult(false);
+        return false;
     }
 
-    public Task<bool> DeactivateViewAsync(IRegion region, object view)
+    public bool DeactivateView(IRegion region, object view)
     {
-        return Task.FromResult(false);
+        return false;
     }
 }

@@ -12,7 +12,7 @@ public class Region : IRegion
     private readonly IRegionManager _regionManager;
     private readonly IRegionNavigator _regionNavigator;
 
-    private readonly Dictionary<string, RegionView> _views = new();
+    private readonly Dictionary<string, RegionViewRegistration> _views = new();
 
     public Region(IRegionManager regionManager, IRegionNavigator regionNavigator)
     {
@@ -82,7 +82,7 @@ public class Region : IRegion
         return Task.CompletedTask;
     }
 
-    public object GetView(string viewName)
+    public Task<object> GetViewAsync(string viewName)
     {
         if (string.IsNullOrWhiteSpace(viewName))
         {
@@ -97,17 +97,17 @@ public class Region : IRegion
         return view;
     }
 
-    public void AddView(string viewName, object view)
+    public Task AddViewAsync(string viewName, object view)
     {
         if (_views.ContainsKey(viewName))
         {
             throw new ArgumentException($"Region already contains {viewName} view", nameof(viewName));
         }
 
-        _views.Add(viewName, new RegionView { Name = viewName, View = view });
+        _views.Add(viewName, new RegionViewRegistration { Name = viewName, View = view });
     }
 
-    public void RemoveView(string viewName)
+    public Task RemoveViewAsync(string viewName)
     {
         if (!_views.ContainsKey(viewName))
         {
@@ -117,7 +117,7 @@ public class Region : IRegion
         _views.Remove(viewName);
     }
 
-    public void RemoveView(object view)
+    public Task RemoveViewAsync(object view)
     {
         if (view == null)
         {
@@ -133,7 +133,7 @@ public class Region : IRegion
         _views.Remove(viewName);
     }
 
-    public void ClearViews()
+    public Task ClearViewsAsync()
     {
         _views.Clear();
     }
