@@ -21,8 +21,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
 
         public MysteryProgressiveProvider(
             IRandomFactory randomFactory,
-            IPersistenceProvider persistenceProvider
-        )
+            IPersistenceProvider persistenceProvider)
         {
             _prng = randomFactory?.Create(RandomType.Gaming) ?? throw new ArgumentNullException(nameof(randomFactory));
 
