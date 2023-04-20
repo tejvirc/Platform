@@ -24,6 +24,7 @@
         private string _attractHighlightVideoPath = string.Empty;
         private string _bottomAttractVideoPath = string.Empty;
         private long _denom = 1;
+        private DenominationInfoViewModel _selectedDenomination;
         private string _betOption = string.Empty;
         private long _filteredDenom = 1;
         private string _dllPath;
@@ -237,6 +238,27 @@
         }
 
         /// <summary>
+        ///     Gets or sets the selected denomination
+        /// </summary>
+        public DenominationInfoViewModel SelectedDenomination
+        {
+            get => _selectedDenomination;
+            private set
+            {
+                SetProperty(ref _selectedDenomination, value);
+                foreach (var denom in Denominations)
+                {
+                    denom.IsSelected = false;
+                }
+
+                if (value != null)
+                {
+                    value.IsSelected = true;
+                }
+            }
+        }
+
+        /// <summary>
         ///     The list of denomination buttons that will appear below the extra large game icons
         /// </summary>
         public ObservableCollection<DenominationInfoViewModel> Denominations { get; } =
@@ -252,7 +274,7 @@
             Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x)));
 
             // Start with all denoms unselected so it doesn't look weird on machines without the VBD denom switching
-            SetSelectedDenomination(null);
+            SelectedDenomination = null;
         }
 
         /// <summary>
@@ -302,7 +324,7 @@
             {
                 if (SetProperty(ref _isSelected, value, nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel)))
                 {
-                    SetSelectedDenomination(null);
+                    SelectedDenomination = null;
                 }
             }
         }
@@ -388,11 +410,11 @@
             {
                 var currentIndex = Denominations.IndexOf(selectedDenomination);
                 currentIndex = (currentIndex + 1) % Denominations.Count;
-                SetSelectedDenomination(Denominations[currentIndex]);
+                SelectedDenomination = Denominations[currentIndex];
             }
             else
             {
-                SetSelectedDenomination(Denominations.FirstOrDefault());
+                SelectedDenomination = Denominations.FirstOrDefault();
             }
         }
 
@@ -491,19 +513,6 @@
             }
 
             return null;
-        }
-
-        private void SetSelectedDenomination(DenominationInfoViewModel denomination)
-        {
-            foreach (var denom in Denominations)
-            {
-                denom.IsSelected = false;
-            }
-
-            if (denomination != null)
-            {
-                denomination.IsSelected = true;
-            }
         }
     }
 }

@@ -436,6 +436,7 @@
             PreviousGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousGame));
             NextGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextGame));
             ChangeDenomCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.ChangeDenom));
+            SelectGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.LaunchGame));
             AddCreditsCommand = new ActionCommand<object>(BankPressed);
             CashOutCommand = new ActionCommand<object>(CashOutPressed);
             ServiceCommand = new ActionCommand<object>(ServicePressed);
@@ -615,6 +616,11 @@
         ///     Gets the Change Denom command
         /// </summary>
         public ICommand ChangeDenomCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Select Game command
+        /// </summary>
+        public ICommand SelectGameCommand { get; set; }
 
         /// <summary>
         ///     Gets the command to insert credits
@@ -4461,6 +4467,11 @@
             var gameName = (string)obj[0];
             var denom = (long)obj[1];
 
+            LaunchGameWithSpecificDenomination(gameName, denom);
+        }
+
+        private void LaunchGameWithSpecificDenomination(string gameName, long denom)
+        {
             var selectedGame = _gameList.FirstOrDefault(g => g.Name == gameName && g.Denomination == denom);
 
             Logger.Debug($"gameId: {selectedGame?.GameId}, gameName: {gameName}, denom: {denom}");
@@ -5177,7 +5188,14 @@
                 case LcdButtonDeckLobby.LaunchGame:
                     if (_selectedGame != null)
                     {
-                        LaunchGameFromUi(_selectedGame);
+                        if (_selectedGame.Category == GameCategory.LightningLink && _selectedGame.SelectedDenomination != null)
+                        {
+                            LaunchGameWithSpecificDenomination(_selectedGame.Name, _selectedGame.SelectedDenomination.Denomination);
+                        }
+                        else
+                        {
+                            LaunchGameFromUi(_selectedGame);
+                        }
                     }
                     break;
             }
