@@ -33,7 +33,6 @@
     <Service type="Aristocrat.Monaco.Accounting.ValidationProvider" />
     <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountService" />
     <Service type="Aristocrat.Monaco.Accounting.HandCount.CashOutAmountCalculator" />
-
     <Service type="Aristocrat.Monaco.Accounting.TransferOutHandler" />
     <Service type="Aristocrat.Monaco.Accounting.WatOnHandler" />
     <Service type="Aristocrat.Monaco.Accounting.CurrencyInProvider" />

@@ -217,10 +217,10 @@
 
             if (mapping != null)
             {
-                return mapping.HardMeter.First(m => m.SoftMeter.Any(s => s.Name == AccountingMeters.HardMeterOutAmount)).LogicalId;
+                return mapping.HardMeter.FirstOrDefault(m => m.SoftMeter.Any(s => s.Name == AccountingMeters.HardMeterOutAmount))?.LogicalId ?? -1;
             }
 
-            return 0;
+            return -1;
         }
 
         private async Task Lockup(HardMeterOutTransaction transaction, bool inRecovery)

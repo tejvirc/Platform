@@ -274,7 +274,7 @@
 				},
 				{
                     AccountingConstants.CashoutAmountPerHandCount,
-                    Tuple.Create((object)configuration.HandCount?.CashoutAmountPerHandCount,false)
+                    Tuple.Create((object)configuration.HandCount?.CashoutAmountPerHandCount??0L,false)
                 },
                 {
                     AccountingConstants.LargeWinLimit,
