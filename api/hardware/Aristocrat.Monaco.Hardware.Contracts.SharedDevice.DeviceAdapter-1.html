@@ -126,7 +126,7 @@
   
   <h5 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class DeviceAdapter&lt;TImplementation&gt; : IDeviceAdapter, IDeviceService, IService, IFirmwareCrcBridge, IDisposable where TImplementation : IGdsDevice</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class DeviceAdapter&lt;TImplementation&gt; : IDeviceAdapter, IDeviceService, IService, IFirmwareCrcBridge, IDisposable where TImplementation : IHardwareDevice, IDfuDevice</code></pre>
   </div>
   
   
