@@ -246,6 +246,14 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 parameters.Add("/Runtime/BetOption", denomination.BetOption);
             }
 
+            var maxGameRoundWin = _properties.GetValue(GamingConstants.MaximumGameRoundWinAmount, 0L);
+            if (maxGameRoundWin is not 0L)
+            {
+                parameters.Add("/Runtime/MaximumGameRoundWin&use", "allowed");
+                parameters.Add("/Runtime/MaximumGameRoundWin&valueCents", maxGameRoundWin.MillicentsToCents().ToString(CultureInfo.InvariantCulture));
+                parameters.Add("/Runtime/MaximumGameRoundWin&onMaxWinReach", "endGame");
+            }
+
             if (denomination.LineOption != null)
             {
                 parameters.Add("/Runtime/LineOption", denomination.LineOption);

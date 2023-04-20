@@ -12,6 +12,7 @@ as follows:
 <GamingConfiguration>
 	<GameHistory KeepGameRoundEvents="false" KeepGameRoundMeterSnapshots="false" />
 	<GameEnd CashOutStrategy="Full" />
+    <MaximumGameRoundWin Amount="100000000" />
 	<FreeGames MeterIndependently="true" />
 	<Messages>
 		<MinBetMessage MustDisplay="false" Format="Currency" />

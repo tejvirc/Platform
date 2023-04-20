@@ -196,6 +196,11 @@
         public const string GameWinLargeWinCashOutStrategy = @"GamePlay.GameWinLargeWinCashOutStrategy";
 
         /// <summary>
+        ///     The value in millicents of the maximum win amount from a single game round
+        /// </summary>
+        public const string MaximumGameRoundWinAmount = @"GamePlay.MaximumGameRoundWin.Amount";
+
+        /// <summary>
         ///     The state change override setting
         /// </summary>
         public const string StateChangeOverride = @"GamePlay.StateChangeOverride";

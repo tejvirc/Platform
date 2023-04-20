@@ -9,7 +9,7 @@
           <xs:complexType>
             <xs:attribute name="KeepGameRoundEvents" type="xs:boolean" use="optional" default="true" />
             <xs:attribute name="KeepGameRoundMeterSnapshots" type="xs:boolean" use="optional" default="true" />
-           </xs:complexType>
+          </xs:complexType>
         </xs:element>
         <xs:element maxOccurs="1" name="GameEnd">
           <xs:complexType>
@@ -22,6 +22,11 @@
             <xs:attribute name="MaxCreditCashOutStrategy" type="MaxCreditCashOutStrategy" use="optional" default="Win" />
             <xs:attribute name="LargeWinCashOutStrategy" type="LargeWinCashOutStrategy" use="optional"
                           default="Handpay" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MaximumGameRoundWin">
+          <xs:complexType>
+            <xs:attribute name="Amount" type="xs:long" use="required" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="InGamePlay">
