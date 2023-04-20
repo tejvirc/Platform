@@ -2,21 +2,23 @@
 {
     using Contracts.LampTest;
     using Hardware.Contracts.ButtonDeck;
+    using Hardware.Contracts.Cabinet;
+    using Kernel;
 
     public static class LampTestUtilities
     {
         public static ILampTest GetLampTest()
         {
-            switch (ButtonDeckUtilities.GetButtonDeckType())
+            var serviceManager = ServiceManager.GetInstance();
+            var properties = serviceManager.GetService<IPropertiesManager>();
+            var cabinet = serviceManager.GetService<ICabinetDetectionService>();
+            return cabinet.GetButtonDeckType(properties) switch
             {
-                case ButtonDeckUtilities.ButtonDeckType.LCD:
-                    return new LCDLampTest();
-                case ButtonDeckUtilities.ButtonDeckType.Virtual:
-                    return new LampTest();
-                case ButtonDeckUtilities.ButtonDeckType.PhysicalButtonDeck:
-                    return new LampTest();
-            }
-            return null;
+                ButtonDeckType.LCD => new LCDLampTest(),
+                ButtonDeckType.Virtual => new LampTest(),
+                ButtonDeckType.PhysicalButtonDeck => new LampTest(),
+                _ => null
+            };
         }
     }
 }

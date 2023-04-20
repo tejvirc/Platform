@@ -11,7 +11,6 @@
     using Contracts.Communicator;
     using Contracts.Gds;
     using Contracts.SharedDevice;
-    using Kernel;
     using log4net;
 
     /// <summary>
@@ -50,7 +49,7 @@
             (
                 new List<MessageTemplateElement>
                 {
-                    new MessageTemplateElement{ ElementType = MessageTemplateElementType.VariableData }
+                    new() { ElementType = MessageTemplateElementType.VariableData }
                 },
                 0
             );
@@ -132,7 +131,7 @@
         /// <summary>
         ///     How many failed attempts until the device heartbeat is considered failed
         /// </summary>
-        protected int MaxFailedPollCount { get; set; }
+        protected int MaxFailedPollCount { get; set; } = HardwareConstants.DefaultMaxFailedPollCount;
 
         /// <inheritdoc/>
         public IDevice Device { get; set; }
@@ -186,12 +185,6 @@
                 _defaultMessageTemplate = newDefaultTemplate;
 
             _pollTimer = new Timer(PollTimerCallback, null, Timeout.Infinite, Timeout.Infinite);
-
-            // *NOTE* This override is needed when using the Device Simulator on a slower/resource starved system to avoid
-            // unintentional disconnects due to more than 3 failed polls.
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            MaxFailedPollCount = Convert.ToInt32(propertiesManager.GetProperty(HardwareConstants.MaxFailedPollCount, HardwareConstants.DefaultMaxFailedPollCount));
-            Logger.Debug($"Max failed poll count {MaxFailedPollCount}");
         }
 
         /// <inheritdoc/>
@@ -201,6 +194,7 @@
 
             lock (_lock)
             {
+                MaxFailedPollCount = comConfiguration.MaxPollTimeouts;
                 IsConfigured = false;
                 Logger.Debug($"Configure {GetType()}");
 

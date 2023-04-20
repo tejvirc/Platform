@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Reel.Capabilities
 {
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -17,15 +18,20 @@
         private const int MinBrightness = 1;
         private const int MaxBrightness = 100;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+		private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
+        private readonly IPersistentStorageManager _storageManager;
         private readonly IReelBrightnessImplementation _implementation;
         private readonly ReelControllerStateManager _stateManager;
 
         private int _reelBrightness = MaxBrightness;
 
-        public ReelBrightnessCapability(IReelBrightnessImplementation implementation, ReelControllerStateManager stateManager)
+        public ReelBrightnessCapability(
+            IPersistentStorageManager storageManager,
+            IReelBrightnessImplementation implementation,
+            ReelControllerStateManager stateManager)
         {
+            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
             _implementation = implementation;
             _stateManager = stateManager;
 
@@ -50,6 +56,7 @@
 
                 _reelBrightness = value;
                 this.ModifyBlock(
+                    _storageManager,
                     OptionsBlock,
                     (transaction, index) =>
                     {
@@ -70,7 +77,10 @@
             return _stateManager.CanSendCommand ? _implementation.SetBrightness(brightness) : Task.FromResult(false);
         }
 
-        public bool TryAddBlock(IPersistentStorageAccessor accessor, int blockIndex, out ReelBrightnessCapabilityOptions block)
+        public bool TryAddBlock(
+            IPersistentStorageAccessor accessor,
+            int blockIndex,
+            out ReelBrightnessCapabilityOptions block)
         {
             block = new ReelBrightnessCapabilityOptions { ReelBrightness = DefaultReelBrightness };
 
@@ -81,7 +91,10 @@
             return true;
         }
 
-        public bool TryGetBlock(IPersistentStorageAccessor accessor, int blockIndex, out ReelBrightnessCapabilityOptions block)
+        public bool TryGetBlock(
+            IPersistentStorageAccessor accessor,
+            int blockIndex,
+            out ReelBrightnessCapabilityOptions block)
         {
             block = new ReelBrightnessCapabilityOptions
             {
@@ -93,7 +106,7 @@
 
         private void ReadOrCreateOptions()
         {
-            if (!this.GetOrAddBlock(OptionsBlock, out var options, _stateManager.ControllerId - 1))
+            if (!this.GetOrAddBlock(_storageManager, OptionsBlock, out var options, _stateManager.ControllerId - 1))
             {
                 Logger.Error($"Could not access block {OptionsBlock} {_stateManager.ControllerId - 1}");
                 return;

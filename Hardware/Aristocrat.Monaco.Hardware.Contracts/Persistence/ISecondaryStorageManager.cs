@@ -24,5 +24,12 @@
         ///      - Raise lockup , If secondary storage is NOT required, but is connected
         /// </summary>
         void VerifyConfiguration();
+
+        /// <summary>
+        ///     Gets the location to the mirror storage
+        /// </summary>
+        /// <param name="primaryStorageRoot">The storage to get the mirror location for</param>
+        /// <returns>The location to the mirrored storage</returns>
+        string GetMirrorPath(string primaryStorageRoot);
     }
 }

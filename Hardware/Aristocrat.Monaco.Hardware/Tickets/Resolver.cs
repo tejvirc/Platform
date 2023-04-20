@@ -31,18 +31,20 @@
         /// <summary>
         ///     Create a logger for use in this class.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>List of all regions available via configuration file.</summary>
-        private readonly Dictionary<int, PrintableRegion> _printableRegions = new Dictionary<int, PrintableRegion>();
+        private readonly Dictionary<int, PrintableRegion> _printableRegions = new();
 
         /// <summary>List of all templates available via configuration file.</summary>
-        private readonly Dictionary<string, PrintableTemplate> _printableTemplates =
-            new Dictionary<string, PrintableTemplate>();
+        private readonly Dictionary<string, PrintableTemplate> _printableTemplates = new();
+
+        private readonly IEventBus _eventBus;
 
         /// <summary>Initializes a new instance of the <see cref="Resolver" /> class.</summary>
-        public Resolver()
+        public Resolver(IEventBus eventBus)
         {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             Pages = new Collection<List<PrintableRegion>>();
         }
 
@@ -71,54 +73,54 @@
                 throw new InvalidTicketConfigurationException(message);
             }
 
-            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            using var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            var xmlSerializer = new XmlSerializer(typeof(dprcollectiontype));
+
+            var contentsOfRegionsXml = (dprcollectiontype) xmlSerializer.Deserialize(fs);
+
+            if (contentsOfRegionsXml == null)
             {
-                var xmlSerializer = new XmlSerializer(typeof(dprcollectiontype));
+                var message = fileName + " Deserialization failed.";
 
-                var contentsOfRegionsXml = (dprcollectiontype) xmlSerializer.Deserialize(fs);
+                Logger.Error(message);
 
-                if (contentsOfRegionsXml == null)
+                throw new InvalidTicketConfigurationException(message);
+            }
+
+            foreach (var dprElement in contentsOfRegionsXml.DPR)
+            {
+                //// Copy XML entries into the region collection object.
+                var id = int.Parse(dprElement.id, CultureInfo.InvariantCulture);
+                var rotation = int.Parse(dprElement.rot, CultureInfo.InvariantCulture);
+                var defaultText = dprElement.D;
+
+                // make sure that there are no duplicate ids.
+                if (_printableRegions.ContainsKey(id))
                 {
-                    var message = fileName + " Deserialization failed.";
-
-                    Logger.Error(message);
-
-                    throw new InvalidTicketConfigurationException(message);
+                    continue;
                 }
 
-                foreach (var dprElement in contentsOfRegionsXml.DPR)
-                {
-                    //// Copy XML entries into the region collection object.
-                    var id = int.Parse(dprElement.id, CultureInfo.InvariantCulture);
-                    var rotation = int.Parse(dprElement.rot, CultureInfo.InvariantCulture);
-                    var defaultText = dprElement.D;
+                var region = new PrintableRegion(
+                    dprElement.name,
+                    dprElement.property,
+                    id,
+                    dprElement.x,
+                    dprElement.px,
+                    dprElement.y,
+                    dprElement.py,
+                    dprElement.dx,
+                    dprElement.pdx,
+                    dprElement.dy,
+                    dprElement.pdy,
+                    rotation,
+                    dprElement.jst,
+                    dprElement.type,
+                    dprElement.m1,
+                    dprElement.m2,
+                    dprElement.attr,
+                    defaultText);
 
-                    // make sure that there are no duplicate ids.
-                    if (!_printableRegions.ContainsKey(id))
-                    {
-                        var region = new PrintableRegion(
-                            dprElement.name,
-                            dprElement.property,
-                            id,
-                            dprElement.x,
-                            dprElement.px,
-                            dprElement.y,
-                            dprElement.py,
-                            dprElement.dx,
-                            dprElement.pdx,
-                            dprElement.dy,
-                            dprElement.pdy,
-                            rotation,
-                            dprElement.jst,
-                            dprElement.type,
-                            dprElement.m1,
-                            dprElement.m2,
-                            dprElement.attr,
-                            defaultText);
-
-                        _printableRegions.Add(id, region);
-                    }
-                }
+                _printableRegions.Add(id, region);
             }
         }
 
@@ -138,44 +140,42 @@
                 throw new InvalidTicketConfigurationException(message);
             }
 
-            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            using var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            var xmlSerializer = new XmlSerializer(typeof(dptcollectiontype));
+
+            var contentsOfTemplatesXml = (dptcollectiontype) xmlSerializer.Deserialize(fs);
+
+            if (contentsOfTemplatesXml == null)
             {
-                var xmlSerializer = new XmlSerializer(typeof(dptcollectiontype));
+                var message = fileName + " Deserialization failed.";
 
-                var contentsOfTemplatesXml = (dptcollectiontype) xmlSerializer.Deserialize(fs);
+                Logger.Error(message);
 
-                if (contentsOfTemplatesXml == null)
+                throw new InvalidTicketConfigurationException(message);
+            }
+
+            foreach (var dptElement in contentsOfTemplatesXml.DPT)
+            {
+                var regionStrings = dptElement.Value.Trim().Split(' ');
+                var numericalRegions = new List<int>();
+
+                foreach (var str in regionStrings)
                 {
-                    var message = fileName + " Deserialization failed.";
-
-                    Logger.Error(message);
-
-                    throw new InvalidTicketConfigurationException(message);
-                }
-
-                foreach (var dptElement in contentsOfTemplatesXml.DPT)
-                {
-                    var regionStrings = dptElement.Value.Trim().Split(' ');
-                    var numericalRegions = new List<int>();
-
-                    foreach (var str in regionStrings)
+                    if (!string.IsNullOrEmpty(str))
                     {
-                        if (!string.IsNullOrEmpty(str))
-                        {
-                            numericalRegions.Add(int.Parse(str, CultureInfo.InvariantCulture));
-                        }
+                        numericalRegions.Add(int.Parse(str, CultureInfo.InvariantCulture));
                     }
-
-                    _printableTemplates.Add(
-                        dptElement.name,
-                        new PrintableTemplate(
-                            dptElement.name,
-                            dptElement.id,
-                            dptElement.t_dim_da,
-                            dptElement.t_dim_pa,
-                            numericalRegions));
                 }
-            } 
+
+                _printableTemplates.Add(
+                    dptElement.name,
+                    new PrintableTemplate(
+                        dptElement.name,
+                        dptElement.id,
+                        dptElement.t_dim_da,
+                        dptElement.t_dim_pa,
+                        numericalRegions));
+            }
         }
 
         /// <summary>Resolves ticket content. It basically builds up the pages which needs to be printed.</summary>
@@ -208,8 +208,7 @@
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
-                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                eventBus.Publish(new ResolverErrorEvent());
+                _eventBus.Publish(new ResolverErrorEvent());
             }
         }
 

@@ -23,6 +23,7 @@
     using Test.Common;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Mgam.Services.CreditValidators;
+    using Hardware.Contracts.SerialPorts;
 
     [TestClass]
     public class SoftwareValidatorTest
@@ -59,7 +60,9 @@
             _directory = new Mock<IDirectory>();
             _egm.Setup(e => e.GetService<IDirectory>()).Returns(_directory.Object);
             _ioService = new Mock<IIO>();
-            _ioService.SetupGet(i => i.DeviceConfiguration).Returns(new Device { Manufacturer = "ATI" });
+            var serialPortService = new Mock<ISerialPortsService>();
+            _ioService.SetupGet(i => i.DeviceConfiguration)
+                .Returns(new Device(serialPortService.Object) { Manufacturer = "ATI" });
             _xmlMessageSerializer = new Mock<IXmlMessageSerializer>();
             _pathMapper = new Mock<IPathMapper>();
             _fileSystemProvider = new Mock<IFileSystemProvider>();

@@ -96,7 +96,8 @@
         [TestMethod]
         public void DeviceTest()
         {
-            var target = new Device();
+            _ports = new Mock<ISerialPortsService>(MockBehavior.Strict);
+            var target = new Device(_ports.Object);
             Assert.AreEqual(string.Empty, target.Protocol);
             Assert.AreEqual(string.Empty, target.Manufacturer);
             Assert.AreEqual(string.Empty, target.Model);
@@ -128,28 +129,30 @@
             string variantVersion = "test variant version";
             int polling = 1234;
 
-            _ports = MoqServiceManager.CreateAndAddService<ISerialPortsService>(MockBehavior.Strict);
             _ports.Setup(m => m.LogicalToPhysicalName(It.IsAny<string>())).Returns<string>(a => a);
 
-            target = new Device(
-                protocol,
-                mode,
-                portName,
-                baudRate,
-                parity,
-                dataBits,
-                stopBits,
-                handshake,
-                manufacturer,
-                model,
-                serial,
-                firmwareVersion,
-                firmwareId,
-                firmwareRevision,
-                firmwareCrc,
-                variant,
-                variantVersion,
-                polling);
+            target = new Device(_ports.Object)
+            {
+                Protocol = protocol,
+                Mode = mode,
+                PortName = portName,
+                BaudRate = baudRate,
+                Parity = parity,
+                DataBits = dataBits,
+                StopBits = stopBits,
+                Handshake = handshake,
+                Manufacturer = manufacturer,
+                Model = model,
+                SerialNumber = serial,
+                FirmwareBootVersion = firmwareVersion,
+                FirmwareId = firmwareId,
+                FirmwareRevision = firmwareRevision,
+                FirmwareCyclicRedundancyCheck = firmwareCrc,
+                VariantName = variant,
+                VariantVersion = variantVersion,
+                PollingFrequency = polling
+            };
+
             Assert.AreEqual(protocol, target.Protocol);
             Assert.AreEqual(manufacturer, target.Manufacturer);
             Assert.AreEqual(model, target.Model);

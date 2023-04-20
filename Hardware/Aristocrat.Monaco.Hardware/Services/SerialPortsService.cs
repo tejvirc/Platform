@@ -14,31 +14,29 @@
     public class SerialPortsService : ISerialPortsService, IService
     {
         private const string ComText = "COM";
-
         private const string Fake = "Fake";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICabinetDetectionService _cabinetIdentificationService;
-
-        private readonly List<SerialPortInfo> _logicalSerialPorts = new ();
-
+        private readonly List<SerialPortInfo> _logicalSerialPorts = new();
         private readonly IList<SerialPortInfo> _serialPorts;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SerialPortsService" /> class.
         /// </summary>
         public SerialPortsService()
-            : this(new SerialPortEnumerator())
+            : this(
+                new SerialPortEnumerator(),
+                ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
         {
         }
 
-        public SerialPortsService(SerialPortEnumerator enumerator)
+        public SerialPortsService(SerialPortEnumerator enumerator, ICabinetDetectionService cabinetService)
         {
-            _cabinetIdentificationService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
-
             PopulateLogicalSerialPorts();
 
+            _cabinetIdentificationService = cabinetService;
             _serialPorts = enumerator.EnumerateSerialPorts().Join(
                 _logicalSerialPorts,
                 x => new { x.Address, x.SerialPortType },
@@ -76,8 +74,7 @@
         /// <inheritdoc />
         public void RegisterPort(string portName)
         {
-            portName = portName.ToUpper();
-
+            portName = portName.ToUpperInvariant();
             var serialPort = _serialPorts.FirstOrDefault(
                                  x => x.PhysicalPortName.Equals(portName, StringComparison.OrdinalIgnoreCase)) ??
                              throw new ArgumentOutOfRangeException(nameof(portName), portName);
@@ -94,7 +91,7 @@
         /// <inheritdoc />
         public void UnRegisterPort(string portName)
         {
-            portName = portName.ToUpper();
+            portName = portName.ToUpperInvariant();
             var serialPort = _serialPorts.FirstOrDefault(
                                  x => x.PhysicalPortName.Equals(portName, StringComparison.OrdinalIgnoreCase)) ??
                              throw new ArgumentOutOfRangeException(nameof(portName), portName);

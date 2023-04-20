@@ -46,39 +46,31 @@
   <Extension path="/Hardware/Services">
     <Service type="Aristocrat.Monaco.Hardware.Services.DeviceWatcher" />
     <Service type="Aristocrat.Monaco.Hardware.Services.IdReaderProvider" />
-
     <Service type="Aristocrat.Monaco.Hardware.Services.DeviceRegistryService" />
-
     <Service type="Aristocrat.Monaco.Hardware.HardwareConfiguration" />
-
     <Service type="Aristocrat.Monaco.Hardware.Services.CabinetDetectionService" />
+    <Service type="Aristocrat.Monaco.Hardware.Services.SerialPortsService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.IOService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.KeySwitchService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.HardMeterService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DoorService" />
+    <Service type="Aristocrat.Monaco.Hardware.Services.HardMeterService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.ButtonService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.ButtonDeckDisplayService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DisabledNotesService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.BellService" />
-
-    <Service type="Aristocrat.Monaco.Hardware.Services.SerialPortsService" />
     <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Services.BeagleBoneControllerService" />
-
-    <!--<Service type="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter" />
-    <Service type="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter" />-->
-
     <Service type="Aristocrat.Monaco.Hardware.Services.OSService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.InstrumentationService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DisplayService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.AudioService" />
     <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Manager.SharedMemoryManager" />
     <Service type="Aristocrat.Monaco.Hardware.VHD.VirtualDisk" />
+    <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />
     <Service type="Aristocrat.Monaco.Hardware.Services.NoteAcceptorFirmwareInstaller" />
     <Service type="Aristocrat.Monaco.Hardware.Services.PrinterFirmwareInstaller" />
     <Service type="Aristocrat.Monaco.Hardware.OSInstaller" />
     <Service type="Aristocrat.Monaco.Hardware.Services.BatteryService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.TowerLightService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />
     <Service type="Aristocrat.Monaco.Hardware.Services.SerialDeviceSearcher" />
     <Service type="Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService" />
   </Extension>
@@ -94,7 +86,7 @@
     <CommandLineArgument Name="serialTouchDisabled">
       <ArgumentValue ValidValue="false" Description="The system is required to have a serial touch device if expected by the cabinet configuration. This is the default." />
       <ArgumentValue ValidValue="true" Description="The system is not required to have a serial touch device if expected by the cabinet configuration." />
-    </CommandLineArgument>    
+    </CommandLineArgument>
   </Extension>
 
   <Extension path="/Hardware/PersistentStorageService">
@@ -143,7 +135,7 @@
   <ExtensionPoint path="/Hardware/PersistentStorageService">
     <ExtensionNode name="PersistentStorageManager" />
   </ExtensionPoint>
-  
+
   <ExtensionPoint path="/Hardware/SecondaryStorageService">
     <ExtensionNode name="SecondaryStorageManager" />
   </ExtensionPoint>
@@ -217,7 +209,7 @@
   <ExtensionPoint path="/Hardware/PrinterOverrides">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
-  
+
   <ExtensionPoint path="/Hardware/SerialTouch">
     <ExtensionNode name="SerialTouchService"/>
   </ExtensionPoint>

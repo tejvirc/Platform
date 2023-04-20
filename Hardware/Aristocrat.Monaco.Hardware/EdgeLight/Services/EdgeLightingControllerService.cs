@@ -34,6 +34,7 @@
         public EdgeLightingControllerService()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 new EdgeLightManager(),
                 RendererFactory.CreateRenderer,
                 () => HidDevices.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId),
@@ -43,6 +44,7 @@
 
         public EdgeLightingControllerService(
             IEventBus eventBus,
+            IPropertiesManager propertiesManager,
             IEdgeLightManager edgeLightManager,
             Func<PatternParameters, IEdgeLightRenderer> rendererFactory,
             Func<IEnumerable<IHidDevice>> deviceEnumerator,
@@ -53,8 +55,7 @@
             _rendererFactory = rendererFactory ?? throw new ArgumentNullException(nameof(rendererFactory));
             _deviceEnumerator = deviceEnumerator ?? throw new ArgumentNullException(nameof(deviceEnumerator));
 
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            _isSimulated = properties.GetValue(HardwareConstants.SimulateEdgeLighting, false);
+            _isSimulated = propertiesManager.GetValue(HardwareConstants.SimulateEdgeLighting, false);
 
             DetectedOnStartup = IsDetected;
             foreach (var edgeLightRenderer in initialRendererList)

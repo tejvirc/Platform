@@ -14,18 +14,18 @@
     using Contracts.Persistence;
     using log4net;
     using StorageAdapters;
+    using static System.Threading.Monitor;
 
     /// <summary>
     ///     Sql persistent storage accessor
     /// </summary>
     public class SqlPersistentStorageAccessor : IPersistentStorageAccessor
     {
-        private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly string _connectionString;
 
-        private readonly object _transactionLock = new object();
+        private readonly object _transactionLock = new();
 
         private IPersistentStorageTransaction _scopedTransaction;
 
@@ -110,18 +110,16 @@
                     }
                     else
                     {
-                        using (var transaction = StartTransaction())
-                        {
-                            transaction[Name, blockFieldName] = value;
+                        using var transaction = StartTransaction();
+                        transaction[Name, blockFieldName] = value;
 
-                            try
-                            {
-                                transaction.Commit();
-                            }
-                            catch (Exception e)
-                            {
-                                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
-                            }
+                        try
+                        {
+                            transaction.Commit();
+                        }
+                        catch (Exception e)
+                        {
+                            SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
                         }
                     }
                 }
@@ -143,11 +141,9 @@
                     }
                     else
                     {
-                        using (var transaction = new SqlPersistentStorageTransaction(this, _connectionString))
-                        {
-                            transaction[arrayIndex, blockFieldName] = value;
-                            transaction.Commit();
-                        }
+                        using var transaction = new SqlPersistentStorageTransaction(this, _connectionString);
+                        transaction[arrayIndex, blockFieldName] = value;
+                        transaction.Commit();
                     }
                 }
             }
@@ -157,66 +153,60 @@
         {
             var results = new Dictionary<int, Dictionary<string, object>>();
 
-            using (var connection = CreateConnection())
+            using var connection = CreateConnection();
+            try
             {
-                try
+                connection.Open();
+
+                using var command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT FieldName, Data FROM StorageBlockField WHERE BlockName = @BlockName";
+                command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+
+                using var result = command.ExecuteReader();
+                while (result.Read())
                 {
-                    connection.Open();
+                    var internalName = result["FieldName"].ToString().Split('@');
 
-                    using (var command = new SQLiteCommand(connection))
+                    var fieldName = internalName[0];
+
+                    var index = 0;
+                    if (internalName.Length > 1)
                     {
-                        command.CommandText = "SELECT FieldName, Data FROM StorageBlockField WHERE BlockName = @BlockName";
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                        index = Convert.ToInt32(internalName[1]);
+                    }
 
-                        using (var result = command.ExecuteReader())
+                    if (!results.TryGetValue(index, out var values))
+                    {
+                        values = new Dictionary<string, object>();
+
+                        results.Add(index, values);
+                    }
+
+                    var fieldData = (byte[])result["Data"];
+
+                    var fd = Format.GetFieldDescription(fieldName);
+
+                    if (fd is { DataType: FieldType.Byte, Count: 2, Size: 1 } && fieldData?.Length > fd.Count)
+                    {
+                        values.Add(fieldName, fieldData);
+                    }
+                    else
+                    {
+                        try
                         {
-                            while (result.Read())
-                            {
-                                var internalName = result["FieldName"].ToString().Split('@');
-
-                                var fieldName = internalName[0];
-
-                                var index = 0;
-                                if (internalName.Length > 1)
-                                {
-                                    index = Convert.ToInt32(internalName[1]);
-                                }
-
-                                if (!results.TryGetValue(index, out var values))
-                                {
-                                    values = new Dictionary<string, object>();
-
-                                    results.Add(index, values);
-                                }
-
-                                var fieldData = (byte[])result["Data"];
-
-                                var fd = Format.GetFieldDescription(fieldName);
-
-                                if (fd != null && fd.DataType == FieldType.Byte && fd.Count == 2 && fd.Size == 1 && fieldData?.Length > fd.Count)
-                                {
-                                    values.Add(fieldName, fieldData);
-                                }
-                                else
-                                {
-                                    try
-                                    {
-                                        values.Add(fieldName, Format.Convert(fieldName, fieldData));
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Logger.Debug("Failed to convert data", ex);
-                                        throw;
-                                    }
-                                }
-                            }
+                            values.Add(fieldName, Format.Convert(fieldName, fieldData));
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Debug("Failed to convert data", ex);
+                            throw;
                         }
                     }
                 }
-                catch (Exception e)
-                {
-                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
-                }
+            }
+            catch (Exception e)
+            {
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
             }
 
             return results;
@@ -225,7 +215,7 @@
         /// <inheritdoc />
         public bool StartUpdate(bool waitForLock)
         {
-            Monitor.Enter(_transactionLock);
+            Enter(_transactionLock);
 
             if (_scopedTransaction != null)
             {
@@ -238,7 +228,7 @@
                 }
                 else
                 {
-                    Monitor.Exit(_transactionLock);
+                    Exit(_transactionLock);
                     return false;
                 }
             }
@@ -263,7 +253,7 @@
             _scopedTransaction?.Dispose();
             _scopedTransaction = null;
 
-            Monitor.Exit(_transactionLock);
+            Exit(_transactionLock);
         }
 
         /// <inheritdoc />
@@ -273,20 +263,19 @@
             _scopedTransaction?.Dispose();
             _scopedTransaction = null;
 
-            Monitor.Exit(_transactionLock);
+            Exit(_transactionLock);
         }
 
         /// <inheritdoc />
         public IPersistentStorageTransaction StartTransaction()
         {
-            if (PersistenceTransaction.Current != null)
+            if (PersistenceTransaction.Current == null)
             {
-                PersistenceTransaction.Current.AddBlock(this);
-
-                return PersistenceTransaction.Current;
+                return new SqlPersistentStorageTransaction(this, _connectionString);
             }
 
-            return new SqlPersistentStorageTransaction(this, _connectionString);
+            PersistenceTransaction.Current.AddBlock(this);
+            return PersistenceTransaction.Current;
         }
 
         public static SqlPersistentStorageAccessor InvalidAccessor(string name, int count, BlockFormat format)
@@ -305,112 +294,102 @@
                 return;
             }
 
-            using (var connection = CreateConnection())
+            using var connection = CreateConnection();
+            try
             {
-                try
+                connection.Open();
+
+                using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                if (size < Count)
                 {
-                    connection.Open();
-
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+                    foreach (var description in Format.FieldDescriptions)
                     {
-                        if (size < Count)
+                        for (var i = size; i < Count; i++)
                         {
-                            foreach (var description in Format.FieldDescriptions)
-                            {
-                                for (var i = size; i < Count; i++)
-                                {
-                                    var fieldName = description.FieldName + "@" + i;
+                            var fieldName = description.FieldName + "@" + i;
 
-                                    using (var command = new SQLiteCommand(
-                                        "DELETE FROM StorageBlockField WHERE BlockName = @BlockName AND FieldName = @FieldName",
-                                        connection,
-                                        transaction))
-                                    {
-                                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
-                                        command.Parameters.Add(new SQLiteParameter("@FieldName", fieldName));
-
-                                        command.ExecuteNonQuery();
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            foreach (var description in Format.FieldDescriptions)
-                            {
-                                var defaultValue = Format.ConvertTo(
-                                    description.FieldName,
-                                    DefaultValueFromFieldDescription(description));
-
-                                for (var i = Count; i < size; i++)
-                                {
-                                    using (var command = new SQLiteCommand(
-                                        "INSERT INTO StorageBlockField (BlockName, FieldName, DataType, Data, Count) VALUES (@BlockName, @FieldName, @DataType, @Data, @Count)",
-                                        connection,
-                                        transaction))
-                                    {
-                                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
-                                        command.Parameters.Add(
-                                            new SQLiteParameter("@FieldName", description.FieldName + "@" + i));
-                                        command.Parameters.Add(
-                                            new SQLiteParameter(
-                                                "@DataType",
-                                                Format.GetFieldType(description.FieldName).ToString()));
-                                        command.Parameters.Add(new SQLiteParameter("@Data", defaultValue));
-                                        command.Parameters.Add(new SQLiteParameter("@Count", description.Count));
-
-                                        command.ExecuteNonQuery();
-                                    }
-                                }
-                            }
-                        }
-
-                        using (var command = new SQLiteCommand(
-                            "UPDATE StorageBlock SET Count = @Count WHERE Name = @Name",
-                            connection,
-                            transaction))
-                        {
-                            command.Parameters.Add(new SQLiteParameter("@Name", Name));
-                            command.Parameters.Add(new SQLiteParameter("@Count", size));
+                            using var command = new SQLiteCommand(
+                                "DELETE FROM StorageBlockField WHERE BlockName = @BlockName AND FieldName = @FieldName",
+                                connection,
+                                transaction);
+                            command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                            command.Parameters.Add(new SQLiteParameter("@FieldName", fieldName));
 
                             command.ExecuteNonQuery();
                         }
-
-                        transaction.Commit();
-
-                        Count = size;
                     }
                 }
-                catch (Exception e)
+                else
                 {
-                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
+                    foreach (var description in Format.FieldDescriptions)
+                    {
+                        var defaultValue = Format.ConvertTo(
+                            description.FieldName,
+                            DefaultValueFromFieldDescription(description));
+
+                        for (var i = Count; i < size; i++)
+                        {
+                            using var command = new SQLiteCommand(
+                                "INSERT INTO StorageBlockField (BlockName, FieldName, DataType, Data, Count) VALUES (@BlockName, @FieldName, @DataType, @Data, @Count)",
+                                connection,
+                                transaction);
+                            command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                            command.Parameters.Add(
+                                new SQLiteParameter("@FieldName", description.FieldName + "@" + i));
+                            command.Parameters.Add(
+                                new SQLiteParameter(
+                                    "@DataType",
+                                    Format.GetFieldType(description.FieldName).ToString()));
+                            command.Parameters.Add(new SQLiteParameter("@Data", defaultValue));
+                            command.Parameters.Add(new SQLiteParameter("@Count", description.Count));
+
+                            command.ExecuteNonQuery();
+                        }
+                    }
                 }
+
+                using (var command = new SQLiteCommand(
+                           "UPDATE StorageBlock SET Count = @Count WHERE Name = @Name",
+                           connection,
+                           transaction))
+                {
+                    command.Parameters.Add(new SQLiteParameter("@Name", Name));
+                    command.Parameters.Add(new SQLiteParameter("@Count", size));
+
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+
+                Count = size;
+            }
+            catch (Exception e)
+            {
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
             }
         }
 
         private static BlockFormat[] DeserializeBlockFormats(string pathName)
         {
             BlockFormat[] blockFormats = { };
-            using (var xr = new XmlTextReader(new FileStream(pathName, FileMode.Open, FileAccess.Read)))
+            using var xr = new XmlTextReader(new FileStream(pathName, FileMode.Open, FileAccess.Read));
+            var xs = new XmlSerializer(typeof(BlockFormat[]));
+            if (xs.CanDeserialize(xr))
             {
-                var xs = new XmlSerializer(typeof(BlockFormat[]));
+                Logger.Debug("Can deserialize multiple block formats...");
+                var blockFormatArray = (BlockFormat[])xs.Deserialize(xr);
+                Array.ForEach(blockFormatArray, x => x.UpdateDictionary());
+                blockFormats = blockFormatArray;
+            }
+            else
+            {
+                xs = new XmlSerializer(typeof(BlockFormat));
                 if (xs.CanDeserialize(xr))
                 {
-                    Logger.Debug("Can deserialize multiple block formats...");
-                    var blockFormatArray = (BlockFormat[])xs.Deserialize(xr);
-                    Array.ForEach(blockFormatArray, x => x.UpdateDictionary());
-                    blockFormats = blockFormatArray;
-                }
-                else
-                {
-                    xs = new XmlSerializer(typeof(BlockFormat));
-                    if (xs.CanDeserialize(xr))
-                    {
-                        Logger.Debug("Can deserialize singular block format...");
-                        var blockFormatSingle = (BlockFormat)xs.Deserialize(xr);
-                        blockFormatSingle.UpdateDictionary();
-                        blockFormats = new[] { blockFormatSingle };
-                    }
+                    Logger.Debug("Can deserialize singular block format...");
+                    var blockFormatSingle = (BlockFormat)xs.Deserialize(xr);
+                    blockFormatSingle.UpdateDictionary();
+                    blockFormats = new[] { blockFormatSingle };
                 }
             }
 
@@ -454,37 +433,31 @@
 
         private void Initialize(string name)
         {
-            using (var connection = CreateConnection())
+            using var connection = CreateConnection();
+            try
             {
-                try
-                {
-                    connection.Open();
+                connection.Open();
 
-                    using (var command = new SQLiteCommand(connection))
+                using var command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM StorageBlock WHERE Name = @Name";
+                command.Parameters.Add(new SQLiteParameter("@Name", name));
+
+                using var result = command.ExecuteReader(CommandBehavior.SingleRow);
+                while (result.Read())
+                {
+                    Name = result["Name"].ToString();
+                    Version = Convert.ToInt32(result["Version"]);
+                    if (Enum.TryParse(result["Level"].ToString(), out PersistenceLevel level))
                     {
-                        command.CommandText = "SELECT * FROM StorageBlock WHERE Name = @Name";
-                        command.Parameters.Add(new SQLiteParameter("@Name", name));
-
-                        using (var result = command.ExecuteReader(CommandBehavior.SingleRow))
-                        {
-                            while (result.Read())
-                            {
-                                Name = result["Name"].ToString();
-                                Version = Convert.ToInt32(result["Version"]);
-                                if (Enum.TryParse(result["Level"].ToString(), out PersistenceLevel level))
-                                {
-                                    Level = level;
-                                }
-
-                                Count = Convert.ToInt32(result["Count"]);
-                            }
-                        }
+                        Level = level;
                     }
+
+                    Count = Convert.ToInt32(result["Count"]);
                 }
-                catch (Exception e)
-                {
-                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
-                }
+            }
+            catch (Exception e)
+            {
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
             }
         }
 
@@ -512,31 +485,27 @@
                     {
                         connection.Open();
 
-                        using (var command = new SQLiteCommand(connection))
+                        using var command = new SQLiteCommand(connection);
+                        command.CommandText = "SELECT * FROM StorageBlockField WHERE BlockName = @BlockName";
+                        command.Parameters.Add(new SQLiteParameter("@BlockName", blockName));
+
+                        using var result = command.ExecuteReader();
+                        while (result.Read())
                         {
-                            command.CommandText = "SELECT * FROM StorageBlockField WHERE BlockName = @BlockName";
-                            command.Parameters.Add(new SQLiteParameter("@BlockName", blockName));
-
-                            using (var result = command.ExecuteReader())
+                            var fieldName = Count > 1 ? result["FieldName"].ToString().Split('@')[0] : result["FieldName"].ToString();
+                            if (newFormat.FieldDescriptions.Any(d => d.FieldName == fieldName))
                             {
-                                while (result.Read())
-                                {
-                                    var fieldName = Count > 1 ? result["FieldName"].ToString().Split('@')[0] : result["FieldName"].ToString();
-                                    if (newFormat.FieldDescriptions.Any(d => d.FieldName == fieldName))
-                                    {
-                                        continue;
-                                    }
-
-                                    var description = new FieldDescription
-                                    {
-                                        FieldName = fieldName,
-                                        Count = Convert.ToInt32(result["Count"]),
-                                        DataType = Enum.TryParse(result["DataType"].ToString(), out FieldType type) ? type : FieldType.Unused
-                                    };
-
-                                    newFormat.AddFieldDescription(description);
-                                }
+                                continue;
                             }
+
+                            var description = new FieldDescription
+                            {
+                                FieldName = fieldName,
+                                Count = Convert.ToInt32(result["Count"]),
+                                DataType = Enum.TryParse(result["DataType"].ToString(), out FieldType type) ? type : FieldType.Unused
+                            };
+
+                            newFormat.AddFieldDescription(description);
                         }
                     }
                     catch (Exception e)
@@ -570,26 +539,22 @@
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(connection))
+                    using var command = new SQLiteCommand(connection);
+                    command.CommandText = "SELECT * FROM StorageBlockField WHERE BlockName = @BlockName";
+                    command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+
+                    using var result = command.ExecuteReader();
+                    while (result.Read())
                     {
-                        command.CommandText = "SELECT * FROM StorageBlockField WHERE BlockName = @BlockName";
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
-
-                        using (var result = command.ExecuteReader())
+                        var description = new FieldDescription { FieldName = result["FieldName"].ToString() };
+                        if (Enum.TryParse(result["DataType"].ToString(), out FieldType type))
                         {
-                            while (result.Read())
-                            {
-                                var description = new FieldDescription { FieldName = result["FieldName"].ToString() };
-                                if (Enum.TryParse(result["DataType"].ToString(), out FieldType type))
-                                {
-                                    description.DataType = type;
-                                }
-
-                                description.Count = Convert.ToInt32(result["Count"]);
-
-                                existing.Add(description);
-                            }
+                            description.DataType = type;
                         }
+
+                        description.Count = Convert.ToInt32(result["Count"]);
+
+                        existing.Add(description);
                     }
                 }
                 catch (Exception e)
@@ -607,23 +572,19 @@
 
         private void AddFields(BlockFormat format, IEnumerable<FieldDescription> fields, int version = -1)
         {
-            using (var connection = CreateConnection())
+            using var connection = CreateConnection();
+            try
             {
-                try
-                {
-                    connection.Open();
+                connection.Open();
 
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
-                    {
-                        AddFields(transaction, format, fields, version);
+                using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                AddFields(transaction, format, fields, version);
 
-                        transaction.Commit();
-                    }
-                }
-                catch (Exception e)
-                {
-                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
-                }
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
             }
         }
 
@@ -668,16 +629,14 @@
 
             if (version > 0)
             {
-                using (var command = new SQLiteCommand(
+                using var command = new SQLiteCommand(
                     "UPDATE StorageBlock SET Version = @Version WHERE Name = @Name",
                     transaction.Connection,
-                    transaction))
-                {
-                    command.Parameters.Add(new SQLiteParameter("@Name", Name));
-                    command.Parameters.Add(new SQLiteParameter("@Version", version));
+                    transaction);
+                command.Parameters.Add(new SQLiteParameter("@Name", Name));
+                command.Parameters.Add(new SQLiteParameter("@Version", version));
 
-                    command.ExecuteNonQuery();
-                }
+                command.ExecuteNonQuery();
             }
         }
 
@@ -685,42 +644,37 @@
         {
             var fieldName = arrayIndex >= 1 ? blockFieldName + "@" + arrayIndex : blockFieldName;
 
-            using (var connection = CreateConnection())
+            using var connection = CreateConnection();
+            try
             {
-                try
+                connection.Open();
+
+                using var command = new SQLiteCommand(connection);
+                command.CommandText =
+                    "SELECT Data FROM StorageBlockField WHERE BlockName = @BlockName AND FieldName = @FieldName";
+                command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                command.Parameters.Add(new SQLiteParameter("@FieldName", fieldName));
+
+                var fieldData = (byte[])command.ExecuteScalar(CommandBehavior.SingleRow);
+
+                var fd = Format.GetFieldDescription(blockFieldName);
+
+                // Get the raw bytes from the database.  I don't like this "special case" and this
+                // logic is not intuitive.  Can we do something more explicit like a RawByteArray type
+                // for storing byte blobs in the database?
+                if (fd is { DataType: FieldType.Byte, Count: 2, Size: 1 } && fieldData?.Length > fd.Count)
                 {
-                    connection.Open();
-
-                    using (var command = new SQLiteCommand(connection))
-                    {
-                        command.CommandText =
-                            "SELECT Data FROM StorageBlockField WHERE BlockName = @BlockName AND FieldName = @FieldName";
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
-                        command.Parameters.Add(new SQLiteParameter("@FieldName", fieldName));
-
-                        var fieldData = (byte[])command.ExecuteScalar(CommandBehavior.SingleRow);
-
-                        var fd = Format.GetFieldDescription(blockFieldName);
-
-                        // Get the raw bytes from the database.  I don't like this "special case" and this
-                        // logic is not intuitive.  Can we do something more explicit like a RawByteArray type
-                        // for storing byte blobs in the database?
-                        if (fd != null && fd.DataType == FieldType.Byte && fd.Count == 2 && fd.Size == 1 &&
-                            fieldData?.Length > fd.Count)
-                        {
-                            return fieldData;
-                        }
-
-                        return Format.Convert(blockFieldName, fieldData);
-                    }
+                    return fieldData;
                 }
-                catch (Exception e)
-                {
-                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
 
-                    return DefaultValueFromFieldDescription(
-                        Format.FieldDescriptions.FirstOrDefault(format => format.FieldName == blockFieldName));
-                }
+                return Format.Convert(blockFieldName, fieldData);
+            }
+            catch (Exception e)
+            {
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
+
+                return DefaultValueFromFieldDescription(
+                    Format.FieldDescriptions.FirstOrDefault(format => format.FieldName == blockFieldName));
             }
         }
 
@@ -728,19 +682,15 @@
         {
             try
             {
-                using (var connection = CreateConnection())
-                {
-                    connection.Open();
+                using var connection = CreateConnection();
+                connection.Open();
 
-                    using (var command = new SQLiteCommand(
-                        "SELECT COUNT(FieldName) FROM StorageBlockField WHERE BlockName = @BlockName",
-                        connection))
-                    {
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", name));
+                using var command = new SQLiteCommand(
+                    "SELECT COUNT(FieldName) FROM StorageBlockField WHERE BlockName = @BlockName",
+                    connection);
+                command.Parameters.Add(new SQLiteParameter("@BlockName", name));
 
-                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
-                    }
-                }
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
             catch (Exception ex)
             {

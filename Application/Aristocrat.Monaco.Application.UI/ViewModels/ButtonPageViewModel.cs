@@ -11,17 +11,21 @@
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.Button;
+    using Hardware.Contracts.Cabinet;
+    using JetBrains.Annotations;
     using Kernel;
     using MVVM;
 
     [CLSCompliant(false)]
     public class ButtonPageViewModel : InspectionWizardViewModelBase
     {
+        private readonly ICabinetDetectionService _cabinet;
         private const int PlayButtonId = 113;
         private const int JackPotId = 130;
 
-        private readonly object _context = new object();
+        private readonly object _context = new();
         private readonly IButtonService _buttonService;
+        private readonly IButtonDeckDisplay _buttonDeckDisplay;
         private readonly LCDButtonTestDeck _buttonDeck;
 
         private bool _isLcdButtonDeckEnabled = true;
@@ -29,10 +33,36 @@
         private string _firmwareCrc;
         private string _crcSeed;
 
-        public ButtonPageViewModel(bool isWizard) : base(isWizard)
+        /// <summary>
+        ///     Creates an instance of <see cref="ButtonPageViewModel"/>
+        /// </summary>
+        /// <param name="isWizard">Whether or not this is for the configuration wizard</param>
+        public ButtonPageViewModel(bool isWizard)
+            : this(
+                ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
+                ServiceManager.GetInstance().GetService<IButtonService>(),
+                ServiceManager.GetInstance().GetService<IButtonDeckDisplay>(),
+                isWizard)
         {
-            _buttonService = ServiceManager.GetInstance().GetService<IButtonService>();
-            if (ButtonDeckUtilities.GetButtonDeckType() == ButtonDeckUtilities.ButtonDeckType.LCD)
+        }
+
+        /// <summary>
+        ///     Creates an instance of <see cref="ButtonPageViewModel"/>
+        /// </summary>
+        /// <param name="cabinet">An instance of <see cref="ICabinetDetectionService"/></param>
+        /// <param name="buttonService">An instance of <see cref="IButtonService"/></param>
+        /// <param name="buttonDeckService">An instance of <see cref="IButtonDeckDisplay"/></param>
+        /// <param name="isWizard">Whether or not this is for the configuration wizard</param>
+        public ButtonPageViewModel(
+            ICabinetDetectionService cabinet,
+            IButtonService buttonService,
+            IButtonDeckDisplay buttonDeckService,
+            bool isWizard) : base(isWizard)
+        {
+            _cabinet = cabinet ?? throw new ArgumentNullException(nameof(cabinet));
+            _buttonService = buttonService ?? throw new ArgumentNullException(nameof(buttonService));
+            _buttonDeckDisplay = buttonDeckService ?? throw new ArgumentNullException(nameof(buttonDeckService));
+            if (_cabinet.GetButtonDeckType(PropertiesManager) == ButtonDeckType.LCD)
             {
                 _buttonDeck = new LCDButtonTestDeck();
             }
@@ -40,7 +70,7 @@
 
         public override bool CanCalibrateTouchScreens => false;
 
-        public ObservableCollection<ButtonViewModel> Buttons { get; } = new ObservableCollection<ButtonViewModel>();
+        public ObservableCollection<ButtonViewModel> Buttons { get; } = new();
 
         /// <summary>
         ///     A collection of information about the pressed button.
@@ -57,8 +87,7 @@
         ///             </item>
         ///         </list>
         /// </summary>
-        public ObservableCollection<Tuple<string, int, string>> PressedButtonsData { get; }
-            = new ObservableCollection<Tuple<string, int, string>>();
+        public ObservableCollection<Tuple<string, int, string>> PressedButtonsData { get; } = new();
 
         public bool IsLcdPanelEnabled
         {
@@ -104,7 +133,7 @@
         {
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Buttons));
 
-            (FirmwareCrc, CrcSeed) = ButtonDeckUtilities.GetButtonDeckFirmwareCrc();
+            (FirmwareCrc, CrcSeed) = _buttonDeckDisplay.GetButtonDeckFirmwareCrc(PropertiesManager);
 
             IsLcdPanelEnabled = IsButtonDeckLcd();
 
@@ -168,12 +197,10 @@
             EventBus.UnsubscribeAll(_context);
         }
 
-        private static bool IsButtonDeckLcd()
+        private bool IsButtonDeckLcd()
         {
-            var deckType = ButtonDeckUtilities.GetButtonDeckType();
-
-            return deckType == ButtonDeckUtilities.ButtonDeckType.LCD ||
-                   deckType == ButtonDeckUtilities.ButtonDeckType.SimulatedLCD;
+            var deckType = _cabinet.GetButtonDeckType(PropertiesManager);
+            return deckType is ButtonDeckType.LCD or ButtonDeckType.SimulatedLCD;
         }
 
         private void LoadButtonViewModels()
@@ -182,16 +209,14 @@
 
             _buttonService.EnterButtonTestMode();
 
-            IEnumerable<int> buttonIds = _buttonService.LogicalButtons
+            var buttonIds = _buttonService.LogicalButtons
                 .Where(button => button.Key == PlayButtonId)
                 .Select(button => button.Key);
 
-            foreach (int buttonId in buttonIds)
+            foreach (var buttonId in buttonIds)
             {
                 var viewModel = new ButtonViewModel(buttonId, null);
-
                 Buttons.Add(viewModel);
-
                 viewModel.OnLoaded();
             }
         }
@@ -211,7 +236,6 @@
                 _buttonService.GetButtonName(evt.LogicalId));
 
             MvvmHelper.ExecuteOnUI(() => PressedButtonsData.Insert(0, pressedData));
-
             Inspection?.SetTestName(_buttonService.GetButtonName(evt.LogicalId));
         }
 

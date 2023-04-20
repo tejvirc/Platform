@@ -10,19 +10,20 @@
     using Common;
     using Contracts;
     using Contracts.Communicator;
+    using Contracts.Dfu;
     using Contracts.NoteAcceptor;
     using Contracts.Persistence;
+    using Contracts.SerialPorts;
     using Contracts.SharedDevice;
     using Kernel;
+    using Kernel.Contracts.Components;
     using log4net;
     using Stateless;
 
     /// <summary>A note acceptor adapter.</summary>
-    /// <seealso
-    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation}" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor" />
-    /// <seealso
-    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor{Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions}" />
+    /// <seealso cref="INoteAcceptorImplementation" />
+    /// <seealso cref="INoteAcceptor" />
+    /// <seealso cref="NoteAcceptorOptions" />
     public class NoteAcceptorAdapter : DeviceAdapter<INoteAcceptorImplementation>,
         INoteAcceptor,
         IStorageAccessor<NoteAcceptorOptions>
@@ -42,45 +43,67 @@
         private const int SelfTestInterval = 5000;
         private const int MaxSelfTestRetries = 5;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPersistentStorageAccessor _accessor;
         private readonly StateMachine<NoteAcceptorLogicalState, NoteAcceptorLogicalStateTrigger> _state;
-        private readonly object _instanceLock = new object();
-        private readonly object _noteLock = new object();
-        private readonly object _denomLock = new object();
-        private readonly object _activeDenominationsLock = new object();
+        private readonly object _instanceLock = new();
+        private readonly object _noteLock = new();
+        private readonly object _denomLock = new();
+        private readonly object _activeDenominationsLock = new();
+        private readonly IPersistentStorageManager _storageManager;
         private readonly IDisabledNotesService _disabledNotesService;
-        private readonly Collection<int> _disabledNotes = new Collection<int>();
-        private readonly List<(int Denom, string IsoCode)> _excludedNotes = new List<(int, string)>();
+        private readonly IPersistenceProvider _persistence;
+        private readonly Collection<int> _disabledNotes = new();
+        private readonly List<(int Denom, string IsoCode)> _excludedNotes = new();
 
-        private ReaderWriterLockSlim _stateLock =
-            new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        private ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
 
         private IPersistentBlock _supportedNotesPersistentBlock;
         private bool _validatingDevice;
         private int _selfTestRetryCount;
-        private HashSet<int> _denominations = new HashSet<int>();
+        private HashSet<int> _denominations = new();
         private DateTime _activationTime = DateTime.MinValue;
         private DocumentResult _lastResult = DocumentResult.None;
         private bool _wasStackingOnLastPowerUp;
         private string _configuration;
         private INoteAcceptorImplementation _noteAcceptor;
         private string _isoCode;
-        private Collection<int> _supportedNotes = new Collection<int>();
+        private Collection<int> _supportedNotes = new();
 
         private EventWaitHandle _stackingEventWaitHandle;
+
+        public NoteAcceptorAdapter()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
+                ServiceManager.GetInstance().GetService<IDfuProvider>(),
+                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
+                ServiceManager.GetInstance().GetService<IDisabledNotesService>(),
+                ServiceManager.GetInstance().GetService<IPersistenceProvider>(),
+                ServiceManager.GetInstance().GetService<ISerialPortsService>())
+        {
+        }
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter class.
         /// </summary>
-        public NoteAcceptorAdapter()
+        public NoteAcceptorAdapter(
+            IEventBus eventBus,
+            IComponentRegistry componentRegistry,
+            IDfuProvider dfuProvider,
+            IPersistentStorageManager storageManager,
+            IDisabledNotesService disabledNotesService,
+            IPersistenceProvider persistence,
+            ISerialPortsService serialPortsService)
+            : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
         {
             _state = ConfigureStateMachine();
-            var storage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-            _accessor = storage.GetAccessor(PersistenceLevel.Transient, LastConfigurationBlock);
+            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+            _accessor = _storageManager.GetAccessor(PersistenceLevel.Transient, LastConfigurationBlock);
             _configuration = (string)_accessor["Configuration"];
-            _disabledNotesService = ServiceManager.GetInstance().GetService<IDisabledNotesService>();
+            _disabledNotesService = disabledNotesService ?? throw new ArgumentNullException(nameof(disabledNotesService));
+            _persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
             Disable(DisabledReasons.Device);
         }
 
@@ -137,6 +160,7 @@
                 {
                     _wasStackingOnLastPowerUp = value;
                     this.ModifyBlock(
+                        _storageManager,
                         OptionsBlock,
                         (transaction, index) =>
                         {
@@ -170,6 +194,7 @@
                 {
                     _activationTime = value;
                     this.ModifyBlock(
+                        _storageManager,
                         OptionsBlock,
                         (transaction, index) =>
                         {
@@ -191,6 +216,7 @@
                 {
                     _lastResult = value;
                     this.ModifyBlock(
+                        _storageManager,
                         OptionsBlock,
                         (transaction, index) =>
                         {
@@ -585,8 +611,7 @@
                     throw new ServiceException(errorMessage);
                 }
 
-                _supportedNotesPersistentBlock = ServiceManager.GetInstance().TryGetService<IPersistenceProvider>()
-                    ?.GetOrCreateBlock(SupportedNotesKey, PersistenceLevel.Critical);
+                _supportedNotesPersistentBlock = _persistence.GetOrCreateBlock(SupportedNotesKey, PersistenceLevel.Critical);
 
                 ReadOrCreateOptions();
                 HandlePowerUpStacking();
@@ -701,7 +726,12 @@
 
         private void ReadOrCreateOptions()
         {
-            if (!this.GetOrAddBlock(OptionsBlock, out var options, NoteAcceptorId - 1, PersistenceLevel.Critical))
+            if (!this.GetOrAddBlock(
+                    _storageManager,
+                    OptionsBlock,
+                    out var options,
+                    NoteAcceptorId - 1,
+                    PersistenceLevel.Critical))
             {
                 Logger.Error($"Could not access block {OptionsBlock} {NoteAcceptorId - 1}");
                 return;
@@ -814,27 +844,25 @@
         {
             lock (_noteLock)
             {
-                if (isoCode == null)
+                isoCode ??= _isoCode;
+                if (_disabledNotes.Count != 0)
                 {
-                    isoCode = _isoCode;
+                    return _disabledNotes;
                 }
 
-                if (_disabledNotes.Count == 0)
+                var noteInfo = _disabledNotesService.NoteInfo;
+                if (noteInfo != null)
                 {
-                    var noteInfo = _disabledNotesService.NoteInfo;
-                    if (noteInfo != null)
+                    foreach (var denom in noteInfo.Notes.Select(a => a).Where(a => a.IsoCode == isoCode)
+                                 .Select(a => a.Denom))
                     {
-                        foreach (var denom in noteInfo.Notes.Select(a => a).Where(a => a.IsoCode == isoCode)
-                            .Select(a => a.Denom))
-                        {
-                            _disabledNotes.Add(denom);
-                        }
+                        _disabledNotes.Add(denom);
                     }
-                    else
-                    {
-                        noteInfo = new NoteInfo { Notes = new (int, string)[0] };
-                        _disabledNotesService.NoteInfo = noteInfo;
-                    }
+                }
+                else
+                {
+                    noteInfo = new NoteInfo { Notes = Array.Empty<(int, string)>() };
+                    _disabledNotesService.NoteInfo = noteInfo;
                 }
             }
 

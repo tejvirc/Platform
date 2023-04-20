@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Contracts.Persistence;
+    using JetBrains.Annotations;
     using Kernel;
     using Newtonsoft.Json;
     using Persistence;
@@ -12,16 +13,25 @@
     /// <summary>
     ///     A persistence provider facade.
     /// </summary>
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistenceProvider" />
+    /// <seealso cref="IPersistenceProvider" />
     public class PersistenceProviderFacade : IPersistenceProvider, IService
     {
         private const string ProviderBlockKey = @"PersistenceProvider";
         private const string ProviderBlockFieldKey = @"PersistentBlocks";
 
-        private ConcurrentDictionary<string, PersistentBlockFacade> _persistentBlocks =
-            new ConcurrentDictionary<string, PersistentBlockFacade>();
+        private ConcurrentDictionary<string, PersistentBlockFacade> _persistentBlocks = new();
 
-        private IPersistentStorageManager _persistentStorageManager;
+        private readonly IPersistentStorageManager _persistentStorageManager;
+
+        public PersistenceProviderFacade()
+            : this(ServiceManager.GetInstance().GetService<IPersistentStorageManager>())
+        {
+        }
+
+        public PersistenceProviderFacade(IPersistentStorageManager storageManager)
+        {
+            _persistentStorageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+        }
 
         /// <inheritdoc />
         public IPersistentBlock GetBlock(string key)
@@ -70,12 +80,6 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            _persistentStorageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-            if (_persistentStorageManager == null)
-            {
-                throw new ServiceNotFoundException(nameof(_persistentStorageManager));
-            }
-
             var providerBlock = GetProviderBlock();
             if (providerBlock == null)
             {

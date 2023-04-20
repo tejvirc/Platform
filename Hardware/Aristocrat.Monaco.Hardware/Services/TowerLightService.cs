@@ -14,12 +14,14 @@
     /// <summary>Implementation of TowerLight service.</summary>
     public class TowerLightService : ITowerLight, IService, IDisposable
     {
+        private readonly IIO _io;
+        private readonly IEventBus _eventBus;
         private const int FlashIntervalUnitTime = 125; // in milliseconds
         private const int FlashFastInterval = 1;
         private const int FlashMediumInterval = 2;
         private const int FlashSlowInterval = 4;
 
-        private readonly ConcurrentDictionary<LightTier, LightTierInfo> _lightTierInfo = new ConcurrentDictionary<LightTier, LightTierInfo>();
+        private readonly ConcurrentDictionary<LightTier, LightTierInfo> _lightTierInfo = new();
         private Timer _flashTimer;
         private uint _flashTickCounter;
         private bool _disposed;
@@ -30,9 +32,18 @@
         /// <inheritdoc />
         public ICollection<Type> ServiceTypes => new[] { typeof(ITowerLight) };
 
-        /// <summary>Initializes a new instance of the <see cref="TowerLightService" /> class.</summary>
         public TowerLightService()
+            : this(
+                ServiceManager.GetInstance().GetService<IIO>(),
+                ServiceManager.GetInstance().GetService<IEventBus>())
         {
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="TowerLightService" /> class.</summary>
+        public TowerLightService(IIO io, IEventBus eventBus)
+        {
+            _io = io ?? throw new ArgumentNullException(nameof(io));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             foreach (LightTier lightTier in Enum.GetValues(typeof(LightTier)))
             {
                 var lightInfo = new LightTierInfo();
@@ -117,7 +128,9 @@
             if (IsFlashTimerNeeded())
             {
                 if (duration != Timeout.InfiniteTimeSpan)
+                {
                     _flashTickCounter = 0;
+                }
 
                 if (!_flashTimer.Enabled)
                 {
@@ -137,45 +150,34 @@
 
         public FlashState GetFlashState(LightTier lightTier)
         {
-            if (_lightTierInfo.ContainsKey(lightTier))
-            {
-                return _lightTierInfo[lightTier].FlashState;
-            }
-
-            return FlashState.Off;
+            return _lightTierInfo.TryGetValue(lightTier, out var value) ? value.FlashState : FlashState.Off;
         }
 
         private void SetTowerLightDevice(LightTier lightTier, bool lightOn)
         {
             _lightTierInfo[lightTier].DeviceOn = lightOn;
-
-            var io = ServiceManager.GetInstance().TryGetService<IIO>();
             var lightIndex = (int)lightTier;
-
-            if (io?.SetTowerLight(lightIndex, lightOn) ?? false)
+            if (!_io.SetTowerLight(lightIndex, lightOn))
             {
-                var eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
-                if (lightOn)
-                {
-                    eventBus?.Publish(new TowerLightOnEvent(lightTier, _lightTierInfo[lightTier].FlashState));
-                }
-                else
-                {
-                    eventBus?.Publish(new TowerLightOffEvent(lightTier, _lightTierInfo[lightTier].FlashState));
-                }
+                return;
+            }
+
+            if (lightOn)
+            {
+                _eventBus.Publish(new TowerLightOnEvent(lightTier, _lightTierInfo[lightTier].FlashState));
+            }
+            else
+            {
+                _eventBus.Publish(new TowerLightOffEvent(lightTier, _lightTierInfo[lightTier].FlashState));
             }
         }
 
         private bool IsFlashTimerNeeded()
         {
-            foreach (LightTier lightTier in Enum.GetValues(typeof(LightTier)))
-            {
-                if (_lightTierInfo[lightTier].Duration != Timeout.InfiniteTimeSpan || (_lightTierInfo[lightTier].FlashState != FlashState.Off && _lightTierInfo[lightTier].FlashState != FlashState.On))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return Enum.GetValues(typeof(LightTier)).Cast<LightTier>().Any(
+                lightTier => _lightTierInfo[lightTier].Duration != Timeout.InfiniteTimeSpan ||
+                             _lightTierInfo[lightTier].FlashState != FlashState.Off &&
+                             _lightTierInfo[lightTier].FlashState != FlashState.On);
         }
 
         private bool IsLightOn(LightTier lightTier)
@@ -184,52 +186,40 @@
             switch (_lightTierInfo[lightTier].FlashState)
             {
                 case FlashState.Off:
-                    {
-                        return false;
-                    }
+                    return false;
                 case FlashState.On:
+                    if (_lightTierInfo[lightTier].Duration == Timeout.InfiniteTimeSpan)
                     {
-                        if (_lightTierInfo[lightTier].Duration == Timeout.InfiniteTimeSpan)
-                        {
-                            return true;
-                        }
-
-                        return _flashTickCounter <
-                               (_lightTierInfo[lightTier].Duration.TotalMilliseconds / FlashIntervalUnitTime);
+                        return true;
                     }
+
+                    return _flashTickCounter <
+                           _lightTierInfo[lightTier].Duration.TotalMilliseconds / FlashIntervalUnitTime;
                 case FlashState.SlowFlashReversed:
                 case FlashState.SlowFlash:
-                    {
-                        interval = FlashSlowInterval;
-                        break;
-                    }
+                    interval = FlashSlowInterval;
+                    break;
 
                 case FlashState.MediumFlash:
                 case FlashState.MediumFlashReversed:
-                    {
-                        interval = FlashMediumInterval;
-                        break;
-                    }
+                    interval = FlashMediumInterval;
+                    break;
                 case FlashState.FastFlash:
-                    {
-                        interval = FlashFastInterval;
-                        break;
-                    }
+                    interval = FlashFastInterval;
+                    break;
                 default:
-                    {
-                        interval = 1;
-                        break;
-                    }
+                    interval = 1;
+                    break;
             }
 
             var counter = _flashTickCounter / interval;
-            var lightOn = (counter % 2) == 0;
-            if (_lightTierInfo[lightTier].FlashState == FlashState.MediumFlashReversed
-                ||
+            var lightOn = counter % 2 == 0;
+            if (_lightTierInfo[lightTier].FlashState == FlashState.MediumFlashReversed ||
                 _lightTierInfo[lightTier].FlashState == FlashState.SlowFlashReversed)
             {
                 lightOn = !lightOn;
             }
+
             return lightOn;
         }
 

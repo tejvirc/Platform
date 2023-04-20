@@ -22,20 +22,31 @@
     /// </summary>
     public class OSService : IOSService, IDisposable
     {
+        private readonly IComponentRegistry _componentRegistry;
+        private readonly IPathMapper _pathMapper;
         private const int DiskDriveId = 0; /* Change this if you wish to test Virtual Partitions on a different drive than first drive */
 
         private const string VersionInfoPath = @"/Tools";
         private const string VersionInfoFile = @"OS_Image_Version.txt";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
 
         private Timer _stats;
 
-        public OSService()
+        public OSService(IComponentRegistry componentRegistry, IPathMapper pathMapper)
         {
+            _componentRegistry = componentRegistry ?? throw new ArgumentNullException(nameof(componentRegistry));
+            _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _stats = new Timer(OnCollectStats, null, TimeSpan.Zero, TimeSpan.FromHours(1));
+        }
+
+        public OSService()
+            : this(
+                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
+                ServiceManager.GetInstance().GetService<IPathMapper>())
+        {
         }
 
         public void Dispose()
@@ -61,13 +72,11 @@
 
         public IList<VirtualPartition> VirtualPartitions { get; private set; } = new List<VirtualPartition>();
 
-        private static Version GetOsImageVersion()
+        private Version GetOsImageVersion()
         {
             try
             {
-                var pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
-
-                var directory = pathMapper.GetDirectory(VersionInfoPath);
+                var directory = _pathMapper.GetDirectory(VersionInfoPath);
 
                 var versionInfo = Path.Combine(directory.FullName, VersionInfoFile);
 
@@ -138,83 +147,85 @@
 
         private void Update(int diskId)
         {
-            using (var disk = DriveIO.OpenDisk(diskId)) /* read only */
+            using var disk = DriveIO.OpenDisk(diskId);
+            if (disk == null)
             {
-                if (disk == null)
+                throw new FileNotFoundException($"Could not Open Disk {diskId}");
+            }
+
+            try
+            {
+                var mbrData = new byte[512];
+
+                disk.Read(mbrData, 512);
+
+                var partitionTable = PartitionTable.FromMBR(mbrData);
+
+                var endOfvPart = (partitionTable[3].LBAStart + partitionTable[3].NumSectors) * 0x200L;
+                disk.Seek(endOfvPart, SeekOrigin.Begin);
+
+                // clear
+                VirtualPartitions = new List<VirtualPartition>();
+                while (true)
                 {
-                    throw new FileNotFoundException($"Could not Open Disk {diskId}");
-                }
-
-                try
-                {
-                    var mbrData = new byte[512];
-
-                    disk.Read(mbrData, 512);
-
-                    var partitionTable = PartitionTable.FromMBR(mbrData);
-
-                    var endOfvPart = (partitionTable[3].LBAStart + partitionTable[3].NumSectors) * 0x200L;
-                    disk.Seek(endOfvPart, SeekOrigin.Begin);
-
-                    // clear
-                    VirtualPartitions = new List<VirtualPartition>();
-                    while (true)
+                    var vPart = new byte[512];
+                    if (disk.Read(vPart, 512) != 512)
                     {
-                        var vPart = new byte[512];
-                        if (disk.Read(vPart, 512) == 512)
-                        {
-                            if (vPart[0] == 'V' && vPart[1] == 'P' && vPart[2] == 'R' && vPart[3] == 'T')
-                            {
-                                var vp = new VirtualPartition
-                                {
-                                    Block = vPart,
-                                    Name = Encoding.Default.GetString(vPart, 4, 64),
-                                    Hash = vPart.Skip(68).Take(20).ToArray(),
-                                    Sig = vPart.Skip(88).Take(40).ToArray(),
-                                    SourcePartition = (int)BitConverter.ToUInt32(vPart, 128),
-                                    SourceOffset = BitConverter.ToInt64(vPart, 132),
-                                    TargetPartition = (int)BitConverter.ToUInt32(vPart, 140),
-                                    Size = BitConverter.ToInt64(vPart, 144),
-                                    SourceFile = Encoding.Default.GetString(vPart, 152, 64),
-                                    State = (PartitionState)BitConverter.ToUInt32(vPart, 216)
-                                };
+                        continue;
+                    }
 
-                                if (vp.State == PartitionState.Active)
-                                {
-                                    VirtualPartitions.Add(vp);
-                                }
-                            }
-                            else
-                            {
-                                break;
-                            }
+                    if (vPart[0] == 'V' && vPart[1] == 'P' && vPart[2] == 'R' && vPart[3] == 'T')
+                    {
+                        var vp = new VirtualPartition
+                        {
+                            Block = vPart,
+                            Name = Encoding.Default.GetString(vPart, 4, 64),
+                            Hash = vPart.Skip(68).Take(20).ToArray(),
+                            Sig = vPart.Skip(88).Take(40).ToArray(),
+                            SourcePartition = (int)BitConverter.ToUInt32(vPart, 128),
+                            SourceOffset = BitConverter.ToInt64(vPart, 132),
+                            TargetPartition = (int)BitConverter.ToUInt32(vPart, 140),
+                            Size = BitConverter.ToInt64(vPart, 144),
+                            SourceFile = Encoding.Default.GetString(vPart, 152, 64),
+                            State = (PartitionState)BitConverter.ToUInt32(vPart, 216)
+                        };
+
+                        if (vp.State == PartitionState.Active)
+                        {
+                            VirtualPartitions.Add(vp);
                         }
                     }
+                    else
+                    {
+                        break;
+                    }
                 }
-                catch (Exception e)
-                {
-                    throw new FileNotFoundException(e.Message);
-                }
+            }
+            catch (Exception e)
+            {
+                throw new FileNotFoundException(e.Message);
             }
         }
 
         private void RegisterComponents()
         {
             var osHash = VirtualPartitions.GetOperatingSystemHash();
-            if (osHash.Length > 0)
+            if (osHash.Length <= 0)
             {
-                var component = new Component
-                {
-                    ComponentId = $"ATI_{Environment.OSVersion.Platform}-{Environment.OSVersion.Version}_{OsImageVersion}".Replace(" ", "_"),
-                    Type = ComponentType.OS,
-                    Description = Resources.OSPackageDescription,
-                    FileSystemType = FileSystemType.Stream,
-                    Path = HardwareConstants.OperatingSystemPath,
-                    Size = osHash.Length
-                };
-
-                ServiceManager.GetInstance().GetService<IComponentRegistry>().Register(component);
+                return;
             }
+
+            var component = new Component
+            {
+                ComponentId = $"ATI_{Environment.OSVersion.Platform}-{Environment.OSVersion.Version}_{OsImageVersion}".Replace(" ", "_"),
+                Type = ComponentType.OS,
+                Description = Resources.OSPackageDescription,
+                FileSystemType = FileSystemType.Stream,
+                Path = HardwareConstants.OperatingSystemPath,
+                Size = osHash.Length
+            };
+
+            _componentRegistry.Register(component);
         }
     }
 }

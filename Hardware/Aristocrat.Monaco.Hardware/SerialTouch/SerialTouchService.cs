@@ -78,7 +78,7 @@
                    ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>(),
                    ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                    ServiceManager.GetInstance().TryGetService<ISerialPortsService>(),
-                   new SerialPortController())
+                   new SerialPortController(ServiceManager.GetInstance().TryGetService<ISerialPortsService>()))
         {
         }
 

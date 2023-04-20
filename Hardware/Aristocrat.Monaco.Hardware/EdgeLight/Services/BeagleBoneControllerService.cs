@@ -18,15 +18,33 @@
     internal sealed class BeagleBoneControllerService : BaseRunnable, IBeagleBoneController, IEdgeLightDevice
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IDictionary<string, LightShows> LightShowsMap = Enum.GetValues(typeof(LightShows))
             .Cast<LightShows>().Select(x => (Attribute: x.GetAttribute<ShowNameAttribute>(), LightShow: x))
             .Where(x => !string.IsNullOrEmpty(x.Attribute?.ShowName))
             .ToDictionary(x => x.Attribute.ShowName, x => x.LightShow);
 
+        private readonly ICabinetDetectionService _cabinetService;
         private BeagleBoneProtocol _beagleBoneProtocol;
         private bool _disposed;
+
+        /// <summary>
+        ///     Creates an instance of <see cref="BeagleBoneControllerService"/>
+        /// </summary>
+        public BeagleBoneControllerService()
+            : this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
+        {
+        }
+
+        /// <summary>
+        ///     Creates an instance of <see cref="BeagleBoneControllerService"/>
+        /// </summary>
+        /// <param name="cabinetService">An instance of <see cref="ICabinetDetectionService"/></param>
+        public BeagleBoneControllerService(ICabinetDetectionService cabinetService)
+        {
+            _cabinetService = cabinetService ?? throw new ArgumentNullException(nameof(cabinetService));
+        }
 
         public bool Initialized { get; private set; }
 
@@ -110,9 +128,7 @@
                 return;
             }
 
-            var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
-            if (cabinetDetectionService != null &&            
-                cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs))
+            if (_cabinetService != null && _cabinetService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs))
             {
                 _beagleBoneProtocol = new BeagleBoneProtocol();
                 _beagleBoneProtocol.Enable(true);

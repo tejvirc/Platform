@@ -96,5 +96,10 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Communicator
         ///     Gets or sets USB device product id for DFU.
         /// </summary>
         string UsbDeviceProductIdDfu { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the max poll timeouts for serial devices
+        /// </summary>
+        int MaxPollTimeouts { get; set; }
     }
 }

@@ -17,6 +17,8 @@
 
     public class SqlSecondaryStorageManager : ISecondaryStorageManager, IService
     {
+        private readonly IEventBus _eventBus;
+        private readonly IPropertiesManager _propertiesManager;
         private const string TempFileName = "test.tmp";
         private const string G2SDbFileName = @"protocol.sqlite";
         private const string ProtocolDatabaseFiles = @"Database_.*\.sqlite";
@@ -31,6 +33,19 @@
         private string _secondaryPath;
         private bool _verified;
         private bool _initialized;
+
+        public SqlSecondaryStorageManager()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
+        {
+        }
+
+        public SqlSecondaryStorageManager(IEventBus eventBus, IPropertiesManager propertiesManager)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+        }
 
         public void SetPaths(string primary, string secondary)
         {
@@ -70,19 +85,15 @@
 
         public void VerifyConfiguration()
         {
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
-            var required = properties.GetValue(SecondaryStorageConstants.SecondaryStorageRequired, false);
+            var required = _propertiesManager.GetValue(SecondaryStorageConstants.SecondaryStorageRequired, false);
 
             var pathSet = !string.IsNullOrEmpty(
-                properties.GetValue(SecondaryStorageConstants.MirrorRootKey, string.Empty));
+                _propertiesManager.GetValue(SecondaryStorageConstants.MirrorRootKey, string.Empty));
 
             if (!required && pathSet)
             {
                 // Secondary storage not supported, but connected
-                eventBus.Publish(new SecondaryStorageErrorEvent(SecondaryStorageError.NotExpectedButConnected));
-
+                _eventBus.Publish(new SecondaryStorageErrorEvent(SecondaryStorageError.NotExpectedButConnected));
                 return;
             }
 
@@ -95,12 +106,12 @@
             if (!pathSet || !IsMediaConnected())
             {
                 // Secondary storage required and missing.
-                eventBus.Publish(new SecondaryStorageErrorEvent(SecondaryStorageError.ExpectedButNotConnected));
+                _eventBus.Publish(new SecondaryStorageErrorEvent(SecondaryStorageError.ExpectedButNotConnected));
             }
             else if (!_verified)
             {
                 // If integrity of secondary storage cannot be verified, raise storage error
-                eventBus.Publish(new StorageErrorEvent(StorageError.InvalidHandle));
+                _eventBus.Publish(new StorageErrorEvent(StorageError.InvalidHandle));
             }
         }
 
@@ -114,16 +125,11 @@
         {
         }
 
-        public static string GetMirrorPath(string primaryStorageRoot)
+        public string GetMirrorPath(string primaryStorageRoot)
         {
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
-            var mirrorRoot = properties.GetValue(StorageConstants.MirrorRootKey, string.Empty);
-
+            var mirrorRoot = _propertiesManager.GetValue(StorageConstants.MirrorRootKey, string.Empty);
             mirrorRoot = GetSecondaryMediaRoot(primaryStorageRoot, mirrorRoot);
-
-            properties.SetProperty(StorageConstants.MirrorRootKey, mirrorRoot);
-
+            _propertiesManager.SetProperty(StorageConstants.MirrorRootKey, mirrorRoot);
             return mirrorRoot;
         }
 

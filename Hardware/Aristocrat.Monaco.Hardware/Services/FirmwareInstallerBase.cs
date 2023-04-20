@@ -20,21 +20,29 @@
     {
         private const string DownloadsTempPath = "/Downloads/temp";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IComponentRegistry _componentRegistry;
         private readonly IEventBus _eventBus;
+        private readonly IDfuProvider _dfuProvider;
         private readonly IPathMapper _pathMapper;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="FirmwareInstallerBase" /> class.
         /// </summary>
-        protected FirmwareInstallerBase(DeviceType deviceType, string path)
+        protected FirmwareInstallerBase(
+            DeviceType deviceType,
+            string path,
+            IPathMapper pathMapper,
+            IComponentRegistry componentRegistry,
+            IEventBus eventBus,
+            IDfuProvider dfuProvider)
         {
             DeviceType = deviceType;
             Path = path;
-            _pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
-            _componentRegistry = ServiceManager.GetInstance().GetService<IComponentRegistry>();
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            _pathMapper = pathMapper;
+            _componentRegistry = componentRegistry;
+            _eventBus = eventBus;
+            _dfuProvider = dfuProvider;
         }
 
         /// <inheritdoc />
@@ -62,13 +70,6 @@
                 return false;
             }
 
-            var service = ServiceManager.GetInstance().TryGetService<IDfuProvider>();
-            if (service == null)
-            {
-                Logger.Error("Dfu Provider is not available.");
-                return false;
-            }
-
             if (DeviceType.Equals(default(DeviceType)))
             {
                 Logger.Error("Invalid installer type.");
@@ -81,13 +82,13 @@
 
             _eventBus.Publish(new DfuDownloadStartEvent(DeviceType));
 
-            if (!service.Download(firmwarePackage.FullName).Result)
+            if (!_dfuProvider.Download(firmwarePackage.FullName).Result)
             {
                 _eventBus.Publish(new DfuErrorEvent());
                 return false;
             }
 
-            // remove old component 
+            // remove old component
             if (component != null && _componentRegistry?.Components.Count(a => a.Path == component.Path) > 1)
             {
                 _componentRegistry?.UnRegister(component.ComponentId);

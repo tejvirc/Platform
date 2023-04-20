@@ -17,8 +17,6 @@
     using log4net;
     using NativeInterop;
 
-    // ReSharper disable RedundantAssignment
-
     /// <summary>
     ///     Provides services for rendering onto deck display services.
     ///     Gen8 Rig button deck has two displays:
@@ -33,11 +31,12 @@
 
         private const int SharedMemBufferLength = BetButtonImageLength + BashButtonImageLength;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly uint[] _frameId = { 0, 0 };
 
         private readonly IEventBus _eventBus;
+        private readonly IPropertiesManager _propertiesManager;
         private readonly UsbDisplay480[] _displays = new UsbDisplay480[2];
 
         private bool _disposed;
@@ -46,7 +45,7 @@
         private MemoryMappedViewStream _sharedMemStream;
 
         private Mutex _sharedMemMutex;
-        private static readonly SemaphoreSlim DriverAccessSemaphore = new SemaphoreSlim(1, 1);
+        private static readonly SemaphoreSlim DriverAccessSemaphore = new(1, 1);
 
         private byte[] _virtualBashButtonImageData;
         private byte[] _virtualBetButtonImageData;
@@ -55,17 +54,19 @@
         ///     Initializes a new instance of the <see cref="ButtonDeckDisplayService" /> class.
         /// </summary>
         public ButtonDeckDisplayService()
-            :
-            this(ServiceManager.GetInstance().GetService<IEventBus>())
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ButtonDeckDisplayService" /> class.
         /// </summary>
-        public ButtonDeckDisplayService(IEventBus eventBus)
+        public ButtonDeckDisplayService(IEventBus eventBus, IPropertiesManager propertiesManager)
         {
-            _eventBus = eventBus;
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
         /// <inheritdoc />
@@ -73,19 +74,15 @@
         {
             get
             {
-                int displayCount = 0;
-
                 try
                 {
                     DriverAccessSemaphore.Wait();
-
-                    displayCount = UsbDisplay480.DisplayCount();
+                    return UsbDisplay480.DisplayCount();
                 }
                 finally
                 {
                     DriverAccessSemaphore.Release();
                 }
-                return displayCount;
             }
         }
 
@@ -99,20 +96,16 @@
         /// <inheritdoc />
         public string GetFirmwareId(int displayIndex)
         {
-            string firmwareId = string.Empty;
-
             try
             {
                 DriverAccessSemaphore.Wait();
 
-                firmwareId = _displays[displayIndex]?.FirmwareID;
+                return _displays[displayIndex]?.FirmwareID;
             }
             finally
             {
                 DriverAccessSemaphore.Release();
             }
-
-            return firmwareId;
         }
 
         /// <inheritdoc />
@@ -125,15 +118,12 @@
         /// <inheritdoc />
         public byte[] GetRenderedFrame(int displayIndex)
         {
-            switch (displayIndex)
+            return displayIndex switch
             {
-                case 0:
-                    return _virtualBetButtonImageData;
-                case 1:
-                    return _virtualBashButtonImageData;
-                default:
-                    return null;
-            }
+                0 => _virtualBetButtonImageData,
+                1 => _virtualBashButtonImageData,
+                _ => Array.Empty<byte>()
+            };
         }
 
         /// <inheritdoc />
@@ -227,7 +217,7 @@
 
         /// <inheritdoc />
         public string Name => GetType().ToString();
-        
+
         /// <inheritdoc />
         public ICollection<Type> ServiceTypes => new[] { typeof(IButtonDeckDisplay) };
 
@@ -237,48 +227,78 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            if (!_isInitialized)
+            if (_isInitialized)
             {
-                _isInitialized = true;
-
-                Logger.Info("Initializing...");
-
-                var displayCount = DisplayCount;
-                Logger.Debug($"Display Count = {displayCount}");
-
-                Task.Run(() => OpenDisplays());
-
-                CreateSharedMemory();
-
-                // Are we simulating the hardware?
-                var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-                var simulateLcdButtonDeck = properties.GetValue(HardwareConstants.SimulateLcdButtonDeck, "FALSE");
-                simulateLcdButtonDeck = simulateLcdButtonDeck.ToUpperInvariant();
-                IsSimulated = simulateLcdButtonDeck == "TRUE";
-
-                // Set UsbButtonDeck flag to TRUE
-                if (displayCount > 1 || IsSimulated)
-                {
-                    properties.SetProperty(HardwareConstants.UsbButtonDeck, "TRUE");
-                }
-
-                // Allocate image data for virtual button deck if no hardware devices connected and we are simulating.
-                if (displayCount == 0 && IsSimulated)
-                {
-                    _virtualBetButtonImageData = new byte[BetButtonImageLength];
-                    _virtualBashButtonImageData = new byte[BashButtonImageLength];
-                }
-
-                _eventBus.Subscribe<DeviceConnectedEvent>(
-                    this,
-                    _ =>
-                    {
-                        Task.Run(OpenDisplays);
-                    },
-                    x => x.Description == LcdButtonDeckDescription);
-
-                Logger.Info("Initialized");
+                return;
             }
+
+            _isInitialized = true;
+
+            Logger.Info("Initializing...");
+
+            var displayCount = DisplayCount;
+            Logger.Debug($"Display Count = {displayCount}");
+
+            Task.Run(() => OpenDisplays());
+
+            CreateSharedMemory();
+
+            // Are we simulating the hardware?
+            var simulateLcdButtonDeck = _propertiesManager.GetValue(HardwareConstants.SimulateLcdButtonDeck, "FALSE");
+            simulateLcdButtonDeck = simulateLcdButtonDeck.ToUpperInvariant();
+            IsSimulated = simulateLcdButtonDeck == "TRUE";
+
+            // Set UsbButtonDeck flag to TRUE
+            if (displayCount > 1 || IsSimulated)
+            {
+                _propertiesManager.SetProperty(HardwareConstants.UsbButtonDeck, "TRUE");
+            }
+
+            // Allocate image data for virtual button deck if no hardware devices connected and we are simulating.
+            if (displayCount == 0 && IsSimulated)
+            {
+                _virtualBetButtonImageData = new byte[BetButtonImageLength];
+                _virtualBashButtonImageData = new byte[BashButtonImageLength];
+            }
+
+            _eventBus.Subscribe<DeviceConnectedEvent>(
+                this,
+                _ =>
+                {
+                    Task.Run(OpenDisplays);
+                },
+                x => x.Description == LcdButtonDeckDescription);
+
+            Logger.Info("Initialized");
+        }
+
+        public async Task<int> CalculateCrc(int seed)
+        {
+            int result;
+            Crc = 0;
+            Seed = 0;
+            string displayName;
+
+            try
+            {
+                await DriverAccessSemaphore.WaitAsync();
+
+                displayName = _displays[0]?.Name;
+                result = _displays[0]?.SetConfigValue((int)ConfigValues.CrcCalculation, seed) ?? -1;
+            }
+            finally
+            {
+                DriverAccessSemaphore.Release();
+            }
+
+            if (result >= 0)
+            {
+                Crc = GetCrcResult(_displays[0]);
+                Seed = seed;
+            }
+
+            Logger.Debug($"CalculateCrc: display: {displayName}, seed: {seed}, result: {result}, CRC: {Crc}");
+            return Crc;
         }
 
         /// <summary>Disposes the service.</summary>
@@ -338,11 +358,11 @@
             return Enumerable.Repeat(color.AsR5G6B5Color(), pixelCount).ToArray();
         }
 
-        private void OpenDisplays()
+        private async Task OpenDisplays()
         {
             try
             {
-                DriverAccessSemaphore.Wait();
+                await DriverAccessSemaphore.WaitAsync();
 
                 CloseDisplays();
 
@@ -362,7 +382,7 @@
                 DriverAccessSemaphore.Release();
             }
 
-            CalculateCrc(0);
+            await CalculateCrc(0);
         }
 
         private static UsbDisplay480 OpenDisplay(int i)
@@ -380,57 +400,25 @@
             return display;
         }
 
-        public Task<int> CalculateCrc(int seed)
-        {
-            int result = 0;
-            Crc = 0;
-            Seed = 0;
-            string displayName = string.Empty;
 
-            try
-            {
-                DriverAccessSemaphore.Wait();
-
-                displayName = _displays[0]?.Name;
-                result = _displays[0]?.SetConfigValue((int)ConfigValues.CrcCalculation, seed) ?? -1;
-            }
-            finally
-            {
-                DriverAccessSemaphore.Release();
-            }
-
-            if (result >= 0)
-            {
-                Crc = GetCrcResult(_displays[0]);
-                Seed = seed;
-            }
-
-            Logger.Debug($"CalculateCrc: display: {displayName}, seed: {seed}, result: {result}, CRC: {Crc}");
-
-            return Task.FromResult(Crc);
-        }
-
-
-        private int GetCrcResult(UsbDisplay480 display)
+        private static int GetCrcResult(UsbDisplay480 display)
         {
             const int maxWaitTimeMs = 30000;
 
-            using (var source = new CancellationTokenSource())
+            using var source = new CancellationTokenSource();
+            var queryCrc = QueryCrc(display, source.Token);
+            Task.WhenAny(queryCrc, Task.Delay(maxWaitTimeMs, source.Token)).GetAwaiter().GetResult();
+            var result = 0;
+            if (queryCrc.IsCompleted)
             {
-                var queryCrc = QueryCrc(display, source.Token);
-                Task.WhenAny(queryCrc, Task.Delay(maxWaitTimeMs, source.Token)).GetAwaiter().GetResult();
-                var result = 0;
-                if (queryCrc.IsCompleted)
-                {
-                    result = queryCrc.Result;
-                }
-
-                source.Cancel();
-                return result;
+                result = queryCrc.Result;
             }
+
+            source.Cancel();
+            return result;
         }
 
-        private Task<int> QueryCrc(UsbDisplay480 display, CancellationToken token)
+        private static Task<int> QueryCrc(UsbDisplay480 display, CancellationToken token)
         {
             const int communicationDelayMs = 100;
             const int validStatus = 4;
@@ -443,8 +431,7 @@
                 while (!token.IsCancellationRequested)
                 {
                     var result = 0;
-                    var status = 0;
-
+                    int status;
                     unsafe
                     {
                         status = display?.GetConfigValue((int)ConfigValues.CrcCalculation, &result) ?? lostDevice;
@@ -513,6 +500,4 @@
             return (ushort)pixel565;
         }
     }
-
-    // ReSharper enable RedundantAssignment
 }

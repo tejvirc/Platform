@@ -47,7 +47,7 @@
         public BeagleBoneProtocol()
             : this(
                 ServiceManager.GetInstance().GetService<IIO>(),
-                new SerialPortController())
+                new SerialPortController(ServiceManager.GetInstance().TryGetService<ISerialPortsService>()))
         {
         }
 

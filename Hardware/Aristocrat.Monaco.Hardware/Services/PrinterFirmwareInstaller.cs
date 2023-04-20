@@ -6,6 +6,8 @@
     using Kernel.Contracts.Components;
     using System;
     using System.Collections.Generic;
+    using Contracts.Dfu;
+    using Kernel;
 
     /// <summary>
     ///     An <see cref="IInstaller" /> implementation for firmware
@@ -19,7 +21,26 @@
         public ICollection<Type> ServiceTypes => new[] { typeof(IPrinterFirmwareInstaller) };
 
         public PrinterFirmwareInstaller()
-            : base(DeviceType.Printer, Constants.PrinterPath)
+            : this(
+                ServiceManager.GetInstance().GetService<IPathMapper>(),
+                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IDfuProvider>())
+        {
+        }
+
+        public PrinterFirmwareInstaller(
+            IPathMapper pathMapper,
+            IComponentRegistry componentRegistry,
+            IEventBus eventBus,
+            IDfuProvider dfuProvider)
+            : base(
+                DeviceType.Printer,
+                Constants.PrinterPath,
+                pathMapper,
+                componentRegistry,
+                eventBus,
+                dfuProvider)
         {
         }
 

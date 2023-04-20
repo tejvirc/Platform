@@ -11,12 +11,24 @@
     using Contracts.Communicator;
     using Contracts.SerialPorts;
     using Contracts.SharedDevice;
+    using Kernel;
     using log4net;
     using Serial.Protocols;
 
     public class SerialDeviceSearcher : ISerialDeviceSearcher
     {
+        private readonly ISerialPortsService _serialPortsService;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
+        public SerialDeviceSearcher()
+            : this(ServiceManager.GetInstance().GetService<ISerialPortsService>())
+        {
+        }
+
+        public SerialDeviceSearcher(ISerialPortsService serialPortsService)
+        {
+            _serialPortsService = serialPortsService ?? throw new ArgumentNullException(nameof(serialPortsService));
+        }
 
         public string Name => nameof(SerialDeviceSearcher);
 
@@ -68,7 +80,7 @@
                     {
                         // Use this protocol
                         protocol = (SerialDeviceProtocol)protocolType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                            null, Type.EmptyTypes, null)?.Invoke(new object[] { });
+                            null, Type.EmptyTypes, null)?.Invoke(Array.Empty<object>());
                         if (protocol is null)
                         {
                             Logger.Debug($"({deviceType}) Couldn't find constructor() for {protocolType.Name}");
@@ -87,7 +99,7 @@
                         };
 
                         Logger.Debug($"({deviceType}) Configure? {protocolDevice.Name} setup=({GetDeviceDescription(protocolDevice)})");
-                        protocol.Device = new Device(null, null);
+                        protocol.Device = new Device(null, null, _serialPortsService);
                         protocol.Manufacturer = string.Empty;
 
                         if (protocol.Configure(config))

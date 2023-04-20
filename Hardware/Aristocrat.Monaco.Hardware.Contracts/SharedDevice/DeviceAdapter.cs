@@ -11,32 +11,47 @@
     using Kernel;
     using Kernel.Contracts.Components;
     using log4net;
+    using SerialPorts;
 
     /// <summary>A device adapter base.</summary>
     /// <typeparam name="TImplementation">Type of the implementation.</typeparam>
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.IDeviceAdapter" />
-    /// <seealso cref="T:System.IDisposable" />
+    /// <seealso cref="IDeviceAdapter" />
+    /// <seealso cref="IDisposable" />
     public abstract class DeviceAdapter<TImplementation> : IDeviceAdapter,
         IDisposable
         where TImplementation : IHardwareDevice, IDfuDevice
     {
+        private readonly IComponentRegistry _componentRegistry;
+        private readonly IEventBus _eventBus;
+        private readonly IDfuProvider _dfuProvider;
+        private readonly ISerialPortsService _serialPortsService;
         private const string CommunicatorsExtensionPath = "/Hardware/CommunicatorDrivers";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly List<string> _errorList = new List<string>();
-        private readonly List<string> _warningList = new List<string>();
+        private readonly List<string> _errorList = new();
+        private readonly List<string> _warningList = new();
 
         private ICommunicator _communicator;
         private Component _component;
-        private IEventBus _eventBus;
-        private IDfuProvider _dfuProvider;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter class.
         /// </summary>
-        protected DeviceAdapter()
+        /// <param name="eventBus">An instance of <see cref="IEventBus"/></param>
+        /// <param name="componentRegistry">An instance of <see cref="IComponentRegistry"/></param>
+        /// <param name="dfuProvider">An instance of <see cref="IDfuProvider"/></param>
+        /// <param name="serialPortsService">An instance of <see cref="ISerialPortsService"/></param>
+        protected DeviceAdapter(
+            IEventBus eventBus,
+            IComponentRegistry componentRegistry,
+            IDfuProvider dfuProvider,
+            ISerialPortsService serialPortsService)
         {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _componentRegistry = componentRegistry ?? throw new ArgumentNullException(nameof(componentRegistry));
+            _dfuProvider = dfuProvider ?? throw new ArgumentNullException(nameof(dfuProvider));
+            _serialPortsService = serialPortsService ?? throw new ArgumentNullException(nameof(serialPortsService));
             //ReasonDisabled = DisabledReasons.Service | DisabledReasons.Device;
             InternalConfiguration = new DeviceConfiguration();
         }
@@ -47,7 +62,7 @@
 
         /// <summary>Object used for locking to protect concurrent access to member variables.</summary>
         /// <value>The synchronise.</value>
-        protected object Sync { get; } = new object();
+        protected object Sync { get; } = new();
 
         /// <summary>Gets a value indicating whether the object is disposed.</summary>
         /// <value>True if disposed, false if not.</value>
@@ -163,7 +178,10 @@
         public abstract ICollection<Type> ServiceTypes { get; }
 
         /// <inheritdoc />
-        public virtual IDevice DeviceConfiguration => new Device(InternalConfiguration, LastComConfiguration);
+        public virtual IDevice DeviceConfiguration => new Device(
+            InternalConfiguration,
+            LastComConfiguration,
+            _serialPortsService);
 
         /// <inheritdoc />
         public int ProductId => _communicator?.ProductId ?? 0;
@@ -191,8 +209,7 @@
                 ClearWarnings();
 
                 // Subscribe to all events.
-                var eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
-                SubscribeToEvents(eventBus);
+                SubscribeToEvents(_eventBus);
 
                 // Set service initialized.
                 Initialized = true;
@@ -287,14 +304,14 @@
         }
 
         /// <inheritdoc />
-        public async void Inspect(IComConfiguration config, int timeout)
+        public async void Inspect(IComConfiguration comConfiguration, int timeout)
         {
             if (!Initialized)
             {
                 return;
             }
 
-            if (config == null)
+            if (comConfiguration == null)
             {
                 Logger.Error("comConfiguration object is null");
                 return;
@@ -302,15 +319,15 @@
 
             _communicator?.Dispose();
 
-            var protocolName = config.Mode == ComConfiguration.RS232CommunicationMode ||
-                               config.Protocol == ComConfiguration.RelmProtocol
-                ? config.Protocol
-                : config.Mode;
+            var protocolName = comConfiguration.Mode == ComConfiguration.RS232CommunicationMode ||
+                               comConfiguration.Protocol == ComConfiguration.RelmProtocol
+                ? comConfiguration.Protocol
+                : comConfiguration.Mode;
             _communicator = AddinFactory.CreateAddin<ICommunicator>(CommunicatorsExtensionPath, protocolName);
 
             if (_communicator == null)
             {
-                var errorMessage = $"Cannot load {config.Mode} communicator";
+                var errorMessage = $"Cannot load {comConfiguration.Mode} communicator";
                 Logger.Fatal(errorMessage);
                 throw new ServiceException(errorMessage);
             }
@@ -318,16 +335,16 @@
             _communicator.Device = DeviceConfiguration;
             _communicator.DeviceType = DeviceType;
 
-            LastComConfiguration = config;
-            if (!_communicator.Configure(config))
+            LastComConfiguration = comConfiguration;
+            if (!_communicator.Configure(comConfiguration))
             {
-                var errorMessage = $"Error in configuring {config.Mode} communicator";
+                var errorMessage = $"Error in configuring {comConfiguration.Mode} communicator";
                 Logger.Fatal(errorMessage);
                 throw new ServiceException(errorMessage);
             }
 
             SetInternalConfiguration();
-            Inspecting(config, timeout);
+            Inspecting(comConfiguration, timeout);
 
             await (Implementation?.Initialize(_communicator) ?? Task.FromResult(false));
             RegisterDfuAdapter();
@@ -398,7 +415,7 @@
             Disposed = disposing;
             if (disposing)
             {
-                ServiceManager.GetInstance().TryGetService<IEventBus>()?.UnsubscribeAll(this);
+                _eventBus.UnsubscribeAll(this);
                 _communicator?.Dispose();
                 _communicator = null;
                 UnregisterDfuAdapter();
@@ -413,7 +430,7 @@
         protected bool CanProceed(bool checkEnabled)
         {
             // Is the service initialized?
-            if (Initialized == false)
+            if (!Initialized)
             {
                 // No, log error, and return false to disallow procession.
                 var stackTrace = new StackTrace();
@@ -434,7 +451,7 @@
             }
 
             // Are we checking enabled and is the service enabled?
-            if (checkEnabled && Enabled == false)
+            if (checkEnabled && !Enabled)
             {
                 // No, log error, post disabled event, and return false to disallow procession.
                 var stackTrace = new StackTrace();
@@ -509,31 +526,19 @@
         protected virtual void PostEvent<T>(T @event)
             where T : IEvent
         {
-            if (_eventBus == null)
-            {
-                _eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
-            }
-
-            _eventBus?.Publish(@event);
+            _eventBus.Publish(@event);
         }
 
         /// <summary>Registers the dfu adapter.</summary>
         protected virtual void RegisterDfuAdapter()
         {
-            if (_dfuProvider == null)
-            {
-                _dfuProvider = ServiceManager.GetInstance().TryGetService<IDfuProvider>();
-            }
-
-            _dfuProvider?.Register(Implementation);
+            _dfuProvider.Register(Implementation);
         }
 
         /// <summary>Un register dfu adapter.</summary>
         protected virtual void UnregisterDfuAdapter()
         {
-            var provider = ServiceManager.GetInstance().TryGetService<IDfuProvider>();
-
-            provider?.Unregister(Implementation);
+            _dfuProvider.Unregister(Implementation);
         }
 
         /// <summary>Subscribe to events.</summary>
@@ -722,9 +727,7 @@
                     InternalConfiguration.Manufacturer = Description;
                 }
 
-                var componentRegistry = ServiceManager.GetInstance().TryGetService<IComponentRegistry>();
-
-                var cycling = _component != null && componentRegistry?.Get(_component.ComponentId) != null;
+                var cycling = _component != null && _componentRegistry.Get(_component.ComponentId) != null;
 
                 if (!UnregisterComponent(cycling))
                 {
@@ -755,7 +758,7 @@
                 Implementation.Connected += _component.OnAvailable;
                 Implementation.Disconnected += _component.OnUnavailable;
 
-                componentRegistry?.Register(_component, cycling);
+                _componentRegistry.Register(_component, cycling);
             }
         }
 
@@ -775,7 +778,7 @@
                     Implementation.Disconnected -= _component.OnUnavailable;
                 }
 
-                ServiceManager.GetInstance().TryGetService<IComponentRegistry>()?.UnRegister(_component.ComponentId, cycling);
+                _componentRegistry.UnRegister(_component.ComponentId, cycling);
 
                 _component = null;
 
@@ -828,7 +831,7 @@
             var isAristocratProduct = string.Equals(
                 InternalConfiguration.Manufacturer,
                 aristocrat,
-                StringComparison.InvariantCultureIgnoreCase);
+                StringComparison.OrdinalIgnoreCase);
             if (isAristocratProduct)
             {
                 return $"_{InternalConfiguration.Model}";

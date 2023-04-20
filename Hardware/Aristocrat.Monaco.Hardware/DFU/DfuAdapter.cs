@@ -8,22 +8,25 @@
     using Contracts.Communicator;
     using Contracts.Dfu;
     using Contracts.SharedDevice;
+    using JetBrains.Annotations;
     using Kernel;
     using log4net;
 
     /// <summary>A dfu adapter.</summary>
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDfuAdapter" />
+    /// <seealso cref="IDfuAdapter" />
     public class DfuAdapter : IDfuAdapter
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IDfuDevice _device;
+        private readonly IEventBus _eventBus;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DfuAdapter class.
         /// </summary>
-        public DfuAdapter(IDfuDevice device)
+        public DfuAdapter(IDfuDevice device, IEventBus eventBus)
         {
             _device = device ?? throw new ArgumentNullException(nameof(device));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             VendorId = device.VendorId;
             ProductId = device.ProductId;
             device.DownloadProgressed += ReportDownloadProgressed;
@@ -83,13 +86,13 @@
         /// <summary>Publish event to event bus</summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="event">The event.</param>
-        private static void PublishEvent<T>(T @event)
+        private void PublishEvent<T>(T @event)
             where T : IEvent
         {
             Task.Run(
                 () =>
                 {
-                    ServiceManager.GetInstance().TryGetService<IEventBus>()?.Publish(@event);
+                    _eventBus.Publish(@event);
                 });
         }
     }

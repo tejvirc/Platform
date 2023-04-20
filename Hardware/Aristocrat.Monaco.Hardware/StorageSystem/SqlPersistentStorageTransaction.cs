@@ -19,9 +19,9 @@
     public class SqlPersistentStorageTransaction : IPersistentStorageTransaction
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly List<SqlPersistentStorageAccessor> _blocks = new List<SqlPersistentStorageAccessor>();
+        private readonly List<SqlPersistentStorageAccessor> _blocks = new();
 
         private readonly string _connectionString;
 
@@ -150,45 +150,41 @@
 
             try
             {
-                using (var connection = new SQLiteConnection(_connectionString))
+                using var connection = new SQLiteConnection(_connectionString);
+                connection.SetPassword(StorageConstants.DatabasePassword);
+                connection.Open();
+
+                using var update = connection.CreateCommand();
+                using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                update.Transaction = transaction;
+
+                foreach (var block in _blocks)
                 {
-                    connection.SetPassword(StorageConstants.DatabasePassword);
-                    connection.Open();
+                    update.CommandText =
+                        "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
+                    update.Parameters.Add(new SQLiteParameter("@BlockName", block.Name));
+                    update.Parameters.Add(new SQLiteParameter("@FieldName", string.Empty));
+                    update.Parameters.Add(new SQLiteParameter("@Data", DbType.Binary));
 
-                    using (var update = connection.CreateCommand())
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+                    if (_fields.TryGetValue(block.Name, out var field1))
                     {
-                        update.Transaction = transaction;
-
-                        foreach (var block in _blocks)
+                        foreach (var field in field1)
                         {
-                            update.CommandText =
-                                "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
-                            update.Parameters.Add(new SQLiteParameter("@BlockName", block.Name));
-                            update.Parameters.Add(new SQLiteParameter("@FieldName", string.Empty));
-                            update.Parameters.Add(new SQLiteParameter("@Data", DbType.Binary));
-
-                            if (_fields.ContainsKey(block.Name))
-                            {
-                                foreach (var field in _fields[block.Name])
-                                {
-                                    UpdateField(update, block, field.Key, field.Value);
-                                }
-                            }
-
-                            if (_indexedFields.ContainsKey(block.Name))
-                            {
-                                foreach (var field in _indexedFields[block.Name])
-                                {
-                                    UpdateField(update, block, field.Key.Item2, field.Value, field.Key.Item1);
-                                }
-                            }
+                            UpdateField(update, block, field.Key, field.Value);
                         }
+                    }
 
-                        transaction.Commit();
-                        NotifyComplete(true);
+                    if (_indexedFields.TryGetValue(block.Name, out var indexedField))
+                    {
+                        foreach (var field in indexedField)
+                        {
+                            UpdateField(update, block, field.Key.Item2, field.Value, field.Key.Item1);
+                        }
                     }
                 }
+
+                transaction.Commit();
+                NotifyComplete(true);
             }
             catch (Exception e)
             {

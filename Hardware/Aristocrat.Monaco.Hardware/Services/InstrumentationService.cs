@@ -17,16 +17,13 @@
     /// </summary>
     public class InstrumentationService : IService, IDisposable
     {
+        private readonly IEventBus _eventBus;
         private const string DevicesName = "Monaco-usbDevices.dmp";
         private const string Devices1Name = "Monaco-usbDevices1Log.dmp";
         private const string Devices2Name = "Monaco-usbDevices2Log.dmp";
-        //private const string DxDiagName = "Monaco-dxDiagLog.dmp";
-        //private const string MsInfo32Name = "Monaco-msInfo32Log.dmp";
-        //private const string DxDiagPath = "System32\\dxdiag.exe";
-        //private const string MsInfo32Path = "System32\\msinfo32.exe";
         private const string Win32UsbHub = "Win32_USBHub";
         private const string Win32UsbControllerDevice = "Win32_USBControllerDevice";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
 
@@ -34,22 +31,30 @@
 
         public ICollection<Type> ServiceTypes => new[] { typeof(InstrumentationService) };
 
+        public InstrumentationService()
+            : this(ServiceManager.GetInstance().GetService<IEventBus>())
+        {
+        }
+
+        public InstrumentationService(IEventBus eventBus)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        }
+
         public void Initialize()
         {
-            ServiceManager.GetInstance().GetService<IEventBus>()
-                .Subscribe<DoorOpenMeteredEvent>(this, Handle);
+            _eventBus.Subscribe<DoorOpenMeteredEvent>(this, Handle);
 
-            if (GetLoggerPath(out var logFolder))
+            if (!GetLoggerPath(out var logFolder))
             {
-                var logFile = $"{logFolder}\\{DevicesName}";
-                if (!File.Exists(logFile))
-                {
-                    CreateUsbDeviceLogs(logFile);
-                }
+                return;
             }
 
-            // Disable this, it is to invasive
-            //CreateInstrumentationLogs();
+            var logFile = $"{logFolder}\\{DevicesName}";
+            if (!File.Exists(logFile))
+            {
+                CreateUsbDeviceLogs(logFile);
+            }
         }
 
         public void Dispose()
@@ -97,33 +102,31 @@
 
             if (disposing)
             {
-                ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
+                _eventBus.UnsubscribeAll(this);
             }
 
             _disposed = true;
         }
 
-        private void CreateUsbDeviceLogs(string logfile)
+        private static void CreateUsbDeviceLogs(string logfile)
         {
-            using (var file = File.Create(logfile))
+            using var file = File.Create(logfile);
+            var usbDevices = GetUSBDevices();
+
+            var builder = new StringBuilder();
+
+            foreach (var usbDevice in usbDevices)
             {
-                var usbDevices = GetUSBDevices();
-
-                var builder = new StringBuilder();
-
-                foreach (var usbDevice in usbDevices)
+                foreach (var property in usbDevice)
                 {
-                    foreach (var property in usbDevice)
-                    {
-                        builder.Append($"{property.Key}: {property.Value}\n\t");
-                    }
-
-                    builder.Append("\n");
-                    var info = new UTF8Encoding(true).GetBytes(builder.ToString());
-                    file.Write(info, 0, info.Length);
-
-                    builder.Clear();
+                    builder.Append($"{property.Key}: {property.Value}\n\t");
                 }
+
+                builder.Append('\n');
+                var info = new UTF8Encoding(true).GetBytes(builder.ToString());
+                file.Write(info, 0, info.Length);
+
+                builder.Clear();
             }
         }
 
@@ -226,23 +229,19 @@
 
             using (var searcher = new ManagementObjectSearcher($"Select * From {Win32UsbHub}"))
             {
-                using (var collection = searcher.Get())
-                {
-                    GetDeviceProperties(collection);
-                }
+                using var collection = searcher.Get();
+                GetDeviceProperties(collection);
             }
-            
+
             using (var searcher =
                 new ManagementObjectSearcher(
                     "root\\CIMV2",
                     $"SELECT * FROM {Win32UsbControllerDevice}"))
             {
-                using (var collection = searcher.Get())
-                {
-                    GetDeviceProperties(collection);
-                }
+                using var collection = searcher.Get();
+                GetDeviceProperties(collection);
             }
-            
+
             return devices;
 
             void GetDeviceProperties(ManagementObjectCollection collectionSet)

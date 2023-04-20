@@ -29,22 +29,23 @@
         private const int AllMeters = 0x3F; // 0011 1111 (meters 0-5)
         private const string HardMeterLightSwitch = "Hard Meter Light";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly string BlockDataMeterValue = "MeterValue";
         private static readonly TimeSpan MonitorInterval = TimeSpan.FromSeconds(5);
         private readonly IEventBus _bus;
         private readonly IIO _io;
         private readonly IKeySwitch _keySwitch;
+        private readonly IDoorService _doorService;
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly IPropertiesManager _properties;
         private readonly string _blockDataTickValue = "TickValue";
         private readonly IOConfigurations _ioConfiguration;
-        private readonly AutoResetEvent _meterRequestEvent = new AutoResetEvent(false);
-        private readonly object _lock = new object();
+        private readonly AutoResetEvent _meterRequestEvent = new(false);
+        private readonly object _lock = new();
         private readonly string _blockName = typeof(HardMeterService).ToString();
         private readonly string _pendingBlockName = $"{typeof(HardMeterService)}Pending";
-        private readonly Dictionary<string, IPersistentStorageAccessor> _accessors = new Dictionary<string, IPersistentStorageAccessor>();
-        private readonly Dictionary<int, long> _pendingMeters = new Dictionary<int, long>();
+        private readonly Dictionary<string, IPersistentStorageAccessor> _accessors = new();
+        private readonly Dictionary<int, long> _pendingMeters = new();
         private Timer _monitor;
         private bool _hardMeterEnabled;
 
@@ -57,7 +58,8 @@
                 ServiceManager.GetInstance().GetService<IIO>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                ServiceManager.GetInstance().GetService<IKeySwitch>())
+                ServiceManager.GetInstance().GetService<IKeySwitch>(),
+                ServiceManager.GetInstance().GetService<IDoorService>())
         {
         }
 
@@ -66,13 +68,15 @@
             IIO io,
             IPersistentStorageManager persistentStorage,
             IPropertiesManager properties,
-            IKeySwitch keySwitch)
+            IKeySwitch keySwitch,
+            IDoorService doorService)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _io = io ?? throw new ArgumentNullException(nameof(io));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _keySwitch = keySwitch ?? throw new ArgumentNullException(nameof(keySwitch));
+            _doorService = doorService ?? throw new ArgumentNullException(nameof(doorService));
 
             Disable(DisabledReasons.Service);
             _ioConfiguration = _io.GetConfiguration();
@@ -340,7 +344,7 @@
             _bus.Subscribe<PropertyChangedEvent>(
                 this,
                 HandleEvent,
-                @event => @event.PropertyName.Equals(HardwareConstants.HardMetersEnabledKey));
+                @event => @event.PropertyName.Equals(HardwareConstants.HardMetersEnabledKey, StringComparison.Ordinal));
 
             lock (_lock)
             {
@@ -496,7 +500,7 @@
 
                     Logger.Info($"Updating pending meter {meter.Value.Name} {_pendingMeters[meter.Value.LogicalId]}");
                 }
-                
+
                 if (_pendingMeters.Any())
                 {
                     using (var scope = _persistentStorage.ScopedTransaction())
@@ -516,8 +520,8 @@
                             foreach (var meter in LogicalHardMeters)
                             {
                                 var current = (long)transaction[meter.Value.LogicalId, BlockDataMeterValue]
-                                              + (_pendingMeters.ContainsKey(meter.Value.LogicalId)
-                                                  ? _pendingMeters[meter.Value.LogicalId]
+                                              + (_pendingMeters.TryGetValue(meter.Value.LogicalId, out var pendingMeter)
+                                                  ? pendingMeter
                                                   : 0);
 
                                 AddPending(meter, current);
@@ -640,7 +644,7 @@
             InitializeBlock();
             InitializePendingBlock();
         }
-        
+
         private void InitializeBlock()
         {
             IPersistentStorageAccessor accessor;
@@ -692,7 +696,7 @@
                     _ioConfiguration.HardMeters.HardMeter.Max(n => n.LogicalId) + 1);
             }
 
-            _accessors[_pendingBlockName] = accessor;            
+            _accessors[_pendingBlockName] = accessor;
         }
 
         private bool CheckStoppedResponding(IIO io, int bitField)
@@ -820,8 +824,7 @@
         private void UpdateHardMeterLight(IEvent e)
         {
             _io.SetMechanicalMeterLight(
-                (ServiceManager.GetInstance().TryGetService<IDoorService>()?.GetDoorOpen((int)DoorLogicalId.TopBox) ??
-                 false)
+                _doorService.GetDoorOpen((int)DoorLogicalId.TopBox)
                 || _keySwitch.GetKeySwitchAction(_keySwitch.GetKeySwitchId(HardMeterLightSwitch)) ==
                 KeySwitchAction.On);
         }

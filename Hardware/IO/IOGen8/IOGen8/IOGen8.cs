@@ -10,6 +10,7 @@
     using Aristocrat.Cabinet.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
     using Aristocrat.Monaco.Hardware.Contracts.IO;
+    using Aristocrat.Monaco.Hardware.Contracts.SerialPorts;
     using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
     using Aristocrat.Monaco.Hardware.Contracts.TowerLight;
     using Aristocrat.Monaco.Kernel;
@@ -23,13 +24,13 @@
         private const int Tpci940NumOutputs = 16;
         private const int LogicDoorPhysicalId = 45;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static ulong _outputs;
         private static SafeFileHandle _deviceHandle;
 
-        private readonly Dictionary<int, byte> _doorMasks = new Dictionary<int, byte>();
-        private readonly List<InputEvent> _intrusionEvents = new List<InputEvent>();
+        private readonly Dictionary<int, byte> _doorMasks = new();
+        private readonly List<InputEvent> _intrusionEvents = new();
 
         private readonly IEventBus _bus;
         private readonly ICabinetDetectionService _cabinetService;
@@ -44,16 +45,25 @@
         public IOGen8()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
+                ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
+                ServiceManager.GetInstance().GetService<ISerialPortsService>())
         {
         }
 
-        public IOGen8(IEventBus bus, ICabinetDetectionService cabinetService)
+        public IOGen8(IEventBus bus, ICabinetDetectionService cabinetService, ISerialPortsService serialPortsService)
         {
+            if (serialPortsService == null)
+            {
+                throw new ArgumentNullException(nameof(serialPortsService));
+            }
+
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _cabinetService = cabinetService ?? throw new ArgumentNullException(nameof(cabinetService));
 
-            DeviceConfiguration = new Device { PollingFrequency = DeviceControl.Tpci940Gen8PollingFrequency };
+            DeviceConfiguration = new Device(serialPortsService)
+            {
+                PollingFrequency = DeviceControl.Tpci940Gen8PollingFrequency
+            };
 
             _doorMasks.Add(LogicDoorPhysicalId, 0x80); // Logic Door
             _doorMasks.Add(46, 0x02); // Top Box Door MS1
@@ -520,17 +530,17 @@
         /// <inheritdoc />
         public bool GetPhysicalDoorWasOpened(int physicalId)
         {
-            if (_doorMasks.ContainsKey(physicalId))
+            if (!_doorMasks.TryGetValue(physicalId, out var mask))
             {
-                if (physicalId == LogicDoorPhysicalId)
-                {
-                    return (GetLogicDoorSealValue() & 0x80) == 0x80;
-                }
-
-                return (GetDoorSealValue() & _doorMasks[physicalId]) != 0;
+                return false;
             }
 
-            return false;
+            if (physicalId == LogicDoorPhysicalId)
+            {
+                return (GetLogicDoorSealValue() & 0x80) == 0x80;
+            }
+
+            return (GetDoorSealValue() & mask) != 0;
         }
 
         /// <inheritdoc />
@@ -557,7 +567,7 @@
                     command = Gen8IOCommands.FpgaRead;
                     break;
                 default:
-                    return new byte[0];
+                    return Array.Empty<byte>();
             }
 
             byte[] data = null;
@@ -565,7 +575,7 @@
             var firmwareSize = GetFirmwareSize(location);
 
             // Sanity check firmware size. should be in the range of 0-32mb
-            if (firmwareSize > 0 && firmwareSize < 1 << 25)
+            if (firmwareSize is > 0 and < 1 << 25)
             {
                 data = new byte[firmwareSize];
 
@@ -606,12 +616,7 @@
             DeviceControl.Ioctl(_deviceHandle, 0, ref firmwareSize, command);
 
             // Sanity check firmware size. should be in the range of 0-32mb
-            if (firmwareSize > 0 && firmwareSize < 1 << 25)
-            {
-                return firmwareSize;
-            }
-
-            return 0;
+            return firmwareSize is > 0 and < 1 << 25 ? firmwareSize : 0;
         }
 
         public string GetFirmwareVersion(FirmwareData location)

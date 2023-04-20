@@ -11,28 +11,37 @@
     using Contracts.Dfu;
     using Contracts.SharedDevice;
     using DFU;
+    using Kernel;
     using log4net;
 
     /// <summary>A dfu provider.</summary>
-    /// <seealso cref="T:Aristocrat.Monaco.Kernel.IService" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Dfu.IDfuProvider" />
+    /// <seealso cref="Aristocrat.Monaco.Kernel.IService" />
+    /// <seealso cref="IDeviceService" />
+    /// <seealso cref="IDfuProvider" />
     public class DfuProvider : IDfuProvider
     {
         private const int DfuSuffixSize = 16;
         private const ushort DefaultVendorId = 0xffff;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly ConcurrentDictionary<int, ConcurrentDictionary<int, IDfuAdapter>> _adapters
-            = new ConcurrentDictionary<int, ConcurrentDictionary<int, IDfuAdapter>>();
+        private readonly ConcurrentDictionary<int, ConcurrentDictionary<int, IDfuAdapter>> _adapters = new();
 
-        private readonly ConcurrentDictionary<(int VendorId, int ProductId), IDfuAdapter> _downloads
-            = new ConcurrentDictionary<(int VendorId, int ProductId), IDfuAdapter>();
+        private readonly ConcurrentDictionary<(int VendorId, int ProductId), IDfuAdapter> _downloads = new();
+
+        public DfuProvider()
+            : this(new DfuFactory(ServiceManager.GetInstance().GetService<IEventBus>()))
+        {
+        }
+
+        public DfuProvider(IDfuFactory dfuFactory)
+        {
+            DfuFactory = dfuFactory ?? throw new ArgumentNullException(nameof(dfuFactory));
+        }
 
         /// <summary>Gets or sets the dfu factory.</summary>
         /// <value>The dfu factory.</value>
-        protected IDfuFactory DfuFactory { get; set; } = new DfuFactory();
+        protected IDfuFactory DfuFactory { get; set; }
 
         /// <inheritdoc />
         public bool Initialized { get; private set; }

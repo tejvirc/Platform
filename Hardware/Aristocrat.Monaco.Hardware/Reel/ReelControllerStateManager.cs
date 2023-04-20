@@ -35,10 +35,9 @@
 
         private bool _disposed;
 
-        public ReelControllerStateManager(int controllerId, Func<bool> isEnabledCallback)
+        public ReelControllerStateManager(IEventBus eventBus, int controllerId, Func<bool> isEnabledCallback)
         {
-            _eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
-
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _isControllerEnabledCallback = isEnabledCallback;
             _state = CreateStateMachine();
             ControllerId = controllerId;

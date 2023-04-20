@@ -21,7 +21,10 @@
         public static string GetButtonDeckIdentification(ILocalizer localizer)
         {
             var buttonDeckInfo = string.Empty;
-            var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+            var serviceManager = ServiceManager.GetInstance();
+            var cabinetDetectionService = serviceManager.TryGetService<ICabinetDetectionService>();
+            var properties = serviceManager.TryGetService<IPropertiesManager>();
+            var buttonDeck = serviceManager.TryGetService<IButtonDeckDisplay>();
             var displayDeviceVbd = cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.VBD);
             var touchScreen = cabinetDetectionService.ExpectedTouchDevices.FirstOrDefault(
                 x => x.ProductId == displayDeviceVbd?.TouchProductId && x.VendorId == displayDeviceVbd.TouchVendorId);
@@ -34,11 +37,11 @@
                 }
             }
 
-            var buttonDeckType = ButtonDeckUtilities.GetButtonDeckType();
+            var buttonDeckType = cabinetDetectionService.GetButtonDeckType(properties);
             var buttonDeckFirmwareVersion = string.Empty;
-            if (buttonDeckType == ButtonDeckUtilities.ButtonDeckType.LCD)
+            if (buttonDeckType == ButtonDeckType.LCD)
             {
-                buttonDeckFirmwareVersion = " " + ButtonDeckUtilities.GetButtonDeckFirmwareVersion();
+                buttonDeckFirmwareVersion = " " + buttonDeck.GetButtonDeckFirmwareVersion(properties);
             }
 
             var buttonDeckVbd = string.Empty;
@@ -51,18 +54,18 @@
 
             switch (buttonDeckType)
             {
-                case ButtonDeckUtilities.ButtonDeckType.NoButtonDeck:
+                case ButtonDeckType.NoButtonDeck:
                     buttonDeckInfo += localizer.GetString(ResourceKeys.None);
                     break;
-                case ButtonDeckUtilities.ButtonDeckType.PhysicalButtonDeck:
+                case ButtonDeckType.PhysicalButtonDeck:
                     buttonDeckInfo += localizer.GetString(ResourceKeys.MechanicalButtons);
                     break;
-                case ButtonDeckUtilities.ButtonDeckType.LCD:
-                case ButtonDeckUtilities.ButtonDeckType.SimulatedLCD:
+                case ButtonDeckType.LCD:
+                case ButtonDeckType.SimulatedLCD:
                     buttonDeckInfo += localizer.GetString(ResourceKeys.LCDButtons) + buttonDeckFirmwareVersion;
                     break;
-                case ButtonDeckUtilities.ButtonDeckType.Virtual:
-                case ButtonDeckUtilities.ButtonDeckType.SimulatedVirtual:
+                case ButtonDeckType.Virtual:
+                case ButtonDeckType.SimulatedVirtual:
                     buttonDeckInfo += localizer.GetString(ResourceKeys.VirtualButtons) + buttonDeckVbd;
                     break;
                 default:

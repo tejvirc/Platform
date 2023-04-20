@@ -10,18 +10,21 @@
     using Contracts;
     using Contracts.CardReader;
     using Contracts.Communicator;
+    using Contracts.Dfu;
     using Contracts.IdReader;
     using Contracts.Persistence;
+    using Contracts.SerialPorts;
     using Contracts.SharedDevice;
     using Kernel;
+    using Kernel.Contracts.Components;
     using log4net;
     using Stateless;
     using Timer = System.Timers.Timer;
 
     /// <summary>An ID reader adapter.</summary>
     /// <seealso
-    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapterBase{Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation}" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader" />
+    ///     cref="IIdReaderImplementation" />
+    /// <seealso cref="IIdReader" />
     public class IdReaderAdapter : DeviceAdapter<IIdReaderImplementation>,
         IIdReader,
         IStorageAccessor<IdReaderOptions>
@@ -41,14 +44,15 @@
         public const int DefaultRemovalDelay = 5000;
         public const int DefaultWaitTimeout = 300000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly StateMachine<IdReaderLogicalState, IdReaderLogicalStateTrigger> _state;
+        private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
+        private readonly IEventBus _eventBus;
+        private readonly IUserActivityService _userActivityService;
+        private readonly IPersistentStorageManager _storageManager;
 
-        private readonly ReaderWriterLockSlim _stateLock =
-            new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
-
-        private List<OfflineValidationPattern> _patterns = new List<OfflineValidationPattern>();
+        private List<OfflineValidationPattern> _patterns = new();
 
         private Identity _identity;
         private IIdReaderImplementation _reader;
@@ -63,11 +67,33 @@
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter class.
         /// </summary>
         public IdReaderAdapter()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
+                ServiceManager.GetInstance().GetService<IDfuProvider>(),
+                ServiceManager.GetInstance().GetService<IUserActivityService>(),
+                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
+                ServiceManager.GetInstance().GetService<ISerialPortsService>())
         {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter class.
+        /// </summary>
+        public IdReaderAdapter(
+            IEventBus eventBus,
+            IComponentRegistry componentRegistry,
+            IDfuProvider dfuProvider,
+            IUserActivityService userActivityService,
+            IPersistentStorageManager storageManager,
+            ISerialPortsService serialPortsService)
+            : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _userActivityService = userActivityService ?? throw new ArgumentNullException(nameof(userActivityService));
+            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
             _state = ConfigureStateMachine();
-
             _timer = new Timer(IdleTimerInterval);
-
             _timer.Elapsed += CheckForTimeout;
         }
 
@@ -79,9 +105,6 @@
 
         /// <inheritdoc />
         protected override string Path => string.Empty;
-
-        private IUserActivityService _userActivityService =>
-            ServiceManager.GetInstance().GetService<IUserActivityService>();
 
         private bool ShouldCheckForUserActivity => ValidationTimeoutTimeSpan > TimeSpan.Zero;
 
@@ -114,14 +137,12 @@
                 if (!_requiredForPlay)
                 {
                     // Remove disabled message if RequiredForPlay changes from true to false
-                    var bus = ServiceManager.GetInstance().GetService<IEventBus>();
-                    bus.Publish(new RemoveDisabledMessageEvent(IdReaderId));
+                    _eventBus.Publish(new RemoveDisabledMessageEvent(IdReaderId));
                 }
                 else if (LogicalState == IdReaderLogicalState.Disconnected)
                 {
                     // Send DisconnectedEvent if RequiredForPlay changes from false to true and ID Reader is disconnected
-                    var bus = ServiceManager.GetInstance().GetService<IEventBus>();
-                    bus.Publish(new DisconnectedEvent(IdReaderId));
+                    _eventBus.Publish(new DisconnectedEvent(IdReaderId));
                 }
             }
         }
@@ -498,7 +519,7 @@
         }
 
         /// <inheritdoc />
-        protected override void Inspecting(IComConfiguration config, int timeout)
+        protected override void Inspecting(IComConfiguration comConfiguration, int timeout)
         {
             Fire(IdReaderLogicalStateTrigger.Inspecting);
         }
@@ -511,6 +532,7 @@
         private void ModifyBlock(string option, object value)
         {
             this.ModifyBlock(
+                _storageManager,
                 OptionsBlock,
                 (transaction, index) =>
                 {
@@ -547,7 +569,7 @@
 
         private void ReadOrCreateOptions()
         {
-            if (!this.GetOrAddBlock(OptionsBlock, out var idReaderOptions, IdReaderId - 1))
+            if (!this.GetOrAddBlock(_storageManager, OptionsBlock, out var idReaderOptions, IdReaderId - 1))
             {
                 return;
             }

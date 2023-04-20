@@ -10,18 +10,23 @@
     using Common;
     using Contracts;
     using Contracts.Communicator;
+    using Contracts.Dfu;
     using Contracts.Persistence;
     using Contracts.Reel;
     using Contracts.Reel.Capabilities;
     using Contracts.Reel.Events;
+    using Contracts.SerialPorts;
     using Contracts.SharedDevice;
+    using JetBrains.Annotations;
     using Kernel;
+    using Kernel.Contracts.Components;
     using log4net;
 
     public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>,
         IReelController,
         IStorageAccessor<ReelControllerOptions>
     {
+        private readonly IPersistentStorageManager _storageManager;
         private const string DeviceImplementationsExtensionPath = "/Hardware/ReelController/ReelControllerImplementations";
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.MechanicalReels.ReelControllerAdapter.Options";
         private const string ReelOffsetsOption = "ReelOffsets";
@@ -40,8 +45,25 @@
         private int _controllerId = 1;
 
         public ReelControllerAdapter()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
+                ServiceManager.GetInstance().GetService<IDfuProvider>(),
+                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
+                ServiceManager.GetInstance().GetService<ISerialPortsService>())
         {
-            _stateManager = new ReelControllerStateManager(ReelControllerId, () => Enabled);
+        }
+
+        private ReelControllerAdapter(
+            IEventBus eventBus,
+            IComponentRegistry componentRegistry,
+            IDfuProvider dfuProvider,
+            IPersistentStorageManager storageManager,
+            ISerialPortsService serialPortsService)
+            : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
+        {
+            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+            _stateManager = new ReelControllerStateManager(eventBus, ReelControllerId, () => Enabled);
         }
 
         public override DeviceType DeviceType => DeviceType.ReelController;
@@ -104,6 +126,7 @@
                 _reelOffsets = newValues.ToArray();
 
                 this.ModifyBlock(
+                    _storageManager,
                     OptionsBlock,
                     (transaction, index) =>
                     {
@@ -406,7 +429,10 @@
             RegisterComponent();
             Initialized = true;
 
-            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(
+                    _reelControllerImplementation,
+                    _stateManager,
+                    _storageManager)
                 .ToDictionary(x => x.Key, x => x.Value);
 
             InitializeReels().WaitForCompletion();
@@ -571,7 +597,7 @@
 
         private void ReadOrCreateOptions()
         {
-            if (!this.GetOrAddBlock(OptionsBlock, out var options, ReelControllerId - 1))
+            if (!this.GetOrAddBlock(_storageManager, OptionsBlock, out var options, ReelControllerId - 1))
             {
                 Logger.Error($"Could not access block {OptionsBlock} {ReelControllerId - 1}");
                 return;

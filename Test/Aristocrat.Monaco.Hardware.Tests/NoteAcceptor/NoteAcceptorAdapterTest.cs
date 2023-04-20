@@ -1,12 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Tests.NoteAcceptor
 {
+    using Contracts.Dfu;
     using Contracts.NoteAcceptor;
     using Contracts.Persistence;
+    using Contracts.SerialPorts;
     using Hardware.NoteAcceptor;
     using Kernel;
+    using Kernel.Contracts.Components;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using Test.Common;
 
     /// <summary>
     ///     Contains the unit tests for the NoteAcceptorAdapter class.
@@ -16,7 +18,7 @@
     {
 
         private Mock<IPersistentStorageManager> _persistence;
-        private Mock<IPersistentStorageAccessor> _accessor = new Mock<IPersistentStorageAccessor>(MockBehavior.Strict);
+        private Mock<IPersistentStorageAccessor> _accessor = new(MockBehavior.Strict);
         private Mock<IEventBus> _eventBus;
 
         private NoteAcceptorAdapter _target;
@@ -25,22 +27,27 @@
         [TestInitialize]
         public void MyTestInitialize()
         {
-            MoqServiceManager.CreateInstance(MockBehavior.Default);
-            _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
-            _persistence = MoqServiceManager.CreateAndAddService<IPersistentStorageManager>(MockBehavior.Strict);
+            _eventBus = new Mock<IEventBus>(MockBehavior.Strict);
+            _persistence = new Mock<IPersistentStorageManager>(MockBehavior.Strict);
             _persistence.Setup(m => m.BlockExists(It.IsAny<string>())).Returns(true);
             _persistence.Setup(m => m.GetBlock(It.IsAny<string>())).Returns(_accessor.Object);
 
             _accessor.Setup(m => m.Level).Returns(PersistenceLevel.Transient);
             _accessor.Setup(m => m["Configuration"]).Returns(_testConfigurationString);
 
-            _target = new NoteAcceptorAdapter();
-        }
-
-        [TestCleanup]
-        public void MyTestCleanup()
-        {
-            MoqServiceManager.RemoveInstance();
+            var component = new Mock<IComponentRegistry>();
+            var dfuProvider = new Mock<IDfuProvider>();
+            var disableNote = new Mock<IDisabledNotesService>();
+            var persistenceProvider = new Mock<IPersistenceProvider>();
+            var serialPortService = new Mock<ISerialPortsService>();
+            _target = new NoteAcceptorAdapter(
+                _eventBus.Object,
+                component.Object,
+                dfuProvider.Object,
+                _persistence.Object,
+                disableNote.Object,
+                persistenceProvider.Object,
+                serialPortService.Object);
         }
 
         [TestMethod]

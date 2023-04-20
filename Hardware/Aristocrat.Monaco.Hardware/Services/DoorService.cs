@@ -20,14 +20,13 @@
     {
         private const PersistenceLevel Level = PersistenceLevel.Critical;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IIO _io;
         private readonly IPersistentStorageManager _storageManager;
         private readonly IEventBus _bus;
 
-        private readonly ConcurrentDictionary<int, LogicalDoor> _logicalDoors =
-            new ConcurrentDictionary<int, LogicalDoor>();
+        private readonly ConcurrentDictionary<int, LogicalDoor> _logicalDoors = new();
 
         private bool _disposed;
         private DateTime _lastInput;
@@ -303,7 +302,7 @@
             _bus.Unsubscribe<PlatformBootedEvent>(this);
 
             var queuedEvents = _io.GetQueuedEvents.OfType<InputEvent>().ToList();
-            Logger.DebugFormat($"Found {queuedEvents.Count} queued events");
+            Logger.Debug($"Found {queuedEvents.Count} queued events");
 
             // if no new input events have been received since HardwareDiscoveryCompleted
             // then process all to make sure no one missed the initial state
@@ -314,7 +313,7 @@
 
             foreach (var nextEvent in queuedEvents)
             {
-                Logger.DebugFormat($"Processing queued input event - {nextEvent.GetType().Name}");
+                Logger.Debug($"Processing queued input event - {nextEvent.GetType().Name}");
                 HandleEvent(nextEvent, true);
             }
 
@@ -336,8 +335,7 @@
                     if (door != null)
                     {
                         door.Closed = !inEvent.Action;
-                        var accessor = ServiceManager.GetInstance().GetService<IPersistentStorageManager>()
-                            .GetAccessor(Level, GetType().ToString());
+                        var accessor = _storageManager.GetAccessor(Level, GetType().ToString());
 
                         if (door.State == DoorState.Enabled)
                         {

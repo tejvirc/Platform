@@ -18,11 +18,19 @@
     /// </summary>
     public class SerialPortController : SerialPort, ISerialPortController
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly ISerialPortsService _serialPortsService;
 
         private Timer _keepAliveTimer;
 
-        private ISerialPortsService _serialPortsService;
+        /// <summary>
+        ///     Creates an instance of <see cref="SerialPortController"/>
+        /// </summary>
+        /// <param name="portsService">An instance of <see cref="ISerialPortsService"/></param>
+        public SerialPortController(ISerialPortsService portsService)
+        {
+            _serialPortsService = portsService ?? throw new ArgumentNullException(nameof(portsService));
+        }
 
         /// <summary>
         ///     Data has been received on the port.
@@ -42,18 +50,11 @@
         /// <summary>
         ///     Gets or sets a value indicating if the communication sync mode is used.
         /// </summary>
-        public bool UseSyncMode { set; get; } = false;
+        public bool UseSyncMode { set; get; }
 
         /// <inheritdoc />
         public void Configure(IComConfiguration comConfig)
         {
-            _serialPortsService ??= ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
-            if (_serialPortsService is null)
-            {
-                Logger.Debug("Serial Port Service Not available. Probably shutting down");
-                return;
-            }
-
             PortName = _serialPortsService.LogicalToPhysicalName(comConfig.PortName);
             if (comConfig.Mode != ComConfiguration.RS232CommunicationMode)
             {

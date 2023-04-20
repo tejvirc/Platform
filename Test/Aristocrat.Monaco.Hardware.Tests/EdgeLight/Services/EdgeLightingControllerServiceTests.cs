@@ -59,6 +59,7 @@
             CreateMockRenderer();
             _controllerService = new EdgeLightingControllerService(
                 _eventBus.Object,
+                _propertiesManager.Object,
                 _edgeLightManagerMock.Object,
                 MockRendererFactory,
                 EnumerateDevices,
@@ -72,7 +73,7 @@
                     x => x.Subscribe(
                         _controllerService,
                         It.IsAny<Action<EdgeLightingStripsChangedEvent>>()))
-                .Callback<object, Action<EdgeLightingStripsChangedEvent>>((y, x) => _stripChangedHandler = x);
+                .Callback<object, Action<EdgeLightingStripsChangedEvent>>((_, x) => _stripChangedHandler = x);
             _eventBus.Setup(x => x.UnsubscribeAll(_controllerService));
             _controllerService.Initialize();
         }

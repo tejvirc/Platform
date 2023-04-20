@@ -103,5 +103,8 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Communicator
 
         /// <inheritdoc />
         public string UsbDeviceProductIdDfu { get; set; }
+
+        /// <inheritdoc />
+        public int MaxPollTimeouts { get; set; } = HardwareConstants.DefaultMaxFailedPollCount;
     }
 }

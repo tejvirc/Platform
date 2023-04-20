@@ -185,12 +185,17 @@
             _pathMapper.Setup(m => m.GetDirectory(It.IsAny<string>())).Returns(
                 new DirectoryInfo(databaseDirectoryPath));
 
-            _persistentStorageManager = new SqlPersistentStorageManager(_pathMapper.Object, _eventBus.Object,
-                DatabaseFilename, DatabasePassword);
+            var secondaryStorage = new Mock<ISecondaryStorageManager>();
+            _persistentStorageManager = new SqlPersistentStorageManager(
+                _pathMapper.Object,
+                _eventBus.Object,
+                secondaryStorage.Object,
+                DatabaseFilename,
+                DatabasePassword);
 
             MoqServiceManager.AddService<IPersistentStorageManager>(_persistentStorageManager);
 
-            _persistenceProviderFacade = new PersistenceProviderFacade();
+            _persistenceProviderFacade = new PersistenceProviderFacade(_persistentStorageManager);
             _persistenceProviderFacade.Initialize();
         }
 
@@ -303,7 +308,7 @@
 
             var random = new Random();
             var data = TestTransaction.GetRandomObject(random);
-            
+
             var block = _persistenceProviderFacade.GetOrCreateBlock(blockName, PersistenceLevel.Critical);
 
             Assert.AreEqual(false, block.GetValue<TestTransaction>(key, out var result));
@@ -332,7 +337,7 @@
 
             var data1 = @"WeMakeMoneyForAristocrat";
             var data2 = @"RealEngineeringAtAristocrat";
-            
+
             var block = _persistenceProviderFacade.GetOrCreateBlock(blockName, PersistenceLevel.Critical);
 
             Assert.AreEqual(true, block.SetValue(key, data1));
@@ -366,7 +371,7 @@
             const string block2Key = @"TestKey2";
             var block2Data1 = @"WeMakeMoneyForAristocratAtGreatLengths";
             var block2Data2 = @"RealEngineeringAtAristocratIsWhatWeDo";
-            
+
             var block1 = _persistenceProviderFacade.GetOrCreateBlock(block1Name, PersistenceLevel.Critical);
             var block2 = _persistenceProviderFacade.GetOrCreateBlock(block2Name, PersistenceLevel.Critical);
 

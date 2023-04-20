@@ -15,6 +15,7 @@
     using Contracts.TowerLight;
     using Events;
     using Hardware.Contracts.ButtonDeck;
+    using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.TowerLight;
     using Kernel;
     using Kernel.Contracts;
@@ -37,12 +38,22 @@
         private readonly ILampTest _lampTest;
         private readonly ITowerLight _towerLight;
         private readonly ITowerLightManager _towerLightManager;
-        private readonly List<FlashState> _allFlashStates = new List<FlashState>();
-        private readonly List<FlashState> _strobeFlashStates = new List<FlashState>();
+        private readonly List<FlashState> _allFlashStates = new();
+        private readonly List<FlashState> _strobeFlashStates = new();
 
-        public LampsPageViewModel(bool isWizard) : base(isWizard)
+        /// <summary>
+        ///     Creates an instance of <see cref="LampsPageViewModel"/>
+        /// </summary>
+        /// <param name="cabinet">An instance of <see cref="ICabinetDetectionService"/></param>
+        /// <param name="properties">An instance of <see cref="IPropertiesManager"/></param>
+        /// <param name="isWizard">Whether or not this is for the configuration wizard</param>
+        public LampsPageViewModel(
+            ICabinetDetectionService cabinet,
+            IPropertiesManager properties,
+            bool isWizard)
+            : base(isWizard)
         {
-            ButtonLampsAvailable = ButtonDeckUtilities.HasLamps();
+            ButtonLampsAvailable = cabinet.HasLamps(properties);
 
             _lampTest = LampTestUtilities.GetLampTest();
 
@@ -52,7 +63,7 @@
             TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true) || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             TowerLights = new List<TowerLight>();
             _allFlashStates.AddRange((FlashState[])Enum.GetValues(typeof(FlashState)));
-            _strobeFlashStates.AddRange(new []{ FlashState.Off, FlashState.On });
+            _strobeFlashStates.AddRange(new[] { FlashState.Off, FlashState.On });
 
             var towerLightConfig = ServiceManager.GetInstance().GetService<IConfigurationUtility>()
                 .GetConfiguration(TowerLightConfigPath, () => new TowerLightConfiguration());
@@ -70,7 +81,6 @@
             }
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
-
             SetTowerLightFlashStateCommand = new ActionCommand<object>(SetTowerLightFlashState);
         }
 

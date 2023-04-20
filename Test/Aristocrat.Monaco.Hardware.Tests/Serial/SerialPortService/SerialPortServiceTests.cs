@@ -15,7 +15,7 @@
     {
         private const string Com3PortName = "COM3";
         private const string NonExistingPortName = "COM1";
-        private static readonly Random Random = new Random();
+        private static readonly Random Random = new();
 
         private readonly IList<SerialPortInfo> _listOfSerialPorts =
             new List<SerialPortInfo>();
@@ -58,7 +58,7 @@
         {
             AddSerialPortsOfGivenType(SerialPortType.Rs232, 1);
 
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
             Assert.AreEqual(GetPhysicalPortString(0), serialPortService.LogicalToPhysicalName(Com3PortName));
             Assert.AreEqual(NonExistingPortName, serialPortService.LogicalToPhysicalName(NonExistingPortName));
 
@@ -69,7 +69,7 @@
         [TestMethod]
         public void RunningWithNoSerialPorts()
         {
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
             Assert.AreEqual(Com3PortName, serialPortService.LogicalToPhysicalName(Com3PortName));
             Assert.AreEqual(Com3PortName, serialPortService.PhysicalToLogicalName(Com3PortName));
         }
@@ -78,7 +78,7 @@
         public void ExtraComPortsShouldReturnLogicalPortNamesAsPhysicalPortNames()
         {
             AddSerialPortsOfGivenType(SerialPortType.Rs232, 20, 20);
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
 
             var allLogicalPortNames = serialPortService.GetAllLogicalPortNames();
             foreach (var port in allLogicalPortNames)
@@ -92,7 +92,7 @@
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void RegisterNonExistingPort()
         {
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
             serialPortService.RegisterPort(serialPortService.LogicalToPhysicalName(NonExistingPortName));
         }
 
@@ -100,7 +100,7 @@
         public void RegisterAValidPort()
         {
             AddSerialPortsOfGivenType(SerialPortType.Rs232, 1);
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
             try
             {
                 serialPortService.RegisterPort(serialPortService.LogicalToPhysicalName(Com3PortName));
@@ -116,7 +116,7 @@
         public void TryToRegisterAnAlreadyRegisteredPort()
         {
             AddSerialPortsOfGivenType(SerialPortType.Rs232, 1);
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
 
             serialPortService.RegisterPort(serialPortService.LogicalToPhysicalName(Com3PortName));
             serialPortService.RegisterPort(serialPortService.LogicalToPhysicalName(Com3PortName));
@@ -126,7 +126,7 @@
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void UnRegisterAnNonExistingPort()
         {
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
             serialPortService.UnRegisterPort(serialPortService.LogicalToPhysicalName(NonExistingPortName));
         }
 
@@ -134,7 +134,7 @@
         public void UnRegisterPort()
         {
             AddSerialPortsOfGivenType(SerialPortType.Rs232, 1);
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
 
             serialPortService.RegisterPort(serialPortService.LogicalToPhysicalName(Com3PortName));
             serialPortService.UnRegisterPort(serialPortService.LogicalToPhysicalName(Com3PortName));
@@ -146,7 +146,7 @@
         public void TestUsbSerialPort()
         {
             AddSerialPortsOfGivenType(SerialPortType.Usb, 5);
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
             // Since we do not map them, we should get same logical ports as physical ports
             foreach (var serialPort in _listOfSerialPorts)
             {
@@ -168,37 +168,9 @@
             AddSerialPortsOfGivenType(SerialPortType.Rs232, 4);
             AddSerialPortsOfGivenType(SerialPortType.Usb, 4);
             _cabinetDetectionServiceMoq.Setup(x => x.Family).Returns(HardwareFamily.Unknown);
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
+            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object, _cabinetDetectionServiceMoq.Object);
 
             foreach (var serialPort in _listOfSerialPorts)
-            {
-                Assert.AreEqual(
-                    GetPhysicalPortString(serialPort.Address, serialPort.SerialPortType),
-                    serialPortService.LogicalToPhysicalName(
-                        GetPhysicalPortString(serialPort.Address, serialPort.SerialPortType)));
-                Assert.AreEqual(
-                    GetPhysicalPortString(serialPort.Address, serialPort.SerialPortType),
-                    serialPortService.PhysicalToLogicalName(
-                        GetPhysicalPortString(serialPort.Address, serialPort.SerialPortType)));
-            }
-
-            Assert.AreEqual(Com3PortName, serialPortService.LogicalToPhysicalName(Com3PortName));
-            Assert.AreEqual(Com3PortName, serialPortService.PhysicalToLogicalName(Com3PortName));
-        }
-
-        [TestMethod]
-        public void TestOnNullCabinetDetectionService()
-        {
-            MoqServiceManager.RemoveService<ICabinetDetectionService>();
-            _cabinetDetectionServiceMoq = null;
-
-            // No mapping happens on Unknown devices, hence logical ports to be returned as is.
-            AddSerialPortsOfGivenType(SerialPortType.Rs232, 4);
-            AddSerialPortsOfGivenType(SerialPortType.Usb, 4);
-
-            var serialPortService = new SerialPortsService(_moqSerialPortEnumerator.Object);
-
-           foreach (var serialPort in _listOfSerialPorts)
             {
                 Assert.AreEqual(
                     GetPhysicalPortString(serialPort.Address, serialPort.SerialPortType),

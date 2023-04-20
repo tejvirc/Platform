@@ -41,6 +41,7 @@
         private readonly IDeviceRegistryService _deviceRegistry;
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;
+        private readonly IPropertiesManager _propertiesManager;
         private readonly object _serviceRegistrationLock = new object();
 
         private bool _disposed;
@@ -50,11 +51,17 @@
             : this(ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IDeviceRegistryService>(),
                 ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<ISystemDisableManager>())
+                ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
-        public HardwareConfiguration(IPersistentStorageManager storage, IDeviceRegistryService deviceRegistry, IEventBus bus, ISystemDisableManager disableManager)
+        public HardwareConfiguration(
+            IPersistentStorageManager storage,
+            IDeviceRegistryService deviceRegistry,
+            IEventBus bus,
+            ISystemDisableManager disableManager,
+            IPropertiesManager propertiesManager)
         {
             if (storage == null)
             {
@@ -64,6 +71,7 @@
             _deviceRegistry = deviceRegistry ?? throw new ArgumentNullException(nameof(deviceRegistry));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
             _accessor = storage.GetAccessor(Level, Name, Enum.GetValues(typeof(DeviceType)).Length);
 
@@ -161,7 +169,7 @@
             if(inspect)
             {
                 HandleDeviceInspectionAsync(GetCurrent(), inspectedDevices);
-            }            
+            }
         }
 
         private IComConfiguration Configuration(ConfigurationData data)
@@ -186,7 +194,10 @@
                     Mode = element.Mode,
                     Protocol = element.Protocol,
                     PortName = data.Port,
-                    Name = element.Name
+                    Name = element.Name,
+                    MaxPollTimeouts = _propertiesManager.GetValue(
+                        HardwareConstants.MaxFailedPollCount,
+                        HardwareConstants.DefaultMaxFailedPollCount)
                 };
 
                 SetDeviceData(config, element);

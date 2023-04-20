@@ -5,12 +5,14 @@
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Reflection;
+    using System.Text;
     using System.Threading;
     using System.Timers;
     using Cabinet.Contracts;
     using Contracts.HardMeter;
     using Contracts.IO;
     using Contracts.SharedDevice;
+    using JetBrains.Annotations;
     using Kernel;
     using Kernel.Contracts.Components;
     using log4net;
@@ -30,18 +32,20 @@
     /// </summary>
     public class IOService : BaseRunnable, IDeviceService, IIO
     {
+        private readonly IEventBus _eventBus;
+        private readonly IComponentRegistry _componentRegistry;
         private const string DeviceImplementationsExtensionPath = "/Hardware/IO/IOImplementations";
         private const ulong IntrusionMasks = 0X3F;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private static readonly Timer PollTimer = new Timer();
-        private static readonly AutoResetEvent Poll = new AutoResetEvent(true);
+        private static readonly Timer PollTimer = new();
+        private static readonly AutoResetEvent Poll = new(true);
 
-        private static readonly object QueuedEventsLock = new object();
+        private static readonly object QueuedEventsLock = new();
 
-        private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
-        private readonly Collection<IEvent> _queuedEvents = new Collection<IEvent>();
+        private readonly DeviceAddinHelper _addinHelper = new();
+        private readonly Collection<IEvent> _queuedEvents = new();
 
         private bool _hardMeterStoppedResponding;
         private IIOImplementation _inputOutput;
@@ -51,13 +55,23 @@
         private bool _platformBooted;
         private bool _postedInspectionFailedEvent;
 
+        public IOService(IEventBus eventBus, IComponentRegistry componentRegistry)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _componentRegistry = componentRegistry ?? throw new ArgumentNullException(nameof(componentRegistry));
+
+            Enabled = false;
+            Initialized = false;
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="IOService" /> class.
         /// </summary>
         public IOService()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IComponentRegistry>())
         {
-            Enabled = false;
-            Initialized = false;
         }
 
         /// <summary>Gets or sets the last enabled logical state.</summary>
@@ -88,7 +102,6 @@
         [CLSCompliant(false)]
         public void Disable(DisabledReasons reason)
         {
-            var eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
             Logger.Debug($"{Name} disabled by {reason}");
             ReasonDisabled |= reason;
             Enabled = false;
@@ -101,19 +114,17 @@
             LogicalState = IOLogicalState.Disabled;
             Logger.Debug("Logical state set to " + LogicalState);
 
-            eventBus?.Publish(new DisabledEvent(ReasonDisabled));
+            _eventBus.Publish(new DisabledEvent(ReasonDisabled));
         }
 
         /// <inheritdoc />
         [CLSCompliant(false)]
         public bool Enable(EnabledReasons reason)
         {
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             if (Enabled)
             {
                 Logger.Debug(Name + " enabled by " + reason + " logical state " + LogicalState);
-                eventBus.Publish(new EnabledEvent(reason));
+                _eventBus.Publish(new EnabledEvent(reason));
             }
             else if (Initialized)
             {
@@ -135,18 +146,18 @@
                         LogicalState = LastEnabledLogicalState;
                     }
 
-                    eventBus.Publish(new EnabledEvent(reason));
+                    _eventBus.Publish(new EnabledEvent(reason));
                 }
                 else
                 {
                     Logger.Warn(Name + " can not be enabled by " + reason + " because disabled by " + ReasonDisabled);
-                    eventBus.Publish(new DisabledEvent(ReasonDisabled));
+                    _eventBus.Publish(new DisabledEvent(ReasonDisabled));
                 }
             }
             else
             {
                 Logger.Warn(Name + " can not be enabled by " + reason + " because service is not initialized");
-                eventBus.Publish(new DisabledEvent(ReasonDisabled));
+                _eventBus.Publish(new DisabledEvent(ReasonDisabled));
             }
 
             return Enabled;
@@ -208,7 +219,7 @@
         {
             if (physicalId < 0 || physicalId >= _inputOutput.GetMaxOutputs)
             {
-                Logger.ErrorFormat($"Invalid physical ID {physicalId}");
+                Logger.Error($"Invalid physical ID {physicalId}");
                 return;
             }
 
@@ -220,8 +231,7 @@
 
                 if (postActionEvent)
                 {
-                    var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                    eventBus.Publish(new OutputEvent(physicalId, true));
+                    _eventBus.Publish(new OutputEvent(physicalId, true));
                 }
             }
             else
@@ -232,8 +242,7 @@
 
                 if (postActionEvent)
                 {
-                    var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                    eventBus.Publish(new OutputEvent(physicalId, false));
+                    _eventBus.Publish(new OutputEvent(physicalId, false));
                 }
             }
         }
@@ -254,13 +263,12 @@
 
                         if (postActionEvent)
                         {
-                            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                            eventBus.Publish(new OutputEvent(i, true));
+                            _eventBus.Publish(new OutputEvent(i, true));
                         }
                     }
 
                     // Advance test bit.
-                    testBit = testBit << 1;
+                    testBit <<= 1;
                 }
             }
             else
@@ -275,13 +283,12 @@
 
                         if (postActionEvent)
                         {
-                            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                            eventBus.Publish(new OutputEvent(i, false));
+                            _eventBus.Publish(new OutputEvent(i, false));
                         }
                     }
 
                     // Advance test bit.
-                    testBit = testBit << 1;
+                    testBit <<= 1;
                 }
             }
         }
@@ -427,7 +434,7 @@
             _inputOutput = (IIOImplementation)_addinHelper.GetDeviceImplementationObject(
                 DeviceImplementationsExtensionPath,
                 ServiceProtocol);
-            if (_inputOutput == null)
+            if (_inputOutput is null)
             {
                 var errorMessage = "Cannot load" + Name;
                 Logger.Error(errorMessage);
@@ -461,7 +468,7 @@
                 }
 
                 ulong setOrClearBit = 1;
-                setOrClearBit = setOrClearBit << intrusion.Id;
+                setOrClearBit <<= intrusion.Id;
 
                 // Action is true for door closed; false for door open
                 if (intrusion.Action)
@@ -490,7 +497,7 @@
             // Set service initialized.
             Initialized = true;
 
-            Logger.Debug(Name + " initialized");
+            Logger.Debug($"{Name} initialized");
 
             // Register the firmware components.
             RegisterHardwareDevice(
@@ -499,28 +506,16 @@
                 $"BIOS-{GetFirmwareVersion(FirmwareData.Bios)}",
                 Resources.BIOSPackageDescription,
                 GetFirmwareSize(FirmwareData.Bios));
-
-            //TODO:  We have to support a chunked based read of the FPGA data due to the size and blocking while reading
-            /*
-            RegisterHardwareDevice(
-                ComponentType.Hardware,
-                Constants.FpgaPath,
-                $"FPGA-{GetFirmwareVersion(FirmwareData.Fpga)}",
-                Resources.FPGAPackageDescription,
-                GetFirmwareSize(FirmwareData.Fpga));
-                */
         }
 
         protected override void OnRun()
         {
-            if (CanProceed(false) == false)
+            if (!CanProceed(false))
             {
                 return;
             }
 
-            Logger.Debug(Name + " started");
-
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            Logger.Debug($"{Name} started");
 
             while (RunState == RunnableState.Running)
             {
@@ -548,61 +543,62 @@
                 // Block the thread until it is time to poll.
                 Poll.WaitOne();
 
-                if (RunState == RunnableState.Running)
+                if (RunState != RunnableState.Running ||
+                    LogicalState != IOLogicalState.Idle &&
+                    (LogicalState != IOLogicalState.Disabled || !_hardMeterStoppedResponding))
                 {
-                    if (LogicalState == IOLogicalState.Idle ||
-                        LogicalState == IOLogicalState.Disabled && _hardMeterStoppedResponding)
-                    {
-                        var inputs = _inputOutput.GetInputs;
-
-                        if (inputs != LastChangedInputs)
-                        {
-                            Logger.DebugFormat("Inputs {0}", FormatBits(_inputOutput.GetMaxInputs, 4, inputs));
-
-                            // Post an event for each changed input.
-                            ulong testBit = 1;
-                            for (var i = 0; i < _inputOutput.GetMaxInputs; i++)
-                            {
-                                int physicalId;
-                                if ((inputs & testBit) != 0 && (LastChangedInputs & testBit) == 0)
-                                {
-                                    physicalId = i;
-                                    Logger.Debug($"Queuing Input {physicalId} on. size is {_queuedEvents.Count}");
-                                    var inputEvent = new InputEvent(physicalId, true);
-                                    if (!_platformBooted)
-                                    {
-                                        lock (QueuedEventsLock)
-                                        {
-                                            _queuedEvents.Add(inputEvent);
-                                        }
-                                    }
-
-                                    eventBus.Publish(inputEvent);
-                                }
-                                else if ((inputs & testBit) == 0 && (LastChangedInputs & testBit) != 0)
-                                {
-                                    physicalId = i;
-                                    Logger.Debug($"Queuing Input {physicalId} off. size is {_queuedEvents.Count}");
-                                    var inputEvent = new InputEvent(physicalId, false);
-                                    if (!_platformBooted)
-                                    {
-                                        lock (QueuedEventsLock)
-                                        {
-                                            _queuedEvents.Add(inputEvent);
-                                        }
-                                    }
-
-                                    eventBus.Publish(inputEvent);
-                                }
-
-                                testBit = testBit << 1;
-                            }
-
-                            // Set last changed inputs.
-                            LastChangedInputs = inputs;
-                        }
-                    }
+                    continue;
                 }
+
+                var inputs = _inputOutput.GetInputs;
+                if (inputs == LastChangedInputs)
+                {
+                    continue;
+                }
+
+                Logger.DebugFormat("Inputs {0}", FormatBits(_inputOutput.GetMaxInputs, 4, inputs));
+
+                // Post an event for each changed input.
+                ulong testBit = 1;
+                for (var i = 0; i < _inputOutput.GetMaxInputs; i++)
+                {
+                    int physicalId;
+                    if ((inputs & testBit) != 0 && (LastChangedInputs & testBit) == 0)
+                    {
+                        physicalId = i;
+                        Logger.Debug($"Queuing Input {physicalId} on. size is {_queuedEvents.Count}");
+                        var inputEvent = new InputEvent(physicalId, true);
+                        if (!_platformBooted)
+                        {
+                            lock (QueuedEventsLock)
+                            {
+                                _queuedEvents.Add(inputEvent);
+                            }
+                        }
+
+                        _eventBus.Publish(inputEvent);
+                    }
+                    else if ((inputs & testBit) == 0 && (LastChangedInputs & testBit) != 0)
+                    {
+                        physicalId = i;
+                        Logger.Debug($"Queuing Input {physicalId} off. size is {_queuedEvents.Count}");
+                        var inputEvent = new InputEvent(physicalId, false);
+                        if (!_platformBooted)
+                        {
+                            lock (QueuedEventsLock)
+                            {
+                                _queuedEvents.Add(inputEvent);
+                            }
+                        }
+
+                        _eventBus.Publish(inputEvent);
+                    }
+
+                    testBit <<= 1;
+                }
+
+                // Set last changed inputs.
+                LastChangedInputs = inputs;
             }
 
             // Unsubscribe from all events.
@@ -611,12 +607,12 @@
             // Clean up the device implementation.
             _inputOutput.Cleanup();
 
-            Logger.Debug(Name + " stopped");
+            Logger.Debug($"{Name} stopped");
         }
 
         protected override void OnStop()
         {
-            Logger.Debug(Name + " stopping");
+            Logger.Debug($"{Name} stopping");
 
             // Disable the logical service.
             Disable(DisabledReasons.Service);
@@ -627,21 +623,18 @@
 
         private static string FormatBits(int max, int spacer, ulong value)
         {
-            var formattedBits = string.Empty;
+            var formattedBits = new StringBuilder();
             for (var i = 0; i < max; i++)
             {
-                if (spacer > 0)
+                if (spacer > 0 && i % spacer == 0)
                 {
-                    if (i % spacer == 0)
-                    {
-                        formattedBits += " ";
-                    }
+                    formattedBits.Append(' ');
                 }
 
-                formattedBits += (value & (1UL << i)) != 0 ? "1" : "0";
+                formattedBits.Append((value & (1UL << i)) != 0 ?'1' : '0');
             }
 
-            return formattedBits;
+            return formattedBits.ToString();
         }
 
         private static void OnPollTimeout(object sender, ElapsedEventArgs e)
@@ -692,7 +685,7 @@
 
         private bool CanProceed(bool checkEnabled)
         {
-            if (Initialized == false)
+            if (!Initialized)
             {
                 var stackTrace = new StackTrace();
                 var stackFrame = stackTrace.GetFrame(1);
@@ -701,14 +694,13 @@
                 return false;
             }
 
-            if (checkEnabled && Enabled == false)
+            if (checkEnabled && !Enabled)
             {
                 var stackTrace = new StackTrace();
                 var stackFrame = stackTrace.GetFrame(1);
                 var methodBase = stackFrame.GetMethod();
                 Logger.ErrorFormat("{0} cannot proceed, must enable {1} first", methodBase.Name, Name);
-                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                eventBus.Publish(new DisabledEvent(ReasonDisabled));
+                _eventBus.Publish(new DisabledEvent(ReasonDisabled));
                 return false;
             }
 
@@ -717,20 +709,18 @@
 
         private void SubscribeToEvents()
         {
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             // Subscribe to initialization events.
-            eventBus.Subscribe<InitCompleteEvent>(this, ReceiveEvent);
-            eventBus.Subscribe<ErrorEvent>(this, ReceiveEvent);
-            eventBus.Subscribe<PlatformBootedEvent>(this, ReceiveEvent);
-            eventBus.Subscribe<StoppedRespondingEvent>(
+            _eventBus.Subscribe<InitCompleteEvent>(this, ReceiveEvent);
+            _eventBus.Subscribe<ErrorEvent>(this, ReceiveEvent);
+            _eventBus.Subscribe<PlatformBootedEvent>(this, ReceiveEvent);
+            _eventBus.Subscribe<StoppedRespondingEvent>(
                 this,
                 _ =>
                 {
                     _hardMeterStoppedResponding = true;
                     Disable(DisabledReasons.Error);
                 });
-            eventBus.Subscribe<StartedRespondingEvent>(
+            _eventBus.Subscribe<StartedRespondingEvent>(
                 this,
                 _ =>
                 {
@@ -741,10 +731,8 @@
 
         private void UnsubscribeFromEvents()
         {
-            var eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
-
             // Unsubscribe from initialization events.
-            eventBus?.UnsubscribeAll(this);
+            _eventBus.UnsubscribeAll(this);
         }
 
         private void ReceiveEvent(IEvent data)
@@ -818,20 +806,22 @@
             string description,
             long size)
         {
-            if (size > 0)
+            if (size <= 0)
             {
-                var component = new Component
-                {
-                    ComponentId = ("ATI_" + componentId).Replace(" ", "_"),
-                    Description = description,
-                    Path = path,
-                    Size = size,
-                    Type = componentType,
-                    FileSystemType = FileSystemType.Stream
-                };
-
-                ServiceManager.GetInstance().GetService<IComponentRegistry>().Register(component);
+                return;
             }
+
+            var component = new Component
+            {
+                ComponentId = ($"ATI_{componentId}").Replace(" ", "_"),
+                Description = description,
+                Path = path,
+                Size = size,
+                Type = componentType,
+                FileSystemType = FileSystemType.Stream
+            };
+
+            _componentRegistry.Register(component);
         }
     }
 }

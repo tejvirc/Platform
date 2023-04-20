@@ -15,8 +15,8 @@
     using Newtonsoft.Json;
 
     /// <summary> A sqlite persistent store. </summary>
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStore" />
-    /// <seealso cref="T:System.IDisposable" />
+    /// <seealso cref="IPersistentStore" />
+    /// <seealso cref=."IDisposable" />
     public class SqlitePersistentStore : IPersistentStore, IDisposable
     {
         private const string CreateTablesCommand = @"CREATE TABLE KeyLevelTable (Key TEXT PRIMARY KEY NOT NULL, Level TEXT NOT NULL); CREATE TABLE KeyValueTable (Key TEXT PRIMARY KEY NOT NULL, Value BLOB)";
@@ -33,20 +33,28 @@
         private const string FullIntegrityCheckCommand = @"PRAGMA integrity_check(1)";
         private const string QuickIntegrityCheckCommand = @"PRAGMA quick_check(1)";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly string _connection;
         private readonly string _password;
         private readonly string _path;
 
-        public SqlitePersistentStore(string directory, string name, string password)
+        public SqlitePersistentStore(
+            IPathMapper pathMapper,
+            string directory = SqliteStoreConstants.DataPath,
+            string name = SqliteStoreConstants.DatabaseName,
+            string password = SqliteStoreConstants.DatabasePassword)
         {
+            if (pathMapper == null)
+            {
+                throw new ArgumentNullException(nameof(pathMapper));
+            }
+
             var databaseDirectoryName = directory ?? throw new ArgumentNullException(nameof(directory));
             var databaseFileName = name ?? throw new ArgumentNullException(nameof(name));
             _password = password ?? throw new ArgumentNullException(nameof(password));
 
-            var databaseDirectoryPath = ServiceManager.GetInstance().GetService<IPathMapper>()
-                .GetDirectory(databaseDirectoryName);
+            var databaseDirectoryPath = pathMapper.GetDirectory(databaseDirectoryName);
 
             if (!databaseDirectoryPath.Exists)
             {
@@ -74,28 +82,16 @@
             try
             {
                 SQLiteConnection.CreateFile(_path);
-                using (var connection = CreateConnection())
-                {
-                    connection.Open();
-                    using (var command = new SQLiteCommand(connection))
-                    {
-                        command.CommandText = CreateTablesCommand;
-                        command.ExecuteNonQuery();
-                    }
-                }
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = new SQLiteCommand(connection);
+                command.CommandText = CreateTablesCommand;
+                command.ExecuteNonQuery();
             }
             catch (SQLiteException exception)
             {
                 Logger.Error($"{SqliteStoreConstants.DatabaseName} creation failed: {exception.Message}");
             }
-        }
-
-        public SqlitePersistentStore()
-            : this(
-                SqliteStoreConstants.DataPath,
-                SqliteStoreConstants.DatabaseName,
-                SqliteStoreConstants.DatabasePassword)
-        {
         }
 
         /// <inheritdoc />

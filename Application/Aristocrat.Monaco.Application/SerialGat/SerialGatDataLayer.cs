@@ -9,6 +9,7 @@
     using Hardware.Contracts.SharedDevice;
     using Hardware.Contracts.SerialPorts;
     using Contracts;
+    using Kernel;
     using log4net;
 
     /// <summary>
@@ -56,7 +57,7 @@
             _lengthRangePerQuery.Add(GatQuery.LastAuthenticationResults, (min: 7, max: 7));
             _lengthRangePerQuery.Add(GatQuery.InitiateAuthenticationCalculation, (min: 5, max: 255));
 
-            _physicalLayer = new SerialPortController();
+            _physicalLayer = new SerialPortController(ServiceManager.GetInstance().GetService<ISerialPortsService>());
             _physicalLayer.Configure(
                 new ComConfiguration
                 {

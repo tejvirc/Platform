@@ -147,6 +147,7 @@
         /// <exception cref="ServiceException">Thrown when a Service error condition occurs.</exception>
         /// <typeparam name="TBlock">Type of the block.</typeparam>
         /// <param name="this">The @this to act on.</param>
+        /// <param name="storageManager">An instance of <see cref="IPersistentStorageManager"/></param>
         /// <param name="blockName">Name of the block.</param>
         /// <param name="updater">The updater.</param>
         /// <param name="blockIndex">(Optional) Zero-based index of the block.</param>
@@ -154,22 +155,21 @@
         /// <returns>True if it succeeds, false if it fails.</returns>
         public static bool ModifyBlock<TBlock>(
             this IStorageAccessor<TBlock> @this,
+            IPersistentStorageManager storageManager,
             string blockName,
             Func<IPersistentStorageTransaction, int, bool> updater,
             int blockIndex = 0,
             PersistenceLevel level = PersistenceLevel.Transient)
         {
-            if (!@this.GetOrAddBlock(blockName, out _, out var accessor, blockIndex, level))
+            if (!@this.GetOrAddBlock(storageManager, blockName, out _, out var accessor, blockIndex, level))
             {
                 return false;
             }
 
-            using (var transaction = accessor.StartTransaction())
-            {
-                var result = updater(transaction, blockIndex);
-                transaction.Commit();
-                return result;
-            }
+            using var transaction = accessor.StartTransaction();
+            var result = updater(transaction, blockIndex);
+            transaction.Commit();
+            return result;
         }
 
         /// <summary>An IStorageAccessor{TBlock} extension method that gets or adds a block.</summary>
@@ -177,6 +177,7 @@
         /// <exception cref="ServiceException">Thrown when a Service error condition occurs.</exception>
         /// <typeparam name="TBlock">Type of the block.</typeparam>
         /// <param name="this">The @this to act on.</param>
+        /// <param name="storageManager">An instance of <see cref="IPersistentStorageManager"/></param>
         /// <param name="blockName">Name of the block.</param>
         /// <param name="block">[out] The block.</param>
         /// <param name="blockIndex">(Optional) Zero-based index of the block.</param>
@@ -184,12 +185,13 @@
         /// <returns>True if it succeeds, false if it fails.</returns>
         public static bool GetOrAddBlock<TBlock>(
             this IStorageAccessor<TBlock> @this,
+            IPersistentStorageManager storageManager,
             string blockName,
             out TBlock block,
             int blockIndex = 0,
             PersistenceLevel level = PersistenceLevel.Transient)
         {
-            return @this.GetOrAddBlock(blockName, out block, out _, blockIndex, level);
+            return @this.GetOrAddBlock(storageManager, blockName, out block, out _, blockIndex, level);
         }
 
         /// <summary>An IStorageAccessor{TBlock} extension method that gets or adds a block.</summary>
@@ -197,6 +199,7 @@
         /// <exception cref="ServiceException">Thrown when a Service error condition occurs.</exception>
         /// <typeparam name="TBlock">Type of the block.</typeparam>
         /// <param name="this">The @this to act on.</param>
+        /// <param name="storageManager">An instance of <see cref="IPersistentStorageManager"/></param>
         /// <param name="blockName">Name of the block.</param>
         /// <param name="block">[out] The block.</param>
         /// <param name="accessor">[out] The accessor.</param>
@@ -205,6 +208,7 @@
         /// <returns>True if it succeeds, false if it fails.</returns>
         public static bool GetOrAddBlock<TBlock>(
             this IStorageAccessor<TBlock> @this,
+            IPersistentStorageManager storageManager,
             string blockName,
             out TBlock block,
             out IPersistentStorageAccessor accessor,
@@ -216,20 +220,24 @@
                 throw new ArgumentNullException(nameof(@this));
             }
 
-            var manager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-            if (manager.BlockExists(blockName))
+            if (storageManager == null)
             {
-                accessor = manager.GetBlock(blockName);
+                throw new ArgumentNullException(nameof(storageManager));
+            }
+
+            if (storageManager.BlockExists(blockName))
+            {
+                accessor = storageManager.GetBlock(blockName);
                 if (accessor.Count > blockIndex)
                 {
                     return @this.TryGetBlock(accessor, blockIndex, out block);
                 }
 
-                manager.ResizeBlock(blockName, blockIndex + 1);
+                storageManager.ResizeBlock(blockName, blockIndex + 1);
             }
             else
             {
-                accessor = manager.CreateBlock(level, blockName, blockIndex + 1);
+                accessor = storageManager.CreateBlock(level, blockName, blockIndex + 1);
             }
 
             return @this.TryAddBlock(accessor, blockIndex, out block);
@@ -252,9 +260,9 @@
 
             // TODO: Move this implementation and cache the reflected values
 
-            if (!(Attribute.GetCustomAttribute(type, typeof(EntityAttribute)) is EntityAttribute entity))
+            if (Attribute.GetCustomAttribute(type, typeof(EntityAttribute)) is not EntityAttribute entity)
             {
-                return default(T);
+                return default;
             }
 
             var properties = type.GetProperties();
@@ -274,7 +282,7 @@
                     var storageType = field.StorageType != FieldType.Unused
                         ? field.StorageType
                         : FieldConverters.FieldTypeMap.FirstOrDefault(t => t.Value == property.PropertyType).Key;
-                    
+
                     if (storageType != FieldType.Unused)
                     {
                         format.AddFieldDescription(
@@ -324,28 +332,27 @@
 
             // TODO: Move this implementation and cache the reflected values
 
-            if (!(Attribute.GetCustomAttribute(type, typeof(EntityAttribute)) is EntityAttribute) || !@this.BlockExists(type.FullName))
+            if (Attribute.GetCustomAttribute(type, typeof(EntityAttribute)) is not EntityAttribute ||
+                !@this.BlockExists(type.FullName))
             {
                 return entity;
             }
 
             var accessor = @this.GetBlock(type.FullName);
 
-            using (var transaction = accessor.StartTransaction())
+            using var transaction = accessor.StartTransaction();
+            foreach (var property in type.GetProperties())
             {
-                foreach (var property in type.GetProperties())
+                var field = property.GetCustomAttribute<FieldAttribute>();
+                if (field == null)
                 {
-                    var field = property.GetCustomAttribute<FieldAttribute>();
-                    if (field == null)
-                    {
-                        continue;
-                    }
-
-                    accessor[property.Name] = property.GetValue(entity);
+                    continue;
                 }
 
-                transaction.Commit();
+                accessor[property.Name] = property.GetValue(entity);
             }
+
+            transaction.Commit();
 
             return entity;
         }

@@ -8,8 +8,10 @@
     using System.Threading.Tasks;
     using Contracts;
     using Contracts.Communicator;
+    using Contracts.Dfu;
     using Contracts.Persistence;
     using Contracts.Printer;
+    using Contracts.SerialPorts;
     using Contracts.SharedDevice;
     using Contracts.Ticket;
     using Contracts.TicketContent;
@@ -23,8 +25,8 @@
 
     /// <summary>A printer adapter.</summary>
     /// <seealso
-    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation}" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter" />
+    ///     cref="IPrinterImplementation}" />
+    /// <seealso cref="IPrinter" />
     public class PrinterAdapter : DeviceAdapter<IPrinterImplementation>,
         IPrinter,
         IStorageAccessor<PrinterOptions>
@@ -43,8 +45,10 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private ReaderWriterLockSlim _stateLock =
-            new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        private readonly IEventBus _eventBus;
+        private readonly IPersistentStorageManager _storageManager;
+
+        private ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
 
         private IPrinterImplementation _printer;
         private Resolver _resolver;
@@ -95,6 +99,28 @@
                                             _state?.State == PrinterLogicalState.Disconnected ||
                                             (!Implementation?.IsConnected ?? false));
 
+        public PrinterAdapter()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
+                ServiceManager.GetInstance().GetService<IDfuProvider>(),
+                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
+                ServiceManager.GetInstance().GetService<ISerialPortsService>())
+        {
+        }
+
+        public PrinterAdapter(
+            IEventBus eventBus,
+            IComponentRegistry componentRegistry,
+            IDfuProvider dfuProvider,
+            IPersistentStorageManager storageManager,
+            ISerialPortsService serialPortsService)
+            : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+        }
+
 #if !(RETAIL)
         /// <summary>
         /// Get printer implementation for automation.
@@ -115,6 +141,7 @@
                 {
                     _activationTime = value;
                     this.ModifyBlock(
+                        _storageManager,
                         OptionsBlock,
                         (transaction, index) =>
                         {
@@ -136,6 +163,7 @@
                 {
                     _renderTarget = value;
                     this.ModifyBlock(
+                        _storageManager,
                         OptionsBlock,
                         (transaction, index) =>
                         {
@@ -271,28 +299,28 @@
                 return false;
             }
 
-            if (!await Implementation.PrintTicket(ticketCommand, onFieldOfInterest))
+            if (await Implementation.PrintTicket(ticketCommand, onFieldOfInterest))
             {
-                // reset the printer state
-                if (LogicalState == PrinterLogicalState.Printing)
-                {
-                    if (!InitializePrinter(false))
-                    {
-                        ImplementationFaultOccurred(
-                            new object(),
-                            new FaultEventArgs { Fault = PrinterFaultTypes.OtherFault });
-                    }
-                    else
-                    {
-                        Fire(PrinterLogicalStateTrigger.Printed);
-                    }
-                }
-
-                PostEvent(new ErrorWhilePrintingEvent(PrinterId));
-                return false;
+                return true;
             }
 
-            return true;
+            // reset the printer state
+            if (LogicalState == PrinterLogicalState.Printing)
+            {
+                if (!InitializePrinter(false))
+                {
+                    ImplementationFaultOccurred(
+                        new object(),
+                        new FaultEventArgs { Fault = PrinterFaultTypes.OtherFault });
+                }
+                else
+                {
+                    Fire(PrinterLogicalStateTrigger.Printed);
+                }
+            }
+
+            PostEvent(new ErrorWhilePrintingEvent(PrinterId));
+            return false;
         }
 
         /// <inheritdoc />
@@ -312,14 +340,12 @@
         {
             block = new PrinterOptions { RenderTarget = RenderTarget, ActivationTime = ActivationTime };
 
-            using (var transaction = accessor.StartTransaction())
-            {
-                transaction[blockIndex, RenderTargetOption] = block.RenderTarget;
-                transaction[blockIndex, ActivationTimeText] = block.ActivationTime;
+            using var transaction = accessor.StartTransaction();
+            transaction[blockIndex, RenderTargetOption] = block.RenderTarget;
+            transaction[blockIndex, ActivationTimeText] = block.ActivationTime;
 
-                transaction.Commit();
-                return true;
-            }
+            transaction.Commit();
+            return true;
         }
 
         /// <inheritdoc />
@@ -420,7 +446,7 @@
             _state = ConfigureStateMachine();
 
             // Resolve regions and templates now since this will not be done at print time.
-            _resolver = new Resolver();
+            _resolver = new Resolver(_eventBus);
             PrintableRegionPath = AddinFactory.FindFirstFilePath(PrintableRegionsExtensionPath);
             PrintableTemplatePath = AddinFactory.FindFirstFilePath(PrintableTemplatesExtensionPath);
             _resolver.LoadRegions(PrintableRegionPath);
@@ -540,7 +566,7 @@
 
         private void ReadOrCreateOptions()
         {
-            if (!this.GetOrAddBlock(OptionsBlock, out var options, PrinterId - 1))
+            if (!this.GetOrAddBlock(_storageManager, OptionsBlock, out var options, PrinterId - 1))
             {
                 Logger.Error($"Could not access block {OptionsBlock} {PrinterId - 1}");
                 return;

@@ -5,17 +5,19 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Contracts.Persistence;
+    using JetBrains.Annotations;
     using Kernel;
     using Persistence;
 
     /// <summary> A persistence provider. </summary>
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistenceProvider"/>
+    /// <seealso cref="IPersistenceProvider"/>
     public class PersistenceProvider : IPersistenceProvider, IService
     {
+        private readonly IEventBus _eventBus;
+        private readonly IPathMapper _pathMapper;
         private KeyAccessor _accessor;
 
-        private readonly ConcurrentDictionary<string, IPersistentBlock> _persistentBlocks =
-            new ConcurrentDictionary<string, IPersistentBlock>();
+        private readonly ConcurrentDictionary<string, IPersistentBlock> _persistentBlocks = new();
 
         /// <inheritdoc/>
         public string Name => GetType().ToString();
@@ -23,10 +25,23 @@
         /// <inheritdoc/>
         public ICollection<Type> ServiceTypes => new[] { typeof(IPersistenceProvider) };
 
+        public PersistenceProvider()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPathMapper>())
+        {
+        }
+
+        public PersistenceProvider(IEventBus eventBus, IPathMapper pathMapper)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
+        }
+
         /// <inheritdoc/>
         public void Initialize()
         {
-            _accessor = new KeyAccessor(new SqlitePersistentStore());
+            _accessor = new KeyAccessor(new SqlitePersistentStore(_pathMapper));
             var block = GetOrCreateBlock(KeyConstants.LevelStaticClearedKey, PersistenceLevel.Static);
             block.SetValue(new LevelClearedInfo
             {
@@ -46,8 +61,7 @@
                 LastClearTime = DateTime.Now
             });
 
-            var eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
-            eventBus.Subscribe<PersistentStorageClearReadyEvent>(this, HandleEvent); 
+            _eventBus.Subscribe<PersistentStorageClearReadyEvent>(this, HandleEvent);
         }
 
         /// <inheritdoc/>
@@ -108,40 +122,38 @@
         protected virtual void HandleEvent(PersistentStorageClearReadyEvent @event)
         {
             PostEvent(new PersistentStorageClearStartedEvent(@event.Level));
-            if (_accessor.Clear(@event.Level))
+            if (!_accessor.Clear(@event.Level))
             {
-                var key = LevelClearedKey(@event.Level);
-                var block = GetBlock(key);
-                block.SetValue(
-                    key,
-                    new LevelClearedInfo
-                    {
-                        LastClearTime = DateTime.Now,
-                        JustExecuted = true
-                    });
-
-                PostEvent(new PersistentStorageClearedEvent(@event.Level));
+                return;
             }
+
+            var key = LevelClearedKey(@event.Level);
+            var block = GetBlock(key);
+            block.SetValue(
+                key,
+                new LevelClearedInfo
+                {
+                    LastClearTime = DateTime.Now,
+                    JustExecuted = true
+                });
+
+            PostEvent(new PersistentStorageClearedEvent(@event.Level));
         }
 
         private void PostEvent<T>(T @event) where T : IEvent
         {
-            ServiceManager.GetInstance().TryGetService<IEventBus>()?.Publish(@event);
+            _eventBus.Publish(@event);
         }
 
-        private string LevelClearedKey(PersistenceLevel level)
+        private static string LevelClearedKey(PersistenceLevel level)
         {
-            switch (level)
+            return level switch
             {
-                case PersistenceLevel.Critical:
-                    return KeyConstants.LevelCriticalClearedKey;
-                case PersistenceLevel.Static:
-                    return KeyConstants.LevelStaticClearedKey;
-                case PersistenceLevel.Transient:
-                    return KeyConstants.LevelTransientClearedKey;
-                default:
-                    return string.Empty;
-            } 
+                PersistenceLevel.Critical => KeyConstants.LevelCriticalClearedKey,
+                PersistenceLevel.Static => KeyConstants.LevelStaticClearedKey,
+                PersistenceLevel.Transient => KeyConstants.LevelTransientClearedKey,
+                _ => string.Empty
+            };
         }
     }
 }

@@ -12,6 +12,7 @@
     using Contracts.Tickets;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
+    using Hardware.Contracts.SerialPorts;
     using Hardware.Contracts.SharedDevice;
     using Hardware.Contracts.Ticket;
     using Kernel;
@@ -109,7 +110,8 @@
                 .Returns((IdentityFieldOverride)null);
 
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Loose);
-            _iio.Setup(i => i.DeviceConfiguration).Returns(new Device { Manufacturer = "Manufacturer", Model = "Model" });
+            var serialService = new Mock<ISerialPortsService>();
+            _iio.Setup(i => i.DeviceConfiguration).Returns(new Device(serialService.Object) { Manufacturer = "Manufacturer", Model = "Model" });
 
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict);
             _time.Setup(t => t.GetLocationTime(It.IsAny<DateTime>())).Returns(DateTime.Now);
