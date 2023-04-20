@@ -1012,9 +1012,12 @@
                     Features = features,
                     CdsGameInfos = cdsGameInfos,
                     MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent),
-                    MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent)
                 };
             }
+
+            gameDetail.MaximumWinAmount = Math.Max(
+                wagerCategories.Max(c => c.MaxWinAmount),
+                _properties.GetValue(GamingConstants.MaximumGameRoundWinAmount, 0L));
 
             gameDetail.Active = true;
             if (!File.Exists(fullGameDllPath))
