@@ -32,5 +32,5 @@ as follows:
     <BeagleBone Enabled="true" CabinetTypeRegex="^LS"/>
     <DisplayElementsControl Enabled="true" CabinetTypeRegex="^LS" />
     <DisplayLightingPage Enabled="true" CabinetTypeRegex="^(?!LS).*$"/>
-    <KeyboardProvider CabinetTypeRegex="^LS" KeyboardProviderType="Embedded" />
+    <KeyboardProvider CabinetTypeRegex="^LS|^Marquis34" KeyboardProviderType="Embedded" />
 </Features>
