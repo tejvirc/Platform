@@ -41,7 +41,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.17" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.16" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
