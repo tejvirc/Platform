@@ -296,7 +296,8 @@
             {
                 DataSource = fileName,
                 Pooling = true,
-                Password = _databasePassword,
+
+                //Password = _databasePassword
                 //PrepareRetries = retries,
                 //Missing = true,
                 //JournalMode = SQLiteJournalModeEnum.Wal,
@@ -312,6 +313,9 @@
         private SqliteConnection CreateConnection()
         {
             var connection = new SqliteConnection(ConnectionString());
+
+            //connection.SetPassword(_databasePassword);
+
             return connection;
         }
 
