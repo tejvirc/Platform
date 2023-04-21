@@ -58,6 +58,8 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
+            <DataGridTextColumn Binding="{Binding Message, Mode=OneWay}"
+                                Foreground="Yellow"/>
         </DataGrid.Columns>
     </DataGrid>
     

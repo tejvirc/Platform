@@ -133,6 +133,9 @@
             }
 
             Logger.InfoFormat("{0}() initialize-end", TestContext.TestName);
+
+            _target.CanNavigateBackward = true;
+            _target.CanNavigateForward = true;
         }
 
         private void InitializePropertySetters()

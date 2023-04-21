@@ -16,11 +16,11 @@
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
             <Label  Content="{lex:Loc TestBeagleBoneLightShowLabel}" HorizontalAlignment="Left"/>
             <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding LightShowChoices}"
-                      MinWidth="250"
-                      SelectedValue="{Binding ShowOverrideSelection}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="10" />
+                      MinWidth="250" Name="LightShowsComboBox"
+                      SelectedValue="{Binding ShowOverrideSelection}" Margin="10" />
         </StackPanel>
-        <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 10 0 0"
-                Content="{lex:Loc SendShowLabel}"
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 10 0 0" Name="SendShowButton"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SendShowLabel}}"
                 Command="{Binding SendShowCommand}"/>
     </Grid>
 </operatorMenu:OperatorMenuPage>

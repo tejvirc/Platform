@@ -4,7 +4,7 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
     using Handlers;
-    using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
 
     public class ReelFaultConsumer : ReelBaseConsumer<HardwareReelFaultEvent>
     {

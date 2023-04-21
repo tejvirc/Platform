@@ -13,6 +13,7 @@
     <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MonacoDataGrid}"/>
     <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MonacoComboBox}"/>
     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
+    <Style TargetType="{x:Type custom:TouchTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
     <Style TargetType="{x:Type custom:AlphaNumericTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
     <Style TargetType="{x:Type custom:LengthErrorTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
     <Style TargetType="{x:Type custom:CurrencyTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>

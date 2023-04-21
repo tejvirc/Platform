@@ -261,18 +261,18 @@
                         </MultiBinding>
                     </StackPanel.IsEnabled>
 
-                    <Button Content="{lex:Loc MechanicalReels_TestReelsText}" 
-                            Command="{Binding ShowReelTestCommand}"
+                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_TestReelsText}}" 
+                            Command="{Binding ShowReelTestCommand}" Name="TestReelsButton"
                             Visibility="{Binding ReelTestButtonHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                             Margin="0 10 10 10" VerticalAlignment="Center" Height="50" Width="150"/>
 
-                    <Button Content="{lex:Loc MechanicalReels_TestLightsText}" 
-                            Command="{Binding ShowLightTestCommand}"
+                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_TestLightsText}}" 
+                            Command="{Binding ShowLightTestCommand}" Name="TestLightsButton"
                             Visibility="{Binding LightTestButtonHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                             Margin="0 10 10 10" VerticalAlignment="Center" Height="50" Width="150"/>
 
-                    <Button Content="{lex:Loc SelfTestLabel}"
-                            Command="{Binding SelfTestCommand}"
+                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
+                            Command="{Binding SelfTestCommand}" Name="SelfTestButton"
                             Visibility="{Binding SettingsScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                             Margin="0 10 0 10" VerticalAlignment="Center" Height="50" Width="150"/>
 

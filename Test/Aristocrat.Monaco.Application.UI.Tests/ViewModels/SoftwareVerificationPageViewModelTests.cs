@@ -114,7 +114,7 @@
             SetupPerformCalculationThenExecute();
             ComponentHashCompleteEvent evt = new ComponentHashCompleteEvent(new ComponentVerification(1) { ComponentId = "Test Runtime", Result = new byte[] { 135, 172, 236, 23, 205, 157, 205, 32, 167, 22, 204, 44, 246, 116, 23, 183, 28, 138, 112, 22 } }, _cancelToken);
             _componentHashCompleteEventCallback(evt);
-            Assert.AreEqual(_target.ComponentSet.Where(c => c.ComponentId == "Test Runtime").First().HashResult, "87ACEC17CD9DCD20A716CC2CF67417B71C8A7016");
+            Assert.AreEqual(_target.ComponentSet.First(c => c.ComponentId == "Test Runtime").HashResult, "87ACEC17CD9DCD20A716CC2CF67417B71C8A7016");
         }
 
         [TestMethod]
@@ -124,10 +124,10 @@
             _target.ShowMasterResult = true;
             ComponentHashCompleteEvent evt1 = new ComponentHashCompleteEvent(new ComponentVerification(1) { ComponentId = "Test Runtime", Result = new byte[] { 135, 172, 236, 23, 205, 157, 205, 32, 167, 22, 204, 44, 246, 116, 23, 183, 28, 138, 112, 22 } }, _cancelToken);
             _componentHashCompleteEventCallback(evt1);
-            Assert.AreEqual(_target.ComponentSet.Where(c => c.ComponentId == "Test Runtime").First().HashResult, "87ACEC17CD9DCD20A716CC2CF67417B71C8A7016");
+            Assert.AreEqual(_target.ComponentSet.First(c => c.ComponentId == "Test Runtime").HashResult, "87ACEC17CD9DCD20A716CC2CF67417B71C8A7016");
             ComponentHashCompleteEvent evt2 = new ComponentHashCompleteEvent(new ComponentVerification(1) { ComponentId = "Test Game", Result = new byte[] { 1, 200, 74, 47, 218, 50, 69, 128, 58, 106, 151, 220, 80, 149, 140, 87, 101, 159, 131, 183 } }, _cancelToken);
             _componentHashCompleteEventCallback(evt2);
-            Assert.AreEqual(_target.ComponentSet.Where(c => c.ComponentId == "Test Game").First().HashResult, "01C84A2FDA3245803A6A97DC50958C57659F83B7");
+            Assert.AreEqual(_target.ComponentSet.First(c => c.ComponentId == "Test Game").HashResult, "01C84A2FDA3245803A6A97DC50958C57659F83B7");
             var expectedResult = new BitArray(new byte[] { 135, 172, 236, 23, 205, 157, 205, 32, 167, 22, 204, 44, 246, 116, 23, 183, 28, 138, 112, 22 }).Xor(new BitArray(new byte[] { 1, 200, 74, 47, 218, 50, 69, 128, 58, 106, 151, 220, 80, 149, 140, 87, 101, 159, 131, 183 }));
             AllComponentsHashCompleteEvent evt = new AllComponentsHashCompleteEvent(false, _cancelToken);
             _allComponentHashCompleteEventCallback(evt);
@@ -142,10 +142,10 @@
             _target.ShowMasterResult = false;
             ComponentHashCompleteEvent evt1 = new ComponentHashCompleteEvent(new ComponentVerification(1) { ComponentId = "Test Runtime", Result = new byte[] { 135, 172, 236, 23, 205, 157, 205, 32, 167, 22, 204, 44, 246, 116, 23, 183, 28, 138, 112, 22 } }, _cancelToken);
             _componentHashCompleteEventCallback(evt1);
-            Assert.AreEqual(_target.ComponentSet.Where(c => c.ComponentId == "Test Runtime").First().HashResult, "87ACEC17CD9DCD20A716CC2CF67417B71C8A7016");
+            Assert.AreEqual(_target.ComponentSet.First(c => c.ComponentId == "Test Runtime").HashResult, "87ACEC17CD9DCD20A716CC2CF67417B71C8A7016");
             ComponentHashCompleteEvent evt2 = new ComponentHashCompleteEvent(new ComponentVerification(1) { ComponentId = "Test Game", Result = new byte[] { 1, 200, 74, 47, 218, 50, 69, 128, 58, 106, 151, 220, 80, 149, 140, 87, 101, 159, 131, 183 } }, _cancelToken);
             _componentHashCompleteEventCallback(evt2);
-            Assert.AreEqual(_target.ComponentSet.Where(c => c.ComponentId == "Test Game").First().HashResult, "01C84A2FDA3245803A6A97DC50958C57659F83B7");
+            Assert.AreEqual(_target.ComponentSet.First(c => c.ComponentId == "Test Game").HashResult, "01C84A2FDA3245803A6A97DC50958C57659F83B7");
             AllComponentsHashCompleteEvent evt = new AllComponentsHashCompleteEvent(false, _cancelToken);
             _allComponentHashCompleteEventCallback(evt);
             Assert.AreEqual(_target.MasterResult, "");
@@ -156,8 +156,17 @@
             // All algorithms use the same codepath in the viewmodel, HmacSha1 has an additional check so using this
             _eventBus.Setup(e => e.Publish(It.IsAny<OperatorMenuPopupEvent>()));
             _target.FormattedHmacKey = "665112169CC0D1DF679D924038CF8DB7141047E1";
-            _target.SelectedAlgorithmType = _target.AlgorithmTypes.Where(a => a.Type == AlgorithmType.HmacSha1).First();
-            _authenticationService.Setup(a => a.GetComponentHashesAsync(AlgorithmType.HmacSha1, It.IsAny<CancellationToken>(), It.IsAny<byte[]>(), It.IsAny<string>(), 0)).Callback<AlgorithmType, CancellationToken, byte[], string, long>((a, c, b, s, l) => _cancelToken = c).Returns(new Task(() => { }));
+            _target.SelectedAlgorithmType =
+                SoftwareVerificationPageViewModel.AlgorithmTypes.First(a => a.Type == AlgorithmType.HmacSha1);
+            _authenticationService
+                .Setup(
+                    a => a.GetComponentHashesAsync(
+                        AlgorithmType.HmacSha1,
+                        It.IsAny<CancellationToken>(),
+                        It.IsAny<byte[]>(),
+                        It.IsAny<string>(),
+                        0)).Callback<AlgorithmType, CancellationToken, byte[], string, long>(
+                    (a, c, b, s, l) => _cancelToken = c).Returns(new Task(() => { }));
             _target.CalculateCommand.Execute(null);
         }
     }

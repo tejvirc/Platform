@@ -18,7 +18,7 @@
         private IWpfWindowLauncher _windowLauncher;
 
         /// <summary>
-        ///     Empty Initialize function.
+        ///     Initialize.
         /// </summary>
         protected override void OnInitialize()
         {

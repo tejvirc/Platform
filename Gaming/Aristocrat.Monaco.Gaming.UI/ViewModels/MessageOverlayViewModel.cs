@@ -28,7 +28,7 @@
 
     public class MessageOverlayViewModel : BaseEntityViewModel
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string CashoutDisplayKey = "CashOutImage";
@@ -95,8 +95,6 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
-
-            SubscribeToEvents();
         }
 
         public IMessageOverlayData MessageOverlayData { get; set; }
@@ -593,24 +591,13 @@
                     isCashInOverridden ||
                     IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
         }
-
-        private void SubscribeToEvents()
-        {
-            _eventBus.Subscribe<MissedStartupEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayCanceledEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayKeyedOffEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayStartedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<TransferOutFailedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<WatTransferInitiatedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<VoucherOutStartedEvent>(this, HandleEvent);
-        }
-
-        private void HandleEvent(HandpayCanceledEvent evt)
+        
+        public void HandpayCancelled()
         {
             _overlayMessageStrategyController.SetLastCashOutAmount(0);
         }
 
-        private void HandleEvent(HandpayKeyedOffEvent evt)
+        public void HandpayKeyedOff(HandpayKeyedOffEvent evt)
         {
             var cashOutState = LobbyCashOutState.Undefined;
 
@@ -640,7 +627,7 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
-        private void HandleEvent(HandpayStartedEvent evt)
+        public void HandpayStarted(HandpayStartedEvent evt)
         {
             var forcedKeyOff = _properties.GetValue(AccountingConstants.HandpayLargeWinForcedKeyOff, false);
             var jurisdictionLargeWinKeyOffType = _properties.GetValue(AccountingConstants.HandpayLargeWinKeyOffStrategy, KeyOffType.LocalHandpay);
@@ -659,7 +646,7 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
-        private void HandleEvent(TransferOutFailedEvent evt)
+        public void TransferOutFailed(TransferOutFailedEvent evt)
         {
             var config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
             if (config == null || !config.NonCashCashoutFailureMessageEnabled || evt.NonCashableAmount <= 0)
@@ -670,7 +657,7 @@
             _overlayMessageStrategyController.SetLastCashOutAmount(evt.NonCashableAmount);
         }
 
-        private void HandleEvent(VoucherOutStartedEvent evt)
+        public void VoucherOutStarted(VoucherOutStartedEvent evt)
         {
             _lobbyStateManager.CashOutState = LobbyCashOutState.Voucher;
 
@@ -683,7 +670,7 @@
             HandleMessageOverlayText(string.Empty);
         }
 
-        private void HandleEvent(WatTransferInitiatedEvent evt)
+        public void WatTransferInitiated(WatTransferInitiatedEvent evt)
         {
             _lobbyStateManager.CashOutState = LobbyCashOutState.Wat;
 
@@ -694,24 +681,6 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
 
             HandleMessageOverlayText(string.Empty);
-        }
-
-        private void HandleEvent(MissedStartupEvent evt)
-        {
-            Logger.Debug($"Detected MissedStartupEvent:  {evt.MissedEvent.GetType()}");
-            dynamic param = evt.MissedEvent;
-
-            HandleEvent(param);
-        }
-
-        /// <summary>
-        ///     This is to handle missed events not handled by MessageOverlayViewModel.
-        /// </summary>
-        /// <param name="evt"></param>
-        // ReSharper disable once UnusedParameter.Local
-        private static void HandleEvent(IEvent evt)
-        {
-            // no implementation intentionally
         }
     }
 }

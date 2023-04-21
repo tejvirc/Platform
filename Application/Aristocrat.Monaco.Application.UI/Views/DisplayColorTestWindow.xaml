@@ -47,8 +47,8 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Orientation="Horizontal" Name="ControlsPanel" Background="{StaticResource Brush1}">
-            <ComboBox Margin="100 10 10 10" ItemsSource="{Binding ColorTests}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTest}" SelectedIndex="0"></ComboBox>
-            <Button Padding="10 0 10 0" Margin="10"  Content="{lex:Loc ExitText}" Click="OnExitButtonPressed"/>
+            <ComboBox Margin="100 10 10 10" ItemsSource="{Binding ColorTests}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTest}" SelectedIndex="0" Name="ColorTestsComboBox"/>
+            <Button Padding="10 0 10 0" Margin="10" Name="ExitButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Click="OnExitButtonPressed"/>
         </StackPanel>
     </Grid>
 </common:BaseWindow>

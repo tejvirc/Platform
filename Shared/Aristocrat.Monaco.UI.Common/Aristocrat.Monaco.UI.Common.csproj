@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.UI.Common</AssemblyTitle>
-    <Configurations>Debug;Release;Retail</Configurations>
+    <Configurations>Debug;Release;Retail;DebugInspection;ReleaseInspection;RetailInspection</Configurations>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -21,6 +21,25 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
     <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
@@ -77,6 +96,12 @@
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" /> 
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition=" '$(PlatformStyle)' == 'Inspection' ">
+    <Exec Command="copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionMetroSkin.xaml&quot; &quot;$(ProjectDir)Skins\MetroSkin.xaml&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionReskin.xaml&quot; &quot;$(ProjectDir)Skins\Reskin.xaml&quot;" />
+  </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(PlatformStyle)' == 'Inspection' ">
+    <Exec Command="copy /Y &quot;$(ProjectDir)Skins\Originals\MonacoMetroSkin.xaml&quot; &quot;$(ProjectDir)Skins\MetroSkin.xaml&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)Skins\Originals\MonacoReskin.xaml&quot; &quot;$(ProjectDir)Skins\Reskin.xaml&quot;" />
+  </Target>
 </Project>

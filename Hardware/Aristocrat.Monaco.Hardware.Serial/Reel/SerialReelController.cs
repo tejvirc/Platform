@@ -7,7 +7,7 @@
     using System.Threading;
     using Contracts.Gds;
     using Contracts.Gds.Reel;
-    using Contracts.Reel;
+    using Contracts.Reel.ControlData;
     using Protocols;
     using HomeReel = Contracts.Gds.Reel.HomeReel;
     using Nudge = Contracts.Gds.Reel.Nudge;

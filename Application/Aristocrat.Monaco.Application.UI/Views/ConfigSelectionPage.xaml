@@ -15,6 +15,7 @@
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                FocusManager.FocusedElement="{Binding ElementName=NextButton}"
@@ -93,7 +94,7 @@
                 <views:InspectionIdControl HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <Button Grid.Column="2"
                         Name="BackButton" Command="{Binding BackButtonClicked}"
-                        Content="{lex:Loc BackText}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
                         IsEnabled="{Binding CanNavigateBackward}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
@@ -101,7 +102,6 @@
                         Name="NextButton" Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
-                        IsEnabled="{Binding CanNavigateForward}"
                         Margin="0" controls:ControlsHelper.CornerRadius="3" />
             </Grid>
         </Grid>

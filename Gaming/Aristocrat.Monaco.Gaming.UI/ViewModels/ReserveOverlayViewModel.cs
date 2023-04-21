@@ -7,9 +7,9 @@
     using System.Threading;
     using System.Windows.Input;
     using Application.Contracts;
+    using Application.Contracts.Input;
     using Application.Contracts.OperatorMenu;
     using Contracts;
-    using Hardware.Contracts;
     using Kernel;
     using log4net;
     using MVVM.Command;

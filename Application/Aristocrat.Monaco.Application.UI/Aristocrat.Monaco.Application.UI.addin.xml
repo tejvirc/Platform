@@ -61,6 +61,10 @@
     <Service type="Aristocrat.Monaco.Application.UI.Input.SerialTouchCalibrationService" />
   </Extension>
 
+  <Extension path="/Application/Keyboard">
+    <Keyboard type="Aristocrat.Monaco.Application.UI.Input.OnScreenKeyboardService" />
+  </Extension>
+
   <Extension path="/Application/Services">
     <Service type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuConfigurationService" />
     <Service type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuAccessService" />
@@ -71,6 +75,10 @@
     <Settings type="Aristocrat.Monaco.Application.UI.Settings.ApplicationConfigurationSettings" />
     <Settings type="Aristocrat.Monaco.Application.UI.Settings.EdgeLightingConfigurationSettings" />
   </Extension>
+
+  <ExtensionPoint path = "/Application/Keyboard">
+    <ExtensionNode name="Keyboard"/>
+  </ExtensionPoint>
 
   <ExtensionPoint path = "/Application/Config/Wizards">
     <ExtensionNode name="Wizard" type="Aristocrat.Monaco.Application.UI.ConfigWizard.WizardConfigTypeExtensionNode"/>

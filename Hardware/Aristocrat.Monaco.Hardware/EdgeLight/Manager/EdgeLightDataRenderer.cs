@@ -18,7 +18,7 @@
             _edgeLightManager = edgeLightManager;
             _mappings = new StripCloningHandler(_edgeLightManager);
             _edgeLightData = _edgeLightData ?? new EdgeLightData();
-            _edgeLightData.SetStrips(_edgeLightManager.LogicalStrips);
+            _edgeLightData.SetStrips(_edgeLightManager.ExternalLogicalStrips);
         }
 
         public void Update()
@@ -34,7 +34,7 @@
                 return;
             }
 
-            var logicalStrips = _edgeLightManager.LogicalStrips;
+            var logicalStrips = _edgeLightManager.ExternalLogicalStrips;
             var commonStrips = gameData.ControlledStrips.Intersect(logicalStrips.Select(x => x.StripId));
             var gameStripData = commonStrips.Select(
                 x => (Id: x,

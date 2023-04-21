@@ -416,6 +416,20 @@
                     (object)displayLightingPage.Enabled,
                     ApplicationConstants.DisplayLightingPage,
                     false));
+		}
+		
+        private void InitializeKeyboardProviderProperties(FeaturesKeyboardProvider[] features, CabinetType cabinetType)
+        {
+            var keyboardProvider =
+                features.FirstOrDefault(x => Regex.IsMatch(cabinetType.ToString(), x.CabinetTypeRegex)) ??
+                new FeaturesKeyboardProvider();
+
+            _properties.Add(
+                ApplicationConstants.KeyboardProvider,
+                Tuple.Create(
+                    (object)keyboardProvider.KeyboardProviderType,
+                    ApplicationConstants.KeyboardProvider,
+                    false));
         }
 
         private void SetCabinetConfiguration()
@@ -478,6 +492,10 @@
             if (cabinetFeatures.DisplayLightingPage != null)
             {
                 InitializeDisplayEdgeLightingPageProperties(cabinetFeatures.DisplayLightingPage, cabinetType);
+			}
+            if (cabinetFeatures.KeyboardProvider != null)
+            {
+                InitializeKeyboardProviderProperties(cabinetFeatures.KeyboardProvider, cabinetType);
             }
         }
 

@@ -534,12 +534,6 @@
             Assert.AreEqual(PrinterEventsDescriptor.FaultTexts[PrinterFaultTypes.ChassisOpen], _target.StatusText);
             _accessor.ClearFault(new HardwareFaultClearEvent(PrinterFaultTypes.ChassisOpen));
             Assert.AreEqual(string.Empty, _target.StatusText);
-
-            _target.StatusText = string.Empty;
-            _accessor.ErrorEvent(new TransferStatusEvent());
-            Assert.AreEqual("Printer Transfer Status Error", _target.StatusText);
-            _accessor.ErrorClearEvent(new LoadingRegionsAndTemplatesEvent());
-            Assert.AreEqual(string.Empty, _target.StatusText);
         }
 
         [TestMethod]
@@ -851,8 +845,6 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<ResolverErrorEvent>>()))
                 .Verifiable();
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<PrintButtonClickedEvent>>()))
-                .Verifiable();
-            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<TransferStatusEvent>>()))
                 .Verifiable();
             _eventBus.Setup(
                     m => m.Subscribe(

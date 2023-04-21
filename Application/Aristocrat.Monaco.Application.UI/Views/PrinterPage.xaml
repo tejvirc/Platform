@@ -264,7 +264,8 @@
                 <Button Content="{lex:Loc PrintDiagnosticButton}" 
                         Command="{Binding PrintDiagnosticButtonCommand}"
                         IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc SelfTestLabel}" 
+                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}" 
+                        Name="SelfTestButton"
                         Command="{Binding SelfTestButtonCommand}"
                         Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         IsEnabled="{Binding PrinterButtonsEnabled}" />
@@ -272,7 +273,8 @@
                         Command="{Binding SelfTestClearButtonCommand}"
                         Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                         IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc PrintTestTicket}" 
+                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintTestTicket}}" 
+                        Name="PrintTestTicketButton"
                         Command="{Binding PrintTestTicketCommand}">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">

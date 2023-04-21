@@ -1,10 +1,12 @@
 namespace Aristocrat.Bingo.Client
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using Configuration;
+    using Extensions;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
     using Grpc.Net.Client;
@@ -36,6 +38,7 @@ namespace Aristocrat.Bingo.Client
                                         throw new ArgumentNullException(nameof(communicationInterceptor));
 
             _communicationInterceptor.MessageReceived += OnMessageReceived;
+            _communicationInterceptor.AuthorizationFailed += OnAuthorizationFailed;
         }
 
         public event EventHandler<ConnectedEventArgs> Connected;
@@ -66,16 +69,17 @@ namespace Aristocrat.Bingo.Client
 
         public bool IsConnected => StateIsConnected(_channel?.State);
 
-        public ClientConfigurationOptions Configuration => _configurationProvider.Configuration;
-
         public async Task<bool> Start()
         {
             try
             {
                 await Stop().ConfigureAwait(false);
-                var configuration = _configurationProvider.Configuration;
-                var channelOptions = new GrpcChannelOptions(); // TODO Add GRPC Logging for debugging purposes
-                _channel = GrpcChannel.ForAddress(configuration.Address, channelOptions);
+                using var configuration = _configurationProvider.CreateConfiguration();
+                var credentials = configuration.Certificates.Any()
+                    ? new SslCredentials(
+                        string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
+                    : ChannelCredentials.Insecure;
+                _channel = GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions() { Credentials = credentials });
                 var callInvoker = _channel.Intercept(_communicationInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
@@ -146,9 +150,7 @@ namespace Aristocrat.Bingo.Client
             if (disposing)
             {
                 _communicationInterceptor.MessageReceived -= OnMessageReceived;
-                Stop().ContinueWith(
-                    _ => Logger.Error("Stopping client failed while disposing"),
-                    TaskContinuationOptions.OnlyOnFaulted);
+                Stop().RunAndForget();
             }
 
             _disposed = true;
@@ -160,15 +162,10 @@ namespace Aristocrat.Bingo.Client
                 ConnectivityState.TransientFailure or
                 ConnectivityState.Connecting;
 
-        private void OnMessageReceived(object sender, EventArgs e)
-        {
-            MessageReceived?.Invoke(this, EventArgs.Empty);
-        }
-
         private void MonitorConnection()
         {
             Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
-                async _ =>
+                async e =>
                 {
                     Logger.Error("Monitor Connection Failed Forcing a disconnect");
                     await Stop();
@@ -200,6 +197,16 @@ namespace Aristocrat.Bingo.Client
             }
 
             return channel.State;
+        }
+
+        private void OnMessageReceived(object sender, EventArgs e)
+        {
+            MessageReceived?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnAuthorizationFailed(object sender, EventArgs e)
+        {
+            Stop().RunAndForget();
         }
 
         private async Task MonitorConnectionAsync(GrpcChannel channel)

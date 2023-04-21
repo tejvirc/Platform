@@ -37,20 +37,20 @@
             var configurations = gameConfigurations.ToList();
             foreach (var gameConfiguration in GetGameConfigurations(configurations))
             {
-                var gameDetails = InstallGame(gameConfiguration);
-                _gameProvider.SetActiveDenominations(gameDetails.Id, configurations.Select(x => x.Denomination.CentsToMillicents()).ToList());
-                foreach (var (gameDetail, setting) in gameConfiguration)
+                var installedGameDetails = InstallGame(gameConfiguration);
+                _gameProvider.SetActiveDenominations(installedGameDetails.Id, configurations.Select(x => x.Denomination.CentsToMillicents()).ToList());
+                foreach (var (gameDetails, settings) in gameConfiguration)
                 {
-                    yield return setting.ToGameConfiguration(gameDetail);
+                    yield return settings.ToGameConfiguration(installedGameDetails);
                 }
             }
         }
 
         public IEnumerable<BingoGameConfiguration> UpdateConfiguration(IEnumerable<ServerGameConfiguration> gameConfigurations)
         {
-            foreach (var (gameDetail, setting) in GetGameConfigurations(gameConfigurations).SelectMany(x => x))
+            foreach (var (gameDetails, settings) in GetGameConfigurations(gameConfigurations).SelectMany(x => x))
             {
-                yield return setting.ToGameConfiguration(gameDetail);
+                yield return settings.ToGameConfiguration(gameDetails);
             }
         }
 
@@ -63,10 +63,10 @@
                         GameDetails: gameDetails.FirstOrDefault(
                             d => d.GetBingoTitleId() == c.GameTitleId.ToString() && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
                         Settings: c))
-                .GroupBy(x => x.GameDetails?.Id ?? -1);
+                .GroupBy(x => x.GameDetails.ThemeId);
             return serverGameConfigurations.Any() &&
                    serverGameConfigurations.All(IsHelpUriValid) &&
-                   gameConfigurations.All(x => x.Key != -1 && IsConfigurationValid(x.ToList()));
+                   gameConfigurations.All(x => !string.IsNullOrEmpty(x.Key) && IsConfigurationValid(x.ToList()));
         }
 
         private static bool IsHelpUriValid(ServerGameConfiguration configuration)
@@ -117,31 +117,30 @@
                 };
             }
 
-            var gameDetail = _serverPaytableInstaller.InstallGame(gameConfiguration.Key.Id, gameOptionConfigValues);
-
-            if (gameDetail is null)
+            var installedGameDetails = _serverPaytableInstaller.InstallGame(gameConfiguration.Key.Id, gameOptionConfigValues);
+            if (installedGameDetails is null)
             {
                 throw new ConfigurationException(
                     "Game was unable to be installed",
                     ConfigurationFailureReason.InvalidGameConfiguration);
             }
 
-            return gameDetails;
+            return installedGameDetails;
         }
 
         private bool IsConfigurationValid(IReadOnlyCollection<(IGameDetail GameDetails, ServerGameConfiguration Settings)> configurations)
         {
-            var (gameDetail, setting) = configurations.First();
+            var (gameDetails, settings) = configurations.First();
             var denoms = configurations.Select(c => c.Settings).ToList();
-            var restrictions = _restrictionProvider.GetByThemeId(gameDetail.ThemeId).Select(x => x.RestrictionDetails).Where(
+            var restrictions = _restrictionProvider.GetByThemeId(gameDetails.ThemeId).Select(x => x.RestrictionDetails).Where(
                 x => x.MaxDenomsEnabled is not null || x.Mapping.Any(m => m.Active)).ToList();
             var validRestrictions = restrictions.Count == 0 || restrictions.Any(
                 x => x.MaxDenomsEnabled is not null && x.MaxDenomsEnabled >= denoms.Count ||
                      x.Mapping.Count(m => m.Active) == denoms.Count && x.Mapping.All(
                          m => m.Active && denoms.Any(d => d.Denomination.CentsToMillicents() == m.Denomination)));
-            var wagerCategoryCount = gameDetail.WagerCategories.Count();
+            var wagerCategoryCount = gameDetails.WagerCategories.Count();
             var wagerCategoriesMatch =
-                wagerCategoryCount <= 1 || wagerCategoryCount == setting.BetInformationDetails.Count;
+                wagerCategoryCount <= 1 || wagerCategoryCount == settings.BetInformationDetails.Count;
 
             Logger.Info($"WagerCategories Match {wagerCategoriesMatch}.  ValidRestrictions={validRestrictions}");
             return validRestrictions && wagerCategoriesMatch;

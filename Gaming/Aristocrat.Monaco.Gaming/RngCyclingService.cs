@@ -4,6 +4,7 @@
     using Aristocrat.Monaco.Gaming.Runtime.Server;
     using Contracts;
     using Kernel;
+    using Aristocrat.CryptoRng;
     using System;
     using System.Timers;
 
@@ -12,14 +13,14 @@
     ///     player somehow knew the internal state of the RNG, it is harder to tell what number
     ///     will be used for the next game outcome.
     /// </summary>
-    public class RngCyclingService : IDisposable
+    public sealed class RngCyclingService : IDisposable
     {
         // Maximum of 5 times per second, minimum of 1 time per second.
         private const double MinimumCycleTimeMs = 200.0;
         private const int MaximumExtraCycleTimeMs = 800;
 
         private readonly IPropertiesManager _properties;
-        private readonly IGameServiceCallback _gameSession;
+        private readonly IRandom _prng;
 
         private Timer _cycleTimer;
         private bool _disposed;
@@ -29,18 +30,16 @@
         ///     to get random numbers for game outcomes.
         /// </summary>
         /// <param name="properties">The property manager, for settings.</param>
-        /// <param name="gameSession">The SnappService instance, for the RNG.</param>
-        public RngCyclingService(IPropertiesManager properties,
-                                 SnappService gameSession)
+        /// <param name="randomFactory">The random factory</param>
+        public RngCyclingService(IPropertiesManager properties, IRandomFactory randomFactory)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
-            _gameSession = gameSession ?? throw new ArgumentNullException(nameof(gameSession));
+            _prng = randomFactory?.Create(RandomType.Gaming) ?? throw new ArgumentNullException(nameof(randomFactory));
         }
 
         private void CycleTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
-            var req = new GetRandomNumber64Request() { Range = MaximumExtraCycleTimeMs };
-            _cycleTimer.Interval = _gameSession.GetRandomNumber64(req).Value + MinimumCycleTimeMs;
+            _cycleTimer.Interval = _prng.GetValue(MaximumExtraCycleTimeMs) + MinimumCycleTimeMs;
         }
 
         /// <summary>
@@ -49,12 +48,14 @@
         /// </summary>
         public void StartCycling()
         {
-            if (_properties.GetValue(GamingConstants.UseRngCycling, false))
+            if (!_properties.GetValue(GamingConstants.UseRngCycling, false))
             {
-                _cycleTimer = new Timer(MinimumCycleTimeMs + MaximumExtraCycleTimeMs);
-                _cycleTimer.Elapsed += CycleTimerOnElapsed;
-                _cycleTimer.Start();
+                return;
             }
+
+            _cycleTimer = new Timer(MinimumCycleTimeMs + MaximumExtraCycleTimeMs);
+            _cycleTimer.Elapsed += CycleTimerOnElapsed;
+            _cycleTimer.Start();
         }
 
         /// <summary>
@@ -68,27 +69,19 @@
         /// <inheritdoc />
         public void Dispose()
         {
-            Dispose(true);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
             if (_disposed)
             {
-                return; 
+                return;
             }
 
-            if (disposing)
-            {
-                // ReSharper disable once UseNullPropagation
-                if (_cycleTimer != null)
-                {
-                    _cycleTimer.Stop();
-                    _cycleTimer.Dispose();
-                }
-            }
-
+            var cycleTimer = _cycleTimer;
             _cycleTimer = null;
+            if (cycleTimer != null)
+            {
+                cycleTimer.Stop();
+                cycleTimer.Elapsed -= CycleTimerOnElapsed;
+                cycleTimer.Dispose();
+            }
 
             _disposed = true;
         }

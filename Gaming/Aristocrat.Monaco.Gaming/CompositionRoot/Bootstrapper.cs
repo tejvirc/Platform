@@ -72,7 +72,7 @@
                 {
                     Lifestyle.Singleton.CreateRegistration(typeof(SnappServer), container),
                 });
-            
+
             container.Register<IGameService, GameService>(Lifestyle.Singleton);
             container.Register<IGameProcess, GameProcess>(Lifestyle.Singleton);
             container.Register<IProcessManager, GameProcessManager>(Lifestyle.Singleton);

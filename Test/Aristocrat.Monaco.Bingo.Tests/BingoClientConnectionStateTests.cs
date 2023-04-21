@@ -23,6 +23,7 @@
         private readonly Mock<IClient> _client = new(MockBehavior.Default);
         private readonly Mock<ICommandHandlerFactory> _commandFactory = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
+        private readonly Mock<IClientConfigurationProvider> _configurationProvider = new(MockBehavior.Default);
 
         // This will point to the HandleRestartingEvent function due to reconnection
         private Func<ForceReconnectionEvent, CancellationToken, Task> _handleForceReconnectionEvent;
@@ -32,7 +33,11 @@
         {
             var uriBuilder = new UriBuilder { Host = "localhost", Port = 5000 };
             _client.Setup(m => m.Start()).Returns(Task.FromResult(true));
-            _client.SetupGet(m => m.Configuration).Returns(new ClientConfigurationOptions(uriBuilder.Uri, TimeSpan.FromSeconds(2), Enumerable.Empty<X509Certificate2>()));
+            _configurationProvider.Setup(m => m.CreateConfiguration()).Returns(
+                new ClientConfigurationOptions(
+                    uriBuilder.Uri,
+                    TimeSpan.FromSeconds(2),
+                    Enumerable.Empty<X509Certificate2>()));
 
             _eventBus.Setup(
                     x => x.Subscribe(
@@ -49,7 +54,8 @@
                 _eventBus.Object,
                 _client.Object,
                 _commandFactory.Object,
-                _systemDisableManager.Object);
+                _systemDisableManager.Object,
+                _configurationProvider.Object);
         }
 
         [TestCleanup]
@@ -59,23 +65,26 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, DisplayName = "EventBus null")]
-        [DataRow(false, true, false, false, DisplayName = "Client null")]
-        [DataRow(false, false, true, false, DisplayName = "CommandFactory null")]
-        [DataRow(false, false, false, true, DisplayName = "SystemDisableManager null")]
+        [DataRow(true, false, false, false, false, DisplayName = "EventBus null")]
+        [DataRow(false, true, false, false, false, DisplayName = "Client null")]
+        [DataRow(false, false, true, false, false, DisplayName = "CommandFactory null")]
+        [DataRow(false, false, false, true, false, DisplayName = "SystemDisableManager null")]
+        [DataRow(false, false, false, false, true, DisplayName = "ConfigurationProvider null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
             bool eventBusNull,
             bool clientNull,
             bool commandFactoryNull,
-            bool systemDisableManagerNull)
+            bool systemDisableManagerNull,
+            bool configurationNull)
         {
             _target = new BingoClientConnectionState(
                 eventBusNull ? null : _eventBus.Object,
                 clientNull ? null : _client.Object,
                 commandFactoryNull ? null : _commandFactory.Object,
-                systemDisableManagerNull ? null : _systemDisableManager.Object);
+                systemDisableManagerNull ? null : _systemDisableManager.Object,
+                configurationNull ? null : _configurationProvider.Object);
         }
 
         [TestMethod]

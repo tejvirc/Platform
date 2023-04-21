@@ -51,15 +51,15 @@
                     <Label Content="{lex:Loc MechanicalReels_StepText}" Margin="5 0 0 0"/>
                 </StackPanel>
 
-                <Button Grid.Row="2" Grid.Column="0"
-                        Content="{lex:Loc SpinButton}" 
+                <Button Grid.Row="2" Grid.Column="0" Name="SpinButton"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SpinButton}}" 
                         Command="{Binding SpinCommand}"
                         IsEnabled="{Binding SpinEnabled}"
                         Height="50"
                         Width="150" />
 
-                <Button Grid.Row="3" Grid.Column="0"
-                        Content="{lex:Loc NudgeButton}" 
+                <Button Grid.Row="3" Grid.Column="0" Name="NudgeButton"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.NudgeButton}}" 
                         Command="{Binding NudgeCommand}"
                         IsEnabled="{Binding NudgeEnabled}"
                         Height="50"
@@ -232,8 +232,8 @@
                 </ItemsControl>
             </Grid>
         </Border>
-        <Button Content="{lex:Loc HomeButton}"
-                Command="{Binding HomeCommand}"
+        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HomeButton}}"
+                Command="{Binding HomeCommand}" Name="HomeButton"
                 IsEnabled="{Binding HomeEnabled}"
                 HorizontalAlignment="Left"
                 Margin="5 10 0 0"

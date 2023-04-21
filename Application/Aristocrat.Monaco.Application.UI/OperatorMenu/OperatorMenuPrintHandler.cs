@@ -52,8 +52,7 @@
             { PrinterFaultTypes.PrintHeadOpen.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterOpenText) },
             { typeof(InspectionFailedEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText) },
             { typeof(ResolverErrorEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ResolverErrorText) },
-            { typeof(DisconnectedEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflineText) },
-            { typeof(TransferStatusEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TransferStatusErrorText) }
+            { typeof(DisconnectedEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflineText) }
         };
 
         private const int PrintDelay = 1000;

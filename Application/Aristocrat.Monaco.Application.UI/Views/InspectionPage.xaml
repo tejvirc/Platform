@@ -84,6 +84,8 @@
                   Margin="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -92,33 +94,68 @@
 
                 <views:InspectionIdControl HorizontalAlignment="Left" 
                                            VerticalAlignment="Center" />
-                <TextBlock Grid.Column="1"
+                <Button Grid.Column="1"
+                        Name="ReportButton" Command="{Binding ReportButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
+                        Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                <Button Grid.Column="1" 
+                        Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                        Width="90" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
+                        Command="{Binding PrintButtonCommand}"
+                        Style="{StaticResource MonacoButton1}">
+                    <Grid>
+                        <iconPacks:PackIconFontAwesome Kind="Print" Width="25" Height="25"/>
+                    </Grid>
+                </Button>
+                <TextBlock Grid.Column="2"
+                           Text="{Binding TestNameText, UpdateSourceTrigger=PropertyChanged}"
+                           Foreground="SkyBlue"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3"
                            Text="{Binding ReportText, UpdateSourceTrigger=PropertyChanged}"
-                           Foreground="{Binding ReportBrush}"
                            Margin="20 0"
                            HorizontalAlignment="Right"
-                           VerticalAlignment="Center"/>
-                <Button Grid.Column="2"
+                           VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" 
+                               BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Untested">
+                                    <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Good">
+                                    <Setter Property="Foreground" Value="{DynamicResource GreenBrush}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Bad">
+                                    <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Button Grid.Column="4"
                         Name="ClearConfigButton" Command="{Binding ClearConfigButtonClicked}"
                         Content="{lex:Loc ClearConfig}"
                         Visibility="{Binding IsClearConfigVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="2"
-                        Name="ReportButton" Command="{Binding ReportButtonClicked}"
-                        Content="{lex:Loc ReportFailure}"
+                <Button Grid.Column="4"
+                        Name="AutoTestButton" Command="{Binding AutoTestButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.AutoTest}}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="3"
+                <Button Grid.Column="5"
                         Name="BackButton" Command="{Binding BackButtonClicked}"
-                        Content="{lex:Loc BackText}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
                         IsEnabled="{Binding CanNavigateBackward}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="4"
+                <Button Grid.Column="6"
                         Name="NextButton" Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
-                        IsEnabled="{Binding CanNavigateForward}"
                         Margin="0" controls:ControlsHelper.CornerRadius="3" />
             </Grid>
         </Grid>
