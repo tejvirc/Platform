@@ -185,7 +185,6 @@
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMaximumReturnToPlayer, It.IsAny<int>())).Returns(int.MaxValue);
             _properties.Setup(p => p.GetProperty(AccountingConstants.MaxBetLimit, It.IsAny<long>())).Returns(AccountingConstants.DefaultMaxBetLimit);
             _properties.Setup(p => p.GetProperty(GamingConstants.ServerControlledPaytables, It.IsAny<bool>())).Returns(false);
-            _properties.Setup(p => p.GetProperty(GamingConstants.MaximumGameRoundWinAmount, It.IsAny<long>())).Returns(1000000L);
         }
 
         private void SetupStorage()

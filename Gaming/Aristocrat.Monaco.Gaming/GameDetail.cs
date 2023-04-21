@@ -48,7 +48,7 @@
 
         public int MinimumWagerCredits => WagerCategories.Min(c => c.MinWagerCredits ?? 1);
 
-        public long MaximumWinAmount { get; set; }
+        public long MaximumWinAmount => WagerCategories.Max(c => c.MaxWinAmount);
 
         public bool CentralAllowed { get; set; }
 
