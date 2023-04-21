@@ -7,6 +7,7 @@
 
 
     /// <summary>
+    ///     Returns a List of progressive level Id's for Mystery levels that have been won.
     ///     Command handler for the <see cref="CheckMysteryJackpot" /> command.
     /// </summary>
     public class CheckMysteryJackpotCommandHandler : ICommandHandler<CheckMysteryJackpot>
