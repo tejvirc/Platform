@@ -884,6 +884,31 @@
         public const string ButtonLayoutBetButtonsOnBottom = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsOnBottom";
 
         /// <summary>
+        ///     Property Key for Button layout : Bet Down button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetDown = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetDown";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Up button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetUp = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetUp";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Max button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetMax = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetMax";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlay = @"ButtonLayoutOptions.PhysicalButtons.LeftPlay";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button optional
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlayOptional = @"ButtonLayoutOptions.PhysicalButtons.LeftPlayOptional";
+
+        /// <summary>
         ///     Property Key for Physical button layout for Collect button
         /// </summary>
         public const string ButtonLayoutPhysicalButtonCollect = @"ButtonLayoutOptions.PhysicalButtons.Collect";

@@ -54,6 +54,8 @@ as follows:
     </RestrictedGameTypes>
   </GameRestrictions>
   <PhysicalButtons>
+    <BetButtons BetDown="true" BetUp="true" BetMax="true" />
+    <LeftPlayButton Required="true" />
     <GameStartButtons Method="None" />
   </PhysicalButtons>
 </GamingConfiguration>

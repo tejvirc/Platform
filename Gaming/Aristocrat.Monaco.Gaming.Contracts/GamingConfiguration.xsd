@@ -306,6 +306,15 @@
               <xs:element minOccurs="0" maxOccurs="1" name="BetButtons">
                 <xs:complexType>
                   <xs:attribute name="DisplayOnBottom" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="BetDown" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="BetUp" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="BetMax" type="xs:string" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="LeftPlayButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
                 </xs:complexType>
               </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="CollectButton">
