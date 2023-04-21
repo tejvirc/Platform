@@ -32,10 +32,9 @@
         public void Handle(CheckMysteryJackpot command)
         {
             command.Results = _progressiveGame.GetActiveProgressiveLevels()
-                                              .Where(progressive => progressive.TriggerControl == TriggerType.Mystery)
-                                              .Where(level => _mysteryProgressiveProvider.CheckMysteryJackpot(level))
-                                              .Select(level => (uint)level.LevelId)
-                                              .ToList();
+                .Where(progressive => progressive.TriggerControl == TriggerType.Mystery)
+                .Where(level => _mysteryProgressiveProvider.CheckMysteryJackpot(level))
+                .Select(level => (uint)level.LevelId);
         }
     }
 }
