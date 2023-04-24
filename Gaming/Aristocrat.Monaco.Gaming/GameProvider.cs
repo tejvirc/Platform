@@ -1043,18 +1043,9 @@
             gameDetail.VariationId = game.VariationId;
             if (upgrade)
             {
-				// New RTP information (post-GDK 5.0)
-                if (gameDetail.HasExtendedRtpInformation)
-                {
-                    var totalRtp = _rtpService.GetTotalRtp(gameDetail);
-                    gameDetail.MaximumPaybackPercent = totalRtp.Maximum;
-                    gameDetail.MinimumPaybackPercent = totalRtp.Minimum;
-                }
-                else // Legacy RTP information (pre-GDK 5.0). This is for backwards compatibility only.
-                {
-                    gameDetail.MaximumPaybackPercent = game.MaxPaybackPercent;
-                    gameDetail.MinimumPaybackPercent = game.MinPaybackPercent;
-                }
+                var totalRtp = _rtpService.GetTotalRtp(gameDetail);
+                gameDetail.MaximumPaybackPercent = totalRtp.Maximum;
+                gameDetail.MinimumPaybackPercent = totalRtp.Minimum;
             }
 
             gameDetail.CentralAllowed = centralAllowed;

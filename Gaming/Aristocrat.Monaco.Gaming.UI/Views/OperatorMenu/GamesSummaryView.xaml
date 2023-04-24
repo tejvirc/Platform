@@ -77,7 +77,7 @@
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Width="30" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="#" Binding="{Binding Id}" />
 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}" Binding="{Binding ThemeName}"/>
 

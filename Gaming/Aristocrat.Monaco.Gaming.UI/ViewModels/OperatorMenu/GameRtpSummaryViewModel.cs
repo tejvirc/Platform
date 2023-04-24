@@ -65,7 +65,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public bool HasMoreThanOneGameType => GameTypeItems.Count > 1;
 
-        private decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games) => !games.Any() ? decimal.Zero : _rtpService.GetAverageRtp(games);
+        private decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games) => games.Any() ? _rtpService.GetAverageRtp(games) : decimal.Zero;
 
         private List<GameSummary> CreateGameSummaries(
             IReadOnlyCollection<IGameDetail> games,

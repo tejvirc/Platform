@@ -5,7 +5,7 @@
     using Localization.Properties;
 
     /// <summary>
-    ///     Definition of Rtp Range, expressed in actual percentages (e.g. 91.23)
+    ///     Definition of Rtp Range, expressed in actual percentages (e.g. 91.23945)
     /// </summary>
     [Serializable]
     public class RtpRange

@@ -27,118 +27,68 @@ namespace Aristocrat.Monaco.Gaming
             LoadRtpRules();
         }
 
-        public decimal GetAverageRtp(IEnumerable<IGameProfile> games)
+        public decimal GetAverageRtp(IGameProfile game)
         {
-            // TODO: Handle games without ExtendedRTP Info
+            var wagerCategoryRtpAverages = new List<decimal>();
 
-            var rtpValuesForGames = new List<decimal>();
-
-            foreach (var game in games)
+            foreach (var wagerCategory in game.WagerCategories)
             {
-                foreach (var wagerCategory in game.WagerCategories)
-                {
-                    var rtpBreakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
+                var wagerCategoryTotalRtp = GetRtpBreakdown(game.GameType, wagerCategory).TotalRtp;
 
-                    var averageGameRtp = (rtpBreakdown.TotalRtp.Minimum + rtpBreakdown.TotalRtp.Maximum) / 2.0m;
-
-                    rtpValuesForGames.Add(averageGameRtp);
-                }
+                wagerCategoryRtpAverages.Add((wagerCategoryTotalRtp.Minimum + wagerCategoryTotalRtp.Maximum) / 2.0m);
             }
 
-            var averageRtp = rtpValuesForGames.Average(rtp => rtp);
-
-            return averageRtp;
+            return wagerCategoryRtpAverages.Average();
         }
 
-        public RtpRange GetTotalRtp(IEnumerable<IGameProfile> games)
+        public decimal GetAverageRtp(IEnumerable<IGameProfile> games)
         {
-            // TODO: Handle games without ExtendedRTP Info
+            var rtpAveragesOfGames = games.Select(GetAverageRtp);
 
-            var totalRtp = new RtpRange();
+            var averageOfTheAverages = rtpAveragesOfGames.Average();
 
-            foreach (var game in games)
-            {
-                totalRtp.TotalWith(GetTotalRtp(game));
-            }
-
-            return totalRtp;
+            return averageOfTheAverages;
         }
 
         public RtpRange GetTotalRtp(IGameProfile game)
         {
-            if (!game.HasExtendedRtpInformation)
+            // New RTP information (GDK 5.0 and above)
+            if (game.HasExtendedRtpInformation)
             {
-                return new RtpRange(game.MinimumPaybackPercent, game.MaximumPaybackPercent);
+                var totalRtp = new RtpRange();
+
+                foreach (var wagerCategory in game.WagerCategories)
+                {
+                    var rtpBreakdown = GetRtpBreakdown(game.GameType, wagerCategory);
+
+                    totalRtp = totalRtp.TotalWith(rtpBreakdown.TotalRtp);
+                }
+
+                return totalRtp;
             }
 
-            var totalRtp = new RtpRange();
+            // Legacy RTP information (pre-GDK 5.0). This is for backwards compatibility only.
+            return new RtpRange(game.MinimumPaybackPercent, game.MaximumPaybackPercent);
+        }
 
-            foreach (var wagerCategory in game.WagerCategories)
+        public RtpRange GetTotalRtp(IEnumerable<IGameProfile> games)
+        {
+            var totalRtp = RtpRange.Zero;
+
+            foreach (var game in games)
             {
-                var rtpBreakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
-
-                totalRtp = totalRtp.TotalWith(rtpBreakdown.TotalRtp);
+                var rtp = GetTotalRtp(game);
+                totalRtp = totalRtp.TotalWith(rtp);
             }
 
             return totalRtp;
         }
 
-        public RtpBreakdown GetRtpBreakdown(IGameProfile game, string wagerCategoryId)
-        {
-            if (!game.HasExtendedRtpInformation)
-            {
-                throw new ArgumentException(
-                    $"Cannot get an RTP Breakdown for a game that has {nameof(game.HasExtendedRtpInformation)}=false", nameof(game));
-            }
-
-            var wagerCategory = game.WagerCategories.FirstOrDefault(w => w.Id.Equals(wagerCategoryId))
-                ?? throw new ArgumentException(nameof(wagerCategoryId), $"No WagerCategory exists with id={wagerCategoryId}");
-
-            var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
-
-            RunRtpValidation(breakdown, game.GameType);
-
-            return breakdown;
-        }
-
         public RtpBreakdown GetTotalRtpBreakdown(IGameProfile game)
         {
-            return game.HasExtendedRtpInformation ? game.WagerCategories
-                .Select(w => GetRtpBreakdown(game, w.Id))
-                .Aggregate((r1, r2) => r1.TotalWith(r2)) : null;
-        }
-
-        public RtpValidationReport ValidateMultipleGames(IEnumerable<IGameProfile> games)
-        {
-            // TODO: Handle games without ExtendedRTP Info
-            var validationDataForReport = new List<(IGameProfile game, RtpValidation validation)>();
-
-            foreach (var game in games)
-            {
-                var resultEntries = new List<(string wagerCategoryId, RtpValidationResult validationResult)>();
-
-                foreach (var wagerCategory in game.WagerCategories)
-                {
-                    var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
-
-                    RunRtpValidation(breakdown, game.GameType);
-
-                    resultEntries.Add((wagerCategory.Id, breakdown.ValidationResult));
-                }
-
-                var validation = new RtpValidation
-                {
-                    Game = game,
-                    IsValid = resultEntries.All(r => r.validationResult.IsValid),
-                    ValidationResults = resultEntries
-                };
-
-                validationDataForReport.Add((game, validation));
-            } // End foreach game
-
-            var validationReport = new RtpValidationReport(validationDataForReport.ToArray());
-
-            return validationReport;
+            return game.WagerCategories
+                .Select(w => GetWagerCategoryRtpBreakdown(game, w.Id))
+                .Aggregate((r1, r2) => r1.TotalWith(r2));
         }
 
         public RtpValidationReport ValidateGame(IGameProfile game)
@@ -149,7 +99,7 @@ namespace Aristocrat.Monaco.Gaming
 
             foreach (var wagerCategory in game.WagerCategories)
             {
-                var breakdown = CreateRtpBreakdown(game.GameType, wagerCategory);
+                var breakdown = GetRtpBreakdown(game.GameType, wagerCategory);
 
                 RunRtpValidation(breakdown, game.GameType);
 
@@ -174,9 +124,9 @@ namespace Aristocrat.Monaco.Gaming
         ///     Creates a custom RTP breakdown, based on jurisdictional RTP rules, which is used to seed the final RTP calculation.
         /// </summary>
         /// <param name="gameType">Type of the game.</param>
-        /// <param name="wagerCategory">The wager category used to populate the <see cref="RtpBreakdown" />.</param>
+        /// <param name="wagerCategory">The wager category used to populate the <see cref="RtpBreakdown" /> fields.</param>
         /// <returns>An breakdown of RTP ranges, used in RTP calculation.</returns>
-        private RtpBreakdown CreateRtpBreakdown(GameType gameType, IWagerCategory wagerCategory)
+        private RtpBreakdown GetRtpBreakdown(GameType gameType, IWagerCategory wagerCategory)
         {
             return new RtpBreakdown
             {
@@ -194,6 +144,24 @@ namespace Aristocrat.Monaco.Gaming
                     ? new RtpRange(wagerCategory.MinLinkStartupRtpPercent, wagerCategory.MaxLinkStartupRtpPercent)
                     : RtpRange.Zero,
             };
+        }
+
+        private RtpBreakdown GetWagerCategoryRtpBreakdown(IGameProfile game, string wagerCategoryId)
+        {
+            if (!game.HasExtendedRtpInformation)
+            {
+                throw new ArgumentException(
+                    $"Cannot get an RTP Breakdown for a game that has {nameof(game.HasExtendedRtpInformation)}=false", nameof(game));
+            }
+
+            var wagerCategory = game.WagerCategories.FirstOrDefault(w => w.Id.Equals(wagerCategoryId))
+                                ?? throw new ArgumentException(nameof(wagerCategoryId), $"No WagerCategory exists with id={wagerCategoryId}");
+
+            var breakdown = GetRtpBreakdown(game.GameType, wagerCategory);
+
+            RunRtpValidation(breakdown, game.GameType);
+
+            return breakdown;
         }
 
         private void LoadRtpRules()
