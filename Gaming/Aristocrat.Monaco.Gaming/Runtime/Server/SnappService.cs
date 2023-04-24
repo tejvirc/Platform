@@ -1,24 +1,24 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
-    using GdkRuntime.V1;
     using Client;
     using Commands;
     using Contracts;
     using Contracts.Central;
     using Contracts.Process;
+    using GdkRuntime.V1;
     using Kernel;
     using log4net;
-    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using EventTypes = GdkRuntime.V1.RuntimeEventNotification.Types.RuntimeEvent;
+    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using LocalStorage = GdkRuntime.V1.LocalStorage;
-    using Outcome = Contracts.Central.Outcome;
 
     /// <summary>
     ///     Contains the methods to communicate with the Runtime using the Snapp protocol
@@ -38,6 +38,7 @@
         private readonly ICommandHandler<GetRandomNumber> _getRandomNumber;
         private readonly ICommandHandler<Shuffle> _shuffle;
         private readonly ActionBlock<ButtonStateChanged> _buttonStateChangedProcessor;
+        private readonly ConcurrentDictionary<int, SubgameBetOptions> _subGameBetOptions = new ();
 
         public SnappService(
             IEventBus bus,
@@ -279,6 +280,7 @@
             Logger.Debug($"BeginGameRoundAsync({request})");
 
             OutcomeRequest outcomeRequest = null;
+            var additionalInfo = new List<IAdditionalGamePlayInfo>();
 
             if (request.OutcomeRequest?.Is(CentralOutcome.Descriptor) ?? false)
             {
@@ -292,7 +294,6 @@
             else if (request.OutcomeRequest?.Is(MultiGameCentralOutcome.Descriptor) ?? false)
             {
                 var outcomes = request.OutcomeRequest.Unpack<MultiGameCentralOutcome>();
-                var additionalInfo = new List<IAdditionalGamePlayInfo>();
                 foreach (var central in outcomes.Outcomes)
                 {
                     var currentRequest = new OutcomeRequest((int)central.OutcomeCount, (int)central.TemplateId, (int)central.GameId, additionalInfo);
@@ -303,9 +304,15 @@
                     }
                     else
                     {
+                        if (!_subGameBetOptions.TryGetValue((int)central.GameId, out var subGameBetOptions))
+                        {
+                            throw new KeyNotFoundException($"No sub game bet options for game id {(int)central.GameId}");
+                        }
+
                         // additional game requests
-                        // TODO: need to add wager amount and denomination information for additional games
-                        additionalInfo.Add(new AdditionalGamePlayInfo((int)central.GameId, 1, 1));
+                        additionalInfo.Add(new AdditionalGamePlayInfo((int)central.GameIndex, (long)subGameBetOptions.Denomination, (long)subGameBetOptions.Wager));
+
+                        Logger.Debug($"Added additionalInfo gameIndex={(int)central.GameIndex}, denom={subGameBetOptions.Denomination}, wagerAmount={subGameBetOptions.Wager}");
                     }
                 }
             }
@@ -322,7 +329,7 @@
                     request.Data.ToByteArray(),
                     outcomeRequest,
                     (int)request.WagerCategoryId,
-                    Enumerable.Empty<IAdditionalGamePlayInfo>());
+                    additionalInfo);
 
                 // This will be run asynchronously from this method only
                 _handlerFactory.Create<BeginGameRoundAsync>().Handle(command);
@@ -697,6 +704,13 @@
         public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)
         {
             Logger.Debug($"Update Bet Line option with wager : {request.Wager}");
+
+            // Store bet details for each game id
+            foreach (var gameDetails in request.GamesDetails)
+            {
+                var subGameBetOptions = gameDetails.Unpack<SubgameBetOptions>();
+                _subGameBetOptions.AddOrUpdate((int)subGameBetOptions.GameId, subGameBetOptions, (_,_) => subGameBetOptions);
+            }
 
             var betOptions = new UpdateBetOptions(
                 (long)request.Wager,

@@ -132,7 +132,7 @@
                 new CardPlayed[] { new(CardSerial, int.MaxValue, true) },
                 ballCall,
                 0);
-            var gameDetails = new GameOutcomeGameDetails(0, 123, 123, 1, "Test Paytable", gameSerial);
+            var gameDetails = new GameOutcomeGameDetails("0", 123, 123, 1, "Test Paytable", gameSerial);
             var winDetails = new GameOutcomeWinDetails(
                 winAmount,
                 string.Empty,
@@ -195,7 +195,7 @@
                 new CardPlayed[] { new(CardSerial, int.MaxValue, true) },
                 ballCall,
                 0);
-            var gameDetails = new GameOutcomeGameDetails(0, 123, 123, 1, "Test Paytable", gameSerial);
+            var gameDetails = new GameOutcomeGameDetails("0", 123, 123, 1, "Test Paytable", gameSerial);
             var winDetails = new GameOutcomeWinDetails(
                 winAmount,
                 string.Empty,
@@ -384,7 +384,7 @@
                 new CardPlayed[] { new(CardSerial, int.MaxValue, true) },
                 ballCall.ToList(),
                 0);
-            var gameDetails = new GameOutcomeGameDetails(0, 123, 123, 1, "Test Paytable", gameSerial);
+            var gameDetails = new GameOutcomeGameDetails("0", 123, 123, 1, "Test Paytable", gameSerial);
             var winDetails = new GameOutcomeWinDetails(
                 gewWinAmount,
                 string.Empty,

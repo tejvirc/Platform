@@ -34,7 +34,7 @@
         public async Task HandleTest(bool accepted, ResponseCode expectedCode)
         {
             var bingoDetails = new GameOutcomeBingoDetails(1, Array.Empty<CardPlayed>(), new[] { 23, 41, 55 }, 0);
-            var gameDetails = new GameOutcomeGameDetails(1, 123, 1234, 1000, "Test Paytable", 123456);
+            var gameDetails = new GameOutcomeGameDetails("1", 123, 1234, 1000, "Test Paytable", 123456);
             var winDetails = new GameOutcomeWinDetails(0, string.Empty, Array.Empty<WinResult>());
             var outcome = new GameOutcome(
                 ResponseCode.Ok,
