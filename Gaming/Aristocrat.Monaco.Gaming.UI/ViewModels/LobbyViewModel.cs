@@ -1505,6 +1505,7 @@
                                         && !IsIdleTextScrolling
                                         && !MessageOverlayDisplay.ShowVoucherNotification
                                         && !MessageOverlayDisplay.ShowProgressiveGameDisabledNotification
+                                        && !MessageOverlayDisplay.CustomMainViewElementVisible
                                         && !(_playerInfoDisplayManager?.IsActive()).GetValueOrDefault();
 
         public LobbyState CurrentState => _lobbyStateManager.CurrentState;
