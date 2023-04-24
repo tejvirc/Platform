@@ -1209,6 +1209,11 @@
         public const string DenomSelectionLobby = "GamingConfiguration.DenomSelectionLobby.Mode";
 
         /// <summary>
+        ///     Whether Autocomplete game round is enabled
+        /// </summary>
+        public const string AutocompleteGameRoundEnabled = @"AutocompleteGameRoundEnabled";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay

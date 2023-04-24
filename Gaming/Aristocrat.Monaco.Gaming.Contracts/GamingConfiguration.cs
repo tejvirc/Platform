@@ -124,6 +124,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationBonusTransfer bonusTransferField;
         
+        private GamingConfigurationAutoCompleteGameRound autoCompleteGameRoundField;
+        
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
             get {
@@ -621,6 +623,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.bonusTransferField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationAutoCompleteGameRound AutoCompleteGameRound {
+            get {
+                return this.autoCompleteGameRoundField;
+            }
+            set {
+                this.autoCompleteGameRoundField = value;
             }
         }
     }
@@ -3603,6 +3615,33 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.playSoundField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationAutoCompleteGameRound {
+        
+        private bool enabledField;
+        
+        public GamingConfigurationAutoCompleteGameRound() {
+            this.enabledField = true;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
             }
         }
     }
