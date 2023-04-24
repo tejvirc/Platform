@@ -637,6 +637,7 @@
                 description.JoinBallIndex = outcome.BingoDetails.JoinBallNumber;
             }
 
+            // TODO - Send daubs for multiple cards as dictionary keyed to game index
             _eventBus.Publish(new BingoGameBallCallEvent(ballCall, outcome.BingoDetails.CardsPlayed.First().BitPattern));
         }
 
