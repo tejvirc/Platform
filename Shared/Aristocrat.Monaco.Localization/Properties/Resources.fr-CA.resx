@@ -1919,6 +1919,9 @@ See manual for details??</value>
   <data name="AddSAPLevel" xml:space="preserve">
     <value>??Add Level??</value>
   </data>
+  <data name="AftLockMessage" xml:space="preserve">
+    <value>??Please Wait...??</value>
+  </data>
   <data name="AllGameTypes" xml:space="preserve">
     <value>??All??</value>
   </data>
@@ -2000,6 +2003,33 @@ See manual for details??</value>
   <data name="DaysFormatter" xml:space="preserve">
     <value>??{0} Days??</value>
   </data>
+  <data name="DemonstrationExitingMessage" xml:space="preserve">
+    <value>??Exiting from Demonstration Mode??</value>
+  </data>
+  <data name="DisabledByHost1" xml:space="preserve">
+    <value>??Shutdown/Lock Out Commanded (SAS Host 1)??</value>
+  </data>
+  <data name="DisabledByHost2" xml:space="preserve">
+    <value>??Shutdown/Lock Out Commanded (SAS Host 2)??</value>
+  </data>
+  <data name="DisabledHost1CommunicationsOffline" xml:space="preserve">
+    <value>??Communications Offline (SAS Host 1)??</value>
+  </data>
+  <data name="DisabledHost2CommunicationsOffline" xml:space="preserve">
+    <value>??Communications Offline (SAS Host 2)??</value>
+  </data>
+  <data name="DisabledMaintenanceMode" xml:space="preserve">
+    <value>??This Machine Is Out Of Order??</value>
+  </data>
+  <data name="DisabledProgressivesNotSupported" xml:space="preserve">
+    <value>??Progressives Not Supported/Full NVRAM Clear Needed??</value>
+  </data>
+  <data name="DisabledValidationIdNeeded" xml:space="preserve">
+    <value>??Validation Device Is Not Set??</value>
+  </data>
+  <data name="DisabledValidationQueueFull" xml:space="preserve">
+    <value>??The Machine's Validation Queue Is Full??</value>
+  </data>
   <data name="DocumentRejected" xml:space="preserve">
     <value>??Bill or Voucher Rejected??</value>
   </data>
@@ -2027,6 +2057,9 @@ See manual for details??</value>
   <data name="Game" xml:space="preserve">
     <value>??Game??</value>
   </data>
+  <data name="GameEndWinAward" xml:space="preserve">
+    <value>??Game-End Pattern Wins {0}!??</value>
+  </data>
   <data name="GameHistoryTitle" xml:space="preserve">
     <value>??Game History??</value>
   </data>
@@ -2041,6 +2074,9 @@ See manual for details??</value>
   </data>
   <data name="GamePerformanceMetersCaption" xml:space="preserve">
     <value>??Game Performance Meters??</value>
+  </data>
+  <data name="GamePlaySuspended" xml:space="preserve">
+    <value>??Game Play Suspended??</value>
   </data>
   <data name="GameRoundEventInfoText" xml:space="preserve">
     <value>??GAME ROUND EVENT INFO??</value>
@@ -2138,6 +2174,9 @@ See manual for details??</value>
   <data name="NeverExpires" xml:space="preserve">
     <value>??Never Expires??</value>
   </data>
+  <data name="NoBonusHost" xml:space="preserve">
+    <value>??Bonus host not available??</value>
+  </data>
   <data name="NonCashableHeader" xml:space="preserve">
     <value>??NON-CASHABLE??</value>
   </data>
@@ -2170,6 +2209,12 @@ See manual for details??</value>
   </data>
   <data name="PowerResetText" xml:space="preserve">
     <value>??Power Reset??</value>
+  </data>
+  <data name="PowerUpDisabledByHost1" xml:space="preserve">
+    <value>??PowerUp Disabled (SAS Host 1)??</value>
+  </data>
+  <data name="PowerUpDisabledByHost2" xml:space="preserve">
+    <value>??PowerUp Disabled (SAS Host 2)??</value>
   </data>
   <data name="PreviouslyActive" xml:space="preserve">
     <value>??Previously Active??</value>
