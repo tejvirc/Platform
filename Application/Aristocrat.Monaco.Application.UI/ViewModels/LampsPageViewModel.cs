@@ -56,17 +56,26 @@
 
             var towerLightConfig = ServiceManager.GetInstance().GetService<IConfigurationUtility>()
                 .GetConfiguration(TowerLightConfigPath, () => new TowerLightConfiguration());
-            var tiers = towerLightConfig.SignalDefinitions
-                .SelectMany(s => s.OperationalCondition
-                .SelectMany(c => c.DoorCondition
-                .SelectMany(d => d.Set
-                .Select(s => (LightTier)Enum.Parse(typeof(LightTier), s.lightTier)
-                )))).Distinct().ToList();
-            foreach (var tier in tiers)
+
+            if (towerLightConfig.SignalDefinitions != null)
             {
-                var state = _towerLight?.GetFlashState(tier);
-                var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
-                TowerLights.Add(lamp);
+                var tiers = towerLightConfig?.SignalDefinitions
+                    .SelectMany(
+                        s => s.OperationalCondition
+                            .SelectMany(
+                                c => c.DoorCondition
+                                    .SelectMany(
+                                        d => d.Set
+                                            .Select(
+                                                s => (LightTier)Enum.Parse(typeof(LightTier), s.lightTier)
+                                            )))).Distinct().ToList();
+
+                foreach (var tier in tiers)
+                {
+                    var state = _towerLight?.GetFlashState(tier);
+                    var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
+                    TowerLights.Add(lamp);
+                }
             }
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
