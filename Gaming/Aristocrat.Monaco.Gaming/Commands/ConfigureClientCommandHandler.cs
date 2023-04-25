@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using Accounting.Contracts;
     using Application.Contracts;
@@ -20,6 +21,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using log4net;
     using Runtime;
     using Runtime.Client;
     using PlayMode = Contracts.PlayMode;
@@ -29,6 +31,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
     /// </summary>
     public class ConfigureClientCommandHandler : ICommandHandler<ConfigureClient>
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly IAudio _audio;
         private readonly IGameHistory _gameHistory;
         private readonly IGameRecovery _gameRecovery;
@@ -112,7 +116,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                         ContinuousPlayButton.MaxBet => "maxbet",
                         _ => "play"
                     });
-
+            
             var parameters = new Dictionary<string, string>
             {
                 { "/Runtime/Variation/SelectedID", currentGame.VariationId },
@@ -362,6 +366,14 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 {
                     parameters[parameter.Key] = parameter.Value;
                 }
+            }
+
+            var subGames = _gameProvider.GetEnabledSubGames(currentGame);
+            if (!subGames.IsNullOrEmpty())
+            {
+                var subGameConfiguration = subGames.Serialize();
+                Logger.Debug(subGameConfiguration);
+                parameters.Add("/Runtime/SimultaneousPlayGames", subGameConfiguration);
             }
 
             foreach (var displayDevice in _cabinetDetectionService.ExpectedDisplayDevices.Where(d => d.Role != DisplayRole.Unknown))

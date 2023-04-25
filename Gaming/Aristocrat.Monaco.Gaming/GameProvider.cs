@@ -59,6 +59,7 @@
         private const string GameFeaturesField = @"Game.Features";
         private const string GameMinimumPaybackPercentField = @"Game.MinimumPaybackPercent";
         private const string GameMaximumPaybackPercentField = @"Game.MaximumPaybackPercent";
+        private const string GameSubGameDetailsField = @"Game.SubGameDetails";
 
         private const string ProgressivesConfigFilename = @"progressives.xml";
 
@@ -167,7 +168,7 @@
                 return _games.Where(g => g.EgmEnabled && g.Enabled).ToList();
             }
         }
-
+        
         /// <inheritdoc />
         public IReadOnlyCollection<IGameDetail> GetAllGames()
         {
@@ -191,6 +192,14 @@
                         game.PaytableId,
                         denom.Value,
                         denom.BetOption)).ToList();
+            }
+        }
+
+        public IReadOnlyCollection<ISubGameDetails> GetEnabledSubGames(IGameDetail currentGame)
+        {
+            lock (_sync)
+            {
+                return currentGame.SupportedSubGames.ToList();
             }
         }
 
@@ -516,9 +525,9 @@
         /// <inheritdoc />
         public ICollection<KeyValuePair<string, object>> GetCollection => new List<KeyValuePair<string, object>>
         {
-            new KeyValuePair<string, object>(GamingConstants.Games, GetGames()),
-            new KeyValuePair<string, object>(GamingConstants.AllGames, GetAllGames()),
-            new KeyValuePair<string, object>(GamingConstants.GameCombos, GetGameCombos())
+            new(GamingConstants.Games, GetGames()),
+            new(GamingConstants.AllGames, GetAllGames()),
+            new(GamingConstants.GameCombos, GetGameCombos())
         };
 
         /// <inheritdoc />
@@ -606,6 +615,31 @@
             scope.Complete();
 
             return result;
+        }
+
+        void IServerPaytableInstaller.InstallSubGames(int gameId, IReadOnlyCollection<SubGameConfiguration> subGameConfiguration)
+        {
+            var game = _games.Single(g => g.Id == gameId);
+            var manifestSubGames = game.SupportedSubGames.ToList();
+
+            foreach (var subGame in subGameConfiguration)
+            {
+                var foundSubGame =
+                    manifestSubGames.FirstOrDefault(x => long.Parse(x.CdsTitleId) == subGame.GameTitleId) as
+                        SubGameDetails;
+
+                if (foundSubGame?.Denominations.FirstOrDefault(x => x.Value == subGame.Denomination) is not null)
+                {
+                    foundSubGame.SupportedDenoms = new List<long> { subGame.Denomination };
+                }
+            }
+
+            game.SupportedSubGames = manifestSubGames.Where(subGame => !subGame.SupportedDenoms.IsNullOrEmpty()).ToList();
+
+            lock (_sync)
+            {
+                UpdatePersistence(game);
+            }
         }
 
         IReadOnlyCollection<IGameDetail> IServerPaytableInstaller.GetAvailableGames()
@@ -1070,6 +1104,7 @@
                 ? (GameSubCategory)game.SubCategory
                 : GameSubCategory.Undefined;
             gameDetail.Features = features;
+            gameDetail.SupportedSubGames ??= GetSubGames(game.SubGames, gameDetail.Denominations.ToList());
             return (gameDetail, progressiveDetails);
         }
 
@@ -1310,7 +1345,10 @@
                         MaximumPaybackPercent = decimal.Parse(
                             (string)gameInfo[GameMaximumPaybackPercentField],
                             NumberStyles.Any,
-                            CultureInfo.InvariantCulture)
+                            CultureInfo.InvariantCulture),
+                        SupportedSubGames =
+                            JsonConvert.DeserializeObject<List<SubGameDetails>>(
+                                (string)gameInfo[GameSubGameDetailsField])
                     };
 
                     _games.Add(gameDetail);
@@ -1348,6 +1386,8 @@
                 game.MinimumPaybackPercent.ToString(CultureInfo.InvariantCulture);
             transaction[blockIndex, GameMaximumPaybackPercentField] =
                 game.MaximumPaybackPercent.ToString(CultureInfo.InvariantCulture);
+            transaction[blockIndex, GameSubGameDetailsField] =
+                JsonConvert.SerializeObject(game.SupportedSubGames, Formatting.None);
 
             transaction.Commit();
         }
@@ -1753,6 +1793,34 @@
         private bool IsValidMaximumRtp(string key, decimal rtp)
         {
             return rtp <= ConvertToRtp(_properties.GetValue(key, int.MaxValue));
+        }
+
+        private IEnumerable<ISubGameDetails> GetSubGames(IEnumerable<SubGame> subGames, IList<IDenomination> gameDenominations)
+        {
+            var subGameList = new List<SubGameDetails>();
+            foreach (var subGame in subGames)
+            {
+                var denomList = new List<Denomination>();
+                foreach (var denom in subGame.Denominations)
+                {
+                    var existingDenom = gameDenominations.FirstOrDefault(x => x.Value == denom);
+                    if (existingDenom is not null)
+                    {
+                        denomList.Add(existingDenom as Denomination);
+                    }
+                    else
+                    {
+                        var newDenom = new Denomination(_idProvider.GetNextDeviceId<IDenomination>(), denom, false);
+                        denomList.Add(newDenom);
+                    }
+                }
+
+                var newSubGame = new SubGameDetails((int)subGame.UniqueGameId, subGame.TitleId.ToString(), denomList);
+
+                subGameList.Add(newSubGame);
+            }
+
+            return subGameList;
         }
     }
 }

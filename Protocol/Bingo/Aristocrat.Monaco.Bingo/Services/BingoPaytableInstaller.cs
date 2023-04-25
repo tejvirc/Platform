@@ -39,6 +39,20 @@
             {
                 var gameDetails = InstallGame(gameConfiguration);
                 _gameProvider.SetActiveDenominations(gameDetails.Id, configurations.Select(x => x.Denomination.CentsToMillicents()).ToList());
+                var sideBetGames = configurations.Select(x => x.SideBetGames).FirstOrDefault();
+                if (sideBetGames is not null)
+                {
+                    var subGames =
+                        sideBetGames.Select(
+                            subGame => new SubGameConfiguration()
+                            {
+                                GameTitleId = subGame.GameTitleId,
+                                Denomination = subGame.Denomination
+                            }).ToList();
+
+                    _serverPaytableInstaller.InstallSubGames(gameDetails.Id, subGames);
+                }
+                
                 foreach (var (gameDetail, setting) in gameConfiguration)
                 {
                     yield return setting.ToGameConfiguration(gameDetail);

@@ -179,5 +179,10 @@
         ///     Gets or sets the supported game's feature like BetKeeper/LuckyChanceSpin
         /// </summary>
         public IEnumerable<Feature> Features { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the supported game's sub games like side bet games
+        /// </summary>
+        public IEnumerable<SubGame> SubGames { get; set; }
     }
 }

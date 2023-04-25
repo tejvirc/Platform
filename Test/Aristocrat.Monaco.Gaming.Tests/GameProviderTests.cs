@@ -192,7 +192,6 @@
             var block = new Mock<IPersistentStorageAccessor>(MockBehavior.Default);
             var storageTransaction = new Mock<IPersistentStorageTransaction>(MockBehavior.Default);
             var scopedTransaction = new Mock<IScopedTransaction>(MockBehavior.Default);
-
             var results = new Dictionary<int, Dictionary<string, object>>
             {
                 [0] = new Dictionary<string, object>
@@ -214,7 +213,8 @@
                     ["Game.Features"] = "",
                     ["Game.CdsGameInfos"] = "",
                     ["Game.MinimumPaybackPercent"] = "90.222",
-                    ["Game.MaximumPaybackPercent"] = "91.2222"
+                    ["Game.MaximumPaybackPercent"] = "91.2222",
+                    ["Game.SubGameDetails"] = ""
                 }
             };
 
@@ -240,6 +240,18 @@
                 WagerCategories = new List<PackageManifest.Models.WagerCategory>() { new PackageManifest.Models.WagerCategory { MinWagerCredits = 1 } },
                 Denominations = new List<long>() { 1 },
                 PaytableId = "TestPaytableId",
+                SubGames = new List<SubGame>()
+                {
+                    new SubGame
+                    {
+                        TitleId = 1,
+                        UniqueGameId = 2,
+                        Denominations = new List<long> ()
+                        {
+                            1,2,5
+                        }
+                    }
+                }
             };
 
             _gameContent.GameAttributes = new List<GameAttributes> { attributes };
