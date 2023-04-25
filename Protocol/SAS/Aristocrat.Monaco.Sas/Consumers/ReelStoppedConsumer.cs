@@ -4,10 +4,10 @@
     using Aristocrat.Sas.Client;
     using Contracts.Client;
     using Exceptions;
-    using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
 
     /// <summary>
-    ///     Handles the <see cref="Hardware.Contracts.Reel.ReelStoppedEvent" /> event for reels.
+    ///     Handles the <see cref="Hardware.Contracts.Reel.Events.ReelStoppedEvent" /> event for reels.
     /// </summary>
     public class ReelStoppedConsumer : Consumes<ReelStoppedEvent>
     {

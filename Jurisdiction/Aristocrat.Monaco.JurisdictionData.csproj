@@ -22,4 +22,17 @@
     <RemoveDir Directories="$(MSBuildThisFileDirectory)obj\$(Configuration)\resources" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+  <ItemGroup>
+    <Compile Update="Quebec-VLT\resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Quebec-VLT\resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

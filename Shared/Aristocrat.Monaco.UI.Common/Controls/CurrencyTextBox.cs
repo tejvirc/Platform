@@ -5,16 +5,12 @@
     using System.Windows.Data;
     using System.Windows.Input;
     using Application.Contracts.Extensions;
-    using Hardware.Contracts.Touch;
-    using Kernel;
     using Helpers;
 
     /// <summary>
     /// </summary>
-    public class CurrencyTextBox : TextBox
+    public class CurrencyTextBox : TouchTextBox
     {
-        private static readonly IEventBus EventBus;
-
         /// <summary>
         ///     Dependency Property for the Number value of the Currency Text Box
         /// </summary>
@@ -62,8 +58,6 @@
 
         static CurrencyTextBox()
         {
-            EventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(CurrencyTextBox),
                 new FrameworkPropertyMetadata(typeof(CurrencyTextBox)));
@@ -152,8 +146,6 @@
             PreviewKeyDown += TextBox_PreviewKeyDown;
             PreviewMouseDown += TextBox_PreviewMouseDown;
             PreviewMouseUp += TextBox_PreviewMouseUp;
-            GotFocus += TextBox_GotFocus;
-            LostFocus += TextBox_LostFocus;
             TextChanged += TextBox_TextChanged;
             PreviewTextInput += CurrencyTextBox_PreviewTextInput;
             ContextMenu = null;
@@ -192,16 +184,6 @@
             // Prevent changing the caret index
             e.Handled = true;
             (sender as TextBox)?.Focus();
-        }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
         }
 
         private static void OnNumberChanged(DependencyObject element, DependencyPropertyChangedEventArgs args)

@@ -61,6 +61,7 @@
             var operatorTicketLocale = config.OperatorTicket?.Locale ?? ApplicationConstants.DefaultLanguage;
             var operatorTicketSelectable = config.OperatorTicket?.Selectable ?? new[] { operatorTicketLocale };
             var operatorTicketDateFormat = config.OperatorTicket?.DateFormat ?? ApplicationConstants.DefaultDateFormat;
+            var operatorTicketPrintLanguageSettingOperatorOverride = config.OperatorTicket?.LanguageSetting?.OperatorOverride ?? false;
             var operatorDateFormat = config.Operator?.DateFormat ?? ApplicationConstants.DefaultDateFormat;
 
             var playerTicketLocale = config.PlayerTicket?.Locale ?? ApplicationConstants.DefaultLanguage;
@@ -99,6 +100,10 @@
                 {
                     ApplicationConstants.LocalizationOperatorTicketSelectable,
                     Tuple.Create((object)operatorTicketSelectable, false)
+                },
+                {
+                    ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride,
+                    Tuple.Create((object)operatorTicketPrintLanguageSettingOperatorOverride, false)
                 },
                 {
                     ApplicationConstants.LocalizationPlayerTicketOverride,

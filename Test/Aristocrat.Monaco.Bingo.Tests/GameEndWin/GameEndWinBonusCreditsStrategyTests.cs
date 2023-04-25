@@ -68,6 +68,93 @@
             _eventBus.Verify(x => x.UnsubscribeAll(_target), Times.Once);
         }
 
+        [TestMethod]
+        [Timeout(5000)]
+        public async Task TaskCancelledBeforeBonusIsCreated()
+        {
+            using var source = new CancellationTokenSource();
+            var called = false;
+            const long winAmount = 1000;
+            _bonusHandler.Setup(x => x.Award(It.Is<GameWinBonus>(b => b.CashableAmount == winAmount)))
+                .Returns<GameWinBonus>(CreateCancelledTransaction);
+
+            _eventBus.Setup(
+                x => x.Subscribe(
+                    It.IsAny<object>(),
+                    It.IsAny<Action<BonusAwardedEvent>>(),
+                    It.IsAny<Predicate<BonusAwardedEvent>>()))
+                .Callback(() => source.Cancel());
+            _bonusHandler.Setup(x => x.Cancel(It.IsAny<string>())).Returns(() => called);
+            var resultTask = _target.ProcessWin(winAmount, source.Token);
+
+            try
+            {
+                await resultTask;
+            }
+            catch (Exception e)
+            {
+                Assert.IsTrue(
+                    e is OperationCanceledException or TaskCanceledException,
+                    "Task cancellation exception not thrown");
+            }
+
+            BonusTransaction CreateCancelledTransaction(IBonusRequest request)
+            {
+                called = true;
+                return new BonusTransaction(
+                    0,
+                    DateTime.UtcNow,
+                    request.BonusId,
+                    request.CashableAmount,
+                    request.NonCashAmount,
+                    request.PromoAmount,
+                    1,
+                    2,
+                    request.PayMethod);
+            }
+        }
+
+        [TestMethod]
+        [Timeout(5000)]
+        public async Task TaskCancelledWhileBonusIsCreated()
+        {
+            using var source = new CancellationTokenSource();
+            var called = false;
+            const long winAmount = 1000;
+            _bonusHandler.Setup(x => x.Award(It.Is<GameWinBonus>(b => b.CashableAmount == winAmount)))
+                .Returns<GameWinBonus>(CreateCancelledTransaction);
+
+            _bonusHandler.Setup(x => x.Cancel(It.IsAny<string>())).Returns(() => called);
+            var resultTask = _target.ProcessWin(winAmount, source.Token);
+
+            try
+            {
+                await resultTask;
+            }
+            catch (Exception e)
+            {
+                Assert.IsTrue(
+                    e is OperationCanceledException or TaskCanceledException,
+                    "Task cancellation exception not thrown");
+            }
+
+            BonusTransaction CreateCancelledTransaction(IBonusRequest request)
+            {
+                source.Cancel();
+                called = true;
+                return new BonusTransaction(
+                    0,
+                    DateTime.UtcNow,
+                    request.BonusId,
+                    request.CashableAmount,
+                    request.NonCashAmount,
+                    request.PromoAmount,
+                    1,
+                    2,
+                    request.PayMethod);
+            }
+        }
+
         [DataRow(1000, false, false, false, false)]
         [DataRow(1000, false, true, false, true)]
         [DataRow(1000, false, true, true, false)]

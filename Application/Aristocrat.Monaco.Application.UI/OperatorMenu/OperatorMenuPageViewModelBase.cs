@@ -11,6 +11,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using Aristocrat.Monaco.Application.Contracts.Tickets;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -474,6 +475,22 @@
 
             // no implementation for base class; this will print nothing
             return new List<Ticket>();
+        }
+
+        protected static IEnumerable<Ticket> GeneratePrintVerificationTickets()
+        {
+            List<Ticket> tickets = null;
+            var ticketCreator = ServiceManager.GetInstance().TryGetService<IVerificationTicketCreator>();
+            if (ticketCreator != null)
+            {
+                tickets = new List<Ticket>();
+                for (var i = 0; i < 3; i++)
+                {
+                    tickets.Add(ticketCreator.Create(i, null));
+                }
+            }
+
+            return tickets;
         }
 
         /// <summary>
@@ -1144,7 +1161,6 @@
                     nameof(TestWarningText),
                     nameof(IsLoadingData),
                     nameof(IsLoaded),
-                    nameof(DataEmpty),
                     nameof(MainPrintButtonEnabled),
                     nameof(PageSupportsMainPrintButton),
                     nameof(PopupOpen),

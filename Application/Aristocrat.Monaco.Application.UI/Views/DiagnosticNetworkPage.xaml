@@ -85,7 +85,7 @@
                                                 InputScope="Number"
                                                 IsAlphaNumeric="True"
                                                 SkipRegexCheck="True"/>
-                    <Button Grid.Column="0" Grid.Row="2" Margin="0 15 0 0" HorizontalAlignment="Left" Width="100" Content="Ping" Command="{Binding PingCommand}" />
+                    <Button Grid.Column="0" Grid.Row="2" Margin="0 15 0 0" HorizontalAlignment="Left" Width="100" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Ping}}" Command="{Binding PingCommand}" />
 
                     <Label Grid.Column="1" Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingResultText}}" Margin="15 0 0 0" />
                     <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="15,5,0,0" Text="{Binding PingResult}" TextWrapping="Wrap" IsReadOnly="True" MinHeight="100" MinWidth="250" IsHitTestVisible="False"/>
@@ -99,7 +99,7 @@
         </Grid>
 
         <!-- active connections -->
-        <GroupBox Grid.Column="1" VerticalAlignment="Stretch" Margin="10,0,0,0" Header="Active Connections">
+        <GroupBox Grid.Column="1" VerticalAlignment="Stretch" Margin="10,0,0,0" Header="{lex:Loc Key={x:Static loc:ResourceKeys.ActiveConnections}}">
             <DataGrid ItemsSource="{Binding NetstatResultSet}" MinHeight="400" MinWidth="660" Margin="0,0,0,-10"
                       ColumnHeaderHeight="40" Height="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"

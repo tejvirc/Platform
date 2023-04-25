@@ -24,33 +24,33 @@
     {
         private readonly (string Label, string MeterName, string VisibleSetting)[] _metersIn =
         {
-            (Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashableVoucherInLabelContent),
+            (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashableVoucherInLabelContent),
                 "VoucherInCashable",
                 null),
-            (Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashablePromoVoucherInLabelContent),
+            (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashablePromoVoucherInLabelContent),
                 "VoucherInCashablePromotional",
                 OperatorMenuSetting.ShowCashablePromo),
-            (Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.NonCashablePromoVoucherInLabelContent),
+            (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NonCashablePromoVoucherInLabelContent),
                 "VoucherInNonCashablePromotional",
                 null)
         };
 
         private readonly (string Label, string MeterName, string VisibleSetting)[] _metersOut =
         {
-            (Localizer.For(CultureFor.OperatorTicket).
+            (Localizer.For(CultureFor.Operator).
                 GetString(ResourceKeys.CashableVoucherOutLabelContent), "VoucherOutCashable",
                 null),
-            (Localizer.For(CultureFor.OperatorTicket).
+            (Localizer.For(CultureFor.Operator).
                 GetString(ResourceKeys.CashablePromoVoucherOutLabelContent), "VoucherOutCashablePromotional",
                 OperatorMenuSetting.ShowCashablePromo),
-            (Localizer.For(CultureFor.OperatorTicket).
+            (Localizer.For(CultureFor.Operator).
                 GetString(ResourceKeys.NonCashablePromoVoucherOutLabelContent), "VoucherOutNonCashablePromotional",
                 null)
         };
 
         private readonly (string Label, string MeterName)[] _rejectedMeters =
         {
-            (Localizer.For(CultureFor.OperatorTicket)
+            (Localizer.For(CultureFor.Operator)
                 .GetString(ResourceKeys.VouchersRejectedLabel), AccountingMeters.VouchersRejectedCount)
         };
 
@@ -170,7 +170,7 @@
 
                 printMeters.Add(new Tuple<Tuple<IMeter, IMeter>, string>(
                     new Tuple<IMeter, IMeter>(_voucherInCountMeter, _voucherInValueMeter),
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VoucherInLabelContent)));
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInLabelContent)));
 
                 tickets.Add(ticketCreator?.CreateEgmMetersTicket(printMeters, ShowLifetime));
                 printMeters.Clear();
@@ -182,7 +182,7 @@
 
             printMeters.Add(new Tuple<Tuple<IMeter, IMeter>, string>(
                 new Tuple<IMeter, IMeter>(_voucherOutCountMeter, _voucherOutValueMeter),
-                Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VoucherOutLabelContent)));
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherOutLabelContent)));
 
             printMeters.AddRange(RejectionMeters.
                 Select(m => new Tuple<Tuple<IMeter, IMeter>, string>(new Tuple<IMeter, IMeter>(m.Meter, null), m.Name))

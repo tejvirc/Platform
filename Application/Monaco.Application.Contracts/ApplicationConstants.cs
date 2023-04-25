@@ -456,6 +456,12 @@
         public static string BeagleBoneEnabled = "BeagleBoneEnabled";
 
         /// <summary>
+        ///     Key used to get the type of keyboard to use.  (Embedded, Windows, Default)
+
+        /// </summary>
+        public static string KeyboardProvider = "KeyboardProvider";
+
+        /// <summary>
         ///     used to get mask of enabled speakers
         /// </summary>
         public static string EnabledSpeakersMask = "EnabledSpeakersMask";
@@ -737,6 +743,11 @@
         ///     Property manager key for LocalizationOperatorTicketSelectable
         /// </summary>
         public const string LocalizationOperatorTicketSelectable = "Localization.OperatorTicket.Selectable";
+
+        /// <summary>
+        ///     Property manager key for LocalizationOperatorTicketLanguageSettingOperatorOverride
+        /// </summary>
+        public const string LocalizationOperatorTicketLanguageSettingOperatorOverride = "Localization.OperatorTicket.LanguageSetting.OperatorOverride";
 
         /// <summary>
         ///     Property manager key for LocalizationPlayerTicketCurrentCulture.

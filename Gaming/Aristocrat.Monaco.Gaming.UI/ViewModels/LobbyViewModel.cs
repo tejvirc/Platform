@@ -755,7 +755,7 @@
             set => SetProperty(ref _multiLanguageEnabled, value);
         }
 
-        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && DisplayedGameList.All(g => g.ImagePath == null);
+        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && DisplayedGameList.Any() && DisplayedGameList.All(g => g.ImagePath == null);
 
         /// <summary>
         ///     Gets or sets a value indicating whether VBD rendering is disabled (as it is in system lockup).
@@ -2294,7 +2294,7 @@
                 if (!GameReady && !IsInState(LobbyState.GameLoading))
                 {
                     Logger.Debug("Automatically launch single game");
-                    var currentGame = GameCount == 1 ? GameList.Single(g => g.Enabled) : GetSelectedGame();
+                    var currentGame = GetSelectedGame();
 
                     if (currentGame != null)
                     {

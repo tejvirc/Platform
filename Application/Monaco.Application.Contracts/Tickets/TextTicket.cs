@@ -66,8 +66,6 @@
         /// <param name="localizer"></param>
         protected TextTicket(ILocalizer localizer)
         {
-            TicketLocalizer = localizer;
-
             _leftField = new StringBuilder();
             _centerField = new StringBuilder();
             _rightField = new StringBuilder();
@@ -75,6 +73,10 @@
             PropertiesManager = ServiceManager.GetService<IPropertiesManager>();
             Time = ServiceManager.GetService<ITime>();
             DateTimeFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
+
+            TicketLocalizer = PropertiesManager.GetValue(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?
+                Localizer.For(CultureFor.Operator) :
+                localizer;
 
             StateText = new Dictionary<PaperStates, string>
             {

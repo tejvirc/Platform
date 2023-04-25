@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Runtime;
 
     /// <summary>

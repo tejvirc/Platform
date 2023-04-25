@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Application.Contracts.Input;
     using Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Contracts;
     using Kernel;

@@ -14,6 +14,7 @@
     using Events;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
@@ -34,7 +35,7 @@
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         public ICommand ToggleTestModeCommand { get; }
@@ -99,6 +100,19 @@
                 }
 
                 SetProperty(ref _inTestMode, value, nameof(InTestMode));
+            }
+        }
+
+        public override bool TestModeEnabled
+        {
+            get => base.TestModeEnabled;
+            set
+            {
+                base.TestModeEnabled = value;
+                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                {
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                }
             }
         }
 
@@ -187,7 +201,7 @@
 
         protected override void OnLoaded()
         {
-            IsEdgeLightingAvailable = _edgeLightingController.IsDetected;
+            IsEdgeLightingAvailable = _edgeLightingController.IsDetected || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             InfoText = IsEdgeLightingAvailable
                 ? string.Empty
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);

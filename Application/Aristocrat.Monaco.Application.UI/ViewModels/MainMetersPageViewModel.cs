@@ -68,7 +68,7 @@
         public string DropMessageLabelText
         {
             get => _dropMessageLabelText;
-            set => SetProperty(ref _dropMessageLabelText, value, nameof(DropMessageLabelText));
+            set => SetProperty(ref _dropMessageLabelText, value);
         }
 
         public bool ClearButtonEnabled
@@ -107,22 +107,6 @@
                     MvvmHelper.ExecuteOnUI(UpdateUI);
                 });
             }
-        }
-
-        private static IEnumerable<Ticket> GeneratePrintVerificationTickets()
-        {
-            List<Ticket> tickets = null;
-            var ticketCreator = ServiceManager.GetInstance().TryGetService<IVerificationTicketCreator>();
-            if (ticketCreator != null)
-            {
-                tickets = new List<Ticket>();
-                for (int i = 0; i < 3; i++)
-                {
-                    tickets.Add(ticketCreator.Create(i, null));
-                }
-            }
-
-            return tickets;
         }
 
         private List<Ticket> GeneratePeriodicResetTicket()

@@ -171,6 +171,12 @@
 
         public ICommand PrintTestTicketCommand { get; }
 
+        protected void Print(OperatorMenuPrintData dataType, bool isDiagnostic)
+        {
+            Inspection?.SetTestName($"Print ticket {dataType}");
+            base.Print(dataType, null, isDiagnostic);
+        }
+
         protected override void OnLoaded()
         {
             base.OnLoaded();

@@ -27,6 +27,7 @@
 
     <Thickness x:Key="GroupBoxHeaderThemePadding">4</Thickness>
 
+    <Color x:Key="GreenColor">#32CD32</Color>
     <Color x:Key="YellowColor">#FFFFFF00</Color>
     <Color x:Key="RedColor">#FFFF0000</Color>
     
@@ -53,7 +54,7 @@
     <Color x:Key="HighlightColor1">#FFEEDDCC</Color>
 
     <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource MediumGray}" />
-
+    <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource GreenColor}" />
     <SolidColorBrush x:Key="YellowBrush" Color="{StaticResource YellowColor}" />
     <SolidColorBrush x:Key="RedBrush" Color="{StaticResource RedColor}" />
     

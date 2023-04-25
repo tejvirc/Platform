@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Accounting.Contracts;
     using Common;
     using Contracts;
     using Contracts.Extensions;
@@ -209,7 +210,7 @@
 
         private void ConfigureStackButton()
         {
-            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed)
+            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed && !_inNoteAcceptorTest)
             {
                 ReturnButtonVisible = true;
                 ReturnButtonEnabled = true;
@@ -456,11 +457,7 @@
                 var canEnableSelfTest = false;
                 if (!NoteAcceptor.Enabled)
                 {
-                    if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
-                    {
-                        canEnableSelfTest = SelfTestCurrentState != SelfTestState.Running;
-                    }
-                    else if (IsEnableAllowedForTesting(HasDocumentCheckFault))
+                    if (IsEnableAllowedForTesting(HasDocumentCheckFault))
                     {
                         canEnableSelfTest = true;
                     }
@@ -707,6 +704,29 @@
             SetStateInformation(true);
         }
 
+        private string GetBillAcceptanceRate()
+        {
+            var meters = ServiceManager.GetInstance().TryGetService<IMeterManager>();
+
+            if (meters is null)
+            {
+                return "";
+            }
+
+            var totalAcceptedBills = (double)meters.GetMeter(AccountingMeters.CurrencyInCount).Lifetime;
+            var totalBillInAttempts = totalAcceptedBills + meters.GetMeter(AccountingMeters.BillsRejectedCount).Lifetime;
+            var billAcceptanceRate = 0.00d;
+
+                // Prevent division by 0
+            if (totalBillInAttempts > 0)
+            {
+                billAcceptanceRate = totalAcceptedBills / totalBillInAttempts * 100;
+            }
+
+            billAcceptanceRate = Math.Round(billAcceptanceRate, 2);
+            return $"{billAcceptanceRate:F2}%";
+        }
+
         protected void SetDeviceInformation()
         {
             if (NoteAcceptor == null)
@@ -914,7 +934,7 @@
                 return false;
             }
 
-            return NoteAcceptor.ReasonDisabled > 0 && (GameIdle || allowDuringGameRound) &&
+            if (NoteAcceptor.ReasonDisabled > 0 && (GameIdle || allowDuringGameRound) &&
                    (NoteAcceptor.ReasonDisabled |
                     DisabledReasons.System |
                     DisabledReasons.Backend |
@@ -925,7 +945,17 @@
                     DisabledReasons.Backend |
                     DisabledReasons.Device |
                     DisabledReasons.Configuration |
-                    DisabledReasons.GamePlay);
+                    DisabledReasons.GamePlay))
+            {
+                return true;
+            }
+
+            if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
+            {
+                return SelfTestCurrentState != SelfTestState.Running;
+            }
+
+            return false;
         }
     }
 

@@ -43,8 +43,13 @@
                 MeterNodes = new MeterNode[0]
             });
 
-            if (!VTicketPage2MeterNames.Any())
+            if (pageNumber is 1) // No need to remake this dictionary for every page, only used on page 2 (index 1)
             {
+                if (VTicketPage2MeterNames.Any())
+                {
+                    VTicketPage2MeterNames.Clear(); // Need to clear this to account for possible language change
+                }
+
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.MainDoorOpenCount), ApplicationMeters.MainDoorOpenCount);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.MainDoorOpenPowerOffCount), ApplicationMeters.MainDoorOpenPowerOffCount);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.CashDoorOpenCount), ApplicationMeters.CashDoorOpenCount);
@@ -139,7 +144,7 @@
 
                     AddLine(
                         string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", totalVoucherOutCountM),
-                        "Cashout Tickets",
+                        TicketLocalizer.GetString(ResourceKeys.CashoutTickets),
                         string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", totalVoucherOutCountP));
 
                     var access = ServiceManager.GetService<IOperatorMenuAccess>();
@@ -148,12 +153,12 @@
                     {
                         // VLT-10481 : ignore technician access meter
 
-                        if (!technicianMode && dict.Key == "Technician Access")
+                        if (!technicianMode && dict.Key == TicketLocalizer.GetString(ResourceKeys.TechnicianAccess))
                         {
                             continue;
                         }
 
-                        if (dict.Key == "Retailer Access")
+                        if (dict.Key == TicketLocalizer.GetString(ResourceKeys.RetailerAccess))
                         {
                             AddDashesLine();
                         }
@@ -238,14 +243,14 @@
                 ref countPeriod);
 
             AddLine(string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countMaster),
-                "Number of Coins Inserted",
+                TicketLocalizer.GetString(ResourceKeys.NumCoinsInText),
                 string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countPeriod));
 
             /*Add txt to the left string which will be displayed on the left side of the ticket*/
             AddTicketText(moneyInLifetimeCountDictionary, moneyInCountPeriodDictionary, ref totalCoinInMaster, ref totalCoinInPeriod, false);
 
             AddLine(totalCoinInMaster.FormattedCurrencyString(),
-                "Total - Coin In",
+                TicketLocalizer.GetString(ResourceKeys.TotalDashCoinIn),
                 totalCoinInPeriod.FormattedCurrencyString());
 
 
@@ -263,20 +268,20 @@
                 ref countPeriod);
 
             AddLine(string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countMaster),
-                "Number of Bills Inserted",
+                TicketLocalizer.GetString(ResourceKeys.NumBillsInText),
                 string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countPeriod));
 
             /*Add txt to the left string which will be displayed on the left side of the ticket*/
             AddTicketText(moneyInLifetimeCountDictionary, moneyInCountPeriodDictionary, ref totalBillInMaster, ref totalBillInPeriod, false);
 
             AddLine(totalBillInMaster.FormattedCurrencyString(),
-                "Total - Bill In",
+                TicketLocalizer.GetString(ResourceKeys.TotalDashBillIn),
                 totalBillInPeriod.FormattedCurrencyString());
 
             var sumMaster = totalBillInMaster + totalCoinInMaster;
             var sumPeriod = totalBillInPeriod + totalCoinInPeriod;
             AddLine(sumMaster.FormattedCurrencyString(),
-                "Total - Coins and Bills",
+                TicketLocalizer.GetString(ResourceKeys.TotalDashCoinsAndBills),
                 sumPeriod.FormattedCurrencyString());
 
             AddDashesLine();

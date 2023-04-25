@@ -5,8 +5,12 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.MeterPage;
     using Application.UI.MeterPage;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Monaco.Localization.Markup;
     using Contracts.Meters;
     using Contracts.Progressives;
+    using localizer = Aristocrat.Monaco.Application.Contracts.Localization.Localizer;
+
 
     public static class ProgressiveDisplayMeterFactory
     {
@@ -19,53 +23,56 @@
             long denomMillicents,
             long sharedHiddenTotal)
         {
+            string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
+                            meterNode.DisplayNameKey,
+                            _ => meterDisplayName = meterNode.DisplayName);
             switch (meterNode.Name)
             {
                 case ProgressiveMeters.ProgressivePackNameDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.ProgressivePackName,
                         meterNode.Order);
                 case ProgressiveMeters.LevelNameDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.LevelName,
                         meterNode.Order);
                 case ProgressiveMeters.CurrentValueDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
                 case ProgressiveMeters.OverflowDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.Overflow.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
                 case ProgressiveMeters.OverflowTotalDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.OverflowTotal.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
                 case ProgressiveMeters.CeilingDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.MaximumValue.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
                 case ProgressiveMeters.HiddenIncrementDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => $"{prog.HiddenIncrementRate.ToPercentage()}%",
                         meterNode.Order);
                 case ProgressiveMeters.HiddenValueDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                       meterDisplayName,
                         progressiveLevel,
                         prog => prog.HiddenValue.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
@@ -73,7 +80,7 @@
                     if(sharedHiddenTotal > 0)
                     {
                         return new ProxyDisplayMeter<long>(
-                            meterNode.DisplayName,
+                            meterDisplayName,
                             sharedHiddenTotal,
                             v => v.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                             meterNode.Order);
@@ -86,25 +93,25 @@
                         showLifetime);
                 case ProgressiveMeters.InitialValueDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.InitialValue.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
                 case ProgressiveMeters.IncrementDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => $"{prog.IncrementRate.ToPercentage()}%",
                         meterNode.Order);
                 case ProgressiveMeters.StartupDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel,
                         prog => prog.ResetValue.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
                 case ProgressiveMeters.WagerBetLevelsDisplayMeter:
                     return new ProxyDisplayMeter<long>(
-                        meterNode.DisplayName,
+                        meterDisplayName,
                         progressiveLevel.CreationType != LevelCreationType.Default ? progressiveLevel.WagerCredits * denomMillicents : 0,
                         val => val.MillicentsToDollars().FormattedCurrencyString(),
                         meterNode.Order);
@@ -146,6 +153,9 @@
                 progressiveLevel.DeviceId,
                 progressiveLevel.LevelId,
                 meterNode.Name);
+            string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
+                            meterNode.DisplayNameKey,
+                            _ => meterDisplayName = meterNode.DisplayName);
 
             if (progressiveMeter != null)
             {
@@ -157,7 +167,7 @@
             }
 
             return new ProxyDisplayMeter<long>(
-                meterNode.DisplayName,
+                meterDisplayName,
                 0,
                 v => v.FormattedCurrencyString(),
                 meterNode.Order);
@@ -174,17 +184,20 @@
                 progressiveLevel.DeviceId,
                 progressiveLevel.LevelId,
                 meterNode.Name);
+            string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
+                            meterNode.DisplayNameKey,
+                            _ => meterDisplayName = meterNode.DisplayName);
             if (progressiveMeter != null)
             {
                 return new DisplayMeter(
-                    meterNode.DisplayName,
+                    meterDisplayName,
                     progressiveMeter,
                     showLifetime,
                     meterNode.Order);
             }
 
             return new ProxyDisplayMeter<long>(
-                meterNode.DisplayName,
+                meterDisplayName,
                 0,
                 v => v.ToString(),
                 meterNode.Order);

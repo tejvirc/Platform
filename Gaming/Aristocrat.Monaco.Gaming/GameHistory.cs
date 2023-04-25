@@ -504,12 +504,12 @@
             log.EndTransactionId = _idProvider.CurrentTransactionId;
             log.PlayState = PlayState.GameEnded;
             log.LastUpdate = endTime;
-            
+
             Logger.Debug($"[Game End {CurrentLogIndex}] End Time {endTime}");
         }
 
         /// <inheritdoc />
-        public void End()
+        public void End(IEnumerable<Jackpot> jackpotSnapshot)
         {
             // Do not persist replays but do in game recovery.
             if (_gameDiagnostics.IsActive)
@@ -524,6 +524,8 @@
             log.PlayState = PlayState.Idle;
             log.Events = _loggedEventContainer.HandOffEvents();
             log.LastUpdate = DateTime.UtcNow;
+            log.JackpotSnapshotEnd = jackpotSnapshot?.Select(item => new Jackpot(item)).ToList() ??
+                                     Enumerable.Empty<Jackpot>();
 
             Persist(log);
 

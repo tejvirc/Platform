@@ -6,24 +6,18 @@
     using System.Windows.Data;
     using System.Windows.Input;
     using Application.Contracts.Localization;
-    using Hardware.Contracts.Touch;
-    using Kernel;
     using Localization.Properties;
 
     /// <summary>
     ///     Class definition for an LengthErrorTextBox
     /// </summary>
-    public class LengthErrorTextBox : TextBox
+    public class LengthErrorTextBox : TouchTextBox
     {
-        private static readonly IEventBus EventBus;
-
         private int _caretIndex;
         private bool _shiftKeyDown;
 
         static LengthErrorTextBox()
         {
-            EventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(LengthErrorTextBox),
                 new FrameworkPropertyMetadata(typeof(LengthErrorTextBox)));
@@ -55,8 +49,6 @@
             PreviewKeyUp += LengthErrorTextBox_PreviewKeyUp;
             PreviewMouseDown += LengthErrorTextBox_PreviewMouseDown;
             PreviewMouseUp += LengthErrorTextBox_PreviewMouseUp;
-            GotFocus += TextBox_GotFocus;
-            LostFocus += TextBox_LostFocus;
             TextChanged += LengthErrorTextBox_TextChanged;
             ContextMenu = null;
         }
@@ -375,16 +367,6 @@
         {
             var tb = (LengthErrorTextBox)element;
             tb.Text = tb.LengthErrorText;
-        }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
         }
 
         #endregion
