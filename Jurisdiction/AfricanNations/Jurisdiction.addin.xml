@@ -186,7 +186,8 @@
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.KeyedCreditsTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction" maxTransactions="50" persistenceLevel="Critical" />
   </Extension>
   <Extension path="/Accounting/BootExtender" filterid="AfricanNationsAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />

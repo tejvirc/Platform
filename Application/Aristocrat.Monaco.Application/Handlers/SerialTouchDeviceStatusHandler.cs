@@ -25,6 +25,14 @@
             {
                 Device.Status = DeviceStatus.Disconnected;
             }
+            else if (_serialTouchService.HasReceivedData)
+            {
+                Device.Status = DeviceStatus.Connected;
+            }
+            else
+            {
+                Device.Status = DeviceStatus.Unknown;
+            }
 
             Status = Device.Status;
         }

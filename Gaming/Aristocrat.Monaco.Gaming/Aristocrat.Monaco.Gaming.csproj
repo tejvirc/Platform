@@ -174,7 +174,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.15" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.16" />
     <PackageReference Include="Aristocrat.GdkRuntime.Contract" Version="1.0.9" />
     <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.15" />
     <PackageReference Include="Google.Protobuf" Version="3.19.4" />

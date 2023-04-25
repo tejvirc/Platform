@@ -42,6 +42,10 @@
         bool IsDisconnected { get; }
 
         /// <summary>
+        ///     Gets whether or not data has been received from the serial touch device
+        /// </summary>
+        bool HasReceivedData { get; }
+
         ///     Gets the model of the connected serial touch device
         /// </summary>
         string Model { get; }

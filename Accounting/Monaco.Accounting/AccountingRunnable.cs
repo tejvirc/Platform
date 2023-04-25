@@ -179,7 +179,8 @@ namespace Aristocrat.Monaco.Accounting
             logAdapterService.RegisterLogAdapter(new TransferOutEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new VoucherInEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new VoucherOutEventLogAdapter());
-            logAdapterService.RegisterLogAdapter(new KeyedCreditsEventLogAdapter());
+            logAdapterService.RegisterLogAdapter(new KeyedOnCreditsEventLogAdapter());
+            logAdapterService.RegisterLogAdapter(new KeyedOffCreditsEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new HardMeterOutEventLogAdapter());
         }
 
@@ -192,7 +193,8 @@ namespace Aristocrat.Monaco.Accounting
             logAdapterService.UnRegisterLogAdapter(EventLogType.TransferOut.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.VoucherIn.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.VoucherOut.GetDescription(typeof(EventLogType)));
-            logAdapterService.UnRegisterLogAdapter(EventLogType.KeyedCredit.GetDescription(typeof(EventLogType)));
+            logAdapterService.UnRegisterLogAdapter(EventLogType.KeyedOnCredits.GetDescription(typeof(EventLogType)));
+            logAdapterService.UnRegisterLogAdapter(EventLogType.KeyedOffCredits.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.HardMeterOut.GetDescription(typeof(EventLogType)));
         }
 

@@ -509,20 +509,38 @@
                 additionalInfo));
 
 
-            // Sample keyed credits Event
+            // Sample keyed On credits Event
             additionalInfo = new (string, string)[] {
                 ("amount",amountString.ToString()),
                 ("AccountType","AccountTypeString"),
                 ("KeyedType","KeyedTypeString") };
             name = string.Join(
                 EventLogUtilities.EventDescriptionNameDelimiter,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyedCredit),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyedOnCredits),
                 "NameString",
                 amountString.ToString());
             events.Add(new EventDescription(
                 name,
                 "info",
-                EventLogType.KeyedCredit.GetDescription(typeof(EventLogType)),
+                EventLogType.KeyedOnCredits.GetDescription(typeof(EventLogType)),
+                ++transactionId,
+                transactionDateTime.AddHours(transactionId),
+                additionalInfo));
+
+            // Sample keyed Off credits Event
+            additionalInfo = new (string, string)[] {
+                ("amount",amountString.ToString()),
+                ("AccountType","AccountTypeString"),
+                ("KeyedType","KeyedTypeString") };
+            name = string.Join(
+                EventLogUtilities.EventDescriptionNameDelimiter,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyedOffCredits),
+                "NameString",
+                amountString.ToString());
+            events.Add(new EventDescription(
+                name,
+                "info",
+                EventLogType.KeyedOffCredits.GetDescription(typeof(EventLogType)),
                 ++transactionId,
                 transactionDateTime.AddHours(transactionId),
                 additionalInfo));

@@ -740,7 +740,8 @@
                     LargeWinLimit.Validate(false, LargeWinLimitMaxValue) is null &&
                     (!HandpayLimitVisible || HandpayLimit.Validate(false, AccountingConstants.DefaultHandpayLimit, LargeWinLimit.DollarsToMillicents()) is null) &&
                     LargeWinRatio.ValidateDecimal(AccountingConstants.DefaultLargeWinRatio, AccountingConstants.MaximumLargeWinRatio) is null &&
-                    LargeWinRatioThreshold.Validate(true) is null && MaxBetLimit.Validate() is null;
+                    LargeWinRatioThreshold.Validate(true) is null &&
+                    MaxBetLimit.Validate(false, PropertiesManager.GetValue(AccountingConstants.HighestMaxBetLimitAllowed, long.MaxValue)) is null;
             }
         }
 

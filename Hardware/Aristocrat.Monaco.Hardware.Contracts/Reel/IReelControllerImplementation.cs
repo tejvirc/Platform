@@ -10,7 +10,7 @@
     /// <summary>
     ///     The reel controller implementation
     /// </summary>
-    public interface IReelControllerImplementation : IGdsDevice
+    public interface IReelControllerImplementation : IHardwareDevice, IDfuDevice
     {
         /// <summary> The event that occurs when the reel controller has a fault </summary>
         event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;

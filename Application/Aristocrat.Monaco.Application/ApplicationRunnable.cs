@@ -16,6 +16,7 @@ namespace Aristocrat.Monaco.Application
     using Contracts.Localization;
     using Contracts.Protocol;
     using Contracts.TiltLogger;
+    using Detection;
     using Drm;
     using EKey;
     using ErrorMessage;
@@ -128,6 +129,7 @@ namespace Aristocrat.Monaco.Application
                 ServiceManager.GetInstance().AddService(new ConfigurationUtilitiesProvider());
                 ServiceManager.GetInstance().AddService(new ProtocolCapabilityAttributeProvider());
                 ServiceManager.GetInstance().AddService(new HardMeterMappingConfigurationProvider());
+                ServiceManager.GetInstance().AddService(new DeviceDetection());
 
                 LoadConfigurationSettingsManager();
 

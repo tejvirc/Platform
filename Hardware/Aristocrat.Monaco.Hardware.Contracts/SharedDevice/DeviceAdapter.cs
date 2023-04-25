@@ -18,7 +18,7 @@
     /// <seealso cref="T:System.IDisposable" />
     public abstract class DeviceAdapter<TImplementation> : IDeviceAdapter,
         IDisposable
-        where TImplementation : IGdsDevice
+        where TImplementation : IHardwareDevice, IDfuDevice
     {
         private const string CommunicatorsExtensionPath = "/Hardware/CommunicatorDrivers";
 

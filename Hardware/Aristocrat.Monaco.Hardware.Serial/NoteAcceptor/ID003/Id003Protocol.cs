@@ -7,6 +7,7 @@
     using System.Text;
     using Contracts.Gds.NoteAcceptor;
     using Contracts.NoteAcceptor;
+    using Contracts.SharedDevice;
     using log4net;
     using Protocols;
 
@@ -14,6 +15,7 @@
     ///     Manage outgoing messages per the ID003 protocol.  Poll for status when no other
     ///     commands are pending.  Process responses.
     /// </summary>
+    [SearchableSerialProtocol(DeviceType.NoteAcceptor)]
     public class Id003Protocol : SerialNoteAcceptor
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);

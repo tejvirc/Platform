@@ -38,7 +38,7 @@
         /// <summary>Initializes this device.</summary>
         /// <param name="communicator">The communicator.</param>
         /// <returns>An asynchronous result that yields true if it succeeds, false if it fails.</returns>
-        Task<bool> Initialize(IGdsCommunicator communicator);
+        Task<bool> Initialize(ICommunicator communicator);
 
         /// <summary>Initiates detach sequence and enters DFU mode.</summary>
         /// <returns>True if it succeeds, false if it fails.</returns>
