@@ -1916,8 +1916,14 @@ See manual for details??</value>
   <data name="ActualHold" xml:space="preserve">
     <value>??Actual Hold??</value>
   </data>
+  <data name="AddSAPLevel" xml:space="preserve">
+    <value>??Add Level??</value>
+  </data>
   <data name="AllGameTypes" xml:space="preserve">
     <value>??All??</value>
+  </data>
+  <data name="AlreadyRedeemed" xml:space="preserve">
+    <value>??Already Redeemed??</value>
   </data>
   <data name="AmountIn" xml:space="preserve">
     <value>??Money In??</value>
@@ -1931,6 +1937,36 @@ See manual for details??</value>
   <data name="BarcodeInterleave2Of5" xml:space="preserve">
     <value>??Interleave 2 of 5??</value>
   </data>
+  <data name="BellyDoorClosed" xml:space="preserve">
+    <value>??Belly Door Closed??</value>
+  </data>
+  <data name="BellyDoorIsOpen" xml:space="preserve">
+    <value>??Belly Door is Open??</value>
+  </data>
+  <data name="BillAccepted" xml:space="preserve">
+    <value>??Bill Accepted -??</value>
+  </data>
+  <data name="BonusAwardTitle" xml:space="preserve">
+    <value>??Bonus Award -??</value>
+  </data>
+  <data name="BonusInfoOverflowColumn" xml:space="preserve">
+    <value>??Overflow??</value>
+  </data>
+  <data name="CashableHeader" xml:space="preserve">
+    <value>??CASHABLE??</value>
+  </data>
+  <data name="CashDoorClosed" xml:space="preserve">
+    <value>??Stacker Door Closed??</value>
+  </data>
+  <data name="CashDoorIsOpen" xml:space="preserve">
+    <value>??Stacker Door is Open??</value>
+  </data>
+  <data name="CashOutHandpayKeyedOff" xml:space="preserve">
+    <value>??Cashout Handpay Paid {0}??</value>
+  </data>
+  <data name="CashOutHandpayKeyedOffTotalSuffix" xml:space="preserve">
+    <value />
+  </data>
   <data name="Close" xml:space="preserve">
     <value>??Close??</value>
   </data>
@@ -1943,17 +1979,47 @@ See manual for details??</value>
   <data name="Configuration" xml:space="preserve">
     <value>??Configuration??</value>
   </data>
+  <data name="CreditInLimitExceeded" xml:space="preserve">
+    <value>??Credit In Limit Exceeded??</value>
+  </data>
+  <data name="CreditLimitExceeded" xml:space="preserve">
+    <value>??Credit Limit Exceeded??</value>
+  </data>
+  <data name="CurrentValue" xml:space="preserve">
+    <value>??Current Value??</value>
+  </data>
+  <data name="CustomSAPConfigSetup" xml:space="preserve">
+    <value>??STANDALONE PROGRESSIVE SETUP??</value>
+  </data>
+  <data name="CustomSAPTitle" xml:space="preserve">
+    <value>??Custom SAP??</value>
+  </data>
   <data name="DaysActive" xml:space="preserve">
     <value>??Days Active??</value>
   </data>
   <data name="DaysFormatter" xml:space="preserve">
     <value>??{0} Days??</value>
   </data>
+  <data name="DocumentRejected" xml:space="preserve">
+    <value>??Bill or Voucher Rejected??</value>
+  </data>
+  <data name="DropDoorClosed" xml:space="preserve">
+    <value>??Drop Door Closed??</value>
+  </data>
+  <data name="DropDoorIsOpen" xml:space="preserve">
+    <value>??Drop Door is Open??</value>
+  </data>
   <data name="EgmPaidGameWonAmtLabel" xml:space="preserve">
     <value>??Cash Won??</value>
   </data>
   <data name="EndTimeText" xml:space="preserve">
     <value>??End??</value>
+  </data>
+  <data name="ExcessiveDocumentRejectMessage" xml:space="preserve">
+    <value>??Excessive Bills/Vouchers Rejected??</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>??Expired??</value>
   </data>
   <data name="ExtendedLayout" xml:space="preserve">
     <value>??Extended Layout??</value>
@@ -1991,6 +2057,45 @@ See manual for details??</value>
   <data name="HidePreviouslyActive" xml:space="preserve">
     <value>??Hide Previously Active??</value>
   </data>
+  <data name="IdReaderDisconnected" xml:space="preserve">
+    <value>??ID Reader Disconnected??</value>
+  </data>
+  <data name="IncorrectPlayer" xml:space="preserve">
+    <value>??Incorrect Player??</value>
+  </data>
+  <data name="IncrementRate" xml:space="preserve">
+    <value>??Increment Rate??</value>
+  </data>
+  <data name="InitialValue" xml:space="preserve">
+    <value>??Initial Value??</value>
+  </data>
+  <data name="InvalidBill" xml:space="preserve">
+    <value>??Invalid Bill??</value>
+  </data>
+  <data name="InvalidVoucher" xml:space="preserve">
+    <value>??Invalid Voucher??</value>
+  </data>
+  <data name="JackpotHandpayKeyedOff" xml:space="preserve">
+    <value>??Jackpot Handpay Paid {0}??</value>
+  </data>
+  <data name="JackpotToCreditsKeyedOff" xml:space="preserve">
+    <value>??Paid {0} to Credit Meter??</value>
+  </data>
+  <data name="Keno" xml:space="preserve">
+    <value>??Keno??</value>
+  </data>
+  <data name="LevelId" xml:space="preserve">
+    <value>??Level ID??</value>
+  </data>
+  <data name="LevelNameLabel" xml:space="preserve">
+    <value>??Level Name??</value>
+  </data>
+  <data name="LogicDoorClosed" xml:space="preserve">
+    <value>??Logic Door Closed??</value>
+  </data>
+  <data name="LogicDoorIsOpen" xml:space="preserve">
+    <value>??Logic Door is Open??</value>
+  </data>
   <data name="MachineActualPayback" xml:space="preserve">
     <value>??Machine Actual Operating Payback??</value>
   </data>
@@ -1999,6 +2104,24 @@ See manual for details??</value>
   </data>
   <data name="MachineWeightedPayback" xml:space="preserve">
     <value>??Machine Weighted Theoretical Payback??</value>
+  </data>
+  <data name="MainDoorClosed" xml:space="preserve">
+    <value>??Main Door Closed??</value>
+  </data>
+  <data name="MainDoorIsOpen" xml:space="preserve">
+    <value>??Main Door is Open??</value>
+  </data>
+  <data name="MainOpticDoorClosed" xml:space="preserve">
+    <value>??Main Optic Door Closed??</value>
+  </data>
+  <data name="MaxValue" xml:space="preserve">
+    <value>??Max Value??</value>
+  </data>
+  <data name="MechanicalMeterDoorClosed" xml:space="preserve">
+    <value>??Mechanical Meter Door Closed??</value>
+  </data>
+  <data name="MechanicalMeterDoorIsOpen" xml:space="preserve">
+    <value>??Mechanical Meter Door is Open??</value>
   </data>
   <data name="MetersVouchers" xml:space="preserve">
     <value>??Vouchers??</value>
@@ -2015,6 +2138,15 @@ See manual for details??</value>
   <data name="NeverExpires" xml:space="preserve">
     <value>??Never Expires??</value>
   </data>
+  <data name="NonCashableHeader" xml:space="preserve">
+    <value>??NON-CASHABLE??</value>
+  </data>
+  <data name="NoteAcceptorFailure" xml:space="preserve">
+    <value>??Note Acceptor Failure??</value>
+  </data>
+  <data name="NoteAcceptor_Disconnected" xml:space="preserve">
+    <value>??Note Acceptor Disconnected??</value>
+  </data>
   <data name="Off" xml:space="preserve">
     <value>??Off??</value>
   </data>
@@ -2027,8 +2159,23 @@ See manual for details??</value>
   <data name="PlayedCountLabel" xml:space="preserve">
     <value>??Games Played??</value>
   </data>
+  <data name="PlayerCardMustBeInserted" xml:space="preserve">
+    <value>??Player Card Must Be Inserted??</value>
+  </data>
+  <data name="Poker" xml:space="preserve">
+    <value>??Poker??</value>
+  </data>
+  <data name="PowerFailure" xml:space="preserve">
+    <value>??Power Failure??</value>
+  </data>
+  <data name="PowerResetText" xml:space="preserve">
+    <value>??Power Reset??</value>
+  </data>
   <data name="PreviouslyActive" xml:space="preserve">
     <value>??Previously Active??</value>
+  </data>
+  <data name="PrinterError" xml:space="preserve">
+    <value>??Printer Error??</value>
   </data>
   <data name="PrintLast15RecordsButtonText" xml:space="preserve">
     <value>??Print Last 15 Records??</value>
@@ -2036,14 +2183,41 @@ See manual for details??</value>
   <data name="PrintSelectedButtonText" xml:space="preserve">
     <value>??Print Selected??</value>
   </data>
+  <data name="ProgressiveFaultTypes_MinimumThresholdNotReached" xml:space="preserve">
+    <value>??Minimum Progressive Value Error??</value>
+  </data>
+  <data name="ProgressiveFaultTypes_ProgCommitTimeout" xml:space="preserve">
+    <value>??Progressive Commit Failed??</value>
+  </data>
+  <data name="ProgressiveFaultTypes_ProgDisconnected" xml:space="preserve">
+    <value>??Progressive Disconnected??</value>
+  </data>
+  <data name="ProgressiveFaultTypes_ProgUpdateTimeout" xml:space="preserve">
+    <value>??Progressive Update Not Received??</value>
+  </data>
+  <data name="PromoHeader" xml:space="preserve">
+    <value>??PROMOTIONAL??</value>
+  </data>
   <data name="ReadOnlyModeText" xml:space="preserve">
     <value>??Read-Only Mode??</value>
   </data>
   <data name="ReplayPause" xml:space="preserve">
     <value>??Replay Pause??</value>
   </data>
+  <data name="ResetValue" xml:space="preserve">
+    <value>??Reset Value??</value>
+  </data>
   <data name="RTP" xml:space="preserve">
     <value>??RTP??</value>
+  </data>
+  <data name="SecondaryCashDoorClosed" xml:space="preserve">
+    <value>??Secondary Stacker Door Closed??</value>
+  </data>
+  <data name="SecondaryCashDoorIsOpen" xml:space="preserve">
+    <value>??Secondary Stacker Door is Open??</value>
+  </data>
+  <data name="SessionLimitReached" xml:space="preserve">
+    <value>??Session Limit Reached??</value>
   </data>
   <data name="SetGameOrder" xml:space="preserve">
     <value>??Set Game Order??</value>
@@ -2056,6 +2230,48 @@ See manual for details??</value>
   </data>
   <data name="TheoreticalHold" xml:space="preserve">
     <value>??Theo Hold??</value>
+  </data>
+  <data name="TicketingDisabled" xml:space="preserve">
+    <value>??Ticketing Disabled??</value>
+  </data>
+  <data name="TimedOut" xml:space="preserve">
+    <value>??Timed Out??</value>
+  </data>
+  <data name="TopBoxDoorClosed" xml:space="preserve">
+    <value>??Top Box Door Closed??</value>
+  </data>
+  <data name="TopBoxDoorIsOpen" xml:space="preserve">
+    <value>??Top Box Door is Open??</value>
+  </data>
+  <data name="TopBoxOpticDoorClosed" xml:space="preserve">
+    <value>??Top Box Optic Door Closed??</value>
+  </data>
+  <data name="TransferedInComplete" xml:space="preserve">
+    <value>??Transferred In -??</value>
+  </data>
+  <data name="TransferedOutComplete" xml:space="preserve">
+    <value>??Transferred Out -??</value>
+  </data>
+  <data name="UniversalInterfaceBoxDoorClosed" xml:space="preserve">
+    <value>??Universal Interface Box Door Closed??</value>
+  </data>
+  <data name="UniversalInterfaceBoxDoorIsOpen" xml:space="preserve">
+    <value>??Universal Interface Box Door is Open??</value>
+  </data>
+  <data name="ValidationFailed" xml:space="preserve">
+    <value>??Voucher Failed??</value>
+  </data>
+  <data name="VoucherAccepted" xml:space="preserve">
+    <value>??Voucher Accepted -??</value>
+  </data>
+  <data name="VoucherIssued" xml:space="preserve">
+    <value>??Voucher Printed -??</value>
+  </data>
+  <data name="VoucherLimitExceeded" xml:space="preserve">
+    <value>??Voucher Limit Exceeded??</value>
+  </data>
+  <data name="VoucherRejected" xml:space="preserve">
+    <value>??Voucher Rejected??</value>
   </data>
   <data name="WagerCategoryTitle" xml:space="preserve">
     <value>??Wager Category Meters??</value>
@@ -3412,5 +3628,8 @@ Do you really want to do partial reset????</value>
   <data name="OptionsScreen" xml:space="preserve">
     <value>???Options???</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="ZeroAmount" xml:space="preserve">
+    <value>??Zero Amount??</value>
   </data>
 </root>
