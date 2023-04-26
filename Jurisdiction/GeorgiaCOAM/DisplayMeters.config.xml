@@ -44,6 +44,9 @@
     <MeterNode Page="MainPage" Name="TotalIn" DisplayName="Total Credits In" Order="119" />
     <MeterNode Page="MainPage" Name="TotalOut" DisplayName="Total Credits Out" Order="120" />    
     <MeterNode Page="MainPage" Name="DropMeter" DisplayName="Drop Meter (Bill and Ticket)" Order="121" />
+    <MeterNode Page="MainPage" Name="HardMeterOutAmount" DisplayName="Payout (Money Out)" Order="122" />
+    <MeterNode Page="MainPage" Name="ResidualAmount" DisplayName="Residual Credits" Order="123" />
+
     <MeterNode Page="Hardware" Name="MainDoorOpenTotal" DisplayName="Main Door Access" Order="1" />
     <MeterNode Page="Hardware" Name="LogicDoorOpenTotal" DisplayName="Logic Door Access" Order="2" />
     <MeterNode Page="Hardware" Name="BellyDoorOpenTotal" DisplayName="Belly Door Access" Order="3" />
