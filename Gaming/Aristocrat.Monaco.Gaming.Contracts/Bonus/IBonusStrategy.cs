@@ -42,8 +42,9 @@
         ///     Attempts to pay the provided bonus transaction
         /// </summary>
         /// <param name="transaction">The bonus transaction to pay</param>
+        /// <param name="transactionId">The transactionId to pay</param>
         /// <returns>true if the bonus is eligible to be paid</returns>
-        bool CanPay(BonusTransaction transaction);
+        bool CanPay(BonusTransaction transaction, Guid transactionId);
 
         /// <summary>
         ///     Attempts to pay the provided bonus transaction

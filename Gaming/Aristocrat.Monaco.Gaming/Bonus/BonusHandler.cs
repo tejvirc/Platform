@@ -169,7 +169,7 @@
 
                 Logger.Info($"Created pending bonus: {bonus}");
                 if (bonus.Exception == (int)BonusException.None
-                    && strategy.CanPay(bonus)
+                    && strategy.CanPay(bonus, CurrentTransaction.TransactionId)
                     && (request is not StandardBonus standardBonus || standardBonus.AllowedWhileInAuditMode || !InAuditMode))
                 {
                     Commit();
@@ -239,7 +239,7 @@
         private IEnumerable<BonusTransaction> GetPendingBonusTransactions()
         {
             return Transactions
-                .Where(t => t.State == BonusState.Pending && _strategies.Create(t.Mode).CanPay(t))
+                .Where(t => t.State == BonusState.Pending && _strategies.Create(t.Mode).CanPay(t, CurrentTransaction.TransactionId))
                 .OrderBy(t => t.Mode)
                 .ThenBy(t => t.TransactionId);
         }

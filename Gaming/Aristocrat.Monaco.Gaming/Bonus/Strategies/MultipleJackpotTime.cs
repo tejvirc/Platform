@@ -105,7 +105,7 @@
             return transaction;
         }
 
-        public bool CanPay(BonusTransaction transaction)
+        public bool CanPay(BonusTransaction transaction, Guid transactionId)
         {
             var gameRound = _history.CurrentLog;
 
@@ -130,7 +130,7 @@
 
             var gameRound = _history.CurrentLog;
 
-            if (!CanPay(transaction))
+            if (!CanPay(transaction, transactionId))
             {
                 return null;
             }

@@ -90,7 +90,7 @@
             return transaction;
         }
 
-        public bool CanPay(BonusTransaction transaction)
+        public bool CanPay(BonusTransaction transaction, Guid transactionId)
         {
             var playState = _gamePlay.UncommittedState;
             return transaction.State == BonusState.Pending &&
@@ -107,7 +107,7 @@
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            if (!CanPay(transaction))
+            if (!CanPay(transaction, transactionId))
             {
                 return null;
             }
