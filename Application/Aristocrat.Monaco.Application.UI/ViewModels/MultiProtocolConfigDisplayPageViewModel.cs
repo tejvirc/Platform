@@ -7,6 +7,8 @@
     using Kernel;
     using Monaco.Common;
     using OperatorMenu;
+    using Contracts.Localization;
+    using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
     public class MultiProtocolConfigDisplayPageViewModel : OperatorMenuPageViewModelBase
@@ -27,12 +29,20 @@
             _centralDeterminationSystemProtocol = multiProtocolConfiguration.FirstOrDefault(x => x.IsCentralDeterminationHandled)?.Protocol;
         }
 
-        public string ValidationProtocol => _validationProtocol.HasValue ? EnumParser.ToName(_validationProtocol) : ProtocolNames.None;
+        public string ValidationProtocol => _validationProtocol.HasValue
+            ? EnumParser.ToName(_validationProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
 
-        public string FundTransferProtocol => _fundTransferProtocol.HasValue ? EnumParser.ToName(_fundTransferProtocol) : ProtocolNames.None;
+        public string FundTransferProtocol => _fundTransferProtocol.HasValue
+            ? EnumParser.ToName(_fundTransferProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
 
-        public string ProgressiveProtocol => _progressiveProtocol.HasValue ? EnumParser.ToName(_progressiveProtocol) : ProtocolNames.None;
+        public string ProgressiveProtocol => _progressiveProtocol.HasValue
+            ? EnumParser.ToName(_progressiveProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
 
-        public string CentralDeterminationSystemProtocol => _centralDeterminationSystemProtocol.HasValue ? EnumParser.ToName(_centralDeterminationSystemProtocol) : ProtocolNames.None;
+        public string CentralDeterminationSystemProtocol => _centralDeterminationSystemProtocol.HasValue
+            ? EnumParser.ToName(_centralDeterminationSystemProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
     }
 }
