@@ -2336,4 +2336,163 @@ See manual for details??</value>
   <data name="ZeroAmount" xml:space="preserve">
     <value>??Zero Amount??</value>
   </data>
+  <data name="CheckingInitialConfiguration" xml:space="preserve">
+    <value>??Checking Initial Configuration??</value>
+  </data>
+  <data name="CheckingInspection" xml:space="preserve">
+    <value>??Checking Inspection??</value>
+  </data>
+  <data name="ClosingGame" xml:space="preserve">
+    <value>??Closing Game??</value>
+  </data>
+  <data name="CreatingAuthenticationService" xml:space="preserve">
+    <value>??Creating Authentication Service??</value>
+  </data>
+  <data name="CreatingBank" xml:space="preserve">
+    <value>??Creating Bank??</value>
+  </data>
+  <data name="CreatingDisableByOperatorManager" xml:space="preserve">
+    <value>??Creating Disable-By-Operator Manager??</value>
+  </data>
+  <data name="CreatingLiveAuthenticationManager" xml:space="preserve">
+    <value>??Creating Live Authentication Manager??</value>
+  </data>
+  <data name="CreatingMeterManager" xml:space="preserve">
+    <value>??Creating Meter Manager??</value>
+  </data>
+  <data name="CreatingMultiProtocolConfigurationProvider" xml:space="preserve">
+    <value>??Creating Multi Protocol Configuration Provider??</value>
+  </data>
+  <data name="CreatingNetworkService" xml:space="preserve">
+    <value>??Creating Network Service??</value>
+  </data>
+  <data name="CreatingOperatorMenuLauncher" xml:space="preserve">
+    <value>??Creating Operator Menu Launcher??</value>
+  </data>
+  <data name="CreatingPersistenceClearArbiter" xml:space="preserve">
+    <value>??Creating Persistence Clear Arbiter??</value>
+  </data>
+  <data name="CreatingPropertyProviders" xml:space="preserve">
+    <value>??Creating Property Providers??</value>
+  </data>
+  <data name="CreatingSerialGatService" xml:space="preserve">
+    <value>??Creating SerialGat Service??</value>
+  </data>
+  <data name="CreatingTimeService" xml:space="preserve">
+    <value>??Creating Time Service??</value>
+  </data>
+  <data name="CreatingTransactionCoordinator" xml:space="preserve">
+    <value>??Creating Transaction Coordinator??</value>
+  </data>
+  <data name="CreatingTransactionHistory" xml:space="preserve">
+    <value>??Creating Transaction History??</value>
+  </data>
+  <data name="DiscoveringGames" xml:space="preserve">
+    <value>??Discovering Games??</value>
+  </data>
+  <data name="KeyLeftInEgmLockupMessage" xml:space="preserve">
+    <value>??Remove Operator Key??</value>
+  </data>
+  <data name="LoadingAccountingRunnables" xml:space="preserve">
+    <value>??Loading Account Runnables??</value>
+  </data>
+  <data name="LoadingAccountingServices" xml:space="preserve">
+    <value>??Loading Accounting Services??</value>
+  </data>
+  <data name="LoadingApplicationRunnables" xml:space="preserve">
+    <value>??Loading Application Runnables??</value>
+  </data>
+  <data name="LoadingApplicationServices" xml:space="preserve">
+    <value>??Loading Application Services??</value>
+  </data>
+  <data name="LoadingConfiguration" xml:space="preserve">
+    <value>??Loading Configuration??</value>
+  </data>
+  <data name="LoadingConfigurationSettingsManager" xml:space="preserve">
+    <value>??Loading Configuration Settings Manager??</value>
+  </data>
+  <data name="LoadingHardwareRunnables" xml:space="preserve">
+    <value>??Loading Hardware Runnables??</value>
+  </data>
+  <data name="LoadingHardwareServices" xml:space="preserve">
+    <value>??Loading Hardware Services??</value>
+  </data>
+  <data name="LoadingPreConfiguration" xml:space="preserve">
+    <value>??Loading Pre-Configuration??</value>
+  </data>
+  <data name="LoadingRuntime" xml:space="preserve">
+    <value>??Loading Runtime??</value>
+  </data>
+  <data name="LoadingTicketCreators" xml:space="preserve">
+    <value>??LoadingTicketCreators??</value>
+  </data>
+  <data name="LoadUi" xml:space="preserve">
+    <value>??Loading Display??</value>
+  </data>
+  <data name="RunningConfigurationWizard" xml:space="preserve">
+    <value>??Running Configuration Wizard??</value>
+  </data>
+  <data name="RunningInspectionWizard" xml:space="preserve">
+    <value>??Running Inspection Wizard??</value>
+  </data>
+  <data name="UnloadingAccountingRunnables" xml:space="preserve">
+    <value>??Unloading Accounting Runnables??</value>
+  </data>
+  <data name="UnloadingAccountingServices" xml:space="preserve">
+    <value>??Unloading Accounting Services??</value>
+  </data>
+  <data name="UnloadingApplicationRunnables" xml:space="preserve">
+    <value>??Unloading Application Runnables??</value>
+  </data>
+  <data name="UnloadingApplicationServices" xml:space="preserve">
+    <value>??Unloading Application Services??</value>
+  </data>
+  <data name="UnloadingBank" xml:space="preserve">
+    <value>??Unloading Bank??</value>
+  </data>
+  <data name="UnloadingDisableByOperatorManager" xml:space="preserve">
+    <value>??Unloading Disable-By-Operator Manager??</value>
+  </data>
+  <data name="UnloadingGATService" xml:space="preserve">
+    <value>??Unloading GAT Service??</value>
+  </data>
+  <data name="UnloadingHardwareRunnables" xml:space="preserve">
+    <value>??Unloading Hardware Runnables??</value>
+  </data>
+  <data name="UnloadingHardwareServices" xml:space="preserve">
+    <value>??Unloading Hardware Services??</value>
+  </data>
+  <data name="UnloadingLiveAuthenticationManager" xml:space="preserve">
+    <value>??Unloading Live Authentication Manager??</value>
+  </data>
+  <data name="UnloadingMeterManager" xml:space="preserve">
+    <value>??Unloading Meter Manager??</value>
+  </data>
+  <data name="UnloadingMultiProtocolConfigurationProvider" xml:space="preserve">
+    <value>??Unloading Multi Protocol Configuration Provider??</value>
+  </data>
+  <data name="UnloadingNetworkLog" xml:space="preserve">
+    <value>??Unloading Network Log??</value>
+  </data>
+  <data name="UnloadingOperatorMenuLauncher" xml:space="preserve">
+    <value>??Unloading Operator Menu Launcher??</value>
+  </data>
+  <data name="UnloadingPersistenceClearArbiter" xml:space="preserve">
+    <value>??Unloading Persistence Clear Arbiter??</value>
+  </data>
+  <data name="UnloadingTimeService" xml:space="preserve">
+    <value>??Unloading Time Service??</value>
+  </data>
+  <data name="UnloadingTransactionalMeterReader" xml:space="preserve">
+    <value>??Unloading Transactional Meter Reader??</value>
+  </data>
+  <data name="UnloadingTransactionCoordinator" xml:space="preserve">
+    <value>??Unloading Transaction Coordinator??</value>
+  </data>
+  <data name="UnloadingTransactionHistory" xml:space="preserve">
+    <value>??Unloading Transaction History??</value>
+  </data>
+  <data name="UnloadUi" xml:space="preserve">
+    <value>??Unloading Display??</value>
+  </data>
 </root>
