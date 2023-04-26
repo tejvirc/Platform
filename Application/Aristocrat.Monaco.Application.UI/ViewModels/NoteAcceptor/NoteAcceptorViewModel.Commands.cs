@@ -121,10 +121,12 @@
 
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
 
+            _inNoteAcceptorTest = true;
             dialogService.ShowInfoDialog<NoteAcceptorTestView>(
                 this,
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoteAcceptorTest));
+            _inNoteAcceptorTest = false;
 
             EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.NoteAcceptor));
         }

@@ -50,7 +50,7 @@
 
             <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
                 <Setter Property="Margin" Value="0 0 20 0"/>
-                <Setter Property="Width" Value="200"/>
+                <Setter Property="MinWidth" Value="200"/>
             </Style>
 
             <Style x:Key="MonacoScrollListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MonacoUnselectableListBoxItem}">
@@ -128,7 +128,7 @@
                 </events:RoutedEventTrigger>
             </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" 
+                <DataGridTextColumn Header="#"
                                     Binding="{Binding (models:GameRoundHistoryItem.LogSequenceText)}" 
                                     HeaderStyle="{StaticResource HeaderStyle}"
                                     Visibility="{Binding ElementName=EventViewer, Path=DataContext.ShowSequenceNumber, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
@@ -141,7 +141,8 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}"
-                                                 FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid}"/>
+                                                 FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid}"
+                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
@@ -150,6 +151,12 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                                    Binding="{Binding Denom, Converter={StaticResource CurrencyConverter}}"
+                                    HeaderStyle="{StaticResource HeaderStyle}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Version}}"
+                                    Binding="{Binding GameVersion}"
+                                    HeaderStyle="{StaticResource HeaderStyle}"/>
                 <DataGridTextColumn Binding="{Binding StartTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     HeaderStyle="{StaticResource HeaderStyle}">
                     <DataGridTextColumn.HeaderTemplate>
@@ -157,7 +164,8 @@
                             <common:FilterByDateButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StartTimeText}}"
                                                        StartDate="{Binding Path=DataContext.FilterStartDate, ElementName=MainGrid}"
                                                        EndDate="{Binding Path=DataContext.FilterEndDate, ElementName=MainGrid}"
-                                                       SelectedDate="{Binding Path=DataContext.FilterSelectedDate, ElementName=MainGrid, Mode=TwoWay}"/>
+                                                       SelectedDate="{Binding Path=DataContext.FilterSelectedDate, ElementName=MainGrid, Mode=TwoWay}"
+                                                       IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}" />
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
@@ -182,18 +190,23 @@
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CreditsWonText}}" 
                                     MinWidth="90" 
-                                    Binding="{Binding CreditsWon, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndCreditsText}}" 
-                                    MinWidth="90" 
-                                    Binding="{Binding EndCredits, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
+                                    Binding="{Binding CreditsWon, Converter={StaticResource CurrencyConverter}}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndCreditsText}}"
+                                    MinWidth="90"
+                                    Binding="{Binding EndCredits, Converter={StaticResource CurrencyConverter}}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndJackpot}}" 
+                                    Binding="{Binding EndJackpot}" 
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    Visibility="{Binding ShowProgressiveDetails, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                 <DataGridTextColumn Binding="{Binding Status}"
                                     HeaderStyle="{StaticResource HeaderStyle}">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
-                                                 FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid}" />
+                                                 FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid}"
+                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
@@ -265,6 +278,10 @@
                     IsEnabled="{Binding IsGameRoundComplete}"
                     Command="{Binding ShowGameDetailsCommand}"
                     Visibility="{Binding ShowGameDetailsButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveDetails}}"
+                    IsEnabled="{Binding SelectedGameHasProgressiveDetails}"
+                    Command="{Binding ShowProgressiveDetailsCommand}"
+                    Visibility="{Binding ShowProgressiveDetails, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 -16">

@@ -202,10 +202,8 @@
 
                     foreach (var meterNode in MeterNodes)
                     {
-                        var label = meterNode.Name + "Label";
-
                         string meterDisplayName = localizer.GetString(
-                            label,
+                            meterNode.DisplayNameKey,
                             _ => meterDisplayName = meterNode.DisplayName);
 
                         if (meterNode.DisplayName.IsEmpty() && meterNode.Name == "blank line")

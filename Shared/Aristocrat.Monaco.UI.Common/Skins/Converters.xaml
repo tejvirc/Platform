@@ -10,6 +10,9 @@
     <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueVisibleFalseCollapsed" TrueValue="Visible" FalseValue="Collapsed"/>
     <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueCollapsedFalseVisible" TrueValue="Collapsed" FalseValue="Visible"/>
 
+    <converters:StringToVisibilityConverter x:Key="EmptyStringIsCollapsedConverter"/>
+    <converters:StringToVisibilityConverter x:Key="EmptyStringIsVisibleConverter" EmptyValue="Visible" NotEmptyValue="Collapsed"/>
+
     <converters:CurrencyConverter x:Key="CurrencyConverter"/>
     <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
     <converters:DefaultValueConverter x:Key="EmptyToDefaultValue"/>

@@ -32,19 +32,19 @@
             <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_Light}}" VerticalAlignment="Center" />
             <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ColorText}}" VerticalAlignment="Center" Margin="0 10 0 0" />
 
-            <ComboBox Grid.Row="0" Grid.Column="1"
+            <ComboBox Grid.Row="0" Grid.Column="1" Name="ReelLightNamesComboBox"
                       IsEnabled="{Binding TestActive, Converter={StaticResource InverseBoolConverter}}"
                       ItemsSource="{Binding ReelLightIdNames}" 
                       SelectedIndex="{Binding SelectedReelLightIdIndex}"
                       Margin="10 0 0 0" Width="120" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-            <ComboBox  Grid.Row="1" Grid.Column="1"
+            <ComboBox  Grid.Row="1" Grid.Column="1" Name="ReelLightColorsComboBox"
                        IsEnabled="{Binding TestActive, Converter={StaticResource InverseBoolConverter}}"
                        ItemsSource="{Binding ReelLightColors}"
                        SelectedIndex="{Binding SelectedReelLightColorIndex}"
                        Margin="10 10 0 0" Width="120" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-            <controls:ToggleSwitchButton Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            <controls:ToggleSwitchButton Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="LightToggleButton"
                                          IsEnabled="{Binding Initialized}"
                                          Margin="0 10 0 0" 
                                          IsChecked="{Binding TestActive, Mode=TwoWay}"/>

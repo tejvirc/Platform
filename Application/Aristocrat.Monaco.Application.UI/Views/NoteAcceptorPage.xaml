@@ -32,6 +32,7 @@
             <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
                 <Setter Property="Margin" Value="0 0 0 10" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="White" />
             </Style>
 
             <Style TargetType="CheckBox" BasedOn="{StaticResource MonacoCheckBox}">
@@ -85,7 +86,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Foreground="{Binding ManufacturerForeground}">
+                        <TextBlock Grid.Row="0" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -99,7 +100,7 @@
                         </TextBlock>
 
                         <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="{Binding ModelForeground}">
+                        <TextBlock Grid.Row="1" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -113,7 +114,7 @@
                         </TextBlock>
 
                         <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"/>
-                        <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{Binding ProtocolForeground}">
+                        <TextBlock Grid.Row="2" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -127,7 +128,7 @@
                         </TextBlock>
 
                         <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"/>
-                        <TextBlock Grid.Row="3" Grid.Column="1" Foreground="{Binding PortForeground}">
+                        <TextBlock Grid.Row="3" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -141,7 +142,7 @@
                         </TextBlock>
 
                         <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
-                        <TextBlock Grid.Row="4" Grid.Column="1" Foreground="{Binding SerialNumberForeground}">
+                        <TextBlock Grid.Row="4" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -155,7 +156,7 @@
                         </TextBlock>
 
                         <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"/>
-                        <TextBlock Grid.Row="5" Grid.Column="1" Foreground="{Binding FirmwareVersionForeground}">
+                        <TextBlock Grid.Row="5" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -169,7 +170,7 @@
                         </TextBlock>
 
                         <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"/>
-                        <TextBlock Grid.Row="6" Grid.Column="1" Foreground="{Binding FirmwareRevisionForeground}">
+                        <TextBlock Grid.Row="6" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -183,7 +184,7 @@
                         </TextBlock>
 
                         <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCRCLabel}}"/>
-                        <TextBlock Grid.Row="7" Grid.Column="1" Foreground="{Binding FirmwareCrcForeground}">
+                        <TextBlock Grid.Row="7" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -197,7 +198,7 @@
                         </TextBlock>
 
                         <Label  Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VariantNameLabel}}"/>
-                        <TextBlock Grid.Row="8" Grid.Column="1" Foreground="{Binding VariantNameForeground}">
+                        <TextBlock Grid.Row="8" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -211,7 +212,7 @@
                         </TextBlock>
 
                         <Label  Grid.Row="9" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VariantVersionLabel}}"/>
-                        <TextBlock Grid.Row="9" Grid.Column="1" Foreground="{Binding VariantVersionForeground}">
+                        <TextBlock Grid.Row="9" Grid.Column="1">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Style.Triggers>
@@ -264,7 +265,7 @@
                         <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ActivationTimeLabel}}"  
                                Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
                         <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ActivationTime}" 
-                                   Foreground="{Binding ActivationForeground}"
+                                   
                                    Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
                         <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}" VerticalAlignment="Top"/>
@@ -272,15 +273,28 @@
                                    Foreground="{Binding StatusForeground}"/>
 
                         <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherIn}}"/>
-                        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding VoucherInEnabledText}"
-                                   Foreground="{Binding VoucherInEnabledTextForeground}"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding VoucherInEnabledText}"/>
 
-                        <Label Grid.Row="7" Grid.Column="0" Margin="0,20,10,0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}"
+                        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AcceptanceRate}}"/>
+                        <TextBlock Grid.Row="7" Grid.Column="1">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding BillAcceptanceRate, Mode=OneWay, TargetNullValue=''}" Value="">
+                                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Text" Value="{Binding BillAcceptanceRate, Mode=OneWay}"/>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <Label Grid.Row="8" Grid.Column="0" Margin="0,20,10,0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}"
                                Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-                        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal"  Margin="0,0,10,0"  HorizontalAlignment="Left"
+                        <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal"  Margin="0,0,10,0"  HorizontalAlignment="Left"
                                     Visibility="{Binding HideBillAcceptorLimitField, Converter={StaticResource TrueCollapsedFalseVisible}}">
                             <CheckBox IsChecked="{Binding BillAcceptanceLimitIsChecked, Mode=TwoWay}" VerticalAlignment="Center">
-                                <CheckBox.IsEnabled >
+                                <CheckBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="InputEnabled"/>
                                         <Binding Path="CanEditBillAcceptanceLimit"/>
@@ -291,8 +305,8 @@
                                                      Margin="0 10 0 0"
                                                      Width="200" VerticalAlignment="Center"
                                                      PreventNegatives="True"
-                                                     Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" >
-                                <helpers:CurrencyTextBox.IsEnabled >
+                                                     Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}">
+                                <helpers:CurrencyTextBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="InputEnabled"/>
                                         <Binding Path="CanEditBillAcceptanceLimit"/>
@@ -305,9 +319,9 @@
                                        Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
 
-                        <Label Grid.Row="8" Grid.Column="0" Margin="0 15 10 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExcessiveRejectDisable}}"
+                        <Label Grid.Row="9" Grid.Column="0" Margin="0 15 10 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExcessiveRejectDisable}}"
                                Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-                        <controls:ToggleSwitchButton Grid.Row="8" Grid.Column="1" Margin="0 15 0 0"
+                        <controls:ToggleSwitchButton Grid.Row="9" Grid.Column="1" Margin="0 15 0 0"
                                                      Visibility="{Binding ExcessiveRejectDisableIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                      IsChecked="{Binding ExcessiveRejectDisable}"
                                                      controls:ControlsHelper.ContentCharacterCasing="Upper"

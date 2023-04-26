@@ -135,6 +135,7 @@
   </Extension>
   <Extension path="/Locale/Overrides" filterid="QuebecLocaleOverrides">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Quebec-VLT\Lobby.config.xml" filterid="QuebecLobbyConfig" />

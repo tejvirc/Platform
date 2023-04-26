@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
-    using NudgeReelData = Hardware.Contracts.Reel.NudgeReelData;
+    using NudgeReelData = Hardware.Contracts.Reel.ControlData.NudgeReelData;
 
     /// <summary>
     ///     Nudge the mechanical reels

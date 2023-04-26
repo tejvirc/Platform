@@ -36,7 +36,6 @@
                 var bonusId = $"{GEWBonusIdPrefix}_{Guid.NewGuid()}";
                 var pending = new TaskCompletionSource<bool>();
 
-                using var register = token.Register(TryCancel);
                 _bus.Subscribe<BonusAwardedEvent>(
                     this,
                     _ => pending.TrySetResult(true),
@@ -45,6 +44,8 @@
                     this,
                     _ => pending.TrySetResult(false),
                     evt => evt.Transaction.BonusId == bonusId);
+
+                token.ThrowIfCancellationRequested();
                 var award = _bonus.Award(
                     new GameWinBonus(
                         bonusId,
@@ -58,11 +59,13 @@
                             ResourceKeys.GameEndWinAward,
                             winAmount.MillicentsToDollars().FormattedCurrencyString())
                     });
+
                 if (award is null)
                 {
                     pending.TrySetResult(false);
                 }
 
+                using var register = token.Register(TryCancel);
                 return await pending.Task;
                 void TryCancel()
                 {

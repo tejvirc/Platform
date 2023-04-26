@@ -23,39 +23,80 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
+    <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Name="PartialResetText" HorizontalAlignment="Left">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearHeadingText}}" Height="Auto" 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Name="PartialResetText" HorizontalAlignment="Left">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearHeadingText}}" Height="Auto" 
                    FontSize="{StaticResource Heading3FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearSummeryText}}" Height="Auto" 
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearSummaryText}}" Height="Auto" 
                        FontSize="{StaticResource ContentFontSize}" Margin="5,0,0,32" TextWrapping="Wrap" />
 
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText1}}" Height="Auto" 
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText1}}" Height="Auto" 
                    FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText2}}" Margin="5,0,0,32" 
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText2}}" Margin="5,0,0,32" 
                        FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
 
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText3}}" Height="Auto" 
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText3}}" Height="Auto" 
                    FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText4}}" Margin="5,0,0,8" 
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearDetailsText4}}" Margin="5,0,0,8" 
                        FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
-        </StackPanel>
+            </StackPanel>
 
-        <Button Grid.Row="1" Grid.Column="0" Name="PartialResetButton"
+            <Button Grid.Row="1" Grid.Column="0" Name="PartialResetButton"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearButtonContent}}"
                 Command="{Binding PartialResetButtonClickCommand}"
-                IsEnabled="{Binding PartialResetButtonActive}"
+                IsEnabled="{Binding InputEnabled}"
                 Margin="5,40,0,0" Width="180" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Name="FullResetText" HorizontalAlignment="Left">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FullClearHeadingText}}" Height="Auto" 
+                   FontSize="{StaticResource Heading3FontSize}" Margin="0,0,0,8" />
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FullClearSummaryText}}" Height="Auto" 
+                       FontSize="{StaticResource ContentFontSize}" Margin="5,0,0,32" TextWrapping="Wrap" />
+
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FullClearDetailsText1}}" Height="Auto" 
+                   FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FullClearDetailsText2}}" Margin="5,0,0,32" 
+                       FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
+
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FullClearDetailsText3}}" Height="Auto" 
+                   FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FullClearDetailsText4}}" Margin="5,0,0,8" 
+                       FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Button Grid.Row="1" Grid.Column="0" Name="FullResetButton"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.FullClearButtonContent}}"
+                Command="{Binding FullResetButtonClickCommand}"
+                IsEnabled="{Binding InputEnabled}"
+                Margin="5,40,0,0" Width="180" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        </Grid>
     </Grid>
 </operatorMenu:OperatorMenuPage>

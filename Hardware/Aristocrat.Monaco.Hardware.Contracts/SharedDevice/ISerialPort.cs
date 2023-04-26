@@ -4,6 +4,8 @@ namespace Aristocrat.Monaco.Hardware.Contracts.SharedDevice
     using System.IO;
     using System.IO.Ports;
     using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     ///     Definition of the ISerialPort interface.
@@ -191,6 +193,17 @@ namespace Aristocrat.Monaco.Hardware.Contracts.SharedDevice
         int Read(byte[] buffer, int offset, int count);
 
         /// <summary>
+        ///     Reads a number of characters from the SerialPort input buffer and writes
+        ///     those characters into a char array at the specified offset.
+        /// </summary>
+        /// <param name="buffer">The char array to write the input to.</param>
+        /// <param name="offset">The offset in the buffer array to begin writing.</param>
+        /// <param name="count">The number of chars to read.</param>
+        /// <param name="token">The cancellation token for this task</param>
+        /// <returns>Number of bytes read.</returns>
+        Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken token);
+
+        /// <summary>
         ///     Synchronously reads one character from the SerialPort input buffer.
         /// </summary>
         /// <returns>Number of bytes read.</returns>
@@ -253,6 +266,15 @@ namespace Aristocrat.Monaco.Hardware.Contracts.SharedDevice
         /// <param name="offset">The offset in the buffer parameter at which to begin copying bytes to the port. </param>
         /// <param name="count">The number of bytes to write. </param>
         void Write(byte[] buffer, int offset, int count);
+
+        /// <summary>
+        ///     Writes a specified number of bytes to the serial port.
+        /// </summary>
+        /// <param name="buffer">The byte array to write from.</param>
+        /// <param name="offset">The offset in the buffer parameter at which to begin copying bytes to the port. </param>
+        /// <param name="count">The number of bytes to write. </param>
+        /// <param name="token">The cancellation token for this task</param>
+        Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken token);
 
         /// <summary>
         ///     Writes the specified string and the NewLine value to the output buffer.

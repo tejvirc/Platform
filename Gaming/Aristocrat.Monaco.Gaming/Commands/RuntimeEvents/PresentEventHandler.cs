@@ -161,7 +161,7 @@
                 ClearHandpayPendingFlag();
             }
             else if (!MeterFreeGames && !_gameCashOutRecovery.HasPending &&
-                     (_gamePlayState.Idle || _gamePlayState.InPresentationIdle))
+                     _gamePlayState.CurrentState is PlayState.Idle or PlayState.GameEnded or PlayState.PresentationIdle)
             {
                 ClearHandpayPendingFlag();
             }

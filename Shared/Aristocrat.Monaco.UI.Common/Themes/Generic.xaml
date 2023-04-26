@@ -7,6 +7,7 @@
         <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/CurrencyTextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/ExpirationTextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/PercentageTextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/TouchTextBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

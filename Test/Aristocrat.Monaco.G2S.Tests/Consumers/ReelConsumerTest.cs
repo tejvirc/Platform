@@ -5,6 +5,7 @@
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.G2S.Handlers;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Events;
     using G2S.Consumers;
     using Hardware.Contracts.SharedDevice;
     using Kernel;

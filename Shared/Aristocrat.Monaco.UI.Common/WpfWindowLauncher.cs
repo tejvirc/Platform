@@ -20,11 +20,11 @@
     {
         private const string UiThreadName = "UiThread";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly object _lock = new object();
-        private readonly ManualResetEvent _waitForAppCreated = new ManualResetEvent(false);
-        private readonly Dictionary<string, WindowInfo> _windows = new Dictionary<string, WindowInfo>();
+        private readonly object _lock = new();
+        private readonly ManualResetEvent _waitForAppCreated = new(false);
+        private readonly Dictionary<string, WindowInfo> _windows = new();
 
         private bool _disposed;
         private Thread _uiThread;
@@ -56,7 +56,7 @@
         public void Initialize()
         {
             CreateUiThread();
-            Application.Current.Dispatcher.Invoke(() => DisableWPFTabletSupport());
+            Application.Current.Dispatcher.Invoke(() => DisableWpfTabletSupport());
         }
 
         /// <inheritdoc />
@@ -116,13 +116,16 @@
         {
             lock (_lock)
             {
-                if (_windows.TryGetValue(name, out var windowInfo))
+                if (!_windows.TryGetValue(name, out var windowInfo))
                 {
-                    windowInfo.WindowLoadedResetEvent.WaitOne();
-                    Logger.Info($"Intentionally closing window with name: {name}");
-                    windowInfo.Window.Dispatcher.Invoke(DispatcherPriority.Send, new Action(windowInfo.Window.Close));
-                    _windows.Remove(name);
+                    return;
                 }
+
+                windowInfo.WindowLoadedResetEvent.WaitOne();
+                Logger.Info($"Intentionally closing window with name: {name}");
+                windowInfo.Window.Dispatcher.Invoke(DispatcherPriority.Send, new Action(windowInfo.Window.Close));
+                _windows.Remove(name);
+                windowInfo.Dispose();
             }
         }
 
@@ -164,27 +167,29 @@
         {
             lock (_lock)
             {
-                if (_windows.TryGetValue(name, out var windowInfo))
+                if (!_windows.TryGetValue(name, out var windowInfo))
                 {
-                    windowInfo.WindowLoadedResetEvent.WaitOne();
-                    Logger.Info($"Hiding window with name: {name}");
-                    if (topmost)
-                    {
-                        windowInfo.Window.Dispatcher.Invoke(
-                            DispatcherPriority.Send,
-                            new Action(
-                                () =>
-                                {
-                                    windowInfo.Window.Topmost = false;
-                                    NativeMethods.SendWindowToBack(windowInfo.Window);
-                                }));
-                    }
-                    else
-                    {
-                        windowInfo.Window.Dispatcher.Invoke(
-                            DispatcherPriority.Send,
-                            new Action(() => windowInfo.Window.Hide()));
-                    }
+                    return;
+                }
+
+                windowInfo.WindowLoadedResetEvent.WaitOne();
+                Logger.Info($"Hiding window with name: {name}");
+                if (topmost)
+                {
+                    windowInfo.Window.Dispatcher.Invoke(
+                        DispatcherPriority.Send,
+                        new Action(
+                            () =>
+                            {
+                                windowInfo.Window.Topmost = false;
+                                NativeMethods.SendWindowToBack(windowInfo.Window);
+                            }));
+                }
+                else
+                {
+                    windowInfo.Window.Dispatcher.Invoke(
+                        DispatcherPriority.Send,
+                        new Action(() => windowInfo.Window.Hide()));
                 }
             }
         }
@@ -194,14 +199,16 @@
         {
             lock (_lock)
             {
-                if (_windows.TryGetValue(name, out var windowInfo))
+                if (!_windows.TryGetValue(name, out var windowInfo))
                 {
-                    windowInfo.WindowLoadedResetEvent.WaitOne();
-                    Logger.Info($"Activating window with name: {name}");
-                    windowInfo.Window.Dispatcher.Invoke(
-                        DispatcherPriority.Send,
-                        new Action(() => windowInfo.Window.Activate()));
+                    return;
                 }
+
+                windowInfo.WindowLoadedResetEvent.WaitOne();
+                Logger.Info($"Activating window with name: {name}");
+                windowInfo.Window.Dispatcher.Invoke(
+                    DispatcherPriority.Send,
+                    new Action(() => windowInfo.Window.Activate()));
             }
         }
 
@@ -210,14 +217,14 @@
         {
             lock (_lock)
             {
-                if (_windows.TryGetValue(name, out var windowInfo))
+                if (!_windows.TryGetValue(name, out var windowInfo))
                 {
-                    windowInfo.WindowLoadedResetEvent.WaitOne();
-                    return windowInfo.Window.Visibility;
+                    return Visibility.Collapsed;
                 }
-            }
 
-            return Visibility.Collapsed;
+                windowInfo.WindowLoadedResetEvent.WaitOne();
+                return windowInfo.Window.Visibility;
+            }
         }
 
         /// <inheritdoc />
@@ -225,18 +232,18 @@
         {
             lock (_lock)
             {
-                if (_windows.TryGetValue(name, out var windowInfo))
+                if (!_windows.TryGetValue(name, out var windowInfo))
                 {
-                    windowInfo.WindowLoadedResetEvent.WaitOne();
-                    var state = WindowState.Normal;
-                    windowInfo.Window.Dispatcher.Invoke(
-                        DispatcherPriority.Send,
-                        new Action(() => state = windowInfo.Window.WindowState));
-                    return state;
+                    return WindowState.Normal;
                 }
-            }
 
-            return WindowState.Normal;
+                windowInfo.WindowLoadedResetEvent.WaitOne();
+                var state = WindowState.Normal;
+                windowInfo.Window.Dispatcher.Invoke(
+                    DispatcherPriority.Send,
+                    new Action(() => state = windowInfo.Window.WindowState));
+                return state;
+            }
         }
 
         /// <inheritdoc />
@@ -244,14 +251,16 @@
         {
             lock (_lock)
             {
-                if (_windows.TryGetValue(name, out var windowInfo))
+                if (!_windows.TryGetValue(name, out var windowInfo))
                 {
-                    windowInfo.WindowLoadedResetEvent.WaitOne();
-                    Logger.Info($"Setting window {name} to have state {state}");
-                    windowInfo.Window.Dispatcher.Invoke(
-                        DispatcherPriority.Send,
-                        new Action(() => windowInfo.Window.WindowState = state));
+                    return;
                 }
+
+                windowInfo.WindowLoadedResetEvent.WaitOne();
+                Logger.Info($"Setting window {name} to have state {state}");
+                windowInfo.Window.Dispatcher.Invoke(
+                    DispatcherPriority.Send,
+                    new Action(() => windowInfo.Window.WindowState = state));
             }
         }
 
@@ -263,46 +272,19 @@
             Shutdown(true);
         }
 
-        private void CreateUiThread()
+        /// <summary>
+        ///     DisableStylus turns off several stylus features for the window
+        /// </summary>
+        /// <param name="window">The window to disable stylus on</param>
+        public static void DisableStylus(Window window)
         {
-            if (Application.Current != null)
-            {
-                Logger.Info("Application instance already exists");
-                return;
-            }
-
-            if (_uiThread == null)
-            {
-                _uiThread = new Thread(
-                    () =>
-                    {
-                        if (Application.Current == null)
-                        {
-                            Logger.Info("Creating new Application instance...");
-
-                            var app = new MonacoApplication { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-
-                            _waitForAppCreated.Set();
-
-                            app.Run();
-                        }
-                    })
-                {
-                    Name = UiThreadName,
-                    CurrentCulture = Thread.CurrentThread.CurrentCulture,
-                    CurrentUICulture = Thread.CurrentThread.CurrentUICulture
-                };
-
-                _uiThread.SetApartmentState(ApartmentState.STA);
-                _uiThread.Start();
-
-                _waitForAppCreated.WaitOne();
-
-                Logger.Debug($"Started UI window thread with ID: {_uiThread.ManagedThreadId}");
-            }
+            Stylus.SetIsTapFeedbackEnabled(window, false);
+            Stylus.SetIsTouchFeedbackEnabled(window, false);
+            Stylus.SetIsPressAndHoldEnabled(window, false);
+            Stylus.SetIsFlicksEnabled(window, false);
         }
 
-        private void InternalCreateWindow<T>(WindowInfo windowInfo)
+        private static void InternalCreateWindow<T>(WindowInfo windowInfo)
             where T : Window, new()
         {
             Logger.Info($"Creating window of type: {typeof(T).Name}");
@@ -326,12 +308,7 @@
 
             // Turn off stylus/touch graphics.
             DisableStylus(window);
-            
-            window.Loaded += (sender, e) =>
-            {
-                windowInfo.WindowLoadedResetEvent.Set();
-            };
-
+            window.Loaded += WindowOnLoaded;
             window.Closed += WindowOnClosed;
 
             if (windowInfo.IsDialog)
@@ -342,18 +319,106 @@
             {
                 window.Show();
             }
-        }
 
-        private void WindowOnClosed(object sender, EventArgs eventArgs)
-        {
-            if (sender is Window window)
+            void WindowOnLoaded(object sender, RoutedEventArgs args)
             {
-                Logger.Debug($"{window.Name} window closed");
+                windowInfo.WindowLoadedResetEvent.Set();
+            }
 
-                Logger.Info($"Disposing window of name: {window.Name}");
-                var disposable = window as IDisposable;
+            void WindowOnClosed(object sender, EventArgs eventArgs)
+            {
+                if (sender is not Window closingWindow)
+                {
+                    return;
+                }
+
+                closingWindow.Closed -= WindowOnClosed;
+                closingWindow.Loaded -= WindowOnLoaded;
+                Logger.Debug($"{closingWindow.Name} window closed");
+
+                Logger.Info($"Disposing window of name: {closingWindow.Name}");
+                var disposable = closingWindow as IDisposable;
                 disposable?.Dispose();
             }
+        }
+
+        private static void DisableWpfTabletSupport()
+        {
+            // Get a collection of the tablet devices for this window.
+            var devices = Tablet.TabletDevices;
+
+            if (devices.Count <= 0)
+            {
+                return;
+            }
+
+            // Get the Type of InputManager.
+            var inputManagerType = typeof(InputManager);
+
+            // Call the StylusLogic method on the InputManager.Current instance.
+            var stylusLogic = inputManagerType.InvokeMember("StylusLogic",
+                BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                null, InputManager.Current, null);
+
+            if (stylusLogic == null)
+            {
+                return;
+            }
+
+            //  Get the type of the stylusLogic returned from the call to StylusLogic.
+            var stylusLogicType = stylusLogic.GetType();
+
+            // Loop until there are no more devices to remove.
+            while (devices.Count > 0)
+            {
+                // Remove the first tablet device in the devices collection.
+                stylusLogicType.InvokeMember("OnTabletRemoved",
+                    BindingFlags.InvokeMethod | BindingFlags.Instance | BindingFlags.NonPublic,
+                    null, stylusLogic, new object[] { (uint)0 });
+            }
+        }
+
+        private void CreateUiThread()
+        {
+            if (Application.Current != null)
+            {
+                Logger.Info("Application instance already exists");
+                return;
+            }
+
+            if (_uiThread != null)
+            {
+                return;
+            }
+
+            _uiThread = new Thread(
+                () =>
+                {
+                    if (Application.Current != null)
+                    {
+                        return;
+                    }
+
+                    Logger.Info("Creating new Application instance...");
+
+                    var app = new MonacoApplication { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+
+                    _waitForAppCreated.Set();
+
+                    app.Run();
+                })
+            {
+                Name = UiThreadName,
+                CurrentCulture = Thread.CurrentThread.CurrentCulture,
+                CurrentUICulture = Thread.CurrentThread.CurrentUICulture
+            };
+
+            _uiThread.SetApartmentState(ApartmentState.STA);
+            _uiThread.Start();
+
+            _waitForAppCreated.WaitOne();
+
+            Logger.Debug($"Started UI window thread with ID: {_uiThread.ManagedThreadId}");
         }
 
         private void Shutdown(bool closeApplication)
@@ -374,8 +439,10 @@
             }
         }
 
-        private class WindowInfo
+        private sealed class WindowInfo : IDisposable
         {
+            private bool _disposed;
+
             /// <summary>Gets or sets the name of the window</summary>
             public string Name { get; set; }
 
@@ -387,49 +454,16 @@
 
             /// <summary>Gets or sets the event that is signaled when the Window is loaded</summary>
             public ManualResetEvent WindowLoadedResetEvent { get; set; }
-        }
 
-        /// <summary>
-        /// DisableStylus turns off several stylus features for the window
-        /// </summary>
-        /// <param name="window"></param>
-        public static void DisableStylus(Window window)
-        {
-            Stylus.SetIsTapFeedbackEnabled(window, false);
-            Stylus.SetIsTouchFeedbackEnabled(window, false);
-            Stylus.SetIsPressAndHoldEnabled(window, false);
-            Stylus.SetIsFlicksEnabled(window, false);
-        }
-
-        private void DisableWPFTabletSupport()
-        {
-            // Get a collection of the tablet devices for this window.
-            TabletDeviceCollection devices = Tablet.TabletDevices;
-
-            if (devices.Count > 0)
+            public void Dispose()
             {
-                // Get the Type of InputManager.  
-                Type inputManagerType = typeof(InputManager);
-
-                // Call the StylusLogic method on the InputManager.Current instance.  
-                object stylusLogic = inputManagerType.InvokeMember("StylusLogic",
-                    BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-                    null, InputManager.Current, null);
-
-                if (stylusLogic != null)
+                if (_disposed)
                 {
-                    //  Get the type of the stylusLogic returned from the call to StylusLogic.  
-                    Type stylusLogicType = stylusLogic.GetType();
-
-                    // Loop until there are no more devices to remove.  
-                    while (devices.Count > 0)
-                    {
-                        // Remove the first tablet device in the devices collection.  
-                        stylusLogicType.InvokeMember("OnTabletRemoved",
-                            BindingFlags.InvokeMethod | BindingFlags.Instance | BindingFlags.NonPublic,
-                            null, stylusLogic, new object[] { (uint)0 });
-                    }
+                    return;
                 }
+
+                WindowLoadedResetEvent?.Dispose();
+                _disposed = true;
             }
         }
     }

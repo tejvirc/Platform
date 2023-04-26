@@ -406,10 +406,10 @@
     <value>Total des billets en</value>
   </data>
   <data name="CoinInFormat" xml:space="preserve">
-    <value>Pièces de {0:c0}</value>
+    <value>Pièces de</value>
   </data>
   <data name="BillInFormat" xml:space="preserve">
-    <value>Billets de {0:c0}</value>
+    <value>Billets de</value>
   </data>
   <data name="MainDoorOpenCount" xml:space="preserve">
     <value>Ouvertures de la porte principale</value>
@@ -460,7 +460,7 @@
   <data name="CashOutImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAANYAAADWCAYAAACt43wuAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
-        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsAAAA7AAWrWiQkAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADr4AAA6+AepCscAAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
         vUJCJ5QAUqSolIA06Z9UpfsHFBArCAKCAh8BBQEBAekiRcQCFkRRBCmCNEURKR9SRUSKFFGwk/1fv5l5
         z11nn33avTeBhJnneXNu5szMmdmzfrPWXrtMFkKoVKnSECu58nVS3zOP3DPtpcd+Pf20Yw9f85M7bfTd
         s/Z6+zPf/tDy/7x2/yVeu+XgRcMvD18o3HfM1PDgcQuGR7+wQHj8lAXC709dMPzxjAWGVE99qdCfzlyw
@@ -2333,7 +2333,1348 @@ See manual for details??</value>
   <data name="WonCountLabel" xml:space="preserve">
     <value>??Games Won??</value>
   </data>
-  <data name="ZeroAmount" xml:space="preserve">
+	<data name="AmountIn" xml:space="preserve">
+    <value>??Money In??</value>
+  </data>
+	<data name="AmountOut" xml:space="preserve">
+    <value>??Money Out??</value>
+  </data>
+	<data name="CreditBalanceText" xml:space="preserve">
+    <value>??Credit Balance??</value>
+  </data>
+	<data name="Currency" xml:space="preserve">
+    <value>??Currency??</value>
+  </data>
+	<data name="IPAddressesLabel" xml:space="preserve">
+    <value>??IP Address??</value>
+  </data>
+	<data name="LastCashoutTicketSequenceText" xml:space="preserve">
+    <value>??Last Cashout Ticket Sequence??</value>
+  </data>
+	<data name="LicenseText" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+	<data name="MacAddressLabel" xml:space="preserve">
+    <value>??MAC Address??</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="ManufacturerLabel" xml:space="preserve">
+    <value>??Manufacturer??</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="ModelLabel" xml:space="preserve">
+    <value>??Model??</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="NetAmountText" xml:space="preserve">
+    <value>??Net Amount??</value>
+  </data>
+	<data name="NumberOfBillsInserted" xml:space="preserve">
+    <value>Nombre de billets insérés</value>
+  </data>
+	<data name="NumCoinsInText" xml:space="preserve">
+    <value>??Number of Coins Inserted??</value>
+  </data>
+	<data name="OSImageVersionText" xml:space="preserve">
+    <value>??OS Image Version??</value>
+  </data>
+	<data name="PlatformVersionText" xml:space="preserve">
+    <value>??Platform Version??</value>
+  </data>
+	<data name="PowerResets" xml:space="preserve">
+    <value>??Power Resets??</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="SerialNumberLabel" xml:space="preserve">
+    <value>??Serial Number??</value>
+  </data>
+	<data name="AmountInText" xml:space="preserve">
+    <value>??Amount In??</value>
+  </data>
+	<data name="AmountOutText" xml:space="preserve">
+    <value>??Amount Out??</value>
+  </data>
+	<data name="FullClearButtonContent" xml:space="preserve">
+    <value>???Full Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="FullClearDetailsText1" xml:space="preserve">
+    <value>???What will be cleared????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="FullClearDetailsText2" xml:space="preserve">
+    <value>???Static data, history data, meters.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="FullClearDetailsText3" xml:space="preserve">
+    <value>???What will be saved????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="FullClearDetailsText4" xml:space="preserve">
+    <value>???Games????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="FullClearHeadingText" xml:space="preserve">
+    <value>???Full Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="FullClearSummaryText" xml:space="preserve">
+    <value>???This will reset the machine back to the state it was in after initial configuration.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="FullResetDialogText" xml:space="preserve">
+    <value>???This operation cannot be reversed.???
+Do you really want to do full reset????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialClearButtonContent" xml:space="preserve">
+    <value>???Partial Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialClearDetailsText1" xml:space="preserve">
+    <value>???What will be cleared????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialClearDetailsText2" xml:space="preserve">
+    <value>???Critical data, history data, meters.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialClearDetailsText3" xml:space="preserve">
+    <value>???What will be saved????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialClearDetailsText4" xml:space="preserve">
+    <value>???Static data, games.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialClearHeadingText" xml:space="preserve">
+    <value>???Partial Reset???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialClearSummaryText" xml:space="preserve">
+    <value>???This will reset the machine back to the state it was in after initial configuration.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PartialResetDialogText" xml:space="preserve">
+    <value>???This operation cannot be reversed.???
+Do you really want to do partial reset????</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="TotalInLabel" xml:space="preserve">
+    <value>???Total In???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="TotalOutLabel" xml:space="preserve">
+    <value>???Total Out???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="CashPlayed" xml:space="preserve">
+    <value>???Cash Played???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="CashWonText" xml:space="preserve">
+    <value>???Cash Won???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="MainLabel" xml:space="preserve">
+   <value>???Main???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="MetersGames" xml:space="preserve">
+   <value>???Games???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="Denom" xml:space="preserve">
+   <value>???Denom???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="HardwareLabel" xml:space="preserve">
+   <value>???Hardware???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="CustomSAPTitle" xml:space="preserve">
+   <value>???Custom SAP???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="Bonus" xml:space="preserve">
+   <value>???Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="MetersBills" xml:space="preserve">
+   <value>???Bills???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="MetersVouchers" xml:space="preserve">
+   <value>???Vouchers???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="PeriodClearResetNoGameMessage" xml:space="preserve">
+   <value>???Cannot clear period while game in round???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="ConfirmClearPeriodMessage" xml:space="preserve">
+   <value>???Confirm Clear Period???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="DropMessage" xml:space="preserve">
+   <value>???The period meters are cleared on stacker removal.???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="ClearPeriodButtonText" xml:space="preserve">
+   <value>???Clear All Period Meters???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="PrintVerificationButtonText" xml:space="preserve">
+   <value>???Print Verification Coupon???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="PrintPeriodicResetButtonText" xml:space="preserve">
+   <value>???Print Periodic Reset Coupon???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="PrintAuditTicketButtonText" xml:space="preserve">
+   <value>???Print Audit Ticket???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="Meter" xml:space="preserve">
+   <value>???Meter???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="Value" xml:space="preserve">
+   <value>???Value???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="MasterMeters" xml:space="preserve">
+   <value>???Master Meters???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="PeriodMeters" xml:space="preserve">
+   <value>???Period Meters???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="Since" xml:space="preserve">
+   <value>???Since???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="MasterButtonText" xml:space="preserve">
+   <value>???Master???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="PeriodText" xml:space="preserve">
+   <value>???Period???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="MetersScreen" xml:space="preserve">
+   <value>???Meters???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="PrevButton" xml:space="preserve">
+   <value>???Prev???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="NextButtonText" xml:space="preserve">
+   <value>???Next???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+	<data name="WagerCategoryTitle" xml:space="preserve">
+   <value>???Wager Category Meters???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="NoProgressiveGamesEnabled" xml:space="preserve">
+   <value>???No Progressive Games Enabled???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="NoProgressiveMeters" xml:space="preserve">
+   <value>???No Progressive Meters???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="NoProgressiveLevelsAdded" xml:space="preserve">
+   <value>???No Progressive Levels Added???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="NoCustomSapLevelsAdded" xml:space="preserve">
+   <value>???No Custom SAP Levels Added???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="Level" xml:space="preserve">
+   <value>???Level???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="Hit" xml:space="preserve">
+    <value>???Hit???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+	<data name="MachinePaidBonusAwardsLabel" xml:space="preserve">
+   <value>???Machine Paid Bonus Awards???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="MachinePaidBonusTotalLabel" xml:space="preserve">
+   <value>???Total Machine Paid Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="AttendantPaidBonusAwardsLabel" xml:space="preserve">
+   <value>???Attendant Paid Bonus Awards???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="AttendantPaidBonusTotalLabel" xml:space="preserve">
+   <value>???Total Attendant Paid Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="AftCashableBonusLabel" xml:space="preserve">
+   <value>???Cashable Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="AftNonCashableBonusLabel" xml:space="preserve">
+   <value>???Non-Cashable Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="AftPromotionalBonusLabel" xml:space="preserve">
+   <value>???Promotional Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="MjtBonusLabel" xml:space="preserve">
+   <value>???MJT Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="WagerMatchBonusLabel" xml:space="preserve">
+   <value>???Wager Match Bonus???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="SasLegacyBonusTaxDeductibleLabel" xml:space="preserve">
+   <value>???SAS Legacy Bonus Tax Deductible???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="SasLegacyBonusNonTaxDeductibleLabel" xml:space="preserve">
+   <value>???SAS Legacy Bonus Non-Tax Deductible???</value>
+	<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+	<data name="BillsRejectedLabel" xml:space="preserve">
+   <value>???Bills Rejected???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="DocumentsRejectedLabel" xml:space="preserve">
+   <value>???Documents Rejected???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="ConfirmBillClearance" xml:space="preserve">
+   <value>???Confirm Bill Clearance???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="Denomination" xml:space="preserve">
+   <value>???Denomination???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="Count" xml:space="preserve">
+   <value>???Count???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="ClearBillsPeriodMeters" xml:space="preserve">
+   <value>???Clear Bills Period Meters???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="Total" xml:space="preserve">
+   <value>???Total???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="CashableVoucherInLabelContent" xml:space="preserve">
+   <value>???Cashable Voucher In???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="CashablePromoVoucherInLabelContent" xml:space="preserve">
+   <value>???Cashable Promotional Voucher In???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="NonCashablePromoVoucherInLabelContent" xml:space="preserve">
+   <value>???Non-Cashable Promotional Voucher In???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="CashableVoucherOutLabelContent" xml:space="preserve">
+   <value>???Cashable Voucher Out???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="CashablePromoVoucherOutLabelContent" xml:space="preserve">
+   <value>???Cashable Promotional Voucher Out???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="NonCashablePromoVoucherOutLabelContent" xml:space="preserve">
+   <value>???Non-Cashable Promotional Voucher Out???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="VouchersRejectedLabel" xml:space="preserve">
+   <value>???Vouchers Rejected???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="VoucherInLabelContent" xml:space="preserve">
+   <value>???Total Voucher In???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="VoucherOutLabelContent" xml:space="preserve">
+   <value>???Total Voucher Out???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+	<data name="MainDoorOpenLabel" xml:space="preserve">
+    <value>???Main Door Opened???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="MainDoorOpenPowerOff" xml:space="preserve">
+    <value>???Main Door Open Power Off???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="CashDoorOpenLabel" xml:space="preserve">
+    <value>???Cash Door Open???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="CashDoorOpenPowerOffLabel" xml:space="preserve">
+    <value>???Cash Door Open Power Off???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="LogicDoorOpen" xml:space="preserve">
+    <value>???Logic Door Open???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="LogicDoorOpenPowerOffLabel" xml:space="preserve">
+    <value>???Logic Door Open Power Off???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="TopBoxDoorOpen" xml:space="preserve">
+    <value>???Top Box Door Open???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="TopBoxDoorOpenPowerOffLabel" xml:space="preserve">
+    <value>???Top Box Door Open Power Off???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="StackerRemoved" xml:space="preserve">
+    <value>???Stacker Removed???</value>
+	  <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="PowerResetText" xml:space="preserve">
+    <value>???Power Reset???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+<data name="ApplicationPerformance" xml:space="preserve">
+   <value>???Application Performance???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderPagedMemory" xml:space="preserve">
+   <value>???Paged Memory???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderPeakPagedMemory" xml:space="preserve">
+   <value>???Peak Paged Memory???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderVirtualMemorySize" xml:space="preserve">
+   <value>???Virtual Memory Size???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderPrivateMemorySize" xml:space="preserve">
+   <value>???Private Memory Size???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderWorkingSet" xml:space="preserve">
+   <value>???Working Set???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderPeakWorkingSet" xml:space="preserve">
+   <value>???Peak Working Set???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderPagedSystemMemorySize" xml:space="preserve">
+   <value>???Paged System Memory Size???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderNonpagedSystemMemorySize" xml:space="preserve">
+   <value>???Non-paged System Memory Size???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderThreadCount" xml:space="preserve">
+   <value>???Thread Count???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HeaderHandleCount" xml:space="preserve">
+   <value>???Handle Count???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Time" xml:space="preserve">
+   <value>???Time???</value>
+<comment>Monaco.Accounting</comment>
+</data>
+<data name="Value" xml:space="preserve">
+   <value>???Value???</value>
+<comment>Monaco.Accounting</comment>
+</data>
+<data name="PerformanceCountersPlotting" xml:space="preserve">
+   <value>???Performance Counters Plotting???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ErrorWhileFetchingData" xml:space="preserve">
+   <value>???No data for the given date(s) or problem while fetching the data.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="IPAddressesLabel" xml:space="preserve">
+   <value>???IP Address???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="IPAddressesLabel" xml:space="preserve">
+   <value>?????IP Address?????</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="BytesReceivedLabel" xml:space="preserve">
+   <value>???Bytes Received???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="BytesSentLabel" xml:space="preserve">
+   <value>???Bytes Sent???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="InterfaceTypeLabel" xml:space="preserve">
+   <value>???Interface Type???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="MacAddressLabel" xml:space="preserve">
+   <value>???MAC Address???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="MacAddressLabel" xml:space="preserve">
+   <value>?????MAC Address?????</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="OperationalStatusLabel" xml:space="preserve">
+   <value>???Operational Status???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="PingIPAddressText" xml:space="preserve">
+   <value>???Ping IP Address???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="PingResultText" xml:space="preserve">
+   <value>???Ping Result???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="PingingNetworkText" xml:space="preserve">
+   <value>???Pinging Network...???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ProtocolLabel" xml:space="preserve">
+   <value>???Protocol???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="LocalAddressText" xml:space="preserve">
+   <value>???Local Address???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ForeignAddressText" xml:space="preserve">
+   <value>???Foreign Address???</value>
+  <comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="StateLabel" xml:space="preserve">
+   <value>???State???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ManufacturerLabel" xml:space="preserve">
+   <value>???Manufacturer???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ModelLabel" xml:space="preserve">
+   <value>???Model???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="StatusLabel" xml:space="preserve">
+   <value>???Status???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="InputsLabel" xml:space="preserve">
+   <value>???Inputs???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="OutputsLabel" xml:space="preserve">
+   <value>???Outputs???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="IntrusionText" xml:space="preserve">
+   <value>???Intrusion???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="DateAndTime" xml:space="preserve">
+   <value>???Date and Time???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LogType" xml:space="preserve">
+   <value>???Log Type???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="EventLog" xml:space="preserve">
+   <value>???Event Log???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="PrintSelectedButtonText" xml:space="preserve">
+   <value>???Print Selected???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PrintCurrentPageButtonText" xml:space="preserve">
+   <value>???Print Current Page???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PrintLast15RecordsButtonText" xml:space="preserve">
+   <value>???Print Last 15 Records???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="SystemMemory" xml:space="preserve">
+   <value>???System Memory???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ViewMemory" xml:space="preserve">
+   <value>???View Memory???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="EndPerformanceDetails" xml:space="preserve">
+   <value>???End Performance Details???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ViewPerformanceDetails" xml:space="preserve">
+   <value>???View Performance Details???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Sunday" xml:space="preserve">
+   <value>???Sunday???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Monday" xml:space="preserve">
+   <value>???Monday???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Tuesday" xml:space="preserve">
+   <value>???Tuesday???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Wednesday" xml:space="preserve">
+   <value>???Wednesday???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Thursday" xml:space="preserve">
+   <value>???Thursday???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Friday" xml:space="preserve">
+   <value>???Friday???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Saturday" xml:space="preserve">
+   <value>???Saturday???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="JurisdictionLabel" xml:space="preserve">
+   <value>???Jurisdiction???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="EnableShowMode" xml:space="preserve">
+   <value>???Enable Show Mode???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ShowGameRules" xml:space="preserve">
+   <value>???Show Game Rules Button???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="ProtocolLabel" xml:space="preserve">
+   <value>???Protocol???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="NoteAcceptorEnabled" xml:space="preserve">
+   <value>???Note Acceptor Enabled???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="NoteAcceptorManufacturer" xml:space="preserve">
+   <value>???Note Acceptor Manufacturer???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Printer_Enabled" xml:space="preserve">
+   <value>???Printer Enabled???</value>
+</data>
+<data name="PrinterManufacturer" xml:space="preserve">
+   <value>???Printer Manufacturer???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="IdReaderEnabled" xml:space="preserve">
+   <value>???ID Reader Enabled???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="IdReaderManufacturer" xml:space="preserve">
+   <value>???ID Reader Manufacturer???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HardMetersEnabled" xml:space="preserve">
+   <value>???Hard Meters Enabled???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HardMetersAvailableMeterMappings" xml:space="preserve">
+   <value>???Hard Meters Available Meter Mappings???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="HardMeterIncrementValue" xml:space="preserve">
+   <value>???Hard Meter Increment Value???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="DoorOpticSensorEnabled" xml:space="preserve">
+   <value>???Door Optic Sensor Enabled???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ReelControllerEnabled" xml:space="preserve">
+   <value>???Reel Controller Enabled???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ReelControllerManufacturer" xml:space="preserve">
+   <value>???Reel Controller Manufacturer???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="BellEnabled" xml:space="preserve">
+   <value>???Bell Enabled???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Currency" xml:space="preserve">
+   <value>???Currency???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="RequireZeroCredit" xml:space="preserve">
+   <value>???Require Zero Credit on Out-of-Service Mode???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="DisabledNotes" xml:space="preserve">
+   <value>???Disabled Notes???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Denom" xml:space="preserve">
+   <value>???Denom???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="IsoCode" xml:space="preserve">
+   <value>???ISO???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="BillAcceptanceLimit" xml:space="preserve">
+   <value>???Bill Acceptance Limit???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ExcessiveRejectDisable" xml:space="preserve">
+   <value>???Excessive Reject Disable???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="MasterSoundVolumeLabel" xml:space="preserve">
+   <value>???Master Sound Volume???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="VolumeControlLocationTitle" xml:space="preserve">
+   <value>???Volume Control Location???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="AllowVoucherIn" xml:space="preserve">
+   <value>???Allow Voucher In???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="BarcodeType" xml:space="preserve">
+   <value>???Barcode Type???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="ValidationLength" xml:space="preserve">
+   <value>???Validation Length???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LayoutType" xml:space="preserve">
+   <value>???Layout Type???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PropertyName" xml:space="preserve">
+   <value>???Property Name???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PropertyAddressLine1" xml:space="preserve">
+   <value>???Property Address Line 1???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PropertyAddressLine2" xml:space="preserve">
+   <value>???Property Address Line 2???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="OperatingHours" xml:space="preserve">
+   <value>???Operating Hours???</value>
+</data>
+<data name="Day" xml:space="preserve">
+   <value>???Day???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Time" xml:space="preserve">
+   <value>???Time???</value>
+<comment>Monaco.Accounting</comment>
+</data>
+<data name="Enabled" xml:space="preserve">
+   <value>???Enabled???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DemonstrationMode" xml:space="preserve">
+   <value>???Demonstration Mode???</value>
+</data>
+<data name="DeletePackageAfterInstall" xml:space="preserve">
+   <value>???Delete Package After Install???</value>
+</data>
+<data name="ScreenBrightness" xml:space="preserve">
+   <value>???Screen Brightness???</value>
+</data>
+<data name="MediaDisplayEnabled" xml:space="preserve">
+   <value>???Media Display Enabled???</value>
+</data>
+<data name="RebootWhilePrinting" xml:space="preserve">
+   <value>???Reboot While Printing???</value>
+ <comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="ReserveGamingMachine" xml:space="preserve">
+   <value>???Reserve Gaming Machine???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="ReserveMachineDuration" xml:space="preserve">
+   <value>???Player Reserve Machine Time Limit???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="Minutes" xml:space="preserve">
+   <value>???minutes???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="LightingOverrideOnIdleAndZeroCreditsLabel" xml:space="preserve">
+   <value>???Lighting Override on Idle and Zero Credits???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="LightingBrightnessLabel" xml:space="preserve">
+   <value>???Lighting Brightness???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="MainDisplayBottomLightingLabel" xml:space="preserve">
+   <value>???Main Display Bottom Lighting???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ApplyGameCategorySettings" xml:space="preserve">
+   <value>???Apply Game Category Settings???</value>
+</data>
+<data name="IdleTimePeriod" xml:space="preserve">
+   <value>???Idle Time Period???</value>
+</data>
+<data name="GameRoundDuration" xml:space="preserve">
+   <value>???Game Round Duration???</value>
+</data>
+<data name="ReelStopConfigured" xml:space="preserve">
+   <value>???Reel Stop Configured???</value>
+</data>
+<data name="CreditLimit" xml:space="preserve">
+   <value>???Credit Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="HandpayLimit" xml:space="preserve">
+   <value>???Handpay Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LargeWinLimit" xml:space="preserve">
+   <value>???Large Win Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LargeWinRatio" xml:space="preserve">
+   <value>???Large Win Ratio???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LargeWinRatioThreshold" xml:space="preserve">
+   <value>???Large Win Ratio Threshold???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="MaxBetLimit" xml:space="preserve">
+   <value>???Max Bet Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="CelebrationLockupLimit" xml:space="preserve">
+   <value>???Celebration Lockup Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="AllowRemoteHandpayReset" xml:space="preserve">
+   <value>???Allow Remote Handpay Reset???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LargeWinHandpayResetMethod" xml:space="preserve">
+   <value>???Large Win Handpay Reset Method???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="VoucherInLimit" xml:space="preserve">
+   <value>???Voucher In Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="AllowVoucherOut" xml:space="preserve">
+   <value>???Allow Voucher Out???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="VoucherOutLimit" xml:space="preserve">
+   <value>???Voucher Out Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="AllowNonCashableVoucherOut" xml:space="preserve">
+   <value>???Allow Non-Cashable Voucher Out???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PrintHandpayReceipt" xml:space="preserve">
+   <value>???Print Handpay Receipt???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="VoucherCashExpiration" xml:space="preserve">
+   <value>???Cashable Voucher Expiration???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="VoucherNonCashExpiration" xml:space="preserve">
+   <value>???Non-Cashable Voucher Expiration???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="AllowCashWinTicket" xml:space="preserve">
+   <value>???Allow Cash Win Ticket???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="AllowCreditUnderLimit" xml:space="preserve">
+   <value>???Allow Credit Under Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="CheckCreditsIn" xml:space="preserve">
+   <value>???Check Credits In???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="CombineCashableOut" xml:space="preserve">
+   <value>???Combine Cashable Out???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledLocalCredit" xml:space="preserve">
+   <value>???Disabled Local Credit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledLocalHandpay" xml:space="preserve">
+   <value>???Disabled Local Handpay???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledLocalVoucher" xml:space="preserve">
+   <value>???Disabled Local Voucher???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledLocalWat" xml:space="preserve">
+   <value>???Disabled Local WAT???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledRemoteCredit" xml:space="preserve">
+   <value>???Disabled Remote Credit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledRemoteHandpay" xml:space="preserve">
+   <value>???Disabled Remote Handpay???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledRemoteVoucher" xml:space="preserve">
+   <value>???Disabled Remote Voucher???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="DisabledRemoteWat" xml:space="preserve">
+   <value>???Disabled Remote WAT???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledLocalCredit" xml:space="preserve">
+   <value>???Enabled Local Credit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledLocalHandpay" xml:space="preserve">
+   <value>???Enabled Local Handpay???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledLocalVoucher" xml:space="preserve">
+   <value>???Enabled Local Voucher???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledLocalWat" xml:space="preserve">
+   <value>???Enabled Local WAT???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledRemoteCredit" xml:space="preserve">
+   <value>???Enabled Remote Credit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledRemoteHandpay" xml:space="preserve">
+   <value>???Enabled Remote Handpay???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledRemoteVoucher" xml:space="preserve">
+   <value>???Enabled Remote Voucher???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EnabledRemoteWat" xml:space="preserve">
+   <value>???Enabled Remote WAT???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="IdReaderId" xml:space="preserve">
+   <value>???ID Reader Identifier???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="IgnoreVoucherStackedDuringReboot" xml:space="preserve">
+   <value>???Ignore Voucher Stacked During Reboot???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LocalKeyOff" xml:space="preserve">
+   <value>???Local Key-Off???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="MaxTenderInLimit" xml:space="preserve">
+   <value>???Max Tender-In Limit???</value>
+	<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="MaxWinAmount" xml:space="preserve">
+   <value>???Max Win Amount???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="MixCreditTypes" xml:space="preserve">
+   <value>???Mix Credit Types???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="MoneyInEnabled" xml:space="preserve">
+   <value>???Money-In Enabled???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PartialHandpays" xml:space="preserve">
+   <value>???Partial Handpays???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="RedeemText" xml:space="preserve">
+   <value>???Redeem Text???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="ReprintLoggedVoucher" xml:space="preserve">
+   <value>???Reprint Logged Voucher???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="ReprintLoggedVoucherDoorOpenRequirement" xml:space="preserve">
+   <value>???Reprint Logged Voucher Door Open Requirement???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="ReprintLoggedVoucherTitleOverride" xml:space="preserve">
+   <value>???Reprint Logged Voucher Title Override???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="RequestNonCash" xml:space="preserve">
+   <value>???Request Non-Cash???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketBarcodeLength" xml:space="preserve">
+   <value>???Ticket Barcode Length???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleBonusCash" xml:space="preserve">
+   <value>???Ticket Title Bonus Cash???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleBonusNonCash" xml:space="preserve">
+   <value>???Ticket Title Bonus Non-Cash???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleBonusPromo" xml:space="preserve">
+   <value>???Ticket Title Bonus Promo???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleCash" xml:space="preserve">
+   <value>???Ticket Title Cash???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleLargeWin" xml:space="preserve">
+   <value>???Ticket Title Large Win???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleNonCash" xml:space="preserve">
+   <value>???Ticket Title Non-Cash???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitlePromo" xml:space="preserve">
+   <value>???Ticket Title Promo???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleWatNonCash" xml:space="preserve">
+   <value>???Ticket Title WAT Non-Cash???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TicketTitleWatPromo" xml:space="preserve">
+   <value>???Ticket Title WAT Promo???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TitleCancelReceipt" xml:space="preserve">
+   <value>???Title Cancel Receipt???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TitleJackpotReceipt" xml:space="preserve">
+   <value>???Title Jackpot Receipt???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="UsePlayerIdReader" xml:space="preserve">
+   <value>???Use Player ID Reader???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="ValidateHandpays" xml:space="preserve">
+   <value>???Validate Handpays???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="ExportSettingsText" xml:space="preserve">
+   <value>???Current Machine Settings Summary???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="ExportMachineSettings" xml:space="preserve">
+   <value>???Export Machine Settings???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="ExportSettingsErrorText" xml:space="preserve">
+   <value>???Export encountered errors.???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="LightingOverrideTransparent" xml:space="preserve">
+   <value>???Transparent???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="LightingOverrideDisabled" xml:space="preserve">
+   <value>???Disabled (Game-Driven)???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="LightingOverrideGold" xml:space="preserve">
+   <value>???Gold???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="LightingOverrideBlue" xml:space="preserve">
+   <value>???Blue???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="LightingOverrideRed" xml:space="preserve">
+   <value>???Red???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="EdgeLightingDisconnectionText" xml:space="preserve">
+   <value>???Edge Lighting is not connected???</value>
+<comment>Aristocrat.Monaco.Application</comment>
+</data>
+<data name="NoLimit" xml:space="preserve">
+   <value>???No Limit???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="RatioDisplayFormatter" xml:space="preserve">
+   <value>???{0:0.00}x Wager???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="PlayableOnly" xml:space="preserve">
+   <value>???PLAYABLE ONLY???</value>
+<comment>Monaco.Accounting</comment>
+</data>
+<data name="HandpayReceipt" xml:space="preserve">
+   <value>???HANDPAY RECEIPT???</value>
+<comment>Monaco.Accounting.Contracts</comment>
+</data>
+<data name="JackpotHandpayTicket" xml:space="preserve">
+   <value>???JACKPOT HANDPAY TICKET???</value>
+<comment>Monaco.Accounting.Contracts</comment>
+</data>
+<data name="NeverExpires" xml:space="preserve">
+   <value>???Never Expires???</value>
+<comment>Monaco.Accounting.Contracts</comment>
+</data>
+<data name="DaysFormatter" xml:space="preserve">
+   <value>???{0} Days???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="EventInLog" xml:space="preserve">
+   <value>???{0} event in log.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="EventsInLog" xml:space="preserve">
+   <value>???{0} events in log.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="WatchingEvent" xml:space="preserve">
+   <value>???Watching {0} event type.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="WatchingEvents" xml:space="preserve">
+   <value>???Watching {0} event types.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ImproperConfig" xml:space="preserve">
+   <value>???Improper configuration on {0} event description.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="ImproperConfigs" xml:space="preserve">
+   <value>???Improper configuration on {0} event descriptions.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="LogDetails" xml:space="preserve">
+   <value>???Log Details???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="DateAndTime" xml:space="preserve">
+   <value>???Date and Time???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="LogType" xml:space="preserve">
+   <value>???Log Type???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="EventLog" xml:space="preserve">
+   <value>???Event Log???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="PrintSelectedButtonText" xml:space="preserve">
+   <value>???Print Selected???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PrintCurrentPageButtonText" xml:space="preserve">
+   <value>???Print Current Page???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="PrintLast15RecordsButtonText" xml:space="preserve">
+   <value>???Print Last 15 Records???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="BillIn" xml:space="preserve">
+   <value>???Bill In???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="Handpay" xml:space="preserve">
+   <value>???Handpay???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="VoucherIn" xml:space="preserve">
+   <value>???Voucher In???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="VoucherOut" xml:space="preserve">
+   <value>???Voucher Out???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="BonusAward" xml:space="preserve">
+   <value>???Bonus Award???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="TransferIn" xml:space="preserve">
+   <value>???Transfer In???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="TransferOut" xml:space="preserve">
+   <value>???Transfer Out???</value>
+<comment>Monaco.Accounting.UI</comment>
+</data>
+<data name="Gameplay" xml:space="preserve">
+   <value>???Game Play???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Comms" xml:space="preserve">
+   <value>???Comms???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Error" xml:space="preserve">
+   <value>???Error???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="General" xml:space="preserve">
+   <value>???General???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Hash" xml:space="preserve">
+   <value>???Hash???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Power" xml:space="preserve">
+   <value>???Power???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="GameConfigurationChange" xml:space="preserve">
+   <value>???Game Config Change???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="SoftwareChange" xml:space="preserve">
+   <value>???Software Change???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+</data>
+<data name="Progressive" xml:space="preserve">
+   <value>???Progressive???</value>
+<comment>Aristocrat.Monaco.Gaming.UI</comment>
+</data>
+<data name="FilterBy" xml:space="preserve">
+    <value>???Filter By???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="DiagnosticResourcesPageTitle" xml:space="preserve">
+    <value>???Resources???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="DiagnosticNetworkScreen" xml:space="preserve">
+    <value>???Network???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="IOLabel" xml:space="preserve">
+    <value>???IO???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="VerifiedEKeyRequired" xml:space="preserve">
+    <value>???EKey device is required to perform game re-configuration???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="ActiveConnections" xml:space="preserve">
+    <value>???Active Connections???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="Ping" xml:space="preserve">
+    <value>???Ping???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="All" xml:space="preserve">
+    <value>???All???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="BackText" xml:space="preserve">
+    <value>???Back???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FinishedButtonContent" xml:space="preserve">
+    <value>???Finished???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="EKeyDriveNotFound" xml:space="preserve">
+    <value>???EKey device is either not inserted, not valid, or storage was not mapped to a drive.???</value>
+<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="CreditBalance" xml:space="preserve">
+    <value>???Cash Balance???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="ExtraLow" xml:space="preserve">
+    <value>???Extra Low???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="Low" xml:space="preserve">
+    <value>???Low???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="MediumLow" xml:space="preserve">
+    <value>???Medium-Low???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="Medium" xml:space="preserve">
+    <value>???Medium???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="MediumHigh" xml:space="preserve">
+    <value>???Medium-High???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="High" xml:space="preserve">
+    <value>???High???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+<data name="ExtraHigh" xml:space="preserve">
+    <value>???Extra-High???</value>
+	<comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="OptionsScreen" xml:space="preserve">
+    <value>???Options???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="ZeroAmount" xml:space="preserve">
     <value>??Zero Amount??</value>
   </data>
   <data name="CheckingInitialConfiguration" xml:space="preserve">

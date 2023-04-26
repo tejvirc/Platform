@@ -5,19 +5,38 @@
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
 
-    public class ClientConfigurationOptions
+    public sealed class ClientConfigurationOptions : IDisposable
     {
+        private bool _disposed;
+        private readonly List<X509Certificate2> _certificates;
+
         public ClientConfigurationOptions(Uri address, TimeSpan connectionTimeout, IEnumerable<X509Certificate2> certificates)
         {
             Address = address;
             ConnectionTimeout = connectionTimeout;
-            Certificates = certificates?.ToList() ?? throw new ArgumentNullException(nameof(certificates));
+            _certificates = certificates?.ToList() ?? throw new ArgumentNullException(nameof(certificates));
         }
 
         public Uri Address { get; }
 
         public TimeSpan ConnectionTimeout { get; }
 
-        public IReadOnlyCollection<X509Certificate2> Certificates { get; }
+        public IEnumerable<X509Certificate2> Certificates => _certificates;
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            foreach (var certificate in _certificates)
+            {
+                certificate.Dispose();
+            }
+
+            _certificates.Clear();
+            _disposed = true;
+        }
     }
 }

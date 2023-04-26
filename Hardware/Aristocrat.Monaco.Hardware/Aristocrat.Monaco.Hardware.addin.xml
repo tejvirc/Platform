@@ -79,7 +79,6 @@
     <Service type="Aristocrat.Monaco.Hardware.Services.BatteryService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.TowerLightService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.OnScreenKeyboardService" />
     <Service type="Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService" />
   </Extension>
 

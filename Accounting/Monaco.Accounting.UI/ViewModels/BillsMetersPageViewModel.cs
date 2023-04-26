@@ -30,11 +30,11 @@
         private readonly Tuple<string, string>[] _rejectedMeters =
         {
             Tuple.Create(
-                Localizer.For(CultureFor.OperatorTicket)
+                Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.BillsRejectedLabel),
                 AccountingMeters.BillsRejectedCount),
             Tuple.Create(
-                Localizer.For(CultureFor.OperatorTicket)
+                Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.DocumentsRejectedLabel),
                 AccountingMeters.DocumentsRejectedCount)
         };
