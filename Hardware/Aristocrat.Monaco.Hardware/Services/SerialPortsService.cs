@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Contracts.Cabinet;
     using Contracts.SerialPorts;
     using Kernel;
@@ -19,7 +19,7 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly ICabinetDetectionService _cabinetIdentificationService;
+        //private readonly ICabinetDetectionService _cabinetIdentificationService;
 
         private readonly List<SerialPortInfo> _logicalSerialPorts =
             new List<SerialPortInfo>();
@@ -38,7 +38,7 @@
         {
             PopulateLogicalSerialPorts();
 
-            _cabinetIdentificationService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+            //_cabinetIdentificationService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
             _serialPorts = enumerator.EnumerateSerialPorts().Join(
                 _logicalSerialPorts,
                 x => new { x.Address, x.SerialPortType },
@@ -103,35 +103,35 @@
         /// <inheritdoc />
         public string LogicalToPhysicalName(string logicalPortName)
         {
-            if (logicalPortName.Length <= ComText.Length ||
-                logicalPortName.Equals(Fake, StringComparison.OrdinalIgnoreCase) ||
-                _cabinetIdentificationService == null ||
-                _cabinetIdentificationService.Family == HardwareFamily.Unknown)
-            {
+            //if (logicalPortName.Length <= ComText.Length ||
+            //    logicalPortName.Equals(Fake, StringComparison.OrdinalIgnoreCase) ||
+            //    _cabinetIdentificationService == null ||
+            //    _cabinetIdentificationService.Family == HardwareFamily.Unknown)
+            //{
                 return logicalPortName;
-            }
+            //}
 
-            return _serialPorts
-                .FirstOrDefault(
-                    x => x.LogicalPortName.Equals(logicalPortName, StringComparison.OrdinalIgnoreCase))
-                ?.PhysicalPortName ?? logicalPortName;
+            //return _serialPorts
+            //    .FirstOrDefault(
+            //        x => x.LogicalPortName.Equals(logicalPortName, StringComparison.OrdinalIgnoreCase))
+            //    ?.PhysicalPortName ?? logicalPortName;
         }
 
         /// <inheritdoc />
         public string PhysicalToLogicalName(string physicalPortName)
         {
-            if (physicalPortName.Length <= ComText.Length ||
-                physicalPortName.Equals(Fake, StringComparison.OrdinalIgnoreCase) ||
-                _cabinetIdentificationService == null ||
-                _cabinetIdentificationService.Family == HardwareFamily.Unknown)
-            {
+            //if (physicalPortName.Length <= ComText.Length ||
+            //    physicalPortName.Equals(Fake, StringComparison.OrdinalIgnoreCase) ||
+            //    _cabinetIdentificationService == null ||
+            //    _cabinetIdentificationService.Family == HardwareFamily.Unknown)
+            //{
                 return physicalPortName;
-            }
+            //}
 
-            return _serialPorts
-                .FirstOrDefault(
-                    x => x.PhysicalPortName.Equals(physicalPortName, StringComparison.OrdinalIgnoreCase))
-                ?.LogicalPortName ?? physicalPortName;
+            //return _serialPorts
+            //    .FirstOrDefault(
+            //        x => x.PhysicalPortName.Equals(physicalPortName, StringComparison.OrdinalIgnoreCase))
+            //    ?.LogicalPortName ?? physicalPortName;
         }
 
         /// <inheritdoc />

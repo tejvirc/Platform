@@ -110,14 +110,14 @@
                 return;
             }
 
-            var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
-            if (cabinetDetectionService != null &&            
-                cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs))
-            {
-                _beagleBoneProtocol = new BeagleBoneProtocol();
-                _beagleBoneProtocol.Enable(true);
-                Initialized = true;
-            }
+            //var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
+            //if (cabinetDetectionService != null &&            
+            //    cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs))
+            //{
+            //    _beagleBoneProtocol = new BeagleBoneProtocol();
+            //    _beagleBoneProtocol.Enable(true);
+            //    Initialized = true;
+            //}
 
             Logger.Info($"{Name} initialized {Initialized}");
         }

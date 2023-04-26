@@ -215,7 +215,8 @@ namespace Aristocrat.Monaco.Hardware
         {
             Logger.Debug("Creating Persistent Storage");
 
-            var baseSecondaryStorageNode = MonoAddinsHelper.GetSingleTypeExtensionNode(SecondaryStoragePath);
+            var baseSecondaryStorageNode =
+                MonoAddinsHelper.GetSingleTypeExtensionNode(SecondaryStoragePath);
             var baseSecondaryStorage = (IService)baseSecondaryStorageNode.CreateInstance();
 
             ServiceManager.GetInstance().AddServiceAndInitialize(baseSecondaryStorage);

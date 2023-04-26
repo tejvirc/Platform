@@ -7,7 +7,7 @@
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
-    using Vgt.Client12.Hardware.HidLibrary;
+    //using Vgt.Client12.Hardware.HidLibrary;
 
     public class EdgeLightDeviceFactory : IEdgeLightDeviceFactory
     {
@@ -23,13 +23,14 @@
         public EdgeLightDeviceFactory(params IEdgeLightDevice[] existingDevices)
         {
             _existingDevices = existingDevices ?? throw new ArgumentNullException(nameof(existingDevices));
-            NativeMethods.HidD_GetHidGuid(out _); // This is needed to initialize hid library.
+            //NativeMethods.HidD_GetHidGuid(out _); // This is needed to initialize hid library.
         }
 
         public IEnumerable<IEdgeLightDevice> GetDevices()
         {
-            return HidDevices.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId)
-                .Select(x => new EdgeLightDevice(x) as IEdgeLightDevice).Union(_existingDevices);
+            //return HidDevices.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId)
+            //    .Select(x => new EdgeLightDevice(x) as IEdgeLightDevice).Union(_existingDevices);
+            return new List<IEdgeLightDevice>();
         }
 
         public string Name => nameof(EdgeLightDeviceFactory);
@@ -40,10 +41,10 @@
         {
         }
 
-        private static class NativeMethods
-        {
-            [DllImport("hid.dll", SetLastError = true)]
-            public static extern void HidD_GetHidGuid(out Guid hidGuid);
-        }
+        //private static class NativeMethods
+        //{
+        //    [DllImport("hid.dll", SetLastError = true)]
+        //    public static extern void HidD_GetHidGuid(out Guid hidGuid);
+        //}
     }
 }

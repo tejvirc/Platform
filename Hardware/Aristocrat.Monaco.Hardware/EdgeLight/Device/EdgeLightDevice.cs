@@ -10,7 +10,7 @@
     using log4net;
     using Packets;
     using Strips;
-    using Vgt.Client12.Hardware.HidLibrary;
+    //using Vgt.Client12.Hardware.HidLibrary;
 
     internal sealed class EdgeLightDevice : IEdgeLightDevice
     {
@@ -22,23 +22,23 @@
         private readonly List<IStrip> _physicalStrips = new List<IStrip>();
         private bool _connected;
         private bool _disposed;
-        private bool _gen9Board;
+        //private bool _gen9Board;
 
-        private IHidDevice _hidDevice;
+        //private IHidDevice _hidDevice;
         private bool _updateBrightness;
         private int _systemBrightness = EdgeLightConstants.MaxChannelBrightness;
 
-        private int _writePacketLength;
+        //private int _writePacketLength;
 
-        /// <summary>
-        ///     The F/W gets the HID device from the HAL layer. So it has injected
-        ///     the dependency onto
-        /// </summary>
-        /// <param name="device">The device that's needs to be opened ( Topper, Main, etc)</param>
-        public EdgeLightDevice(IHidDevice device)
-        {
-            Initialize(device);
-        }
+        ///// <summary>
+        /////     The F/W gets the HID device from the HAL layer. So it has injected
+        /////     the dependency onto
+        ///// </summary>
+        ///// <param name="device">The device that's needs to be opened ( Topper, Main, etc)</param>
+        //public EdgeLightDevice(IHidDevice device)
+        //{
+        //    Initialize(device);
+        //}
 
         public IReadOnlyList<IStrip> PhysicalStrips => _physicalStrips;
 
@@ -89,7 +89,7 @@
             UnSubscribeBrightnessEvents(_physicalStrips);
             _physicalStrips.Clear();
             IsOpen = false;
-            _hidDevice?.CloseDevice();
+            //_hidDevice?.CloseDevice();
         }
 
         public void Dispose()
@@ -100,26 +100,26 @@
             }
 
             Close();
-            _hidDevice.Dispose();
+            //_hidDevice.Dispose();
             _disposed = true;
         }
 
         public bool CheckForConnection()
         {
-            if (!_hidDevice.IsConnected)
-            {
-                if (!IsOpen)
-                {
-                    return false;
-                }
+            //if (!_hidDevice.IsConnected)
+            //{
+            //    if (!IsOpen)
+            //    {
+            //        return false;
+            //    }
 
-                Close();
-            }
+            //    Close();
+            //}
 
-            if (!_hidDevice.IsOpen)
-            {
-                Open();
-            }
+            //if (!_hidDevice.IsOpen)
+            //{
+            //    Open();
+            //}
 
             return IsOpen;
         }
@@ -146,46 +146,46 @@
             }
         }
 
-        private void Open()
-        {
-            if (IsOpen && _hidDevice.IsConnected && _hidDevice.IsOpen)
-            {
-                return;
-            }
+        //private void Open()
+        //{
+        //    if (IsOpen && _hidDevice.IsConnected && _hidDevice.IsOpen)
+        //    {
+        //        return;
+        //    }
 
-            Close();
-            if (!_hidDevice.IsConnected)
-            {
-                return;
-            }
+        //    Close();
+        //    if (!_hidDevice.IsConnected)
+        //    {
+        //        return;
+        //    }
 
-            Logger.Debug("Edge light device inserted.");
-            _hidDevice.OpenDevice(
-                DeviceMode.Overlapped,
-                DeviceMode.Overlapped,
-                ShareMode.ShareRead | ShareMode.ShareWrite);
-            if (!_hidDevice.IsOpen)
-            {
-                Logger.Error($"Failed to open hid device {_hidDevice.DevicePath}.");
-                return;
-            }
+        //    Logger.Debug("Edge light device inserted.");
+        //    _hidDevice.OpenDevice(
+        //        DeviceMode.Overlapped,
+        //        DeviceMode.Overlapped,
+        //        ShareMode.ShareRead | ShareMode.ShareWrite);
+        //    if (!_hidDevice.IsOpen)
+        //    {
+        //        Logger.Error($"Failed to open hid device {_hidDevice.DevicePath}.");
+        //        return;
+        //    }
 
-            _writePacketLength = _hidDevice.Capabilities.OutputReportByteLength;
+        //    _writePacketLength = _hidDevice.Capabilities.OutputReportByteLength;
 
-            ReadConfigurationFromFirmware();
-        }
+        //    ReadConfigurationFromFirmware();
+        //}
 
-        private void Initialize(IHidDevice device)
-        {
-            _hidDevice = device;
-        }
+        //private void Initialize(IHidDevice device)
+        //{
+        //    _hidDevice = device;
+        //}
 
         private bool WriteRequest(IRequest request)
         {
-            if (_hidDevice.Write(request.Data, 100))
-            {
-                return true;
-            }
+            //if (_hidDevice.Write(request.Data, 100))
+            //{
+            //    return true;
+            //}
 
             Logger.ErrorFormat("Error writing request {0:X} {1}", request.Type, request.GetType());
             return false;
@@ -285,63 +285,67 @@
 
         private bool HandleResponse()
         {
-            var moreData = 1;
-            do
-            {
-                var inboundData = new byte[_writePacketLength];
-                var deviceData = _hidDevice.Read(250);
-                if (deviceData.Status != HidDeviceData.ReadStatus.Success)
-                {
-                    Logger.Error($"Failed to read data. Status = {deviceData.Status}");
-                    return false;
-                }
+            //var moreData = 1;
+            //do
+            //{
+            //    var inboundData = new byte[_writePacketLength];
+            //    var deviceData = _hidDevice.Read(250);
+            //    if (deviceData.Status != HidDeviceData.ReadStatus.Success)
+            //    {
+            //        Logger.Error($"Failed to read data. Status = {deviceData.Status}");
+            //        return false;
+            //    }
 
-                Array.Copy(deviceData.Data, inboundData, Math.Min(inboundData.Length, deviceData.Data.Length));
-                Logger.Debug($"Inbound data: {inboundData[0]:X}");
-                _gen9Board = inboundData[0] == (byte)ResponseType.AlternateLedStripConfigurationWithLocation;
-                var response = CommandFactory.CreateResponse(inboundData);
-                if (response is null)
-                {
-                    Logger.Error("Unable to create a response");
-                    return false;
-                }
+            //    Array.Copy(deviceData.Data, inboundData, Math.Min(inboundData.Length, deviceData.Data.Length));
+            //    Logger.Debug($"Inbound data: {inboundData[0]:X}");
+            //    _gen9Board = inboundData[0] == (byte)ResponseType.AlternateLedStripConfigurationWithLocation;
+            //    var response = CommandFactory.CreateResponse(inboundData);
+            //    if (response is null)
+            //    {
+            //        Logger.Error("Unable to create a response");
+            //        return false;
+            //    }
 
-                var handler = CommandFactory.CreateHandler(response);
-                if (handler is null)
-                {
-                    Logger.Error("Unable to create a handle");
-                    return false;
-                }
+            //    var handler = CommandFactory.CreateHandler(response);
+            //    if (handler is null)
+            //    {
+            //        Logger.Error("Unable to create a handle");
+            //        return false;
+            //    }
 
-                handler.Handle(response, this);
-                moreData = handler.AdditionalReports + moreData - 1;
-            } while (moreData > 0);
+            //    handler.Handle(response, this);
+            //    moreData = handler.AdditionalReports + moreData - 1;
+            //} while (moreData > 0);
 
-            return true;
+            //return true;
+
+            Logger.Error("Failed to read data. Not supported in Linux");
+            return false;
         }
 
         private EdgeLightDeviceInfo GetDeviceInfo()
         {
+            Logger.Warn("EdgeLightDevice not supported in Linux");
             var info = new EdgeLightDeviceInfo();
-            try
-            {
-                var data = new byte[1];
-                _hidDevice?.ReadManufacturer(out data);
-                info.Manufacturer = Encoding.Unicode.GetString(data).Trim('\0');
+            //try
+            //{
+            //    var data = new byte[1];
+            //    _hidDevice?.ReadManufacturer(out data);
+            //    info.Manufacturer = Encoding.Unicode.GetString(data).Trim('\0');
 
-                _hidDevice?.ReadProduct(out data);
-                info.Product = Encoding.Unicode.GetString(data).Trim('\0');
+            //    _hidDevice?.ReadProduct(out data);
+            //    info.Product = Encoding.Unicode.GetString(data).Trim('\0');
 
-                _hidDevice?.ReadSerialNumber(out data);
-                info.SerialNumber = Encoding.Unicode.GetString(data).Trim('\0');
-                info.Version = _hidDevice?.Attributes.Version ?? 0;
-                info.DeviceType = _physicalStrips.FirstOrDefault(x => x.LedCount > 0)?.GetDeviceType(_gen9Board) ?? ElDeviceType.None;
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(
-                    " Could not find the Manufacturer id" + ex);
-            }
+            //    _hidDevice?.ReadSerialNumber(out data);
+            //    info.SerialNumber = Encoding.Unicode.GetString(data).Trim('\0');
+            //    info.Version = _hidDevice?.Attributes.Version ?? 0;
+            //    info.DeviceType = _physicalStrips.FirstOrDefault(x => x.LedCount > 0)?.GetDeviceType(_gen9Board) ?? ElDeviceType.None;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Logger.Error(
+            //        " Could not find the Manufacturer id" + ex);
+            //}
 
             return info;
         }

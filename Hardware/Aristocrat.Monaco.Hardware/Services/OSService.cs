@@ -9,7 +9,7 @@
     using System.Text;
     using System.Threading;
     using Contracts;
-    using DiskTool;
+    //using DiskTool;
     using Kernel;
     using Kernel.Contracts.Components;
     using log4net;
@@ -138,64 +138,65 @@
 
         private void Update(int diskId)
         {
-            using (var disk = DriveIO.OpenDisk(diskId)) /* read only */
-            {
-                if (disk == null)
-                {
-                    throw new FileNotFoundException($"Could not Open Disk {diskId}");
-                }
+            Logger.Warn("OSService.Update not supported in Linux");
+            //using (var disk = DriveIO.OpenDisk(diskId)) /* read only */
+            //{
+            //    if (disk == null)
+            //    {
+            //        throw new FileNotFoundException($"Could not Open Disk {diskId}");
+            //    }
 
-                try
-                {
-                    var mbrData = new byte[512];
+            //    try
+            //    {
+            //        var mbrData = new byte[512];
 
-                    disk.Read(mbrData, 512);
+            //        disk.Read(mbrData, 512);
 
-                    var partitionTable = PartitionTable.FromMBR(mbrData);
+            //        var partitionTable = PartitionTable.FromMBR(mbrData);
 
-                    var endOfvPart = (partitionTable[3].LBAStart + partitionTable[3].NumSectors) * 0x200L;
-                    disk.Seek(endOfvPart, SeekOrigin.Begin);
+            //        var endOfvPart = (partitionTable[3].LBAStart + partitionTable[3].NumSectors) * 0x200L;
+            //        disk.Seek(endOfvPart, SeekOrigin.Begin);
 
-                    // clear
-                    VirtualPartitions = new List<VirtualPartition>();
-                    while (true)
-                    {
-                        var vPart = new byte[512];
-                        if (disk.Read(vPart, 512) == 512)
-                        {
-                            if (vPart[0] == 'V' && vPart[1] == 'P' && vPart[2] == 'R' && vPart[3] == 'T')
-                            {
-                                var vp = new VirtualPartition
-                                {
-                                    Block = vPart,
-                                    Name = Encoding.Default.GetString(vPart, 4, 64),
-                                    Hash = vPart.Skip(68).Take(20).ToArray(),
-                                    Sig = vPart.Skip(88).Take(40).ToArray(),
-                                    SourcePartition = (int)BitConverter.ToUInt32(vPart, 128),
-                                    SourceOffset = BitConverter.ToInt64(vPart, 132),
-                                    TargetPartition = (int)BitConverter.ToUInt32(vPart, 140),
-                                    Size = BitConverter.ToInt64(vPart, 144),
-                                    SourceFile = Encoding.Default.GetString(vPart, 152, 64),
-                                    State = (PartitionState)BitConverter.ToUInt32(vPart, 216)
-                                };
+            //        // clear
+            //        VirtualPartitions = new List<VirtualPartition>();
+            //        while (true)
+            //        {
+            //            var vPart = new byte[512];
+            //            if (disk.Read(vPart, 512) == 512)
+            //            {
+            //                if (vPart[0] == 'V' && vPart[1] == 'P' && vPart[2] == 'R' && vPart[3] == 'T')
+            //                {
+            //                    var vp = new VirtualPartition
+            //                    {
+            //                        Block = vPart,
+            //                        Name = Encoding.Default.GetString(vPart, 4, 64),
+            //                        Hash = vPart.Skip(68).Take(20).ToArray(),
+            //                        Sig = vPart.Skip(88).Take(40).ToArray(),
+            //                        SourcePartition = (int)BitConverter.ToUInt32(vPart, 128),
+            //                        SourceOffset = BitConverter.ToInt64(vPart, 132),
+            //                        TargetPartition = (int)BitConverter.ToUInt32(vPart, 140),
+            //                        Size = BitConverter.ToInt64(vPart, 144),
+            //                        SourceFile = Encoding.Default.GetString(vPart, 152, 64),
+            //                        State = (PartitionState)BitConverter.ToUInt32(vPart, 216)
+            //                    };
 
-                                if (vp.State == PartitionState.Active)
-                                {
-                                    VirtualPartitions.Add(vp);
-                                }
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    throw new FileNotFoundException(e.Message);
-                }
-            }
+            //                    if (vp.State == PartitionState.Active)
+            //                    {
+            //                        VirtualPartitions.Add(vp);
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    break;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        throw new FileNotFoundException(e.Message);
+            //    }
+            //}
         }
 
         private void RegisterComponents()

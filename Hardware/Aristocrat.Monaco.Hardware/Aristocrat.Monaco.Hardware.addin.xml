@@ -44,14 +44,14 @@
   </Extension>
 
   <Extension path="/Hardware/Services">
-    <Service type="Aristocrat.Monaco.Hardware.Services.DeviceWatcher" />
+    <!-- <Service type="Aristocrat.Monaco.Hardware.Services.DeviceWatcher" /> -->
     <Service type="Aristocrat.Monaco.Hardware.Services.IdReaderProvider" />
 
     <Service type="Aristocrat.Monaco.Hardware.Services.DeviceRegistryService" />
 
     <Service type="Aristocrat.Monaco.Hardware.HardwareConfiguration" />
 
-    <Service type="Aristocrat.Monaco.Hardware.Services.CabinetDetectionService" />
+    <!--<Service type="Aristocrat.Monaco.Hardware.Services.CabinetDetectionService" />-->
     <Service type="Aristocrat.Monaco.Hardware.Services.IOService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.KeySwitchService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.HardMeterService" />
@@ -68,14 +68,14 @@
     <Service type="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter" />-->
 
     <Service type="Aristocrat.Monaco.Hardware.Services.OSService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.InstrumentationService" />
+    <!-- <Service type="Aristocrat.Monaco.Hardware.Services.InstrumentationService" /> -->
     <Service type="Aristocrat.Monaco.Hardware.Services.DisplayService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.AudioService" />
     <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Manager.SharedMemoryManager" />
-    <Service type="Aristocrat.Monaco.Hardware.VHD.VirtualDisk" />
+    <!-- <Service type="Aristocrat.Monaco.Hardware.VHD.VirtualDisk" /> -->
     <Service type="Aristocrat.Monaco.Hardware.Services.NoteAcceptorFirmwareInstaller" />
     <Service type="Aristocrat.Monaco.Hardware.Services.PrinterFirmwareInstaller" />
-    <Service type="Aristocrat.Monaco.Hardware.OSInstaller" />
+    <!-- <Service type="Aristocrat.Monaco.Hardware.OSInstaller" /> -->
     <Service type="Aristocrat.Monaco.Hardware.Services.BatteryService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.TowerLightService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />

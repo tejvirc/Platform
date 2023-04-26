@@ -465,9 +465,10 @@
                 return;
             }
 
-            Logger.Debug($"Data mirror is enabled on {_mirrorRoot}.");
+            //Logger.Debug($"Data mirror is enabled on {_mirrorRoot}.");
 
-            NativeMethods.set_mirror_dir(_mirrorRoot);           
+            //NativeMethods.set_mirror_dir(_mirrorRoot);
+            Logger.Warn($"Skipping data mirror at {_mirrorRoot}.");
         }
 
         private void InitializeDatabaseFile()

@@ -4,7 +4,7 @@
     using System.IO.Ports;
     using System.Linq;
     using System.Management;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Microsoft.Win32;
 
     public class SerialPortEnumerator
@@ -26,16 +26,16 @@
         public virtual IEnumerable<SerialPortInfo> EnumerateSerialPorts()
         {
             var serialPorts = new List<SerialPortInfo>();
-            switch (HardwareFamilyIdentifier.Identify())
-            {
-                case HardwareFamily.Unknown:
+            //switch (HardwareFamilyIdentifier.Identify())
+            //{
+            //    case HardwareFamily.Unknown:
                     PopulateSerialPortsOnUnknownCabinet(serialPorts);
-                    break;
+            //        break;
 
-                default:
-                    PopulateSerialPortsOnEgm(serialPorts);
-                    break;
-            }
+            //    default:
+            //        PopulateSerialPortsOnEgm(serialPorts);
+            //        break;
+            //}
 
             return serialPorts;
         }

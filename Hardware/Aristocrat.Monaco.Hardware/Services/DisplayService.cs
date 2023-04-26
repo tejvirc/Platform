@@ -10,7 +10,7 @@
 
     public class DisplayService : IService, IDisplayService
     {
-        private readonly ICabinetDetectionService _cabinetDetection;
+        //private readonly ICabinetDetectionService _cabinetDetection;
 
         private readonly IReadOnlyDictionary<string, int> _frameRates = new Dictionary<string, int>
         {
@@ -18,18 +18,18 @@
         };
 
         public DisplayService()
-            : this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
+            //: this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
         {
         }
 
-        public DisplayService(ICabinetDetectionService cabinetDetection)
-        {
-            _cabinetDetection = cabinetDetection ?? throw new ArgumentNullException(nameof(cabinetDetection));
-        }
+        //public DisplayService(ICabinetDetectionService cabinetDetection)
+        //{
+        //    _cabinetDetection = cabinetDetection ?? throw new ArgumentNullException(nameof(cabinetDetection));
+        //}
 
         public bool IsFaulted => ConnectedCount < ExpectedCount;
 
-        public int ConnectedCount => _cabinetDetection.NumberOfDisplaysConnected;
+        public int ConnectedCount => 1; //_cabinetDetection.NumberOfDisplaysConnected;
 
         public int ExpectedCount { get; private set; }
 
@@ -52,7 +52,7 @@
 
         public void Initialize()
         {
-            ExpectedCount = _cabinetDetection.NumberOfDisplaysConnectedDuringInitialization;
+            ExpectedCount = 1; //_cabinetDetection.NumberOfDisplaysConnectedDuringInitialization;
         }
 
         private static string GetGraphicsCard()

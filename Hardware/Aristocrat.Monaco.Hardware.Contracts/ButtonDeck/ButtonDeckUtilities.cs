@@ -6,7 +6,7 @@
     using Kernel;
     using System;
     using System.Linq;
-    using Aristocrat.Cabinet.Contracts;
+    //using Aristocrat.Cabinet.Contracts;
     using Common;
 
     /// <summary>
@@ -148,86 +148,87 @@
         /// </remarks>
         public static bool VirtualButtonDeckScreenMatch()
         {
-            // Check for the expected third monitor of the right size.
-            return ServiceManager.GetInstance().GetService<ICabinetDetectionService>()
-                .GetDisplayDeviceByItsRole(DisplayRole.VBD) != null;
+            //// Check for the expected third monitor of the right size.
+            //return ServiceManager.GetInstance().GetService<ICabinetDetectionService>()
+            //    .GetDisplayDeviceByItsRole(DisplayRole.VBD) != null;
+            return false;
         }
 
         /// <summary>Checks if the connected button deck has lamps.</summary>
         /// <returns>True if button deck has lamps, otherwise false.</returns>
         public static bool HasLamps()
         {
-            // Query button deck type
-            var buttonDeckType = GetButtonDeckType();
+            //// Query button deck type
+            //var buttonDeckType = GetButtonDeckType();
 
-            switch (buttonDeckType)
-            {
-                case ButtonDeckType.Virtual:
+            //switch (buttonDeckType)
+            //{
+            //    case ButtonDeckType.Virtual:
 
-                    // Query the VBD type
-                    var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
-                    var externalVbdType = cabinetDetectionService?.GetDisplayDeviceByItsRole(DisplayRole.VBD)?.Name;
-                    if (string.IsNullOrEmpty(externalVbdType))
-                    {
-                        return false;
-                    }
+            //        // Query the VBD type
+            //        var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+            //        var externalVbdType = cabinetDetectionService?.GetDisplayDeviceByItsRole(DisplayRole.VBD)?.Name;
+            //        if (string.IsNullOrEmpty(externalVbdType))
+            //        {
+            //            return false;
+            //        }
 
-                    var vbdType = ExternalVbdTypeToInternal(externalVbdType);
+            //        var vbdType = ExternalVbdTypeToInternal(externalVbdType);
 
-                    switch (vbdType)
-                    {
-                        case VbdType.Helix:
-                        case VbdType.HelixXT:
-                        case VbdType.Bartop:
-                        case VbdType.Flame: // TODO: Verify
-                        case VbdType.EdgeX: // TODO: Verify
-                            return true;
+            //        switch (vbdType)
+            //        {
+            //            case VbdType.Helix:
+            //            case VbdType.HelixXT:
+            //            case VbdType.Bartop:
+            //            case VbdType.Flame: // TODO: Verify
+            //            case VbdType.EdgeX: // TODO: Verify
+            //                return true;
 
-                        case VbdType.MarsX:
-                            return false;
-                    }
-                    return false;
+            //            case VbdType.MarsX:
+            //                return false;
+            //        }
+            //        return false;
 
-                case ButtonDeckType.PhysicalButtonDeck:
-                    // E.g. the Bartop mechanical button deck has lamps
-                    return true;
+            //    case ButtonDeckType.PhysicalButtonDeck:
+            //        // E.g. the Bartop mechanical button deck has lamps
+            //        return true;
 
-                case ButtonDeckType.SimulatedVirtual:
-                case ButtonDeckType.LCD:
-                case ButtonDeckType.SimulatedLCD:
-                case ButtonDeckType.NoButtonDeck:
-                    return false;
-            }
+            //    case ButtonDeckType.SimulatedVirtual:
+            //    case ButtonDeckType.LCD:
+            //    case ButtonDeckType.SimulatedLCD:
+            //    case ButtonDeckType.NoButtonDeck:
+            //        return false;
+            //}
 
             return false;
         }
 
-        /// <summary>Converts internal VBD type to external VBD type.</summary>
-        /// <param name="internalType">Internal VBD type.</param>
-        /// <returns>External VBD type</returns>
-        public static string InternalVbdTypeToExternal(VbdType internalType)
-        {
-            return internalType.GetDescription(typeof(VbdType));
-        }
+        ///// <summary>Converts internal VBD type to external VBD type.</summary>
+        ///// <param name="internalType">Internal VBD type.</param>
+        ///// <returns>External VBD type</returns>
+        //public static string InternalVbdTypeToExternal(VbdType internalType)
+        //{
+        //    return internalType.GetDescription(typeof(VbdType));
+        //}
 
-        /// <summary>Converts external VBD type to internal VBD type.</summary>
-        /// <param name="externalType">External VBD type.</param>
-        /// <returns>Internal VBD type</returns>
-        public static VbdType ExternalVbdTypeToInternal(string externalType)
-        {
-            var internalTypes = Enum.GetValues(typeof(VbdType)).Cast<VbdType>();
+        ///// <summary>Converts external VBD type to internal VBD type.</summary>
+        ///// <param name="externalType">External VBD type.</param>
+        ///// <returns>Internal VBD type</returns>
+        //public static VbdType ExternalVbdTypeToInternal(string externalType)
+        //{
+        //    var internalTypes = Enum.GetValues(typeof(VbdType)).Cast<VbdType>();
 
-            var externalToInternalMap = internalTypes.ToDictionary(
-                keySelector: iType => iType.GetDescription(typeof(VbdType)),
-                elementSelector: iType => iType);
+        //    var externalToInternalMap = internalTypes.ToDictionary(
+        //        keySelector: iType => iType.GetDescription(typeof(VbdType)),
+        //        elementSelector: iType => iType);
 
-            if (!externalToInternalMap.TryGetValue(externalType, out VbdType internalType))
-            {
-                internalType = default(VbdType);
-            }
+        //    if (!externalToInternalMap.TryGetValue(externalType, out VbdType internalType))
+        //    {
+        //        internalType = default(VbdType);
+        //    }
 
-            return internalType;
-        }
+        //    return internalType;
+        //}
 
     }
 }

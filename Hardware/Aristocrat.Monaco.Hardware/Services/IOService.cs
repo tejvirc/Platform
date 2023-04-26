@@ -7,7 +7,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Timers;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Contracts.HardMeter;
     using Contracts.IO;
     using Contracts.SharedDevice;
@@ -421,7 +421,7 @@
             // Reset disabled reasons and last error.
             ReasonDisabled = 0;
             LastError = string.Empty;
-            ServiceProtocol = HardwareFamilyIdentifier.Identify().ToString();
+            ServiceProtocol = string.Empty; //HardwareFamilyIdentifier.Identify().ToString();
 
             // Load an instance of the given protocol implementation.
             _inputOutput = (IIOImplementation)_addinHelper.GetDeviceImplementationObject(

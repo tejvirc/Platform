@@ -2,7 +2,7 @@
 {
     using System;
     using System.Drawing;
-    using System.Windows.Forms;
+    //using System.Windows.Forms;
 
     /// <summary>Monitor Info.</summary>
     public class Monitor
@@ -40,7 +40,7 @@
         /// <summary>Unique name of the device.</summary>
         public string UniqueId => DeviceId;
 
-        /// <summary>Screen orientation.</summary>
-        public ScreenOrientation Orientation { get; set; }
+        ///// <summary>Screen orientation.</summary>
+        //public ScreenOrientation Orientation { get; set; }
     }
 }

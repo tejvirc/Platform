@@ -9,26 +9,27 @@
 
   <Dependencies>
     <Addin id="Bootstrap" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
   </Dependencies>
 
   <!-- Extend the layer -->
-  <Extension path="/Kernel/BootExtender">
+  <Extension path="/Hardware/BootExtender">
     <BootExtender type="Stubs.SimpleRunnable" />
   </Extension>
 
   <!-- Provide Localizer service that Application layer would normally provide -->
   <Extension path="/Kernel/Localizer">
-    <Localizer type="Stubs.StubService1" />
+    <Localizer type="Stubs.Localizer" />
   </Extension>
 
-  <!-- Provide Localizer service that Application layer would normally provide -->
+  <!-- Provide WindowLauncher service that Application layer would normally provide -->
   <Extension path="/Kernel/WindowLauncher">
-    <WindowLauncher type="Stubs.StubService2" />
+    <WindowLauncher type="Stubs.WindowLauncher" />
   </Extension>
 
-  <!-- Provide Localizer service that Application layer would normally provide -->
+  <!-- Provide PlatformDisplay service that Application layer would normally provide -->
   <Extension path="/Kernel/PlatformDisplay">
-    <PlatformDisplay type="Stubs.StubService3" />
+    <PlatformDisplay type="Stubs.PlatformDisplay" />
   </Extension>
 
 </Addin>

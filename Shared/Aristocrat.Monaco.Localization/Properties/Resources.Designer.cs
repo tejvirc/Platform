@@ -4156,16 +4156,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized resource of type System.Drawing.Bitmap.
-		/// </summary>
-		public static System.Drawing.Bitmap CashOutImage {
-			get {
-				object obj = ResourceManager.GetObject("CashOutImage", resourceCulture);
-				return ((System.Drawing.Bitmap)(obj));
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to CASHOUT RECEIPT.
 		/// </summary>
         /// <remarks>
@@ -38727,15 +38717,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CashOutHandpayKeyedOffTotalSuffix {
 			get {
 				return "CashOutHandpayKeyedOffTotalSuffix";
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized resource of type System.Drawing.Bitmap.
-		/// </summary>
-		public static string CashOutImage {
-			get {
-				return "CashOutImage";
 			}
 		}
 

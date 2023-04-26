@@ -222,9 +222,10 @@
                 Directory.Delete(jurPath, true);
             }
 
+            AddinManager.AddinLoadError += AddinManager_AddinLoadError;
             AddinManager.Initialize(currentDirectory, currentDirectory, cachePath);
             AddinManager.Registry.Update(new MonoLogger(VerboseMonoLogLevel));
-            AddinManager.AddinLoadError += AddinManager_AddinLoadError;
+            AddinManager.Registry.Rebuild(new MonoLogger(int.MaxValue));
 
             Logger.Info("Done.");
         }

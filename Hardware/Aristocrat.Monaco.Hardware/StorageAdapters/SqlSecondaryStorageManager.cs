@@ -8,7 +8,7 @@
     using System.Management;
     using System.Reflection;
     using System.Text.RegularExpressions;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Contracts.Persistence;
     using Kernel;
     using log4net;
@@ -128,72 +128,74 @@
 
         private static string GetSecondaryMediaRoot(string primaryStorageRoot, string currentMirrorRoot)
         {
-            if (string.Equals(primaryStorageRoot, currentMirrorRoot, StringComparison.CurrentCultureIgnoreCase))
-            {
-                return null;
-            }
+            return null;
 
-            if (!string.IsNullOrEmpty(currentMirrorRoot))
-            {
-                var parentMirror = Path.GetDirectoryName(currentMirrorRoot);
+            //if (string.Equals(primaryStorageRoot, currentMirrorRoot, StringComparison.CurrentCultureIgnoreCase))
+            //{
+            //    return null;
+            //}
 
-                if (Directory.Exists(currentMirrorRoot) ||
-                    !string.IsNullOrEmpty(parentMirror) && !Directory.Exists(parentMirror))
-                {
-                    var dirInfo = Directory.CreateDirectory(currentMirrorRoot);
+            //if (!string.IsNullOrEmpty(currentMirrorRoot))
+            //{
+            //    var parentMirror = Path.GetDirectoryName(currentMirrorRoot);
 
-                    return dirInfo.Exists ? currentMirrorRoot : null;
-                }
-            }
+            //    if (Directory.Exists(currentMirrorRoot) ||
+            //        !string.IsNullOrEmpty(parentMirror) && !Directory.Exists(parentMirror))
+            //    {
+            //        var dirInfo = Directory.CreateDirectory(currentMirrorRoot);
 
-            if (HardwareFamilyIdentifier.Identify() == HardwareFamily.Unknown)
-            {
-                return null;
-            }
+            //        return dirInfo.Exists ? currentMirrorRoot : null;
+            //    }
+            //}
 
-            var primary = Path.GetPathRoot(primaryStorageRoot);
+            //if (HardwareFamilyIdentifier.Identify() == HardwareFamily.Unknown)
+            //{
+            //    return null;
+            //}
 
-            var diskInfo = DiskDeviceInfo.GetPhysicalDiskInfo().Where(
-                x => x.Value.Any(y => y.DriveType == DriveType.Fixed) &&
-                     x.Value.All(y => y.RootDirectory.Name != primary)).ToList();
+            //var primary = Path.GetPathRoot(primaryStorageRoot);
 
-            var driveInfo = diskInfo.FirstOrDefault().Value?.FirstOrDefault();
-            if (driveInfo == null)
-            {
-                return null;
-            }
+            //var diskInfo = DiskDeviceInfo.GetPhysicalDiskInfo().Where(
+            //    x => x.Value.Any(y => y.DriveType == DriveType.Fixed) &&
+            //         x.Value.All(y => y.RootDirectory.Name != primary)).ToList();
 
-            var mirrorPath = primaryStorageRoot.Replace(primary, driveInfo.RootDirectory.FullName);
+            //var driveInfo = diskInfo.FirstOrDefault().Value?.FirstOrDefault();
+            //if (driveInfo == null)
+            //{
+            //    return null;
+            //}
 
-            var tempFile = Path.Combine(driveInfo.RootDirectory.FullName, TempFileName);
+            //var mirrorPath = primaryStorageRoot.Replace(primary, driveInfo.RootDirectory.FullName);
 
-            try
-            {
-                if (!Directory.Exists(mirrorPath))
-                {
-                    Directory.CreateDirectory(mirrorPath);
-                }
+            //var tempFile = Path.Combine(driveInfo.RootDirectory.FullName, TempFileName);
 
-                File.WriteAllText(tempFile, string.Empty);
-            }
-            catch (Exception)
-            {
-                // failed to write to secondary media.
-                return null;
-            }
-            finally
-            {
-                try
-                {
-                    File.Delete(tempFile);
-                }
-                catch (Exception)
-                {
-                    //ignore
-                }
-            }
+            //try
+            //{
+            //    if (!Directory.Exists(mirrorPath))
+            //    {
+            //        Directory.CreateDirectory(mirrorPath);
+            //    }
 
-            return mirrorPath;
+            //    File.WriteAllText(tempFile, string.Empty);
+            //}
+            //catch (Exception)
+            //{
+            //    // failed to write to secondary media.
+            //    return null;
+            //}
+            //finally
+            //{
+            //    try
+            //    {
+            //        File.Delete(tempFile);
+            //    }
+            //    catch (Exception)
+            //    {
+            //        //ignore
+            //    }
+            //}
+
+            //return mirrorPath;
         }
 
         private static string ConnectionString(string filePath, string password)

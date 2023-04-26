@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />
   <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <RootNamespace>Vgt.Client12.Hardware.TicketContent</RootNamespace>
     <AssemblyName>RenderPdl</AssemblyName>
-    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>RenderPdl</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>

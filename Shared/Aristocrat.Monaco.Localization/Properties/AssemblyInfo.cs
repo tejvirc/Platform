@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
-using System.Windows.Markup;
+//using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -40,8 +40,8 @@ using System.Windows.Markup;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: XmlnsDefinition("http://monaco.aristocrat.com/localization", "Aristocrat.Monaco.Localization")]
-[assembly: XmlnsDefinition("http://monaco.aristocrat.com/localization", "Aristocrat.Monaco.Localization.Markup")]
-[assembly: XmlnsDefinition("http://monaco.aristocrat.com/localization", "Aristocrat.Monaco.Localization.Properties")]
+//[assembly: XmlnsDefinition("http://monaco.aristocrat.com/localization", "Aristocrat.Monaco.Localization")]
+//[assembly: XmlnsDefinition("http://monaco.aristocrat.com/localization", "Aristocrat.Monaco.Localization.Markup")]
+//[assembly: XmlnsDefinition("http://monaco.aristocrat.com/localization", "Aristocrat.Monaco.Localization.Properties")]
 
-[assembly: XmlnsPrefix("http://monaco.aristocrat.com/localization", "loc")]
+//[assembly: XmlnsPrefix("http://monaco.aristocrat.com/localization", "loc")]

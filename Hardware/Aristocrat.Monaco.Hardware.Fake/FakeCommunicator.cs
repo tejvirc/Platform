@@ -21,9 +21,9 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using MVVM;
-    using Simulation.HarkeyReels;
-    using Simulation.HarkeyReels.Controls;
+    //using MVVM;
+    //using Simulation.HarkeyReels;
+    //using Simulation.HarkeyReels.Controls;
     using Virtual;
     using NoteAcceptorMetrics = Contracts.Gds.NoteAcceptor.Metrics;
     using PrinterMetrics = Contracts.Gds.Printer.Metrics;
@@ -59,8 +59,8 @@
         private string _fakeCardData;
         private bool _disposed;
         private string _baseName = DefaultBaseName;
-        private ReelSetWindow _simWindow;
-        private int _id;
+        //private ReelSetWindow _simWindow;
+        //private int _id;
         private volatile int _reelCount;
         private int[] _reelOffsets;
         private int[] _homePositions;
@@ -294,19 +294,19 @@
                 case GdsConstants.ReportId.ReelControllerSetOffsets:
                 case GdsConstants.ReportId.ReelControllerSetReelSpeed:
                 case GdsConstants.ReportId.ReelControllerSetLights:
-                    if (_simWindow == null)
-                    {
-                        _simQueue.Enqueue(message);
-                    }
-                    else
-                    {
+                    //if (_simWindow == null)
+                    //{
+                    //    _simQueue.Enqueue(message);
+                    //}
+                    //else
+                    //{
                         while (_simQueue.Count > 0)
                         {
                             var msg = _simQueue.Dequeue();
                             ProcessReelsDeviceMessage(msg);
                         }
                         ProcessReelsDeviceMessage(message);
-                    }
+                    //}
                     break;
                 case GdsConstants.ReportId.ReelControllerGetLightIds:
                     Logger.Debug($"{DeviceType}/{BaseName} Get light IDs");
@@ -355,7 +355,7 @@
                             }
 
                             var offsetStep = (ushort)((_homePositions[homeReel.ReelId - 1] + _reelOffsets[homeReel.ReelId - 1] + StepsPerReel) % StepsPerReel);
-                            _simWindow.HomeReel(homeReel.ReelId, offsetStep);
+                            //_simWindow.HomeReel(homeReel.ReelId, offsetStep);
                         }
                         break;
                     case GdsConstants.ReportId.ReelControllerNudge:
@@ -364,7 +364,7 @@
                             foreach (var nudge in nudgeReels.NudgeReelData)
                             {
                                 Logger.Debug($"{DeviceType}/{BaseName} Nudging reel {nudge.ReelId} to step {nudge.Step}");
-                                _simWindow.NudgeReel(nudge.ReelId, nudge.Direction == SpinDirection.Backwards, nudge.Step);
+                                //_simWindow.NudgeReel(nudge.ReelId, nudge.Direction == SpinDirection.Backwards, nudge.Step);
                             }
                         }
                         break;
@@ -374,7 +374,7 @@
                             foreach (var spin in spinReels.ReelSpinData)
                             {
                                 Logger.Debug($"{DeviceType}/{BaseName} Spinning reel {spin.ReelId} to step {spin.Step}");
-                                _simWindow.SpinReelToStep(spin.ReelId, spin.Direction == SpinDirection.Backwards, spin.Step);
+                                //_simWindow.SpinReelToStep(spin.ReelId, spin.Direction == SpinDirection.Backwards, spin.Step);
                             }
                         }
                         break;
@@ -382,7 +382,7 @@
                         Logger.Debug($"{DeviceType}/{BaseName} Tilt reels");
                         for (var id = 1; id <= _reelCount; id++)
                         {
-                            _simWindow.TiltReel(id);
+                            //_simWindow.TiltReel(id);
                         }
 
                         OnMessageReceived(new TiltReelsResponse());
@@ -395,12 +395,12 @@
                             {
                                 for (var reel = 1; reel <= _reelCount; reel++)
                                 {
-                                    _simWindow.SetReelBrightness(reel, brightness.Brightness);
+                                    //_simWindow.SetReelBrightness(reel, brightness.Brightness);
                                 }
                             }
                             else
                             {
-                                _simWindow.SetReelBrightness(brightness.ReelId, brightness.Brightness);
+                                //_simWindow.SetReelBrightness(brightness.ReelId, brightness.Brightness);
                             }
                         }
 
@@ -420,7 +420,7 @@
                             foreach (var reelData in speeds.ReelSpeedData)
                             {
                                 Logger.Debug($"Set reel speed to {reelData.Speed} for reel {reelData.ReelId}");
-                                _simWindow.SetReelSpeed(reelData.ReelId, reelData.Speed);
+                                //_simWindow.SetReelSpeed(reelData.ReelId, reelData.Speed);
                             }
                         }
                         break;
@@ -430,11 +430,11 @@
                             foreach (var lampData in setLamps.ReelLampData)
                             {
                                 Logger.Debug($"{DeviceType}/{BaseName} Set lamp data {lampData.LampId}");
-                                _simWindow.SetLamp(
-                                    lampData.LampId,
-                                    lampData.IsLampOn ? lampData.RedIntensity : (byte)0,
-                                    lampData.IsLampOn ? lampData.GreenIntensity : (byte)0,
-                                    lampData.IsLampOn ? lampData.BlueIntensity : (byte)0);
+                                //_simWindow.SetLamp(
+                                //    lampData.LampId,
+                                //    lampData.IsLampOn ? lampData.RedIntensity : (byte)0,
+                                //    lampData.IsLampOn ? lampData.GreenIntensity : (byte)0,
+                                //    lampData.IsLampOn ? lampData.BlueIntensity : (byte)0);
                             }
                         }
 
@@ -604,55 +604,58 @@
             var knownReels = reelController.ConnectedReels.Count;
             Logger.Debug($"Known reels: {knownReels}");
 
-            // Avoid using same ID as any other already-running simulators
-            var usedIds = new List<int> { 0 };
-            var usedTitles = Process.GetProcesses()
-                .Where(process => process.MainWindowTitle.Contains(SimWindowNamePartial))
-                .Select(process => process.MainWindowTitle.Substring(process.MainWindowTitle.IndexOf('_') + 1));
-            usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
-            _id = 1 + usedIds.Max();
+            Logger.Warn("Cannot open reel simulator (WPF) in Linux");
+            return;
 
-            MvvmHelper.ExecuteOnUI(
-                () =>
-                {
-                    Simulation.HarkeyReels.Logger.Log += SimulatorLog;
-                    _simWindow = new ReelSetWindow(_id, gamesPath, knownReels, packagesPath);
-                    Logger.Debug($"Game says: {_reelCount} reels");
-                    _simWindow.ReelStateChanged += SimWindowReelStateChanged;
-                    _simWindow.Show();
-                    _reelCount = _simWindow.ReelCount;
-                });
+            //// Avoid using same ID as any other already-running simulators
+            //var usedIds = new List<int> { 0 };
+            //var usedTitles = Process.GetProcesses()
+            //    .Where(process => process.MainWindowTitle.Contains(SimWindowNamePartial))
+            //    .Select(process => process.MainWindowTitle.Substring(process.MainWindowTitle.IndexOf('_') + 1));
+            //usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
+            //_id = 1 + usedIds.Max();
 
-            while (_reelCount == 0)
-            {
-                Task.Delay(50);
-            }
+            //MvvmHelper.ExecuteOnUI(
+            //    () =>
+            //    {
+            //        Simulation.HarkeyReels.Logger.Log += SimulatorLog;
+            //        _simWindow = new ReelSetWindow(_id, gamesPath, knownReels, packagesPath);
+            //        Logger.Debug($"Game says: {_reelCount} reels");
+            //        _simWindow.ReelStateChanged += SimWindowReelStateChanged;
+            //        _simWindow.Show();
+            //        _reelCount = _simWindow.ReelCount;
+            //    });
+
+            //while (_reelCount == 0)
+            //{
+            //    Task.Delay(50);
+            //}
         }
 
-        private void SimulatorLog(object sender, LoggingEventArgs e)
-        {
-            if (e.IsError)
-            {
-                Logger.Error($"{sender}: {e.Text}");
-            }
-            else
-            {
-                Logger.Debug($"{sender}: {e.Text}");
-            }
-        }
+        //private void SimulatorLog(object sender, LoggingEventArgs e)
+        //{
+        //    if (e.IsError)
+        //    {
+        //        Logger.Error($"{sender}: {e.Text}");
+        //    }
+        //    else
+        //    {
+        //        Logger.Debug($"{sender}: {e.Text}");
+        //    }
+        //}
 
-        private void SimWindowReelStateChanged(object _, ReelDisplayEventArgs args)
-        {
-            Logger.Debug($"Received sim reel event {args.ReelId} {args.Step} {args.ReelState}");
-            OnMessageReceived(
-                new ReelSpinningStatus
-                {
-                    ReelId = args.ReelId,
-                    IdleAtStop = args.ReelState == ReelState.Stopped,
-                    Step = args.Step,
-                    Spinning = args.ReelState != ReelState.Stopped
-                }
-            );
-        }
+        //private void SimWindowReelStateChanged(object _, ReelDisplayEventArgs args)
+        //{
+        //    Logger.Debug($"Received sim reel event {args.ReelId} {args.Step} {args.ReelState}");
+        //    OnMessageReceived(
+        //        new ReelSpinningStatus
+        //        {
+        //            ReelId = args.ReelId,
+        //            IdleAtStop = args.ReelState == ReelState.Stopped,
+        //            Step = args.Step,
+        //            Spinning = args.ReelState != ReelState.Stopped
+        //        }
+        //    );
+        //}
     }
 }

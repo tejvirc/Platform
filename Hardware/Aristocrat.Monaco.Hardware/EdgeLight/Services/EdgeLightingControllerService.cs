@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    //using System.Windows.Navigation;
     using Contracts;
     using Hardware.Contracts;
     using Hardware.Contracts.EdgeLighting;
@@ -12,7 +13,7 @@
     using log4net;
     using Manager;
     using SequenceLib;
-    using Vgt.Client12.Hardware.HidLibrary;
+    //using Vgt.Client12.Hardware.HidLibrary;
 
     internal class EdgeLightingControllerService : BaseRunnable, IEdgeLightingController, IService
     {
@@ -21,7 +22,7 @@
         private static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly Func<IEnumerable<IHidDevice>> _deviceEnumerator;
+        //private readonly Func<IEnumerable<IHidDevice>> _deviceEnumerator;
         private readonly IEventBus _eventBus;
         private readonly Func<PatternParameters, IEdgeLightRenderer> _rendererFactory;
 
@@ -36,7 +37,7 @@
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 new EdgeLightManager(),
                 RendererFactory.CreateRenderer,
-                () => HidDevices.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId),
+                //() => HidDevices.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId),
                 new List<IEdgeLightRenderer> { new EdgeLightDataRenderer() })
         {
         }
@@ -45,13 +46,13 @@
             IEventBus eventBus,
             IEdgeLightManager edgeLightManager,
             Func<PatternParameters, IEdgeLightRenderer> rendererFactory,
-            Func<IEnumerable<IHidDevice>> deviceEnumerator,
+            //Func<IEnumerable<IHidDevice>> deviceEnumerator,
             IEnumerable<IEdgeLightRenderer> initialRendererList)
         {
             _edgeLightManager = edgeLightManager ?? throw new ArgumentNullException(nameof(edgeLightManager));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _rendererFactory = rendererFactory ?? throw new ArgumentNullException(nameof(rendererFactory));
-            _deviceEnumerator = deviceEnumerator ?? throw new ArgumentNullException(nameof(deviceEnumerator));
+            //_deviceEnumerator = deviceEnumerator ?? throw new ArgumentNullException(nameof(deviceEnumerator));
 
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             _isSimulated = properties.GetValue(HardwareConstants.SimulateEdgeLighting, false);
@@ -63,7 +64,8 @@
             }
         }
 
-        public bool IsDetected => _isSimulated ? StripIds.Any() : _deviceEnumerator.Invoke().Any();
+        //public bool IsDetected => _isSimulated ? StripIds.Any() : _deviceEnumerator.Invoke().Any();
+        public bool IsDetected => false;
 
         public bool DetectedOnStartup { get; }
 

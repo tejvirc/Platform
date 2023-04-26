@@ -6,7 +6,6 @@
     using System.Reflection;
     using System.Windows;
     using log4net;
-    using static NativeMethods;
 
     /// <summary>
     ///     Serial touch helper class
@@ -34,9 +33,9 @@
         public static (int x, int y) GetScaledFormatTabletPoint(byte[] touchPacket)
         {
             var point = GetRawFormatTabletPoint(touchPacket);
-            var adjustX = M3SerialTouchConstants.MaxCoordinateRange / SystemParameters.PrimaryScreenWidth;
+            var adjustX = 1.0; //M3SerialTouchConstants.MaxCoordinateRange / SystemParameters.PrimaryScreenWidth;
             var xCoord = Convert.ToInt32(Math.Round(point.x > 0 ? point.x / adjustX : 0));
-            var adjustY = M3SerialTouchConstants.MaxCoordinateRange / SystemParameters.PrimaryScreenHeight;
+            var adjustY = 1.0; //M3SerialTouchConstants.MaxCoordinateRange / SystemParameters.PrimaryScreenHeight;
             var flipY = M3SerialTouchConstants.MaxCoordinateRange - point.y;
             var yCoord = Convert.ToInt32(Math.Round(flipY > 0 ? flipY / adjustY : 0));
 
@@ -100,34 +99,34 @@
             return newBytes;
         }
 
-        internal static PointerTouchInfo GetPointerTouchInfo(byte[] touchPacket, TouchAction action, uint id)
-        {
-            PointerFlags flags = action switch
-            {
-                TouchAction.Down => PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT,
-                TouchAction.Up => PointerFlags.UP,
-                _ => PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT
-            };
+        //internal static PointerTouchInfo GetPointerTouchInfo(byte[] touchPacket, TouchAction action, uint id)
+        //{
+        //    PointerFlags flags = action switch
+        //    {
+        //        TouchAction.Down => PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT,
+        //        TouchAction.Up => PointerFlags.UP,
+        //        _ => PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT
+        //    };
 
-            var point = GetScaledFormatTabletPoint(touchPacket);
-            var pointerTouchInfo = new PointerTouchInfo();
+        //    var point = GetScaledFormatTabletPoint(touchPacket);
+        //    var pointerTouchInfo = new PointerTouchInfo();
 
-            pointerTouchInfo.PointerInfo.pointerType = PointerInputType.TOUCH;
-            pointerTouchInfo.PointerInfo.PointerId = id;
-            pointerTouchInfo.TouchFlags = TouchFlags.NONE;
-            pointerTouchInfo.TouchMasks = TouchMask.CONTACTAREA | TouchMask.ORIENTATION | TouchMask.PRESSURE;
-            pointerTouchInfo.PointerInfo.PtPixelLocation.X = point.x;
-            pointerTouchInfo.PointerInfo.PtPixelLocation.Y = point.y;
-            pointerTouchInfo.PointerInfo.PointerFlags = flags;
-            pointerTouchInfo.ContactArea.left = point.x - M3SerialTouchConstants.TouchRadius;
-            pointerTouchInfo.ContactArea.right = point.x + M3SerialTouchConstants.TouchRadius;
-            pointerTouchInfo.ContactArea.top = point.y - M3SerialTouchConstants.TouchRadius;
-            pointerTouchInfo.ContactArea.bottom = point.y + M3SerialTouchConstants.TouchRadius;
-            pointerTouchInfo.Orientation = M3SerialTouchConstants.TouchOrientation;
-            pointerTouchInfo.Pressure = M3SerialTouchConstants.TouchPressure;
+        //    pointerTouchInfo.PointerInfo.pointerType = PointerInputType.TOUCH;
+        //    pointerTouchInfo.PointerInfo.PointerId = id;
+        //    pointerTouchInfo.TouchFlags = TouchFlags.NONE;
+        //    pointerTouchInfo.TouchMasks = TouchMask.CONTACTAREA | TouchMask.ORIENTATION | TouchMask.PRESSURE;
+        //    pointerTouchInfo.PointerInfo.PtPixelLocation.X = point.x;
+        //    pointerTouchInfo.PointerInfo.PtPixelLocation.Y = point.y;
+        //    pointerTouchInfo.PointerInfo.PointerFlags = flags;
+        //    pointerTouchInfo.ContactArea.left = point.x - M3SerialTouchConstants.TouchRadius;
+        //    pointerTouchInfo.ContactArea.right = point.x + M3SerialTouchConstants.TouchRadius;
+        //    pointerTouchInfo.ContactArea.top = point.y - M3SerialTouchConstants.TouchRadius;
+        //    pointerTouchInfo.ContactArea.bottom = point.y + M3SerialTouchConstants.TouchRadius;
+        //    pointerTouchInfo.Orientation = M3SerialTouchConstants.TouchOrientation;
+        //    pointerTouchInfo.Pressure = M3SerialTouchConstants.TouchPressure;
 
-            return pointerTouchInfo;
-        }
+        //    return pointerTouchInfo;
+        //}
 
         public enum TouchAction
         {
