@@ -21,7 +21,8 @@
         {
             Tuple.Create<string, MeterClassification>(AccountingMeters.HandCount, new OccurrenceMeterClassification()),
             Tuple.Create<string, MeterClassification>(AccountingMeters.HardMeterOutAmount, new CurrencyMeterClassification()),
-            Tuple.Create<string, MeterClassification>(AccountingMeters.HardMeterOutCount, new OccurrenceMeterClassification())
+            Tuple.Create<string, MeterClassification>(AccountingMeters.HardMeterOutCount, new OccurrenceMeterClassification()),
+            Tuple.Create<string, MeterClassification>(AccountingMeters.ResidualAmount, new CurrencyMeterClassification()),
         };
 
         /// <summary>

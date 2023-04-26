@@ -7,5 +7,7 @@
     <Field DataType="Int64" FieldName="HardMeterOutAmountPeriod" />
     <Field DataType="Int64" FieldName="HardMeterOutCountLifetime" />
     <Field DataType="Int64" FieldName="HardMeterOutCountPeriod" />
+    <Field DataType="Int64" FieldName="ResidualAmountLifetime" />
+    <Field DataType="Int64" FieldName="ResidualAmountPeriod" />
   </Fields>
 </BlockFormat>

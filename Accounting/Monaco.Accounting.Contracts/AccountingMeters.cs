@@ -728,5 +728,10 @@
         ///     Hard meter cash out count, the number of hard meter cash outs that have occurred.
         /// </summary>
         public const string HardMeterOutCount = "HardMeterOutCount";
+
+        /// <summary>
+        ///     Cancelled residual credit amount, amount that is cancelled by hand count reset
+        /// </summary>
+        public const string ResidualAmount = "ResidualAmount";
     }
 }
