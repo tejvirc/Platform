@@ -3605,17 +3605,50 @@ Do you really want to do partial reset????</value>
   <data name="UnloadUi" xml:space="preserve">
     <value>??Unloading Display??</value>
   </data>
+  <data name="CentralDeterminationSystem" xml:space="preserve">
+    <value>??Central Determination System??</value>
+  </data>
   <data name="CentralDeterminationSystemLabel" xml:space="preserve">
     <value>??Central Determination System??</value>
+  </data>
+  <data name="CompleteTitle" xml:space="preserve">
+    <value>??Configuration Complete??</value>
+  </data>
+  <data name="ConfigComplete" xml:space="preserve">
+    <value>??Completed configuration, please press the 'Finished' button to continue.??</value>
+  </data>
+  <data name="ErrorText" xml:space="preserve">
+    <value>??Error during operation.??</value>
+  </data>
+  <data name="FundTransfer" xml:space="preserve">
+    <value>??FundTransfer??</value>
   </data>
   <data name="FundTransferProtocolLabel" xml:space="preserve">
     <value>??Fund Transfer Protocol??</value>
   </data>
+  <data name="HardwareDiscoveryCompleteLabel" xml:space="preserve">
+    <value>??Hardware Discovery Complete??</value>
+  </data>
   <data name="MultiProtocolConfigurationPageTitle" xml:space="preserve">
     <value>??Multi Protocol Configuration??</value>
   </data>
+  <data name="MultiProtocolFundTransferSelection" xml:space="preserve">
+    <value>??Select the Fund Transfer Host??</value>
+  </data>
+  <data name="MultiProtocolProgressiveSelection" xml:space="preserve">
+    <value>??Select the Progressive Host??</value>
+  </data>
+  <data name="MultiProtocolValidationSelection" xml:space="preserve">
+    <value>??Select the Validation Host??</value>
+  </data>
   <data name="ProgressiveProtocolLabel" xml:space="preserve">
     <value>??Progressive Protocol??</value>
+  </data>
+  <data name="Validate" xml:space="preserve">
+    <value>??Validate??</value>
+  </data>
+  <data name="Validation" xml:space="preserve">
+    <value>??Validation??</value>
   </data>
   <data name="ValidationProtocolLabel" xml:space="preserve">
     <value>??Validation Protocol??</value>
