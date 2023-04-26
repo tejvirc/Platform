@@ -97,7 +97,7 @@
                         <DataTemplate>
                             <Grid>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding RtpDisplayValues.TotalJurisdictionalRtp}" />
+                                    <TextBlock Text="{Binding RtpDisplayValues.TotalRtp}" />
                                     <Button Name="RtpBreakdownDialogBtn" Style="{StaticResource MonacoInfoButton}" 
                                             Margin="5,0, 0,0" 
                                             HorizontalAlignment="Left"
@@ -111,11 +111,11 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMin}}"
-                                    Binding="{Binding RtpDisplayValues.TotalJurisdictionalRtpMin}"
+                                    Binding="{Binding RtpDisplayValues.TotalRtpMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
                 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMax}}"
-                                    Binding="{Binding RtpDisplayValues.TotalJurisdictionalRtpMax}"
+                                    Binding="{Binding RtpDisplayValues.TotalRtpMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
 
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}" Binding="{Binding RuntimeVersion}" />

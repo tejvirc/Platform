@@ -36,11 +36,11 @@
  
         public string LinkedProgressiveIncrementRtpMax { get; set; }
 
-        public string TotalJurisdictionalRtp { get; set; }
+        public string TotalRtp { get; set; }
 
-        public string TotalJurisdictionalRtpMin { get; set; }
+        public string TotalRtpMin { get; set; }
 
-        public string TotalJurisdictionalRtpMax { get; set; }
+        public string TotalRtpMax { get; set; }
 
         public RtpVerifiedState StandaloneProgressiveResetRtpState { get; set; }
 

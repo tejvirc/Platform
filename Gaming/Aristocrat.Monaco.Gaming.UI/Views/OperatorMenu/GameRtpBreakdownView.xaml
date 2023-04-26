@@ -34,14 +34,17 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Margin="20" Width="560" Height="320">
+    <Grid Margin="20,0,20,0" Width="600" Height="480">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="0.25*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.25*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -50,29 +53,36 @@
                 <ColumnDefinition Width="125*" />
             </Grid.ColumnDefinitions>
 
-            <!--Headers-->
-            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.RtpBreakdown}}"/>
-            <Label Grid.Row="0" Grid.Column="1" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Min}}"/>
-            <Label Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Max}}"/>
+            <!--Header-->
+            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.RtpBreakdown}}" Margin="20,0,0,4"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Min}}" Margin="20,0,0,4"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Max}}" Margin="20,0,0,4"/>
+            <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Fill="{DynamicResource AccentColorBrush}" StrokeThickness="0" Height="2" VerticalAlignment="Center"/>
 
             <!--Rows-->
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="{lex:Loc Key={x:Static loc:ResourceKeys.BaseExcludingProgressives}}"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveReset}}"/>
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveIncrement}}"/>
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveReset}}"/>
-            <TextBlock Grid.Column="0" Grid.Row="5" Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveIncrement}}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="{lex:Loc Key={x:Static loc:ResourceKeys.BaseExcludingProgressives}}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveReset}}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveIncrement}}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveReset}}"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveIncrement}}"/>
+            
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding RtpValues.BaseGameRtpMin, Mode=OneTime}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding RtpValues.StandaloneProgressiveResetRtpMin, Mode=OneTime}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding RtpValues.StandaloneProgressiveIncrementRtpMin, Mode=OneTime}"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding RtpValues.LinkedProgressiveResetRtpMin, Mode=OneTime}"/>
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding RtpValues.LinkedProgressiveIncrementRtpMin, Mode=OneTime}"/>
+            
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding RtpValues.BaseGameRtpMax, Mode=OneTime}"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding RtpValues.StandaloneProgressiveResetRtpMax, Mode=OneTime}"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding RtpValues.StandaloneProgressiveIncrementRtpMax, Mode=OneTime}"/>
+            <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding RtpValues.LinkedProgressiveResetRtpMax, Mode=OneTime}"/>
+            <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding RtpValues.LinkedProgressiveIncrementRtpMax, Mode=OneTime}"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding RtpValues.BaseGameRtpMin, Mode=OneTime}"/>
-            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding RtpValues.StandaloneProgressiveResetRtpMin, Mode=OneTime}"/>
-            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding RtpValues.StandaloneProgressiveIncrementRtpMin, Mode=OneTime}"/>
-            <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding RtpValues.LinkedProgressiveResetRtpMin, Mode=OneTime}"/>
-            <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding RtpValues.LinkedProgressiveIncrementRtpMin, Mode=OneTime}"/>
-
-            <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding RtpValues.BaseGameRtpMax, Mode=OneTime}"/>
-            <TextBlock Grid.Column="2" Grid.Row="2" Text="{Binding RtpValues.StandaloneProgressiveResetRtpMax, Mode=OneTime}"/>
-            <TextBlock Grid.Column="2" Grid.Row="3" Text="{Binding RtpValues.StandaloneProgressiveIncrementRtpMax, Mode=OneTime}"/>
-            <TextBlock Grid.Column="2" Grid.Row="4" Text="{Binding RtpValues.LinkedProgressiveResetRtpMax, Mode=OneTime}"/>
-            <TextBlock Grid.Column="2" Grid.Row="5" Text="{Binding RtpValues.LinkedProgressiveIncrementRtpMax, Mode=OneTime}"/>
+            <!--Footer-->
+            <Rectangle Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Fill="{DynamicResource AccentColorBrush}" StrokeThickness="0" Height="2" VerticalAlignment="Center"/>
+            <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}}" Margin="20,4,0,0"/>
+            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding RtpValues.TotalRtpMin}"/>
+            <TextBlock Grid.Row="8" Grid.Column="2" Text="{Binding RtpValues.TotalRtpMax}"/>
         </Grid>
     </Grid>
 </operatorMenu:OperatorMenuPage>

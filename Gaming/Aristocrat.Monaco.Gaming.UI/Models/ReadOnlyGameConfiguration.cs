@@ -191,9 +191,9 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 LinkedProgressiveIncrementRtpMin = DisplayValue(rtp.LinkedProgressiveIncrement.Minimum.ToRtpString(), rtpState.LpIncrementRtpState),
                 LinkedProgressiveIncrementRtpMax = DisplayValue(rtp.LinkedProgressiveIncrement.Maximum.ToRtpString(), rtpState.LpIncrementRtpState),
 
-                TotalJurisdictionalRtp = rtp.TotalRtp.ToString(), 
-                TotalJurisdictionalRtpMin = rtp.TotalRtp.Minimum.ToRtpString(), 
-                TotalJurisdictionalRtpMax = rtp.TotalRtp.Maximum.ToRtpString(), 
+                TotalRtp = rtp.TotalRtp.ToString(), 
+                TotalRtpMin = rtp.TotalRtp.Minimum.ToRtpString(), 
+                TotalRtpMax = rtp.TotalRtp.Maximum.ToRtpString(), 
  
                 StandaloneProgressiveResetRtpState = rtpState.SapResetRtpState, 
                 StandaloneProgressiveIncrementRtpState = rtpState.SapIncrementRtpState, 
@@ -210,20 +210,19 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             ProgressiveRtpState rtpState)
         {
             var baseGameRtp = new RtpRange(game.MinimumPaybackPercent, game.MaximumPaybackPercent);
-
             var sapResetRtp = progressiveRtp?.Reset;
             var sapIncrementRtp = progressiveRtp?.Increment;
+            var totalRtp = baseGameRtp;
+
             if (sapResetRtp is not null)
             {
-                baseGameRtp.TotalWith(sapResetRtp);
+                totalRtp = totalRtp.TotalWith(sapResetRtp);
             }
 
             if (sapIncrementRtp is not null)
             {
-                baseGameRtp.TotalWith(sapIncrementRtp);
+                totalRtp = totalRtp.TotalWith(sapIncrementRtp);
             }
-
-            var totalRtp = baseGameRtp;
 
             var display = new GameRtpDisplay
             {
@@ -248,9 +247,9 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 LinkedProgressiveIncrementRtpMin = _notAvailableLabel,
                 LinkedProgressiveIncrementRtpMax = _notAvailableLabel,
 
-                TotalJurisdictionalRtp = totalRtp.ToString(),
-                TotalJurisdictionalRtpMin = totalRtp.Minimum.ToRtpString(),
-                TotalJurisdictionalRtpMax = totalRtp.Maximum.ToRtpString(),
+                TotalRtp = totalRtp.ToString(),
+                TotalRtpMin = totalRtp.Minimum.ToRtpString(),
+                TotalRtpMax = totalRtp.Maximum.ToRtpString(),
 
                 StandaloneProgressiveResetRtpState = rtpState.SapResetRtpState,
                 StandaloneProgressiveIncrementRtpState = rtpState.SapIncrementRtpState,
