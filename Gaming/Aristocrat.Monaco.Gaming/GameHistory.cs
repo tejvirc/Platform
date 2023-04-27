@@ -1086,6 +1086,10 @@
                     info.Amount = hardMeterOutTransaction.Amount;
                     break;
 
+                case ResidualCreditsTransaction residualCreditsTransaction:
+                    info.Amount = residualCreditsTransaction.Amount;
+                    break;
+
                 case WatTransaction watTransaction:
                     info.Amount = watTransaction.TransactionAmount;
                     info.CashableAmount = watTransaction.TransferredCashableAmount;

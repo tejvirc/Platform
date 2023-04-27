@@ -766,7 +766,9 @@
                 else if (transaction.TransactionType == typeof(VoucherOutTransaction) ||
                          transaction.TransactionType == typeof(WatTransaction) ||
                          transaction.TransactionType == typeof(KeyedOffCreditsTransaction) ||
-                         transaction.TransactionType == typeof(HardMeterOutTransaction))
+                         transaction.TransactionType == typeof(HardMeterOutTransaction) ||
+                         transaction.TransactionType == typeof(ResidualCreditsTransaction)
+                         )
                 {
                     if (round.AmountOut == null)
                     {

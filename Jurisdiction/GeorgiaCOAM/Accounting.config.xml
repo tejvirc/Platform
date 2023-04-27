@@ -77,7 +77,7 @@ as follows:
   <Handpay>
     <RemoteHandpayReset Allowed="false"/>
   </Handpay>
-  <HandCount HandCountServiceEnabled="true" >
+  <HandCount HandCountServiceEnabled="true" HandCountResetCreditLimit="100000">
     <HandCountPayoutLimit Visible="true" LimitDefault="119999000"/>
     <BillAcceptanceLimit Visible="true"/>
   </HandCount>

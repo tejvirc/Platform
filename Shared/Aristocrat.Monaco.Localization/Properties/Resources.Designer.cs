@@ -2097,13 +2097,25 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-        /// <summary>
-        ///   Looks up a localized string similar to Bet (Turnover).
-        /// </summary>
+		/// <summary>
+		///   Looks up a localized string similar to Max Win.
+		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-        public static string BetTurnover {
+		public static string BetOptionMaxWin {
+			get {
+				return ResourceManager.GetString("BetOptionMaxWin", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Bet (Turnover).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string BetTurnover {
 			get {
 				return ResourceManager.GetString("BetTurnover", resourceCulture) ?? string.Empty;
 			}
@@ -14084,7 +14096,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Hard Meter Out Amount:.
+		///   Looks up a localized string similar to Hard Meter Out.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -26786,6 +26798,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string ResidualCreditsTransactionName {
+			get {
+				return ResourceManager.GetString("ResidualCreditsTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Resolver Error.
 		/// </summary>
         /// <remarks>
@@ -36774,6 +36798,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string BetOption {
 			get {
 				return "BetOption";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string BetOptionMaxWin {
+			get {
+				return "BetOptionMaxWin";
 			}
 		}
 
@@ -48763,7 +48799,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Hard Meter Out Amount:.
+		///		Looks up a localized string similar to Hard Meter Out.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -57258,27 +57294,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-        /// <summary>
-        ///		Looks up a localized string similar to BetOption MaxWin.
-        /// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-        public static string BetOptionMaxWin
-        {
-            get
-            {
-                return "BetOptionMaxWin";
-            }
-        }
-
-        /// <summary>
-        ///		Looks up a localized string similar to Or Clear Credits.
-        /// </summary>
+		/// <summary>
+		///		Looks up a localized string similar to Or Clear Credits.
+		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application
         /// </remarks>
-        public static string OrClearCredits {
+		public static string OrClearCredits {
 			get {
 				return "OrClearCredits";
 			}
@@ -61475,6 +61497,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ResetValue {
 			get {
 				return "ResetValue";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string ResidualCreditsTransactionName {
+			get {
+				return "ResidualCreditsTransactionName";
 			}
 		}
 
@@ -70592,6 +70626,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BetOption,
 		/// <summary>
+		///   Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		BetOptionMaxWin,
+		/// <summary>
 		///   Looks up a localized string similar to Bet (Turnover).
 		/// </summary>
         /// <remarks>
@@ -77418,7 +77459,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HardMeterLabel,
 		/// <summary>
-		///   Looks up a localized string similar to Hard Meter Out Amount:.
+		///   Looks up a localized string similar to Hard Meter Out.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -84669,6 +84710,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		ResetValue,
+		/// <summary>
+		///   Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		ResidualCreditsTransactionName,
 		/// <summary>
 		///   Looks up a localized string similar to Resolver Error.
 		/// </summary>

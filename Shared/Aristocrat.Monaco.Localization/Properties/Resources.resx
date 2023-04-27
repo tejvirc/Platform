@@ -11723,4 +11723,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Max Win</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="ResidualCreditsTransactionName" xml:space="preserve">
+    <value>ResidualCreditsTransaction</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
 </root>

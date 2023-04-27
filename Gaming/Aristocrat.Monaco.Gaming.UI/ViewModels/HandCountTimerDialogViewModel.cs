@@ -5,6 +5,7 @@
     using Monaco.UI.Common;
     using MVVM.ViewModel;
     using System;
+    using Accounting.Contracts;
 
     /// <summary>
     ///  Defines the HandCountTimerDialogViewModel class
@@ -18,8 +19,10 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly DispatcherTimerAdapter _resetTimer;
         private IHandCountService _handCountService;
+        private readonly IBank _bank;
         private TimeSpan _timeLeft;
         private bool _disposed = false;
+        private long _residualAmount = 0;
 
         /// <summary>
         /// Displays time left in handcount timer dialog
@@ -42,7 +45,9 @@
         /// </summary>
         public HandCountTimerDialogViewModel() : this(ServiceManager.GetInstance().TryGetService<IEventBus>(),
                                                       ServiceManager.GetInstance().TryGetService<ISystemDisableManager>(),
-                                                      ServiceManager.GetInstance().TryGetService<IHandCountService>())
+                                                      ServiceManager.GetInstance().TryGetService<IHandCountService>(),
+                                                 ServiceManager.GetInstance().TryGetService<IBank>()
+                                                      )
         {
         }
 
@@ -52,11 +57,12 @@
         /// <param name="eventBus">Event bus</param>
         /// <param name="systemDisableManager">System disable Manager</param>
         /// <param name="handCountService"> HandCount service</param>
-        public HandCountTimerDialogViewModel(IEventBus eventBus, ISystemDisableManager systemDisableManager, IHandCountService handCountService)
+        public HandCountTimerDialogViewModel(IEventBus eventBus, ISystemDisableManager systemDisableManager, IHandCountService handCountService, IBank bank)
         {
             _eventBus = eventBus;
             _systemDisableManager = systemDisableManager;
             _handCountService = handCountService;
+            _bank = bank;
 
             _resetTimer = new DispatcherTimerAdapter() { Interval = oneSecondElapsed };
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
@@ -74,6 +80,8 @@
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
             _resetTimer.Start();
             _resetTimer.IsEnabled = true;
+
+            _residualAmount = _bank.QueryBalance();
         }
 
         private void resetTimer_Tick(object sender, EventArgs e)
@@ -83,7 +91,7 @@
             if (TimeLeft.Seconds == 0 && TimeLeft.Minutes == 0)
             {
                 HideTimerDialog();
-                _eventBus.Publish(new HandCountResetTimerElapsedEvent());
+                _eventBus.Publish(new HandCountResetTimerElapsedEvent(_residualAmount));
             }
         }
 

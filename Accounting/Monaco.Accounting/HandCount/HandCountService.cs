@@ -1,12 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Accounting.HandCount
 {
     using Application.Contracts.Metering;
-    using Aristocrat.Monaco.Accounting.Contracts;
+    using Contracts;
+    using Contracts.HandCount;
     using Aristocrat.Monaco.Application.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Door;
+    using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
-    using Contracts.HandCount;
     using Kernel;
     using log4net;
     using System;
@@ -20,11 +21,18 @@
     public class HandCountService : IHandCountService
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly Guid RequestorId = new Guid("{755B6E71-B5A1-4E51-9394-B1B9CC298F65}");
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
         private readonly IMeterManager _meters;
         private readonly IMeter _handCountMeter;
+        private readonly IMeter _residualAmountMeter;
+        private readonly IPersistentStorageManager _storage;
+        private readonly IBank _bank;
+        private readonly ITransactionHistory _transactions;
+        private readonly ITransactionCoordinator _transactionCoordinator;
+
 
         private Timer _initResetTimer;
         private const double ResetTimerIntervalInMs = 15000;
@@ -40,7 +48,11 @@
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>()
+                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
+                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
+                ServiceManager.GetInstance().GetService<IBank>(),
+                ServiceManager.GetInstance().GetService<ITransactionHistory>(),
+                ServiceManager.GetInstance().GetService<ITransactionCoordinator>()
             )
         {
         }
@@ -51,12 +63,22 @@
         public HandCountService(
             IEventBus eventBus,
             IMeterManager meters,
-            IPropertiesManager propertyProvider)
+            IPropertiesManager propertyProvider,
+            IPersistentStorageManager storage,
+            IBank bank,
+            ITransactionHistory transactions,
+            ITransactionCoordinator transactionCoordinator
+            )
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _properties = propertyProvider ?? throw new ArgumentNullException(nameof(propertyProvider));
             _handCountMeter = _meters.GetMeter(AccountingMeters.HandCount);
+            _residualAmountMeter = _meters.GetMeter(AccountingMeters.ResidualAmount);
+            _storage = storage ?? throw new ArgumentNullException(nameof(storage));
+            _bank = bank ?? throw new ArgumentNullException(nameof(bank));
+            _transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
+            _transactionCoordinator = transactionCoordinator ?? throw new ArgumentNullException(nameof(transactionCoordinator));
 
             _initResetTimer = new Timer(ResetTimerIntervalInMs);
             _initResetTimer.Elapsed += InitHandCountReset;
@@ -75,7 +97,7 @@
         public void Initialize()
         {
             _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, x => HandCountResetTimerElapsed());
+            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, x => HandCountResetTimerElapsed(x.ResidualAmount));
 
             _eventBus.Subscribe<OpenEvent>(this, x => SuspendResetHandcount());
             _eventBus.Subscribe<SystemDisabledEvent>(this, x => SuspendResetHandcount());
@@ -93,9 +115,10 @@
             var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
                                                                        AccountingConstants.HandCountDefaultRequiredCredits);
 
-            if (obj.NewBalance > obj.OldBalance && obj.NewBalance >= minimumRequiredCredits)
+            if (obj.NewBalance > obj.OldBalance)
             {
                 SuspendResetHandcount();
+                CheckIfBelowResetThreshold();
             }
         }
 
@@ -120,16 +143,11 @@
 
         public void CheckIfBelowResetThreshold()
         {
-            if (HandCount == 0)
-            {
-                return;
-            }
-
             var balance = (long)_properties.GetProperty(PropertyKey.CurrentBalance, 0L);
             var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
                                                                        AccountingConstants.HandCountDefaultRequiredCredits);
 
-            if (balance < minimumRequiredCredits)
+            if (balance < minimumRequiredCredits && (balance > 0 || HandCount > 0))
             {
                 _initResetTimer.Start();
             }
@@ -144,10 +162,10 @@
             }
         }
 
-        private void HandCountResetTimerElapsed()
+        private void HandCountResetTimerElapsed(long residualAmount)
         {
             _resetTimerIsRunning = false;
-            ResetHandCount();
+            ResetHandCount(residualAmount);
         }
 
         public void IncrementHandCount()
@@ -168,12 +186,59 @@
             CheckIfBelowResetThreshold();
         }
 
-        private void ResetHandCount()
+        private void ResetHandCount(long residualAmount)
         {
-            _handCountMeter.Increment(-HandCount);
-            _initResetTimer.Stop();
-            SendHandCountChangedEvent();
-            Logger.Info($"ResetHandCount:{HandCount}");
+            try
+            {
+                if (residualAmount != (long)_properties.GetProperty(PropertyKey.CurrentBalance, 0L))
+                {
+                    Logger.Info($"ResetHandCount: current balance is different from residualAmount, abandon reset hand count and residual credits");
+                    return;
+                }
+
+                using (var scope = _storage.ScopedTransaction())
+                {
+                    _initResetTimer.Stop();
+
+                    if (residualAmount > 0)
+                    {
+                        var transactionId = _transactionCoordinator.RequestTransaction(RequestorId, 0, TransactionType.Write, true);
+                        if (transactionId == Guid.Empty)
+                        {
+                            return;
+                        }
+
+                        var transaction = new ResidualCreditsTransaction(transactionId, DateTime.UtcNow, residualAmount);
+                        _transactions.AddTransaction(transaction);
+                        _bank.Withdraw(AccountType.Cashable, residualAmount, transaction.BankTransactionId);
+
+                        _transactionCoordinator.ReleaseTransaction(transactionId);
+                    }
+
+                    var handCountNeedsReset = HandCount > 0;
+                    if (handCountNeedsReset)
+                        _handCountMeter.Increment(-HandCount);
+
+                    _residualAmountMeter.Increment(residualAmount);
+
+                    scope.Complete();
+
+                    if(handCountNeedsReset)
+                        SendHandCountChangedEvent();
+                }
+            }
+            catch (BankException ex)
+            {
+                Logger.Fatal($"Failed to debit the bank", ex);
+
+#if !(RETAIL)
+                _eventBus.Publish(new LegitimacyLockUpEvent());
+#endif
+                throw;
+            }
+
+
+            Logger.Info($"ResetHandCount:{HandCount} ResidualAmount:{residualAmount}");
         }
 
         private void SendHandCountChangedEvent()

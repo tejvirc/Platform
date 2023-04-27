@@ -46,6 +46,9 @@ namespace Aristocrat.Monaco.Accounting.Contracts
 
         /// <summary> The session ended by a HardMeterOut</summary>
         HardMeterOut,
+
+        /// <summary> The session ended by a ResidualCreditsOut</summary>
+        ResidualCreditsOut,
     }
 
     /// <summary>
