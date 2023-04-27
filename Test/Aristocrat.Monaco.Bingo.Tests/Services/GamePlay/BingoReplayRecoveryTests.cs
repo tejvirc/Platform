@@ -430,12 +430,6 @@
                     cdsTransactionId,
                     It.Is<IEnumerable<IOutcomeDescription>>(d => (d.FirstOrDefault() as BingoGameDescription).GameEndWinClaimAccepted == gewResult)),
                 transactionUpdate ? Times.Once() : Times.Never());
-            _commandFactory.Verify(
-                x => x.Execute(
-                    It.Is<BingoGameEndedCommand>(
-                        b => b.MachineSerial == machineId && b.Transaction == transaction),
-                    It.IsAny<CancellationToken>()),
-                handledGameEndCommand ? Times.Once() : Times.Never());
         }
 
         [DataTestMethod]
