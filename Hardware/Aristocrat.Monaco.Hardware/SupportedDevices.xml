@@ -97,7 +97,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
-      <FirmwareVersionRegex>^5RUSA</FirmwareVersionRegex>
+      <FirmwareVersionRegex>^5R</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen Serial TCL" Protocol="Nanoptix TCL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -107,7 +107,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
-      <FirmwareVersionRegex>1.28C$</FirmwareVersionRegex>
+      <FirmwareVersionRegex>^NGP-1</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -124,7 +124,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
-      <FirmwareVersionRegex>6.10D$</FirmwareVersionRegex>
+      <FirmwareVersionRegex>^PAY-6</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="TransAct Epic Edge USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
