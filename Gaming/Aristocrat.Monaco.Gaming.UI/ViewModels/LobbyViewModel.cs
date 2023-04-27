@@ -4653,6 +4653,7 @@
             }
 
             buttonsLampState.Add(SetLampState(LampName.Bash, state));
+            buttonsLampState.Add(SetLampState(LampName.DualBashLeft, state));
         }
 
         private void DetermineCollectLampState(ref IList<ButtonLampState> buttonsLampState)
@@ -5205,6 +5206,7 @@
                     CashOutPressed(new object());
                     break;
                 case LcdButtonDeckLobby.LaunchGame:
+                case LcdButtonDeckLobby.DualLaunchGame:
                     if (_selectedGame != null)
                     {
                         if (_selectedGame.Category == GameCategory.LightningLink && _selectedGame.SelectedDenomination != null)
