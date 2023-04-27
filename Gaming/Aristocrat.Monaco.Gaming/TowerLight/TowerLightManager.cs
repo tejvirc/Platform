@@ -13,7 +13,6 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
     using Application.Contracts.TowerLight;
     using Common;
     using Contracts;
-    using Contracts.TowerLight;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.TowerLight;

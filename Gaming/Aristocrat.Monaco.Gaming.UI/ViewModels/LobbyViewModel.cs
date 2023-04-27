@@ -431,6 +431,12 @@
             GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
             PreviousPageCommand = new ActionCommand<object>(PrevPage);
             NextPageCommand = new ActionCommand<object>(NextPage);
+            PreviousTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousTab));
+            NextTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextTab));
+            PreviousGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousGame));
+            NextGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextGame));
+            ChangeDenomCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.ChangeDenom));
+            SelectGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.LaunchGame));
             AddCreditsCommand = new ActionCommand<object>(BankPressed);
             CashOutCommand = new ActionCommand<object>(CashOutPressed);
             ServiceCommand = new ActionCommand<object>(ServicePressed);
@@ -585,6 +591,36 @@
         ///     Gets the next page command
         /// </summary>
         public ICommand NextPageCommand { get; }
+
+        /// <summary>
+        ///     Gets the Previous Tab command
+        /// </summary>
+        public ICommand PreviousTabCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Next Tab command
+        /// </summary>
+        public ICommand NextTabCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Previous Game command
+        /// </summary>
+        public ICommand PreviousGameCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Next Game command
+        /// </summary>
+        public ICommand NextGameCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Change Denom command
+        /// </summary>
+        public ICommand ChangeDenomCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Select Game command
+        /// </summary>
+        public ICommand SelectGameCommand { get; set; }
 
         /// <summary>
         ///     Gets the command to insert credits
@@ -2079,37 +2115,44 @@
         {
             OnUserInteraction();
             PlayAudioFile(Sound.Touch);
-            if (info is GameInfo game)
+            if (info is not GameInfo game)
             {
-                if (IsTabView)
-                {
-                    SetSelectedGame(game);
-                }
+                game = _selectedGame;
+            }
 
-                if (CurrentState == LobbyState.AgeWarningDialog)
+            if (game == null)
+            {
+                return;
+            }
+
+            if (IsTabView)
+            {
+                SetSelectedGame(game);
+            }
+
+            if (CurrentState == LobbyState.AgeWarningDialog)
+            {
+                _launchGameAfterAgeWarning = game;
+            }
+            else
+            {
+                if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
                 {
-                    _launchGameAfterAgeWarning = game;
+                    Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
+                    SendTrigger(LobbyTrigger.Disable);
                 }
                 else
                 {
-                    if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
+                    _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
+
+                    Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
+                    if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
                     {
-                        Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
-                        SendTrigger(LobbyTrigger.Disable);
+                        SendTrigger(LobbyTrigger.LaunchGame, game);
                     }
                     else
                     {
-                        _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
-
-                        Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
-                        if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
-                        {
-                            SendTrigger(LobbyTrigger.LaunchGame, game);
-                        }
-                        else
-                        {
-                            Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
-                        }
+                        Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
                     }
                 }
             }
@@ -2291,7 +2334,7 @@
                 if (!GameReady && !IsInState(LobbyState.GameLoading))
                 {
                     Logger.Debug("Automatically launch single game");
-                    var currentGame = GameCount == 1 ? GameList.Single(g => g.Enabled) : GetSelectedGame();
+                    var currentGame = GetSelectedGame();
 
                     if (currentGame != null)
                     {
@@ -3486,6 +3529,14 @@
             RefreshDisplayedGameList();
         }
 
+        private void VbdButtonClick(LcdButtonDeckLobby lobbyAction)
+        {
+#if DEBUG
+            OnUserInteraction();
+            HandleLcdButtonDeckButtonPress(lobbyAction);
+#endif
+        }
+
         private void LaunchGameOrRecovery()
         {
             Logger.Debug("LaunchGameOrRecovery Method");
@@ -3808,8 +3859,7 @@
 
         }
 
-
-        private void SetSelectedGame(GameInfo gameInfo)
+        private void SetSelectedGame(GameInfo gameInfo, bool selectFirstDenom = false)
         {
             // Unselect the previous selected game
             if (_selectedGame != null)
@@ -3823,8 +3873,11 @@
             if (_selectedGame != null)
             {
                 _selectedGame.IsSelected = true;
+                if (selectFirstDenom)
+                {
+                    _selectedGame.IncrementSelectedDenomination();
+                }
             }
-
         }
 
         private void NavigateSelectionTo(SelectionNavigation navigationOption)
@@ -3857,7 +3910,7 @@
 
                     var gameToSelect = DisplayedGameList[selectedGameIndex];
 
-                    SetSelectedGame(gameToSelect);
+                    SetSelectedGame(gameToSelect, true);
                     break;
 
                 default:
@@ -4414,6 +4467,11 @@
             var gameName = (string)obj[0];
             var denom = (long)obj[1];
 
+            LaunchGameWithSpecificDenomination(gameName, denom);
+        }
+
+        private void LaunchGameWithSpecificDenomination(string gameName, long denom)
+        {
             var selectedGame = _gameList.FirstOrDefault(g => g.Name == gameName && g.Denomination == denom);
 
             Logger.Debug($"gameId: {selectedGame?.GameId}, gameName: {gameName}, denom: {denom}");
@@ -5106,7 +5164,14 @@
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.ChangeDenom:
-                    GameTabInfo.IncrementSelectedDenomination();
+                    if (_selectedGame.Category == GameCategory.LightningLink)
+                    {
+                        _selectedGame.IncrementSelectedDenomination();
+                    }
+                    else
+                    {
+                        GameTabInfo.IncrementSelectedDenomination();
+                    }
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.NextTab:
@@ -5123,7 +5188,14 @@
                 case LcdButtonDeckLobby.LaunchGame:
                     if (_selectedGame != null)
                     {
-                        LaunchGameFromUi(_selectedGame);
+                        if (_selectedGame.Category == GameCategory.LightningLink && _selectedGame.SelectedDenomination != null)
+                        {
+                            LaunchGameWithSpecificDenomination(_selectedGame.Name, _selectedGame.SelectedDenomination.Denomination);
+                        }
+                        else
+                        {
+                            LaunchGameFromUi(_selectedGame);
+                        }
                     }
                     break;
             }

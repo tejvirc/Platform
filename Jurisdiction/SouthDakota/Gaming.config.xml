@@ -17,7 +17,7 @@ as follows:
 	<OperatorMenu DisableDuringGame="true" />
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
-	<Gamble WagerLimit="100000000" WagerLimitConfigurable="false" />
+	<Gamble WagerLimit="100000000" WagerLimitConfigurable="false" SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Configurable="true" />
 <!--
 	GameRestrictions Settings:

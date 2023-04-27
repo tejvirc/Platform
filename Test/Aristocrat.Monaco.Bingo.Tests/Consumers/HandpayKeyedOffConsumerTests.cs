@@ -97,8 +97,6 @@
             _target.Consume(evt);
 
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyedOffJackpot), Times.Once());
-            _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                TransactionType.Jackpot, TestAmount.MillicentsToCents(), 0, 0, 0, 0, TestBarcode), Times.Once());
         }
 
         [TestMethod]

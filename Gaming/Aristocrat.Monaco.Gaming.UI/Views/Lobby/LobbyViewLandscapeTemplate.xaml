@@ -32,8 +32,6 @@
     <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True"/>
-    <converters:GameSelectedOverlayVisibilityConverter x:Key="GameSelectedOverlayVisibilityConv"/>
-    <converters:GameDisabledOverlayVisibilityConverter x:Key="GameDisabledOverlayVisibilityConv"/>
     <converters:ProgressiveLabelVisibilityConverter x:Key="ProgressiveLabelVisibilityConv"/>
     <converters:MarginConverter x:Key="MarginConverter"/>
     <converters:DenomIconHeightConverter x:Key="DenomIconHeightConv"/>
@@ -455,9 +453,9 @@
                                                    HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                                    VerticalAlignment="Top">
                                                 <Image.Visibility>
-                                                    <MultiBinding Converter="{StaticResource GameSelectedOverlayVisibilityConv}">
+                                                    <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
                                                         <Binding Path="IsSelected"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" Converter="{StaticResource InverseBoolConverter}"/>
                                                     </MultiBinding>
                                                 </Image.Visibility>
                                             </Image>
@@ -525,7 +523,7 @@
                                                        Width="{Binding ElementName=ButtonImage, Path=ActualWidth}"
                                                        Height="{Binding ElementName=ButtonImage, Path=ActualHeight}">
                                                 <Rectangle.Visibility>
-                                                    <MultiBinding Converter="{StaticResource GameDisabledOverlayVisibilityConv}">
+                                                    <MultiBinding Converter="{StaticResource LogicalOrTrueCollapsedFalseVisible}">
                                                         <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
                                                         <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
                                                     </MultiBinding>
@@ -714,10 +712,9 @@
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
                                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomBackground2}"
+                                                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomButtonSingleKey}"
                                                                    HorizontalAlignment="Center"
                                                                    VerticalAlignment="Center"
-                                                                   Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                                    RenderOptions.BitmapScalingMode="HighQuality"
                                                                    Margin="{StaticResource ExtraLargeGameIconDenomIconMargin}"
                                                                    Stretch="Fill"
@@ -739,8 +736,7 @@
                                                                 </i:Interaction.Triggers>
                                                             </Image>
 
-                                                            <controls:TextPath Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                                                               HorizontalAlignment="Center"
+                                                            <controls:TextPath HorizontalAlignment="Center"
                                                                                VerticalAlignment="Center"
                                                                                FontFamily="Impact"
                                                                                FontWeight="Light"
@@ -915,8 +911,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
                         <Grid>
-                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomBackground}"
-                                   Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomButtonSharedKey}"
                                    Stretch="Uniform"
                                    Grid.Column="0"
                                    Grid.Row="0">
@@ -932,8 +927,7 @@
                                      Grid.Column="0"
                                      Grid.Row="0"
                                      IsHitTestVisible="False">
-                                <controls:TextPath Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                                   HorizontalAlignment="Center"
+                                <controls:TextPath HorizontalAlignment="Center"
                                                    FontFamily="Impact"
                                                    FontWeight="Bold"
                                                    StrokeThickness="2.0"

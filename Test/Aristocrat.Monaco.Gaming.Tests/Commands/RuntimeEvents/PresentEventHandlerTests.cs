@@ -102,18 +102,23 @@
         }
 
         [DataTestMethod]
-        [DataRow(PlayMode.Normal, false, true, false, true, true, true)]
-        [DataRow(PlayMode.Normal, false, false, false, false, true, true)]
-        [DataRow(PlayMode.Normal, false, true, true, false, false, false)]
-        [DataRow(PlayMode.Normal, true, true, false, false, true, true)]
-        [DataRow(PlayMode.Demo, false, true, false, true, true, true)]
-        [DataRow(PlayMode.Demo, false, false, false, false, true, true)]
-        [DataRow(PlayMode.Demo, false, true, true, false, false, false)]
-        [DataRow(PlayMode.Demo, true, true, false, false, true, true)]
-        [DataRow(PlayMode.Recovery, false, true, false, false, false, false)]
-        [DataRow(PlayMode.Replay, false, true, false, false, false, false)]
+        [DataRow(PlayMode.Normal, PlayState.Initiated, false, true, false, true, true, true)]
+        [DataRow(PlayMode.Normal, PlayState.Initiated, false, false, false, false, true, true)]
+        [DataRow(PlayMode.Normal, PlayState.Initiated, false, true, true, false, false, false)]
+        [DataRow(PlayMode.Normal, PlayState.Initiated, true, true, false, false, true, true)]
+        [DataRow(PlayMode.Demo, PlayState.Initiated, false, true, false, true, true, true)]
+        [DataRow(PlayMode.Demo, PlayState.Initiated, false, false, false, false, true, true)]
+        [DataRow(PlayMode.Demo, PlayState.Initiated, false, true, true, false, false, false)]
+        [DataRow(PlayMode.Demo, PlayState.Initiated, true, true, false, false, true, true)]
+        [DataRow(PlayMode.Recovery, PlayState.Idle, false, true, false, false, false, false)]
+        [DataRow(PlayMode.Recovery, PlayState.Idle, false, false, false, true, false, false)]
+        [DataRow(PlayMode.Normal, PlayState.PresentationIdle, false, false, false, true, true, true)]
+        [DataRow(PlayMode.Normal, PlayState.GameEnded, false, false, false, true, true, true)]
+        [DataRow(PlayMode.Normal, PlayState.Idle, false, false, false, true, true, true)]
+        [DataRow(PlayMode.Replay, PlayState.Idle, false, true, false, false, false, false)]
         public void HandleInvokedGameRoundEvent(
             PlayMode playMode,
+            PlayState playState,
             bool meterFreeGames,
             bool pendingCashoutRecovery,
             bool cashoutRecovering,
@@ -126,6 +131,7 @@
                 .Returns(meterFreeGames);
             _target = CreateEventHandler();
 
+            _gamePlayState.Setup(x => x.CurrentState).Returns(playState);
             _gameCashoutRecovery.Setup(x => x.HasPending).Returns(pendingCashoutRecovery);
             _gameCashoutRecovery.Setup(x => x.Recover()).Returns(cashoutRecovering);
             var gameHistoryLog = new Mock<IGameHistoryLog>(MockBehavior.Default);

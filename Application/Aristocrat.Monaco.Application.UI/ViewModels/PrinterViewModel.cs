@@ -171,6 +171,12 @@
 
         public ICommand PrintTestTicketCommand { get; }
 
+        protected void Print(OperatorMenuPrintData dataType, bool isDiagnostic)
+        {
+            Inspection?.SetTestName($"Print ticket {dataType}");
+            base.Print(dataType, null, isDiagnostic);
+        }
+
         protected override void OnLoaded()
         {
             base.OnLoaded();
@@ -307,7 +313,6 @@
             EventBus.Subscribe<DisconnectedEvent>(this, ErrorEvent);
             EventBus.Subscribe<ConnectedEvent>(this, ErrorClearEvent);
             EventBus.Subscribe<ResolverErrorEvent>(this, ErrorEvent);
-            EventBus.Subscribe<TransferStatusEvent>(this, ErrorEvent);
             EventBus.Subscribe<LoadingRegionsAndTemplatesEvent>(this, ErrorClearEvent);
 
             EventBus.Subscribe<HardwareFaultClearEvent>(this, ClearFault);

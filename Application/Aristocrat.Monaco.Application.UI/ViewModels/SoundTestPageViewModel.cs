@@ -27,7 +27,7 @@
     {
         private static readonly Guid AudioDisconnectedLock = HardwareConstants.AudioDisconnectedLockKey;
         private static readonly Guid AudioReconnectedLock = HardwareConstants.AudioReconnectedLockKey;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
 
@@ -72,8 +72,6 @@
             _isAudioDisabled = !IsAudioServiceAvailable || !_audio.IsAvailable;
 
             _enabledSpeakersMask = _propertiesManager.GetValue(ApplicationConstants.EnabledSpeakersMask, SpeakerMix.All);
-
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
             bool enablePlay = IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled;
 

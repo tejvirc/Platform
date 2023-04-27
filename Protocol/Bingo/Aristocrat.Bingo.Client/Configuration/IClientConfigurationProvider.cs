@@ -8,6 +8,6 @@
         /// <summary>
         ///     Gets the client configuration
         /// </summary>
-        ClientConfigurationOptions Configuration { get; }
+        ClientConfigurationOptions CreateConfiguration();
     }
 }

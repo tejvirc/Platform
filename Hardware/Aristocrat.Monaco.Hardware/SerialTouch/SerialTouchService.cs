@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.IO;
+    using System.Globalization;
     using System.IO.Ports;
     using System.Linq;
     using System.Reflection;
@@ -111,9 +111,6 @@
         public ICollection<Type> ServiceTypes => new[] { typeof(ISerialTouchService) };
 
         /// <inheritdoc />
-        public bool IsManualTabletInputService { get; private set; }
-
-        /// <inheritdoc />
         public bool Initialized { get; private set; }
 
         /// <inheritdoc />
@@ -133,6 +130,8 @@
         private CalibrationCrosshairColors CrosshairColorLowerLeft { get; set; }
 
         private CalibrationCrosshairColors CrosshairColorUpperRight { get; set; }
+
+        public bool HasReceivedData { get; private set; }
 
         /// <inheritdoc />
         public void Initialize()
@@ -283,7 +282,6 @@
         private void ConfigureComPort()
         {
             Logger.Debug("SerialTouchService - Is LS cabinet");
-            IsManualTabletInputService = IsManualTabletInputService();
 
             var port = _serialPortsService.LogicalToPhysicalName(SerialTouchComPort);
             var keepAlive = CheckDisconnectTimeoutMs;
@@ -317,7 +315,7 @@
                 _requeueTimer.AutoReset = true;
                 _requeueTimer.Elapsed += OnRequeueTimer;
 
-                Task.Run(() => { ProcessReceiveQueue(_cts.Token); }, _cts.Token)
+                Task.Run(() => ProcessReceiveQueue(_cts.Token), _cts.Token)
                     .FireAndForget(ex => Logger.Error($"ProcessReceiveQueue: Exception occurred {ex}"));
 
                 SendAndReceiveData(_cts.Token)
@@ -408,6 +406,7 @@
             IsDisconnected = true;
             CloseSerialPort();
             _eventBus.Publish(new DeviceDisconnectedEvent(GetDeviceDetails(Model)));
+            HasReceivedData = false;
         }
 
         private bool Fire(SerialTouchTrigger trigger)
@@ -456,7 +455,7 @@
             else
             {
                 Fire(SerialTouchTrigger.Error);
-                var error = status.ToString("X2");
+                var error = status.ToString("X2", CultureInfo.InvariantCulture);
                 Logger.Error($"HandleCalibrateExtended - ERROR - Calibrate Extended (CX) command failed with code {error}");
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedCommandFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
@@ -499,7 +498,7 @@
             else
             {
                 Fire(SerialTouchTrigger.Error);
-                var error = status.ToString("X2");
+                var error = status.ToString("X2", CultureInfo.InvariantCulture);
                 Logger.Error($"HandleLowerLeftTarget - ERROR - Calibrate Extended (CX) lower left target failed with code {error}");
                 CrosshairColorLowerLeft = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedLowerLeftTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
@@ -602,7 +601,7 @@
                     _resetForRecovery = false;
                     if (PendingCalibration)
                     {
-                        var error = status.ToString("X2");
+                        var error = status.ToString("X2", CultureInfo.InvariantCulture);
                         Logger.Error($"HandleReset - ERROR - Reset (R) command failed with code {error}");
                         _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateResetCommandFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                         Thread.Sleep(CalibrationDelayMs);
@@ -704,7 +703,7 @@
             else
             {
                 Fire(SerialTouchTrigger.Error);
-                var error = status.ToString("X2");
+                var error = status.ToString("X2", CultureInfo.InvariantCulture);
                 Logger.Error($"HandleUpperRightTarget - ERROR - Calibrate Extended (CX) upper right target failed with code {error}");
                 CrosshairColorUpperRight = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedUpperRightTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
@@ -821,12 +820,12 @@
             {
                 if (!_serialPortController.IsEnabled)
                 {
-                    await Task.Delay(DisabledDelay, token);
+                    await Task.Delay(DisabledDelay, token).ConfigureAwait(false);
                     continue;
                 }
 
                 // Read current data
-                var result = await Task.WhenAny(portReadTask, queueTask);
+                var result = await Task.WhenAny(portReadTask, queueTask).ConfigureAwait(false);
                 if (token.IsCancellationRequested)
                 {
                     return;
@@ -834,7 +833,7 @@
 
                 if (result == portReadTask)
                 {
-                    var data = await result;
+                    var data = await result.ConfigureAwait(false);
                     if (data.Any())
                     {
                         ProcessNewData(data);
@@ -843,25 +842,29 @@
 
                     portReadTask = HandlePortReads(token);
                 }
-
-                if (result == queueTask)
+                else
                 {
-                    var message = await result;
-                    Logger.Debug($"SendAndReceiveData - Removing [{message.ToHexString()}] from transmit queue");
-
-                    _packetBuilder.Reset();
-                    _serialPortController.FlushInputAndOutput();
-                    _serialPortController.WriteBuffer(message);
+                    var message = await result.ConfigureAwait(false);
+                    await ProcessMessage(message, token).ConfigureAwait(false);
                     queueTask = GetReceiveData(token);
                 }
             }
+        }
+
+        private async Task ProcessMessage(byte[] message, CancellationToken token)
+        {
+            Logger.Debug($"SendAndReceiveData - Removing [{message.ToHexString()}] from transmit queue");
+            _packetBuilder.Reset();
+            _serialPortController.FlushInputAndOutput();
+            await _serialPortController.WriteAsync(message, 0, message.Length, token).ConfigureAwait(false);
         }
 
         private async Task<byte[]> GetReceiveData(CancellationToken token)
         {
             try
             {
-                return await Task.Run(() => _transmitQueue?.Take(token) ?? Array.Empty<byte>(), token);
+                return await Task.Run(() => _transmitQueue?.Take(token) ?? Array.Empty<byte>(), token)
+                    .ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -873,11 +876,9 @@
         {
             try
             {
-                return await Task.Run(() =>
-                {
-                    var data = (byte)_serialPortController.ReadByte();
-                    return new[] { data };
-                }, token);
+                var result = new byte[1];
+                var count = await _serialPortController.ReadAsync(result, 0, 1, token).ConfigureAwait(false);
+                return count > 0 ? result : Array.Empty<byte>();
             }
             catch (Exception)
             {
@@ -908,6 +909,8 @@
                 }
 
                 HandleResponse(packet);
+
+                HasReceivedData = true;
             }
         }
 

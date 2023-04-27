@@ -201,6 +201,7 @@
             <xs:attribute name="WinLimitConfigurable" type="xs:boolean" use="optional" default="false" />
             <xs:attribute name="UseWinLimit" type="xs:boolean" use="optional" default="false" />
             <xs:attribute name="ShowGambleDynamicHelp" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="SkipByJackpotHit" type="xs:boolean" use="optional" default="false" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="LetItRide">
@@ -407,6 +408,11 @@
         <xs:element minOccurs="0" maxOccurs="1" name="ShowPlayerSpeedButton">
           <xs:complexType>
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="BonusTransfer">
+          <xs:complexType>
+            <xs:attribute name="PlaySound" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>

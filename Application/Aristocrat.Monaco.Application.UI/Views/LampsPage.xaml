@@ -166,6 +166,7 @@
             <StackPanel>
                 <ListBox ItemsSource="{Binding ButtonLamps}"
                          SelectedItem="{Binding SelectedButtonLamp}"
+                         Name="ButtonLampsListBox"
                          SelectionMode="Single"
                          Style="{StaticResource LampButtonListBoxStyle}"
                          Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
@@ -194,12 +195,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox Grid.Column="0" 
+                          Name="TowerLightTiersComboBox"
                           ItemsSource="{Binding TowerLights}" 
                           SelectedItem="{Binding SelectedTowerLight}"
                           DisplayMemberPath="Name"
                           MinWidth="140" 
                           MaxHeight="45"/>
                 <ComboBox Grid.Column="1" 
+                          Name="TowerLightFlashStatesComboBox"
                           ItemsSource="{Binding FlashStates}" 
                           SelectedItem="{Binding SelectedFlashState}"
                           MinWidth="240" 
@@ -212,6 +215,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button Grid.Column="2"
+                        Name="SetTowerLightFlashStateButton"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.Set}}"
                         Command="{Binding SetTowerLightFlashStateCommand}"
                         MaxHeight="45"

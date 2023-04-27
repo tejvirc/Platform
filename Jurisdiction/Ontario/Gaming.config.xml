@@ -21,6 +21,7 @@ as follows:
 	<GameCategory ApplyGameCategorySettings="true" />
 	<Censorship Enforced="true" Editable="false" />
 	<DefaultCreditDisplay Format="Currency" />
+    <Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Configurable="true" />
 <!--
 	GameRestrictions Settings:

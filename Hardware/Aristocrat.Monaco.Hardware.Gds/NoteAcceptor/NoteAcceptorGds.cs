@@ -103,7 +103,7 @@
         /// <inheritdoc />
         public event EventHandler<EventArgs> UnknownDocumentReturned;
 
-        /// <inheritdoc cref="IGdsDevice.SelfTest" />
+        /// <inheritdoc cref="IHardwareDevice.SelfTest" />
         public override async Task<bool> SelfTest(bool nvm)
         {
             SendCommand(
@@ -126,7 +126,7 @@
             return true;
         }
 
-        /// <inheritdoc cref="IGdsDevice.UpdateConfiguration" />
+        /// <inheritdoc cref="IHardwareDevice.UpdateConfiguration" />
         public override void UpdateConfiguration(IDeviceConfiguration internalConfiguration)
         {
             if (internalConfiguration.Manufacturer.Equals(JcmName) && internalConfiguration.Protocol.Contains(GdsName))

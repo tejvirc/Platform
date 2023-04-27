@@ -16,6 +16,7 @@ namespace Aristocrat.Monaco.Application
     using Contracts.Localization;
     using Contracts.Protocol;
     using Contracts.TiltLogger;
+    using Detection;
     using Drm;
     using EKey;
     using ErrorMessage;
@@ -53,6 +54,7 @@ namespace Aristocrat.Monaco.Application
         private const string PreConfigurationExtensionPath = "/Application/PreConfiguration";
         private const string ConfigurationExtensionPath = "/Application/Configuration";
         private const string NetworkServiceExtensionPath = "/Application/Network";
+        private const string KeyboardServiceExtensionPath = "/Application/Keyboard";
         private const string PersistenceCriticalClearedBlockName = "PersistenceCriticalCleared";
         private const string PersistenceCriticalClearExecutedField = "JustExecuted";
         private const string PowerResetMeterName = "PowerReset";
@@ -91,6 +93,7 @@ namespace Aristocrat.Monaco.Application
         private IService _configurationUtilitiesProvider;
         private IService _protocolCapabilityAttributeProvider;
         private IService _ekeyService;
+        private IService _keyboardService;
 
         /// <inheritdoc />
         protected override void OnInitialize()
@@ -126,12 +129,15 @@ namespace Aristocrat.Monaco.Application
                 ServiceManager.GetInstance().AddService(new ConfigurationUtilitiesProvider());
                 ServiceManager.GetInstance().AddService(new ProtocolCapabilityAttributeProvider());
                 ServiceManager.GetInstance().AddService(new HardMeterMappingConfigurationProvider());
+                ServiceManager.GetInstance().AddService(new DeviceDetection());
 
                 LoadConfigurationSettingsManager();
 
                 LoadDigitalRights();
 
                 LoadEkeyService();
+
+                LoadKeyboardService();
 
                 CheckInitialConfiguration();
             }
@@ -405,6 +411,15 @@ namespace Aristocrat.Monaco.Application
         {
             _ekeyService = new EKeyService();
             ServiceManager.GetInstance().AddServiceAndInitialize(_ekeyService);
+        }
+
+        private void LoadKeyboardService()
+        {
+            WritePendingActionToMessageDisplay(ResourceKeys.CreatingKeyboardService);
+            var node = MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(KeyboardServiceExtensionPath);
+            _keyboardService = (IService)node.CreateInstance();
+            _keyboardService.Initialize();
+            ServiceManager.GetInstance().AddService(_keyboardService);
         }
 
         private void LoadDisableByOperatorManager()
@@ -775,6 +790,12 @@ namespace Aristocrat.Monaco.Application
                 WritePendingActionToMessageDisplay(ResourceKeys.UnloadingMultiProtocolConfigurationProvider);
                 serviceManager.RemoveService(_multiProtocolConfigurationProvider);
                 _multiProtocolConfigurationProvider = null;
+            }
+
+            if(_keyboardService != null)
+            {
+                serviceManager.RemoveService(_keyboardService);
+                _keyboardService = null;
             }
         }
 

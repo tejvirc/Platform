@@ -152,8 +152,7 @@
                 ref _warningText,
                 value,
                 nameof(WarningText),
-                nameof(CanEdit),
-                nameof(WarningTextIsVisible));
+                nameof(CanEdit));
         }
 
         public long BaseDenom { get; }
@@ -266,7 +265,6 @@
                 _enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 RaisePropertyChanged(nameof(CanEdit));
-                RaisePropertyChanged(nameof(WarningTextIsVisible));
                 RaisePropertyChanged(nameof(CanEditAndEnabled));
                 RaisePropertyChanged(nameof(CanEditAndEnableGamble));
                 RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
@@ -366,7 +364,6 @@
                     nameof(CanEditAndEnabled),
                     nameof(CanEditAndEnableGamble),
                     nameof(CanEditAndEnableLetItRide),
-                    nameof(WarningTextIsVisible),
                     nameof(CanEdit));
                 SetWarningText();
             }
@@ -381,8 +378,6 @@
                                         GameOptionsEnabled &&
                                         !MaxDenomEntriesReached &&
                                         !RestrictedToReadOnly;
-
-        public bool WarningTextIsVisible => !string.IsNullOrEmpty(WarningText);
 
         public bool CanEdit => GameOptionsEnabled;
 
@@ -598,7 +593,6 @@
         public void RaiseEnabledByHostChanged()
         {
             RaisePropertyChanged(nameof(EnabledByHost));
-            RaisePropertyChanged(nameof(WarningTextIsVisible));
             RaisePropertyChanged(nameof(CanEdit));
             RaisePropertyChanged(nameof(CanEditAndEnabled));
             RaisePropertyChanged(nameof(CanEditAndEnableGamble));

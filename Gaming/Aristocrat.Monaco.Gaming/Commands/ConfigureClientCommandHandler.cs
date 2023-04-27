@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Commands
+namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
     using System.Collections.Generic;
@@ -170,6 +170,7 @@
                 { "/Runtime/DefaultBetInAttract", ApplicationConstants.DefaultBetInAttract.ToString() },
                 { "/Runtime/DenomPatch", ApplicationConstants.DefaultAllowDenomPatch.ToString() },
                 { "/Runtime/Gamble&maxRounds", GamingConstants.MaxRounds.ToString() },
+                { "/Runtime/Gamble&skipByJackpotHit", _properties.GetValue(GamingConstants.GambleSkipByJackpotHit, false).ToString() },
                 { "/Runtime/GameDuration&kenoSpeed", _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString() },
                 { "/Runtime/GameDuration&reelSpeed", GamingConstants.ReelSpeed.ToString(CultureInfo.InvariantCulture) },
                 { "/Runtime/GameRules&gameDisabled", ApplicationConstants.DefaultGameDisabledUse },
@@ -211,10 +212,16 @@
             }
             else
             {
-                parameters.Add("/Runtime/Flags&Gamble", denomination.SecondaryAllowed ? "true" : "false");
-                parameters.Add("/Runtime/Gamble", denomination.SecondaryAllowed ? "true" : "false");
-                parameters.Add("/Runtime/PlayOnFromGambleAvailable", _properties.GetValue(GamingConstants.PlayOnFromGambleAvailable, true) ? "true" : "false");
-                parameters.Add("/Runtime/PlayOnFromPresentWins", _properties.GetValue(GamingConstants.PlayOnFromPresentWins, false) ? "true" : "false");
+                var gambleAllowed = _properties.GetValue(GamingConstants.GambleAllowed, true) &&
+                                    denomination.SecondaryAllowed;
+                parameters.Add("/Runtime/Flags&Gamble", gambleAllowed ? "true" : "false");
+                parameters.Add("/Runtime/Gamble", gambleAllowed ? "true" : "false");
+                parameters.Add(
+                    "/Runtime/PlayOnFromGambleAvailable",
+                    _properties.GetValue(GamingConstants.PlayOnFromGambleAvailable, true) ? "true" : "false");
+                parameters.Add(
+                    "/Runtime/PlayOnFromPresentWins",
+                    _properties.GetValue(GamingConstants.PlayOnFromPresentWins, false) ? "true" : "false");
             }
 
             if(_properties.GetValue(GamingConstants.RetainLastRoundResult, false))

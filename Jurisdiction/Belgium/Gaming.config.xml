@@ -22,7 +22,7 @@ as follows:
 	<LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
 	<GameCategory ApplyGameCategorySettings="true" />
 	<AutoHold Enable="true" Configurable="false" />
-	<Gamble Allowed="false" />
+	<Gamble Allowed="false" SkipByJackpotHit="true"/>
 	<LetItRide Allowed="false" />
 	<ContinuousPlaySupport Mode="Continuous" Configurable="true" />
 <!--

@@ -29,6 +29,7 @@
     using Diagnostics;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
@@ -347,6 +348,7 @@
             RaisePropertyChanged(nameof(PrintSelectedButtonVisible));
             RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
             RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            RaisePropertyChanged(nameof(PendingCurrencyIn));
             RefreshGameHistory();
         }
 
@@ -750,7 +752,8 @@
             {
                 if (transaction.TransactionType == typeof(BillTransaction) ||
                     transaction.TransactionType == typeof(VoucherInTransaction) ||
-                    transaction.TransactionType == typeof(WatOnTransaction))
+                    transaction.TransactionType == typeof(WatOnTransaction) ||
+                    transaction.TransactionType == typeof(KeyedOnCreditsTransaction))
                 {
                     if (round.AmountIn == null)
                     {
@@ -760,7 +763,8 @@
                     round.AmountIn += transaction.Amount.MillicentsToDollars();
                 }
                 else if (transaction.TransactionType == typeof(VoucherOutTransaction) ||
-                         transaction.TransactionType == typeof(WatTransaction))
+                         transaction.TransactionType == typeof(WatTransaction) ||
+                         transaction.TransactionType == typeof(KeyedOffCreditsTransaction))
                 {
                     if (round.AmountOut == null)
                     {

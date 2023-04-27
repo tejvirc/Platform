@@ -56,7 +56,7 @@ as follows:
 	<ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
-    <DefaultVolumeLevel>2</DefaultVolumeLevel>
+    <DefaultVolumeLevel>4</DefaultVolumeLevel>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
 <!--
@@ -93,7 +93,8 @@ as follows:
     <string>GPU</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
-    <string>KeyedCredit</string>
+    <string>KeyedOnCredits</string>
+    <string>KeyedOffCredits</string>
   </LogTypesAllowedForDisplay>
   <SecondaryStorageMedia Required="true" />
 </ApplicationConfiguration>

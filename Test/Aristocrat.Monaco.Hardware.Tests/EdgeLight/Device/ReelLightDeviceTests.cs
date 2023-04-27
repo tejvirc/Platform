@@ -7,6 +7,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
+    using Hardware.Contracts.Reel.Events;
     using Hardware.EdgeLight.Device;
     using Hardware.EdgeLight.Strips;
     using Kernel;
@@ -46,12 +49,15 @@
             _device = new ReelLightDevice(_eventBus.Object);
 
             IList<int> ids = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-            _reelController.Setup(x => x.GetReelLightIdentifiers()).Returns(Task.FromResult(ids));
+
+            _reelController.Setup(x => x.HasCapability<IReelLightingCapabilities>()).Returns(true);
+            _reelController.Setup(x => x.HasCapability<IReelBrightnessCapabilities>()).Returns(true);
+            _reelController.Setup(x => x.GetCapability<IReelLightingCapabilities>().GetReelLightIdentifiers()).Returns(Task.FromResult(ids));
+            _reelController.Setup(x => x.GetCapability<IReelBrightnessCapabilities>().DefaultReelBrightness).Returns(100);
             _reelController.Setup(x => x.ConnectedReels).Returns(new List<int> { 1, 2, 3, 4, 5 });
             _reelController.Setup(x => x.Connected).Returns(true);
             _reelController.Setup(x => x.Enabled).Returns(true);
             _reelController.Setup(x => x.Initialized).Returns(true);
-            _reelController.Setup(x => x.DefaultReelBrightness).Returns(100);
 
             _connectionChangedCallbackCalled = false;
             _stripsChangedCallbackCalled = false;
@@ -190,7 +196,7 @@
             }
 
             _reelController.Setup(
-                    x => x.SetLights(
+                    x => x.GetCapability<IReelLightingCapabilities>().SetLights(
                         It.Is<ReelLampData[]>(l => expectedReelLampData.SequenceEqual(l, new ReelLampDataComparer()))))
                 .ReturnsAsync(true);
 
@@ -198,7 +204,7 @@
             _device.RenderAllStripData();
 
             // Default is white color, off state, 100 brightness
-            _reelController.Verify(x => x.SetReelBrightness(expectedReelLampBrightness), Times.Once());
+            _reelController.Verify(x => x.GetCapability<IReelBrightnessCapabilities>().SetBrightness(expectedReelLampBrightness), Times.Once());
         }
 
         [TestMethod]
@@ -240,7 +246,7 @@
             Assert.IsFalse(_connectionChangedCallbackCalled);
             Assert.IsTrue(_stripsChangedCallbackCalled);
             Assert.AreEqual(5, _device.PhysicalStrips.Count);
-            _reelController.Setup(x => x.SetReelBrightness(It.IsAny<int>())).ReturnsAsync(true);
+            _reelController.Setup(x => x.GetCapability<IReelBrightnessCapabilities>().SetBrightness(It.IsAny<int>())).ReturnsAsync(true);
 
             // Brightness defaults to -1
             const int brightness = 100;
@@ -249,7 +255,7 @@
             _device.SetSystemBrightness(brightness);
             _device.RenderAllStripData();
 
-            _reelController.Verify(x => x.SetReelBrightness(brightness), Times.Once());
+            _reelController.Verify(x => x.GetCapability<IReelBrightnessCapabilities>().SetBrightness(brightness), Times.Once());
         }
 
         [TestMethod]
@@ -262,7 +268,7 @@
             Assert.AreEqual(5, _device.PhysicalStrips.Count);
 
             const int brightness = 100;
-            _reelController.Setup(x => x.SetReelBrightness(It.IsAny<int>())).ReturnsAsync(true);
+            _reelController.Setup(x => x.GetCapability<IReelBrightnessCapabilities>().SetBrightness(It.IsAny<int>())).ReturnsAsync(true);
 
             // Method being tested
             _device.SetSystemBrightness(brightness);
@@ -271,7 +277,7 @@
             _device.SetSystemBrightness(brightness);
             _device.RenderAllStripData();
 
-            _reelController.Verify(x => x.SetReelBrightness(brightness), Times.Once());
+            _reelController.Verify(x => x.GetCapability<IReelBrightnessCapabilities>().SetBrightness(brightness), Times.Once());
         }
 
         private void EdgeLightDevice_ConnectionChanged(object sender, EventArgs e)

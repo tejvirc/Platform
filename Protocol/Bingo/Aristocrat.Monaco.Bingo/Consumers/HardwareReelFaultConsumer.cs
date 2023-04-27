@@ -3,6 +3,7 @@
     using System;
     using Common;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Kernel;
     using Services.Reporting;
 

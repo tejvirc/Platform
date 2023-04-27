@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Events;
     using Gds.Reel;
+    using ImplementationCapabilities;
 
     /// <summary>
     ///     The reel controller implementation
     /// </summary>
-    public interface IReelControllerImplementation : IGdsDevice
+    public interface IReelControllerImplementation : IHardwareDevice, IDfuDevice
     {
         /// <summary> The event that occurs when the reel controller has a fault </summary>
         event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
@@ -21,6 +23,9 @@
 
         /// <summary> The event that occurs whens the reel fault was cleared </summary>
         event EventHandler<ReelFaultedEventArgs> FaultCleared;
+
+        /// <summary> The event that occurs when the reel begins to stop spinning </summary>
+        event EventHandler<ReelEventArgs> ReelStopping;
 
         /// <summary> The event that occurs when the reel stops spinning </summary>
         event EventHandler<ReelEventArgs> ReelStopped;
@@ -53,6 +58,12 @@
         IReadOnlyDictionary<int, ReelStatus> ReelsStatus { get; }
 
         /// <summary>
+        ///     Homes the reels to the requested stop
+        /// </summary>
+        /// <returns>Whether or not the reels were homed</returns>
+        Task<bool> HomeReels();
+
+        /// <summary>
         ///     Homes the reel to the requested stop
         /// </summary>
         /// <param name="reelId">The reel ID to home</param>
@@ -60,54 +71,6 @@
         /// <param name="resetStatus">Indicates whether or not to reset the status for this reel</param>
         /// <returns>Whether or not the reel was homed</returns>
         Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true);
-
-        /// <summary>
-        ///     Homes the reels to the requested stop
-        /// </summary>
-        /// <returns>Whether or not the reels were homed</returns>
-        Task<bool> HomeReels();
-
-        /// <summary>
-        ///     Spins the reels with the requested spin data
-        /// </summary>
-        /// <param name="reelData">The spin data to use</param>
-        /// <returns>Whether or not the reels were started spinning</returns>
-        Task<bool> SpinReels(params ReelSpinData[] reelData);
-
-        /// <summary>
-        ///     Nudges the reels with the requested nudge data
-        /// </summary>
-        /// <param name="reelData">The nudge data to use</param>
-        /// <returns>Whether or the not reels were nudged/returns>
-        Task<bool> NudgeReels(params NudgeReelData[] reelData);
-
-        /// <summary>
-        ///     Sets the brightness for the specified reel lights
-        /// </summary>
-        /// <param name="brightness">The reel and brightness to set for the lights</param>
-        /// <returns>Whether or not the light brightness was set</returns>
-        Task<bool> SetBrightness(IReadOnlyDictionary<int, int> brightness);
-
-        /// <summary>
-        ///     Sets the brightness for the reel lights
-        /// </summary>
-        /// <param name="brightness">The brightness to set for the lights</param>
-        /// <returns>Whether or not the light brightness was set</returns>
-        Task<bool> SetBrightness(int brightness);
-
-        /// <summary>
-        ///     Sets the speed for all reels
-        /// </summary>
-        /// <param name="speedData">The speed data to set for the reels</param>
-        /// <returns>Whether or not the speed was set</returns>
-        Task<bool> SetReelSpeed(params ReelSpeedData[] speedData);
-
-        /// <summary>
-        ///     Sets the light state and color
-        /// </summary>
-        /// <param name="lampData">The lamp data to set for the reels</param>
-        /// <returns>Whether or not the light was set</returns>
-        Task<bool> SetLights(params ReelLampData[] lampData);
 
         /// <summary>
         ///     Sets the offsets for all reels
@@ -123,9 +86,23 @@
         Task<bool> TiltReels();
 
         /// <summary>
-        ///     Requests a list of reel light identifiers for the reel controller.
+        ///     Get all capabilities of the reel controller
         /// </summary>
-        /// <returns>A list of reel light identifiers for the reel controller</returns>
-        Task<IList<int>> GetReelLightIdentifiers();
+        /// <returns>An enumeration of capabilities.</returns>
+        IEnumerable<Type> GetCapabilities();
+
+        /// <summary>
+        ///     Get the implementation for the capability.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>The capability for the controller</returns>
+        T GetCapability<T>() where T : class, IReelImplementationCapability;
+
+        /// <summary>
+        ///     Whether or not the reel controller has a given capability.
+        /// </summary>
+        /// <typeparam name="T">The capability type.</typeparam>
+        /// <returns>Return true if the controller has the capability, otherwise false.</returns>
+        bool HasCapability<T>() where T : class, IReelImplementationCapability;
     }
 }

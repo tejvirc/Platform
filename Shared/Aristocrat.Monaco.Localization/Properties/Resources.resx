@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11660,6 +11660,18 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="ReelControllerManufacturer" xml:space="preserve">
     <value>Reel Controller Manufacturer</value>
   </data>
+  <data name="Displays" xml:space="preserve">
+    <value>Displays</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AutoTest" xml:space="preserve">
+    <value>Auto Test</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DoorRequiresTest" xml:space="preserve">
+    <value>Door requires test: open and close</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
   <data name="TransactionReportingQueueAlmostFullHelp" xml:space="preserve">
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
@@ -11690,5 +11702,29 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="BoostCheckEnabledLabel" xml:space="preserve">
     <value>Vertex BoostCheck Enabled</value>
+  </data>
+  <data name="CreatingKeyboardService" xml:space="preserve">
+    <value>Creating Keyboard Service</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="PackagesMustMatch" xml:space="preserve">
+    <value>All games of this type must use the same package</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Searching ...</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DeviceDetected" xml:space="preserve">
+    <value>Device detected!</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InvalidDeviceDetectedTemplate" xml:space="preserve">
+    <value>detected but is invalid</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoDeviceDetected" xml:space="preserve">
+    <value>No device detected</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>

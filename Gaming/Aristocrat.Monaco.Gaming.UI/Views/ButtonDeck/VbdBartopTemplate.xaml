@@ -1,10 +1,11 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-    mc:Ignorable="d">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                    mc:Ignorable="d">
 
     <!-- Apply MahApps.Metro styles to all controls -->
     <ResourceDictionary.MergedDictionaries>
@@ -69,9 +70,15 @@
                 <Image x:Name="VBDButton4Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}"
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}" Canvas.Left ="594.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Image x:Name="VBDButton4PrevGame" Stretch="Fill" Source="{DynamicResource VBDButton4}"
+                <Image x:Name="VBDButton4PrevGame" Stretch="Fill" Source="{DynamicResource VBDButton4}" 
                        Visibility = "{Binding IsSingleGameDisplayed, Converter={StaticResource TrueHiddenFalseVisible}}" Canvas.Left ="594.5" Canvas.Top ="28.5" Width="77" Height="77" 
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <i:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding PreviousGameCommand}"/>
+                        </events:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
                 <!--prev tab-->
                 <Image x:Name="VBDButton5Blank" Stretch="Fill" Source="{DynamicResource VBDButton2}"
                        Visibility="Visible" Canvas.Left ="774.5" Canvas.Top ="28.5" Width="77" Height="77"
@@ -79,9 +86,15 @@
                 <Image x:Name="VBDButton5Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}"
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}" Canvas.Left ="774.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Image x:Name="VBDButton5PrevTab" Stretch="Fill" Source="{DynamicResource VBDButton5}"
+                <Image x:Name="VBDButton5PrevTab" Stretch="Fill" Source="{DynamicResource VBDButton5}" 
                        Visibility="{Binding IsSingleTabView, Converter={StaticResource TrueHiddenFalseVisible}}" Canvas.Left ="774.5" Canvas.Top ="28.5" Width="77" Height="77" 
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <i:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding PreviousTabCommand}"/>
+                        </events:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
                 <!--change denom-->
                 <Image x:Name="VBDButton6Blank" Stretch="Fill" Source="{DynamicResource VBDButton2}"
                        Visibility="Visible" Canvas.Left ="953.5" Canvas.Top ="28.5" Width="77" Height="77"
@@ -89,9 +102,15 @@
                 <Image x:Name="VBDButton6Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}"
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}" Canvas.Left ="953.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Image x:Name="VBDButton6DenomChange" Stretch="Fill" Source="{DynamicResource VBDButton6}"
+                <Image x:Name="VBDButton6DenomChange" Stretch="Fill" Source="{DynamicResource VBDButton6}" 
                        Visibility="{Binding IsSingleDenomDisplayed, Converter={StaticResource TrueHiddenFalseVisible}}" Canvas.Left ="953.5" Canvas.Top ="28.5" Width="77" Height="77" 
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <i:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding ChangeDenomCommand}"/>
+                        </events:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
                 <!--next tab-->
                 <Image x:Name="VBDButton11Blank" Stretch="Fill" Source="{DynamicResource VBDButton2}"
                        Visibility="Visible" Canvas.Left ="1132.5" Canvas.Top ="28.5" Width="77" Height="77"
@@ -99,9 +118,15 @@
                 <Image x:Name="VBDButton11Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}"
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}" Canvas.Left ="1132.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Image x:Name="VBDButton11NextTab" Stretch="Fill" Source="{DynamicResource VBDButton11}"
+                <Image x:Name="VBDButton11NextTab" Stretch="Fill" Source="{DynamicResource VBDButton11}" 
                        Visibility="{Binding IsSingleTabView, Converter={StaticResource TrueHiddenFalseVisible}}" Canvas.Left ="1132.5" Canvas.Top ="28.5" Width="77" Height="77" 
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <i:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding NextTabCommand}"/>
+                        </events:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
                 <!--next game-->
                 <Image x:Name="VBDButton12" Stretch="Fill" Source="{DynamicResource VBDButton2}"
                        Visibility="Visible" Canvas.Left ="1311.5" Canvas.Top ="28.5" Width="77" Height="77"
@@ -109,13 +134,25 @@
                 <Image x:Name="VBDButton12Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}"
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}" Canvas.Left ="1311.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Image x:Name="VBDButton12NextGame" Stretch="Fill" Source="{DynamicResource VBDButton12}"
+                <Image x:Name="VBDButton12NextGame" Stretch="Fill" Source="{DynamicResource VBDButton12}" 
                        Visibility="{Binding IsSingleGameDisplayed, Converter={StaticResource TrueHiddenFalseVisible}}" Canvas.Left ="1311.5" Canvas.Top ="28.5" Width="77" Height="77" 
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <i:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding NextGameCommand}"/>
+                        </events:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
                 <!--select game-->
-                <Image x:Name="VBDButton7" Stretch="Fill" Source="{DynamicResource VBDButton7}"
-                       Visibility="Visible" Canvas.Left ="1532" Canvas.Top ="28.5" Width="150" Height="77"
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image x:Name="VBDButton7" Stretch="Fill" Source="{DynamicResource VBDButton7}" 
+                       Visibility="Visible" Canvas.Left ="1532" Canvas.Top ="28.5" Width="150" Height="77" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <i:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding SelectGameCommand}"/>
+                        </events:RoutedEventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
             </Canvas>
             <!-- Rectangle to give screen a disabled look if message overlay is visible -->
             <Rectangle Fill="Black">

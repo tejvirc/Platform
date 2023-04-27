@@ -48,7 +48,7 @@
                Foreground="GhostWhite" 
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.LevelNameLabel}}"/>
 
-        <TextBox x:Name="LevelNameTextBox" 
+        <helpers:TouchTextBox x:Name="LevelNameTextBox" 
                  Grid.Row="1" 
                  Grid.Column ="1" 
                  Margin="20 10 0 0"
