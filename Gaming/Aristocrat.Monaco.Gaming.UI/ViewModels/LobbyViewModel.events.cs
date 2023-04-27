@@ -494,6 +494,10 @@
                     }
 
                     HandleMessageOverlayText();
+                    if (_bank.QueryBalance() == 0 && _gameState.Idle)
+                    {
+                        IsPrimaryLanguageSelected = true;
+                    }
                 });
         }
 
