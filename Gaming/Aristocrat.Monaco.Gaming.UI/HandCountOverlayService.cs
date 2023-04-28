@@ -86,7 +86,7 @@
             var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
             var denomination = game.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
-            _maxWinDialogViewModel.MaxWinAmount = (game.ActiveBetOption.MaxWin.Value * denomination.Value).MillicentsToDollars().ToString(CultureInfo.InvariantCulture);
+            _maxWinDialogViewModel.MaxWinAmount = (game.BetOptionList.FirstOrDefault(x => x.Name == denomination.BetOption)?.MaxWin * denomination.Value)?.MillicentsToDollars().ToString(CultureInfo.InvariantCulture) ?? "";
 
             _eventBus.Publish(new ViewInjectionEvent(_maxWinDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
             _maxWinShowTimer = new Timer(_ =>
