@@ -16,6 +16,7 @@
     using log4net;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Text;
@@ -471,8 +472,19 @@
                 .GetProperty(ApplicationConstants.ShowMode, false);
             if (showMode)
             {
-                Log.Info("Initialization completed, updating show mode account balance.");
-                UpdateShowModeAccountBalance();
+                var handCountServiceEnabled = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().
+                    GetProperty(AccountingConstants.HandCountServiceEnabled, false);
+                var gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
+
+                if (!handCountServiceEnabled || gameProvider.GetEnabledGames().Any())
+                {
+                    Log.Info("Initialization completed, updating show mode account balance.");
+                    UpdateShowModeAccountBalance();
+                }
+                else
+                {
+                    Log.Info("Initialization completed! Can't update show mode account balance when hand counts are tracked as no game is enabled.");
+                }
             }
         }
 
