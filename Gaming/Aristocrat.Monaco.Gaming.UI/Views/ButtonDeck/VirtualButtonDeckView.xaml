@@ -20,7 +20,6 @@
                       Loaded="VirtualButtonDeckView_OnLoaded"
                       Closed="VirtualButtonDeckView_OnClosed"
                       BorderThickness="0">
-
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <!-- Apply MahApps.Metro styles to all controls -->
@@ -37,25 +36,35 @@
             <buttonDeck1:VbdViewDisableSelector x:Key="VbdViewDisableSelector" />
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
-    <Viewbox Stretch="None" x:Name="RootScaling">
-        <Grid x:Name="LayoutRoot" Background="Black">
-            <Grid>
-                <ContentControl
-                    x:Name="VbdViewControl"
-                    Content="{Binding}"
-                    PreviewMouseDown="VbdContentControl_OnPreviewMouseDown"
-                    ContentTemplateSelector="{StaticResource VbdViewTemplateSelector}" />
+    <Viewbox Stretch="None"
+             x:Name="RootScaling"
+             AutomationProperties.AutomationId="Viewbox0_ACD07E78">
+        <Grid x:Name="LayoutRoot"
+              Background="Black"
+              AutomationProperties.AutomationId="Grid1_ACD07E78">
+            <Grid AutomationProperties.AutomationId="Grid2_ACD07E78">
+                <ContentControl x:Name="VbdViewControl"
+                                Content="{Binding}"
+                                PreviewMouseDown="VbdContentControl_OnPreviewMouseDown"
+                                ContentTemplateSelector="{StaticResource VbdViewTemplateSelector}"
+                                AutomationProperties.AutomationId="ContentControl3_ACD07E78" />
             </Grid>
-            <Grid x:Name="VbdGameRoot" Visibility="{Binding IsGameVbdVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+            <Grid x:Name="VbdGameRoot"
+                  Visibility="{Binding IsGameVbdVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="Grid4_ACD07E78">
                 <controls2:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded">
-                    <forms:Control x:Name="GameVirtualButtonDeckWindowCtrl" BackColor="Black" Dock="Fill"></forms:Control>
+                    <forms:Control x:Name="GameVirtualButtonDeckWindowCtrl"
+                                   BackColor="Black"
+                                   Dock="Fill"
+                                   ></forms:Control>
                 </controls2:ExtendedWindowsFormsHost>
             </Grid>
-            <Grid Visibility="{Binding IsVbdRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                <ContentControl
-                    x:Name="VbdViewDisableControl"
-                    Content="{Binding}"
-                    ContentTemplateSelector="{StaticResource VbdViewDisableSelector}" />
+            <Grid Visibility="{Binding IsVbdRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="Grid6_ACD07E78">
+                <ContentControl x:Name="VbdViewDisableControl"
+                                Content="{Binding}"
+                                ContentTemplateSelector="{StaticResource VbdViewDisableSelector}"
+                                AutomationProperties.AutomationId="ContentControl7_ACD07E78" />
             </Grid>
         </Grid>
     </Viewbox>

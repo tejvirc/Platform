@@ -1,74 +1,156 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.JurisdictionSettingsPage"
-                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
-                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
-                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                              xmlns:loc="http://monaco.aristocrat.com/localization"
-                              mc:Ignorable="d"
-                              d:DataContext="{d:DesignInstance viewModels:JurisdictionSettingsPageViewModel}">
-
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:JurisdictionSettingsPageViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
-                <Setter Property="Margin" Value="0 0 10 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
-                <Setter Property="Margin" Value="0 0 0 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_ED2442FB">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_ED2442FB" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition10_ED2442FB" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition11_ED2442FB" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition12_ED2442FB" />
         </Grid.ColumnDefinitions>
-
-        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionLabel}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_Jurisdiction" Grid.Row="0" Grid.Column="1" Text="{Binding Jurisdiction}" />
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_Currency" Grid.Row="1" Grid.Column="1" Text="{Binding Currency}" />
-
-        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedSlotRtp}}" Visibility="{Binding SlotRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedSlotRtp" Grid.Row="2" Grid.Column="1" Text="{Binding AllowedSlotRtp}" Visibility="{Binding SlotRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedPokerRtp}}" Visibility="{Binding PokerRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedPokerRtp" Grid.Row="3" Grid.Column="1" Text="{Binding AllowedPokerRtp}" Visibility="{Binding PokerRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedKenoRtp}}" Visibility="{Binding KenoRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedKenoRtp" Grid.Row="4" Grid.Column="1" Text="{Binding AllowedKenoRtp}" Visibility="{Binding KenoRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedBlackjackRtp}}" Visibility="{Binding BlackjackRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedBlackjackRtp" Grid.Row="5" Grid.Column="1" Text="{Binding AllowedBlackjackRtp}" Visibility="{Binding BlackjackRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedRouletteRtp}}" Visibility="{Binding RouletteRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedRouletteRtp" Grid.Row="6" Grid.Column="1" Text="{Binding AllowedRouletteRtp}" Visibility="{Binding RouletteRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalMeter}}" Visibility="{Binding MechanicalMeterVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_MechanicalMeter" Grid.Row="7" Grid.Column="1" Text="{Binding MechanicalMeter}" Visibility="{Binding MechanicalMeterVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoorOpticSensor}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_DoorOpticSensor" Grid.Row="8" Grid.Column="1"  Text="{Binding DoorOpticSensor}" />
-        <Label Grid.Row="9" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZeroCredit}}" />
-        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_ZeroCreditOnOos" Grid.Row="9" Grid.Column="1"  Text="{Binding ZeroCreditOnOos}" />
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionLabel}}"
+               AutomationProperties.AutomationId="Label13_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_Jurisdiction"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{Binding Jurisdiction}" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}"
+               AutomationProperties.AutomationId="Label14_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_Currency"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Text="{Binding Currency}" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedSlotRtp}}"
+               Visibility="{Binding SlotRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label15_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedSlotRtp"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   Text="{Binding AllowedSlotRtp}"
+                   Visibility="{Binding SlotRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedPokerRtp}}"
+               Visibility="{Binding PokerRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label16_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedPokerRtp"
+                   Grid.Row="3"
+                   Grid.Column="1"
+                   Text="{Binding AllowedPokerRtp}"
+                   Visibility="{Binding PokerRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedKenoRtp}}"
+               Visibility="{Binding KenoRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label17_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedKenoRtp"
+                   Grid.Row="4"
+                   Grid.Column="1"
+                   Text="{Binding AllowedKenoRtp}"
+                   Visibility="{Binding KenoRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+        <Label Grid.Row="5"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedBlackjackRtp}}"
+               Visibility="{Binding BlackjackRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label18_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedBlackjackRtp"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   Text="{Binding AllowedBlackjackRtp}"
+                   Visibility="{Binding BlackjackRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+        <Label Grid.Row="6"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowedRouletteRtp}}"
+               Visibility="{Binding RouletteRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label19_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_AllowedRouletteRtp"
+                   Grid.Row="6"
+                   Grid.Column="1"
+                   Text="{Binding AllowedRouletteRtp}"
+                   Visibility="{Binding RouletteRtpVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+        <Label Grid.Row="7"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalMeter}}"
+               Visibility="{Binding MechanicalMeterVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label20_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_MechanicalMeter"
+                   Grid.Row="7"
+                   Grid.Column="1"
+                   Text="{Binding MechanicalMeter}"
+                   Visibility="{Binding MechanicalMeterVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+        <Label Grid.Row="8"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoorOpticSensor}}"
+               AutomationProperties.AutomationId="Label21_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_DoorOpticSensor"
+                   Grid.Row="8"
+                   Grid.Column="1"
+                   Text="{Binding DoorOpticSensor}" />
+        <Label Grid.Row="9"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZeroCredit}}"
+               AutomationProperties.AutomationId="Label22_ED2442FB" />
+        <TextBlock AutomationProperties.AutomationId="JurisdictionSettingsPage_TextBlock_ZeroCreditOnOos"
+                   Grid.Row="9"
+                   Grid.Column="1"
+                   Text="{Binding ZeroCreditOnOos}" />
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

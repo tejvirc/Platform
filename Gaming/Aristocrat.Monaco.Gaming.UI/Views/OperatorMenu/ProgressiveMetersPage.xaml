@@ -1,160 +1,221 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.ProgressiveMetersPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveMetersPageViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="WrappedHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
-                <Setter Property="MinWidth" Value="50"/>
-                <Setter Property="MinHeight" Value="80"/>
-                <Setter Property="Margin" Value="0 0 15 0"/>
+            <Style x:Key="WrappedHeaderStyle"
+                   TargetType="{x:Type DataGridColumnHeader}"
+                   BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                <Setter Property="MinWidth"
+                        Value="50" />
+                <Setter Property="MinHeight"
+                        Value="80" />
+                <Setter Property="Margin"
+                        Value="0 0 15 0" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Grid x:Name="MainGrid" 
-          Visibility="{Binding Path=HasEnabledProgressives, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+    <Grid x:Name="MainGrid"
+          Visibility="{Binding Path=HasEnabledProgressives, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+          AutomationProperties.AutomationId="Grid0_F589A27">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_F589A27" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_F589A27" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_F589A27" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_F589A27" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_F589A27" />
         </Grid.RowDefinitions>
-
-        <Border HorizontalAlignment="Left" MinWidth="1250" >
-            <DataGrid ColumnWidth="*" Name="ProgressiveDataGrid" 
-                      ItemsSource="{Binding ProgressiveDetailMeters}" 
+        <Border HorizontalAlignment="Left"
+                MinWidth="1250"
+                AutomationProperties.AutomationId="Border6_F589A27">
+            <DataGrid ColumnWidth="*"
+                      Name="ProgressiveDataGrid"
+                      ItemsSource="{Binding ProgressiveDetailMeters}"
                       ColumnHeaderStyle="{StaticResource WrappedHeaderStyle}"
-                      VerticalContentAlignment="Top"/>
+                      VerticalContentAlignment="Top"
+                      AutomationProperties.AutomationId="DataGrid7_F589A27" />
         </Border>
-
-        <StackPanel Grid.Row="1"  VerticalAlignment="Top" Orientation="Horizontal">
-            <Label VerticalAlignment="Bottom" 
-                   HorizontalAlignment="Left" 
-                   Margin="0 20 0 0">
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    AutomationProperties.AutomationId="StackPanel8_F589A27">
+            <Label VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Margin="0 20 0 0"
+                   AutomationProperties.AutomationId="Label9_F589A27">
                 <Label.Style>
-                    <Style BasedOn="{StaticResource MonacoLabel}" TargetType="{x:Type Label}">
+                    <Style BasedOn="{StaticResource MonacoLabel}"
+                           TargetType="{x:Type Label}">
                         <Style.Triggers>
-                            <MultiDataTrigger>
+                            <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger10_F589A27">
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=HasEnabledProgressives, Mode=OneWay}" Value="false"/>
-                                    <Condition Binding="{Binding Path=HasProgressives, Mode=OneWay}" Value="false"/>
+                                    <Condition Binding="{Binding Path=HasEnabledProgressives, Mode=OneWay}"
+                                               Value="false" />
+                                    <Condition Binding="{Binding Path=HasProgressives, Mode=OneWay}"
+                                               Value="false" />
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="Content" Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}"/>
-                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Content"
+                                        Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
                             </MultiDataTrigger>
-                            <DataTrigger Binding="{Binding Path=HasProgressives, Mode=OneWay}" Value="false">
-                                <Setter Property="Content" Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}"/>
-                                <Setter Property="Visibility" Value="Visible"/>
+                            <DataTrigger Binding="{Binding Path=HasProgressives, Mode=OneWay}"
+                                         Value="false"
+                                         AutomationProperties.AutomationId="DataTrigger11_F589A27">
+                                <Setter Property="Content"
+                                        Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}" />
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Setter Property="Content" Value=""/>
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
+                        <Setter Property="Content"
+                                Value="" />
                     </Style>
                 </Label.Style>
             </Label>
         </StackPanel>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 30 0 0">
-            <Button Margin="0 0 10 0" Width="65" 
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="0 30 0 0"
+                    AutomationProperties.AutomationId="StackPanel12_F589A27">
+            <Button Margin="0 0 10 0"
+                    Width="65"
                     Command="{Binding PreviousGameCommand}"
                     IsEnabled="{Binding PreviousGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
-            <ComboBox Margin="0 0 10 0" VerticalAlignment="Center" Width="500" MaxWidth="500" SelectedValuePath="Id" ScrollViewer.CanContentScroll="True"
-                      ItemsSource="{Binding Games}" 
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
+                    AutomationProperties.AutomationId="Button13_F589A27" />
+            <ComboBox Margin="0 0 10 0"
+                      VerticalAlignment="Center"
+                      Width="500"
+                      MaxWidth="500"
+                      SelectedValuePath="Id"
+                      ScrollViewer.CanContentScroll="True"
+                      ItemsSource="{Binding Games}"
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
                       MaxDropDownHeight="240"
-                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                      AutomationProperties.AutomationId="ComboBox14_F589A27">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Height="24">
+                        <TextBlock Height="24"
+                                   AutomationProperties.AutomationId="TextBlock15_F589A27">
                             <TextBlock.Text>
-                                <Binding Path="ThemeName"/>
+                                <Binding Path="ThemeName" />
                             </TextBlock.Text>
                         </TextBlock>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox Margin="0 0 10 0" VerticalAlignment="Center" Width="500" MaxWidth="500" SelectedValuePath="Id" ScrollViewer.CanContentScroll="True"
-                      ItemsSource="{Binding Games}" 
+            <ComboBox Margin="0 0 10 0"
+                      VerticalAlignment="Center"
+                      Width="500"
+                      MaxWidth="500"
+                      SelectedValuePath="Id"
+                      ScrollViewer.CanContentScroll="True"
+                      ItemsSource="{Binding Games}"
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
                       MaxDropDownHeight="240"
-                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueCollapsedFalseVisible}}">
+                      Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                      AutomationProperties.AutomationId="ComboBox16_F589A27">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Height="24">
+                        <TextBlock Height="24"
+                                   AutomationProperties.AutomationId="TextBlock17_F589A27">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} ({1} - {2})">
-                                    <Binding Path="ThemeName"/>
-                                    <Binding Path="PaytableName"/>
-                                    <Binding Path="Version"/>
+                                    <Binding Path="ThemeName" />
+                                    <Binding Path="PaytableName" />
+                                    <Binding Path="Version" />
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Margin="0 0 10 0" Width="65" 
+            <Button Margin="0 0 10 0"
+                    Width="65"
                     Command="{Binding NextGameCommand}"
                     IsEnabled="{Binding NextGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
+                    AutomationProperties.AutomationId="Button18_F589A27" />
         </StackPanel>
-
-        <StackPanel Grid.Row="3"  
-                    Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 30 0 0">
-            <Button Margin="0 0 10 0" Width="65" 
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="0 30 0 0"
+                    AutomationProperties.AutomationId="StackPanel19_F589A27">
+            <Button Margin="0 0 10 0"
+                    Width="65"
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
-            <ComboBox Margin="0 0 10 0" 
-                      VerticalAlignment="Center" 
-                      SelectedValuePath="Id" 
-                      ScrollViewer.CanContentScroll ="True"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
+                    AutomationProperties.AutomationId="Button20_F589A27" />
+            <ComboBox Margin="0 0 10 0"
+                      VerticalAlignment="Center"
+                      SelectedValuePath="Id"
+                      ScrollViewer.CanContentScroll="True"
                       Width="400"
                       DisplayMemberPath="DisplayValue"
-                      ItemsSource="{Binding Denoms}" 
+                      ItemsSource="{Binding Denoms}"
                       SelectedIndex="{Binding SelectedDenomIndex, Mode=TwoWay}"
-                      SelectedItem="{Binding SelectedDenom, Mode=TwoWay}"/>
-            <Button Margin="0 0 10 0" Width="65" 
+                      SelectedItem="{Binding SelectedDenom, Mode=TwoWay}"
+                      AutomationProperties.AutomationId="ComboBox21_F589A27" />
+            <Button Margin="0 0 10 0"
+                    Width="65"
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
+                    AutomationProperties.AutomationId="Button22_F589A27" />
         </StackPanel>
-
-        <StackPanel Grid.Row="4"  Visibility="{Binding ViewBetOptionFilter, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                    Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 30 0 0">
-            <Button Margin="0 0 10 0" Width="65"  
+        <StackPanel Grid.Row="4"
+                    Visibility="{Binding ViewBetOptionFilter, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="0 30 0 0"
+                    AutomationProperties.AutomationId="StackPanel23_F589A27">
+            <Button Margin="0 0 10 0"
+                    Width="65"
                     Command="{Binding PreviousBetOptionCommand}"
                     IsEnabled="{Binding PreviousBetOptionIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
-            <ComboBox Margin="0 0 10 0" 
-                      VerticalAlignment="Center" 
-                      SelectedValuePath="Id" 
-                      ScrollViewer.CanContentScroll ="True"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
+                    AutomationProperties.AutomationId="Button24_F589A27" />
+            <ComboBox Margin="0 0 10 0"
+                      VerticalAlignment="Center"
+                      SelectedValuePath="Id"
+                      ScrollViewer.CanContentScroll="True"
                       Width="400"
-                      ItemsSource="{Binding BetOptions}" 
+                      ItemsSource="{Binding BetOptions}"
                       SelectedIndex="{Binding SelectedBetOptionIndex, Mode=TwoWay}"
-                      SelectedItem="{Binding SelectedBetOption, Mode=TwoWay}"/>
-            <Button Margin="0 0 10 0" Width="65"  
+                      SelectedItem="{Binding SelectedBetOption, Mode=TwoWay}"
+                      AutomationProperties.AutomationId="ComboBox25_F589A27" />
+            <Button Margin="0 0 10 0"
+                    Width="65"
                     Command="{Binding NextBetOptionCommand}"
                     IsEnabled="{Binding NextBetOptionIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
+                    AutomationProperties.AutomationId="Button26_F589A27" />
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

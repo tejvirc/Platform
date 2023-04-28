@@ -16,9 +16,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <Style x:Key="OptionComboStyle"
                    TargetType="ComboBox"
                    BasedOn="{StaticResource {x:Type ComboBox}}">
@@ -29,70 +28,95 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_529054B4">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_529054B4" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_529054B4" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_529054B4" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition4_529054B4" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition5_529054B4" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Margin="0 10" 
-                    VerticalAlignment="Top" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="0"
+                    Margin="0 10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="StackPanel6_529054B4">
             <Label VerticalAlignment="Center"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}"/>
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}"
+                   AutomationProperties.AutomationId="Label7_529054B4" />
             <ComboBox MinWidth="250"
-                          Margin="0 10 0 0"
-                          ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
-                          SelectedIndex="0"
-                          DisplayMemberPath="Description"
-                          SelectedValuePath="Value"
-                          SelectedValue="{Binding SoundLevel}"
-                          Style="{StaticResource OptionComboStyle}"
-                          IsEnabled="{Binding Path=CanEditVolume}"/>
+                      Margin="0 10 0 0"
+                      ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
+                      SelectedIndex="0"
+                      DisplayMemberPath="Description"
+                      SelectedValuePath="Value"
+                      SelectedValue="{Binding SoundLevel}"
+                      Style="{StaticResource OptionComboStyle}"
+                      IsEnabled="{Binding Path=CanEditVolume}"
+                      AutomationProperties.AutomationId="ComboBox8_529054B4" />
         </StackPanel>
-        <StackPanel  Grid.Row="1" Margin="0 10"
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     Visibility="{Binding IsAlertConfigurable, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AlertVolumeLabel}}" 
-                   VerticalAlignment="Center" HorizontalAlignment="Left" />
-            <Slider x:Name="AlertSlider" 
-                        Style="{StaticResource MonacoSlider}"  
-                        Value="{Binding AlertVolume}" 
-                        MinWidth="400" 
-                        HorizontalAlignment="Left" 
-                        Minimum="{Binding AlertMinimumVolume}" 
-                        Maximum="100" 
-                        TickFrequency="{Binding AlertVolumeTickFrequency}" 
-                        IsSnapToTickEnabled="True" 
-                        IsEnabled="{Binding Path=CanEditVolume}"/>
+        <StackPanel Grid.Row="1"
+                    Margin="0 10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Visibility="{Binding IsAlertConfigurable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="StackPanel9_529054B4">
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AlertVolumeLabel}}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   AutomationProperties.AutomationId="Label10_529054B4" />
+            <Slider x:Name="AlertSlider"
+                    Style="{StaticResource MonacoSlider}"
+                    Value="{Binding AlertVolume}"
+                    MinWidth="400"
+                    HorizontalAlignment="Left"
+                    Minimum="{Binding AlertMinimumVolume}"
+                    Maximum="100"
+                    TickFrequency="{Binding AlertVolumeTickFrequency}"
+                    IsSnapToTickEnabled="True"
+                    IsEnabled="{Binding Path=CanEditVolume}"
+                    AutomationProperties.AutomationId="Slider11_529054B4" />
         </StackPanel>
-        <StackPanel Grid.Column="1" Name="TestPanel" Visibility="{Binding Visibility, ElementName=ExitTestModeButton}">
-            <local:SoundTestPage x:Name="TestControl" DataContext="{Binding TestViewModel}" />
+        <StackPanel Grid.Column="1"
+                    Name="TestPanel"
+                    Visibility="{Binding Visibility, ElementName=ExitTestModeButton}"
+                    AutomationProperties.AutomationId="StackPanel12_529054B4">
+            <local:SoundTestPage x:Name="TestControl"
+                                 DataContext="{Binding TestViewModel}" />
         </StackPanel>
-        <StackPanel Grid.Row="2" Margin="0 10"
-                    VerticalAlignment="Bottom" 
+        <StackPanel Grid.Row="2"
+                    Margin="0 10"
+                    VerticalAlignment="Bottom"
                     Orientation="Horizontal"
                     HorizontalAlignment="Left"
-                    Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}">
+                    Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}"
+                    AutomationProperties.AutomationId="StackPanel13_529054B4">
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterSoundTest}}"
-                        Command="{Binding ToggleTestModeCommand}"
-                        Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-            <Button Name="ExitTestModeButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitSoundTest}}"
-                        Command="{Binding ToggleTestModeCommand}"
-                        Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    Command="{Binding ToggleTestModeCommand}"
+                    Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                    AutomationProperties.AutomationId="Button14_529054B4" />
+            <Button Name="ExitTestModeButton"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitSoundTest}}"
+                    Command="{Binding ToggleTestModeCommand}"
+                    Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button15_529054B4" />
             <Button Name="WarningButton"
-                        Style="{StaticResource MonacoWarningButton}"
-                        Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}">
+                    Style="{StaticResource MonacoWarningButton}"
+                    Command="{Binding ShowInfoPopupCommand}"
+                    Visibility="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                    AutomationProperties.AutomationId="Button16_529054B4">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                        <Binding ElementName="WarningButton"/>
+                        <Binding ElementName="WarningButton" />
                         <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}"
-                                 Path="DataContext.TestWarningText"/>
+                                 Path="DataContext.TestWarningText" />
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>

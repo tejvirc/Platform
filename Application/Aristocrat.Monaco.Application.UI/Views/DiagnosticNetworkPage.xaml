@@ -1,117 +1,226 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.DiagnosticNetworkPage"
-                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                              mc:Ignorable="d"
-                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                              xmlns:loc="http://monaco.aristocrat.com/localization"
-                              xmlns:common="http://monaco.aristocrat.com/common"
-                              Background="Transparent" 
-                              d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticNetworkPageViewModel}}">
-
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               mc:Ignorable="d"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticNetworkPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
-                <ResourceDictionary Source="../Resources/Templates.NetworkEditor.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="../Resources/Templates.NetworkEditor.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
-                <Setter Property="Margin" Value="0 0 20 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 20 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
-                <Setter Property="Margin" Value="0 0 0 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_E1958C7">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_E1958C7" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_E1958C7" />
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid AutomationProperties.AutomationId="Grid3_E1958C7">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_E1958C7" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_E1958C7" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition6_E1958C7" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition7_E1958C7" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_E1958C7" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition9_E1958C7" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition10_E1958C7" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition11_E1958C7" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition12_E1958C7" />
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.IPAddressesLabel}}"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding IpAddress}" />
-            <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BytesReceivedLabel}}" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ReceivedBytes}" />
-            <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BytesSentLabel}}" />
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SentBytes}" />
-            <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.InterfaceTypeLabel}}" />
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding InterfaceType}" />
-            <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}" />
-            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding PhysicalAddress}"/>
-            <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.OperationalStatusLabel}}" />
-            <TextBlock Grid.Row="5" Grid.Column="1"  Text="{Binding OperationalStatus}" />
-
-            <GroupBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="0 20 0 0" Padding="0 -20 0 0">
-                <Grid>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.IPAddressesLabel}}"
+                   AutomationProperties.AutomationId="Label13_E1958C7" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding IpAddress}"
+                       AutomationProperties.AutomationId="TextBlock14_E1958C7" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BytesReceivedLabel}}"
+                   AutomationProperties.AutomationId="Label15_E1958C7" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding ReceivedBytes}"
+                       AutomationProperties.AutomationId="TextBlock16_E1958C7" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BytesSentLabel}}"
+                   AutomationProperties.AutomationId="Label17_E1958C7" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding SentBytes}"
+                       AutomationProperties.AutomationId="TextBlock18_E1958C7" />
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.InterfaceTypeLabel}}"
+                   AutomationProperties.AutomationId="Label19_E1958C7" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding InterfaceType}"
+                       AutomationProperties.AutomationId="TextBlock20_E1958C7" />
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}"
+                   AutomationProperties.AutomationId="Label21_E1958C7" />
+            <TextBlock Grid.Row="4"
+                       Grid.Column="1"
+                       Text="{Binding PhysicalAddress}"
+                       AutomationProperties.AutomationId="TextBlock22_E1958C7" />
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.OperationalStatusLabel}}"
+                   AutomationProperties.AutomationId="Label23_E1958C7" />
+            <TextBlock Grid.Row="5"
+                       Grid.Column="1"
+                       Text="{Binding OperationalStatus}"
+                       AutomationProperties.AutomationId="TextBlock24_E1958C7" />
+            <GroupBox Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      Grid.Row="6"
+                      Margin="0 20 0 0"
+                      Padding="0 -20 0 0"
+                      AutomationProperties.AutomationId="GroupBox25_E1958C7">
+                <Grid AutomationProperties.AutomationId="Grid26_E1958C7">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition27_E1958C7" />
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition28_E1958C7" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition29_E1958C7" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition30_E1958C7" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition31_E1958C7" />
                     </Grid.RowDefinitions>
-
-                    <Label Grid.Column="0" Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingIPAddressText}}"/>
-                    <common:AlphaNumericTextBox Grid.Column="0" Grid.Row="1" 
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingIPAddressText}}"
+                           AutomationProperties.AutomationId="Label32_E1958C7" />
+                    <common:AlphaNumericTextBox Grid.Column="0"
+                                                Grid.Row="1"
                                                 Margin="0 5 0 0"
                                                 MaxWidth="172"
-                                                Text="{Binding PingIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                Text="{Binding PingIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                 InputScope="Number"
                                                 IsAlphaNumeric="True"
-                                                SkipRegexCheck="True"/>
-                    <Button Grid.Column="0" Grid.Row="2" Margin="0 15 0 0" HorizontalAlignment="Left" Width="100" Content="Ping" Command="{Binding PingCommand}" />
-
-                    <Label Grid.Column="1" Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingResultText}}" Margin="15 0 0 0" />
-                    <TextBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="15,5,0,0" Text="{Binding PingResult}" TextWrapping="Wrap" IsReadOnly="True" MinHeight="100" MinWidth="250" IsHitTestVisible="False"/>
-
-                    <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="15,5,0,0" Visibility="{Binding Path=ShowStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                        <Border Background="{DynamicResource DarkBrush1}" Opacity=".1" />
-                        <Label Margin="10" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingingNetworkText}}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource YellowBrush}"/>
+                                                SkipRegexCheck="True" />
+                    <Button Grid.Column="0"
+                            Grid.Row="2"
+                            Margin="0 15 0 0"
+                            HorizontalAlignment="Left"
+                            Width="100"
+                            Content="Ping"
+                            Command="{Binding PingCommand}"
+                            AutomationProperties.AutomationId="Button33_E1958C7" />
+                    <Label Grid.Column="1"
+                           Grid.Row="0"
+                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingResultText}}"
+                           Margin="15 0 0 0"
+                           AutomationProperties.AutomationId="Label34_E1958C7" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="1"
+                             Grid.RowSpan="2"
+                             Margin="15,5,0,0"
+                             Text="{Binding PingResult}"
+                             TextWrapping="Wrap"
+                             IsReadOnly="True"
+                             MinHeight="100"
+                             MinWidth="250"
+                             IsHitTestVisible="False"
+                             AutomationProperties.AutomationId="TextBox35_E1958C7" />
+                    <Grid Grid.Column="1"
+                          Grid.Row="1"
+                          Grid.RowSpan="2"
+                          Margin="15,5,0,0"
+                          Visibility="{Binding Path=ShowStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                          AutomationProperties.AutomationId="Grid36_E1958C7">
+                        <Border Background="{DynamicResource DarkBrush1}"
+                                Opacity=".1"
+                                AutomationProperties.AutomationId="Border37_E1958C7" />
+                        <Label Margin="10"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingingNetworkText}}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource YellowBrush}"
+                               AutomationProperties.AutomationId="Label38_E1958C7" />
                     </Grid>
                 </Grid>
             </GroupBox>
         </Grid>
-
         <!-- active connections -->
-        <GroupBox Grid.Column="1" VerticalAlignment="Stretch" Margin="10,0,0,0" Header="Active Connections">
-            <DataGrid ItemsSource="{Binding NetstatResultSet}" MinHeight="400" MinWidth="660" Margin="0,0,0,-10"
-                      ColumnHeaderHeight="40" Height="Auto"
+        <GroupBox Grid.Column="1"
+                  VerticalAlignment="Stretch"
+                  Margin="10,0,0,0"
+                  Header="Active Connections"
+                  AutomationProperties.AutomationId="GroupBox39_E1958C7">
+            <DataGrid ItemsSource="{Binding NetstatResultSet}"
+                      MinHeight="400"
+                      MinWidth="660"
+                      Margin="0,0,0,-10"
+                      ColumnHeaderHeight="40"
+                      Height="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      VirtualizingPanel.ScrollUnit="Pixel">
+                      VirtualizingPanel.ScrollUnit="Pixel"
+                      AutomationProperties.AutomationId="DataGrid40_E1958C7">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}" Width="120" Binding="{Binding Protocol}"/>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LocalAddressText}}" Width="300" Binding="{Binding LocalAddress}"/>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForeignAddressText}}" Width="300" Binding="{Binding ForeignAddress}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}" Width="160" Binding="{Binding State}" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"
+                                        Width="120"
+                                        Binding="{Binding Protocol}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn41_E1958C7" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LocalAddressText}}"
+                                        Width="300"
+                                        Binding="{Binding LocalAddress}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn42_E1958C7" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForeignAddressText}}"
+                                        Width="300"
+                                        Binding="{Binding ForeignAddress}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn43_E1958C7" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}"
+                                        Width="160"
+                                        Binding="{Binding State}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn44_E1958C7" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
     </Grid>
 </operatorMenu:OperatorMenuPage>
-
