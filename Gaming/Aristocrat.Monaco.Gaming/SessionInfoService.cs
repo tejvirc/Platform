@@ -124,12 +124,6 @@ namespace Aristocrat.Monaco.Gaming
                         transaction.TransactionId,
                         hardMeterOut.TransactionAmount);
                     break;
-                case ResidualCreditsTransaction residualCreditsOut:
-                    HandleCreditOutEvent(
-                        SessionEventType.ResidualCreditsOut,
-                        transaction.TransactionId,
-                        residualCreditsOut.TransactionAmount);
-                    break;
             }
         }
 
