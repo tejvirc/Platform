@@ -94,4 +94,5 @@ as follows:
     <string>HardMeterOut</string>
   </LogTypesAllowedForDisplay>
   <MultiGame DefaultBetAfterSwitch="false" />
+  <ReserveService Allowed="false"/>
 </ApplicationConfiguration>
