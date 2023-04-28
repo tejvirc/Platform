@@ -6,6 +6,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Contracts;
@@ -88,6 +89,9 @@
         public long GetCashableAmount(long amount)
         {
             var amountCashable = Math.Min(amount, _handCountService.HandCount * _cashOutAmountPerHand);
+
+            amountCashable = ((long)amountCashable.MillicentsToDollars()).DollarsToMillicents();
+
             CheckLargePayoutAsync(amountCashable).Wait();
             if (isCashOut)
             {
