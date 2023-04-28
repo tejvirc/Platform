@@ -19,6 +19,11 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Communicator
         public const string USBCommunicationMode = "USB";
 
         /// <summary>
+        ///     Indicates RELM communication protocol.
+        /// </summary>
+        public const string RelmProtocol = "RELM";
+
+        /// <summary>
         ///     Constructor to set defaults.
         /// </summary>
         public ComConfiguration()

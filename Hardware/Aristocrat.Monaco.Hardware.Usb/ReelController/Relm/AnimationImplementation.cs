@@ -1,23 +1,24 @@
-﻿namespace Aristocrat.Monaco.Hardware.Reel.Capabilities
+﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Contracts.Reel.Capabilities;
     using Contracts.Reel.ControlData;
+    using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
 
-    internal class ReelAnimationCapability : IReelAnimationCapabilities
+    internal class AnimationImplementation : IAnimationImplementation
     {
-        private readonly IAnimationImplementation _implementation;
-        private readonly ReelControllerStateManager _stateManager;
+#pragma warning disable 67
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
 
-        public ReelAnimationCapability(IAnimationImplementation implementation, ReelControllerStateManager stateManager)
-        {
-            _implementation = implementation;
-            _stateManager = stateManager;
-        }
+        public event EventHandler<LightAnimationEventArgs> LightAnimationCompleted;
+
+        public event EventHandler<LightAnimationEventArgs> ReelAnimationStarted;
+
+        public event EventHandler<LightAnimationEventArgs> ReelAnimationCompleted;
+#pragma warning restore 67
 
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
