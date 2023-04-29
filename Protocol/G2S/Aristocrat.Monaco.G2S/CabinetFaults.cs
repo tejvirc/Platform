@@ -31,6 +31,7 @@
     {
         HardMeterDisabled = -100,
         StorageFault = -101,
+        DisplayDisconnected = -102,
         NoGamesEnabled = Faults.General,
         ButtonDeckDisconnected = Faults.General - 1,
         AudioDisconnected = Faults.General - 2,
