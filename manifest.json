@@ -13020,7 +13020,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.DeviceConfigViewModel.html",
-          "hash": "zd1I0NlP4Ops66m3Wle7blAABOf7/GaWsY97Miq6nl4="
+          "hash": "QGHgrkUMExjp0jCOda0K4x+DmET/IC9OsAdM9CDPg0w="
         }
       },
       "is_incremental": false,
@@ -13248,7 +13248,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.HardwareConfigBaseViewModel.TickValueProperties.html",
-          "hash": "EBdQV/Sht4HodOD7zSGZhRCCjSggM7Or6mdT3ffhqPI="
+          "hash": "CVJ+EyKzSa08sGxYbOjrVNIpD75InCyLWMX7+yLPtko="
         }
       },
       "is_incremental": false,
@@ -13260,7 +13260,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.HardwareConfigBaseViewModel.html",
-          "hash": "Vz/sUTRzoxAC+4WQBpYNMFoetnevN6qt30Qp8yG83PM="
+          "hash": "6sNOIDeQeDRtRHXEvfqTeFCy904SsEjm4YnYZpYYBfA="
         }
       },
       "is_incremental": false,
@@ -14935,6 +14935,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -41266,9 +41269,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -67902,7 +67902,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Services.SerialPortsService.html",
-          "hash": "SlaiwqsabeFUYjMAclzUO6ReTAkwYdy7BqshfGtweO0="
+          "hash": "eTZG+DHtGGeFKeZ0+zB756KLk6aFSOI7PM8CHKO6++k="
         }
       },
       "is_incremental": false,
