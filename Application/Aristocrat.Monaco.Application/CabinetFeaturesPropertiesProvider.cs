@@ -441,7 +441,9 @@
                 var serializer = new XmlSerializer(typeof(Features));
                 cabinetFeatures = (Features)serializer.Deserialize(stream);
             }
+
             var cabinetType = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().Type;
+            Logger.Debug($"SetCabinetConfiguration - cabinetType {cabinetType}");
 
             if (cabinetFeatures.ScreenBrightnessControl != null)
             {
