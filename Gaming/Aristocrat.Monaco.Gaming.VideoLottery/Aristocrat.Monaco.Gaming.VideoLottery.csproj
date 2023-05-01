@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
@@ -103,7 +103,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.16" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.17" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
   </ItemGroup>
