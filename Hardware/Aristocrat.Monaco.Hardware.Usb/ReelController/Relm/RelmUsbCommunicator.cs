@@ -128,96 +128,115 @@
 
         public void ResetConnection()
         {
+            // Implement resetting connection
             throw new NotImplementedException();
         }
 
         public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
         {
+            // TODO: Implement loading of animation file in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
+            // TODO: Implement loading of animation files in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
         {
+            // TODO: Implement prepare light show animation in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
+            // TODO: Implement prepare light show animations in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> PrepareControllerAnimation(ReelCurveData file, CancellationToken token)
         {
+            // TODO: Implement prepare reel curve animation in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
         {
+            // TODO: Implement prepare reel curve animations in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> PlayControllerAnimations(CancellationToken token)
         {
+            // TODO: Implement play animations in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
+            // TODO: Implement stop light show animations in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> StopAllControllerLightShows(CancellationToken token)
         {
+            // TODO: Implement stop all light show animations in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
         {
+            // TODO: Implement prepare stop reels in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
+            // TODO: Implement prepare nudge reels in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token)
         {
+            // TODO: Implement synchronize in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> SetBrightness(IReadOnlyDictionary<int, int> brightness)
         {
+            // TODO: Implement set brightness in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> SetBrightness(int brightness)
         {
+            // TODO: Implement set brightness in driver and wire up here
             throw new NotImplementedException();
         }
 
         public Task<bool> EnterDfuMode()
         {
+            // TODO: Implement enter DFU in driver and wire up
             throw new NotImplementedException();
         }
 
         public Task<bool> ExitDfuMode()
         {
+            // TODO: Implement exit DFU in driver and wire up
             throw new NotImplementedException();
         }
 
         public Task<DfuStatus> Download(Stream firmware)
         {
+            // TODO: Implement DFU download in driver and wire up
             throw new NotImplementedException();
         }
 
         public void AbortDownload()
         {
+            // TODO: Implement abort DFU download in driver and wire up
             throw new NotImplementedException();
         }
 
@@ -230,6 +249,7 @@
 
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
+            // TODO: Implement home reels in driver and wire up
             throw new NotImplementedException();
         }
 
@@ -241,6 +261,7 @@
 
         public Task<bool> TiltReels()
         {
+            // TODO: Implement tilt reels in driver and wire up
             throw new NotImplementedException();
         }
 
