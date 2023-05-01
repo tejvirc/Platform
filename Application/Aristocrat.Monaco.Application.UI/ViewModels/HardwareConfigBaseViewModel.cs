@@ -18,7 +18,6 @@
     using Contracts.OperatorMenu;
     using Contracts.TowerLight;
     using Hardware.Contracts;
-    using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.IdReader;
@@ -35,7 +34,6 @@
     using Monaco.UI.Common.Extensions;
     using MVVM;
     using MVVM.Command;
-    using CabinetType = Cabinet.Contracts.CabinetType;
     using IdReaderInspectionFailedEvent = Hardware.Contracts.IdReader.InspectionFailedEvent;
     using IdReaderInspectionSucceededEvent = Hardware.Contracts.IdReader.InspectedEvent;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
@@ -574,6 +572,7 @@
                 div => div.Status.Contains(
                     Localizer.For(CultureFor.Operator)
                         .GetString(ResourceKeys.ConnectedText))) &&
+            !EnabledDevices.Any(dev => dev.IsDetectionFailure) &&
             EnabledDevices.Any(
                 d =>
                 {
@@ -1021,6 +1020,7 @@
                     device = GetDevice<IPrinter>();
                     ValidateDevice(device);
                     break;
+
                 case DeviceType.ReelController:
                     device = GetDevice<IReelController>();
                     ValidateDevice(device);
@@ -1516,6 +1516,7 @@
                     {
                         Logger.Debug($"Detected invalid device for {deviceType}: {evt.Device.Name}");
                         deviceConfig.IsDetectionComplete = true;
+                        deviceConfig.IsDetectionFailure = true;
                         deviceConfig.Status = $"{evt.Device.Name} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate)}";
                     }
                     else
@@ -1543,8 +1544,9 @@
                     Logger.Debug($"Undetected for {device.DeviceType}");
                     device.IsDetectionComplete = true;
                     device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
-
-#if !RETAIL
+#if RETAIL
+                    device.IsDetectionFailure = true;
+#else
                     // Nothing was found, so use the Fake
                     Logger.Debug($"Select Fake device for {evt.DeviceType}");
                     _deviceDiscoveryStatus[evt.DeviceType] = true;
@@ -1565,6 +1567,7 @@
             IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
             if (!IsDetecting && IsWizardPage)
             {
+                Logger.Debug("Automatically try validation after detection cycle completes.");
                 ValidateCommand.Execute(new object());
             }
         }
