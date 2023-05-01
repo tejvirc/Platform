@@ -170,7 +170,7 @@
 			<Field FieldName="GamePlay.ShowPlayerMenuPopup" DataType="Bool"/>
 			<Field FieldName="GamePlay.Gamble.WinLimit" DataType="Int64" />
 			<Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>
-			<Field FieldName="BoostCheckEnabled" DataType="Bool"/>
+			<Field FieldName="LinkedProgressiveVerificationEnabled" DataType="Bool"/>
     	</Fields>
 	</BlockFormat>
 </ArrayOfBlockFormat>

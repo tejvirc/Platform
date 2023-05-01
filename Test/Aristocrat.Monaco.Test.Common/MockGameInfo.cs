@@ -277,7 +277,9 @@
             }
         }
 
-        public bool BoostCheckMatched { get; set; }
+        public bool LinkedProgressivesVerified { get; set; }
+
+        public bool LinkedProgressiveVerified => throw new NotImplementedException();
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

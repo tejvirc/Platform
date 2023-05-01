@@ -55,15 +55,10 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                                          (!_rtpService.GetTotalRtpBreakdown(game).LinkedProgressiveIncrement.Equals(RtpRange.Zero) ||
                                           !_rtpService.GetTotalRtpBreakdown(game).LinkedProgressiveReset.Equals(RtpRange.Zero));
 
-            BoostCheckEnabled = properties.GetValue(GamingConstants.BoostCheckEnabled, true);
-            BoostCheckMatched = game.BoostCheckMatched;
-
             RtpDisplayValues = GenerateRtpDisplayValues(GameDetail, DenominationValue);
         }
 
-        public bool BoostCheckMatched { get; }
-
-        public bool BoostCheckEnabled { get; }
+        public bool LinkedProgressivesVerified => GameDetail.LinkedProgressiveVerified;
 
         public IGameDetail GameDetail { get; }
 
@@ -138,7 +133,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 ? RtpVerifiedState.NotAvailable
                 : !jurisdictionalRtpRules.IncludeLinkProgressiveStartUpRtp
                     ? RtpVerifiedState.NotUsed
-                    : !(BoostCheckEnabled && BoostCheckMatched)
+                    : !LinkedProgressivesVerified
                         ? RtpVerifiedState.NotVerified
                         : RtpVerifiedState.Verified;
 
@@ -146,7 +141,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 ? RtpVerifiedState.NotAvailable
                 : !jurisdictionalRtpRules.IncludeLinkProgressiveIncrementRtp
                     ? RtpVerifiedState.NotUsed
-                    : !(BoostCheckEnabled && BoostCheckMatched)
+                    : !LinkedProgressivesVerified
                         ? RtpVerifiedState.NotVerified
                         : RtpVerifiedState.Verified;
 

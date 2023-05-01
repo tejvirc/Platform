@@ -1243,10 +1243,10 @@
         public const string DenomSelectionLobby = "GamingConfiguration.DenomSelectionLobby.Mode";
 
         /// <summary>
-        ///     Key for the BoostCheckEnabled flag in Property Manager. This flag, which if enabled, will verify that Linked
-        ///     Progressive RTP values match the Game's RTP values.
+        ///     Key for the LinkedProgressiveVerificationEnabled property in Property Manager. If this is set to true, then the Game's Linked
+        ///     Progressives from the game will be verified with the progressive host to match.
         /// </summary>
-        public static string BoostCheckEnabled = "BoostCheckEnabled";
+        public static string LinkedProgressiveVerificationEnabled = "LinkedProgressiveVerificationEnabled";
 
         /// <summary>
         ///     Encapsulate Player Information Display options

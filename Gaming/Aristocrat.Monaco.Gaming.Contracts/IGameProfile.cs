@@ -210,12 +210,12 @@
         /// <summary>
         ///     Gets or sets the number of mechanical reels
         /// </summary>
-        int MechanicalReels { get; set; }
+        int MechanicalReels { get; }
 
         /// <summary>
         ///     Gets or sets the mechanical reel home steps
         /// </summary>
-        int[] MechanicalReelHomeSteps { get; set; }
+        int[] MechanicalReelHomeSteps { get; }
 
         /// <summary>
         ///     Gets a value indicating whether this game includes extended RTP information. After the release of GDK 5.0, games are
@@ -225,8 +225,8 @@
 
         /// <summary>
         ///     Gets a value indicating whether the RTP information from the game matches the same RTP on the Linked Progressive
-        ///     Host. If boost check is disabled, this will be false.
+        ///     Host. If LinkedProgressiveVerification is disabled, this property will default to false.
         /// </summary>
-        bool BoostCheckMatched { get; set; }
+        bool LinkedProgressiveVerified { get; }
     }
 }

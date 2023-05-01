@@ -77,7 +77,7 @@
         private string _kenoSoundFilePath;
         private string _cardSoundFilePath;
         private ProgressiveLobbyIndicator _progressiveIndicator;
-        private bool _boostCheckEnabled;
+        private bool _linkedProgressiveVerificationEnabled;
 
         public GamePreferencesViewModel()
         {
@@ -169,7 +169,7 @@
 
             GameExistsWithExtendedRtpInfo = gameProvider.GetAllGames().Any(game => game.HasExtendedRtpInformation);
 
-            BoostCheckEnabled = PropertiesManager.GetValue(GamingConstants.BoostCheckEnabled, true);
+            LinkedProgressiveVerificationEnabled = PropertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, true);
         }
 
         public List<GameStartMethodInfo> GameStartMethods => new List<GameStartMethodInfo>
@@ -973,19 +973,19 @@
             }
         }
 
-        public bool BoostCheckEnabled
+        public bool LinkedProgressiveVerificationEnabled
         {
-            get => _boostCheckEnabled;
+            get => _linkedProgressiveVerificationEnabled;
             set
             {
-                if (_boostCheckEnabled == value)
+                if (_linkedProgressiveVerificationEnabled == value)
                 {
                     return;
                 }
 
-                _boostCheckEnabled = value;
-                RaisePropertyChanged(nameof(BoostCheckEnabled));
-                Save(GamingConstants.BoostCheckEnabled, _boostCheckEnabled);
+                _linkedProgressiveVerificationEnabled = value;
+                RaisePropertyChanged(nameof(LinkedProgressiveVerificationEnabled));
+                Save(GamingConstants.LinkedProgressiveVerificationEnabled, _linkedProgressiveVerificationEnabled);
             }
         }
 

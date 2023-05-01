@@ -3088,15 +3088,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Vertex BoostCheck Enabled.
-		/// </summary>
-		public static string BoostCheckEnabledLabel {
-			get {
-				return ResourceManager.GetString("BoostCheckEnabledLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Bottom.
 		/// </summary>
         /// <remarks>
@@ -18148,6 +18139,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LinkedProgressive {
 			get {
 				return ResourceManager.GetString("LinkedProgressive", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive Verification Enabled.
+		/// </summary>
+		public static string LinkedProgressiveVerificationEnabledLabel {
+			get {
+				return ResourceManager.GetString("LinkedProgressiveVerificationEnabledLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -37792,15 +37792,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Vertex BoostCheck Enabled.
-		/// </summary>
-		public static string BoostCheckEnabledLabel {
-			get {
-				return "BoostCheckEnabledLabel";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Bottom.
 		/// </summary>
         /// <remarks>
@@ -52851,6 +52842,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LinkedProgressive {
 			get {
 				return "LinkedProgressive";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Linked Progressive Verification Enabled.
+		/// </summary>
+		public static string LinkedProgressiveVerificationEnabledLabel {
+			get {
+				return "LinkedProgressiveVerificationEnabledLabel";
 			}
 		}
 
@@ -71196,10 +71196,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BonusTransactionName,
 		/// <summary>
-		///   Looks up a localized string similar to Vertex BoostCheck Enabled.
-		/// </summary>
-		BoostCheckEnabledLabel,
-		/// <summary>
 		///   Looks up a localized string similar to Bottom.
 		/// </summary>
         /// <remarks>
@@ -79769,6 +79765,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		LinkedProgressive,
+		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive Verification Enabled.
+		/// </summary>
+		LinkedProgressiveVerificationEnabledLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Link Progressive History.
 		/// </summary>

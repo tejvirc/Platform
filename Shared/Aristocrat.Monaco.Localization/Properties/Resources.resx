@@ -11700,8 +11700,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="LinkProgressiveIncrement" xml:space="preserve">
 	  <value>Link Progressive Increment</value>
   </data>
-  <data name="BoostCheckEnabledLabel" xml:space="preserve">
-    <value>Vertex BoostCheck Enabled</value>
+  <data name="LinkedProgressiveVerificationEnabledLabel" xml:space="preserve">
+    <value>Linked Progressive Verification Enabled</value>
   </data>
   <data name="CreatingKeyboardService" xml:space="preserve">
     <value>Creating Keyboard Service</value>

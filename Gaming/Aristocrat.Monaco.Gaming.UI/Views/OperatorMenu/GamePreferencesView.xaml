@@ -314,8 +314,8 @@
                            Visibility="{Binding Path=GameExistsWithExtendedRtpInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}"/> 
 
                 <CheckBox x:Name="ProgressiveOptionsBoostCheckEnabledCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.BoostCheckEnabledLabel}}"
-                          IsChecked="{Binding BoostCheckEnabled}"
+                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.LinkedProgressiveVerificationEnabledLabel}}"
+                          IsChecked="{Binding LinkedProgressiveVerificationEnabled}"
                           Visibility="{Binding Path=GameExistsWithExtendedRtpInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
             </StackPanel>

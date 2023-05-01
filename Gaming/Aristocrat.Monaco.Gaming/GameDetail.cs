@@ -93,8 +93,7 @@
             }
         }
 
-        // Remove hard setting to true after Vertex Progressives are finished.
-        public bool BoostCheckMatched { get; set; } = true; 
+        public bool LinkedProgressiveVerified { get; set; }
 
         public IEnumerable<IWinLevel> WinLevels { get; set; }
 

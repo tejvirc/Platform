@@ -148,6 +148,6 @@
             }
         }
 
-        public bool BoostCheckMatched { get; set; }
+        public bool LinkedProgressiveVerified { get; set; }
     }
 }
