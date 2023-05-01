@@ -894,9 +894,9 @@
         public const string ButtonLayoutBetButtonsBetUp = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetUp";
 
         /// <summary>
-        ///     Property Key for Button layout : Bet Max button
+        ///     Property Key for Button layout : Max Bet button
         /// </summary>
-        public const string ButtonLayoutBetButtonsBetMax = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetMax";
+        public const string ButtonLayoutBetButtonsMaxBet = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsMaxBet";
 
         /// <summary>
         ///     Property Key for Physical button layout for Left Play button

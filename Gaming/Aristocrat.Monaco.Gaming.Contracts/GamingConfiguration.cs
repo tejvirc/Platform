@@ -2772,13 +2772,13 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private string betUpField;
         
-        private string betMaxField;
+        private string maxBetField;
         
         public GamingConfigurationPhysicalButtonsBetButtons() {
             this.displayOnBottomField = false;
             this.betDownField = "false";
             this.betUpField = "false";
-            this.betMaxField = "false";
+            this.maxBetField = "false";
         }
         
         /// <remarks/>
@@ -2820,12 +2820,12 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute("false")]
-        public string BetMax {
+        public string MaxBet {
             get {
-                return this.betMaxField;
+                return this.maxBetField;
             }
             set {
-                this.betMaxField = value;
+                this.maxBetField = value;
             }
         }
     }

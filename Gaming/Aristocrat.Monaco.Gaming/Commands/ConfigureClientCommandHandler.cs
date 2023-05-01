@@ -300,7 +300,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             parameters["/Runtime/PhysicalButtons&betOnBottom"] = _properties.GetValue(GamingConstants.ButtonLayoutBetButtonsOnBottom, true).ToString();
             parameters["/Runtime/PhysicalButtons/BetDown"] = _properties.GetValue(GamingConstants.ButtonLayoutBetButtonsBetDown, "false");
             parameters["/Runtime/PhysicalButtons/BetUp"] = _properties.GetValue(GamingConstants.ButtonLayoutBetButtonsBetUp, "false");
-            parameters["/Runtime/PhysicalButtons/BetMax"] = _properties.GetValue(GamingConstants.ButtonLayoutBetButtonsBetMax, "false");
+            parameters["/Runtime/PhysicalButtons/MaxBet"] = _properties.GetValue(GamingConstants.ButtonLayoutBetButtonsMaxBet, "false");
             parameters["/Runtime/PhysicalButtons/LeftPlay"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonLeftPlay, "false");
             parameters["/Runtime/PhysicalButtons/LeftPlay&optional"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonLeftPlayOptional, false).ToString();
             parameters["/Runtime/PhysicalButtons/Collect"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonCollect, "true");
