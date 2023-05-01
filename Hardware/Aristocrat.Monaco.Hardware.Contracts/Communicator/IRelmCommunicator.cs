@@ -15,7 +15,7 @@
         /// <summary>
         ///     Initializes the communicator.
         /// </summary>
-        public Task Initialize();
+        Task Initialize();
 
         /// <summary>
         ///     Homes the reels to the requested stop
