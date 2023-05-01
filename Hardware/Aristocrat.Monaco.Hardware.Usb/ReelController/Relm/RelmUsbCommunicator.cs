@@ -156,7 +156,7 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> PrepareControllerAnimation(ReelCurveData file, CancellationToken token)
+        public Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token)
         {
             // TODO: Implement prepare reel curve animation in driver and wire up here
             throw new NotImplementedException();

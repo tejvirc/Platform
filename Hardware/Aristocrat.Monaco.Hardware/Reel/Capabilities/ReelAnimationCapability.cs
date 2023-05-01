@@ -38,14 +38,14 @@
             return _implementation.PrepareAnimations(files, token);
         }
 
-        public Task<bool> PrepareControllerAnimation(ReelCurveData file, CancellationToken token)
+        public Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token)
         {
-            return _implementation.PrepareAnimation(file, token);
+            return _implementation.PrepareAnimation(curveData, token);
         }
 
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
+        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token)
         {
-            return _implementation.PrepareAnimations(files, token);
+            return _implementation.PrepareAnimations(curveData, token);
         }
 
         public Task<bool> PlayControllerAnimations(CancellationToken token)

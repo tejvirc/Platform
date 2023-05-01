@@ -48,9 +48,9 @@
             return _communicator.PrepareControllerAnimations(files, token);
         }
 
-        public Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token)
+        public Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token)
         {
-            return _communicator.PrepareControllerAnimation(file, token);
+            return _communicator.PrepareControllerAnimation(curveData, token);
         }
 
         public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)

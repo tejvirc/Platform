@@ -180,7 +180,7 @@ as follows:
       <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
       <USBVendorId>vid_126c</USBVendorId>
       <USBProductId>pid_4385</USBProductId>
-      <USBProductIdDfu>pid_4385</USBProductIdDfu>
+      <USBProductIdDfu>pid_4386</USBProductIdDfu>
     </Device>
     <Device Enabled="true" Type="ReelController" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
       <ExtensionPath>/Hardware/ReelController</ExtensionPath>
