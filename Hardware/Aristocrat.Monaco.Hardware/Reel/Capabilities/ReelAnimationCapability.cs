@@ -19,57 +19,57 @@
             _stateManager = stateManager;
         }
 
-        public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
+        public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PrepareAnimation(LightShowFile file, CancellationToken token)
+        public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PrepareAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token)
+        public Task<bool> PrepareControllerAnimation(ReelCurveData file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
+        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PlayAnimations(CancellationToken token)
+        public Task<bool> PlayControllerAnimations(CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> StopAllLightShows(CancellationToken token)
+        public Task<bool> StopAllControllerLightShows(CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
+        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
+        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
             throw new NotImplementedException();
         }

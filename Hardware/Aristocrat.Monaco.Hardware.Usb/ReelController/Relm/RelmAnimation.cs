@@ -30,57 +30,57 @@
 
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
-            return _communicator.LoadAnimationFile(file, token);
+            return _communicator.LoadControllerAnimationFile(file, token);
         }
 
         public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
-            return _communicator.LoadAnimationFiles(files, token);
+            return _communicator.LoadControllerAnimationFiles(files, token);
         }
 
         public Task<bool> PrepareAnimation(LightShowFile file, CancellationToken token)
         {
-            return _communicator.PrepareAnimation(file, token);
+            return _communicator.PrepareControllerAnimation(file, token);
         }
 
         public Task<bool> PrepareAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
-            return _communicator.PrepareAnimations(files, token);
+            return _communicator.PrepareControllerAnimations(files, token);
         }
 
         public Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token)
         {
-            return _communicator.PrepareAnimation(file, token);
+            return _communicator.PrepareControllerAnimation(file, token);
         }
 
         public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
         {
-            return _communicator.PrepareAnimations(files, token);
+            return _communicator.PrepareControllerAnimations(files, token);
         }
 
         public Task<bool> PlayAnimations(CancellationToken token)
         {
-            return _communicator.PlayAnimations(token);
+            return _communicator.PlayControllerAnimations(token);
         }
 
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
-            return _communicator.StopLightShowAnimations(files, token);
+            return _communicator.StopControllerLightShowAnimations(files, token);
         }
 
         public Task<bool> StopAllLightShows(CancellationToken token)
         {
-            return _communicator.StopAllLightShows(token);
+            return _communicator.StopAllControllerLightShows(token);
         }
 
         public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
         {
-            return _communicator.PrepareStopReels(stopData, token);
+            return _communicator.PrepareControllerStopReels(stopData, token);
         }
 
         public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
-            return _communicator.PrepareNudgeReels(nudgeData, token);
+            return _communicator.PrepareControllerNudgeReels(nudgeData, token);
         }
     }
 }
