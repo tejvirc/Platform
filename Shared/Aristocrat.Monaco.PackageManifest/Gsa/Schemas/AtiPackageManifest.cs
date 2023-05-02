@@ -24,9 +24,9 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     [System.Xml.Serialization.XmlRootAttribute("wagerCategoryItem", Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
     public partial class c_wagerCategoryItem {
         
-        private int wagerCategoryField;
+        private string wagerCategoryField;
         
-        private decimal theoPaybackPctField;
+        private long theoPaybackPctField;
         
         private int minWagerCreditsField;
         
@@ -34,39 +34,15 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private long maxWinAmountField;
         
-        private decimal minBaseRtpPctField;
-        
-        private decimal maxBaseRtpPctField;
-        
-        private decimal minSapStartupRtpPctField;
-        
-        private decimal maxSapStartupRtpPctField;
-        
-        private decimal sapIncrementRtpPctField;
-        
-        private decimal minLinkStartupRtpPctField;
-        
-        private decimal maxLinkStartupRtpPctField;
-        
-        private decimal linkIncrementRtpPctField;
-        
         public c_wagerCategoryItem() {
             this.minWagerCreditsField = 1;
             this.maxWagerCreditsField = 1;
             this.maxWinAmountField = ((long)(999999999999999));
-            this.minBaseRtpPctField = ((decimal)(0m));
-            this.maxBaseRtpPctField = ((decimal)(0m));
-            this.minSapStartupRtpPctField = ((decimal)(0m));
-            this.maxSapStartupRtpPctField = ((decimal)(0m));
-            this.sapIncrementRtpPctField = ((decimal)(0m));
-            this.minLinkStartupRtpPctField = ((decimal)(0m));
-            this.maxLinkStartupRtpPctField = ((decimal)(0m));
-            this.linkIncrementRtpPctField = ((decimal)(0m));
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public int wagerCategory {
+        public string wagerCategory {
             get {
                 return this.wagerCategoryField;
             }
@@ -77,7 +53,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public decimal theoPaybackPct {
+        public long theoPaybackPct {
             get {
                 return this.theoPaybackPctField;
             }
@@ -119,102 +95,6 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.maxWinAmountField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal minBaseRtpPct {
-            get {
-                return this.minBaseRtpPctField;
-            }
-            set {
-                this.minBaseRtpPctField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal maxBaseRtpPct {
-            get {
-                return this.maxBaseRtpPctField;
-            }
-            set {
-                this.maxBaseRtpPctField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal minSapStartupRtpPct {
-            get {
-                return this.minSapStartupRtpPctField;
-            }
-            set {
-                this.minSapStartupRtpPctField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal maxSapStartupRtpPct {
-            get {
-                return this.maxSapStartupRtpPctField;
-            }
-            set {
-                this.maxSapStartupRtpPctField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal sapIncrementRtpPct {
-            get {
-                return this.sapIncrementRtpPctField;
-            }
-            set {
-                this.sapIncrementRtpPctField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal minLinkStartupRtpPct {
-            get {
-                return this.minLinkStartupRtpPctField;
-            }
-            set {
-                this.minLinkStartupRtpPctField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal maxLinkStartupRtpPct {
-            get {
-                return this.maxLinkStartupRtpPctField;
-            }
-            set {
-                this.maxLinkStartupRtpPctField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal linkIncrementRtpPct {
-            get {
-                return this.linkIncrementRtpPctField;
-            }
-            set {
-                this.linkIncrementRtpPctField = value;
             }
         }
     }
@@ -464,6 +344,10 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private bool maxInitialBetFieldSpecified;
         
+        private long maxWinField;
+        
+        private bool maxWinFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bet")]
         public c_bet[] bet {
@@ -549,6 +433,28 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.maxInitialBetFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public long maxWin {
+            get {
+                return this.maxWinField;
+            }
+            set {
+                this.maxWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool maxWinSpecified {
+            get {
+                return this.maxWinFieldSpecified;
+            }
+            set {
+                this.maxWinFieldSpecified = value;
             }
         }
     }
@@ -1045,9 +951,9 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private long resetValueField;
         
-        private decimal incrementRateField;
+        private long incrementRateField;
         
-        private decimal hiddentIncrementRateField;
+        private long hiddentIncrementRateField;
         
         private long maxValueField;
         
@@ -1075,7 +981,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public decimal incrementRate {
+        public long incrementRate {
             get {
                 return this.incrementRateField;
             }
@@ -1086,7 +992,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        public decimal hiddentIncrementRate {
+        public long hiddentIncrementRate {
             get {
                 return this.hiddentIncrementRateField;
             }
@@ -2182,15 +2088,19 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private c_Feature[] featureListField;
         
+        private c_bonusGameList bonusGameListField;
+        
+        private c_subGameList subGameListField;
+        
         private c_denomSelectionPreset[] denomSelectionPresetListField;
         
         private string themeIdField;
         
         private string paytableIdField;
         
-        private decimal maxPaybackPctField;
+        private long maxPaybackPctField;
         
-        private decimal minPaybackPctField;
+        private long minPaybackPctField;
         
         private int maxWagerInsideCreditsField;
         
@@ -2239,8 +2149,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private t_platformTarget platformTargetField;
         
         public c_gameAttributes() {
-            this.maxPaybackPctField = ((decimal)(0m));
-            this.minPaybackPctField = ((decimal)(0m));
+            this.maxPaybackPctField = ((long)(0));
+            this.minPaybackPctField = ((long)(0));
             this.maxWagerInsideCreditsField = 0;
             this.maxWagerOutsideCreditsField = 0;
             this.supportsForcePlayMaxLinesField = true;
@@ -2385,6 +2295,26 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         }
         
         /// <remarks/>
+        public c_bonusGameList bonusGameList {
+            get {
+                return this.bonusGameListField;
+            }
+            set {
+                this.bonusGameListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public c_subGameList subGameList {
+            get {
+                return this.subGameListField;
+            }
+            set {
+                this.subGameListField = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
         [System.Xml.Serialization.XmlArrayItemAttribute("denomSelectionPreset", IsNullable=false)]
         public c_denomSelectionPreset[] denomSelectionPresetList {
@@ -2420,8 +2350,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal maxPaybackPct {
+        [System.ComponentModel.DefaultValueAttribute(typeof(long), "0")]
+        public long maxPaybackPct {
             get {
                 return this.maxPaybackPctField;
             }
@@ -2432,8 +2362,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
-        [System.ComponentModel.DefaultValueAttribute(typeof(decimal), "0")]
-        public decimal minPaybackPct {
+        [System.ComponentModel.DefaultValueAttribute(typeof(long), "0")]
+        public long minPaybackPct {
             get {
                 return this.minPaybackPctField;
             }
@@ -2718,6 +2648,123 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         /// <remarks/>
         betOptionsList,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    public partial class c_bonusGameList {
+        
+        private string activeField;
+        
+        private string[] bonusGameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+        public string Active {
+            get {
+                return this.activeField;
+            }
+            set {
+                this.activeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("BonusGame", DataType="integer")]
+        public string[] BonusGame {
+            get {
+                return this.bonusGameField;
+            }
+            set {
+                this.bonusGameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    public partial class c_subGameList {
+        
+        private string activeField;
+        
+        private c_subGame[] subGameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
+        public string Active {
+            get {
+                return this.activeField;
+            }
+            set {
+                this.activeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("SubGame")]
+        public c_subGame[] SubGame {
+            get {
+                return this.subGameField;
+            }
+            set {
+                this.subGameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    public partial class c_subGame {
+        
+        private string denominationsField;
+        
+        private string uniqueGameIdField;
+        
+        private string titleIdField;
+        
+        /// <remarks/>
+        public string Denominations {
+            get {
+                return this.denominationsField;
+            }
+            set {
+                this.denominationsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, DataType="integer")]
+        public string UniqueGameId {
+            get {
+                return this.uniqueGameIdField;
+            }
+            set {
+                this.uniqueGameIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, DataType="integer")]
+        public string TitleId {
+            get {
+                return this.titleIdField;
+            }
+            set {
+                this.titleIdField = value;
+            }
+        }
     }
     
     /// <remarks/>

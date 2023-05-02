@@ -28,25 +28,16 @@
         <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
     </ResourceDictionary.MergedDictionaries>
 
-    <common:LogicalOrConverter x:Key="LogicalOrConverter" />
-    <converters:AttractActiveToVisibilityConverter x:Key="AttractToVisibilityConv" />
     <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True"/>
     <converters:ProgressiveLabelVisibilityConverter x:Key="ProgressiveLabelVisibilityConv"/>
     <converters:MarginConverter x:Key="MarginConverter"/>
-    <converters:DenomIconHeightConverter x:Key="DenomIconHeightConv"/>
-    <converters:DenomIconFontSizeConverter x:Key="DenomIconFontSizeConv"/>
     <converters:DenomPanelWidthConverter x:Key="DenomPanelWidthConv"/>
     <converters:DenomPanelHeightConverter x:Key="DenomPanelHeightConv"/>
-    <converters:DenomPanelMarginConverter x:Key="DenomPanelMarginConv"/>
     <converters:GameIconHeightConverter x:Key="GameIconHeightConv"/>
-    <converters:GameIconWidthConverter x:Key="GameIconWidthConv"/>
-    <converters:GameIconStretchConverter x:Key="GameIconStretchConv"/>
     <converters:GameIconImageHeightConverter x:Key="GameIconImageHeightConv"/>
-    <converters:GameIconAlignmentConverter x:Key="GameIconAlignmentConv"/>
-    <converters:GameIconImageMarginConverter x:Key="GameIconImageMarginConv"/>
-    <converters:GameTabMarginConverter x:Key="GameTabMarginConv" />
+    <converters:GameTabMarginConverter x:Key="GameTabMarginConv"/>
     <converters:GridSpacingConverter x:Key="GridSpacingConverter"/>
     <converters:LobbyColumnWidthConverter x:Key="ColumnWidthConverter"/>
     <converters:LobbyOuterColumnWidthConverter x:Key="LobbyOuterColumnWidthConv"/>
@@ -54,22 +45,14 @@
     <converters:ProgressiveLabelSizeConverter x:Key="ProgressiveLabelSizeConv"/>
     <converters:MultiParameterCommandConverter x:Key="MultiParameterCommandConv"/>
     <converters:CharacterToResourceImageConverter x:Key="CharacterToResourceImageConv"/>
-    <converters:ScaleByResolutionConverter x:Key="ScaleByResolutionConv"/>
-    <converters:LobbyProgressiveBannerVisibilityConverter x:Key="LobbyProgressiveBannerVisibilityConv"/>
     <converters:GameIconJackpotTextVisibilityConverter x:Key="GameIconJackpotTextVisibilityConv"/>
-    <converters:CommaMarginConverter x:Key="CommaMarginConv"/>
     <converters:GameTileMarginConverter x:Key="GameTileMarginConv"/>
-    <converters:SingleGameMajorBannerMarginConverter x:Key="SingleGameMajorBannerMarginConv"/>
 
     <sys:Boolean x:Key="FalseValue">False</sys:Boolean>
     <sys:Boolean x:Key="TrueValue">True</sys:Boolean>
-    <sys:Double x:Key="ExtraLargeGameIconDenomIconWidth">110</sys:Double>
-    <sys:Double x:Key="ExtraLargeGameIconDenomIconHeight">70</sys:Double>
-    <sys:Double x:Key="ExtraLargeGameIconDenomPanelMaxWidth">620</sys:Double>
-    <sys:Double x:Key="ExtraLargeGameIconDenomPanelMaxHeight">150</sys:Double>
-    <Thickness x:Key="ExtraLargeGameIconDenomIconMargin" Left="15" Top="30" Right="15" Bottom="30" />
-    <Thickness x:Key="LightningLinkGrandCommaShiftMargin" Left="0" Top="20" Right="0" Bottom="0" />
-    <Thickness x:Key="LightningLinkMajorCommaShiftMargin" Left="0" Top="9" Right="0" Bottom="0" />
+    <sys:Double x:Key="ExtraLargeGameIconDenomIconWidth">80</sys:Double>
+    <sys:Double x:Key="ExtraLargeGameIconDenomIconHeight">52</sys:Double>
+    <Thickness x:Key="ExtraLargeGameIconDenomIconMargin" Left="15" Top="25" Right="15" Bottom="25"/>
 
     <Storyboard x:Key="AttractHaloFadeInStoryboard">
         <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -120,469 +103,428 @@
         <GradientStop Color="#FFD600" Offset=".95"/>
     </LinearGradientBrush>
 
+    <Style x:Key="DenomTextStyle" TargetType="controls:TextPath">
+        <Setter Property="Fill" Value="White"/>
+        <Setter Property="FontFamily" Value="Impact"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="StrokeThickness" Value="2.0"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                <Setter Property="Fill" Value="Red"/>
+                <Setter Property="Stroke" Value="Yellow"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SharedDenomTextStyle" TargetType="controls:TextPath" BasedOn="{StaticResource DenomTextStyle}">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="4"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Fill" Value="LightBlue"/>
+    </Style>
+
     <DataTemplate x:Key="LobbyViewLandscapeTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height=".04*"/>
-                <RowDefinition Height=".77*"/>
-                <RowDefinition Height=".06*"/>
-                <RowDefinition Height=".13*"/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}">
-                    <ColumnDefinition.MinWidth>
-                        <MultiBinding Converter="{StaticResource ColumnMinWidthConv}">
-                            <Binding Path="GameCount"/>
-                            <Binding Path="PreserveGameLayoutSideMargins"/>
-                            <Binding Path="IsExtraLargeGameIconTabActive"/>
-                        </MultiBinding>
-                    </ColumnDefinition.MinWidth>
-                </ColumnDefinition>
-                <ColumnDefinition>
-                    <ColumnDefinition.Width>
-                        <MultiBinding Converter="{StaticResource ColumnWidthConverter}">
-                            <Binding Path="GameCount"/>
-                            <Binding Path="PreserveGameLayoutSideMargins"/>
-                            <Binding Path="IsExtraLargeGameIconTabActive"/>
-                        </MultiBinding>
-                    </ColumnDefinition.Width>
-                </ColumnDefinition>
-                <ColumnDefinition Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}">
-                    <ColumnDefinition.MinWidth>
-                        <MultiBinding Converter="{StaticResource ColumnMinWidthConv}">
-                            <Binding Path="GameCount"/>
-                            <Binding Path="PreserveGameLayoutSideMargins"/>
-                            <Binding Path="IsExtraLargeGameIconTabActive"/>
-                        </MultiBinding>
-                    </ColumnDefinition.MinWidth>
-                </ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
             <Grid.Background>
                 <ImageBrush ImageSource="{DynamicResource BottomBackground}"/>
             </Grid.Background>
+            <Viewbox>
+                <Grid Width="1920" Height="1080">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".04*"/>
+                        <RowDefinition Height=".70*"/>
+                        <RowDefinition Height=".08*"/>
+                        <RowDefinition Height=".05*"/>
+                        <RowDefinition Height=".13*"/>
+                    </Grid.RowDefinitions>
 
-            <!--
-                 <Image Grid.Row="0" Grid.RowSpan="5" Stretch="Fill" Source="pack://siteoforigin:,,,/Assets/Images/Other/BS_BackGround.png"/>
-            -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}">
+                            <ColumnDefinition.MinWidth>
+                                <MultiBinding Converter="{StaticResource ColumnMinWidthConv}">
+                                    <Binding Path="GameCount"/>
+                                    <Binding Path="PreserveGameLayoutSideMargins"/>
+                                    <Binding Path="IsExtraLargeGameIconTabActive"/>
+                                </MultiBinding>
+                            </ColumnDefinition.MinWidth>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                            <ColumnDefinition.Width>
+                                <MultiBinding Converter="{StaticResource ColumnWidthConverter}">
+                                    <Binding Path="GameCount"/>
+                                    <Binding Path="PreserveGameLayoutSideMargins"/>
+                                    <Binding Path="IsExtraLargeGameIconTabActive"/>
+                                </MultiBinding>
+                            </ColumnDefinition.Width>
+                        </ColumnDefinition>
+                        <ColumnDefinition Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}">
+                            <ColumnDefinition.MinWidth>
+                                <MultiBinding Converter="{StaticResource ColumnMinWidthConv}">
+                                    <Binding Path="GameCount"/>
+                                    <Binding Path="PreserveGameLayoutSideMargins"/>
+                                    <Binding Path="IsExtraLargeGameIconTabActive"/>
+                                </MultiBinding>
+                            </ColumnDefinition.MinWidth>
+                        </ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-            <!--**** HEADER ****-->
+                    <!--**** HEADER ****-->
+                    <Viewbox Grid.Row="0" Grid.Column="1" Visibility="{Binding IsTabView, Converter={StaticResource BoolToCollapsedConverter}}">
+                        <Image Stretch="None" Source="{DynamicResource SelectAGame}"
+                               HorizontalAlignment="Center" VerticalAlignment="Top"
+                               RenderTransformOrigin="0.5 0.5">
+                            <Image.RenderTransform>
+                                <TranslateTransform X="0" Y="{Binding ChooseGameOffsetY}" />
+                            </Image.RenderTransform>
+                        </Image>
+                    </Viewbox>
 
-            <Viewbox Grid.Row="0" Grid.Column="1" Visibility="{Binding IsTabView, Converter={StaticResource BoolToCollapsedConverter}}">
-                <Image Stretch="None" Source="{DynamicResource SelectAGame}"
-                       HorizontalAlignment="Center" VerticalAlignment="Top"
-                       RenderTransformOrigin="0.5 0.5">
-                    <Image.RenderTransform>
-                        <TranslateTransform X="0" Y="{Binding ChooseGameOffsetY}" />
-                    </Image.RenderTransform>
-                </Image>
-            </Viewbox>
+                    <!--**** Responsible Gaming Info Button ****-->
+                    <Button Grid.Row="0" Grid.Column="2"
+                            HorizontalAlignment="Right" VerticalAlignment="Top"
+                            Margin="0 40 40 0"
+                            Style="{StaticResource stlFlatButton}"
+                            Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
+                            Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource BoolToVisConverter}}">
+                        <Image Source="{DynamicResource ResponsibleGaming}" Stretch="None"/>
+                    </Button>
 
-            <Button Grid.Row="0" Grid.Column="2"
-                    HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Margin="0 40 40 0"
-                    Style="{StaticResource stlFlatButton}"
-                    Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
-                    Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource BoolToVisConverter}}">
-                <Image Source="{DynamicResource ResponsibleGaming}" Stretch="None"/>
-            </Button>
-
-            <!--**** Bartop UI ****-->
-            <Viewbox Stretch="Uniform" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3"
-                     Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
-                     Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}" >
-                <Grid Width="1920" Height="1080" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsTabView, Converter={StaticResource BoolToVisConverter}}">
-                    <commonControls:CustomItemsControl x:Name="TabsControl" ItemsSource="{Binding GameTabInfo.Tabs}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Grid />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:GameTabInfo}">
-                                <commonControls:ImageTransparentPassThrough x:Name="GameTab" common:ImageHelper.SourceResourceKey="{Binding TabResourceKey}">
-                                    <commonControls:ImageTransparentPassThrough.Style>
-                                        <Style TargetType="{x:Type commonControls:ImageTransparentPassThrough}">
-                                            <Setter Property="Panel.ZIndex" Value = "1"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Enabled}" Value="True">
-                                                    <Setter Property="Panel.ZIndex" Value = "2"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </commonControls:ImageTransparentPassThrough.Style>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                            <i:InvokeCommandAction Command="{Binding DataContext.GameTabPressedCommand, ElementName=TabsControl}" CommandParameter="{Binding}"  />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </commonControls:ImageTransparentPassThrough>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </commonControls:CustomItemsControl>
-                    <ItemsControl x:Name="TabLabelsControl" ItemsSource="{Binding GameTabInfo.Tabs}" VerticalAlignment="Top" Margin="60,62,60,0">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="6" Panel.ZIndex="10" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:GameTabInfo}">
-                                <Viewbox Stretch="Uniform" StretchDirection="DownOnly" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Visibility="{Binding Enabled}" >
-                                    <Grid>
-                                        <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}" 
-                                               Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}"
-                                               Visibility="{Binding HasAnimatedResource, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                                        <Image gif:ImageBehavior.AnimatedSource="{Binding LabelAnimatedResourcePath}"
-                                               Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}"
-                                               Visibility="{Binding HasAnimatedResource, Converter={StaticResource BoolToVisConverter}}"/>
-                                    </Grid>
-                                </Viewbox>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
-                    <ItemsControl Panel.ZIndex="11" x:Name="SubTabsControl" ItemsSource="{Binding GameTabInfo.SubTabs}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="69" Margin="{Binding GameTabInfo.SubTabsMargin}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:SubTabInfoViewModel}">
-                                <Grid Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
-                                    <Image Source="{DynamicResource SubTabNormal}">
+                    <!--**** Bartop UI ****-->
+                    <Grid Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Width="1920" Height="1080" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsTabView, Converter={StaticResource BoolToVisConverter}}">
+                        <commonControls:CustomItemsControl x:Name="TabsControl" ItemsSource="{Binding GameTabInfo.Tabs}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type viewModels:GameTabInfo}">
+                                    <commonControls:ImageTransparentPassThrough x:Name="GameTab" common:ImageHelper.SourceResourceKey="{Binding TabResourceKey}">
+                                        <commonControls:ImageTransparentPassThrough.Style>
+                                            <Style TargetType="{x:Type commonControls:ImageTransparentPassThrough}">
+                                                <Setter Property="Panel.ZIndex" Value = "1"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Enabled}" Value="True">
+                                                        <Setter Property="Panel.ZIndex" Value = "2"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </commonControls:ImageTransparentPassThrough.Style>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                                <i:InvokeCommandAction Command="{Binding DataContext.SubTabPressedCommand, ElementName=SubTabsControl }" CommandParameter="{Binding}"  />
+                                                <i:InvokeCommandAction Command="{Binding DataContext.GameTabPressedCommand, ElementName=TabsControl}" CommandParameter="{Binding}"  />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
-                                    </Image>
-                                    <Image common:ImageHelper.SourceResourceKey="{Binding ResourceKey}" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,9,0,0" IsHitTestVisible="False" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-            </Viewbox>
-
-            <!--**** GAME GRID ****-->
-            <ItemsControl x:Name="GameList"
-                          FocusVisualStyle="{x:Null}"
-                          Margin="{Binding Path=MarginInputs, Converter={StaticResource MarginConverter}, ConverterParameter=GameGrid}"
-                          Grid.Row="1" Grid.Column="1"
-                          ItemsSource="{Binding Path=DisplayedGameList}"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top">
-                <ItemsControl.ItemsPanel>
-                    <!-- Swap out the panel that arranges the items -->
-                    <ItemsPanelTemplate>
-                        <controls:GameLayoutPanel
-                            Spacing="{Binding MarginInputs, Converter={StaticResource GridSpacingConverter}}"
-                            IsTabView="{Binding IsTabView}"
-                            IsExtraLargeGameIconTabActive="{Binding IsExtraLargeGameIconTabActive}"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <!-- Specify the UI to render each item -->
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type models:GameInfo}">
-                        <!--Wrap the game icons in Viewboxes to scale correctly-->
-                        <!--Note: this Viewbox will not stretch for tab views-->
-                        <Viewbox x:Name="GameTile" VerticalAlignment="Top" 
-                                 Stretch="{Binding DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconStretchConv}}">
-                            <Viewbox.Margin>
-                                <MultiBinding Converter="{StaticResource GameTileMarginConv}">
-                                    <Binding Path="DataContext.MarginInputs" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                    <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                </MultiBinding>
-                            </Viewbox.Margin>
-                            <Border Width="Auto" Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}">
-                                <Grid HorizontalAlignment="Left" VerticalAlignment="Top"
-                                      Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}">
-                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                                          Margin="{Binding DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlay}">
-                                        <Grid.Visibility>
-                                            <MultiBinding Converter="{StaticResource ProgressiveLabelVisibilityConv}">
-                                                <Binding Path="HasProgressiveLabelDisplay"/>
-                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                            </MultiBinding>
-                                        </Grid.Visibility>
-                                        <Image Stretch="None" Source="{DynamicResource ProgressiveOverlay}"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" />
-                                        <Image Stretch="None" Source="{DynamicResource ProgressiveBackground}"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToCollapsedConverter}}"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" />
-                                        <Image Stretch="None" Source="{DynamicResource ProgressiveSelectedBackground}"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToVisConverter}}"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" />
-                                        <Image Stretch="None" Source="{DynamicResource GameSelectedWithProgressivesOverlay}"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToVisConverter}}"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" />
-                                        <TextBlock Text="{Binding ProgressiveIndicatorText}"
-                                                   Visibility="{Binding HasProgressiveLabelDisplay, Converter={StaticResource BoolToVisConverter}}"
-                                                   FontFamily="Verdana"
-                                                   Margin="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlayText}"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                   TextAlignment="Center"
-                                                   FontWeight="ExtraBold"
-                                                   FontSize="{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ProgressiveLabelSizeConv}}"
-                                                   Foreground="{StaticResource JackpotTextGradient}"/>
-                                    </Grid>
-
-                                    <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
-                                    <Button x:Name="GameIconButton" Style="{StaticResource stlFlatButton}"
-                                            HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
-                                            VerticalAlignment="Top"
-                                            Tag="{Binding Name}"
-                                            Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
-                                            Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
-                                            Command="{Binding Path=DataContext.GameSelectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                            CommandParameter="{Binding}">
-                                        <Button.IsEnabled>
-                                            <MultiBinding Converter="{StaticResource FiltersToBoolConv}">
-                                                <Binding Path="DataContext.DenomFilter" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                <Binding Path="FilteredDenomination" />
-                                                <Binding Path="Enabled" />
-                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" Converter="{StaticResource InverseBoolConverter}"/>
-                                            </MultiBinding>
-                                        </Button.IsEnabled>
-                                        <Grid VerticalAlignment="Top"
-                                              HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}">
-                                            <ContentControl x:Name="ButtonImage"
-                                                            HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
-                                                            VerticalAlignment="Top"
-                                                            Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}">
-                                                <ContentControl.Style>
-                                                    <Style TargetType="ContentControl">
+                                    </commonControls:ImageTransparentPassThrough>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </commonControls:CustomItemsControl>
+                        <ItemsControl x:Name="TabLabelsControl" ItemsSource="{Binding GameTabInfo.Tabs}" VerticalAlignment="Top" Margin="55,51,55,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="6" Panel.ZIndex="10" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type viewModels:GameTabInfo}">
+                                    <Viewbox Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False"
+                                             Margin="{Binding Converter={StaticResource GameTabMarginConv}}">
+                                        <Grid Height="98">
+                                            <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}"
+                                                   Margin="10 0"
+                                                   Visibility="{Binding HasAnimatedResource, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                                            <Image gif:ImageBehavior.AnimatedSource="{Binding LabelAnimatedResourcePath}"
+                                                   Stretch="None"
+                                                   VerticalAlignment="Top"
+                                                   Visibility="{Binding HasAnimatedResource, Converter={StaticResource BoolToVisConverter}}">
+                                                <Image.Style>
+                                                    <Style TargetType="{x:Type Image}">
+                                                        <Setter Property="Height" Value="Auto"/>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                                                <Setter Property="Content">
-                                                                    <Setter.Value>
-                                                                        <bink:BinkViewerControl Stretch="Uniform"
-                                                                                                Filename="{Binding ImagePath}"
-                                                                                                Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
-                                                                                                Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                                                <Setter Property="Content">
-                                                                    <Setter.Value>
-                                                                        <Image RenderOptions.BitmapScalingMode="HighQuality"
-                                                                               Stretch="Uniform"
-                                                                               gif:ImageBehavior.AnimatedSource="{Binding ImagePath}"
-                                                                               Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
-                                                                               Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
-                                                                    </Setter.Value>
-                                                                </Setter>
+                                                            <!-- Cut off the bottom bit of the image so it doesn't overlap the tab border that's at a lower z-index since this control is higher -->
+                                                            <DataTrigger Binding="{Binding Enabled}" Value="False">
+                                                                <Setter Property="Height" Value="82"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
-                                                </ContentControl.Style>
-                                            </ContentControl>
-                                            
-                                            <Image x:Name="SelectedImage"
-                                                   Source="{DynamicResource GameSelectedOverlay}"
-                                                   RenderOptions.BitmapScalingMode="HighQuality"
-                                                   Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}"
-                                                   Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconWidthConv}}"
-                                                   Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
-                                                   HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
-                                                   VerticalAlignment="Top">
-                                                <Image.Visibility>
-                                                    <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
-                                                        <Binding Path="IsSelected"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" Converter="{StaticResource InverseBoolConverter}"/>
-                                                    </MultiBinding>
-                                                </Image.Visibility>
+                                                </Image.Style>
                                             </Image>
-
-                                            <Image Source="{DynamicResource PlatinumIcon}">
-                                                <Image.Visibility>
-                                                    <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
-                                                        <Binding Path="PlatinumSeries" />
-                                                        <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                    </MultiBinding>
-                                                </Image.Visibility>
-                                            </Image>
-
-                                            <StackPanel Background="Transparent"
-                                                        Orientation="Horizontal"
-                                                        Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=Bonus}"
-                                                        HorizontalAlignment="Left" VerticalAlignment="Top" >
-                                                <StackPanel.Visibility>
-                                                    <MultiBinding Converter="{StaticResource GameIconJackpotTextVisibilityConv}">
-                                                        <Binding Path="HasProgressiveOrBonusValue"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                    </MultiBinding>
-                                                </StackPanel.Visibility>
-                                                <Image Stretch="None" Source="{DynamicResource JackpotText}" Margin="0 1 0 0"
-                                                       RenderOptions.BitmapScalingMode="HighQuality"
-                                                       HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                                                <TextBlock Text="{Binding ProgressiveOrBonusValue}" Margin="5 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                           FontFamily="Arial" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource JackpotTextGradient}"/>
-
-                                            </StackPanel>
-
-                                            <bink:BinkViewerControl HorizontalAlignment="Left"
-                                                                    VerticalAlignment="Top"
-                                                                    Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
-                                                                    Stretch="None"
-                                                                    Filename="{DynamicResource NewStarPath}">
-                                                <bink:BinkViewerControl.Visibility>
-                                                    <MultiBinding Converter="{StaticResource AnimatedIconVisibilityConv}">
-                                                        <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
-                                                        <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                    </MultiBinding>
-                                                </bink:BinkViewerControl.Visibility>
-                                            </bink:BinkViewerControl>
-
-                                            <!-- Tint disabled game buttons to make them look disabled. -->
-                                            <Rectangle Fill="Black" Opacity="0.5"
-                                                       HorizontalAlignment="Left"
-                                                       VerticalAlignment="Top"
-                                                       Width="{Binding ElementName=ButtonImage, Path=ActualWidth}"
-                                                       Height="{Binding ElementName=ButtonImage, Path=ActualHeight}">
-                                                <Rectangle.Visibility>
-                                                    <MultiBinding Converter="{StaticResource LogicalOrTrueCollapsedFalseVisible}">
-                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                    </MultiBinding>
-                                                </Rectangle.Visibility>
-                                                <Rectangle.OpacityMask>
-                                                    <ImageBrush ImageSource="{Binding ImagePath}"/>
-                                                </Rectangle.OpacityMask>
-                                            </Rectangle>
-
-                                            <!-- The following needs to come after to prevent double blending disabled look -->
-                                            <!-- Static star is only visible when it is disabled -->
-                                            <Grid x:Name="StaticStarGroup"
-                                                  Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
-                                                  HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                <Grid.Visibility>
-                                                    <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
-                                                        <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
-                                                        <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                    </MultiBinding>
-                                                </Grid.Visibility>
-                                                <Image x:Name="StaticStarImage"
-                                                       HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                       Stretch="None" Source="{DynamicResource StaticStarIcon}"/>
-                                                <Rectangle Fill="Black" Opacity="0.5"
-                                                           Width="{Binding ElementName=StaticStarImage, Path=ActualWidth}"
-                                                           Height="{Binding ElementName=StaticStarImage, Path=ActualHeight}">
-                                                    <Rectangle.OpacityMask>
-                                                        <ImageBrush ImageSource="{DynamicResource StaticStarIcon}"/>
-                                                    </Rectangle.OpacityMask>
-                                                </Rectangle>
-                                            </Grid>
-                                        </Grid>
-                                    </Button>
-
-                                    <!-- Lightning link major banner that can appear right above the extra large game icon -->
-                                    <Viewbox x:Name="LightningLinkMajorBannerForSingleGame"
-                                             Stretch="Uniform"
-                                             HorizontalAlignment="Center" VerticalAlignment="Top"
-                                             Width="{Binding ElementName=LightningLinkMajorBannerImageForSingleGame, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}">
-                                        <Viewbox.Visibility>
-                                            <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
-                                                <Binding Source="{StaticResource FalseValue}"/> <!-- Is banner positioned as pool for all games -->
-                                                <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                <Binding Path="HasProgressiveLabelDisplay"/> <!-- Is the progressive configured -->
-                                            </MultiBinding>
-                                        </Viewbox.Visibility>
-                                        <Viewbox.Margin>
-                                            <MultiBinding Converter="{StaticResource SingleGameMajorBannerMarginConv}">
-                                                <Binding ElementName="LightningLinkMajorBannerImageForSingleGame" Path="ActualHeight"/>
-                                                <Binding Path="DataContext.MarginInputs" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                            </MultiBinding>
-                                        </Viewbox.Margin>
-                                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Image x:Name="LightningLinkMajorBannerImageForSingleGame"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Top"
-                                                   gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}" />
-                                            <ItemsControl
-                                                FocusVisualStyle="{x:Null}"
-                                                Margin="0 44 0 0"
-                                                ItemsSource="{Binding Path=ProgressiveIndicatorText}"
-                                                HorizontalAlignment="Center" VerticalAlignment="Top">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <controls:ResizingStackPanel Orientation="Horizontal" Padding="70 0 70 0"
-                                                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                                     Width="{Binding Path=ActualWidth, ElementName=LightningLinkMajorBannerImageForSingleGame}"/>
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Image Stretch="UniformToFill" Height="62"
-                                                               Margin="{Binding ., Converter={StaticResource CommaMarginConv}, ConverterParameter={StaticResource LightningLinkMajorCommaShiftMargin}}"
-                                                               Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkMajor}" />
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
                                         </Grid>
                                     </Viewbox>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
 
-                                    <!-- Denomination button panel displayed per game when tab is showing extra large icons  -->
-                                    <Viewbox x:Name="SingleGameDenominationControl"
-                                             Stretch="Uniform"
-                                             HorizontalAlignment="Center" VerticalAlignment="Top"
-                                             MaxWidth="{Binding Source={StaticResource ExtraLargeGameIconDenomPanelMaxWidth}, Converter={StaticResource ScaleByResolutionConv}}"
-                                             MaxHeight="{Binding Source={StaticResource ExtraLargeGameIconDenomPanelMaxHeight}, Converter={StaticResource ScaleByResolutionConv}}"
-                                             Visibility="{Binding Path=DataContext.IsExtraLargeGameIconTabActive, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource BoolToVisConverter}}">
-                                        <Viewbox.Margin>
-                                            <MultiBinding Converter="{StaticResource DenomPanelMarginConv}">
-                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
-                                                <Binding Path="DataContext.MarginInputs" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                            </MultiBinding>
-                                        </Viewbox.Margin>
-                                        <Viewbox.Width>
-                                            <MultiBinding Converter="{StaticResource DenomPanelWidthConv}">
-                                                <Binding Path="Denominations"/>
-                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
-                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconWidth}"/>
-                                                <Binding Source="{StaticResource TrueValue}" />  <!-- Perform scale-->
-                                                <Binding Source="{StaticResource TrueValue}" />  <!-- Need extraPadding on left and right side-->
-                                            </MultiBinding>
-                                        </Viewbox.Width>
-                                        <Viewbox.Height>
-                                            <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
-                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
-                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
-                                                <Binding Source="{StaticResource TrueValue}" /> <!-- Perform scale-->
-                                            </MultiBinding>
-                                        </Viewbox.Height>
+                        <ItemsControl Panel.ZIndex="11" x:Name="SubTabsControl" ItemsSource="{Binding GameTabInfo.SubTabs}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="69" Margin="{Binding GameTabInfo.SubTabsMargin}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type viewModels:SubTabInfoViewModel}">
+                                    <Grid Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
+                                        <Image Source="{DynamicResource SubTabNormal}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.SubTabPressedCommand, ElementName=SubTabsControl }" CommandParameter="{Binding}"  />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Image>
+                                        <Image common:ImageHelper.SourceResourceKey="{Binding ResourceKey}" Height="40" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,9,0,0" IsHitTestVisible="False" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
 
-                                        <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <!--**** GAME GRID ****-->
+                    <ItemsControl x:Name="GameList"
+                                  FocusVisualStyle="{x:Null}"
+                                  Margin="{Binding Path=MarginInputs, Converter={StaticResource MarginConverter}, ConverterParameter=GameGrid}"
+                                  Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"
+                                  ItemsSource="{Binding Path=DisplayedGameList}"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top">
+                        <ItemsControl.ItemsPanel>
+                            <!-- Swap out the panel that arranges the items -->
+                            <ItemsPanelTemplate>
+                                <controls:GameLayoutPanel Spacing="{Binding MarginInputs, Converter={StaticResource GridSpacingConverter}}"
+                                                          IsTabView="{Binding IsTabView}"
+                                                          IsExtraLargeGameIconTabActive="{Binding IsExtraLargeGameIconTabActive}"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <!-- Specify the UI to render each item -->
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:GameInfo}">
+                                <Grid x:Name="GameTile" VerticalAlignment="Top">
+                                    <Grid.Margin>
+                                        <MultiBinding Converter="{StaticResource GameTileMarginConv}">
+                                            <Binding Path="DataContext.MarginInputs" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                            <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                        </MultiBinding>
+                                    </Grid.Margin>
+                                    <Grid HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}">
+
+                                        <!-- Progressive label below non-premium game icons -->
+                                        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                              Margin="0 0 0 46">
+                                            <Grid.Visibility>
+                                                <MultiBinding Converter="{StaticResource ProgressiveLabelVisibilityConv}">
+                                                    <Binding Path="HasProgressiveLabelDisplay"/>
+                                                    <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                </MultiBinding>
+                                            </Grid.Visibility>
+                                            <Image Stretch="None" Source="{DynamicResource ProgressiveOverlay}"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                            <Image Stretch="None" Source="{DynamicResource ProgressiveBackground}"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToCollapsedConverter}}"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                            <Image Stretch="None" Source="{DynamicResource ProgressiveSelectedBackground}"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToVisConverter}}"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                            <Image Stretch="None" Source="{DynamicResource GameSelectedWithProgressivesOverlay}"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Visibility="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource BoolToVisConverter}}"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                            <TextBlock Text="{Binding ProgressiveIndicatorText}"
+                                                       Visibility="{Binding HasProgressiveLabelDisplay, Converter={StaticResource BoolToVisConverter}}"
+                                                       FontFamily="Verdana"
+                                                       Margin="{Binding IsSelectedWithProgressiveLabel, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlayText}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       TextAlignment="Center"
+                                                       FontWeight="ExtraBold"
+                                                       FontSize="{Binding Path=Text, RelativeSource={RelativeSource Self}, Converter={StaticResource ProgressiveLabelSizeConv}}"
+                                                       Foreground="{StaticResource JackpotTextGradient}"/>
+                                        </Grid>
+
+                                        <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
+                                        <Button x:Name="GameIconButton" Style="{StaticResource stlFlatButton}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top"
+                                                Tag="{Binding Name}"
+                                                Width="Auto"
+                                                Height="Auto"
+                                                Command="{Binding Path=DataContext.GameSelectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}">
+                                            <Button.IsEnabled>
+                                                <MultiBinding Converter="{StaticResource FiltersToBoolConv}">
+                                                    <Binding Path="DataContext.DenomFilter" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                    <Binding Path="FilteredDenomination" />
+                                                    <Binding Path="Enabled" />
+                                                    <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" Converter="{StaticResource InverseBoolConverter}"/>
+                                                </MultiBinding>
+                                            </Button.IsEnabled>
+                                            <Grid VerticalAlignment="Top"
+                                                  HorizontalAlignment="Center">
+                                                <ContentControl x:Name="ButtonImage"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Top"
+                                                                Margin="0">
+                                                    <ContentControl.Style>
+                                                        <Style TargetType="ContentControl">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <bink:BinkViewerControl Stretch="None"
+                                                                                                    Filename="{Binding ImagePath}"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                                    <Setter Property="Content">
+                                                                        <Setter.Value>
+                                                                            <Image RenderOptions.BitmapScalingMode="HighQuality"
+                                                                                   Stretch="Uniform"
+                                                                                   gif:ImageBehavior.AnimatedSource="{Binding ImagePath}"
+                                                                                   Width="Auto"
+                                                                                   Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
+                                                
+                                                <Image x:Name="SelectedImage"
+                                                       Source="{DynamicResource GameSelectedOverlay}"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                                       Margin="0"
+                                                       Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Top">
+                                                    <Image.Visibility>
+                                                        <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
+                                                            <Binding Path="IsSelected"/>
+                                                            <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" Converter="{StaticResource InverseBoolConverter}"/>
+                                                        </MultiBinding>
+                                                    </Image.Visibility>
+                                                </Image>
+
+                                                <Image Source="{DynamicResource PlatinumIcon}">
+                                                    <Image.Visibility>
+                                                        <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
+                                                            <Binding Path="PlatinumSeries" />
+                                                            <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                            <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                            <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        </MultiBinding>
+                                                    </Image.Visibility>
+                                                </Image>
+
+                                                <StackPanel Background="Transparent"
+                                                            Orientation="Horizontal"
+                                                            Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=Bonus}"
+                                                            HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                                    <StackPanel.Visibility>
+                                                        <MultiBinding Converter="{StaticResource GameIconJackpotTextVisibilityConv}">
+                                                            <Binding Path="HasProgressiveOrBonusValue"/>
+                                                            <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        </MultiBinding>
+                                                    </StackPanel.Visibility>
+                                                    <Image Stretch="None" Source="{DynamicResource JackpotText}" Margin="0 1 0 0"
+                                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                                           HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                                                    <TextBlock Text="{Binding ProgressiveOrBonusValue}" Margin="5 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                               FontFamily="Arial" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource JackpotTextGradient}"/>
+
+                                                </StackPanel>
+
+                                                <bink:BinkViewerControl HorizontalAlignment="Left"
+                                                                        VerticalAlignment="Top"
+                                                                        Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
+                                                                        Stretch="None"
+                                                                        Filename="{DynamicResource NewStarPath}">
+                                                    <bink:BinkViewerControl.Visibility>
+                                                        <MultiBinding Converter="{StaticResource AnimatedIconVisibilityConv}">
+                                                            <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
+                                                            <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                            <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                            <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        </MultiBinding>
+                                                    </bink:BinkViewerControl.Visibility>
+                                                </bink:BinkViewerControl>
+
+                                                <!-- Tint disabled game buttons to make them look disabled. -->
+                                                <Rectangle Fill="Black" Opacity="0.5"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Top"
+                                                           Width="{Binding ElementName=ButtonImage, Path=ActualWidth}"
+                                                           Height="{Binding ElementName=ButtonImage, Path=ActualHeight}">
+                                                    <Rectangle.Visibility>
+                                                        <MultiBinding Converter="{StaticResource LogicalOrTrueCollapsedFalseVisible}">
+                                                            <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                            <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                        </MultiBinding>
+                                                    </Rectangle.Visibility>
+                                                    <Rectangle.OpacityMask>
+                                                        <ImageBrush ImageSource="{Binding ImagePath}"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+
+                                                <!-- The following needs to come after to prevent double blending disabled look -->
+                                                <!-- Static star is only visible when it is disabled -->
+                                                <Grid x:Name="StaticStarGroup"
+                                                      Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
+                                                      HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                    <Grid.Visibility>
+                                                        <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
+                                                            <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
+                                                            <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                            <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                            <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                        </MultiBinding>
+                                                    </Grid.Visibility>
+                                                    <Image x:Name="StaticStarImage"
+                                                           HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                           Stretch="None" Source="{DynamicResource StaticStarIcon}"/>
+                                                    <Rectangle Fill="Black" Opacity="0.5"
+                                                               Width="{Binding ElementName=StaticStarImage, Path=ActualWidth}"
+                                                               Height="{Binding ElementName=StaticStarImage, Path=ActualHeight}">
+                                                        <Rectangle.OpacityMask>
+                                                            <ImageBrush ImageSource="{DynamicResource StaticStarIcon}"/>
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Grid>
+                                            </Grid>
+                                        </Button>
+
+                                        <!-- Denomination button panel displayed per game when tab is showing extra large icons  -->
+                                        <Grid x:Name="SingleGameDenominationControl"
+                                              HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                              Visibility="{Binding Path=DataContext.IsExtraLargeGameIconTabActive, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource BoolToVisConverter}}">
+                                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomPanelKey}"
+                                                   Stretch="None"
+                                                   Visibility="{Binding HasCustomDenomPanel, Converter={StaticResource BoolToVisConverter}}"/>
+                                            <!-- If no panel is provided, generate a custom sized denom panel -->
                                             <StackPanel Orientation="Horizontal"
-                                                        HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Top"
+                                                        Visibility="{Binding HasCustomDenomPanel, Converter={StaticResource BoolToCollapsedConverter}}">
                                                 <Image x:Name="DenominationPanelLeftImage" Stretch="Fill"
                                                        common:ImageHelper.SourceResourceKey="DenominationPanelLeft"
-                                                       RenderOptions.BitmapScalingMode="HighQuality" Width="30">
+                                                       RenderOptions.BitmapScalingMode="HighQuality" Width="20">
                                                     <Image.Height>
                                                         <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
-                                                            <Binding Source="{StaticResource FalseValue}" /> <!-- Perform scale-->
                                                         </MultiBinding>
                                                     </Image.Height>
                                                 </Image>
@@ -594,31 +536,26 @@
                                                             <Binding Path="Denominations"/>
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconWidth}"/>
-                                                            <Binding Source="{StaticResource FalseValue}" /> <!-- Perform scale-->
-                                                            <Binding Source="{StaticResource FalseValue}" /> <!-- Need extraPadding on left and right side-->
                                                         </MultiBinding>
                                                     </Image.Width>
                                                     <Image.Height>
                                                         <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
-                                                            <Binding Source="{StaticResource FalseValue}" /> <!--Scale-->
                                                         </MultiBinding>
                                                     </Image.Height>
                                                 </Image>
                                                 <Image x:Name="DenominationPanelRightImage" Stretch="Fill"
                                                        common:ImageHelper.SourceResourceKey="DenominationPanelRight"
-                                                       RenderOptions.BitmapScalingMode="HighQuality" Width="30">
+                                                       RenderOptions.BitmapScalingMode="HighQuality" Width="20">
                                                     <Image.Height>
                                                         <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
                                                             <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
-                                                            <Binding Source="{StaticResource FalseValue}" /> <!--Scale-->
                                                         </MultiBinding>
                                                     </Image.Height>
                                                 </Image>
                                             </StackPanel>
-
                                             <ItemsControl x:Name="DenominationPanelItemsControl"
                                                           VerticalAlignment="Center" HorizontalAlignment="Center"
                                                           ItemsSource="{Binding Denominations}">
@@ -630,14 +567,11 @@
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
                                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomBackground2}"
+                                                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomButtonSingleKey}"
                                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                   Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
                                                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                                                   Margin="{StaticResource ExtraLargeGameIconDenomIconMargin}"
-                                                                   Stretch="Fill"
-                                                                   Width="{Binding Source={StaticResource ExtraLargeGameIconDenomIconWidth}}"
-                                                                   Height="{Binding Source={StaticResource ExtraLargeGameIconDenomIconHeight}}"
+                                                                   Margin="15"
+                                                                   Stretch="None"
                                                                    Grid.Column="0" Grid.Row="0">
                                                                 <i:Interaction.Triggers>
                                                                     <i:EventTrigger EventName="MouseLeftButtonDown" >
@@ -653,278 +587,192 @@
                                                                 </i:Interaction.Triggers>
                                                             </Image>
 
-                                                            <controls:TextPath Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
-                                                                               HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                                               FontFamily="Impact" FontWeight="Light"
-                                                                               StrokeThickness="2.0"
-                                                                               Margin="0 0 0 20"
-                                                                               Text="{Binding DenomText}">
-                                                                <controls:TextPath.FontSize>
-                                                                    <MultiBinding Converter="{StaticResource DenomIconFontSizeConv}">
-                                                                        <Binding Path="DataContext.GameControlHeight" ElementName="GameList"/>
-                                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" ElementName="GameList" />
-                                                                    </MultiBinding>
-                                                                </controls:TextPath.FontSize>
-                                                                <controls:TextPath.Effect>
-                                                                    <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="4" />
-                                                                </controls:TextPath.Effect>
-                                                                <controls:TextPath.LayoutTransform>
-                                                                    <ScaleTransform ScaleX="0.66"/>
-                                                                </controls:TextPath.LayoutTransform>
-                                                                <controls:TextPath.RenderTransform>
-                                                                    <TranslateTransform X="0" Y="-4" />
-                                                                </controls:TextPath.RenderTransform>
-                                                                <controls:TextPath.Style>
-                                                                    <Style TargetType="controls:TextPath">
-                                                                        <Setter Property="Fill" Value ="White"/>
-                                                                        <Setter Property="Stroke" Value ="Black"/>
-                                                                        <Setter Property="IsHitTestVisible" Value="False"/>
-                                                                        <Style.Triggers>
-                                                                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                                                <Setter Property="Fill" Value="Red"/>
-                                                                                <Setter Property="Stroke" Value="Yellow"/>
-                                                                            </DataTrigger>
-                                                                        </Style.Triggers>
-                                                                    </Style>
-                                                                </controls:TextPath.Style>
-                                                            </controls:TextPath>
+                                                            <StackPanel HorizontalAlignment="Center"
+                                                                        VerticalAlignment="Center"
+                                                                        Margin="0 0 0 18"
+                                                                        Orientation="Horizontal">
+                                                                <!-- Larger text for value -->
+                                                                <controls:TextPath FontSize="48"
+                                                                                   Style="{StaticResource DenomTextStyle}"
+                                                                                   Text="{Binding DenomText}" />
+                                                                <!-- Smaller text for denom symbol -->
+                                                                <controls:TextPath FontSize="24"
+                                                                                   Margin="3 0 0 -4"
+                                                                                   Style="{StaticResource DenomTextStyle}"
+                                                                                   Text="{Binding DenomSymbol}" />
+                                                            </StackPanel>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
                                         </Grid>
-                                    </Viewbox>
+                                    </Grid>
                                 </Grid>
-                            </Border>
-                        </Viewbox>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-            <!-- Lightning link grand banner that appears at the top of the page -->
-            <Viewbox x:Name="LightningLinkGrandBanner"
-                     Width="{Binding ElementName=LightningLinkGrandBannerImage, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}"
-                     Stretch="Uniform" Grid.Row="1" Grid.Column="1"
-                     HorizontalAlignment="Center" VerticalAlignment="Top">
-                <Viewbox.Visibility>
-                    <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
-                        <Binding Source="{StaticResource TrueValue}"/> <!-- Is banner positioned as pool for all games -->
-                        <Binding Path="ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled"/>
-                        <Binding Path="IsExtraLargeGameIconTabActive"/>
-                        <Binding Source="{StaticResource TrueValue}"/>
-                    </MultiBinding>
-                </Viewbox.Visibility>
-                <Grid Margin="0 110 0 0">
-                    <Image x:Name="LightningLinkGrandBannerImage" gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkGrand}"/>
-                    <ItemsControl
-                        FocusVisualStyle="{x:Null}"
-                        ItemsSource="{Binding ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneAmount}"
-                        HorizontalAlignment="Center" VerticalAlignment="Top"
-                        Margin="0 42 0 0">
+                    <!-- Combined animated jackpot banners -->
+                    <bink:BinkViewerControl Grid.Column="1"
+                                            Grid.Row="1"
+                                            Grid.RowSpan="2"
+                                            Margin="0 120 2 0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Stretch="None"
+                                            IsHitTestVisible="False"
+                                            Filename="{DynamicResource LobbyJackpotMeters}"
+                                            Visibility="{Binding IsJackpotBannerVisible, Converter={StaticResource BoolToVisConverter}}"/>
+
+                    <!-- Grand jackpot text -->
+                    <ItemsControl Grid.Column="1"
+                                  Grid.Row="1"
+                                  Margin="200 210 0 0"
+                                  FocusVisualStyle="{x:Null}"
+                                  ItemsSource="{Binding ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneAmount}"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top"
+                                  Visibility="{Binding IsJackpotBannerVisible, Converter={StaticResource BoolToVisConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <controls:ResizingStackPanel Orientation="Horizontal" Padding="100 0 100 0"
+                                <controls:ResizingStackPanel Orientation="Horizontal"
                                                              HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                             Width="{Binding Path=ActualWidth, ElementName=LightningLinkGrandBannerImage}"/>
+                                                             Width="430"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Image Stretch="UniformToFill" Height="86"
-                                       Margin="{Binding ., Converter={StaticResource CommaMarginConv}, ConverterParameter={StaticResource LightningLinkGrandCommaShiftMargin}}"
+                                <Image Stretch="Uniform" Height="60"
                                        Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkGrand}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </Grid>
-            </Viewbox>
 
-            <!-- Lightning link major that can appear below the grand banner -->
-            <Viewbox x:Name="LightningLinkMajorBanner" 
-                     Stretch="Uniform" Grid.Row="1" Grid.Column="1"
-                     HorizontalAlignment="Center" VerticalAlignment="Top"
-                     Width="{Binding ElementName=LightningLinkMajorBannerImage, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}">
-                <Viewbox.Visibility>
-                    <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
-                        <Binding Source="{StaticResource TrueValue}"/> <!-- Is banner positioned as pool for all games -->
-                        <Binding Path="ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled"/>
-                        <Binding Path="IsExtraLargeGameIconTabActive"/>
-                        <Binding Source="{StaticResource TrueValue}"/> <!-- HasProgressiveLabelDisplay -->
-                    </MultiBinding>
-                </Viewbox.Visibility>
-                <Grid Margin="0 260 0 0">
-                    <Image x:Name="LightningLinkMajorBannerImage"
-                           HorizontalAlignment="Center" VerticalAlignment="Top"
-                           gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}" />
-                    <ItemsControl
-                        FocusVisualStyle="{x:Null}"
-                        Margin="0 44 0 0"
-                        ItemsSource="{Binding Path=ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoAmount}"
-                        HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <!-- Major jackpot text -->
+                    <ItemsControl Grid.Column="1"
+                                  Grid.Row="1"
+                                  Margin="670 210 0 0"
+                                  FocusVisualStyle="{x:Null}"
+                                  ItemsSource="{Binding Path=ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoAmount}"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top"
+                                  Visibility="{Binding IsJackpotBannerVisible, Converter={StaticResource BoolToVisConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <controls:ResizingStackPanel Orientation="Horizontal" Padding="70 0 70 0"
+                                <controls:ResizingStackPanel Orientation="Horizontal"
                                                              HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                             Width="{Binding Path=ActualWidth, ElementName=LightningLinkMajorBannerImage}"/>
+                                                             Width="362"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Image Stretch="UniformToFill" Height="62"
-                                       Margin="{Binding ., Converter={StaticResource CommaMarginConv}, ConverterParameter={StaticResource LightningLinkMajorCommaShiftMargin}}"
+                                <Image Stretch="UniformToFill" Height="60"
                                        Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkMajor}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </Grid>
-            </Viewbox>
 
-            <!-- Message saying to select a denom from under the extra large game icon height: 44/88-->
-            <Viewbox Stretch="Uniform" Grid.Row="1" Grid.Column="1"
-                     Width="{Binding ElementName=TouchScreenToMakeSelectionImage, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}"
-                     VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                     Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource BoolToVisConverter}}">
-                <Image x:Name="TouchScreenToMakeSelectionImage" common:ImageHelper.SourceResourceKey="TouchScreenToMakeSelection"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Margin="0 6 0 -18"/>
-            </Viewbox>
+                    <!-- Bottom denomination buttons shared with all games on page -->
+                    <ItemsControl x:Name="MultiGameDenominationControl" 
+                                  Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                  ItemsSource="{Binding GameTabInfo.Denominations}"
+                                  VerticalAlignment="Bottom" HorizontalAlignment="Center" 
+                                  Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource BoolToCollapsedConverter}}"
+                                  Margin="0 0 0 50">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
+                                <Viewbox Stretch="Uniform">
+                                    <Grid>
+                                        <Image common:ImageHelper.SourceResourceKey="{Binding DenomButtonSharedKey}"
+                                               Stretch="Uniform"
+                                               Grid.Column="0" Grid.Row="0">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.DenominationPressedCommand, ElementName=MultiGameDenominationControl}"
+                                                                           CommandParameter="{Binding}"  />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Image>
+                                        <StackPanel HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 0 0 20"
+                                                    Orientation="Horizontal">
+                                            <!-- Larger text for value -->
+                                            <controls:TextPath FontSize="50"
+                                                               Style="{StaticResource SharedDenomTextStyle}"
+                                                               Text="{Binding DenomText}"/>
+                                            <!-- Smaller text for denom symbol -->
+                                            <controls:TextPath Margin="3 0 0 -4"
+                                                               Style="{StaticResource SharedDenomTextStyle}"
+                                                               Text="{Binding DenomSymbol}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Viewbox>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-            <ItemsControl x:Name="MultiGameDenominationControl" 
-                          Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3"
-                          ItemsSource="{Binding GameTabInfo.Denominations}" 
-                          Height="{Binding GameControlHeight, Converter={StaticResource DenomIconHeightConv}}"
-                          VerticalAlignment="Bottom" HorizontalAlignment="Center" 
-                          Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource BoolToCollapsedConverter}}"
-                          Margin="{Binding Path=MarginInputs, Converter={StaticResource MarginConverter}, ConverterParameter=DenomLargeScreenLayout}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
+                    <!-- Notification/banner text -->
+                    <Grid Grid.Row="3"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Margin="19 0 20 8">
+                        <lobby:LobbyBannerView />
+                        <Viewbox HorizontalAlignment="Left">
+                            <Border Background="#FF000000"
+                                    HorizontalAlignment="Left"
+                                    BorderThickness="0"
+                                    CornerRadius="10"
+                                    Padding="8,4,8,4"
+                                    Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding PaidMeterLabel}"
+                                           FontSize="30"
+                                           FontFamily="Impact"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                                    <Label Content="{Binding PaidMeterValue}"
+                                           FontSize="30"
+                                           Padding="1,5,5,5"
+                                           FontFamily="Impact"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Viewbox>
+
+                        <Viewbox HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Border Background="#FF000000"
+                                    BorderThickness="0"
+                                    CornerRadius="6"
+                                    Margin="0,4,0,4"
+                                    Padding="4,0,4,0"
+                                    Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
+                                <Label Content="{Binding CurrentNotificationText}"
+                                       FontSize="16"
+                                       FontFamily="Impact"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            </Border>
+                        </Viewbox>
+                    </Grid>
+
+                    <!--UPI should be in a viewbox to scale entire user control correctly-->
+                    <!--Setting Margin to match old UPI sizing for Responsible Gaming Overlays-->
+                    <Viewbox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="19 2 19 0">
                         <Grid>
-                            <Image common:ImageHelper.SourceResourceKey="{Binding DenomBackground}"
-                                   Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
-                                   Stretch="Uniform"
-                                   Grid.Column="0" Grid.Row="0">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                        <i:InvokeCommandAction Command="{Binding DataContext.DenominationPressedCommand, ElementName=MultiGameDenominationControl }" CommandParameter="{Binding}"  />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Image>
-                            <Viewbox MaxWidth="80" Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="0" Grid.Row="0" IsHitTestVisible="False">
-                                <controls:TextPath
-                                    Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
-                                    HorizontalAlignment="Center"
-                                    FontFamily="Impact" FontWeight="Bold"
-                                    StrokeThickness="2.0"
-                                    Text="{Binding DenomText}">
-                                    <controls:TextPath.FontSize>
-                                        <MultiBinding Converter="{StaticResource DenomIconFontSizeConv}">
-                                            <Binding Path="DataContext.GameControlHeight" ElementName="GameList"/>
-                                            <Binding Path="DataContext.IsExtraLargeGameIconTabActive" ElementName="GameList" />
-                                        </MultiBinding>
-                                    </controls:TextPath.FontSize>
-                                    <controls:TextPath.Effect>
-                                        <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="4" />
-                                    </controls:TextPath.Effect>
-                                    <controls:TextPath.RenderTransform>
-                                        <TranslateTransform X="0" Y="-4" />
-                                    </controls:TextPath.RenderTransform>
-                                    <controls:TextPath.Style>
-                                        <Style TargetType="controls:TextPath">
-                                            <Setter Property="Fill" Value ="LightBlue"></Setter>
-                                            <Setter Property="Stroke" Value ="Black"></Setter>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                                    <Setter Property="Fill" Value="Red"/>
-                                                    <Setter Property="Stroke" Value="Yellow"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </controls:TextPath.Style>
-                                </controls:TextPath>
-                            </Viewbox>
+                            <lobby:StandardUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                            <lobby:MultiLanguageUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource BoolToVisConverter}}"/>
                         </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <Grid Grid.Row="2"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="3"
-                  Margin="19 0 20 8">
-                <lobby:LobbyBannerView />
-                <Viewbox HorizontalAlignment="Left">
-                    <Border Background="#FF000000"
-                            HorizontalAlignment="Left"
-                            BorderThickness="0"
-                            CornerRadius="10"
-                            Padding="8,4,8,4"
-                            Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{Binding PaidMeterLabel}"
-                                   FontSize="30"
-                                   FontFamily="Impact"
-                                   Foreground="White"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                            <Label Content="{Binding PaidMeterValue}"
-                                   FontSize="30"
-                                   Padding="1,5,5,5"
-                                   FontFamily="Impact"
-                                   Foreground="White"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Border>
-                </Viewbox>
-
-                <Viewbox HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <Border Background="#FF000000"
-                            BorderThickness="0"
-                            CornerRadius="6"
-                            Margin="0,4,0,4"
-                            Padding="4,0,4,0"
-                            Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource BoolToVisHiddenConverter}}">
-                        <Label Content="{Binding CurrentNotificationText}"
-                               FontSize="16"
-                               FontFamily="Impact"
-                               Foreground="White"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
-                    </Border>
-                </Viewbox>
-            </Grid>
-
-            <!--**** SEPARATOR ****
-                 
-                 <Rectangle Grid.Row="2" Margin="0 10 0 0"  Width="{Binding ElementName=LayoutRoot, Path=ActualWidth}" Height="30" Opacity="0.25" Fill="Gray"/>
-                 <Label Grid.Row="2" Content="{Binding MainMessage}" FontSize="24" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
-                 
-                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                 <Button Command="{Binding Path=PrevPageCommand}" MinWidth="40" MinHeight="40">
-                 <Button.Content>
-                 <Polygon Points="0,12 12,0 12,24" Stroke="SteelBlue" StrokeThickness="1" Fill="SteelBlue"/>
-                 </Button.Content>
-                 </Button>
-                 <Label Content="{Binding DisplayedPageNumber}" Foreground="White" FontSize="16"></Label>
-                 <Button Command="{Binding Path=NextPageCommand}" MinWidth="40" MinHeight="40">
-                 <Button.Content>
-                 <Polygon Points="12,12 0,0 0,24" Stroke="SteelBlue" StrokeThickness="1" Fill="SteelBlue"/>
-                 </Button.Content>
-                 </Button>
-                 </StackPanel>
-            -->
-
-            <!--UPI should be in a viewbox to scale entire user control correctly-->
-            <!--Setting Margin to match old UPI sizing for Responsible Gaming Overlays-->
-            <Viewbox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="19 2 19 0">
-                <Grid>
-                    <lobby:StandardUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                    <lobby:MultiLanguageUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+                    </Viewbox>
                 </Grid>
             </Viewbox>
         </Grid>

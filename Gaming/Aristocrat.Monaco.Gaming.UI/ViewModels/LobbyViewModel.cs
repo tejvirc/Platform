@@ -567,7 +567,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// <summary>
         ///     Is the current tab hosting extra large game icons
         /// </summary>
-        public bool IsExtraLargeGameIconTabActive => GameTabInfo.SelectedCategory == GameCategory.LightningLink;
+        public bool IsExtraLargeGameIconTabActive => IsTabView && GameTabInfo.SelectedCategory == GameCategory.LightningLink;
+
+        /// <summary>
+        ///     Is the combined jackpot banner visible
+        /// </summary>
+        public bool IsJackpotBannerVisible => IsExtraLargeGameIconTabActive &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled;
 
         /// <summary>
         ///     Gets the game selected command
@@ -2057,7 +2064,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                   ThemeId = game.ThemeId,
                                   IsNew = GameIsNew(game.GameTags),
                                   Category = game.Category,
-                                  SubCategory = game.SubCategory
+                                  SubCategory = game.SubCategory,
+                                  DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                                  DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel
                               }).ToList();
 
             return new ObservableCollection<GameInfo>(
@@ -3753,6 +3762,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RaisePropertyChanged(nameof(IsSingleTabView));
             RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
             RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+            RaisePropertyChanged(nameof(IsJackpotBannerVisible));
         }
 
         private void SelectFirstDisplayedGame()
@@ -5156,7 +5166,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 UseSmallIcons = UseSmallIcons,
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
-                IsNew = GameIsNew(game.GameTags)
+                IsNew = GameIsNew(game.GameTags),
+                DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel
             };
         }
 

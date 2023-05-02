@@ -16,12 +16,10 @@
         {
             if (value is GameGridMarginInputs inputs)
             {
-                var scaleBy = inputs.GameWindowHeight / ScaleUtility.BaseScreenHeight;
-
                 // Lobby Icon ImageHeight. Affects the height of the icon art
                 var iconHeight = inputs.ExtraLargeIconLayout ? inputs.GameIconSize.Height : IconHeight;
                 var size = inputs.TabView
-                    ? iconHeight * scaleBy
+                    ? iconHeight
                     : double.NaN;
 
                 if (inputs.GameCount > 8 && inputs.SubTabVisible)

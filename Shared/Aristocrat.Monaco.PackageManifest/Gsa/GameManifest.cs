@@ -110,7 +110,7 @@
         {
             var betOptionList = new BetOptionList(gameInfo.Item?.betOption);
             BetOption activeBetOption = null;
-            
+
             var lineOptionList = new LineOptionList(gameInfo.lineOptionList?.lineOption);
             LineOption activeLineOption = null;
 
@@ -166,8 +166,8 @@
             {
                 ThemeId = gameInfo.themeId,
                 PaytableId = gameInfo.paytableId,
-                MaxPaybackPercent = (long) gameInfo.maxPaybackPct,
-                MinPaybackPercent = (long) gameInfo.minPaybackPct,
+                MaxPaybackPercent = gameInfo.maxPaybackPct,
+                MinPaybackPercent = gameInfo.minPaybackPct,
                 DisplayMeterName = gameInfo.displayMeterName,
                 AssociatedSapDisplayMeterName = gameInfo.associatedSapDisplayMeterName,
                 InitialValue = gameInfo.initialValue,
@@ -181,7 +181,7 @@
                 CentralInfo = gameInfo.cdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>(),
                 VariationId = gameInfo.variationId ?? GetVariationFromPaytableId(gameInfo.paytableId),
                 GameType = gameInfo.gameTypeSpecified ? gameInfo.gameType : t_gameType.Slot,
-                GameSubtype =  gameInfo.gameSubtype,
+                GameSubtype = gameInfo.gameSubtype,
                 BetOptionList = betOptionList,
                 ActiveBetOption = activeBetOption,
                 LineOptionList = lineOptionList,
@@ -191,14 +191,14 @@
                 MaximumProgressivePerDenom = gameInfo.maxProgPerDenomSpecified ? gameInfo.maxProgPerDenom : (int?)null,
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
                 Category = gameInfo.categorySpecified ? gameInfo.category : (t_category?)null,
-                SubCategory = gameInfo.subCategorySpecified ?  gameInfo.subCategory : (t_subCategory?)null,
+                SubCategory = gameInfo.subCategorySpecified ? gameInfo.subCategory : (t_subCategory?)null,
                 Features = gameInfo.FeatureList?.Where(feature => feature.StatInfo != null)
                     .Select(feature => new Feature
-                {
-                    Name = feature.Name,
-                    Enable = feature.Enabled,
-                    StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
-                }).ToList(),
+                    {
+                        Name = feature.Name,
+                        Enable = feature.Enabled,
+                        StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
+                    }).ToList(),
                 NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
                 PlatformTarget = gameInfo.platformTarget,
                 MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
@@ -226,6 +226,12 @@
                 case "PKG_BACKGROUNDPREVIEW":
                     gfxType = GraphicType.BackgroundPreview;
                     break;
+                case "PKG_DENOMBUTTON":
+                    gfxType = GraphicType.DenomButton;
+                    break;
+                case "PKG_DENOMPANEL":
+                    gfxType = GraphicType.DenomPanel;
+                    break;
                 default:
                     gfxType = GraphicType.Icon;
                     break;
@@ -249,21 +255,21 @@
         private static ImageEncodingType MapEncodingType(string value)
         {
             return (from ImageEncodingType type in Enum.GetValues(typeof(ImageEncodingType))
-                let converted = type.ToString()
-                where
-                    converted.Equals(value.Replace(@"PKG_", string.Empty), StringComparison.InvariantCultureIgnoreCase)
-                select type).FirstOrDefault();
+                    let converted = type.ToString()
+                    where
+                        converted.Equals(value.Replace(@"PKG_", string.Empty), StringComparison.InvariantCultureIgnoreCase)
+                    select type).FirstOrDefault();
         }
 
         private static WagerCategory Map(c_wagerCategoryItem wagerCategory)
         {
             return new WagerCategory
             {
-                Id = wagerCategory.wagerCategory.ToString(),
+                Id = wagerCategory.wagerCategory,
                 MaxWagerCredits = wagerCategory.maxWagerCredits,
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
-                TheoPaybackPercent = (long) wagerCategory.theoPaybackPct,
+                TheoPaybackPercent = wagerCategory.theoPaybackPct,
             };
         }
 
@@ -376,7 +382,7 @@
                 MaxPaybackPercent = gameConfiguration.maxPaybackPct,
                 MinPaybackPercent = gameConfiguration.minPaybackPct,
                 MinDenomsEnabled = gameConfiguration.minDenomsEnabled,
-                MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?) null,
+                MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?)null,
                 Editable = gameConfiguration.editable,
                 ConfigurationMapping = gameConfiguration.configurationMapList?.Select(Map).ToList() ?? new List<GameConfigurationMap>()
             };

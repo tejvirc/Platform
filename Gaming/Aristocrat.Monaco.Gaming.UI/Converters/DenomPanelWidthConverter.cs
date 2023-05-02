@@ -9,8 +9,6 @@
 
     internal class DenomPanelWidthConverter : IMultiValueConverter
     {
-        private readonly double _scaleBy = ScaleUtility.GetScale();
-
         /// <summary>
         ///     Covert multiple parameters to form the element width
         /// </summary>
@@ -24,8 +22,6 @@
             var denominations = (ObservableCollection<DenominationInfoViewModel>)values[0]; // Denominations
             var margin = (Thickness)values[1]; // ExtraLargeGameIconDenomIconMargin
             var iconWidth = (double)values[2]; // ExtraLargeGameIconDenomIconWidth
-            var scale = (bool)values[3]; // scale by resolution
-            var extraPadding = (bool)values[4]; // add more width, done for the viewbox in order to wrap the icons equally on the top and sides
 
             // Calculate the width from the number of denoms
             var width = denominations.Count == 0
@@ -35,13 +31,8 @@
             // Account for the margins on each denom
             var marginWidth = denominations.Count * 2 * margin.Left;
 
-            // Add additional width if required
-            var moreWidth = extraPadding ? 2 * margin.Left : 0;
-
             // Scale if required
-            var newWidth = scale
-                ? (width + marginWidth + moreWidth) * _scaleBy
-                : width + marginWidth + moreWidth;
+            var newWidth = width + marginWidth;
 
             return newWidth;
         }

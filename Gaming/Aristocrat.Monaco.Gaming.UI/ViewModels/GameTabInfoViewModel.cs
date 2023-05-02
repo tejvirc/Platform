@@ -156,7 +156,7 @@
         {
             Denominations.Clear();
             Denominations.AddRange(
-                denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x) { IsVisible = true }));
+                denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x)));
             SetSelectedDenomination(Denominations.FirstOrDefault(), false);
         }
 
@@ -242,13 +242,12 @@
 
         public void IncrementSelectedDenomination()
         {
-            var visibleDenominations = Denominations.Where(o => o.IsVisible).ToList();
-            var selectedDenomination = visibleDenominations.FirstOrDefault(o => o.IsSelected);
+            var selectedDenomination = Denominations.FirstOrDefault(o => o.IsSelected);
             if (selectedDenomination != null)
             {
-                var currentIndex = visibleDenominations.IndexOf(selectedDenomination);
-                currentIndex = (currentIndex + 1) % visibleDenominations.Count;
-                SetSelectedDenomination(visibleDenominations[currentIndex]);
+                var currentIndex = Denominations.IndexOf(selectedDenomination);
+                currentIndex = (currentIndex + 1) % Denominations.Count;
+                SetSelectedDenomination(Denominations[currentIndex]);
             }
         }
 

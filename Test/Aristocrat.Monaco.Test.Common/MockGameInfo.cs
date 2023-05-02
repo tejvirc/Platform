@@ -193,19 +193,19 @@
         {
             var gameDetail = new List<IGameDetail>();
 
-            
+
             foreach (var (item1, item2, item3, item4, item5, _) in GameDetails)
             {
                 var localeGraphics = new Dictionary<string, ILocaleGameGraphics>();
                 var gameGraphics = new MockLocalGameGraphics
-                 {
-                     LocaleCode = "en-us",
-                     TopperAttractVideo = "en_Topper_Attract_Video",
-                     TopAttractVideo = "en_Top_Attract_Video",
-                     BottomAttractVideo = "en_Bottom_Attract_Video",
-                 };
-                 localeGraphics.Add(gameGraphics.LocaleCode, gameGraphics);
-                 
+                {
+                    LocaleCode = "en-us",
+                    TopperAttractVideo = "en_Topper_Attract_Video",
+                    TopAttractVideo = "en_Top_Attract_Video",
+                    BottomAttractVideo = "en_Bottom_Attract_Video",
+                };
+                localeGraphics.Add(gameGraphics.LocaleCode, gameGraphics);
+
                 gameDetail.Add(
                     new MockGameInfo
                     {
@@ -237,7 +237,7 @@
         {
             var locales = MockLocalGraphics;
             var gameGraphics = new Dictionary<string, ILocaleGameGraphics>();
-            
+
             foreach (var locale in locales)
             {
                 var graphics = new MockLocalGameGraphics
@@ -249,7 +249,7 @@
                 };
                 gameGraphics.Add(locale, graphics);
             }
-            
+
             return gameGraphics;
         }
 
@@ -277,6 +277,10 @@
         public string LargeTopPickIcon { get; set; }
 
         public string SmallTopPickIcon { get; set; }
+
+        public string DenomButtonIcon { get; set; }
+
+        public string DenomPanel { get; set; }
 
         public string TopAttractVideo { get; set; }
 

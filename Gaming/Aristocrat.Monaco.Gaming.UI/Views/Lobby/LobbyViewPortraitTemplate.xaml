@@ -31,7 +31,6 @@
   <common:BoolToVisibilityConverter x:Key="BoolToVisibleFalseHidden" TrueValue="Visible" FalseValue="Hidden" />
   <common:BoolToVisibilityConverter x:Key="BoolToCollapsed" TrueValue="Collapsed" FalseValue="Visible" />
   <common:BoolToVisibilityConverter x:Key="BoolToHidden" TrueValue="Hidden" FalseValue="Visible" />
-  <converters:AttractActiveToVisibilityConverter x:Key="AttractToVisibilityConv" />
   <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv"/>
   <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
   <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True"/>

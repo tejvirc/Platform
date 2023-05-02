@@ -4,43 +4,45 @@
                     xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                     xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters">
 
-	<BitmapImage x:Key="GameTab1" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab1.png" />
-	<BitmapImage x:Key="GameTab2" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab2.png" />
-	<BitmapImage x:Key="GameTab3" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab3.png" />
-	<BitmapImage x:Key="GameTab4" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab4.png" />
-	<BitmapImage x:Key="GameTab5" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab5.png" />
-	<BitmapImage x:Key="GameTab6" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab6.png" />
-	<BitmapImage x:Key="GameTab1Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab1Disabled.png" />
-	<BitmapImage x:Key="GameTab2Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab2Disabled.png" />
-	<BitmapImage x:Key="GameTab3Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab3Disabled.png" />
-	<BitmapImage x:Key="GameTab4Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab4Disabled.png" />
-	<BitmapImage x:Key="GameTab5Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab5Disabled.png" />
-	<BitmapImage x:Key="GameTab6Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab6Disabled.png" />
-	<BitmapImage x:Key="TabBlackjack" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabBlackjack.png" />
-	<BitmapImage x:Key="TabKeno" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabKeno.png" />
-	<BitmapImage x:Key="TabSlot" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlots.png" />
-	<BitmapImage x:Key="TabPoker" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPoker.png" />
-	<BitmapImage x:Key="TabRoulette" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabRoulette.png" />
-	<BitmapImage x:Key="TabTable" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabTable.png" />
-	<BitmapImage x:Key="TabLightningLink" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabLightningLink.png" />
-	<BitmapImage x:Key="TabMultiDrawPoker" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabMultiDrawPoker.png" />
-	<BitmapImage x:Key="TabBlackjackDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabBlackjackDisabled.png" />
-	<BitmapImage x:Key="TabKenoDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabKenoDisabled.png" />
-	<BitmapImage x:Key="TabSlotDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlotsDisabled.png" />
-	<BitmapImage x:Key="TabPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPokerDisabled.png" />
-	<BitmapImage x:Key="TabRouletteDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabRouletteDisabled.png" />
-	<BitmapImage x:Key="TabTableDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabTableDisabled.png" />
-	<BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabStormingJackpotsDisabled.png" />
-	<BitmapImage x:Key="TabMultiDrawPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabMultiDrawPokerDisabled.png" />
-	<BitmapImage x:Key="GameSelectedOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Game_Title_On.png" />
-	<BitmapImage x:Key="ProgressiveOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Progressive Meter_Frame.png" />
-	<BitmapImage x:Key="ProgressiveBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Blue_bg.png" />
-	<BitmapImage x:Key="ProgressiveSelectedBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Red_bg.png" />
-	<BitmapImage x:Key="GameSelectedWithProgressivesOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Progressive_meter_active.png" />
+    <BitmapImage x:Key="GameTab1" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab1.png" />
+    <BitmapImage x:Key="GameTab2" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab2.png" />
+    <BitmapImage x:Key="GameTab3" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab3.png" />
+    <BitmapImage x:Key="GameTab4" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab4.png" />
+    <BitmapImage x:Key="GameTab5" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab5.png" />
+    <BitmapImage x:Key="GameTab6" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab6.png" />
+    <BitmapImage x:Key="GameTab1Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab1Disabled.png" />
+    <BitmapImage x:Key="GameTab2Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab2Disabled.png" />
+    <BitmapImage x:Key="GameTab3Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab3Disabled.png" />
+    <BitmapImage x:Key="GameTab4Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab4Disabled.png" />
+    <BitmapImage x:Key="GameTab5Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab5Disabled.png" />
+    <BitmapImage x:Key="GameTab6Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/GameTab6Disabled.png" />
+    <BitmapImage x:Key="TabBlackjack" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabBlackjack.png" />
+    <BitmapImage x:Key="TabKeno" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabKeno.png" />
+    <BitmapImage x:Key="TabSlot" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlot.png" />
+    <BitmapImage x:Key="TabPoker" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPoker.png" />
+    <BitmapImage x:Key="TabRoulette" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabRoulette.png" />
+    <BitmapImage x:Key="TabTable" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabTable.png" />
+    <BitmapImage x:Key="TabLightningLink" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabLightningLink.png" />
+    <BitmapImage x:Key="TabMultiDrawPoker" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabMultiDrawPoker.png" />
+    <BitmapImage x:Key="TabBlackjackDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabBlackjackDisabled.png" />
+    <BitmapImage x:Key="TabKenoDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabKenoDisabled.png" />
+    <BitmapImage x:Key="TabSlotDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlotDisabled.png" />
+    <BitmapImage x:Key="TabPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPokerDisabled.png" />
+    <BitmapImage x:Key="TabRouletteDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabRouletteDisabled.png" />
+    <BitmapImage x:Key="TabTableDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabTableDisabled.png" />
+    <BitmapImage x:Key="TabLightningLinkDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabLightningLinkDisabled.png" />
+    <BitmapImage x:Key="TabMultiDrawPokerDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabMultiDrawPokerDisabled.png" />
+    <BitmapImage x:Key="GameSelectedOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Game_Title_On.png" />
+    <BitmapImage x:Key="ProgressiveOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Progressive Meter_Frame.png" />
+    <BitmapImage x:Key="ProgressiveBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Blue_bg.png" />
+    <BitmapImage x:Key="ProgressiveSelectedBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Red_bg.png" />
+    <BitmapImage x:Key="GameSelectedWithProgressivesOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/Progressive_meter_active.png" />
 
 	<BitmapImage x:Key="LightningLinkGrand" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/lightning_link_grand.gif" />
 	<BitmapImage x:Key="LightningLinkMajor" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/lightning_link_major.gif" />
 	<BitmapImage x:Key="LightningLinkMajorMinorMini" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/lightning_link_major_minor_mini.gif" />
+
+    <sys:String x:Key="LobbyJackpotMeters">../jurisdiction/DefaultAssets/ui/Videos/LobbyJackpotMeters.bk2</sys:String>
 
 	<BitmapImage x:Key="LightningLinkGrandChar0" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0030.png" />
 	<BitmapImage x:Key="LightningLinkGrandChar1" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_GRAND/U+0031.png" />
@@ -138,7 +140,6 @@
 	<BitmapImage x:Key="DenominationPanelLeft" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Denominations/denom_panel_left.png" />
 	<BitmapImage x:Key="DenominationPanelMid" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Denominations/denom_panel_mid.png" />
 	<BitmapImage x:Key="DenominationPanelRight" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Denominations/denom_panel_right.png" />
-	<BitmapImage x:Key="TouchScreenToMakeSelection" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Denominations/Touch_Screen.png" />
 
 	<BitmapImage x:Key="SubTabNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/SubTabs/SubTab_Normal.png" />
 	<BitmapImage x:Key="SubTabSelected" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/SubTabs/SubTab_Selected.png" />

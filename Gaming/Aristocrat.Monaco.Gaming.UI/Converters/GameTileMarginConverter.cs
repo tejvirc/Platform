@@ -8,7 +8,6 @@
     internal class GameTileMarginConverter : IMultiValueConverter
     {
         private const double LowerMarginShift = -100;
-        private readonly double _scaleBy = ScaleUtility.GetScale();
 
         /// <summary>
         ///     Covert a parameter to form the margin for the game tile
@@ -35,14 +34,14 @@
             {
                 // Note: pulling out the lower margin by 100 gives plenty of room for the controls to not be cut off.
                 // At this point if the game icon gets any bigger it will not look right anyway
-                return new Thickness(0, 0, 0, LowerMarginShift * _scaleBy);
+                return new Thickness(0, 0, 0, LowerMarginShift);
             }
 
             // Handle case where there is a single major banner beneath the grand banner
             if (isLevelForMultipleGames)
             {
                 const double shiftUpAmount = -60.0;
-                return new Thickness(0, shiftUpAmount * _scaleBy, 0, LowerMarginShift * _scaleBy);
+                return new Thickness(0, shiftUpAmount, 0, LowerMarginShift);
             }
 
             return new Thickness();

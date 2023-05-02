@@ -6,13 +6,17 @@
     using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Linq;
+    using System.Reflection;
+    using System.Windows;
     using Contracts;
     using Contracts.Models;
     using Kernel;
+    using log4net;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
     using MVVM.Model;
     using ViewModels;
+    using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
     using Size = System.Windows.Size;
 
     /// <summary>
@@ -21,6 +25,11 @@
     [CLSCompliant(false)]
     public class GameInfo : BaseNotify, IGameInfo, IAttractDetails
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        // Default resource key for denomination button panel
+        private const string DenomPanelDefaultKey = "DenominationPanel";
+
         private string _attractHighlightVideoPath = string.Empty;
         private string _bottomAttractVideoPath = string.Empty;
         private long _denom = 1;
@@ -35,6 +44,10 @@
         private bool _isSelected;
         private bool _hasProgressiveOrBonusValue;
         private string _imagePath;
+        private string _denomButtonPath;
+        private string _denomButtonResourceKey;
+        private string _denomPanelPath;
+        private DenominationInfoViewModel _selectedDenomination;
 
         // Used to determine if "new" game.  For example, a requirement is that
         // we want to overlay a "new" icon over a game if it has been added in
@@ -45,7 +58,7 @@
         private string _loadingScreenPath = string.Empty;
 
         private string _name;
-
+        private Size _gameIconSize = Size.Empty;
         private bool _platinumSeries;
 
         private string _progressiveOrBonusValue;
@@ -93,8 +106,6 @@
                 }
             }
         }
-
-        private Size _gameIconSize = Size.Empty;
 
         public Size GameIconSize
         {
@@ -148,8 +159,6 @@
         ///     Gets or sets the game image path
         /// </summary>
         public string TopPickImagePath;
-
-        private DenominationInfoViewModel _selectedDenomination;
 
         /// <summary>
         ///     Gets or sets the top screen attract video path
@@ -298,6 +307,86 @@
             }
         }
 
+        private string ThemeKey => $"{ThemeId}_{GameId}";
+
+        public string DenomButtonPath
+        {
+            get => _denomButtonPath;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || _denomButtonPath == value)
+                {
+                    return;
+                }
+
+                var key = $"{ThemeKey}_Button";
+                if (Application.Current.Resources.Contains(key))
+                {
+                    return;
+                }
+
+                _denomButtonPath = value;
+
+                try
+                {
+                    // Add the bitmap to the resource dictionary so it can be accessed by key with ImageHelper
+                    var uri = new Uri(_denomButtonPath, UriKind.Absolute);
+                    Application.Current.Resources.Add(key, new BitmapImage(uri));
+                    _denomButtonResourceKey = key;
+
+                    foreach (var denom in Denominations)
+                    {
+                        denom.DenomButtonSingleOffOverride = _denomButtonResourceKey;
+                    }
+
+                    Logger.Debug($"{_denomButtonResourceKey} added to resources for custom denom button at path {_denomButtonPath}");
+                }
+                catch (Exception ex)
+                {
+                    _denomButtonResourceKey = null;
+                    Logger.Warn($"Failed to set bitmap image at path {_denomButtonPath}", ex);
+                }
+            }
+        }
+
+        public bool HasCustomDenomPanel => !string.IsNullOrWhiteSpace(DenomPanelKey);
+
+        public string DenomPanelPath
+        {
+            get => _denomPanelPath;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || _denomPanelPath == value)
+                {
+                    return;
+                }
+
+                var key = $"{ThemeKey}_Panel";
+                if (Application.Current.Resources.Contains(key))
+                {
+                    return;
+                }
+
+                _denomPanelPath = value;
+
+                try
+                {
+                    // Add the bitmap to the resource dictionary so it can be accessed by key with ImageHelper
+                    var uri = new Uri(_denomPanelPath, UriKind.Absolute);
+                    Application.Current.Resources.Add(key, new BitmapImage(uri));
+                    DenomPanelKey = key;
+                    Logger.Debug($"{DenomPanelKey} added to resources for custom denom panel at path {_denomPanelPath}");
+                }
+                catch (Exception ex)
+                {
+                    DenomPanelKey = null;
+                    Logger.Warn($"Failed to set bitmap image at path {_denomPanelPath}", ex);
+                }
+            }
+        }
+
+        public string DenomPanelKey { get; private set; }
+
         /// <summary>
         ///     Gets or sets the denomination
         /// </summary>
@@ -342,7 +431,12 @@
         public void SetDenominations(IEnumerable<long> denominations)
         {
             Denominations.Clear();
-            Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x) { IsVisible = true }));
+            Denominations.AddRange(
+                denominations.OrderBy(x => x).Select(
+                    x => new DenominationInfoViewModel(x)
+                    {
+                        DenomButtonSingleOffOverride = _denomButtonResourceKey
+                    }));
 
             // Start with all denoms unselected so it doesn't look weird on machines without the VBD denom switching
             SelectedDenomination = null;
@@ -515,23 +609,51 @@
         public string ThemeId { get; set; }
 
         /// <summary>
-        ///     Theme position priority key of the game
+        ///     Holds the game category
         /// </summary>
-        public string PositionPriorityKey { get; set; }
+        public GameCategory Category
+        {
+            get => _category;
+
+            set
+            {
+                if (_category != value)
+                {
+                    _category = value;
+                    RaisePropertyChanged(nameof(Category));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Holds the game subcategory
+        /// </summary>
+        public GameSubCategory SubCategory
+        {
+            get => _subCategory;
+
+            set
+            {
+                if (_subCategory != value)
+                {
+                    _subCategory = value;
+                    RaisePropertyChanged(nameof(SubCategory));
+                }
+            }
+        }
 
         public void IncrementSelectedDenomination()
         {
-            var visibleDenominations = Denominations.Where(o => o.IsVisible).ToList();
-            var selectedDenomination = visibleDenominations.FirstOrDefault(o => o.IsSelected);
+            var selectedDenomination = Denominations.FirstOrDefault(o => o.IsSelected);
             if (selectedDenomination != null)
             {
-                var currentIndex = visibleDenominations.IndexOf(selectedDenomination);
-                currentIndex = (currentIndex + 1) % visibleDenominations.Count;
-                SelectedDenomination = visibleDenominations[currentIndex];
+                var currentIndex = Denominations.IndexOf(selectedDenomination);
+                currentIndex = (currentIndex + 1) % Denominations.Count;
+                SelectedDenomination = Denominations[currentIndex];
             }
             else
             {
-                SelectedDenomination = visibleDenominations.FirstOrDefault();
+                SelectedDenomination = Denominations.FirstOrDefault();
             }
         }
 
@@ -564,6 +686,8 @@
                 TopperAttractVideoPath = localeGraphics[activeLocaleCode].TopperAttractVideo;
                 BottomAttractVideoPath = localeGraphics[activeLocaleCode].BottomAttractVideo;
                 LoadingScreenPath = localeGraphics[activeLocaleCode].LoadingScreen;
+                DenomButtonPath = localeGraphics[activeLocaleCode].DenomButtonIcon;
+                DenomPanelPath = localeGraphics[activeLocaleCode].DenomPanel;
             }
             else
             {
@@ -625,40 +749,6 @@
             }
 
             return null;
-        }
-
-        /// <summary>
-        ///     Holds the game category
-        /// </summary>
-        public GameCategory Category
-        {
-            get => _category;
-
-            set
-            {
-                if (_category != value)
-                {
-                    _category = value;
-                    RaisePropertyChanged(nameof(Category));
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Holds the game subcategory
-        /// </summary>
-        public GameSubCategory SubCategory
-        {
-            get => _subCategory;
-
-            set
-            {
-                if (_subCategory != value)
-                {
-                    _subCategory = value;
-                    RaisePropertyChanged(nameof(SubCategory));
-                }
-            }
         }
     }
 }

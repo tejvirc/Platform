@@ -6,6 +6,7 @@
     using System.Windows.Data;
     using log4net;
 
+    // This is for the height of the game icons AND any decorators (new star, jackpot banner, denom buttons, etc.)
     public class GameIconHeightConverter : IValueConverter
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -15,23 +16,23 @@
         private const double LargeIconHeight = 308;
         private const int GameCountSize = 8;
 
+        // Extra height for denom button panel on ExtraLargeIconLayout tabs
+        private const double DenomPanelHeight = 45;
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is GameGridMarginInputs inputs)
             {
                 double result;
-                var scaleBy = inputs.GameWindowHeight / ScaleUtility.BaseScreenHeight;
                 if (inputs.ExtraLargeIconLayout)
                 {
-                    result = inputs.GameWindowHeight > ScaleUtility.BaseScreenHeight
-                        ? inputs.GameIconSize.Height * scaleBy
-                        : inputs.GameIconSize.Height;
+                    result = DenomPanelHeight + inputs.GameIconSize.Height;
                 }
                 else
                 {
                     // Lobby layout icon sizes based on number of games. Affects the size of the icon image
                     var size = inputs.GameCount > GameCountSize || inputs.TabView ? SmallIconHeight : LargeIconHeight;
-                    result = size * scaleBy;
+                    result = size;
 
                     if (inputs.GameCount > GameCountSize && inputs.SubTabVisible)
                     {

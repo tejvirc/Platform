@@ -1,11 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Converters
 {
     using System;
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Globalization;
-
-    using Contracts.Models;
     using ViewModels;
 
     public class GameTabMarginConverter : IValueConverter
@@ -22,30 +20,27 @@
         {
             if (value == null)
             {
-                return new Thickness();
+                return new Thickness(15, 0, 15, 0);
             }
 
-            var gameTabInfo = (GameTabInfo)value; // Game category
+            var gameTabInfo = (GameTabInfo)value;
 
-            double left = 0;
-            // It looks like only Table Games image is not centered when it appears on tab 3/4/5. It could be 
-            // those tab images have slight difference with others. Adding a small margin (left) to make it appearing
-            // in the center of tab.
-            if (gameTabInfo.Category == GameCategory.Table)
+            // The tabs are not sized exactly the same so we need little margin adjustments for each one
+            switch (gameTabInfo.TabIndex)
             {
-                switch(gameTabInfo.TabIndex)
-                {
-                    case 2:
-                        left = 4;
-                        break;
-                    case 3:
-                    case 4:
-                        left = 10;
-                        break;
-                }
-                
+                case 0:
+                case 1:
+                case 4:
+                    return new Thickness(18, 0, 14, 0);
+                case 2:
+                    return new Thickness(20, 0, 15, 0);
+                case 3:
+                    return new Thickness(19, 0, 14, 0);
+                case 5:
+                    return new Thickness(14, 0, 21, 0);
+                default:
+                    return new Thickness(15, 0, 15, 0);
             }
-            return new Thickness(left, 0, 0, 0);
         }
 
         /// <summary>
