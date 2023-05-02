@@ -1362,6 +1362,7 @@
         ///     Gets a value indicating whether the cash out button is enabled.
         /// </summary>
         public bool CashOutEnabled =>
+            !IsDisabledByHandCount() &&
             RedeemableCredits > 0.0 && !IsBottomLoadingScreenVisible &&
             !ContainsAnyState(LobbyState.CashOut, LobbyState.CashOutFailure, LobbyState.AgeWarningDialog) &&
             !MessageOverlayDisplay.ShowVoucherNotification;
@@ -4615,6 +4616,28 @@
                     Logger.Debug($"New EdgeLightState:  {_currentEdgeLightState}");
                 }
             }
+        }
+
+        private bool IsDisabledByHandCount()
+        {
+            var handCountServiceEnabled = (bool)_properties.GetProperty(AccountingConstants.HandCountServiceEnabled, false);
+
+            if (!handCountServiceEnabled)
+            {
+                return false;
+            }
+
+            var minimumRequiredCredits = (long)_properties.GetProperty(
+                AccountingConstants.HandCountMinimumRequiredCredits,
+                AccountingConstants.HandCountDefaultRequiredCredits);
+
+            var minimumRequiredCreditsInDollars = (double)minimumRequiredCredits.MillicentsToDollars();
+
+            if (RedeemableCredits < minimumRequiredCreditsInDollars || _handCount == 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void UpdatePaidMeterValue(double paidCashAmount)
