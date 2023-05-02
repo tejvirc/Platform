@@ -288,6 +288,21 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 parameters["/Runtime/GameDuration&dealSpeed"] = _gameCategoryService.SelectedGameCategorySetting.DealSpeed.ToString();
                 parameters["/Runtime/GamePreferences/BackgroundColor"] = (_gameCategoryService.SelectedGameCategorySetting.BackgroundColor ?? string.Empty);
             }
+            else
+            {
+                if (_properties.GetValue(GamingConstants.AutoPlayAllowed, false))
+                {
+                    parameters["/Runtime/Flags&AutoPlay"] = "true";
+                }
+            }
+
+            if (_properties.GetValue(GamingConstants.PlayLinesAllowed, false))
+            {
+                parameters["/Runtime/PlayLines&showLinesOnFeatureStart"] =
+                    _properties.GetValue(GamingConstants.PlayLinesShowLinesOnFeatureStart, false) ? "allowed" : "disallowed";
+                parameters["/Runtime/PlayLines&type"] =
+                    _properties.GetValue(GamingConstants.PlayLinesType, string.Empty);
+            }
 
             // setup button layout options
             parameters["/Runtime/PhysicalButtons&betOnBottom"] = _properties.GetValue(GamingConstants.ButtonLayoutBetButtonsOnBottom, true).ToString();

@@ -567,6 +567,21 @@
         public const string GambleWinLimitConfigurable = @"GamePlay.Gamble.WinLimitConfigurable";
 
         /// <summary>
+        ///     Whether play lines are allowed or not
+        /// </summary>
+        public const string PlayLinesAllowed = @"GamePlay.PlayLines.Allowed";
+
+        /// <summary>
+        ///     Whether play lines are showed when a feature begins or not
+        /// </summary>
+        public const string PlayLinesShowLinesOnFeatureStart = @"GamePlay.PlayLines.ShowLinesOnFeatureStart";
+
+        /// <summary>
+        ///     The type of play lines to use
+        /// </summary>
+        public const string PlayLinesType = @"GamePlay.PlayLines.Type";
+
+        /// <summary>
         ///     Whether let it ride is allowed or not.
         /// </summary>
         public const string LetItRideAllowed = @"GamePlay.LetItRide.Allowed";

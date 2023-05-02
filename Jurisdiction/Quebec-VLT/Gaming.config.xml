@@ -22,7 +22,9 @@ as follows:
 	<DefaultCreditDisplay Format="Currency" />
 	<AutoHold Enable="true" Configurable="false" />
 	<Gamble Allowed="false" />
+    <PlayLines Allowed="true" ShowLinesOnFeatureStart="true" Type="boxedPlayLines" />
 	<LetItRide Allowed="false" />
+    <AutoPlay Allowed="true" />
 	<!--
 		Some VLT markets deliberately set GameStartButtons/Methods value as empty string and want
 		to start game with Play button only. For such situations we should set "Method" parameter to "None"

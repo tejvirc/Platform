@@ -88,6 +88,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationGamble gambleField;
         
+        private GamingConfigurationPlayLines playLinesField;
+        
         private GamingConfigurationLetItRide letItRideField;
         
         private GamingConfigurationContinuousPlaySupport continuousPlaySupportField;
@@ -443,6 +445,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.gambleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationPlayLines PlayLines {
+            get {
+                return this.playLinesField;
+            }
+            set {
+                this.playLinesField = value;
             }
         }
         
@@ -2074,6 +2086,63 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.skipByJackpotHitField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationPlayLines {
+        
+        private bool allowedField;
+        
+        private bool showLinesOnFeatureStartField;
+        
+        private string typeField;
+        
+        public GamingConfigurationPlayLines() {
+            this.allowedField = false;
+            this.showLinesOnFeatureStartField = false;
+            this.typeField = "";
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Allowed {
+            get {
+                return this.allowedField;
+            }
+            set {
+                this.allowedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool ShowLinesOnFeatureStart {
+            get {
+                return this.showLinesOnFeatureStartField;
+            }
+            set {
+                this.showLinesOnFeatureStartField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string Type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
             }
         }
     }

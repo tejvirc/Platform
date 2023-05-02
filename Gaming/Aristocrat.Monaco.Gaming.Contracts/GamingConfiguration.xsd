@@ -209,6 +209,13 @@
             <xs:attribute name="SkipByJackpotHit" type="xs:boolean" use="optional" default="false" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PlayLines">
+          <xs:complexType>
+            <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="ShowLinesOnFeatureStart" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Type" type="xs:string" use="optional" default="" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="LetItRide">
           <xs:complexType>
             <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
