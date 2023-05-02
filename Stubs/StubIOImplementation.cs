@@ -6,7 +6,7 @@
 
     public class StubIOImplementation : IIOImplementation
     {
-        public Device DeviceConfiguration => throw new System.NotImplementedException();
+        public Device DeviceConfiguration => new() { Protocol = "Unknown", PollingFrequency = 100000 };
 
         public int GetMaxInputs => 63;
 

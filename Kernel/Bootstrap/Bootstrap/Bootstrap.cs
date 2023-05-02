@@ -85,6 +85,8 @@
 
             ConfigureLogging();
 
+            Logger.WarnFormat("Environment: {0}", Environment.OSVersion.Platform);
+
             SetUnhandledExceptionHandler();
             SetUnobservedTaskExceptionHandler();
             //NativeMethods.SetErrorMode(
