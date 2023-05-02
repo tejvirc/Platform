@@ -157,18 +157,18 @@
                 <TextBlock x:Name="CurrentTempTextBlock" 
                            Grid.Row="2" 
                            Grid.Column="1" 
-                           Text="{Binding GraphicsCardInfo.CurrentGpuTemp, Mode=OneWay}" />
+                           Text="{Binding CurrentGPUTemp, Mode=OneWay}" />
 
-                <!-- BiosVersion Section -->
-                <Label x:Name="TBDLabel" 
+                <!-- GPU location Section -->
+                <Label x:Name="GPULocationLabel" 
                        Grid.Row="3" 
                        Grid.Column="0" 
                        Margin="{StaticResource  LabelMargin}"
-                       Content="TBD" />
-                <TextBlock x:Name="TBDTB" 
+                       Content="GPU Physical Location" />
+                <TextBlock x:Name="GpuLocationTextBlock" 
                            Grid.Row="3" 
                            Grid.Column="1" 
-                           Text="TBD" />
+                           Text="{Binding GraphicsCardInfo.PhysicalLocation, Mode=OneWay}" />
 
             </Grid>
         </Grid>

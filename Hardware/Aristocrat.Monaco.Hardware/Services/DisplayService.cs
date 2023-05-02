@@ -11,14 +11,17 @@
     using NvAPIWrapper.GPU;
     using NvAPIWrapper;
 
-    public class DisplayService : IService, IDisplayService
+    public class DisplayService : IService, IDisplayService, IDisposable
     {
         private readonly ICabinetDetectionService _cabinetDetection;
+        private bool _disposed;
 
         private readonly IReadOnlyDictionary<string, int> _frameRates = new Dictionary<string, int>
         {
             { "GT630", 30 }
         };
+
+        private static PhysicalGPU[] physicalGpUs;
 
         public DisplayService()
             : this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
@@ -40,6 +43,8 @@
 
         public GpuInfo GraphicsCardInfo => GetGraphicsCardDetails();
 
+        public string GpuTemp => RefreshCurrentGPUTemp();
+
         public int MaximumFrameRate
         {
             get
@@ -57,8 +62,10 @@
 
         public void Initialize()
         {
+            NVIDIA.Initialize();
             ExpectedCount = _cabinetDetection.NumberOfDisplaysConnectedDuringInitialization;
         }
+
 
         private static string GetGraphicsCard()
         {
@@ -83,15 +90,22 @@
 
         private static GpuInfo GetGraphicsCardDetails()
         {
-            NVIDIA.Initialize();
+            physicalGpUs ??= PhysicalGPU.GetPhysicalGPUs();
             var driverVersion = NVIDIA.DriverVersion.ToString();
-            var physicalGpUs = PhysicalGPU.GetPhysicalGPUs();
-            var fullName = physicalGpUs[0].FullName;
-            var gpuArchitectureName = physicalGpUs[0].ArchitectInformation.ShortName;
-            var serial = Encoding.ASCII.GetString(physicalGpUs[0].Board.SerialNumber).Replace("\0", "0");
-            var vBios = physicalGpUs[0].Bios.VersionString;
-            var totalGpuRam = ((int)physicalGpUs[0].MemoryInformation.DedicatedVideoMemoryInkB / 1024).ToString(); //kb to mB
-            var currentTemp = physicalGpUs[0].ThermalInformation.ThermalSensors.ToList()[0].CurrentTemperature;
+            var fullName = physicalGpUs[0]?.FullName ?? "N/A";
+            var gpuArchitectureName = physicalGpUs[0]?.ArchitectInformation.ShortName ?? "N/A";
+            var serial = physicalGpUs[0]?.Board.SerialNumber != null
+                ? Encoding.ASCII.GetString(physicalGpUs[0].Board.SerialNumber).Replace("\0", "0")
+                : "N/A";
+            var vBios = physicalGpUs[0]?.Bios.VersionString ?? "N/A";
+            var totalGpuRam =
+                ((int)physicalGpUs[0]?.MemoryInformation.DedicatedVideoMemoryInkB / 1024) != 0 ?
+                    ((int)physicalGpUs[0]?.MemoryInformation.DedicatedVideoMemoryInkB / 1024).ToString() : 
+            "N/A";
+            var currentTemperature = physicalGpUs[0].ThermalInformation.ThermalSensors.ToList()[0].CurrentTemperature.ToString();
+            var physicalLocation = physicalGpUs[0]?.BusInformation != null
+                ? physicalGpUs[0].BusInformation.ToString()
+                : " N/A";
 
             return new GpuInfo
             {
@@ -101,8 +115,28 @@
                 BiosVersion = vBios,
                 DriverVersion = driverVersion,
                 TotalGpuRam = totalGpuRam,
-                CurrentGpuTemp = currentTemp
+                CurrentGpuTemp = currentTemperature,
+                PhysicalLocation = physicalLocation
             };
+        }
+
+        public static string RefreshCurrentGPUTemp()
+        {
+            physicalGpUs ??= PhysicalGPU.GetPhysicalGPUs();
+            var sensorInfo = physicalGpUs[0].ThermalInformation.ThermalSensors.ToList()[0].CurrentTemperature;
+            var temp = sensorInfo == 0 ? "N/A" : sensorInfo.ToString();
+            return temp;
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            NVIDIA.Unload();
+            _disposed = true;
         }
     }
 }

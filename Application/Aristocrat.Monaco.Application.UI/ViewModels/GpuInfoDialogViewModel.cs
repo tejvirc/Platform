@@ -4,6 +4,7 @@
     using System;
     using System.Diagnostics;
     using System.Linq;
+    using System.Timers;
     using Hardware.Contracts.Display;
 using Aristocrat.Monaco.Kernel;
 
@@ -11,6 +12,18 @@ using Aristocrat.Monaco.Kernel;
     public class GpuInfoDialogViewModel : OperatorMenuSaveViewModelBase
     {
         private GpuInfo _graphicsCardInfo;
+        private string _currentGPUTemp;
+        private static System.Timers.Timer getTempTimer;
+
+        protected override void OnLoaded()
+        {
+            getTempTimer.Start();
+        }
+
+        protected override void OnUnloaded()
+        {
+            getTempTimer.Stop();
+        }
 
         public GpuInfoDialogViewModel()
         {
@@ -18,12 +31,24 @@ using Aristocrat.Monaco.Kernel;
                 .GetService<IDisplayService>()
                 .GraphicsCardInfo;
             RAM = _graphicsCardInfo.TotalGpuRam + " mB";
+            getTempTimer = new Timer(1000);
+            getTempTimer.Elapsed += GetTempTimerOnElapsed;
+            getTempTimer.AutoReset = true;
+            
         }
+
+        private void GetTempTimerOnElapsed(object sender, ElapsedEventArgs e)
+        {
+            CurrentGPUTemp = ServiceManager.GetInstance()
+                .GetService<IDisplayService>()
+                .GpuTemp + "°C";
+        }
+
         public string RAM { get; set; }
         public GpuInfo GraphicsCardInfo
         {
             get => _graphicsCardInfo;
-        
+
             set
             {
                 if (_graphicsCardInfo != value)
@@ -33,11 +58,19 @@ using Aristocrat.Monaco.Kernel;
                 }
             }
         }
-        
 
-        private void GetStats()
+        public string CurrentGPUTemp
         {
-           
+            get => _currentGPUTemp;
+
+            set
+            {
+                if (_currentGPUTemp != value)
+                {
+                    _currentGPUTemp = value;
+                    RaisePropertyChanged(nameof(CurrentGPUTemp));
+                }
+            }
         }
     }
 }

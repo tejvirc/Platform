@@ -16,7 +16,9 @@
 
         public string TotalGpuRam { get; set; }
 
-        public int CurrentGpuTemp { get; set; }
+        public string CurrentGpuTemp { get; set; }
+
+        public string PhysicalLocation { get; set; }
     }
 }
 #pragma warning restore CS1591
