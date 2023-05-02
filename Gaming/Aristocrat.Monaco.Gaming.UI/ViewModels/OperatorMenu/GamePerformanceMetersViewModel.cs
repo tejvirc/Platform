@@ -173,12 +173,14 @@
                         MetersLeftColumn.Add(meter);
                     }
 
+                    // Use the progressives.xml minimum RTP if one exists
+                    var rtp = _game.GetTotalJurisdictionRtpRange(GameDenom.DollarsToMillicents()).Rtp;
                     WagerCategoryMeters = new ObservableCollection<PerformanceWagerCategory>(
                         _game.WagerCategories.Select(
                             w => new PerformanceWagerCategory
                             {
                                 Id = w.Id,
-                                RTP = w.TheoPaybackPercent,
+                                RTP = rtp.Minimum == decimal.Zero ? w.TheoPaybackPercent : rtp.Minimum,
                                 WageredMillicents = meterManager.GetMeter(
                                     GameId,
                                     GameDenom.DollarsToMillicents(),
