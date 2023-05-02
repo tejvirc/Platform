@@ -10,6 +10,8 @@
   <Dependencies>
     <Addin id="Bootstrap" version="1.0" />
     <Addin id="HardwareRunnable" version="1.0" />
+    <!-- The line below is necessary to make Monaco.Hardware addin load correctly, but also for the IOImplementation extension -->
+    <Addin id="Monaco.Hardware" version="1.0" />
   </Dependencies>
 
   <!-- Extend the layer -->
@@ -30,6 +32,11 @@
   <!-- Provide PlatformDisplay service that Application layer would normally provide -->
   <Extension path="/Kernel/PlatformDisplay">
     <PlatformDisplay type="Stubs.PlatformDisplay" />
+  </Extension>
+  
+  <!-- Provide the IOImplementation service that is normally the IOGen8 one -->
+  <Extension path="/Hardware/IO/IOImplementations">
+    <DeviceImplementation ProtocolName="Stub" type="Stubs.StubIOImplementation"/>
   </Extension>
 
 </Addin>
