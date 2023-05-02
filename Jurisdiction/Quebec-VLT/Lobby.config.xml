@@ -13,7 +13,7 @@
 	<double>60</double>
   </ResponsibleGamingTimeLimits>
   <ResponsibleGamingSessionLimit>0</ResponsibleGamingSessionLimit>
-  <ResponsibleGamingInfo Pages="5" ExitStrategy="PressBash" ButtonPlacement="Header" PrintHelpline="false" FullScreen="false" Timeout="120" />
+  <ResponsibleGamingInfo Pages="5" ExitStrategy="TouchScreen" ButtonPlacement="Header" PrintHelpline="false" FullScreen="false" Timeout="120" />
   <LobbyUiDirectoryPath>../jurisdiction/Quebec-VLT/ui/</LobbyUiDirectoryPath>
   <SkinFilenames>
 	<string>QuebecUI.fr.ca.xaml</string>
