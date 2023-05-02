@@ -700,10 +700,10 @@
                                         </Image>
                                         <StackPanel HorizontalAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Margin="0 0 0 20"
+                                                    Margin="0 0 0 16"
                                                     Orientation="Horizontal">
                                             <!-- Larger text for value -->
-                                            <controls:TextPath FontSize="50"
+                                            <controls:TextPath FontSize="42"
                                                                Style="{StaticResource SharedDenomTextStyle}"
                                                                Text="{Binding DenomText}"/>
                                             <!-- Smaller text for denom symbol -->

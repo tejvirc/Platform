@@ -26,6 +26,7 @@
             {
                 // Use the denom string formatted with major unit symbol included
                 DenomText = cents.FormattedDenomString();
+                DenomSymbol = string.Empty;
             }
             else
             {
