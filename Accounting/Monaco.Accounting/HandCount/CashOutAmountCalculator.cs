@@ -31,8 +31,6 @@
         private readonly long _handCountPayoutLimit;
 
         private bool _disposed;
-        private bool isCashOut { get; set; }
-        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 
         /// <summary>
         ///     Constructs the calculator by retrieving all necessary services from the service manager. This
@@ -64,13 +62,6 @@
                 ?? throw new ArgumentNullException(nameof(eventBus));
             _cashOutAmountPerHand = properties.GetValue(AccountingConstants.CashoutAmountPerHandCount, 0L);
             _handCountPayoutLimit = properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
-            _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
-        }
-
-        private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
-        {
-            isCashOut = evt.IsCashout;
-            autoResetEvent.Set();
         }
 
         /// <inheritdoc />
@@ -93,12 +84,7 @@
             amountCashable = ((long)amountCashable.MillicentsToDollars()).DollarsToMillicents();
 
             CheckLargePayoutAsync(amountCashable).Wait();
-            if (isCashOut)
-            {
-                return amountCashable;
-            }
-
-            return 0;
+            return amountCashable;
         }
 
         /// <inheritdoc />
@@ -123,17 +109,12 @@
         {
             Logger.Debug($"Check Payout Limit: {amount}");
             _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent(amount));
-            autoResetEvent.WaitOne();
-            if (isCashOut)
+            if (amount > _handCountPayoutLimit)
             {
-                if (amount > _handCountPayoutLimit)
-                {
-                    var keyOff = Initiate();
-                    _eventBus.Publish(new PayOutLimitVisibility(true));
-                    await keyOff.Task;
+                var keyOff = Initiate();
+                await keyOff.Task;
 
-                    _disableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
-                }
+                _disableManager.Enable(ApplicationConstants.LargePayoutDisableKey);
             }
         }
 
