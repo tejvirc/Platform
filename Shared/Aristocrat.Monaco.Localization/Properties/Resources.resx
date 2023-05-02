@@ -11727,4 +11727,16 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>ResidualCreditsTransaction</value>
     <comment>Monaco.Accounting.Contracts</comment>
   </data>
+  <data name="InsertCredits" xml:space="preserve">
+    <value>INSERT CREDITS TO CONTINUE.</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="TimeBeforeHandCountReset" xml:space="preserve">
+    <value>TIME BEFORE CREDITS/HANDCOUNT IS RESET</value>
+    <comment>Monaco.Gaming.UI</comment>
+  </data>
+  <data name="Secs" xml:space="preserve">
+    <value>secs</value>
+    <comment>Monaco.Gaming.UI</comment>
+  </data>
 </root>

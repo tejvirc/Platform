@@ -8,6 +8,8 @@
                     xmlns:converters="http://monaco.aristocrat.com/common"
                     xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
                     xmlns:gamingConverters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization"
                     mc:Ignorable="d"
                     d:DataContext="{d:DesignInstance {x:Type viewModels:HandCountTimerDialogViewModel}}"
                     d:DesignHeight="450" d:DesignWidth="800">
@@ -69,7 +71,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.RowSpan="4" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Border  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" MaxHeight="35">
-                            <StackPanel Margin="60,-36,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <StackPanel Margin="60,-30,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <controls:TextPath  x:Name="OpacityImage" Width="180" Margin="60,-10,60,0"
                                            FontSize="46" FontFamily="{StaticResource CountdownFont}"
                                            Fill="Gold" FontWeight="ExtraBold" StrokeThickness="4"
@@ -83,7 +85,7 @@
                                 <controls:TextPath  x:Name="OpaImage" Width="34" Margin="8,-17,0,0"  
                                            FontSize="18" FontFamily="Arial" FontWeight="ExtraBold" 
                                            Fill="Gold" Stroke="Black" StrokeThickness="0.3"
-                                           Text="secs">
+                                           Text="{lex:Loc {x:Static loc:ResourceKeys.Secs}}">
                                     <controls:TextPath.Triggers>
                                         <EventTrigger RoutedEvent="Binding.TargetUpdated">
                                             <BeginStoryboard Storyboard="{StaticResource Storyboard}" />
@@ -92,14 +94,14 @@
                                 </controls:TextPath>
                             </StackPanel>
                         </Border>
-                        <controls:TextPath Grid.Row="2" Width="450"  Margin="50,25,0,12" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        <controls:TextPath Margin="50,25,0,12" HorizontalAlignment="Center" VerticalAlignment="Center"
                                FontSize="20" FontFamily="Arial" FontWeight="ExtraBold" 
                                Fill="Gold" Stroke="Black" StrokeThickness="0.3"
-                               Text="TIME BEFORE HANDCOUNT IS RESET" />
-                        <controls:TextPath  Grid.Row="3" Width="450" Margin="45,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Text="{lex:Loc {x:Static loc:ResourceKeys.TimeBeforeHandCountReset}}" />
+                        <controls:TextPath Margin="45,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Center"
                                FontSize="20" FontFamily="Arial" FontWeight="ExtraBold" 
                                Fill="Gold" Stroke="Black" StrokeThickness="0.3"
-                               Text="INSERT CREDITS TO CONTINUE." />
+                               Text="{lex:Loc {x:Static loc:ResourceKeys.InsertCredits}}" />
                     </StackPanel>
                 </Grid>
             </Viewbox>

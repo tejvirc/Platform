@@ -16142,6 +16142,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string InsertCredits {
+			get {
+				return ResourceManager.GetString("InsertCredits", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to INSERTED TIME.
 		/// </summary>
         /// <remarks>
@@ -27674,6 +27686,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string Secs {
+			get {
+				return ResourceManager.GetString("Secs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Secure Enhanced.
 		/// </summary>
         /// <remarks>
@@ -31036,6 +31060,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TimeAndZoneConfiguration {
 			get {
 				return ResourceManager.GetString("TimeAndZoneConfiguration", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string TimeBeforeHandCountReset {
+			get {
+				return ResourceManager.GetString("TimeBeforeHandCountReset", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -50845,6 +50881,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string InsertCredits {
+			get {
+				return "InsertCredits";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to INSERTED TIME.
 		/// </summary>
         /// <remarks>
@@ -62377,6 +62425,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string Secs {
+			get {
+				return "Secs";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Secure Enhanced.
 		/// </summary>
         /// <remarks>
@@ -65739,6 +65799,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TimeAndZoneConfiguration {
 			get {
 				return "TimeAndZoneConfiguration";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string TimeBeforeHandCountReset {
+			get {
+				return "TimeBeforeHandCountReset";
 			}
 		}
 
@@ -78620,6 +78692,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InputsLabel,
 		/// <summary>
+		///   Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		InsertCredits,
+		/// <summary>
 		///   Looks up a localized string similar to INSERTED TIME.
 		/// </summary>
         /// <remarks>
@@ -85207,6 +85286,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Seconds,
 		/// <summary>
+		///   Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		Secs,
+		/// <summary>
 		///   Looks up a localized string similar to Secure Enhanced.
 		/// </summary>
         /// <remarks>
@@ -87122,6 +87208,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TimeAndZoneConfiguration,
+		/// <summary>
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		TimeBeforeHandCountReset,
 		/// <summary>
 		///   Looks up a localized string similar to MM/dd/yyyy H:mm:ss.
 		/// </summary>
