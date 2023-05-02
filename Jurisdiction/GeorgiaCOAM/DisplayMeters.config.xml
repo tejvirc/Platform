@@ -63,10 +63,9 @@
     <MeterNode Page="Hardware" Name="MainTouchScreenDisconnect" DisplayName="Main Touch Screen Disconnect" Order="13" />
     <MeterNode Page="Hardware" Name="VBDTouchScreenDisconnect" DisplayName="VBD Touch Screen Disconnect" Order="14" />
     <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="15" />
-    <MeterNode Page="Hardware" Name="TopperVideoDisplayDisconnect" DisplayName="Topper Video Display Disconnect" Order="16" />
-    <MeterNode Page="Hardware" Name="TopVideoDisplayDisconnect" DisplayName="Top Video Display Disconnect" Order="17" />
-    <MeterNode Page="Hardware" Name="MainVideoDisplayDisconnect" DisplayName="Main Video Display Disconnect" Order="18" />
-    <MeterNode Page="Hardware" Name="VBDVideoDisplayDisconnect" DisplayName="VBD Video Display Disconnect" Order="19" />
+    <MeterNode Page="Hardware" Name="TopVideoDisplayDisconnect" DisplayName="Top Video Display Disconnect" Order="16" />
+    <MeterNode Page="Hardware" Name="MainVideoDisplayDisconnect" DisplayName="Main Video Display Disconnect" Order="17" />
+    <MeterNode Page="Hardware" Name="VBDVideoDisplayDisconnect" DisplayName="VBD Video Display Disconnect" Order="18" />
 
     <MeterNode Page="Hardware" Name="ProgressiveDisconnect" DisplayName="Progressive Disconnect" Order="101" />
     <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="102" />
