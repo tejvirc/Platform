@@ -182,7 +182,13 @@ as follows:
       <USBProductId>pid_4385</USBProductId>
       <USBProductIdDfu>pid_4386</USBProductIdDfu>
     </Device>
-    <Device Enabled="true" Type="ReelController" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+    <Device Enabled="true" Type="ReelController" Name="Fake Harkey" Protocol="Fake" Port="Fake" Mode="Fake">
+      <ExtensionPath>/Hardware/ReelController</ExtensionPath>
+      <USBVendorId></USBVendorId>
+      <USBProductId></USBProductId>
+      <USBProductIdDfu></USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="ReelController" Name="Fake Relm" Protocol="F_RLM" Port="Fake" Mode="F_RLM">
       <ExtensionPath>/Hardware/ReelController</ExtensionPath>
       <USBVendorId></USBVendorId>
       <USBProductId></USBProductId>

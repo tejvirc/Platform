@@ -25,6 +25,7 @@
         private readonly List<string> _allPorts;
         private readonly DeviceConfiguration _config; // model
         private readonly List<SupportedDevicesDevice> _platformConfigs;
+        private readonly List<SupportedDevicesDevice> _fakeConfigs;
         private readonly bool _readOnly;
 
         private readonly Dictionary<DeviceType, string> _deviceAddInPaths = new Dictionary<DeviceType, string>
@@ -44,6 +45,7 @@
             _config = new DeviceConfiguration(false, string.Empty, string.Empty, 0);
             _port = string.Empty;
             _platformConfigs = new List<SupportedDevicesDevice>();
+            _fakeConfigs = new List<SupportedDevicesDevice>();
             _status = string.Empty;
 
             // This will only be true when saving originally persisted devices in Hardware Manager audit menu page
@@ -215,6 +217,14 @@
             RaisePropertyChanged(nameof(IsVisible));
         }
 
+        public void AddFakeConfiguration(SupportedDevicesDevice config)
+        {
+            if (!_fakeConfigs.Contains(config))
+            {
+                _fakeConfigs.Add(config);
+            }
+        }
+
         public void StartDetection()
         {
             IsDetectionComplete = false;
@@ -274,7 +284,20 @@
         {
             if (Manufacturer.Contains(ApplicationConstants.Fake))
             {
-                Protocol = ApplicationConstants.Fake;
+                var config = _fakeConfigs.FirstOrDefault(c => c.Name == Manufacturer);
+                if (config != null)
+                {
+                    var protocolExists = _deviceAddInPaths.ContainsKey(DeviceType) &&
+                                         _addinHelper.DoesDeviceImplementationExist(
+                                             _deviceAddInPaths[DeviceType],
+                                             config.Protocol);
+
+                    Protocol = protocolExists ? config.Protocol : ApplicationConstants.Fake;
+                }
+                else
+                {
+                    Protocol = ApplicationConstants.Fake;
+                }
             }
             else
             {

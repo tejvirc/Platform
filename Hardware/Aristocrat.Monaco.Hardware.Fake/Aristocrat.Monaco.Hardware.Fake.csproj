@@ -27,6 +27,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware\Aristocrat.Monaco.Hardware.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Aristocrat.Monaco.GopherReels" Version="1.0.0" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.11" />
     <PackageReference Include="log4net" Version="2.0.8" />

@@ -17,7 +17,7 @@
   </Extension>
 
   <Extension path="/Hardware/ReelController/ReelControllerImplementations">
-    <DeviceImplementation ProtocolName="RELM" type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController"/>
+    <DeviceImplementation ProtocolName="RELM-F_RLM" type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController"/>
   </Extension>
 
 </Addin>

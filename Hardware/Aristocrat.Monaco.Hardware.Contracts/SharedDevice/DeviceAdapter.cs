@@ -302,7 +302,8 @@
 
             _communicator?.Dispose();
 
-            var protocolName = config.Mode == ComConfiguration.RS232CommunicationMode || config.Protocol == ComConfiguration.RelmProtocol
+            var protocolName = config.Mode == ComConfiguration.RS232CommunicationMode ||
+                               config.Protocol.Contains(ComConfiguration.RelmProtocol)
                 ? config.Protocol
                 : config.Mode;
             _communicator = AddinFactory.CreateAddin<ICommunicator>(CommunicatorsExtensionPath, protocolName);
