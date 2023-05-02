@@ -7069,7 +7069,7 @@ See manual for details</value>
     <comment>Aristocrat.Monaco.Sas</comment>
   </data>
   <data name="HardMeterOut" xml:space="preserve">
-    <value>Hard Meter Out</value>
+    <value>Payout</value>
     <comment>Monaco.Accounting.Contracts</comment>
   </data>
   <data name="TriggerLabel" xml:space="preserve">
