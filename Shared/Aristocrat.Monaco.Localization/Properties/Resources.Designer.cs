@@ -14096,7 +14096,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Hard Meter Out.
+		///   Looks up a localized string similar to Payout.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -19768,6 +19768,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MaxWinAmount {
 			get {
 				return ResourceManager.GetString("MaxWinAmount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to MAX WIN HAS BEEN REACHED..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string MaxWinReached {
+			get {
+				return ResourceManager.GetString("MaxWinReached", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -48835,7 +48847,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Hard Meter Out.
+		///		Looks up a localized string similar to Payout.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -54507,6 +54519,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MaxWinAmount {
 			get {
 				return "MaxWinAmount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to MAX WIN HAS BEEN REACHED..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string MaxWinReached {
+			get {
+				return "MaxWinReached";
 			}
 		}
 
@@ -77531,7 +77555,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HardMeterLabel,
 		/// <summary>
-		///   Looks up a localized string similar to Hard Meter Out.
+		///   Looks up a localized string similar to Payout.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -80766,6 +80790,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Max Win Amount.
 		/// </summary>
 		MaxWinAmount,
+		/// <summary>
+		///   Looks up a localized string similar to MAX WIN HAS BEEN REACHED..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		MaxWinReached,
 		/// <summary>
 		///   Looks up a localized string similar to MBR/BL Version.
 		/// </summary>

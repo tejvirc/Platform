@@ -11735,6 +11735,10 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>TIME BEFORE CREDITS/HANDCOUNT IS RESET</value>
     <comment>Monaco.Gaming.UI</comment>
   </data>
+  <data name="MaxWinReached" xml:space="preserve">
+    <value>MAX WIN HAS BEEN REACHED.</value>
+    <comment>Monaco.Gaming.UI</comment>
+  </data>
   <data name="Secs" xml:space="preserve">
     <value>secs</value>
     <comment>Monaco.Gaming.UI</comment>

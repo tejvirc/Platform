@@ -25,7 +25,7 @@
                 return;
             }
 
-            if (!theEvent.AllowGameRound && (_gamePlayState.Idle || _gamePlayState.InPresentationIdle) && !_maxWinOverlayService.ShowingMaxWinOverlayService)
+            if (!theEvent.AllowGameRound && (_gamePlayState.Idle || _gamePlayState.InPresentationIdle) && !_maxWinOverlayService.ShowingMaxWinWarning)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);
             }

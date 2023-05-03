@@ -36,7 +36,7 @@
         public ICollection<Type> ServiceTypes => new[] { typeof(IService), typeof(IMaxWinOverlayService) };
     
 
-    public bool ShowingMaxWinOverlayService { get; set;}
+    public bool ShowingMaxWinWarning { get; set;}
 
         public MaxWinOverlayService() : this(ServiceManager.GetInstance().GetService<IEventBus>(),
             ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
@@ -64,7 +64,7 @@
 
         private void Handle(DownEvent obj)
         {
-           if(ShowingMaxWinOverlayService)
+           if(ShowingMaxWinWarning)
             {
                 CloseMaxWinDialog();
             }
@@ -72,7 +72,7 @@
 
         private void HandleEvent(MaxWinReachedEvent obj)
         {
-            ShowingMaxWinOverlayService = true;
+            ShowingMaxWinWarning = true;
             var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
             var denomination = game.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
@@ -97,7 +97,7 @@
             var runtime = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<IRuntime>();
             runtime.UpdateBalance(_bank.QueryBalance().MillicentsToCents());
             runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);
-            ShowingMaxWinOverlayService = false;
+            ShowingMaxWinWarning = false;
         }
 
         public void Dispose()
