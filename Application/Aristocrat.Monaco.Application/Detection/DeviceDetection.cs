@@ -231,25 +231,27 @@
 
             try
             {
-                var searcher = new ManagementObjectSearcher(searchScope, usbSearchQuery);
-                foreach (var foundObject in searcher.Get())
+                using (var searcher = new ManagementObjectSearcher(searchScope, usbSearchQuery))
                 {
-                    var instanceName = foundObject["InstanceName"].ToString();
-                    if (!instanceName.Contains(VidCode) ||
-                        !instanceName.Contains(PidCode))
+                    foreach (var foundObject in searcher.Get())
                     {
-                        continue;
+                        var instanceName = foundObject["InstanceName"].ToString();
+                        if (!instanceName.Contains(VidCode) ||
+                            !instanceName.Contains(PidCode))
+                        {
+                            continue;
+                        }
+
+                        (int vid, int pid) = ExtractVidPidFromInstanceName(instanceName);
+
+                        if (_usbInstances.Contains((vid, pid)))
+                        {
+                            continue;
+                        }
+
+                        _usbInstances.Add((vid, pid));
+                        Logger.Debug($"Windows sees unique USB InstanceName {instanceName}");
                     }
-
-                    (int vid, int pid) = ExtractVidPidFromInstanceName(instanceName);
-
-                    if (_usbInstances.Contains((vid, pid)))
-                    {
-                        continue;
-                    }
-
-                    _usbInstances.Add((vid, pid));
-                    Logger.Debug($"Windows sees unique USB InstanceName {instanceName}");
                 }
             }
             catch (Exception ex)

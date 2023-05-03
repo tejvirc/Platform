@@ -294,7 +294,7 @@
             .Where(c => c.Active)
             .OrderBy(c => c.Denom);
 
-        public string ThemePlusOptions => $"{SelectedGame.ThemeName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOptions)} {ReadOnlyStatus}";
+        public string ThemePlusOptions => $"{SelectedGame?.ThemeName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOptions)} {ReadOnlyStatus}";
 
         public bool HasTopAward => _topAwardValue > 0;
 
@@ -1891,7 +1891,7 @@
 
         private IConfigurationRestriction GetRestrictionFromVariationId(string variationId, EditableGameProfile gameProfile)
         {
-            return gameProfile.ValidRestrictions.FirstOrDefault(
+            return gameProfile.ValidRestrictions?.FirstOrDefault(
                 v => v.RestrictionDetails.Mapping.Any(
                     v2 => v2.VariationId.Equals(variationId)));
         }

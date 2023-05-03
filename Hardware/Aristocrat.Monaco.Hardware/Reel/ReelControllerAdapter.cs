@@ -19,7 +19,8 @@
     using Kernel;
     using log4net;
 
-    public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>, IReelController,
+    public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>,
+        IReelController,
         IStorageAccessor<ReelControllerOptions>
     {
         private const string DeviceImplementationsExtensionPath = "/Hardware/ReelController/ReelControllerImplementations";

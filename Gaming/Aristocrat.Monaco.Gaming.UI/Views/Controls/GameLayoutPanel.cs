@@ -82,18 +82,16 @@
                 return base.MeasureOverride(availableSize);
             }
 
-            var count = IsExtraLargeGameIconTabActive
-                ? GameRowColumnCalculator.ExtraLargeIconRowColCount
-                : GameRowColumnCalculator.CalculateRowColCount(childCount);
+            var (rows, cols) = GameRowColumnCalculator.CalculateRowColCount(childCount, IsExtraLargeGameIconTabActive);
 
-            var spacingX = Spacing.Width * (count.Cols - 1);
-            var spacingY = Spacing.Height * (count.Rows - 1);
+            var spacingX = Spacing.Width * (cols - 1);
+            var spacingY = Spacing.Height * (rows - 1);
 
             const double tabHeightScale = 0.86;
             var availableHeight = IsTabView ? availableSize.Height * tabHeightScale : availableSize.Height;
 
-            var childWidth = (availableSize.Width - spacingX) / count.Cols;
-            var childHeight = (availableHeight - spacingY) / count.Rows;
+            var childWidth = (availableSize.Width - spacingX) / cols;
+            var childHeight = (availableHeight - spacingY) / rows;
 
             if (childWidth < 0 || childHeight < 0)
             {
@@ -113,7 +111,7 @@
             _itemWidth = maxSize.Width;
             _itemHeight = maxSize.Height;
 
-            _measuredSize = new Size(count.Cols * maxSize.Width + spacingX, count.Rows * maxSize.Height + spacingY);
+            _measuredSize = new Size(cols * maxSize.Width + spacingX, rows * maxSize.Height + spacingY);
 
             _surfaceSize = availableSize;
 
@@ -132,26 +130,24 @@
         {
             var childCount = Children.Count;
 
-            var count = IsExtraLargeGameIconTabActive
-                ? GameRowColumnCalculator.ExtraLargeIconRowColCount
-                : GameRowColumnCalculator.CalculateRowColCount(childCount);
+            var (rows, cols) = GameRowColumnCalculator.CalculateRowColCount(childCount, IsExtraLargeGameIconTabActive);
 
-            var gamesInLastRow = childCount > 0 ? childCount % count.Cols : 0;
-            if  (gamesInLastRow == 0 && childCount > 0)
+            var gamesInLastRow = childCount > 0 ? childCount % cols : 0;
+            if (gamesInLastRow == 0 && childCount > 0)
             {
-                gamesInLastRow = count.Cols;
+                gamesInLastRow = cols;
             }
 
-            var columnDefinition = new int[count.Rows];
+            var columnDefinition = new int[rows];
 
-            for (int i = 0; i < count.Rows - 1; i++)
+            for (var i = 0; i < rows - 1; i++)
             {
-                columnDefinition[i] = count.Cols;
+                columnDefinition[i] = cols;
             }
 
-            columnDefinition[count.Rows - 1] = gamesInLastRow;
+            columnDefinition[rows - 1] = gamesInLastRow;
 
-            ArrangeGameLayout(count.Rows, count.Cols, columnDefinition);
+            ArrangeGameLayout(rows, cols, columnDefinition);
 
             return finalSize;
         }

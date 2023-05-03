@@ -12,6 +12,9 @@
     using Monaco.UI.Common.Extensions;
     using MVVM.ViewModel;
 
+    /// <summary>
+    ///     The View Model used for binding lobby game tabs
+    /// </summary>
     public class GameTabInfoViewModel : BaseViewModel
     {
         private const double SubTabsTopMargin = 158;
@@ -70,6 +73,10 @@
 
         private int SelectedTabIndex => _tabs.FirstOrDefault(o => o.Enabled)?.TabIndex ?? 0;
 
+        /// <summary>
+        ///     Generates the tabs from the enabled game categories
+        /// </summary>
+        /// <param name="gameInfo">The list of available GameInfos</param>
         public void SetupGameTypeTabs(IEnumerable<GameInfo> gameInfo)
         {
             var lastSelectedCategory = SelectedCategory;
@@ -116,6 +123,10 @@
             Tabs = gameTabs;
         }
 
+        /// <summary>
+        ///     Selects a tab
+        /// </summary>
+        /// <param name="selectedTab">The GameTabInfo to select</param>
         public void SelectTab(GameTabInfo selectedTab)
         {
             Tabs.ForEach(o => o.Enabled = o == selectedTab);
@@ -123,6 +134,10 @@
             GameTypeChanged?.Invoke(SelectedCategory);
         }
 
+        /// <summary>
+        ///     Selects a tab
+        /// </summary>
+        /// <param name="index">The index of the GameTabInfo to select</param>
         public void SelectTab(int index)
         {
             if (index >= 0 && index < TabCount && index != SelectedTabIndex)
@@ -131,14 +146,22 @@
             }
         }
 
+        /// <summary>
+        ///     Sets the available shared denomination buttons for this tab
+        /// </summary>
+        /// <param name="denominations">A list of denominations</param>
         public void SetDenominations(IEnumerable<long> denominations)
         {
             Denominations.Clear();
-            Denominations.AddRange(
-                denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x) { IsVisible = true }));
+            Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x)));
             SetSelectedDenomination(Denominations.FirstOrDefault(), false);
         }
 
+        /// <summary>
+        ///     Sets the selected denomination button
+        /// </summary>
+        /// <param name="denomination">The DenominationInfoViewModel to select</param>
+        /// <param name="notify">Defaults to true to raise a DenominationChanged event</param>
         public void SetSelectedDenomination(DenominationInfoViewModel denomination, bool notify = true)
         {
             foreach (var denom in Denominations)
@@ -156,6 +179,10 @@
             }
         }
 
+        /// <summary>
+        ///     Sets the available sub-tabs for the currently selected tab
+        /// </summary>
+        /// <param name="types">A list of sub-tab type strings</param>
         public void SetSubTabs(IEnumerable<string> types)
         {
             SubTabs.Clear();
@@ -177,6 +204,11 @@
             }
         }
 
+        /// <summary>
+        ///     Selects a sub-tab
+        /// </summary>
+        /// <param name="selectedSubTab">The SubTabInfoViewModel to select</param>
+        /// <param name="notify">Defaults to true to raise a SubTabChanged event</param>
         public void SelectSubTab(SubTabInfoViewModel selectedSubTab, bool notify = true)
         {
             if (selectedSubTab == null && SubTabs.Any())
@@ -199,6 +231,9 @@
             }
         }
 
+        /// <summary>
+        ///     Sets a default selected tab
+        /// </summary>
         public void SetDefaultTab()
         {
             var defaultPriorityOrder = new List<GameCategory>
@@ -217,20 +252,48 @@
             SelectSubTab(null);
         }
 
+        /// <summary>
+        ///     Selects the next denomination available on this tab
+        /// </summary>
         public void IncrementSelectedDenomination()
         {
-            var visibleDenominations = Denominations.Where(o => o.IsVisible).ToList();
-            var selectedDenomination = visibleDenominations.FirstOrDefault(o => o.IsSelected);
+            var selectedDenomination = Denominations.FirstOrDefault(o => o.IsSelected);
             if (selectedDenomination != null)
             {
-                var currentIndex = visibleDenominations.IndexOf(selectedDenomination);
-                currentIndex = (currentIndex + 1) % visibleDenominations.Count;
-                SetSelectedDenomination(visibleDenominations[currentIndex]);
+                var currentIndex = Denominations.IndexOf(selectedDenomination);
+                currentIndex = (currentIndex + 1) % Denominations.Count;
+                SetSelectedDenomination(Denominations[currentIndex]);
             }
         }
 
+        /// <summary>
+        ///     Switches to the Next or Previous available tab
+        ///     If the tab has sub-tabs, those will be traversed as well
+        /// </summary>
+        /// <param name="next">True to go to next; False to go to previous</param>
         public void NextPreviousTab(bool next)
         {
+            if (SubTabs.Any())
+            {
+                // First attempt to navigate through sub tabs
+                // If we have reached the end, continue to next main Tab
+                var selectedSubTabIndex = SubTabs.IndexOf(SelectedSubTab);
+
+                if (next && selectedSubTabIndex < SubTabs.Count - 1)
+                {
+                    // Go to next sub tab
+                    SelectSubTab(selectedSubTabIndex + 1);
+                    return;
+                }
+
+                if (!next && selectedSubTabIndex > 0)
+                {
+                    // Go to previous sub tab
+                    SelectSubTab(selectedSubTabIndex - 1);
+                    return;
+                }
+            }
+
             var selectedTabIndex = SelectedTabIndex;
 
             selectedTabIndex = next ? (selectedTabIndex + 1) % TabCount : selectedTabIndex - 1;
@@ -257,6 +320,8 @@
                     return GameCategory.Poker;
                 case GameType.Roulette:
                     return GameCategory.Table;
+                case GameType.LightningLink:
+                    return GameCategory.LightningLink;
                 default:
                     return GameCategory.Undefined;
             }
@@ -274,8 +339,19 @@
                     return new List<GameType> { GameType.Poker };
                 case GameCategory.Table:
                     return new List<GameType> { GameType.Blackjack, GameType.Roulette };
+                case GameCategory.LightningLink:
+                    return new List<GameType> { GameType.LightningLink };
                 default:
                     return new List<GameType> { GameType.Undefined };
+            }
+        }
+
+        private void SelectSubTab(int index)
+        {
+            var selectedIndex = SubTabs.IndexOf(SelectedSubTab);
+            if (index >= 0 && index < SubTabs.Count && index != selectedIndex)
+            {
+                SelectSubTab(SubTabs[index]);
             }
         }
 

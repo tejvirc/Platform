@@ -9,6 +9,7 @@
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Contracts;
+    using Contracts.Transactions;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
@@ -31,10 +32,12 @@
         private List<Credit> _credits;
         private long _creditLimit;
         private long _currentCredits;
+        private readonly IEventBus _eventBus;
 
         public KeyedCreditsPageViewModel()
             : this(
                 ServiceManager.GetInstance().TryGetService<IBank>(),
+                ServiceManager.GetInstance().TryGetService<IEventBus>(),
                 ServiceManager.GetInstance().TryGetService<ITransactionCoordinator>(),
                 ServiceManager.GetInstance().TryGetService<IMeterManager>(),
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
@@ -45,6 +48,7 @@
 
         public KeyedCreditsPageViewModel(
             IBank bank,
+            IEventBus eventBus,
             ITransactionCoordinator transactionCoordinator,
             IMeterManager meterManager,
             IPropertiesManager propertiesManager,
@@ -52,6 +56,7 @@
             ITransactionHistory transactionHistory)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _transactionCoordinator =
                 transactionCoordinator ?? throw new ArgumentNullException(nameof(transactionCoordinator));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
@@ -196,6 +201,16 @@
                 }
             };
 
+            var transferredCashableAmount = (accountType == AccountType.Cashable) ? amount : 0;
+            var transferredNonCashAmount = (accountType == AccountType.NonCash) ? amount : 0;
+            var transferredPromoAmount = (accountType == AccountType.Promo) ? amount : 0;
+            var trans = new KeyedOnCreditsTransaction(
+                1,
+                DateTime.UtcNow,
+                accountType,
+                transferredCashableAmount,
+                transferredPromoAmount,
+                transferredNonCashAmount);
             using (var scope = _persistentStorageManager.ScopedTransaction())
             {
                 if (_bank.CheckDeposit(accountType, amount, transactionId) && amount > 0)
@@ -204,16 +219,14 @@
                     _meterManager.GetMeter(keyedOnMeterDictionary[accountType].amountMeter).Increment(amount);
                     _meterManager.GetMeter(keyedOnMeterDictionary[accountType].countMeter).Increment(1);
 
-                    _transactionHistory.AddTransaction(
-                        new KeyedCreditsTransaction(1, DateTime.UtcNow, accountType, true, amount));
+                    _transactionHistory.AddTransaction(trans);
                     Logger.Info(
                         $"Keyed on {amount} credits to {accountType} account type [TransactionId={transactionId}");
                 }
-
+                _transactionCoordinator.ReleaseTransaction(transactionId);
                 scope.Complete();
             }
-
-            _transactionCoordinator.ReleaseTransaction(transactionId);
+            _eventBus.Publish(new KeyedCreditOnEvent(trans));
             UpdateCreditData();
             KeyedOnCreditAmount = 0m;
         }
@@ -250,6 +263,16 @@
                     }
                 };
 
+                var transferredCashableAmount = (accountType == AccountType.Cashable) ? amount : 0;
+                var transferredNonCashAmount = (accountType == AccountType.NonCash) ? amount : 0;
+                var transferredPromoAmount = (accountType == AccountType.Promo) ? amount : 0;
+                var trans = new KeyedOffCreditsTransaction(
+                    1,
+                    DateTime.UtcNow,
+                    accountType,
+                    transferredCashableAmount,
+                    transferredPromoAmount,
+                    transferredNonCashAmount);
                 using (var scope = _persistentStorageManager.ScopedTransaction())
                 {
                     if (_bank.CheckWithdraw(accountType, amount, transactionId) && amount > 0)
@@ -258,16 +281,15 @@
                         _meterManager.GetMeter(keyedOffMeterDictionary[accountType].amountMeter).Increment(amount);
                         _meterManager.GetMeter(keyedOffMeterDictionary[accountType].countMeter).Increment(1);
 
-                        _transactionHistory.AddTransaction(
-                            new KeyedCreditsTransaction(1, DateTime.UtcNow, accountType, false, amount));
+                        _transactionHistory.AddTransaction(trans);
                         Logger.Info(
                             $"Keyed off {amount} credits from {accountType} account type [TransactionId={transactionId}");
                     }
-
+                    _transactionCoordinator.ReleaseTransaction(transactionId);
                     scope.Complete();
                 }
 
-                _transactionCoordinator.ReleaseTransaction(transactionId);
+                _eventBus.Publish(new KeyedCreditOffEvent(trans));
             }
 
             UpdateCreditData();
