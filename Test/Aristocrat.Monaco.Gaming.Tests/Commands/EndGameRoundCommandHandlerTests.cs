@@ -41,6 +41,7 @@
         private readonly Mock<IProgressiveGameProvider> _progressiveGame = new Mock<IProgressiveGameProvider>();
         private readonly Mock<IProgressiveLevelProvider> _progressiveLevel = new Mock<IProgressiveLevelProvider>();
         private readonly Mock<IHandCountService> _handCountServiceProvider = new Mock<IHandCountService>();
+        private readonly Mock<IMaxWinOverlayService> _maxWinOverlayService = new Mock<IMaxWinOverlayService>();
         private readonly Mock<IGameHistoryLog> _gameHistory = new Mock<IGameHistoryLog>();
         private Mock<IScopedTransaction> _transactionScope;
 
@@ -254,7 +255,8 @@
             bool nullBarkeeperHandler = false,
             bool nullProgressiveGame = false,
             bool nullProgressiveLevel = false,
-            bool nullHandCountServiceProvider = false)
+            bool nullHandCountServiceProvider = false,
+            bool nullMaxWinOverlayService = false)
         {
             return new GameEndedCommandHandler(
                 nullBank ? null : _bank.Object,
@@ -270,7 +272,8 @@
                 nullBarkeeperHandler ? null : _barkeeperHandler.Object,
                 nullProgressiveGame ? null : _progressiveGame.Object,
                 nullProgressiveLevel ? null : _progressiveLevel.Object,
-                nullHandCountServiceProvider ? null : _handCountServiceProvider.Object
+                nullHandCountServiceProvider ? null : _handCountServiceProvider.Object,
+                nullMaxWinOverlayService ? null: _maxWinOverlayService.Object
                 );
         }
     }

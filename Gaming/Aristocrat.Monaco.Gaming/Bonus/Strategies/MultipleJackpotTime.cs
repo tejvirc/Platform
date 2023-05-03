@@ -41,8 +41,9 @@
             IMessageDisplay messages,
             IPlayerService players,
             IPlayerBank playerBank,
-            IPaymentDeterminationProvider paymentDeterminationProvider)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider)
+            IPaymentDeterminationProvider paymentDeterminationProvider,
+            IMaxWinOverlayService maxWinOverlayService)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, maxWinOverlayService)
 
         {
             // TODO: Prevent changing the game, wager, denomination, coins bet per line or lines played until the bonus mode terminates

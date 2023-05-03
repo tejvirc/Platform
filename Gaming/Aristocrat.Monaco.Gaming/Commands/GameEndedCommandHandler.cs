@@ -44,6 +44,7 @@
         private readonly IBarkeeperHandler _barkeeperHandler;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
         private readonly IHandCountService _handCountServiceProvider;
+        private readonly IMaxWinOverlayService _maxWinOverlayService;
 
         private readonly bool _meterFreeGames;
         private readonly IProgressiveLevelProvider _progressiveLevelProvider;
@@ -65,7 +66,8 @@
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
             IProgressiveLevelProvider progressiveLevelProvider,
-            IHandCountService handCountServiceProvider)
+            IHandCountService handCountServiceProvider,
+            IMaxWinOverlayService maxWinOverlayService)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -83,6 +85,7 @@
             _handCountServiceProvider = handCountServiceProvider ?? throw new ArgumentNullException(nameof(handCountServiceProvider));
 
             _meterFreeGames = _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false);
+            _maxWinOverlayService = maxWinOverlayService ?? throw new ArgumentNullException(nameof(maxWinOverlayService));
         }
 
         /// <inheritdoc />
@@ -106,7 +109,10 @@
             Logger.Debug("PendingHandpay set to false");
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
-            _runtime.UpdateBalance(_bank.Credits);
+            if(!_maxWinOverlayService.ShowingMaxWinOverlayService)
+            {
+                _runtime.UpdateBalance(_bank.Credits);
+            }
             _handCountServiceProvider.CheckIfBelowResetThreshold();
         }
 
