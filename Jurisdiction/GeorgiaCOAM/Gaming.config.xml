@@ -22,7 +22,6 @@ as follows:
   <LockupBehavior CashableLockupStrategy="Allowed" />
   <GameCategory ApplyGameCategorySettings="true" />
   <Gamble Allowed="false" />
-  <AutoCompleteGameRound Enabled="false" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:
@@ -59,4 +58,5 @@ as follows:
     <LeftPlayButton Required="true" />
     <GameStartButtons Method="None" />
   </PhysicalButtons>
+  <AutoCompleteGameRound Enabled="false" />
 </GamingConfiguration>
