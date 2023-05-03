@@ -12,6 +12,12 @@
   <Extension path="/Hardware/CommunicatorDrivers">
     <DeviceImplementation ProtocolName="USB"
                           type="Aristocrat.Monaco.Hardware.Usb.UsbCommunicator"/>
+    <DeviceImplementation ProtocolName="RELM"
+                          type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmUsbCommunicator"/>
+  </Extension>
+
+  <Extension path="/Hardware/ReelController/ReelControllerImplementations">
+    <DeviceImplementation ProtocolName="RELM" type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController"/>
   </Extension>
 
 </Addin>
