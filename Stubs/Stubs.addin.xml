@@ -39,4 +39,16 @@
     <DeviceImplementation ProtocolName="Stub" type="Stubs.StubIOImplementation"/>
   </Extension>
 
+  <!-- Temporarily provide printer extensions that normally come from a selected jurisdiction,
+       so that the PrinterAdapter can fully initialize -->
+  <Extension path="/Hardware/PrintableRegions">
+    <FilePath FilePath="stub_printable_regions.xml" />
+  </Extension>
+  <Extension path="/Hardware/PrintableTemplates">
+    <FilePath FilePath="stub_printable_templates.xml" />
+  </Extension>
+  <Extension path="/Hardware/PrinterOverrides">
+    <FilePath FilePath="stub_PrinterOverrides.xml" />
+  </Extension>
+
 </Addin>

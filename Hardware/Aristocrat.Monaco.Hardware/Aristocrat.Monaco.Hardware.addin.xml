@@ -57,7 +57,7 @@
     <Service type="Aristocrat.Monaco.Hardware.Services.HardMeterService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DoorService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.ButtonService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.ButtonDeckDisplayService" />
+    <!--<Service type="Aristocrat.Monaco.Hardware.Services.ButtonDeckDisplayService" />-->
     <Service type="Aristocrat.Monaco.Hardware.Services.DisabledNotesService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.BellService" />
 

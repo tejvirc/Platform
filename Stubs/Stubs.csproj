@@ -25,10 +25,24 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="stub_printable_regions.xml" />
+    <None Remove="stub_printable_templates.xml" />
+    <None Remove="stub_PrinterOverrides.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <CodeAnalysisDictionary Include="$(SolutionDir)CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
     <Content Include="Stubs.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="stub_printable_regions.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="stub_printable_templates.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="stub_PrinterOverrides.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
