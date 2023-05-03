@@ -1,0 +1,2799 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RelmReelController
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RelmReelController
+   ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController">
+  <h1 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController">Class RelmReelController
+  </h1>
+  <div class="markdown level0 summary"><p>The Relm Reel Controller control class</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">RelmReelController</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.html">Aristocrat.Monaco.Hardware.Usb.ReelController.Relm</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Usb.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class RelmReelController : IReelControllerImplementation, IHardwareDevice, IDfuDevice, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Crc.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Crc%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Crc_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Crc*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Crc" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Crc"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Crc" class="expander" data-toggle="collapse">Crc</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Crc" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a the last calculated CRC.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Crc { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The calculated CRC.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Crc">IHardwareDevice.Crc</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Faults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Faults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L132" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Faults_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Faults*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Faults" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Faults"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Faults" class="expander" data-toggle="collapse">Faults</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Faults" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the reel faults.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;int, ReelFaults&gt; Faults { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelFaults.html">ReelFaults</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_Faults">IReelControllerImplementation.Faults</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsConnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsConnected_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsConnected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsConnected" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsConnected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsConnected" class="expander" data-toggle="collapse">IsConnected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsConnected" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device is connected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the device is connected, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_IsConnected">IHardwareDevice.IsConnected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuCapable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsDfuCapable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuCapable_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsDfuCapable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuCapable" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsDfuCapable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuCapable" class="expander" data-toggle="collapse">IsDfuCapable</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuCapable" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device is DFU capable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDfuCapable { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True or false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_IsDfuCapable">IDfuDevice.IsDfuCapable</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuInProgress.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsDfuInProgress%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuInProgress_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsDfuInProgress*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuInProgress" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsDfuInProgress"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuInProgress" class="expander" data-toggle="collapse">IsDfuInProgress</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsDfuInProgress" class="collapse in">
+  <div class="markdown level1 summary"><p>Check if device firmware download or upload is in progress.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDfuInProgress { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if download or upload is in progress.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_IsDfuInProgress">IDfuDevice.IsDfuInProgress</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L120" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsEnabled_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsEnabled" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsEnabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsEnabled" class="expander" data-toggle="collapse">IsEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEnabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True or false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_IsEnabled">IHardwareDevice.IsEnabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsInitialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsInitialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsInitialized_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsInitialized*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsInitialized" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.IsInitialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsInitialized" class="expander" data-toggle="collapse">IsInitialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_IsInitialized" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device is initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInitialized { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True or false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_IsInitialized">IHardwareDevice.IsInitialized</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ProductId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ProductId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ProductId_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ProductId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ProductId" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ProductId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ProductId" class="expander" data-toggle="collapse">ProductId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ProductId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the identifier of the product.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ProductId { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The identifier of the product.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_ProductId">IDfuDevice.ProductId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Protocol.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Protocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Protocol_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Protocol*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Protocol" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Protocol"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Protocol" class="expander" data-toggle="collapse">Protocol</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Protocol" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the protocol.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Protocol { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The protocol.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Protocol">IHardwareDevice.Protocol</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelControllerFaults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelControllerFaults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L129" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelControllerFaults_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelControllerFaults*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelControllerFaults" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelControllerFaults"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelControllerFaults" class="expander" data-toggle="collapse">ReelControllerFaults</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelControllerFaults" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the reel controller faults.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReelControllerFaults ReelControllerFaults { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ReelControllerFaults.html">ReelControllerFaults</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelControllerFaults">IReelControllerImplementation.ReelControllerFaults</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelIds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelIds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L126" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelIds_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelIds*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelIds" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelIds"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelIds" class="expander" data-toggle="collapse">ReelIds</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelIds" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the collection of reels IDs for this controller </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;int&gt; ReelIds { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelIds">IReelControllerImplementation.ReelIds</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelsStatus.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelsStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelsStatus_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelsStatus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelsStatus" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelsStatus"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelsStatus" class="expander" data-toggle="collapse">ReelsStatus</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelsStatus" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the status for each of the available reels </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;int, ReelStatus&gt; ReelsStatus { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.html">ReelStatus</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelsStatus">IReelControllerImplementation.ReelsStatus</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_VendorId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.VendorId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_VendorId_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.VendorId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_VendorId" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.VendorId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_VendorId" class="expander" data-toggle="collapse">VendorId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_VendorId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the identifier of the vendor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int VendorId { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The identifier of the vendor.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_VendorId">IDfuDevice.VendorId</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Abort.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Abort%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Abort_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Abort*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Abort" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Abort"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Abort" class="expander" data-toggle="collapse">Abort()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Abort" class="collapse in">
+  <div class="markdown level1 summary"><p>Aborts the currently in progress download or upload operation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Abort()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Abort">IDfuDevice.Abort()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_CalculateCrc_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.CalculateCrc(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L237" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_CalculateCrc_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.CalculateCrc*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_CalculateCrc_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.CalculateCrc(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_CalculateCrc_System_Int32_" class="expander" data-toggle="collapse">CalculateCrc(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_CalculateCrc_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to initiate a 32-bit checksum calculation of the devices ROM memory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;int&gt; CalculateCrc(int seed)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">seed</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <p><p>A Task (allows for asynchronous) with a calculated CRC.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_CalculateCrc_System_Int32_">IHardwareDevice.CalculateCrc(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Close.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L211" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Close_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Close*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Close" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Close"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Close" class="expander" data-toggle="collapse">Close()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Close" class="collapse in">
+  <div class="markdown level1 summary"><p>Closes the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Close()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>False if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Close">IHardwareDevice.Close()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Detach.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Detach%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L175" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Detach_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Detach*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Detach" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Detach"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Detach" class="expander" data-toggle="collapse">Detach()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Detach" class="collapse in">
+  <div class="markdown level1 summary"><p>Initiates detach sequence and enters DFU mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; Detach()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Detach">IDfuDevice.Detach()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Disable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L224" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disable_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disable" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Disable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disable" class="expander" data-toggle="collapse">Disable()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disable" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to host disable the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; Disable()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Disable">IHardwareDevice.Disable()</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disable_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST deactivate any inputs and/or disable any outputs.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L138" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Dispose" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Dispose"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Download_System_IO_Stream_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Download(System.IO.Stream)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L187" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Download_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Download*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Download_System_IO_Stream_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Download(System.IO.Stream)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Download_System_IO_Stream_" class="expander" data-toggle="collapse">Download(Stream)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Download_System_IO_Stream_" class="collapse in">
+  <div class="markdown level1 summary"><p>Request firmware download.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DfuStatus&gt; Download(Stream firmware)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></span>
+        <span class="parametername">firmware</span>
+        <p><p>Firmware stream.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.DfuStatus.html">DfuStatus</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Download_System_IO_Stream_">IDfuDevice.Download(Stream)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Enable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L217" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enable_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enable" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Enable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enable" class="expander" data-toggle="collapse">Enable()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enable" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to host enable the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; Enable()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Enable">IHardwareDevice.Enable()</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enable_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST activate any inputs and/or enable any outputs. If the device has a fault then it MUST stay
+disabled and report the fault to the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapabilities.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.GetCapabilities%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L273" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapabilities_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.GetCapabilities*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapabilities" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.GetCapabilities"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapabilities" class="expander" data-toggle="collapse">GetCapabilities()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapabilities" class="collapse in">
+  <div class="markdown level1 summary"><p>Get all capabilities of the reel controller</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Type&gt; GetCapabilities()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p><p>An enumeration of capabilities.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_GetCapabilities">IReelControllerImplementation.GetCapabilities()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapability__1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.GetCapability%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L276" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapability_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.GetCapability*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapability__1" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.GetCapability``1"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapability__1" class="expander" data-toggle="collapse">GetCapability&lt;T&gt;()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_GetCapability__1" class="collapse in">
+  <div class="markdown level1 summary"><p>Get the implementation for the capability.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T GetCapability&lt;T&gt;()
+    where T : class, IReelImplementationCapability</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">T</span>
+        <p><p>The capability for the controller</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">T</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_GetCapability__1">IReelControllerImplementation.GetCapability&lt;T&gt;()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HasCapability__1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HasCapability%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L287" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HasCapability_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HasCapability*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HasCapability__1" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HasCapability``1"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HasCapability__1" class="expander" data-toggle="collapse">HasCapability&lt;T&gt;()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HasCapability__1" class="collapse in">
+  <div class="markdown level1 summary"><p>Whether or not the reel controller has a given capability.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasCapability&lt;T&gt;()
+    where T : class, IReelImplementationCapability</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Return true if the controller has the capability, otherwise false.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">T</span>
+        <p><p>The capability type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_HasCapability__1">IReelControllerImplementation.HasCapability&lt;T&gt;()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReel_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HomeReel(System.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L255" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReel_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HomeReel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReel_System_Int32_System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HomeReel(System.Int32,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReel_System_Int32_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">HomeReel(Int32, Int32, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReel_System_Int32_System_Int32_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Homes the reel to the requested stop</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; HomeReel(int reelId, int stop, bool resetStatus = true)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">reelId</span>
+        <p><p>The reel ID to home</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">stop</span>
+        <p><p>The stop to home the reel to</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">resetStatus</span>
+        <p><p>Indicates whether or not to reset the status for this reel</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the reel was homed</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_HomeReel_System_Int32_System_Int32_System_Boolean_">IReelControllerImplementation.HomeReel(Int32, Int32, Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HomeReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L249" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReels_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HomeReels*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReels" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HomeReels"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReels" class="expander" data-toggle="collapse">HomeReels()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HomeReels" class="collapse in">
+  <div class="markdown level1 summary"><p>Homes the reels to the requested stop</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; HomeReels()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the reels were homed</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_HomeReels">IReelControllerImplementation.HomeReels()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_ICommunicator_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Initialize(Aristocrat.Monaco.Hardware.Contracts.Communicator.ICommunicator)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L145" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialize_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_ICommunicator_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Initialize(Aristocrat.Monaco.Hardware.Contracts.Communicator.ICommunicator)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_ICommunicator_" class="expander" data-toggle="collapse">Initialize(ICommunicator)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_ICommunicator_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; Initialize(ICommunicator communicator)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.ICommunicator.html">ICommunicator</a></span>
+        <span class="parametername">communicator</span>
+        <p><p>The communicator.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_ICommunicator_">IDfuDevice.Initialize(ICommunicator)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Open.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Open%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L205" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Open_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Open*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Open" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Open"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Open" class="expander" data-toggle="collapse">Open()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Open" class="collapse in">
+  <div class="markdown level1 summary"><p>Opens the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Open()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>False if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Open">IHardwareDevice.Open()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Reconnect.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Reconnect%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L181" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Reconnect_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Reconnect*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Reconnect" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Reconnect"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Reconnect" class="expander" data-toggle="collapse">Reconnect()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Reconnect" class="collapse in">
+  <div class="markdown level1 summary"><p>If in DFU mode, exits the mode and reconnects the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; Reconnect()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Reconnect">IDfuDevice.Reconnect()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L231" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to start a self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; SelfTest(bool nvm)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">nvm</span>
+        <p><p>An flag indicating if Non-volatile Memory (NVM MUST be cleared before the self-test is performed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_SelfTest_System_Boolean_">IHardwareDevice.SelfTest(Boolean)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SelfTest_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST initiate a self-test sequence when instructed by the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SetReelOffsets_System_Int32___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.SetReelOffsets(System.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L261" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SetReelOffsets_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.SetReelOffsets*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SetReelOffsets_System_Int32___" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.SetReelOffsets(System.Int32[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SetReelOffsets_System_Int32___" class="expander" data-toggle="collapse">SetReelOffsets(Int32[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_SetReelOffsets_System_Int32___" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the offsets for all reels</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; SetReelOffsets(params int[] offsets)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>[]</span>
+        <span class="parametername">offsets</span>
+        <p><p>The offsets to set for the reels</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the offsets were set</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_SetReelOffsets_System_Int32___">IReelControllerImplementation.SetReelOffsets(Int32[])</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_TiltReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.TiltReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L267" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_TiltReels_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.TiltReels*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_TiltReels" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.TiltReels"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_TiltReels" class="expander" data-toggle="collapse">TiltReels()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_TiltReels" class="collapse in">
+  <div class="markdown level1 summary"><p>Tilts the reels (slow spinning)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; TiltReels()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether or not the reels where tilted</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_TiltReels">IReelControllerImplementation.TiltReels()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_UpdateConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.UpdateConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="expander" data-toggle="collapse">UpdateConfiguration(IDeviceConfiguration)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the device configurations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateConfiguration(IDeviceConfiguration internalConfiguration)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration.html">IDeviceConfiguration</a></span>
+        <span class="parametername">internalConfiguration</span>
+        <p><p>Internal configuration to update.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_">IHardwareDevice.UpdateConfiguration(IDeviceConfiguration)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Upload_System_IO_Stream_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Upload(System.IO.Stream)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L193" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Upload_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Upload*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Upload_System_IO_Stream_" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Upload(System.IO.Stream)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Upload_System_IO_Stream_" class="expander" data-toggle="collapse">Upload(Stream)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Upload_System_IO_Stream_" class="collapse in">
+  <div class="markdown level1 summary"><p>Request firmware upload.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;DfuStatus&gt; Upload(Stream firmware)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></span>
+        <span class="parametername">firmware</span>
+        <p><p>Firmware stream.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.DfuStatus.html">DfuStatus</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Upload_System_IO_Stream_">IDfuDevice.Upload(Stream)</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Connected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Connected" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Connected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Connected" class="expander" data-toggle="collapse">Connected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Connected" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is connected to the USB port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; Connected</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Connected">IHardwareDevice.Connected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ControllerFaultCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultCleared" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ControllerFaultCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultCleared" class="expander" data-toggle="collapse">ControllerFaultCleared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller fault was cleared </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelControllerFaultedEventArgs&gt; ControllerFaultCleared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ControllerFaultCleared">IReelControllerImplementation.ControllerFaultCleared</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ControllerFaultOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultOccurred" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ControllerFaultOccurred"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultOccurred" class="expander" data-toggle="collapse">ControllerFaultOccurred</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ControllerFaultOccurred" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller has a fault </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelControllerFaultedEventArgs&gt; ControllerFaultOccurred</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelControllerFaultedEventArgs.html">ReelControllerFaultedEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ControllerFaultOccurred">IReelControllerImplementation.ControllerFaultOccurred</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Disabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disabled" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Disabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disabled" class="expander" data-toggle="collapse">Disabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; Disabled</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Disabled">IHardwareDevice.Disabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disconnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Disconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disconnected" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Disconnected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disconnected" class="expander" data-toggle="collapse">Disconnected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Disconnected" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is disconnected to the USB port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; Disconnected</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Disconnected">IHardwareDevice.Disconnected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_DownloadProgressed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.DownloadProgressed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_DownloadProgressed" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.DownloadProgressed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_DownloadProgressed" class="expander" data-toggle="collapse">DownloadProgressed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_DownloadProgressed" class="collapse in">
+  <div class="markdown level1 summary"><p>Occurs when download progresses.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ProgressEventArgs&gt; DownloadProgressed</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.ProgressEventArgs.html">ProgressEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_DownloadProgressed">IDfuDevice.DownloadProgressed</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enabled" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Enabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enabled" class="expander" data-toggle="collapse">Enabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Enabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; Enabled</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Enabled">IHardwareDevice.Enabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.FaultCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultCleared" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.FaultCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultCleared" class="expander" data-toggle="collapse">FaultCleared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs whens the reel fault was cleared </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelFaultedEventArgs&gt; FaultCleared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_FaultCleared">IReelControllerImplementation.FaultCleared</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.FaultOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultOccurred" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.FaultOccurred"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultOccurred" class="expander" data-toggle="collapse">FaultOccurred</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_FaultOccurred" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel has a fault </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelFaultedEventArgs&gt; FaultOccurred</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelFaultedEventArgs.html">ReelFaultedEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_FaultOccurred">IReelControllerImplementation.FaultOccurred</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HardwareInitialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HardwareInitialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HardwareInitialized" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.HardwareInitialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HardwareInitialized" class="expander" data-toggle="collapse">HardwareInitialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_HardwareInitialized" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when a reel controller hardware is fully initialized</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler HardwareInitialized</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_HardwareInitialized">IReelControllerImplementation.HardwareInitialized</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_InitializationFailed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.InitializationFailed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_InitializationFailed" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.InitializationFailed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_InitializationFailed" class="expander" data-toggle="collapse">InitializationFailed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_InitializationFailed" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is initialization fails.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; InitializationFailed</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_InitializationFailed">IHardwareDevice.InitializationFailed</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Initialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialized" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.Initialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialized" class="expander" data-toggle="collapse">Initialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_Initialized" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; Initialized</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_Initialized">IHardwareDevice.Initialized</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelConnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelConnected" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelConnected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelConnected" class="expander" data-toggle="collapse">ReelConnected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelConnected" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when a reel is connected </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelEventArgs&gt; ReelConnected</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelConnected">IReelControllerImplementation.ReelConnected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelDisconnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelDisconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelDisconnected" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelDisconnected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelDisconnected" class="expander" data-toggle="collapse">ReelDisconnected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelDisconnected" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when a reel is disconnected </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelEventArgs&gt; ReelDisconnected</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelDisconnected">IReelControllerImplementation.ReelDisconnected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSlowSpinning.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelSlowSpinning%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSlowSpinning" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelSlowSpinning"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSlowSpinning" class="expander" data-toggle="collapse">ReelSlowSpinning</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSlowSpinning" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel starts slow spinning </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelEventArgs&gt; ReelSlowSpinning</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelSlowSpinning">IReelControllerImplementation.ReelSlowSpinning</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSpinning.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelSpinning%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSpinning" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelSpinning"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSpinning" class="expander" data-toggle="collapse">ReelSpinning</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelSpinning" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel starts spinning </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelEventArgs&gt; ReelSpinning</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelSpinning">IReelControllerImplementation.ReelSpinning</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopped.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelStopped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopped" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelStopped"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopped" class="expander" data-toggle="collapse">ReelStopped</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopped" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel stops spinning </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelEventArgs&gt; ReelStopped</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelStopped">IReelControllerImplementation.ReelStopped</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopping.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelStopping%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopping" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ReelStopping"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopping" class="expander" data-toggle="collapse">ReelStopping</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ReelStopping" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel begins to stop spinning </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ReelEventArgs&gt; ReelStopping</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelEventArgs.html">ReelEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.IReelControllerImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Reel_IReelControllerImplementation_ReelStopping">IReelControllerImplementation.ReelStopping</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetFailed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ResetFailed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetFailed" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ResetFailed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetFailed" class="expander" data-toggle="collapse">ResetFailed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetFailed" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when failed to reset a device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; ResetFailed</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_ResetFailed">IHardwareDevice.ResetFailed</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetSucceeded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ResetSucceeded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetSucceeded" data-uid="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController.ResetSucceeded"><a href="#collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetSucceeded" class="expander" data-toggle="collapse">ResetSucceeded</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController_ResetSucceeded" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when successfully reset a device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; ResetSucceeded</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IHardwareDevice.html#Aristocrat_Monaco_Hardware_Contracts_IHardwareDevice_ResetSucceeded">IHardwareDevice.ResetSucceeded</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Usb_ReelController_Relm_RelmReelController.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Usb/ReelController/Relm/RelmReelController.cs/#L17" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>
