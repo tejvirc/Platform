@@ -545,6 +545,8 @@
 
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
 
+            IsPrimaryLanguageSelected = true;
+
             Volume = new LobbyVolumeViewModel(OnUserInteraction);
 
             TopperLobbyVideoPath = Config.TopperLobbyVideoFilename;
