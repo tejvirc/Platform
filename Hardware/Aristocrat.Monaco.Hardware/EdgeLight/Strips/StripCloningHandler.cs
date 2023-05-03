@@ -10,7 +10,7 @@
 
     internal class StripCloningHandler
     {
-        private const string LogicalStripsCreationRuleXml = @".\StripCloneMappings.xml";
+        private const string LogicalStripsCreationRuleXml = @"StripCloneMappings.xml";
 
         private readonly IEdgeLightManager _edgeLightManager;
 

@@ -27,7 +27,7 @@
     public class HardwareConfiguration : IHardwareConfiguration, IDisposable
     {
         private const string AddinConfigurationsSelected = "Mono.SelectedAddinConfigurationHashCode";
-        private const string SupportedDevicesPath = @".\SupportedDevices.xml";
+        private const string SupportedDevicesPath = @"SupportedDevices.xml";
         private const PersistenceLevel Level = PersistenceLevel.Static;
         private const int DefaultBaudRate = 9600;
         private const int ReelControllerInspectionTimeout = 30000;  // Reel controller needs more time to home the reels during inspection

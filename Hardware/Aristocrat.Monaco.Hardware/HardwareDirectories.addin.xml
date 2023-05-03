@@ -7,8 +7,8 @@
   </Dependencies>
 
   <Extension path="/Kernel/PathMapping">
-    <PathMapping platformPath="/Data" fileSystemPath="..\data" createIfNotExists="true" />
-    <PathMapping platformPath="/Tools" fileSystemPath="C:\Aristocrat-VLT-Tools\" createIfNotExists="true" />
+    <PathMapping platformPath="/Data" fileSystemPath="../data" createIfNotExists="true" />
+    <!--<PathMapping platformPath="/Tools" fileSystemPath="C:\Aristocrat-VLT-Tools\" createIfNotExists="true" />-->
   </Extension>
 
 </Addin>

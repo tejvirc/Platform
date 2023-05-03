@@ -19,27 +19,27 @@
 
   <Extension path="/IO/Configuration">
     <IOConfiguration Protocol="Unknown">
-      <FilePath FilePath=".\IO.Gen8.config.xml" />
+      <FilePath FilePath="IO.Gen8.config.xml" />
     </IOConfiguration>
   </Extension>
   <Extension path="/IO/Configuration">
     <IOConfiguration Protocol="Gen8">
-      <FilePath FilePath=".\IO.Gen8.config.xml" />
+      <FilePath FilePath="IO.Gen8.config.xml" />
     </IOConfiguration>
   </Extension>
   <Extension path="/IO/Configuration">
     <IOConfiguration Protocol="Gen9">
-      <FilePath FilePath=".\IO.Gen9.config.xml" />
+      <FilePath FilePath="IO.Gen9.config.xml" />
     </IOConfiguration>
   </Extension>
   <Extension path="/IO/Configuration">
     <IOConfiguration Cabinet="LSWith1600MainScreen">
-      <FilePath FilePath=".\IO.Gen8.config.xml" />
+      <FilePath FilePath="IO.Gen8.config.xml" />
     </IOConfiguration>
   </Extension>
   <Extension path="/IO/Configuration">
     <IOConfiguration Cabinet="LSWith1280MainScreen">
-      <FilePath FilePath=".\IO.Gen8.config.xml" />
+      <FilePath FilePath="IO.Gen8.config.xml" />
     </IOConfiguration>
   </Extension>
 

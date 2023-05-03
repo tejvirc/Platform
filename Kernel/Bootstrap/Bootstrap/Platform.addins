@@ -5,7 +5,7 @@
   <!-- list other directories that contain addin.xml files here -->
   <!-- add one Directory entry for each directory to search -->
   <!-- The DLL/EXE that the addin refers to should be in the same directory as the addin.xml file -->
-  <Directory include-subdirs="true">..\jurisdiction</Directory>
+  <Directory include-subdirs="true">../jurisdiction</Directory>
 
   <!-- list files or directories to exclude from the mono addin search here -->
   <!-- random-com.dll gives an error since it doesn't have a manifest -->
@@ -29,9 +29,9 @@
   <Exclude>libusb-1.0.dll</Exclude>
   <Exclude>SQLite.Interop.dll</Exclude>
   <Exclude>widevinecdmadapter.dll</Exclude>
-  <Exclude>.\swiftshader\libEGL.dll</Exclude>
-  <Exclude>.\swiftshader\libGLESv2.dll</Exclude>
-  <Exclude>.\x64\SQLite.Interop.dll</Exclude>
-  <Exclude>.\x86\SQLite.Interop.dll</Exclude>
+  <Exclude>swiftshader\libEGL.dll</Exclude>
+  <Exclude>swiftshader\libGLESv2.dll</Exclude>
+  <Exclude>x64\SQLite.Interop.dll</Exclude>
+  <Exclude>x86\SQLite.Interop.dll</Exclude>
   <Exclude>Aristocrat.Monaco.SAS.SASQuatch.dll</Exclude>
 </Addins>

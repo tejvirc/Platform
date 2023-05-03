@@ -162,8 +162,8 @@
 
         private static void ConfigureLogging()
         {
-            var loggingConfig = File.Exists(@"..\logs\logging.config")
-                ? new FileInfo(@"..\logs\logging.config")
+            var loggingConfig = File.Exists(@"../logs/logging.config")
+                ? new FileInfo(@"../logs/logging.config")
                 : new FileInfo(@"logging.config");
 
             GlobalContext.Properties["AssemblyInfo.Version"] = GetVersion();

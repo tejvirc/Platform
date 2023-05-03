@@ -13,7 +13,7 @@
 
     public sealed class SimEdgeLightDevice : IEdgeLightDevice
     {
-        private const string LogicalStripsCreationRuleXml = @".\EdgeLightStripsCreationRule.xml";
+        private const string LogicalStripsCreationRuleXml = @"EdgeLightStripsCreationRule.xml";
 
         public static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
