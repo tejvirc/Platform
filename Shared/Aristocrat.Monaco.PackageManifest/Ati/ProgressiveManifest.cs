@@ -33,38 +33,39 @@
             var details = new List<ProgressiveDetail>();
 
             foreach (var pack in config.ProgressivePack)
-            foreach (var progressive in pack.Progressive)
-            {
-                var detail = new ProgressiveDetail
+                foreach (var progressive in pack.Progressive)
                 {
-                    Id = Convert.ToInt32(progressive.id),
-                    PackId = Convert.ToInt32(pack.id),
-                    Name = pack.name,
-                    LevelPack = progressive.levelPack,
-                    Denomination = !string.IsNullOrEmpty(progressive.denom) ? progressive.denom.Split(',').ToArray() : new[] { All },
-                    Variation = progressive.variation,
-                    ReturnToPlayer = new ProgressiveRtp
+                    var detail = new ProgressiveDetail
                     {
-                        ResetRtpMin = Convert.ToDecimal(progressive.resetRtpMin),
-                        ResetRtpMax = Convert.ToDecimal(progressive.resetRtpMax),
-                        IncrementRtpMin = Convert.ToDecimal(progressive.incrementRtpMin),
-                        IncrementRtpMax = Convert.ToDecimal(progressive.incrementRtpMax),
-                        BaseRtpAndResetRtpMin = progressive.baseResetRtpMin is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetRtpMin),
-                        BaseRtpAndResetRtpMax = progressive.baseResetRtpMax is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetRtpMax),
-                        BaseRtpAndResetRtpAndIncRtpMin = progressive.baseResetIncrementRtpMin is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetIncrementRtpMin),
-                        BaseRtpAndResetRtpAndIncRtpMax = progressive.baseResetIncrementRtpMax is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetIncrementRtpMax)
-                    },
-                    Turnover = Convert.ToInt64(progressive.turnover),
-                    ProgressiveType = progressive.poolControlTypeSpecified ? progressive.poolControlType : pack.poolControlType,
-                    UseLevels = !string.IsNullOrEmpty(progressive.useLevels) ?
-                        progressive.useLevels.Split(',').Select(l => l.Trim()).ToList() :
-                        new[] { All }.ToList(),
-                    CreationType = progressive.progType
-                };
+                        Id = Convert.ToInt32(progressive.id),
+                        PackId = Convert.ToInt32(pack.id),
+                        Name = pack.name,
+                        LevelPack = progressive.levelPack,
+                        Denomination = !string.IsNullOrEmpty(progressive.denom) ? progressive.denom.Split(',').ToArray() : new[] { All },
+                        Variation = progressive.variation,
+                        ReturnToPlayer = new ProgressiveRtp
+                        {
+                            ResetRtpMin = Convert.ToDecimal(progressive.resetRtpMin),
+                            ResetRtpMax = Convert.ToDecimal(progressive.resetRtpMax),
+                            IncrementRtpMin = Convert.ToDecimal(progressive.incrementRtpMin),
+                            IncrementRtpMax = Convert.ToDecimal(progressive.incrementRtpMax),
+                            BaseRtpAndResetRtpMin = progressive.baseResetRtpMin is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetRtpMin),
+                            BaseRtpAndResetRtpMax = progressive.baseResetRtpMax is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetRtpMax),
+                            BaseRtpAndResetRtpAndIncRtpMin = progressive.baseResetIncrementRtpMin is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetIncrementRtpMin),
+                            BaseRtpAndResetRtpAndIncRtpMax = progressive.baseResetIncrementRtpMax is null ? (decimal?)null : Convert.ToDecimal(progressive.baseResetIncrementRtpMax)
+                        },
+                        Turnover = Convert.ToInt64(progressive.turnover),
+                        ProgressiveType = progressive.poolControlTypeSpecified ? progressive.poolControlType : pack.poolControlType,
+                        UseLevels = !string.IsNullOrEmpty(progressive.useLevels) ?
+                            progressive.useLevels.Split(',').Select(l => l.Trim()).ToList() :
+                            new[] { All }.ToList(), 
+                        CreationType = progressive.progType,
+                        BetLinePreset = progressive.betLinePreset
+                    };
 
-                detail.Levels = GetLevelDetails(config, pack, progressive, detail.UseLevels.ToList());
-                details.Add(detail);
-            }
+                    detail.Levels = GetLevelDetails(config, pack, progressive, detail.UseLevels.ToList());
+                    details.Add(detail);
+                }
 
             return details;
         }
@@ -81,32 +82,32 @@
             var levelPacks = config.LevelPacks.Where(l => l.name.Equals(progressive.levelPack));
 
             foreach (var levelPack in levelPacks)
-            foreach (var level in GetApplicableLevels(levelPack, useLevels))
-            {
-                var detail = new LevelDetail
+                foreach (var level in GetApplicableLevels(levelPack, useLevels))
                 {
-                    LevelId = index++,
-                    Name = level.name,
-                    IncrementRate = Convert.ToDecimal(level.incrementRate, CultureInfo.InvariantCulture),
-                    HiddenIncrementRate = Convert.ToDecimal(level.hiddenIncrementRate, CultureInfo.InvariantCulture),
-                    Probability = Convert.ToDecimal(level.probability, CultureInfo.InvariantCulture),
-                    MaximumValue = new ProgressiveValue(level.ceiling),
-                    StartupValue = new ProgressiveValue(level.startUp),
-                    AllowTruncation = level.allowTruncation,
-                    BonusValues = level.Bonuses?.ToDictionary(
-                        b => b.key,
-                        b => Convert.ToInt64(b.value)),
-                    LevelType = progressivePack.sapFundingSpecified ? ToLevelType(progressivePack.sapFunding) :
-                        level.sapFundingSpecified ? ToLevelType(level.sapFunding) : ToLevelType(level.flavor),
-                    SapFundingType = GetSapFundingType(progressivePack, progressive, levelPack, level),
-                    ProgressiveType = GetProgressiveType(progressivePack, progressive, levelPack, level),
-                    Trigger = level.triggerSpecified ? level.trigger : triggerType.GAME,
-                    LineGroup = Convert.ToInt32(level.lineGroup),
-                    Rtp = Convert.ToDecimal(level.rtp)
-                };
+                    var detail = new LevelDetail
+                    {
+                        LevelId = index++,
+                        Name = level.name,
+                        IncrementRate = Convert.ToDecimal(level.incrementRate, CultureInfo.InvariantCulture),
+                        HiddenIncrementRate = Convert.ToDecimal(level.hiddenIncrementRate, CultureInfo.InvariantCulture),
+                        Probability = Convert.ToDecimal(level.probability, CultureInfo.InvariantCulture),
+                        MaximumValue = new ProgressiveValue(level.ceiling),
+                        StartupValue = new ProgressiveValue(level.startUp),
+                        AllowTruncation = level.allowTruncation,
+                        BonusValues = level.Bonuses?.ToDictionary(
+                            b => b.key,
+                            b => Convert.ToInt64(b.value)),
+                        LevelType = progressivePack.sapFundingSpecified ? ToLevelType(progressivePack.sapFunding) :
+                            level.sapFundingSpecified ? ToLevelType(level.sapFunding) : ToLevelType(level.flavor),
+                        SapFundingType = GetSapFundingType(progressivePack, progressive, levelPack, level),
+                        ProgressiveType = GetProgressiveType(progressivePack, progressive, levelPack, level),
+                        Trigger = level.triggerSpecified ? level.trigger : triggerType.GAME,
+                        LineGroup = Convert.ToInt32(level.lineGroup),
+                        Rtp = Convert.ToDecimal(level.rtp)
+                    };
 
-                details.Add(detail);
-            }
+                    details.Add(detail);
+                }
 
             return details;
         }
@@ -186,15 +187,15 @@
             {
                 fundingType = level.sapFunding;
             }
-            else if(levelPack.sapFundingSpecified)
+            else if (levelPack.sapFundingSpecified)
             {
                 fundingType = levelPack.sapFunding;
             }
-            else if(progressive.sapFundingSpecified)
+            else if (progressive.sapFundingSpecified)
             {
                 fundingType = progressive.sapFunding;
             }
-            else if(progressivePack.sapFundingSpecified)
+            else if (progressivePack.sapFundingSpecified)
             {
                 fundingType = progressivePack.sapFunding;
             }
@@ -218,7 +219,7 @@
             {
                 progressiveType = levelPack.poolControlType;
             }
-            else if(progressive.poolControlTypeSpecified)
+            else if (progressive.poolControlTypeSpecified)
             {
                 progressiveType = progressive.poolControlType;
             }

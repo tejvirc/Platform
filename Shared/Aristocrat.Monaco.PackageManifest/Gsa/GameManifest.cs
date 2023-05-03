@@ -96,7 +96,7 @@
 
         private static GameAttributes Map(c_gameAttributes gameInfo)
         {
-            var betOptionList = new BetOptionList(gameInfo.Item?.betOption);
+            var betOptionList = new BetOptionList(gameInfo.Item?.betOption, gameInfo.betLinePresetList);
             var activeBetOptionName = gameInfo.Item?.activeOption;
             var activeBetOption = !string.IsNullOrEmpty(activeBetOptionName)
                 ? betOptionList.FirstOrDefault(o => o.Name == activeBetOptionName)
