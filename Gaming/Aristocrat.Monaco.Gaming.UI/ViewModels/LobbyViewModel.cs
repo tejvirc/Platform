@@ -3611,6 +3611,11 @@
 
         private void CashOutPressed(object obj)
         {
+            if (IsDisabledByHandCount())
+            {
+                return;
+            }
+
             // TODO:  Not sure about time limit dialog here
             if (!(IsTimeLimitDlgVisible && (_responsibleGaming?.IsSessionLimitHit ?? false)) &&
                 obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
