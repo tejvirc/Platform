@@ -206,15 +206,27 @@
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
                                     Binding="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#0.00'%'}}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn29_6FC827A3" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn0_727D75F6" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
                                     Binding="{Binding MaxValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn30_6FC827A3" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn1_727D75F6" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
-                                    Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged}"
-                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn31_6FC827A3" />
+                                    Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn2_727D75F6" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn3_727D75F6">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:LevelModel}">
+                            <helpers:CurrencyTextBox x:Name="OverflowCurrencyTextBox"
+                                                     PreventNegatives="True"
+                                                     IsEnabled="{Binding CanSetOverflowValue}"
+                                                     Number="{                                     Binding Path=OverflowValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Grid.Row="3"

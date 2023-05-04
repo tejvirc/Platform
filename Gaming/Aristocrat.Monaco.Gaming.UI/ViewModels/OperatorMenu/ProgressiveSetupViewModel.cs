@@ -126,6 +126,8 @@
                 RaisePropertyChanged(nameof(InitialValueEditable));
                 RaisePropertyChanged(nameof(InitialValueReadOnly));
                 RaisePropertyChanged(nameof(ShowAssociatedSap));
+                RaisePropertyChanged(nameof(OverflowValueEditable));
+                RaisePropertyChanged(nameof(OverflowValueReadOnly));
             }
         }
 
@@ -159,6 +161,8 @@
                 RaisePropertyChanged(nameof(InitialValueEditable));
                 RaisePropertyChanged(nameof(InitialValueReadOnly));
                 RaisePropertyChanged(nameof(ShowAssociatedSap));
+                RaisePropertyChanged(nameof(OverflowValueEditable));
+                RaisePropertyChanged(nameof(OverflowValueReadOnly));
             }
         }
 
@@ -191,6 +195,10 @@
         public bool InitialValueEditable => !IsSummaryView && IsSap;
 
         public bool InitialValueReadOnly => IsSummaryView && IsSap;
+
+        public bool OverflowValueEditable => !IsSummaryView && IsSap;
+
+        public bool OverflowValueReadOnly => IsSummaryView && IsSap;
 
         public bool ShowAssociatedSap => !IsSummaryView && IsSap && _isAssociatedSap;
 
@@ -236,7 +244,9 @@
                         _selectedGame.DenominationValue,
                         progressiveLevel.AssociatedProgressiveLevel,
                         progressiveLevel.AssignedProgressiveInfo,
-                        progressiveLevel.InitialValue.DollarsToMillicents()))
+                        progressiveLevel.InitialValue.DollarsToMillicents(),
+                        0,
+                        progressiveLevel.OverflowValue.DollarsToMillicents()))
                 .ToList();
 
             if (_gameService.Running &&
