@@ -92,6 +92,7 @@
             @this.RegisterInstance(serviceManager.GetService<IMoneyLaunderingMonitor>());
             @this.RegisterInstance(serviceManager.GetService<IHandCountService>());
             @this.RegisterInstance(serviceManager.GetService<ICashOutAmountCalculator>());
+            @this.RegisterInstance(serviceManager.GetService<IHandCountOverlayService>());
             @this.RegisterInstance(serviceManager.GetService<IMaxWinOverlayService>());
         }
     }

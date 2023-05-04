@@ -15,6 +15,6 @@
         /// Flag is set to true when maxWin dialog is shown and we update the balance and
         /// set AllowGameRound to true
         /// </summary>
-        bool ShowingMaxWinOverlayService { get; set; }
+        bool ShowingMaxWinWarning { get; set; }
     }
 }

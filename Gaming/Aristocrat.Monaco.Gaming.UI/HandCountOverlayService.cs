@@ -14,7 +14,7 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.MVVM;
 
-    public class HandCountOverlayService : IService, IDisposable
+    public class HandCountOverlayService : IHandCountOverlayService, IService, IDisposable
     {
         private bool _disposed;
         private IEventBus _eventBus;
@@ -25,7 +25,7 @@
 
         public string Name { get; } = "HandCountOverlayService";
 
-        public ICollection<Type> ServiceTypes => new[] { typeof(IService) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(IService), typeof(IHandCountOverlayService) };
 
         public HandCountOverlayService() : this(ServiceManager.GetInstance().GetService<IEventBus>(),
             ServiceManager.GetInstance().TryGetService<IPropertiesManager>())

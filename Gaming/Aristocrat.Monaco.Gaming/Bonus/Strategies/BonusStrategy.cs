@@ -546,7 +546,7 @@
             _bank.Deposit(AccountType.NonCash, nonCashAmount, transactionId);
             _bank.Deposit(AccountType.Promo, promoAmount, transactionId);
 
-            if (!_maxWinOverlayService.ShowingMaxWinOverlayService)
+            if (!_maxWinOverlayService.ShowingMaxWinWarning)
             {
                 _runtime.UpdateBalance(_bank.QueryBalance().MillicentsToCents());
             }

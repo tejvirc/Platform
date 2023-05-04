@@ -71,7 +71,7 @@
 
             _bus.Publish(new DisableCountdownTimerEvent(false));
 
-            if (!checkBalance.ForcedCashout && !_cashoutController.PaperInChuteNotificationActive && !_maxWinOverlayService.ShowingMaxWinOverlayService)
+            if (!checkBalance.ForcedCashout && !_cashoutController.PaperInChuteNotificationActive && !_maxWinOverlayService.ShowingMaxWinWarning)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);
             }
