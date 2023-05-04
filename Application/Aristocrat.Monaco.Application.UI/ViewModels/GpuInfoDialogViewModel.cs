@@ -10,9 +10,9 @@
     public class GpuInfoDialogViewModel : OperatorMenuSaveViewModelBase
     {
         private readonly IGpuDetailService _gpuDetailService;
-        private readonly ITimer getTempTimer;
+        private readonly ITimer _refreshTempTimer;
         private GpuInfo _graphicsCardInfo;
-        private string _currentGPUTemp;
+        private string _currentGpuTemp;
 
         public GpuInfoDialogViewModel()
         {
@@ -20,9 +20,9 @@
                 .GetService<IGpuDetailService>();
             _graphicsCardInfo = _gpuDetailService.GraphicsCardInfo;
             TotalGpuRam = AppendIfNotNa(_graphicsCardInfo.TotalGpuRam, " mB");
-            getTempTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
-            getTempTimer.Tick += GetTempTimerOnElapsed;
-            UsingIGpu = CheckIfGpuIsBeingUsed();
+            _refreshTempTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
+            _refreshTempTimer.Tick += RefreshTemperature;
+            UsingIGpu = CheckIfIGpuIsBeingUsedWhenGpuIsAvailable();
         }
 
         public string WarningText => "The IGPU is currently running instead of the discrete GPU.";
@@ -47,13 +47,13 @@
 
         public string CurrentGpuTemp
         {
-            get => _currentGPUTemp;
+            get => _currentGpuTemp;
 
             set
             {
-                if (_currentGPUTemp != value)
+                if (_currentGpuTemp != value)
                 {
-                    _currentGPUTemp = value;
+                    _currentGpuTemp = value;
                     RaisePropertyChanged(nameof(CurrentGpuTemp));
                 }
             }
@@ -61,15 +61,15 @@
 
         protected override void OnLoaded()
         {
-            getTempTimer.Start();
+            _refreshTempTimer.Start();
         }
 
         protected override void OnUnloaded()
         {
-            getTempTimer.Stop();
+            _refreshTempTimer.Stop();
         }
 
-        private void GetTempTimerOnElapsed(object sender, EventArgs e)
+        private void RefreshTemperature(object sender, EventArgs e)
         {
             CurrentGpuTemp = AppendIfNotNa(_gpuDetailService.GpuTemp, "°C");
         }
@@ -79,9 +79,9 @@
             return original == "N/A" ? original : original + toAdd;
         }
 
-        private bool CheckIfGpuIsBeingUsed()
+        private bool CheckIfIGpuIsBeingUsedWhenGpuIsAvailable()
         {
-            return GraphicsCardInfo.GpuFullName == _gpuDetailService.ActiveGpuName;
+            return !_gpuDetailService.OnlyIGpuAvailable && GraphicsCardInfo.GpuFullName != _gpuDetailService.ActiveGpuName;
         }
     }
 }

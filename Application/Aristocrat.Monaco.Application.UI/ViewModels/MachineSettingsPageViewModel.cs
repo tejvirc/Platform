@@ -5,8 +5,7 @@
     using System.Windows.Input;
     using Application.Helpers;
     using Application.Settings;
-using Aristocrat.Monaco.Application.UI.Views;
-using Aristocrat.MVVM.View;
+    using Views;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;

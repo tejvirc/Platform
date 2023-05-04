@@ -27,14 +27,16 @@
             _disposed = true;
         }
 
+        /// <inheritdoc />
         public string ActiveGpuName => GetActiveGetGraphicsCardName();
-
+        /// <inheritdoc />
         public GpuInfo GraphicsCardInfo => GetGraphicsCardDetails();
 
         /// <inheritdoc />
         public string GpuTemp => RefreshCurrentGpuTemp();
 
-        public bool IsIGpuInUse { get; private set; }
+        /// <inheritdoc />
+        public bool OnlyIGpuAvailable { get; private set; }
 
         /// <inheritdoc />
         public string Name => nameof(IGpuDetailService);
@@ -44,11 +46,23 @@
         public void Initialize()
         {
             NVIDIA.Initialize();
-            IsIGpuInUse = !TryGetPhysicalGpus();
+            OnlyIGpuAvailable = !TryGetPhysicalGpus();
+        }
+
+        public string RefreshCurrentGpuTemp()
+        {
+            if (OnlyIGpuAvailable)
+            {
+                return "N/A";
+            }
+
+            var sensorInfo = _physicalGpus[0].ThermalInformation.ThermalSensors.ToList()[0].CurrentTemperature;
+            var temp = SetToNaIfNoValue(sensorInfo.ToString());
+            return temp;
         }
 
         /// <summary>
-        /// Fetches the physical GPUs from the Nvidia APi through the NVIWrapper package
+        ///     Fetches the physical GPUs from the Nvidia APi through the NVIWrapper package
         /// </summary>
         /// <returns>True if it was able to fetch the physical gpu.</returns>
         private bool TryGetPhysicalGpus()
@@ -57,7 +71,9 @@
             {
                 _physicalGpus = PhysicalGPU.GetPhysicalGPUs();
                 if (_physicalGpus.Length == 0)
+                {
                     return false;
+                }
             }
             catch (NVIDIAApiException)
             {
@@ -65,17 +81,6 @@
             }
 
             return true;
-        }
-
-        public string RefreshCurrentGpuTemp()
-        {
-            if (IsIGpuInUse)
-            {
-                return "N/A";
-            }
-            var sensorInfo = _physicalGpus[0].ThermalInformation.ThermalSensors.ToList()[0].CurrentTemperature;
-            var temp = SetToNaIfNoValue(sensorInfo.ToString());
-            return temp;
         }
 
         private string SetToNaIfNoValue(string stringToCheck)
@@ -87,13 +92,15 @@
 
             return stringToCheck;
         }
+
         private string SetToNaIfNoValue(object stringToCheck)
         {
             return stringToCheck == null ? "N/A" : stringToCheck.ToString();
         }
+
         private GpuInfo GetGraphicsCardDetails()
         {
-            return IsIGpuInUse ? FetchUsingManagementObjectSearcher() : FetchUsingThirdPartyApi();
+            return OnlyIGpuAvailable ? FetchUsingManagementObjectSearcher() : FetchUsingThirdPartyApi();
         }
 
         private GpuInfo FetchUsingThirdPartyApi()
@@ -105,7 +112,8 @@
                 ? Encoding.ASCII.GetString(_physicalGpus[0].Board.SerialNumber).Replace("\0", "0")
                 : "N/A";
             var vBios = SetToNaIfNoValue(_physicalGpus[0]?.Bios.VersionString);
-            var totalGpuRamInMb = SetToNaIfNoValue((_physicalGpus[0]?.MemoryInformation.DedicatedVideoMemoryInkB / 1024).ToString());
+            var totalGpuRamInMb = SetToNaIfNoValue(
+                (_physicalGpus[0]?.MemoryInformation.DedicatedVideoMemoryInkB / 1024).ToString());
             var physicalLocation = SetToNaIfNoValue(_physicalGpus[0]?.BusInformation);
 
             return new GpuInfo
@@ -128,11 +136,10 @@
                 {
                     var mo = (ManagementObject)result;
 
-                    var currentBitsPerPixel = SetToNaIfNoValue(mo.Properties["CurrentBitsPerPixel"].Value);
+                    var currentBitsPerPixel = mo.Properties["CurrentBitsPerPixel"].Value;
                     var gpuFullName = SetToNaIfNoValue(mo.Properties["Name"].Value);
                     var driverVersion = SetToNaIfNoValue(mo.Properties["DriverVersion"].Value);
                     var totalGpuRam = SetToNaIfNoValue(mo.Properties["AdapterRAM"].Value);
-
 
                     if (currentBitsPerPixel != null)
                     {

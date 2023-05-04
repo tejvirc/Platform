@@ -1,28 +1,28 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Display
 {
     /// <summary>
-    ///     TODO:set
+    ///     Service to gather the GPU or iGPU details
     /// </summary>
     public interface IGpuDetailService
     {
         /// <summary>
-        ///     Gets the active graphics card description
+        ///     Gets the active graphics card name.
         /// </summary>
         string ActiveGpuName { get; }
 
         /// <summary>
-        ///     TODO:set
+        ///     Returns the GPU details.
         /// </summary>
         GpuInfo GraphicsCardInfo { get; }
 
         /// <summary>
-        ///     TODO:set
+        ///     Returns the current GPU temperature if available
         /// </summary>
         string GpuTemp { get; }
 
         /// <summary>
-        /// TODO:set
+        ///  returns whether only an iGPU is available.
         /// </summary>
-        bool IsIGpuInUse { get; }
+        bool OnlyIGpuAvailable { get; }
     }
 }
