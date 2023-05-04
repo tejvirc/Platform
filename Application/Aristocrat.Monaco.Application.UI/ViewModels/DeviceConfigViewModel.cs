@@ -314,9 +314,10 @@
 // In Retail mode only allow port specified in platform configs as a port choice for this make
                 SetPortToConfigOption(true);
 #else
-                if (Protocol.Equals(ApplicationConstants.GDS))
+                var selectedDevice = _platformConfigs.FirstOrDefault(x => x.Name == Manufacturer);
+                if (selectedDevice?.Port == ApplicationConstants.USB)
                 {
-                    // Only USB should be available for GDS protocol
+                    // Only USB should be available for USB devices
                     if (_allPorts.Contains(ApplicationConstants.USB))
                     {
                         Ports.Add(ApplicationConstants.USB);

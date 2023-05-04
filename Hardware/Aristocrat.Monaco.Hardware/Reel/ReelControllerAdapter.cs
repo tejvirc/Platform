@@ -265,15 +265,13 @@
             _reelControllerImplementation = AddinFactory.CreateAddin<IReelControllerImplementation>(
                 DeviceImplementationsExtensionPath,
                 ServiceProtocol);
+
             if (_reelControllerImplementation == null)
             {
                 throw new InvalidOperationException("reel controller addin not available");
             }
 
             ReadOrCreateOptions();
-
-            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
-                .ToDictionary(x => x.Key, x => x.Value);
 
             Implementation.FaultCleared += ReelControllerFaultCleared;
             Implementation.FaultOccurred += ReelControllerFaultOccurred;
@@ -399,6 +397,9 @@
             Implementation?.UpdateConfiguration(InternalConfiguration);
             RegisterComponent();
             Initialized = true;
+
+            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());
