@@ -320,9 +320,11 @@
                 yield return level;
             }
 
+            var mappingDenom = GetLowestSharedDenom(levels) ?? denomination;
+
             if (_gameStorage.TryGetValues(
                 gameId,
-                denomination,
+                mappingDenom,
                 packName,
                 out IEnumerable<ProgressiveLevel> persistedValues))
             {
@@ -336,7 +338,7 @@
             }
 
             // store levels based on game(variation) and denom
-            _gameStorage.SetValue(gameId, denomination, packName, progressiveLevels);
+            _gameStorage.SetValue(gameId, mappingDenom, packName, progressiveLevels);
         }
 
         private IEnumerable<ProgressiveLevel> ToProgressiveLevels(
@@ -492,6 +494,17 @@
                         max.MaxWagerCredits.Value);
                 }
             }
+        }
+
+        private long? GetLowestSharedDenom(IEnumerable<ProgressiveLevel> levels)
+        {
+            var lowestSharedDenom = levels
+                .SelectMany(l1 => l1.Denomination)
+                .Distinct()
+                .OrderBy(d1 => d1)
+                .FirstOrDefault(d2 => levels.All(l2 => l2.Denomination.Contains(d2)));
+
+            return lowestSharedDenom == default(long) ? null : lowestSharedDenom;
         }
     }
 }
