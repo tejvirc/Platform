@@ -40,11 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
-    <ProjectReference Include="..\..\Accounting\Monaco.Accounting\Monaco.Accounting.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
-    <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj" />
     <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware\Aristocrat.Monaco.Hardware.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
@@ -65,7 +64,6 @@
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
-    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />

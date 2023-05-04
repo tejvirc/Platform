@@ -57,16 +57,6 @@
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<InitializationCompletedEvent>(this, _ => _startupWaiter.Set());
             ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnRestart());
-
-            Logger.Debug("Runnable initialized!");
-        }
-
-        /// <inheritdoc />
-        /// <exception cref="RunnableException">Thrown when Run() is called a second time without calling Stop().</exception>
-        protected override void OnRun()
-        {
-            Logger.Debug("OnRun started");
-
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
             disableManager.Disable(BaseConstants.ProtocolDisabledKey, SystemDisablePriority.Immediate, () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasProtocolInitializing));
 
@@ -80,6 +70,16 @@
             }
 
             propertiesManager.SetProperty(SasProperties.SasShutdownCommandReceivedKey, false);
+            Logger.Debug("Runnable initialized!");
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="RunnableException">Thrown when Run() is called a second time without calling Stop().</exception>
+        protected override void OnRun()
+        {
+            Logger.Debug("OnRun started");
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
 
             Logger.Debug("OnRun got InitializationCompletedEvent");
             if (RunState == RunnableState.Running)

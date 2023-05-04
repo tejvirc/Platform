@@ -5,9 +5,6 @@
     .PARAMETER Configuration
         The build configuration to target (Debug/Release/Retail).
     
-    .PARAMETER CopyConfigs
-        This flag determines whether the config files should be copied to the target directory.
-        
     .EXAMPLE
         BuildResources.ps1 -Configuration Debug
 
@@ -18,24 +15,24 @@
 param(
     [Parameter(Mandatory = $false)]
     [ValidateSet('Debug', 'Release', 'Retail')]
-    [String]$Configuration = "Debug",
-    [switch]$CopyConfigs = $false
+    [String]$Configuration = "Debug"
 )
 
 Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
 
-$targetDir = [IO.Path]::GetFullPath("$PSScriptRoot\..\..\bin\$Configuration\Platform\bin\")
+Push-Location "$PSScriptRoot\..\Jurisdiction"
 
-$path = "$PSScriptRoot\Resources.msbuild"
-$parameters = "/v:d /property:TargetDir=$targetDir"
+try {
+    $outputPath = [IO.Path]::GetFullPath("$PSScriptRoot\..\bin\$Configuration\Platform\bin\jurisdiction\")
 
-"Build Path: " + $path 
-"Build Parameters: " + $parameters 
-"Copy Configs: " + $CopyConfigs
-
-if ($CopyConfigs) {
-    Copy-Item $PSScriptRoot\..\..\Jurisdiction -Destination $targetDir -Recurse -Force -Verbose
+    $path = "$PSScriptRoot\..\Tasks\Resources.msbuild"
+    $parameters = "/v:d /p:Configuration=$Configuration /p:OutputPath=$outputPath"
+    
+    "Build Path: " + $path 
+    "Build Parameters: " + $parameters
+    
+    Invoke-MsBuild -Path $path -MsBuildParameters $parameters -ShowBuildOutputInCurrentWindow        
 }
-
-Invoke-MsBuild -Path $path -MsBuildParameters $parameters -ShowBuildOutputInCurrentWindow
+finally {
+    Pop-Location
+}

@@ -24,6 +24,7 @@ as follows:
 	<WinMeterResetOnDenomChanged Enabled="true" />
     <LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
 	<GameCategory ApplyGameCategorySettings="true" />
+    <Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Mode="Toggle" Configurable="true" />
 <!--
 	GameRestrictions Settings:

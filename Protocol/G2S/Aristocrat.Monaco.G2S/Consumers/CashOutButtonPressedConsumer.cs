@@ -38,11 +38,6 @@
                 return;
             }
 
-            if (!_properties.GetValue("Automation.HandleCashOut", true))
-            {
-                return;
-            }
-
             _eventLift.Report(device, EventCode.G2S_CBE316);
         }
     }

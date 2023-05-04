@@ -32,6 +32,7 @@
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.8" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
   </ItemGroup>
   <ItemGroup>
     <None Update="DiscoveryTestExtension.addin.xml">

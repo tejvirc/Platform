@@ -38,7 +38,6 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Bingo.Common\Aristocrat.Monaco.Bingo.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.SQLite.Core" Version="1.0.110-beta0001" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />

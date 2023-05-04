@@ -52,12 +52,12 @@
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
-    using Vgt.Client12.Testing.Tools;
     using Views.Controls;
     using Views.Lobby;
     using Size = System.Windows.Size;
 #if !(RETAIL)
     using Events;
+    using Vgt.Client12.Testing.Tools;
 #endif
 
     /// <summary>
@@ -2290,7 +2290,7 @@
                 if (!GameReady && !IsInState(LobbyState.GameLoading))
                 {
                     Logger.Debug("Automatically launch single game");
-                    var currentGame = GameCount == 1 ? GameList.Single(g => g.Enabled) : GetSelectedGame();
+                    var currentGame = GetSelectedGame();
 
                     if (currentGame != null)
                     {

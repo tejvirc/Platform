@@ -55,7 +55,6 @@
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
-    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
     <ProjectReference Include="..\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>

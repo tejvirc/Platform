@@ -154,7 +154,6 @@
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj" />
     <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
-    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware\Aristocrat.Monaco.Hardware.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />

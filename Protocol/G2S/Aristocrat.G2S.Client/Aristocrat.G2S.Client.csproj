@@ -44,11 +44,6 @@
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.9.0" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.9.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.13"/>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.13" />
   </ItemGroup>
 </Project>

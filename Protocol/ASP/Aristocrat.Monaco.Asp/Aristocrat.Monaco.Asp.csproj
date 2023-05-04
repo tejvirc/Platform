@@ -28,7 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
-    <ProjectReference Include="..\..\..\Application\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj" />
     <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
     <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
@@ -69,8 +68,6 @@
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
-    <PackageReference Include="Mono.Addins" Version="1.4.1" />
-    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Client\CommsClassDiagram.cd" />

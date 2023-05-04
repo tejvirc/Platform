@@ -106,7 +106,7 @@
 
             _serviceManager.Setup(mock => mock.AddService(It.IsAny<ConfigSelectionPageViewModel>())).Verifiable();
             _propertiesManager
-                .Setup(mock => mock.GetProperty(ApplicationConstants.SelectedConfigurationKey, It.IsAny<object>()))
+                .Setup(mock => mock.GetProperty(ApplicationConstants.SelectedConfigurationKey, null))
                 .Returns(new Dictionary<string, string>());
 
             _propertiesManager
@@ -122,7 +122,6 @@
                 .Returns(false);
 
             _propertiesManager.Setup(m => m.GetProperty(KernelConstants.IsInspectionOnly, false)).Returns(false);
-            _propertiesManager.Setup(m => m.GetProperty(KernelConstants.InspectionNameAndVersion, It.IsAny<string>())).Returns("Test");
 
             _target = new ConfigSelectionPageViewModel();
 

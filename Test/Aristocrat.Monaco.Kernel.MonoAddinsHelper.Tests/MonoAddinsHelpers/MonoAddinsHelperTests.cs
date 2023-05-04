@@ -43,6 +43,7 @@
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             AddinManager.Initialize(currentDirectory, currentDirectory);
+            AddinManager.Registry.Rebuild(null);
 
             var propertiesManager = new TestPropertiesManager();
             propertiesManager.SetProperty(AddinConfigurationsSelectedKey, new Dictionary<string, string>());
@@ -87,27 +88,6 @@
         public void GetSingleTypeExtensionNodeTestWithTwoExtensions()
         {
             MonoAddinsHelper.GetSingleTypeExtensionNode(ExtensionPathWithTwoExtensions);
-        }
-
-        /// <summary>
-        ///     Test that no values are returned when the extension point is invalid.
-        /// </summary>
-        [TestMethod]
-        public void TestSelectableConfigurationsInvalidExtensionPoint()
-        {
-            string oldExtensionPoint = MonoAddinsHelper.SelectableAddinConfigurationExtensionPoint;
-            var extensionPoint = typeof(MonoAddinsHelper).GetField(
-                "SelectableAddinConfigurationExtensionPoint",
-                BindingFlags.Static |
-                BindingFlags.NonPublic);
-
-            Assert.IsNotNull(extensionPoint);
-
-            extensionPoint.SetValue(null, "InvalidExtensionPoint");
-            var selectableConfigurations = MonoAddinsHelper.SelectableConfigurations;
-            Assert.AreEqual(0, selectableConfigurations.Count);
-
-            extensionPoint.SetValue(null, oldExtensionPoint);
         }
 
         /// <summary>

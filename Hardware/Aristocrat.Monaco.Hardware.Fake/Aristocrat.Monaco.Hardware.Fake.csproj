@@ -27,7 +27,6 @@
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Virtual\Aristocrat.Monaco.Hardware.Virtual.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.Hardware\Aristocrat.Monaco.Hardware.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />

@@ -37,6 +37,7 @@
             IEventBus eventBus)
             : base(
                 BonusMeters.EgmPaidGameWinBonusAmount,
+                true,
                 meterManager,
                 bingoGameProvider,
                 transactionQueue,
@@ -47,7 +48,7 @@
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
         }
 
-        protected override IEnumerable<HandpayTransaction> GetCreditHandpays(IGameHistoryLog log)
+        protected override IEnumerable<HandpayTransaction> GetHandpays(IGameHistoryLog log)
         {
             var bonusTransactions = _bonusHandler.Transactions.Where(t => t.AssociatedTransactions.Contains(log.TransactionId)).ToList();
             foreach (var handpayTransaction in _transactionHistory.RecallTransactions<HandpayTransaction>())
