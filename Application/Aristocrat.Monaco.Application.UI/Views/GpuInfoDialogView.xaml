@@ -142,11 +142,11 @@
                    Grid.Row="1" 
                    Grid.Column="0" 
                    Margin="{StaticResource LabelMargin}"
-                   Content="Total GPU RAM" />
+                   Content="GPU RAM" />
                 <TextBlock x:Name="TotalRamTextBlock" 
                            Grid.Row="1" 
                            Grid.Column="1" 
-                           Text="{Binding TotalGpuRam, Mode=OneWay}" />
+                           Text="{Binding GpuRam, Mode=OneWay}" />
 
 
                 <!-- CurrentTemp Section -->

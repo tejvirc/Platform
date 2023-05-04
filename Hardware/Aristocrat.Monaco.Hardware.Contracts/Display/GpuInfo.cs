@@ -32,9 +32,9 @@
         public string DriverVersion { get; set; }
 
         /// <summary>
-        ///     It's total RAM in megaBytes
+        ///     It's RAM in GigaBytes
         /// </summary>
-        public string TotalGpuRam { get; set; }
+        public string GpuRam { get; set; }
 
         /// <summary>
         ///     It's physical location on the motherboard (which PCI bus its connected to)

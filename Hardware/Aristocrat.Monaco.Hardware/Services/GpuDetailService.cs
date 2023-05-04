@@ -16,19 +16,15 @@
         private static PhysicalGPU[] _physicalGpus;
         private bool _disposed;
 
-        public void Dispose()
+        public void Initialize()
         {
-            if (_disposed)
-            {
-                return;
-            }
-
-            NVIDIA.Unload();
-            _disposed = true;
+            NVIDIA.Initialize();
+            OnlyIGpuAvailable = !TryGetPhysicalGpus();
         }
 
         /// <inheritdoc />
         public string ActiveGpuName => GetActiveGetGraphicsCardName();
+
         /// <inheritdoc />
         public GpuInfo GraphicsCardInfo => GetGraphicsCardDetails();
 
@@ -39,15 +35,30 @@
         public bool OnlyIGpuAvailable { get; private set; }
 
         /// <inheritdoc />
+        public bool IsTheIGpuActiveInsteadOfTheGpu()
+        {
+            if (OnlyIGpuAvailable)
+            {
+                return false;
+            }
+
+            var gpuName = FetchUsingThirdPartyApi().GpuFullName;
+            var allGpus = FetchUsingManagementObjectSearcher();
+            foreach (var gpuInfo in allGpus)
+            {
+                if (gpuInfo.GpuFullName == gpuName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc />
         public string Name => nameof(IGpuDetailService);
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IGpuDetailService) };
-
-        public void Initialize()
-        {
-            NVIDIA.Initialize();
-            OnlyIGpuAvailable = !TryGetPhysicalGpus();
-        }
 
         public string RefreshCurrentGpuTemp()
         {
@@ -100,7 +111,7 @@
 
         private GpuInfo GetGraphicsCardDetails()
         {
-            return OnlyIGpuAvailable ? FetchUsingManagementObjectSearcher() : FetchUsingThirdPartyApi();
+            return OnlyIGpuAvailable ? FetchUsingManagementObjectSearcher()[0] : FetchUsingThirdPartyApi();
         }
 
         private GpuInfo FetchUsingThirdPartyApi()
@@ -112,7 +123,7 @@
                 ? Encoding.ASCII.GetString(_physicalGpus[0].Board.SerialNumber).Replace("\0", "0")
                 : "N/A";
             var vBios = SetToNaIfNoValue(_physicalGpus[0]?.Bios.VersionString);
-            var totalGpuRamInMb = SetToNaIfNoValue(
+            var GpuRamInGB = SetToNaIfNoValue(
                 (_physicalGpus[0]?.MemoryInformation.DedicatedVideoMemoryInkB / 1024).ToString());
             var physicalLocation = SetToNaIfNoValue(_physicalGpus[0]?.BusInformation);
 
@@ -123,13 +134,14 @@
                 SerialNumber = serial,
                 BiosVersion = vBios,
                 DriverVersion = driverVersion,
-                TotalGpuRam = totalGpuRamInMb,
+                GpuRam = GpuRamInGB,
                 PhysicalLocation = physicalLocation
             };
         }
 
-        private GpuInfo FetchUsingManagementObjectSearcher()
+        private List<GpuInfo> FetchUsingManagementObjectSearcher()
         {
+            var foundGpus = new List<GpuInfo>();
             using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController"))
             {
                 foreach (var result in searcher.Get())
@@ -140,38 +152,40 @@
                     var gpuFullName = SetToNaIfNoValue(mo.Properties["Name"].Value);
                     var driverVersion = SetToNaIfNoValue(mo.Properties["DriverVersion"].Value);
                     var totalGpuRam = SetToNaIfNoValue(mo.Properties["AdapterRAM"].Value);
-
                     if (currentBitsPerPixel != null)
                     {
-                        return new GpuInfo
-                        {
-                            GpuFullName = gpuFullName,
-                            GpuArchitectureName = "N/A",
-                            SerialNumber = "N/A",
-                            BiosVersion = "N/A",
-                            DriverVersion = driverVersion,
-                            TotalGpuRam = totalGpuRam,
-                            PhysicalLocation = "N/A"
-                        };
+                        foundGpus.Add(
+                            new GpuInfo
+                            {
+                                GpuFullName = gpuFullName,
+                                GpuArchitectureName = "N/A",
+                                SerialNumber = "N/A",
+                                BiosVersion = "N/A",
+                                DriverVersion = driverVersion,
+                                GpuRam = totalGpuRam,
+                                PhysicalLocation = "N/A"
+                            });
                     }
                 }
             }
 
-            return new GpuInfo
-            {
-                GpuFullName = "N/A",
-                GpuArchitectureName = "N/A",
-                SerialNumber = "N/A",
-                BiosVersion = "N/A",
-                DriverVersion = "N/A",
-                TotalGpuRam = "N/A",
-                PhysicalLocation = "N/A"
-            };
+            return foundGpus;
         }
 
         private string GetActiveGetGraphicsCardName()
         {
-            return FetchUsingManagementObjectSearcher().GpuFullName;
+            return FetchUsingManagementObjectSearcher()[0].GpuFullName;
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            NVIDIA.Unload();
+            _disposed = true;
         }
     }
 }

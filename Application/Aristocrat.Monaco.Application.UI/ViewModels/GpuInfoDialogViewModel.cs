@@ -19,17 +19,17 @@
             _gpuDetailService = ServiceManager.GetInstance()
                 .GetService<IGpuDetailService>();
             _graphicsCardInfo = _gpuDetailService.GraphicsCardInfo;
-            TotalGpuRam = AppendIfNotNa(_graphicsCardInfo.TotalGpuRam, " mB");
+            GpuRam = AppendIfNotNa(_graphicsCardInfo.GpuRam, " GB");
             _refreshTempTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
             _refreshTempTimer.Tick += RefreshTemperature;
-            UsingIGpu = CheckIfIGpuIsBeingUsedWhenGpuIsAvailable();
+            UsingIGpu = _gpuDetailService.IsTheIGpuActiveInsteadOfTheGpu();
         }
 
         public string WarningText => "The IGPU is currently running instead of the discrete GPU.";
 
         public bool UsingIGpu { get; set; }
 
-        public string TotalGpuRam { get; set; }
+        public string GpuRam { get; set; }
 
         public GpuInfo GraphicsCardInfo
         {
@@ -77,11 +77,6 @@
         private string AppendIfNotNa(string original, string toAdd)
         {
             return original == "N/A" ? original : original + toAdd;
-        }
-
-        private bool CheckIfIGpuIsBeingUsedWhenGpuIsAvailable()
-        {
-            return !_gpuDetailService.OnlyIGpuAvailable && GraphicsCardInfo.GpuFullName != _gpuDetailService.ActiveGpuName;
         }
     }
 }
