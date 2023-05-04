@@ -171,7 +171,18 @@
             long wagerCredits)
         {
             var denominationList = denominations.ToList();
-            var resetValueInMillicents = level.ResetValue(denominationList, betOption).CentsToMillicents();
+
+            var betLinePreset =
+                !string.IsNullOrEmpty(progressive.BetLinePreset) &&
+                !string.IsNullOrEmpty(betOption?.BetLinePreset) &&
+                progressive.BetLinePreset == betOption.BetLinePreset
+                    ? betOption?.Name
+                    : string.Empty;
+
+            var resetValueInMillicents =
+                level.ResetValue(denominationList, betLinePreset != string.Empty ? null : betOption)
+                    .CentsToMillicents();
+
             var levelType = (ProgressiveLevelType)level.ProgressiveType;
 
             return new ProgressiveLevel
@@ -182,12 +193,7 @@
                 GameId = gameId,
                 Denomination = denominationList,
                 BetOption = betOption?.Name,
-                BetLinePreset =
-                    !string.IsNullOrEmpty(progressive.BetLinePreset) &&
-                    !string.IsNullOrEmpty(betOption?.BetLinePreset) &&
-                    progressive.BetLinePreset == betOption.BetLinePreset
-                        ? betOption?.Name
-                        : string.Empty,
+                BetLinePreset = betLinePreset,
                 AllowTruncation = level.AllowTruncation,
                 LevelId = level.LevelId,
                 IncrementRate = level.IncrementRate.ToPercentage(),
