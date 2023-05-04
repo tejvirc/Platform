@@ -11,6 +11,9 @@ as follows:
 -->
 <LocaleConfiguration>
   <PlayerTicket Locale="fr-CA">
+    <Selectable>
+      <Entry Locale="fr-CA" CurrencyValueLocale="fr-CA" CurrencyWordsLocale="fr-CA" />
+    </Selectable>
     <LanguageSetting Visible="true" OperatorOverride="false" ShowCheckBox="true"/>
   </PlayerTicket>
   <OperatorTicket Locale="en-US" DateFormat="yyyy-MM-dd">
