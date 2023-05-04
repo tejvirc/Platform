@@ -111,7 +111,7 @@
 
             _initialized = true;
 
-            _sharedMem = MemoryMappedFile.CreateNew(SharedMemoryName, _header.TotalSize);
+            _sharedMem = MemoryMappedFile.CreateNew(/*SharedMemoryName*/null, _header.TotalSize);
             _sharedMemMutex = new Mutex(true, SharedMutexName, out _);
 
             // We need to write the header
