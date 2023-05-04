@@ -21,21 +21,6 @@
         int ExpectedCount { get; }
 
         /// <summary>
-        ///     Gets the active graphics card description
-        /// </summary>
-        string GraphicsCard { get; }
-
-        /// <summary>
-        /// TODO:set 
-        /// </summary>
-        GpuInfo GraphicsCardInfo { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        string GpuTemp { get; }
-
-        /// <summary>
         ///     Gets the maximum frame rate for the active graphics card.  If uncapped -1 will be returned.
         /// </summary>
         int MaximumFrameRate { get; }

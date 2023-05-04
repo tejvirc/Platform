@@ -69,6 +69,7 @@
 
     <Service type="Aristocrat.Monaco.Hardware.Services.OSService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.InstrumentationService" />
+    <Service type="Aristocrat.Monaco.Hardware.Services.GpuDetailService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DisplayService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.AudioService" />
     <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Manager.SharedMemoryManager" />

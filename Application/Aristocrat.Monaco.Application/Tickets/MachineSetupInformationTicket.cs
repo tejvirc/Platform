@@ -71,7 +71,7 @@
 
             AddLabeledLine(
                 ResourceKeys.GraphicsCard,
-                ServiceManager.GetService<IDisplayService>().GraphicsCard);
+                ServiceManager.GetService<IGpuDetailService>().ActiveGpuName);
 
             AddLabeledLine(ResourceKeys.ButtonDeck, MachineSettingsUtilities.GetButtonDeckIdentification(TicketLocalizer));
 

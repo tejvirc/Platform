@@ -458,8 +458,8 @@ using Aristocrat.MVVM.View;
             Electronics = ioService.GetElectronics();
 
             GraphicsCard = ServiceManager.GetInstance()
-                .GetService<IDisplayService>()
-                .GraphicsCard;
+                .GetService<IGpuDetailService>()
+                .ActiveGpuName;
 
             ButtonDeck = MachineSettingsUtilities.GetButtonDeckIdentification(Localizer.For(CultureFor.Operator));
 

@@ -71,7 +71,7 @@
                 null,
                 string.IsNullOrWhiteSpace(electronics) ? TicketLocalizer.GetString(ResourceKeys.DataUnavailable) : electronics);
 
-            var cardInfo = ServiceManager.GetService<IDisplayService>().GraphicsCard;
+            var cardInfo = ServiceManager.GetService<IGpuDetailService>().ActiveGpuName;
             AddLine(
                 $"{TicketLocalizer.GetString(ResourceKeys.GraphicsCard)}:",
                 null,

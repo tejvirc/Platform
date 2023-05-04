@@ -1,50 +1,36 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using OperatorMenu;
     using System;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Timers;
     using Hardware.Contracts.Display;
-using Aristocrat.Monaco.Kernel;
+    using Kernel;
+    using Monaco.UI.Common;
+    using OperatorMenu;
 
     [CLSCompliant(false)]
     public class GpuInfoDialogViewModel : OperatorMenuSaveViewModelBase
     {
+        private readonly IGpuDetailService _gpuDetailService;
+        private readonly ITimer getTempTimer;
         private GpuInfo _graphicsCardInfo;
         private string _currentGPUTemp;
-        private static System.Timers.Timer getTempTimer;
-
-        protected override void OnLoaded()
-        {
-            getTempTimer.Start();
-        }
-
-        protected override void OnUnloaded()
-        {
-            getTempTimer.Stop();
-        }
 
         public GpuInfoDialogViewModel()
         {
-            _graphicsCardInfo = ServiceManager.GetInstance()
-                .GetService<IDisplayService>()
-                .GraphicsCardInfo;
-            RAM = _graphicsCardInfo.TotalGpuRam + " mB";
-            getTempTimer = new Timer(1000);
-            getTempTimer.Elapsed += GetTempTimerOnElapsed;
-            getTempTimer.AutoReset = true;
-            
+            _gpuDetailService = ServiceManager.GetInstance()
+                .GetService<IGpuDetailService>();
+            _graphicsCardInfo = _gpuDetailService.GraphicsCardInfo;
+            TotalGpuRam = AppendIfNotNa(_graphicsCardInfo.TotalGpuRam, " mB");
+            getTempTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
+            getTempTimer.Tick += GetTempTimerOnElapsed;
+            UsingIGpu = CheckIfGpuIsBeingUsed();
         }
 
-        private void GetTempTimerOnElapsed(object sender, ElapsedEventArgs e)
-        {
-            CurrentGPUTemp = ServiceManager.GetInstance()
-                .GetService<IDisplayService>()
-                .GpuTemp + "°C";
-        }
+        public string WarningText => "The IGPU is currently running instead of the discrete GPU.";
 
-        public string RAM { get; set; }
+        public bool UsingIGpu { get; set; }
+
+        public string TotalGpuRam { get; set; }
+
         public GpuInfo GraphicsCardInfo
         {
             get => _graphicsCardInfo;
@@ -59,7 +45,7 @@ using Aristocrat.Monaco.Kernel;
             }
         }
 
-        public string CurrentGPUTemp
+        public string CurrentGpuTemp
         {
             get => _currentGPUTemp;
 
@@ -68,9 +54,34 @@ using Aristocrat.Monaco.Kernel;
                 if (_currentGPUTemp != value)
                 {
                     _currentGPUTemp = value;
-                    RaisePropertyChanged(nameof(CurrentGPUTemp));
+                    RaisePropertyChanged(nameof(CurrentGpuTemp));
                 }
             }
+        }
+
+        protected override void OnLoaded()
+        {
+            getTempTimer.Start();
+        }
+
+        protected override void OnUnloaded()
+        {
+            getTempTimer.Stop();
+        }
+
+        private void GetTempTimerOnElapsed(object sender, EventArgs e)
+        {
+            CurrentGpuTemp = AppendIfNotNa(_gpuDetailService.GpuTemp, "°C");
+        }
+
+        private string AppendIfNotNa(string original, string toAdd)
+        {
+            return original == "N/A" ? original : original + toAdd;
+        }
+
+        private bool CheckIfGpuIsBeingUsed()
+        {
+            return GraphicsCardInfo.GpuFullName == _gpuDetailService.ActiveGpuName;
         }
     }
 }
