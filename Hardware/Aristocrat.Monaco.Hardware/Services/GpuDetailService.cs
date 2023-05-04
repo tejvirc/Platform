@@ -48,11 +48,11 @@
             {
                 if (gpuInfo.GpuFullName == gpuName)
                 {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
         /// <inheritdoc />
