@@ -20,7 +20,7 @@ as follows:
     <HandpayLimit CheckboxEditable="false" />
   </LimitsPage>
   <CompletionPage ShowGameSetupMessage="true" />
-  <HardMetersConfig Configurable="false" Enable="true" />
+  <HardMetersConfig Configurable="true" Enable="true" />
   <ProtocolConfiguration>
     <ProtocolsAllowed>
       <Protocol Name="SAS" />

@@ -15,6 +15,8 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
+    using System.Timers;
+    using Hardware.Contracts;
 
     /// <summary>
     ///     An <see cref="ITransferOutProvider" /> that transfers funds off the EGM by ticking
@@ -34,6 +36,7 @@
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly int _cashOutHardMeterId;
+        private readonly System.Timers.Timer _timer;
 
         private bool _disposed;
 
@@ -94,6 +97,9 @@
                 ?? throw new ArgumentNullException(nameof(systemDisableManager));
 
             _cashOutHardMeterId = GetCashOutHardMeterId();
+
+            _timer = new System.Timers.Timer(interval: 3000);
+            _timer.AutoReset = false;
         }
 
         /// <inheritdoc />
@@ -242,22 +248,56 @@
         private TaskCompletionSource<object> Initiate()
         {
             var keyOff = new TaskCompletionSource<object>();
+            var timesUp = false;
+            var ticketPrinted = false;
 
-            _eventBus.Subscribe<DownEvent>(
-                this,
-                _ =>
+            void CheckStatus()
+            {
+                if (timesUp && ticketPrinted)
                 {
                     keyOff.TrySetResult(null);
-                },
-                evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
+                }
+            }
 
-            _eventBus.Subscribe<HardMeterTickStoppedEvent>(
-                this,
-                _ =>
-                {
-                    keyOff.TrySetResult(null);
-                },
-                evt => evt.LogicalId == _cashOutHardMeterId);
+            void OnTimedEvent(Object source, ElapsedEventArgs e)
+            {
+                timesUp = true;
+                CheckStatus();
+                _timer.Elapsed -= OnTimedEvent;
+            }
+
+            _timer.Elapsed += OnTimedEvent;
+            _timer.Start();
+
+            var hardMetersEnabled = _properties.GetValue(
+                HardwareConstants.HardMetersEnabledKey,
+                false);
+
+            if (hardMetersEnabled)
+            {
+                /* confirm the behavior -- remove before merge to trunk */
+                //_eventBus.Subscribe<DownEvent>(
+                //    this,
+                //    _ =>
+                //    {
+                //        ticketPrinted = true;
+                //        CheckStatus();
+                //    },
+                //    evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
+
+                _eventBus.Subscribe<HardMeterTickStoppedEvent>(
+                    this,
+                    _ =>
+                    {
+                        ticketPrinted = true;
+                        CheckStatus();
+                    },
+                    evt => evt.LogicalId == _cashOutHardMeterId);
+            }
+            else
+            {
+                ticketPrinted = true;
+            }
 
             _systemDisableManager.Disable(
                 ApplicationConstants.PrintingTicketDisableKey,
@@ -360,6 +400,7 @@
                 if (disposing)
                 {
                     _eventBus.UnsubscribeAll(this);
+                    _timer.Dispose();
                 }
 
                 _disposed = true;
