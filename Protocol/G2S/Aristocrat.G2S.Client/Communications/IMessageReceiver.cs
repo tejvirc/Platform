@@ -10,5 +10,11 @@
         /// </summary>
         /// <param name="command">ClassCommand instance that was received.</param>
         void Receive(ClassCommand command);
+
+        /// <summary>
+        ///     Notifies the observer that the a MulticastCommand has been received.
+        /// </summary>
+        /// <param name="command">MulticastCommand instance that was received.</param>
+        void Receive(MulticastCommand command);
     }
 }

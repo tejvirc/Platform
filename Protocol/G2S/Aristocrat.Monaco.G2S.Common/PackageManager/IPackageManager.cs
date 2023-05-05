@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using Data.Model;
+    using G2S.Data.Model;
     using CommandHandlers;
     using PackageManifest.Models;
     using Storage;

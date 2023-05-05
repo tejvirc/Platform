@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Services
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -12,6 +13,16 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Aristocrat.Monaco.G2S.Data.Model;
+    using Aristocrat.Monaco.G2S.Meters;
+    using Aristocrat.Monaco.G2S.Options;
+    using Aristocrat.Monaco.Gaming.Contracts.Events.OperatorMenu;
+    using Aristocrat.Monaco.Gaming.Contracts.Meters;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
+    using Aristocrat.Monaco.Gaming.Progressives;
+    using Aristocrat.Monaco.Hardware.Contracts.Persistence;
+    using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common.Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
@@ -20,18 +31,30 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
+    using Newtonsoft.Json;
 
-    public class ProgressiveService : IService, IDisposable, IProtocolProgressiveEventHandler
+    public class ProgressiveService : IProgressiveService, IService, IDisposable, IProtocolProgressiveEventHandler
     {
         private const int DefaultNoProgInfo = 30000;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _commandBuilder;
         private readonly IG2SEgm _egm;
         private readonly IEventBus _eventBus;
         private readonly IEventLift _eventLift;
         private readonly IGameProvider _gameProvider;
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
+        private readonly IPersistentStorageManager _storage;
+        private readonly IProgressiveMeterManager _progressiveMeters;
+        private readonly IGameHistory _gameHistory;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
+        private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _commandBuilder;
+        private readonly ICommandBuilder<IProgressiveDevice, progressiveHit> _progressiveHitBuilder;
+        private readonly ICommandBuilder<IProgressiveDevice, progressiveCommit> _progressiveCommitBuilder;
+        private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _progressiveStatusBuilder;
+        private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new ConcurrentDictionary<string, IList<ProgressiveInfo>>();
+        private readonly object _pendingAwardsLock = new object();
 
         private bool _commsDisable = true;
         private bool _disposed;
@@ -39,7 +62,11 @@
         private bool _progressiveStateDisable = true;
         private bool _progressiveValue = true;
         private Timer _progressiveValueUpdateTimer;
-        private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
+        private Timer _progressiveHostOfflineTimer;
+        private IList<(string poolName, long amountInPennies)> _pendingAwards;
+        private bool _progressiveRecovery;
+        private IEnumerable<IViewableLinkedProgressiveLevel> _currentLinkedProgressiveLevelsHit;
+        private string _updateProgressiveMeter;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveService" /> class.
@@ -48,23 +75,49 @@
             IG2SEgm egm,
             IEventLift eventLift,
             IEventBus eventBus,
-            ICommandBuilder<IProgressiveDevice, progressiveStatus> statusCommandBuilder,
             IGameProvider gameProvider,
-            IProtocolProgressiveEventsRegistry protocolProgressiveEventSubscriber)
+            IProtocolProgressiveEventsRegistry protocolProgressiveEventSubscriber,
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
+            IPersistentStorageManager storage,
+            IProgressiveMeterManager progressiveMeters,
+            IGameHistory gameHistory,
+            IUnitOfWorkFactory unitOfWorkFactory,
+            ICommandBuilder<IProgressiveDevice, progressiveStatus> statusCommandBuilder,
+            ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusBuilder,
+            ICommandBuilder<IProgressiveDevice, progressiveHit> progressiveHitBuilder,
+            ICommandBuilder<IProgressiveDevice, progressiveCommit> progressiveCommitBuilder
+            )
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _commandBuilder = statusCommandBuilder ?? throw new ArgumentNullException(nameof(statusCommandBuilder));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _protocolProgressiveEventsRegistry = protocolProgressiveEventSubscriber ??
                                                   throw new ArgumentNullException(
                                                       nameof(protocolProgressiveEventSubscriber));
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ??
+                                                throw new ArgumentNullException(
+                                                    nameof(protocolLinkedProgressiveAdapter));
+            _storage = storage ?? throw new ArgumentNullException(nameof(storage));
+            _progressiveMeters = progressiveMeters ?? throw new ArgumentNullException(nameof(progressiveMeters));
+            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
+            _commandBuilder = statusCommandBuilder ?? throw new ArgumentNullException(nameof(statusCommandBuilder));
+            _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
+            _progressiveHitBuilder = progressiveHitBuilder ?? throw new ArgumentNullException(nameof(progressiveHitBuilder));
+            _progressiveCommitBuilder = progressiveCommitBuilder ?? throw new ArgumentNullException(nameof(progressiveCommitBuilder));
+
             SubscribeEvents();
+
             _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfo);
             _progressiveValueUpdateTimer.Elapsed += EventUpdateTimerElapsed;
+            _progressiveHostOfflineTimer = new Timer(100); //Start it off with a default 100 millisecond interval, once the host comes online it will update below in ResetProgressiveHostOfflineTimer method.
+            _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
             LastProgressiveUpdateTime = DateTime.UtcNow;
             _progressiveValueUpdateTimer.Start();
+            _progressiveHostOfflineTimer.Start();
+
+            Configure();
         }
 
         /// <summary>
@@ -72,18 +125,41 @@
         /// </summary>
         public DateTime LastProgressiveUpdateTime { get; set; }
 
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        /// <summary>
+        /// The array of the last ProgressiveValues assigned in the SetProgressiveValue command.
+        /// The key is stored as "ProgressiveID|LevelID"
+        /// </summary>
+        public Dictionary<string, ProgressiveValue> ProgressiveValues { get; set; } = new Dictionary<string, ProgressiveValue>();
+
+        /// <summary>
+        ///     Used to convert level ids between internal Monaco ids and external Vertex ids
+        /// </summary>
+        public ProgressiveLevelIdManager LevelIds { get; } = new ProgressiveLevelIdManager();
+
+        /// <summary>
+        ///     This list stores the configured Vertex progIDs and is used to create the progressive devices according to the configured values
+        /// </summary>
+        public List<int> VertexProgressiveIds { get; set; } = new List<int>();
+
+        /// <summary>
+        ///     This dictionary stores the Vertex device Ids that are configured on the Vertex and Monaco UIs
+        ///     The key is the monaco device Id
+        ///     The value is the vertex device Id
+        /// </summary>
+        public Dictionary<int, int> VertexDeviceIds { get; set; } = new Dictionary<int, int>();
 
         /// <inheritdoc />
         public string Name => GetType().ToString();
 
         /// <inheritdoc />
         public ICollection<Type> ServiceTypes => new[] { typeof(ProgressiveService) };
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         /// <inheritdoc />
         public void Initialize()
@@ -94,9 +170,8 @@
         /// <summary>
         ///     Level [Matched/Mismatched] lockup.
         /// </summary>
-        public void LevelMismatchLockup(bool deviceEnabled)
+        public void LevelMismatchLockup(bool deviceEnabled, IProgressiveDevice device)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>();
             if (!device.HostEnabled && !device.Enabled)
             {
                 return;
@@ -104,32 +179,26 @@
 
             if (deviceEnabled)
             {
-                EnableProgressiveDevice(DeviceDisableReason.LevelMismatch);
+                EnableProgressiveDevice(DeviceDisableReason.LevelMismatch, device);
             }
             else
             {
-                DisableProgressiveDevice(DeviceDisableReason.LevelMismatch);
+                DisableProgressiveDevice(DeviceDisableReason.LevelMismatch, device);
             }
         }
 
         /// <summary>
         ///     ProgressiveValue Timeout lockup.
         /// </summary>
-        public void ProgressiveValueTimeoutLockup(bool deviceEnabled)
+        public void ProgressiveValueTimeoutLockup(bool deviceEnabled, IProgressiveDevice device)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>();
-            if (!device.HostEnabled && !device.Enabled)
-            {
-                return;
-            }
-
             if (deviceEnabled)
             {
-                EnableProgressiveDevice(DeviceDisableReason.ProgressiveValue);
+                EnableProgressiveDevice(DeviceDisableReason.ProgressiveValue, device);
             }
             else
             {
-                DisableProgressiveDevice(DeviceDisableReason.ProgressiveValue);
+                DisableProgressiveDevice(DeviceDisableReason.ProgressiveValue, device);
             }
         }
 
@@ -157,7 +226,8 @@
                     ProtocolNames.G2S, this);
                 _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveHitEvent>(
                     ProtocolNames.G2S, this);
-
+                _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
+                    ProtocolNames.G2S, this);
                 _progressiveValueUpdateTimer.Stop();
                 _progressiveValueUpdateTimer.Dispose();
             }
@@ -172,40 +242,167 @@
             _eventBus.Subscribe<HostUnreachableEvent>(this, CommunicationsStateChanged);
             _eventBus.Subscribe<TransportDownEvent>(this, CommunicationsStateChanged);
             _eventBus.Subscribe<TransportUpEvent>(this, CommunicationsStateChanged);
+            _eventBus.Subscribe<ProgressiveWagerCommittedEvent>(this, OnProgressiveWagerCommitted);
+            _eventBus.Subscribe<GameConfigurationSaveCompleteEvent>(this, _ => Configure());
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitEvent>(
                 ProtocolNames.G2S, this);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitAckEvent>(
                 ProtocolNames.G2S, this);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveHitEvent>(
                 ProtocolNames.G2S, this);
+            _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
+                ProtocolNames.G2S,
+                this);
+        }
+
+
+        /// <summary>
+        ///     The Progressive IDs for each respective device.
+        ///     The key is the device ID.
+        /// </summary>
+        public Dictionary<int, int> DevicesProgIds { get; set; } = new Dictionary<int, int>();
+
+        public IEngine engine { private get; set; }
+
+        internal void UpdateVertexProgressives(bool fromConfig = false, bool fromBase = false)
+        {
+            if (fromBase)
+            {
+                (engine as G2SEngine).AddProgressiveDevices();
+            }
+
+            var propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
+            if (fromConfig)
+            {
+                var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLevelIds,
+                    new Dictionary<string, int>());
+                LevelIds.SetProgressiveLevelIds(vertexLevelIds);
+                propertiesManager.SetProperty(G2S.Constants.VertexProgressiveLevelIds, vertexLevelIds);
+
+                var vertexProgressiveIds = (List<int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredIds, new List<int>());
+                VertexProgressiveIds = vertexProgressiveIds;
+                propertiesManager.SetProperty(G2S.Constants.VertexProgressiveIds, VertexProgressiveIds);
+
+                _progressiveHostOfflineTimer.Stop();
+                _progressiveHostOfflineTimer.Dispose();
+
+                ServiceManager.GetInstance().TryGetService<IEventBus>().Publish(new RestartProtocolEvent());
+                (engine as G2SEngine).AddProgressiveDevices();
+            }
+
+            var levelProvider = ServiceManager.GetInstance().GetService<IProgressiveLevelProvider>();
+            var devices = _egm.GetDevices<IProgressiveDevice>();
+            var denoms = new List<IDenomination>();
+            var games = _gameProvider.GetAllGames();
+            games.ToList().ForEach(g => g.Denominations.ToList().ForEach(d => denoms.Add(d)));
+;
+            for (int i = 0; i < devices.Count(); i++)
+            {
+                var device = (ProgressiveDevice)devices.ElementAt(i);
+                var oldId = device.Id;
+                bool success = DevicesProgIds.TryGetValue(device.Id, out int newId);
+                device.ProgressiveId = success ? newId : oldId;
+
+                var progLevels = levelProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && l.DeviceId != 0);
+                if (progLevels != null && progLevels.Count() > 0)
+                {
+                    foreach (var level in progLevels)
+                    {
+                        VertexDeviceIds.AddOrUpdate(level.DeviceId, device.Id);
+                    }
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        ///     This method is called whenever the ProgressiveHostOfflineTimer should be reset.
+        ///     Currently this will happen any time that SetProgressiveValue is called, though it may be moved if a more suitable location is found.
+        ///     If there is no progressive host with the offline check enabled then this returns out.
+        /// </summary>
+        public void ResetProgressiveHostOfflineTimer()
+        {
+            _progressiveHostOfflineTimer.Stop();
+
+            var progressiveHost = _egm.Hosts.FirstOrDefault(h => h.IsProgressiveHost);
+            if(progressiveHost == null)
+            {
+                return;
+            }
+
+            double interval = progressiveHost.OfflineTimerInterval.TotalMilliseconds > 0 ? progressiveHost.OfflineTimerInterval.TotalMilliseconds : 100;
+            _progressiveHostOfflineTimer.Interval = interval;
+
+            var systemDisableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
+
+            if (systemDisableManager != null)
+            {
+                if (systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
+                {
+                    systemDisableManager.Enable(G2S.Constants.VertexOfflineKey);
+                }
+            }
+
+            _progressiveHostOfflineTimer.Start();
+        }
+
+        /// <summary>
+        ///     This method is called when Vertex is detected off-line
+        /// </summary>
+        public void ProgressiveHostOfflineDisable()
+        {
+
+            var systemDisableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
+
+            if (systemDisableManager != null)
+            {
+                if (!systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
+                {
+                    systemDisableManager.Disable(G2S.Constants.VertexOfflineKey, SystemDisablePriority.Immediate, () => "Progressive Host Is Offline.");
+                }
+            }
+
+        }
+
+        private void ProgressiveHostOfflineTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            ProgressiveHostOfflineDisable();
         }
 
         private void EventUpdateTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
             _progressiveValueUpdateTimer?.Stop();
 
-            var device = _egm.GetDevice<IProgressiveDevice>();
+            var devices = _egm.GetDevices<IProgressiveDevice>();
 
-            var noProgressiveInfo = device.NoProgressiveInfo;
-
-            if (noProgressiveInfo <= 0)
+            foreach(var device in devices)
             {
-                noProgressiveInfo = DefaultNoProgInfo;
+                var noProgressiveInfo = device.NoProgressiveInfo;
+
+                if (noProgressiveInfo <= 0)
+                {
+                    noProgressiveInfo = DefaultNoProgInfo;
+                }
+
+                var timeout = TimeSpan.FromMilliseconds(noProgressiveInfo);
+
+                if (DateTime.UtcNow - LastProgressiveUpdateTime > timeout)
+                {
+                    ProgressiveValueTimeoutLockup(false, device);
+                }
+                else if(!device.Enabled || !device.HostEnabled)
+                {
+                    ProgressiveValueTimeoutLockup(true, device);
+                }
+
+                if (_progressiveValueUpdateTimer != null && timeout.TotalMilliseconds > 0)
+                {
+                    _progressiveValueUpdateTimer.Interval = timeout.TotalMilliseconds;
+                }
+
+                _progressiveValueUpdateTimer?.Start();
             }
-
-            var timeout = TimeSpan.FromMilliseconds(noProgressiveInfo);
-
-            if (DateTime.UtcNow - LastProgressiveUpdateTime > timeout)
-            {
-                ProgressiveValueTimeoutLockup(false);
-            }
-
-            if (_progressiveValueUpdateTimer != null && timeout.TotalMilliseconds > 0)
-            {
-                _progressiveValueUpdateTimer.Interval = timeout.TotalMilliseconds;
-            }
-
-            _progressiveValueUpdateTimer?.Start();
         }
 
         private void OnTransportUp()
@@ -228,25 +425,33 @@
                 if (!matchedProgressive.Any())
                 {
                     progressiveDevice.Enabled = false;
-                    DisableProgressiveDevice(DeviceDisableReason.CommsOnline);
+                    DisableProgressiveDevice(DeviceDisableReason.CommsOnline, progressiveDevice);
                     return;
                 }
 
-                //var progressive = _progressiveProvider.GetProgressive(progressiveDevice.Id);
+                var levelProvider = ServiceManager.GetInstance().GetService<IProgressiveLevelProvider>();
+                var progLevels = levelProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == progressiveDevice.ProgressiveId && l.DeviceId != 0);
 
-                foreach (var level in matchedProgressive)
+                var levelsMatched = true;
+                try
                 {
-                    IViewableProgressiveLevel matchedLevel = null;
-
-                    if (matchedLevel == null)
-                    {
-                        LevelMismatchLockup(false);
-                        return;
-                    }
+                    levelsMatched = progLevels.Count() == matchedProgressive.Count &&
+                        progLevels.Select(l => LevelIds.GetVertexProgressiveLevelId(l.GameId, l.ProgressiveId, l.LevelId)).OrderBy(n => n)
+                        .SequenceEqual(matchedProgressive.Select(l => l.levelId).OrderBy(n => n));
+                }
+                catch (KeyNotFoundException)
+                {
+                    levelsMatched = false;
                 }
 
-                EnableProgressiveDevice(DeviceDisableReason.CommsOnline);
-                LevelMismatchLockup(true);
+                if (!levelsMatched)
+                {
+                    LevelMismatchLockup(false, progressiveDevice);
+                    return;
+                }
+
+                EnableProgressiveDevice(DeviceDisableReason.CommsOnline, progressiveDevice);
+                LevelMismatchLockup(true, progressiveDevice);
             }
         }
 
@@ -254,7 +459,8 @@
         {
             var timeout = TimeSpan.MaxValue;
             var currentUtcNow = DateTime.UtcNow;
-            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>();
+
+            var progressiveDevice = _egm.GetDevices<IProgressiveDevice>().OrderBy(d => d.ProgressiveId).FirstOrDefault(); 
             var command = new getProgressiveHostInfo();
 
             var progressiveHostInfo = progressiveDevice.GetProgressiveHostInfo(command, timeout);
@@ -278,17 +484,145 @@
             return progressiveHostInfo;
         }
 
-        private void SetAllGamePlayDeviceState(bool state)
+        private setProgressiveWin ProgressiveHit(int deviceId, long transactionId)
+        {
+            var timeout = TimeSpan.MaxValue;
+            var currentUtcNow = DateTime.UtcNow;
+            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[deviceId]);
+            var command = new progressiveHit();
+            var progressiveLog = new progressiveLog();
+            command.transactionId = transactionId;
+            _progressiveHitBuilder.Build(progressiveDevice, command);
+
+            var task = progressiveDevice.ProgressiveHit(command, t_progStates.G2S_progHit, progressiveLog, timeout);
+            task.Wait();
+            var setProgWin = task.Result;
+            if (setProgWin == null)
+            {
+                if (DateTime.UtcNow - currentUtcNow > timeout)
+                {
+                    Logger.Info($"Command was unsuccessful, posting {EventCode.G2S_PGE106} event");
+                }
+
+                throw new Exception();
+            }
+
+            if (!setProgWin.IsValid())
+            {
+                Logger.Info("Received SetProgressiveWin is invalid");
+
+                throw new Exception();
+            }
+
+            return setProgWin;
+        }
+
+        private progressiveCommitAck ProgressiveCommit(int deviceId, long transactionId)
+        {
+            var timeout = TimeSpan.MaxValue;
+            var currentUtcNow = DateTime.UtcNow;
+            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[deviceId]);
+            var command = new progressiveCommit();
+            var progressiveLog = new progressiveLog();
+            command.transactionId = transactionId;
+
+            _progressiveCommitBuilder.Build(progressiveDevice, command);
+
+            var task = progressiveDevice.ProgressiveCommit(command, progressiveLog, t_progStates.G2S_progCommit);
+            task.Wait();
+            var progCommitAck = task.Result;
+            if (progCommitAck == null)
+            {
+                Logger.Error("progressiveCommit command failed.");
+                return null;
+            }
+
+            if (!progCommitAck.IsValid())
+            {
+                Logger.Info("Received progressiveCommitAck is invalid");
+                return null;
+            }
+
+            return progCommitAck;
+        }
+
+        private void SetGamePlayDeviceState(bool state, IProgressiveDevice device)
         {
             var gamePlayDevices = _egm.GetDevices<IGamePlayDevice>();
+            var levelProvider = ServiceManager.GetInstance().GetService<IProgressiveLevelProvider>();
+            var gamePlayDeviceIds = levelProvider.GetProgressiveLevels()
+                                            .Where(l => l.ProgressiveId == device.ProgressiveId && l.DeviceId != 0)
+                                            .Select(l => l.GameId);
 
-            foreach (var gamePlayDevice in gamePlayDevices)
+            foreach (var gamePlayDeviceId in gamePlayDeviceIds)
             {
+                var gamePlayDevice = _egm.GetDevice<IGamePlayDevice>(gamePlayDeviceId);
                 gamePlayDevice.Enabled = state;
             }
         }
 
-        private void DisableProgressiveDevice(DeviceDisableReason reason)
+        private void OnProgressiveWagerCommitted(ProgressiveWagerCommittedEvent theEvent)
+        {
+            var level = theEvent.Levels.FirstOrDefault();
+
+            if (level == null)
+            {
+                throw new InvalidOperationException($"There are no progressive levels");
+            }
+
+            var device = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[level.DeviceId]);
+            var status = new progressiveStatus();
+            _progressiveStatusBuilder.Build(device, status);
+
+            var meters = new List<meterInfo>
+            {
+                new meterInfo
+                {
+                    meterDateTime = DateTime.UtcNow,
+                    meterInfoType = MeterInfoType.Event,
+                    deviceMeters =
+                        new[]
+                        {
+                            new deviceMeters
+                            {
+                                deviceClass = device.PrefixedDeviceClass(),
+                                deviceId = device.Id,
+                                simpleMeter = GetProgressiveLevelMeters(level.DeviceId,
+                                    ProgressiveMeters.WageredAmount,
+                                    ProgressiveMeters.PlayedCount).ToArray()
+                            }
+                        }
+                }
+            };
+
+            _eventLift.Report(device, EventCode.G2S_PGE101, device.DeviceList(status), new meterList { meterInfo = meters.ToArray() });
+        }
+
+        public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int deviceId, params string[] includedMeters)
+        {
+            return MeterMap.ProgressiveMeters
+                .Where(m => { return includedMeters != null && includedMeters.Any(i => i == m.Value); })
+                .Select(
+                    meter => new simpleMeter
+                    {
+                        meterName = meter.Key.StartsWith("G2S_", StringComparison.InvariantCultureIgnoreCase)
+                            ? meter.Key
+                            : $"G2S_{meter.Key}",
+                        meterValue = _progressiveMeters.IsMeterProvided(deviceId, meter.Value)
+                            ? _progressiveMeters.GetMeter(deviceId, meter.Value).Lifetime
+                            : 0
+                    });
+        }
+
+        public void SetProgressiveDeviceState(bool state, IProgressiveDevice device, string hostReason = null)
+        {
+            if (state)
+                EnableProgressiveDevice(DeviceDisableReason.ProgressiveState, device);
+            else
+                DisableProgressiveDevice(DeviceDisableReason.ProgressiveState, device, hostReason);
+        }
+
+        private void DisableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device, string hostReason = null)
         {
             switch (reason)
             {
@@ -308,37 +642,41 @@
                     throw new ArgumentOutOfRangeException(nameof(reason), reason, null);
             }
 
-            var device = _egm.GetDevice<IProgressiveDevice>();
+            SetGamePlayDeviceState(false, device);
 
-            if (device.Enabled)
+            if (hostReason != null)
             {
-                SetAllGamePlayDeviceState(false);
-
-                if (_commsDisable)
-                {
-                    device.DisableText = Resources.ProgressiveDisconnectText;
-                }
-                else if (_levelMismatch)
-                {
-                    device.DisableText = Resources.ProgressiveLevelMismatchText;
-                }
-
-                Logger.Debug($"Progressive service is disabling the Progressive device: {reason}");
-
-                device.Enabled = false;
-
-                var status = new progressiveStatus();
-                _commandBuilder.Build(device, status);
-
-                _eventLift.Report(device, EventCode.G2S_PGE001, device.DeviceList(status));
+                device.DisableText = hostReason;
             }
+            else if (_commsDisable)
+            {
+                device.DisableText = Resources.ProgressiveDisconnectText;
+            }
+            else if (_levelMismatch)
+            {
+                device.DisableText = Resources.ProgressiveLevelMismatchText;
+            }
+            else if (_progressiveValue)
+            {
+                device.DisableText = Resources.ProgressiveFaultTypes_ProgUpdateTimeout;
+            }
+
+            Logger.Debug($"Progressive service is disabling the Progressive device: {reason}");
+
+            device.Enabled = false;
+            device.HostEnabled = false;
+
+            var status = new progressiveStatus();
+            _commandBuilder.Build(device, status).Wait();
+
+            _eventLift.Report(device, EventCode.G2S_PGE001, device.DeviceList(status));
         }
 
         /// <summary>
         ///     To enable device behalf on reason
         /// </summary>
         /// <param name="reason">device enable reason</param>
-        private void EnableProgressiveDevice(DeviceDisableReason reason)
+        private void EnableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device)
         {
             switch (reason)
             {
@@ -358,19 +696,19 @@
                     throw new ArgumentOutOfRangeException(nameof(reason), reason, null);
             }
 
-            var device = _egm.GetDevice<IProgressiveDevice>();
+            SetGamePlayDeviceState(true, device);
 
-            if (!device.Enabled)
+            if (!device.Enabled || !device.HostEnabled)
             {
                 Logger.Debug($"Progressive service is enabling the Progressive device: {reason}");
 
-                if (!_commsDisable && !_progressiveStateDisable && !_levelMismatch && !_progressiveValue)
+                if (!_progressiveStateDisable && !_levelMismatch && !_progressiveValue)
                 {
-                    SetAllGamePlayDeviceState(true);
-                    device.Enabled = true;
+                    device.HostEnabled = true;
+                    device.Enabled = false;
 
                     var status = new progressiveStatus();
-                    _commandBuilder.Build(device, status);
+                    _commandBuilder.Build(device, status).Wait();
 
                     _eventLift.Report(device, EventCode.G2S_PGE002, device.DeviceList(status));
                 }
@@ -379,25 +717,37 @@
 
         private void CommunicationsStateChanged(IEvent theEvent)
         {
-            if (theEvent.GetType() == typeof(TransportUpEvent))
+            CheckProgressiveRecovery();
+            var devices = _egm.GetDevices<IProgressiveDevice>();
+
+            foreach(var device in devices)
             {
-                EnableProgressiveDevice(DeviceDisableReason.CommsOnline);
-                // TO DO - getProgressiveHostInfo is getting called here ,once TransportUpEvent received assuming Host is connected and up.
-                Task.Run(() => OnTransportUp()); // call getProgressiveHostInfo
-            }
-            else
-            {
-                DisableProgressiveDevice(DeviceDisableReason.CommsOnline);
+                if (theEvent.GetType() == typeof(TransportUpEvent))
+                {
+                    EnableProgressiveDevice(DeviceDisableReason.CommsOnline, device);
+                    Task.Run(() => OnTransportUp());
+                }
+                else
+                {
+                    DisableProgressiveDevice(DeviceDisableReason.CommsOnline, device);
+                }
             }
         }
 
         private void HandleEvent(ProgressiveCommitEvent evt)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>(evt.Jackpot.DeviceId);
+            var device = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[evt.Jackpot.DeviceId]);
 
             if (evt.Jackpot.State != ProgressiveState.Committed)
             {
                 return;
+            }
+
+            var progressiveCommitAck = ProgressiveCommit(VertexDeviceIds[evt.Level.DeviceId], evt.Jackpot.TransactionId);
+
+            if (progressiveCommitAck == null)
+            {
+                Logger.Error("progressiveCommit command not ACK'd by progressive host.");
             }
 
             EventReport(device, evt.Jackpot, EventCode.G2S_PGE104);
@@ -405,19 +755,19 @@
 
         private void HandleEvent(ProgressiveCommitAckEvent evt)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>(evt.Jackpot.DeviceId);
+            var device = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[evt.Jackpot.DeviceId]);
 
-            if (evt.Jackpot.State != ProgressiveState.Acknowledged)
+            if (evt.Jackpot.State != ProgressiveState.Committed)
             {
                 return;
             }
-
+            
             EventReport(device, evt.Jackpot, EventCode.G2S_PGE105);
         }
 
         private void HandleEvent(ProgressiveHitEvent evt)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>(evt.Jackpot.DeviceId);
+            var device = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[evt.Jackpot.DeviceId]);
 
             if (evt.Jackpot.State != ProgressiveState.Hit)
             {
@@ -427,25 +777,78 @@
             EventReport(device, evt.Jackpot, EventCode.G2S_PGE102);
         }
 
-        /*
-        private void HandleEvent(ProgressiveAddedEvent @event)
+        private void HandleEvent(LinkedProgressiveHitEvent evt)
         {
-            _deviceFactory.Create(
-                _egm.GetHostById(Constants.EgmHostId),
-                () => new ProgressiveDevice(@event.DeviceId, _deviceObserver));
-        }
+            var setProgressiveWin = Helpers.RetryForever(() => ProgressiveHit(VertexDeviceIds[evt.Level.DeviceId], evt.TransactionId));
 
-        private void HandleEvent(ProgressiveRemovedEvent @event)
-        {
-            var device = _egm.GetDevice<IProgressiveDevice>(@event.DeviceId);
-            if (device == null)
+            if (setProgressiveWin != null)
             {
-                return;
+                var progInfo = GetProgInfo(evt.Level.ProgressiveId, evt.Level.LevelId);
+                AwardJackpot(progInfo.PoolName, setProgressiveWin.progWinAmt.MillicentsToCents());
             }
 
-            _egm.RemoveDevice(device);
+            lock (_pendingAwardsLock)
+            {
+                if (_progressiveRecovery)
+                {
+                    ProcessProgressiveLevels(evt.LinkedProgressiveLevels);
+
+                    return;
+                }
+
+                if (_pendingAwards.Count > 0)
+                {
+                    foreach (var (poolName, amountInPennies) in _pendingAwards)
+                    {
+                        if (!_progressives.ContainsKey(poolName) || amountInPennies == 0)
+                        {
+                            continue;
+                        }
+
+                        foreach (var level in _progressives[poolName])
+                        {
+                            var levelName = LevelName(level);
+                            if (!levelName.Equals(evt.LinkedProgressiveLevels.First().LevelName, StringComparison.Ordinal))
+                            {
+                                continue;
+                            }
+
+                            AwardJackpotLevel(amountInPennies, levelName, poolName);
+                            return;
+                        }
+                    }
+                }
+
+                _currentLinkedProgressiveLevelsHit = evt.LinkedProgressiveLevels;
+            }
         }
-        */
+
+        private void ProcessProgressiveLevels(IEnumerable<IViewableLinkedProgressiveLevel> levels)
+        {
+            var awards = levels.ToList();
+            foreach (var progressiveInfos in _progressives.Values)
+            {
+                foreach (var progressiveInfo in progressiveInfos)
+                {
+                    var award = awards.FirstOrDefault(
+                        p => progressiveInfo.LevelId == p.LevelId &&
+                             progressiveInfo.ProgId == p.ProgressiveGroupId);
+
+                    if (award == null)
+                    {
+                        continue;
+                    }
+
+                    AwardJackpotLevel(0, award.LevelName, progressiveInfo.ValueAttributeName);
+                    awards.Remove(award);
+                    if (awards.Count == 0)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
 
         private void EventReport(IProgressiveDevice device, JackpotTransaction log, string eventCode)
         {
@@ -468,7 +871,7 @@
                 });
         }
 
-        private enum DeviceDisableReason
+        public enum DeviceDisableReason
         {
             CommsOnline,
             ProgressiveState,
@@ -489,7 +892,336 @@
                 case ProgressiveHitEvent hitEvent:
                     HandleEvent(hitEvent);
                     break;
+                case LinkedProgressiveHitEvent hitEvent:
+                    HandleEvent(hitEvent);
+                    break;
             }
+        }
+
+        
+        private readonly ConcurrentDictionary<int, List<ProgressiveLevelAssignment>> _pools =
+            new ConcurrentDictionary<int, List<ProgressiveLevelAssignment>>();
+
+        /// <summary>
+        /// A collection of ProgressiveLevelAssignment objects that is used to update the LinkedProgressiveLevels
+        /// </summary>
+        public ConcurrentDictionary<int, List<ProgressiveLevelAssignment>> pools { get { return _pools; } }
+
+        /// <summary>
+        /// Configures the LinkedProgressive list that is stored through the ProtocolLinkedProgressiveAdapter.
+        /// </summary>
+        public void Configure(bool clearLinkedLevels = false)
+        {
+            _progressives.Clear();
+            if (_pendingAwards == null)
+            {
+                using (var unitOfWork = _unitOfWorkFactory.Create())
+                {
+                    var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault();
+                    _pendingAwards = pendingJackpots?.Awards == null
+                        ? new List<(string, long)>()
+                        : JsonConvert.DeserializeObject<IList<(string, long)>>(pendingJackpots.Awards);
+                }
+
+                CheckProgressiveRecovery();
+            }
+            _pools.Clear();
+
+            try
+            {
+                var enabledGames = _gameProvider.GetGames().Where(g => g.EgmEnabled);
+                var enabledLinkedLevels = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
+                            .Where(
+                                x => x.LevelType == ProgressiveLevelType.LP &&
+                                     enabledGames.Any(g => (g.VariationId == x.Variation || x.Variation.ToUpper() == "ALL") && x.GameId == g.Id));
+
+                var pools =
+                    (from level in enabledLinkedLevels
+                     group level by new
+                     {
+                         level.GameId,
+                         PackName = level.ProgressivePackName,
+                         ProgId = level.ProgressiveId,
+                         level.LevelId,
+                         level.LevelName
+                     }
+                        into pool
+                     orderby pool.Key.GameId, pool.Key.PackName, pool.Key.ProgId, pool.Key.LevelId
+                     select pool).ToArray();
+
+                var games = new List<string>();
+                var enabledList = new List<bool>();
+                foreach(var p in pools)
+                {
+                    games.Add(p.Key.GameId.ToString());
+                    enabledList.Add(_gameProvider.GetGame(p.Key.GameId).EgmEnabled);
+                }
+
+                foreach (var pool in pools)
+                {
+                    var game = _gameProvider.GetGame(pool.Key.GameId);
+                    if (game == null)
+                    {
+                        continue;
+                    }
+
+                    var resetValue = pool.First().ResetValue;
+
+                    var linkedLevel = UpdateLinkedProgressiveLevels(
+                        pool.Key.ProgId,
+                        pool.Key.LevelId,
+                        resetValue.MillicentsToCents(),
+                        true);
+
+                    var progressiveLevelAssignment = pool.Select(
+                        level => new ProgressiveLevelAssignment(
+                            game,
+                            level.Denomination.First(),
+                            level,
+                            new AssignableProgressiveId(
+                                AssignableProgressiveType.Linked,
+                                linkedLevel.LevelName),
+                            //level.AssignedProgressiveId,
+                            level.ResetValue)).ToList();
+
+                    var poolName = $"{pool.Key.PackName}_{resetValue.MillicentsToDollars()}_{pool.Key.LevelName}";
+                    var valueAttributeName = $"ins{poolName}_Value";
+                    var messageAttributeName = $"ins{poolName}_Message";
+
+                    var progressive = new ProgressiveInfo(
+                    pool.Key.PackName,
+                    pool.Key.ProgId,
+                    pool.Key.LevelId,
+                    pool.Key.LevelName,
+                    poolName,
+                    valueAttributeName,
+                    messageAttributeName);
+
+                    if (!_progressives.ContainsKey(valueAttributeName))
+                    {
+                        var list = new List<ProgressiveInfo>();
+                        list.Add(progressive);
+                        _progressives.TryAdd(valueAttributeName,list);
+                    }
+
+                    _protocolLinkedProgressiveAdapter.AssignLevelsToGame(
+                        progressiveLevelAssignment,
+                        ProtocolNames.G2S);
+
+                    if (_pools.TryGetValue(game.Id, out var levels))
+                    {
+                        levels.AddRange(progressiveLevelAssignment);
+                    }
+                    else
+                    {
+                        _pools[game.Id] = progressiveLevelAssignment;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified LinkedProgressiveLevel to use the new valueInCents
+        /// </summary>
+        /// <param name="progId">The Id for the progressive that will be updated.</param>
+        /// <param name="levelId">The Id for the level that will be updated.</param>
+        /// <param name="valueInCents">The new value in cents for the progressive level.</param>
+        /// <returns></returns>
+        public LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
+        int progId,
+        int levelId,
+        long valueInCents,
+        bool initialize = false)
+        {
+            var linkedLevel = LinkedProgressiveLevel(progId, levelId, valueInCents);
+
+            if (!initialize || !_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                .Any(l => l.LevelName.Equals(linkedLevel.LevelName)))
+            {
+                _protocolLinkedProgressiveAdapter.UpdateLinkedProgressiveLevels(
+                    new[] { linkedLevel },
+                    ProtocolNames.G2S);
+            }
+
+            return linkedLevel;
+        }
+
+        private static LinkedProgressiveLevel LinkedProgressiveLevel(int progId, int levelId, long valueInCents)
+        {
+            var linkedLevel = new LinkedProgressiveLevel
+            {
+                ProtocolName = ProtocolNames.G2S,
+                ProgressiveGroupId = progId,
+                LevelId = levelId,
+                Amount = valueInCents,
+                Expiration = DateTime.UtcNow + TimeSpan.FromDays(365),
+                CurrentErrorStatus = ProgressiveErrors.None
+            };
+
+            return linkedLevel;
+        }
+        private static string LevelName(ProgressiveInfo info)
+        {
+            return $"{ProtocolNames.G2S}, Level Id: {info.LevelId}, Progressive Group Id: {info.ProgId}";
+        }
+
+        public void AwardJackpot(string poolName, long amountInPennies)
+        {
+            if (_gameHistory?.CurrentLog.PlayState == PlayState.Idle)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(poolName) && amountInPennies > 0)
+            {
+                lock (_pendingAwardsLock)
+                {
+                    var valueAttributeName = $"ins{poolName}_Value";
+                    var level = _currentLinkedProgressiveLevelsHit?.FirstOrDefault();
+
+                    // add to pending if current level is null or if another level is hit
+                    if (level == null || !_pendingAwards.Any(
+                        a => a.poolName.Equals(valueAttributeName, StringComparison.Ordinal)))
+                    {
+                        var replaceAward = _pendingAwards.FirstOrDefault(
+                        a => a.poolName.Equals(valueAttributeName, StringComparison.Ordinal) && a.amountInPennies.Equals(0));
+
+                        if (replaceAward != default((string, long)))
+                        {
+                            _pendingAwards.Remove(replaceAward);
+                        }
+
+                        _pendingAwards.Add((valueAttributeName, amountInPennies));
+
+                        UpdatePendingAwards();
+
+                        return;
+                    }
+
+                    AwardJackpotLevel(amountInPennies, level.LevelName, valueAttributeName);
+                }
+            }
+        }
+
+        private void AwardJackpotLevel(
+            long amountInPennies,
+            string levelName,
+            string attributePropertyName)
+        {
+            if (_progressiveRecovery)
+            {
+                amountInPennies = JackpotAmountInPennies();
+            }
+
+            if (_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(levelName, out var level) &&
+                level.ClaimStatus.Status == LinkedClaimState.Hit)
+            {
+                using (var scope = _storage.ScopedTransaction())
+                {
+                    _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(
+                        levelName,
+                        ProtocolNames.G2S);
+                    _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(
+                        levelName,
+                        amountInPennies,
+                        ProtocolNames.G2S);
+
+                    _updateProgressiveMeter = attributePropertyName;
+
+                    scope.Complete();
+                }
+            }
+
+            lock (_pendingAwardsLock)
+            {
+                var award = _pendingAwards.FirstOrDefault(
+                    a => a.poolName.Equals(attributePropertyName, StringComparison.Ordinal) &&
+                         (a.amountInPennies == amountInPennies || a.amountInPennies == 0));
+                if (award != default((string, long)))
+                {
+                    _pendingAwards.Remove(award);
+
+                    UpdatePendingAwards();
+
+                    if (!_pendingAwards.Any())
+                    {
+                        //UpdateProgressiveValues();
+                    }
+                }
+                _currentLinkedProgressiveLevelsHit = null;
+            }
+        }
+
+        private long JackpotAmountInPennies()
+        {
+            var result = _currentLinkedProgressiveLevelsHit?.FirstOrDefault()?.Amount ?? 0;
+
+            if (result == 0)
+            {
+                var claimedJackpotTotal =
+                    _gameHistory?.CurrentLog.Jackpots.Sum(j => j.WinAmount.MillicentsToCents()) ?? 0;
+
+                var totalJackpots = _gameHistory?.CurrentLog.Outcomes.LastOrDefault();
+
+                if (totalJackpots != null && _pendingAwards.Count >= 1)
+                {
+                    return totalJackpots.Value.MillicentsToCents() - claimedJackpotTotal;
+                }
+            }
+
+            return result;
+        }
+
+        private void UpdatePendingAwards()
+        {
+            using (var unitOfWork = _unitOfWorkFactory.Create())
+            {
+                var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault() ??
+                                      new PendingJackpotAwards();
+
+                pendingJackpots.Awards = JsonConvert.SerializeObject(_pendingAwards);
+
+                unitOfWork.Repository<PendingJackpotAwards>().AddOrUpdate(pendingJackpots);
+
+                unitOfWork.SaveChanges();
+            }
+        }
+
+        private void CheckProgressiveRecovery()
+        {
+            if (_gameHistory?.CurrentLog?.PlayState != PlayState.Idle &&
+                _gameHistory?.CurrentLog?.Outcomes.Count() > 1 &&
+                (JackpotAmountInPennies() != 0 || AllJackpotsClaimed()))
+            {
+                _progressiveRecovery = true;
+            }
+        }
+
+        private bool AllJackpotsClaimed()
+        {
+            var claimedJackpotTotal =
+                _gameHistory?.CurrentLog.Jackpots.Sum(j => j.WinAmount.MillicentsToCents()) ?? 0;
+
+            if (claimedJackpotTotal == 0)
+            {
+                return false;
+            }
+
+            var totalJackpots = _gameHistory?.CurrentLog.Outcomes.LastOrDefault();
+
+            return totalJackpots?.Value.MillicentsToCents() - claimedJackpotTotal == 0;
+        }
+
+        private ProgressiveInfo GetProgInfo(int progId, int levelId)
+        {
+            var returnValue = _progressives.Values.SelectMany(list => list)
+                                       .Single(info => info.ProgId == progId && info.LevelId == levelId);
+
+            return returnValue;
         }
     }
 }

@@ -6,6 +6,8 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.Kernel;
 
     public class SetProgressiveState : ICommandHandler<progressive, setProgressiveState>
     {
@@ -42,15 +44,13 @@
 
             var progressiveState = command.Command;
 
-            if (progressiveDevice.HostEnabled != progressiveState.enable)
-            {
-                progressiveDevice.DisableText = progressiveState.disableText;
-                progressiveDevice.HostEnabled = progressiveState.enable;
-            }
+            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            if (progressiveService == null) return;
+
+            progressiveService.SetProgressiveDeviceState(progressiveState.enable, progressiveDevice, progressiveState.disableText);
 
             var response = command.GenerateResponse<progressiveStatus>();
             var status = response.Command;
-
             await _commandBuilder.Build(progressiveDevice, status);
         }
     }

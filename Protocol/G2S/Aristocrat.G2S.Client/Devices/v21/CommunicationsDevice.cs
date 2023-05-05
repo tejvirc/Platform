@@ -1,10 +1,13 @@
 ﻿namespace Aristocrat.G2S.Client.Devices.v21
 {
+    using Aristocrat.G2S.Client.Communications;
     using Diagnostics;
     using Newtonsoft.Json;
     using Protocol.v21;
     using Stateless;
     using System;
+    using System.Linq;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -37,9 +40,12 @@
         private const int DefaultSyncInterval = 15000;
 
         private readonly Uri _address;
+
         private readonly ICommunicationsStateObserver _communicationsStateObserver;
 
         private readonly StateMachine<t_commsStates, CommunicationTrigger> _state;
+
+        private readonly IMtpClient _mtpClient;
 
         private readonly object _timerLock = new object();
         private readonly ITransportStateObserver _transportStateObserver;
@@ -65,19 +71,24 @@
         /// <param name="requiredForPlay">Is the device required to play.</param>
         /// <param name="transportStateObserver">An <see cref="ITransportStateObserver" /> instance.</param>
         /// <param name="communicationsStateObserver">An <see cref="ICommunicationsStateObserver" /> instance.</param>
+        /// <param name="mtpClient">An instance of a IMtpClient.</param>
+
         public CommunicationsDevice(
             int deviceId,
             IDeviceObserver deviceObserver,
             Uri address,
             bool requiredForPlay,
             ITransportStateObserver transportStateObserver,
-            ICommunicationsStateObserver communicationsStateObserver)
+            ICommunicationsStateObserver communicationsStateObserver,
+            IMtpClient mtpClient)
             : base(deviceId, deviceObserver)
         {
             _transportStateObserver = transportStateObserver;
             _communicationsStateObserver = communicationsStateObserver;
+            _mtpClient = mtpClient ?? throw new ArgumentNullException(nameof(mtpClient));
             _address = address;
             RequiredForPlay = requiredForPlay;
+            AllowMulticast = true;
 
             SetDefaults();
 
@@ -120,7 +131,8 @@
         public bool DisplayFault { get; protected set; }
 
         /// <inheritdoc />
-        public bool AllowMulticast { get; protected set; }
+        public bool AllowMulticast { get; protected set;
+        }
 
         /// <inheritdoc />
         public override void Open(IStartupContext context)
@@ -150,6 +162,8 @@
             }
 
             EndCommsTimer();
+
+            _mtpClient.Close();
 
             _open = false;
 
@@ -298,6 +312,45 @@
                 ReportEvent(EventCode.G2S_CME005);
                 _configurationChanged = false;
             }
+        }
+
+        /// <inheritdoc />
+        public void CreateDeviceConnection(string multicastId, int deviceId, int communicationId, string deviceClass, string address, byte[] currentKey, long currentMsgId, byte[] newKey, long keyChangeId, long lastMessageId)
+        {
+            _mtpClient.CreateDeviceConnection(multicastId, deviceId, communicationId, deviceClass, address, currentKey, currentMsgId, newKey, keyChangeId, lastMessageId);
+        }
+
+        /// <inheritdoc />
+        public void RemoveDeviceConnection(string multicastId)
+        {
+            _mtpClient.RemoveDeviceConnection(multicastId);
+        }
+
+        /// <inheritdoc />
+        public void UpdateSecurityParameters(string multicastId, byte[] currentKey, long currentMsgId, byte[] newKey, long keyChangeId, long lastMessageId)
+        {
+            _mtpClient.UpdateSecurityParameters(multicastId, currentKey, currentMsgId, newKey, keyChangeId, lastMessageId);
+        }
+
+        /// <inheritdoc />
+        public void ConnectConsumer(IMessageConsumer consumer)
+        {
+            _mtpClient.ConnectConsumer(consumer);
+        }
+
+        /// <inheritdoc />
+        public void OpenMtp()
+        {
+            _mtpClient.Open();
+        }
+
+        /// <inheritdoc />
+        public Session SendKeyUpdateRequest(object command)
+        {
+            var getKeyUpdate = command as getMcastKeyUpdate;
+            var keyUpdateRequest = InternalCreateClass();
+            keyUpdateRequest.Item = getKeyUpdate;
+            return Queue.SendRequest(keyUpdateRequest);
         }
 
         /// <summary>

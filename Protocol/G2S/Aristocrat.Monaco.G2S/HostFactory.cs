@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Aristocrat.G2S.Client;
+    using Aristocrat.G2S.Client.Communications;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
 
@@ -17,6 +18,7 @@
         private readonly IG2SEgm _egm;
         private readonly IEventPersistenceManager _eventPersistenceManager;
         private readonly ITransportStateObserver _transportStateObserver;
+        private readonly IMtpClient _mtpClient;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostFactory" /> class.
@@ -27,13 +29,15 @@
         /// <param name="commsStateObserver">The communication state observer.</param>
         /// <param name="deviceStateObserver">The device state observer.</param>
         /// <param name="eventPersistenceManager">The event persistence manager.</param>
+        /// <param name="mtpClient">The MTP client.</param>
         public HostFactory(
             IG2SEgm egm,
             IDeviceFactory deviceFactory,
             ITransportStateObserver transportStateObserver,
             ICommunicationsStateObserver commsStateObserver,
             IDeviceObserver deviceStateObserver,
-            IEventPersistenceManager eventPersistenceManager)
+            IEventPersistenceManager eventPersistenceManager,
+            IMtpClient mtpClient)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _transportStateObserver =
@@ -43,6 +47,8 @@
             _deviceFactory = deviceFactory ?? throw new ArgumentNullException(nameof(deviceFactory));
             _eventPersistenceManager =
                 eventPersistenceManager ?? throw new ArgumentNullException(nameof(eventPersistenceManager));
+            _mtpClient =
+                mtpClient ?? throw new ArgumentNullException(nameof(mtpClient));
         }
 
         /// <inheritdoc />
@@ -58,7 +64,7 @@
                 return _egm.Hosts.Single(h => h.IsEgm());
             }
 
-            var registeredHost = _egm.RegisterHost(host.Id, host.Address, host.RequiredForPlay, host.Index);
+            var registeredHost = _egm.RegisterHost(host.Id, host.Address, host.RequiredForPlay, host.Index, host.IsProgressiveHost, host.OfflineTimerInterval);
 
             RegisterHostOrientedDevices(registeredHost);
 
@@ -112,7 +118,8 @@
                     _egm.Address,
                     host.RequiredForPlay,
                     _transportStateObserver,
-                    _commsStateObserver));
+                    _commsStateObserver,
+                    _mtpClient));
             _deviceFactory.Create(
                 host,
                 () => new EventHandlerDevice(host.Id, _deviceStateObserver, _eventPersistenceManager));

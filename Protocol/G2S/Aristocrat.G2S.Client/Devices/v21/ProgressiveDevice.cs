@@ -214,10 +214,10 @@
             t_progStates progressiveStates)
         {
             if (!HostEnabled
-                || !Queue.CanSend && !_deviceCommunicationClosed
+                || (!Queue.CanSend && !_deviceCommunicationClosed)
                 || progressiveStates != t_progStates.G2S_progCommit
-                || progressiveStates != t_progStates.G2S_progFailed
-                || _progressiveCommitCancellationToken != null && _progressiveCommitCancellationToken.IsCancellationRequested)
+                || progressiveStates == t_progStates.G2S_progFailed
+                || _progressiveCommitCancellationToken?.IsCancellationRequested == true)
             {
                 _progressiveCommitCancellationToken?.Cancel(false);
                 _progressiveCommitCancellationToken?.Dispose();

@@ -17,7 +17,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNullProgressiveLogExpectException()
         {
-            var builder = new ProgressiveProfileCommandBuilder(null, null);
+            var builder = new ProgressiveProfileCommandBuilder(null, null, null);
 
             Assert.IsNull(builder);
         }
@@ -27,7 +27,7 @@
         public void WhenConstructWithValidParamsExpectSuccess()
         {
             var progressive = new Mock<IProgressiveLevelProvider>();
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, null);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, null, null);
 
             Assert.IsNull(builder);
         }
@@ -37,8 +37,9 @@
         {
             var progressive = new Mock<IProgressiveLevelProvider>();
             var transactions = new Mock<ITransactionHistory>();
+            var games = new Mock<IGameProvider>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object);
 
             Assert.IsNotNull(builder);
         }
@@ -49,8 +50,9 @@
         {
             var progressive = new Mock<IProgressiveLevelProvider>();
             var transactions = new Mock<ITransactionHistory>();
+            var games = new Mock<IGameProvider>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object);
 
             await builder.Build(null, null);
         }
@@ -61,8 +63,9 @@
         {
             var progressive = new Mock<IProgressiveLevelProvider>();
             var transactions = new Mock<ITransactionHistory>();
+            var games = new Mock<IGameProvider>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object);
 
             var device = new Mock<IProgressiveDevice>();
 

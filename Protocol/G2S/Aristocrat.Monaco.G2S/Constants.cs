@@ -149,8 +149,26 @@ namespace Aristocrat.Monaco.G2S
         public static Guid ProtocolDisabledKey => new Guid("{282EBE50-7A70-42C8-979F-26C2CE438290}");
 
         /// <summary>
+        ///     Gets the ISystemDisableManager key used when the G2S protocol detects that the Vertex Progressive Host has gone offline
+        /// </summary>
+        public static Guid VertexOfflineKey => new Guid("{0596f5ad-9704-414c-bcd5-7806dfe8f8af}");
+
+        /// <summary>
         ///     Default value for Handpay local key-off options.
         /// </summary>
         public const string DefaultLocalKeyoff = "G2S_anyKeyOff";
+
+        /// <summary>
+        ///     The stored values for the vertex progressive IDs.
+        /// </summary>
+        public const string VertexProgressiveIds = "G2S_vertexProgressiveIds";
+
+        /// <summary>
+        ///     The stored values for the vertex progressive level IDs.
+        /// </summary>
+        /// <remarks>
+        ///     Currently vertex is only functional via G2S progressives, if this changes in the future then this may be stored elsewhere.
+        /// </remarks>
+        public const string VertexProgressiveLevelIds = "G2S_vertexLevelIds";
     }
 }

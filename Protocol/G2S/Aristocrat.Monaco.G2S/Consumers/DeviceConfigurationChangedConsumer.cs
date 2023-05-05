@@ -16,6 +16,7 @@
         private readonly ICommandBuilder<IMediaDisplay, mediaDisplayStatus> _mediaDisplayStatusCommandBuilder;
         private readonly ICommandBuilder<IPlayerDevice, playerStatus> _playerStatusCommandBuilder;
         private readonly ICommandBuilder<ICabinetDevice, cabinetStatus> _cabinetStatusCommandBuilder;
+        private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _progressiveStatusCommandBuilder;
         private readonly ICommandBuilder<ICoinAcceptor, coinAcceptorStatus> _coinAcceptorStatusCommandBuilder;
         private readonly ICommandBuilder<ICommConfigDevice, commConfigModeStatus> _commConfigStatusCommandBuilder;
         private readonly ICommandBuilder<IDownloadDevice, downloadStatus> _downloadStatusCommandBuilder;
@@ -44,6 +45,7 @@
             ICommandBuilder<ICommConfigDevice, commConfigModeStatus> commConfigStatusCommandBuilder,
             ICommandBuilder<ICoinAcceptor, coinAcceptorStatus> coinAcceptorStatusCommandBuilder,
             ICommandBuilder<ICabinetDevice, cabinetStatus> cabinetStatusCommandBuilder,
+            ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusCommandBuilder,
             ICommandBuilder<IPlayerDevice, playerStatus> playerStatusCommandBuilder,
             ICommandBuilder<IMediaDisplay, mediaDisplayStatus> mediaDisplayStatusCommandBuilder,
             ICommandBuilder<IHandpayDevice, handpayStatus> handpayStatusCommandBuilder,
@@ -77,6 +79,8 @@
                                                     nameof(coinAcceptorStatusCommandBuilder));
             _cabinetStatusCommandBuilder = cabinetStatusCommandBuilder ??
                                            throw new ArgumentNullException(nameof(cabinetStatusCommandBuilder));
+            _progressiveStatusCommandBuilder = progressiveStatusCommandBuilder ??
+                                            throw new ArgumentNullException(nameof(progressiveStatusCommandBuilder));
             _playerStatusCommandBuilder = playerStatusCommandBuilder ??
                                           throw new ArgumentNullException(nameof(playerStatusCommandBuilder));
             _mediaDisplayStatusCommandBuilder = mediaDisplayStatusCommandBuilder ??
@@ -159,6 +163,11 @@
                     configUpdatedEventCode = EventCode.G2S_CBE005;
                     status = new cabinetStatus();
                     _cabinetStatusCommandBuilder.Build(cabinet, (cabinetStatus)status);
+                    break;
+                case IProgressiveDevice progressive:
+                    configUpdatedEventCode = EventCode.G2S_PGE005;
+                    status = new progressiveStatus();
+                    _progressiveStatusCommandBuilder.Build(progressive, (progressiveStatus)status);
                     break;
                 case IChooserDevice _:
                     configUpdatedEventCode = EventCode.G2S_CHE005;

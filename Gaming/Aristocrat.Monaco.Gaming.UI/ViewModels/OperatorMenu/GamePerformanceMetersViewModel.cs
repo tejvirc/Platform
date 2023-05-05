@@ -83,7 +83,7 @@
         {
         }
 
-        protected virtual void Cancel()
+        public virtual void Cancel()
         {
             DialogResult = false;
         }

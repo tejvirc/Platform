@@ -22,6 +22,7 @@
 
         private readonly IG2SDataFactory _dataFactory;
         private readonly IPersistentStorageAccessor _persistentStorageAccessor;
+        private readonly IPersistentStorageManager _storageManager;
 
         private readonly Dictionary<string, object> _properties;
 
@@ -32,7 +33,8 @@
         {
             _dataFactory = ServiceManager.GetInstance().GetService<IG2SDataFactory>();
 
-            _persistentStorageAccessor = ServiceManager.GetInstance().GetService<IPersistentStorageManager>()
+            _storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
+            _persistentStorageAccessor = _storageManager
                 .GetAccessor(PersistenceLevel.Critical, GetType().ToString());
 
             var port = (int)InitFromStorage(Constants.Port);
@@ -42,7 +44,9 @@
                 { Constants.EgmId, BuildEgmId() },
                 { Constants.RegisteredHosts, InitHostsFromStorage() },
                 { Constants.StartupContext, InitStartupContext() },
-                { Constants.Port, port != 0 ? port : Constants.DefaultPort }
+                { Constants.Port, port != 0 ? port : Constants.DefaultPort },
+                { Constants.VertexProgressiveIds, InitVertexProgressiveIds() },
+                { Constants.VertexProgressiveLevelIds, InitVertexLevelIds() }
             };
         }
 
@@ -99,7 +103,9 @@
                                     HostId = h.Id,
                                     Address = h.Address.ToString(),
                                     Registered = h.Registered,
-                                    RequiredForPlay = h.RequiredForPlay
+                                    RequiredForPlay = h.RequiredForPlay,
+                                    IsProgressiveHost = h.IsProgressiveHost,
+                                    OfflineTimerInterval = h.OfflineTimerInterval.TotalSeconds
                                 }));
                     }
 
@@ -119,7 +125,15 @@
                     break;
 
                 case Constants.Port:
-                    _persistentStorageAccessor[Constants.Port] = propertyValue;
+                    
+                    break;
+
+                case Constants.VertexProgressiveLevelIds:
+                    _persistentStorageAccessor[Constants.VertexProgressiveLevelIds] = JsonConvert.SerializeObject(propertyValue);
+                    break;
+
+                case Constants.VertexProgressiveIds:
+                    _persistentStorageAccessor[Constants.VertexProgressiveIds] = JsonConvert.SerializeObject(propertyValue);
                     break;
             }
 
@@ -146,7 +160,9 @@
                             ? null
                             : new Uri(h.Address),
                         Registered = h.Registered,
-                        RequiredForPlay = h.RequiredForPlay
+                        RequiredForPlay = h.RequiredForPlay,
+                        IsProgressiveHost = h.IsProgressiveHost,
+                        OfflineTimerInterval = TimeSpan.FromSeconds(h.OfflineTimerInterval)
                     });
         }
 
@@ -155,6 +171,34 @@
             var context = (string)_persistentStorageAccessor[Constants.StartupContext];
 
             return string.IsNullOrEmpty(context) ? null : JsonConvert.DeserializeObject<StartupContext>(context);
+        }
+
+        private Dictionary<string, int> InitVertexLevelIds()
+        {
+            var context = (string)_persistentStorageAccessor[Constants.VertexProgressiveLevelIds];
+
+            var toReturn = new Dictionary<string, int>();
+
+            if (!string.IsNullOrEmpty(context))
+            {
+                toReturn = JsonConvert.DeserializeObject<Dictionary<string, int>>(context);
+            }
+
+            return toReturn;
+        }
+
+        private List<int> InitVertexProgressiveIds()
+        {
+            var context = (string)_persistentStorageAccessor[Constants.VertexProgressiveIds];
+
+            var toReturn = new List<int>();
+
+            if (!string.IsNullOrEmpty(context))
+            {
+                toReturn = JsonConvert.DeserializeObject<List<int>>(context);
+            }
+
+            return toReturn;
         }
 
         private object InitFromStorage(string propertyName)

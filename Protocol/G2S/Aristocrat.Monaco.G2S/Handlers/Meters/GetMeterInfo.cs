@@ -1,11 +1,15 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Meters
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Aristocrat.Monaco.Kernel;
     using G2S.Meters;
 
     /// <summary>
@@ -50,7 +54,13 @@
                     response.Command.meterInfoType = cmd.meterInfoType;
                     response.Command.gameDenomMeters = meterInfo.gameDenomMeters;
                     response.Command.currencyMeters = meterInfo.currencyMeters;
-                    response.Command.deviceMeters = meterInfo.deviceMeters;
+
+                    var progIndex = Array.FindIndex(cmd.getDeviceMeters, q =>
+                    q.deviceClass.Equals(DeviceClass.G2S_progressive, StringComparison.Ordinal));
+                    response.Command.deviceMeters = progIndex >= 0 ?
+                        GetProgressiveDeviceMeters(cmd.getDeviceMeters[progIndex].deviceId) :
+                        meterInfo.deviceMeters;
+
                     response.Command.wagerMeters = meterInfo.wagerMeters;
                 }
                 else
@@ -60,6 +70,26 @@
             }
 
             await Task.CompletedTask;
+        }
+
+        // This is required because somebody created a ProgressiveMeterManager
+        // It's not tied into the same mechanisms
+        private deviceMeters[] GetProgressiveDeviceMeters(int deviceId)
+        {
+            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            if (progressiveService == null) return null;
+
+            return new[]
+                    {
+                            new deviceMeters
+                            {
+                                deviceClass = DeviceClass.G2S_progressive,
+                                deviceId = deviceId,
+                                simpleMeter = progressiveService.GetProgressiveLevelMeters(
+                                    progressiveService.VertexDeviceIds.FirstOrDefault(x => x.Value == deviceId).Key,
+                                    ProgressiveMeters.WageredAmount, ProgressiveMeters.PlayedCount).ToArray()
+                            }
+                        };
         }
     }
 }

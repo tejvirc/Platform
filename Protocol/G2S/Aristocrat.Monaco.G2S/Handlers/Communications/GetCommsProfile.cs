@@ -48,7 +48,7 @@
                 response.Command.timeToLive = device.TimeToLive;
                 response.Command.noResponseTimer = (int)device.NoResponseTimer.TotalMilliseconds;
                 response.Command.displayCommFault = device.DisplayFault;
-                response.Command.allowMulticast = false;
+                response.Command.allowMulticast = device.AllowMulticast;
             }
 
             await Task.CompletedTask;

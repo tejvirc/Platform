@@ -30,6 +30,15 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+            <Style x:Key="LocalColumnHiderStyle2"
+                   TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MonacoGridViewColumnHeader}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ConfigurableProgressiveHost}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
 
         </ResourceDictionary>
     </UserControl.Resources>
@@ -116,6 +125,17 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=(models:Host.RequiredForPlay), Mode=OneWay}" 
                                                    Visibility="{Binding Path=Data.IsWizardPage,
+                                                        Source={StaticResource Proxy},
+                                                        Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Progressive Host"
+                                            HeaderContainerStyle="{StaticResource LocalColumnHiderStyle2}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=(models:Host.IsProgressiveHost), Mode=OneWay}" 
+                                                   Visibility="{Binding Path=Data.HideProgressiveHostColumn,
                                                         Source={StaticResource Proxy},
                                                         Converter={StaticResource TrueCollapsedFalseVisible}}"/>
                                     </DataTemplate>

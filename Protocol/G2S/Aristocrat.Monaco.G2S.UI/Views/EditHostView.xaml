@@ -28,6 +28,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0"
@@ -48,15 +51,29 @@
                Margin="0 15 0 0" 
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"/>
 
-        <TextBox Grid.Row="3" 
-                 TextWrapping="Wrap" 
-                 Text="{Binding Address, 
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="95*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            
+            <ComboBox Grid.ColumnSpan="2"
+                      Width="auto"
+                      ItemsSource="{Binding CommonAddresses}"
+                      SelectedValue="{Binding SelectedCommonAddress}"
+                      Visibility="{Binding AddressComboBoxVisibility}"/>
+            
+            <TextBox TextWrapping="Wrap" 
+                    Text="{Binding Address, 
                     Mode=TwoWay, 
                     NotifyOnValidationError=True, 
                     UpdateSourceTrigger=PropertyChanged, 
                     ValidatesOnDataErrors=True}" 
-                 Width="Auto" 
-                 InputScope="Url"/>
+                    Width="auto" 
+                    Grid.ColumnSpan="{Binding AddressTextBoxColumnSpan}"
+                    InputScope="Url"/>
+        </Grid>
+        
 
         <CheckBox Grid.Row="4" 
                   HorizontalAlignment="Left" 
@@ -70,6 +87,24 @@
                   IsChecked="{Binding RequiredForPlay}"
                   Visibility="{Binding IsInWizard, Converter={StaticResource TrueCollapsedFalseVisible}}"
                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"/>
+
+        <CheckBox Grid.Row="6"
+                  HorizontalAlignment="Left"
+                  Margin="0 15 0 0"
+                  IsChecked="{Binding IsProgressiveHost}" 
+                  Visibility="{Binding SpecificProgressiveHostCheckboxVisibility}"
+                  Content="Progressive Host"/>
+
+        <Label Grid.Row="7"
+               Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
+               Content="Offline Timer Interval (In Seconds)"/>
+
+        <TextBox Grid.Row="8"
+                 IsReadOnly="False"
+                 Text="{Binding OfflineTimerInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
+                 Width="Auto"
+                 InputScope="Number" />
 
     </Grid>
 </operatorMenu:OperatorMenuPage>

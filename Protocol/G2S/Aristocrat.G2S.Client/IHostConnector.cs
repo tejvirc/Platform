@@ -27,8 +27,10 @@
         /// <param name="hostUri">The Uri of the host</param>
         /// <param name="requiredForPlay">Is the host required for play</param>
         /// <param name="index">The host index</param>
+        /// <param name="isProgressiveHost">Is the host the default progressive host</param>
+        /// <param name="offlineTimerInterval">The interval at which the host will be detected offline if not reset</param>
         /// <returns>Returns an instance of IHostControl, if successful</returns>
-        IHostControl RegisterHost(int hostId, Uri hostUri, bool requiredForPlay, int index);
+        IHostControl RegisterHost(int hostId, Uri hostUri, bool requiredForPlay, int index, bool isProgressiveHost = false, TimeSpan offlineTimerInterval = new TimeSpan());
 
         /// <summary>
         ///     Removes a host and ends all communications. Any owned devices are assigned to the EGM

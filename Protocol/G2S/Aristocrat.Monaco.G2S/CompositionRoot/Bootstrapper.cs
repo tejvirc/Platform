@@ -12,11 +12,14 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Aristocrat.G2S.Client;
+    using Aristocrat.G2S.Client.Communications;
     using Aristocrat.G2S.Client.Configuration;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Client.Security;
     using Aristocrat.G2S.Emdi;
+    using Aristocrat.Monaco.G2S.Common;
+    using Aristocrat.Monaco.G2S.Common.Data.Models;
     using Common.CertificateManager;
     using Data.Hosts;
     using Data.Profile;
@@ -38,6 +41,7 @@
     using Security;
     using Services;
     using SimpleInjector;
+    using SimpleInjector.Lifestyles;
     using Constants = G2S.Constants;
 
     /// <summary>
@@ -61,11 +65,13 @@
         {
             var container = new Container();
 
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             container.Register<IEngine, G2SEngine>(Lifestyle.Singleton);
             container.RegisterAuthenticationService(ConnectionString());
             container.RegisterPackageManager(ConnectionString());
             container.RegisterCertificateManager(ConnectionString());
             container.RegisterData(ConnectionString());
+            container.AddDbContext();
 
             // Register the handlers
             container.ConfigureHandlers();
@@ -149,6 +155,8 @@
             @this.Register<ITarArchive, TarArchive>(Lifestyle.Singleton);
             @this.Register<IPackageService, PackageService>(Lifestyle.Singleton);
             @this.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
+
+            @this.Register<IProgressiveService, ProgressiveService>(Lifestyle.Singleton);
         }
 
         private static void ConfigureMeterProviders(this Container @this)
@@ -167,7 +175,7 @@
                         ServiceManager.GetInstance().GetService<IPropertiesManager>()
                             .GetValue<string>(Constants.EgmId, null));
                 });
-
+            
             @this.Register<IDeviceFactory, DeviceFactory>(Lifestyle.Singleton);
             @this.Register<IGatComponentFactory, GatComponentFactory>(Lifestyle.Singleton);
             @this.Register<IHostFactory, HostFactory>(Lifestyle.Singleton);
@@ -184,6 +192,7 @@
             @this.Register<IPackageDownloadManager, PackageDownloadManager>(Lifestyle.Singleton);
             @this.Register<IMetersSubscriptionManager, MetersSubscriptionManager>(Lifestyle.Singleton);
             @this.Register<ISelfTest, SelfTest>(Lifestyle.Singleton);
+            @this.Register<IMtpClient, MtpClient>(Lifestyle.Singleton);
 
             @this.RegisterInstance(typeof(IG2SEgm), egm);
         }

@@ -84,7 +84,9 @@
             @this.RegisterInstance(serviceManager.GetService<IPersistenceProvider>());
             @this.RegisterInstance(serviceManager.GetService<ILocalization>());
             @this.RegisterInstance(serviceManager.GetService<ICentralProvider>());
+            @this.RegisterInstance(serviceManager.GetService<IProtocolProgressiveEventsRegistry>());
             @this.RegisterInstance(serviceManager.GetService<IProtocolLinkedProgressiveAdapter>());
+            @this.RegisterInstance(serviceManager.GetService<IProgressiveMeterManager>());
             @this.RegisterInstance(serviceManager.GetService<IProgressiveLevelProvider>());
             @this.RegisterInstance(serviceManager.GetService<IOSInstaller>());
             @this.RegisterInstance(serviceManager.GetService<IPrinterFirmwareInstaller>());

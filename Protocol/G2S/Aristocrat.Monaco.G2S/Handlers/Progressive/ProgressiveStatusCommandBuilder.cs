@@ -1,10 +1,14 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Progressive
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Aristocrat.G2S.Client.Devices;
+    using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts.Progressives;
 
     /// <inheritdoc />
@@ -29,19 +33,37 @@
             command.hostEnabled = device.HostEnabled;
             command.hostLocked = device.HostLocked;
 
-            var levels = _progressives.GetProgressiveLevels().Where(p => p.DeviceId == device.Id);
+            ProgressiveService progService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            if(progService == null) return Task.CompletedTask;
 
-            command.levelStatus = (from level in levels
-                select new levelStatus
-                {
-                    //progId = progressive.ProgId,
-                    levelId = level.LevelId,
-                    progValueAmt = level.CurrentValue,
-                    //progValueText = level. ?? string.Empty,
-                    //progValueSeq = level.Jackpot?.SequenceNumber ?? 0L
-                }).ToArray();
+            List<ProgressiveLevel> levels = _progressives.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
 
-            if (command.levelStatus == null)
+
+            List<levelStatus> statuses = new List<levelStatus>();
+            foreach(ProgressiveLevel level in levels)
+            {
+                var levelId = progService.LevelIds.GetVertexProgressiveLevelId(level.GameId, level.ProgressiveId, level.LevelId);
+                if (levelId == -1) levelId = level.LevelId;
+
+                if (statuses.Where(s => s.levelId == levelId).Count() > 0)
+                    continue;
+
+                levelStatus status = new levelStatus();
+
+                status.progId = level.ProgressiveId;
+                status.levelId = levelId;
+                status.progValueAmt = level.CurrentValue;
+
+                ProgressiveValue progVal = progService.ProgressiveValues.ContainsKey($"{level.ProgressiveId}|{level.LevelId}") ?
+                    progService.ProgressiveValues[$"{level.ProgressiveId}|{level.LevelId}"] : null;
+                status.progValueText = progVal?.ProgressiveValueText ?? string.Empty;
+                status.progValueSeq = progVal?.ProgressiveValueSequence ?? 0;
+
+                statuses.Add(status);
+            }
+            command.levelStatus = statuses.ToArray();
+
+            if (!(command.levelStatus?.Length > 0))
             {
                 command.levelStatus = new[]
                 {

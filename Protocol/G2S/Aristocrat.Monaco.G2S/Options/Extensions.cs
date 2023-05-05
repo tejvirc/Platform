@@ -63,5 +63,19 @@
 
             return dictionary;
         }
+
+        public static Dictionary<TKey, TValue> AddOrUpdate<TKey,TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                dictionary[key] = value;
+            }
+            else
+            {
+                dictionary.Add(key, value);
+            }
+
+            return dictionary;
+        }
     }
 }

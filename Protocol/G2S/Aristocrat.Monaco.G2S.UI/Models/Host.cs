@@ -22,5 +22,11 @@
 
         /// <inheritdoc />
         public bool RequiredForPlay { get; set; }
+
+        /// <inheritdoc />
+        public bool IsProgressiveHost { get; set; }
+
+        /// <inheritdoc />
+        public TimeSpan OfflineTimerInterval { get; set; }
     }
 }

@@ -108,7 +108,8 @@
                         progressiveLevel.CreationType != LevelCreationType.Default ? progressiveLevel.WagerCredits * denomMillicents : 0,
                         val => val.MillicentsToDollars().FormattedCurrencyString(),
                         meterNode.Order);
-                case ProgressiveMeters.ProgressiveLevelWageredAmount:
+                case ProgressiveMeters.WageredAmount:
+                case ProgressiveMeters.PlayedCount:
                 case ProgressiveMeters.ProgressiveLevelBulkContribution:
                 case ProgressiveMeters.ProgressiveLevelWinAccumulation:
                     return CreateValueDisplayMeter(

@@ -46,7 +46,7 @@
             response.Command.noHostText = device.NoHostText;
             response.Command.idReaderId = device.IdReaderId;
             response.Command.maxPendingBonus = _bonuses.MaxPending;
-            response.Command.allowMulticast = t_g2sBoolean.G2S_false;
+            response.Command.allowMulticast = t_g2sBoolean.G2S_true;
             response.Command.eligibleTimer = (int)device.EligibilityTimer.TotalMilliseconds;
             response.Command.displayLimit = device.DisplayLimit;
             response.Command.displayLimitText = device.DisplayLimitText ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.BonusLimitExceeded);

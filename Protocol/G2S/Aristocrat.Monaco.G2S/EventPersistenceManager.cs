@@ -349,6 +349,12 @@
                 true,
                 hostId,
                 1);
+            AddPermanentEvent(
+                EventCode.G2S_CBE324,
+                "G2S_cabinet",
+                true,
+                hostId,
+                1);
         }
 
         /// <inheritdoc />

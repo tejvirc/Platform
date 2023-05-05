@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.G2S.Client
 {
     using Communications;
+    using System;
 
     /// <summary>
     ///     Definition of host
@@ -32,5 +33,18 @@
         ///     (true = enabled, false = disabled)
         /// </summary>
         bool RequiredForPlay { get; }
+
+        /// <summary>
+        ///     Determines whether this host will default to the host of a given progressiveDevice.
+        ///     (Currently only used/modifiable for G2S vertex progressives.)
+        ///     (true = Will be the default progressive host, false = Will not be the default progressive host)
+        /// </summary>
+        bool IsProgressiveHost { get; }
+
+        /// <summary>
+        ///     Gets the interval at which the progressive host offline timer will trigger
+        ///     (Currently only used if the progressive host is selectable)
+        /// </summary>
+        TimeSpan OfflineTimerInterval { get; }
     }
 }

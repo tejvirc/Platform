@@ -6,8 +6,8 @@
     using Monaco.Common.Storage;
     using Protocol.Common.Installer;
     using Storage;
-    using Data.Model;
-    using Data.Packages;
+    using G2S.Data.Model;
+    using G2S.Data.Packages;
     using System.Data.Entity;
 
     /// <summary>

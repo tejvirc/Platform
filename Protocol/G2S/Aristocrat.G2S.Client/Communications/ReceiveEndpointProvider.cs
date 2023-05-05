@@ -87,9 +87,9 @@
 
                     error.SetErrorCode(ErrorCode.G2S_MSX005); // Invalid Data Type Encountered
                 }
-                else
+                else if(!error.IsError)
                 {
-                    if (!error.IsError && request.Item is IPoint2Point point2Point)
+                    if (request.Item is IPoint2Point point2Point)
                     {
                         if (hostId != point2Point.hostId)
                         {
@@ -121,6 +121,10 @@
                         {
                             error = _consumer.Consumes(point2Point);
                         }
+                    }
+                    else if (request.Item is IBroadcast broadcast) // No need to check host or EGM for multicast
+                    {                        
+                        error = _consumer.Consumes(broadcast);
                     }
                 }
             }

@@ -21,18 +21,25 @@
         /// <param name="index">The host index</param>
         /// <param name="endpointProvider">The endpoint provider</param>
         /// <param name="queue">The host queue</param>
+        /// <param name="isProgressiveHost">Is the host the default progressive host</param>
+        /// <param name="offlineTimerInterval">The interval at which the host offline timer will be triggered</param>
         public RegisteredHost(
             int hostId,
             Uri address,
             bool requiredForPlay,
             int index,
             ISendEndpointProvider endpointProvider,
-            IHostQueue queue)
+            IHostQueue queue,
+            bool isProgressiveHost,
+            TimeSpan offlineTimerInterval)
         {
             Id = hostId;
             Address = address;
             RequiredForPlay = requiredForPlay;
             Index = index;
+
+            IsProgressiveHost = isProgressiveHost;
+            OfflineTimerInterval = offlineTimerInterval;
 
             Queue = queue ?? throw new ArgumentNullException(nameof(queue));
             Queue.DisableSend();
@@ -62,6 +69,12 @@
 
         /// <inheritdoc />
         public bool RequiredForPlay { get; private set; }
+
+        /// <inheritdoc />
+        public bool IsProgressiveHost { get; }
+
+        /// <inheritdoc />
+        public TimeSpan OfflineTimerInterval { get; }
 
         /// <inheritdoc />
         public void Start()

@@ -176,7 +176,7 @@
 
             return new ProgressiveLevel
             {
-                ProgressiveId = progressive.Id,
+                ProgressiveId = current?.ProgressiveId ?? progressive.Id,
                 ProgressivePackName = progressive.Name,
                 ProgressivePackId = progressive.PackId,
                 GameId = gameId,

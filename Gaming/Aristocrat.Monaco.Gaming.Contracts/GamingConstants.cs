@@ -476,6 +476,21 @@
         /// </summary>
         public const string ProgressiveLobbyIndicatorType = @"Progressive.LobbyIndicator";
 
+        /// <summary> 
+        ///     Property manager for the configurable progressive id boolean 
+        /// </summary> 
+        public const string ProgressiveConfigurableId = @"Progressive.ConfigurableId";
+
+        /// <summary> 
+        ///     Property manager for the collection of configured progressive ids 
+        /// </summary> 
+        public const string ProgressiveConfiguredIds = @"Progressive.ConfiguredIds";
+
+        /// <summary> 
+        ///     Property Manager for the collection of configured level ids 
+        /// </summary> 
+        public const string ProgressiveConfiguredLevelIds = "@Progressive.ConfiguredLevelIds";
+
         /// <summary>
         ///     Property manager key for CensorshipEnforced.
         /// </summary>

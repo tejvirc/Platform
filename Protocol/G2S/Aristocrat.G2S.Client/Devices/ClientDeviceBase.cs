@@ -118,6 +118,7 @@
 
             set
             {
+                Enabled = value;
                 if (_hostEnabled != value)
                 {
                     _hostEnabled = value;

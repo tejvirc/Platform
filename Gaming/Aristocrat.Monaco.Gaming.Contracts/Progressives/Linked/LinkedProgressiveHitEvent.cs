@@ -12,11 +12,17 @@
         /// </summary>
         public IViewableProgressiveLevel Level { get; }
 
+        /// <summary>
+        ///     Gets the associated transaction id.
+        /// </summary>
+        public long TransactionId { get; }
+
         /// <inheritdoc />
-        public LinkedProgressiveHitEvent(IViewableProgressiveLevel level, IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels)
+        public LinkedProgressiveHitEvent(IViewableProgressiveLevel level, IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels, long transactionId)
             : base(linkedLevels)
         {
             Level = level;
+            TransactionId = transactionId;
         }
     }
 }

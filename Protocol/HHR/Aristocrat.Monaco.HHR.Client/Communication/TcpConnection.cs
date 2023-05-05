@@ -11,6 +11,7 @@
     using System.Threading.Tasks;
     using Data;
     using Messages;
+    using Monaco.Protocol.Common;
 
     /// <summary>
     ///     Implements the ITcpConnection interface using the TcpClient class

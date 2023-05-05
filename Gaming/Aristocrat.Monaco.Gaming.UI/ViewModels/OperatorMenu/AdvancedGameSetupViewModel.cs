@@ -84,7 +84,11 @@
         private ObservableCollection<EditableGameProfile> _games = new();
         private long _maxBetLimit;
 
-        private string _saveWarningText = string.Empty; 
+        private string _saveWarningText = string.Empty;
+        private bool _saveWarningEnabled;
+
+        private bool _isConfigurableId = false;
+        private bool _progressiveLevelChanged;
 
         public AdvancedGameSetupViewModel()
         {
@@ -132,10 +136,18 @@
 
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
-            _selectedGameType = GameTypes.FirstOrDefault();
+            SelectedGameType = GameTypes.FirstOrDefault();
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
+
+            _isConfigurableId = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(GamingConstants.ProgressiveConfigurableId, false);
+
+            EventBus.Subscribe<PropertyChangedEvent>(
+                this,
+                HandlePropertyChangedEvent,
+                evt =>
+                    evt.PropertyName is ApplicationConstants.EKeyVerified or ApplicationConstants.EKeyDrive);
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
@@ -191,7 +203,7 @@
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
         public override bool CanSave => !HasErrors && InputEnabled && !Committed &&
-                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded &&
+                                        (HasChanges() || !InitialConfigComplete || ProgressiveLevelChanged) && !IsEnabledGamesLimitExceeded &&
                                         !_editableGames.Any(g => g.Value.HasErrors);
 
         public bool ShowSaveButtonOverride => ShowSaveButton && IsInEditMode;
@@ -262,6 +274,43 @@
         {
             get => _selectedConfig;
             set => SetProperty(ref _selectedConfig, value);
+        }
+
+        /// <summary> 
+        ///     This property is used to determine whether or not progressive ID configuration is complete 
+        /// </summary> 
+        public bool ConfigurationComplete
+        {
+            get
+            {
+                if (_isConfigurableId)
+                {
+                    return GameConfigurations.Any(g => g.Enabled) && GameConfigurations.Where(g => g.Enabled).All(g => g.ProgressiveSetupConfigured);
+                }
+
+                return true;
+            }
+        }
+
+        /// <summary> 
+        ///     This property is used to determine whether or not the progressive level Ids have been changed 
+        ///     Defaults to false if the isConfigurableId field is false in order to not always register that changes have been made 
+        /// </summary> 
+        public bool ProgressiveLevelChanged
+        {
+            get
+            {
+                if (_isConfigurableId)
+                {
+                    return _progressiveLevelChanged;
+                }
+
+                return false;
+            }
+            private set
+            {
+                _progressiveLevelChanged = value;
+            }
         }
 
         public EditableGameProfile SelectedGame
@@ -353,7 +402,11 @@
         public bool ResetScrollIntoView
         {
             get => _resetScrollIntoView;
-            set => SetProperty(ref _resetScrollIntoView, value);
+            set
+            {
+                _resetScrollIntoView = value;
+                RaisePropertyChanged(nameof(ResetScrollIntoView), nameof(SelectedDenoms));
+            }
         }
 
         public bool IsEnabledGamesLimitExceeded => TotalEnabledGames > _digitalRights.LicenseCount;
@@ -367,6 +420,14 @@
             get => _saveWarningText;
             set => SetProperty(ref _saveWarningText, value);
         }
+
+        public bool SaveWarningEnabled
+        {
+            get => _saveWarningEnabled;
+
+            set => SetProperty(ref _saveWarningEnabled, value);
+        }
+
         public void HandlePropertyChangedEvent(PropertyChangedEvent eventObject)
         {
             MvvmHelper.ExecuteOnUI(
@@ -529,7 +590,7 @@
             }
         }
 
-        protected override void Cancel()
+        public override void Cancel()
         {
             if (!IsInEditMode)
             {
@@ -716,10 +777,12 @@
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledGamesLimitExceeded),
                     TotalEnabledGames,
                     _digitalRights.LicenseCount);
+                SaveWarningEnabled = true;
             }
             else
             {
                 SaveWarningText = string.Empty;
+                SaveWarningEnabled = true;
             }
         }
 
@@ -1089,7 +1152,7 @@
             {
                 SaveImportSettings();
             }
-            else if (hasChanges)
+            else if (hasChanges || ProgressiveLevelChanged)
             {
                 var currentGame = _gameProvider.GetGame(PropertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
 
@@ -1194,6 +1257,8 @@
             {
                 game.OnSave();
             }
+
+            _progressiveLevelChanged = false;
 
             RaisePropertyChanged(nameof(CanSave));
         }
@@ -1419,6 +1484,8 @@
             {
                 gameConfiguration.GameOptionsEnabled = GameOptionsEnabled;
             }
+
+            RaisePropertyChanged(nameof(CanSave));
         }
 
         private void CalculateTopAward()
@@ -1794,6 +1861,17 @@
                 this,
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSetupDialogCaption));
+
+            if (viewModel.SetupCompleted && _isConfigurableId)
+            {
+                if (!_progressiveLevelChanged)
+                {
+                    _progressiveLevelChanged = viewModel.ProgressiveLevelsChanged;
+                }
+
+
+                gameConfig.ProgressiveSetupConfigured = true;
+            }
 
             ApplyGameOptionsEnabled();
         }

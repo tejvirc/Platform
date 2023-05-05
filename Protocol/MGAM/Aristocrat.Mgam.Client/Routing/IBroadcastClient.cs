@@ -5,7 +5,7 @@
     using Monaco.Protocol.Common.Communication;
 
     /// <summary>
-    ///     Wrapper class around <see cref="UdpClient"/>.
+    ///     Wrapper class around <see cref="CustomUdpClient"/>.
     /// </summary>
     internal interface IBroadcastClient : IDisposable
     {

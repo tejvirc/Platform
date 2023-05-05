@@ -27,11 +27,16 @@
                 <Setter Property="FontSize" Value="16"/>
             </Style>
             <converters:NullToVisibilityConverter x:Key="NullToVisConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -49,7 +54,56 @@
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.GenerateCSAPLevels}}"
                 Command="{Binding GenerateCSAPLevelsCommand}"/>
 
-        <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+        <Label Grid.Row="2"  
+               Grid.ColumnSpan="2"  
+               Content="Progressive ID:"  
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Left" 
+               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+
+        <TextBox Grid.Row="3"  
+                 Grid.ColumnSpan="2"  
+                 Width="400" 
+                 VerticalAlignment="Center"  
+                 HorizontalAlignment="Left" 
+                 IsReadOnly="{Binding IsSummaryView}" 
+                 Text="{Binding ProgressiveId}" 
+                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+
+        <Label Grid.Row="4"  
+               Grid.Column="0"  
+               Content="Vertex Level ID:"  
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Left" 
+               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+
+        <Label Grid.Row="4"  
+               Grid.Column="1"  
+               Content="Level to Modify:"  
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Right" 
+               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+
+        <TextBox Grid.Row="5"  
+                 Grid.Column="0"  
+                 Width="400" 
+                 VerticalAlignment="Center"  
+                 HorizontalAlignment="Left" 
+                 Text="{Binding SelectedLevelId}" 
+                 IsReadOnly="{Binding IsSummaryView}" 
+                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+
+        <ComboBox Grid.Row="5"  
+                  Grid.Column="1"  
+                  Width="400" 
+                  VerticalAlignment="Center"  
+                  HorizontalAlignment="Right" 
+                  IsReadOnly="{Binding IsSummaryView}" 
+                  ItemsSource="{Binding LevelNames}" 
+                  SelectedItem="{Binding SelectedLevelName}" 
+                  Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+
+        <DataGrid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                   Margin="0 10"
                   ItemsSource="{Binding ProgressiveLevels}"
                   ScrollViewer.CanContentScroll="True" 
@@ -200,7 +254,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom">
+        <Label Grid.Row="7" Grid.Column="0" VerticalAlignment="Bottom">
             <Label.Style>
                 <Style BasedOn="{StaticResource MonacoWarningLabel}" TargetType="Label">
                     <Setter Property="Content" Value="{Binding InputStatusText}"/>

@@ -192,7 +192,8 @@
             else
             {
                 ApplyWagerToActiveLevels(wager, ante);
-                ApplyMeterIncrements(wager, ante);
+                var levels = _levelProvider.GetProgressiveLevels(packName, _gameId, _denomination);
+                ApplyMeterIncrements(levels, wager, ante);
             }
 
             _levelProvider.UpdateProgressiveLevels(packName, _gameId, _denomination, _activeLevels);
@@ -535,11 +536,15 @@
             }
         }
 
-        private void ApplyMeterIncrements(long wager, long ante)
+        private void ApplyMeterIncrements(IReadOnlyCollection<ProgressiveLevel> levels, long wager, long ante)
         {
-            ApplyMeterIncrements(
-                GetUniqueLevelIDs().ToDictionary(x => x.LevelId, _ => wager),
-                ante);
+            foreach (var level in levels)
+            {
+                _meters.GetMeter(level.DeviceId, ProgressiveMeters.WageredAmount).Increment(wager);
+                _meters.GetMeter(level.DeviceId, ProgressiveMeters.PlayedCount).Increment(1);
+            }
+
+            _bus.Publish(new ProgressiveWagerCommittedEvent(levels, wager));
         }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "This will be used when G2S progressive support is added")]

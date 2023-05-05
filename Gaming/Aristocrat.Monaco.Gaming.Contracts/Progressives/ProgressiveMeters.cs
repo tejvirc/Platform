@@ -105,5 +105,15 @@
         ///   	Wager bet levels for a progressive level. Used to identify DisplayMeter node.
         /// </summary>
         public const string WagerBetLevelsDisplayMeter = @"WagerBetLevels";
+
+        /// <summary>
+        ///     The wagered amount per progressive device
+        /// </summary>
+        public const string WageredAmount = "WageredAmount";
+
+        /// <summary>
+        ///     The total accumulated plays per progressive device
+        /// </summary>
+        public const string PlayedCount = "PlayedCount";
     }
 }

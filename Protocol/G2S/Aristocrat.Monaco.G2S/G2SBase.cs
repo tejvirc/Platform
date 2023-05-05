@@ -29,6 +29,8 @@
     using Monaco.Common;
     using Services;
     using SimpleInjector;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
+    using System.Collections.Generic;
 
     /// <summary>
     ///     Handle the base level G2S communications including meter managements and system events.
@@ -37,7 +39,7 @@
         protocol:CommsProtocol.G2S,
         isValidationSupported:true,
         isFundTransferSupported:false,
-        isProgressivesSupported:false,
+        isProgressivesSupported:true,
         isCentralDeterminationSystemSupported:true)]
     public class G2SBase : BaseRunnable
     {
@@ -92,7 +94,7 @@
                     _container.GetInstance<IVoucherValidator>());
 
                 ServiceManager.GetInstance().AddService(_container.GetInstance<IVoucherDataService>() as IService);
-                //ServiceManager.GetInstance().AddService(_container.GetInstance<IProgressiveService>() as IService);
+                ServiceManager.GetInstance().AddService(_container.GetInstance<IProgressiveService>() as IService);
                 ServiceManager.GetInstance().AddService(_container.GetInstance<IMasterResetService>() as IService);
                 ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IInformedPlayerService>() as IService);
                 ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IIdReaderValidator>());
@@ -177,6 +179,29 @@
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 propertiesManager.SetProperty(Constants.StartupContext, null);
                 propertiesManager.SetProperty(AccountingConstants.TicketBarcodeLength, AccountingConstants.DefaultTicketBarcodeLength);
+                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableId, ServiceManager.GetInstance().
+                    TryGetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S)?.IsProgressiveHandled);
+
+                //Populate the levelID fields in the ProgressiveService
+                var progService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+
+                var vertexLevelIds = (Dictionary<string,int>)propertiesManager.GetProperty(Constants.VertexProgressiveLevelIds, new Dictionary<string, int>());
+                var vertexProgIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
+
+                progService.LevelIds.SetProgressiveLevelIds(vertexLevelIds);
+                progService.VertexProgressiveIds = vertexProgIds;
+                propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLevelIds, vertexLevelIds);
+                propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredIds, vertexProgIds);
+                progService.engine = engine;
+                if(vertexProgIds != null && vertexProgIds.Count > 0)
+                {
+                    progService?.UpdateVertexProgressives(false, true);
+                }
+                else
+                {
+                    progService?.UpdateVertexProgressives();
+                }
+
 
                 // Handle all saved startup events
                 eventListener.HandleStartupEvents(
@@ -339,7 +364,7 @@
                     Logger.Debug("Unregistered G2S IVoucherValidator ");
                 }
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IVoucherDataService>() as IService);
-                //ServiceManager.GetInstance().RemoveService(_container.GetInstance<IProgressiveService>() as IService);
+                ServiceManager.GetInstance().RemoveService(_container.GetInstance<IProgressiveService>() as IService);
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IMasterResetService>() as IService);
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IInformedPlayerService>() as IService);
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IIdReaderValidator>());

@@ -74,7 +74,7 @@
         }
 
         /// <inheritdoc />
-        public List<PaymentDeterminationResult> GetPaymentResults(long winInMillicents, bool isPayGameResults=true)
+        public List<PaymentDeterminationResult> GetPaymentResults(long winInMillicents, bool isPayGameResults = true)
         {
             return LargeWinCheck(Guid.Empty, winInMillicents, isPayGameResults);
         }
@@ -411,7 +411,7 @@
                     new TransactionRequest
                     {
                         TransactionType = transactionType,
-                        TransactionId = (uint) _transactionIdProvider.GetNextTransactionId(),
+                        TransactionId = (uint)_transactionIdProvider.GetNextTransactionId(),
                         PlayerId = await _playerSession.GetCurrentPlayerId(),
                         Credit = (uint)amountCents,
                         CashBalance = (uint)ctx.CurrentCreditMeterCents,
@@ -452,7 +452,7 @@
                 await _centralManager.Send<HandpayCreateRequest, CloseTranResponse>(
                     new HandpayCreateRequest
                     {
-                        TransactionId = (uint) _transactionIdProvider.GetNextTransactionId(),
+                        TransactionId = (uint)_transactionIdProvider.GetNextTransactionId(),
                         HandpayType = handpayType,
                         Amount = (uint)prizeCents,
                         Denomination = ctx.PrizeInfo.Denomination,

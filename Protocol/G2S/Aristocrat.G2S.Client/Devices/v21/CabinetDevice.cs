@@ -225,7 +225,7 @@
             EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE321);
             EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE322);
             EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE323); //// TODO
-            ////EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE324);  // Deprecated
+            EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE324); //Deprecated but necessary for Vertex Validation
             EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE325);
             EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE326);
             EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.G2S_CBE327);

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Mapping
 {
     using System.Data.Entity.ModelConfiguration;
-    using Data.Model;
+    using G2S.Data.Model;
 
     /// <summary>
     ///     Configuration for the <see cref="PackageLog" /> entity

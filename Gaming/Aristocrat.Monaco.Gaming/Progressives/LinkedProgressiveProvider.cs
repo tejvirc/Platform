@@ -530,7 +530,7 @@
             Save();
 
             _eventBus.Publish(new LinkedProgressiveHitEvent(
-                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }));
+                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }, transaction.TransactionId));
         }
     }
 }
