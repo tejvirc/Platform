@@ -11716,7 +11716,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <comment>Monaco.Accounting.Contracts</comment>
   </data>
   <data name="LargePayoutReachedHelpMessage" xml:space="preserve">
-    <value>COLLECT LIMIT REACHED. SEE ATTENDANT.</value>
+    <value>Insert and turn Attendant Reset Key to clear the lockup.</value>
     <comment>Aristocrat.Account</comment>
   </data>
   <data name="BetOptionMaxWin" xml:space="preserve">
