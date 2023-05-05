@@ -32,6 +32,18 @@
                     new ReelSpinCapability(controllerImplementation.GetCapability<IReelSpinImplementation>(), stateManager));
             }
 
+            if (implementationType == typeof(IAnimationImplementation))
+            {
+                return (typeof(IReelAnimationCapabilities),
+                    new ReelAnimationCapability(controllerImplementation.GetCapability<IAnimationImplementation>(), stateManager));
+            }
+
+            if (implementationType == typeof(ISynchronizationImplementation))
+            {
+                return (typeof(IReelSynchronizationCapabilities),
+                    new ReelSynchronizationCapability(controllerImplementation.GetCapability<ISynchronizationImplementation>(), stateManager));
+            }
+
             return (null, null);
         }
 

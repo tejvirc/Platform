@@ -64,16 +64,16 @@
         /// <summary>
         ///     Instructs the controller to prepare a curve animation.
         /// </summary>
-        /// <param name="file">The reel curve file.</param>
+        /// <param name="curveData">The reel curve data.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token);
+        Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to prepare curve animations.
         /// </summary>
-        /// <param name="files">The reel curve files.</param>
+        /// <param name="curveData">The reel curve data.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token);
+        Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to play all animations.
