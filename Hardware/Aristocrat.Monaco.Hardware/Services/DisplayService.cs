@@ -3,13 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Management;
-    using System.Text;
     using Contracts.Cabinet;
     using Contracts.Display;
     using Kernel;
-    using NvAPIWrapper.GPU;
-    using NvAPIWrapper;
 
     public class DisplayService : IService, IDisplayService
     {
@@ -21,8 +17,6 @@
         {
             { "GT630", 30 }
         };
-
-
 
         public DisplayService()
             : this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>(), ServiceManager.GetInstance().GetService<IGpuDetailService>())

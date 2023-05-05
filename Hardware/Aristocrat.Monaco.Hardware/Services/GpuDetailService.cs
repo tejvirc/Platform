@@ -17,12 +17,6 @@
         private static PhysicalGPU[] _physicalGpus;
         private bool _disposed;
 
-        public void Initialize()
-        {
-            NVIDIA.Initialize();
-            OnlyIGpuAvailable = !TryGetPhysicalGpus();
-        }
-
         /// <inheritdoc />
         public string ActiveGpuName => GetActiveGetGraphicsCardName();
 
@@ -34,6 +28,12 @@
 
         /// <inheritdoc />
         public bool OnlyIGpuAvailable { get; private set; }
+
+        public void Initialize()
+        {
+            NVIDIA.Initialize();
+            OnlyIGpuAvailable = !TryGetPhysicalGpus();
+        }
 
         /// <inheritdoc />
         public string Name => nameof(IGpuDetailService);
@@ -80,7 +80,7 @@
             {
                 return ResourceKeys.NotAvailable;
             }
-            
+
             return stringToCheck;
         }
 
@@ -156,7 +156,6 @@
         {
             return FetchUsingManagementObjectSearcher()[0].GpuFullName;
         }
-
         public void Dispose()
         {
             if (_disposed)

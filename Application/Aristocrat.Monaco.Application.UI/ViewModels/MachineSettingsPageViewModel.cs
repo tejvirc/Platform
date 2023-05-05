@@ -397,19 +397,13 @@
             return ticketCreator?.Create();
         }
 
-        private void ViewGpuInfo(object obj) // pops the view memory dialog
+        private void ViewGpuInfo(object obj)
         {
             var viewModel = new GpuInfoDialogViewModel();
             
             _dialogService.ShowInfoDialog<GpuInfoDialogView>(
                 this,
                 viewModel,"GPU Detailed Information");
-            // var viewModel = new DiagnosticViewMemoryViewModel();
-            //
-            // _dialogService.ShowInfoDialog<DiagnosticViewMemoryView>(
-            //     this,
-            //     viewModel,
-            //     "Test");
         }
 
         private void UpdateBootTimeInformation()
