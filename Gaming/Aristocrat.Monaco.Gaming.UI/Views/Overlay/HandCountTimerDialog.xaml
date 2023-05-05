@@ -71,7 +71,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.RowSpan="4" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Border  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" MaxHeight="35">
-                            <StackPanel Margin="60,-30,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <StackPanel Margin="60,-5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <controls:TextPath  x:Name="OpacityImage" Width="180" Margin="60,-10,60,0"
                                            FontSize="46" FontFamily="{StaticResource CountdownFont}"
                                            Fill="Gold" FontWeight="ExtraBold" StrokeThickness="4"

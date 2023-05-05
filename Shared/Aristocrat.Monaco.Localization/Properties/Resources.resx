@@ -11732,7 +11732,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="TimeBeforeHandCountReset" xml:space="preserve">
-    <value>TIME BEFORE CREDITS/HANDCOUNT IS RESET</value>
+    <value>TIME BEFORE CREDITS/HANDCOUNT IS RESET.</value>
     <comment>Monaco.Gaming.UI</comment>
   </data>
   <data name="Secs" xml:space="preserve">
