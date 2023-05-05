@@ -173,21 +173,6 @@
 
             </Grid>
         </Grid>
-        <StackPanel
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Grid.Row="1"
-            Orientation="Horizontal"
-            Margin="0 40 0 10"
-            Visibility="{Binding UsingIGpu, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
-            <Button Name="WarningButton" Style="{StaticResource MonacoWarningButton}" Margin="5 0"/>
-            <TextBlock
-                TextWrapping="Wrap"
-                Style="{StaticResource MonacoWarningTextBlock}" 
-                Text="{Binding WarningText}"/>
-        </StackPanel>
     </Grid>
 
 

@@ -7,6 +7,7 @@
     using System.Text;
     using Contracts.Display;
     using Kernel;
+    using Localization.Properties;
     using NvAPIWrapper;
     using NvAPIWrapper.GPU;
     using NvAPIWrapper.Native.Exceptions;
@@ -35,27 +36,6 @@
         public bool OnlyIGpuAvailable { get; private set; }
 
         /// <inheritdoc />
-        public bool IsTheIGpuActiveInsteadOfTheGpu()
-        {
-            if (OnlyIGpuAvailable)
-            {
-                return false;
-            }
-
-            var gpuName = FetchUsingThirdPartyApi().GpuFullName;
-            var allGpus = FetchUsingManagementObjectSearcher();
-            foreach (var gpuInfo in allGpus)
-            {
-                if (gpuInfo.GpuFullName == gpuName)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        /// <inheritdoc />
         public string Name => nameof(IGpuDetailService);
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IGpuDetailService) };
@@ -64,7 +44,7 @@
         {
             if (OnlyIGpuAvailable)
             {
-                return "N/A";
+                return ResourceKeys.NotAvailable;
             }
 
             var sensorInfo = _physicalGpus[0].ThermalInformation.ThermalSensors.ToList()[0].CurrentTemperature;
@@ -98,15 +78,15 @@
         {
             if (string.IsNullOrEmpty(stringToCheck) || stringToCheck == "0")
             {
-                return "N/A";
+                return ResourceKeys.NotAvailable;
             }
-
+            
             return stringToCheck;
         }
 
         private string SetToNaIfNoValue(object stringToCheck)
         {
-            return stringToCheck == null ? "N/A" : stringToCheck.ToString();
+            return stringToCheck == null ? ResourceKeys.NotAvailable : stringToCheck.ToString();
         }
 
         private GpuInfo GetGraphicsCardDetails()
@@ -121,7 +101,7 @@
             var gpuArchitectureName = SetToNaIfNoValue(_physicalGpus[0].ArchitectInformation.ShortName);
             var serial = _physicalGpus[0].Board.SerialNumber != null
                 ? Encoding.ASCII.GetString(_physicalGpus[0].Board.SerialNumber).Replace("\0", "0")
-                : "N/A";
+                : ResourceKeys.NotAvailable;
             var vBios = SetToNaIfNoValue(_physicalGpus[0]?.Bios.VersionString);
             var GpuRamInGB = SetToNaIfNoValue(
                 (_physicalGpus[0]?.MemoryInformation.DedicatedVideoMemoryInkB / 1024).ToString());
@@ -158,12 +138,12 @@
                             new GpuInfo
                             {
                                 GpuFullName = gpuFullName,
-                                GpuArchitectureName = "N/A",
-                                SerialNumber = "N/A",
-                                BiosVersion = "N/A",
+                                GpuArchitectureName = ResourceKeys.NotAvailable,
+                                SerialNumber = ResourceKeys.NotAvailable,
+                                BiosVersion = ResourceKeys.NotAvailable,
                                 DriverVersion = driverVersion,
                                 GpuRam = totalGpuRam,
-                                PhysicalLocation = "N/A"
+                                PhysicalLocation = ResourceKeys.NotAvailable
                             });
                     }
                 }

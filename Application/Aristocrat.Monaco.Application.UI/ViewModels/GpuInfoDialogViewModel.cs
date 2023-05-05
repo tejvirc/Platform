@@ -1,8 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using Contracts.Localization;
     using Hardware.Contracts.Display;
     using Kernel;
+    using Monaco.Localization.Properties;
     using Monaco.UI.Common;
     using OperatorMenu;
 
@@ -19,13 +21,10 @@
             _gpuDetailService = ServiceManager.GetInstance()
                 .GetService<IGpuDetailService>();
             _graphicsCardInfo = _gpuDetailService.GraphicsCardInfo;
-            GpuRam = AppendIfNotNa(_graphicsCardInfo.GpuRam, " GB");
+            GpuRam = AppendIfNotNa(_graphicsCardInfo.GpuRam, " GB"); //GigaByte is international and doesn't need translation?
             _refreshTempTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
             _refreshTempTimer.Tick += RefreshTemperature;
-            UsingIGpu = _gpuDetailService.IsTheIGpuActiveInsteadOfTheGpu();
         }
-
-        public string WarningText => "The IGPU is currently running instead of the discrete GPU.";
 
         public bool UsingIGpu { get; set; }
 
@@ -71,12 +70,14 @@
 
         private void RefreshTemperature(object sender, EventArgs e)
         {
-            CurrentGpuTemp = AppendIfNotNa(_gpuDetailService.GpuTemp, "°C");
+            CurrentGpuTemp = AppendIfNotNa(_gpuDetailService.GpuTemp, "°C"); //°C is international and doesn't need translation?
         }
 
         private string AppendIfNotNa(string original, string toAdd)
         {
-            return original == "N/A" ? original : original + toAdd;
+            return original == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable)
+                ? original
+                : original + toAdd;
         }
     }
 }
