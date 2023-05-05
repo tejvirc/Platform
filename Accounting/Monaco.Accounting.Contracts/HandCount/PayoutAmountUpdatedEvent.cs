@@ -5,7 +5,7 @@
     /// <summary>
     /// Event to trigger cash out dialog.
     /// </summary>
-    public class CashoutAmountPlayerConfirmationRequestedEvent : BaseEvent
+    public class PayoutAmountUpdatedEvent : BaseEvent
     {
         /// <summary>
         ///     Gets the cashable amount
@@ -16,7 +16,7 @@
         ///     Constructor
         /// </summary>
         /// <param name="amount">True if overlay window is visible</param>
-        public CashoutAmountPlayerConfirmationRequestedEvent(long amount)
+        public PayoutAmountUpdatedEvent(long amount)
         {
             CashableAmount = amount;
         }

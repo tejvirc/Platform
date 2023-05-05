@@ -96,10 +96,10 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
-            _eventBus.Subscribe<CashoutAmountPlayerConfirmationRequestedEvent>(this, Handle);
+            _eventBus.Subscribe<PayoutAmountUpdatedEvent>(this, Handle);
         }
        
-        private void Handle(CashoutAmountPlayerConfirmationRequestedEvent evt)
+        private void Handle(PayoutAmountUpdatedEvent evt)
         {
             _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
         }

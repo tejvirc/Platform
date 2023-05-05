@@ -109,7 +109,7 @@
         private async Task CheckLargePayoutAsync(long amount)
         {
             Logger.Debug($"Check Payout Limit: {amount}");
-            _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent(amount));
+            _eventBus.Publish(new PayoutAmountUpdatedEvent(amount));
             var handCountPayoutLimit = _properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
             if (amount > handCountPayoutLimit)
             {
