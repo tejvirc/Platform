@@ -28,7 +28,7 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _eventBus;
         private readonly long _cashOutAmountPerHand;
-        private readonly long _handCountPayoutLimit;
+        private readonly IPropertiesManager _properties;
 
         private bool _disposed;
 
@@ -61,7 +61,8 @@
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
             _cashOutAmountPerHand = properties.GetValue(AccountingConstants.CashoutAmountPerHandCount, 0L);
-            _handCountPayoutLimit = properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
+            _properties = properties
+                 ?? throw new ArgumentNullException(nameof(properties));
         }
 
         /// <inheritdoc />
@@ -109,7 +110,8 @@
         {
             Logger.Debug($"Check Payout Limit: {amount}");
             _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent(amount));
-            if (amount > _handCountPayoutLimit)
+            var handCountPayoutLimit = _properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
+            if (amount > handCountPayoutLimit)
             {
                 var keyOff = Initiate();
                 await keyOff.Task;
