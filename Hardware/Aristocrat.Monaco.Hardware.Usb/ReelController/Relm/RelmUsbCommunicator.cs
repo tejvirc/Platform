@@ -23,6 +23,7 @@
 
         private bool _disposed;
         private RelmCommunicator _relmCommunicator;
+        private uint _firmwareSize;
 
         public RelmUsbCommunicator()
         {
@@ -95,6 +96,10 @@
 
             var configuration = _relmCommunicator?.Configuration ?? new DeviceConfiguration();
             Logger.Debug($"Reel controller connected with {configuration.NumReels} reel and {configuration.NumLights} lights. {configuration}");
+
+            var firmwareSize = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
+            _firmwareSize = firmwareSize.Size;
+            Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
         }
 
         public bool Close()
