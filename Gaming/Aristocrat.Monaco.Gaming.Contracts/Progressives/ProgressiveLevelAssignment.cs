@@ -16,13 +16,15 @@
         /// <param name="assignedProgressiveIdInfo">The id of the related progressive</param>
         /// <param name="initialValue">The initial value of the UI</param>
         /// <param name="wagerCredits">The wager amount associated with this level</param>
+        /// <param name="overflowValue">The overflow value of the UI</param>
         public ProgressiveLevelAssignment(
             IGameDetail gameDetail,
             long denom,
             IViewableProgressiveLevel progressiveLevel,
             AssignableProgressiveId assignedProgressiveIdInfo,
             long initialValue,
-            long wagerCredits = 0)
+            long wagerCredits = 0,
+            long overflowValue = 0)
         {
             ProgressiveLevel = progressiveLevel
                                ?? throw new ArgumentNullException(nameof(progressiveLevel));
@@ -33,6 +35,7 @@
             Denom = denom;
             InitialValue = initialValue;
             WagerCredits = wagerCredits;
+            OverflowValue = overflowValue;
         }
 
         /// <summary>
@@ -64,5 +67,10 @@
         ///     Gets the wager credits for this progressive level
         /// </summary>
         public long WagerCredits { get; }
+
+        /// <summary>
+        /// Gets the overflow value from the UI
+        /// </summary>
+        public long OverflowValue { get; }
     }
 }

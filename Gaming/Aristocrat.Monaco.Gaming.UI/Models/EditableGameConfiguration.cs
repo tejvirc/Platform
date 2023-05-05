@@ -82,7 +82,7 @@
             _lowestAllowedMinimumRtp = LowestAvailableMinimumRtp = AvailableGames.Min(g => g.MinimumPaybackPercent);
             _highestAllowedMinimumRtp = HighestAvailableMinimumRtp = AvailableGames.Max(g => g.MinimumPaybackPercent);
 
-            _gamble = _properties.GetValue(GamingConstants.GambleEnabled, false);
+            _gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) && _properties.GetValue(GamingConstants.GambleEnabled, false);
             _letItRide = _properties.GetValue(GamingConstants.LetItRideEnabled, false);
 
             _allowEditHostDisabled = _properties.GetValue(GamingConstants.AllowEditHostDisabled, false);
@@ -588,7 +588,7 @@
 
             MaxDenomEntriesReached = false;
             Enabled = denomination?.Active ?? false;
-            Gamble = denomination?.SecondaryAllowed ?? false;
+            Gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) && (denomination?.SecondaryAllowed ?? false);
             LetItRide = denomination?.LetItRideAllowed ?? false;
             ForcedMinBet = denomination?.MinimumWagerCredits * Denom ?? BetMinimum;
             ForcedMaxBet = denomination?.MaximumWagerCredits * Denom ?? BetMaximum;

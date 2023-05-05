@@ -217,4 +217,20 @@
       <LEDSegment Id="0" HardwareStripId="131027" from="0" to="12" />
     </LogicalStrip>
   </EdgeLightMapping>
+  <EdgeLightMapping Name="Marquis">
+    <HardwareStrip ResponseCommand="LedConfiguration" Id="131000" LEDCount="106" />
+    <HardwareStrip ResponseCommand="LedConfiguration" Id="131001" LEDCount="57" />
+    <HardwareStrip ResponseCommand="LedConfiguration" Id="131002" LEDCount="0" />
+    <HardwareStrip ResponseCommand="LedConfiguration" Id="131003" LEDCount="0" />
+    <HardwareStrip ResponseCommand="LedConfiguration" Id="131029" LEDCount="2" />
+    <LogicalStrip Id="00">
+      <LEDSegment Id="0" HardwareStripId="131000" from="0" to="105" />
+    </LogicalStrip>
+    <LogicalStrip Id="01">
+      <LEDSegment Id="0" HardwareStripId="131001" from="0" to="56" />
+    </LogicalStrip>
+   <LogicalStrip Id="29">
+      <LEDSegment Id="0" HardwareStripId="131029" from="0" to="1" />
+    </LogicalStrip>
+  </EdgeLightMapping>
 </EdgeLightMappings>

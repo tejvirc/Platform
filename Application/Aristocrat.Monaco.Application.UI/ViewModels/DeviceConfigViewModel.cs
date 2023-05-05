@@ -38,6 +38,7 @@
         private string _port;
         private string _status;
         private bool _isDetectionComplete;
+        private bool _isDetectionFailure;
 
         public DeviceConfigViewModel(DeviceType type, bool readOnly = false)
         {
@@ -95,6 +96,8 @@
                 _config.Enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 Status = string.Empty;
+                IsDetectionComplete = false;
+                IsDetectionFailure = false;
 
                 var message = DeviceType + (value ? " enabled" : " disabled");
                 Logger.DebugFormat(message);
@@ -227,11 +230,18 @@
             set => SetProperty(ref _isDetectionComplete, value, nameof(IsDetectionComplete));
         }
 
+        public bool IsDetectionFailure
+        {
+            get => _isDetectionFailure;
+            set => SetProperty(ref _isDetectionFailure, value, nameof(IsDetectionFailure));
+        }
+
         public bool ContainsPlatformConfiguration(SupportedDevicesDevice config) => _platformConfigs.Contains(config);
 
         public void SetDetectedPlatformConfiguration(SupportedDevicesDevice config)
         {
             IsDetectionComplete = true;
+            IsDetectionFailure = false;
             Manufacturer = config.Name;
             Protocol = config.Protocol;
             Port = config.Port;
@@ -304,9 +314,10 @@
 // In Retail mode only allow port specified in platform configs as a port choice for this make
                 SetPortToConfigOption(true);
 #else
-                if (Protocol.Equals(ApplicationConstants.GDS))
+                var selectedDevice = _platformConfigs.FirstOrDefault(x => x.Name == Manufacturer);
+                if (selectedDevice?.Port == ApplicationConstants.USB)
                 {
-                    // Only USB should be available for GDS protocol
+                    // Only USB should be available for USB devices
                     if (_allPorts.Contains(ApplicationConstants.USB))
                     {
                         Ports.Add(ApplicationConstants.USB);
