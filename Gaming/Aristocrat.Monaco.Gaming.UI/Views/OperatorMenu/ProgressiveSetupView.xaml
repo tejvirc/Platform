@@ -249,8 +249,26 @@
                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
                 <DataGridTextColumn 
                     Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
-                    Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
+                    Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
+                <DataGridTemplateColumn 
+                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:LevelModel}">
+                            <helpers:CurrencyTextBox x:Name="OverflowCurrencyTextBox"
+                                                     PreventNegatives="True"
+                                                     IsEnabled="{Binding CanSetOverflowValue}"
+                                                     Number="{
+                                    Binding Path=OverflowValue, 
+                                    Mode=TwoWay, 
+                                    UpdateSourceTrigger=PropertyChanged, 
+                                    ValidatesOnDataErrors=True, 
+                                    NotifyOnValidationError=True}"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
