@@ -26,8 +26,6 @@
             _refreshTempTimer.Tick += RefreshTemperature;
         }
 
-        public bool UsingIGpu { get; set; }
-
         public string GpuRam { get; set; }
 
         public GpuInfo GraphicsCardInfo
