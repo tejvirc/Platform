@@ -556,9 +556,6 @@
                 {
                     throw new InvalidOperationException($"Missing a wager for levelId {level.LevelId}");
                 }
-
-                _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelWageredAmount)
-                    .Increment(wager);
             }
         }
 

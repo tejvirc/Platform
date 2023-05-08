@@ -70,8 +70,8 @@
             CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000, 0), "WagerBetLevelsDisplayName", "$0.00");
         }
 
-        [DataRow(ProgressiveMeters.ProgressiveLevelWageredAmount, "ProgressiveLevelWageredAmountDisplayName", "$10.00", true, true)]
-        [DataRow(ProgressiveMeters.ProgressiveLevelWageredAmount, "ProgressiveLevelWageredAmountDisplayName", "$0.00", false, true)]
+        [DataRow(ProgressiveMeters.WageredAmount, "WageredAmountDisplayName", "$10.00", true, true)]
+        [DataRow(ProgressiveMeters.WageredAmount, "WageredAmountDisplayName", "$0.00", false, true)]
         [DataRow(ProgressiveMeters.ProgressiveLevelBulkContribution, "ProgressiveLevelBulkContributionDisplayName", "$10.00", true, true)]
         [DataRow(ProgressiveMeters.ProgressiveLevelBulkContribution, "ProgressiveLevelBulkContributionDisplayName", "$0.00", false, true)]
         [DataRow(ProgressiveMeters.ProgressiveLevelWinAccumulation, "ProgressiveLevelWinAccumulationDisplayName", "$10.00", true, true)]

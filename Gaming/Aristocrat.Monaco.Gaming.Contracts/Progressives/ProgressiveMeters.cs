@@ -11,11 +11,6 @@
         public const string ProgressiveLevelBulkContribution = "ProgressiveLevel.BulkContribution";
 
         /// <summary>
-        ///     The wagered amount per progressive level
-        /// </summary>
-        public const string ProgressiveLevelWageredAmount = "ProgressiveLevel.WageredAmount";
-
-        /// <summary>
         ///     Progressive Win Occurrence
         /// </summary>
         public const string ProgressiveLevelWinOccurrence = "ProgressiveLevel.WinOccurrence";
