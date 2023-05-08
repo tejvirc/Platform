@@ -31,7 +31,7 @@
             _audioService = ServiceManager.GetInstance().GetService<IAudio>();
 
             // Load default volume level
-            _selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _selectedVolumeLevel);
         }
 

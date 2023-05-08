@@ -6,6 +6,7 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -29,8 +30,15 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <local:VolumeControl Grid.Row="0" Margin="0 10"
-                             VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <ComboBox MinWidth="250"
+                  Grid.Row="0"
+                  Margin="0 10"
+                  ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
+                  SelectedIndex="0"
+                  DisplayMemberPath="Description"
+                  SelectedValuePath="Value"
+                  SelectedValue="{Binding SelectedVolumeLevel}"
+                  IsEnabled="{Binding Path=CanEditVolume}"/>
         <StackPanel Grid.Row="1" Margin="0 10"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"

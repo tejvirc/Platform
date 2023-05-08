@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Windows.Input;
+    using Aristocrat.Monaco.Kernel.Contracts;
     using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;
@@ -29,6 +30,7 @@
 
         private readonly IAudio _audio;
         private readonly ISystemDisableManager _disableManager;
+        private readonly IPropertiesManager _propertiesManager;
 
         private byte _alertVolume;
         private byte _alertMinimumVolume;
@@ -36,14 +38,17 @@
         private bool _playTestAlertSound;
         private string _soundFile;
         private bool _inTestMode;
+        private VolumeLevel _selectedVolumeLevel;
 
         public SoundConfigPageViewModel(bool isWizard) : base(isWizard)
         {
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
+            _propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
+            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
         }
 
         private void LoadVolumeSettings()
@@ -152,6 +157,18 @@
                 if (_playTestAlertSound)
                 {
                     _audio.Play(_soundFile, scaledVolume);
+                }
+            }
+        }
+        public VolumeLevel SelectedVolumeLevel
+        {
+            get => _selectedVolumeLevel;
+
+            set
+            {
+                if (SetProperty(ref _selectedVolumeLevel, value))
+                {
+                    _propertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
                 }
             }
         }
