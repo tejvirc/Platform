@@ -927,7 +927,7 @@
         /// <summary>
         ///     Gets a value indicating whether the EGM has zero credits.
         /// </summary>
-        public bool HasZeroCredits => _credits.Equals(0.0);
+        public bool HasZeroCredits => _bank.QueryBalance() == 0;
 
         /// <summary>
         ///     Gets or sets the paid meter
@@ -4551,9 +4551,11 @@
             bool disabledOnlyWithLiveAuthentication = (systemDisableCount == 1) &&
                                                       _systemDisableManager.CurrentDisableKeys.Contains(
                                                           ApplicationConstants.LiveAuthenticationDisableKey);
+            bool disabledByPrintingTicket = _systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey);
+
             if (HasZeroCredits && CurrentState == LobbyState.Disabled &&
                 GameReady && _gameState.Idle && !_lobbyStateManager.AllowSingleGameAutoLaunch
-                && (systemDisableCount > 0 && !disabledOnlyWithLiveAuthentication))
+                && (systemDisableCount > 0 && !disabledOnlyWithLiveAuthentication) && !disabledByPrintingTicket)
             {
                 _gameService?.ShutdownBegin();
             }
