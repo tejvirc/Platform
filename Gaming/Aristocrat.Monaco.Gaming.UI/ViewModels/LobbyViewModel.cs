@@ -545,7 +545,10 @@
 
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
 
-            IsPrimaryLanguageSelected = true;
+            if(_bank.QueryBalance() == 0 && _gameState.Idle)
+            {
+                IsPrimaryLanguageSelected = true;
+            }
 
             Volume = new LobbyVolumeViewModel(OnUserInteraction);
 
