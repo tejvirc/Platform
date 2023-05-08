@@ -472,19 +472,8 @@
                 .GetProperty(ApplicationConstants.ShowMode, false);
             if (showMode)
             {
-                var handCountServiceEnabled = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().
-                    GetProperty(AccountingConstants.HandCountServiceEnabled, false);
-                var gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
-
-                if (!handCountServiceEnabled || gameProvider.GetEnabledGames().Any())
-                {
-                    Log.Info("Initialization completed, updating show mode account balance.");
-                    UpdateShowModeAccountBalance();
-                }
-                else
-                {
-                    Log.Info("Initialization completed! Can't update show mode account balance when hand counts are tracked as no game is enabled.");
-                }
+                Log.Info("Initialization completed, updating show mode account balance.");
+                UpdateShowModeAccountBalance();
             }
         }
 
@@ -642,8 +631,15 @@
 
         private void UpdateShowModeAccountBalance()
         {
+            var gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
+            if (!gameProvider.GetEnabledGames().Any())
+            {
+                Log.Info("Can't update show mode account balance when no game is enabled.");
+                return;
+            }
+
             var wagerMatchEnabled = ServiceManager.GetInstance().GetService<IPropertiesManager>()
-                .GetValue(GamingConstants.ShowProgramEnableResetCredits, true);
+            .GetValue(GamingConstants.ShowProgramEnableResetCredits, true);
             if (!wagerMatchEnabled)
             {
                 return;
@@ -654,7 +650,7 @@
             var bank = ServiceManager.GetInstance().GetService<IBank>();
 
             // set to half of limit, rounded to nearest $100
-            var limit = (long)Math.Round((double)bank.Limit / 2 / 100M.DollarsToMillicents()) *                         100M.DollarsToMillicents();
+            var limit = (long)Math.Round((double)bank.Limit / 2 / 100M.DollarsToMillicents()) * 100M.DollarsToMillicents();
             limit = Math.Min(limit, _showModeMaxBankReset);
 
             if (balance < limit)
