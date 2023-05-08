@@ -146,8 +146,9 @@
             }
 
             var transaction = _transactions.RecallTransactions<HandpayTransaction>()
-                .FirstOrDefault(t => t.BankTransactionId == transactionId);
-
+                .FirstOrDefault(t => t.BankTransactionId == transactionId &&
+                                     (t.State == HandpayState.Pending || t.State == HandpayState.Requested ||
+                                      t.State == HandpayState.Committed && t.PrintTicket && !t.Printed));
             Logger.Debug($"Checking handpay recovery - {transactionId}");
 
             if (transaction != null)
