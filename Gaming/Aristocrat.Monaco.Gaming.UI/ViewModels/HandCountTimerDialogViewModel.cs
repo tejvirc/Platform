@@ -6,6 +6,7 @@
     using MVVM.ViewModel;
     using System;
     using Accounting.Contracts;
+    using Contracts;
 
     /// <summary>
     ///  Defines the HandCountTimerDialogViewModel class
@@ -19,6 +20,7 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly DispatcherTimerAdapter _resetTimer;
         private IHandCountService _handCountService;
+        private IButtonDeckFilter _buttonDeckFilter;
         private readonly IBank _bank;
         private TimeSpan _timeLeft;
         private bool _disposed = false;
@@ -40,6 +42,15 @@
             }
         }
 
+        public IButtonDeckFilter ButtonDeckFilter
+        {
+            get
+            {
+                return _buttonDeckFilter ??= ServiceManager.GetInstance()
+                    .GetService<IContainerService>().Container.GetInstance<IButtonDeckFilter>();
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HandCountTimerDialogViewModel" /> class.
         /// </summary>
@@ -57,7 +68,12 @@
         /// <param name="eventBus">Event bus</param>
         /// <param name="systemDisableManager">System disable Manager</param>
         /// <param name="handCountService"> HandCount service</param>
-        public HandCountTimerDialogViewModel(IEventBus eventBus, ISystemDisableManager systemDisableManager, IHandCountService handCountService, IBank bank)
+        /// <param name="buttonDeckFilter"> Button Deck filter</param>
+        /// <param name="bank"> Bank</param>
+        public HandCountTimerDialogViewModel(IEventBus eventBus,
+                                             ISystemDisableManager systemDisableManager,
+                                             IHandCountService handCountService,
+                                             IBank bank)
         {
             _eventBus = eventBus;
             _systemDisableManager = systemDisableManager;
@@ -76,6 +92,8 @@
 
         public void OnHandCountTimerStarted()
         {
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Lockup;
+
             // Start Timer
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
             _resetTimer.Start();
@@ -97,6 +115,8 @@
 
         private void HideTimerDialog()
         {
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
+
             if (_resetTimer.IsEnabled)
             {
                 ResetAndDisableTimer();
