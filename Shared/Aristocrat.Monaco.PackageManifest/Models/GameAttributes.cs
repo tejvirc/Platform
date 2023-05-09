@@ -189,5 +189,10 @@
         ///    Gets or sets the maximum wager for lower-odd bets, for example, betting on red/black or even/odd in roulette 
         /// </summary>
         public int MaxWagerOutsideCredits { get; set; }
+
+        /// <summary>
+        ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
+        /// </summary>
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
     }
 }

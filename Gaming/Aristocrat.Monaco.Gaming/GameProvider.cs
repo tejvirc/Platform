@@ -1073,6 +1073,8 @@
 
             gameDetail.MaximumWagerInsideCredits = game.MaxWagerInsideCredits;
             gameDetail.MaximumWagerOutsideCredits = game.MaxWagerOutsideCredits;
+            gameDetail.NextToMaxBetTopAwardMultiplier = game.NextToMaxBetTopAwardMultiplier;
+
             return (gameDetail, progressiveDetails);
         }
 

@@ -162,7 +162,8 @@
                         StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
                     }).ToList(),
                 MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
-                MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits
+                MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits,
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
             };
         }
 

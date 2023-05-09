@@ -190,6 +190,8 @@
 
         public GameSubCategory SubCategory => GameSubCategory.FiveHand;
 
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
             var gameDetail = new List<IGameDetail>();
