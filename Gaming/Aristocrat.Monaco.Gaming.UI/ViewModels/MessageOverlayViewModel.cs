@@ -344,7 +344,7 @@
                     break;
             }
 
-            if (!messageSent && _overlayMessageStrategyController.GameRegistered)
+            if (!messageSent && _overlayMessageStrategyController.GameRegistered || !MessageOverlayData.GameHandlesHandPayPresentation)
             {
                 Logger.Debug("Sending PresentOverriddenPresentation Clear");
                 _overlayMessageStrategyController.ClearGameDrivenPresentation();
