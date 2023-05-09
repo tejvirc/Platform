@@ -3,31 +3,6 @@
   <xs:element name="ApplicationConfiguration">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="1" name="MasterVolumeSettings">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="VolumeNode">
-                <xs:complexType>
-                  <xs:complexContent>
-                    <xs:extension base="VolumeLevel">
-                    </xs:extension>
-                  </xs:complexContent>
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="VolumeScalarSettings">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element minOccurs="5" maxOccurs="5" name="Scalar">
-                <xs:complexType>
-                  <xs:attribute name="Value" type="xs:float" use="required"/>
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="AllowedLocales" type="ArrayOfString" />
         <xs:element minOccurs="0" maxOccurs="1" name="Currency">
           <xs:complexType>
@@ -504,6 +479,31 @@
         <xs:element minOccurs="0" maxOccurs="1" name="DisplayDisconnectNoReconfigure">
           <xs:complexType>
             <xs:attribute name="Topper" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MasterVolumeSettings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="VolumeNode">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="VolumeLevel">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="VolumeScalarSettings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="5" maxOccurs="5" name="Scalar">
+                <xs:complexType>
+                  <xs:attribute name="Value" type="xs:float" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
