@@ -216,5 +216,15 @@
         ///     Gets or sets the mechanical reel home steps
         /// </summary>
         int[] MechanicalReelHomeSteps { get; set; }
+
+        /// <summary>
+        ///    Gets or sets the maximum wager for higher-odd bets, for example, betting on a specific number in roulette.
+        /// </summary>
+        int MaximumWagerInsideCredits { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the maximum wager for low-odds bets, for example, betting on red/black or even/odd in roulette
+        /// </summary>
+        int MaximumWagerOutsideCredits { get; set; }
     }
 }

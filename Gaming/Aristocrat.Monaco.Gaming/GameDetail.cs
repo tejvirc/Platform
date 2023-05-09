@@ -140,6 +140,10 @@
 
         public IEnumerable<Feature> Features { get; set; }
 
+        public int MaximumWagerInsideCredits { get; set; }
+
+        public int MaximumWagerOutsideCredits { get; set; }
+
         public GameDetail ShallowClone()
         {
             return (GameDetail)MemberwiseClone();

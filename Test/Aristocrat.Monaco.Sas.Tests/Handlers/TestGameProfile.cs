@@ -130,5 +130,17 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public int MaximumWagerInsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public int MaximumWagerOutsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
     }
 }
