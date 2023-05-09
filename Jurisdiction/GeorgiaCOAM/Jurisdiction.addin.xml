@@ -74,6 +74,9 @@
       <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
         <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMDisplayMetersConfig" />
       </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/OperatorMenu/GameHistoryMeters">
+        <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMHistoryMetersConfig" />
+      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="GeorgiaCOAMAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="GeorgiaCOAMAccountingTransferProviders" />
@@ -171,6 +174,9 @@
   </Extension>
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\GeorgiaCOAM\DisplayMeters.config.xml" filterid="GeorgiaCOAMDisplayMetersConfig" />
+  </Extension>
+  <Extension path="/Gaming/OperatorMenu/GameHistoryMeters">
+    <FilePath FilePath="..\jurisdiction\GeorgiaCOAM\GameHistoryMeters.config.xml" filterid="GeorgiaCOAMHistoryMetersConfig" />
   </Extension>
   <Extension path="/Accounting/TransactionHistories" filterid="GeorgiaCOAMTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
