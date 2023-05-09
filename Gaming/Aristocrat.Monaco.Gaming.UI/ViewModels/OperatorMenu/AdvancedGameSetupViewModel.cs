@@ -74,6 +74,7 @@
         private EditableGameConfiguration _selectedConfig;
         private EditableGameProfile _selectedGame;
         private ProgressiveSettings _progressiveSettings;
+        private List<GameType> _gameTypes;
         private GameType _selectedGameType;
         private long _topAwardValue;
         private bool _gameOptionsGridEnabled;
@@ -234,7 +235,16 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public IEnumerable<GameType> GameTypes { get; }
+        public List<GameType> GameTypes
+        {
+            get => _gameTypes;
+
+            set => SetProperty(
+                ref _gameTypes,
+                value,
+                nameof(GameTypes),
+                nameof(HasMultipleGames));
+        }
 
         public GameType SelectedGameType
         {
@@ -604,7 +614,16 @@
                 CheckForMaximumDenominations(entry.Value, _subGameTypeToActiveDenomMapping[key]);
             }
 
+            GameTypes = _editableGames.Values
+                .Where(g => g.GameConfigurations.Any())
+                .SelectMany(g => g.GameConfigurations.SelectMany(c => c.AvailableGames))
+                .Select(g => g.GameType)
+                .Distinct()
+                .OrderBy(g => g.GetDescription(typeof(GameType)))
+                .ToList();
+
             SelectedGameType = GameTypes.FirstOrDefault();
+
             CalculateTopAward();
             ScaleEnabledRtpValues();
         }

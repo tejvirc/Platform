@@ -23,6 +23,7 @@
 
         private bool _disposed;
         private RelmCommunicator _relmCommunicator;
+        private uint _firmwareSize;
 
         public RelmUsbCommunicator()
         {
@@ -92,9 +93,14 @@
             await _relmCommunicator?.SendCommandAsync(new Reset())!;
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
             await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
+            await HomeReels();
 
             var configuration = _relmCommunicator?.Configuration ?? new DeviceConfiguration();
             Logger.Debug($"Reel controller connected with {configuration.NumReels} reel and {configuration.NumLights} lights. {configuration}");
+
+            var firmwareSize = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
+            _firmwareSize = firmwareSize.Size;
+            Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
         }
 
         public bool Close()
@@ -242,15 +248,33 @@
 
         public Task<bool> HomeReels()
         {
-            // TODO: Use proper home positions
-            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<short>{0, 0, 0, 0, 0}));
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            // TODO: Use proper home positions and number of reels
+            var defaultHomeStep = 0;
+            var homeData = new List<short>();
+            
+            for (int i=0; i < ReelCount; i++)
+            {
+                homeData.Add((short)defaultHomeStep);
+            }
+
+            _relmCommunicator?.SendCommandAsync(new HomeReels(homeData));
             return Task.FromResult(true);
         }
 
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
-            // TODO: Implement home reels in driver and wire up
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new ((byte)reelId, (short)stop) }));
+            return Task.FromResult(true);
         }
 
         public Task<bool> SetReelOffsets(params int[] offsets)

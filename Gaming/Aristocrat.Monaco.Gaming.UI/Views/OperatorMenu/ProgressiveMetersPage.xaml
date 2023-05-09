@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="WrappedHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
-                <Setter Property="MinWidth" Value="50"/>
+                <Setter Property="MinWidth" Value="250"/>
                 <Setter Property="MinHeight" Value="80"/>
                 <Setter Property="Margin" Value="0 0 15 0"/>
             </Style>
