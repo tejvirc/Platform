@@ -20,7 +20,6 @@
     using Aristocrat.Monaco.Gaming.Contracts.Events.OperatorMenu;
     using Aristocrat.Monaco.Gaming.Contracts.Meters;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
-    using Aristocrat.Monaco.Gaming.Progressives;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common.Events;
@@ -348,26 +347,36 @@
         }
 
         /// <summary>
-        ///     This method is called when Vertex is detected off-line
+        ///     This method is called when Vertex disables the device
         /// </summary>
-        public void ProgressiveHostOfflineDisable()
+        public void ProgressiveHostOnline(bool online, string reason)
         {
-
             var systemDisableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
 
             if (systemDisableManager != null)
             {
-                if (!systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
+                if(online)
                 {
-                    systemDisableManager.Disable(G2S.Constants.VertexOfflineKey, SystemDisablePriority.Immediate, () => "Progressive Host Is Offline.");
+                    if (systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
+                    {
+                        systemDisableManager.Enable(G2S.Constants.VertexOfflineKey);
+                    }
                 }
+                else if(reason.ToLower().Contains("meter rollback")) // THIS IS BEING REFACTORED IN TXARCH-982
+                {
+                    systemDisableManager.Disable(G2S.Constants.VertexMeterRollbackKey, SystemDisablePriority.Immediate, () => reason);
+                }
+                else if (!systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
+                {
+                    systemDisableManager.Disable(G2S.Constants.VertexOfflineKey, SystemDisablePriority.Immediate, () => reason);
+                }
+                
             }
-
         }
 
         private void ProgressiveHostOfflineTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            ProgressiveHostOfflineDisable();
+            ProgressiveHostOnline(false, "Progressive Host Is Offline.");
         }
 
         private void EventUpdateTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
@@ -624,6 +633,9 @@
 
         private void DisableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device, string hostReason = null)
         {
+            Logger.Error($"JLK Progressive device being disabled Id = {device.Id}, reason = {reason}, hostReason = {hostReason}");
+            Logger.Error($"Flag states _levelMismatch = {_levelMismatch}, _commsDisable = {_commsDisable}, _progressiveStateDisable = {_progressiveStateDisable}, _progressiveValue = {_progressiveValue}");
+
             switch (reason)
             {
                 case DeviceDisableReason.LevelMismatch:
@@ -663,7 +675,7 @@
 
             Logger.Debug($"Progressive service is disabling the Progressive device: {reason}");
 
-            device.Enabled = false;
+            ProgressiveHostOnline(false, device.DisableText);
             device.HostEnabled = false;
 
             var status = new progressiveStatus();
@@ -673,11 +685,14 @@
         }
 
         /// <summary>
-        ///     To enable device behalf on reason
+        ///     To online device behalf on reason
         /// </summary>
-        /// <param name="reason">device enable reason</param>
+        /// <param name="reason">device online reason</param>
         private void EnableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device)
         {
+            Logger.Error($"Progressive device being enabled Id = {device.Id}, reason = {reason}");
+            Logger.Error($"Flag states _levelMismatch = {_levelMismatch}, _commsDisable = {_commsDisable}, _progressiveStateDisable = {_progressiveStateDisable}, _progressiveValue = {_progressiveValue}");
+
             switch (reason)
             {
                 case DeviceDisableReason.LevelMismatch:
@@ -698,7 +713,7 @@
 
             SetGamePlayDeviceState(true, device);
 
-            if (!device.Enabled || !device.HostEnabled)
+            if (!device.HostEnabled)
             {
                 Logger.Debug($"Progressive service is enabling the Progressive device: {reason}");
 
@@ -706,6 +721,8 @@
                 {
                     device.HostEnabled = true;
                     device.Enabled = false;
+
+                    ProgressiveHostOnline(true, null);
 
                     var status = new progressiveStatus();
                     _commandBuilder.Build(device, status).Wait();

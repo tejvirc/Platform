@@ -154,6 +154,11 @@ namespace Aristocrat.Monaco.G2S
         public static Guid VertexOfflineKey => new Guid("{0596f5ad-9704-414c-bcd5-7806dfe8f8af}");
 
         /// <summary>
+        ///     Gets the ISystemDisableManager key used when the G2S progressive server signals a meter rollback
+        /// </summary>
+        public static Guid VertexMeterRollbackKey => new Guid("{8d876e70-be77-4320-b00f-b348f8882127}");
+
+        /// <summary>
         ///     Default value for Handpay local key-off options.
         /// </summary>
         public const string DefaultLocalKeyoff = "G2S_anyKeyOff";
