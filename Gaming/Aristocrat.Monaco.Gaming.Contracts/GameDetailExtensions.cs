@@ -240,8 +240,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts
                 return @this.MaximumWagerCredits * topAward;
             }
 
-            return @this.TopAwardMultiplier(betOption) *
-                   @this.BaseMaxWagerCredits(lineOption) *
+            var baseTopAwardMultiplier = lineOption?.Lines
+                .MaxOrDefault(m => m.Multiplier, 1) ?? 1;
+
+            return @this.TopAwardMaxBetMultiplier(betOption) *
+                   baseTopAwardMultiplier *
                    topAward;
         }
 
@@ -271,7 +274,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
             return maxBetMultiplier <= 1 ? @this.MaximumWagerCredits : @this.MaximumWagerCredits / maxBetMultiplier;
         }
 
-        private static int TopAwardMultiplier(this IGameDetail @this, BetOption betOption)
+        private static int TopAwardMaxBetMultiplier(this IGameDetail @this, BetOption betOption)
         {
             var orderedMultipliers = betOption.Bets
                 .Select(b => b.Multiplier)

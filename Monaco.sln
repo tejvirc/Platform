@@ -249,6 +249,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Bingo.Client.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.Serial.Tests", "Test\Aristocrat.Monaco.Hardware.Serial.Tests\Aristocrat.Monaco.Hardware.Serial.Tests.csproj", "{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.Usb.Tests", "Test\Aristocrat.Monaco.Hardware.Usb.Tests\Aristocrat.Monaco.Hardware.Usb.Tests.csproj", "{10831BDA-5445-449E-A7A4-3CC79F3AFECF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1822,6 +1824,18 @@ Global
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|x64.ActiveCfg = Retail|Any CPU
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Debug|x64.Build.0 = Debug|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Debug|x86.Build.0 = Debug|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Release|x64.ActiveCfg = Release|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Release|x86.ActiveCfg = Release|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|x64.ActiveCfg = Retail|Any CPU
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|x86.ActiveCfg = Retail|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1936,9 +1950,10 @@ Global
 		{AFFC99B8-CB79-4A78-9E88-ECB3C2EC6044} = {ADB20021-B352-4404-AB81-E955809FF7E3}
 		{D6A438DF-687F-4685-A665-957FB7744DAA} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
+		{10831BDA-5445-449E-A7A4-3CC79F3AFECF} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 		RESX_RemoveEmptyEntries = True
+		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 	EndGlobalSection
 EndGlobal
