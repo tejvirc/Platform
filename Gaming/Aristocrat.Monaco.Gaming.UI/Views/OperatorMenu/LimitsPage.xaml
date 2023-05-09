@@ -83,7 +83,7 @@
                 <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CreditLimit}}"/>
                 <CheckBox IsChecked="{Binding CreditLimitIsChecked, Mode=TwoWay}"
                           IsEnabled="{Binding CreditLimitCheckboxEnabled, Mode=OneWay}"/>
-                <helpers:CurrencyTextBox IsEnabled="{Binding PageEnabled}"
+                <helpers:CurrencyTextBox IsEnabled="{Binding CreditLimitEditable}"
                                          Number="{Binding Path=CreditLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                          Visibility="{Binding CreditLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"

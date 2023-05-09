@@ -75,6 +75,7 @@
         private long _incrementThreshold;
         private long _initialIncrementThreshold;
         private bool _incrementThresholdIsChecked;
+        private bool _creditLimitEditable;
 
         public LimitsPageViewModel(bool isWizardPage = false) : base(isWizardPage)
         {
@@ -146,6 +147,16 @@
                 
                 _pageEnabled = value;
                 RaisePropertyChanged(nameof(PageEnabled));
+            }
+        }
+
+        public bool CreditLimitEditable
+        {
+            get { return _creditLimitEditable; }
+            set
+            {
+                _creditLimitEditable = value;
+                RaisePropertyChanged(nameof(CreditLimitEditable));
             }
         }
 
@@ -621,6 +632,8 @@
             ClearValidationOnUnload = true;
 
             PageEnabled = PropertiesManager.GetValue(AccountingConstants.ConfigWizardLimitsPageEnabled, true);
+
+            CreditLimitEditable = HandCountPayoutLimitVisible ? PageEnabled && CreditLimitCheckboxEnabled : PageEnabled;
 
             IncrementThresholdIsChecked = PropertiesManager.GetValue(AccountingConstants.IncrementThresholdIsChecked, false);
             IncrementThreshold = _initialIncrementThreshold = (long)PropertiesManager.GetValue(AccountingConstants.IncrementThreshold, AccountingConstants.DefaultIncrementThreshold).MillicentsToDollars();
