@@ -17,6 +17,26 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Communicator
         event EventHandler<GdsSerializableMessage> MessageReceived;
 
         /// <summary>
+        ///     Get the firmware revision.
+        /// </summary>
+        string FirmwareRevision { get; }
+
+        /// <summary>
+        ///     Get the boot firmware version.
+        /// </summary>
+        string BootVersion { get; }
+
+        /// <summary>
+        ///     Get the variant name.
+        /// </summary>
+        string VariantName { get; }
+
+        /// <summary>
+        ///     Get the variant version.
+        /// </summary>
+        string VariantVersion { get; }
+
+        /// <summary>
         ///     Send a data message to GDS device.
         /// </summary>
         /// <param name="message">Message</param>
