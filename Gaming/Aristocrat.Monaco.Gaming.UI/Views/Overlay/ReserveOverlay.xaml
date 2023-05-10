@@ -7,171 +7,245 @@
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:loc="http://monaco.aristocrat.com/localization"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
-
+             d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
+             AutomationProperties.AutomationId="UserControl0_4C70D0C5">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="FourDigitPinBoxStyle" TargetType="TextBox">
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="CaretBrush" Value="Gray"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Width" Value="226"/>
-                <Setter Property="Height" Value="100"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Top"/>
-                <Setter Property="MaxLength" Value="4"/>
-                <Setter Property="FontSize" Value="124"/>
+            <Style x:Key="FourDigitPinBoxStyle"
+                   TargetType="TextBox">
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="CaretBrush"
+                        Value="Gray" />
+                <Setter Property="Foreground"
+                        Value="White" />
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="Width"
+                        Value="226" />
+                <Setter Property="Height"
+                        Value="100" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="MaxLength"
+                        Value="4" />
+                <Setter Property="FontSize"
+                        Value="124" />
             </Style>
-
-            <Style x:Key="GiantReservedLockupTextBlockStyle" TargetType="TextBlock">
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="FontFamily" Value="Calibri"/>
-                <Setter Property="FontStretch" Value="Expanded"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="Foreground" Value="#EEEEEE"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Top"/>
+            <Style x:Key="GiantReservedLockupTextBlockStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="FontFamily"
+                        Value="Calibri" />
+                <Setter Property="FontStretch"
+                        Value="Expanded" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="Foreground"
+                        Value="#EEEEEE" />
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <DropShadowEffect ShadowDepth="4" Direction="330" Color="Orange"  Opacity=".9" BlurRadius="4" />
+                        <DropShadowEffect ShadowDepth="4"
+                                          Direction="330"
+                                          Color="Orange"
+                                          Opacity=".9"
+                                          BlurRadius="4"
+                                          AutomationProperties.AutomationId="DropShadowEffect1_4C70D0C5" />
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style x:Key="IncorrectPinTextBlockStyle" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="72"/>
-                <Setter Property="FontWeight" Value="DemiBold"/>
-                <Setter Property="FontFamily" Value="Calibri"/>
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Top"/>
-                <Setter Property="Padding" Value="30 30 30 30"/>
-                <Setter Property="Width" Value="{Binding ElementName=IncorrectPinImage, Path=ActualWidth}"/>
+            <Style x:Key="IncorrectPinTextBlockStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="72" />
+                <Setter Property="FontWeight"
+                        Value="DemiBold" />
+                <Setter Property="FontFamily"
+                        Value="Calibri" />
+                <Setter Property="TextAlignment"
+                        Value="Center" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="Foreground"
+                        Value="WhiteSmoke" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="Padding"
+                        Value="30 30 30 30" />
+                <Setter Property="Width"
+                        Value="{Binding ElementName=IncorrectPinImage, Path=ActualWidth}" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid Name="Root">
+    <Grid Name="Root"
+          AutomationProperties.AutomationId="Grid2_4C70D0C5">
         <Grid.Style>
             <Style TargetType="Grid">
                 <Style.Triggers>
-                    <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                    <DataTrigger Value="Confirm"
+                                 Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                 AutomationProperties.AutomationId="DataTrigger3_4C70D0C5">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <SolidColorBrush Color="Black" Opacity="0.5"/>
+                                <SolidColorBrush Color="Black"
+                                                 Opacity="0.5"
+                                                 AutomationProperties.AutomationId="SolidColorBrush4_4C70D0C5" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </Grid.Style>
-
         <!-- The reserve lockup that shows the countdown timer and covers the entire screen -->
         <Grid Name="FullScreenLockupGrid"
-              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowLockupBackground,
-                  Converter={StaticResource TrueVisibleFalseHidden}}">
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowLockupBackground,                   Converter={StaticResource TrueVisibleFalseHidden}}"
+              AutomationProperties.AutomationId="Grid5_4C70D0C5">
             <Grid.Background>
-                <ImageBrush Stretch="Fill" ImageSource="{DynamicResource ExitReserveLockupBackgroundImage}"/>
+                <ImageBrush Stretch="Fill"
+                            ImageSource="{DynamicResource ExitReserveLockupBackgroundImage}"
+                            AutomationProperties.AutomationId="ImageBrush6_4C70D0C5" />
             </Grid.Background>
         </Grid>
-
         <!-- The Countdown timer display -->
         <Grid Name="CountdownTimerGrid"
-              HorizontalAlignment="Center" VerticalAlignment="Top"
-              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowCountDownTimer,
-                  Converter={StaticResource TrueVisibleFalseHidden}}">
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowCountDownTimer,                   Converter={StaticResource TrueVisibleFalseHidden}}"
+              AutomationProperties.AutomationId="Grid7_4C70D0C5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_4C70D0C5" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition9_4C70D0C5" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition10_4C70D0C5" />
             </Grid.RowDefinitions>
             <!-- The giant reserved text -->
-            <TextBlock Name="GiantReservedText" Grid.Row="0"
-                    Style="{StaticResource GiantReservedLockupTextBlockStyle}"
-                    Text="{lex:Loc Key={x:Static loc:ResourceKeys.Reserved}}"
-                    Margin="0 60 0 0"
-                    FontSize="300"/>
+            <TextBlock Name="GiantReservedText"
+                       Grid.Row="0"
+                       Style="{StaticResource GiantReservedLockupTextBlockStyle}"
+                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.Reserved}}"
+                       Margin="0 60 0 0"
+                       FontSize="300"
+                       AutomationProperties.AutomationId="TextBlock11_4C70D0C5" />
             <!-- The remaining time on the countdown timer -->
-            <TextBlock Name="GiantCountdownRemainingTime" Grid.Row="1"
-                    Style="{StaticResource GiantReservedLockupTextBlockStyle}"
-                    Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.CountdownTimerText, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
-                    Margin="0 -30 0 0"
-                    FontSize="260"/>
+            <TextBlock Name="GiantCountdownRemainingTime"
+                       Grid.Row="1"
+                       Style="{StaticResource GiantReservedLockupTextBlockStyle}"
+                       Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.CountdownTimerText, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                       Margin="0 -30 0 0"
+                       FontSize="260"
+                       AutomationProperties.AutomationId="TextBlock12_4C70D0C5" />
             <!-- The large exit button the will open the pin entry panel -->
             <Button Name="ExitReserveButton"
                     Grid.Row="2"
                     Margin="0 60 0 0"
-                    Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ExitReserveButtonClickedCommand}">
+                    Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ExitReserveButtonClickedCommand}"
+                    AutomationProperties.AutomationId="Button13_4C70D0C5">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Image Name="ExitReserveImage" Stretch="None" Source="{DynamicResource ExitReserveBigNormal}"/>
+                        <Image Name="ExitReserveImage"
+                               Stretch="None"
+                               Source="{DynamicResource ExitReserveBigNormal}"
+                               AutomationProperties.AutomationId="Image14_4C70D0C5" />
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="ExitReserveImage" Property="Source" Value="{DynamicResource ExitReserveBigPressed}"/>
+                            <Trigger Property="IsPressed"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="Trigger15_4C70D0C5">
+                                <Setter TargetName="ExitReserveImage"
+                                        Property="Source"
+                                        Value="{DynamicResource ExitReserveBigPressed}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
         </Grid>
-
         <!-- Grid that contains the too many incorrect pin entries message -->
-        <Grid Name="IncorrectPinMessageGrid" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectUnlockPinDisplay,
-                    Converter={StaticResource TrueVisibleFalseHidden}}">
+        <Grid Name="IncorrectPinMessageGrid"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectUnlockPinDisplay,                     Converter={StaticResource TrueVisibleFalseHidden}}"
+              AutomationProperties.AutomationId="Grid16_4C70D0C5">
             <!-- An image of the background used for the reserve unlock screen but blank -->
-            <Image x:Name="IncorrectPinImage" Stretch="None" Source="{DynamicResource ExitReserveBlankBackgroundImage}" />
+            <Image x:Name="IncorrectPinImage"
+                   Stretch="None"
+                   Source="{DynamicResource ExitReserveBlankBackgroundImage}"
+                   AutomationProperties.AutomationId="Image17_4C70D0C5" />
             <!-- Top part of the incorrect pin attempts message -->
-            <TextBlock Name="IncorrectPinText1" 
+            <TextBlock Name="IncorrectPinText1"
                        Style="{StaticResource IncorrectPinTextBlockStyle}"
                        Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText1}}"
-                       Margin="0 16 0 0"/>
+                       Margin="0 16 0 0"
+                       AutomationProperties.AutomationId="TextBlock18_4C70D0C5" />
             <!-- The time remaining that the player must wait to try again -->
-            <TextBlock Name="IncorrectPinTimeRemainingText" 
+            <TextBlock Name="IncorrectPinTimeRemainingText"
                        Style="{StaticResource IncorrectPinTextBlockStyle}"
                        Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IncorrectPinWaitTimeLeft}"
                        Margin="0 200 0 0"
-                       Foreground="Gold"/>
+                       Foreground="Gold"
+                       AutomationProperties.AutomationId="TextBlock19_4C70D0C5" />
             <!-- Bottom part of the incorrect pin attempts message -->
             <TextBlock Name="IncorrectPinText2"
                        Style="{StaticResource IncorrectPinTextBlockStyle}"
                        Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText2}}"
-                       Margin="0 290 0 0"/>
+                       Margin="0 290 0 0"
+                       AutomationProperties.AutomationId="TextBlock20_4C70D0C5" />
         </Grid>
-
         <!-- The confirm and exit reserve pin panels -->
-        <Grid Name="PinPanel" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowPinEntryPanel,
-                  Converter={StaticResource TrueVisibleFalseHidden}}">
+        <Grid Name="PinPanel"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowPinEntryPanel,                   Converter={StaticResource TrueVisibleFalseHidden}}"
+              AutomationProperties.AutomationId="Grid21_4C70D0C5">
             <!-- The background image, will change depending on if confirming or exiting reserve -->
-            <Image Name="ConfirmOrExitImage" Stretch="None">
+            <Image Name="ConfirmOrExitImage"
+                   Stretch="None"
+                   AutomationProperties.AutomationId="Image22_4C70D0C5">
                 <Image.Style>
                     <Style TargetType="Image">
                         <Style.Triggers>
-                            <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                <Setter Property="Source" Value="{DynamicResource ConfirmReserveBackgroundImage}"/>
+                            <DataTrigger Value="Confirm"
+                                         Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                         AutomationProperties.AutomationId="DataTrigger23_4C70D0C5">
+                                <Setter Property="Source"
+                                        Value="{DynamicResource ConfirmReserveBackgroundImage}" />
                             </DataTrigger>
-                            <DataTrigger Value="Countdown" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                <Setter Property="Source" Value="{x:Null}"/>
+                            <DataTrigger Value="Countdown"
+                                         Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                         AutomationProperties.AutomationId="DataTrigger24_4C70D0C5">
+                                <Setter Property="Source"
+                                        Value="{x:Null}" />
                             </DataTrigger>
-                            <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                <Setter Property="Source" Value="{DynamicResource ExitReserveBackgroundImage}"/>
+                            <DataTrigger Value="Exit"
+                                         Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                         AutomationProperties.AutomationId="DataTrigger25_4C70D0C5">
+                                <Setter Property="Source"
+                                        Value="{DynamicResource ExitReserveBackgroundImage}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Image.Style>
             </Image>
             <!-- PIN entry text box grid -->
-            <Grid Name="PinTextBoxGrid">
+            <Grid Name="PinTextBoxGrid"
+                  AutomationProperties.AutomationId="Grid26_4C70D0C5">
                 <!-- The text box where the *'s will appear as keys are pressed -->
                 <TextBox x:Name="FourDigitPinBox"
                          Style="{StaticResource FourDigitPinBoxStyle}"
@@ -179,52 +253,76 @@
                          Margin="280 55 0 0"
                          IsReadOnly="True"
                          IsReadOnlyCaretVisible="False"
-                         Focusable="False"/>
+                         Focusable="False"
+                         AutomationProperties.AutomationId="TextBox27_4C70D0C5" />
                 <!-- The red rectangle that appears around the text box (which is actually a part of the background image) when an incorrect PIN is entered -->
                 <Rectangle Name="IncorrectPinHighlight"
-                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,
-                               Converter={StaticResource TrueVisibleFalseHidden}}"
-                           HorizontalAlignment="Center" VerticalAlignment="Top"
-                           StrokeThickness="4" Stroke="Red" Fill="Transparent"
-                           Width="233" Height="62"
-                           Margin="272 91 0 0"/>
+                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,                                Converter={StaticResource TrueVisibleFalseHidden}}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           StrokeThickness="4"
+                           Stroke="Red"
+                           Fill="Transparent"
+                           Width="233"
+                           Height="62"
+                           Margin="272 91 0 0"
+                           AutomationProperties.AutomationId="Rectangle28_4C70D0C5" />
                 <!-- The incorrect PIN warning message -->
                 <TextBlock Name="IncorrectPinWarningText"
                            Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinText}}"
-                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,
-                               Converter={StaticResource TrueVisibleFalseHidden}}"
-                           HorizontalAlignment="Center" VerticalAlignment="Top"
-                           Foreground="Red" 
-                           FontSize="16" FontWeight="DemiBold"
-                           Margin="260 154 0 0"/>
+                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,                                Converter={StaticResource TrueVisibleFalseHidden}}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Foreground="Red"
+                           FontSize="16"
+                           FontWeight="DemiBold"
+                           Margin="260 154 0 0"
+                           AutomationProperties.AutomationId="TextBlock29_4C70D0C5" />
             </Grid>
             <!-- 0-9 digit grid -->
             <Grid Name="DigitGrid"
                   Margin="0 166 0 0"
-                  HorizontalAlignment="Center" VerticalAlignment="Top">
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  AutomationProperties.AutomationId="Grid30_4C70D0C5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="96"/>
-                    <ColumnDefinition Width="96"/>
-                    <ColumnDefinition Width="96"/>
-                    <ColumnDefinition Width="96"/>
-                    <ColumnDefinition Width="96"/>
+                    <ColumnDefinition Width="96"
+                                      AutomationProperties.AutomationId="ColumnDefinition31_4C70D0C5" />
+                    <ColumnDefinition Width="96"
+                                      AutomationProperties.AutomationId="ColumnDefinition32_4C70D0C5" />
+                    <ColumnDefinition Width="96"
+                                      AutomationProperties.AutomationId="ColumnDefinition33_4C70D0C5" />
+                    <ColumnDefinition Width="96"
+                                      AutomationProperties.AutomationId="ColumnDefinition34_4C70D0C5" />
+                    <ColumnDefinition Width="96"
+                                      AutomationProperties.AutomationId="ColumnDefinition35_4C70D0C5" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="96"/>
-                    <RowDefinition Height="86"/>
+                    <RowDefinition Height="96"
+                                   AutomationProperties.AutomationId="RowDefinition36_4C70D0C5" />
+                    <RowDefinition Height="86"
+                                   AutomationProperties.AutomationId="RowDefinition37_4C70D0C5" />
                 </Grid.RowDefinitions>
-
                 <!-- Button for 1 digit -->
                 <Button Name="Digit1Button"
-                        Grid.Row="0" Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.Column="0"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="1">
+                        CommandParameter="1"
+                        AutomationProperties.AutomationId="Button38_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit1Image" Stretch="None" Source="{DynamicResource Digit1BigNormal}"/>
+                            <Image Name="Digit1Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit1BigNormal}"
+                                   AutomationProperties.AutomationId="Image39_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit1Image" Property="Source" Value="{DynamicResource Digit1BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger40_4C70D0C5">
+                                    <Setter TargetName="Digit1Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit1BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -232,15 +330,24 @@
                 </Button>
                 <!-- Button for 2 digit -->
                 <Button Name="Digit2Button"
-                        Grid.Row="0" Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.Column="1"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="2">
+                        CommandParameter="2"
+                        AutomationProperties.AutomationId="Button41_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit2Image" Stretch="None" Source="{DynamicResource Digit2BigNormal}"/>
+                            <Image Name="Digit2Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit2BigNormal}"
+                                   AutomationProperties.AutomationId="Image42_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit2Image" Property="Source" Value="{DynamicResource Digit2BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger43_4C70D0C5">
+                                    <Setter TargetName="Digit2Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit2BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -248,15 +355,24 @@
                 </Button>
                 <!-- Button for 3 digit -->
                 <Button Name="Digit3Button"
-                        Grid.Row="0" Grid.Column="2"
+                        Grid.Row="0"
+                        Grid.Column="2"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="3">
+                        CommandParameter="3"
+                        AutomationProperties.AutomationId="Button44_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit3Image" Stretch="None" Source="{DynamicResource Digit3BigNormal}"/>
+                            <Image Name="Digit3Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit3BigNormal}"
+                                   AutomationProperties.AutomationId="Image45_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit3Image" Property="Source" Value="{DynamicResource Digit3BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger46_4C70D0C5">
+                                    <Setter TargetName="Digit3Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit3BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -264,15 +380,24 @@
                 </Button>
                 <!-- Button for 4 digit -->
                 <Button Name="Digit4Button"
-                        Grid.Row="0" Grid.Column="3"
+                        Grid.Row="0"
+                        Grid.Column="3"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="4">
+                        CommandParameter="4"
+                        AutomationProperties.AutomationId="Button47_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit4Image" Stretch="None" Source="{DynamicResource Digit4BigNormal}"/>
+                            <Image Name="Digit4Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit4BigNormal}"
+                                   AutomationProperties.AutomationId="Image48_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit4Image" Property="Source" Value="{DynamicResource Digit4BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger49_4C70D0C5">
+                                    <Setter TargetName="Digit4Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit4BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -280,15 +405,24 @@
                 </Button>
                 <!-- Button for 5 digit -->
                 <Button Name="Digit5Button"
-                        Grid.Row="0" Grid.Column="4"
+                        Grid.Row="0"
+                        Grid.Column="4"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="5">
+                        CommandParameter="5"
+                        AutomationProperties.AutomationId="Button50_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit5Image" Stretch="None" Source="{DynamicResource Digit5BigNormal}"/>
+                            <Image Name="Digit5Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit5BigNormal}"
+                                   AutomationProperties.AutomationId="Image51_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit5Image" Property="Source" Value="{DynamicResource Digit5BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger52_4C70D0C5">
+                                    <Setter TargetName="Digit5Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit5BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -296,15 +430,24 @@
                 </Button>
                 <!-- Button for 6 digit -->
                 <Button Name="Digit6Button"
-                        Grid.Row="1" Grid.Column="0"
+                        Grid.Row="1"
+                        Grid.Column="0"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="6">
+                        CommandParameter="6"
+                        AutomationProperties.AutomationId="Button53_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit6Image" Stretch="None" Source="{DynamicResource Digit6BigNormal}"/>
+                            <Image Name="Digit6Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit6BigNormal}"
+                                   AutomationProperties.AutomationId="Image54_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit6Image" Property="Source" Value="{DynamicResource Digit6BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger55_4C70D0C5">
+                                    <Setter TargetName="Digit6Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit6BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -312,15 +455,24 @@
                 </Button>
                 <!-- Button for 7 digit -->
                 <Button Name="Digit7Button"
-                        Grid.Row="1" Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.Column="1"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="7">
+                        CommandParameter="7"
+                        AutomationProperties.AutomationId="Button56_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit7Image" Stretch="None" Source="{DynamicResource Digit7BigNormal}"/>
+                            <Image Name="Digit7Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit7BigNormal}"
+                                   AutomationProperties.AutomationId="Image57_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit7Image" Property="Source" Value="{DynamicResource Digit7BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger58_4C70D0C5">
+                                    <Setter TargetName="Digit7Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit7BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -328,15 +480,24 @@
                 </Button>
                 <!-- Button for 8 digit -->
                 <Button Name="Digit8Button"
-                        Grid.Row="1" Grid.Column="2"
+                        Grid.Row="1"
+                        Grid.Column="2"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="8">
+                        CommandParameter="8"
+                        AutomationProperties.AutomationId="Button59_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit8Image" Stretch="None" Source="{DynamicResource Digit8BigNormal}"/>
+                            <Image Name="Digit8Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit8BigNormal}"
+                                   AutomationProperties.AutomationId="Image60_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit8Image" Property="Source" Value="{DynamicResource Digit8BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger61_4C70D0C5">
+                                    <Setter TargetName="Digit8Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit8BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -344,15 +505,24 @@
                 </Button>
                 <!-- Button for 9 digit -->
                 <Button Name="Digit9Button"
-                        Grid.Row="1" Grid.Column="3"
+                        Grid.Row="1"
+                        Grid.Column="3"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="9">
+                        CommandParameter="9"
+                        AutomationProperties.AutomationId="Button62_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit9Image" Stretch="None" Source="{DynamicResource Digit9BigNormal}"/>
+                            <Image Name="Digit9Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit9BigNormal}"
+                                   AutomationProperties.AutomationId="Image63_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit9Image" Property="Source" Value="{DynamicResource Digit9BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger64_4C70D0C5">
+                                    <Setter TargetName="Digit9Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit9BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -360,15 +530,24 @@
                 </Button>
                 <!-- Button for 0 digit -->
                 <Button Name="Digit0Button"
-                        Grid.Row="1" Grid.Column="4"
+                        Grid.Row="1"
+                        Grid.Column="4"
                         Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
-                        CommandParameter="0">
+                        CommandParameter="0"
+                        AutomationProperties.AutomationId="Button65_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="Digit0Image" Stretch="None" Source="{DynamicResource Digit0BigNormal}"/>
+                            <Image Name="Digit0Image"
+                                   Stretch="None"
+                                   Source="{DynamicResource Digit0BigNormal}"
+                                   AutomationProperties.AutomationId="Image66_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Digit0Image" Property="Source" Value="{DynamicResource Digit0BigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger67_4C70D0C5">
+                                    <Setter TargetName="Digit0Image"
+                                            Property="Source"
+                                            Value="{DynamicResource Digit0BigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -377,18 +556,29 @@
             </Grid>
             <!-- Backspace, reserve/unlock and cancel buttons -->
             <StackPanel Name="BottomButtonPanel"
-                    Orientation="Horizontal" FlowDirection="LeftToRight"
-                    VerticalAlignment="Top" HorizontalAlignment="Center"
-                    Margin="0 355 0 0">
+                        Orientation="Horizontal"
+                        FlowDirection="LeftToRight"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Margin="0 355 0 0"
+                        AutomationProperties.AutomationId="StackPanel68_4C70D0C5">
                 <!-- The backspace button -->
                 <Button x:Name="BackspaceButton"
-                        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.BackspaceButtonClickedCommand}">
+                        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.BackspaceButtonClickedCommand}"
+                        AutomationProperties.AutomationId="Button69_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="BackspaceButtonImage" Stretch="None" Source="{DynamicResource BackspaceBigNormal}"/>
+                            <Image Name="BackspaceButtonImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource BackspaceBigNormal}"
+                                   AutomationProperties.AutomationId="Image70_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="BackspaceButtonImage" Property="Source" Value="{DynamicResource BackspaceBigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger71_4C70D0C5">
+                                    <Setter TargetName="BackspaceButtonImage"
+                                            Property="Source"
+                                            Value="{DynamicResource BackspaceBigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -396,30 +586,48 @@
                 </Button>
                 <!-- The reserve button, upon pressed will verify the pin is correct and initiate the reserve system -->
                 <Button x:Name="ReserveButton"
-                    Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ReserveButtonClickedCommand}"
-                    IsEnabled="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ConfirmButtonEnabled}"
-                    Margin="13 0 13 0">
+                        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ReserveButtonClickedCommand}"
+                        IsEnabled="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ConfirmButtonEnabled}"
+                        Margin="13 0 13 0"
+                        AutomationProperties.AutomationId="Button72_4C70D0C5">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                    <Setter Property="Visibility" Value="Visible"/>
+                                <DataTrigger Value="Confirm"
+                                             Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                             AutomationProperties.AutomationId="DataTrigger73_4C70D0C5">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
                                 </DataTrigger>
-                                <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                <DataTrigger Value="Exit"
+                                             Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                             AutomationProperties.AutomationId="DataTrigger74_4C70D0C5">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="ReserveButtonImage" Stretch="None" Source="{DynamicResource ReserveBigNormal}"/>
+                            <Image Name="ReserveButtonImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource ReserveBigNormal}"
+                                   AutomationProperties.AutomationId="Image75_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="ReserveButtonImage" Property="Source" Value="{DynamicResource ReserveBigDisabled}"/>
+                                <Trigger Property="IsEnabled"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="Trigger76_4C70D0C5">
+                                    <Setter TargetName="ReserveButtonImage"
+                                            Property="Source"
+                                            Value="{DynamicResource ReserveBigDisabled}" />
                                 </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ReserveButtonImage" Property="Source" Value="{DynamicResource ReserveBigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger77_4C70D0C5">
+                                    <Setter TargetName="ReserveButtonImage"
+                                            Property="Source"
+                                            Value="{DynamicResource ReserveBigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -427,30 +635,48 @@
                 </Button>
                 <!-- The unlock button, upon pressed will verify the pin matches and unlcok the reserved machine -->
                 <Button x:Name="UnlockButton"
-                    Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.UnlockButtonClickedCommand}"
-                    IsEnabled="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ConfirmButtonEnabled}"
-                    Margin="13 0 13 0">
+                        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.UnlockButtonClickedCommand}"
+                        IsEnabled="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ConfirmButtonEnabled}"
+                        Margin="13 0 13 0"
+                        AutomationProperties.AutomationId="Button78_4C70D0C5">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                    <Setter Property="Visibility" Value="Visible"/>
+                                <DataTrigger Value="Exit"
+                                             Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                             AutomationProperties.AutomationId="DataTrigger79_4C70D0C5">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
                                 </DataTrigger>
-                                <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                <DataTrigger Value="Confirm"
+                                             Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                             AutomationProperties.AutomationId="DataTrigger80_4C70D0C5">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="UnlockButtonImage" Stretch="None" Source="{DynamicResource UnlockBigNormal}"/>
+                            <Image Name="UnlockButtonImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource UnlockBigNormal}"
+                                   AutomationProperties.AutomationId="Image81_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="UnlockButtonImage" Property="Source" Value="{DynamicResource UnlockBigDisabled}"/>
+                                <Trigger Property="IsEnabled"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="Trigger82_4C70D0C5">
+                                    <Setter TargetName="UnlockButtonImage"
+                                            Property="Source"
+                                            Value="{DynamicResource UnlockBigDisabled}" />
                                 </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="UnlockButtonImage" Property="Source" Value="{DynamicResource UnlockBigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger83_4C70D0C5">
+                                    <Setter TargetName="UnlockButtonImage"
+                                            Property="Source"
+                                            Value="{DynamicResource UnlockBigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -458,13 +684,21 @@
                 </Button>
                 <!-- The cancel button that will cancel out of the current display and go to a different state -->
                 <Button x:Name="CancelButton"
-                        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.CancelButtonClickedCommand}">
+                        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.CancelButtonClickedCommand}"
+                        AutomationProperties.AutomationId="Button84_4C70D0C5">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="CancelButtonImage" Stretch="None" Source="{DynamicResource CancelBigNormal}"/>
+                            <Image Name="CancelButtonImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource CancelBigNormal}"
+                                   AutomationProperties.AutomationId="Image85_4C70D0C5" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="CancelButtonImage" Property="Source" Value="{DynamicResource CancelBigPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger86_4C70D0C5">
+                                    <Setter TargetName="CancelButtonImage"
+                                            Property="Source"
+                                            Value="{DynamicResource CancelBigPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -473,21 +707,29 @@
             </StackPanel>
             <!-- Time length the machine will be reserved for -->
             <TextBlock x:Name="ReserveTimeLength"
-                       HorizontalAlignment="Center" VerticalAlignment="Top"
-                       Margin ="206 410 0 0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="206 410 0 0"
                        FontSize="36"
                        Height="40"
                        FontWeight="Bold"
                        Foreground="Gold"
-                       Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.TimeLengthMachineWillBeReserved}">
+                       Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.TimeLengthMachineWillBeReserved}"
+                       AutomationProperties.AutomationId="TextBlock87_4C70D0C5">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
-                            <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                <Setter Property="Visibility" Value="Visible"/>
+                            <DataTrigger Value="Confirm"
+                                         Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                         AutomationProperties.AutomationId="DataTrigger88_4C70D0C5">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
                             </DataTrigger>
-                            <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
-                                <Setter Property="Visibility" Value="Hidden"/>
+                            <DataTrigger Value="Exit"
+                                         Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}"
+                                         AutomationProperties.AutomationId="DataTrigger89_4C70D0C5">
+                                <Setter Property="Visibility"
+                                        Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

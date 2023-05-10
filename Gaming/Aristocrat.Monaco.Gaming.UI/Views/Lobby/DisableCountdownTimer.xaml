@@ -8,8 +8,8 @@
              xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
-             Background="Transparent">
-
+             Background="Transparent"
+             AutomationProperties.AutomationId="UserControl0_A44F9E51">
     <UserControl.Resources>
         <ResourceDictionary>
             <!-- Apply MahApps.Metro styles to all controls -->
@@ -20,29 +20,50 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid Width="485" Height="40" Visibility="{Binding IsDisableCountdownMessageSuppressed, Converter={StaticResource TrueCollapsedFalseVisible}}">
+    <Grid Width="485"
+          Height="40"
+          Visibility="{Binding IsDisableCountdownMessageSuppressed, Converter={StaticResource TrueCollapsedFalseVisible}}"
+          AutomationProperties.AutomationId="Grid1_A44F9E51">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_A44F9E51" />
+            <ColumnDefinition Width="1*"
+                              AutomationProperties.AutomationId="ColumnDefinition3_A44F9E51" />
         </Grid.ColumnDefinitions>
-        <controls:TextPath Width="Auto" Margin="15,5,0,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                            FontSize="24" FontFamily="Verdana" FontWeight="ExtraBold" 
-                            Fill="White" Stroke="Black" StrokeThickness="1.0"
-                            Text="{Binding DisableCountdownMessage}"/>
-
-        <controls:TextPath Margin="0,5,25,0" Width="50" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
-                            FontSize="24" FontFamily="Verdana" FontWeight="ExtraBold"
-                            Fill="White" Stroke="Black" StrokeThickness="1.0" 
-                            Text="{Binding DisableCountdownTimeRemaining, StringFormat=m\\:ss}" />
+        <controls:TextPath Width="Auto"
+                           Margin="15,5,0,0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           FontSize="24"
+                           FontFamily="Verdana"
+                           FontWeight="ExtraBold"
+                           Fill="White"
+                           Stroke="Black"
+                           StrokeThickness="1.0"
+                           Text="{Binding DisableCountdownMessage}" />
+        <controls:TextPath Margin="0,5,25,0"
+                           Width="50"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Top"
+                           FontSize="24"
+                           FontFamily="Verdana"
+                           FontWeight="ExtraBold"
+                           Fill="White"
+                           Stroke="Black"
+                           StrokeThickness="1.0"
+                           Text="{Binding DisableCountdownTimeRemaining, StringFormat=m\\:ss}" />
         <Grid.Background>
-            <SolidColorBrush Color="Black" Opacity=".35" />
+            <SolidColorBrush Color="Black"
+                             Opacity=".35"
+                             AutomationProperties.AutomationId="SolidColorBrush4_A44F9E51" />
         </Grid.Background>
     </Grid>
 </UserControl>

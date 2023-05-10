@@ -1,62 +1,77 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuMultiPageControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
              xmlns:common="http://monaco.aristocrat.com/common"
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.Contracts.OperatorMenu;assembly=Monaco.Application.Contracts"
-             mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance {x:Type local:OperatorMenuMultiPageViewModelBase}}">
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance {x:Type local:OperatorMenuMultiPageViewModelBase}}"
+             AutomationProperties.AutomationId="UserControl0_82D4890E">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <!-- Create two regions: a bottom region for navigation buttons, and a center region for the page frame. -->
-    <Grid Margin="20">
+    <Grid Margin="20"
+          AutomationProperties.AutomationId="Grid1_82D4890E">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_82D4890E" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_82D4890E" />
         </Grid.RowDefinitions>
-
-        <common:TouchListBox Grid.Row="0" 
-                 ItemsSource="{Binding Pages}"
-                 SelectedItem="{Binding SelectedPage}"
-                 Style="{StaticResource TabButtonListBoxStyle}" 
-                 PreviewKeyDown="ListBox_OnKeyDown"
-                 Visibility="{Binding ShowSelectionButtons, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+        <common:TouchListBox Grid.Row="0"
+                             ItemsSource="{Binding Pages}"
+                             SelectedItem="{Binding SelectedPage}"
+                             Style="{StaticResource TabButtonListBoxStyle}"
+                             PreviewKeyDown="ListBox_OnKeyDown"
+                             Visibility="{Binding ShowSelectionButtons, Converter={StaticResource TrueVisibleFalseCollapsed}}">
             <common:TouchListBox.Resources>
-                <DataTemplate x:Key="TabHeaderDataTemplateKey" DataType="{x:Type operatorMenu:IOperatorMenuPageLoader}">
-                    <ContentPresenter Content="{Binding PageName}"  loc:Localizer.LocalizationAware="True" />
+                <DataTemplate x:Key="TabHeaderDataTemplateKey"
+                              DataType="{x:Type operatorMenu:IOperatorMenuPageLoader}">
+                    <ContentPresenter Content="{Binding PageName}"
+                                      loc:Localizer.LocalizationAware="True"
+                                      AutomationProperties.AutomationId="ContentPresenter4_82D4890E" />
                 </DataTemplate>
             </common:TouchListBox.Resources>
             <common:TouchListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem" BasedOn="{StaticResource TabButtonListBoxItemStyle}">
-                    <Setter Property="common:TabButtonListBoxHelper.HeaderTemplate" Value="{StaticResource TabHeaderDataTemplateKey}" />
-                    <Setter Property="common:TabButtonListBoxHelper.Header" Value="{Binding}" />
+                <Style TargetType="ListBoxItem"
+                       BasedOn="{StaticResource TabButtonListBoxItemStyle}">
+                    <Setter Property="common:TabButtonListBoxHelper.HeaderTemplate"
+                            Value="{StaticResource TabHeaderDataTemplateKey}" />
+                    <Setter Property="common:TabButtonListBoxHelper.Header"
+                            Value="{Binding}" />
                 </Style>
             </common:TouchListBox.ItemContainerStyle>
         </common:TouchListBox>
-        <GroupBox Grid.Row="1" Margin="0" Header="{Binding SelectedPage.PageName}" loc:Localizer.LocalizationAware="True">
-            <Grid>
+        <GroupBox Grid.Row="1"
+                  Margin="0"
+                  Header="{Binding SelectedPage.PageName}"
+                  loc:Localizer.LocalizationAware="True"
+                  AutomationProperties.AutomationId="GroupBox5_82D4890E">
+            <Grid AutomationProperties.AutomationId="Grid6_82D4890E">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition7_82D4890E" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition8_82D4890E" />
                 </Grid.RowDefinitions>
-
-                <ContentControl Grid.Row="0" Content="{Binding SelectedPage.Page}"/>
-
+                <ContentControl Grid.Row="0"
+                                Content="{Binding SelectedPage.Page}"
+                                AutomationProperties.AutomationId="ContentControl9_82D4890E" />
                 <TextBlock Grid.Row="1"
-                           HorizontalAlignment="Right" 
+                           HorizontalAlignment="Right"
                            VerticalAlignment="Bottom"
                            TextWrapping="Wrap"
-                           Style="{StaticResource MonacoWarningTextBlock}" 
-                           Text="{Binding WarningMessageText, UpdateSourceTrigger=PropertyChanged}"/>
+                           Style="{StaticResource MonacoWarningTextBlock}"
+                           Text="{Binding WarningMessageText, UpdateSourceTrigger=PropertyChanged}"
+                           AutomationProperties.AutomationId="TextBlock10_82D4890E" />
             </Grid>
         </GroupBox>
     </Grid>

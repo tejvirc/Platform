@@ -1,81 +1,105 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.MachineSetupPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:MachineSetupPageViewModel, IsDesignTimeCreatable=True}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="Grid">
+    <Grid x:Name="Grid"
+          AutomationProperties.AutomationId="Grid0_A1126224">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_A1126224" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_A1126224" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_A1126224" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_A1126224" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_A1126224" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_A1126224" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_A1126224" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_A1126224" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_A1126224" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition10_A1126224" />
         </Grid.RowDefinitions>
-
-        <Label Grid.Column="0" Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}"/>
-        <ComboBox Grid.Column="0" Grid.Row="1" MinWidth="300" Width="Auto"
+        <Label Grid.Column="0"
+               Grid.Row="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}"
+               AutomationProperties.AutomationId="Label11_A1126224" />
+        <ComboBox Grid.Column="0"
+                  Grid.Row="1"
+                  MinWidth="300"
+                  Width="Auto"
                   HorizontalAlignment="Left"
-                  ItemsSource="{Binding Currencies}" 
+                  ItemsSource="{Binding Currencies}"
                   DisplayMemberPath="DescriptionWithMinorSymbol"
                   SelectedItem="{Binding SelectedCurrency}"
-                  IsEnabled="{Binding CurrencyChangeAllowed}"/>
-        <Label Grid.Column="0" Grid.Row="2" Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
-        <helpers:AlphaNumericTextBox Grid.Column="0" Grid.Row="3" MinWidth="300"
+                  IsEnabled="{Binding CurrencyChangeAllowed}"
+                  AutomationProperties.AutomationId="ComboBox12_A1126224" />
+        <Label Grid.Column="0"
+               Grid.Row="2"
+               Margin="0 20 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"
+               AutomationProperties.AutomationId="Label13_A1126224" />
+        <helpers:AlphaNumericTextBox Grid.Column="0"
+                                     Grid.Row="3"
+                                     MinWidth="300"
                                      HorizontalAlignment="Stretch"
                                      IsReadOnly="False"
                                      IsAlphaNumeric="True"
-                                     CharacterCasing="Upper" 
-                                     Text="{Binding SerialNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
-                                     ErrorText="{Binding SerialNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
-                                     MaxLength="{Binding SerialNumber.MaxLength, Mode=OneWay}"/>
-
-        <Label Grid.Column="0" Grid.Row="4" Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}"/>
-        <helpers:AlphaNumericTextBox Grid.Column="0" Grid.Row="5" MinWidth="300"
+                                     CharacterCasing="Upper"
+                                     Text="{Binding SerialNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                     ErrorText="{Binding SerialNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="{Binding SerialNumber.MaxLength, Mode=OneWay}" />
+        <Label Grid.Column="0"
+               Grid.Row="4"
+               Margin="0 20 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}"
+               AutomationProperties.AutomationId="Label14_A1126224" />
+        <helpers:AlphaNumericTextBox Grid.Column="0"
+                                     Grid.Row="5"
+                                     MinWidth="300"
                                      HorizontalAlignment="Stretch"
                                      IsReadOnly="False"
                                      IsAlphaNumeric="False"
-                                     CharacterCasing="Upper" 
-                                     Text="{Binding AssetNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
-                                     ErrorText="{Binding AssetNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
-                                     MaxLength="{Binding AssetNumber.MaxLength, Mode=OneWay}"/>
-
-        <Label Grid.Column="0" Grid.Row="6" Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequireZeroCredit}}"/>
-        <controls:ToggleSwitchButton Grid.Column="0" Grid.Row="7" 
+                                     CharacterCasing="Upper"
+                                     Text="{Binding AssetNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                     ErrorText="{Binding AssetNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="{Binding AssetNumber.MaxLength, Mode=OneWay}" />
+        <Label Grid.Column="0"
+               Grid.Row="6"
+               Margin="0 20 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequireZeroCredit}}"
+               AutomationProperties.AutomationId="Label15_A1126224" />
+        <controls:ToggleSwitchButton Grid.Column="0"
+                                     Grid.Row="7"
                                      IsChecked="{Binding RequireZeroCredit}"
                                      IsEnabled="{Binding RequireZeroCreditChangeAllowed}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
                                      helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.OffText}}"
                                      helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.OnText}}" />
-            
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

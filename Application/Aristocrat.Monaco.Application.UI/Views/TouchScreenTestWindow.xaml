@@ -1,31 +1,49 @@
 ﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Application.UI.Views.TouchScreenTestWindow"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:lex="http://wpflocalizeextension.codeplex.com"
-             xmlns:loc="http://monaco.aristocrat.com/localization"
-             xmlns:common="http://monaco.aristocrat.com/common"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
-             mc:Ignorable="d" BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" x:Name="TouchTestWindow" Height="720" Width="1024" >
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                   xmlns:loc="http://monaco.aristocrat.com/localization"
+                   xmlns:common="http://monaco.aristocrat.com/common"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
+                   mc:Ignorable="d"
+                   BorderThickness="0"
+                   WindowStyle="None"
+                   ResizeMode="NoResize"
+                   x:Name="TouchTestWindow"
+                   Height="720"
+                   Width="1024">
     <common:BaseWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
     <i:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
     </i:Interaction.Behaviors>
-
-    <InkCanvas Name="TouchCanvas" Background="Transparent" Opacity="1" EditingMode='None' ForceCursor="True" Cursor="None">
-        <Label InkCanvas.Top="50" InkCanvas.Left="50" Name="DrawLabel"
+    <InkCanvas Name="TouchCanvas"
+               Background="Transparent"
+               Opacity="1"
+               EditingMode="None"
+               ForceCursor="True"
+               Cursor="None"
+               AutomationProperties.AutomationId="InkCanvas0_9577AC4">
+        <Label InkCanvas.Top="50"
+               InkCanvas.Left="50"
+               Name="DrawLabel"
                Width="{Binding Path=ActualWidth, ElementName=TouchCanvas}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DrawOnTouchableArea}}" />
-        <Button InkCanvas.Bottom="50" InkCanvas.Left="50" x:Name="ExitButton" Click="OnExitButtonPressed" 
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Margin="10" />
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DrawOnTouchableArea}}"
+               AutomationProperties.AutomationId="Label1_9577AC4" />
+        <Button InkCanvas.Bottom="50"
+                InkCanvas.Left="50"
+                x:Name="ExitButton"
+                Click="OnExitButtonPressed"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}"
+                Margin="10"
+                AutomationProperties.AutomationId="Button2_9577AC4" />
     </InkCanvas>
 </common:BaseWindow>
-

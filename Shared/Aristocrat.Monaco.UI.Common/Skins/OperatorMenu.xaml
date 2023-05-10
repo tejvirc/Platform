@@ -10,23 +10,34 @@
         <common:SharedResourceDictionary Source="Controls.TabButtonListBox.xaml" />
         <common:SharedResourceDictionary Source="XceedToolKit.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
     <!--Giving a xaml a default target type will supposedly help it load faster.  I don't know why we need 2, but it seemed to help -->
     <Style TargetType="{x:Type Rectangle}" />
-
-    <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MonacoScrollButtonDataGrid}"/>
-    <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource MonacoScrollButtonListBox}"/>
-    <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-        <Setter Property="Stylus.IsFlicksEnabled" Value="True" />
-        <Setter Property="Background" Value="Transparent"/>
+    <Style TargetType="{x:Type DataGrid}"
+           BasedOn="{StaticResource MonacoScrollButtonDataGrid}" />
+    <Style TargetType="{x:Type ListBox}"
+           BasedOn="{StaticResource MonacoScrollButtonListBox}" />
+    <Style x:Key="{x:Type ScrollBar}"
+           TargetType="{x:Type ScrollBar}">
+        <Setter Property="Stylus.IsFlicksEnabled"
+                Value="True" />
+        <Setter Property="Background"
+                Value="Transparent" />
         <Style.Triggers>
-            <Trigger Property="Orientation" Value="Horizontal">
-                <Setter Property="Height" Value="40" />
-                <Setter Property="MinHeight" Value="40" />
+            <Trigger Property="Orientation"
+                     Value="Horizontal"
+                     AutomationProperties.AutomationId="Trigger0_E7B13B82">
+                <Setter Property="Height"
+                        Value="40" />
+                <Setter Property="MinHeight"
+                        Value="40" />
             </Trigger>
-            <Trigger Property="Orientation" Value="Vertical">
-                <Setter Property="Width" Value="40" />
-                <Setter Property="MinWidth" Value="40" />
+            <Trigger Property="Orientation"
+                     Value="Vertical"
+                     AutomationProperties.AutomationId="Trigger1_E7B13B82">
+                <Setter Property="Width"
+                        Value="40" />
+                <Setter Property="MinWidth"
+                        Value="40" />
             </Trigger>
         </Style.Triggers>
     </Style>
