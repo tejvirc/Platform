@@ -390,7 +390,7 @@
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <helpers:CurrencyDecimalUpDown Width="{Binding MaxBetWidth}" FontSize="14"
                                                                    Minimum="{Binding BetMinimum, Mode=OneWay}" 
-                                                                   Maximum="{Binding BetMaximum, Mode=OneWay}"
+                                                                   Maximum="{Binding MaximumInsideBet, Mode=OneWay}"
                                                                    Increment="{Binding Denom}"
                                                                    Value="{Binding ForcedMaxBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                    Style="{StaticResource MonacoDecimalUpDown}"
@@ -407,7 +407,7 @@
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <helpers:CurrencyDecimalUpDown Width="{Binding MaxBetWidth}" FontSize="14"
                                                                    Minimum="{Binding BetMinimum, Mode=OneWay}" 
-                                                                   Maximum="{Binding BetMaximum, Mode=OneWay}"
+                                                                   Maximum="{Binding MaximumOutsideBet, Mode=OneWay}"
                                                                    Increment="{Binding Denom}"
                                                                    Value="{Binding ForcedMaxBetOutside, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                    Style="{StaticResource MonacoDecimalUpDown}"
