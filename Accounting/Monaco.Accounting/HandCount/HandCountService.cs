@@ -132,6 +132,8 @@
 
         private void SuspendResetHandcount()
         {
+            Logger.Debug("SuspendResetHandcount");
+
             _initResetTimer.Stop();
 
             if (_resetTimerIsRunning)
@@ -143,12 +145,15 @@
 
         public void CheckIfBelowResetThreshold()
         {
+            Logger.Debug("CheckIfBelowResetThreshold");
+
             var balance = (long)_properties.GetProperty(PropertyKey.CurrentBalance, 0L);
             var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
                                                                        AccountingConstants.HandCountDefaultRequiredCredits);
 
             if (balance < minimumRequiredCredits && (balance > 0 || HandCount > 0))
             {
+                Logger.Debug($"CheckIfBelowResetThreshold: balance={balance} HandCount={HandCount} start init reset timer");
                 _initResetTimer.Start();
             }
         }
@@ -170,6 +175,8 @@
 
         public void IncrementHandCount()
         {
+            SuspendResetHandcount();
+
             _handCountMeter.Increment(1);
             SendHandCountChangedEvent();
             Logger.Info($"IncrementHandCount to {HandCount}");
@@ -223,7 +230,7 @@
 
                     scope.Complete();
 
-                    if(handCountNeedsReset)
+                    if (handCountNeedsReset)
                         SendHandCountChangedEvent();
                 }
             }

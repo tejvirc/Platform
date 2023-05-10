@@ -22,10 +22,20 @@
 
         private HandCountTimerDialog _timerDialog;
         private HandCountTimerDialogViewModel _timerDialogViewModel;
+        private IButtonDeckFilter _buttonDeckFilter;
 
         public string Name { get; } = "HandCountOverlayService";
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IService), typeof(IHandCountOverlayService) };
+
+        public IButtonDeckFilter ButtonDeckFilter
+        {
+            get
+            {
+                return _buttonDeckFilter ??= ServiceManager.GetInstance()
+                    .GetService<IContainerService>().Container.GetInstance<IButtonDeckFilter>();
+            }
+        }
 
         public HandCountOverlayService() : this(ServiceManager.GetInstance().GetService<IEventBus>(),
             ServiceManager.GetInstance().TryGetService<IPropertiesManager>())
@@ -53,17 +63,23 @@
 
         private void HandleEvent(HandCountResetTimerElapsedEvent obj)
         {
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
+
             _eventBus.Publish(new ViewInjectionEvent(_timerDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
         }
 
         private void HandleEvent(HandCountResetTimerCancelledEvent obj)
         {
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
+
             _timerDialogViewModel.OnHandCountTimerCancelled();
             _eventBus.Publish(new ViewInjectionEvent(_timerDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
         }
 
         private void HandleEvent(HandCountResetTimerStartedEvent obj)
         {
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Lockup;
+
             _eventBus.Publish(new ViewInjectionEvent(_timerDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
             _timerDialogViewModel.OnHandCountTimerStarted();
         }

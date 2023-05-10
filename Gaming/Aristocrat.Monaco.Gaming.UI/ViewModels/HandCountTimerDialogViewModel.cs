@@ -20,7 +20,6 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly DispatcherTimerAdapter _resetTimer;
         private IHandCountService _handCountService;
-        private IButtonDeckFilter _buttonDeckFilter;
         private readonly IBank _bank;
         private TimeSpan _timeLeft;
         private bool _disposed = false;
@@ -39,15 +38,6 @@
             {
                 _timeLeft = value;
                 RaisePropertyChanged(nameof(TimeLeft));
-            }
-        }
-
-        public IButtonDeckFilter ButtonDeckFilter
-        {
-            get
-            {
-                return _buttonDeckFilter ??= ServiceManager.GetInstance()
-                    .GetService<IContainerService>().Container.GetInstance<IButtonDeckFilter>();
             }
         }
 
@@ -92,8 +82,6 @@
 
         public void OnHandCountTimerStarted()
         {
-            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Lockup;
-
             // Start Timer
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
             _resetTimer.Start();
@@ -115,8 +103,6 @@
 
         private void HideTimerDialog()
         {
-            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
-
             if (_resetTimer.IsEnabled)
             {
                 ResetAndDisableTimer();
