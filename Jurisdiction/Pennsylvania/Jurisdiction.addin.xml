@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.PennsylvaniaJurisdiction" filterid="PennsylvaniaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.PennsylvaniaJurisdiction" filterid="PennsylvaniaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.PennsylvaniaJurisdiction" filterid="PennsylvaniaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="PennsylvaniaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Pennsylvania\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="PennsylvaniaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Pennsylvania\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Pennsylvania\Lobby.config.xml" filterid="PennsylvaniaLobbyConfig" />

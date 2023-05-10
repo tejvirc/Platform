@@ -1,5 +1,4 @@
 <Addin id="HollandJurisdiction" namespace="Client12Addins" version="1.0">
-
   <Dependencies>
     <Addin id="Monaco.Kernel" version="1.0" />
     <Addin id="Monaco.Hardware" version="1.0" />
@@ -13,12 +12,10 @@
     <Addin id="SasConfiguration" version="1.0" />
     <Addin id="Sas.Client" version="1.0" />
   </Dependencies>
-
   <Runtime>
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
   </Runtime>
-
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Holland" description="Top level Holland jurisdiction group" id="JUR000163,JUR000998,JUR000999,JUR000033">
       <AddinConfigurationGroupReference name="BaseOperatorMenus" />
@@ -46,9 +43,6 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.HollandJurisdiction" filterid="HollandLocaleConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.HollandJurisdiction" filterid="HollandLocaleOverrides" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.HollandJurisdiction" filterid="HollandLobbyConfig" />
@@ -78,9 +72,9 @@
         <NodeSpecification addinId="Client12Addins.HollandJurisdiction" filterid="HollandDisplayMetersConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="HollandAccountingTransferProviders"/>
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="HollandAccountingTransferProviders"/>
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="HollandAccountingTransferProviders"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="HollandAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="HollandAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="HollandAccountingTransferProviders" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
         <NodeSpecification addinId="Client12Addins.HollandJurisdiction" filterid="HollandTransactionConfiguration" />
@@ -94,7 +88,7 @@
       <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
         <NodeSpecification addinId="Client12Addins.HollandJurisdiction" filterid="HollandSASDefaultConfig" />
       </ExtensionPointConfiguration>
-	  <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
         <NodeSpecification addinId="Client12Addins.HollandJurisdiction" filterid="HollandHardMeterMappingConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Currency/Configuration">
@@ -102,23 +96,18 @@
       </ExtensionPointConfiguration>
     </SelectableJurisdiction>
   </Extension>
-
   <Extension path="/Currency/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\Currencies.config.xml" filterid="HollandCurrencyConfig" />
   </Extension>
-
   <Extension path="/SAS/DefaultConfiguration">
     <FilePath FilePath="..\jurisdiction\Holland\SASDefault.config.xml" filterid="HollandSASDefaultConfig" />
   </Extension>
-
   <Extension path="/Platform/Discovery/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\ConfiguredDevices.config.xml" filterid="HollandHardwareConfig" />
   </Extension>
-
   <Extension path="/TiltLogger/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\TiltLogger.config.xml" filterid="HollandTiltLoggerConfig" />
   </Extension>
-
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
       <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
@@ -126,11 +115,9 @@
       </DoorOpenAlarm>
     </DoorMonitorConfiguration>
   </Extension>
-
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\ConfigWizard.config.xml" filterid="HollandConfigWizardConfig" />
   </Extension>
-
   <Extension path="/OperatorMenu/Sound/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="HollandOperatorMenuSoundConfig" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="HollandOperatorMenuSoundConfig" />
@@ -138,105 +125,62 @@
     <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="HollandOperatorMenuSoundConfig" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="HollandOperatorMenuSoundConfig" />
   </Extension>
-
   <Extension path="/OperatorMenu/GamePreferences/Sounds">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="HollandGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="HollandGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="HollandGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="HollandGamePreferencesSounds" />
   </Extension>
-
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\OperatorMenu.config.xml" filterid="HollandOperatorMenuConfig" />
   </Extension>
-
   <Extension path="/Locale/Configuration" filterid="HollandLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Holland\Locale.config.xml" />
   </Extension>
-  
-  <Extension path="/Locale/Overrides" filterid="HollandLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Holland\resources\" />
-  </Extension>
-
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\Lobby.config.xml" filterid="HollandLobbyConfig" />
   </Extension>
-
   <Extension path="/Accounting/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\Accounting.config.xml" filterid="HollandAccountingConfig" />
   </Extension>
-
   <Extension path="/Application/JurisdictionConfiguration">
     <FilePath FilePath="..\jurisdiction\Holland\Application.config.xml" filterid="HollandApplicationConfig" />
   </Extension>
-
   <Extension path="/Gaming/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\Gaming.config.xml" filterid="HollandGamingConfig" />
   </Extension>
-
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\TowerLight.config.xml" filterid="HollandTowerLightConfig" />
   </Extension>
-  
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\HardMeterMapping.config.xml" filterid="HollandHardMeterMappingConfig" />
   </Extension>
-  
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\Holland\printable_regions.xml" filterid="HollandPrintableRegionsConfig" />
   </Extension>
-
   <Extension path="/Hardware/PrintableTemplates">
-    <FilePath FilePath="..\jurisdiction\Holland\printable_templates.xml"
-              filterid="HollandPrintableTemplatesConfig" />
+    <FilePath FilePath="..\jurisdiction\Holland\printable_templates.xml" filterid="HollandPrintableTemplatesConfig" />
   </Extension>
-
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\Holland\PrinterOverrides.xml" filterid="HollandPrinterOverridesConfig" />
   </Extension>
-
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Holland\ErrorMessage.config.xml" filterid="HollandErrorMessageConfig" />
   </Extension>
-
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\Holland\DisplayMeters.config.xml" filterid="HollandDisplayMetersConfig" />
   </Extension>
-
   <Extension path="/Accounting/TransactionHistories" filterid="HollandTransactionConfiguration">
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" 
-	                            maxTransactions="50"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" 
-	                            maxTransactions="50"
-                                persistenceLevel="Critical" 
-								isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction"
-                                maxTransactions="50"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction"
-                                maxTransactions="50"
-                                persistenceLevel="Critical"
-                                isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction"
-                                maxTransactions="100"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction"
-                                maxTransactions="100"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" 
-	                            maxTransactions="50" 
-								persistenceLevel="Critical" 
-								isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" 
-	                            maxTransactions="100" 
-								persistenceLevel="Critical" 
-								isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
   </Extension>
-
   <Extension path="/Accounting/BootExtender" filterid="HollandAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>
-
 </Addin>

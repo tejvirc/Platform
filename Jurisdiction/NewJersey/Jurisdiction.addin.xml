@@ -47,9 +47,6 @@
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NewJerseyJurisdiction" filterid="NewJerseyLobbyConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.NewJerseyJurisdiction" filterid="NewJerseyLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.NewJerseyJurisdiction" filterid="NewJerseyAccountingConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="NewJerseyLocaleConfig">
     <FilePath FilePath="..\jurisdiction\NewJersey\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="NewJerseyLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\NewJersey\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\NewJersey\Lobby.config.xml" filterid="NewJerseyLobbyConfig" />

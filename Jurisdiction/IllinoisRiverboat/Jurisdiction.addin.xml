@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.IllinoisRiverboatJurisdiction" filterid="IllinoisRiverboatLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.IllinoisRiverboatJurisdiction" filterid="IllinoisRiverboatLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.IllinoisRiverboatJurisdiction" filterid="IllinoisRiverboatLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="IllinoisRiverboatLocaleConfig">
     <FilePath FilePath="..\jurisdiction\IllinoisRiverboat\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="IllinoisRiverboatLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\IllinoisRiverboat\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\IllinoisRiverboat\Lobby.config.xml" filterid="IllinoisRiverboatLobbyConfig" />

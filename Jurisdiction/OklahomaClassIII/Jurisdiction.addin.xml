@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.OklahomaClassIIIJurisdiction" filterid="OklahomaClassIIILocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.OklahomaClassIIIJurisdiction" filterid="OklahomaClassIIILocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.OklahomaClassIIIJurisdiction" filterid="OklahomaClassIIILobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="OklahomaClassIIILocaleConfig">
     <FilePath FilePath="..\jurisdiction\OklahomaClassIII\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="OklahomaClassIIILocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\OklahomaClassIII\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\OklahomaClassIII\Lobby.config.xml" filterid="OklahomaClassIIILobbyConfig" />

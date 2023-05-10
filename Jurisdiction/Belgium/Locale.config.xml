@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!-- 
 *NOTE* When adding or removing elements to this file, you will need to 
 change the corresponding xsd schema file and generate a new class definition
@@ -8,9 +7,13 @@ as follows:
     Application\Monaco.Application.Contracts
 2.  Enter "xsd LocaleConfiguration.xsd /c".  This will generate
     the corresponding class definition in csharp (LocaleConfiguration.cs).
--->
-<LocaleConfiguration>
-  <PlayerTicket Locale="en-US" DateFormat="dd/MM/yyyy"/>
-  <OperatorTicket Locale="en-US" DateFormat="dd/MM/yyyy"/>
-  <Operator DateFormat="dd/MM/yyyy"/>
-</LocaleConfiguration>  
+--> 
+<LocaleConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PlayerTicket Locale="en-US" DateFormat="dd/MM/yyyy" />
+  <OperatorTicket Locale="en-US" DateFormat="dd/MM/yyyy" />
+  <Operator DateFormat="dd/MM/yyyy" />
+  <Overrides>
+    <string>C3</string>
+    <string>Belgium</string>
+  </Overrides>
+</LocaleConfiguration>
