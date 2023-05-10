@@ -633,9 +633,6 @@
 
         private void DisableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device, string hostReason = null)
         {
-            Logger.Error($"JLK Progressive device being disabled Id = {device.Id}, reason = {reason}, hostReason = {hostReason}");
-            Logger.Error($"Flag states _levelMismatch = {_levelMismatch}, _commsDisable = {_commsDisable}, _progressiveStateDisable = {_progressiveStateDisable}, _progressiveValue = {_progressiveValue}");
-
             switch (reason)
             {
                 case DeviceDisableReason.LevelMismatch:
@@ -690,9 +687,6 @@
         /// <param name="reason">device online reason</param>
         private void EnableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device)
         {
-            Logger.Error($"Progressive device being enabled Id = {device.Id}, reason = {reason}");
-            Logger.Error($"Flag states _levelMismatch = {_levelMismatch}, _commsDisable = {_commsDisable}, _progressiveStateDisable = {_progressiveStateDisable}, _progressiveValue = {_progressiveValue}");
-
             switch (reason)
             {
                 case DeviceDisableReason.LevelMismatch:
