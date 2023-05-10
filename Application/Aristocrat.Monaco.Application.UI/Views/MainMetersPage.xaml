@@ -12,152 +12,174 @@
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:MainMetersPageViewModel}}"
                                common:DialogParticipation.Register="{Binding}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_79024055">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_79024055" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_79024055" />
         </Grid.RowDefinitions>
-
         <!-- Meters Table Section -->
-        <Grid x:Name="Meters" Grid.Row="0">
+        <Grid x:Name="Meters"
+              Grid.Row="0"
+              AutomationProperties.AutomationId="Grid3_79024055">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition4_79024055" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <!-- Fill in the space when we're hiding the right column. -->
-                <ColumnDefinition>
+                <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition5_79024055">
                     <ColumnDefinition.Style>
                         <Style>
-                            <Setter Property="ColumnDefinition.Width" Value="Auto"/>
+                            <Setter Property="ColumnDefinition.Width"
+                                    Value="Auto" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ShowRightColumn}" Value="False">
-                                    <Setter Property="ColumnDefinition.Width" Value="*"/>
+                                <DataTrigger Binding="{Binding ShowRightColumn}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger6_79024055">
+                                    <Setter Property="ColumnDefinition.Width"
+                                            Value="*" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </ColumnDefinition.Style>
                 </ColumnDefinition>
                 <!-- Set Width to zero when we're hiding the right column. -->
-                <ColumnDefinition>
+                <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition7_79024055">
                     <ColumnDefinition.Style>
                         <Style>
-                            <Setter Property="ColumnDefinition.Width" Value="*"/>
+                            <Setter Property="ColumnDefinition.Width"
+                                    Value="*" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ShowRightColumn}" Value="False">
-                                    <Setter Property="ColumnDefinition.Width" Value="0"/>
+                                <DataTrigger Binding="{Binding ShowRightColumn}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger8_79024055">
+                                    <Setter Property="ColumnDefinition.Width"
+                                            Value="0" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </ColumnDefinition.Style>
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-
             <!-- Left Meter Column Section -->
             <DataGrid x:Name="LeftMeterGrid"
                       Grid.Row="0"
                       Grid.Column="0"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-                      ItemsSource="{Binding MetersLeftColumn}" 
-                      Margin="0 -20 0 0" >
-
+                      ItemsSource="{Binding MetersLeftColumn}"
+                      Margin="0 -20 0 0"
+                      AutomationProperties.AutomationId="DataGrid9_79024055">
                 <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MonacoDataGridRow}" >
+                    <Style TargetType="DataGridRow"
+                           BasedOn="{StaticResource MonacoDataGridRow}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding HideRowForPeriod}" Value="True" >
-                                <Setter Property="Visibility" Value="Collapsed" />
+                            <DataTrigger Binding="{Binding HideRowForPeriod}"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="DataTrigger10_79024055">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
-
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
                                         Width="360"
-                                        Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                                        Binding="{Binding Name}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn11_79024055" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
                                         Width="200"
-                                        Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
+                                        Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}" />
+                                        CellStyle="{StaticResource DataGridCellRight}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn12_79024055" />
                 </DataGrid.Columns>
             </DataGrid>
-
             <!-- Right Meter Column Section -->
-            <DataGrid x:Name="RightMeterGrid" 
-                      Grid.Row="0" 
-                      Grid.Column="1" 
+            <DataGrid x:Name="RightMeterGrid"
+                      Grid.Row="0"
+                      Grid.Column="1"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
-                      ItemsSource="{Binding MetersRightColumn}" 
+                      ItemsSource="{Binding MetersRightColumn}"
                       Margin="60 -20 0 0"
                       Width="650"
-                      Visibility="{Binding ShowRightColumn, Converter={StaticResource TrueVisibleFalseHidden}}" >
-
+                      Visibility="{Binding ShowRightColumn, Converter={StaticResource TrueVisibleFalseHidden}}"
+                      AutomationProperties.AutomationId="DataGrid13_79024055">
                 <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MonacoDataGridRow}">
+                    <Style TargetType="DataGridRow"
+                           BasedOn="{StaticResource MonacoDataGridRow}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding HideRowForPeriod}" Value="True" >
-                                <Setter Property="Visibility" Value="Collapsed" />
+                            <DataTrigger Binding="{Binding HideRowForPeriod}"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="DataTrigger14_79024055">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
-
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
                                         Width="380"
-                                        Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                                        Binding="{Binding Name}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn15_79024055" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
                                         Width="200"
-                                        Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
+                                        Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}" />
+                                        CellStyle="{StaticResource DataGridCellRight}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn16_79024055" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
         <!-- Button Section -->
-        <StackPanel Grid.Row="1" 
-                    Orientation="Horizontal" 
-                    Margin="0 15 0 0">
-            <Button Margin="0 0 15 0" 
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0 15 0 0"
+                    AutomationProperties.AutomationId="StackPanel17_79024055">
+            <Button Margin="0 0 15 0"
                     Width="250"
                     Command="{Binding ClearPeriodCommand}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearPeriodButtonText}}"
                     IsEnabled="{Binding ClearButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding ClearPeriodMetersButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-            <Button Margin="0 0 15 0" 
+                    Visibility="{Binding ClearPeriodMetersButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button18_79024055" />
+            <Button Margin="0 0 15 0"
                     Width="250"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintVerificationButtonText}}"
                     Command="{Binding PrintVerificationButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
-                    Visibility="{Binding PrintVerificationButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-            <Button Margin="0 0 15 0" 
+                    Visibility="{Binding PrintVerificationButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button19_79024055" />
+            <Button Margin="0 0 15 0"
                     Width="250"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintPeriodicResetButtonText}}"
                     Command="{Binding PrintPeriodicResetButtonClickedCommand}"
-                    IsEnabled="{Binding PrinterButtonsEnabled}"/>
-            <Button Margin="0 0 15 0" 
+                    IsEnabled="{Binding PrinterButtonsEnabled}"
+                    AutomationProperties.AutomationId="Button20_79024055" />
+            <Button Margin="0 0 15 0"
                     Width="250"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintAuditTicketButtonText}}"
                     Command="{Binding PrintAuditTicketButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
-                    Visibility="{Binding PrintAuditTicketButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-
-            <Label HorizontalAlignment="Left" 
+                    Visibility="{Binding PrintAuditTicketButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button21_79024055" />
+            <Label HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   Content="{Binding DropMessageLabelText}"/>
+                   Content="{Binding DropMessageLabelText}"
+                   AutomationProperties.AutomationId="Label22_79024055" />
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

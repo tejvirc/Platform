@@ -14,51 +14,57 @@
                    WindowStyle="None"
                    Title="OverlayWindow"
                    ShowInTaskbar="False"
-                   Width="600" Height="400">
-
+                   Width="600"
+                   Height="400">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
-
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Storyboard x:Key="FadeInStoryboard" x:Shared="false">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" 
-                                 Duration="0:0:0.1" BeginTime="0:0:0" AutoReverse="False">
-                </DoubleAnimation>
+            <Storyboard x:Key="FadeInStoryboard"
+                        x:Shared="false"
+                        AutomationProperties.AutomationId="Storyboard0_8838AAEA">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                 From="0.0"
+                                 To="1.0"
+                                 Duration="0:0:0.1"
+                                 BeginTime="0:0:0"
+                                 AutoReverse="False"
+                                 AutomationProperties.AutomationId="DoubleAnimation1_8838AAEA"></DoubleAnimation>
             </Storyboard>
-
-            <Storyboard x:Key="FadeOutStoryboard" x:Shared="false" Completed="FadeOutStoryboard_OnCompleted">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" 
-                                 Duration="0:0:0.75" BeginTime="0:0:0" AutoReverse="False">
-                </DoubleAnimation>
+            <Storyboard x:Key="FadeOutStoryboard"
+                        x:Shared="false"
+                        Completed="FadeOutStoryboard_OnCompleted"
+                        AutomationProperties.AutomationId="Storyboard2_8838AAEA">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                 From="1.0"
+                                 To="0.0"
+                                 Duration="0:0:0.75"
+                                 BeginTime="0:0:0"
+                                 AutoReverse="False"
+                                 AutomationProperties.AutomationId="DoubleAnimation3_8838AAEA"></DoubleAnimation>
             </Storyboard>
-
         </ResourceDictionary>
     </Window.Resources>
-
     <Window.Background>
-        <SolidColorBrush Color="Transparent"/>
+        <SolidColorBrush Color="Transparent"
+                         AutomationProperties.AutomationId="SolidColorBrush4_8838AAEA" />
     </Window.Background>
-
     <i:Interaction.Behaviors>
-        <common:HighDpiWindowBehavior x:Name="HighDpiBehavior"/>
+        <common:HighDpiWindowBehavior x:Name="HighDpiBehavior" />
         <common:TouchWindowBehavior />
     </i:Interaction.Behaviors>
-
-    <Grid x:Name="LayoutRoot" >
-
+    <Grid x:Name="LayoutRoot"
+          AutomationProperties.AutomationId="Grid5_8838AAEA">
         <!-- Notes on why we fade views in/out:
             Reference Link: https://social.msdn.microsoft.com/Forums/en-US/e974c849-90ea-4741-9a27-0ae4857bc3c2/wpf-update-ui-in-while-window-is-hidden?forum=wpf
             
@@ -66,113 +72,136 @@
             show the window the next time, it flickers the old contents befoe updating to the new state.  To workaround
             this we are doing a brief fade in/out of the window so that we can clear the old contents before hiding it.
             -->
-
         <!-- Since we are using opacity to hide, we have to use IsHitTestVisible to
                  let input pass through transparent controls. -->
-
-        <Grid x:Name="ViewInjectionRoot"/>
-
-        <overlay:AgeWarningDialog x:Name="AgeWarningView" Visibility="{Binding MessageOverlayDisplay.IsAgeWarningDlgVisible, Converter={StaticResource TrueVisibleFalseHidden}}"/>
-
-        <overlay:RGInfo Visibility="{Binding MessageOverlayDisplay.IsResponsibleGamingInfoOverlayDlgVisible, Converter={StaticResource TrueVisibleFalseHidden}}"/>
-
-        <overlay:ReserveOverlay Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible}">
+        <Grid x:Name="ViewInjectionRoot"
+              AutomationProperties.AutomationId="Grid6_8838AAEA" />
+        <overlay:AgeWarningDialog x:Name="AgeWarningView"
+                                  Visibility="{Binding MessageOverlayDisplay.IsAgeWarningDlgVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
+        <overlay:RGInfo
+                Visibility="{Binding MessageOverlayDisplay.IsResponsibleGamingInfoOverlayDlgVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
+        <overlay:ReserveOverlay Opacity="0"
+                                IsHitTestVisible="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible}">
             <overlay:ReserveOverlay.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible}">
+                        <DataTrigger Value="True"
+                                     Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible}"
+                                     AutomationProperties.AutomationId="DataTrigger7_8838AAEA">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard8_8838AAEA" />
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard9_8838AAEA" />
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </overlay:ReserveOverlay.Style>
         </overlay:ReserveOverlay>
-
-        <overlay:MessageOverlay Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplay.MessageOverlayData.IsDialogVisible}">
+        <overlay:MessageOverlay Opacity="0"
+                                IsHitTestVisible="{Binding MessageOverlayDisplay.MessageOverlayData.IsDialogVisible}">
             <overlay:MessageOverlay.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsDialogVisible}">
+                        <DataTrigger Value="True"
+                                     Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsDialogVisible}"
+                                     AutomationProperties.AutomationId="DataTrigger10_8838AAEA">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard11_8838AAEA" />
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard12_8838AAEA" />
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </overlay:MessageOverlay.Style>
         </overlay:MessageOverlay>
-
         <overlay:ReplayRecoveryView Opacity="0"
-            NavigationBarSizeChanged="OnReplayNavigationBarSizeChanged"
-            IsHitTestVisible="{Binding MessageOverlayDisplay.IsReplayRecoveryDlgVisible}">
+                                    NavigationBarSizeChanged="OnReplayNavigationBarSizeChanged"
+                                    IsHitTestVisible="{Binding MessageOverlayDisplay.IsReplayRecoveryDlgVisible}">
             <overlay:ReplayRecoveryView.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.IsReplayRecoveryDlgVisible}">
+                        <DataTrigger Value="True"
+                                     Binding="{Binding MessageOverlayDisplay.IsReplayRecoveryDlgVisible}"
+                                     AutomationProperties.AutomationId="DataTrigger13_8838AAEA">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard14_8838AAEA" />
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard15_8838AAEA" />
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </overlay:ReplayRecoveryView.Style>
         </overlay:ReplayRecoveryView>
-
-        <overlay:SelectionPayMode Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplay.IsSelectPayModeVisible}">
+        <overlay:SelectionPayMode Opacity="0"
+                                  IsHitTestVisible="{Binding MessageOverlayDisplay.IsSelectPayModeVisible}">
             <overlay:SelectionPayMode.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.IsSelectPayModeVisible}">
+                        <DataTrigger Value="True"
+                                     Binding="{Binding MessageOverlayDisplay.IsSelectPayModeVisible}"
+                                     AutomationProperties.AutomationId="DataTrigger16_8838AAEA">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard17_8838AAEA" />
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard18_8838AAEA" />
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </overlay:SelectionPayMode.Style>
         </overlay:SelectionPayMode>
-
-        <overlay:PlayerMenuPopupView Opacity="0" IsHitTestVisible="{Binding PlayerMenuPopupViewModel.IsMenuVisible}">
+        <overlay:PlayerMenuPopupView Opacity="0"
+                                     IsHitTestVisible="{Binding PlayerMenuPopupViewModel.IsMenuVisible}">
             <overlay:PlayerMenuPopupView.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding PlayerMenuPopupViewModel.IsMenuVisible}">
+                        <DataTrigger Value="True"
+                                     Binding="{Binding PlayerMenuPopupViewModel.IsMenuVisible}"
+                                     AutomationProperties.AutomationId="DataTrigger19_8838AAEA">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard20_8838AAEA" />
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard21_8838AAEA" />
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </overlay:PlayerMenuPopupView.Style>
         </overlay:PlayerMenuPopupView>
-
-        <overlay:PlayerInfoDisplayMenuView DataContext="{Binding Path=PlayerInfoDisplayMenuViewModel}" Opacity="0" IsHitTestVisible="{Binding IsVisible}">
+        <overlay:PlayerInfoDisplayMenuView DataContext="{Binding Path=PlayerInfoDisplayMenuViewModel}"
+                                           Opacity="0"
+                                           IsHitTestVisible="{Binding IsVisible}">
             <overlay:PlayerInfoDisplayMenuView.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding IsVisible}">
+                        <DataTrigger Value="True"
+                                     Binding="{Binding IsVisible}"
+                                     AutomationProperties.AutomationId="DataTrigger22_8838AAEA">
                             <DataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard23_8838AAEA" />
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"
+                                                 AutomationProperties.AutomationId="BeginStoryboard24_8838AAEA" />
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </Style.Triggers>

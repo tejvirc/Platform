@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.G2S.UI.Views.EditHostView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
@@ -10,67 +10,68 @@
                                mc:Ignorable="d"
                                Width="600"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:EditHostViewModel}, IsDesignTimeCreatable=True}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid >
+    <Grid AutomationProperties.AutomationId="Grid0_A7144911">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_A7144911" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_A7144911" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_A7144911" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_A7144911" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_A7144911" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_A7144911" />
         </Grid.RowDefinitions>
-
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"/>
-
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"
+               AutomationProperties.AutomationId="Label7_A7144911" />
         <TextBox Grid.Row="1"
                  IsReadOnly="False"
-                 Text="{Binding HostId, 
-                                Mode=TwoWay,
-                                ValidatesOnDataErrors=true, 
-                                NotifyOnValidationError=true,
-                                UpdateSourceTrigger=PropertyChanged,
-                                TargetNullValue=''}"
+                 Text="{Binding HostId,
+                        Mode=TwoWay,
+                        ValidatesOnDataErrors=true,
+                        NotifyOnValidationError=true,
+                        UpdateSourceTrigger=PropertyChanged,
+                        TargetNullValue=''}"
                  Width="Auto"
-                 InputScope="Number" />
-
-        <Label Grid.Row="2" 
-               Margin="0 15 0 0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"/>
-
-        <TextBox Grid.Row="3" 
-                 TextWrapping="Wrap" 
-                 Text="{Binding Address, 
-                    Mode=TwoWay, 
-                    NotifyOnValidationError=True, 
-                    UpdateSourceTrigger=PropertyChanged, 
-                    ValidatesOnDataErrors=True}" 
-                 Width="Auto" 
-                 InputScope="Url"/>
-
-        <CheckBox Grid.Row="4" 
-                  HorizontalAlignment="Left" 
+                 InputScope="Number"
+                 AutomationProperties.AutomationId="TextBox8_A7144911" />
+        <Label Grid.Row="2"
+               Margin="0 15 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
+               AutomationProperties.AutomationId="Label9_A7144911" />
+        <TextBox Grid.Row="3"
+                 TextWrapping="Wrap"
+                 Text="{Binding Address,
+                        Mode=TwoWay,
+                        NotifyOnValidationError=True,
+                        UpdateSourceTrigger=PropertyChanged,
+                        ValidatesOnDataErrors=True}"
+                 Width="Auto"
+                 InputScope="Url"
+                 AutomationProperties.AutomationId="TextBox10_A7144911" />
+        <CheckBox Grid.Row="4"
+                  HorizontalAlignment="Left"
                   Margin="0 15 0 0"
-                  IsChecked="{Binding Registered}" 
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"/>
-
+                  IsChecked="{Binding Registered}"
+                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"
+                  AutomationProperties.AutomationId="CheckBox11_A7144911" />
         <CheckBox Grid.Row="5"
                   HorizontalAlignment="Left"
                   Margin="0 15 0 0"
                   IsChecked="{Binding RequiredForPlay}"
                   Visibility="{Binding IsInWizard, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"/>
-
+                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"
+                  AutomationProperties.AutomationId="CheckBox12_A7144911" />
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

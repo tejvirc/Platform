@@ -13,34 +13,36 @@
                                xmlns:converter="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel,
-                                                                IsDesignTimeCreatable=False}"
+                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel,                                                                 IsDesignTimeCreatable=False}"
                                common:DialogParticipation.Register="{Binding}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <converter:DateTimeFormatConverter x:Key="DateTimeFormatConverter"/>
+            <converter:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_26AF2323">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition MinWidth="200" MaxWidth="300"/>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition1_26AF2323" />
+            <ColumnDefinition MinWidth="200"
+                              MaxWidth="300"
+                              AutomationProperties.AutomationId="ColumnDefinition2_26AF2323" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0"
               x:Name="EventViewerGrid"
-              Margin="0 0 50 0">
+              Margin="0 0 50 0"
+              AutomationProperties.AutomationId="Grid3_26AF2323">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition4_26AF2323" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_26AF2323" />
             </Grid.RowDefinitions>
-
             <DataGrid x:Name="EventViewer"
                       Width="{Binding ElementName=EventViewerGrid, Path=ActualWidth}"
                       IsEnabled="{Binding IsLoadingData, Converter={StaticResource InverseBoolConverter}}"
@@ -48,10 +50,11 @@
                       SelectedItem="{Binding SelectedItem}"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.PanningMode="VerticalOnly">
+                      ScrollViewer.PanningMode="VerticalOnly"
+                      AutomationProperties.AutomationId="DataGrid6_26AF2323">
                 <i:Interaction.Triggers>
                     <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
-                        <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
+                        <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                     </events:RoutedEventTrigger>
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
@@ -59,77 +62,92 @@
                                         MinWidth="200"
                                         Width="Auto"
                                         FontSize="18"
-                                        Binding="{Binding Description.Timestamp, Converter={StaticResource DateTimeFormatConverter}}"/>
+                                        Binding="{Binding Description.Timestamp, Converter={StaticResource DateTimeFormatConverter}}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn7_26AF2323" />
                     <DataGridTextColumn x:Name="LogType"
                                         Header="{lex:Loc Key={x:Static loc:ResourceKeys.LogType}}"
                                         FontSize="18"
                                         MinWidth="200"
                                         Width="Auto"
                                         Binding="{Binding Description.TypeDisplayText}"
-                                        x:FieldModifier="public"/>
+                                        x:FieldModifier="public"
+                                        AutomationProperties.AutomationId="DataGridTextColumn8_26AF2323" />
                     <DataGridTemplateColumn x:Name="EventLog"
                                             Header="{lex:Loc Key={x:Static loc:ResourceKeys.EventLog}}"
                                             MinWidth="350"
                                             Width="Auto"
-                                            x:FieldModifier="public">
+                                            x:FieldModifier="public"
+                                            AutomationProperties.AutomationId="DataGridTemplateColumn9_26AF2323">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="models:EventLog">
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            AutomationProperties.AutomationId="StackPanel10_26AF2323">
                                     <TextBlock Text="{Binding Description.Name}"
                                                VerticalAlignment="Center"
-                                               FontSize="18"/>
+                                               FontSize="18"
+                                               AutomationProperties.AutomationId="TextBlock11_26AF2323" />
                                     <Button Name="InfoButton"
                                             Style="{StaticResource MonacoInfoButton}"
                                             VerticalAlignment="Center"
                                             Margin="5 0 0 0"
                                             Command="{Binding DataContext.ShowAdditionalInfoCommand, ElementName=EventViewer}"
-                                            Visibility="{Binding HasAdditionalInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                                            Visibility="{Binding HasAdditionalInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                            AutomationProperties.AutomationId="Button12_26AF2323" />
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-
             <StackPanel Grid.Row="1"
                         Margin="0 10 0 0"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel13_26AF2323">
                 <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintSelectedButtonText}}"
                         Height="45"
                         Width="200"
                         Margin="0 0 20 0"
                         Visibility="{Binding PrintSelectedButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding PrintSelectedButtonEnabled}"
-                        Command="{Binding PrintSelectedButtonCommand}"/>
+                        Command="{Binding PrintSelectedButtonCommand}"
+                        AutomationProperties.AutomationId="Button14_26AF2323" />
                 <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintCurrentPageButtonText}}"
                         Height="45"
                         Width="200"
                         Margin="0 0 20 0"
                         Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding MainPrintButtonEnabled}"
-                        Command="{Binding PrintCurrentPageButtonCommand}"/>
+                        Command="{Binding PrintCurrentPageButtonCommand}"
+                        AutomationProperties.AutomationId="Button15_26AF2323" />
                 <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLast15RecordsButtonText}}"
                         Height="45"
                         Width="200"
                         Margin="0 0 20 0"
                         IsEnabled="{Binding MainPrintButtonEnabled}"
                         Command="{Binding PrintLast15ButtonCommand}"
-                        Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-                <StackPanel Visibility="{Binding SubscriptionTextVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Collapsed}"
+                        Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        AutomationProperties.AutomationId="Button16_26AF2323" />
+                <StackPanel
+                        Visibility="{Binding SubscriptionTextVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Collapsed}"
                             Orientation="Horizontal"
-                            VerticalAlignment="Center">
+                            VerticalAlignment="Center"
+                            AutomationProperties.AutomationId="StackPanel17_26AF2323">
                     <Label FontSize="{StaticResource NormalFontSize}"
                            Content="{Binding SubscriptionStatus}"
-                           HorizontalAlignment="Left"/>
+                           HorizontalAlignment="Left"
+                           AutomationProperties.AutomationId="Label18_26AF2323" />
                     <Label FontSize="{StaticResource NormalFontSize}"
                            Content="{Binding EventCount}"
-                           HorizontalAlignment="Left"/>
+                           HorizontalAlignment="Left"
+                           AutomationProperties.AutomationId="Label19_26AF2323" />
                 </StackPanel>
             </StackPanel>
         </Grid>
-
-        <Grid Grid.Column="1">
-            <Label Content="Filter By" VerticalAlignment="Top"/>
+        <Grid Grid.Column="1"
+              AutomationProperties.AutomationId="Grid20_26AF2323">
+            <Label Content="Filter By"
+                   VerticalAlignment="Top"
+                   AutomationProperties.AutomationId="Label21_26AF2323" />
             <DataGrid Margin="0 20 0 0"
                       x:Name="FilterByDataGrid"
                       ItemsSource="{Binding EventFilterCollection}"
@@ -138,32 +156,40 @@
                       CanUserAddRows="False"
                       RowBackground="Transparent"
                       ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.PanningMode="VerticalOnly">
+                      ScrollViewer.PanningMode="VerticalOnly"
+                      AutomationProperties.AutomationId="DataGrid22_26AF2323">
                 <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-                        <Setter Property="BorderBrush" Value="{StaticResource Brush3}"/>
-                        <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Style TargetType="{x:Type DataGridColumnHeader}"
+                           BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                        <Setter Property="BorderBrush"
+                                Value="{StaticResource Brush3}" />
+                        <Setter Property="BorderThickness"
+                                Value="0 0 0 1" />
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn23_26AF2323">
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
                                 <CheckBox Content="All"
                                           Margin="0 5 0 0"
                                           FontSize="16"
                                           IsChecked="{Binding DataContext.IsAllFiltersSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                          Command="{Binding DataContext.AllFiltersSelectedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                          Command="{Binding DataContext.AllFiltersSelectedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                          AutomationProperties.AutomationId="CheckBox24_26AF2323" />
                             </DataTemplate>
                         </DataGridTemplateColumn.HeaderTemplate>
-
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox Margin="5 5 0 0"
                                           IsChecked="{Binding DataContext.IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGridCell}}"
-                                          Command="{Binding DataContext.FilterSelectedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                          Command="{Binding DataContext.FilterSelectedCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                          AutomationProperties.AutomationId="CheckBox25_26AF2323">
                                     <CheckBox.Content>
-                                        <TextBlock Text="{Binding DataContext.DisplayText, RelativeSource={RelativeSource AncestorType=DataGridCell}}" FontSize="16"/>
+                                        <TextBlock
+                                                Text="{Binding DataContext.DisplayText, RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                                   FontSize="16"
+                                                   AutomationProperties.AutomationId="TextBlock26_26AF2323" />
                                     </CheckBox.Content>
                                 </CheckBox>
                             </DataTemplate>
@@ -172,7 +198,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

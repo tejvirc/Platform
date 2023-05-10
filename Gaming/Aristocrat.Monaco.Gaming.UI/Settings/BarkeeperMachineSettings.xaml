@@ -1,69 +1,80 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.Settings"
-					xmlns:lex="http://wpflocalizeextension.codeplex.com"
-					xmlns:loc="http://monaco.aristocrat.com/localization">
-
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.Settings"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization">
     <DataTemplate DataType="{x:Type local:BarkeeperSettings}">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      AutomationProperties.AutomationId="ScrollViewer0_E6A45C10">
+            <Grid AutomationProperties.AutomationId="Grid1_E6A45C10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition2_E6A45C10" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition3_E6A45C10" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition4_E6A45C10" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition5_E6A45C10" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition6_E6A45C10" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition7_E6A45C10" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition8_E6A45C10" />
                 </Grid.RowDefinitions>
-
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition9_E6A45C10" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition10_E6A45C10" />
                 </Grid.ColumnDefinitions>
-
                 <!-- Enabled -->
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.Enabled}}" />
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.Enabled}}"
+                           AutomationProperties.AutomationId="TextBlock11_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="0"
-                           Text="{Binding Enabled}" />
-
+                           Text="{Binding Enabled}"
+                           AutomationProperties.AutomationId="TextBlock12_E6A45C10" />
                 <!-- CashInRewardLevel -->
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="1"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CashInRewardLevel}}" />
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.CashInRewardLevel}}"
+                           AutomationProperties.AutomationId="TextBlock13_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="1"
-                           Text="{Binding CashInRewardLevelText}" />
-
+                           Text="{Binding CashInRewardLevelText}"
+                           AutomationProperties.AutomationId="TextBlock14_E6A45C10" />
                 <!-- RewardLevels -->
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="2"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CoinInRewardLevels}}" />
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.CoinInRewardLevels}}"
+                           AutomationProperties.AutomationId="TextBlock15_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="2"
-                           Text="{Binding CoinInRewardLevelsText}" />
-
-                    <!-- CoinInRate -->
+                           Text="{Binding CoinInRewardLevelsText}"
+                           AutomationProperties.AutomationId="TextBlock16_E6A45C10" />
+                <!-- CoinInRate -->
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="3"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CoinInRate}}" />
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.CoinInRate}}"
+                           AutomationProperties.AutomationId="TextBlock17_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="3"
-                           Text="{Binding CoinInRateText}" />
+                           Text="{Binding CoinInRateText}"
+                           AutomationProperties.AutomationId="TextBlock18_E6A45C10" />
             </Grid>
         </ScrollViewer>
     </DataTemplate>
-
 </ResourceDictionary>
-	
