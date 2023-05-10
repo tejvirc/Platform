@@ -125,6 +125,7 @@
             _initialized = HasGame();
 
             BuildCache();
+            Initialize();
         }
 
         private PersistenceLevel PersistenceLevel => _properties.GetValue(ApplicationConstants.DemonstrationMode, false)

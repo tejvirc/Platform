@@ -105,9 +105,6 @@
             configurator.Setup(m => m.AutoConfigurationExists).Returns(true);
 
             _serviceManager.Setup(mock => mock.AddService(It.IsAny<ConfigSelectionPageViewModel>())).Verifiable();
-            _propertiesManager
-                .Setup(mock => mock.GetProperty(ApplicationConstants.SelectedConfigurationKey, null))
-                .Returns(new Dictionary<string, string>());
 
             _propertiesManager
                 .Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>()))
@@ -120,6 +117,10 @@
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, It.IsAny<bool>()))
                 .Returns(false);
+
+            _propertiesManager
+                .Setup(mock => mock.GetProperty(ApplicationConstants.SelectedConfigurationKey, null))
+                .Returns(null);
 
             _propertiesManager.Setup(m => m.GetProperty(KernelConstants.IsInspectionOnly, false)).Returns(false);
 
@@ -140,7 +141,6 @@
 
         private void InitializePropertySetters()
         {
-            _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.SelectedConfigurationKey, It.IsAny<object>()));
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>()));
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>())).Returns(string.Empty);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.ShowMode, It.IsAny<object>()));
@@ -223,6 +223,7 @@
                 .Returns((IIdentityTicketCreator)null);
 
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPrintJobStartedEvent>()));
+            _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPrintJobCompletedEvent>()));
 
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.IsInitialConfigurationComplete, true))
                 .Verifiable();
@@ -331,9 +332,6 @@
         [TestMethod]
         public void LoadLayerNoNodesTest()
         {
-            _propertiesManager.Setup(mock => mock.GetProperty("Mono.SelectedAddinConfigurationHashCode", null))
-                .Returns(null);
-
             _accessor.LoadLayer("Jurisdiction");
 
             Assert.AreEqual(0, ((Collection<IOperatorMenuPageLoader>)_accessor._wizardPages).Count);
@@ -391,7 +389,6 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>())).Returns(2);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>()));
 
-            _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.SelectedConfigurationKey, It.IsAny<object>()));
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>())).Returns(false);
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>()));
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.ShowMode, It.IsAny<object>()));
@@ -431,9 +428,6 @@
             _accessor._selectablePagesDone = false;
             _accessor._wizardsAdded = false;
             _accessor._onFinishedPage = false;
-
-            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.SelectedConfigurationKey, null))
-                .Returns(null);
 
             _eventBus.Setup(m => m.Unsubscribe<PreConfigBootCompleteEvent>(_target));
 

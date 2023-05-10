@@ -31,7 +31,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Aristocrat.Monaco.Gaming.Class2.addin.xml" />

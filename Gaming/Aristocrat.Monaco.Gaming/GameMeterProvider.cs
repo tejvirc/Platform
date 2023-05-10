@@ -7,7 +7,6 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Application.Contracts.Metering;
     using Contracts;
     using Contracts.Meters;
@@ -28,6 +27,7 @@
 
         private readonly object _lock = new object();
         private readonly IGameMeterManager _meterManager;
+        private readonly IGameProvider _gameProvider;
 
         private readonly char[] _operators = { '+', '-', '*', '/', '(', ')' };
 
@@ -41,13 +41,17 @@
         /// <param name="persistentStorage">The persistent storage manager</param>
         /// <param name="properties">The properties manager</param>
         /// <param name="meterManager">The meter manager</param>
+        /// <param name="gameProvider"></param>
         public GameMeterProvider(
             IPersistentStorageManager persistentStorage,
-            IGameMeterManager meterManager)
-            : base(typeof(GameMeterProvider).ToString())
+            IGameMeterManager meterManager,
+            IPropertiesManager properties,
+            IGameProvider gameProvider)
+            : base(typeof(GameMeterProvider).ToString(), properties)
         {
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
 
             RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
 
@@ -181,8 +185,7 @@
         {
             var blockName = GetType().ToString();
 
-            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
-
+            var games = _gameProvider.GetAllGames();
             foreach (var meter in meters)
             {
                 Logger.Debug($"Adding new meter \"{meter.Name}\"");
@@ -369,7 +372,7 @@
 
         private void AddCompositeMeters(IReadOnlyCollection<GameCompositeMeterNode> compositeMeterNodes)
         {
-            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
+            var games = _gameProvider.GetAllGames();
             AddTheoreticalPaybackMeter(games);
 
             // This will temporarily allow us to avoid using the Flee library for calculating simple sums of meters (the majority)
@@ -472,7 +475,7 @@
                 classification == "Percentage"
                     ? new CompositeMeter(name, BuildPercentMeterExpression(meters), meters, new PercentageMeterClassification())
                     : new CompositeMeter(name, BuildGameMeterExpression(meters), meters, classification));
-        }   
+        }
 
         private static IEnumerable<string> FormatGameMeterList(IEnumerable<string> symbols)
         {

@@ -3,9 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
-    <Copyright>Copyright ©  2017</Copyright>
     <Configurations>Debug;Release;Retail</Configurations>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <NoWarn>$(NoWarn);CS3001</NoWarn>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
   </PropertyGroup>

@@ -49,14 +49,14 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0013" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0023" />
     <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.1-beta0006" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
     <PackageReference Include="log4net" Version="2.0.13" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />

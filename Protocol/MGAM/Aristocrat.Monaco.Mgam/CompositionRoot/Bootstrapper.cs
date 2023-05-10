@@ -19,8 +19,10 @@
     using Common.Data.Models;
     using Consumers;
     using Kernel;
+    using log4net;
     using Mappings;
     using Middleware;
+    using Monaco.Common.Container;
     using Monaco.Common.Storage;
     using PackageManifest;
     using PackageManifest.Ati;
@@ -49,6 +51,9 @@
     /// </summary>
     public static class Bootstrapper
     {
+        private static readonly ILog Logger =
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         ///     Initializes the container.
         /// </summary>
@@ -61,6 +66,7 @@
         private static Container ConfigureContainer()
         {
             var container = new Container();
+            container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
 
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 

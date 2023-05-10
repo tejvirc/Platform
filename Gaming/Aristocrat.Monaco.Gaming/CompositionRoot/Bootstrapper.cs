@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
     using Aristocrat.CryptoRng;
@@ -27,6 +28,7 @@
     using GameRound;
     using Hardware.Contracts;
     using Kernel;
+    using log4net;
     using Monitor;
     using PackageManifest;
     using PackageManifest.Ati;
@@ -45,6 +47,8 @@
     /// </summary>
     internal static class Bootstrapper
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         ///     Initialize the container
         /// </summary>
@@ -57,7 +61,8 @@
         private static Container ConfigureContainer()
         {
             var container = new Container();
-
+            container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
+            
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);
@@ -167,18 +172,21 @@
             container.Collection.Register<IPropertyProvider>(
                 new[] { gamePropertyProvider, gameInstaller, browserPropertyProvider });
 
-            container.Register<GameMeterProvider>(Lifestyle.Singleton);
-            container.Register<PlayerMeterProvider>(Lifestyle.Singleton);
-            container.Register<BonusMeterProvider>(Lifestyle.Singleton);
+            var gameMeterProvider = Lifestyle.Singleton.CreateRegistration<GameMeterProvider>(container);
+            var playerMeterProvider = Lifestyle.Singleton.CreateRegistration<PlayerMeterProvider>(container);
+            var bonusMeterProvider = Lifestyle.Singleton.CreateRegistration<BonusMeterProvider>(container);
+            var progressiveMeterProvider = Lifestyle.Singleton.CreateRegistration<ProgressiveMeterProvider>(container);
+            var cabinetMeterProvider = Lifestyle.Singleton.CreateRegistration<CabinetMeterProvider>(container);
 
-            container.Register<ProgressiveMeterProvider>(Lifestyle.Singleton);
-            container.Register<CabinetMeterProvider>(Lifestyle.Singleton);
             container.Collection.Register<IMeterProvider>(
-                typeof(GameMeterProvider),
-                typeof(PlayerMeterProvider),
-                typeof(BonusMeterProvider),
-                typeof(ProgressiveMeterProvider),
-                typeof(CabinetMeterProvider));
+                new []
+                {
+                    gameMeterProvider,
+                    playerMeterProvider,
+                    bonusMeterProvider,
+                    progressiveMeterProvider,
+                    cabinetMeterProvider
+                });
 
             container.Register<IRandomStateProvider, RandomStateProvider>(Lifestyle.Singleton);
             // IPRNG implementations are keyed by PRNGLib.RandomType:

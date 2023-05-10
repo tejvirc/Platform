@@ -31,13 +31,18 @@
         /// </summary>
         /// <param name="name">The name of this provider</param>
         protected BaseMeterProvider(string name)
-            :this(ServiceManager.GetInstance().GetService<IPropertiesManager>())
+            :this(name, ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
-            Name = name;
         }
 
-        private BaseMeterProvider(IPropertiesManager propertiesManager)
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="BaseMeterProvider" /> class.
+        /// </summary>
+        /// <param name="name">The name of this provider</param>
+        /// <param name="propertiesManager">The property manager</param>
+        protected BaseMeterProvider(string name, IPropertiesManager propertiesManager)
         {
+            Name = name;
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 

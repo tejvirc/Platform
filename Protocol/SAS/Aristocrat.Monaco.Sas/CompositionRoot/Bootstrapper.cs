@@ -10,6 +10,7 @@
     using Contracts.Client;
     using Contracts.SASProperties;
     using Kernel;
+    using log4net;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
 
@@ -19,11 +20,15 @@
     internal static class Bootstrapper
     {
         private static readonly List<IService> AllServices = new List<IService>();
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         internal static Container ConfigureContainer()
         {
             var container = new Container();
+            container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
+
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            container.Options.ResolveUnregisteredConcreteTypes = true;
             return container.RegisterSasHost()
                 .RegisterClientBuilder()
                 .RegisterSasHandPay()

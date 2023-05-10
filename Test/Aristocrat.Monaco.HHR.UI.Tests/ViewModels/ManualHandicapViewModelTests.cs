@@ -43,6 +43,7 @@
             _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
 
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>())).Returns(It.IsAny<int>());
+            _propertiesManager.Setup(p => p.GetProperty(GamingConstants.SelectedBetCredits, It.IsAny<int>())).Returns(It.IsAny<int>());
             UiProperties.ManualHandicapRemainingTime = 200;
 
             _eventBus = new Mock<IEventBus>(MockBehavior.Default);

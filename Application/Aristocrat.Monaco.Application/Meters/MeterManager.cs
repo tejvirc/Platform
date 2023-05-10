@@ -140,7 +140,6 @@
             }
 
             InitializeCompositeMeters(provider);
-
             _bus.Publish(new MeterProviderAddedEvent());
         }
 

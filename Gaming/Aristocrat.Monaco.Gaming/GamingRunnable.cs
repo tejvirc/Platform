@@ -27,6 +27,7 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
+    using Microsoft.Extensions.DependencyInjection;
     using Progressives;
     using Runtime;
     using SimpleInjector;
@@ -206,9 +207,8 @@
 
             ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IGameInstaller>());
 
-            var provider = _container.GetInstance<IGameProvider>() as IService;
-            provider?.Initialize();
-            ServiceManager.GetInstance().AddService(provider);
+            var provider = _container.GetInstance<IGameProvider>();
+            ServiceManager.GetInstance().AddService(provider as IService);
             manager.AddPropertyProvider(provider as IPropertyProvider);
         }
 

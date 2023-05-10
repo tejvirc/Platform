@@ -64,6 +64,7 @@
         private static Container ConfigureContainer()
         {
             var container = new Container();
+            container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
 
             container.Register<IEngine, G2SEngine>(Lifestyle.Singleton);
             container.RegisterAuthenticationService(ConnectionString());
