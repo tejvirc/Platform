@@ -330,28 +330,32 @@
                 hosts.Where(h => !h.IsEgm() && h.Registered),
                 () => new BonusDevice(1, _deviceStateObserver));
 
-            var progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            List<int> configuredIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
-            if(configuredIds != null && configuredIds.Count() > 0)
+            var g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(Constants.G2SProgressivesEnabled, false);
+            if (g2sProgressivesEnabled)
             {
-                foreach (var id in configuredIds)
+                var progressiveService = ServiceManager.GetInstance().GetService<ProgressiveService>();
+                List<int> configuredIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
+                if(configuredIds != null && configuredIds.Count() > 0)
+                {
+                    foreach (var id in configuredIds)
+                    {
+                        _deviceFactory.Create(
+                        hosts.Where(h => h.IsProgressiveHost).FirstOrDefault() ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
+                        hosts.Where(h => !h.IsEgm() && h.Registered),
+                        () => new ProgressiveDevice(id, _deviceStateObserver));
+
+                        progressiveService?.DevicesProgIds.Add(id, id);
+                    }
+                }
+
+                if(_egm.GetDevices<IProgressiveDevice>().Count() <= 0)
                 {
                     _deviceFactory.Create(
-                    hosts.Where(h => h.IsProgressiveHost).FirstOrDefault() ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(id, _deviceStateObserver));
-
-                    progressiveService?.DevicesProgIds.Add(id, id);
+                        hosts.Where(h => h.IsProgressiveHost).FirstOrDefault() ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
+                        hosts.Where(h => !h.IsEgm() && h.Registered),
+                        () => new ProgressiveDevice(1, _deviceStateObserver));
                 }
-            }
-
-            if(_egm.GetDevices<IProgressiveDevice>().Count() <= 0)
-            {
-                _deviceFactory.Create(
-                    hosts.Where(h => h.IsProgressiveHost).FirstOrDefault() ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(1, _deviceStateObserver));
             }
         }
 

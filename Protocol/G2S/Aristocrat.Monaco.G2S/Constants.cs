@@ -175,5 +175,10 @@ namespace Aristocrat.Monaco.G2S
         ///     Currently vertex is only functional via G2S progressives, if this changes in the future then this may be stored elsewhere.
         /// </remarks>
         public const string VertexProgressiveLevelIds = "G2S_vertexLevelIds";
+
+        /// <summary>
+        ///     The key to the boolean value that represents whether or not G2S progressives are enabled.
+        /// </summary>
+        public const string G2SProgressivesEnabled = "G2S_progressivesEnabled";
     }
 }

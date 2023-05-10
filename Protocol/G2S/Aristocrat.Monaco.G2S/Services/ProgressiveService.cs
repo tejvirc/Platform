@@ -54,6 +54,7 @@
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _progressiveStatusBuilder;
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new ConcurrentDictionary<string, IList<ProgressiveInfo>>();
         private readonly object _pendingAwardsLock = new object();
+        private readonly bool _g2sProgressivesEnabled;
 
         private bool _commsDisable = true;
         private bool _disposed;
@@ -106,17 +107,21 @@
             _progressiveHitBuilder = progressiveHitBuilder ?? throw new ArgumentNullException(nameof(progressiveHitBuilder));
             _progressiveCommitBuilder = progressiveCommitBuilder ?? throw new ArgumentNullException(nameof(progressiveCommitBuilder));
 
-            SubscribeEvents();
+            var propertyProvider = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            _g2sProgressivesEnabled = (bool)propertyProvider.GetProperty(G2S.Constants.G2SProgressivesEnabled, false);
+            if (_g2sProgressivesEnabled)
+            {
+                SubscribeEvents();
+                _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfo);
+                _progressiveValueUpdateTimer.Elapsed += EventUpdateTimerElapsed;
+                _progressiveHostOfflineTimer = new Timer(100); //Start it off with a default 100 millisecond interval, once the host comes online it will update below in ResetProgressiveHostOfflineTimer method.
+                _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
+                LastProgressiveUpdateTime = DateTime.UtcNow;
+                _progressiveValueUpdateTimer.Start();
+                _progressiveHostOfflineTimer.Start();
 
-            _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfo);
-            _progressiveValueUpdateTimer.Elapsed += EventUpdateTimerElapsed;
-            _progressiveHostOfflineTimer = new Timer(100); //Start it off with a default 100 millisecond interval, once the host comes online it will update below in ResetProgressiveHostOfflineTimer method.
-            _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
-            LastProgressiveUpdateTime = DateTime.UtcNow;
-            _progressiveValueUpdateTimer.Start();
-            _progressiveHostOfflineTimer.Start();
-
-            Configure();
+                Configure();
+            }
         }
 
         /// <summary>
@@ -219,16 +224,20 @@
             if (disposing)
             {
                 _eventBus.UnsubscribeAll(this);
-                _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveCommitEvent>(
-                    ProtocolNames.G2S, this);
-                _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveCommitAckEvent>(
-                    ProtocolNames.G2S, this);
-                _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveHitEvent>(
-                    ProtocolNames.G2S, this);
-                _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
-                    ProtocolNames.G2S, this);
-                _progressiveValueUpdateTimer.Stop();
-                _progressiveValueUpdateTimer.Dispose();
+                if (_g2sProgressivesEnabled)
+                {
+                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveCommitEvent>(
+                        ProtocolNames.G2S, this);
+                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveCommitAckEvent>(
+                        ProtocolNames.G2S, this);
+                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveHitEvent>(
+                        ProtocolNames.G2S, this);
+                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
+                        ProtocolNames.G2S, this);
+
+                    _progressiveValueUpdateTimer.Stop();
+                    _progressiveValueUpdateTimer.Dispose();
+                }
             }
 
             _progressiveValueUpdateTimer = null;
@@ -265,6 +274,11 @@
 
         internal void UpdateVertexProgressives(bool fromConfig = false, bool fromBase = false)
         {
+            if (!_g2sProgressivesEnabled)
+            {
+                return;
+            }
+
             if (fromBase)
             {
                 (engine as G2SEngine).AddProgressiveDevices();

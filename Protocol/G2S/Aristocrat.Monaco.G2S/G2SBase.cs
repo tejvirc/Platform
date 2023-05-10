@@ -53,6 +53,8 @@
         private SharedConsumerContext _sharedConsumerContext;
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
 
+        private bool _g2sProgressivesEnabled = false;
+
         /// <inheritdoc />
         protected override void OnInitialize()
         {
@@ -70,6 +72,11 @@
 
                 CreateVirtualIdReaders();
             }
+
+            _g2sProgressivesEnabled = (bool)ServiceManager.GetInstance().
+                TryGetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S)?.IsProgressiveHandled;
+            var propertyProvider = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            propertyProvider.SetProperty(Constants.G2SProgressivesEnabled, _g2sProgressivesEnabled);
 
             // The G2S Lib uses TraceSource...
             Logger.AddAsTraceSource();
@@ -94,7 +101,10 @@
                     _container.GetInstance<IVoucherValidator>());
 
                 ServiceManager.GetInstance().AddService(_container.GetInstance<IVoucherDataService>() as IService);
-                ServiceManager.GetInstance().AddService(_container.GetInstance<IProgressiveService>() as IService);
+                if (_g2sProgressivesEnabled)
+                {
+                    ServiceManager.GetInstance().AddService(_container.GetInstance<IProgressiveService>() as IService);
+                }
                 ServiceManager.GetInstance().AddService(_container.GetInstance<IMasterResetService>() as IService);
                 ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IInformedPlayerService>() as IService);
                 ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IIdReaderValidator>());
@@ -182,24 +192,31 @@
                 propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableId, ServiceManager.GetInstance().
                     TryGetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S)?.IsProgressiveHandled);
 
-                //Populate the levelID fields in the ProgressiveService
-                var progService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
-
-                var vertexLevelIds = (Dictionary<string,int>)propertiesManager.GetProperty(Constants.VertexProgressiveLevelIds, new Dictionary<string, int>());
-                var vertexProgIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
-
-                progService.LevelIds.SetProgressiveLevelIds(vertexLevelIds);
-                progService.VertexProgressiveIds = vertexProgIds;
-                propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLevelIds, vertexLevelIds);
-                propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredIds, vertexProgIds);
-                progService.engine = engine;
-                if(vertexProgIds != null && vertexProgIds.Count > 0)
+                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableId, _g2sProgressivesEnabled);
+                if (_g2sProgressivesEnabled)
                 {
-                    progService?.UpdateVertexProgressives(false, true);
-                }
-                else
-                {
-                    progService?.UpdateVertexProgressives();
+                    //Populate the levelID fields in the ProgressiveService
+                    var progService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+
+                    if (progService != null)
+                    {
+                        var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(Constants.VertexProgressiveLevelIds, new Dictionary<string, int>());
+                        var vertexProgIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
+    
+                        progService.LevelIds.SetProgressiveLevelIds(vertexLevelIds);
+                        progService.VertexProgressiveIds = vertexProgIds;
+                        propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLevelIds, vertexLevelIds);
+                        propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredIds, vertexProgIds);
+                        progService.engine = engine;
+                        if (vertexProgIds != null && vertexProgIds.Count > 0)
+                        {
+                            progService?.UpdateVertexProgressives(false, true);
+                        }
+                        else
+                        {
+                            progService?.UpdateVertexProgressives();
+                        }
+                    }
                 }
 
 
@@ -364,7 +381,10 @@
                     Logger.Debug("Unregistered G2S IVoucherValidator ");
                 }
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IVoucherDataService>() as IService);
-                ServiceManager.GetInstance().RemoveService(_container.GetInstance<IProgressiveService>() as IService);
+                if (_g2sProgressivesEnabled)
+                {
+                    ServiceManager.GetInstance().RemoveService(_container.GetInstance<IProgressiveService>() as IService);
+                }
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IMasterResetService>() as IService);
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IInformedPlayerService>() as IService);
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IIdReaderValidator>());

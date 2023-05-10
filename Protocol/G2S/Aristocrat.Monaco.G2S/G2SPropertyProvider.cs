@@ -46,7 +46,8 @@
                 { Constants.StartupContext, InitStartupContext() },
                 { Constants.Port, port != 0 ? port : Constants.DefaultPort },
                 { Constants.VertexProgressiveIds, InitVertexProgressiveIds() },
-                { Constants.VertexProgressiveLevelIds, InitVertexLevelIds() }
+                { Constants.VertexProgressiveLevelIds, InitVertexLevelIds() },
+                { Constants.G2SProgressivesEnabled, false }
             };
         }
 

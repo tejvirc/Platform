@@ -512,12 +512,15 @@
             var nonSapLevels = ProgressiveLevels.Where(l => l.LevelType != ProgressiveLevelType.Sap).ToList();
 
             bool levelIdsUnchanged = true;
-            for (int i = 0; i < _validProgressiveLevels.Count; i++)
+            if (IsConfigurableId)
             {
-                if (_originalLevelIds[i] != _validProgressiveLevels.ElementAt(i).LevelId)
+                for (int i = 0; i < _validProgressiveLevels.Count; i++)
                 {
-                    levelIdsUnchanged = false;
-                    break;
+                    if (_originalLevelIds[i] != _validProgressiveLevels.ElementAt(i).LevelId)
+                    {
+                        levelIdsUnchanged = false;
+                        break;
+                    }
                 }
             }
 
