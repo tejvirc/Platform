@@ -37,7 +37,9 @@
                    TargetType="{x:Type GridViewColumnHeader}"
                    BasedOn="{StaticResource MonacoGridViewColumnHeader}">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ConfigurableProgressiveHost}" Value="True">
+                    <DataTrigger Binding="{Binding ConfigurableProgressiveHost}"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="DataTrigger1_303FCCD8">
                         <Setter Property="Visibility" Value="Collapsed"/>
                     </DataTrigger>
                 </Style.Triggers>
@@ -138,19 +140,23 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=(models:Host.RequiredForPlay), Mode=OneWay}"
-                                                   Visibility="{Binding Path=Data.IsWizardPage,                                                         Source={StaticResource Proxy},                                                         Converter={StaticResource TrueCollapsedFalseVisible}}"
+                                                   Visibility="{Binding Path=Data.IsWizardPage,
+                                                       Source={StaticResource Proxy},
+                                                       Converter={StaticResource TrueCollapsedFalseVisible}}"
                                                    AutomationProperties.AutomationId="TextBlock23_303FCCD8" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Progressive Host"
-                                            HeaderContainerStyle="{StaticResource LocalColumnHiderStyle2}">
+                                            HeaderContainerStyle="{StaticResource LocalColumnHiderStyle2}"
+                                            AutomationProperties.AutomationId="GridViewColumn23_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=(models:Host.IsProgressiveHost), Mode=OneWay}" 
                                                    Visibility="{Binding Path=Data.HideProgressiveHostColumn,
                                                         Source={StaticResource Proxy},
-                                                        Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                                                        Converter={StaticResource TrueCollapsedFalseVisible}}"
+                                                   AutomationProperties.AutomationId="TextBlock24_303FCCD8" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -160,7 +166,8 @@
                                         <Button
                                                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonEdit}}"
                                                 VerticalAlignment="Center"
-                                                Command="{Binding Path=DataContext.EditCommand,                                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                Command="{Binding Path=DataContext.EditCommand,
+                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                 CommandParameter="{Binding}"
                                                 AutomationProperties.AutomationId="Button25_303FCCD8" />
                                     </DataTemplate>

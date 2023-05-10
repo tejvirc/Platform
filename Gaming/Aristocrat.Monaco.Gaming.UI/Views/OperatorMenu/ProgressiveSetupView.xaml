@@ -41,10 +41,14 @@
                            AutomationProperties.AutomationId="RowDefinition3_6FC827A3" />
             <RowDefinition Height="*"
                            AutomationProperties.AutomationId="RowDefinition4_6FC827A3" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_6FC827A3" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition6_6FC827A3" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_6FC827A3" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition_6FC827A3" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"
@@ -62,14 +66,16 @@
                 HorizontalAlignment="Right"
                 Visibility="{Binding GenerateCSAPLevelsAllowed, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.GenerateCSAPLevels}}"
-                Command="{Binding GenerateCSAPLevelsCommand}"/>
+                Command="{Binding GenerateCSAPLevelsCommand}"
+                AutomationProperties.AutomationId="Button8_6FC827A3" />
 
         <Label Grid.Row="2"  
                Grid.ColumnSpan="2"  
                Content="Progressive ID:"  
                VerticalAlignment="Center" 
                HorizontalAlignment="Left" 
-               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+               AutomationProperties.AutomationId="Label9_6FC827A3" />
 
         <TextBox Grid.Row="3"  
                  Grid.ColumnSpan="2"  
@@ -78,21 +84,24 @@
                  HorizontalAlignment="Left" 
                  IsReadOnly="{Binding IsSummaryView}" 
                  Text="{Binding ProgressiveId}" 
-                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+                 AutomationProperties.AutomationId="TextBox10_6FC827A3" />
 
         <Label Grid.Row="4"  
                Grid.Column="0"  
                Content="Vertex Level ID:"  
                VerticalAlignment="Center" 
                HorizontalAlignment="Left" 
-               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+               AutomationProperties.AutomationId="Label11_6FC827A3" />
 
         <Label Grid.Row="4"  
                Grid.Column="1"  
                Content="Level to Modify:"  
                VerticalAlignment="Center" 
                HorizontalAlignment="Right" 
-               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+               AutomationProperties.AutomationId="Label12_6FC827A3" />
 
         <TextBox Grid.Row="5"  
                  Grid.Column="0"  
@@ -101,7 +110,8 @@
                  HorizontalAlignment="Left" 
                  Text="{Binding SelectedLevelId}" 
                  IsReadOnly="{Binding IsSummaryView}" 
-                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+                 AutomationProperties.AutomationId="TextBox13_6FC827A3" />
 
         <ComboBox Grid.Row="5"  
                   Grid.Column="1"  
@@ -111,7 +121,8 @@
                   IsReadOnly="{Binding IsSummaryView}" 
                   ItemsSource="{Binding LevelNames}" 
                   SelectedItem="{Binding SelectedLevelName}" 
-                  Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"/>
+                  Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+                  AutomationProperties.AutomationId="ComboBox14_6FC827A3" />
 
         <DataGrid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                   Margin="0 10"

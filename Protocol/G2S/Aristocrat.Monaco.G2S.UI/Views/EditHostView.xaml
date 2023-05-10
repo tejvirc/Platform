@@ -31,9 +31,12 @@
                            AutomationProperties.AutomationId="RowDefinition5_A7144911" />
             <RowDefinition Height="Auto"
                            AutomationProperties.AutomationId="RowDefinition6_A7144911" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_A7144911" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_A7144911" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_A7144911" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"
@@ -55,17 +58,20 @@
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
                AutomationProperties.AutomationId="Label9_A7144911" />
 
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3" AutomationProperties.AutomationId="Grid1_A7144911">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="95*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="95*"
+                                  AutomationProperties.AutomationId="ColumnDefinition1_A7144911" />
+                <ColumnDefinition Width="5*"
+                                  AutomationProperties.AutomationId="ColumnDefinition2_A7144911" />
             </Grid.ColumnDefinitions>
             
             <ComboBox Grid.ColumnSpan="2"
                       Width="auto"
                       ItemsSource="{Binding CommonAddresses}"
                       SelectedValue="{Binding SelectedCommonAddress}"
-                      Visibility="{Binding AddressComboBoxVisibility}"/>
+                      Visibility="{Binding AddressComboBoxVisibility}"
+                      AutomationProperties.AutomationId="ComboBox1_A7144911" />
             
             <TextBox TextWrapping="Wrap" 
                     Text="{Binding Address, 
@@ -98,18 +104,21 @@
                   Margin="0 15 0 0"
                   IsChecked="{Binding IsProgressiveHost}" 
                   Visibility="{Binding SpecificProgressiveHostCheckboxVisibility}"
-                  Content="Progressive Host"/>
+                  Content="Progressive Host"
+                  AutomationProperties.AutomationId="CheckBox13_A7144911" />
 
         <Label Grid.Row="7"
                Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
-               Content="Offline Timer Interval (In Seconds)"/>
+               Content="Offline Timer Interval (In Seconds)"
+               AutomationProperties.AutomationId="Label14_A7144911" />
 
         <TextBox Grid.Row="8"
                  IsReadOnly="False"
                  Text="{Binding OfflineTimerInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
                  Width="Auto"
-                 InputScope="Number" />
+                 InputScope="Number"
+                 AutomationProperties.AutomationId="TextBox15_A7144911" />
 
     </Grid>
 </operatorMenu:OperatorMenuPage>
