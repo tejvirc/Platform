@@ -209,8 +209,8 @@ namespace Aristocrat.Monaco.Gaming
         {
             // lobby config loads after attract config provider, might need a refresh
             _lobbyConfiguration ??= _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
-
             var enabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId).ToList();
+
             List<AttractInfo> configuredAttractSequence;
 
             if (_lobbyConfiguration == null)
@@ -232,6 +232,21 @@ namespace Aristocrat.Monaco.Gaming
 
                 ResetAttractSequenceNumbers(configuredAttractSequence);
                 return configuredAttractSequence;
+            }
+
+            if (_lobbyConfiguration.DefaultGameDisplayOrderByThemeId == null &&
+                _lobbyConfiguration.DefaultGameOrderLightningLinkDisabled == null &&
+                _lobbyConfiguration.DefaultGameOrderLightningLinkEnabled == null)
+            {
+                return enabledGames.Select(
+                    game => new AttractInfo
+                    {
+                        ThemeId = game.ThemeId,
+                        GameType = game.GameType,
+                        ThemeNameDisplayText = AttractGameThemeDisplayText(game.GameType, game.ThemeName),
+                        IsSelected = AttractGameTypeEnabled(game.GameType)
+                    }
+                ).ToList();
             }
 
             // Try to follow the Lightning Link game order

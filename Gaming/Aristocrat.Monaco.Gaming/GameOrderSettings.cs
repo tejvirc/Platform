@@ -77,7 +77,7 @@ namespace Aristocrat.Monaco.Gaming
 
         public void SetAttractOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
         {
-            if (games == null || !games.Any() || !gameOrderConfig.Any())
+            if (games == null || !games.Any() || gameOrderConfig == null || !gameOrderConfig.Any())
             {
                 return;
             }
@@ -123,7 +123,7 @@ namespace Aristocrat.Monaco.Gaming
 
         public void SetIconOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
         {
-            if (_wasOperatorChanged || games == null || !games.Any())
+            if (_wasOperatorChanged || games == null || !games.Any() || gameOrderConfig == null)
             {
                 return;
             }
