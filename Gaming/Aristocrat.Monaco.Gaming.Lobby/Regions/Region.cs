@@ -1,181 +1,147 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Regions;
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
 
-public class Region : IRegion
+public abstract class Region : IRegion
 {
     private readonly IRegionManager _regionManager;
     private readonly IRegionNavigator _regionNavigator;
 
-    private readonly Dictionary<string, RegionViewRegistration> _views = new();
+    private readonly ObservableCollection<ViewItem> _items = new();
 
-    public Region(IRegionManager regionManager, IRegionNavigator regionNavigator)
+    private ViewCollection? _views;
+    private ViewCollection? _activeViews;
+
+    protected Region(IRegionManager regionManager, IRegionNavigator regionNavigator, string regionName)
     {
         _regionManager = regionManager;
         _regionNavigator = regionNavigator;
+        Name = regionName;
     }
 
     public string Name { get; init; }
 
-    public IReadOnlyCollection<object> Views => _views.Values.Select(x => x.View).ToList();
+    public ViewCollection Views => _views ??= new ViewCollection(_items, _ => true);
 
-    public IReadOnlyCollection<object> ActiveViews => _views.Values.Where(x => x.IsActive).Select(x => x.View).ToList();
+    public ViewCollection ActiveViews => _activeViews ??= new ViewCollection(_items, x => x.IsActive);
 
-    public async Task ActivateViewAsync(object view)
+    public virtual void ActivateView(object view)
     {
         if (view == null)
         {
             throw new ArgumentNullException(nameof(view));
         }
 
-        var viewName = _views.Where(x => ReferenceEquals(x.Value.View, view)).Select(x => x.Key).FirstOrDefault();
-        if (viewName == null)
-        {
-            throw new ArgumentOutOfRangeException(nameof(view));
-        }
+        var item = _items.First(x => ReferenceEquals(x.View, view));
 
-        await ActivateViewAsync(viewName);
+        if (!item.IsActive)
+        {
+            item.IsActive = true;
+        }
     }
 
-    public Task ActivateViewAsync(string viewName)
-    {
-        if (!_views.TryGetValue(viewName, out var item))
-        {
-            throw new ArgumentOutOfRangeException(nameof(viewName));
-        }
+    public void ActivateView(string viewName) => ActivateView(GetView(viewName));
 
-        item.IsActive = true;
-
-        return Task.CompletedTask;
-    }
-
-    public async Task DeactivateViewAsync(object view)
+    public virtual void DeactivateView(object view)
     {
         if (view == null)
         {
             throw new ArgumentNullException(nameof(view));
         }
 
-        var viewName = _views.Where(x => ReferenceEquals(x.Value.View, view)).Select(x => x.Key).FirstOrDefault();
+        var viewName = _items.Where(x => ReferenceEquals(x.View, view)).Select(x => x.ViewName).FirstOrDefault();
         if (viewName == null)
         {
             throw new ArgumentOutOfRangeException(nameof(view));
         }
 
-        await DeactivateViewAsync(viewName);
+        DeactivateView(viewName);
     }
 
-    public Task DeactivateViewAsync(string viewName)
-    {
-        if (!_views.TryGetValue(viewName, out var item))
-        {
-            throw new ArgumentOutOfRangeException(nameof(viewName));
-        }
+    public void DeactivateView(string viewName) => DeactivateView(GetView(viewName));
 
-        item.IsActive = false;
-
-        return Task.CompletedTask;
-    }
-
-    public Task<object> GetViewAsync(string viewName)
+    public object GetView(string viewName)
     {
         if (string.IsNullOrWhiteSpace(viewName))
         {
             throw new ArgumentNullException(nameof(viewName));
         }
 
-        if (!_views.TryGetValue(viewName, out var view))
-        {
-            throw new ArgumentOutOfRangeException(nameof(viewName));
-        }
-
-        return view;
+        return _items.Where(x => x.ViewName == viewName).Select(x => x.View).First();
     }
 
-    public Task AddViewAsync(string viewName, object view)
+    public void AddView(string viewName, object view)
     {
-        if (_views.ContainsKey(viewName))
+        if (_items.Any(x => x.ViewName == viewName || ReferenceEquals(x.View, view)))
         {
-            throw new ArgumentException($"Region already contains {viewName} view", nameof(viewName));
+            throw new ArgumentException($@"Region already contains {viewName} view", nameof(viewName));
         }
 
-        _views.Add(viewName, new RegionViewRegistration { Name = viewName, View = view });
+        _items.Add(new ViewItem { ViewName = viewName, View = view });
     }
 
-    public Task RemoveViewAsync(string viewName)
-    {
-        if (!_views.ContainsKey(viewName))
-        {
-            throw new ArgumentOutOfRangeException(nameof(viewName));
-        }
-
-        _views.Remove(viewName);
-    }
-
-    public Task RemoveViewAsync(object view)
-    {
-        if (view == null)
-        {
-            throw new ArgumentNullException(nameof(view));
-        }
-
-        var viewName = _views.Where(x => ReferenceEquals(x.Value.View, view)).Select(x => x.Key).FirstOrDefault();
-        if (viewName == null)
-        {
-            throw new ArgumentOutOfRangeException(nameof(view));
-        }
-
-        _views.Remove(viewName);
-    }
-
-    public Task ClearViewsAsync()
-    {
-        _views.Clear();
-    }
-
-    public async Task<bool> NavigateToAsync(object view)
-    {
-        if (view == null)
-        {
-            throw new ArgumentNullException(nameof(view));
-        }
-
-        var viewName = _views.Where(x => ReferenceEquals(x.Value.View, view)).Select(x => x.Key).FirstOrDefault();
-        if (viewName == null)
-        {
-            throw new ArgumentOutOfRangeException(nameof(view));
-        }
-
-        return await NavigateToAsync(viewName);
-    }
-
-    public async Task<bool> NavigateToAsync(string viewName)
+    public void RemoveView(string viewName)
     {
         if (string.IsNullOrWhiteSpace(viewName))
         {
             throw new ArgumentNullException(nameof(viewName));
         }
 
-        if (_views.TryGetValue(viewName, out var view))
+        var item =  _items.First(x => x.ViewName == viewName);
+
+        RemoveView(item);
+    }
+
+    public void RemoveView(object view)
+    {
+        if (view == null)
         {
-            throw new ArgumentOutOfRangeException(nameof(viewName));
+            throw new ArgumentNullException(nameof(view));
         }
 
-        return await _regionNavigator.NavigateToAsync(viewName);
+        var item = _items.First(x => ReferenceEquals(x.View, view));
+
+        RemoveView(item);
     }
 
-    public IEnumerator<object> GetEnumerator()
+    private void RemoveView(ViewItem item)
     {
-        return _views.Values.Select(x => x.View).GetEnumerator();
+        _items.Remove(item);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    public void ClearViews()
     {
-        return GetEnumerator();
+        _items.Clear();
+    }
+
+    public bool NavigateTo(object view)
+    {
+        if (view == null)
+        {
+            throw new ArgumentNullException(nameof(view));
+        }
+
+        var item = _items.First(x => ReferenceEquals(x.View, view));
+
+        return NavigateTo(item);
+    }
+
+    public bool NavigateTo(string viewName)
+    {
+        if (string.IsNullOrWhiteSpace(viewName))
+        {
+            throw new ArgumentNullException(nameof(viewName));
+        }
+
+        var item = _items.First(x => x.ViewName == viewName);
+
+        return NavigateTo(item);
+    }
+
+    private bool NavigateTo(ViewItem item)
+    {
+        return _regionNavigator.NavigateTo(item.ViewName);
     }
 }

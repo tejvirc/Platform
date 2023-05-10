@@ -4,6 +4,7 @@ using System;
 using Fluxor;
 using Fluxor.Selectors;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 using SimpleInjector;
 
 public static class FluxorExtensions
@@ -42,6 +43,8 @@ public static class FluxorExtensions
 
             // TODO Handle IEnumerable registration conversion between MS DI and SimpleInjector
         }
+
+        // container.RegisterDecorator<IDispatcher, UiThreadDispatcher>(Lifestyle.Singleton);
 
         return container;
     }

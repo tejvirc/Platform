@@ -33,19 +33,24 @@ public class GameLoader : IGameLoader
 
     private void SetGameOrderFromConfig(IEnumerable<IGameDetail> games)
     {
-        var config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
+        var config = _properties.GetValue<LobbyConfiguration?>(GamingConstants.LobbyConfig, null);
 
-        var distinctThemeGames = games.GroupBy(p => p.ThemeId).Select(g => g.FirstOrDefault(e => e.Active)).ToList();
+        var distinctThemeGames = games
+            .GroupBy(p => p.ThemeId)
+            .Select(g => g.FirstOrDefault(e => e.Active))
+            .ToList();
 
         _gameOrderSettings.SetGameOrderFromConfig(
-            distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId })
+            distinctThemeGames
+                .Where(g => g != null)
+                .Select(g => new GameInfo { InstallDateTime = g!.InstallDate, ThemeId = g.ThemeId })
                 .Cast<IGameInfo>().ToList(),
-            config.DefaultGameDisplayOrderByThemeId.ToList());
+            config?.DefaultGameDisplayOrderByThemeId.ToList());
     }
 
     private IEnumerable<GameInfo> GetOrderedGames(ICollection<IGameDetail> games)
     {
-        var config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
+        var config = _properties.GetValue<LobbyConfiguration?>(GamingConstants.LobbyConfig, null);
 
         // ChooseGameOffsetY = UseSmallIcons ? 25.0 : 50.0;
 
@@ -70,12 +75,12 @@ public class GameLoader : IGameLoader
                               ProgressiveIndicator = ProgressiveLobbyIndicator.Disabled,
                               Denomination = denom,
                               BetOption = game.Denominations.Single(d => d.Value == denom).BetOption,
-                              FilteredDenomination = config.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denom : denom,
+                              FilteredDenomination = config?.MinimumWagerCreditsAsFilter ?? false ? game.MinimumWagerCredits * denom : denom,
                               GameType = game.GameType,
                               GameSubtype = game.GameSubtype,
                               PlatinumSeries = false,
                               Enabled = game.Enabled,
-                              AttractHighlightVideoPath = !string.IsNullOrEmpty(game.DisplayMeterName) ? config.AttractVideoWithBonusFilename : config.AttractVideoNoBonusFilename,
+                              AttractHighlightVideoPath = !string.IsNullOrEmpty(game.DisplayMeterName) ? config?.AttractVideoWithBonusFilename : config?.AttractVideoNoBonusFilename,
                               // UseSmallIcons = UseSmallIcons,
                               LocaleGraphics = game.LocaleGraphics,
                               ThemeId = game.ThemeId,
@@ -90,7 +95,7 @@ public class GameLoader : IGameLoader
                 .ThenBy(g => g.Denomination));
     }
 
-    private static bool GameIsNew(IEnumerable<string> gameTags)
+    private static bool GameIsNew(IEnumerable<string>? gameTags)
     {
         return gameTags != null &&
                gameTags.Any(

@@ -296,7 +296,7 @@
             {
                 DataSource = fileName,
                 Pooling = true,
-                Password = _databasePassword,
+                //Password = _databasePassword,
                 //PrepareRetries = retries,
                 //Missing = true,
                 //JournalMode = SQLiteJournalModeEnum.Wal,

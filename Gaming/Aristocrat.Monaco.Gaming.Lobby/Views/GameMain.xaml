@@ -1,17 +1,51 @@
-﻿<Window x:Class="Aristocrat.Monaco.Gaming.Lobby.Views.GameMain"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-        mc:Ignorable="d"
-        Title="GameTop" Height="450" Width="800">
+﻿<mah:MetroWindow x:Class="Aristocrat.Monaco.Gaming.Lobby.Views.GameMain"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                 xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Behaviors"
+                 mc:Ignorable="d"
+                 ShowInTaskbar="False"
+                 Title="{Binding Title, Mode=OneWay}"
+                 Width="1920"
+                 Height="1080"
+                 Background="Black"
+                 BorderThickness="0"
+                 Name="Root">
+
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+
+    <i:Interaction.Behaviors>
+        <behaviors:GameWindowBehavior IsActive="{Binding IsActive}" />
+    </i:Interaction.Behaviors>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
-        <common:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded" x:Name="GameMainScreenRoot"
-                                         Visibility="{Binding IsGameTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+        <common:ExtendedWindowsFormsHost x:Name="GameMainScreenRoot"
+                                         Visibility="{Binding IsActive, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                          VerticalAlignment="Stretch"
                                          HorizontalAlignment="Stretch">
-            <common:NativeFormsControl x:Name="GameMainWindowCtrl" BackColor="Black" Dock="Fill"></common:NativeFormsControl>
+            <common:NativeFormsControl x:Name="GameWindowCtrl" BackColor="Black" Dock="Fill"></common:NativeFormsControl>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding HostControlLoadedCommand}" CommandParameter="{Binding Handle, ElementName=GameWindowCtrl}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </common:ExtendedWindowsFormsHost>
     </Grid>
-</Window>
+
+</mah:MetroWindow>

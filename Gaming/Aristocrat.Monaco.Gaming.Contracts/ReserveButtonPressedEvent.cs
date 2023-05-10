@@ -10,5 +10,12 @@
     [ProtoContract]
     public class ReserveButtonPressedEvent : BaseEvent
     {
+        /// <summary>
+        ///     
+        /// </summary>
+        public ReserveButtonPressedEvent()
+        {
+            
+        }
     }
 }

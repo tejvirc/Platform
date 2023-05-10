@@ -5,7 +5,7 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
-                   xmlns:controls1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
+                   xmlns:controls1="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"

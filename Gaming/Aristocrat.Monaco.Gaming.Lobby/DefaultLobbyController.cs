@@ -9,14 +9,15 @@ using Microsoft.Extensions.Logging;
 using Stateless;
 using Store;
 
-public class DefaultLobbyController : LobbyController
+public class DefaultLobbyController
 {
     private readonly ILogger<DefaultLobbyController> _logger;
     private readonly IEventBus _eventBus;
     private readonly IDispatcher _dispatcher;
 
+    private readonly StateMachine<State, Trigger> _stateMachine;
+
     private State _state;
-    private StateMachine<State, Trigger> _stateMachine;
 
     public DefaultLobbyController(ILogger<DefaultLobbyController> logger, IEventBus eventBus, IDispatcher dispatcher)
     {
@@ -24,7 +25,9 @@ public class DefaultLobbyController : LobbyController
         _eventBus = eventBus;
         _dispatcher = dispatcher;
 
-        CreateStateMachine(State.Startup);
+        _state = State.Startup;
+
+        _stateMachine = CreateStateMachine();
 
         SubscribeToEvents();
     }
@@ -34,20 +37,18 @@ public class DefaultLobbyController : LobbyController
         _eventBus.Subscribe<InitializationCompletedEvent>(this, Handle);
     }
 
-    private void CreateStateMachine(State initialState)
+    private StateMachine<State, Trigger> CreateStateMachine()
     {
-        _state = initialState;
+        var stateMachine = new StateMachine<State, Trigger>(() => _state, s => _state = s);
 
-        _stateMachine = new StateMachine<State, Trigger>(() => _state, s => _state = s);
-
-        _stateMachine.Configure(State.Startup)
+        stateMachine.Configure(State.Startup)
             .OnEntry(() => { });
 
-        _stateMachine.Configure(State.Initialize)
+        stateMachine.Configure(State.Initialize)
             .OnEntryAsync(async () => await OnInitialize())
             .Permit(Trigger.Started, State.Startup);
 
-        _stateMachine.OnUnhandledTrigger(
+        stateMachine.OnUnhandledTrigger(
             (state, trigger) =>
             {
                 _logger.LogError(
@@ -56,7 +57,7 @@ public class DefaultLobbyController : LobbyController
                     trigger);
             });
 
-        _stateMachine.OnTransitioned(
+        stateMachine.OnTransitioned(
             transition =>
             {
                 _logger.LogDebug(
@@ -65,6 +66,8 @@ public class DefaultLobbyController : LobbyController
                     transition.Destination,
                     transition.Trigger);
             });
+
+        return stateMachine;
     }
 
     private Task OnInitialize()

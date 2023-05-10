@@ -32,10 +32,6 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
-    using Log4Net.Extensions.Logging;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
     using Progressives;
     using Runtime;
     using SimpleInjector;
@@ -56,8 +52,6 @@
         private SharedConsumerContext _sharedConsumerContext;
 
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
-
-        private IHost _host;
 
         /// <inheritdoc />
         protected override void OnInitialize()
@@ -95,28 +89,6 @@
                     file => AssemblyLoadContext.Default
                         .LoadFromAssemblyPath(file))
                 .ToList();
-
-            _host = Host.CreateDefaultBuilder()
-                .ConfigureHostConfiguration(config => { })
-                .ConfigureAppConfiguration((context, config) => config
-                    .SetBasePath(binPath))
-                .ConfigureServices((context, services) =>
-                {
-                    services.AddLogging();
-                    services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-                    services.AddSimpleInjector(container, options =>
-                    {
-                        options.DisposeContainerWithServiceProvider = false;
-
-                        options.AddLocalization();
-                    });
-                })
-                .ConfigureLogging((context, config) => config
-                    .AddLog4Net())
-                .UseConsoleLifetime()
-                .Build()
-                .UseSimpleInjector(container);
 
             container.RegisterPackages(assemblies);
         }
@@ -222,8 +194,6 @@
             AddServices();
 
             RegisterLogAdapters();
-
-            _host.Start();
 
             // NOTE: This is just to ensure we don't have an orphan process running
             _container.GetInstance<IGameService>().TerminateAny(false, true);

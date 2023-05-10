@@ -22,7 +22,7 @@
     <Grid>
         <ItemsControl x:Name="GameList"
                       FocusVisualStyle="{x:Null}"
-                      ItemsSource="{Binding Path=DisplayedGameList}"
+                      ItemsSource="{Binding Path=OrderedGames}"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Top">
 

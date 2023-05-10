@@ -8,9 +8,11 @@ using Services.Chooser;
 [FeatureState]
 public record ChooserState
 {
-    public IImmutableList<GameInfo> Games { get; init; }
+    public IImmutableList<GameInfo>? Games { get; init; }
 
     public ChooserStyle Style { get; init; }
 
     public bool IsExtraLargeIcons { get; set; }
+
+    public int GamesPerPage { get; set; }
 }

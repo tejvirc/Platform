@@ -65,8 +65,8 @@
     /// </summary>
     public partial class LobbyViewModel : BaseEntityViewModel, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
     {
-        private const double IdleTimerIntervalSeconds = 15.0;
-        private const double IdleTextTimerIntervalSeconds = 30.0;
+        // private const double IdleTimerIntervalSeconds = 15.0;
+        // private const double IdleTextTimerIntervalSeconds = 30.0;
         private const double RotateTopImageIntervalInSeconds = 10.0;
         private const double RotateTopperImageIntervalInSeconds = 10.0;
         private const double RotateSoftErrorTextIntervalInSeconds = 3.0;

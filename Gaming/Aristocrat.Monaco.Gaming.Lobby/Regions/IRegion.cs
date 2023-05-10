@@ -1,34 +1,34 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Regions;
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
-public interface IRegion : IEnumerable<object>
+public interface IRegion
 {
     string Name { get; }
 
-    IReadOnlyCollection<object> Views { get; }
+    ViewCollection Views { get; }
 
-    IReadOnlyCollection<object> ActiveViews { get; }
+    ViewCollection ActiveViews { get; }
 
-    Task ActivateViewAsync(object view);
+    void ActivateView(object view);
 
-    Task ActivateViewAsync(string viewName);
+    void ActivateView(string viewName);
 
-    Task DeactivateViewAsync(object view);
+    void DeactivateView(object view);
 
-    Task DeactivateViewAsync(string viewName);
-    Task<object> GetViewAsync(string viewName);
+    void DeactivateView(string viewName);
 
-    Task AddViewAsync(string viewName, object view);
+    object GetView(string viewName);
 
-    Task RemoveViewAsync(string viewName);
+    void AddView(string viewName, object view);
 
-    Task RemoveViewAsync(object view);
+    void RemoveView(string viewName);
 
-    Task ClearViewsAsync();
+    void RemoveView(object view);
 
-    Task<bool> NavigateToAsync(object view);
+    void ClearViews();
 
-    Task<bool> NavigateToAsync(string viewName);
+    bool NavigateTo(object view);
+
+    bool NavigateTo(string viewName);
 }

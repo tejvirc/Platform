@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using log4net;
     using Messages;
     using Messages.Commands;
     using Messages.Interceptor;
@@ -89,6 +90,24 @@
             factory.Register<DisableCommandProcessor>(DisableCommand.Descriptor, Lifestyle.Transient);
             container.RegisterInstance<ICommandProcessorFactory>(factory);
             return container;
+        }
+
+        /// <summary>
+        /// extension method for resolve unregistered type
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="logger"></param>
+        public static void AddResolveUnregisteredType(this Container container, string caller = null, ILog logger = null)
+        {
+            container.Options.ResolveUnregisteredConcreteTypes = true;
+            container.ResolveUnregisteredType += (s, e) =>
+            {
+                if (!e.Handled && !e.UnregisteredServiceType.IsAbstract && logger != null)
+                {
+                    logger.Error($"UnregisteredServiceType [{caller}]: {e.UnregisteredServiceType}");
+                }
+            };
         }
     }
 }

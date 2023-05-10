@@ -2,5 +2,7 @@
 
 public interface ILayoutManager
 {
+    void CreateWindows();
 
+    void DestroyWindows();
 }

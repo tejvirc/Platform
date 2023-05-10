@@ -54,7 +54,7 @@
             var lobby = container.GetInstance<ILobby>();
             if (RunState == RunnableState.Running)
             {
-                // lobby.CreateWindow();
+                lobby.CreateWindow();
             }
         }
 

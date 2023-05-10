@@ -18,8 +18,6 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IDisplayDevice _device;
-        private readonly DisplayRole _role;
-        private readonly bool _showCursor;
 
         public WindowToScreenMapper(DisplayRole role)
             : this(
@@ -45,15 +43,19 @@
             bool showCursor,
             ICabinetDetectionService cabinetDetectionService)
         {
-            _role = role;
-            _showCursor = showCursor;
+            Role = role;
+            ShowCursor = showCursor;
             IsFullscreen = fullscreen;
             var cabinetService = cabinetDetectionService ??
                                  throw new ArgumentNullException(nameof(cabinetDetectionService));
             _device = cabinetService.GetDisplayDeviceByItsRole(role);
         }
 
+        public DisplayRole Role { get; }
+
         public bool IsFullscreen { get; }
+
+        public bool ShowCursor { get; }
 
         /// <summary>
         ///     Gets a rectangle representing the screen bounds for the given IDisplayDevice.
@@ -118,14 +120,14 @@
         {
             if (window == null)
             {
-                Logger.Warn($"Invalid arguments for role: {_role}, window is null.");
+                Logger.Warn($"Invalid arguments for role: {Role}, window is null.");
                 return;
             }
 
             var isCorrectScreen = TryGetScreenForDisplayDevice(_device, out var screen);
             if (!isCorrectScreen)
             {
-                Logger.Error($"Invalid arguments for role: {_role} screen is null.");
+                Logger.Error($"Invalid arguments for role: {Role} screen is null.");
                 return;
             }
 
@@ -135,7 +137,7 @@
                 return;
             }
 
-            if (!_showCursor)
+            if (!ShowCursor)
             {
                 window.Cursor = Cursors.None;
                 Cursor.Hide();

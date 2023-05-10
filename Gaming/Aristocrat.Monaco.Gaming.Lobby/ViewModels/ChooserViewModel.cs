@@ -27,20 +27,20 @@ public class ChooserViewModel : ObservableObject
         _disposables.Add(store.SubscribeSelector(gameSelector, OnChanged));
     }
 
-    private void OnChanged(IImmutableList<GameInfo> games)
+    private void OnChanged(IImmutableList<GameInfo>? games)
     {
         if (games == null)
         {
             return;
         }
 
-        DisplayedGameList = new ObservableCollection<GameInfo>(games);
+        OrderedGames = new ObservableCollection<GameInfo>(games);
     }
 
-    public ObservableCollection<GameInfo> DisplayedGameList { get; set; } = new();
+    public ObservableCollection<GameInfo> OrderedGames { get; set; } = new();
 
-    private void OnStateChanged(object sender, EventArgs e)
+    private void OnStateChanged(object? sender, EventArgs e)
     {
-        // DisplayedGameList = new ObservableCollection<GameInfo>(_state.Value.Games);
+        // OrderedGames = new ObservableCollection<GameInfo>(_state.Value.Games);
     }
 }

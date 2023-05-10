@@ -38,7 +38,7 @@
             try
             {
                 Log("Initializing...");
-                Task.Run(() => { StartWebApiEndpoints(); }).ConfigureAwait(false);
+                // Task.Run(() => { StartWebApiEndpoints(); }).ConfigureAwait(false);
                 Log("Endpoints available");
                 Log("Initialized");
             }

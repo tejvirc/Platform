@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services.ResponsibleGaming;
 
+using System;
+using System.ComponentModel;
 using Aristocrat.Monaco.Kernel.Contracts.Events;
 using System.Reflection.Metadata;
 using Contracts;
@@ -29,12 +31,28 @@ public class DefaultResponsibleGamingController : ResponsibleGamingController
         _responsibleGaming.OnForcePendingCheck += ForcePendingResponsibleGamingCheck;
     }
 
+    private void ForcePendingResponsibleGamingCheck(object? sender, EventArgs e)
+    {
+    }
+
+    private void OnForceCashOut(object? sender, EventArgs e)
+    {
+    }
+
+    private void ResponsibleGamingOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+    }
+
+    private void ResponsibleGamingStateChanged(object? sender, ResponsibleGamingSessionStateEventArgs e)
+    {
+    }
+
     private void SubscribeToEvents()
     {
         _eventBus.Subscribe<InitializationCompletedEvent>(this, Handle);
     }
 
-    private async Task Handle(InitializationCompletedEvent evt, CancellationToken cancellationToken)
+    private Task Handle(InitializationCompletedEvent evt, CancellationToken cancellationToken)
     {
         _responsibleGaming.Initialize();
 

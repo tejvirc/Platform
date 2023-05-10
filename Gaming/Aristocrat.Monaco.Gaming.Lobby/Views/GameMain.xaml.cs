@@ -1,5 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Views
 {
+    using System.Windows;
+    using ViewModels;
+
     /// <summary>
     /// Interaction logic for GameMain.xaml
     /// </summary>
@@ -8,6 +11,8 @@
         public GameMain()
         {
             InitializeComponent();
+
+            DataContext = Application.Current.GetService<GameMainViewModel>();
         }
     }
 }

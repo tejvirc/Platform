@@ -1,13 +1,21 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Attract;
 
-using System.Collections.Immutable;
-using Contracts;
 using Fluxor;
 
 [FeatureState]
 public record AttractState
 {
-    public ImmutableList<IAttractInfo> AttractItems { get; init; } = ImmutableList<IAttractInfo>.Empty;
+    public string? DefaultVideoPath { get; set; }
 
-    public int CurrentAttractIndex { get; init; } = 0;
+    public string? TopVideoPath { get; set; }
+
+    public string? BottomVideoPath { get; set; }
+
+    public bool IsAlternateLanguage { get; set; }
+
+    public bool CurrentIndex { get; set; }
+
+    public string? CurrentLanguage { get; set; }
+
+    public bool IsAttractPlaying { get; set; }
 }

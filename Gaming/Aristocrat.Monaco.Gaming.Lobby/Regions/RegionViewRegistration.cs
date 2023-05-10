@@ -8,14 +8,14 @@ public readonly struct RegionViewRegistration : IEquatable<RegionViewRegistratio
 
     public string ViewName { get; init; }
 
-    public Func<object> ViewCreator { get; init; }
+    public Func<object?> ViewCreator { get; init; }
 
     public bool Equals(RegionViewRegistration other)
     {
         return RegionName == other.RegionName && ViewName == other.ViewName;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is RegionViewRegistration regionView)
             return Equals(regionView);

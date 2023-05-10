@@ -28,7 +28,7 @@ public class RegionViewRegistry : IRegionViewRegistry
         }
     }
 
-    public IDictionary<string, object> GetViews(string regionName)
+    public IDictionary<string, object?> GetViews(string regionName)
     {
         if (!_registrations.TryGetValue(regionName, out var registrations))
         {

@@ -19,10 +19,10 @@ public class InfoOverlayText : ObservableObject
     /// <summary>
     ///     Gets or sets text to set
     /// </summary>
-    public string Text { get; init; }
+    public string? Text { get; init; }
 
     /// <summary>
     ///     Gets or sets the location to send the text
     /// </summary>
-    public InfoLocation Location { get; init; }
+    public InfoLocation? Location { get; init; }
 }

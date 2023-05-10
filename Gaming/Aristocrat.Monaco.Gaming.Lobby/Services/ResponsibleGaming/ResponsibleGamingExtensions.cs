@@ -6,16 +6,16 @@ public static class ResponsibleGamingExtensions
 {
     public static Container RegisterResponsibleGaming(this Container container)
     {
-        container.Register<IResponsibleGamingController>(
-            () =>
-            {
-                var config = container.GetInstance<LobbyConfiguration>();
+        //container.Register<IResponsibleGamingController>(
+        //    () =>
+        //    {
+        //        var config = container.GetInstance<LobbyConfiguration>();
 
-                return config.ResponsibleGamingTimeLimitEnabled
-                    ? container.GetInstance<NoResponsibleGamingController>()
-                    : container.GetInstance<DefaultResponsibleGamingController>();
-            },
-            Lifestyle.Singleton);
+        //        return config.ResponsibleGamingTimeLimitEnabled
+        //            ? container.GetInstance<NoResponsibleGamingController>()
+        //            : container.GetInstance<DefaultResponsibleGamingController>();
+        //    },
+        //    Lifestyle.Singleton);
 
         return container;
     }

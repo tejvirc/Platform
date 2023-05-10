@@ -1,31 +1,111 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services.Layout;
 
-using System.Threading;
-using System.Threading.Tasks;
-using Aristocrat.Monaco.Kernel.Contracts.Events;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Windows;
+using Cabinet.Contracts;
+using Fluxor;
+using Hardware.Contracts.Cabinet;
 using Kernel;
-using Microsoft.Extensions.Logging;
+using log4net;
+using Models;
+using Store;
+using Toolkit.Mvvm.Extensions;
+using UI.Common;
+using Views;
 
 public class LayoutManager : ILayoutManager
 {
-    private readonly ILogger<LayoutManager> _logger;
-    private readonly IEventBus _eventBus;
+    private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-    public LayoutManager(ILogger<LayoutManager> logger, IEventBus eventBus)
+    private const string StatusWindowName = "StatusWindow";
+    private const string ShellWindowName = "PlatformWindow";
+
+    private readonly IPropertiesManager _properties;
+    private readonly IWpfWindowLauncher _windowLauncher;
+    private readonly ICabinetDetectionService _cabinetDetection;
+
+    private readonly List<Window> _windows = new();
+
+    public LayoutManager(
+        IPropertiesManager properties,
+        IWpfWindowLauncher windowLauncher,
+        ICabinetDetectionService cabinetDetection)
     {
-        _logger = logger;
-        _eventBus = eventBus;
-
-        SubscribeToEvents();
+        _properties = properties;
+        _windowLauncher = windowLauncher;
+        _cabinetDetection = cabinetDetection;
     }
 
-    private void SubscribeToEvents()
+    public void CreateWindows()
     {
-        _eventBus.Subscribe<InitializationCompletedEvent>(this, Handle);
+        Execute.OnUIThread(
+            () =>
+            {
+                _windowLauncher.Hide(StatusWindowName);
+
+                _windowLauncher.CreateWindow<Shell>(ShellWindowName);
+
+                Logger.Debug("Creating shell windows");
+                var shellWindow = _windowLauncher.GetWindow(ShellWindowName);
+
+                var mainGameWindow = new GameMain { Owner = shellWindow }
+                    .ShowWithTouch();
+
+                _windows.Add(shellWindow);
+                _windows.Add(mainGameWindow);
+
+                //if (_cabinetDetection.Family == HardwareFamily.Unknown ||
+                //    _cabinetDetection.GetDisplayDeviceByItsRole(DisplayRole.Top) != null)
+                //{
+                //    Logger.Debug("Creating top windows");
+                //    var topWindow = new PlatformTop();
+                //    topWindow.ShowWithTouch();
+                //    var topGameWindow = new GameTop { Owner = topWindow };
+                //    topGameWindow.ShowWithTouch();
+
+                //    _windows.Add(topWindow);
+                //    _windows.Add(topGameWindow);
+                //}
+
+                //if (_cabinetDetection.Family == HardwareFamily.Unknown &&
+                //    _properties.GetValue("display", string.Empty) == "windowed" ||
+                //    _cabinetDetection.GetDisplayDeviceByItsRole(DisplayRole.Topper) != null)
+                //{
+                //    Logger.Debug("Creating topper windows");
+                //    var topperWindow = new PlatformTopper();
+                //    topperWindow.ShowWithTouch();
+                //    var topperGameWindow = new GameTopper { Owner = topperWindow };
+                //    topperGameWindow.ShowWithTouch();
+
+                //    _windows.Add(topperWindow);
+                //    _windows.Add(topperGameWindow);
+                //}
+
+                //Logger.Debug("Creating button deck windows");
+                //var buttonDeckWindow = new PlatformButtonDeck();
+                //buttonDeckWindow.ShowWithTouch();
+                //var buttonDeckGameWindow = new GameButtonDeck { Owner = buttonDeckWindow };
+                //buttonDeckGameWindow.ShowWithTouch();
+
+                //_windows.Add(buttonDeckWindow);
+                //_windows.Add(buttonDeckGameWindow);
+            });
     }
 
-    private Task Handle(InitializationCompletedEvent evt, CancellationToken cancellationToken)
+    public void DestroyWindows()
     {
-        return Task.CompletedTask;
+        Execute.OnUIThread(
+            () =>
+            {
+                foreach (var window in _windows)
+                {
+                    window.Close();
+                }
+
+                _windowLauncher.Close(ShellWindowName);
+
+                _windowLauncher.Show(StatusWindowName);
+            });
     }
 }

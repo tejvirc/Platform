@@ -10,7 +10,7 @@
         xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
         xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
         xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay"
-        xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
+        xmlns:controls="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
         xmlns:loc="http://monaco.aristocrat.com/localization"
         xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"

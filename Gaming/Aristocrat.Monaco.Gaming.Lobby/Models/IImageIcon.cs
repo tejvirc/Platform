@@ -2,7 +2,7 @@
 
 public interface IImageIcon
 {
-    string ImagePath { get; }
+    string? ImagePath { get; }
 
     bool IsBinkImage { get; }
 }

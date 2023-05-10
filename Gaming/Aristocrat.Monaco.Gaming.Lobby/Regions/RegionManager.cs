@@ -3,68 +3,97 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using Toolkit.Mvvm.Extensions;
 using XAMLMarkupExtensions.Base;
 
 public class RegionManager : DependencyObject, IRegionManager
 {
+    private readonly IRegionViewRegistry _regionViewRegistry;
+
     private readonly Dictionary<string, IRegion> _regions = new();
+
+    public RegionManager(IRegionViewRegistry regionViewRegistry)
+    {
+        _regionViewRegistry = regionViewRegistry;
+    }
 
     /// <summary>
     ///     <see cref="DependencyProperty"/> set the target region.
     /// </summary>
-    public static readonly DependencyProperty RegionProperty =
+    public static readonly DependencyProperty RegionNameProperty =
         DependencyProperty.RegisterAttached(
-            "Region",
+            "RegionName",
             typeof(string),
             typeof(RegionManager),
-            new FrameworkPropertyMetadata(default(string),
-                FrameworkPropertyMetadataOptions.None, OnRegionNameChanged));
+            new PropertyMetadata(default(string), OnRegionNameChanged));
 
-    private static void OnRegionNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnRegionNameChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
     {
-        if (d is ContentControl contentControl)
+        if (obj is not FrameworkElement element)
         {
-            contentControl.Loaded += (sender, args) => { this.CreateRegion(); };
+            return;
+        }
 
-            var adapter = _regionAdapterMapper.GetAdapter(contentControl.GetType());
-            adapter.Adapt(e.NewValue, contentControl);
+        if (!Execute.InDesigner)
+        {
+            CreateRegion(element);
         }
     }
 
-    /// <summary>
-    ///     Gets or sets the <see cref="RegionProperty"/> value.
-    /// </summary>
-    public string Region
+    private static void CreateRegion(FrameworkElement element)
     {
-        get => (string)GetValue(RegionProperty);
-
-        set => SetValue(RegionProperty, value);
+        var creator = Application.Current.GetService<IRegionCreator<DelayedRegionCreationStrategy>>();
+        creator.Create(element);
     }
 
     /// <summary>
-    ///     Getter of <see cref="RegionProperty"/>.
+    ///     Gets or sets the <see cref="RegionNameProperty"/> value.
+    /// </summary>
+    public string RegionName
+    {
+        get => (string)GetValue(RegionNameProperty);
+
+        set => SetValue(RegionNameProperty, value);
+    }
+
+    /// <summary>
+    ///     Getter of <see cref="RegionNameProperty"/>.
     /// </summary>
     /// <param name="obj">The target dependency object.</param>
     /// <returns>The value of the property.</returns>
-    public static string GetRegion(DependencyObject obj)
+    public static string? GetRegion(DependencyObject obj)
     {
-        return obj?.GetValueSync<string>(RegionProperty);
+        return obj.GetValueSync<string>(RegionNameProperty);
     }
 
     /// <summary>
-    ///     Setter of <see cref="RegionProperty"/>.
+    ///     Setter of <see cref="RegionNameProperty"/>.
     /// </summary>
     /// <param name="obj">The target dependency object.</param>
     /// <param name="value">The value of the property.</param>
     public static void SetRegion(DependencyObject obj, string value)
     {
-        obj?.SetValueSync(RegionProperty, value);
+        obj.SetValueSync(RegionNameProperty, value);
     }
 
-    public async Task RegisterViewAsync<T>(string regionName, string viewName)
+    public void RegisterView<TView>(string regionName, string viewName)
+        where TView : class
+    {
+        if (string.IsNullOrWhiteSpace(regionName))
+        {
+            throw new ArgumentNullException(nameof(regionName));
+        }
+
+        if (string.IsNullOrWhiteSpace(viewName))
+        {
+            throw new ArgumentNullException(nameof(viewName));
+        }
+
+        _regionViewRegistry.RegisterViewWithRegion<TView>(regionName, viewName);
+    }
+
+    public bool NavigateViewAsync(string regionName, string viewName)
     {
         if (string.IsNullOrWhiteSpace(regionName))
         {
@@ -81,27 +110,7 @@ public class RegionManager : DependencyObject, IRegionManager
             throw new ArgumentOutOfRangeException(nameof(regionName));
         }
 
-        await region.AddViewAsync(viewName);
-    }
-
-    public async Task<bool> NavigateViewAsync(string regionName, string viewName)
-    {
-        if (string.IsNullOrWhiteSpace(regionName))
-        {
-            throw new ArgumentNullException(nameof(regionName));
-        }
-
-        if (string.IsNullOrWhiteSpace(viewName))
-        {
-            throw new ArgumentNullException(nameof(viewName));
-        }
-
-        if (!_regions.TryGetValue(regionName, out var region))
-        {
-            throw new ArgumentOutOfRangeException(nameof(regionName));
-        }
-
-        return await region.NavigateToAsync(viewName);
+        return region.NavigateTo(viewName);
     }
 
     public IEnumerator<IRegion> GetEnumerator()

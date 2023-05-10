@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Regions;
 
-using System.Threading.Tasks;
 using System.Windows;
 
-public class RegionCreator<TStrategy> : IRegionCreator<TStrategy>
-    where TStrategy : IRegionCreationStrategy
+public class RegionCreator<TStrategy> : IRegionCreator<TStrategy> where TStrategy : IRegionCreationStrategy
 {
     private readonly TStrategy _strategy;
 
@@ -13,8 +11,8 @@ public class RegionCreator<TStrategy> : IRegionCreator<TStrategy>
         _strategy = strategy;
     }
 
-    public async Task<IRegion> CreateAsync(DependencyObject control)
+    public void Create(FrameworkElement element)
     {
-        return await _strategy.CreateRegionAsync(control);
+        _strategy.CreateRegion(element);
     }
 }

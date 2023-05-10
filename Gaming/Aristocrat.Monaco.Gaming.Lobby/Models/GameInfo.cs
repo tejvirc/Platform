@@ -20,35 +20,35 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
 {
     private const string BinkFileExtension = ".bk2";
 
-    private string _attractHighlightVideoPath = string.Empty;
-    private string _bottomAttractVideoPath = string.Empty;
+    private string? _attractHighlightVideoPath = string.Empty;
+    private string? _bottomAttractVideoPath = string.Empty;
     private long _denom = 1;
     private string _betOption = string.Empty;
     private long _filteredDenom = 1;
-    private string _dllPath;
+    private string? _dllPath;
     private bool _enabled;
     private GameType _gameType = GameType.Slot;
-    private string _gameSubtype;
+    private string? _gameSubtype;
     private GameCategory _category;
     private GameSubCategory _subCategory;
     private bool _isSelected;
     private bool _hasProgressiveOrBonusValue;
-    private string _imagePath;
+    private string? _imagePath;
 
     private DateTime _installDateTime = DateTime.UtcNow;
 
     private bool _isNew;
-    private string _loadingScreenPath = string.Empty;
+    private string? _loadingScreenPath = string.Empty;
 
-    private string _name;
+    private string? _name;
 
     private bool _platinumSeries;
 
-    private string _progressiveOrBonusValue;
-    private string _topAttractVideoPath = string.Empty;
-    private string _topperAttractVideoPath;
+    private string? _progressiveOrBonusValue;
+    private string? _topAttractVideoPath = string.Empty;
+    private string? _topperAttractVideoPath;
     private bool _progressiveErrorVisible;
-    private string _progressiveIndicatorText;
+    private string? _progressiveIndicatorText;
     private ProgressiveLobbyIndicator _progressiveIndicator;
 
     /// <summary>
@@ -59,7 +59,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the path to the game dll
     /// </summary>
-    public string DllPath
+    public string? DllPath
     {
         get => _dllPath;
 
@@ -69,7 +69,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the game name
     /// </summary>
-    public string Name
+    public string? Name
     {
         get => _name;
 
@@ -110,7 +110,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the game image path
     /// </summary>
-    public string ImagePath
+    public string? ImagePath
     {
         get
         {
@@ -130,12 +130,12 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the game image path
     /// </summary>
-    public string TopPickImagePath;
+    public string? TopPickImagePath;
 
     /// <summary>
     ///     Gets or sets the top screen attract video path
     /// </summary>
-    public string TopAttractVideoPath
+    public string? TopAttractVideoPath
     {
         get => _topAttractVideoPath;
 
@@ -145,7 +145,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the topper screen attract video path
     /// </summary>
-    public string TopperAttractVideoPath
+    public string? TopperAttractVideoPath
     {
         get => _topperAttractVideoPath;
 
@@ -155,7 +155,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the bottom screen attract video path
     /// </summary>
-    public string BottomAttractVideoPath
+    public string? BottomAttractVideoPath
     {
         get => _bottomAttractVideoPath;
 
@@ -165,7 +165,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the image to show when a game is loading
     /// </summary>
-    public string LoadingScreenPath
+    public string? LoadingScreenPath
     {
         get => _loadingScreenPath;
 
@@ -176,7 +176,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     ///     Gets or sets the attract higlight video path.  This can be data driven
     ///     and vary per game; however, right now the lobby sets it based on a global setting.
     /// </summary>
-    public string AttractHighlightVideoPath
+    public string? AttractHighlightVideoPath
     {
         get => _attractHighlightVideoPath;
 
@@ -186,7 +186,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the game progressive value
     /// </summary>
-    public string ProgressiveOrBonusValue
+    public string? ProgressiveOrBonusValue
     {
         get => _progressiveOrBonusValue;
 
@@ -216,7 +216,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
         set => SetProperty(ref _progressiveErrorVisible, value);
     }
 
-    public string ProgressiveIndicatorText
+    public string? ProgressiveIndicatorText
     {
         get => _progressiveIndicatorText;
 
@@ -292,7 +292,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets the game type
     /// </summary>
-    public string GameSubtype
+    public string? GameSubtype
     {
         get => _gameSubtype;
 
@@ -361,17 +361,17 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <summary>
     ///     Gets or sets a value indicating the Locale Graphics associated With the Game Info
     /// </summary>
-    public IEnumerable LocaleGraphics { get; set; }
+    public IEnumerable? LocaleGraphics { get; set; }
 
     /// <summary>
     ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need RaisePropertyChanged
     /// </summary>
-    public string ThemeId { get; set; }
+    public string? ThemeId { get; set; }
 
     /// <summary>
     ///     Theme position priority key of the game
     /// </summary>
-    public string PositionPriorityKey { get; set; }
+    public string? PositionPriorityKey { get; set; }
 
     /// <summary>
     ///     Gets or sets a property stating whether or not this game requires mechanical reels
@@ -384,8 +384,7 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// <param name="activeLocaleCode">locale code to use</param>
     public void SelectLocaleGraphics(string activeLocaleCode)
     {
-        var localeGraphics = (Dictionary<string, ILocaleGameGraphics>)LocaleGraphics;
-        if (localeGraphics == null)
+        if (LocaleGraphics is not Dictionary<string, ILocaleGameGraphics> localeGraphics)
         {
             return;
         }
@@ -424,11 +423,9 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// </summary>
     /// <param name="localeCode"></param>
     /// <returns></returns>
-    public string GetTopAttractVideoPathByLocaleCode(string localeCode)
+    public string? GetTopAttractVideoPathByLocaleCode(string localeCode)
     {
-        var localeGraphics = (Dictionary<string, ILocaleGameGraphics>)LocaleGraphics;
-
-        if (localeGraphics != null && localeGraphics.ContainsKey(localeCode))
+        if (LocaleGraphics is Dictionary<string, ILocaleGameGraphics> localeGraphics && localeGraphics.ContainsKey(localeCode))
         {
             return localeGraphics[localeCode].TopAttractVideo;
         }
@@ -441,11 +438,9 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// </summary>
     /// <param name="localeCode"></param>
     /// <returns></returns>
-    public string GetTopperAttractVideoPathByLocaleCode(string localeCode)
+    public string? GetTopperAttractVideoPathByLocaleCode(string localeCode)
     {
-        var localeGraphics = (Dictionary<string, ILocaleGameGraphics>)LocaleGraphics;
-
-        if (localeGraphics != null && localeGraphics.ContainsKey(localeCode))
+        if (LocaleGraphics is Dictionary<string, ILocaleGameGraphics> localeGraphics && localeGraphics.ContainsKey(localeCode))
         {
             return localeGraphics[localeCode].TopperAttractVideo;
         }
@@ -458,11 +453,9 @@ public class GameInfo : ObservableObject, IGameInfo, IImageIcon
     /// </summary>
     /// <param name="localeCode"></param>
     /// <returns></returns>
-    public string GetBottomAttractVideoPathByLocaleCode(string localeCode)
+    public string? GetBottomAttractVideoPathByLocaleCode(string localeCode)
     {
-        var localeGraphics = (Dictionary<string, ILocaleGameGraphics>)LocaleGraphics;
-
-        if (localeGraphics != null && localeGraphics.ContainsKey(localeCode))
+        if (LocaleGraphics is Dictionary<string, ILocaleGameGraphics> localeGraphics && localeGraphics.ContainsKey(localeCode))
         {
             return localeGraphics[localeCode].BottomAttractVideo;
         }

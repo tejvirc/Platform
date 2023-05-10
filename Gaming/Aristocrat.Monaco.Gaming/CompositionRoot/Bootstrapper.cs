@@ -172,18 +172,21 @@
             container.Collection.Register<IPropertyProvider>(
                 new[] { gamePropertyProvider, gameInstaller, browserPropertyProvider });
 
-            container.Register<GameMeterProvider>(Lifestyle.Singleton);
-            container.Register<PlayerMeterProvider>(Lifestyle.Singleton);
-            container.Register<BonusMeterProvider>(Lifestyle.Singleton);
+            var gameMeterProvider = Lifestyle.Singleton.CreateRegistration<GameMeterProvider>(container);
+            var playerMeterProvider = Lifestyle.Singleton.CreateRegistration<PlayerMeterProvider>(container);
+            var bonusMeterProvider = Lifestyle.Singleton.CreateRegistration<BonusMeterProvider>(container);
+            var progressiveMeterProvider = Lifestyle.Singleton.CreateRegistration<ProgressiveMeterProvider>(container);
+            var cabinetMeterProvider = Lifestyle.Singleton.CreateRegistration<CabinetMeterProvider>(container); container.Register<GameMeterProvider>(Lifestyle.Singleton);
 
-            container.Register<ProgressiveMeterProvider>(Lifestyle.Singleton);
-            container.Register<CabinetMeterProvider>(Lifestyle.Singleton);
             container.Collection.Register<IMeterProvider>(
-                typeof(GameMeterProvider),
-                typeof(PlayerMeterProvider),
-                typeof(BonusMeterProvider),
-                typeof(ProgressiveMeterProvider),
-                typeof(CabinetMeterProvider));
+                new[]
+                {
+                    gameMeterProvider,
+                    playerMeterProvider,
+                    bonusMeterProvider,
+                    progressiveMeterProvider,
+                    cabinetMeterProvider
+                });
 
             container.Register<IRandomStateProvider, RandomStateProvider>(Lifestyle.Singleton);
             // IPRNG implementations are keyed by PRNGLib.RandomType:

@@ -1,27 +1,51 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
 
+using System.Reflection;
 using System.Windows;
-using Aristocrat.Monaco.Gaming.Lobby.Services.ResponsibleGaming;
+using System.Windows.Controls;
+using Common.Container;
 using Consumers;
+using Contracts.Lobby;
 using Kernel;
-using ResponsibleGaming;
+using Regions;
 using Services;
+using Services.Layout;
+using Services.OperatorMenu;
+using Services.ResponsibleGaming;
 using SimpleInjector;
 using SimpleInjector.Packaging;
 using UI.Common;
-using ViewModels;
 
 public class GamingLobbyPackage : IPackage
 {
     public void RegisterServices(Container container)
     {
-        container.Register<Contracts.Lobby.ILobby, LobbyLauncher>(Lifestyle.Singleton);
-        container.Register<IViewCollection, ViewCollection>(Lifestyle.Singleton);
+        container.Register<ILobby, LobbyController>(Lifestyle.Singleton);
 
         container.Register<IGameLoader, GameLoader>(Lifestyle.Singleton);
 
-        container.Register<DefaultLobbyViewModel>(Lifestyle.Transient);
-        container.Register<ChooserViewModel>(Lifestyle.Transient);
+        container.Register<ILayoutManager, LayoutManager>(Lifestyle.Singleton);
+
+        container.Register<IOperatorMenuController, OperatorMenuController>(Lifestyle.Singleton);
+
+        container.Register<IScreenMapper, ScreenMapper>();
+
+        container.Register<IRegionManager, RegionManager>();
+
+        container.Register<IRegionViewRegistry, RegionViewRegistry>();
+
+        container.Register<IRegionNavigator, RegionNavigator>();
+
+        container.Register<DelayedRegionCreationStrategy>(Lifestyle.Singleton);
+
+        container.Register(typeof(IRegionCreator<>), typeof(RegionCreator<>), Lifestyle.Transient);
+
+        var regionAdapterMapper = new RegionAdapterMapper(container);
+        regionAdapterMapper.Register<ContentControlRegionAdapter>(typeof(ContentControl));
+
+        container.RegisterInstance<IRegionAdapterMapper>(regionAdapterMapper);
+
+        //container.RegisterManyForOpenGeneric(typeof(IRegionCreator<>), Assembly.GetExecutingAssembly());
 
         container.RegisterLobby();
 
