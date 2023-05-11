@@ -92,7 +92,7 @@ as follows:
     <Menu Type="SystemMainPageLoader">
         <Page Type="TimeConfigPageViewModel" Access="TechnicianZeroCredits"/>
         <Page Type="LimitsPageViewModel" Access="TechnicianZeroCredits"/>
-        <Page Type="VoucherSettingsPageViewModel" Access="TechnicianZeroCredits"/>
+        <Page Type="VoucherSettingsPageViewModel" Access="Technician"/>
         <Page Type="CustomSAPViewModel" Access="MainLogicTechnicianZeroCreditsGameIdle"/>
         <Page Type="AddSAPLevelViewModel" Access="MainLogicTechnicianZeroCreditsGameIdle"/>
         <Page Type="BarkeeperConfigurationViewModel" TabType="BarkeeperConfigurationViewLoader" Visible="false"/>
