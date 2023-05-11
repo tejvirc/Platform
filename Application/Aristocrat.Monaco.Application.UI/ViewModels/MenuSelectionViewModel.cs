@@ -167,6 +167,8 @@
             ExitButtonCommand = new ActionCommand<object>(_ => ExitMenu());
             HelpButtonCommand = new ActionCommand<object>(HandleHelpButtonCommand);
 
+            ConfigureSubscriptions();
+
             EnableOperatorMenuButtons();
             SetupLanguageSwitching();
 
@@ -199,23 +201,6 @@
                     accessRuleSet,
                     UpdateAccess);
             }
-
-            _eventBus.Subscribe<SystemDownEvent>(this, HandleEvent);
-            _eventBus.Subscribe<UpdateOperatorMenuRoleEvent>(this, e => UpdateOperatorMenuRole(e.IsTechnicianRole));
-            _eventBus.Subscribe<TouchDisplayDisconnectedEvent>(this, HandleTouchScreenEvent);
-            _eventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
-            _eventBus.Subscribe<OperatorMenuPageLoadedEvent>(this, OnPageLoaded);
-            _eventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, OnPrintJobStarted);
-            _eventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, OnPrintJobCompleted);
-            _eventBus.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
-            _eventBus.Subscribe<OperatorMenuWarningMessageEvent>(this, OnUpdateWarningMessage);
-            _eventBus.Subscribe<ServiceAddedEvent>(this, UpdatePrinter);
-            _eventBus.Subscribe<OffEvent>(this, HandleEvent);
-            _eventBus.Subscribe<DisplayConnectedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<DialogOpenedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
-            _eventBus.Subscribe<DialogClosedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
 
             LoadMenus();
 
@@ -757,6 +742,26 @@
         public void SetInitialSelectedMenuItem()
         {
             SelectedItem = MenuItems.FirstOrDefault();
+        }
+
+        private void ConfigureSubscriptions()
+        {
+            _eventBus.Subscribe<SystemDownEvent>(this, HandleEvent);
+            _eventBus.Subscribe<UpdateOperatorMenuRoleEvent>(this, e => UpdateOperatorMenuRole(e.IsTechnicianRole));
+            _eventBus.Subscribe<TouchDisplayDisconnectedEvent>(this, HandleTouchScreenEvent);
+            _eventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
+            _eventBus.Subscribe<OperatorMenuPageLoadedEvent>(this, OnPageLoaded);
+            _eventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, OnPrintJobStarted);
+            _eventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, OnPrintJobCompleted);
+            _eventBus.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
+            _eventBus.Subscribe<OperatorMenuWarningMessageEvent>(this, OnUpdateWarningMessage);
+            _eventBus.Subscribe<ServiceAddedEvent>(this, UpdatePrinter);
+            _eventBus.Subscribe<OffEvent>(this, HandleEvent);
+            _eventBus.Subscribe<DisplayConnectedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<DialogOpenedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
+            _eventBus.Subscribe<DialogClosedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
         }
 
         private void OnPrintButtonStatusUpdated(PrintButtonStatus status)
