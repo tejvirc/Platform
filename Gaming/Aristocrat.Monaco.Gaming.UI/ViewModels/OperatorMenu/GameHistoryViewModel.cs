@@ -15,6 +15,7 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
+    using Application.Contracts.Protocol;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
     using Contracts;
@@ -75,6 +76,7 @@
         private bool _replayPauseEnabled;
         private bool _replayPauseActive;
         private ObservableCollection<string> _selectedGameRoundTextList;
+        private readonly IProtocolProgressiveIdProvider _levelIdProvider;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistoryViewModel" /> class.
@@ -112,6 +114,7 @@
 
                 _gameRoundDetailsDisplayProvider = ServiceManager.GetInstance().TryGetService<IGameRoundDetailsDisplayProvider>();
                 _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
+                _levelIdProvider = ServiceManager.GetInstance().TryGetService<IProtocolProgressiveIdProvider>();
 
                 _detailedGameMetersViewModel = container.Container.GetInstance<DetailedGameMetersViewModel>();
                 // Hide the sequence number if we're going to make free games look like independent games (ALC Only)
@@ -1041,6 +1044,11 @@
                 }
 
                 var levelId = linkedLevel?.LevelId ?? jackpot.LevelId;
+
+                if (level != null && _levelIdProvider != null)
+                {
+                    _levelIdProvider.OverrideLevelId(level.GameId, level.ProgressiveId, ref levelId);
+                }
 
                 progressiveWins.Add(
                     new ProgressiveWinModel

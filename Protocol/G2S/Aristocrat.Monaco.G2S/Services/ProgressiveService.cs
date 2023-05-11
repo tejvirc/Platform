@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using System.Timers;
     using Application.Contracts;
+    using Application.Contracts.Protocol;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
@@ -32,7 +33,7 @@
     using log4net;
     using Newtonsoft.Json;
 
-    public class ProgressiveService : IProgressiveService, IService, IDisposable, IProtocolProgressiveEventHandler
+    public class ProgressiveService : IProgressiveService, IService, IDisposable, IProtocolProgressiveEventHandler, IProtocolProgressiveIdProvider
     {
         private const int DefaultNoProgInfo = 30000;
 
@@ -156,7 +157,7 @@
         public string Name => GetType().ToString();
 
         /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(ProgressiveService) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(ProgressiveService), typeof(IProtocolProgressiveIdProvider) };
 
         /// <inheritdoc />
         public void Dispose()
@@ -1247,6 +1248,21 @@
                                        .Single(info => info.ProgId == progId && info.LevelId == levelId);
 
             return returnValue;
+        }
+
+        public void OverrideLevelId(int gameId, int progressiveId, ref int levelId)
+        {
+            if (!_g2sProgressivesEnabled)
+            {
+                return;
+            }
+
+            var vertexLevelId = LevelIds.GetVertexProgressiveLevelId(gameId, progressiveId, levelId);
+
+            if (vertexLevelId != -1)
+            {
+                levelId = vertexLevelId;
+            }
         }
     }
 }
