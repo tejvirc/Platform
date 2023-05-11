@@ -93,12 +93,16 @@
     <div class="level3"><span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel</span></div>
     <div class="level4"><a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html">OperatorMenuPageViewModelBase</a></div>
     <div class="level5"><a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html">ConfigWizardViewModelBase</a></div>
-    <div class="level6"><span class="xref">TimeConfigPageViewModel</span></div>
+    <div class="level6"><a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.InspectionWizardViewModelBase.html">InspectionWizardViewModelBase</a></div>
+    <div class="level7"><span class="xref">TimeConfigPageViewModel</span></div>
   </div>
   
   
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.InspectionWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_InspectionWizardViewModelBase_Inspection">InspectionWizardViewModelBase.Inspection</a>
+    </div>
     <div>
       <a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_ConfigWizardViewModelBase_AutoConfigurator">ConfigWizardViewModelBase.AutoConfigurator</a>
     </div>
@@ -122,9 +126,6 @@
     </div>
     <div>
       <a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_ConfigWizardViewModelBase_OnLoaded">ConfigWizardViewModelBase.OnLoaded()</a>
-    </div>
-    <div>
-      <a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_ConfigWizardViewModelBase_SetupNavigation">ConfigWizardViewModelBase.SetupNavigation()</a>
     </div>
     <div>
       <a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_ConfigWizardViewModelBase_LoadAutoConfiguration">ConfigWizardViewModelBase.LoadAutoConfiguration()</a>
@@ -482,7 +483,7 @@
   <h5 id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, IDataErrorInfo, IOperatorMenuPageViewModel, IDisposable, INotifyPropertyChanged, IOperatorMenuConfigObject, ILiveSettingParent, IConfigWizardViewModel</code></pre>
+public class TimeConfigPageViewModel : InspectionWizardViewModelBase, IViewModel, IDataErrorInfo, IOperatorMenuPageViewModel, IDisposable, INotifyPropertyChanged, IOperatorMenuConfigObject, ILiveSettingParent, IConfigWizardViewModel</code></pre>
   </div>
   
   
@@ -497,7 +498,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel__ctor_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.%23ctor(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel__ctor_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.#ctor*"></a>
@@ -543,7 +544,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_ApplyButtonIsVisible.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.ApplyButtonIsVisible%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_ApplyButtonIsVisible_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.ApplyButtonIsVisible*"></a>
@@ -586,7 +587,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_ApplyCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.ApplyCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_ApplyCommand_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.ApplyCommand*"></a>
@@ -629,7 +630,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_CanApply.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.CanApply%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_CanApply_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.CanApply*"></a>
@@ -672,7 +673,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Hour.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Hour%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L104" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L113" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Hour_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Hour*"></a>
@@ -715,7 +716,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Hours.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Hours%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L164" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L177" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Hours_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Hours*"></a>
@@ -755,10 +756,96 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_InspectorInitials.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.InspectorInitials%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L200" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_InspectorInitials_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.InspectorInitials*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_InspectorInitials" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.InspectorInitials"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_InspectorInitials" class="expander" data-toggle="collapse">InspectorInitials</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_InspectorInitials" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string InspectorInitials { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_IsInspection.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.IsInspection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L183" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_IsInspection_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.IsInspection*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_IsInspection" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.IsInspection"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_IsInspection" class="expander" data-toggle="collapse">IsInspection</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_IsInspection" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInspection { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Minute.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Minute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L129" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Minute_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Minute*"></a>
@@ -801,7 +888,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Minutes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Minutes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L166" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L179" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Minutes_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Minutes*"></a>
@@ -844,7 +931,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OffsetIsVisible.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OffsetIsVisible%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OffsetIsVisible_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OffsetIsVisible*"></a>
@@ -884,10 +971,53 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OrderNumber.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OrderNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L189" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OrderNumber_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OrderNumber*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OrderNumber" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OrderNumber"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OrderNumber" class="expander" data-toggle="collapse">OrderNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OrderNumber" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string OrderNumber { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_PickerDate.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.PickerDate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L149" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L161" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_PickerDate_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.PickerDate*"></a>
@@ -930,7 +1060,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Second.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Second%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L134" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L145" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Second_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Second*"></a>
@@ -973,7 +1103,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Seconds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Seconds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L168" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L181" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Seconds_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Seconds*"></a>
@@ -1016,7 +1146,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_TimeZoneId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.TimeZoneId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_TimeZoneId_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.TimeZoneId*"></a>
@@ -1059,7 +1189,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_TimeZoneOffset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.TimeZoneOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_TimeZoneOffset_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.TimeZoneOffset*"></a>
@@ -1102,7 +1232,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_TimeZones.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.TimeZones%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_TimeZones_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.TimeZones*"></a>
@@ -1147,7 +1277,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Loaded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Loaded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L218" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L277" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_Loaded_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.Loaded*"></a>
@@ -1183,7 +1313,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OnInputEnabledChanged.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OnInputEnabledChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L234" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L296" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OnInputEnabledChanged_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OnInputEnabledChanged*"></a>
@@ -1219,7 +1349,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OnUnloaded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OnUnloaded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L210" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L269" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_OnUnloaded_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.OnUnloaded*"></a>
@@ -1255,7 +1385,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_SaveChanges.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.SaveChanges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L170" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L210" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_SaveChanges_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.SaveChanges*"></a>
@@ -1278,7 +1408,43 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
   
   
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_ConfigWizardViewModelBase_SaveChanges">ConfigWizardViewModelBase.SaveChanges()</a></div>
+  <div><a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.InspectionWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_InspectionWizardViewModelBase_SaveChanges">InspectionWizardViewModelBase.SaveChanges()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_SetupNavigation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.SetupNavigation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L258" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_SetupNavigation_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.SetupNavigation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_SetupNavigation" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel.SetupNavigation"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_SetupNavigation" class="expander" data-toggle="collapse">SetupNavigation()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel_SetupNavigation" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SetupNavigation()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_ConfigWizardViewModelBase_SetupNavigation">ConfigWizardViewModelBase.SetupNavigation()</a></div>
   
   
   
@@ -1291,7 +1457,7 @@ public class TimeConfigPageViewModel : ConfigWizardViewModelBase, IViewModel, ID
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_TimeConfigPageViewModel.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.TimeConfigPageViewModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L18" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/TimeConfigPageViewModel.cs/#L19" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
