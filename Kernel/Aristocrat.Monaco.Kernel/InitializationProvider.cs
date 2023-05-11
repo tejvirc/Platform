@@ -10,11 +10,30 @@
     /// </summary>
     public class InitializationProvider : IInitializationProvider, IService
     {
+        private readonly IEventBus _eventBus;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="InitializationProvider" /> class.
+        /// </summary>
+        public InitializationProvider()
+            : this(ServiceManager.GetInstance().GetService<IEventBus>())
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="InitializationProvider" /> class.
+        /// </summary>
+        /// <param name="eventBus">An <see cref="IEventBus" /> instance</param>
+        public InitializationProvider(IEventBus eventBus)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        }
+
         /// <inheritdoc />
         public void SystemInitializationCompleted()
         {
             IsSystemInitializationComplete = true;
-            ServiceManager.GetInstance()?.GetService<IEventBus>()?.Publish(new InitializationCompletedEvent());
+            _eventBus?.Publish(new InitializationCompletedEvent());
         }
 
         /// <inheritdoc />

@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests
 {
-    using Components;
     using Contracts;
     using Contracts.Events;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,14 +9,15 @@
     [TestClass]
     public class InitializationProviderTests
     {
-        private readonly InitializationProvider _target = new InitializationProvider();
         private Mock<IEventBus> _eventBus;
+        private InitializationProvider _target;
 
         [TestInitialize]
         public void MyTestInitialize()
         {
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
+            _target = new InitializationProvider();
             _target.Initialize();
         }
 

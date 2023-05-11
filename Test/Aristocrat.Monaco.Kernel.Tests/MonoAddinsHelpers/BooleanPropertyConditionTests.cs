@@ -29,8 +29,6 @@
         [TestInitialize]
         public void TestInitialize()
         {
-            _target = new BooleanPropertyCondition();
-
             var currentDirectory = Directory.GetCurrentDirectory();
             AddinManager.Initialize(currentDirectory, currentDirectory, currentDirectory);
 
@@ -39,6 +37,8 @@
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.AddService<IPropertiesManager>(_propertiesManager);
             MoqServiceManager.AddService<IEventBus>(_eventBusMock);
+
+            _target = new BooleanPropertyCondition();
         }
 
         /// <summary>

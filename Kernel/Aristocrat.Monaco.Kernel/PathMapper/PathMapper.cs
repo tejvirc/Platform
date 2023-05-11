@@ -18,10 +18,28 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly PathNode _rootNode = new PathNode(string.Empty);
+        private readonly PathNode _rootNode = new(string.Empty);
 
-        private readonly ConcurrentDictionary<string, DirectoryInfo> _directories =
-            new ConcurrentDictionary<string, DirectoryInfo>();
+        private readonly ConcurrentDictionary<string, DirectoryInfo> _directories = new();
+
+        private readonly IPropertiesManager _properties;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PathMapper" /> class.
+        /// </summary>
+        public PathMapper()
+            : this(ServiceManager.GetInstance().GetService<IPropertiesManager>())
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PathMapper" /> class.
+        /// </summary>
+        /// <param name="properties">An <see cref="IPropertiesManager" /> instance</param>
+        public PathMapper(IPropertiesManager properties)
+        {
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+        }
 
         /// <inheritdoc />
         public DirectoryInfo GetDirectory(string platformPath)
@@ -44,7 +62,13 @@
             {
                 Logger.Info($"Adding mapping: {node.PlatformPath} => {node.FileSystemPath} / {node.RelativeTo}");
 
-                AddPath(node.PlatformPath, node.FileSystemPath, node.RelativeTo, node.AbsolutePathName, node.CreateIfNotExists, _rootNode);
+                AddPath(
+                    node.PlatformPath,
+                    node.FileSystemPath,
+                    node.RelativeTo,
+                    node.AbsolutePathName,
+                    node.CreateIfNotExists,
+                    _rootNode);
             }
         }
 
@@ -65,7 +89,33 @@
             return new List<string>(platformPath.Split('/'));
         }
 
-        private static void AddPath(
+        private static bool FindLeaf(IEnumerator partsEnumerator, ref PathNode node)
+        {
+            // Point to the first element in the enumerator
+            partsEnumerator.Reset();
+            partsEnumerator.MoveNext();
+
+            var partName = (string)partsEnumerator.Current;
+
+            while (node.TryGetChildNode(partName, out var nextNode))
+            {
+                node = nextNode;
+
+                if (partsEnumerator.MoveNext())
+                {
+                    // If the partsEnumerator can be advanced then we just keep going
+                    partName = (string)partsEnumerator.Current;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void AddPath(
             string platformPath,
             string fileSystemPath,
             string relativeTo,
@@ -86,13 +136,12 @@
             var haveRelativePath = !string.IsNullOrEmpty(relativeTo);
             var haveFileSystemPath = !string.IsNullOrEmpty(fileSystemPath);
 
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
             if (!string.IsNullOrEmpty(absolutePathName) &&
-                Directory.Exists(properties.GetValue(absolutePathName, string.Empty)))
+                Directory.Exists(_properties.GetValue(absolutePathName, string.Empty)))
             {
-                fileSystemPath = properties.GetValue(absolutePathName, string.Empty);
+                fileSystemPath = _properties.GetValue(absolutePathName, string.Empty);
             }
+
             if (haveRelativePath && !haveFileSystemPath)
             {
                 var referredParts = VerifyPlatformPath(relativeTo);
@@ -189,32 +238,6 @@
 
                 node.FileSystemPath = fileSystemPath;
             }
-        }
-
-        private static bool FindLeaf(IEnumerator partsEnumerator, ref PathNode node)
-        {
-            // Point to the first element in the enumerator
-            partsEnumerator.Reset();
-            partsEnumerator.MoveNext();
-
-            var partName = (string)partsEnumerator.Current;
-
-            while (node.TryGetChildNode(partName, out var nextNode))
-            {
-                node = nextNode;
-
-                if (partsEnumerator.MoveNext())
-                {
-                    // If the partsEnumerator can be advanced then we just keep going
-                    partName = (string)partsEnumerator.Current;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         private DirectoryInfo InternalGet(string path)

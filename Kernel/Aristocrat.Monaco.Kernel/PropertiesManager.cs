@@ -17,15 +17,27 @@
         private readonly Dictionary<string, IPropertyProvider> _propertyProvider =
             new Dictionary<string, IPropertyProvider>();
 
+        private readonly IEventBus _eventBus;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertiesManager" /> class.
         /// </summary>
         public PropertiesManager()
+            : this(ServiceManager.GetInstance().GetService<IEventBus>())
         {
             Logger.Debug("Adding the default property provider");
 
             // add the default property provider to our provider list
             AddPropertyProvider(_defaultProvider);
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PropertiesManager" /> class.
+        /// </summary>
+        /// <param name="eventBus">An <see cref="IEventBus" /> instance</param>
+        public PropertiesManager(IEventBus eventBus)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         /// <summary>
@@ -45,13 +57,11 @@
         {
             Logger.Debug($"Adding property provider: {provider}");
 
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             // iterate thru the list of properties being provided and add them to our collection
             foreach (var property in provider.GetCollection)
             {
                 _propertyProvider[property.Key] = provider;
-                eventBus.Publish(new PropertyChangedEvent(property.Key));
+                _eventBus.Publish(new PropertyChangedEvent(property.Key));
             }
         }
 
@@ -106,8 +116,6 @@
 
         private void PropertySet(string propertyName, object propertyValue)
         {
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             // check if the property key is already in our dictionary
             if (_propertyProvider.TryGetValue(propertyName, out var possiblePropertyProvider))
             {
@@ -118,12 +126,12 @@
                 {
                     if (propertyValue != null)
                     {
-                        eventBus.Publish(new PropertyChangedEvent(propertyName));
+                        _eventBus.Publish(new PropertyChangedEvent(propertyName));
                     }
                 }
                 else if (!oldValue.Equals(propertyValue))
                 {
-                    eventBus.Publish(new PropertyChangedEvent(propertyName));
+                    _eventBus.Publish(new PropertyChangedEvent(propertyName));
                 }
             }
             else
@@ -136,7 +144,7 @@
                 // Also add it to our dictionary
                 _propertyProvider.Add(propertyName, _defaultProvider);
 
-                eventBus.Publish(new PropertyChangedEvent(propertyName));
+                _eventBus.Publish(new PropertyChangedEvent(propertyName));
             }
         }
     }

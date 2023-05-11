@@ -20,16 +20,32 @@
         private const string AddinMessageDisplayRemoveExtensionPoint = "/Kernel/MessageDisplayRemove";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly object _messageLock = new();
+        private readonly IEventBus _eventBus;
 
-        private List<MessageDisplayReasonNode> _configuredDisplayNodes = new List<MessageDisplayReasonNode>();
-        private ConcurrentStack<IMessageDisplayHandler> _handlers = new ConcurrentStack<IMessageDisplayHandler>();
-        private Collection<DisplayableMessage> _messages = new Collection<DisplayableMessage>();
-        private List<ObservedMessage> _observedMessages = new List<ObservedMessage>();
-        private IEventBus _eventBus;
+        private List<MessageDisplayReasonNode> _configuredDisplayNodes = new();
+        private ConcurrentStack<IMessageDisplayHandler> _handlers = new();
+        private Collection<DisplayableMessage> _messages = new();
+        private List<ObservedMessage> _observedMessages = new();
         private IErrorMessageMapping _mapping;
-        private readonly object _messageLock = new object();
-
         private bool _disposed;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="MessageDisplay" /> class.
+        /// </summary>
+        public MessageDisplay()
+            : this(ServiceManager.GetInstance().GetService<IEventBus>())
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="MessageDisplay" /> class.
+        /// </summary>
+        /// <param name="eventBus">An <see cref="IEventBus" /> instance</param>
+        public MessageDisplay(IEventBus eventBus)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        }
 
         /// <inheritdoc />
         public void Dispose()
@@ -60,6 +76,7 @@
                         }
                     }
                 }
+
                 Logger.Debug("Added new message display handler...");
             }
             else
@@ -81,10 +98,10 @@
             var items = new IMessageDisplayHandler[_handlers.Count];
             if (_handlers.TryPopRange(items) > 0)
             {
-                bool found = false;
+                var found = false;
                 foreach (var item in items)
                 {
-                    if(!item.Equals(handler))
+                    if (!item.Equals(handler))
                     {
                         _handlers.Push(item);
                     }
@@ -94,7 +111,7 @@
                     }
                 }
 
-                if(!found)
+                if (!found)
                 {
                     Logger.WarnFormat(
                         "MessageDisplay has no handlers to remove\nMessage display handler: {0}",
@@ -120,7 +137,8 @@
             {
                 if (!_messages.Any(o => mappedMessage.IsMessageEquivalent(o)))
                 {
-                    var sameId = _messages.Where(o => o.Id == mappedMessage.Id && !mappedMessage.IsMessageEquivalent(o)).ToList();
+                    var sameId = _messages.Where(o => o.Id == mappedMessage.Id && !mappedMessage.IsMessageEquivalent(o))
+                        .ToList();
                     foreach (var message in sameId)
                     {
                         // We are already displaying a message on this Guid, remove it for the new message if anything has changed
@@ -130,8 +148,9 @@
                     if (mappedMessage.MessageHasDynamicGuid)
                     {
                         // Messages with dynamic Guids have to be equated via the text of the message
-                        var sameText = _messages.Where(o => o.MessageHasDynamicGuid && o.Message == mappedMessage.Message
-                                                        && !mappedMessage.IsMessageEquivalent(o)).ToList();
+                        var sameText = _messages.Where(
+                            o => o.MessageHasDynamicGuid && o.Message == mappedMessage.Message
+                                                         && !mappedMessage.IsMessageEquivalent(o)).ToList();
                         foreach (var message in sameText)
                         {
                             // We are already displaying a message with the same text.  Remove it for the new message if anything has changed
@@ -145,11 +164,7 @@
                     if (displayNode != null)
                     {
                         _observedMessages.Add(
-                            new ObservedMessage
-                            {
-                                Message = mappedMessage,
-                                DisplayReasonNode = displayNode
-                            });
+                            new ObservedMessage { Message = mappedMessage, DisplayReasonNode = displayNode });
                     }
 
                     Logger.Debug($"Displaying new message: {mappedMessage}");
@@ -177,58 +192,6 @@
             Task.Delay(timeout).ContinueWith(_ => RemoveMessage(displayableMessage));
         }
 
-        private void RemoveMessageInternal(DisplayableMessage displayableMessage, bool explicitRemove = false)
-        {
-            DisplayableMessage mappedMessage = null;
-            if (!explicitRemove)
-            {
-                mappedMessage = MapMessage(displayableMessage);
-            }
-            Logger.Debug($"Removing Internal - {displayableMessage.Message}");
-            lock (_messageLock)
-            {
-                List<ObservedMessage> observedMessagesToRemove;
-                if (explicitRemove)
-                {
-                    // explicit remove is referring to the _messages object.  We still need to search _observedMessages by id
-                    observedMessagesToRemove =
-                        _observedMessages.Where(o => o.Message.Id == displayableMessage.Id).ToList();
-                }
-                else
-                {
-                    observedMessagesToRemove = _observedMessages
-                        .Where(o => mappedMessage.IsMessageEquivalent(o.Message)).ToList();
-                }
-
-                foreach (var message in observedMessagesToRemove)
-                {
-                    _observedMessages.Remove(message);
-                }
-
-                var messagesToRemove = explicitRemove
-                    ? new List<DisplayableMessage> { displayableMessage }
-                    : _messages.Where(o => mappedMessage.IsMessageEquivalent(o)).ToList();
-                    
-                foreach (var message in messagesToRemove)
-                {
-                    if (_messages.Remove(message))
-                    {
-                        Logger.Info($"Removing message {message} from MessageDisplay");
-
-                        foreach (var handler in _handlers)
-                        {
-                            Logger.Debug($"Removing message {message} from display handler {handler}");
-                            handler?.RemoveMessage(message);
-                        }
-                    }
-                }
-            }
-
-            Logger.Debug($"Removed Internal - {displayableMessage.Message}");
-
-            _eventBus.Publish(new MessageRemovedEvent(displayableMessage));
-        }
-
         /// <inheritdoc />
         public void RemoveMessage(DisplayableMessage displayableMessage)
         {
@@ -240,7 +203,7 @@
         }
 
         /// <summary>
-        /// Same as RemoveMessage(DisplayableMessage) but removes a message added with the supplied messageId
+        ///     Same as RemoveMessage(DisplayableMessage) but removes a message added with the supplied messageId
         /// </summary>
         /// <param name="messageId"></param>
         public void RemoveMessage(Guid messageId)
@@ -273,7 +236,7 @@
         }
 
         /// <summary>
-        /// Use AddErrorMessageMapping to inject the ErrorMessageMapping object into the MessageDisplay Service
+        ///     Use AddErrorMessageMapping to inject the ErrorMessageMapping object into the MessageDisplay Service
         /// </summary>
         /// <param name="mapping"></param>
         public void AddErrorMessageMapping(IErrorMessageMapping mapping)
@@ -289,7 +252,12 @@
                     var mappingResult = _mapping.MapError(message.Id, message.Message);
                     if (mappingResult.errorMapped)
                     {
-                        var newMessage = new DisplayableMessage(() => mappingResult.mappedText, message.Classification, message.Priority, message.ReasonEvent, message.Id);
+                        var newMessage = new DisplayableMessage(
+                            () => mappingResult.mappedText,
+                            message.Classification,
+                            message.Priority,
+                            message.ReasonEvent,
+                            message.Id);
                         RemoveMessage(message);
                         DisplayMessage(newMessage);
                     }
@@ -308,7 +276,6 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             var displayEventTypes = new List<Type>();
 
             // Gather all configured display nodes and subscribe to the remove events.
@@ -391,13 +358,66 @@
 
                     _configuredDisplayNodes.Clear();
                     _configuredDisplayNodes = null;
-             
+
                     _observedMessages.Clear();
                     _observedMessages = null;
                 }
 
                 _disposed = true;
             }
+        }
+
+        private void RemoveMessageInternal(DisplayableMessage displayableMessage, bool explicitRemove = false)
+        {
+            DisplayableMessage mappedMessage = null;
+            if (!explicitRemove)
+            {
+                mappedMessage = MapMessage(displayableMessage);
+            }
+
+            Logger.Debug($"Removing Internal - {displayableMessage.Message}");
+            lock (_messageLock)
+            {
+                List<ObservedMessage> observedMessagesToRemove;
+                if (explicitRemove)
+                {
+                    // explicit remove is referring to the _messages object.  We still need to search _observedMessages by id
+                    observedMessagesToRemove =
+                        _observedMessages.Where(o => o.Message.Id == displayableMessage.Id).ToList();
+                }
+                else
+                {
+                    observedMessagesToRemove = _observedMessages
+                        .Where(o => mappedMessage.IsMessageEquivalent(o.Message)).ToList();
+                }
+
+                foreach (var message in observedMessagesToRemove)
+                {
+                    _observedMessages.Remove(message);
+                }
+
+                var messagesToRemove = explicitRemove
+                    ? new List<DisplayableMessage> { displayableMessage }
+                    : _messages.Where(o => mappedMessage.IsMessageEquivalent(o)).ToList();
+
+                foreach (var message in messagesToRemove)
+                {
+                    if (_messages.Remove(message))
+                    {
+                        Logger.Info($"Removing message {message} from MessageDisplay");
+
+                        foreach (var handler in _handlers)
+                        {
+                            Logger.Debug($"Removing message {message} from display handler {handler}");
+                            handler?.RemoveMessage(message);
+                        }
+                    }
+                }
+            }
+
+            Logger.Debug($"Removed Internal - {displayableMessage.Message}");
+
+            _eventBus.Publish(new MessageRemovedEvent(displayableMessage));
         }
 
         private void ReceiveEvent(IEvent data)
@@ -411,7 +431,7 @@
                 observedMessages =
                     _observedMessages.FindAll(
                         trace =>
-                        trace.DisplayReasonNode.RemoveNodes.Contains(data.GetType()));
+                            trace.DisplayReasonNode.RemoveNodes.Contains(data.GetType()));
             }
 
             foreach (var observedMessage in observedMessages)
@@ -486,7 +506,7 @@
             /// <summary>
             ///     Gets the list of received event types.
             /// </summary>
-            public List<Type> ReceivedEventTypes { get; } = new List<Type>();
+            public List<Type> ReceivedEventTypes { get; } = new();
         }
     }
 }

@@ -19,10 +19,30 @@ namespace Aristocrat.Monaco.Kernel
                 = new Dictionary<Guid, (SystemDisablePriority priority, Func<string> reason, bool affectsIdle, CancellationTokenSource cts)>();
 
         private ReaderWriterLockSlim _stateLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
-        private IMessageDisplay _messageDisplay;
-        private IEventBus _eventBus;
+        private readonly IMessageDisplay _messageDisplay;
+        private readonly IEventBus _eventBus;
 
         private bool _disposed;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="SystemDisableManager" /> class.
+        /// </summary>
+        public SystemDisableManager()
+            : this(ServiceManager.GetInstance().GetService<IMessageDisplay>(),
+                  ServiceManager.GetInstance().GetService<IEventBus>())
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="SystemDisableManager" /> class.
+        /// </summary>
+        /// <param name="messageDisplay">An <see cref="IMessageDisplay" /> instance</param>
+        /// <param name="eventBus">An <see cref="IEventBus" /> instance</param>
+        public SystemDisableManager(IMessageDisplay messageDisplay, IEventBus eventBus)
+        {
+            _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        }
 
         /// <summary>
         ///     Finalizes an instance of the <see cref="SystemDisableManager" /> class.
@@ -48,9 +68,6 @@ namespace Aristocrat.Monaco.Kernel
         /// <inheritdoc />
         public void Initialize()
         {
-            _messageDisplay = ServiceManager.GetInstance().GetService<IMessageDisplay>();
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             Logger.Debug("Initialized");
         }
 

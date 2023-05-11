@@ -235,7 +235,7 @@
 
             pathMapper.GetDirectory("Kernel/Test/UnmappedDoesNotExist");
         }
-        
+
         [TestMethod]
         public void GetDirectoryNotFoundTest()
         {

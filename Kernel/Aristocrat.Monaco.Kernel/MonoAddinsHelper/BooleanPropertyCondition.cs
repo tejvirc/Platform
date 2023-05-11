@@ -1,10 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Kernel
 {
-    using log4net;
-    using Mono.Addins;
     using System;
     using System.Globalization;
     using System.Reflection;
+    using Aristocrat.Monaco.Kernel.Components;
+    using log4net;
+    using Mono.Addins;
 
     /// <summary>
     ///     An implementation of mono-addins abstract ConditionType class used to conditionally include an add-in during
@@ -73,12 +74,29 @@
         /// </summary>
         private string _propertyName = string.Empty;
 
+        private readonly IPropertiesManager _propertiesManager;
+
+        private readonly IEventBus _eventBus;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="BooleanPropertyCondition" /> class.
         /// </summary>
         public BooleanPropertyCondition()
+                        : this(ServiceManager.GetInstance().GetService<IPropertiesManager>(),
+                              ServiceManager.GetInstance().GetService<IEventBus>())
         {
             Logger.Debug("Creating a BooleanPropertyCondition object");
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ComponentRegistry" /> class.
+        /// </summary>
+        /// <param name="propertiesManager">An <see cref="IPropertiesManager" /> instance</param>
+        /// /// <param name="eventBus">An <see cref="IEventBus" /> instance</param>
+        public BooleanPropertyCondition(IPropertiesManager propertiesManager, IEventBus eventBus)
+        {
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         /// <summary>
@@ -105,8 +123,7 @@
 
                 // This is the first time the property is evaluated, subscribe to PropertyChangedEvent so that
                 // property changes will trigger a reevaluation.
-                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                eventBus.Subscribe<PropertyChangedEvent>(this, HandlePropertyChanged, evt => evt.PropertyName == _propertyName);
+                _eventBus.Subscribe<PropertyChangedEvent>(this, HandlePropertyChanged, evt => evt.PropertyName == _propertyName);
             }
             else if (_propertyName != propertyName)
             {
@@ -135,9 +152,7 @@
 
             defaultValue = hasDefault && defaultValue;
 
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
-            return (bool?)propertiesManager?.GetProperty(propertyName, defaultValue) == valueToCompareWith;
+            return (bool?)_propertiesManager?.GetProperty(propertyName, defaultValue) == valueToCompareWith;
         }
 
         private void HandlePropertyChanged(PropertyChangedEvent data)
