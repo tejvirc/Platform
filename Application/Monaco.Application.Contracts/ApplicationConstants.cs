@@ -563,6 +563,16 @@
         public const string TimeZoneBias = "Cabinet.TimeZoneBias";
 
         /// <summary>
+        ///     Order number
+        /// </summary>
+        public const string OrderNumber = "OrderNumber";
+
+        /// <summary>
+        ///     Inspector initials
+        /// </summary>
+        public const string InspectorInitials = "InspectorInitials";
+
+        /// <summary>
         ///     Visible status
         /// </summary>
         public const string Visible = "Visible";

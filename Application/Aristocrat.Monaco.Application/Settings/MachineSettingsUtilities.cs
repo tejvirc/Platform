@@ -73,13 +73,13 @@
             return buttonDeckInfo;
         }
 
-        public static string GetDisplayIdentifications(ILocalizer localizer)
+        public static List<string> GetDisplayIdentificationList(ILocalizer localizer)
         {
             var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
 
             if (cabinetDetectionService == null)
             {
-                return string.Empty;
+                return new List<string>();
             }
 
             var identifications = new List<string>();
@@ -95,7 +95,13 @@
                 }
             }
 
-            return string.Join(Environment.NewLine, identifications);
+            return identifications;
+        }
+
+        public static string GetDisplayIdentifications(ILocalizer localizer)
+        {
+
+            return string.Join(Environment.NewLine, GetDisplayIdentificationList(localizer));
         }
 
         public static string GetTouchScreenIdentification(ILocalizer localizer)

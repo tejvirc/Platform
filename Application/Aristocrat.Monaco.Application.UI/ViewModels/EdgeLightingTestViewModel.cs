@@ -290,13 +290,13 @@
 
             if (SelectedStripIndex == 0)
             {
-                _reporter?.SetTestName($"Test Strips Color {color}");
+                _reporter?.SetTestName($"Strips Color {color.Name}");
                 _token = _edgeLightingController.AddEdgeLightRenderer(
                     new SolidColorPatternParameters { Priority = StripPriority.PlatformTest, Color = color });
             }
             else
             {
-                _reporter?.SetTestName($"Test Strip {SelectedStrip.StripId}, LEDs {StartLed - 1}-{EndLed}, multiple colors");
+                _reporter?.SetTestName($"Strip {SelectedStrip.StripId}, LEDs {StartLed - 1}-{EndLed}, multiple colors");
                 _token = _edgeLightingController.AddEdgeLightRenderer(
                     new IndividualLedPatternParameters
                     {
@@ -317,7 +317,7 @@
 
         private void RunTestPatternChoice()
         {
-            _reporter?.SetTestName($"Test Pattern {SelectedLightShow.ResourceKey}");
+            _reporter?.SetTestName($"Pattern {SelectedLightShow.ResourceKey}");
             _token = _edgeLightingController.AddEdgeLightRenderer(SelectedLightShow.PatternParameters);
         }
 
