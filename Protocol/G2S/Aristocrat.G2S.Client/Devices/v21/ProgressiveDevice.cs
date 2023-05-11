@@ -1,9 +1,13 @@
 ﻿namespace Aristocrat.G2S.Client.Devices.v21
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Aristocrat.Monaco.Kernel;
     using Diagnostics;
     using Protocol.v21;
 
@@ -317,7 +321,8 @@
                 _progressiveHitCancellationToken?.Dispose();
                 _progressiveHitCancellationToken = null;
 
-                return response.IClass.Item as setProgressiveWin;
+                result = response.IClass.Item as setProgressiveWin;
+                return result;
             }
 
             if (session.SessionState == SessionStatus.ResponseError && response != null
@@ -329,7 +334,7 @@
                     Id);
 
                 await OnProgressiveHitFailure(command, HostRejectedException, progressiveLog);
-                return null;
+                return result;
             }
 
             if (_progressiveHitCancellationToken == null)

@@ -17,6 +17,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Aristocrat.Monaco.Accounting.Contracts;
 
     [TestClass]
     public class ProgressiveServiceTest
@@ -31,6 +32,7 @@
         private readonly Mock<IProgressiveMeterManager> _progressiveMetersMock = new Mock<IProgressiveMeterManager>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>> _progressiveStatusBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>>();
         private readonly Mock<IGameHistory> _gameHistoryMock = new Mock<IGameHistory>();
+        private readonly Mock<ITransactionHistory> _transactionHistoryMock = new Mock<ITransactionHistory>();
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactoryMock = new Mock<IUnitOfWorkFactory>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>> _progressiveHitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>> _progressiveCommitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>>();
@@ -58,6 +60,7 @@
                 _storageMock.Object,
                 _progressiveMetersMock.Object,
                 _gameHistoryMock.Object,
+                _transactionHistoryMock.Object,
                 _unitOfWorkFactoryMock.Object,
                 _commandBuilderMock.Object,
                 _progressiveStatusBuilderMock.Object,

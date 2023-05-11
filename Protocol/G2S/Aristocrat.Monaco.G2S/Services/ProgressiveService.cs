@@ -14,6 +14,8 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Accounting.Contracts.Transactions;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.G2S.Data.Model;
     using Aristocrat.Monaco.G2S.Meters;
@@ -24,6 +26,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common.Events;
+    using FMOD;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
     using Handlers;
@@ -47,6 +50,7 @@
         private readonly IPersistentStorageManager _storage;
         private readonly IProgressiveMeterManager _progressiveMeters;
         private readonly IGameHistory _gameHistory;
+        private readonly ITransactionHistory _transactionHistory;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _commandBuilder;
@@ -82,6 +86,7 @@
             IPersistentStorageManager storage,
             IProgressiveMeterManager progressiveMeters,
             IGameHistory gameHistory,
+            ITransactionHistory transactionHistory,
             IUnitOfWorkFactory unitOfWorkFactory,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> statusCommandBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusBuilder,
@@ -102,6 +107,7 @@
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _progressiveMeters = progressiveMeters ?? throw new ArgumentNullException(nameof(progressiveMeters));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
+            _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _commandBuilder = statusCommandBuilder ?? throw new ArgumentNullException(nameof(statusCommandBuilder));
             _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
@@ -537,6 +543,10 @@
 
                 throw new Exception();
             }
+
+            var transaction = _transactionHistory.RecallTransaction<JackpotTransaction>(command.transactionId);
+            transaction.WinSequence = setProgWin.progWinSeq;
+            _transactionHistory.UpdateTransaction(transaction);
 
             return setProgWin;
         }

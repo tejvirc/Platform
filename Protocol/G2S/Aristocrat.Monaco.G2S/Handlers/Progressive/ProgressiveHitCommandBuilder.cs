@@ -53,7 +53,7 @@
             {
                 List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
                 var lvl = levels.FirstOrDefault();
-                transaction.WinSequence = progressiveService.ProgressiveValues[$"{transaction.ProgressiveId}|{transaction.LevelId}"].ProgressiveValueSequence;
+                transaction.ValueSequence = progressiveService.ProgressiveValues[$"{transaction.ProgressiveId}|{transaction.LevelId}"].ProgressiveValueSequence;
                 _transactionHistory.UpdateTransaction(transaction);
             }
 
