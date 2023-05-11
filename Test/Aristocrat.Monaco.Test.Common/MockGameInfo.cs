@@ -261,9 +261,13 @@
 
         public PlatformTarget PlatformTarget { get; set; }
 
-        public int MaximumWagerInsideCredits { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int MaximumWagerInsideCredits { get; set; }
 
-        public int MaximumWagerOutsideCredits { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int MaximumWagerOutsideCredits { get; set; }
+
+        public int BasicMaximumWinCredits { get; set; }
+
+        public int MaximumWinCredits { get; set; }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

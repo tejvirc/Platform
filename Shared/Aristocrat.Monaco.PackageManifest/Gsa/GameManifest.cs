@@ -202,7 +202,9 @@
                 NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
                 PlatformTarget = gameInfo.platformTarget,
                 MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
-                MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits
+                MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits,
+                BasicMaximumWinCredits = gameInfo.basicMaximumWinCredits,
+                MaximumWinCredits = gameInfo.maximumWinCredits
             };
         }
 

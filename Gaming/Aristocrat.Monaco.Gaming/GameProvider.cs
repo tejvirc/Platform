@@ -1022,6 +1022,9 @@
                     gameDetail.MaximumWagerInsideCredits = game.MaxWagerInsideCredits;
                     gameDetail.MaximumWagerOutsideCredits = game.MaxWagerOutsideCredits;
 
+                    gameDetail.BasicMaximumWinCredits = game.BasicMaximumWinCredits;
+                    gameDetail.MaximumWinCredits = game.MaximumWinCredits;
+
                     _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
 
                     gameThemeId = game.ThemeId;

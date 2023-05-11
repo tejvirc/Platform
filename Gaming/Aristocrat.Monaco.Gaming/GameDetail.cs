@@ -144,5 +144,9 @@
         public int MaximumWagerInsideCredits { get; set; }
 
         public int MaximumWagerOutsideCredits { get; set; }
+
+        public int BasicMaximumWinCredits { get; set; }
+
+        public int MaximumWinCredits { get; set; }
     }
 }

@@ -230,6 +230,11 @@
                 return 0L;
             }
 
+            if (@this.GameType == GameType.Roulette)
+            {
+                return @this.TopAward(denomination, @this.MaximumWagerInsideCredits, @this.MaximumWagerOutsideCredits);
+            }
+
             var topAward = @this.WinThreshold * denomination.Value;
 
             if (betOption?.MaxInitialBet is not null)
@@ -248,6 +253,30 @@
             return @this.TopAwardMaxBetMultiplier(betOption) *
                    baseTopAwardMultiplier *
                    topAward;
+        }
+
+        /// <summary>
+        ///     Returns the top award for a game at a given denomination, max wager credit amount,
+        ///     and max wager outside credit amount. Currently only used for roulette games.
+        /// </summary>
+        /// <param name="this">The game detail</param>
+        /// <param name="denomination">The denomination</param>
+        /// <param name="maxWagerCredits">The max wager credit amount</param>
+        /// <param name="maxWagerOutsideCredits">The max wager outside credit amount</param>
+        /// <returns></returns>
+        public static long TopAward(this IGameDetail @this, IDenomination denomination,
+            int maxWagerCredits, int maxWagerOutsideCredits)
+        {
+            var insideMultiplier = @this.BasicMaximumWinCredits;
+
+            var outsideMultiplier =
+                @this.MaximumWinCredits - @this.BasicMaximumWinCredits;
+
+            var insideMax = insideMultiplier * maxWagerCredits;
+
+            var outsideMax = outsideMultiplier * maxWagerOutsideCredits;
+
+            return Math.Max(insideMax, outsideMax) * denomination.Value;
         }
 
         private static int BaseMinWagerCredits(this IGameDetail @this, LineOption lineOption)

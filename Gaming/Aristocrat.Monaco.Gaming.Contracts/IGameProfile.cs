@@ -227,5 +227,15 @@
         ///     Gets or sets the maximum wager for low-odds bets, for example betting in roulette on just red/black or odd/even
         /// </summary>
         int MaximumWagerOutsideCredits { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the basic maximum win credits, used for certain games' Top Award calculation.
+        /// </summary>
+        int BasicMaximumWinCredits { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the maximum win credits, used for certain games' Top Award calculation.
+        /// </summary>
+        int MaximumWinCredits { get; set; }
     }
 }

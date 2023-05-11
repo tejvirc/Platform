@@ -120,7 +120,7 @@
                 LoadLineOptions();
                 LoadBonusBets(SelectedBetOption);
                 SetProgressivesConfigured();
-                TopAwardValue = RecalculateTopAward();
+                RecalculateTopAward();
                 SetWarningText();
             }
         }
@@ -128,7 +128,7 @@
         public long TopAwardValue
         {
             get => _topAwardValue;
-            private set => SetProperty(ref _topAwardValue, value);
+            private set => SetProperty(ref _topAwardValue, value, nameof(TopAwardValue));
         }
 
         public IReadOnlyList<IGameDetail> AvailableGames { get; }
@@ -176,7 +176,7 @@
                 LoadBonusBets(SelectedBetOption);
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
-                TopAwardValue = RecalculateTopAward();
+                RecalculateTopAward();
             }
         }
 
@@ -207,7 +207,7 @@
                 _selectedLineOption = value;
                 RaisePropertyChanged(nameof(SelectedLineOption));
                 ConfigurationMinBet();
-                TopAwardValue = RecalculateTopAward();
+                RecalculateTopAward();
             }
         }
 
@@ -498,6 +498,8 @@
                 }
 
                 SetWarningText();
+
+                RecalculateTopAward();
             }
         }
 
@@ -507,8 +509,14 @@
             get => _forcedMaxBetOutside;
             set
             {
-                SetProperty(ref _forcedMaxBetOutside, value);
+                if (!SetProperty(ref _forcedMaxBetOutside, value))
+                {
+                    return;
+                }
+
                 SetWarningText();
+
+                RecalculateTopAward();
             }
         }
 
@@ -845,9 +853,25 @@
             RaisePropertyChanged(nameof(SelectedBonusBet), nameof(BonusBets), nameof(BonusBetAvailable));
         }
 
-        private long RecalculateTopAward()
+        private void RecalculateTopAward()
         {
-            return Game?.TopAward(ResolveDenomination(), SelectedBetOption, SelectedLineOption) ?? 0;
+            var denom = ResolveDenomination();
+
+            if (Game == null || denom == null)
+            {
+                TopAwardValue = 0;
+                return;
+            }
+
+            TopAwardValue = Game.GameType == GameType.Roulette
+                ? Game.TopAward(
+                    denom,
+                    MaximumWagerCredits,
+                    MaximumWagerOutsideCredits)
+                : Game.TopAward(
+                    denom,
+                    SelectedBetOption,
+                    SelectedLineOption);
         }
 
         private void SetAvailableGamesAndDenom()
