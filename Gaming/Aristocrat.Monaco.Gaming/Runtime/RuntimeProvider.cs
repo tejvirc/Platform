@@ -82,6 +82,16 @@
             _mounts.Clear();
         }
 
+        public string GetRuntimeHostFilename(string runtimeFolder)
+        {
+            var filename = Directory.GetFiles(
+                runtimeFolder,
+                $"*{GamingConstants.RuntimeHost}",
+                SearchOption.AllDirectories)
+                .FirstOrDefault();
+            return Path.Combine(runtimeFolder, filename);
+        }
+
         public void Unload(string runtimeId)
         {
             var runtime = _mounts.FirstOrDefault(
@@ -130,7 +140,7 @@
             //  This will allow for pattern matching when can't read the file version
             var version = name.Replace(RuntimeFullPrefix, string.Empty);
 
-            var runtimeFile = Path.Combine(runtimePath, GamingConstants.RuntimeHost);
+            var runtimeFile = GetRuntimeHostFilename(runtimePath);
 
             try
             {
