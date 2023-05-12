@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts.Meters;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
@@ -22,7 +21,7 @@
         private const string ProgressiveMeterProviderExtensionPoint = "/Gaming/Metering/ProgressiveMeterProvider";
 
         private readonly object _lock = new();
-        private readonly IProgressiveMeterManager _meterManager;
+        private readonly IProgressiveMeterManager _progressiveMeterManager;
         private readonly IProgressiveLevelProvider _levelProvider;
         private readonly IPersistentStorageManager _persistentStorage;
 
@@ -33,25 +32,28 @@
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="persistentStorage">The persistent storage manager.</param>
-        /// <param name="meterManager">The meter manager.</param>
+        /// <param name="progressiveMeterManager">The progressive meter manager.</param>
         /// <param name="levelProvider">Progressive Level Provider.</param>
+        /// <param name="properties">The properties manager</param>
+        /// <param name="meterManager">The meter manager</param>
         public ProgressiveMeterProvider(
             IPersistentStorageManager persistentStorage,
-            IProgressiveMeterManager meterManager,
-            IProgressiveLevelProvider levelProvider)
-            : base(ProviderName)
+            IProgressiveMeterManager progressiveMeterManager,
+            IProgressiveLevelProvider levelProvider,
+            IPropertiesManager properties,
+            IMeterManager meterManager)
+            : base(ProviderName, properties)
         {
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
-            _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
+            _progressiveMeterManager = progressiveMeterManager ?? throw new ArgumentNullException(nameof(progressiveMeterManager));
             _levelProvider = levelProvider ?? throw new ArgumentNullException(nameof(levelProvider));
 
             RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
 
-            _meterManager.ProgressiveAdded += OnProgressiveAdded;
-
-            _meterManager.LPCompositeMetersCanUpdate += UpdateLPCompositeMeters;
-
             Initialize();
+            meterManager.AddProvider(this);
+            _progressiveMeterManager.ProgressiveAdded += OnProgressiveAdded;
+            _progressiveMeterManager.LPCompositeMetersCanUpdate += UpdateLPCompositeProgressiveMeters;
         }
 
         /// <summary>
@@ -85,7 +87,7 @@
 
             if (disposing)
             {
-                _meterManager.ProgressiveAdded -= OnProgressiveAdded;
+                _progressiveMeterManager.ProgressiveAdded -= OnProgressiveAdded;
             }
 
             _disposed = true;
@@ -125,15 +127,15 @@
 
                 if (meter.Group.Equals("progressive", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    blockSize = _meterManager.ProgressiveCount;
+                    blockSize = _progressiveMeterManager.ProgressiveCount;
                 }
                 else if (meter.Group.Equals("progressiveLevel", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    blockSize = _meterManager.LevelCount;
+                    blockSize = _progressiveMeterManager.LevelCount;
                 }
                 else if (meter.Group.Equals("sharedLevel", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    blockSize = _meterManager.SharedLevelCount;
+                    blockSize = _progressiveMeterManager.SharedLevelCount;
                 }
 
                 if (_persistentStorage.BlockExists(meterBlockName))
@@ -185,11 +187,11 @@
             }
         }
 
-        private void UpdateLPCompositeMeters(object sender, LPCompositeMetersCanUpdateEventArgs eventArgs)
+        private void UpdateLPCompositeProgressiveMeters(object sender, LPCompositeMetersCanUpdateEventArgs eventArgs)
         {
             var activeLinkedLevels = _levelProvider.GetProgressiveLevels().Where(
                 level => level.LevelType == ProgressiveLevelType.LP
-                         && _meterManager.IsMeterProvided(
+                         && _progressiveMeterManager.IsMeterProvided(
                              level.DeviceId,
                              level.LevelId,
                              ProgressiveMeters.ProgressiveLevelWinOccurrence)).ToList();
@@ -208,7 +210,7 @@
                                 activeLinkedLevels.Where(level => level.LevelId == activeLevelId).ToList();
                             foreach (var level in sameLevelIdActiveLevels)
                             {
-                                sum += _meterManager.GetMeter(
+                                sum += _progressiveMeterManager.GetMeter(
                                     level.DeviceId,
                                     level.LevelId,
                                     ProgressiveMeters.ProgressiveLevelWinOccurrence).Lifetime;
@@ -230,9 +232,9 @@
         {
             var currentValues = block.GetAll();
 
-            foreach (var (deviceId, blockIndex) in _meterManager.GetProgressiveBlocks())
+            foreach (var (deviceId, blockIndex) in _progressiveMeterManager.GetProgressiveBlocks())
             {
-                var meterName = _meterManager.GetMeterName(deviceId, meter.Name);
+                var meterName = _progressiveMeterManager.GetMeterName(deviceId, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;
@@ -246,9 +248,9 @@
         {
             var currentValues = block.GetAll();
 
-            foreach (var (deviceId, levelId, blockIndex) in _meterManager.GetProgressiveLevelBlocks())
+            foreach (var (deviceId, levelId, blockIndex) in _progressiveMeterManager.GetProgressiveLevelBlocks())
             {
-                var meterName = _meterManager.GetMeterName(deviceId, levelId, meter.Name);
+                var meterName = _progressiveMeterManager.GetMeterName(deviceId, levelId, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;
@@ -262,9 +264,9 @@
         {
             var currentValues = block.GetAll();
 
-            foreach (var (level, blockIndex) in _meterManager.GetSharedLevelBlocks())
+            foreach (var (level, blockIndex) in _progressiveMeterManager.GetSharedLevelBlocks())
             {
-                var meterName = _meterManager.GetMeterName(level, meter.Name);
+                var meterName = _progressiveMeterManager.GetMeterName(level, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;

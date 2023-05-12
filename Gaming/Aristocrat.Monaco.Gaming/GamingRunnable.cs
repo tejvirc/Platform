@@ -158,7 +158,6 @@
             LoadPropertyProviders();
             LoadRuntime();
             LoadGames();
-            LoadMeterProviders();
 
             AddServices();
 
@@ -210,16 +209,6 @@
             var provider = _container.GetInstance<IGameProvider>();
             ServiceManager.GetInstance().AddService(provider as IService);
             manager.AddPropertyProvider(provider as IPropertyProvider);
-        }
-
-        private void LoadMeterProviders()
-        {
-            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
-
-            foreach (var provider in _container.GetAllInstances<IMeterProvider>())
-            {
-                meterManager.AddProvider(provider);
-            }
         }
 
         private void AddServices()

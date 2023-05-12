@@ -671,7 +671,7 @@
                 var mainDisplay = _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main);
                 if (mainDisplay == null)
                 {
-                    throw new Exception("Missing Main Display. Cabinet Detection Service could not register Main Display.");
+                    throw new InvalidDataException("Missing Main Display. Cabinet Detection Service could not register Main Display.");
                 }
 
                 var mainDisplayRect = Rectangle.Empty;
@@ -839,11 +839,20 @@
 
                 foreach (var gameDir in gameDirs)
                 {
-                    var files = Directory.GetFiles(gameDir, ManifestFilter, SearchOption.TopDirectoryOnly);
+                    string[] files;
+                    try
+                    {
+                        files = Directory.GetFiles(gameDir, ManifestFilter, SearchOption.TopDirectoryOnly);
+                    }
+                    catch (DirectoryNotFoundException e) // Catch this in-case the mount didn't get cleaned up
+                    {
+                        Logger.Warn("Failed to get the files.  The folder appears to be a left over ISO mount", e);
+                        continue;
+                    }
 
                     if (files.Length > 1)
                     {
-                        throw new Exception("Only one manifest file should be present for each game.");
+                        throw new InvalidOperationException("Only one manifest file should be present for each game.");
                     }
 
                     if (files.Length == 1)
