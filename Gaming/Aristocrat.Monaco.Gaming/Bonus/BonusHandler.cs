@@ -34,6 +34,7 @@
         private readonly IBonusStrategyFactory _strategies;
         private readonly ITransactionCoordinator _transactionCoordinator;
         private readonly ITransactionHistory _transactionHistory;
+        private readonly ITransferOutHandler _transferOutHandler;
 
         private readonly object _sync = new object();
 
@@ -50,7 +51,8 @@
             IPlayerBank bank,
             IPersistentStorageManager storage,
             ITransactionCoordinator transactionCoordinator,
-            IEventBus bus)
+            IEventBus bus,
+            ITransferOutHandler transferOutHandler)
         {
             _strategies = strategies ?? throw new ArgumentNullException(nameof(strategies));
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
@@ -59,6 +61,7 @@
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _transactionCoordinator = transactionCoordinator ?? throw new ArgumentNullException(nameof(transactionCoordinator));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _transferOutHandler = transferOutHandler ?? throw new ArgumentNullException(nameof(transferOutHandler));
 
             _bus.Subscribe<PrimaryGameStartedEvent>(this, _ => ApplyGameEndDelay());
             _bus.Subscribe<GameIdleEvent>(this, Handle);
@@ -169,7 +172,7 @@
 
                 Logger.Info($"Created pending bonus: {bonus}");
                 if (bonus.Exception == (int)BonusException.None
-                    && strategy.CanPay(bonus, CurrentTransaction.TransactionId)
+                    && strategy.CanPay(bonus)
                     && (request is not StandardBonus standardBonus || standardBonus.AllowedWhileInAuditMode || !InAuditMode))
                 {
                     Commit();
@@ -239,7 +242,7 @@
         private IEnumerable<BonusTransaction> GetPendingBonusTransactions()
         {
             return Transactions
-                .Where(t => t.State == BonusState.Pending && _strategies.Create(t.Mode).CanPay(t, CurrentTransaction.TransactionId))
+                .Where(t => t.State == BonusState.Pending && _strategies.Create(t.Mode).CanPay(t))
                 .OrderBy(t => t.Mode)
                 .ThenBy(t => t.TransactionId);
         }
@@ -325,6 +328,11 @@
 
         private async Task<IContinuationContext> PayBonus(BonusTransaction bonus, Guid transactionId, IContinuationContext context)
         {
+            if (_transferOutHandler.InProgress || _transferOutHandler.Pending)
+            {
+                return null;
+            }
+
             var strategy = _strategies.Create(bonus.Mode);
             if (strategy != null)
             {

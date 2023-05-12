@@ -68,9 +68,9 @@
             }
         }
 
-        public bool CanPay(BonusTransaction transaction, Guid transactionId)
+        public bool CanPay(BonusTransaction transaction)
         {
-            return transaction.State == BonusState.Pending && _gamePlay.UncommittedState == PlayState.GameEnded && transactionId != Guid.Empty;
+            return transaction.State == BonusState.Pending && _gamePlay.UncommittedState == PlayState.GameEnded;
         }
 
         public async Task<IContinuationContext> Pay(BonusTransaction transaction, Guid transactionId, IContinuationContext context)
@@ -80,7 +80,7 @@
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            if (!CanPay(transaction, transactionId))
+            if (!CanPay(transaction))
             {
                 return null;
             }

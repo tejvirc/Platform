@@ -74,7 +74,7 @@
             }
         }
 
-        public bool CanPay(BonusTransaction transaction, Guid transactionId)
+        public bool CanPay(BonusTransaction transaction)
         {
             return transaction.State == BonusState.Pending && _gamePlay.UncommittedState == PlayState.Idle;
         }
@@ -86,7 +86,7 @@
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            if (!CanPay(transaction, transactionId))
+            if (!CanPay(transaction))
             {
                 return null;
             }
@@ -136,7 +136,7 @@
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            if (!CanPay(transaction, transactionId))
+            if (!CanPay(transaction))
             {
                 return;
             }
