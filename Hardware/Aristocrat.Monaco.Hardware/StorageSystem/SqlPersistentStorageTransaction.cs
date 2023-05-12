@@ -30,7 +30,6 @@
             new Dictionary<string, Dictionary<Tuple<int, string>, object>>();
 
         private int _currentIndex;
-
         private bool _disposed;
 
         /// <summary>
@@ -146,73 +145,76 @@
 
             try
             {
-                using (var connection = new SqliteConnection(_connectionString))
+                using var connection = new SqliteConnection(_connectionString);
+                connection.Open();
+                using var update = connection.CreateCommand();
+                using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                update.Transaction = transaction;
+
+                foreach (var block in _blocks)
                 {
-                    //connection.SetPassword(StorageConstants.DatabasePassword);
-                    connection.Open();
+                    update.CommandText =
+                        "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
 
-                    using (var update = connection.CreateCommand())
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+
+                    if (_fields.ContainsKey(block.Name))
                     {
-                        update.Transaction = transaction;
-
-                        foreach (var block in _blocks)
+                        foreach (var field in _fields[block.Name])
                         {
-                            update.CommandText =
-                                "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
+                            update.Parameters.Clear();
 
+                            var fieldName = field.Key;
+                            update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
+                            update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
+                            update.Parameters.Add(
+                                new SqliteParameter("@Data", block.Format.ConvertTo(fieldName, field.Value)));
 
-                            if (_fields.ContainsKey(block.Name))
+                            if (update.ExecuteNonQuery() == 0)
                             {
-                                foreach (var field in _fields[block.Name])
-                                {
-                                    update.Parameters.Clear();
-
-                                    var fieldName = field.Key;
-                                    update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
-                                    update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
-                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(fieldName, field.Value)));
-
-                                    if (update.ExecuteNonQuery() == 0)
-                                    {
-                                        // This shouldn't happen
-                                        Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
-                                        throw new BlockFieldNotFoundException(
-                                            $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
-                                    }
-                                }
-                            }
-
-                            if (_indexedFields.ContainsKey(block.Name))
-                            {
-                                foreach (var field in _indexedFields[block.Name])
-                                {
-                                    update.Parameters.Clear();
-
-                                    var fieldName = field.Key.Item2;
-                                    if (field.Key.Item1 >= 1)
-                                    {
-                                        fieldName = field.Key.Item2 + "@" + field.Key.Item1;
-                                    }
-                                    update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
-                                    update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
-                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(field.Key.Item2, field.Value)));
-
-                                    if (update.ExecuteNonQuery() == 0)
-                                    {
-                                        // This shouldn't happen
-                                        Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
-                                        throw new BlockFieldNotFoundException(
-                                            $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
-                                    }
-                                }
+                                // This shouldn't happen
+                                Logger.ErrorFormat(
+                                    CultureInfo.InvariantCulture,
+                                    $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
+                                throw new BlockFieldNotFoundException(
+                                    $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
                             }
                         }
+                    }
 
-                        transaction.Commit();
-                        NotifyComplete(true);
+                    if (_indexedFields.ContainsKey(block.Name))
+                    {
+                        foreach (var field in _indexedFields[block.Name])
+                        {
+                            update.Parameters.Clear();
+
+                            var fieldName = field.Key.Item2;
+                            if (field.Key.Item1 >= 1)
+                            {
+                                fieldName = field.Key.Item2 + "@" + field.Key.Item1;
+                            }
+
+                            update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
+                            update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
+                            update.Parameters.Add(
+                                new SqliteParameter(
+                                    "@Data",
+                                    block.Format.ConvertTo(field.Key.Item2, field.Value)));
+
+                            if (update.ExecuteNonQuery() == 0)
+                            {
+                                // This shouldn't happen
+                                Logger.ErrorFormat(
+                                    CultureInfo.InvariantCulture,
+                                    $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
+                                throw new BlockFieldNotFoundException(
+                                    $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
+                            }
+                        }
                     }
                 }
+
+                transaction.Commit();
+                NotifyComplete(true);
             }
             catch (Exception e)
             {

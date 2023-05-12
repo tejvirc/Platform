@@ -607,7 +607,8 @@
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = _databaseFullPath,
-                Pooling = true
+                Pooling = true,
+                Password = DatabasePassword,
             };
 
             return $"{sqlBuilder.ConnectionString};";

@@ -202,11 +202,8 @@
             {
                 DataSource = filePath,
                 Pooling = true,
-                Password = password
-                //MaxPoolSize = int.MaxValue,
-                //ConnectRetryCount = 10,
-                //ConnectRetryInterval = 1,
-                //ConnectTimeout = 15
+                Password = password,
+                DefaultTimeout = 15
             };
 
             return $"{sqlBuilder.ConnectionString};";
@@ -221,32 +218,24 @@
 
             try
             {
-                using (var connection = CreateConnection(filePath, password))
-                {
-                    connection.Open();
-
-                    // This command is used to verify that the SQL lite file is valid and does not have errors
-                    const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
-                    const string successfulCommandResponse = "ok";
-                    using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
-                    return command.ExecuteScalar().ToString() == successfulCommandResponse;
-                }
+                using var connection = CreateConnection(filePath, password);
+                connection.Open();
+                // This command is used to verify that the SQL lite file is valid and does not have errors
+                const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
+                const string successfulCommandResponse = "ok";
+                using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
+                return command.ExecuteScalar()?.ToString() == successfulCommandResponse;
             }
             catch (Exception e)
             {
                 Logger.Error("Integrity check failed for mirror", e);
-
                 return false;
             }
         }
 
         private static SqliteConnection CreateConnection(string filePath, string password)
         {
-            var connection = new SqliteConnection(ConnectionString(filePath,password));
-
-            //connection.SetPassword(password);
-
-            return connection;
+            return new SqliteConnection(ConnectionString(filePath, password));
         }
 
         private bool VerifySqlFiles(string sqlFile)

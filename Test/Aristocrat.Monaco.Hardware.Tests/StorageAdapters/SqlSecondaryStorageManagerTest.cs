@@ -413,7 +413,8 @@
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = filePath,
-                Pooling = true
+                Pooling = true,
+                Password = DbFilePassword,
             };
 
             return $"{sqlBuilder.ConnectionString};";
