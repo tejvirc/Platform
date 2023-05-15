@@ -34,6 +34,7 @@
                 }
             }
 
+            Console.WriteLine();
             Logger.Info("Stopped");
         }
 

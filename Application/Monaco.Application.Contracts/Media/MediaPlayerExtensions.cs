@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.Media
 {
-    using System.Windows.Controls;
+    //using System.Windows.Controls;
 
     /// <summary>
     ///     Static extensions for media player enumerations
@@ -31,24 +31,24 @@
             return player.ScreenType == ScreenType.Primary && player.DisplayType == DisplayType.Overlay;
         }
 
-        /// <summary>
-        ///     Converts <see cref="DisplayPosition">DisplayPosition</see> to <see cref="Dock">Dock</see> value
-        /// </summary>
-        public static Dock ToDock(this DisplayPosition position)
-        {
-            switch (position)
-            {
-                case DisplayPosition.Left:
-                    return Dock.Left;
-                case DisplayPosition.Right:
-                    return Dock.Right;
-                case DisplayPosition.Top:
-                    return Dock.Top;
-                case DisplayPosition.Bottom:
-                    return Dock.Bottom;
-                default:
-                    return Dock.Right;
-            }
-        }
+        ///// <summary>
+        /////     Converts <see cref="DisplayPosition">DisplayPosition</see> to <see cref="Dock">Dock</see> value
+        ///// </summary>
+        //public static Dock ToDock(this DisplayPosition position)
+        //{
+        //    switch (position)
+        //    {
+        //        case DisplayPosition.Left:
+        //            return Dock.Left;
+        //        case DisplayPosition.Right:
+        //            return Dock.Right;
+        //        case DisplayPosition.Top:
+        //            return Dock.Top;
+        //        case DisplayPosition.Bottom:
+        //            return Dock.Bottom;
+        //        default:
+        //            return Dock.Right;
+        //    }
+        //}
     }
 }

@@ -36,7 +36,7 @@
         private readonly IAudio _audioService;
 
         private Timer _checkDiskSpaceTimer;
-        private bool _disabled;
+        //private bool _disabled;
         private DateTime _lastLogTime = DateTime.MinValue;
 
         private bool _disposed;
@@ -111,41 +111,41 @@
 
         private void CheckDiskSpace(object state)
         {
-            var drive = (string)state;
+            //var drive = (string)state;
 
-            if (!NativeMethods.GetDiskFreeSpaceEx(drive, out var free, out _, out _))
-            {
-                Logger.Info($"Failed to get drive info: {drive}");
-                return;
-            }
+            //if (!NativeMethods.GetDiskFreeSpaceEx(drive, out var free, out _, out _))
+            //{
+            //    Logger.Info($"Failed to get drive info: {drive}");
+            //    return;
+            //}
 
-            if (DateTime.UtcNow - _lastLogTime >= LogIntervalHours)
-            {
-                _lastLogTime = DateTime.UtcNow;
-                Logger.Info($"Drive {drive} Available Free Space {free}");
-            }
+            //if (DateTime.UtcNow - _lastLogTime >= LogIntervalHours)
+            //{
+            //    _lastLogTime = DateTime.UtcNow;
+            //    Logger.Info($"Drive {drive} Available Free Space {free}");
+            //}
 
-            var belowThreshold = free < AvailableDiskSpaceThreshold;
+            //var belowThreshold = free < AvailableDiskSpaceThreshold;
 
-            if (belowThreshold && !_disabled)
-            {
-                _disabled = true;
+            //if (belowThreshold && !_disabled)
+            //{
+            //    _disabled = true;
 
-                _disableManager.Disable(LockupId, SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DiskSpaceBelowThresholdMessage));
+            //    _disableManager.Disable(LockupId, SystemDisablePriority.Normal,
+            //        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DiskSpaceBelowThresholdMessage));
 
-                PlayErrorSound();
+            //    PlayErrorSound();
 
-                _bus.Publish(new DiskSpaceEvent());
-            }
-            else if (!belowThreshold && _disabled)
-            {
-                _disabled = false;
+            //    _bus.Publish(new DiskSpaceEvent());
+            //}
+            //else if (!belowThreshold && _disabled)
+            //{
+            //    _disabled = false;
 
-                _disableManager.Enable(LockupId);
+            //    _disableManager.Enable(LockupId);
 
-                _bus.Publish(new DiskSpaceClearEvent());
-            }
+            //    _bus.Publish(new DiskSpaceClearEvent());
+            //}
         }
 
         /// <summary>
@@ -165,13 +165,6 @@
         private void PlayErrorSound()
         {
             _audioService.PlaySound(_properties, _diskSpaceMonitorCheckFailedErrorSoundFilePath);
-        }
-
-        private static class NativeMethods
-        {
-            [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool GetDiskFreeSpaceEx(string lpDirectoryName, out ulong lpFreeBytesAvailable, out ulong lpTotalNumberOfBytes, out ulong lpTotalNumberOfFreeBytes);
         }
     }
 }

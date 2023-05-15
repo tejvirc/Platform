@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <AssemblyTitle>Aristocrat.Monaco.Application</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
@@ -233,7 +234,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0023" />
     <PackageReference Include="Aristocrat.Signing" Version="2.0.0-beta0004" />
     <PackageReference Include="Aristocrat.SmartCard" Version="2.0.0-beta0001" />
     <PackageReference Include="log4net" Version="2.0.13" />
@@ -246,5 +246,8 @@
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'!='Retail'">
     <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)Resources\$(Configuration)&quot; &quot;$(OutputPath)&quot; /sy" />
+  </Target>
+  <Target Name="PostPublish" AfterTargets="Publish" Condition="'$(Configuration)'!='Retail'">
+    <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)Resources\$(Configuration)&quot; &quot;$(PublishDir)&quot; /sy" />
   </Target>
 </Project>

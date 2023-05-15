@@ -159,7 +159,7 @@
             var drive = _properties.GetValue(ApplicationConstants.EKeyDrive, null as string);
             var fileName = $"{Enum.GetName(typeof(ConfigurationGroup), configGroup)}.json";
 
-            return File.Exists($@"{drive}\{fileName}");
+            return File.Exists($@"{drive}/{fileName}");
         }
 
         /// <inheritdoc />
@@ -279,7 +279,7 @@
                 throw new InvalidOperationException("EKey not inserted or not verified");
             }
 
-            var fs = File.Open($@"{drive}\{fileName}", FileMode.Create, FileAccess.Write, FileShare.Read);
+            var fs = File.Open($@"{drive}/{fileName}", FileMode.Create, FileAccess.Write, FileShare.Read);
 
             return new StreamWriter(fs, Encoding.UTF8, 4096, false);
         }
@@ -293,7 +293,7 @@
                 throw new InvalidOperationException("EKey not inserted or not verified");
             }
 
-            var fs = File.OpenRead($@"{drive}\{fileName}");
+            var fs = File.OpenRead($@"{drive}/{fileName}");
             return new StreamReader(fs, Encoding.UTF8, false, 4096, false);
         }
     }

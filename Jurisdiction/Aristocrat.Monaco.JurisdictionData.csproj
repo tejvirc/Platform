@@ -4,18 +4,26 @@
     <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <OutputPath>..\bin\$(Configuration)\Platform\bin\jurisdiction\</OutputPath>
+    <OutputPath>..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <CopyDestinationDir>jurisdiction</CopyDestinationDir>
     <Configurations>Debug;Release;Retail</Configurations>
     <EnableDefaultItems>true</EnableDefaultItems>
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
     <EnableDefaultEmbeddedResourceItems>true</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="BuildJurisdictionFiles" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <JurisdictionFiles Include="**/*" Exclude="**/*.resx;*.*;obj/**"></JurisdictionFiles>
+      <JurisdictionFiles Include="**/DefaultAssets/*;**/Nevada/*" Exclude="**/*.resx;*.*;obj/**"></JurisdictionFiles>
     </ItemGroup>
-    <RemoveDir Directories="$(OutputPath)" />
-    <Copy SourceFiles="@(JurisdictionFiles)" DestinationFiles="@(JurisdictionFiles->'$(OutputPath)%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+    <RemoveDir Directories="$(OutputPath)$(CopyDestinationDir)" />
+    <Copy SourceFiles="@(JurisdictionFiles)" DestinationFiles="@(JurisdictionFiles->'$(OutputPath)$(CopyDestinationDir)\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="PublishJurisdictionFiles" AfterTargets="Publish">
+    <ItemGroup>
+      <JurisdictionFilesToPublish Include="$(OutputPath)$(CopyDestinationDir)/**/*"></JurisdictionFilesToPublish>
+    </ItemGroup>
+    <RemoveDir Directories="$(PublishDir)$(CopyDestinationDir)" />
+    <Copy SourceFiles="@(JurisdictionFilesToPublish)" DestinationFiles="@(JurisdictionFilesToPublish->'$(PublishDir)$(CopyDestinationDir)\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <RemoveDir Directories="$(OutputPath)" />

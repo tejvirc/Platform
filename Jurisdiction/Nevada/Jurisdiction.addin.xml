@@ -2,24 +2,24 @@
   <Dependencies>
     <Addin id="Monaco.Kernel" version="1.0" />
     <Addin id="Monaco.Hardware" version="1.0" />
-    <Addin id="Monaco.Accounting" version="1.0" />
+    <!--<Addin id="Monaco.Accounting" version="1.0" />-->
     <Addin id="Monaco.Application" version="1.0" />
-    <Addin id="Monaco.Application.UI" version="1.0" />
-    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+    <!--<Addin id="Monaco.Application.UI" version="1.0" />-->
+    <!--<Addin id="Aristocrat.Monaco.Gaming" version="1.0" />-->
     <Addin id="SelectableJurisdiction" version="1.0" />
-    <Addin id="AccountingRunnable" version="1.0" />
-    <Addin id="SasBase" version="1.0" />
-    <Addin id="SasConfiguration" version="1.0" />
-    <Addin id="Sas.Client" version="1.0" />
+    <!--<Addin id="AccountingRunnable" version="1.0" />-->
+    <!--<Addin id="SasBase" version="1.0" />-->
+    <!--<Addin id="SasConfiguration" version="1.0" />-->
+    <!--<Addin id="Sas.Client" version="1.0" />-->
   </Dependencies>
   <Runtime>
-    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
-    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
+    <Import assembly="../../bin/Aristocrat.Monaco.Kernel.dll" />
+    <!--<Import assembly="../../bin/Aristocrat.Monaco.Gaming.Class3.dll" />-->
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Nevada" description="Top level Nevada jurisdiction group" id="JUR000090,JUR000998,JUR000999,JUR000033">
-      <AddinConfigurationGroupReference name="BaseOperatorMenus" />
-      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+      <!--<AddinConfigurationGroupReference name="BaseOperatorMenus" />
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />-->
       <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaHardwareConfig" />
       </ExtensionPointConfiguration>
@@ -29,18 +29,18 @@
       <ExtensionPointConfiguration extensionPath="/DoorMonitor/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaDoorMonitorConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/ConfigWizard/Configuration">
+      <!--<ExtensionPointConfiguration extensionPath="/ConfigWizard/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaConfigWizardConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaOperatorMenuConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
+      </ExtensionPointConfiguration>-->
+      <!--<ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaOperatorMenuSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaGamePreferencesSounds" />
-      </ExtensionPointConfiguration>
+      </ExtensionPointConfiguration>-->
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaLocaleConfig" />
       </ExtensionPointConfiguration>
@@ -50,15 +50,15 @@
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaLobbyConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+      <!--<ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaAccountingConfig" />
-      </ExtensionPointConfiguration>
+      </ExtensionPointConfiguration>-->
       <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaApplicationConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
+      <!--<ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaGamingConfig" />
-      </ExtensionPointConfiguration>
+      </ExtensionPointConfiguration>-->
       <ExtensionPointConfiguration extensionPath="/TowerLight/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaTowerLightConfig" />
       </ExtensionPointConfiguration>
@@ -71,107 +71,107 @@
       <ExtensionPointConfiguration extensionPath="/Hardware/PrinterOverrides">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaPrinterOverridesConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
+      <!--<ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaDisplayMetersConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
+      </ExtensionPointConfiguration>-->
+      <!--<ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="NevadaAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="NevadaAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="NevadaAccountingTransferProviders" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+      </ExtensionPointConfiguration>-->
+      <!--<ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaTransactionConfiguration" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaAccountingRunnable" />
-      </ExtensionPointConfiguration>
+      </ExtensionPointConfiguration>-->
       <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaErrorMessageConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
+      <!--<ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaSASDefaultConfig" />
-      </ExtensionPointConfiguration>
+      </ExtensionPointConfiguration>-->
       <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaHardMeterMappingConfig" />
       </ExtensionPointConfiguration>
     </SelectableJurisdiction>
   </Extension>
-  <Extension path="/SAS/DefaultConfiguration">
-    <FilePath FilePath="..\jurisdiction\Nevada\SASDefault.config.xml" filterid="NevadaSASDefaultConfig" />
-  </Extension>
+  <!--<Extension path="/SAS/DefaultConfiguration">
+    <FilePath FilePath="../jurisdiction/Nevada/SASDefault.config.xml" filterid="NevadaSASDefaultConfig" />
+  </Extension>-->
   <Extension path="/Platform/Discovery/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\ConfiguredDevices.config.xml" filterid="NevadaHardwareConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/ConfiguredDevices.config.xml" filterid="NevadaHardwareConfig" />
   </Extension>
   <Extension path="/TiltLogger/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\TiltLogger.config.xml" filterid="NevadaTiltLoggerConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/TiltLogger.config.xml" filterid="NevadaTiltLoggerConfig" />
   </Extension>
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
       <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
-        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="NevadaDoorMonitorConfig" />
+        <FilePath FilePath="../jurisdiction/DefaultAssets/alarm.ogg" filterid="NevadaDoorMonitorConfig" />
       </DoorOpenAlarm>
     </DoorMonitorConfiguration>
   </Extension>
-  <Extension path="/ConfigWizard/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\ConfigWizard.config.xml" filterid="NevadaConfigWizardConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="NevadaOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="NevadaOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="NevadaOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="NevadaOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="NevadaOperatorMenuSoundConfig" />
+  <!--<Extension path="/ConfigWizard/Configuration">
+    <FilePath FilePath="../jurisdiction/Nevada/ConfigWizard.config.xml" filterid="NevadaConfigWizardConfig" />
+  </Extension>-->
+  <!--<Extension path="/OperatorMenu/Sound/Configuration">
+    <FilePath FilePath="../jurisdiction/DefaultAssets/ding.ogg" Name="Ding" filterid="NevadaOperatorMenuSoundConfig" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/feature_bell.ogg" Name="Feature Bell" filterid="NevadaOperatorMenuSoundConfig" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/touch_sound.ogg" Name="Touch Sound" filterid="NevadaOperatorMenuSoundConfig" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/collect.ogg" Name="Collect" filterid="NevadaOperatorMenuSoundConfig" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/snd_print_ticket.ogg" Name="Send Print Ticket" filterid="NevadaOperatorMenuSoundConfig" />
   </Extension>
   <Extension path="/OperatorMenu/GamePreferences/Sounds">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="NevadaGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="NevadaGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="NevadaGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="NevadaGamePreferencesSounds" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/ding.ogg" Name="Ding" filterid="NevadaGamePreferencesSounds" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/ReelClick.ogg" Name="ReelClick" filterid="NevadaGamePreferencesSounds" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/CardFlip.ogg" Name="CardFlip" filterid="NevadaGamePreferencesSounds" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/BallDrop.ogg" Name="BallDrop" filterid="NevadaGamePreferencesSounds" />
   </Extension>
   <Extension path="/OperatorMenu/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\OperatorMenu.config.xml" filterid="NevadaOperatorMenuConfig" />
-  </Extension>
+    <FilePath FilePath="../jurisdiction/Nevada/OperatorMenu.config.xml" filterid="NevadaOperatorMenuConfig" />
+  </Extension>-->
   <Extension path="/Locale/Configuration" filterid="NevadaLocaleConfig">
-    <FilePath FilePath="..\jurisdiction\Nevada\Locale.config.xml" />
+    <FilePath FilePath="../jurisdiction/Nevada/Locale.config.xml" />
   </Extension>
   <Extension path="/Locale/Overrides" filterid="NevadaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Nevada\resources\" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/resources/C3/" />
+    <FilePath FilePath="../jurisdiction/Nevada/resources/" />
   </Extension>
-  <Extension path="/Lobby/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\Lobby.config.xml" filterid="NevadaLobbyConfig" />
-  </Extension>
-  <Extension path="/Accounting/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\Accounting.config.xml" filterid="NevadaAccountingConfig" />
-  </Extension>
+  <!--<Extension path="/Lobby/Configuration">
+    <FilePath FilePath="../jurisdiction/Nevada/Lobby.config.xml" filterid="NevadaLobbyConfig" />
+  </Extension>-->
+  <!--<Extension path="/Accounting/Configuration">
+    <FilePath FilePath="../jurisdiction/Nevada/Accounting.config.xml" filterid="NevadaAccountingConfig" />
+  </Extension>-->
   <Extension path="/Application/JurisdictionConfiguration">
-    <FilePath FilePath="..\jurisdiction\Nevada\Application.config.xml" filterid="NevadaApplicationConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/Application.config.xml" filterid="NevadaApplicationConfig" />
   </Extension>
-  <Extension path="/Gaming/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\Gaming.config.xml" filterid="NevadaGamingConfig" />
-  </Extension>
+  <!--<Extension path="/Gaming/Configuration">
+    <FilePath FilePath="../jurisdiction/Nevada/Gaming.config.xml" filterid="NevadaGamingConfig" />
+  </Extension>-->
   <Extension path="/TowerLight/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\TowerLight.config.xml" filterid="NevadaTowerLightConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/TowerLight.config.xml" filterid="NevadaTowerLightConfig" />
   </Extension>
   <Extension path="/HardMeterMapping/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="NevadaHardMeterMappingConfig" />
+    <FilePath FilePath="../jurisdiction/DefaultAssets/HardMeterMapping.config.xml" filterid="NevadaHardMeterMappingConfig" />
   </Extension>
   <Extension path="/Hardware/PrintableRegions">
-    <FilePath FilePath="..\jurisdiction\Nevada\printable_regions.xml" filterid="NevadaPrintableRegionsConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/printable_regions.xml" filterid="NevadaPrintableRegionsConfig" />
   </Extension>
   <Extension path="/Hardware/PrintableTemplates">
-    <FilePath FilePath="..\jurisdiction\Nevada\printable_templates.xml" filterid="NevadaPrintableTemplatesConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/printable_templates.xml" filterid="NevadaPrintableTemplatesConfig" />
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
-    <FilePath FilePath="..\jurisdiction\Nevada\PrinterOverrides.xml" filterid="NevadaPrinterOverridesConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/PrinterOverrides.xml" filterid="NevadaPrinterOverridesConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
-    <FilePath FilePath="..\jurisdiction\Nevada\ErrorMessage.config.xml" filterid="NevadaErrorMessageConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/ErrorMessage.config.xml" filterid="NevadaErrorMessageConfig" />
   </Extension>
   <Extension path="/Application/OperatorMenu/DisplayMeters">
-    <FilePath FilePath="..\jurisdiction\Nevada\DisplayMeters.config.xml" filterid="NevadaDisplayMetersConfig" />
+    <FilePath FilePath="../jurisdiction/Nevada/DisplayMeters.config.xml" filterid="NevadaDisplayMetersConfig" />
   </Extension>
-  <Extension path="/Accounting/TransactionHistories" filterid="NevadaTransactionConfiguration">
+  <!--<Extension path="/Accounting/TransactionHistories" filterid="NevadaTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
@@ -183,5 +183,5 @@
   </Extension>
   <Extension path="/Accounting/BootExtender" filterid="NevadaAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
-  </Extension>
+  </Extension>-->
 </Addin>

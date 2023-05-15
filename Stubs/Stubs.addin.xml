@@ -9,19 +9,16 @@
 
   <Dependencies>
     <Addin id="Bootstrap" version="1.0" />
-    <Addin id="HardwareRunnable" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <!-- The line below is necessary for the /Kernel/PathMapping extension in this file -->
+    <Addin id="Monaco.Kernel" version="1.0" />
     <!-- The line below is necessary to make Monaco.Hardware addin load correctly, but also for the IOImplementation extension -->
     <Addin id="Monaco.Hardware" version="1.0" />
   </Dependencies>
 
   <!-- Extend the layer -->
-  <Extension path="/Hardware/BootExtender">
+  <Extension path="/Application/BootExtender">
     <BootExtender type="Stubs.SimpleRunnable" />
-  </Extension>
-
-  <!-- Provide Localizer service that Application layer would normally provide -->
-  <Extension path="/Kernel/Localizer">
-    <Localizer type="Stubs.Localizer" />
   </Extension>
 
   <!-- Provide WindowLauncher service that Application layer would normally provide -->
@@ -39,16 +36,9 @@
     <DeviceImplementation ProtocolName="Stub" type="Stubs.StubIOImplementation"/>
   </Extension>
 
-  <!-- Temporarily provide printer extensions that normally come from a selected jurisdiction,
-       so that the PrinterAdapter can fully initialize -->
-  <Extension path="/Hardware/PrintableRegions">
-    <FilePath FilePath="stub_printable_regions.xml" />
-  </Extension>
-  <Extension path="/Hardware/PrintableTemplates">
-    <FilePath FilePath="stub_printable_templates.xml" />
-  </Extension>
-  <Extension path="/Hardware/PrinterOverrides">
-    <FilePath FilePath="stub_PrinterOverrides.xml" />
+  <!-- For some reason, the /Logs path is mapped in a gaming addin.xml file, even though the path is used in the Application layer -->
+  <Extension path="/Kernel/PathMapping">
+    <PathMapping platformPath="/Logs" fileSystemPath="../logs" createIfNotExists="true" />
   </Extension>
 
 </Addin>

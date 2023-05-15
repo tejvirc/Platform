@@ -63,28 +63,28 @@
 
         private static Version GetOsImageVersion()
         {
-            try
-            {
-                var pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
+            //try
+            //{
+            //    var pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
 
-                var directory = pathMapper.GetDirectory(VersionInfoPath);
+            //    var directory = pathMapper.GetDirectory(VersionInfoPath);
 
-                var versionInfo = Path.Combine(directory.FullName, VersionInfoFile);
+            //    var versionInfo = Path.Combine(directory.FullName, VersionInfoFile);
 
-                if (File.Exists(versionInfo))
-                {
-                    var contents = File.ReadAllLines(versionInfo);
+            //    if (File.Exists(versionInfo))
+            //    {
+            //        var contents = File.ReadAllLines(versionInfo);
 
-                    if (contents.Length >= 1 && Version.TryParse(contents[0], out var version))
-                    {
-                        return version;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Failed to get OS version", e);
-            }
+            //        if (contents.Length >= 1 && Version.TryParse(contents[0], out var version))
+            //        {
+            //            return version;
+            //        }
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.Error("Failed to get OS version", e);
+            //}
 
             return new Version();
         }

@@ -9,6 +9,7 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
+    using static ServiceStack.LicenseUtils;
 
     /// <summary>
     ///     Time service implements the ITime interface and provides the ability to convert a
@@ -126,7 +127,7 @@
 
                     block["TimeZone"] = _timeZone.Id;
 
-                    TimeZoneInteropWrapper.SetDynamicTimeZone(_timeZone);
+                    //TimeZoneInteropWrapper.SetDynamicTimeZone(_timeZone);
                     updateTime = true;
                     Logger.Debug($"Time service Set Time Zone:\n Block:{_timeZone.Id}\n Local:{TimeZoneInfo.Local.Id}");
                     break;
@@ -260,27 +261,28 @@
 
         private static void SetTime(DateTime time)
         {
-            var sysTime = default(NativeMethods.SystemTime);
-            sysTime.wYear = (short)time.Year;
-            sysTime.wMonth = (short)time.Month;
-            sysTime.wDayOfWeek = (short)time.DayOfWeek;
-            sysTime.wDay = (short)time.Day;
-            sysTime.wHour = (short)time.Hour;
-            sysTime.wMinute = (short)time.Minute;
-            sysTime.wSecond = (short)time.Second;
-            sysTime.wMilliseconds = (short)time.Millisecond;
+            //var sysTime = default(NativeMethods.SystemTime);
+            //sysTime.wYear = (short)time.Year;
+            //sysTime.wMonth = (short)time.Month;
+            //sysTime.wDayOfWeek = (short)time.DayOfWeek;
+            //sysTime.wDay = (short)time.Day;
+            //sysTime.wHour = (short)time.Hour;
+            //sysTime.wMinute = (short)time.Minute;
+            //sysTime.wSecond = (short)time.Second;
+            //sysTime.wMilliseconds = (short)time.Millisecond;
 
-            uint error;
+            //uint error;
 
-            var result = NativeMethods.SetSystemTime(ref sysTime);
-            if (result != 0 || (error = NativeMethods.GetLastError()) == 0)
-            {
-                return;
-            }
+            //var result = NativeMethods.SetSystemTime(ref sysTime);
+            //if (result != 0 || (error = NativeMethods.GetLastError()) == 0)
+            //{
+            //    return;
+            //}
 
-            var errorMessage = $"Failed to set system time with a result of {error}";
-            Logger.Error(errorMessage);
-            throw new InvalidOperationException(errorMessage);
+            //var errorMessage = $"Failed to set system time with a result of {error}";
+            //Logger.Error(errorMessage);
+            //throw new InvalidOperationException(errorMessage);
+            throw new InvalidOperationException("Failed to set system time");
         }
 
         private static TimeZoneInfo ConvertTimeZoneString(string timeZone)

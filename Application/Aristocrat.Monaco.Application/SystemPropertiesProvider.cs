@@ -309,23 +309,23 @@ namespace Aristocrat.Monaco.Application
         {
             switch (propertyName)
             {
-                case ApplicationConstants.MachineId:
-                    var value = propertyValue.ToString();
-                    var protocols = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>()
-                        .MultiProtocolConfiguration
-                        .Select(x => x.Protocol);
-                    var maxLength = protocols.Contains(CommsProtocol.SAS)
-                        ? ApplicationConstants.MaxMachineIdLengthSAS
-                        : ApplicationConstants.MaxMachineIdLengthG2S;
+                //case ApplicationConstants.MachineId:
+                //    var value = propertyValue.ToString();
+                //    var protocols = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>()
+                //        .MultiProtocolConfiguration
+                //        .Select(x => x.Protocol);
+                //    var maxLength = protocols.Contains(CommsProtocol.SAS)
+                //        ? ApplicationConstants.MaxMachineIdLengthSAS
+                //        : ApplicationConstants.MaxMachineIdLengthG2S;
 
-                    if (value.Length > maxLength)
-                    {
-                        const string message = "MachineId exceeds the length limit of 8.";
-                        Logger.Fatal(message);
-                        throw new ArgumentOutOfRangeException(propertyName, message);
-                    }
+                //    if (value.Length > maxLength)
+                //    {
+                //        const string message = "MachineId exceeds the length limit of 8.";
+                //        Logger.Fatal(message);
+                //        throw new ArgumentOutOfRangeException(propertyName, message);
+                //    }
 
-                    break;
+                //    break;
                 case ApplicationConstants.OperatingHours:
                     if (!(propertyValue is IEnumerable operatingHours) ||
                         operatingHours.Cast<OperatingHours>().Count() > ApplicationConstants.MaxOperatingHours)

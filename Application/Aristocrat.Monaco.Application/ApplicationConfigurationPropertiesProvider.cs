@@ -634,9 +634,10 @@
                 {
                     ApplicationConstants.CabinetTypeKey,
                     Tuple.Create(
-                        (object)InitFromStorage(
-                            ApplicationConstants.CabinetTypeKey,
-                            (int)ServiceManager.GetInstance().GetService<ICabinetDetectionService>().Type),
+                        //(object)InitFromStorage(
+                        //    ApplicationConstants.CabinetTypeKey,
+                        //    (int)ServiceManager.GetInstance().GetService<ICabinetDetectionService>().Type),
+                        (object)"unknown",
                         ApplicationConstants.CabinetTypeKey,
                         true)
                 },

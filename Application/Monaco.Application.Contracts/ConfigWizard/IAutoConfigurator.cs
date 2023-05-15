@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.ConfigWizard
 {
-    using System.Windows.Controls.Primitives;
+    //using System.Windows.Controls.Primitives;
 
     /// <summary>
     ///     Interface for applying pre-determined configuration values to WPF page controls.
@@ -28,20 +28,20 @@
         /// <returns>True if the fieldValue was set, False otherwise</returns>
         bool GetValue(string fieldName, ref bool fieldValue);
 
-        /// <summary>
-        ///     Sets the supplied toggle (check box, radio button, etc.) according to the configured value for the provided field.
-        /// </summary>
-        /// <param name="toggle">The toggle to set</param>
-        /// <param name="fieldName">The name of the configuration item</param>
-        /// <returns>True if the toggle was set, False otherwise.</returns>
-        bool SetToggleButton(ToggleButton toggle, string fieldName);
+        ///// <summary>
+        /////     Sets the supplied toggle (check box, radio button, etc.) according to the configured value for the provided field.
+        ///// </summary>
+        ///// <param name="toggle">The toggle to set</param>
+        ///// <param name="fieldName">The name of the configuration item</param>
+        ///// <returns>True if the toggle was set, False otherwise.</returns>
+        //bool SetToggleButton(ToggleButton toggle, string fieldName);
 
-        /// <summary>
-        ///     Sets the supplied selector (combo-box, list-box, etc.) to the configured value for the provided field.
-        /// </summary>
-        /// <param name="selector">The target selector</param>
-        /// <param name="fieldName">The name of the configuration item</param>
-        /// <returns>True if the selector was set, False otherwise.</returns>
-        bool SetSelector(Selector selector, string fieldName);
+        ///// <summary>
+        /////     Sets the supplied selector (combo-box, list-box, etc.) to the configured value for the provided field.
+        ///// </summary>
+        ///// <param name="selector">The target selector</param>
+        ///// <param name="fieldName">The name of the configuration item</param>
+        ///// <returns>True if the selector was set, False otherwise.</returns>
+        //bool SetSelector(Selector selector, string fieldName);
     }
 }

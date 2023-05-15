@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Common;
     using Contracts.Localization;
     using Hardware.Contracts.ButtonDeck;
@@ -20,127 +20,131 @@
 
         public static string GetButtonDeckIdentification(ILocalizer localizer)
         {
-            var buttonDeckInfo = string.Empty;
-            var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
-            var displayDeviceVbd = cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.VBD);
-            var touchScreen = cabinetDetectionService.ExpectedTouchDevices.FirstOrDefault(
-                x => x.ProductId == displayDeviceVbd?.TouchProductId && x.VendorId == displayDeviceVbd.TouchVendorId);
-            if (displayDeviceVbd != null)
-            {
-                if (!string.IsNullOrEmpty(displayDeviceVbd.Name) &&
-                    displayDeviceVbd.Name.Equals(VbdType.Bartop.GetDescription(typeof(VbdType))))
-                {
-                    buttonDeckInfo = localizer.GetString(ResourceKeys.Bartop) + " ";
-                }
-            }
+            //var buttonDeckInfo = string.Empty;
+            //var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+            //var displayDeviceVbd = cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.VBD);
+            //var touchScreen = cabinetDetectionService.ExpectedTouchDevices.FirstOrDefault(
+            //    x => x.ProductId == displayDeviceVbd?.TouchProductId && x.VendorId == displayDeviceVbd.TouchVendorId);
+            //if (displayDeviceVbd != null)
+            //{
+            //    if (!string.IsNullOrEmpty(displayDeviceVbd.Name) &&
+            //        displayDeviceVbd.Name.Equals(VbdType.Bartop.GetDescription(typeof(VbdType))))
+            //    {
+            //        buttonDeckInfo = localizer.GetString(ResourceKeys.Bartop) + " ";
+            //    }
+            //}
 
-            var buttonDeckType = ButtonDeckUtilities.GetButtonDeckType();
-            var buttonDeckFirmwareVersion = string.Empty;
-            if (buttonDeckType == ButtonDeckUtilities.ButtonDeckType.LCD)
-            {
-                buttonDeckFirmwareVersion = " " + ButtonDeckUtilities.GetButtonDeckFirmwareVersion();
-            }
+            //var buttonDeckType = ButtonDeckUtilities.GetButtonDeckType();
+            //var buttonDeckFirmwareVersion = string.Empty;
+            //if (buttonDeckType == ButtonDeckUtilities.ButtonDeckType.LCD)
+            //{
+            //    buttonDeckFirmwareVersion = " " + ButtonDeckUtilities.GetButtonDeckFirmwareVersion();
+            //}
 
-            var buttonDeckVbd = string.Empty;
+            //var buttonDeckVbd = string.Empty;
 
-            if (touchScreen != null)
-            {
-                buttonDeckVbd = " " + touchScreen.ProductString + " " +
-                                cabinetDetectionService.GetFirmwareVersion(touchScreen);
-            }
+            //if (touchScreen != null)
+            //{
+            //    buttonDeckVbd = " " + touchScreen.ProductString + " " +
+            //                    cabinetDetectionService.GetFirmwareVersion(touchScreen);
+            //}
 
-            switch (buttonDeckType)
-            {
-                case ButtonDeckUtilities.ButtonDeckType.NoButtonDeck:
-                    buttonDeckInfo += localizer.GetString(ResourceKeys.None);
-                    break;
-                case ButtonDeckUtilities.ButtonDeckType.PhysicalButtonDeck:
-                    buttonDeckInfo += localizer.GetString(ResourceKeys.MechanicalButtons);
-                    break;
-                case ButtonDeckUtilities.ButtonDeckType.LCD:
-                case ButtonDeckUtilities.ButtonDeckType.SimulatedLCD:
-                    buttonDeckInfo += localizer.GetString(ResourceKeys.LCDButtons) + buttonDeckFirmwareVersion;
-                    break;
-                case ButtonDeckUtilities.ButtonDeckType.Virtual:
-                case ButtonDeckUtilities.ButtonDeckType.SimulatedVirtual:
-                    buttonDeckInfo += localizer.GetString(ResourceKeys.VirtualButtons) + buttonDeckVbd;
-                    break;
-                default:
-                    buttonDeckInfo += localizer.GetString(ResourceKeys.NotAvailable);
-                    break;
-            }
+            //switch (buttonDeckType)
+            //{
+            //    case ButtonDeckUtilities.ButtonDeckType.NoButtonDeck:
+            //        buttonDeckInfo += localizer.GetString(ResourceKeys.None);
+            //        break;
+            //    case ButtonDeckUtilities.ButtonDeckType.PhysicalButtonDeck:
+            //        buttonDeckInfo += localizer.GetString(ResourceKeys.MechanicalButtons);
+            //        break;
+            //    case ButtonDeckUtilities.ButtonDeckType.LCD:
+            //    case ButtonDeckUtilities.ButtonDeckType.SimulatedLCD:
+            //        buttonDeckInfo += localizer.GetString(ResourceKeys.LCDButtons) + buttonDeckFirmwareVersion;
+            //        break;
+            //    case ButtonDeckUtilities.ButtonDeckType.Virtual:
+            //    case ButtonDeckUtilities.ButtonDeckType.SimulatedVirtual:
+            //        buttonDeckInfo += localizer.GetString(ResourceKeys.VirtualButtons) + buttonDeckVbd;
+            //        break;
+            //    default:
+            //        buttonDeckInfo += localizer.GetString(ResourceKeys.NotAvailable);
+            //        break;
+            //}
 
-            return buttonDeckInfo;
+            //return buttonDeckInfo;
+            return "none";
         }
 
         public static string GetDisplayIdentifications(ILocalizer localizer)
         {
-            var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+            //var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
 
-            if (cabinetDetectionService == null)
-            {
-                return string.Empty;
-            }
+            //if (cabinetDetectionService == null)
+            //{
+            //    return string.Empty;
+            //}
 
-            var identifications = new List<string>();
-            foreach (DisplayRole role in Enum.GetValues(typeof(DisplayRole)))
-            {
-                if (cabinetDetectionService.IsDisplayConnected(role))
-                {
-                    var display = cabinetDetectionService.GetDisplayDeviceByItsRole(role);
-                    identifications.Add($"{role}: " +
-                        (string.IsNullOrEmpty(display.ProductString)
-                        ? localizer.GetString(Resources.Unknown)
-                        : $"{string.Join(" ", new string[]{ display.ProductString, display.FirmwareVersion })}"));
-                }
-            }
+            //var identifications = new List<string>();
+            //foreach (DisplayRole role in Enum.GetValues(typeof(DisplayRole)))
+            //{
+            //    if (cabinetDetectionService.IsDisplayConnected(role))
+            //    {
+            //        var display = cabinetDetectionService.GetDisplayDeviceByItsRole(role);
+            //        identifications.Add($"{role}: " +
+            //            (string.IsNullOrEmpty(display.ProductString)
+            //            ? localizer.GetString(Resources.Unknown)
+            //            : $"{string.Join(" ", new string[]{ display.ProductString, display.FirmwareVersion })}"));
+            //    }
+            //}
 
-            return string.Join(Environment.NewLine, identifications);
+            //return string.Join(Environment.NewLine, identifications);
+            return "none";
         }
 
         public static string GetTouchScreenIdentification(ILocalizer localizer)
         {
-            var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+            //var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
 
-            var touchScreenIdentification = string.Empty;
-            if (cabinetDetectionService.ExpectedSerialTouchDevices != null)
-            {
-                var serialTouchScreensInfo = cabinetDetectionService.ExpectedSerialTouchDevices
-                    .Select(x => $"{x.Name} {x.VersionNumber}")
-                    .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
-                touchScreenIdentification = string.Join(MultipleItemDelimiter, serialTouchScreensInfo);
-            }
+            //var touchScreenIdentification = string.Empty;
+            //if (cabinetDetectionService.ExpectedSerialTouchDevices != null)
+            //{
+            //    var serialTouchScreensInfo = cabinetDetectionService.ExpectedSerialTouchDevices
+            //        .Select(x => $"{x.Name} {x.VersionNumber}")
+            //        .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
+            //    touchScreenIdentification = string.Join(MultipleItemDelimiter, serialTouchScreensInfo);
+            //}
 
-            var touchScreensInfo = cabinetDetectionService.ExpectedTouchDevices
-                .Select(x => $"{x.ProductString} {cabinetDetectionService.GetFirmwareVersion(x)}")
-                .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
+            //var touchScreensInfo = cabinetDetectionService.ExpectedTouchDevices
+            //    .Select(x => $"{x.ProductString} {cabinetDetectionService.GetFirmwareVersion(x)}")
+            //    .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
 
-            return touchScreenIdentification + string.Join(MultipleItemDelimiter, touchScreensInfo);
+            //return touchScreenIdentification + string.Join(MultipleItemDelimiter, touchScreensInfo);
+            return "none";
         }
 
         public static IEnumerable<string> GetTouchScreenIdentificationsWithoutVbd(ILocalizer localizer)
         {
-            var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
-            var displayDeviceVbd = cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.VBD);
+            //var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+            //var displayDeviceVbd = cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.VBD);
 
-            IEnumerable<string> touchScreenIdentificationsWithoutVbd = null;
-            if (cabinetDetectionService.ExpectedSerialTouchDevices != null)
-            {
-                touchScreenIdentificationsWithoutVbd = cabinetDetectionService.ExpectedSerialTouchDevices
-                    .Where(x => x.ProductId != displayDeviceVbd?.TouchProductId || x.VendorId != displayDeviceVbd.TouchVendorId)
-                    .Select(x => $"{x.Name} {x.VersionNumber}")
-                    .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
-            }
+            //IEnumerable<string> touchScreenIdentificationsWithoutVbd = null;
+            //if (cabinetDetectionService.ExpectedSerialTouchDevices != null)
+            //{
+            //    touchScreenIdentificationsWithoutVbd = cabinetDetectionService.ExpectedSerialTouchDevices
+            //        .Where(x => x.ProductId != displayDeviceVbd?.TouchProductId || x.VendorId != displayDeviceVbd.TouchVendorId)
+            //        .Select(x => $"{x.Name} {x.VersionNumber}")
+            //        .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
+            //}
 
-            if (touchScreenIdentificationsWithoutVbd == null && cabinetDetectionService.ExpectedTouchDevices != null)
-            {
-                touchScreenIdentificationsWithoutVbd = cabinetDetectionService.ExpectedTouchDevices
-                    .Where(x => x.ProductId != displayDeviceVbd?.TouchProductId || x.VendorId != displayDeviceVbd.TouchVendorId)
-                    .Select(x => $"{x.ProductString} {cabinetDetectionService.GetFirmwareVersion(x)}")
-                    .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
-            }
+            //if (touchScreenIdentificationsWithoutVbd == null && cabinetDetectionService.ExpectedTouchDevices != null)
+            //{
+            //    touchScreenIdentificationsWithoutVbd = cabinetDetectionService.ExpectedTouchDevices
+            //        .Where(x => x.ProductId != displayDeviceVbd?.TouchProductId || x.VendorId != displayDeviceVbd.TouchVendorId)
+            //        .Select(x => $"{x.ProductString} {cabinetDetectionService.GetFirmwareVersion(x)}")
+            //        .DefaultIfEmpty(localizer.GetString(ResourceKeys.None));
+            //}
 
-            return touchScreenIdentificationsWithoutVbd;
+            //return touchScreenIdentificationsWithoutVbd;
+            return new List<string> { "none" };
         }
 
         public static string GetTouchScreenIdentificationWithoutVbd(ILocalizer localizer)

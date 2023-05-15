@@ -21,7 +21,7 @@ namespace Aristocrat.Monaco.Application
     using ErrorMessage;
     using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
-    using Hardware.Contracts.VHD;
+    //using Hardware.Contracts.VHD;
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
@@ -65,8 +65,8 @@ namespace Aristocrat.Monaco.Application
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private IPathMapper _pathMapper;
-        private IVirtualDisk _virtualDisk;
-        private VirtualDiskHandle _jurisdictionMountHandle;
+        //private IVirtualDisk _virtualDisk;
+        //private VirtualDiskHandle _jurisdictionMountHandle;
         private string _jurisdictionLinkPath;
 
         private readonly RunnablesManager _runnablesManager = new RunnablesManager();
@@ -138,6 +138,8 @@ namespace Aristocrat.Monaco.Application
                 LoadKeyboardService();
 
                 CheckInitialConfiguration();
+
+                Logger.Debug("ApplicationRunnable configuration wizard complete");
             }
 
             if (RunState == RunnableState.Running)
@@ -245,22 +247,22 @@ namespace Aristocrat.Monaco.Application
             var jurIsoPackages = Directory.GetFiles(packagesFolder, ApplicationConstants.JurisdictionPackagePrefix + "*.iso", SearchOption.TopDirectoryOnly).ToList();
             if (jurIsoPackages.Count > 0)
             {
-                jurIsoPackages.Sort(new VersionComparer());
-                jurIsoPackages.ForEach(p => Logger.Debug($"found package {p}"));
-                var newestJurIsoPackagePath = Path.GetFullPath(jurIsoPackages.Last());
+                //jurIsoPackages.Sort(new VersionComparer());
+                //jurIsoPackages.ForEach(p => Logger.Debug($"found package {p}"));
+                //var newestJurIsoPackagePath = Path.GetFullPath(jurIsoPackages.Last());
 
                 // mount the newest version.
-                Directory.CreateDirectory(_jurisdictionLinkPath);
+                //Directory.CreateDirectory(_jurisdictionLinkPath);
 
-                _virtualDisk = ServiceManager.GetInstance().GetService<IVirtualDisk>();
-                _jurisdictionMountHandle = _virtualDisk.AttachImage(newestJurIsoPackagePath, _jurisdictionLinkPath);
-                if (_jurisdictionMountHandle.IsInvalid)
-                {
-                    Logger.Warn($"invalid handle; couldn't mount {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
-                    _jurisdictionMountHandle.Close();
-                    return;
-                }
-                Logger.Debug($"Mounted {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
+                //_virtualDisk = ServiceManager.GetInstance().GetService<IVirtualDisk>();
+                //_jurisdictionMountHandle = _virtualDisk.AttachImage(newestJurIsoPackagePath, _jurisdictionLinkPath);
+                //if (_jurisdictionMountHandle.IsInvalid)
+                //{
+                    //Logger.Warn($"invalid handle; couldn't mount {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
+                    //_jurisdictionMountHandle.Close();
+                    //return;
+                //}
+                //Logger.Debug($"Mounted {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
             }
             else
             {
@@ -268,18 +270,27 @@ namespace Aristocrat.Monaco.Application
                 var jurisdictionSourcePath = Path.Combine(Directory.GetCurrentDirectory(), @"jurisdiction");
                 Logger.Debug($"No jurisdiction ISO packages found; link '{jurisdictionSourcePath}' at '{_jurisdictionLinkPath}'");
 
+                // Linux/Windows support
+                string fileName = "cmd.exe";
+                string arguments = $"/c mklink /j \"{_jurisdictionLinkPath}\" \"{jurisdictionSourcePath}\"";
+                if (Environment.OSVersion.Platform == PlatformID.Unix)
+                {
+                    fileName = "/bin/bash";
+                    arguments = $"-c \"ln -s '{jurisdictionSourcePath}' '{_jurisdictionLinkPath}'\"";
+                }
+
                 // Hard link using "mklink"
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = "cmd.exe",
-                    Arguments = $"/c mklink /j \"{_jurisdictionLinkPath}\" \"{jurisdictionSourcePath}\"",
+                    FileName = fileName,
+                    Arguments = arguments,
                     CreateNoWindow = false
                 })?.WaitForExit();
                 Logger.Debug($"Attached {jurisdictionSourcePath} to {_jurisdictionLinkPath}");
             }
 
             // Update the add-ins registry
-            AddinManager.Registry.Update(new MonoLogger(VerboseMonoLogLevel));
+            AddinManager.Registry.Update(new MonoLogger(int.MaxValue));
         }
 
         private class VersionComparer : IComparer<string>
@@ -333,6 +344,39 @@ namespace Aristocrat.Monaco.Application
             {
                 manager.AddPropertyProvider((IPropertyProvider)node.CreateInstance());
             }
+
+            Console.WriteLine("Applying hard-coded config for linux");
+
+            var propsManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+            const string JurisdictionString = "Nevada";
+
+            var selectedAddinsConfig = new Dictionary<string, string>();
+            selectedAddinsConfig.Add("Jurisdiction", JurisdictionString);
+            selectedAddinsConfig.Add("Protocol", "[\"Test\"]");
+            propsManager.SetProperty(ApplicationConstants.SelectedConfigurationKey, selectedAddinsConfig);
+
+            var localizationState = @"{""DefaultCulture"":""en-US"",""CurrentCulture"":""en-US"",""Providers"":{""Operator"":{""AvailableCultures"":[""en-US""],""DefaultCulture"":""en-US"",""ProviderName"":""Operator"",""CurrentCulture"":""en-US""},""OperatorTicket"":{""AvailableCultures"":[""en-US""],""ProviderName"":""OperatorTicket"",""CurrentCulture"":""en-US""},""Player"":{""AvailableCultures"":[""en-US""],""PrimaryCulture"":""en-US"",""ProviderName"":""Player"",""CurrentCulture"":""en-US""},""PlayerTicket"":{""AvailableCultures"":[""en-US""],""ProviderName"":""PlayerTicket"",""CurrentCulture"":""en-US""},""Currency"":{""AvailableCultures"":[""en-US""],""ProviderName"":""Currency"",""CurrentCulture"":""en-US""}}}";
+            propsManager.SetProperty(ApplicationConstants.LocalizationState, localizationState);
+            propsManager.SetProperty(ApplicationConstants.LocalizationCurrentCulture, "en-US");
+
+            propsManager.SetProperty(HardwareConstants.HardMetersEnabledKey, false);
+
+            propsManager.SetProperty(ApplicationConstants.IsInitialConfigurationComplete, true);
+            propsManager.SetProperty(ApplicationConstants.NoteAcceptorEnabled, true);
+            propsManager.SetProperty(ApplicationConstants.NoteAcceptorManufacturer, "Fake");
+            propsManager.SetProperty(ApplicationConstants.PrinterEnabled, true);
+            propsManager.SetProperty(ApplicationConstants.PrinterManufacturer, "Fake");
+            propsManager.SetProperty(ApplicationConstants.SerialNumber, "1");
+            propsManager.SetProperty(ApplicationConstants.MachineId, 1u);
+            propsManager.SetProperty(ApplicationConstants.CurrencyId, "USD");
+            propsManager.SetProperty(ApplicationConstants.CurrencyDescription, "US Dollar USD $1,000.00");
+            propsManager.SetProperty(ApplicationConstants.Jurisdiction, JurisdictionString);
+            propsManager.SetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, true);
+            propsManager.SetProperty(ApplicationConstants.HardMeterMapSelectionValue, "(1)Turnover,(2)Total Won,(4)Handpay,(5)Bills In,(7)Coins In,(8)Coins Out");
+            propsManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true);
+            propsManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, 5);
+            propsManager.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, true);
         }
 
         private static void LoadConfigurationSettingsManager()
@@ -413,11 +457,11 @@ namespace Aristocrat.Monaco.Application
 
         private void LoadKeyboardService()
         {
-            WritePendingActionToMessageDisplay(ResourceKeys.CreatingKeyboardService);
-            var node = MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(KeyboardServiceExtensionPath);
-            _keyboardService = (IService)node.CreateInstance();
-            _keyboardService.Initialize();
-            ServiceManager.GetInstance().AddService(_keyboardService);
+            //WritePendingActionToMessageDisplay(ResourceKeys.CreatingKeyboardService);
+            //var node = MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(KeyboardServiceExtensionPath);
+            //_keyboardService = (IService)node.CreateInstance();
+            //_keyboardService.Initialize();
+            //ServiceManager.GetInstance().AddService(_keyboardService);
         }
 
         private void LoadDisableByOperatorManager()
@@ -463,12 +507,12 @@ namespace Aristocrat.Monaco.Application
 
         private void LoadOperatorMenuLauncher()
         {
-            WritePendingActionToMessageDisplay(ResourceKeys.CreatingOperatorMenuLauncher);
-            var node =
-                MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(OperatorMenuLauncherExtensionPath);
-            _operatorMenuLauncher = (IService)node.CreateInstance();
-            _operatorMenuLauncher.Initialize();
-            ServiceManager.GetInstance().AddService(_operatorMenuLauncher);
+            //WritePendingActionToMessageDisplay(ResourceKeys.CreatingOperatorMenuLauncher);
+            //var node =
+            //    MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(OperatorMenuLauncherExtensionPath);
+            //_operatorMenuLauncher = (IService)node.CreateInstance();
+            //_operatorMenuLauncher.Initialize();
+            //ServiceManager.GetInstance().AddService(_operatorMenuLauncher);
         }
 
         private void LoadTicketCreators()
@@ -530,22 +574,22 @@ namespace Aristocrat.Monaco.Application
 
                 if (RunState == RunnableState.Running)
                 {
-                    var node =
-                        MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(
-                            ConfigurationWizardExtensionPath);
-                    _configurationWizard = (IRunnable)node.CreateInstance();
-                    _configurationWizard.Initialize();
-                    WritePendingActionToMessageDisplay(ResourceKeys.RunningConfigurationWizard);
-                    _configurationWizard.Run();
-                    lock (_thisLock)
-                    {
-                        // Stop could have set the wizard to null on another thread
-                        if (_configurationWizard != null)
-                        {
-                            ((IDisposable)_configurationWizard).Dispose();
-                            _configurationWizard = null;
-                        }
-                    }
+                    //var node =
+                    //    MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(
+                    //        ConfigurationWizardExtensionPath);
+                    //_configurationWizard = (IRunnable)node.CreateInstance();
+                    //_configurationWizard.Initialize();
+                    //WritePendingActionToMessageDisplay(ResourceKeys.RunningConfigurationWizard);
+                    //_configurationWizard.Run();
+                    //lock (_thisLock)
+                    //{
+                    //    // Stop could have set the wizard to null on another thread
+                    //    if (_configurationWizard != null)
+                    //    {
+                    //        ((IDisposable)_configurationWizard).Dispose();
+                    //        _configurationWizard = null;
+                    //    }
+                    //}
                 }
             }
             else

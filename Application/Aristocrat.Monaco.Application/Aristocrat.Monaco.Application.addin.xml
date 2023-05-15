@@ -6,7 +6,7 @@
     <Import assembly="Monaco.Application.Contracts.dll" />
     <Import assembly="Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="Aristocrat.Monaco.Kernel.Contracts.dll" />
-    <Import assembly="Aristocrat.Monaco.UI.Common.dll" />
+    <!--<Import assembly="Aristocrat.Monaco.UI.Common.dll" />-->
   </Runtime>
 
   <Dependencies>
@@ -20,8 +20,8 @@
   </ExtensionPoint>
 
 	<Extension path="/Kernel/PathMapping">
-		<PathMapping platformPath="/Manifests" fileSystemPath="..\packages" createIfNotExists="true" absolutePathName="imagesPath" />
-		<PathMapping platformPath="/Jurisdictions" fileSystemPath="..\jurisdiction" createIfNotExists="true" />
+		<PathMapping platformPath="/Manifests" fileSystemPath="../packages" createIfNotExists="true" absolutePathName="imagesPath" />
+		<PathMapping platformPath="/Jurisdictions" fileSystemPath="../jurisdiction" createIfNotExists="true" />
 	</Extension>
 
 	<Extension path="/Application/TicketCreators">
@@ -33,9 +33,9 @@
     <TicketCreator type="Aristocrat.Monaco.Application.Tickets.PeriodicResetTicketCreator" />    
   </Extension>
 
-  <Extension path="/Application/Runnables">
+  <!--<Extension path="/Application/Runnables">
     <Runnable type="Aristocrat.Monaco.Application.Protocol.ProtocolLauncher" />
-  </Extension>
+  </Extension>-->
 
   <Extension path="/Application/Services">
     <Service type="Aristocrat.Monaco.Application.Tilt.TiltLogger" />
@@ -58,7 +58,7 @@
     <Service type="Aristocrat.Monaco.Application.Monitors.PeriodMetersClearMonitor" />
     <Service type="Aristocrat.Monaco.Application.Media.MediaPlayerResizeManager" />
     <Service type="Aristocrat.Monaco.Application.Media.MediaProvider" />
-    <Service type="Aristocrat.Monaco.Application.Monitors.DisplayMonitor" />
+    <!--<Service type="Aristocrat.Monaco.Application.Monitors.DisplayMonitor" />-->
     <Service type="Aristocrat.Monaco.Application.ConfigurationUtility" />
     <Service type="Aristocrat.Monaco.Application.AlteredMediaLogger" />
     <Service type="Aristocrat.Monaco.Application.HardMeterIncrementer" />
@@ -123,7 +123,7 @@
   </Extension>
 
   <Extension path="/Application/Configuration">
-    <Configuration type="Aristocrat.Monaco.Application.OperatorMenuConfigurationPropertiesProvider" />
+    <!--<Configuration type="Aristocrat.Monaco.Application.OperatorMenuConfigurationPropertiesProvider" />-->
     <Configuration type="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider" />
   </Extension>
 
@@ -215,6 +215,11 @@
   <!--Must implement Vgt.Client12.Application.Settings.IConfigurationSettings-->
   <ExtensionPoint path = "/Application/Configuration/Settings">
     <ExtensionNode name="Settings" type="Aristocrat.Monaco.Application.Settings.ConfigurationSettingsNode" />
+  </ExtensionPoint>
+
+  <!-- This is normally in the Application UI addin that is excluded for Linux -->
+  <ExtensionPoint path = "/Locale/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
 </Addin>

@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
     using System.Reflection;
-    using System.Windows.Forms;
+    //using System.Windows.Forms;
     using Contracts;
     using Hardware.Contracts.Button;
     using Kernel;
@@ -151,13 +151,13 @@
             if (keyCode == VirtualKeyCode.Space)
             {
                 Logger.Debug("Sending space");
-                SendKeys.SendWait(" ");
+                //SendKeys.SendWait(" ");
             }
             else
             {
                 var sendString = "{" + keyCode.ToString().ToUpper(CultureInfo.InvariantCulture) + "}";
                 Logger.DebugFormat("Sending {0}", sendString);
-                SendKeys.SendWait(sendString);
+                //SendKeys.SendWait(sendString);
             }
         }
 
@@ -169,7 +169,7 @@
         {
             var sendString = "+{" + keyCode.ToString().ToUpper(CultureInfo.InvariantCulture) + "}";
             Logger.DebugFormat("Sending +{0}", sendString);
-            SendKeys.SendWait(sendString);
+            //SendKeys.SendWait(sendString);
         }
 
         /// <summary>Subscribe to the button up event</summary>

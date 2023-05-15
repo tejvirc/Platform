@@ -21,7 +21,7 @@
 
     public static class CurrencyCultureHelper
     {
-        private const string CurrencyDefaultXml = @".\CurrencyDefaults.xml";
+        private const string CurrencyDefaultXml = @"./CurrencyDefaults.xml";
 
         public static IDictionary<string, CurrencyDefaultsCurrencyInfo> GetCurrencyDefaults()
         {

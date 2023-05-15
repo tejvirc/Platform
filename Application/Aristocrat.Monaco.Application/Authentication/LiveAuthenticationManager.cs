@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Application.Authentication
     using Contracts.Authentication;
     using Contracts.Localization;
     using Hardware.Contracts.Audio;
-    using Hardware.Contracts.VHD;
+    //using Hardware.Contracts.VHD;
     using Kernel;
     using Kernel.Contracts;
     using log4net;
@@ -45,7 +45,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             { ".mercury", ".png", ".bk2", ".gsaManifest", ".dat", ".exp", ".pdb", ".manifest", ".xlf", ".ttf",
               ".iobj", ".ipdb", ".pak", ".ogg", ".jpg", ".jpeg", ".xaml", ".db", ".xldf" };
 
-        private static readonly string[] FolderExclusions = { @"downloads\temp" };
+        private static readonly string[] FolderExclusions = { @"downloads/temp" };
 
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _eventBus;
@@ -146,8 +146,8 @@ namespace Aristocrat.Monaco.Application.Authentication
             AddAuthenticatedPath(Directory.GetCurrentDirectory(), manifest);
 #endif
 
-            _eventBus.Subscribe<DiskMountedEvent>(this, Handle);
-            _eventBus.Subscribe<DiskUnmountedEvent>(this, Handle);
+            //_eventBus.Subscribe<DiskMountedEvent>(this, Handle);
+           // _eventBus.Subscribe<DiskUnmountedEvent>(this, Handle);
 
             bool runSignatureVerificationAfterReboot = (bool)_propertiesManager.GetProperty(
                 ApplicationConstants.RunSignatureVerificationAfterReboot,
@@ -233,24 +233,24 @@ namespace Aristocrat.Monaco.Application.Authentication
             return result;
         }
 
-        private void Handle(DiskMountedEvent evt)
-        {
-            if (FolderExclusions.Any(exclusion => evt.PhysicalPath.Contains(exclusion)))
-            {
-                return;
-            }
+        //private void Handle(DiskMountedEvent evt)
+        //{
+        //    if (FolderExclusions.Any(exclusion => evt.PhysicalPath.Contains(exclusion)))
+        //    {
+        //        return;
+        //    }
 
-            var manifest = Path.ChangeExtension(evt.VirtualDisk, ManifestExtension);
+        //    var manifest = Path.ChangeExtension(evt.VirtualDisk, ManifestExtension);
 
-            AddAuthenticatedPath(evt.PhysicalPath, manifest);
-        }
+        //    AddAuthenticatedPath(evt.PhysicalPath, manifest);
+        //}
 
-        private void Handle(DiskUnmountedEvent evt)
-        {
-            _cache.TryRemove(evt.PhysicalPath, out _);
+        //private void Handle(DiskUnmountedEvent evt)
+        //{
+        //    _cache.TryRemove(evt.PhysicalPath, out _);
 
-            Logger.Debug($"Removed path {evt.PhysicalPath}");
-        }
+        //    Logger.Debug($"Removed path {evt.PhysicalPath}");
+        //}
 
         private void OnEnabled()
         {

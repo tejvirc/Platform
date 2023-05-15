@@ -22,25 +22,25 @@
     /// </summary>
     public sealed class EKeyService : BaseRunnable, IEKey, IService
     {
-        private const int MonitorIntervalMs = 5000;
+        //private const int MonitorIntervalMs = 5000;
 
-        private const string SmartCardReaderDescription = @"Microsoft Usbccid Smartcard Reader (WUDF)";
+        //private const string SmartCardReaderDescription = @"Microsoft Usbccid Smartcard Reader (WUDF)";
 
-        private const string EKeyVolumeLabel = "EKEYDATA";
+        //private const string EKeyVolumeLabel = "EKEYDATA";
 
-        private static readonly IReadOnlyList<string> OnBoardCardReaderNames = new List<string>
-        {
-            "ATA Mk7iICC 0",
-            "MK7 Smart Card"
-        };
+        //private static readonly IReadOnlyList<string> OnBoardCardReaderNames = new List<string>
+        //{
+        //    "ATA Mk7iICC 0",
+        //    "MK7 Smart Card"
+        //};
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
         private readonly ISystemDisableManager _disableManager;
 
-        private readonly List<EKeyProgram> _verificationPrograms;
+        //private readonly List<EKeyProgram> _verificationPrograms;
 
         private ManualResetEvent _readersConnected = new(false);
 
@@ -71,7 +71,7 @@
             _eventBus = eventBus;
             _disableManager = disableManager;
 
-            _verificationPrograms = new List<EKeyProgram> { new EKeyProdProgram(), new EKeyDevProgram() };
+            //_verificationPrograms = new List<EKeyProgram> { new EKeyProdProgram(), new EKeyDevProgram() };
         }
 
         /// <inheritdoc />
@@ -89,13 +89,14 @@
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            SubscribeToEvents();
+            //SubscribeToEvents();
         }
 
         /// <inheritdoc />
         protected override void OnRun()
         {
-            Monitor(_shutdown.Token).Wait();
+            //Monitor(_shutdown.Token).Wait();
+            _disableManager.Enable(ApplicationConstants.EKeyVerifiedDisableKey);
 
             if (!_shutdown.IsCancellationRequested)
             {
@@ -119,7 +120,7 @@
 
             if (disposing)
             {
-                _eventBus.UnsubscribeAll(this);
+                //_eventBus.UnsubscribeAll(this);
 
                 if (_readersConnected != null)
                 {
@@ -138,6 +139,7 @@
             _disposed = true;
         }
 
+#if false
         private async Task Monitor(CancellationToken token)
         {
             var readers = new Dictionary<string, (string Reader, EKeyState State)>();
@@ -336,5 +338,6 @@
         {
             return ex?.InnerExceptions.Any(e => e is SmartCardException) ?? false;
         }
+#endif
     }
 }

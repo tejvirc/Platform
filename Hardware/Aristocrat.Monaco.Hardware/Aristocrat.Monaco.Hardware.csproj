@@ -142,7 +142,4 @@
       <PrivateAssets>runtimes</PrivateAssets>
     </PackageReference>    
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y $(OutDir)\runtimes\win\lib\net6.0\System.IO.Ports.dll $(OutDir)\" />
-  </Target>
 </Project>

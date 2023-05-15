@@ -26,7 +26,7 @@
 #if !(RETAIL)
         private Timer _checkMemoryStatusTimer;
 #endif
-        private bool _disabled;
+        //private bool _disabled;
 
         public MemoryMonitor()
             : this(
@@ -90,29 +90,20 @@
         /// <remarks>This will lockup the game and request an attendant.</remarks>
         private void MemoryCheck(object state)
         {
-            var msex = new MemoryStatusEx();
+            //var msex = new MemoryStatusEx();
 
-            //Values are in Bytes, MemoryLoad is a percentage
-            NativeMethods.GlobalMemoryStatusEx(msex);
+            ////Values are in Bytes, MemoryLoad is a percentage
+            //NativeMethods.GlobalMemoryStatusEx(msex);
 
-            if(msex.ullAvailPhys <= _memoryLeftThreshold && !_disabled)
-            { //If we have exceeded the threshhold, start the lockup process if we haven't already.
-                Logger.Error($"Computer Memory is full. Locking up system for reboot. Available Memory: {msex.ullAvailPhys}. Total Memory: {msex.ullTotalPhys}. Threshold: {_memoryLeftThreshold}.");
-                _disabled = true;
+            //if(msex.ullAvailPhys <= _memoryLeftThreshold && !_disabled)
+            //{ //If we have exceeded the threshhold, start the lockup process if we haven't already.
+            //    Logger.Error($"Computer Memory is full. Locking up system for reboot. Available Memory: {msex.ullAvailPhys}. Total Memory: {msex.ullTotalPhys}. Threshold: {_memoryLeftThreshold}.");
+            //    _disabled = true;
 
-                _disableManager.Disable(LockupId, SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessage));
-            }
+            //    _disableManager.Disable(LockupId, SystemDisablePriority.Immediate,
+            //        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessage));
+            //}
         }
-    }
-
-
-    [CLSCompliant(false)]
-    internal static class NativeMethods
-    {
-        [return: MarshalAs(UnmanagedType.Bool)]
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool GlobalMemoryStatusEx([In, Out] MemoryStatusEx lpBuffer);
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]

@@ -13,7 +13,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using System.Windows.Forms;
+    //using System.Windows.Forms;
 
     /// <summary>
     ///     Implement the <see cref="IMediaProvider"/> interface
@@ -323,31 +323,31 @@
         {
             var screens = new List<IMediaScreen>();
 
-            var primary = Screen.AllScreens.FirstOrDefault(s => s.Primary);
-            if (primary != null)
-            {
-                screens.Add(
-                    new MediaScreen
-                    {
-                        Type = ScreenType.Primary,
-                        Description = @"Game Screen",
-                        Height = primary.Bounds.Height,
-                        Width = primary.Bounds.Width
-                    });
-            }
+            //var primary = Screen.AllScreens.FirstOrDefault(s => s.Primary);
+            //if (primary != null)
+            //{
+            //    screens.Add(
+            //        new MediaScreen
+            //        {
+            //            Type = ScreenType.Primary,
+            //            Description = @"Game Screen",
+            //            Height = primary.Bounds.Height,
+            //            Width = primary.Bounds.Width
+            //        });
+            //}
 
-            var secondary = Screen.AllScreens.FirstOrDefault(s => !s.Primary && s.Bounds.Y < 0);
-            if (secondary != null)
-            {
-                screens.Add(
-                    new MediaScreen
-                    {
-                        Type = ScreenType.Glass,
-                        Description = @"Top Glass",
-                        Height = secondary.Bounds.Height,
-                        Width = secondary.Bounds.Width
-                    });
-            }
+            //var secondary = Screen.AllScreens.FirstOrDefault(s => !s.Primary && s.Bounds.Y < 0);
+            //if (secondary != null)
+            //{
+            //    screens.Add(
+            //        new MediaScreen
+            //        {
+            //            Type = ScreenType.Glass,
+            //            Description = @"Top Glass",
+            //            Height = secondary.Bounds.Height,
+            //            Width = secondary.Bounds.Width
+            //        });
+            //}
 
             return screens;
         }
