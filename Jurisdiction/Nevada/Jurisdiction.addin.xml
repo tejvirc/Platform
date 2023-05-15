@@ -2,12 +2,12 @@
   <Dependencies>
     <Addin id="Monaco.Kernel" version="1.0" />
     <Addin id="Monaco.Hardware" version="1.0" />
-    <!--<Addin id="Monaco.Accounting" version="1.0" />-->
+    <Addin id="Monaco.Accounting" version="1.0" />
     <Addin id="Monaco.Application" version="1.0" />
     <!--<Addin id="Monaco.Application.UI" version="1.0" />-->
     <!--<Addin id="Aristocrat.Monaco.Gaming" version="1.0" />-->
     <Addin id="SelectableJurisdiction" version="1.0" />
-    <!--<Addin id="AccountingRunnable" version="1.0" />-->
+    <Addin id="AccountingRunnable" version="1.0" />
     <!--<Addin id="SasBase" version="1.0" />-->
     <!--<Addin id="SasConfiguration" version="1.0" />-->
     <!--<Addin id="Sas.Client" version="1.0" />-->
@@ -50,9 +50,9 @@
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaLobbyConfig" />
       </ExtensionPointConfiguration>
-      <!--<ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaAccountingConfig" />
-      </ExtensionPointConfiguration>-->
+      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaApplicationConfig" />
       </ExtensionPointConfiguration>
@@ -74,15 +74,15 @@
       <!--<ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaDisplayMetersConfig" />
       </ExtensionPointConfiguration>-->
-      <!--<ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="NevadaAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="NevadaAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="NevadaAccountingTransferProviders" />
-      </ExtensionPointConfiguration>-->
-      <!--<ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaTransactionConfiguration" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
+      <!--<ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaAccountingRunnable" />
       </ExtensionPointConfiguration>-->
       <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
@@ -141,9 +141,9 @@
   <!--<Extension path="/Lobby/Configuration">
     <FilePath FilePath="../jurisdiction/Nevada/Lobby.config.xml" filterid="NevadaLobbyConfig" />
   </Extension>-->
-  <!--<Extension path="/Accounting/Configuration">
+  <Extension path="/Accounting/Configuration">
     <FilePath FilePath="../jurisdiction/Nevada/Accounting.config.xml" filterid="NevadaAccountingConfig" />
-  </Extension>-->
+  </Extension>
   <Extension path="/Application/JurisdictionConfiguration">
     <FilePath FilePath="../jurisdiction/Nevada/Application.config.xml" filterid="NevadaApplicationConfig" />
   </Extension>
@@ -171,17 +171,17 @@
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="../jurisdiction/Nevada/DisplayMeters.config.xml" filterid="NevadaDisplayMetersConfig" />
   </Extension>
-  <!--<Extension path="/Accounting/TransactionHistories" filterid="NevadaTransactionConfiguration">
+  <Extension path="/Accounting/TransactionHistories" filterid="NevadaTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
+    <!--<TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />-->
   </Extension>
-  <Extension path="/Accounting/BootExtender" filterid="NevadaAccountingRunnable">
+  <!--<Extension path="/Accounting/BootExtender" filterid="NevadaAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>-->
 </Addin>

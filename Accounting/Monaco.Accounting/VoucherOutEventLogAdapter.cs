@@ -10,7 +10,7 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
-    using Application.UI.Events;
+    //using Application.UI.Events;
     using Common;
     using Contracts;
     using Contracts.Models;
@@ -168,10 +168,10 @@
             var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             if (!transactions.Any())
             {
-                eventBus.Publish(
-                    new OperatorMenuPopupEvent(
-                        true,
-                        Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.LogsNoRecords)));
+                //eventBus.Publish(
+                //    new OperatorMenuPopupEvent(
+                //        true,
+                //        Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.LogsNoRecords)));
                 return null;
             }
 

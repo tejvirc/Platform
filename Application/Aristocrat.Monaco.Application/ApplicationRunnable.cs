@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Application
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
     using Authentication;
     using Common;
     using Common.Storage;
@@ -118,6 +119,9 @@ namespace Aristocrat.Monaco.Application
             if (RunState == RunnableState.Running)
             {
                 LoadPropertyProviders();
+
+                // The config wizard is skipped in Linux.  So, set hard-coded configuration
+                ForceConfiguration();
 
                 LoadTimeService();
 
@@ -344,39 +348,6 @@ namespace Aristocrat.Monaco.Application
             {
                 manager.AddPropertyProvider((IPropertyProvider)node.CreateInstance());
             }
-
-            Console.WriteLine("Applying hard-coded config for linux");
-
-            var propsManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
-            const string JurisdictionString = "Nevada";
-
-            var selectedAddinsConfig = new Dictionary<string, string>();
-            selectedAddinsConfig.Add("Jurisdiction", JurisdictionString);
-            selectedAddinsConfig.Add("Protocol", "[\"Test\"]");
-            propsManager.SetProperty(ApplicationConstants.SelectedConfigurationKey, selectedAddinsConfig);
-
-            var localizationState = @"{""DefaultCulture"":""en-US"",""CurrentCulture"":""en-US"",""Providers"":{""Operator"":{""AvailableCultures"":[""en-US""],""DefaultCulture"":""en-US"",""ProviderName"":""Operator"",""CurrentCulture"":""en-US""},""OperatorTicket"":{""AvailableCultures"":[""en-US""],""ProviderName"":""OperatorTicket"",""CurrentCulture"":""en-US""},""Player"":{""AvailableCultures"":[""en-US""],""PrimaryCulture"":""en-US"",""ProviderName"":""Player"",""CurrentCulture"":""en-US""},""PlayerTicket"":{""AvailableCultures"":[""en-US""],""ProviderName"":""PlayerTicket"",""CurrentCulture"":""en-US""},""Currency"":{""AvailableCultures"":[""en-US""],""ProviderName"":""Currency"",""CurrentCulture"":""en-US""}}}";
-            propsManager.SetProperty(ApplicationConstants.LocalizationState, localizationState);
-            propsManager.SetProperty(ApplicationConstants.LocalizationCurrentCulture, "en-US");
-
-            propsManager.SetProperty(HardwareConstants.HardMetersEnabledKey, false);
-
-            propsManager.SetProperty(ApplicationConstants.IsInitialConfigurationComplete, true);
-            propsManager.SetProperty(ApplicationConstants.NoteAcceptorEnabled, true);
-            propsManager.SetProperty(ApplicationConstants.NoteAcceptorManufacturer, "Fake");
-            propsManager.SetProperty(ApplicationConstants.PrinterEnabled, true);
-            propsManager.SetProperty(ApplicationConstants.PrinterManufacturer, "Fake");
-            propsManager.SetProperty(ApplicationConstants.SerialNumber, "1");
-            propsManager.SetProperty(ApplicationConstants.MachineId, 1u);
-            propsManager.SetProperty(ApplicationConstants.CurrencyId, "USD");
-            propsManager.SetProperty(ApplicationConstants.CurrencyDescription, "US Dollar USD $1,000.00");
-            propsManager.SetProperty(ApplicationConstants.Jurisdiction, JurisdictionString);
-            propsManager.SetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, true);
-            propsManager.SetProperty(ApplicationConstants.HardMeterMapSelectionValue, "(1)Turnover,(2)Total Won,(4)Handpay,(5)Bills In,(7)Coins In,(8)Coins Out");
-            propsManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true);
-            propsManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, 5);
-            propsManager.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, true);
         }
 
         private static void LoadConfigurationSettingsManager()
@@ -904,6 +875,94 @@ namespace Aristocrat.Monaco.Application
         {
             var logAdapterService = ServiceManager.GetInstance().TryGetService<ILogAdaptersService>();
             logAdapterService?.UnRegisterLogAdapter(EventLogType.SoftwareChange.GetDescription(typeof(EventLogType)));
+        }
+
+        private void ForceConfiguration()
+        {
+            Console.WriteLine("Applying hard-coded config");
+
+            var propsManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+            const string JurisdictionString = "Nevada";
+
+            // ConfiguredAddinsPropertiesProvider
+            var selectedAddinsConfig = new Dictionary<string, string>();
+            selectedAddinsConfig.Add("Jurisdiction", JurisdictionString);
+            selectedAddinsConfig.Add("Protocol", "[\"Test\"]");
+            propsManager.SetProperty(ApplicationConstants.SelectedConfigurationKey, selectedAddinsConfig);
+
+            // LocalizationPropertiesProvider
+            var localizationState = @"{""DefaultCulture"":""en-US"",""CurrentCulture"":""en-US"",""Providers"":{""Operator"":{""AvailableCultures"":[""en-US""],""DefaultCulture"":""en-US"",""ProviderName"":""Operator"",""CurrentCulture"":""en-US""},""OperatorTicket"":{""AvailableCultures"":[""en-US""],""ProviderName"":""OperatorTicket"",""CurrentCulture"":""en-US""},""Player"":{""AvailableCultures"":[""en-US""],""PrimaryCulture"":""en-US"",""ProviderName"":""Player"",""CurrentCulture"":""en-US""},""PlayerTicket"":{""AvailableCultures"":[""en-US""],""ProviderName"":""PlayerTicket"",""CurrentCulture"":""en-US""},""Currency"":{""AvailableCultures"":[""en-US""],""ProviderName"":""Currency"",""CurrentCulture"":""en-US""}}}";
+            propsManager.SetProperty(ApplicationConstants.LocalizationState, localizationState);
+            propsManager.SetProperty(ApplicationConstants.LocalizationCurrentCulture, "en-US");
+
+            // HardwarePropertyProvider
+            propsManager.SetProperty(HardwareConstants.HardMetersEnabledKey, false);
+
+            // SystemPropertiesProvider
+            propsManager.SetProperty(ApplicationConstants.IsInitialConfigurationComplete, true);
+            propsManager.SetProperty(ApplicationConstants.NoteAcceptorEnabled, true);
+            propsManager.SetProperty(ApplicationConstants.NoteAcceptorManufacturer, "Fake");
+            propsManager.SetProperty(ApplicationConstants.PrinterEnabled, true);
+            propsManager.SetProperty(ApplicationConstants.PrinterManufacturer, "Fake");
+            propsManager.SetProperty(ApplicationConstants.SerialNumber, "1");
+            propsManager.SetProperty(ApplicationConstants.MachineId, 1u);
+            propsManager.SetProperty(ApplicationConstants.CurrencyId, "USD");
+            propsManager.SetProperty(ApplicationConstants.CurrencyDescription, "US Dollar USD $1,000.00");
+            propsManager.SetProperty(ApplicationConstants.Jurisdiction, JurisdictionString);
+            propsManager.SetProperty(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, true);
+            propsManager.SetProperty(ApplicationConstants.HardMeterMapSelectionValue, "(1)Turnover,(2)Total Won,(4)Handpay,(5)Bills In,(7)Coins In,(8)Coins Out");
+            propsManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true);
+
+            // InitialSetupPropertiesProvider
+            propsManager.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, 5);
+            propsManager.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, true);
+
+            // Hardware config would normally be determined by the config wizard on first boot and
+            // passed directly to the HardwareConfiguration service, which would persist it.
+            // On subsequent boots, HardwareConfiguration service listens for a PropertyChangedEvent
+            // for the "Mono.SelectedAddinConfigurationHashCode" property.  The event is posted when
+            // the ConfiguredAddinsPropertiesProvider is loaded.  So, we need to set persistence and
+            // re-post the event here.
+
+            var storage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
+
+            var level = PersistenceLevel.Static;
+            var name = "Aristocrat.Monaco.Hardware.HardwareConfiguration";
+            var size = Enum.GetValues(typeof(DeviceType)).Length;
+            var accessor = storage.GetAccessor(level, name, size);
+
+            using (var transaction = accessor.StartTransaction())
+            {
+                transaction[(int)DeviceType.NoteAcceptor, "DeviceType"] = DeviceType.NoteAcceptor;
+                transaction[(int)DeviceType.NoteAcceptor, "Enabled"] = true;
+                transaction[(int)DeviceType.NoteAcceptor, "Make"] = "Fake";
+                transaction[(int)DeviceType.NoteAcceptor, "Protocol"] = "Fake";
+                transaction[(int)DeviceType.NoteAcceptor, "Port"] = "Fake";
+
+                transaction[(int)DeviceType.Printer, "DeviceType"] = DeviceType.Printer;
+                transaction[(int)DeviceType.Printer, "Enabled"] = true;
+                transaction[(int)DeviceType.Printer, "Make"] = "Fake";
+                transaction[(int)DeviceType.Printer, "Protocol"] = "Fake";
+                transaction[(int)DeviceType.Printer, "Port"] = "Fake";
+
+                transaction[(int)DeviceType.IdReader, "DeviceType"] = DeviceType.IdReader;
+                transaction[(int)DeviceType.IdReader, "Enabled"] = false;
+                transaction[(int)DeviceType.IdReader, "Make"] = "UNIFORM USB GDS";
+                transaction[(int)DeviceType.IdReader, "Protocol"] = "GDS";
+                transaction[(int)DeviceType.IdReader, "Port"] = "USB";
+
+                //transaction[(int)DeviceType.ReelController, "DeviceType"] = DeviceType.ReelController;
+                //transaction[(int)DeviceType.ReelController, "Enabled"] = true;
+                //transaction[(int)DeviceType.ReelController, "Make"] = "Fake";
+                //transaction[(int)DeviceType.ReelController, "Protocol"] = "Fake";
+                //transaction[(int)DeviceType.ReelController, "Port"] = "Fake";
+
+                transaction.Commit();
+            }
+
+            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            eventBus.Publish(new PropertyChangedEvent() { PropertyName = "Mono.SelectedAddinConfigurationHashCode" });
         }
     }
 }

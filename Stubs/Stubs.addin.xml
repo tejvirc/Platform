@@ -9,7 +9,7 @@
 
   <Dependencies>
     <Addin id="Bootstrap" version="1.0" />
-    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
     <!-- The line below is necessary for the /Kernel/PathMapping extension in this file -->
     <Addin id="Monaco.Kernel" version="1.0" />
     <!-- The line below is necessary to make Monaco.Hardware addin load correctly, but also for the IOImplementation extension -->
@@ -17,7 +17,7 @@
   </Dependencies>
 
   <!-- Extend the layer -->
-  <Extension path="/Application/BootExtender">
+  <Extension path="/Accounting/BootExtender">
     <BootExtender type="Stubs.SimpleRunnable" />
   </Extension>
 

@@ -12,7 +12,7 @@
     <Addin id="ApplicationRunnable" version="1.0" />
     <Addin id="AccountingRunnable" version="1.0" />
     <Addin id="Monaco.Application" version="1.0" />
-    <Addin id="TransactionHistoryLog" version="1.0" />
+    <!--<Addin id="TransactionHistoryLog" version="1.0" />-->
   </Dependencies>
 
   <Extension path="/Accounting/PropertyProviders">
@@ -63,10 +63,10 @@
     <MeterProvider type="Aristocrat.Monaco.Accounting.AccountingMeterProvider" />
   </Extension>
 
-  <Extension path="/Accounting/TicketProxy">
+  <!--<Extension path="/Accounting/TicketProxy">
     <TicketProxy type="Aristocrat.Monaco.Accounting.Handpay.HandpayTicketProxy" />
     <TicketProxy type="Aristocrat.Monaco.Accounting.VoucherOutTicketProxy" />
-  </Extension>
+  </Extension>-->
 
   <Extension path="/Accounting/TransactionCoordinator">
     <TransactionCoordinator type="Aristocrat.Monaco.Accounting.TransactionCoordinator" />

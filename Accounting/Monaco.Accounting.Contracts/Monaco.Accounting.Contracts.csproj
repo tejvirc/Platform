@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <RootNamespace>Aristocrat.Monaco.Accounting.Contracts</RootNamespace>
     <AssemblyTitle>Monaco.Accounting.Contracts</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
