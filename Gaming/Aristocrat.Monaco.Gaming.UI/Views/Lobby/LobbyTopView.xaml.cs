@@ -79,8 +79,8 @@
         {
             // Seems to be some interop issue with winforms control not being in sync with parent window.
             // So manually sync them.  We can't data bind with winform control.
-            GameTopWindowCtrl.Width = (int)ActualWidth;
-            GameTopWindowCtrl.Height = (int)ActualHeight;
+            //GameTopWindowCtrl.Width = (int)ActualWidth;
+            //GameTopWindowCtrl.Height = (int)ActualHeight;
 
             if (_topMediaDisplayWindow != null)
             {
@@ -91,7 +91,7 @@
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GameTopHwnd = GameTopWindowCtrl.Handle;
+            //ViewModel.GameTopHwnd = GameTopWindowCtrl.Handle;
         }
 
         private void LobbyTopView_OnLoaded(object sender, RoutedEventArgs e)

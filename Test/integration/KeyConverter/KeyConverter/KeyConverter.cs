@@ -60,7 +60,7 @@
 
         private readonly IntPtr _consoleWindow;
         private readonly IList<int> _processIds = new List<int>();
-        private readonly bool _lowLevelHook = false;
+        private readonly bool _lowLevelHook = true;
         private readonly Dictionary<IntPtr, HookData> _hookedWindows = new Dictionary<IntPtr, HookData>();
         private readonly Dictionary<Keys, bool> _lastToggleValue = new Dictionary<Keys, bool>();
 
@@ -175,7 +175,7 @@
             // the hook procedure must return the value returned by CallNextHookEx.
             //  If we no longer have a hook handle, we didn't want this message.
             //  If the input was not for any of our windows or processes, ignore it.
-            if (code < 0 || (IntPtr)0 == _hook || !IsActiveProcess())
+            if (code < 0 || (IntPtr)0 == _hook/* || !IsActiveProcess()*/)
             {
                 return NativeMethods.CallNextHookEx(_hook, code, messageId, hookStruct);
             }

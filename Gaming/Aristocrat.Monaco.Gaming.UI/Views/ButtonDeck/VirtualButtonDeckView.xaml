@@ -49,16 +49,6 @@
                                 ContentTemplateSelector="{StaticResource VbdViewTemplateSelector}"
                                 AutomationProperties.AutomationId="ContentControl3_ACD07E78" />
             </Grid>
-            <Grid x:Name="VbdGameRoot"
-                  Visibility="{Binding IsGameVbdVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                  AutomationProperties.AutomationId="Grid4_ACD07E78">
-                <controls2:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded">
-                    <forms:Control x:Name="GameVirtualButtonDeckWindowCtrl"
-                                   BackColor="Black"
-                                   Dock="Fill"
-                                   ></forms:Control>
-                </controls2:ExtendedWindowsFormsHost>
-            </Grid>
             <Grid Visibility="{Binding IsVbdRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   AutomationProperties.AutomationId="Grid6_ACD07E78">
                 <ContentControl x:Name="VbdViewDisableControl"

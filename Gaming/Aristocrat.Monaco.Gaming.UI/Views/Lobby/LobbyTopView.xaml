@@ -45,18 +45,6 @@
           DataContext="{Binding ElementName=Root, Path=DataContext}"
           Background="Black"
           AutomationProperties.AutomationId="Grid0_173C8AA0">
-        <Grid x:Name="TopScreenGameRoot"
-              AutomationProperties.AutomationId="Grid1_173C8AA0">
-            <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded"
-                                                x:Name="GameTopScreenRoot"
-                                                Visibility="{Binding IsGameTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                                VerticalAlignment="Stretch"
-                                                HorizontalAlignment="Stretch">
-                <controls1:NativeFormsControl x:Name="GameTopWindowCtrl"
-                                              BackColor="Black"
-                                              Dock="Fill"></controls1:NativeFormsControl>
-            </controls1:ExtendedWindowsFormsHost>
-        </Grid>
         <Grid x:Name="LobbyTopScreenRoot"
               Visibility="{Binding IsLobbyTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               AutomationProperties.AutomationId="Grid2_173C8AA0">

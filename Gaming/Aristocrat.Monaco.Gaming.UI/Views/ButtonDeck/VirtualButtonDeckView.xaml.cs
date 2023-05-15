@@ -55,7 +55,7 @@
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GameVirtualButtonDeckHwnd = GameVirtualButtonDeckWindowCtrl.Handle;
+            //ViewModel.GameVirtualButtonDeckHwnd = GameVirtualButtonDeckWindowCtrl.Handle;
         }
 
         private void VirtualButtonDeckView_OnLoaded(object sender, RoutedEventArgs e)

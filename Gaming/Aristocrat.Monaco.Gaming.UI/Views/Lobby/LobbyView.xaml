@@ -65,40 +65,6 @@
               DataContext="{Binding ElementName=Root, Path=DataContext}"
               SizeChanged="GameLayout_OnSizeChanged"
               AutomationProperties.AutomationId="Grid0_C7C81470">
-            <Grid x:Name="GameRoot"
-                  Height="{Binding GameControlHeight, Mode=TwoWay}"
-                  Width="{Binding GameControlWidth, Mode=TwoWay}"
-                  AutomationProperties.AutomationId="Grid1_C7C81470">
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Setter Property="VerticalAlignment"
-                                Value="Stretch" />
-                        <Style.Triggers>
-                            <DataTrigger Value="True"
-                                         AutomationProperties.AutomationId="DataTrigger2_C7C81470">
-                                <DataTrigger.Binding>
-                                    <MultiBinding Converter="{StaticResource BoolOrConverter}">
-                                        <Binding Path="MessageOverlayDisplay.IsReplayRecoveryDlgVisible" />
-                                        <Binding Path="MainInfoBarOpenRequested" />
-                                    </MultiBinding>
-                                </DataTrigger.Binding>
-                                <DataTrigger.Setters>
-                                    <Setter Property="VerticalAlignment"
-                                            Value="Top" />
-                                </DataTrigger.Setters>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-                <controls:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded"
-                                                   Background="Black"
-                                                   Visibility="{Binding IsLobbyVisible, Converter={StaticResource TrueHiddenFalseVisible}}"
-                                                   HorizontalAlignment="Stretch"
-                                                   VerticalAlignment="Stretch">
-                    <controls:NativeFormsControl x:Name="GameBottomWindowCtrl"
-                                                 Dock="Fill" />
-                </controls:ExtendedWindowsFormsHost>
-            </Grid>
             <!--
                 This Viewbox keeps the main content scaling uniformly during media display resize
                 Height/Width are bound to LayoutTemplate to establish the lobby aspect ratio

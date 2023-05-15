@@ -45,16 +45,6 @@
           Background="Black"
           SizeChanged="LobbyTopperView_SizeChanged"
           AutomationProperties.AutomationId="Grid0_F5C8B0EC">
-        <Grid x:Name="TopperScreenGameRoot"
-              Visibility="{Binding IsGameTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-              AutomationProperties.AutomationId="Grid1_F5C8B0EC">
-            <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded"
-                                                x:Name="GameTopperScreenRoot">
-                <controls1:NativeFormsControl x:Name="GameTopperWindowCtrl"
-                                              BackColor="Black"
-                                              Dock="Fill" />
-            </controls1:ExtendedWindowsFormsHost>
-        </Grid>
         <Grid x:Name="LobbyTopperScreenRoot"
               Visibility="{Binding IsLobbyTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               AutomationProperties.AutomationId="Grid2_F5C8B0EC">

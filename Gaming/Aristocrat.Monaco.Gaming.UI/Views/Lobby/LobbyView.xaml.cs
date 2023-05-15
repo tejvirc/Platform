@@ -107,8 +107,8 @@
             ////_timeLimitDlg.IsVisibleChanged += OnChildWindowIsVisibleChanged;
             ////_msgOverlay.IsVisibleChanged += OnChildWindowIsVisibleChanged;
 
-            GameBottomWindowCtrl.MouseDown += GameBottomWindowCtrl_MouseDown;
-            GameBottomWindowCtrl.MouseUp += GameBottomWindowCtrl_MouseUp;
+            //GameBottomWindowCtrl.MouseDown += GameBottomWindowCtrl_MouseDown;
+            //GameBottomWindowCtrl.MouseUp += GameBottomWindowCtrl_MouseUp;
 
             SizeChanged += LobbyView_SizeChanged;
 
@@ -645,8 +645,8 @@
         {
             // Seems to be some interop issue with WinForms control not being in sync with parent window.
             // So manually sync them.  We can't data bind with WinForm control.
-            GameBottomWindowCtrl.Width = (int)GameLayout.ActualWidth;
-            GameBottomWindowCtrl.Height = (int)GameLayout.ActualHeight;
+            //GameBottomWindowCtrl.Width = (int)GameLayout.ActualWidth;
+            //GameBottomWindowCtrl.Height = (int)GameLayout.ActualHeight;
 
             if (_mediaDisplayWindow != null)
             {
@@ -657,7 +657,7 @@
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GameBottomHwnd = GameBottomWindowCtrl.Handle;
+            //ViewModel.GameBottomHwnd = GameBottomWindowCtrl.Handle;
 
             ViewModel.OnHwndLoaded();
         }
@@ -668,6 +668,8 @@
             // This way the user will not see a black screen which using Stopwatch
             // can take up to around 2 seconds. This Fixes Defect VLT-2584.
             Hide();
+
+            ViewModel.OnHwndLoaded();
 
             ViewModel.LanguageChanged += OnLanguageChanged;
             ViewModel.DisplayChanged += ViewModel_OnDisplayChanged;
@@ -945,8 +947,8 @@
 
             _lobbyWindows.Clear();
 
-            GameBottomWindowCtrl.MouseDown -= GameBottomWindowCtrl_MouseDown;
-            GameBottomWindowCtrl.MouseUp -= GameBottomWindowCtrl_MouseUp;
+            //GameBottomWindowCtrl.MouseDown -= GameBottomWindowCtrl_MouseDown;
+            //GameBottomWindowCtrl.MouseUp -= GameBottomWindowCtrl_MouseUp;
 
             SizeChanged -= LobbyView_SizeChanged;
         }
