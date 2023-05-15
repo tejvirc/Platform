@@ -60,8 +60,8 @@
     <i:Interaction.Behaviors>
         <behaviors:ActivateBehavior Activated="{Binding LobbyActivated, Mode=TwoWay}" />
     </i:Interaction.Behaviors>
-    <mediaDisplay:LayoutTemplateDockPanel x:Name="LayoutTemplate"
-                                          ScreenType="Primary">
+    <!--<mediaDisplay:LayoutTemplateDockPanel x:Name="LayoutTemplate"
+                                          ScreenType="Primary"> -->
         <Grid x:Name="GameLayout"
               ClipToBounds="True"
               DataContext="{Binding ElementName=Root, Path=DataContext}"
@@ -92,6 +92,7 @@
                           Visibility="{Binding IsLobbyVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                           MouseDown="LobbyRoot_OnMouseDown"
                           GotFocus="LobbyRoot_OnGotFocus"
+                          Background="Transparent"
                           AutomationProperties.AutomationId="Grid8_C7C81470">
                         <ContentControl x:Name="LobbyControl"
                                         Content="{Binding}"
@@ -176,5 +177,5 @@
                 </Grid>
             <!--</Viewbox> -->
         </Grid>
-    </mediaDisplay:LayoutTemplateDockPanel>
+    <!-- </mediaDisplay:LayoutTemplateDockPanel> -->
 </metro:MetroWindow>

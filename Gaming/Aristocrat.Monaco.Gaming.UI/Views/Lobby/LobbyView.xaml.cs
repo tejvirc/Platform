@@ -182,11 +182,11 @@
 
             // BinkGpuControl can't deal with having its size set by binding to anything other than Root height/width initially (timing issue maybe)
             // Bind to Root in xaml and then update it to the proper size here when the LayoutTemplate size is set later
-            LayoutTemplate.SizeChanged += (o, args) =>
+            /*LayoutTemplate.SizeChanged += (o, args) =>
             {
                 GameAttract.Height = args.NewSize.Height;
                 GameAttract.Width = args.NewSize.Width;
-            };
+            };*/
 
             InitializeCustomOverlays();
 
@@ -601,7 +601,7 @@
         public void SetOverlayWindowTransparent(bool transparent)
         {
             var hWnd = new WindowInteropHelper(_overlayWindow).Handle;
-            WindowsServices.SetWindowExTransparent(hWnd, transparent);
+            //WindowsServices.SetWindowExTransparent(hWnd, transparent);
         }
 
         private void OnChildWindowIsVisibleChanged(
@@ -943,7 +943,7 @@
             Logger.Debug("Destroy D3D");
             D3D.Destroy();
 
-            LayoutTemplate?.Dispose();
+            /*LayoutTemplate?.Dispose();*/
 
             _lobbyWindows.Clear();
 
@@ -1011,7 +1011,7 @@
 
         private void GameLayout_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ViewModel.ResizeGameWindow(e.NewSize, LayoutTemplate.RenderSize);
+            /*ViewModel.ResizeGameWindow(e.NewSize, LayoutTemplate.RenderSize);*/
         }
 
         private void ShowWithTouch(Window window)
