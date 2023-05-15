@@ -10,7 +10,7 @@
                    ResizeMode="NoResize"
                    WindowStyle="None"
                    Title="DisableCountdownWindow"
-                   ShowInTaskbar="False"
+                   ShowInTaskbar="True"
                    AllowsTransparency="True"
                    Width="1920"
                    Height="1080">

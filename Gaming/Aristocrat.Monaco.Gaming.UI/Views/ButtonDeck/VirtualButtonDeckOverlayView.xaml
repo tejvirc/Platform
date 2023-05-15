@@ -13,7 +13,7 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         Title="VbdOverlayWindow"
-        ShowInTaskbar="False"
+        ShowInTaskbar="True"
         Topmost="True"
         AutomationProperties.AutomationId="Window0_EDFDF01F">
     <Window.Resources>

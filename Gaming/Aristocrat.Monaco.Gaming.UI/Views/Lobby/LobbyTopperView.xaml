@@ -18,6 +18,9 @@
                    ShowMaxRestoreButton="False"
                    ShowMinButton="False"
                    IgnoreTaskbarOnMaximize="True"
+                   WindowStyle="None"
+                   AllowsTransparency="True"
+                   Background="Transparent"
                    Loaded="LobbyTopperView_OnLoaded"
                    Closed="LobbyTopperView_OnClosed"
                    BorderThickness="0"
@@ -40,9 +43,8 @@
     </metro:MetroWindow.Resources>
     <!--<local:LayoutTemplateDockPanel x:Name="LayoutTemplate" 
                                    ScreenType="Secondary">-->
-    <Grid Name="LayoutRoot"
-          DataContext="{Binding ElementName=Root, Path=DataContext}"
-          Background="Black"
+    <Grid DataContext="{Binding ElementName=Root, Path=DataContext}"
+          Background="Transparent"
           SizeChanged="LobbyTopperView_SizeChanged"
           AutomationProperties.AutomationId="Grid0_F5C8B0EC">
         <Grid x:Name="LobbyTopperScreenRoot"
@@ -91,8 +93,7 @@
                    Visibility="{Binding IsTopperLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    AutomationProperties.AutomationId="Image7_F5C8B0EC" />
         </Grid>
-        <Grid
-                Visibility="{Binding IsTopperScreenRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+        <Grid Visibility="{Binding IsTopperScreenRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
               AutomationProperties.AutomationId="Grid8_F5C8B0EC">
             <Image Stretch="Uniform"
                    Source="{DynamicResource TopperDisabled}"

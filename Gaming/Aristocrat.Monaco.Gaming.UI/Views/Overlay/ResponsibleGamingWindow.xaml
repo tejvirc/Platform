@@ -13,7 +13,7 @@
                        ResizeMode="NoResize"
                        WindowStyle="None"
                        Title="Responsible Gaming"
-                       ShowInTaskbar="False"
+                       ShowInTaskbar="True"
                        Width="1920"
                        Height="1080"
                        Left="0"

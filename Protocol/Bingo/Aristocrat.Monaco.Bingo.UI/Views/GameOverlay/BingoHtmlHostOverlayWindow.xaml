@@ -10,7 +10,7 @@
                    d:DataContext="{d:DesignInstance {x:Type viewModels:BingoHtmlHostOverlayViewModel}}"
                    Loaded="BingoHtmlHostOverlayWindow_OnLoaded"
                    Title="Bingo HTML Overlay"
-                   ShowInTaskbar="False"
+                   ShowInTaskbar="True"
                    Width="1440"
                    Height="810"
                    ShowTitleBar="False"

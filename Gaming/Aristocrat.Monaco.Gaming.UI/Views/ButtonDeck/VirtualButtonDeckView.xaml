@@ -16,6 +16,9 @@
                       ShowCloseButton="False"
                       ShowMaxRestoreButton="False"
                       ShowMinButton="False"
+                      WindowStyle="None"
+                      AllowsTransparency="True"
+                      Background="Transparent"
                       ResizeMode="NoResize"
                       Loaded="VirtualButtonDeckView_OnLoaded"
                       Closed="VirtualButtonDeckView_OnClosed"
@@ -36,11 +39,11 @@
             <buttonDeck1:VbdViewDisableSelector x:Key="VbdViewDisableSelector" />
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
-    <Viewbox Stretch="None"
+    <!--<Viewbox Stretch="None"
              x:Name="RootScaling"
-             AutomationProperties.AutomationId="Viewbox0_ACD07E78">
+             AutomationProperties.AutomationId="Viewbox0_ACD07E78"> -->
         <Grid x:Name="LayoutRoot"
-              Background="Black"
+              Background="Transparent"
               AutomationProperties.AutomationId="Grid1_ACD07E78">
             <Grid AutomationProperties.AutomationId="Grid2_ACD07E78">
                 <ContentControl x:Name="VbdViewControl"
@@ -57,5 +60,5 @@
                                 AutomationProperties.AutomationId="ContentControl7_ACD07E78" />
             </Grid>
         </Grid>
-    </Viewbox>
+    <!--</Viewbox> -->
 </controls:MetroWindow>

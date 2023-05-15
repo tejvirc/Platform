@@ -19,6 +19,9 @@
                    ShowMaxRestoreButton="False"
                    ShowMinButton="False"
                    IgnoreTaskbarOnMaximize="True"
+                   WindowStyle="None"
+                   AllowsTransparency="True"
+                   Background="Transparent"
                    Loaded="LobbyTopView_OnLoaded"
                    Closed="LobbyTopView_OnClosed"
                    BorderThickness="0"
@@ -43,7 +46,7 @@
                                    ScreenType="Secondary">-->
     <Grid Name="LayoutRoot"
           DataContext="{Binding ElementName=Root, Path=DataContext}"
-          Background="Black"
+          Background="Transparent"
           AutomationProperties.AutomationId="Grid0_173C8AA0">
         <Grid x:Name="LobbyTopScreenRoot"
               Visibility="{Binding IsLobbyTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"

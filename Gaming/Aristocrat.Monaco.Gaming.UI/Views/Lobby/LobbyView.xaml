@@ -27,7 +27,9 @@
                    Loaded="LobbyView_OnLoaded"
                    Closed="LobbyView_OnClosed"
                    IgnoreTaskbarOnMaximize="True"
-                   Background="Black"
+                   WindowStyle="None"
+                   AllowsTransparency="True"
+                   Background="Transparent"
                    BorderThickness="0"
                    GotFocus="LobbyView_OnGotFocus"
                    Activated="LobbyView_OnActivated"
@@ -63,18 +65,20 @@
         <Grid x:Name="GameLayout"
               ClipToBounds="True"
               DataContext="{Binding ElementName=Root, Path=DataContext}"
+              Background="Transparent"
               SizeChanged="GameLayout_OnSizeChanged"
               AutomationProperties.AutomationId="Grid0_C7C81470">
             <!--
                 This Viewbox keeps the main content scaling uniformly during media display resize
                 Height/Width are bound to LayoutTemplate to establish the lobby aspect ratio
-            -->
+            
             <Viewbox x:Name="ViewBoxLobby"
                      Stretch="Uniform"
-                     AutomationProperties.AutomationId="Viewbox3_C7C81470">
+                     AutomationProperties.AutomationId="Viewbox3_C7C81470">-->
                 <Grid x:Name="LobbyAndInfoBarContainer"
                       Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
                       Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}"
+                      Background="Transparent"
                       AutomationProperties.AutomationId="Grid4_C7C81470">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"
@@ -170,7 +174,7 @@
                           Height="{Binding ReplayNavigationBarHeight, Mode=OneWay}"
                           AutomationProperties.AutomationId="Grid16_C7C81470" />
                 </Grid>
-            </Viewbox>
+            <!--</Viewbox> -->
         </Grid>
     </mediaDisplay:LayoutTemplateDockPanel>
 </metro:MetroWindow>
