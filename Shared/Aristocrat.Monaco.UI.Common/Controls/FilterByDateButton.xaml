@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
              mc:Ignorable="d"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
@@ -26,10 +28,16 @@
                PlacementTarget="{Binding ElementName=FilterDateToggleButton}"
                IsOpen="{Binding ElementName=FilterDateToggleButton, Path=IsChecked}">
             <Border Style="{StaticResource FilterPopupBorder}">
-                <DatePicker IsTodayHighlighted="False"
-                            DisplayDateStart="{Binding StartDate}"
-                            DisplayDateEnd="{Binding EndDate}"
-                            SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+                <StackPanel Orientation="Vertical">
+                    <DatePicker IsTodayHighlighted="False"
+                                DisplayDateStart="{Binding StartDate}"
+                                DisplayDateEnd="{Binding EndDate}"
+                                SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+                    <Button Click="ClearSelectionButton_OnClick"
+                            HorizontalAlignment="Stretch"
+                            Margin="5"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearSelection}}"/>
+                </StackPanel>
             </Border>
         </Popup>
     </StackPanel>

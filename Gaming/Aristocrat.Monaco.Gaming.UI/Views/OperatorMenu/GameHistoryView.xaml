@@ -141,8 +141,9 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}"
-                                                 FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid}"
-                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"/>
+                                                 FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid, Mode=TwoWay}"
+                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"
+                                                 SelectAllIsChecked="{Binding Path=DataContext.SelectAllGameNamesIsChecked, ElementName=MainGrid, Mode=TwoWay}"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                     <DataGridTextColumn.ElementStyle>
@@ -205,8 +206,9 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
-                                                 FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid}"
-                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"/>
+                                                 FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid, Mode=TwoWay}"
+                                                 IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"
+                                                 SelectAllIsChecked="{Binding Path=DataContext.SelectAllStatusesIsChecked, ElementName=MainGrid, Mode=TwoWay}"/>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>

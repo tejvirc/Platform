@@ -38,6 +38,24 @@
         }
 
         /// <summary>
+        ///     SelectAllIsChecked DependencyProperty
+        /// </summary>
+        public static readonly DependencyProperty SelectAllIsCheckedProperty = DependencyProperty.Register(
+            nameof(SelectAllIsChecked),
+            typeof(bool?),
+            typeof(FilterButton),
+            new PropertyMetadata(default(bool?)));
+
+        /// <summary>
+        ///     Whether the Select All checkbox is checked
+        /// </summary>
+        public bool? SelectAllIsChecked
+        {
+            get => (bool?)GetValue(SelectAllIsCheckedProperty);
+            set => SetValue(SelectAllIsCheckedProperty, value);
+        }
+
+        /// <summary>
         ///     FilterObjectList DependencyProperty
         /// </summary>
         public static readonly DependencyProperty FilterObjectListProperty = DependencyProperty.Register(

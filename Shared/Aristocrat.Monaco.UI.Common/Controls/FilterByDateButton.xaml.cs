@@ -88,5 +88,10 @@
             get => (DateTime?)GetValue(SelectedDateProperty);
             set => SetValue(SelectedDateProperty, value);
         }
+
+        private void ClearSelectionButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SelectedDate = null;
+        }
     }
 }

@@ -83,6 +83,9 @@
         private DateTime? _filterStartDate;
         private DateTime? _filterEndDate;
         private DateTime? _filterSelectedDate;
+        private bool? _selectAllGameNamesIsChecked;
+        private bool? _selectAllStatusesIsChecked;
+        private bool _selectingAll;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistoryViewModel" /> class.
@@ -181,10 +184,38 @@
 
         public ObservableCollection<GameRoundHistoryItem> FilteredGameHistory { get; }
 
+        public bool? SelectAllGameNamesIsChecked
+        {
+            get => _selectAllGameNamesIsChecked;
+            set
+            {
+                if (SetProperty(ref _selectAllGameNamesIsChecked, value))
+                {
+                    _selectingAll = true;
+                    SelectAllFilters(FilterGameNames, _selectAllGameNamesIsChecked);
+                    _selectingAll = false;
+                }
+            }
+        }
+
         public ObservableCollection<FilterObject> FilterGameNames
         {
             get => _filterGameNames;
             set => SetProperty(ref _filterGameNames, value);
+        }
+
+        public bool? SelectAllStatusesIsChecked
+        {
+            get => _selectAllStatusesIsChecked;
+            set
+            {
+                if (SetProperty(ref _selectAllStatusesIsChecked, value))
+                {
+                    _selectingAll = true;
+                    SelectAllFilters(FilterStatuses, _selectAllStatusesIsChecked);
+                    _selectingAll = false;
+                }
+            }
         }
 
         public ObservableCollection<FilterObject> FilterStatuses
@@ -588,6 +619,13 @@
 
         private void FilterGameHistory()
         {
+            if (!_selectingAll)
+            {
+                // Set the states of the Select All checkboxes
+                SelectAllGameNamesIsChecked = GetSelectAllFiltersState(FilterGameNames);
+                SelectAllStatusesIsChecked = GetSelectAllFiltersState(FilterStatuses);
+            }
+
             FilteredGameHistory.Clear();
             foreach (var item in GameHistory)
             {
@@ -599,6 +637,21 @@
                     FilteredGameHistory.Add(item);
                 }
             }
+        }
+
+        private bool? GetSelectAllFiltersState(ICollection<FilterObject> filterList)
+        {
+            if (filterList.All(f => f.IsChecked))
+            {
+                return true;
+            }
+
+            if (filterList.All(f => !f.IsChecked))
+            {
+                return false;
+            }
+
+            return null;
         }
 
         private void Filter_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -628,6 +681,18 @@
                 filter.PropertyChanged += Filter_PropertyChanged;
                 filterList.Add(filter);
             }
+        }
+
+        private void SelectAllFilters(ICollection<FilterObject> filterList, bool? isChecked)
+        {
+            if (isChecked.HasValue)
+            {
+                foreach (var filterObject in filterList)
+                {
+                    filterObject.IsChecked = isChecked.Value;
+                }
+            }
+            FilterGameHistory();
         }
 
         private List<GameRoundHistoryItem> GetHistory()

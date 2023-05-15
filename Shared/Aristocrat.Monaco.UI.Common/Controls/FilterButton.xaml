@@ -6,6 +6,8 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:models="clr-namespace:Aristocrat.Monaco.UI.Common.Models"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
              mc:Ignorable="d"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
@@ -27,17 +29,24 @@
                PlacementTarget="{Binding ElementName=FilterToggleButton}"
                IsOpen="{Binding ElementName=FilterToggleButton, Path=IsChecked}">
             <Border Style="{StaticResource FilterPopupBorder}">
-                <ItemsControl Margin="3 5"
-                              ScrollViewer.CanContentScroll="False"
-                              ItemsSource="{Binding FilterObjectList}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type models:FilterObject}">
-                            <CheckBox Margin="2"
-                                      IsChecked="{Binding IsChecked}"
-                                      Content="{Binding Name}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <StackPanel Orientation="Vertical">
+                    <CheckBox x:Name="SelectAllCheckbox"
+                              Margin="5"
+                              Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelectAll}}"
+                              IsChecked="{Binding SelectAllIsChecked}"/>
+                    <Separator Foreground="{DynamicResource Brush3}"/>
+                    <ItemsControl Margin="3 5"
+                                  ScrollViewer.CanContentScroll="False"
+                                  ItemsSource="{Binding FilterObjectList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:FilterObject}">
+                                <CheckBox Margin="2"
+                                          IsChecked="{Binding IsChecked}"
+                                          Content="{Binding Name}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </Border>
         </Popup>
     </StackPanel>

@@ -5447,6 +5447,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Clear Selection.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ClearSelection {
+			get {
+				return ResourceManager.GetString("ClearSelection", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -28418,6 +28430,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Select All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectAll {
+			get {
+				return ResourceManager.GetString("SelectAll", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Select the end date..
 		/// </summary>
         /// <remarks>
@@ -40404,6 +40428,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ClearProgressiveDisconnectError {
 			get {
 				return "ClearProgressiveDisconnectError";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Clear Selection.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ClearSelection {
+			get {
+				return "ClearSelection";
 			}
 		}
 
@@ -63379,6 +63415,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Select All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectAll {
+			get {
+				return "SelectAll";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Select the end date..
 		/// </summary>
         /// <remarks>
@@ -73045,6 +73093,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Ensure communication cable is properly connected a....
 		/// </summary>
 		ClearProgressiveDisconnectError,
+		/// <summary>
+		///   Looks up a localized string similar to Clear Selection.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ClearSelection,
 		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
@@ -86126,6 +86181,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Seed,
+		/// <summary>
+		///   Looks up a localized string similar to Select All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		SelectAll,
 		/// <summary>
 		///   Looks up a localized string similar to Select the end date..
 		/// </summary>
