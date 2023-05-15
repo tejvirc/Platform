@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.FloridaSeminolesJurisdiction" filterid="FloridaSeminolesLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.FloridaSeminolesJurisdiction" filterid="FloridaSeminolesLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.FloridaSeminolesJurisdiction" filterid="FloridaSeminolesLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="FloridaSeminolesLocaleConfig">
     <FilePath FilePath="..\jurisdiction\FloridaSeminoles\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="FloridaSeminolesLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\FloridaSeminoles\Lobby.config.xml" filterid="FloridaSeminolesLobbyConfig" />

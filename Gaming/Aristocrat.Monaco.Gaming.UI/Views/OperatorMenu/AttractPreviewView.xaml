@@ -10,10 +10,10 @@
                                mc:Ignorable="d"
                                MaxHeight="1080"
                                converters1:DialogParticipation.Register="{Binding}"
-                               d:DesignHeight="300" d:DesignWidth="300"
+                               d:DesignHeight="300"
+                               d:DesignWidth="300"
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance viewModels:AttractPreviewViewModel, IsDesignTimeCreatable=False}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,26 +22,36 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid MaxHeight="{Binding MaxHeight}">
-        <StackPanel Orientation="Vertical">
+    <Grid MaxHeight="{Binding MaxHeight}"
+          AutomationProperties.AutomationId="Grid0_72EA69E8">
+        <StackPanel Orientation="Vertical"
+                    AutomationProperties.AutomationId="StackPanel1_72EA69E8">
             <Grid x:Name="TopperAttractScreen"
-                        Visibility="{Binding IsTopperAttractVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}">
-                    <bink:BinkGpuControl
-                            x:Name="TopperAttractVideo"
-                            Filename="{Binding TopperAttractVideoPath}"
-                            LoopVideo="True"
-                            VideoCompleted="OnTopperGameAttractVideoCompleted"
-                            Width="{Binding AttractVideoWidth}"
-                            Height="{Binding AttractVideoHeight}">
+                  Visibility="{Binding IsTopperAttractVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="Grid2_72EA69E8">
+                <Border BorderThickness="1 1 1 1"
+                        BorderBrush="{StaticResource Brush3}"
+                        AutomationProperties.AutomationId="Border3_72EA69E8">
+                    <bink:BinkGpuControl x:Name="TopperAttractVideo"
+                                         Filename="{Binding TopperAttractVideoPath}"
+                                         LoopVideo="True"
+                                         VideoCompleted="OnTopperGameAttractVideoCompleted"
+                                         Width="{Binding AttractVideoWidth}"
+                                         Height="{Binding AttractVideoHeight}">
                         <bink:BinkGpuControl.Style>
                             <Style TargetType="bink:BinkGpuControl">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}" Value="True">
-                                        <Setter Property="VideoState" Value="Playing" />
+                                    <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="DataTrigger4_72EA69E8">
+                                        <Setter Property="VideoState"
+                                                Value="Playing" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}" Value="False">
-                                        <Setter Property="VideoState" Value="Stopped" />
+                                    <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="DataTrigger5_72EA69E8">
+                                        <Setter Property="VideoState"
+                                                Value="Stopped" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -49,27 +59,36 @@
                     </bink:BinkGpuControl>
                 </Border>
             </Grid>
-
             <Grid x:Name="TopAttractScreen"
-                        Visibility="{Binding IsTopAttractVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}" Margin="0 2 0 0">
-                    <bink:BinkGpuControl
-                            x:Name="TopAttractVideo"
-                            Filename="{Binding TopAttractVideoPath}"
-                            LoopVideo="False"
-                            Width="{Binding AttractVideoWidth}"
-                            Height="{Binding AttractVideoHeight}"
-                            VideoCompleted="OnTopGameAttractVideoCompleted"
-                            ShowFirstFrameOnLoad="True">
+                  Visibility="{Binding IsTopAttractVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="Grid6_72EA69E8">
+                <Border BorderThickness="1 1 1 1"
+                        BorderBrush="{StaticResource Brush3}"
+                        Margin="0 2 0 0"
+                        AutomationProperties.AutomationId="Border7_72EA69E8">
+                    <bink:BinkGpuControl x:Name="TopAttractVideo"
+                                         Filename="{Binding TopAttractVideoPath}"
+                                         LoopVideo="False"
+                                         Width="{Binding AttractVideoWidth}"
+                                         Height="{Binding AttractVideoHeight}"
+                                         VideoCompleted="OnTopGameAttractVideoCompleted"
+                                         ShowFirstFrameOnLoad="True">
                         <bink:BinkGpuControl.Style>
                             <Style TargetType="bink:BinkGpuControl">
-                                <Setter Property="VideoState" Value="Stopped" />
+                                <Setter Property="VideoState"
+                                        Value="Stopped" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="True">
-                                        <Setter Property="VideoState" Value="Playing" />
+                                    <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="DataTrigger8_72EA69E8">
+                                        <Setter Property="VideoState"
+                                                Value="Playing" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="False">
-                                        <Setter Property="VideoState" Value="Stopped" />
+                                    <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="DataTrigger9_72EA69E8">
+                                        <Setter Property="VideoState"
+                                                Value="Stopped" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -77,25 +96,35 @@
                     </bink:BinkGpuControl>
                 </Border>
             </Grid>
-
-            <Grid x:Name="BottomAttractScreen">
-                <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}" Margin="0 2 0 0">
+            <Grid x:Name="BottomAttractScreen"
+                  AutomationProperties.AutomationId="Grid10_72EA69E8">
+                <Border BorderThickness="1 1 1 1"
+                        BorderBrush="{StaticResource Brush3}"
+                        Margin="0 2 0 0"
+                        AutomationProperties.AutomationId="Border11_72EA69E8">
                     <bink:BinkGpuControl x:Name="BottomAttractVideo"
-                                                Filename="{Binding BottomAttractVideoPath}"
-                                                LoopVideo="False"
-                                                ShowFirstFrameOnLoad="True"
-                                                VideoCompleted="OnBottomGameAttractVideoCompleted"
-                                                Width="{Binding AttractVideoWidth}"
-                                                Height="{Binding AttractVideoHeight}">
+                                         Filename="{Binding BottomAttractVideoPath}"
+                                         LoopVideo="False"
+                                         ShowFirstFrameOnLoad="True"
+                                         VideoCompleted="OnBottomGameAttractVideoCompleted"
+                                         Width="{Binding AttractVideoWidth}"
+                                         Height="{Binding AttractVideoHeight}">
                         <bink:BinkGpuControl.Style>
                             <Style TargetType="bink:BinkGpuControl">
-                                <Setter Property="VideoState" Value="Stopped" />
+                                <Setter Property="VideoState"
+                                        Value="Stopped" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsBottomAttractFeaturePlaying}" Value="True">
-                                        <Setter Property="VideoState" Value="Playing" />
+                                    <DataTrigger Binding="{Binding IsBottomAttractFeaturePlaying}"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="DataTrigger12_72EA69E8">
+                                        <Setter Property="VideoState"
+                                                Value="Playing" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsBottomAttractFeaturePlaying}" Value="False">
-                                        <Setter Property="VideoState" Value="Stopped" />
+                                    <DataTrigger Binding="{Binding IsBottomAttractFeaturePlaying}"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="DataTrigger13_72EA69E8">
+                                        <Setter Property="VideoState"
+                                                Value="Stopped" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

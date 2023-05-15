@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.EcuadorJurisdiction" filterid="EcuadorLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.EcuadorJurisdiction" filterid="EcuadorLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.EcuadorJurisdiction" filterid="EcuadorLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="EcuadorLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Ecuador\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="EcuadorLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Ecuador\Lobby.config.xml" filterid="EcuadorLobbyConfig" />

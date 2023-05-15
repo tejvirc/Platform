@@ -13,27 +13,24 @@
                                FocusManager.FocusedElement="{Binding ElementName=AcceptButton}"
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance viewModels:LegalCopyrightPageViewModel}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <GridLength x:Key="GoldenRatioGridLength">1.618*</GridLength>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_EDE552C8">
         <i:Interaction.Triggers>
-            <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}" Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+            <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}"
+                                       Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
         </i:Interaction.Triggers>
-
         <TextBlock AutomationProperties.AutomationId="LegalCopyrightPage_TextBlock_TermsAndConditionsText"
                    VerticalAlignment="Top"
                    Text="{Binding PageContent}"

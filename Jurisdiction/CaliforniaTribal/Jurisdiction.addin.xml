@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.CaliforniaTribalJurisdiction" filterid="CaliforniaTribalLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.CaliforniaTribalJurisdiction" filterid="CaliforniaTribalLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.CaliforniaTribalJurisdiction" filterid="CaliforniaTribalLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="CaliforniaTribalLocaleConfig">
     <FilePath FilePath="..\jurisdiction\CaliforniaTribal\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="CaliforniaTribalLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\CaliforniaTribal\Lobby.config.xml" filterid="CaliforniaTribalLobbyConfig" />

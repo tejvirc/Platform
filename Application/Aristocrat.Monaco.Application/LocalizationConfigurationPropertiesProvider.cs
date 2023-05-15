@@ -21,7 +21,6 @@
         private readonly IPersistentStorageAccessor _persistentStorageAccessor;
 
         private const string LocaleConfigurationExtensionPath = "/Locale/Configuration";
-        private const string LocalizationOverridesExtensionPath = "/Locale/Overrides";
 
         private readonly Dictionary<string, Tuple<object, bool>> _properties;
 
@@ -86,8 +85,6 @@
 
             var playerAvailable = config.Player?.Available ?? new[] { ApplicationConstants.DefaultLanguage };
             var playerPrimary = config.Player?.Primary ?? playerAvailable.First();
-
-            var overridePaths = GetLocaleOverridePaths();
 
             // The Tuple is structured as value (Item1) and storageKey (Item2)
             _properties = new Dictionary<string, Tuple<object, bool>>
@@ -160,7 +157,7 @@
             properties.AddPropertyProvider(this);
 
             // post the jurisdiction's overriding resource folders to the localization framework
-            eventBus.Publish(new LocalizationConfigurationEvent(configPath, overridePaths));
+            eventBus.Publish(new LocalizationConfigurationEvent(configPath, config.Overrides ?? Array.Empty<string>()));
         }
 
         /// <inheritdoc />
@@ -226,28 +223,6 @@
             }
 
             return configuration;
-        }
-
-        /// <summary>
-        /// Gets the jurisdiction's overriding resource folders for localization.
-        /// </summary>
-        /// <returns></returns>
-        private static string[] GetLocaleOverridePaths()
-        {
-            try
-            {
-                return MonoAddinsHelper.GetSelectedNodes<FilePathExtensionNode>(LocalizationOverridesExtensionPath)
-                    .Select(x => x.FilePath)
-                    .ToArray();
-            }
-            catch (ConfigurationException)
-            {
-                Logger.ErrorFormat(
-                    CultureInfo.CurrentCulture,
-                    "Extension path {0} not found",
-                    LocalizationOverridesExtensionPath);
-                throw;
-            }
         }
 
         private static string GetLocaleConfigurationPath()

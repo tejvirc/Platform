@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ConnecticutJurisdiction" filterid="ConnecticutLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ConnecticutJurisdiction" filterid="ConnecticutLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ConnecticutJurisdiction" filterid="ConnecticutLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="ConnecticutLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Connecticut\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ConnecticutLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Connecticut\Lobby.config.xml" filterid="ConnecticutLobbyConfig" />

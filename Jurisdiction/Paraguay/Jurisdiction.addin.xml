@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ParaguayJurisdiction" filterid="ParaguayLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ParaguayJurisdiction" filterid="ParaguayLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ParaguayJurisdiction" filterid="ParaguayLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="ParaguayLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Paraguay\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ParaguayLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Paraguay\Lobby.config.xml" filterid="ParaguayLobbyConfig" />

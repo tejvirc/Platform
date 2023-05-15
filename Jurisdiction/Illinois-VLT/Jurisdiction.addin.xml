@@ -42,9 +42,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.IllinoisJurisdiction" filterid="IllinoisLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.IllinoisJurisdiction" filterid="IllinoisLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.IllinoisJurisdiction" filterid="IllinoisLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -131,10 +128,6 @@
   <Extension path="/Locale/Configuration">
     <FilePath FilePath="..\jurisdiction\Illinois-VLT\Locale.config.xml" filterid="IllinoisLocaleConfig" />
   </Extension>
-  <Extension path="/Locale/Overrides" filterid="IllinoisLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
-    <FilePath FilePath="..\jurisdiction\Illinois-VLT\resources\" />
-  </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Illinois-VLT\Lobby.config.xml" filterid="IllinoisLobbyConfig" />
   </Extension>
@@ -157,7 +150,7 @@
     <FilePath FilePath="..\jurisdiction\Illinois-VLT\printable_templates.xml" filterid="IllinoisPrintableTemplatesConfig" />
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
-     <FilePath FilePath="..\jurisdiction\Illinois-VLT\PrinterOverrides.xml" filterid="IllinoisPrinterOverridesConfig" />
+    <FilePath FilePath="..\jurisdiction\Illinois-VLT\PrinterOverrides.xml" filterid="IllinoisPrinterOverridesConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Illinois-VLT\ErrorMessage.config.xml" filterid="IllinoisErrorMessageConfig" />

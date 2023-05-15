@@ -5,175 +5,261 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              x:Name="PlayerMenuPopup"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              VerticalContentAlignment="Bottom"
              IsVisibleChanged="PlayerMenuPopupView_OnIsVisibleChanged"
              Background="#01000000"
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
-             d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
+             d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
+             AutomationProperties.AutomationId="UserControl0_1A4CA68B">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <ImageBrush x:Key="ThreeSectionBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=ThreeSectionBackgroundImage}"/>
-            <ImageBrush x:Key="TwoSectionTrackingBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionTrackingBackgroundImage}"/>
-            <ImageBrush x:Key="TwoSectionReserveBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionReserveBackgroundImage}"/>
-            <ImageBrush x:Key="OneSectionBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=OneSectionBackgroundImage}"/>
-
-            <Style x:Key="SessionTrackingValueStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="TextAlignment" Value="Right"/>
-                <Setter Property="HorizontalAlignment" Value="Right"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="FontWeight" Value="DemiBold"/>
-                <Setter Property="Foreground" Value="White"/>
+            <ImageBrush x:Key="ThreeSectionBackgroundImageBrush"
+                        Stretch="None"
+                        ImageSource="{Binding ElementName=PlayerMenuPopup, Path=ThreeSectionBackgroundImage}"
+                        AutomationProperties.AutomationId="ImageBrush1_1A4CA68B" />
+            <ImageBrush x:Key="TwoSectionTrackingBackgroundImageBrush"
+                        Stretch="None"
+                        ImageSource="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionTrackingBackgroundImage}"
+                        AutomationProperties.AutomationId="ImageBrush2_1A4CA68B" />
+            <ImageBrush x:Key="TwoSectionReserveBackgroundImageBrush"
+                        Stretch="None"
+                        ImageSource="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionReserveBackgroundImage}"
+                        AutomationProperties.AutomationId="ImageBrush3_1A4CA68B" />
+            <ImageBrush x:Key="OneSectionBackgroundImageBrush"
+                        Stretch="None"
+                        ImageSource="{Binding ElementName=PlayerMenuPopup, Path=OneSectionBackgroundImage}"
+                        AutomationProperties.AutomationId="ImageBrush4_1A4CA68B" />
+            <Style x:Key="SessionTrackingValueStyle"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="TextAlignment"
+                        Value="Right" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="20" />
+                <Setter Property="FontWeight"
+                        Value="DemiBold" />
+                <Setter Property="Foreground"
+                        Value="White" />
             </Style>
-
-            <Style x:Key="FourDigitPinBoxStyle" TargetType="TextBox">
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="CaretBrush" Value="Gray"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Width" Value="90"/>
-                <Setter Property="Height" Value="40"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Top"/>
-                <Setter Property="MaxLength" Value="4"/>
-                <Setter Property="FontSize" Value="48"/>
+            <Style x:Key="FourDigitPinBoxStyle"
+                   TargetType="TextBox">
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="CaretBrush"
+                        Value="Gray" />
+                <Setter Property="Foreground"
+                        Value="White" />
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="Width"
+                        Value="90" />
+                <Setter Property="Height"
+                        Value="40" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="MaxLength"
+                        Value="4" />
+                <Setter Property="FontSize"
+                        Value="48" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="Root" Margin="10 0 0 166"
-          VerticalAlignment="Bottom" HorizontalAlignment="Left"
-          Width="{DynamicResource OneSectionBackgroundImage.Width}">
+    <Grid x:Name="Root"
+          Margin="10 0 0 166"
+          VerticalAlignment="Bottom"
+          HorizontalAlignment="Left"
+          Width="{DynamicResource OneSectionBackgroundImage.Width}"
+          AutomationProperties.AutomationId="Grid5_1A4CA68B">
         <Grid.Style>
             <Style TargetType="Grid">
                 <Style.Triggers>
-                    <DataTrigger Value="FullMenu" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
-                        <Setter Property="Background" Value="{StaticResource ThreeSectionBackgroundImageBrush}"/>
-                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=ThreeSectionBackgroundImage.Height}"/>
+                    <DataTrigger Value="FullMenu"
+                                 Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}"
+                                 AutomationProperties.AutomationId="DataTrigger6_1A4CA68B">
+                        <Setter Property="Background"
+                                Value="{StaticResource ThreeSectionBackgroundImageBrush}" />
+                        <Setter Property="Height"
+                                Value="{Binding ElementName=PlayerMenuPopup, Path=ThreeSectionBackgroundImage.Height}" />
                     </DataTrigger>
-                    <DataTrigger Value="SessionTrackingAndButtons" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
-                        <Setter Property="Background" Value="{StaticResource TwoSectionTrackingBackgroundImageBrush}"/>
-                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionTrackingBackgroundImage.Height}"/>
+                    <DataTrigger Value="SessionTrackingAndButtons"
+                                 Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}"
+                                 AutomationProperties.AutomationId="DataTrigger7_1A4CA68B">
+                        <Setter Property="Background"
+                                Value="{StaticResource TwoSectionTrackingBackgroundImageBrush}" />
+                        <Setter Property="Height"
+                                Value="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionTrackingBackgroundImage.Height}" />
                     </DataTrigger>
-                    <DataTrigger Value="ReserveMachineAndButtons" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
-                        <Setter Property="Background" Value="{StaticResource TwoSectionReserveBackgroundImageBrush}"/>
-                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionReserveBackgroundImage.Height}"/>
+                    <DataTrigger Value="ReserveMachineAndButtons"
+                                 Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}"
+                                 AutomationProperties.AutomationId="DataTrigger8_1A4CA68B">
+                        <Setter Property="Background"
+                                Value="{StaticResource TwoSectionReserveBackgroundImageBrush}" />
+                        <Setter Property="Height"
+                                Value="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionReserveBackgroundImage.Height}" />
                     </DataTrigger>
-                    <DataTrigger Value="ButtonsOnly" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
-                        <Setter Property="Background" Value="{StaticResource OneSectionBackgroundImageBrush}"/>
-                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=OneSectionBackgroundImage.Height}"/>
+                    <DataTrigger Value="ButtonsOnly"
+                                 Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}"
+                                 AutomationProperties.AutomationId="DataTrigger9_1A4CA68B">
+                        <Setter Property="Background"
+                                Value="{StaticResource OneSectionBackgroundImageBrush}" />
+                        <Setter Property="Height"
+                                Value="{Binding ElementName=PlayerMenuPopup, Path=OneSectionBackgroundImage.Height}" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </Grid.Style>
-
         <!-- Stack panel containing the 3 sections -->
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    AutomationProperties.AutomationId="StackPanel10_1A4CA68B">
             <!-- Session tracking - top section Margin-->
             <StackPanel x:Name="SessionTrackingSection"
-                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                        Visibility="{Binding PlayerMenuPopupViewModel.IsSessionTrackingSectionVisible,
-                        Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Visibility="{Binding PlayerMenuPopupViewModel.IsSessionTrackingSectionVisible,                         Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        AutomationProperties.AutomationId="StackPanel11_1A4CA68B">
                 <Grid x:Name="SessionTrackingValuesGrid"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Top"
-                      Margin="200 43 0 0">
+                      Margin="200 43 0 0"
+                      AutomationProperties.AutomationId="Grid12_1A4CA68B">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="33"/>
-                        <RowDefinition Height="33"/>
-                        <RowDefinition Height="33"/>
-                        <RowDefinition Height="33"/>
+                        <RowDefinition Height="33"
+                                       AutomationProperties.AutomationId="RowDefinition13_1A4CA68B" />
+                        <RowDefinition Height="33"
+                                       AutomationProperties.AutomationId="RowDefinition14_1A4CA68B" />
+                        <RowDefinition Height="33"
+                                       AutomationProperties.AutomationId="RowDefinition15_1A4CA68B" />
+                        <RowDefinition Height="33"
+                                       AutomationProperties.AutomationId="RowDefinition16_1A4CA68B" />
                     </Grid.RowDefinitions>
                     <!-- Start time -->
                     <TextBlock x:Name="StartTimeTextBlock"
                                Grid.Row="0"
                                Style="{StaticResource SessionTrackingValueStyle}"
-                               Text="{Binding PlayerMenuPopupViewModel.TrackingStartTime}"/>
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingStartTime}"
+                               AutomationProperties.AutomationId="TextBlock17_1A4CA68B" />
                     <!-- Games played -->
                     <TextBlock x:Name="GamesPlayedTextBlock"
                                Grid.Row="1"
                                Style="{StaticResource SessionTrackingValueStyle}"
-                               Text="{Binding PlayerMenuPopupViewModel.TrackingGamesPlayed}"/>
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingGamesPlayed}"
+                               AutomationProperties.AutomationId="TextBlock18_1A4CA68B" />
                     <!-- Amount played -->
                     <TextBlock x:Name="AmountPlayedTextBlock"
                                Grid.Row="2"
                                Style="{StaticResource SessionTrackingValueStyle}"
-                               Text="{Binding PlayerMenuPopupViewModel.TrackingAmountPlayed}"/>
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingAmountPlayed}"
+                               AutomationProperties.AutomationId="TextBlock19_1A4CA68B" />
                     <!-- Amount won -->
                     <TextBlock x:Name="AmountWonTextBlock"
                                Grid.Row="3"
                                Style="{StaticResource SessionTrackingValueStyle}"
-                               Text="{Binding PlayerMenuPopupViewModel.TrackingAmountWon}"/>
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingAmountWon}"
+                               AutomationProperties.AutomationId="TextBlock20_1A4CA68B" />
                 </Grid>
                 <!-- Start new session button -->
                 <Button x:Name="StartNewSessionButton"
                         Margin="0 8 0 0"
-                        Command="{Binding PlayerMenuPopupViewModel.StartNewSessionClickedCommand}">
+                        Command="{Binding PlayerMenuPopupViewModel.StartNewSessionClickedCommand}"
+                        AutomationProperties.AutomationId="Button21_1A4CA68B">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Image Name="StartNewSessionButtonImage" Stretch="None" Source="{DynamicResource StartNewSessionNormal}"/>
+                            <Image Name="StartNewSessionButtonImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource StartNewSessionNormal}"
+                                   AutomationProperties.AutomationId="Image22_1A4CA68B" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="StartNewSessionButtonImage" Property="Source" Value="{DynamicResource StartNewSessionPressed}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger23_1A4CA68B">
+                                    <Setter TargetName="StartNewSessionButtonImage"
+                                            Property="Source"
+                                            Value="{DynamicResource StartNewSessionPressed}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
             </StackPanel>
-
             <!-- Reserve Machine - middle section -->
             <StackPanel x:Name="ReserveMachineSection"
-                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                        Visibility="{Binding PlayerMenuPopupViewModel.IsReserveMachineSectionVisible,
-                            Converter={StaticResource TrueVisibleFalseCollapsed}}">
-
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Visibility="{Binding PlayerMenuPopupViewModel.IsReserveMachineSectionVisible,                             Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        AutomationProperties.AutomationId="StackPanel24_1A4CA68B">
                 <!-- PIN entry box -->
                 <TextBox x:Name="FourDigitPinBox"
                          Style="{StaticResource FourDigitPinBoxStyle}"
                          Margin="200 27 0 0"
-                         IsReadOnly="True" 
+                         IsReadOnly="True"
                          IsReadOnlyCaretVisible="False"
                          Focusable="False"
-                         Text="{Binding PlayerMenuPopupViewModel.PinBoxContent, Mode=OneWay}"/>
+                         Text="{Binding PlayerMenuPopupViewModel.PinBoxContent, Mode=OneWay}"
+                         AutomationProperties.AutomationId="TextBox25_1A4CA68B" />
                 <!-- 0-9 digit grid -->
                 <Grid Name="DigitGrid"
                       Margin="0 6 0 0"
-                      HorizontalAlignment="Center" VerticalAlignment="Top">
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      AutomationProperties.AutomationId="Grid26_1A4CA68B">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="66"/>
-                        <ColumnDefinition Width="66"/>
-                        <ColumnDefinition Width="66"/>
-                        <ColumnDefinition Width="66"/>
-                        <ColumnDefinition Width="66"/>
+                        <ColumnDefinition Width="66"
+                                          AutomationProperties.AutomationId="ColumnDefinition27_1A4CA68B" />
+                        <ColumnDefinition Width="66"
+                                          AutomationProperties.AutomationId="ColumnDefinition28_1A4CA68B" />
+                        <ColumnDefinition Width="66"
+                                          AutomationProperties.AutomationId="ColumnDefinition29_1A4CA68B" />
+                        <ColumnDefinition Width="66"
+                                          AutomationProperties.AutomationId="ColumnDefinition30_1A4CA68B" />
+                        <ColumnDefinition Width="66"
+                                          AutomationProperties.AutomationId="ColumnDefinition31_1A4CA68B" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="56"/>
-                        <RowDefinition Height="56"/>
+                        <RowDefinition Height="56"
+                                       AutomationProperties.AutomationId="RowDefinition32_1A4CA68B" />
+                        <RowDefinition Height="56"
+                                       AutomationProperties.AutomationId="RowDefinition33_1A4CA68B" />
                     </Grid.RowDefinitions>
-
                     <!-- Button for 1 digit -->
                     <Button Name="Digit1Button"
-                            Grid.Row="0" Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.Column="0"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="1"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button34_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit1Image" Stretch="None" Source="{DynamicResource Digit1Normal}"/>
+                                <Image Name="Digit1Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit1Normal}"
+                                       AutomationProperties.AutomationId="Image35_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit1Image" Property="Source" Value="{DynamicResource Digit1Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger36_1A4CA68B">
+                                        <Setter TargetName="Digit1Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit1Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit1Image" Property="Source" Value="{DynamicResource Digit1Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger37_1A4CA68B">
+                                        <Setter TargetName="Digit1Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit1Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -181,20 +267,33 @@
                     </Button>
                     <!-- Button for 2 digit -->
                     <Button Name="Digit2Button"
-                            Grid.Row="0" Grid.Column="1"
+                            Grid.Row="0"
+                            Grid.Column="1"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="2"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button38_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit2Image" Stretch="None" Source="{DynamicResource Digit2Normal}"/>
+                                <Image Name="Digit2Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit2Normal}"
+                                       AutomationProperties.AutomationId="Image39_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit2Image" Property="Source" Value="{DynamicResource Digit2Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger40_1A4CA68B">
+                                        <Setter TargetName="Digit2Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit2Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit2Image" Property="Source" Value="{DynamicResource Digit2Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger41_1A4CA68B">
+                                        <Setter TargetName="Digit2Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit2Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -202,20 +301,33 @@
                     </Button>
                     <!-- Button for 3 digit -->
                     <Button Name="Digit3Button"
-                            Grid.Row="0" Grid.Column="2"
+                            Grid.Row="0"
+                            Grid.Column="2"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="3"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button42_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit3Image" Stretch="None" Source="{DynamicResource Digit3Normal}"/>
+                                <Image Name="Digit3Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit3Normal}"
+                                       AutomationProperties.AutomationId="Image43_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit3Image" Property="Source" Value="{DynamicResource Digit3Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger44_1A4CA68B">
+                                        <Setter TargetName="Digit3Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit3Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit3Image" Property="Source" Value="{DynamicResource Digit3Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger45_1A4CA68B">
+                                        <Setter TargetName="Digit3Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit3Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -223,20 +335,33 @@
                     </Button>
                     <!-- Button for 4 digit -->
                     <Button Name="Digit4Button"
-                            Grid.Row="0" Grid.Column="3"
+                            Grid.Row="0"
+                            Grid.Column="3"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="4"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button46_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit4Image" Stretch="None" Source="{DynamicResource Digit4Normal}"/>
+                                <Image Name="Digit4Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit4Normal}"
+                                       AutomationProperties.AutomationId="Image47_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit4Image" Property="Source" Value="{DynamicResource Digit4Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger48_1A4CA68B">
+                                        <Setter TargetName="Digit4Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit4Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit4Image" Property="Source" Value="{DynamicResource Digit4Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger49_1A4CA68B">
+                                        <Setter TargetName="Digit4Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit4Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -244,20 +369,33 @@
                     </Button>
                     <!-- Button for 5 digit -->
                     <Button Name="Digit5Button"
-                            Grid.Row="0" Grid.Column="4"
+                            Grid.Row="0"
+                            Grid.Column="4"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="5"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button50_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit5Image" Stretch="None" Source="{DynamicResource Digit5Normal}"/>
+                                <Image Name="Digit5Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit5Normal}"
+                                       AutomationProperties.AutomationId="Image51_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit5Image" Property="Source" Value="{DynamicResource Digit5Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger52_1A4CA68B">
+                                        <Setter TargetName="Digit5Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit5Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit5Image" Property="Source" Value="{DynamicResource Digit5Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger53_1A4CA68B">
+                                        <Setter TargetName="Digit5Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit5Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -265,20 +403,33 @@
                     </Button>
                     <!-- Button for 6 digit -->
                     <Button Name="Digit6Button"
-                            Grid.Row="1" Grid.Column="0"
+                            Grid.Row="1"
+                            Grid.Column="0"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="6"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button54_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit6Image" Stretch="None" Source="{DynamicResource Digit6Normal}"/>
+                                <Image Name="Digit6Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit6Normal}"
+                                       AutomationProperties.AutomationId="Image55_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit6Image" Property="Source" Value="{DynamicResource Digit6Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger56_1A4CA68B">
+                                        <Setter TargetName="Digit6Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit6Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit6Image" Property="Source" Value="{DynamicResource Digit6Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger57_1A4CA68B">
+                                        <Setter TargetName="Digit6Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit6Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -286,20 +437,33 @@
                     </Button>
                     <!-- Button for 7 digit -->
                     <Button Name="Digit7Button"
-                            Grid.Row="1" Grid.Column="1"
+                            Grid.Row="1"
+                            Grid.Column="1"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="7"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button58_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit7Image" Stretch="None" Source="{DynamicResource Digit7Normal}"/>
+                                <Image Name="Digit7Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit7Normal}"
+                                       AutomationProperties.AutomationId="Image59_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit7Image" Property="Source" Value="{DynamicResource Digit7Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger60_1A4CA68B">
+                                        <Setter TargetName="Digit7Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit7Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit7Image" Property="Source" Value="{DynamicResource Digit7Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger61_1A4CA68B">
+                                        <Setter TargetName="Digit7Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit7Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -307,20 +471,33 @@
                     </Button>
                     <!-- Button for 8 digit -->
                     <Button Name="Digit8Button"
-                            Grid.Row="1" Grid.Column="2"
+                            Grid.Row="1"
+                            Grid.Column="2"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="8"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button62_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit8Image" Stretch="None" Source="{DynamicResource Digit8Normal}"/>
+                                <Image Name="Digit8Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit8Normal}"
+                                       AutomationProperties.AutomationId="Image63_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit8Image" Property="Source" Value="{DynamicResource Digit8Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger64_1A4CA68B">
+                                        <Setter TargetName="Digit8Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit8Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit8Image" Property="Source" Value="{DynamicResource Digit8Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger65_1A4CA68B">
+                                        <Setter TargetName="Digit8Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit8Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -328,20 +505,33 @@
                     </Button>
                     <!-- Button for 9 digit -->
                     <Button Name="Digit9Button"
-                            Grid.Row="1" Grid.Column="3"
+                            Grid.Row="1"
+                            Grid.Column="3"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="9"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button66_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit9Image" Stretch="None" Source="{DynamicResource Digit9Normal}"/>
+                                <Image Name="Digit9Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit9Normal}"
+                                       AutomationProperties.AutomationId="Image67_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit9Image" Property="Source" Value="{DynamicResource Digit9Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger68_1A4CA68B">
+                                        <Setter TargetName="Digit9Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit9Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit9Image" Property="Source" Value="{DynamicResource Digit9Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger69_1A4CA68B">
+                                        <Setter TargetName="Digit9Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit9Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -349,20 +539,33 @@
                     </Button>
                     <!-- Button for 0 digit -->
                     <Button Name="Digit0Button"
-                            Grid.Row="1" Grid.Column="4"
+                            Grid.Row="1"
+                            Grid.Column="4"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
                             CommandParameter="0"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button70_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="Digit0Image" Stretch="None" Source="{DynamicResource Digit0Normal}"/>
+                                <Image Name="Digit0Image"
+                                       Stretch="None"
+                                       Source="{DynamicResource Digit0Normal}"
+                                       AutomationProperties.AutomationId="Image71_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Digit0Image" Property="Source" Value="{DynamicResource Digit0Pressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger72_1A4CA68B">
+                                        <Setter TargetName="Digit0Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit0Pressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="Digit0Image" Property="Source" Value="{DynamicResource Digit0Disabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger73_1A4CA68B">
+                                        <Setter TargetName="Digit0Image"
+                                                Property="Source"
+                                                Value="{DynamicResource Digit0Disabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -371,23 +574,38 @@
                 </Grid>
                 <!-- Backspace and reserve button -->
                 <StackPanel Name="BackspaceAndReserveButtonPanel"
-                            Orientation="Horizontal" FlowDirection="LeftToRight"
-                            VerticalAlignment="Center" HorizontalAlignment="Center"
-                            Margin="0">
+                            Orientation="Horizontal"
+                            FlowDirection="LeftToRight"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="0"
+                            AutomationProperties.AutomationId="StackPanel74_1A4CA68B">
                     <!-- The backspace button -->
                     <Button Name="BackspaceButton"
                             Click="HandleNonClosingPress"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveBackspaceClickedCommand}"
-                            IsEnabled="{Binding ReserveMachineAllowed}">
+                            IsEnabled="{Binding ReserveMachineAllowed}"
+                            AutomationProperties.AutomationId="Button75_1A4CA68B">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="BackspaceButtonImage" Stretch="None" Source="{DynamicResource BackspaceNormal}"/>
+                                <Image Name="BackspaceButtonImage"
+                                       Stretch="None"
+                                       Source="{DynamicResource BackspaceNormal}"
+                                       AutomationProperties.AutomationId="Image76_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="BackspaceButtonImage" Property="Source" Value="{DynamicResource BackspacePressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger77_1A4CA68B">
+                                        <Setter TargetName="BackspaceButtonImage"
+                                                Property="Source"
+                                                Value="{DynamicResource BackspacePressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter TargetName="BackspaceButtonImage" Property="Source" Value="{DynamicResource BackspaceDisabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="false"
+                                             AutomationProperties.AutomationId="Trigger78_1A4CA68B">
+                                        <Setter TargetName="BackspaceButtonImage"
+                                                Property="Source"
+                                                Value="{DynamicResource BackspaceDisabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -396,22 +614,34 @@
                     <!-- The reserve button, will launch the reserve machine confirm PIN display -->
                     <Button x:Name="ReserveButton"
                             Command="{Binding PlayerMenuPopupViewModel.ReserveClickedCommand}"
-                            Margin="0">
+                            Margin="0"
+                            AutomationProperties.AutomationId="Button79_1A4CA68B">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding Path="ReserveMachineAllowed"/>
-                                <Binding Path="PlayerMenuPopupViewModel.ReserveButtonEnabled"/>
+                                <Binding Path="ReserveMachineAllowed" />
+                                <Binding Path="PlayerMenuPopupViewModel.ReserveButtonEnabled" />
                             </MultiBinding>
                         </Button.IsEnabled>
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Image Name="ReserveButtonImage" Stretch="None" Source="{DynamicResource ReserveNormal}"/>
+                                <Image Name="ReserveButtonImage"
+                                       Stretch="None"
+                                       Source="{DynamicResource ReserveNormal}"
+                                       AutomationProperties.AutomationId="Image80_1A4CA68B" />
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="ReserveButtonImage" Property="Source" Value="{DynamicResource ReservePressed}"/>
+                                    <Trigger Property="IsPressed"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="Trigger81_1A4CA68B">
+                                        <Setter TargetName="ReserveButtonImage"
+                                                Property="Source"
+                                                Value="{DynamicResource ReservePressed}" />
                                     </Trigger>
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter TargetName="ReserveButtonImage" Property="Source" Value="{DynamicResource ReserveDisabled}"/>
+                                    <Trigger Property="IsEnabled"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="Trigger82_1A4CA68B">
+                                        <Setter TargetName="ReserveButtonImage"
+                                                Property="Source"
+                                                Value="{DynamicResource ReserveDisabled}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -419,32 +649,50 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
-
             <!-- Buttons - bottom section -->
             <Grid x:Name="ButtonSection"
-                  HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                  Margin="0 0 0 -12">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" 
-                            Margin="0 0 0 30">
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Bottom"
+                  Margin="0 0 0 -12"
+                  AutomationProperties.AutomationId="Grid83_1A4CA68B">
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0 0 0 30"
+                            AutomationProperties.AutomationId="StackPanel84_1A4CA68B">
                     <!-- Top row -->
                     <StackPanel Name="TopButtonRow"
-                                Orientation="Horizontal" FlowDirection="LeftToRight"
-                                VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Margin="0 16 0 0">
+                                Orientation="Horizontal"
+                                FlowDirection="LeftToRight"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="0 16 0 0"
+                                AutomationProperties.AutomationId="StackPanel85_1A4CA68B">
                         <!-- CashOut button -->
                         <Button x:Name="CashOutButton"
                                 Command="{Binding CashOutFromPlayerMenuPopupCommand}"
                                 IsEnabled="{Binding CashOutEnabledInPlayerMenu}"
-                                Margin="0 0 20 0">
+                                Margin="0 0 20 0"
+                                AutomationProperties.AutomationId="Button86_1A4CA68B">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <Image Name="CashOutButtonImage" Stretch="None" Source="{DynamicResource CashoutNormal}"/>
+                                    <Image Name="CashOutButtonImage"
+                                           Stretch="None"
+                                           Source="{DynamicResource CashoutNormal}"
+                                           AutomationProperties.AutomationId="Image87_1A4CA68B" />
                                     <ControlTemplate.Triggers>
-                                        <Trigger Property="IsEnabled" Value="False">
-                                            <Setter TargetName="CashOutButtonImage" Property="Source" Value="{DynamicResource CashoutDisabled}"/>
+                                        <Trigger Property="IsEnabled"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="Trigger88_1A4CA68B">
+                                            <Setter TargetName="CashOutButtonImage"
+                                                    Property="Source"
+                                                    Value="{DynamicResource CashoutDisabled}" />
                                         </Trigger>
-                                        <Trigger Property="IsPressed" Value="True">
-                                            <Setter TargetName="CashOutButtonImage" Property="Source" Value="{DynamicResource CashoutPressed}"/>
+                                        <Trigger Property="IsPressed"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="Trigger89_1A4CA68B">
+                                            <Setter TargetName="CashOutButtonImage"
+                                                    Property="Source"
+                                                    Value="{DynamicResource CashoutPressed}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -454,57 +702,89 @@
                         <Button x:Name="LobbyButton"
                                 Command="{Binding ReturnToLobbyCommand}"
                                 IsEnabled="{Binding ReturnToLobbyAllowed}"
-                                Margin="0">
+                                Margin="0"
+                                AutomationProperties.AutomationId="Button90_1A4CA68B">
                             <Button.Template>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <Image Name="LobbyButtonImage" Stretch="None" Source="{DynamicResource LobbyNormal}"/>
+                                    <Image Name="LobbyButtonImage"
+                                           Stretch="None"
+                                           Source="{DynamicResource LobbyNormal}"
+                                           AutomationProperties.AutomationId="Image91_1A4CA68B" />
                                     <ControlTemplate.Triggers>
-                                        <Trigger Property="IsEnabled" Value="False">
-                                            <Setter TargetName="LobbyButtonImage" Property="Source" Value="{DynamicResource LobbyDisabled}"/>
+                                        <Trigger Property="IsEnabled"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="Trigger92_1A4CA68B">
+                                            <Setter TargetName="LobbyButtonImage"
+                                                    Property="Source"
+                                                    Value="{DynamicResource LobbyDisabled}" />
                                         </Trigger>
-                                        <Trigger Property="IsPressed" Value="True">
-                                            <Setter TargetName="LobbyButtonImage" Property="Source" Value="{DynamicResource LobbyPressed}"/>
+                                        <Trigger Property="IsPressed"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="Trigger93_1A4CA68B">
+                                            <Setter TargetName="LobbyButtonImage"
+                                                    Property="Source"
+                                                    Value="{DynamicResource LobbyPressed}" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
                     </StackPanel>
-
                     <!-- Bottom row -->
                     <StackPanel Name="BottomButtonRow"
-                                Orientation="Horizontal" FlowDirection="LeftToRight"
-                                VerticalAlignment="Center" HorizontalAlignment="Center"
-                                Margin="0 6 0 0">
+                                Orientation="Horizontal"
+                                FlowDirection="LeftToRight"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="0 6 0 0"
+                                AutomationProperties.AutomationId="StackPanel94_1A4CA68B">
                         <!-- Volume control button -->
                         <Button x:Name="VolumeButton"
                                 Click="HandleNonClosingPress"
                                 Command="{Binding Volume.VolumeCommand}"
-                                Visibility="{Binding PlayerMenuPopupViewModel.IsVolumeButtonVisible,
-                                    Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                Margin="0 0 20 0">
+                                Visibility="{Binding PlayerMenuPopupViewModel.IsVolumeButtonVisible,                                     Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                Margin="0 0 20 0"
+                                AutomationProperties.AutomationId="Button95_1A4CA68B">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Grid>
-                                        <Image Stretch="None" Source="{DynamicResource Volume0}"/>
-                                        <Image Stretch="None">
+                                    <Grid AutomationProperties.AutomationId="Grid96_1A4CA68B">
+                                        <Image Stretch="None"
+                                               Source="{DynamicResource Volume0}"
+                                               AutomationProperties.AutomationId="Image97_1A4CA68B" />
+                                        <Image Stretch="None"
+                                               AutomationProperties.AutomationId="Image98_1A4CA68B">
                                             <Image.Style>
                                                 <Style TargetType="{x:Type Image}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Value="1" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
-                                                            <Setter Property="Source" Value="{DynamicResource Volume1}"/>
+                                                        <DataTrigger Value="1"
+                                                                     Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}"
+                                                                     AutomationProperties.AutomationId="DataTrigger99_1A4CA68B">
+                                                            <Setter Property="Source"
+                                                                    Value="{DynamicResource Volume1}" />
                                                         </DataTrigger>
-                                                        <DataTrigger Value="2" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
-                                                            <Setter Property="Source" Value="{DynamicResource Volume2}"/>
+                                                        <DataTrigger Value="2"
+                                                                     Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}"
+                                                                     AutomationProperties.AutomationId="DataTrigger100_1A4CA68B">
+                                                            <Setter Property="Source"
+                                                                    Value="{DynamicResource Volume2}" />
                                                         </DataTrigger>
-                                                        <DataTrigger Value="3" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
-                                                            <Setter Property="Source" Value="{DynamicResource Volume3}"/>
+                                                        <DataTrigger Value="3"
+                                                                     Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}"
+                                                                     AutomationProperties.AutomationId="DataTrigger101_1A4CA68B">
+                                                            <Setter Property="Source"
+                                                                    Value="{DynamicResource Volume3}" />
                                                         </DataTrigger>
-                                                        <DataTrigger Value="4" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
-                                                            <Setter Property="Source" Value="{DynamicResource Volume4}"/>
+                                                        <DataTrigger Value="4"
+                                                                     Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}"
+                                                                     AutomationProperties.AutomationId="DataTrigger102_1A4CA68B">
+                                                            <Setter Property="Source"
+                                                                    Value="{DynamicResource Volume4}" />
                                                         </DataTrigger>
-                                                        <DataTrigger Value="5" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
-                                                            <Setter Property="Source" Value="{DynamicResource Volume5}"/>
+                                                        <DataTrigger Value="5"
+                                                                     Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}"
+                                                                     AutomationProperties.AutomationId="DataTrigger103_1A4CA68B">
+                                                            <Setter Property="Source"
+                                                                    Value="{DynamicResource Volume5}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -522,4 +802,3 @@
         </StackPanel>
     </Grid>
 </UserControl>
-   

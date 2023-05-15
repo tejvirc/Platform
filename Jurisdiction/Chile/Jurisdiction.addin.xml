@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ChileJurisdiction" filterid="ChileLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ChileJurisdiction" filterid="ChileLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ChileJurisdiction" filterid="ChileLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="ChileLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Chile\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ChileLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Chile\Lobby.config.xml" filterid="ChileLobbyConfig" />

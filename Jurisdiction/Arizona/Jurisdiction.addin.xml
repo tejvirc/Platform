@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ArizonaJurisdiction" filterid="ArizonaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ArizonaJurisdiction" filterid="ArizonaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ArizonaJurisdiction" filterid="ArizonaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="ArizonaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Arizona\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ArizonaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Arizona\Lobby.config.xml" filterid="ArizonaLobbyConfig" />

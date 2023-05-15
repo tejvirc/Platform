@@ -26,6 +26,228 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Overrides\Resources_AfricanNations.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_AfricanNations.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.Designer.tt</DependentUpon>
+    </Compile>
+    <None Update="Properties\Resources.Designer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </None>
+    <Compile Update="Overrides\Resources_AfricanNations.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_AfricanNations.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_AlabamaHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_AlabamaHHR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_AlbertaVLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_AlbertaVLT.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_ALCVLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_ALCVLT.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Asia.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Asia.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_C2.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_C2.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_C3.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_C3.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Denmark.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Denmark.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Europe.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Europe.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Holland.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Holland.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_IllinoisVLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_IllinoisVLT.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_IllinoisRiverboat.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_IllinoisRiverboat.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_KansasHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_KansasHHR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_KentuckyHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_KentuckyHHR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_LouisianaHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_LouisianaHHR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_LouisianaRiverboat.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_LouisianaRiverboat.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Macau.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Macau.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_NebraskaHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_NebraskaHHR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Nevada.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Nevada.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_NewHampshireHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_NewHampshireHHR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_NewJersey.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_NewJersey.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_NewYorkVLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_NewYorkVLT.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_NGIC.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_NGIC.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_NSW.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_NSW.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_OklahomaClassIII.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_OklahomaClassIII.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_OregonVLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_OregonVLT.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Pennsylvania.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Pennsylvania.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_PennsylvaniaVLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_PennsylvaniaVLT.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Philippines.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Philippines.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_RhodeIsland.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_RhodeIsland.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Romania.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Romania.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_SingaporeCasino.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_SingaporeCasino.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_SingaporeClubs.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_SingaporeClubs.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_SouthAfrica.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_SouthAfrica.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_SouthAfricaWC.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_SouthAfricaWC.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_Spain.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Spain.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_VLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_VLT.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_VirginiaHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_VirginiaHHR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_WA.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_WA.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_WestVirginia.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_WestVirginia.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Overrides\Resources_WyomingHHR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_WyomingHHR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.en-CA.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -41,13 +263,166 @@
     <EmbeddedResource Update="Properties\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Resources.Designer.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </None>
+    <EmbeddedResource Update="Overrides\Resources_AfricanNations.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_AfricanNations.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_AlabamaHHR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_AlabamaHHR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_AlbertaVLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_AlbertaVLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_ALCVLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_ALCVLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Asia.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Asia.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_C2.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_C2.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_C3.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_C3.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Denmark.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Denmark.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Europe.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Europe.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Holland.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Holland.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_IllinoisVLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_IllinoisVLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_IllinoisRiverboat.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_IllinoisRiverboat.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_KansasHHR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_KansasHHR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_KentuckyHHR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_KentuckyHHR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_LouisianaHHR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_LouisianaHHR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_LouisianaRiverboat.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_LouisianaRiverboat.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Macau.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Macau.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_NebraskaHHR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_NebraskaHHR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Nevada.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Nevada.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_NewHampshireHHR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_NewHampshireHHR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_NewJersey.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_NewJersey.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_NewYorkVLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_NewYorkVLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_NGIC.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_NGIC.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_NSW.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_NSW.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_OklahomaClassIII.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_OklahomaClassIII.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_OregonVLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_OregonVLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Pennsylvania.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Pennsylvania.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_PennsylvaniaVLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_PennsylvaniaVLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Philippines.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Philippines.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_RhodeIsland.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_RhodeIsland.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Romania.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Romania.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_SingaporeCasino.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_SingaporeCasino.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_SingaporeClubs.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_SingaporeClubs.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_SouthAfrica.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_SouthAfrica.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_SouthAfricaWC.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_SouthAfricaWC.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_Spain.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_Spain.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_VLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_VLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_WA.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_WA.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_WestVirginia.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_WestVirginia.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Overrides\Resources_WyomingHHR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_WyomingHHR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\EN_CashOut.png" />
@@ -59,12 +434,5 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.Designer.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>

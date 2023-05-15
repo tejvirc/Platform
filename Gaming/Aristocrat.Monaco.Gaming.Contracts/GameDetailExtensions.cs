@@ -106,6 +106,11 @@
                 throw new ArgumentNullException(nameof(@this));
             }
 
+            if (@this.GameType == GameType.Roulette)
+            {
+                return @this.MaximumWagerInsideCredits + @this.MaximumWagerOutsideCredits;
+            }
+
             if (betOption?.MaxInitialBet != null) // independent of any line option
             {
                 return betOption.MaxInitialBet.Value;
@@ -278,8 +283,10 @@
                 .OrderByDescending(b => b)
                 .ToArray();
 
-            var multiplier = @this.Category == GameCategory.MultiDrawPoker &&
-                             orderedMultipliers.Length > 1
+            var multiplier = orderedMultipliers.Length > 1 &&
+                             @this.GameType == GameType.Poker &&
+                             (@this.Category == GameCategory.MultiDrawPoker ||
+                              @this.NextToMaxBetTopAwardMultiplier)
                 ? orderedMultipliers[1]
                 : orderedMultipliers.FirstOrDefault();
 

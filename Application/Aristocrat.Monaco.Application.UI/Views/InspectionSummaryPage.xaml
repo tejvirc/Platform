@@ -2,13 +2,14 @@
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                FocusManager.FocusedElement="{Binding ElementName=Finished}"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:InspectionSummaryPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -16,56 +17,91 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="DefaultColumnStyle" TargetType="DataGridCell">
-                <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="Width" Value="Auto" />
+            <Style x:Key="DefaultColumnStyle"
+                   TargetType="DataGridCell">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource LightBrush4}" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="Width"
+                        Value="Auto" />
             </Style>
-
-            <Style x:Key="StatusColumnStyle" TargetType="DataGridCell">
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="Width" Value="Auto" />
-                <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+            <Style x:Key="StatusColumnStyle"
+                   TargetType="DataGridCell">
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Width"
+                        Value="Auto" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource YellowBrush}" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Untested">
-                        <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+                                 Value="Untested"
+                                 AutomationProperties.AutomationId="DataTrigger0_ED427CB9">
+                        <Setter Property="Foreground"
+                                Value="{DynamicResource YellowBrush}" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Good">
-                        <Setter Property="Foreground" Value="{DynamicResource GreenBrush}"/>
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+                                 Value="Good"
+                                 AutomationProperties.AutomationId="DataTrigger1_ED427CB9">
+                        <Setter Property="Foreground"
+                                Value="{DynamicResource GreenBrush}" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Value="Bad">
-                        <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
+                    <DataTrigger Binding="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+                                 Value="Bad"
+                                 AutomationProperties.AutomationId="DataTrigger2_ED427CB9">
+                        <Setter Property="Foreground"
+                                Value="{DynamicResource RedBrush}" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-
-            <Style x:Key="FailureColumnStyle" TargetType="DataGridCell">
-                <Setter Property="Foreground" Value="{DynamicResource RedBrush}" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="Width" Value="Auto" />
+            <Style x:Key="FailureColumnStyle"
+                   TargetType="DataGridCell">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource RedBrush}" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="Width"
+                        Value="Auto" />
             </Style>
+            <converters:TextToQrCodeConverter x:Key="TextToQrCode"/>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid Margin="10" x:Name="MainGrid">
+    <Grid Margin="10"
+          x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid3_ED427CB9">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition4_ED427CB9" />
+            <ColumnDefinition Width="2*"
+                              AutomationProperties.AutomationId="ColumnDefinition5_ED427CB9" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition6_ED427CB9" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_ED427CB9" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition7_ED427CB9" />
         </Grid.RowDefinitions>
-        
-        <Label Content="{Binding PageName}" 
+        <Label Content="{Binding OrderNumber}" 
+               AutomationProperties.AutomationId="Label8_ED427CB9"
                Foreground="{DynamicResource LightBrush4}"/>
-        <Label Grid.Row="0" Grid.Column="1"
+        <Label Grid.Column="1"
+               Name="Label"
                Content="{Binding Timestamp}" 
+               AutomationProperties.AutomationId="Label9_ED427CB9"
                Foreground="{DynamicResource LightBrush4}"/>
-
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Content="{Binding Timestamp}"
+               Foreground="{DynamicResource LightBrush4}"
+               AutomationProperties.AutomationId="Label10_ED427CB9" />
+        <DataGrid Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
                   ItemsSource="{Binding Reports}"
                   Style="{DynamicResource MonacoScrollButtonDataGrid}"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
@@ -73,22 +109,39 @@
                   VerticalContentAlignment="Top"
                   VerticalAlignment="Stretch"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  AutomationProperties.AutomationId="DataGrid10_ED427CB9">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Category}"
                                     Header="{lex:Loc Key={x:Static loc:ResourceKeys.Category}}"
-                                    CellStyle="{StaticResource DefaultColumnStyle}" />
+                                    CellStyle="{StaticResource DefaultColumnStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn11_ED427CB9" />
                 <DataGridTextColumn Binding="{Binding StatusText}"
                                     Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"
-                                    CellStyle="{StaticResource StatusColumnStyle}" />
+                                    CellStyle="{StaticResource StatusColumnStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn12_ED427CB9" />
                 <DataGridTextColumn Binding="{Binding FirmwareMessage}"
                                     Header="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"
-                                    CellStyle="{StaticResource DefaultColumnStyle}" />
+                                    CellStyle="{StaticResource DefaultColumnStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn13_ED427CB9" />
                 <DataGridTextColumn Binding="{Binding FailureMessage}"
                                     Header="{lex:Loc Key={x:Static loc:ResourceKeys.Failure}}"
-                                    CellStyle="{StaticResource FailureColumnStyle}" />
+                                    CellStyle="{StaticResource FailureColumnStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn14_ED427CB9" />
             </DataGrid.Columns>
         </DataGrid>
+
+        <Image Grid.Row="1" Grid.Column="2"
+               VerticalAlignment="Bottom"
+               AutomationProperties.AutomationId="Image1_ED427CB9"
+               HorizontalAlignment="Center">
+            <Image.Source>
+                <MultiBinding Converter="{StaticResource TextToQrCode}">
+                    <Binding Path="QrCodeText" UpdateSourceTrigger="PropertyChanged" />
+                    <Binding ElementName="Label" Path="Background" />
+                    <Binding ElementName="Label" Path="Foreground" />
+                </MultiBinding>
+            </Image.Source>
+        </Image>
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

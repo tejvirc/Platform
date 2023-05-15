@@ -1,4 +1,4 @@
-﻿<controls:MetroWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.TestToolView" 
+﻿<controls:MetroWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.TestToolView"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,145 +8,290 @@
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance {x:Type viewModels:TestToolViewModel}}"
                       Background="{Binding BellColor}"
-                      Title="TestToolView" Height="535" Width="700">
+                      Title="TestToolView"
+                      Height="535"
+                      Width="700">
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
-
-    <TabControl x:Name="TabControl">
+    <TabControl x:Name="TabControl"
+                AutomationProperties.AutomationId="TabControl0_814CF979">
         <TabControl.LayoutTransform>
-            <ScaleTransform ScaleX="1.25" ScaleY="1.25"/>
+            <ScaleTransform ScaleX="1.25"
+                            ScaleY="1.25"
+                            AutomationProperties.AutomationId="ScaleTransform1_814CF979" />
         </TabControl.LayoutTransform>
-        <TabItem Header="Lobby">
-            <GroupBox Header="RG Overrides">
-                <Grid>
+        <TabItem Header="Lobby"
+                 AutomationProperties.AutomationId="TabItem2_814CF979">
+            <GroupBox Header="RG Overrides"
+                      AutomationProperties.AutomationId="GroupBox3_814CF979">
+                <Grid AutomationProperties.AutomationId="Grid4_814CF979">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition5_814CF979" />
+                        <RowDefinition AutomationProperties.AutomationId="RowDefinition6_814CF979" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition7_814CF979" />
+                        <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition8_814CF979" />
                     </Grid.ColumnDefinitions>
-
-                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="0"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          AutomationProperties.AutomationId="Grid9_814CF979">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="15" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="15" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="10" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="10" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition10_814CF979" />
+                            <RowDefinition Height="10"
+                                           AutomationProperties.AutomationId="RowDefinition11_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition12_814CF979" />
+                            <RowDefinition Height="15"
+                                           AutomationProperties.AutomationId="RowDefinition13_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition14_814CF979" />
+                            <RowDefinition Height="15"
+                                           AutomationProperties.AutomationId="RowDefinition15_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition16_814CF979" />
+                            <RowDefinition Height="10"
+                                           AutomationProperties.AutomationId="RowDefinition17_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition18_814CF979" />
+                            <RowDefinition Height="10"
+                                           AutomationProperties.AutomationId="RowDefinition19_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition20_814CF979" />
+                            <RowDefinition Height="10"
+                                           AutomationProperties.AutomationId="RowDefinition21_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition22_814CF979" />
+                            <RowDefinition Height="10"
+                                           AutomationProperties.AutomationId="RowDefinition23_814CF979" />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
+                        <Grid Grid.Row="0"
+                              AutomationProperties.AutomationId="Grid24_814CF979">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition25_814CF979" />
+                                <ColumnDefinition Width="1*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition26_814CF979" />
+                                <ColumnDefinition Width="1*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition27_814CF979" />
+                                <ColumnDefinition Width="1*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition28_814CF979" />
+                                <ColumnDefinition Width="1*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition29_814CF979" />
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
+                            <Grid Grid.Column="0"
+                                  AutomationProperties.AutomationId="Grid30_814CF979">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition31_814CF979" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition32_814CF979" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition33_814CF979" />
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition34_814CF979" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="1:" VerticalAlignment="Center" Margin="0,0,5,0" />
-                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TimeLimit1,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding TimeLimit1Set}" Margin="10,0,0,0" />
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="1:"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,5,0"
+                                           AutomationProperties.AutomationId="TextBlock35_814CF979" />
+                                <TextBox Grid.Row="0"
+                                         Grid.Column="1"
+                                         Text="{Binding TimeLimit1,UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         HorizontalAlignment="Left"
+                                         AutomationProperties.AutomationId="TextBox36_814CF979" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Foreground="Red"
+                                           HorizontalAlignment="Left"
+                                           Text="{Binding TimeLimit1Set}"
+                                           Margin="10,0,0,0"
+                                           AutomationProperties.AutomationId="TextBlock37_814CF979" />
                             </Grid>
-                            <Grid Grid.Column="1">
+                            <Grid Grid.Column="1"
+                                  AutomationProperties.AutomationId="Grid38_814CF979">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition39_814CF979" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition40_814CF979" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition41_814CF979" />
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition42_814CF979" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="2:" VerticalAlignment="Center" Margin="0,0,5,0" />
-                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TimeLimit2,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding TimeLimit2Set}" Margin="10,0,0,0"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="2:"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,5,0"
+                                           AutomationProperties.AutomationId="TextBlock43_814CF979" />
+                                <TextBox Grid.Row="0"
+                                         Grid.Column="1"
+                                         Text="{Binding TimeLimit2,UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         HorizontalAlignment="Left"
+                                         AutomationProperties.AutomationId="TextBox44_814CF979" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Foreground="Red"
+                                           HorizontalAlignment="Left"
+                                           Text="{Binding TimeLimit2Set}"
+                                           Margin="10,0,0,0"
+                                           AutomationProperties.AutomationId="TextBlock45_814CF979" />
                             </Grid>
-                            <Grid Grid.Column="2">
+                            <Grid Grid.Column="2"
+                                  AutomationProperties.AutomationId="Grid46_814CF979">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition47_814CF979" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition48_814CF979" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition49_814CF979" />
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition50_814CF979" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="3:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TimeLimit3,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding TimeLimit3Set}" Margin="10,0,0,0"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="3:"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,5,0"
+                                           AutomationProperties.AutomationId="TextBlock51_814CF979" />
+                                <TextBox Grid.Row="0"
+                                         Grid.Column="1"
+                                         Text="{Binding TimeLimit3,UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         HorizontalAlignment="Left"
+                                         AutomationProperties.AutomationId="TextBox52_814CF979" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Foreground="Red"
+                                           HorizontalAlignment="Left"
+                                           Text="{Binding TimeLimit3Set}"
+                                           Margin="10,0,0,0"
+                                           AutomationProperties.AutomationId="TextBlock53_814CF979" />
                             </Grid>
-                            <Grid Grid.Column="3">
+                            <Grid Grid.Column="3"
+                                  AutomationProperties.AutomationId="Grid54_814CF979">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition55_814CF979" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition56_814CF979" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition57_814CF979" />
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition58_814CF979" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="4:" VerticalAlignment="Center" Margin="0,0,5,0" />
-                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TimeLimit4,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding TimeLimit4Set}" Margin="10,0,0,0"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="4:"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,5,0"
+                                           AutomationProperties.AutomationId="TextBlock59_814CF979" />
+                                <TextBox Grid.Row="0"
+                                         Grid.Column="1"
+                                         Text="{Binding TimeLimit4,UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         HorizontalAlignment="Left"
+                                         AutomationProperties.AutomationId="TextBox60_814CF979" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Foreground="Red"
+                                           HorizontalAlignment="Left"
+                                           Text="{Binding TimeLimit4Set}"
+                                           Margin="10,0,0,0"
+                                           AutomationProperties.AutomationId="TextBlock61_814CF979" />
                             </Grid>
-                            <Grid Grid.Column="4" Visibility="{Binding TimeLimit5Visible, Converter={StaticResource TrueVisibleFalseHidden}}">
+                            <Grid Grid.Column="4"
+                                  Visibility="{Binding TimeLimit5Visible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                                  AutomationProperties.AutomationId="Grid62_814CF979">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition63_814CF979" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition64_814CF979" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition65_814CF979" />
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition66_814CF979" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="5:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TimeLimit5,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding TimeLimit5Set}" Margin="10,0,0,0" />
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="5:"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,5,0"
+                                           AutomationProperties.AutomationId="TextBlock67_814CF979" />
+                                <TextBox Grid.Row="0"
+                                         Grid.Column="1"
+                                         Text="{Binding TimeLimit5,UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         HorizontalAlignment="Left"
+                                         AutomationProperties.AutomationId="TextBox68_814CF979" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Foreground="Red"
+                                           HorizontalAlignment="Left"
+                                           Text="{Binding TimeLimit5Set}"
+                                           Margin="10,0,0,0"
+                                           AutomationProperties.AutomationId="TextBlock69_814CF979" />
                             </Grid>
                         </Grid>
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="2"
+                              AutomationProperties.AutomationId="Grid70_814CF979">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="8*" />
-                                <ColumnDefinition Width="12*" />
-                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="8*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition71_814CF979" />
+                                <ColumnDefinition Width="12*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition72_814CF979" />
+                                <ColumnDefinition Width="5*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition73_814CF979" />
                             </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}" Grid.Column="0" Width="125"
-                                Content="Override Time Limits"
-                                Command="{Binding SetTimeLimitsCommand}">
+                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                                    Grid.Column="0"
+                                    Width="125"
+                                    Content="Override Time Limits"
+                                    Command="{Binding SetTimeLimitsCommand}"
+                                    AutomationProperties.AutomationId="Button74_814CF979">
                                 <Button.ToolTip>
-                                    <ToolTip>
-                                        <StackPanel>
-                                            <TextBlock FontWeight="Bold">Set Time Limits</TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Width="300">
+                                    <ToolTip AutomationProperties.AutomationId="ToolTip75_814CF979">
+                                        <StackPanel AutomationProperties.AutomationId="StackPanel76_814CF979">
+                                            <TextBlock FontWeight="Bold"
+                                                       AutomationProperties.AutomationId="TextBlock77_814CF979">Set Time Limits</TextBlock>
+                                            <TextBlock TextWrapping="Wrap"
+                                                       Width="300"
+                                                       AutomationProperties.AutomationId="TextBlock78_814CF979">
                                             Overrides the time limits for responsible gaming. These values will 
                                             not be applied until the next time the time limit dialog is shown (Standard Mode),
                                             or until the next Responsible Gaming Timer tick (up to 1 minute).
@@ -155,16 +300,27 @@
                                     </ToolTip>
                                 </Button.ToolTip>
                             </Button>
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0,0,0">
-                                <TextBox Text="{Binding TimeLimitInterval,UpdateSourceTrigger=PropertyChanged}" Width="40" />
-                                <Button Style="{StaticResource AccentedSquareButtonStyle}" Margin="7,0,0,0" Width="125"
-                                Content="Create Interval"
-                                Command="{Binding CreateTimeIntervalCommand}">
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Margin="20,0,0,0"
+                                        AutomationProperties.AutomationId="StackPanel79_814CF979">
+                                <TextBox Text="{Binding TimeLimitInterval,UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         AutomationProperties.AutomationId="TextBox80_814CF979" />
+                                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                                        Margin="7,0,0,0"
+                                        Width="125"
+                                        Content="Create Interval"
+                                        Command="{Binding CreateTimeIntervalCommand}"
+                                        AutomationProperties.AutomationId="Button81_814CF979">
                                     <Button.ToolTip>
-                                        <ToolTip>
-                                            <StackPanel>
-                                                <TextBlock FontWeight="Bold">Create Interval</TextBlock>
-                                                <TextBlock TextWrapping="Wrap" Width="300">
+                                        <ToolTip AutomationProperties.AutomationId="ToolTip82_814CF979">
+                                            <StackPanel AutomationProperties.AutomationId="StackPanel83_814CF979">
+                                                <TextBlock FontWeight="Bold"
+                                                           AutomationProperties.AutomationId="TextBlock84_814CF979">Create Interval</TextBlock>
+                                                <TextBlock TextWrapping="Wrap"
+                                                           Width="300"
+                                                           AutomationProperties.AutomationId="TextBlock85_814CF979">
                                             Fills in all boxes based on the interval value.
                                             You will still need to hit Override Time Limits to apply the changes.
                                                 </TextBlock>
@@ -173,14 +329,19 @@
                                     </Button.ToolTip>
                                 </Button>
                             </StackPanel>
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}" Grid.Column="2"
-                                Content="Reset Defaults"
-                                Command="{Binding ResetDefaultsCommand}">
+                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                                    Grid.Column="2"
+                                    Content="Reset Defaults"
+                                    Command="{Binding ResetDefaultsCommand}"
+                                    AutomationProperties.AutomationId="Button86_814CF979">
                                 <Button.ToolTip>
-                                    <ToolTip>
-                                        <StackPanel>
-                                            <TextBlock FontWeight="Bold">Set Time Limits</TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Width="300">
+                                    <ToolTip AutomationProperties.AutomationId="ToolTip87_814CF979">
+                                        <StackPanel AutomationProperties.AutomationId="StackPanel88_814CF979">
+                                            <TextBlock FontWeight="Bold"
+                                                       AutomationProperties.AutomationId="TextBlock89_814CF979">Set Time Limits</TextBlock>
+                                            <TextBlock TextWrapping="Wrap"
+                                                       Width="300"
+                                                       AutomationProperties.AutomationId="TextBlock90_814CF979">
                                             Resets the Time Limits to the default values.
                                             </TextBlock>
                                         </StackPanel>
@@ -188,85 +349,193 @@
                                 </Button.ToolTip>
                             </Button>
                         </Grid>
-                        <Grid Grid.Row="4" Visibility="{Binding PlayBreaksVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
-                            <StackPanel>
-                                <TextBlock Foreground="#41B1E1" FontWeight="Bold">Play Breaks</TextBlock>
-                                <Grid Margin="0,5,0,0">
+                        <Grid Grid.Row="4"
+                              Visibility="{Binding PlayBreaksVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                              AutomationProperties.AutomationId="Grid91_814CF979">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel92_814CF979">
+                                <TextBlock Foreground="#41B1E1"
+                                           FontWeight="Bold"
+                                           AutomationProperties.AutomationId="TextBlock93_814CF979">Play Breaks</TextBlock>
+                                <Grid Margin="0,5,0,0"
+                                      AutomationProperties.AutomationId="Grid94_814CF979">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="27*" />
-                                        <ColumnDefinition Width="85*"/>
-                                        <ColumnDefinition Width="111*" />
-                                        <ColumnDefinition Width="112*" />
-                                        <ColumnDefinition Width="111*" />
+                                        <ColumnDefinition Width="27*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition95_814CF979" />
+                                        <ColumnDefinition Width="85*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition96_814CF979" />
+                                        <ColumnDefinition Width="111*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition97_814CF979" />
+                                        <ColumnDefinition Width="112*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition98_814CF979" />
+                                        <ColumnDefinition Width="111*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition99_814CF979" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                                    <Grid Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          AutomationProperties.AutomationId="Grid100_814CF979">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition101_814CF979" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition102_814CF979" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto"
+                                                              AutomationProperties.AutomationId="ColumnDefinition103_814CF979" />
+                                            <ColumnDefinition Width="*"
+                                                              AutomationProperties.AutomationId="ColumnDefinition104_814CF979" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="1:" VerticalAlignment="Center" Margin="0,0,5,0" />
-                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PlayBreak1,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding PlayBreak1Set}" Margin="10,0,0,0" />
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Text="1:"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,5,0"
+                                                   AutomationProperties.AutomationId="TextBlock105_814CF979" />
+                                        <TextBox Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Text="{Binding PlayBreak1,UpdateSourceTrigger=PropertyChanged}"
+                                                 Width="40"
+                                                 HorizontalAlignment="Left"
+                                                 AutomationProperties.AutomationId="TextBox106_814CF979" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Foreground="Red"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding PlayBreak1Set}"
+                                                   Margin="10,0,0,0"
+                                                   AutomationProperties.AutomationId="TextBlock107_814CF979" />
                                     </Grid>
-                                    <Grid Grid.Column="2">
+                                    <Grid Grid.Column="2"
+                                          AutomationProperties.AutomationId="Grid108_814CF979">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition109_814CF979" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition110_814CF979" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto"
+                                                              AutomationProperties.AutomationId="ColumnDefinition111_814CF979" />
+                                            <ColumnDefinition Width="*"
+                                                              AutomationProperties.AutomationId="ColumnDefinition112_814CF979" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="2:" VerticalAlignment="Center" Margin="0,0,5,0" />
-                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PlayBreak2,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding PlayBreak2Set}" Margin="10,0,0,0"/>
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Text="2:"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,5,0"
+                                                   AutomationProperties.AutomationId="TextBlock113_814CF979" />
+                                        <TextBox Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Text="{Binding PlayBreak2,UpdateSourceTrigger=PropertyChanged}"
+                                                 Width="40"
+                                                 HorizontalAlignment="Left"
+                                                 AutomationProperties.AutomationId="TextBox114_814CF979" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Foreground="Red"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding PlayBreak2Set}"
+                                                   Margin="10,0,0,0"
+                                                   AutomationProperties.AutomationId="TextBlock115_814CF979" />
                                     </Grid>
-                                    <Grid Grid.Column="3">
+                                    <Grid Grid.Column="3"
+                                          AutomationProperties.AutomationId="Grid116_814CF979">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition117_814CF979" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition118_814CF979" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto"
+                                                              AutomationProperties.AutomationId="ColumnDefinition119_814CF979" />
+                                            <ColumnDefinition Width="*"
+                                                              AutomationProperties.AutomationId="ColumnDefinition120_814CF979" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="3:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PlayBreak3,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding PlayBreak3Set}" Margin="10,0,0,0"/>
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Text="3:"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,5,0"
+                                                   AutomationProperties.AutomationId="TextBlock121_814CF979" />
+                                        <TextBox Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Text="{Binding PlayBreak3,UpdateSourceTrigger=PropertyChanged}"
+                                                 Width="40"
+                                                 HorizontalAlignment="Left"
+                                                 AutomationProperties.AutomationId="TextBox122_814CF979" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Foreground="Red"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding PlayBreak3Set}"
+                                                   Margin="10,0,0,0"
+                                                   AutomationProperties.AutomationId="TextBlock123_814CF979" />
                                     </Grid>
-                                    <Grid Grid.Column="4">
+                                    <Grid Grid.Column="4"
+                                          AutomationProperties.AutomationId="Grid124_814CF979">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition125_814CF979" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition126_814CF979" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto"
+                                                              AutomationProperties.AutomationId="ColumnDefinition127_814CF979" />
+                                            <ColumnDefinition Width="*"
+                                                              AutomationProperties.AutomationId="ColumnDefinition128_814CF979" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="4:" VerticalAlignment="Center" Margin="0,0,5,0" />
-                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PlayBreak4,UpdateSourceTrigger=PropertyChanged}" Width="40" HorizontalAlignment="Left" />
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Red" HorizontalAlignment="Left" Text="{Binding PlayBreak4Set}" Margin="10,0,0,0"/>
+                                        <TextBlock Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Text="4:"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,5,0"
+                                                   AutomationProperties.AutomationId="TextBlock129_814CF979" />
+                                        <TextBox Grid.Row="0"
+                                                 Grid.Column="1"
+                                                 Text="{Binding PlayBreak4,UpdateSourceTrigger=PropertyChanged}"
+                                                 Width="40"
+                                                 HorizontalAlignment="Left"
+                                                 AutomationProperties.AutomationId="TextBox130_814CF979" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Foreground="Red"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding PlayBreak4Set}"
+                                                   Margin="10,0,0,0"
+                                                   AutomationProperties.AutomationId="TextBlock131_814CF979" />
                                     </Grid>
-
                                 </Grid>
                             </StackPanel>
                         </Grid>
-                        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" Margin="75,0,0,0">
-                            <TextBlock Text="Elapsed Time:" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                            <TextBox Text="{Binding ElapsedTime, UpdateSourceTrigger=PropertyChanged}" Width="60" />
-
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}" Margin="20,0,0,0" Width="150"
-                                Content="Set Elapsed Time"
-                                Command="{Binding SetElapsedTimeCommand}">
+                        <StackPanel Grid.Row="6"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Left"
+                                    Margin="75,0,0,0"
+                                    AutomationProperties.AutomationId="StackPanel132_814CF979">
+                            <TextBlock Text="Elapsed Time:"
+                                       Margin="0,0,5,0"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="TextBlock133_814CF979" />
+                            <TextBox Text="{Binding ElapsedTime, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="60"
+                                     AutomationProperties.AutomationId="TextBox134_814CF979" />
+                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                                    Margin="20,0,0,0"
+                                    Width="150"
+                                    Content="Set Elapsed Time"
+                                    Command="{Binding SetElapsedTimeCommand}"
+                                    AutomationProperties.AutomationId="Button135_814CF979">
                                 <Button.ToolTip>
-                                    <ToolTip>
-                                        <StackPanel>
-                                            <TextBlock FontWeight="Bold">Set Elapsed Time</TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Width="300">
+                                    <ToolTip AutomationProperties.AutomationId="ToolTip136_814CF979">
+                                        <StackPanel AutomationProperties.AutomationId="StackPanel137_814CF979">
+                                            <TextBlock FontWeight="Bold"
+                                                       AutomationProperties.AutomationId="TextBlock138_814CF979">Set Elapsed Time</TextBlock>
+                                            <TextBlock TextWrapping="Wrap"
+                                                       Width="300"
+                                                       AutomationProperties.AutomationId="TextBlock139_814CF979">
                                             Sets the Elapsed Time of the current Responsible Gaming Session
                                             Will not take effect until the next Responsible Gaming Timer tick
                                             (up to 1 minute).  If you set this value before starting a Responsible
@@ -277,197 +546,357 @@
                                     </ToolTip>
                                 </Button.ToolTip>
                             </Button>
-                            <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{Binding ElapsedTimeSet}" Margin="10,5,0,0" />
+                            <TextBlock Foreground="Red"
+                                       HorizontalAlignment="Center"
+                                       Text="{Binding ElapsedTimeSet}"
+                                       Margin="10,5,0,0"
+                                       AutomationProperties.AutomationId="TextBlock140_814CF979" />
                         </StackPanel>
-                        <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Left" Margin="63,0,0,0">
-                            <TextBlock Text="Dialog Timeout:" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                            <TextBox Text="{Binding ResponsibleGamingDialogTimeout, UpdateSourceTrigger=PropertyChanged}" Width="60" />
-
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}" Margin="20,0,0,0" Width="150"
-                                Content="Set Dialog Timeout"
-                                Command="{Binding SetResponsibleGamingDialogTimeoutCommand}">
+                        <StackPanel Grid.Row="8"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Left"
+                                    Margin="63,0,0,0"
+                                    AutomationProperties.AutomationId="StackPanel141_814CF979">
+                            <TextBlock Text="Dialog Timeout:"
+                                       Margin="0,0,5,0"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="TextBlock142_814CF979" />
+                            <TextBox
+                                    Text="{Binding ResponsibleGamingDialogTimeout, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="60"
+                                     AutomationProperties.AutomationId="TextBox143_814CF979" />
+                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                                    Margin="20,0,0,0"
+                                    Width="150"
+                                    Content="Set Dialog Timeout"
+                                    Command="{Binding SetResponsibleGamingDialogTimeoutCommand}"
+                                    AutomationProperties.AutomationId="Button144_814CF979">
                                 <Button.ToolTip>
-                                    <ToolTip>
-                                        <StackPanel>
-                                            <TextBlock FontWeight="Bold">Set Dialog Timeout</TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Width="300">
+                                    <ToolTip AutomationProperties.AutomationId="ToolTip145_814CF979">
+                                        <StackPanel AutomationProperties.AutomationId="StackPanel146_814CF979">
+                                            <TextBlock FontWeight="Bold"
+                                                       AutomationProperties.AutomationId="TextBlock147_814CF979">Set Dialog Timeout</TextBlock>
+                                            <TextBlock TextWrapping="Wrap"
+                                                       Width="300"
+                                                       AutomationProperties.AutomationId="TextBlock148_814CF979">
                                             Sets the Timeout Value for the Responible Gaming Dialog.
                                             </TextBlock>
                                         </StackPanel>
                                     </ToolTip>
                                 </Button.ToolTip>
                             </Button>
-                            <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{Binding ResponsibleGamingDialogTimeoutSet}" Margin="10,5,0,0" />
+                            <TextBlock Foreground="Red"
+                                       HorizontalAlignment="Center"
+                                       Text="{Binding ResponsibleGamingDialogTimeoutSet}"
+                                       Margin="10,5,0,0"
+                                       AutomationProperties.AutomationId="TextBlock149_814CF979" />
                         </StackPanel>
-                        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Left" Margin="69,0,0,0" Visibility="{Binding SessionCountVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
-                            <TextBlock Text="Session Count:" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                            <TextBox Text="{Binding SessionCount, UpdateSourceTrigger=PropertyChanged}" Width="60" />
-
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}" Margin="20,0,0,0" Width="150"
+                        <StackPanel Grid.Row="10"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Left"
+                                    Margin="69,0,0,0"
+                                    Visibility="{Binding SessionCountVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                                    AutomationProperties.AutomationId="StackPanel150_814CF979">
+                            <TextBlock Text="Session Count:"
+                                       Margin="0,0,5,0"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="TextBlock151_814CF979" />
+                            <TextBox Text="{Binding SessionCount, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="60"
+                                     AutomationProperties.AutomationId="TextBox152_814CF979" />
+                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                                    Margin="20,0,0,0"
+                                    Width="150"
                                     Content="Set Session Count"
-                                    Command="{Binding SetSessionCountCommand}">
+                                    Command="{Binding SetSessionCountCommand}"
+                                    AutomationProperties.AutomationId="Button153_814CF979">
                                 <Button.ToolTip>
-                                    <ToolTip>
-                                        <StackPanel>
-                                            <TextBlock FontWeight="Bold">Set Dialog Timeout</TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Width="300">
+                                    <ToolTip AutomationProperties.AutomationId="ToolTip154_814CF979">
+                                        <StackPanel AutomationProperties.AutomationId="StackPanel155_814CF979">
+                                            <TextBlock FontWeight="Bold"
+                                                       AutomationProperties.AutomationId="TextBlock156_814CF979">Set Dialog Timeout</TextBlock>
+                                            <TextBlock TextWrapping="Wrap"
+                                                       Width="300"
+                                                       AutomationProperties.AutomationId="TextBlock157_814CF979">
                                                 Sets the Session Count Value for the Responsible Gaming Dialog.
                                             </TextBlock>
                                         </StackPanel>
                                     </ToolTip>
                                 </Button.ToolTip>
                             </Button>
-                            <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{Binding SessionCountSet}" Margin="10,5,0,0" />
+                            <TextBlock Foreground="Red"
+                                       HorizontalAlignment="Center"
+                                       Text="{Binding SessionCountSet}"
+                                       Margin="10,5,0,0"
+                                       AutomationProperties.AutomationId="TextBlock158_814CF979" />
                         </StackPanel>
-                        <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <RadioButton IsChecked="{Binding IsTimeInSeconds}" GroupName="TimeGroup" Content="Seconds" />
-                            <RadioButton GroupName="TimeGroup" Content="Minutes" Margin="20,0,0,0"/>
+                        <StackPanel Grid.Row="12"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    AutomationProperties.AutomationId="StackPanel159_814CF979">
+                            <RadioButton IsChecked="{Binding IsTimeInSeconds}"
+                                         GroupName="TimeGroup"
+                                         Content="Seconds"
+                                         AutomationProperties.AutomationId="RadioButton160_814CF979" />
+                            <RadioButton GroupName="TimeGroup"
+                                         Content="Minutes"
+                                         Margin="20,0,0,0"
+                                         AutomationProperties.AutomationId="RadioButton161_814CF979" />
                         </StackPanel>
                     </Grid>
                 </Grid>
             </GroupBox>
         </TabItem>
-        <TabItem Header="Account">
-            <Grid>
+        <TabItem Header="Account"
+                 AutomationProperties.AutomationId="TabItem162_814CF979">
+            <Grid AutomationProperties.AutomationId="Grid163_814CF979">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition164_814CF979" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition165_814CF979" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition166_814CF979" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition167_814CF979" />
                 </Grid.RowDefinitions>
-
-                <StackPanel Grid.Row="0" Orientation="Horizontal" 
-                            IsEnabled="{Binding NoteAcceptorEnabled, UpdateSourceTrigger=PropertyChanged}">
-                    <Label VerticalAlignment="Center" Content="Insert: "/>
-                    <Button MinWidth="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="$1" 
-                            Command="{Binding InsertBillCommand}" CommandParameter="1"/>
-                    <Button MinWidth="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="$5" 
-                            Command="{Binding InsertBillCommand}" CommandParameter="5"/>
-                    <Button MinWidth="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="$20" 
-                            Command="{Binding InsertBillCommand}" CommandParameter="20"/>
-                    <Button MinWidth="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="$100" 
-                            Command="{Binding InsertBillCommand}" CommandParameter="100"/>
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            IsEnabled="{Binding NoteAcceptorEnabled, UpdateSourceTrigger=PropertyChanged}"
+                            AutomationProperties.AutomationId="StackPanel168_814CF979">
+                    <Label VerticalAlignment="Center"
+                           Content="Insert: "
+                           AutomationProperties.AutomationId="Label169_814CF979" />
+                    <Button MinWidth="40"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Margin="5"
+                            Content="$1"
+                            Command="{Binding InsertBillCommand}"
+                            CommandParameter="1"
+                            AutomationProperties.AutomationId="Button170_814CF979" />
+                    <Button MinWidth="40"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Margin="5"
+                            Content="$5"
+                            Command="{Binding InsertBillCommand}"
+                            CommandParameter="5"
+                            AutomationProperties.AutomationId="Button171_814CF979" />
+                    <Button MinWidth="40"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Margin="5"
+                            Content="$20"
+                            Command="{Binding InsertBillCommand}"
+                            CommandParameter="20"
+                            AutomationProperties.AutomationId="Button172_814CF979" />
+                    <Button MinWidth="40"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Margin="5"
+                            Content="$100"
+                            Command="{Binding InsertBillCommand}"
+                            CommandParameter="100"
+                            AutomationProperties.AutomationId="Button173_814CF979" />
                 </StackPanel>
-
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <TextBox MinWidth="250" Margin="5" Text="{Binding VoucherBarcode}"/>
-                    <Button MinWidth="40" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="Insert Voucher" 
-                            Command="{Binding InsertVoucherCommand}"/>
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel174_814CF979">
+                    <TextBox MinWidth="250"
+                             Margin="5"
+                             Text="{Binding VoucherBarcode}"
+                             AutomationProperties.AutomationId="TextBox175_814CF979" />
+                    <Button MinWidth="40"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Margin="5"
+                            Content="Insert Voucher"
+                            Command="{Binding InsertVoucherCommand}"
+                            AutomationProperties.AutomationId="Button176_814CF979" />
                 </StackPanel>
-
-                <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-                    <Button MinWidth="80" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="Cash Out"
-                            Command="{Binding CashOutCommand}"/>
+                <StackPanel Grid.Row="2"
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel177_814CF979">
+                    <Button MinWidth="80"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Margin="5"
+                            Content="Cash Out"
+                            Command="{Binding CashOutCommand}"
+                            AutomationProperties.AutomationId="Button178_814CF979" />
                 </StackPanel>
-                <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
-                    <Button MinWidth="80" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="Override Large Win Limit"
-                            Command="{Binding SetLargeWinLimitCommand}">
+                <StackPanel Grid.Row="3"
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel179_814CF979">
+                    <Button MinWidth="80"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Margin="5"
+                            Content="Override Large Win Limit"
+                            Command="{Binding SetLargeWinLimitCommand}"
+                            AutomationProperties.AutomationId="Button180_814CF979">
                         <Button.ToolTip>
-                            <ToolTip>
-                                <StackPanel>
-                                    <TextBlock FontWeight="Bold">Set Large Win Limit</TextBlock>
-                                    <TextBlock TextWrapping="Wrap" Width="300">
+                            <ToolTip AutomationProperties.AutomationId="ToolTip181_814CF979">
+                                <StackPanel AutomationProperties.AutomationId="StackPanel182_814CF979">
+                                    <TextBlock FontWeight="Bold"
+                                               AutomationProperties.AutomationId="TextBlock183_814CF979">Set Large Win Limit</TextBlock>
+                                    <TextBlock TextWrapping="Wrap"
+                                               Width="300"
+                                               AutomationProperties.AutomationId="TextBlock184_814CF979">
                                         Overrides what the platform considers a large win.  Uses Millicents.
                                     </TextBlock>
                                 </StackPanel>
                             </ToolTip>
                         </Button.ToolTip>
                     </Button>
-                    <TextBox Text="{Binding LargeWinLimit, UpdateSourceTrigger=PropertyChanged}" Margin="4,8,4,8"/>
+                    <TextBox Text="{Binding LargeWinLimit, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="4,8,4,8"
+                             AutomationProperties.AutomationId="TextBox185_814CF979" />
                 </StackPanel>
-
             </Grid>
         </TabItem>
         <!--<TabItem Header="G2S" />-->
-        <TabItem Header="Storage" >
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                <Button Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="Full RAM Clear" Command="{Binding FullClearCommand}" />
-                <Button Style="{StaticResource AccentedSquareButtonStyle}" Margin="5" Content="Partial RAM Clear" Command="{Binding PartialClearCommand}" />
+        <TabItem Header="Storage"
+                 AutomationProperties.AutomationId="TabItem186_814CF979">
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        AutomationProperties.AutomationId="StackPanel187_814CF979">
+                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="5"
+                        Content="Full RAM Clear"
+                        Command="{Binding FullClearCommand}"
+                        AutomationProperties.AutomationId="Button188_814CF979" />
+                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="5"
+                        Content="Partial RAM Clear"
+                        Command="{Binding PartialClearCommand}"
+                        AutomationProperties.AutomationId="Button189_814CF979" />
             </StackPanel>
         </TabItem>
-        <TabItem Header="Media" >
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                <Button Style="{StaticResource AccentedSquareButtonStyle}" 
-                        Margin="5" Content="Toggle Media Player 1 &amp; 2" 
-                        Command="{Binding TogglePlayerCommand}" CommandParameter="0"/>
-                <Button Style="{StaticResource AccentedSquareButtonStyle}" 
-                        Margin="5" Content="Toggle Media Player 1" 
-                        Command="{Binding TogglePlayerCommand}" CommandParameter="1"/>
-                <Button Style="{StaticResource AccentedSquareButtonStyle}" 
-                        Margin="5" Content="Toggle Media Player 2" 
-                        Command="{Binding TogglePlayerCommand}" CommandParameter="2"/>
-                <Button Style="{StaticResource AccentedSquareButtonStyle}" 
-                        Margin="5" Content="Toggle Media Player 3" 
-                        Command="{Binding TogglePlayerCommand}" CommandParameter="3"/>
-                <Button Style="{StaticResource AccentedSquareButtonStyle}" 
-                        Margin="5" Content="Toggle Media Player 4" 
-                        Command="{Binding TogglePlayerCommand}" CommandParameter="4"/>
+        <TabItem Header="Media"
+                 AutomationProperties.AutomationId="TabItem190_814CF979">
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        AutomationProperties.AutomationId="StackPanel191_814CF979">
+                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="5"
+                        Content="Toggle Media Player 1 &amp; 2"
+                        Command="{Binding TogglePlayerCommand}"
+                        CommandParameter="0"
+                        AutomationProperties.AutomationId="Button192_814CF979" />
+                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="5"
+                        Content="Toggle Media Player 1"
+                        Command="{Binding TogglePlayerCommand}"
+                        CommandParameter="1"
+                        AutomationProperties.AutomationId="Button193_814CF979" />
+                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="5"
+                        Content="Toggle Media Player 2"
+                        Command="{Binding TogglePlayerCommand}"
+                        CommandParameter="2"
+                        AutomationProperties.AutomationId="Button194_814CF979" />
+                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="5"
+                        Content="Toggle Media Player 3"
+                        Command="{Binding TogglePlayerCommand}"
+                        CommandParameter="3"
+                        AutomationProperties.AutomationId="Button195_814CF979" />
+                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                        Margin="5"
+                        Content="Toggle Media Player 4"
+                        Command="{Binding TogglePlayerCommand}"
+                        CommandParameter="4"
+                        AutomationProperties.AutomationId="Button196_814CF979" />
             </StackPanel>
         </TabItem>
-        <TabItem Header="PlatMsg" >
-            <Grid Margin="5">
+        <TabItem Header="PlatMsg"
+                 AutomationProperties.AutomationId="TabItem197_814CF979">
+            <Grid Margin="5"
+                  AutomationProperties.AutomationId="Grid198_814CF979">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition199_814CF979" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition200_814CF979" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition201_814CF979" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition202_814CF979" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition203_814CF979" />
                 </Grid.ColumnDefinitions>
-
-                <Button Grid.Row="0" Grid.Column="0" 
-                        Style="{StaticResource AccentedSquareButtonStyle}" 
+                <Button Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource AccentedSquareButtonStyle}"
                         Width="160"
                         Margin="4,8,4,8"
-                        HorizontalAlignment="Center" 
+                        HorizontalAlignment="Center"
                         Content="Add Platform Message"
-                        Command="{Binding AddPlatformMessageCommand}">
+                        Command="{Binding AddPlatformMessageCommand}"
+                        AutomationProperties.AutomationId="Button204_814CF979">
                     <Button.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock FontWeight="Bold">Add Platform Message</TextBlock>
-                                <TextBlock TextWrapping="Wrap" Width="300">
+                        <ToolTip AutomationProperties.AutomationId="ToolTip205_814CF979">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel206_814CF979">
+                                <TextBlock FontWeight="Bold"
+                                           AutomationProperties.AutomationId="TextBlock207_814CF979">Add Platform Message</TextBlock>
+                                <TextBlock TextWrapping="Wrap"
+                                           Width="300"
+                                           AutomationProperties.AutomationId="TextBlock208_814CF979">
                                     Add the platform message to be displayed by the game
                                 </TextBlock>
                             </StackPanel>
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddPlatformMessageText, UpdateSourceTrigger=PropertyChanged}" Margin="4,8,4,8"/>
-
-                <Button Grid.Row="1" Grid.Column="0" 
-                        Style="{StaticResource AccentedSquareButtonStyle}" 
+                <TextBox Grid.Row="0"
+                         Grid.Column="1"
+                         Text="{Binding AddPlatformMessageText, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="4,8,4,8"
+                         AutomationProperties.AutomationId="TextBox209_814CF979" />
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource AccentedSquareButtonStyle}"
                         Width="160"
                         Margin="4,8,4,8"
-                        HorizontalAlignment="Center" 
+                        HorizontalAlignment="Center"
                         Content="Remove Platform Message"
-                        Command="{Binding RemovePlatformMessageCommand}">
+                        Command="{Binding RemovePlatformMessageCommand}"
+                        AutomationProperties.AutomationId="Button210_814CF979">
                     <Button.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock FontWeight="Bold">Remove Platform Message</TextBlock>
-                                <TextBlock TextWrapping="Wrap" Width="300">
+                        <ToolTip AutomationProperties.AutomationId="ToolTip211_814CF979">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel212_814CF979">
+                                <TextBlock FontWeight="Bold"
+                                           AutomationProperties.AutomationId="TextBlock213_814CF979">Remove Platform Message</TextBlock>
+                                <TextBlock TextWrapping="Wrap"
+                                           Width="300"
+                                           AutomationProperties.AutomationId="TextBlock214_814CF979">
                                     Remove the platform message which was previously added
                                 </TextBlock>
                             </StackPanel>
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding RemovePlatformMessageText, UpdateSourceTrigger=PropertyChanged}" Margin="4,8,4,8"/>
-
-                <Button Grid.Row="2" Grid.Column="0" 
-                        Style="{StaticResource AccentedSquareButtonStyle}" 
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         Text="{Binding RemovePlatformMessageText, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="4,8,4,8"
+                         AutomationProperties.AutomationId="TextBox215_814CF979" />
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource AccentedSquareButtonStyle}"
                         Width="160"
                         Margin="4,8,4,8"
-                        HorizontalAlignment="Center" 
+                        HorizontalAlignment="Center"
                         Content="Clear All"
-                        Command="{Binding ClearAllPlatformMessagesCommand}">
+                        Command="{Binding ClearAllPlatformMessagesCommand}"
+                        AutomationProperties.AutomationId="Button216_814CF979">
                     <Button.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
-                                <TextBlock FontWeight="Bold">Remove Platform Message</TextBlock>
-                                <TextBlock TextWrapping="Wrap" Width="300">
+                        <ToolTip AutomationProperties.AutomationId="ToolTip217_814CF979">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel218_814CF979">
+                                <TextBlock FontWeight="Bold"
+                                           AutomationProperties.AutomationId="TextBlock219_814CF979">Remove Platform Message</TextBlock>
+                                <TextBlock TextWrapping="Wrap"
+                                           Width="300"
+                                           AutomationProperties.AutomationId="TextBlock220_814CF979">
                                     Clear all the platform messages
                                 </TextBlock>
                             </StackPanel>
@@ -476,233 +905,393 @@
                 </Button>
             </Grid>
         </TabItem>
-        <TabItem Header="TowerLight">
-            <Grid Margin="8">
+        <TabItem Header="TowerLight"
+                 AutomationProperties.AutomationId="TabItem221_814CF979">
+            <Grid Margin="8"
+                  AutomationProperties.AutomationId="Grid222_814CF979">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition223_814CF979" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition224_814CF979" />
                 </Grid.RowDefinitions>
-
-                <GroupBox Grid.Row="0" Grid.Column="0" Header="Tower Light Flash Status">
-                    <Grid Margin="4">
+                <GroupBox Grid.Row="0"
+                          Grid.Column="0"
+                          Header="Tower Light Flash Status"
+                          AutomationProperties.AutomationId="GroupBox225_814CF979">
+                    <Grid Margin="4"
+                          AutomationProperties.AutomationId="Grid226_814CF979">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition227_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition228_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition229_814CF979" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition230_814CF979" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition231_814CF979" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition232_814CF979" />
                         </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Tier #1" Margin="4,4,4,4"/>
-                        <RadioButton Grid.Row="0" Grid.Column="1" GroupName="Tier#1" IsChecked="{Binding IsTowerLightOn1}" Content="{Binding TowerLightFlashStatus1}" IsEnabled="False" Margin="12,0,0,0"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Tier #2" Margin="4,4,4,4"/>
-                        <RadioButton Grid.Row="1" Grid.Column="1" GroupName="Tier#2" IsChecked="{Binding IsTowerLightOn2}" Content="{Binding TowerLightFlashStatus2}" IsEnabled="False" Margin="12,0,0,0"/>
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Tier #3" Margin="4,4,4,4"/>
-                        <RadioButton Grid.Row="2" Grid.Column="1" GroupName="Tier#3" IsChecked="{Binding IsTowerLightOn3}" Content="{Binding TowerLightFlashStatus3}" IsEnabled="False" Margin="12,0,0,0"/>
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Tier #4" Margin="4,4,4,4"/>
-                        <RadioButton Grid.Row="3" Grid.Column="1" GroupName="Tier#4" IsChecked="{Binding IsTowerLightOn4}" Content="{Binding TowerLightFlashStatus4}" IsEnabled="False" Margin="12,0,0,0"/>
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="Tier #1"
+                                   Margin="4,4,4,4"
+                                   AutomationProperties.AutomationId="TextBlock233_814CF979" />
+                        <RadioButton Grid.Row="0"
+                                     Grid.Column="1"
+                                     GroupName="Tier#1"
+                                     IsChecked="{Binding IsTowerLightOn1}"
+                                     Content="{Binding TowerLightFlashStatus1}"
+                                     IsEnabled="False"
+                                     Margin="12,0,0,0"
+                                     AutomationProperties.AutomationId="RadioButton234_814CF979" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="Tier #2"
+                                   Margin="4,4,4,4"
+                                   AutomationProperties.AutomationId="TextBlock235_814CF979" />
+                        <RadioButton Grid.Row="1"
+                                     Grid.Column="1"
+                                     GroupName="Tier#2"
+                                     IsChecked="{Binding IsTowerLightOn2}"
+                                     Content="{Binding TowerLightFlashStatus2}"
+                                     IsEnabled="False"
+                                     Margin="12,0,0,0"
+                                     AutomationProperties.AutomationId="RadioButton236_814CF979" />
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="Tier #3"
+                                   Margin="4,4,4,4"
+                                   AutomationProperties.AutomationId="TextBlock237_814CF979" />
+                        <RadioButton Grid.Row="2"
+                                     Grid.Column="1"
+                                     GroupName="Tier#3"
+                                     IsChecked="{Binding IsTowerLightOn3}"
+                                     Content="{Binding TowerLightFlashStatus3}"
+                                     IsEnabled="False"
+                                     Margin="12,0,0,0"
+                                     AutomationProperties.AutomationId="RadioButton238_814CF979" />
+                        <TextBlock Grid.Row="3"
+                                   Grid.Column="0"
+                                   Text="Tier #4"
+                                   Margin="4,4,4,4"
+                                   AutomationProperties.AutomationId="TextBlock239_814CF979" />
+                        <RadioButton Grid.Row="3"
+                                     Grid.Column="1"
+                                     GroupName="Tier#4"
+                                     IsChecked="{Binding IsTowerLightOn4}"
+                                     Content="{Binding TowerLightFlashStatus4}"
+                                     IsEnabled="False"
+                                     Margin="12,0,0,0"
+                                     AutomationProperties.AutomationId="RadioButton240_814CF979" />
                     </Grid>
                 </GroupBox>
-                <GroupBox Grid.Row="1" Grid.Column="0" Header="Override Tower Light Flash Status">
-                    <Grid Margin="4">
+                <GroupBox Grid.Row="1"
+                          Grid.Column="0"
+                          Header="Override Tower Light Flash Status"
+                          AutomationProperties.AutomationId="GroupBox241_814CF979">
+                    <Grid Margin="4"
+                          AutomationProperties.AutomationId="Grid242_814CF979">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition243_814CF979" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition244_814CF979" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition245_814CF979" />
                         </Grid.ColumnDefinitions>
-
-                        <ComboBox Grid.Column="0" 
-                                  ItemsSource="{Binding TowerLightTierList}" 
+                        <ComboBox Grid.Column="0"
+                                  ItemsSource="{Binding TowerLightTierList}"
                                   SelectedIndex="{Binding TowerLightTierSelectedIndex}"
                                   Width="80"
-                                  Margin="4,4,4,4"/>
-                        <ComboBox Grid.Column="1" 
-                                  ItemsSource="{Binding TowerLightFlashStatusList}" 
+                                  Margin="4,4,4,4"
+                                  AutomationProperties.AutomationId="ComboBox246_814CF979" />
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding TowerLightFlashStatusList}"
                                   SelectedIndex="{Binding TowerLightFlashStatusSelectedIndex}"
                                   Width="160"
-                                  Margin="4,4,4,4"/>
+                                  Margin="4,4,4,4"
+                                  AutomationProperties.AutomationId="ComboBox247_814CF979" />
                         <Button Grid.Column="2"
-                                Style="{StaticResource AccentedSquareButtonStyle}" 
-                                HorizontalAlignment="Center" 
+                                Style="{StaticResource AccentedSquareButtonStyle}"
+                                HorizontalAlignment="Center"
                                 Content="SET"
                                 Width="60"
                                 Margin="4,4,4,4"
-                                Command="{Binding SetTowerLightFlashStateCommand}"/>
+                                Command="{Binding SetTowerLightFlashStateCommand}"
+                                AutomationProperties.AutomationId="Button248_814CF979" />
                     </Grid>
                 </GroupBox>
             </Grid>
         </TabItem>
-        <TabItem Header="InfoBar">
-            <GroupBox Header="InfoBar Commands">
-                <Grid Margin="8">
+        <TabItem Header="InfoBar"
+                 AutomationProperties.AutomationId="TabItem249_814CF979">
+            <GroupBox Header="InfoBar Commands"
+                      AutomationProperties.AutomationId="GroupBox250_814CF979">
+                <Grid Margin="8"
+                      AutomationProperties.AutomationId="Grid251_814CF979">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="5*"
+                                          AutomationProperties.AutomationId="ColumnDefinition252_814CF979" />
+                        <ColumnDefinition Width="5*"
+                                          AutomationProperties.AutomationId="ColumnDefinition253_814CF979" />
+                        <ColumnDefinition Width="10*"
+                                          AutomationProperties.AutomationId="ColumnDefinition254_814CF979" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="30"
+                                       AutomationProperties.AutomationId="RowDefinition255_814CF979" />
+                        <RowDefinition Height="30"
+                                       AutomationProperties.AutomationId="RowDefinition256_814CF979" />
+                        <RowDefinition Height="30"
+                                       AutomationProperties.AutomationId="RowDefinition257_814CF979" />
+                        <RowDefinition Height="30"
+                                       AutomationProperties.AutomationId="RowDefinition258_814CF979" />
+                        <RowDefinition Height="30"
+                                       AutomationProperties.AutomationId="RowDefinition259_814CF979" />
+                        <RowDefinition AutomationProperties.AutomationId="RowDefinition260_814CF979" />
                     </Grid.RowDefinitions>
-
                     <Grid.Resources>
                         <Style TargetType="{x:Type Button}">
                             <Style.Setters>
-                                <Setter Property="Height" Value="40" />
+                                <Setter Property="Height"
+                                        Value="40" />
                             </Style.Setters>
                         </Style>
                     </Grid.Resources>
-
-                    <StackPanel Grid.RowSpan="6" >
-                        <Button Content="Display 1 Message" 
-                                Command="{Binding DisplayInfoBarMessageCommand}" FontSize="10"/>
-                        <Button Content="Display 2 Messages" 
-                                Command="{Binding DisplayInfoBarDoubleMessageCommand}" FontSize="10"/>
-                        <Button Content="Display Static Message" 
-                                Command="{Binding DisplayInfoBarStaticMessageCommand}" FontSize="10"/>
-                        <Button Content="Send CloseInfoBarEvent" 
-                                Command="{Binding CloseInfoBarCommand}" FontSize="10"/>
+                    <StackPanel Grid.RowSpan="6"
+                                AutomationProperties.AutomationId="StackPanel261_814CF979">
+                        <Button Content="Display 1 Message"
+                                Command="{Binding DisplayInfoBarMessageCommand}"
+                                FontSize="10"
+                                AutomationProperties.AutomationId="Button262_814CF979" />
+                        <Button Content="Display 2 Messages"
+                                Command="{Binding DisplayInfoBarDoubleMessageCommand}"
+                                FontSize="10"
+                                AutomationProperties.AutomationId="Button263_814CF979" />
+                        <Button Content="Display Static Message"
+                                Command="{Binding DisplayInfoBarStaticMessageCommand}"
+                                FontSize="10"
+                                AutomationProperties.AutomationId="Button264_814CF979" />
+                        <Button Content="Send CloseInfoBarEvent"
+                                Command="{Binding CloseInfoBarCommand}"
+                                FontSize="10"
+                                AutomationProperties.AutomationId="Button265_814CF979" />
                     </StackPanel>
-                    <TextBox x:Name="InfoBarMessageTextBox" 
-                             Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                    <TextBox x:Name="InfoBarMessageTextBox"
+                             Grid.Row="0"
+                             Grid.Column="1"
+                             Grid.ColumnSpan="2"
                              Text="{Binding InfoBarMessage}"
-                             Margin="8,0,0,0"/>
-
-                    <Label Content="Font Color" 
-                           Grid.Row="1" Grid.Column="1"
-                           HorizontalAlignment="Right" Width="66"/>
-                    <ComboBox Grid.Row="1" Grid.Column="2" 
+                             Margin="8,0,0,0"
+                             AutomationProperties.AutomationId="TextBox266_814CF979" />
+                    <Label Content="Font Color"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           Width="66"
+                           AutomationProperties.AutomationId="Label267_814CF979" />
+                    <ComboBox Grid.Row="1"
+                              Grid.Column="2"
                               ItemsSource="{Binding InfoBarColors}"
                               SelectedValue="{Binding SelectedInfoBarFontColor}"
-                              Margin="8,0,0,0"/>
-
-                    <Label Content="Background Color" 
-                           Grid.Row="2" Grid.Column="1"
-                           HorizontalAlignment="Right" Width="105"/>
-                    <ComboBox Grid.Row="2" Grid.Column="2" 
+                              Margin="8,0,0,0"
+                              AutomationProperties.AutomationId="ComboBox268_814CF979" />
+                    <Label Content="Background Color"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           Width="105"
+                           AutomationProperties.AutomationId="Label269_814CF979" />
+                    <ComboBox Grid.Row="2"
+                              Grid.Column="2"
                               ItemsSource="{Binding InfoBarColors}"
                               SelectedValue="{Binding SelectedInfoBarBackgroundColor}"
-                              Margin="8,0,0,0"/>
-
-                    <Label Content="Region" 
-                           Grid.Row="3" Grid.Column="1"
-                           HorizontalAlignment="Right" Width="47"/>
-                    <ComboBox Grid.Row="3" Grid.Column="2" 
+                              Margin="8,0,0,0"
+                              AutomationProperties.AutomationId="ComboBox270_814CF979" />
+                    <Label Content="Region"
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           Width="47"
+                           AutomationProperties.AutomationId="Label271_814CF979" />
+                    <ComboBox Grid.Row="3"
+                              Grid.Column="2"
                               ItemsSource="{Binding InfoBarRegions}"
                               SelectedValue="{Binding SelectedInfoBarRegion}"
-                              Margin="8,0,0,0"/>
-
-                    <Label Content="DisplayTarget" 
-                           Grid.Row="4" Grid.Column="1"
-                           HorizontalAlignment="Right" Width="47"/>
-                    <ComboBox Grid.Row="4" Grid.Column="2" 
+                              Margin="8,0,0,0"
+                              AutomationProperties.AutomationId="ComboBox272_814CF979" />
+                    <Label Content="DisplayTarget"
+                           Grid.Row="4"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right"
+                           Width="47"
+                           AutomationProperties.AutomationId="Label273_814CF979" />
+                    <ComboBox Grid.Row="4"
+                              Grid.Column="2"
                               ItemsSource="{Binding InfoBarLocations}"
                               SelectedValue="{Binding SelectedInfoBarLocation}"
-                              Margin="8,0,0,0"/>
+                              Margin="8,0,0,0"
+                              AutomationProperties.AutomationId="ComboBox274_814CF979" />
                 </Grid>
-
             </GroupBox>
         </TabItem>
-        <TabItem Header="CardReader">
-            <GroupBox Header="Card Reader Commands">
-                <Grid Margin="8">
+        <TabItem Header="CardReader"
+                 AutomationProperties.AutomationId="TabItem275_814CF979">
+            <GroupBox Header="Card Reader Commands"
+                      AutomationProperties.AutomationId="GroupBox276_814CF979">
+                <Grid Margin="8"
+                      AutomationProperties.AutomationId="Grid277_814CF979">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1000*"/>
-                        <ColumnDefinition Width="1618*"/>
+                        <ColumnDefinition Width="1000*"
+                                          AutomationProperties.AutomationId="ColumnDefinition278_814CF979" />
+                        <ColumnDefinition Width="1618*"
+                                          AutomationProperties.AutomationId="ColumnDefinition279_814CF979" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition280_814CF979" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition281_814CF979" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition282_814CF979" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition283_814CF979" />
                     </Grid.RowDefinitions>
-
-                    <Label Content="Card Templates" 
-                           Grid.Row="0" Grid.Column="0"
-                           HorizontalAlignment="Right"/>
-                    <ComboBox Grid.Row="0" Grid.Column="1" 
+                    <Label Content="Card Templates"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           AutomationProperties.AutomationId="Label284_814CF979" />
+                    <ComboBox Grid.Row="0"
+                              Grid.Column="1"
                               ItemsSource="{Binding MagneticCards}"
                               DisplayMemberPath="Key"
                               SelectedValuePath="Value"
                               SelectedValue="{Binding SelectedMagneticCard}"
-                              Margin="8,0,0,0"/>
-
-                    <Label Content="Track 1 Data" 
-                           Grid.Row="1" Grid.Column="0"
-                           HorizontalAlignment="Right"/>
-                    <TextBox x:Name="CardReaderTrack1Data" 
-                             Grid.Row="1" Grid.Column="1" 
+                              Margin="8,0,0,0"
+                              AutomationProperties.AutomationId="ComboBox285_814CF979" />
+                    <Label Content="Track 1 Data"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           AutomationProperties.AutomationId="Label286_814CF979" />
+                    <TextBox x:Name="CardReaderTrack1Data"
+                             Grid.Row="1"
+                             Grid.Column="1"
                              Text="{Binding Track1Data}"
-                             Margin="8,0,0,0"/>
-
-                    <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Content="Insert Card" Command="{Binding InsertCardCommand}" Margin="0,10,5,0"/>
-                        <Button Content="Remove Card" Command="{Binding RemoveCardCommand}" Margin="5,10,0,0"/>
+                             Margin="8,0,0,0"
+                             AutomationProperties.AutomationId="TextBox287_814CF979" />
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                AutomationProperties.AutomationId="StackPanel288_814CF979">
+                        <Button Content="Insert Card"
+                                Command="{Binding InsertCardCommand}"
+                                Margin="0,10,5,0"
+                                AutomationProperties.AutomationId="Button289_814CF979" />
+                        <Button Content="Remove Card"
+                                Command="{Binding RemoveCardCommand}"
+                                Margin="5,10,0,0"
+                                AutomationProperties.AutomationId="Button290_814CF979" />
                     </StackPanel>
-
-                    <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" HorizontalAlignment="Center" FontWeight="Bold">
-                        <Run Text="Current Status: "/>
-                        <Run Text="{Binding CardStatusText}"/>
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Margin="10"
+                               HorizontalAlignment="Center"
+                               FontWeight="Bold"
+                               AutomationProperties.AutomationId="TextBlock291_814CF979">
+                        <Run Text="Current Status: "
+                             AutomationProperties.AutomationId="Run292_814CF979" />
+                        <Run Text="{Binding CardStatusText}"
+                             AutomationProperties.AutomationId="Run293_814CF979" />
                     </TextBlock>
                 </Grid>
             </GroupBox>
         </TabItem>
-        <TabItem Header="Currency">
-            <GroupBox Header="Currency Hot Switch (Unregulated Class III jurisdiction only)">
-                <Grid Margin="8">
+        <TabItem Header="Currency"
+                 AutomationProperties.AutomationId="TabItem294_814CF979">
+            <GroupBox Header="Currency Hot Switch (Unregulated Class III jurisdiction only)"
+                      AutomationProperties.AutomationId="GroupBox295_814CF979">
+                <Grid Margin="8"
+                      AutomationProperties.AutomationId="Grid296_814CF979">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="350"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition297_814CF979" />
+                        <ColumnDefinition Width="350"
+                                          AutomationProperties.AutomationId="ColumnDefinition298_814CF979" />
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition299_814CF979" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition300_814CF979" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition301_814CF979" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition302_814CF979" />
+                        <RowDefinition AutomationProperties.AutomationId="RowDefinition303_814CF979" />
                     </Grid.RowDefinitions>
-
-                    <Label Content="Country" 
-                           Grid.Row="0" Grid.Column="0"
-                           HorizontalAlignment="Right"/>
-                    <ComboBox Grid.Row="0" Grid.Column="1" 
+                    <Label Content="Country"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           AutomationProperties.AutomationId="Label304_814CF979" />
+                    <ComboBox Grid.Row="0"
+                              Grid.Column="1"
                               ItemsSource="{Binding CountryNames}"
                               SelectedValue="{Binding SelectedCountry}"
-                              Margin="8,0,0,0"/>
-                    <Button Content="Use Country" 
-                            Grid.Row="0" Grid.Column="2" 
-                            Command="{Binding CurrencySwitchUsingCountryCommand}"/>
-
-                    <Label Content="eNum" 
-                           Grid.Row="1" Grid.Column="0"
-                           HorizontalAlignment="Right"/>
-                    <TextBox x:Name="EnumTextBox" 
-                             Grid.Row="1" Grid.Column="1" 
+                              Margin="8,0,0,0"
+                              AutomationProperties.AutomationId="ComboBox305_814CF979" />
+                    <Button Content="Use Country"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Command="{Binding CurrencySwitchUsingCountryCommand}"
+                            AutomationProperties.AutomationId="Button306_814CF979" />
+                    <Label Content="eNum"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           AutomationProperties.AutomationId="Label307_814CF979" />
+                    <TextBox x:Name="EnumTextBox"
+                             Grid.Row="1"
+                             Grid.Column="1"
                              Text="{Binding EnumValue}"
-                             Margin="8,0,0,0"/>
-                    <Button Content="Use eNum" 
-                            Grid.Row="1" Grid.Column="2" 
-                            Command="{Binding CurrencySwitchUsingEnumCommand}"/>
-
-                    <GroupBox Grid.Row="2" Grid.Column="1" Header="Currency Switch Status" Margin="0,50,0,0">
-                        <Grid Margin="4">
+                             Margin="8,0,0,0"
+                             AutomationProperties.AutomationId="TextBox308_814CF979" />
+                    <Button Content="Use eNum"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Command="{Binding CurrencySwitchUsingEnumCommand}"
+                            AutomationProperties.AutomationId="Button309_814CF979" />
+                    <GroupBox Grid.Row="2"
+                              Grid.Column="1"
+                              Header="Currency Switch Status"
+                              Margin="0,50,0,0"
+                              AutomationProperties.AutomationId="GroupBox310_814CF979">
+                        <Grid Margin="4"
+                              AutomationProperties.AutomationId="Grid311_814CF979">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition312_814CF979" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition313_814CF979" />
                             </Grid.ColumnDefinitions>
-
-                            <TextBlock x:Name="CurrencySwitchMessage" 
-                                       Grid.Row="0" Grid.Column="0" 
-                                       Text="{Binding CurrencySwitchStatusText}"/>
+                            <TextBlock x:Name="CurrencySwitchMessage"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding CurrencySwitchStatusText}"
+                                       AutomationProperties.AutomationId="TextBlock314_814CF979" />
                         </Grid>
                     </GroupBox>
                 </Grid>

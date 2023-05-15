@@ -131,6 +131,7 @@
                 Logger.DebugFormat($"{DeviceType} Manufacturer {value} selected");
                 RaisePropertyChanged(nameof(PortEnabled));
                 RaisePropertyChanged(nameof(ProtocolEnabled));
+                IsDetectionFailure = false;
 
                 ResetProtocols();
                 ResetPortSelections();

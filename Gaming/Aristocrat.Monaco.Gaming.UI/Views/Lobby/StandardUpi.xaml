@@ -1,14 +1,15 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.StandardUpi"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             AutomationProperties.AutomationId="UserControl0_F9D326A1">
     <UserControl.Resources>
         <ResourceDictionary>
-
             <!-- Apply MahApps.Metro styles to all controls -->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -17,20 +18,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
                 <ResourceDictionary Source="StandardUpiTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <lobby:StandardUpiTemplateSelector x:Key="StandardUpiTemplateSelector" />
-            
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid >
-        <ContentControl 
-            Content="{Binding}"
-            ContentTemplateSelector="{StaticResource StandardUpiTemplateSelector}"  />
+    <Grid AutomationProperties.AutomationId="Grid1_F9D326A1">
+        <ContentControl Content="{Binding}"
+                        ContentTemplateSelector="{StaticResource StandardUpiTemplateSelector}"
+                        AutomationProperties.AutomationId="ContentControl2_F9D326A1" />
     </Grid>
 </UserControl>
