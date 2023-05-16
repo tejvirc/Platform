@@ -156,6 +156,19 @@
             throw new NotImplementedException();
         }
 
+        public Task<bool> RemoveAllControllerAnimations(CancellationToken token)
+        {
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
+            Logger.Debug("Removing all animation files from controller");
+
+            return Task.FromResult(true);
+        }
+
         public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
             // TODO: Implement prepare light show animations in driver and wire up here
