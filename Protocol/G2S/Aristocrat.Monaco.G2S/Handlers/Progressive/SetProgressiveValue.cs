@@ -139,10 +139,6 @@
                 progressiveService.UpdateLinkedProgressiveLevels(level.ProgressiveId, level.LevelId, level.CurrentValue.MillicentsToCents());
             }
 
-
-            var status = new progressiveStatus();
-            await _progressiveStatusCommandBuilder.Build(device, status);
-
             var response = command.GenerateResponse<progressiveValueAck>();
             await _progressiveValueAckCommandBuilder.Build(device, response.Command);
         }
