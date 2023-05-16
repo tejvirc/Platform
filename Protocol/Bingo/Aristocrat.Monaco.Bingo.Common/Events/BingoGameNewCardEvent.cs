@@ -12,7 +12,7 @@
         ///     Constructor for <see cref="BingoGameNewCardEvent"/>
         /// </summary>
         /// <param name="bingoCard">A <see cref="BingoCard"/>.</param>
-        /// <param name="gameIndex">Integer index of the game being played.  Defaults to 0 for single game with no side bet.</param>
+        /// <param name="gameIndex">The game this bingo card belongs to</param>
         public BingoGameNewCardEvent(BingoCard bingoCard, int gameIndex = 0)
         {
             BingoCard = bingoCard;
@@ -25,8 +25,8 @@
         public BingoCard BingoCard { get; }
 
         /// <summary>
-        ///     Gets the index of the game being played
+        ///     Gets or sets the game index
         /// </summary>
-        public int GameIndex { get; }
+        public int GameIndex { get; set; }
     }
 }

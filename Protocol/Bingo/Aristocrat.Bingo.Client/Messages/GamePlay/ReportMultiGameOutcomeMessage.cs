@@ -74,5 +74,8 @@
 
         /// <summary>Gets or sets the Win results</summary>
         public IEnumerable<WinResult> WinResults { get; set; } = Enumerable.Empty<WinResult>();
+
+        /// <summary>Gets or sets the game index</summary>
+        public int GameIndex { get; set; }
     }
 }

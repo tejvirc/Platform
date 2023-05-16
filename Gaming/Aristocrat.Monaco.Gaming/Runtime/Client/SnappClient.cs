@@ -139,7 +139,9 @@
                         Type = (V1.Outcome.Types.OutcomeType)o.Type,
                         WinAmount = (ulong)o.Value.MillicentsToCents(),
                         LookupData = o.LookupData,
-                        WinLevelIndex = o.WinLevelIndex
+                        WinLevelIndex = o.WinLevelIndex,
+                        GameId = (uint)o.GameId,
+                        GameIndex = (uint)o.GameIndex
                     }));
 
             Invoke(client => client.BeginGameRoundResult(notification));

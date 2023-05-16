@@ -10,12 +10,12 @@
     public interface IBingoGameOutcomeHandler
     {
         /// <summary>
-        ///     Process the game outcomes from the server
+        ///     Process multiple game outcomes from the server
         /// </summary>
-        /// <param name="outcome">The outcome to process</param>
+        /// <param name="outcomes">The outcomes to process</param>
         /// <param name="token">The cancellation token for this task</param>
-        /// <returns>A whether or not the outcome was handled</returns>
-        Task<bool> ProcessGameOutcome(GameOutcome outcome, CancellationToken token);
+        /// <returns>A whether or not all of the outcomes were handled</returns>
+        Task<bool> ProcessGameOutcomes(GameOutcomes outcomes, CancellationToken token);
 
         /// <summary>
         ///     Process the claim win results from the server

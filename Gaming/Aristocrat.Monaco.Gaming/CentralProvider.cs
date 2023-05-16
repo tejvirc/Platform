@@ -128,7 +128,7 @@
                 }
             }
 
-            if (transaction == null)
+            if (transaction is null)
             {
                 transaction = new CentralTransaction(
                     DeviceId,
@@ -219,8 +219,6 @@
             }
 
             NotifyRuntime(transaction);
-
-            Logger.Info($"Outcomes received: {transaction}");
 
             _bus.Publish(new OutcomeReceivedEvent(transaction));
         }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using GameOverlay;
     using Gaming.Contracts.Central;
@@ -78,5 +79,17 @@
         ///     The game end win eligibility bit
         /// </summary>
         public int GameEndWinEligibility { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the game index
+        /// </summary>
+        public int GameIndex { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                $"{GetType().Name} [GameSerial={GameSerial}, GameTitleId={GameTitleId}, GameIndex={GameIndex}, Paytable={Paytable}, GEWEligibility={GameEndWinEligibility}, CardCount={Cards.ToList().Count}]");
+        }
     }
 }

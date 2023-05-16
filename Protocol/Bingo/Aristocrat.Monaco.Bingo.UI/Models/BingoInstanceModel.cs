@@ -10,6 +10,8 @@
     {
         public BingoCard Card { get; set; }
 
+        public int GameIndex { get; set; } = 0;
+
         public int InstanceNumber { get; set; } = 1;
 
         public bool Enabled { get; set; } = true;

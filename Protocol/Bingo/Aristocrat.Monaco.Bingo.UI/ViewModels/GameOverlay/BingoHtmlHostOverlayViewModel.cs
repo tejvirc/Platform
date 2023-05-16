@@ -555,32 +555,37 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                 },
                 token);
 
-            // Future work: daub numbers for specific card(s); event will either need to target a specific game index or include daubs for all cards
-            var gameIndex = 0;
-            await UpdateOverlay(
-                () =>
-                {
-                    var card = _bingoInstances[gameIndex];
-                    var daubs = Convert.ToString(e.Daubs, 2).PadLeft(32, '0');
-                    Logger.Debug($"Daubing bingo card for game {gameIndex} with {daubs}");
-                    card.DaubBingoCard(e.Daubs);
-                    return new BingoLiveData
+            var gameIndex = e.GameIndex;
+
+            // Currently, only main game gets non-pattern daubs on ball call events; exclude others here to prevent wiping winning patterns
+            if (gameIndex == 0 && _bingoInstances.ContainsKey(gameIndex))
+            {
+                await UpdateOverlay(
+                    () =>
                     {
-                        ActiveCard = card.InstanceNumber,
-                        BingoCardNumbers = card.BingoCardNumbers
-                    };
-                },
-                token);
+                        var card = _bingoInstances[gameIndex];
+                        var daubs = Convert.ToString(e.Daubs, 2).PadLeft(32, '0');
+                        Logger.Debug($"Daubing bingo card for game {gameIndex} with {daubs}");
+                        card.DaubBingoCard(e.Daubs);
+                        return new BingoLiveData
+                        {
+                            ActiveCard = card.InstanceNumber,
+                            BingoCardNumbers = card.BingoCardNumbers
+                        };
+                    },
+                    token);
+            }
         }
 
         private async Task Handle(BingoGameNewCardEvent card, CancellationToken token)
         {
+            Logger.Debug($"Got new card #{card.BingoCard.SerialNumber} for game index {card.GameIndex}");
             await UpdateOverlay(
                 () =>
                 {
                     if (!_bingoInstances.ContainsKey(card.GameIndex))
                     {
-                        _bingoInstances.Add(card.GameIndex, new BingoInstanceModel());
+                        _bingoInstances.Add(card.GameIndex, new BingoInstanceModel { GameIndex = card.GameIndex });
                     }
                     var cardInstance = _bingoInstances[card.GameIndex];
                     cardInstance.Card = card.BingoCard;
@@ -592,7 +597,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     cardInstance.CyclingPatterns = new List<BingoPattern>();
                     _ballCallNumbers = new List<BallCallNumber>();
                     Logger.Debug("Sending new bingo card numbers to overlay");
-                    return new BingoLiveData { ClearBingoCard = true, BingoCardNumbers = cardInstance.BingoCardNumbers };
+                    return new BingoLiveData { ActiveCard = cardInstance.InstanceNumber, ClearBingoCard = true, BingoCardNumbers = cardInstance.BingoCardNumbers, CardIsEnabled = cardInstance.Enabled };
                 },
                 token);
 
@@ -692,55 +697,58 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
             // convert it to the format the overlay needs
             // if wins are coalesced then send all the wins
 
-            if (!_bingoInstances.ContainsKey(e.GameIndex))
-            {
-                Logger.Error($"Game {e.GameIndex} doesn't exist");
-                return;
-            }
-            var instance = _bingoInstances[e.GameIndex];
-            if (instance.BingoPatterns.Count == 0)
-            {
-                return;
-            }
+            var patternTasks = new List<Task>();
+
+            Logger.Debug($"multipleSpins = {_multipleSpins}");
 
             if (_multipleSpins)
             {
-                Logger.Debug("Sending single outcome");
-                var outcome = instance.BingoPatterns.First();
+                foreach (var instance in _bingoInstances.Values.Where(x => x.BingoPatterns.Any()))
+                {
+                    Logger.Debug($"Sending single outcome for gameIndex {instance.GameIndex}");
+                    var outcome = instance.BingoPatterns[0];
 
-                Logger.Debug(
-                    $"Name={outcome.Name} daub bits={outcome.BitFlags} win={outcome.WinAmount} gew={outcome.IsGameEndWin} gameIndex={e.GameIndex}");
-                var daubs = GetCardPatternDaubs(outcome.BitFlags, instance.BingoCardNumbers);
-                var numbers = GetBallCallPatternDaubs(outcome.BitFlags, instance.BingoCardNumbers);
-                await _overlayServer.UpdateData(
-                    new BingoLiveData
-                    {
-                        ActiveCard = instance.InstanceNumber,
-                        BingoPatterns = new List<OverlayServer.Data.Bingo.BingoPattern>
+                    Logger.Debug(
+                        $"Name={outcome.Name} daub bits={outcome.BitFlags} win={outcome.WinAmount} gew={outcome.IsGameEndWin} gameIndex={e.GameIndex}");
+                    var daubs = GetCardPatternDaubs(outcome.BitFlags, instance.BingoCardNumbers);
+                    var numbers = GetBallCallPatternDaubs(outcome.BitFlags, instance.BingoCardNumbers);
+                    patternTasks.Add(_overlayServer.UpdateData(
+                        new BingoLiveData
                         {
-                            new(outcome.Name, numbers, daubs)
-                        }
-                    }, token);
-                instance.BingoPatterns = instance.BingoPatterns.Where(x => !Equals(x, outcome)).ToList();
-                instance.CyclingPatterns = new List<BingoPattern>(instance.CyclingPatterns.Append(outcome));
+                            ActiveCard = instance.InstanceNumber,
+                            BingoPatterns = new List<OverlayServer.Data.Bingo.BingoPattern>
+                            {
+                                new(outcome.Name, numbers, daubs)
+                            }
+                        }, token));
+                    instance.BingoPatterns = instance.BingoPatterns.Where(x => !Equals(x, outcome)).ToList();
+                    instance.CyclingPatterns = new List<BingoPattern>(instance.CyclingPatterns.Append(outcome));
+                }
             }
             else
             {
                 Logger.Debug("sending all the outcomes");
+                patternTasks.AddRange(
+                    _bingoInstances.Values.Select(instance => ShowAllPatterns(instance, token)));
+            }
 
-                await _overlayServer.UpdateData(
-                    new BingoLiveData
-                    {
-                        ActiveCard = instance.InstanceNumber,
-                        BingoPatterns = GetBingoPatternForOverlay(instance.BingoPatterns, instance.BingoCardNumbers)
-                    }, token);
+            await Task.WhenAll(patternTasks).ConfigureAwait(false);
+        }
+
+        private async Task ShowAllPatterns(BingoInstanceModel instance, CancellationToken token)
+        {
+            await _overlayServer.UpdateData(
+                new BingoLiveData
+                {
+                    ActiveCard = instance.InstanceNumber,
+                    BingoPatterns = GetBingoPatternForOverlay(instance.BingoPatterns, instance.BingoCardNumbers)
+                }, token);
 #if !(RETAIL)
-                _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(instance.BingoPatterns, instance.BingoCardNumbers), e.GameIndex));
+            _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(instance.BingoPatterns, instance.BingoCardNumbers), instance.GameIndex));
 #endif
 
-                instance.CyclingPatterns = new List<BingoPattern>(instance.CyclingPatterns.Concat(instance.BingoPatterns));
-                instance.BingoPatterns = new List<BingoPattern>();
-            }
+            instance.CyclingPatterns = new List<BingoPattern>(instance.CyclingPatterns.Concat(instance.BingoPatterns));
+            instance.BingoPatterns = new List<BingoPattern>();
         }
 
         private async Task Handle(WaitingForPlayersEvent e, CancellationToken token)
@@ -889,21 +897,20 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                         _bingoInstances is null || _bingoInstances[0].Card is null
                             ? Enumerable.Empty<BingoCardNumber>()
                             : ConvertBingoCardNumberArrayToList(_bingoInstances[0].Card.Numbers).ToList(),
-                    PatternCycleTimeMs = _currentBingoSettings.PatternCyclePeriodMilliseconds,
-                    BingoCards = new List<BingoCardStaticData>()
+                    PatternCycleTimeMs = _currentBingoSettings.PatternCyclePeriodMilliseconds
                 };
 
                 var i = 0;
                 if (_bingoInstances != null)
                 {
                     foreach (var (instance, bingoCardList)
-                         in from instance in _bingoInstances.OrderBy(x => x.Key)
+                             in from instance in _bingoInstances.Values.OrderBy(x => x.GameIndex)
                               let bingoCardList = staticData.BingoCards.ToList()
                               select (instance, bingoCardList))
                     {
-                        bingoCardList[i].InitialBingoCardNumbers = instance.Value.BingoCardNumbers;
-                        bingoCardList[i].InitialEnabled = instance.Value.Enabled;
-                        instance.Value.InstanceNumber = i + 1;
+                        bingoCardList[i].InitialBingoCardNumbers = instance.BingoCardNumbers;
+                        bingoCardList[i].InitialEnabled = instance.Enabled;
+                        instance.InstanceNumber = i + 1;
                         i++;
                     }
                 }
@@ -1006,16 +1013,16 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     SceneName = _lastGameScene
                 }).FireAndForget();
 
-            foreach (var instance in _bingoInstances)
+            foreach (var instance in _bingoInstances.Values)
             {
                 UpdateOverlay(
                 () => new BingoLiveData
                     {
-                        BingoCardNumbers = instance.Value.BingoCardNumbers,
-                        BingoPatterns = GetBingoPatternForOverlay(instance.Value.CyclingPatterns, instance.Value.BingoCardNumbers)
+                        BingoCardNumbers = instance.BingoCardNumbers,
+                        BingoPatterns = GetBingoPatternForOverlay(instance.CyclingPatterns, instance.BingoCardNumbers)
                     }).FireAndForget();
 #if !(RETAIL)
-                _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(instance.Value.CyclingPatterns, instance.Value.BingoCardNumbers), instance.Key));
+                _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(instance.CyclingPatterns, instance.BingoCardNumbers), instance.GameIndex));
 #endif
             }
             

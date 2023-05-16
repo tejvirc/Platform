@@ -68,20 +68,22 @@
         /// <param name="machineSerial">The machine serial number</param>
         /// <param name="details">The bet details</param>
         /// <param name="titleId">The main game title id</param>
+        /// <param name="subGameTitleId">The sub game title id</param>
         /// <returns></returns>
         public static RequestMultiPlayCommand GenerateMultiPlayRequest(
             this CentralTransaction transaction,
             string machineSerial,
             IBetDetails details,
-            int titleId)
+            int titleId,
+            int? subGameTitleId)
         {
             var requests = new List<RequestSingleGameOutcomeMessage>();
 
             // create play request for main game
             var message = new RequestSingleGameOutcomeMessage(
                 0,
-                transaction.WagerAmount,
-                transaction.Denomination,
+                transaction.WagerAmount.MillicentsToCents(),
+                transaction.Denomination.MillicentsToCents(),
                 details.BetLinePresetId,
                 details.BetPerLine,
                 details.NumberLines,
@@ -91,7 +93,7 @@
             requests.Add(message);
 
             // create play requests for any additional games
-            if (transaction.AdditionalInfo.Any())
+            if (transaction.AdditionalInfo.Any()  && subGameTitleId.HasValue)
             {
                 // create multi-game request
                 requests.AddRange(
@@ -102,9 +104,9 @@
                             game.Denomination,
                             0,
                             0,
+                            1,
                             0,
-                            0,
-                            0)));
+                            subGameTitleId.Value)));
             }
 
             return new RequestMultiPlayCommand(machineSerial, requests);
@@ -126,7 +128,8 @@
                 pattern.Name,
                 pattern.CardSerial,
                 pattern.IsGameEndWin,
-                pattern.WinIndex);
+                pattern.WinIndex,
+                Enumerable.Empty<string>());
         }
     }
 }

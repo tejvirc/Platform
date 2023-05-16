@@ -158,10 +158,11 @@
             {
                 await _commandFactory.Execute(new RegistrationCommand(), _tokenSource.Token).ConfigureAwait(false);
 
-                if (IsCrossGameProgressiveEnabled)
-                {
-                    await _commandFactory.Execute(new ProgressiveRegistrationCommand(), _tokenSource.Token).ConfigureAwait(false);
-                }
+                // TODO re-enable later when bingo progressives are working.
+                //if (IsCrossGameProgressiveEnabled)
+                //{
+                //    await _commandFactory.Execute(new ProgressiveRegistrationCommand(), _tokenSource.Token).ConfigureAwait(false);
+                //}
 
                 await _registrationState.FireAsync(Trigger.Registered).ConfigureAwait(false);
             }
@@ -335,16 +336,17 @@
             _systemDisable.Enable(BingoConstants.BingoHostDisconnectedKey);
             ClientConnected?.Invoke(this, EventArgs.Empty);
             _commandFactory.Execute(new ClientConnectedCommand(), _tokenSource.Token).FireAndForget();
-						
-            if (IsCrossGameProgressiveEnabled)
-            {
-                var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
-                var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);
-                _progressiveCommandService.HandleCommands(
-                    _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
-                    gameTitleId,
-                    _tokenSource.Token).FireAndForget();
-            }
+
+            // TODO re-enable later when bingo progressives are working
+            //if (IsCrossGameProgressiveEnabled)
+            //{
+            //    var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            //    var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);
+            //    _progressiveCommandService.HandleCommands(
+            //        _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
+            //        gameTitleId,
+            //        _tokenSource.Token).FireAndForget();
+            //}
         }
 
         private void TimeoutOccurred(object _)
