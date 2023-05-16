@@ -43,7 +43,7 @@
                 return Task.CompletedTask;
             }
 
-            ProgressiveService progressiveService = ServiceManager.GetInstance().GetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().GetService<IProgressiveService>();
             var levelId = progressiveService.LevelIds.GetVertexProgressiveLevelId(transaction.GameId, transaction.ProgressiveId, transaction.LevelId);
 
             command.progId = transaction.ProgressiveId;

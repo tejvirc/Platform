@@ -196,7 +196,7 @@
                 if (_g2sProgressivesEnabled)
                 {
                     //Populate the levelID fields in the ProgressiveService
-                    var progService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+                    var progService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
 
                     if (progService != null)
                     {

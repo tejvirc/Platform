@@ -47,7 +47,7 @@
                 return Task.CompletedTask;
             }
 
-            ProgressiveService progressiveService = ServiceManager.GetInstance().GetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().GetService<IProgressiveService>();
 
             if (transaction.ValueSequence == 1L) // If unset, set this to be used for the corresponding progressiveCommit and Vertex recovery
             {

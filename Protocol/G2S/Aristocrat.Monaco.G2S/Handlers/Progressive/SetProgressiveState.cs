@@ -44,7 +44,7 @@
 
             var progressiveState = command.Command;
 
-            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if (progressiveService == null) return;
 
             progressiveService.SetProgressiveDeviceState(progressiveState.enable, progressiveDevice, progressiveState.disableText);

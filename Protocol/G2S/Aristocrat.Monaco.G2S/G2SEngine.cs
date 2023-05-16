@@ -166,7 +166,7 @@
             var hosts = _properties.GetValues<IHost>(Constants.RegisteredHosts).ToList();
             var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered);
 
-            ProgressiveService progService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if(progService == null) return;
 
             foreach (var id in progService.VertexProgressiveIds)
@@ -334,7 +334,7 @@
             var g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(Constants.G2SProgressivesEnabled, false);
             if (g2sProgressivesEnabled)
             {
-                var progressiveService = ServiceManager.GetInstance().GetService<ProgressiveService>();
+                var progressiveService = ServiceManager.GetInstance().GetService<IProgressiveService>();
                 List<int> configuredIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
                 if(configuredIds != null && configuredIds.Count() > 0)
                 {

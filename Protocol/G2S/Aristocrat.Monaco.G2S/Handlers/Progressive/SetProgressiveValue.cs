@@ -44,7 +44,7 @@
         public async Task<Error> Verify(ClassCommand<progressive, setProgressiveValue> command)
         {
             Error error = await Sanction.OwnerAndGuests<IProgressiveDevice>(_egm, command);
-            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if(progressiveService == null) return new Error(ErrorCode.G2S_APX999);
 
             if (command.IClass.deviceId > 0)
@@ -82,7 +82,7 @@
                 return;
             }
 
-            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if (progressiveService == null) return;
 
             progressiveService.ResetProgressiveHostOfflineTimer();

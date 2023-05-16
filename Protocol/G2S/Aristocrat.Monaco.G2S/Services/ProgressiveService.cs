@@ -131,39 +131,26 @@
             }
         }
 
-        /// <summary>
-        ///     Last update SetProgressive Value Received Time
-        /// </summary>
+        /// <inheritdoc />
         public DateTime LastProgressiveUpdateTime { get; set; }
 
-        /// <summary>
-        /// The array of the last ProgressiveValues assigned in the SetProgressiveValue command.
-        /// The key is stored as "ProgressiveID|LevelID"
-        /// </summary>
+        /// <inheritdoc />
         public Dictionary<string, ProgressiveValue> ProgressiveValues { get; set; } = new Dictionary<string, ProgressiveValue>();
 
-        /// <summary>
-        ///     Used to convert level ids between internal Monaco ids and external Vertex ids
-        /// </summary>
+        /// <inheritdoc />
         public ProgressiveLevelIdManager LevelIds { get; } = new ProgressiveLevelIdManager();
 
-        /// <summary>
-        ///     This list stores the configured Vertex progIDs and is used to create the progressive devices according to the configured values
-        /// </summary>
+        /// <inheritdoc />
         public List<int> VertexProgressiveIds { get; set; } = new List<int>();
 
-        /// <summary>
-        ///     This dictionary stores the Vertex device Ids that are configured on the Vertex and Monaco UIs
-        ///     The key is the monaco device Id
-        ///     The value is the vertex device Id
-        /// </summary>
+        /// <inheritdoc />
         public Dictionary<int, int> VertexDeviceIds { get; set; } = new Dictionary<int, int>();
 
         /// <inheritdoc />
         public string Name => GetType().ToString();
 
         /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(ProgressiveService), typeof(IProtocolProgressiveIdProvider) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(IProgressiveService), typeof(IProtocolProgressiveIdProvider) };
 
         /// <inheritdoc />
         public void Dispose()
@@ -270,16 +257,14 @@
                 this);
         }
 
-
-        /// <summary>
-        ///     The Progressive IDs for each respective device.
-        ///     The key is the device ID.
-        /// </summary>
+        /// <inheritdoc />
         public Dictionary<int, int> DevicesProgIds { get; set; } = new Dictionary<int, int>();
 
+        /// <inheritdoc />
         public IEngine engine { private get; set; }
 
-        internal void UpdateVertexProgressives(bool fromConfig = false, bool fromBase = false)
+        /// <inheritdoc />
+        public void UpdateVertexProgressives(bool fromConfig = false, bool fromBase = false)
         {
             if (!_g2sProgressivesEnabled)
             {
@@ -338,13 +323,7 @@
             }
         }
 
-
-
-        /// <summary>
-        ///     This method is called whenever the ProgressiveHostOfflineTimer should be reset.
-        ///     Currently this will happen any time that SetProgressiveValue is called, though it may be moved if a more suitable location is found.
-        ///     If there is no progressive host with the offline check enabled then this returns out.
-        /// </summary>
+        /// <inheritdoc />
         public void ResetProgressiveHostOfflineTimer()
         {
             if (_progressiveHostOfflineTimer == null)
@@ -379,7 +358,7 @@
         /// <summary>
         ///     This method is called when Vertex disables the device
         /// </summary>
-        public void ProgressiveHostOnline(bool online, string reason)
+        private void ProgressiveHostOnline(bool online, string reason)
         {
             var systemDisableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
 
@@ -663,6 +642,7 @@
             _eventLift.Report(device, EventCode.G2S_PGE101, device.DeviceList(status), new meterList { meterInfo = meters.ToArray() });
         }
 
+        /// <inheritdoc />
         public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int deviceId, params string[] includedMeters)
         {
             return MeterMap.ProgressiveMeters
@@ -679,6 +659,7 @@
                     });
         }
 
+        /// <inheritdoc />
         public void SetProgressiveDeviceState(bool state, IProgressiveDevice device, string hostReason = null)
         {
             if (state)
@@ -1097,13 +1078,7 @@
             }
         }
 
-        /// <summary>
-        /// Updates the specified LinkedProgressiveLevel to use the new valueInCents
-        /// </summary>
-        /// <param name="progId">The Id for the progressive that will be updated.</param>
-        /// <param name="levelId">The Id for the level that will be updated.</param>
-        /// <param name="valueInCents">The new value in cents for the progressive level.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
         int progId,
         int levelId,
@@ -1142,7 +1117,7 @@
             return $"{ProtocolNames.G2S}, Level Id: {info.LevelId}, Progressive Group Id: {info.ProgId}";
         }
 
-        public void AwardJackpot(string poolName, long amountInPennies)
+        private void AwardJackpot(string poolName, long amountInPennies)
         {
             if (_gameHistory?.CurrentLog.PlayState == PlayState.Idle)
             {
@@ -1297,6 +1272,7 @@
             return returnValue;
         }
 
+        /// <inheritdoc />
         public void OverrideLevelId(int gameId, int progressiveId, ref int levelId)
         {
             if (!_g2sProgressivesEnabled)

@@ -44,7 +44,7 @@
             }
 
             List<ProgressiveLevel> egmLevels = _progressives.GetProgressiveLevels().Where(p => p.DeviceId == device.Id).ToList();
-            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if(progressiveService == null) return;
 
             foreach (progressiveLevel hostLevel in command.Command.progressiveLevel)

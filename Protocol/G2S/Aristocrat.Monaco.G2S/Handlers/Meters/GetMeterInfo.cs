@@ -76,7 +76,7 @@
         // It's not tied into the same mechanisms
         private deviceMeters[] GetProgressiveDeviceMeters(int deviceId)
         {
-            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if (progressiveService == null) return null;
 
             return new[]

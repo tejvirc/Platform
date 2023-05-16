@@ -42,7 +42,7 @@
                 throw new ArgumentNullException(nameof(command));
             }
 
-            ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if(progressiveService == null) return;
 
             List<ProgressiveLevel> levels = _progressives.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();

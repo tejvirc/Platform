@@ -33,7 +33,7 @@
             command.hostEnabled = device.HostEnabled;
             command.hostLocked = device.HostLocked;
 
-            ProgressiveService progService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+            var progService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if(progService == null) return Task.CompletedTask;
 
             List<ProgressiveLevel> levels = _progressives.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();

@@ -71,7 +71,7 @@
 
             foreach(var progressiveDevice in progressiveDevices)
             {
-                var progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
+                var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
                 if(progressiveService == null) return;
                 progressiveService.UpdateVertexProgressives(true);
 
