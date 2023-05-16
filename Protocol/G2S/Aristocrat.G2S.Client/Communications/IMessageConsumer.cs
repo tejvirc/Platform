@@ -18,7 +18,8 @@
         ///     Notifies the message consumer when a message is received on the communication channel exposed by the EGM.
         /// </summary>
         /// <param name="broadcast">The unprocessed message received on the channel.</param>
+        /// <param name="hostId">The id of the host who sent the broadcast message.</param>
         /// <returns>Return an Error if message could not be processed or null upon success.</returns>
-        Error Consumes(IBroadcast broadcast);
+        Error Consumes(IBroadcast broadcast, int hostId);
     }
 }

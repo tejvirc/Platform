@@ -58,7 +58,8 @@
             return error;
         }
 
-        public Error Consumes(IBroadcast broadcast)
+        /// <inheritdoc />
+        public Error Consumes(IBroadcast broadcast, int hostId)
         {
             var error = new Error();
 
@@ -91,7 +92,6 @@
                         devices = _deviceConnector.GetDevices<INoteAcceptorDevice>();
                         break;
                 }
-
                
                 if (originalClass == null || convertedClass == null)
                     continue;
@@ -99,7 +99,7 @@
                 convertedClass.Item = originalClass.Item;
                 convertedClass.deviceId = deviceId;
 
-                var command = ClassCommand.Create(convertedClass, 0, _egm.Id);
+                var command = ClassCommand.Create(convertedClass, hostId, _egm.Id);
 
                 foreach (var observer in _observers)
                 {

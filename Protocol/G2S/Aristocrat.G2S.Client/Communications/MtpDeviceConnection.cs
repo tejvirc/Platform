@@ -236,7 +236,7 @@
                         return;
                     }
 
-                    var error = _consumer.Consumes(multicast);
+                    var error = _consumer.Consumes(multicast, _communicationId);
 
                     if (error.IsError)
                     {

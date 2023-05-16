@@ -44,7 +44,6 @@
         public async Task<Error> Verify(ClassCommand<progressive, setProgressiveValue> command)
         {
             Error error = await Sanction.OwnerAndGuests<IProgressiveDevice>(_egm, command);
-            error = null; // Ignore the OwnerAndGuests validation for now
             ProgressiveService progressiveService = ServiceManager.GetInstance().TryGetService<ProgressiveService>();
             if(progressiveService == null) return new Error(ErrorCode.G2S_APX999);
 

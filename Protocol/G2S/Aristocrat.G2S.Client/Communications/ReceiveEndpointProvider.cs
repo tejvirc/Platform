@@ -124,7 +124,7 @@
                     }
                     else if (request.Item is IBroadcast broadcast) // No need to check host or EGM for multicast
                     {                        
-                        error = _consumer.Consumes(broadcast);
+                        error = _consumer.Consumes(broadcast, hostId);
                     }
                 }
             }
