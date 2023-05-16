@@ -303,8 +303,12 @@
                 VertexProgressiveIds = vertexProgressiveIds;
                 propertiesManager.SetProperty(G2S.Constants.VertexProgressiveIds, VertexProgressiveIds);
 
-                _progressiveHostOfflineTimer.Stop();
-                _progressiveHostOfflineTimer.Dispose();
+                if (_progressiveHostOfflineTimer != null)
+                {
+                    _progressiveHostOfflineTimer.Stop();
+                    _progressiveHostOfflineTimer.Dispose();
+                }
+                _progressiveHostOfflineTimer = null;
 
                 ServiceManager.GetInstance().TryGetService<IEventBus>().Publish(new RestartProtocolEvent());
                 (engine as G2SEngine).AddProgressiveDevices();
@@ -343,6 +347,11 @@
         /// </summary>
         public void ResetProgressiveHostOfflineTimer()
         {
+            if (_progressiveHostOfflineTimer == null)
+            {
+                return;
+            }
+
             _progressiveHostOfflineTimer.Stop();
 
             var progressiveHost = _egm.Hosts.FirstOrDefault(h => h.IsProgressiveHost);
@@ -421,7 +430,7 @@
                 {
                     ProgressiveValueTimeoutLockup(false, device);
                 }
-                else if(!device.Enabled || !device.HostEnabled)
+                else if (!device.Enabled || !device.HostEnabled)
                 {
                     ProgressiveValueTimeoutLockup(true, device);
                 }
@@ -437,22 +446,32 @@
 
         private void OnTransportUp()
         {
-            var progressiveHostInfo = GetProgressiveHostInfo();
+            var progressiveHostInfos = GetProgressiveHostInfo();
 
-            if (progressiveHostInfo == null)
+            if (progressiveHostInfos == null || progressiveHostInfos.All(i => i == null))
             {
                 Logger.Info("ProgressiveHostInfo is not found");
                 return;
             }
 
-            var progressiveDevices = _egm.GetDevices<IProgressiveDevice>();
-
-            foreach (var progressiveDevice in progressiveDevices)
+            var devices = _egm.GetDevices<IProgressiveDevice>();
+            foreach (var progressiveHostInfo in progressiveHostInfos)
             {
-                var matchedProgressive = progressiveHostInfo.progressiveLevel.Where(
-                    progressiveLevel => progressiveLevel.progId.Equals(progressiveDevice.Id)).ToList();
+                if (progressiveHostInfo == null)
+                {
+                    continue;
+                }
 
-                if (!matchedProgressive.Any())
+                var progressiveDevice = devices.Where(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId).FirstOrDefault();
+                if (progressiveDevice == null)
+                {
+                    continue;
+                }
+
+                var matchedProgressives = progressiveHostInfo.progressiveLevel.Where(
+                progressiveLevel => progressiveLevel.progId.Equals(progressiveDevice.Id));
+
+                if (!matchedProgressives.Any())
                 {
                     progressiveDevice.Enabled = false;
                     DisableProgressiveDevice(DeviceDisableReason.CommsOnline, progressiveDevice);
@@ -465,9 +484,9 @@
                 var levelsMatched = true;
                 try
                 {
-                    levelsMatched = progLevels.Count() == matchedProgressive.Count &&
+                    levelsMatched = progLevels.Count() == matchedProgressives.Count() &&
                         progLevels.Select(l => LevelIds.GetVertexProgressiveLevelId(l.GameId, l.ProgressiveId, l.LevelId)).OrderBy(n => n)
-                        .SequenceEqual(matchedProgressive.Select(l => l.levelId).OrderBy(n => n));
+                        .SequenceEqual(matchedProgressives.Select(l => l.levelId).OrderBy(n => n));
                 }
                 catch (KeyNotFoundException)
                 {
@@ -482,36 +501,45 @@
 
                 EnableProgressiveDevice(DeviceDisableReason.CommsOnline, progressiveDevice);
                 LevelMismatchLockup(true, progressiveDevice);
-            }
+            }    
         }
 
-        private progressiveHostInfo GetProgressiveHostInfo()
+        private IEnumerable<progressiveHostInfo> GetProgressiveHostInfo()
         {
-            var timeout = TimeSpan.MaxValue;
-            var currentUtcNow = DateTime.UtcNow;
+            List<progressiveHostInfo> infoToReturn = new List<progressiveHostInfo>();
+            var devices = _egm.GetDevices<IProgressiveDevice>();
 
-            var progressiveDevice = _egm.GetDevices<IProgressiveDevice>().OrderBy(d => d.ProgressiveId).FirstOrDefault(); 
-            var command = new getProgressiveHostInfo();
-
-            var progressiveHostInfo = progressiveDevice.GetProgressiveHostInfo(command, timeout);
-            if (progressiveHostInfo == null)
+            foreach(ProgressiveDevice progressiveDevice in devices)
             {
-                if (DateTime.UtcNow - currentUtcNow > timeout)
+                var timeout = TimeSpan.MaxValue;
+                var currentUtcNow = DateTime.UtcNow;
+
+                var command = new getProgressiveHostInfo();
+
+                var progressiveHostInfo = progressiveDevice.GetProgressiveHostInfo(command, timeout);
+                if (progressiveHostInfo == null)
                 {
-                    Logger.Info($"Command was unsuccessful, posting {EventCode.G2S_PGE106} event");
+                    if (DateTime.UtcNow - currentUtcNow > timeout)
+                    {
+                        Logger.Info($"Command was unsuccessful, posting {EventCode.G2S_PGE106} event");
+                    }
+
+                    infoToReturn.Add(null);
+                    continue;
                 }
 
-                return null;
+                if (!progressiveHostInfo.IsValid())
+                {
+                    Logger.Info("Received ProgressiveHostInfo  is invalid");
+
+                    infoToReturn.Add(null);
+                    continue;
+                }
+
+                infoToReturn.Add(progressiveHostInfo);
             }
 
-            if (!progressiveHostInfo.IsValid())
-            {
-                Logger.Info("Received ProgressiveHostInfo  is invalid");
-
-                return null;
-            }
-
-            return progressiveHostInfo;
+            return infoToReturn;
         }
 
         private setProgressiveWin ProgressiveHit(int deviceId, long transactionId)
@@ -585,13 +613,16 @@
             var gamePlayDevices = _egm.GetDevices<IGamePlayDevice>();
             var levelProvider = ServiceManager.GetInstance().GetService<IProgressiveLevelProvider>();
             var gamePlayDeviceIds = levelProvider.GetProgressiveLevels()
-                                            .Where(l => l.ProgressiveId == device.ProgressiveId && l.DeviceId != 0)
+                                            .Where(l => l.ProgressiveId == device.ProgressiveId && l.DeviceId == device.Id)
                                             .Select(l => l.GameId);
 
             foreach (var gamePlayDeviceId in gamePlayDeviceIds)
             {
                 var gamePlayDevice = _egm.GetDevice<IGamePlayDevice>(gamePlayDeviceId);
-                gamePlayDevice.Enabled = state;
+                if (gamePlayDevice != null)
+                {
+                    gamePlayDevice.Enabled = state;
+                }
             }
         }
 
@@ -739,7 +770,12 @@
                 if (!_progressiveStateDisable && !_levelMismatch && !_progressiveValue)
                 {
                     device.HostEnabled = true;
-                    device.Enabled = false;
+                    device.Enabled = true;
+
+                    if(_egm.GetDevices<IProgressiveDevice>().All(d => d.HostEnabled))
+                    {
+                        Task.Run(() => OnTransportUp());
+                    }
 
                     ProgressiveHostOnline(true, null);
 
@@ -749,6 +785,7 @@
                     _eventLift.Report(device, EventCode.G2S_PGE002, device.DeviceList(status));
                 }
             }
+
         }
 
         private void CommunicationsStateChanged(IEvent theEvent)
