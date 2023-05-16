@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="NevadaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Nevada\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="NevadaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Nevada\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Nevada\Lobby.config.xml" filterid="NevadaLobbyConfig" />

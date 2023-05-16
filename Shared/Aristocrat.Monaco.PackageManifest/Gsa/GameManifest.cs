@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.PackageManifest.Gsa
+namespace Aristocrat.Monaco.PackageManifest.Gsa
 {
     using System;
     using System.Collections.Generic;
@@ -143,7 +143,7 @@
                 CentralInfo = gameInfo.cdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>(),
                 VariationId = gameInfo.variationId ?? GetVariationFromPaytableId(gameInfo.paytableId),
                 GameType = gameInfo.gameTypeSpecified ? gameInfo.gameType : t_gameType.Slot,
-                GameSubtype =  gameInfo.gameSubtype,
+                GameSubtype = gameInfo.gameSubtype,
                 BetOptionList = betOptionList,
                 ActiveBetOption = activeBetOption,
                 LineOptionList = lineOptionList,
@@ -152,15 +152,18 @@
                 WinThreshold = gameInfo.winThresholdSpecified ? gameInfo.winThreshold : null,
                 MaximumProgressivePerDenom = gameInfo.maxProgPerDenomSpecified ? gameInfo.maxProgPerDenom : null,
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
-                Category = gameInfo.categorySpecified ? gameInfo.category : null,
-                SubCategory = gameInfo.subCategorySpecified ?  gameInfo.subCategory : null,
+                Category = gameInfo.categorySpecified ? gameInfo.category : (t_category?)null,
+                SubCategory = gameInfo.subCategorySpecified ? gameInfo.subCategory : (t_subCategory?)null,
                 Features = gameInfo.FeatureList?.Where(feature => feature.StatInfo != null)
                     .Select(feature => new Feature
-                {
-                    Name = feature.Name,
-                    Enable = feature.Enabled,
-                    StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
-                }).ToList()
+                    {
+                        Name = feature.Name,
+                        Enable = feature.Enabled,
+                        StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
+                    }).ToList(),
+                MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
+                MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits,
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
             };
         }
 

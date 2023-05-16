@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using Models;
     using System;
@@ -215,7 +215,22 @@
         /// <summary>
         ///     Gets or sets the mechanical reel home steps
         /// </summary>
-        int[] MechanicalReelHomeSteps { get; }
+        int[] MechanicalReelHomeSteps { get; set; }
+
+        /// <summary>
+        ///    Gets or sets the maximum wager for higher-odd bets, for example, betting on a specific number in roulette.
+        /// </summary>
+        int MaximumWagerInsideCredits { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the maximum wager for low-odds bets, for example, betting on red/black or even/odd in roulette
+        /// </summary>
+        int MaximumWagerOutsideCredits { get; set; }
+
+        /// <summary>
+        ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
+        /// </summary>
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
 
         /// <summary>
         ///     Gets a value indicating whether this game includes extended RTP information. After the release of GDK 5.0, games are

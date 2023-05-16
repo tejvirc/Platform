@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.G2S.UI.Views.HostConfigurationView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
@@ -11,159 +11,170 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:views="clr-namespace:Aristocrat.Monaco.G2S.UI.Views"
-                               d:DesignHeight="600" d:DesignWidth="1500"
+                               d:DesignHeight="600"
+                               d:DesignWidth="1500"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:HostConfigurationViewModel}, IsDesignTimeCreatable=True}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="LocalColumnHiderStyle" 
-                   TargetType="{x:Type GridViewColumnHeader}" 
+            <Style x:Key="LocalColumnHiderStyle"
+                   TargetType="{x:Type GridViewColumnHeader}"
                    BasedOn="{StaticResource MonacoGridViewColumnHeader}">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsWizardPage}" Value="True">
-                        <Setter Property="Visibility" Value="Collapsed"/>
+                    <DataTrigger Binding="{Binding IsWizardPage}"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="DataTrigger0_303FCCD8">
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid1_303FCCD8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_303FCCD8" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_303FCCD8" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_303FCCD8" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_303FCCD8" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition6_303FCCD8" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition7_303FCCD8" />
+            <ColumnDefinition Width="15"
+                              AutomationProperties.AutomationId="ColumnDefinition8_303FCCD8" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition9_303FCCD8" />
         </Grid.ColumnDefinitions>
-
-        <Label Grid.Row="0" 
-               Grid.Column="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.EgmId}}" 
-               VerticalAlignment="Center"/>
-
-        <TextBlock Grid.Row="0" 
-                   Grid.Column="2" 
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.EgmId}}"
+               VerticalAlignment="Center"
+               AutomationProperties.AutomationId="Label10_303FCCD8" />
+        <TextBlock Grid.Row="0"
+                   Grid.Column="2"
                    Margin="0 10"
                    VerticalAlignment="Center"
-                   Text="{Binding EgmId}"/>
-
-        <Label Grid.Row="1" 
-               Grid.Column="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}" 
-               VerticalAlignment="Center"/>
-
-        <TextBlock Grid.Row="1" 
-                   Grid.Column="2" 
+                   Text="{Binding EgmId}"
+                   AutomationProperties.AutomationId="TextBlock11_303FCCD8" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}"
+               VerticalAlignment="Center"
+               AutomationProperties.AutomationId="Label12_303FCCD8" />
+        <TextBlock Grid.Row="1"
+                   Grid.Column="2"
                    Margin="0 10"
                    VerticalAlignment="Center"
-                   Text="{Binding MacAddress}"/>
-
-        <Label Grid.Row="2" 
-               Grid.Column="0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}" 
-               VerticalAlignment="Center"/>
-
-        <TextBox Grid.Row="2" 
-                 Grid.Column="2" 
-                 Width="200" 
+                   Text="{Binding MacAddress}"
+                   AutomationProperties.AutomationId="TextBlock13_303FCCD8" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
+               VerticalAlignment="Center"
+               AutomationProperties.AutomationId="Label14_303FCCD8" />
+        <TextBox Grid.Row="2"
+                 Grid.Column="2"
+                 Width="200"
                  InputScope="Number"
-                 VerticalAlignment="Center" 
+                 VerticalAlignment="Center"
                  HorizontalAlignment="Left"
-                 Text="{Binding 
-                    Port, 
-                    Mode=TwoWay, 
-                    NotifyOnValidationError=True, 
-                    UpdateSourceTrigger=PropertyChanged, 
-                    ValidatesOnDataErrors=True}"/>
-
-        <Border Grid.Row="4" 
-                Grid.Column="0" 
-                Grid.ColumnSpan="3" 
+                 Text="{Binding                      Port,                      Mode=TwoWay,                      NotifyOnValidationError=True,                      UpdateSourceTrigger=PropertyChanged,                      ValidatesOnDataErrors=True}"
+                 AutomationProperties.AutomationId="TextBox15_303FCCD8" />
+        <Border Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
                 Margin="0 30 0 0"
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Style="{StaticResource MonacoBorder}">
-
-            <StackPanel Orientation="Vertical">
-                <ListView ItemsSource="{Binding Path=RegisteredHosts.View}" IsEnabled="{Binding RegisteredHostsEnabled}">
+                Style="{StaticResource MonacoBorder}"
+                AutomationProperties.AutomationId="Border16_303FCCD8">
+            <StackPanel Orientation="Vertical"
+                        AutomationProperties.AutomationId="StackPanel17_303FCCD8">
+                <ListView ItemsSource="{Binding Path=RegisteredHosts.View}"
+                          IsEnabled="{Binding RegisteredHostsEnabled}"
+                          AutomationProperties.AutomationId="ListView18_303FCCD8">
                     <ListView.Resources>
-                        <dialog:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+                        <dialog:BindingProxy x:Key="Proxy"
+                                             Data="{Binding}" />
                     </ListView.Resources>
                     <ListView.View>
                         <views:AutoSizedGridView AllowsColumnReorder="False">
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=(models:Host.Id)}" 
-                                            Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationIdHeader}}"/>
-                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationUrlHeader}}" 
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=(models:Host.Id)}"
+                                            Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationIdHeader}}"
+                                            AutomationProperties.AutomationId="GridViewColumn19_303FCCD8" />
+                            <GridViewColumn
+                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationUrlHeader}}"
                                             Width="400"
-                                            DisplayMemberBinding="{Binding Path=(models:Host.Address), TargetNullValue='localhost'}" />
-                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"                                     
-                                            DisplayMemberBinding="{Binding Path=(models:Host.Registered)}" />
+                                            DisplayMemberBinding="{Binding Path=(models:Host.Address), TargetNullValue='localhost'}"
+                                            AutomationProperties.AutomationId="GridViewColumn20_303FCCD8" />
+                            <GridViewColumn
+                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"
+                                            DisplayMemberBinding="{Binding Path=(models:Host.Registered)}"
+                                            AutomationProperties.AutomationId="GridViewColumn21_303FCCD8" />
                             <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"
-                                            HeaderContainerStyle="{StaticResource LocalColumnHiderStyle}">
+                                            HeaderContainerStyle="{StaticResource LocalColumnHiderStyle}"
+                                            AutomationProperties.AutomationId="GridViewColumn22_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=(models:Host.RequiredForPlay), Mode=OneWay}" 
-                                                   Visibility="{Binding Path=Data.IsWizardPage,
-                                                        Source={StaticResource Proxy},
-                                                        Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                                        <TextBlock Text="{Binding Path=(models:Host.RequiredForPlay), Mode=OneWay}"
+                                                   Visibility="{Binding Path=Data.IsWizardPage,                                                         Source={StaticResource Proxy},                                                         Converter={StaticResource TrueCollapsedFalseVisible}}"
+                                                   AutomationProperties.AutomationId="TextBlock23_303FCCD8" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn>
+                            <GridViewColumn AutomationProperties.AutomationId="GridViewColumn24_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonEdit}}" 
+                                        <Button
+                                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonEdit}}"
                                                 VerticalAlignment="Center"
-                                                Command="{Binding Path=DataContext.EditCommand, 
-                                                                  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
-                                                CommandParameter="{Binding}" />
+                                                Command="{Binding Path=DataContext.EditCommand,                                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                CommandParameter="{Binding}"
+                                                AutomationProperties.AutomationId="Button25_303FCCD8" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn HeaderContainerStyle="{DynamicResource MonacoGridViewColumnHeader}">
+                            <GridViewColumn HeaderContainerStyle="{DynamicResource MonacoGridViewColumnHeader}"
+                                            AutomationProperties.AutomationId="GridViewColumn26_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonDelete}}" 
+                                        <Button
+                                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonDelete}}"
                                                 VerticalAlignment="Center"
-                                                Command="{Binding Path=DataContext.DeleteCommand, 
-                                                                  RelativeSource={RelativeSource FindAncestor, 
-                                                                  AncestorType={x:Type ItemsControl}}}" 
-                                                CommandParameter="{Binding}"/>
+                                                Command="{Binding Path=DataContext.DeleteCommand,                                                                    RelativeSource={RelativeSource FindAncestor,                                                                    AncestorType={x:Type ItemsControl}}}"
+                                                CommandParameter="{Binding}"
+                                                AutomationProperties.AutomationId="Button27_303FCCD8" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                         </views:AutoSizedGridView>
                     </ListView.View>
                 </ListView>
-
-                <StackPanel Orientation="Horizontal">
-                    <Button MinWidth="150" 
-                            HorizontalAlignment="Left" 
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel28_303FCCD8">
+                    <Button MinWidth="150"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             Margin="10"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationAddNewHostTitle}}" 
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationAddNewHostTitle}}"
                             Command="{Binding NewCommand, Mode=OneWay}"
-                            IsEnabled="{Binding RegisteredHostsEnabled}"/>
-                    <controls:ProgressRing Margin="200 0 0 0" IsActive="{Binding ProgressRingIsActive}"/>
+                            IsEnabled="{Binding RegisteredHostsEnabled}"
+                            AutomationProperties.AutomationId="Button29_303FCCD8" />
+                    <controls:ProgressRing Margin="200 0 0 0"
+                                           IsActive="{Binding ProgressRingIsActive}" />
                 </StackPanel>
             </StackPanel>
-
         </Border>
     </Grid>
-
 </operatorMenu:OperatorMenuPage>
-
-
-

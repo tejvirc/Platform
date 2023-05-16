@@ -1,29 +1,37 @@
 ﻿<menu:HHRMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.ManualHandicapHelpPageView"
-                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                        xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
-                        mc:Ignorable="d">
-
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
+                  mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <BitmapImage x:Key="MyImage" UriSource="../Resources/ToManHanBKGD.png"/>
-
-            <TransformedBitmap x:Key="MyImageResized" Source="{StaticResource MyImage}">
+            <BitmapImage x:Key="MyImage"
+                         UriSource="../Resources/ToManHanBKGD.png"
+                         AutomationProperties.AutomationId="BitmapImage0_3E9279" />
+            <TransformedBitmap x:Key="MyImageResized"
+                               Source="{StaticResource MyImage}"
+                               AutomationProperties.AutomationId="TransformedBitmap1_3E9279">
                 <TransformedBitmap.Transform>
-                    <ScaleTransform ScaleX="0.66" ScaleY="0.66" />
+                    <ScaleTransform ScaleX="0.66"
+                                    ScaleY="0.66"
+                                    AutomationProperties.AutomationId="ScaleTransform2_3E9279" />
                 </TransformedBitmap.Transform>
             </TransformedBitmap>
-
             <ImageBrush x:Key="MyImageBrush"
-                        TileMode="None" Stretch="None" 
-                        AlignmentX="Center" AlignmentY="Top"
-                        ImageSource="{StaticResource MyImageResized}" />
-
+                        TileMode="None"
+                        Stretch="None"
+                        AlignmentX="Center"
+                        AlignmentY="Top"
+                        ImageSource="{StaticResource MyImageResized}"
+                        AutomationProperties.AutomationId="ImageBrush3_3E9279" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid HorizontalAlignment="Center" Width="1100" Height="480" VerticalAlignment="Top" Background="{StaticResource MyImageBrush}" />
-
+    <Grid HorizontalAlignment="Center"
+          Width="1100"
+          Height="480"
+          VerticalAlignment="Top"
+          Background="{StaticResource MyImageBrush}"
+          AutomationProperties.AutomationId="Grid4_3E9279" />
 </menu:HHRMenuPage>

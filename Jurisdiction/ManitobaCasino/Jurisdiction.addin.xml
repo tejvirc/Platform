@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ManitobaCasinoJurisdiction" filterid="ManitobaCasinoLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ManitobaCasinoJurisdiction" filterid="ManitobaCasinoLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ManitobaCasinoJurisdiction" filterid="ManitobaCasinoLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="ManitobaCasinoLocaleConfig">
     <FilePath FilePath="..\jurisdiction\ManitobaCasino\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ManitobaCasinoLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\ManitobaCasino\Lobby.config.xml" filterid="ManitobaCasinoLobbyConfig" />

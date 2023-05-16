@@ -18,8 +18,9 @@
   </Extension>
 
   <Extension path="/Application/Inspection/Wizards">
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="1" />
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="2"/>
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="1" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="3" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="5"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.NoteAcceptorPageLoader" order="10"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.IdReaderPageLoader" order="30"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.MechanicalReelsPageLoader" order="35"/>

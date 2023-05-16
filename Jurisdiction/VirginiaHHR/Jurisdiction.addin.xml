@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.VirginiaHHRJurisdiction" filterid="VirginiaHHRLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.VirginiaHHRJurisdiction" filterid="VirginiaHHRLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.VirginiaHHRJurisdiction" filterid="VirginiaHHRLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="VirginiaHHRLocaleConfig">
     <FilePath FilePath="..\jurisdiction\VirginiaHHR\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="VirginiaHHRLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\VirginiaHHR\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\VirginiaHHR\Lobby.config.xml" filterid="VirginiaHHRLobbyConfig" />

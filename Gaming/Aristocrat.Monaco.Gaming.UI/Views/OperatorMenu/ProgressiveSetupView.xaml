@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.ProgressiveSetupView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
@@ -12,112 +12,134 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
-                               mc:Ignorable="d" 
-                               Background="Transparent" 
+                               mc:Ignorable="d"
+                               Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveSetupViewModel}, IsDesignTimeCreatable=True}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:CurrencyConverter x:Key="CurrencyConverter"/>
-            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
-                <Setter Property="FontSize" Value="16"/>
+            <converters:CurrencyConverter x:Key="CurrencyConverter" />
+            <Style TargetType="DataGridColumnHeader"
+                   BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                <Setter Property="FontSize"
+                        Value="16" />
             </Style>
-            <converters:NullToVisibilityConverter x:Key="NullToVisConverter"/>
+            <converters:NullToVisibilityConverter x:Key="NullToVisConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_6FC827A3">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_6FC827A3" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_6FC827A3" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_6FC827A3" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition4_6FC827A3" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition5_6FC827A3" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition6_6FC827A3" />
         </Grid.ColumnDefinitions>
-
-        <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="{Binding SelectedGameInfo}"/>
-
-        <Button Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Right"
+        <Label Grid.Row="0"
+               Grid.ColumnSpan="2"
+               HorizontalAlignment="Center"
+               Content="{Binding SelectedGameInfo}"
+               AutomationProperties.AutomationId="Label7_6FC827A3" />
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
                 Visibility="{Binding GenerateCSAPLevelsAllowed, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.GenerateCSAPLevels}}"
-                Command="{Binding GenerateCSAPLevelsCommand}"/>
-
-        <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                Command="{Binding GenerateCSAPLevelsCommand}"
+                AutomationProperties.AutomationId="Button8_6FC827A3" />
+        <DataGrid Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
                   Margin="0 10"
                   ItemsSource="{Binding ProgressiveLevels}"
-                  ScrollViewer.CanContentScroll="True" 
+                  ScrollViewer.CanContentScroll="True"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   MaxWidth="1600"
-                  EnableRowVirtualization="False" 
+                  EnableRowVirtualization="False"
                   AutoGenerateColumns="False"
-                  Height="Auto">
+                  Height="Auto"
+                  AutomationProperties.AutomationId="DataGrid9_6FC827A3">
             <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-                    <Setter Property="FontSize" Value="14"/>
+                <Style TargetType="DataGridColumnHeader"
+                       BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                    <Setter Property="FontSize"
+                            Value="14" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Resources>
-                <common:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+                <common:BindingProxy x:Key="Proxy"
+                                     Data="{Binding}" />
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.IdLabel}}" 
-                    Binding="{Binding LevelId}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSapOrLP), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevel}}" 
-                    Binding="{Binding LevelName}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IdLabel}}"
+                                    Binding="{Binding LevelId}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSapOrLP), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn10_6FC827A3" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevel}}"
+                                    Binding="{Binding LevelName}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn11_6FC827A3" />
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveType}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveTypeEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}">
-                    <DataGridTemplateColumn.CellTemplate >
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveTypeEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn12_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox ItemsSource="{Binding SelectableLevelTypes}"
                                       SelectedItem="{Binding SelectableLevelType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                      IsEnabled="{Binding SelectableLevelTypesEnabled}">
-                            </ComboBox>
+                                      IsEnabled="{Binding SelectableLevelTypesEnabled}"
+                                      AutomationProperties.AutomationId="ComboBox13_6FC827A3"></ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveType}}"
-                    Binding="{Binding SelectableLevelType}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveTypeReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelName}}" 
-                    Binding="{Binding LevelName}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveType}}"
+                                    Binding="{Binding SelectableLevelType}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveTypeReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn14_6FC827A3" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelName}}"
+                                    Binding="{Binding LevelName}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn15_6FC827A3" />
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveLevel}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveLevelEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}">
-                    <DataGridTemplateColumn.CellTemplate >
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveLevelEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn16_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:LevelModel}">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                        AutomationProperties.AutomationId="StackPanel17_6FC827A3">
                                 <ComboBox x:Name="SelectableLevelNameComboBox"
-                                          ItemsSource="{Binding SelectableLevels}" 
+                                          ItemsSource="{Binding SelectableLevels}"
                                           DisplayMemberPath="Name"
                                           SelectedValuePath="Name"
-                                          SelectedItem="{Binding SelectableLevel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                          SelectedItem="{Binding SelectableLevel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                           IsEnabled="{Binding LevelSelectionEnabled}"
                                           DropDownClosed="SelectableLevelNameComboBox_OnDropDownClosed"
                                           Loaded="SelectableLevelNameComboBox_OnLoaded"
                                           DataContextChanged="SelectableLevelNameComboBox_OnDataContextChanged"
-                                          MaxWidth="310"/>
-                                <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}"
+                                          MaxWidth="310"
+                                          AutomationProperties.AutomationId="ComboBox18_6FC827A3" />
+                                <Button Name="InfoButton"
+                                        Style="{StaticResource MonacoInfoButton}"
                                         Margin="10,0,0,0"
                                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.ShowInfoPopupCommand}"
-                                        Visibility="{Binding SelectableLevelNameTooLong, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}">
+                                        Visibility="{Binding SelectableLevelNameTooLong, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                                        AutomationProperties.AutomationId="Button19_6FC827A3">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                            <Binding ElementName="InfoButton"/>
-                                            <Binding Path="SelectableLevel.Name"/>
+                                            <Binding ElementName="InfoButton" />
+                                            <Binding Path="SelectableLevel.Name" />
                                         </MultiBinding>
                                     </Button.CommandParameter>
                                 </Button>
@@ -126,102 +148,96 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveLevel}}"
-                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveLevelReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}">
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ProgressiveLevelReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn20_6FC827A3">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <commonControls:SmartLongNameTextBlock ContentText="{Binding SelectableLevel.Name}" ContentMaxWidth="310"/>
+                            <commonControls:SmartLongNameTextBlock ContentText="{Binding SelectableLevel.Name}"
+                                                                   ContentMaxWidth="310" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.SharedGames}}"
-                    Binding="{Binding GameCount}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ShowAssociatedSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTemplateColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}">
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SharedGames}}"
+                                    Binding="{Binding GameCount}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ShowAssociatedSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn21_6FC827A3" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn22_6FC827A3">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:LevelModel}">
                             <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox"
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetInitialValue}"
-                                                     Number="{
-                                    Binding Path=InitialValue, 
-                                    Mode=TwoWay, 
-                                    UpdateSourceTrigger=PropertyChanged, 
-                                    ValidatesOnDataErrors=True, 
-                                    NotifyOnValidationError=True}"
-                            />
+                                                     Number="{                                     Binding Path=InitialValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
-                    Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
-                    Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.MinimumRequiredValue}}"
-                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
-                    Binding="{Binding MinimumRequiredValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
-                    Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
+                                    Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn23_6FC827A3" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+                                    Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn24_6FC827A3" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MinimumRequiredValue}}"
+                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
+                                    Binding="{Binding MinimumRequiredValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn25_6FC827A3" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
+                                    Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn26_6FC827A3" />
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectableOrLP), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                        IsReadOnly="false">
+                                        IsReadOnly="false"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn27_6FC827A3">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:LevelModel}">
                             <TextBlock Text="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
-                                       Visibility="{Binding SelectableLevel, Converter={StaticResource NullToVisConverter}}"/>
-
+                                       Visibility="{Binding SelectableLevel, Converter={StaticResource NullToVisConverter}}"
+                                       AutomationProperties.AutomationId="TextBlock28_6FC827A3" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
-                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
-                    Binding="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#0.00'%'}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
-                    Binding="{Binding MaxValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
-                    Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"/>
-                <DataGridTemplateColumn 
-                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
-                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}">
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
+                                    Binding="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#0.00'%'}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn0_727D75F6" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+                                    Binding="{Binding MaxValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn1_727D75F6" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                                    Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn2_727D75F6" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn3_727D75F6">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:LevelModel}">
                             <helpers:CurrencyTextBox x:Name="OverflowCurrencyTextBox"
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetOverflowValue}"
-                                                     Number="{
-                                    Binding Path=OverflowValue, 
-                                    Mode=TwoWay, 
-                                    UpdateSourceTrigger=PropertyChanged, 
-                                    ValidatesOnDataErrors=True, 
-                                    NotifyOnValidationError=True}"
-                            />
+                                                     Number="{                                     Binding Path=OverflowValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom">
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               VerticalAlignment="Bottom"
+               AutomationProperties.AutomationId="Label32_6FC827A3">
             <Label.Style>
-                <Style BasedOn="{StaticResource MonacoWarningLabel}" TargetType="Label">
-                    <Setter Property="Content" Value="{Binding InputStatusText}"/>
+                <Style BasedOn="{StaticResource MonacoWarningLabel}"
+                       TargetType="Label">
+                    <Setter Property="Content"
+                            Value="{Binding InputStatusText}" />
                 </Style>
             </Label.Style>
         </Label>

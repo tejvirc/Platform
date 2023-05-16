@@ -126,8 +126,6 @@
             SelectedCurrency = currency;
         }
 
-        
-
         protected override void SaveChanges()
         {
             base.SaveChanges();

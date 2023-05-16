@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.SouthAfricaJurisdiction" filterid="SouthAfricaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.SouthAfricaJurisdiction" filterid="SouthAfricaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.SouthAfricaJurisdiction" filterid="SouthAfricaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,10 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="SouthAfricaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\SouthAfrica\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="SouthAfricaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\SouthAfrica\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\SouthAfrica\Lobby.config.xml" filterid="SouthAfricaLobbyConfig" />

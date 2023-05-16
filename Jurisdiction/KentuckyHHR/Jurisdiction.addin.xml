@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.KentuckyHHRJurisdiction" filterid="KentuckyHHRLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.KentuckyHHRJurisdiction" filterid="KentuckyHHRLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.KentuckyHHRJurisdiction" filterid="KentuckyHHRLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="KentuckyHHRLocaleConfig">
     <FilePath FilePath="..\jurisdiction\KentuckyHHR\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="KentuckyHHRLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\KentuckyHHR\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\KentuckyHHR\Lobby.config.xml" filterid="KentuckyHHRLobbyConfig" />

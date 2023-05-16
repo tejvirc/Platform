@@ -47,9 +47,6 @@
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.KansasTribalJurisdiction" filterid="KansasTribalLobbyConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.KansasTribalJurisdiction" filterid="KansasTribalLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.KansasTribalJurisdiction" filterid="KansasTribalAccountingConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="KansasTribalLocaleConfig">
     <FilePath FilePath="..\jurisdiction\KansasTribal\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="KansasTribalLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\KansasTribal\Lobby.config.xml" filterid="KansasTribalLobbyConfig" />

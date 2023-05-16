@@ -9,10 +9,10 @@
                                mc:Ignorable="d"
                                MaxHeight="1080"
                                converters1:DialogParticipation.Register="{Binding}"
-                               d:DesignHeight="300" d:DesignWidth="300"
+                               d:DesignHeight="300"
+                               d:DesignWidth="300"
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance viewModels:BackgroundPreviewViewModel, IsDesignTimeCreatable=False}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,10 +20,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Height="{Binding BackgroundPreviewHeight}" 
+    <Grid Height="{Binding BackgroundPreviewHeight}"
           Width="{Binding BackgroundPreviewWidth}"
           MaxHeight="720"
-          MaxWidth="1280">
-        <Image Source="{Binding BackgroundImagePath}" Stretch="UniformToFill" />
+          MaxWidth="1280"
+          AutomationProperties.AutomationId="Grid0_A10B4133">
+        <Image Source="{Binding BackgroundImagePath}"
+               Stretch="UniformToFill"
+               AutomationProperties.AutomationId="Image1_A10B4133" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

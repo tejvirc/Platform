@@ -18,7 +18,6 @@
     using Gaming.Contracts.Progressives.Linked;
     using Hardware.Contracts.SerialPorts;
     using Kernel;
-    using Kernel.Contracts.Events;
     using Localization.Properties;
     using log4net;
     using Protocol.Common.Storage.Entity;
@@ -41,10 +40,10 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _disposed;
         private ManualResetEvent _shutdownEvent = new(false);
-        private ManualResetEvent _startupWaiter = new(false);
         private ISasHost _sasHost;
         private IProtocolProgressiveEventHandler _linkedProgressiveExpiredConsumer;
         private IProtocolProgressiveEventHandler _progressiveHitConsumer;
+        private ServiceWaiter _serviceWaiter;
 
         /// <summary>
         ///     Get the container
@@ -54,22 +53,27 @@
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            ServiceManager.GetInstance().GetService<IEventBus>()
-                .Subscribe<InitializationCompletedEvent>(this, _ => _startupWaiter.Set());
-            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnRestart());
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
-            disableManager.Disable(BaseConstants.ProtocolDisabledKey, SystemDisablePriority.Immediate, () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasProtocolInitializing));
 
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            disableManager.Disable(
+                BaseConstants.ProtocolDisabledKey,
+                SystemDisablePriority.Immediate,
+                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasProtocolInitializing));
 
-            // wait for the InitializationCompletedEvent which indicated
-            // all the components we will use have been loaded
-            if (!propertiesManager.GetValue(SasProperties.SasShutdownCommandReceivedKey, false))
+            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            using var waiter = _serviceWaiter = new ServiceWaiter(eventBus);
+            try
             {
-                _startupWaiter.WaitOne();
+                waiter.AddServiceToWaitFor<IGameProvider>();
+                waiter.AddServiceToWaitFor<IProtocolLinkedProgressiveAdapter>();
+                waiter.AddServiceToWaitFor<IMoneyLaunderingMonitor>();
+                waiter.WaitForServices();
+            }
+            finally
+            {
+                _serviceWaiter = null;
             }
 
-            propertiesManager.SetProperty(SasProperties.SasShutdownCommandReceivedKey, false);
             Logger.Debug("Runnable initialized!");
         }
 
@@ -79,12 +83,13 @@
         {
             Logger.Debug("OnRun started");
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
+            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnRestart());
 
             Logger.Debug("OnRun got InitializationCompletedEvent");
             if (RunState == RunnableState.Running)
             {
-                Bootstrapper.OnAddingService(new SharedConsumerContext());
+                using var sharedContext = new SharedConsumerContext();
+                Bootstrapper.OnAddingService(sharedContext);
 
                 Container = Bootstrapper.ConfigureContainer();
                 Container.Verify();
@@ -171,6 +176,8 @@
                         gameProvider.EnableGame(game.Id, GameStatus.DisabledByBackend);
                     }
 
+                    var disableManager = Container.GetInstance<ISystemDisableManager>();
+
                     disableManager.Enable(BaseConstants.ProtocolDisabledKey);
                     _shutdownEvent.WaitOne();
                     UnSubscribeProgressiveEvents();
@@ -188,7 +195,6 @@
 
             // Set Sas property for Sas communications offline
             Container?.GetInstance<IPropertiesManager>().SetProperty(SasProperties.SasCommunicationsOfflineKey, true);
-            _startupWaiter?.Set();
 
             Logger.Debug("End of OnRun().");
         }
@@ -202,7 +208,7 @@
             Container?.GetInstance<IPropertiesManager>().SetProperty(SasProperties.SasShutdownCommandReceivedKey, true);
             Container?.GetInstance<ISasDisableProvider>().OnSasReconfigured().Wait();
 
-            _shutdownEvent?.Set();
+            _serviceWaiter?.Dispose();
             Logger.Debug("End of OnStop()!");
         }
 
@@ -233,10 +239,10 @@
                     _shutdownEvent = null;
                 }
 
-                if (_startupWaiter != null)
+                if (_serviceWaiter != null)
                 {
-                    _startupWaiter.Close();
-                    _startupWaiter = null;
+                    _serviceWaiter.Dispose();
+                    _serviceWaiter = null;
                 }
 
                 if (Container != null)

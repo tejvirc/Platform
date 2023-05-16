@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Test.Common
+namespace Aristocrat.Monaco.Test.Common
 {
     using System;
     using System.Collections.Generic;
@@ -190,6 +190,8 @@
 
         public GameSubCategory SubCategory => GameSubCategory.FiveHand;
 
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
             var gameDetail = new List<IGameDetail>();
@@ -259,6 +261,18 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public int MaximumWagerInsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public int MaximumWagerOutsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
 
         public bool HasExtendedRtpInformation
         {

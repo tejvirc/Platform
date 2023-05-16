@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.PuertoRicoJurisdiction" filterid="PuertoRicoLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.PuertoRicoJurisdiction" filterid="PuertoRicoLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.PuertoRicoJurisdiction" filterid="PuertoRicoLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="PuertoRicoLocaleConfig">
     <FilePath FilePath="..\jurisdiction\PuertoRico\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="PuertoRicoLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\PuertoRico\Lobby.config.xml" filterid="PuertoRicoLobbyConfig" />

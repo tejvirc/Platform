@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.WisconsinJurisdiction" filterid="WisconsinLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.WisconsinJurisdiction" filterid="WisconsinLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.WisconsinJurisdiction" filterid="WisconsinLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="WisconsinLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Wisconsin\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="WisconsinLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Wisconsin\Lobby.config.xml" filterid="WisconsinLobbyConfig" />

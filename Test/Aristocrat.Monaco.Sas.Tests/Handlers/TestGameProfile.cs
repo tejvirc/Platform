@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Sas.Tests.Handlers
+namespace Aristocrat.Monaco.Sas.Tests.Handlers
 {
     using System;
     using System.Collections.Generic;
@@ -130,6 +130,12 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public int MaximumWagerInsideCredits { get; set; }
+
+        public int MaximumWagerOutsideCredits { get; set; }
+
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
 
         public bool HasExtendedRtpInformation
         {

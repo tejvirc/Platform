@@ -4555,7 +4555,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="InvalidBetRangeForDenom" xml:space="preserve">
-    <value>Invalid min/max bet range, min bet must be smaller than inside max, and inside max must be smaller than or equal to outside max.</value>
+    <value>Invalid min/max bet range, min bet must be smaller than or equal to the sum of the inside max and outside max, and the inside max must be smaller than or equal to the outside max.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="NoKenoGames" xml:space="preserve">
@@ -11725,6 +11725,18 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="NoDeviceDetected" xml:space="preserve">
     <value>No device detected</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectorLabel" xml:space="preserve">
+    <value>Inspector</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="OrderNumberLabel" xml:space="preserve">
+    <value>Order #</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectionSetup" xml:space="preserve">
+    <value>Inspection Setup</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>

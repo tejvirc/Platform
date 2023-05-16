@@ -1,8 +1,8 @@
-﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameInfoView"
+<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameInfoView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:models1="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
@@ -10,11 +10,10 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:GameInfoViewModel, IsDesignTimeCreatable=False}" 
+                               d:DataContext="{d:DesignInstance viewModels:GameInfoViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
                                dialog:DialogParticipation.Register="{Binding}"
                                Background="Transparent">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,14 +22,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_D335FFB1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_D335FFB1" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_D335FFB1" />
         </Grid.RowDefinitions>
-
-        <ListBox x:Name="GameListBox" Grid.Row="0"
+        <ListBox x:Name="GameListBox"
+                 Grid.Row="0"
                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                  ScrollViewer.PanningMode="VerticalOnly"
                  ScrollViewer.CanContentScroll="True"
@@ -38,32 +39,49 @@
                  ItemsSource="{Binding Path=GameList, Mode=TwoWay}"
                  SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
                  SelectedIndex="{Binding Path=SelectedIndex, Mode=TwoWay}"
-                 ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}">
+                 ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}"
+                 AutomationProperties.AutomationId="ListBox3_D335FFB1">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models1:GameOrderData}">
-                    <StackPanel>
-                        <Label Content="{Binding Name}" Style="{DynamicResource MonacoListBoxLabelHeader}"/>
-                        <Label Content="{Binding Paytable}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"/>
-                        <Label Content="{Binding Version}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TheoPaybackPctLabelText}}"
-                                   Margin="0"
-                                   Style="{DynamicResource MonacoListBoxLabel}" />
-                            <Label Content="{Binding TheoPaybackPct}"
-                                   Margin="5 0"
-                                   Style="{DynamicResource MonacoListBoxLabel}"/>
-                        </StackPanel>
+                    <StackPanel AutomationProperties.AutomationId="StackPanel4_D335FFB1">
+                        <Label Content="{Binding Name}"
+                               Style="{DynamicResource MonacoListBoxLabelHeader}"
+                               AutomationProperties.AutomationId="Label5_D335FFB1" />
+                        <Label Content="{Binding Paytable}"
+                               Margin="0"
+                               Style="{DynamicResource MonacoListBoxLabel}"
+                               AutomationProperties.AutomationId="Label6_D335FFB1" />
+                        <Label Content="{Binding Version}"
+                               Margin="0"
+                               Style="{DynamicResource MonacoListBoxLabel}"
+                               AutomationProperties.AutomationId="Label7_D335FFB1" />
+                        <Label Margin="0"
+                               Style="{DynamicResource MonacoListBoxLabel}"
+                               AutomationProperties.AutomationId="Label8_D335FFB1">
+                            <TextBlock AutomationProperties.AutomationId="TextBlock9_D335FFB1">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}: {1:p3}">
+                                        <Binding ElementName="TheoPaybackProxy"
+                                                 Path="Result" />
+                                        <Binding Path="TheoPaybackPct" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                                <lex:LocProxy x:Name="TheoPaybackProxy"
+                                              Source="{x:Static loc:ResourceKeys.TheoPaybackPctLabelText}" />
+                            </TextBlock>
+                        </Label>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <Button Grid.Row="1" Margin="0 15 0 0"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SetGameOrder}}" 
+        <Button Grid.Row="1"
+                Margin="0 15 0 0"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SetGameOrder}}"
                 Visibility="{Binding SetGameOrderVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                Command="{Binding SetGameOrderCommand}" Height="50" 
+                Command="{Binding SetGameOrderCommand}"
+                Height="50"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left"/>
+                HorizontalAlignment="Left"
+                AutomationProperties.AutomationId="Button10_D335FFB1" />
     </Grid>
-
 </operatorMenu:OperatorMenuPage>

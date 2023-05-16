@@ -29,9 +29,11 @@ public partial class LocaleConfiguration {
     private OperatorTicket operatorTicketField;
     
     private Operator operatorField;
-    
+
     private Player playerField;
-    
+
+    private string[] overridesField;
+
     /// <remarks/>
     public PlayerTicket PlayerTicket {
         get {
@@ -69,6 +71,18 @@ public partial class LocaleConfiguration {
         }
         set {
             this.playerField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string[] Overrides {
+        get
+        {
+            return this.overridesField;
+        }
+        set
+        {
+            this.overridesField = value;
         }
     }
 }

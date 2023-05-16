@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.WyomingHHRJurisdiction" filterid="WyomingHHRLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.WyomingHHRJurisdiction" filterid="WyomingHHRLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.WyomingHHRJurisdiction" filterid="WyomingHHRLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="WyomingHHRLocaleConfig">
     <FilePath FilePath="..\jurisdiction\WyomingHHR\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="WyomingHHRLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\WyomingHHR\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\WyomingHHR\Lobby.config.xml" filterid="WyomingHHRLobbyConfig" />

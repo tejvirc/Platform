@@ -1,93 +1,110 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.ButtonPage"
-                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                              xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                              xmlns:loc="http://monaco.aristocrat.com/localization"
-                              mc:Ignorable="d"
-                              common:DialogParticipation.Register="{Binding}"
-                              d:DesignWidth="1280"
-                              d:DesignHeight="720" 
-                              d:DataContext="{d:DesignInstance {x:Type viewModels:ButtonPageViewModel}}">
-
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               common:DialogParticipation.Register="{Binding}"
+                               d:DesignWidth="1280"
+                               d:DesignHeight="720"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:ButtonPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
-             <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="Width" Value="200"/>
-                <Setter Property="Height" Value="50"/>
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource MonacoButton}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Width"
+                        Value="200" />
+                <Setter Property="Height"
+                        Value="50" />
             </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_706ACDBF">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="400"/>
-            <ColumnDefinition Width="*" MinWidth="400"/>
+            <ColumnDefinition Width="*"
+                              MinWidth="400"
+                              AutomationProperties.AutomationId="ColumnDefinition1_706ACDBF" />
+            <ColumnDefinition Width="*"
+                              MinWidth="400"
+                              AutomationProperties.AutomationId="ColumnDefinition2_706ACDBF" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_706ACDBF" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition4_706ACDBF" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_706ACDBF" />
         </Grid.RowDefinitions>
-
         <Grid Grid.Row="0"
               Grid.Column="0"
               Grid.ColumnSpan="2"
-              loc:Localizer.For="Operator">
-
+              loc:Localizer.For="Operator"
+              AutomationProperties.AutomationId="Grid6_706ACDBF">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition7_706ACDBF" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_706ACDBF" />
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition9_706ACDBF" />
             </Grid.RowDefinitions>
-
             <StackPanel Grid.Row="0"
-                        Orientation="Horizontal" Margin="0 0 0 5">
+                        Orientation="Horizontal"
+                        Margin="0 0 0 5"
+                        AutomationProperties.AutomationId="StackPanel10_706ACDBF">
                 <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonTest}}"
-                       Foreground="{StaticResource LightBrush4}"/>
+                       Foreground="{StaticResource LightBrush4}"
+                       AutomationProperties.AutomationId="Label11_706ACDBF" />
                 <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
                         Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                        Margin="10 0 0 0">
+                        Margin="10 0 0 0"
+                        AutomationProperties.AutomationId="Button12_706ACDBF">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                            <Binding ElementName="WarningButton"/>
-                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" 
-                                     Path="DataContext.TestWarningText"/>
+                            <Binding ElementName="WarningButton" />
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}"
+                                     Path="DataContext.TestWarningText" />
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
             </StackPanel>
-
-            <Label x:Name="ButtonTestInstructionsLabel" 
-                   Grid.Row="1" 
+            <Label x:Name="ButtonTestInstructionsLabel"
+                   Grid.Row="1"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonTestInstructions}}"
-                   IsEnabled="{Binding TestModeEnabled}">
+                   IsEnabled="{Binding TestModeEnabled}"
+                   AutomationProperties.AutomationId="Label13_706ACDBF">
                 <Label.Style>
-                    <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                    <Style TargetType="Label"
+                           BasedOn="{StaticResource MonacoLabel}">
                         <Style.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            <Trigger Property="IsEnabled"
+                                     Value="False"
+                                     AutomationProperties.AutomationId="Trigger14_706ACDBF">
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Label.Style>
             </Label>
-            <ListBox x:Name="PressedButtonsListBox" 
-                     Grid.Row="2" 
+            <ListBox x:Name="PressedButtonsListBox"
+                     Grid.Row="2"
                      Margin="0 15 0 15"
-                     HorizontalAlignment="Stretch" 
+                     HorizontalAlignment="Stretch"
                      VerticalAlignment="Stretch"
                      BorderThickness="1"
                      BorderBrush="{StaticResource Brush3}"
@@ -95,59 +112,76 @@
                      Tag="CollapseIfEmpty"
                      ItemContainerStyle="{StaticResource MonacoNoFocusListBoxItem}"
                      loc:Localizer.For="Operator"
-                     IsEnabled="{Binding TestModeEnabled}">
+                     IsEnabled="{Binding TestModeEnabled}"
+                     AutomationProperties.AutomationId="ListBox15_706ACDBF">
                 <ListBox.Style>
-                    <Style TargetType="ListBox" BasedOn="{StaticResource MonacoListBox}">
+                    <Style TargetType="ListBox"
+                           BasedOn="{StaticResource MonacoListBox}">
                         <Style.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            <Trigger Property="IsEnabled"
+                                     Value="False"
+                                     AutomationProperties.AutomationId="Trigger16_706ACDBF">
+                                <Setter Property="BorderBrush"
+                                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </ListBox.Style>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid x:Name="TemplateGrid">
+                        <Grid x:Name="TemplateGrid"
+                              AutomationProperties.AutomationId="Grid17_706ACDBF">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition18_706ACDBF" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition19_706ACDBF" />
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition20_706ACDBF" />
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition21_706ACDBF" />
                             </Grid.ColumnDefinitions>
                             <!-- Button Id Section -->
                             <TextBlock x:Name="ButtonIdTextBlock"
-                                       Grid.Column="0">
+                                       Grid.Column="0"
+                                       AutomationProperties.AutomationId="TextBlock22_706ACDBF">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock" 
+                                    <Style TargetType="TextBlock"
                                            BasedOn="{StaticResource {x:Type TextBlock}}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Item1, TargetNullValue=''}" 
-                                                         Value="">
-                                                <Setter Property="Text" 
-                                                         Value="{
-                                                            Binding Item2, 
-                                                            StringFormat={lex:Loc Key={x:Static loc:ResourceKeys.ButtonText}}}"/>
+                                            <DataTrigger Binding="{Binding Item1, TargetNullValue=''}"
+                                                         Value=""
+                                                         AutomationProperties.AutomationId="DataTrigger23_706ACDBF">
+                                                <Setter Property="Text"
+                                                        Value="{                                                             Binding Item2,                                                              StringFormat={lex:Loc Key={x:Static loc:ResourceKeys.ButtonText}}}" />
                                             </DataTrigger>
                                         </Style.Triggers>
-                                        <Setter Property="Text" Value="{Binding Result, ElementName=ResourceKeyLocProxy}" />
+                                        <Setter Property="Text"
+                                                Value="{Binding Result, ElementName=ResourceKeyLocProxy}" />
                                     </Style>
                                 </TextBlock.Style>
-                                <lex:LocProxy x:Name="ResourceKeyLocProxy" Source="{Binding Item1}"/>
+                                <lex:LocProxy x:Name="ResourceKeyLocProxy"
+                                              Source="{Binding Item1}" />
                             </TextBlock>
                             <!-- Formatted Button Name Section -->
                             <TextBlock x:Name="FormattedButtonNameTextBlock"
-                                       Grid.Column="1">
+                                       Grid.Column="1"
+                                       AutomationProperties.AutomationId="TextBlock24_706ACDBF">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock" 
+                                    <Style TargetType="TextBlock"
                                            BasedOn="{StaticResource {x:Type TextBlock}}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Item3, TargetNullValue=''}" Value="">
-                                                <Setter Property="Text" Value=" "/>
+                                            <DataTrigger Binding="{Binding Item3, TargetNullValue=''}"
+                                                         Value=""
+                                                         AutomationProperties.AutomationId="DataTrigger25_706ACDBF">
+                                                <Setter Property="Text"
+                                                        Value=" " />
                                             </DataTrigger>
                                         </Style.Triggers>
-                                        <Setter Property="Text" Value="{Binding Item3, StringFormat='{} ({0}) '}"/>
+                                        <Setter Property="Text"
+                                                Value="{Binding Item3, StringFormat='{} ({0}) '}" />
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
@@ -155,90 +189,97 @@
                             <TextBlock x:Name="PressedTextBlock"
                                        Grid.Column="2"
                                        Margin="0 -3 0 0"
-                                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonPressed}}"/>
+                                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonPressed}}"
+                                       AutomationProperties.AutomationId="TextBlock26_706ACDBF" />
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-
         <Grid Grid.Row="1"
               Grid.Column="0"
               Grid.ColumnSpan="2"
               loc:Localizer.For="Operator"
-              Visibility="{Binding IsLcdPanelEnabled, Converter={StaticResource TrueVisibleFalseHidden}}">
+              Visibility="{Binding IsLcdPanelEnabled, Converter={StaticResource TrueVisibleFalseHidden}}"
+              AutomationProperties.AutomationId="Grid27_706ACDBF">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition28_706ACDBF" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition29_706ACDBF" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition30_706ACDBF" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="250"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"
+                                  MinWidth="250"
+                                  AutomationProperties.AutomationId="ColumnDefinition31_706ACDBF" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition32_706ACDBF" />
             </Grid.ColumnDefinitions>
-
             <!-- LCD Panel Header -->
             <Label x:Name="LcdButtonPanelLabel"
                    Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LcdButtonPanel}}" 
-                   Foreground="{StaticResource LightBrush4}"/>
-
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LcdButtonPanel}}"
+                   Foreground="{StaticResource LightBrush4}"
+                   AutomationProperties.AutomationId="Label33_706ACDBF" />
             <!-- Firmware CRC Section -->
             <Label x:Name="FirmwareCrcLabel"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCrc}}"
                    Grid.Row="1"
-                   Grid.Column="0"/>
-
+                   Grid.Column="0"
+                   AutomationProperties.AutomationId="Label34_706ACDBF" />
             <Label x:Name="FirmwareCrcValueLabel"
                    Grid.Row="1"
                    Grid.Column="1"
-                   Foreground="{StaticResource LightBrush4}">
+                   Foreground="{StaticResource LightBrush4}"
+                   AutomationProperties.AutomationId="Label35_706ACDBF">
                 <Label.Style>
-                    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                    <Style TargetType="Label"
+                           BasedOn="{StaticResource {x:Type Label}}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{
-                                    Binding FirmwareCrc, 
-                                    Mode=OneWay, 
-                                    TargetNullValue=''}" 
-                                Value="">
-                                <Setter Property="Content" 
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                            <DataTrigger
+                                    Binding="{                                     Binding FirmwareCrc,                                      Mode=OneWay,                                      TargetNullValue=''}"
+                                         Value=""
+                                         AutomationProperties.AutomationId="DataTrigger36_706ACDBF">
+                                <Setter Property="Content"
+                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
                             </DataTrigger>
                         </Style.Triggers>
-                        <Setter Property="Content" Value="{Binding FirmwareCrc, Mode=OneWay}"/>
+                        <Setter Property="Content"
+                                Value="{Binding FirmwareCrc, Mode=OneWay}" />
                     </Style>
                 </Label.Style>
             </Label>
-
             <!-- CRC Seed Section -->
             <Label x:Name="CrcSeedLabel"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.CrcSeed}}"
                    Grid.Row="2"
-                   Grid.Column="0"/>
-
+                   Grid.Column="0"
+                   AutomationProperties.AutomationId="Label37_706ACDBF" />
             <Label x:Name="CrcSeedValueLabel"
                    Grid.Row="2"
                    Grid.Column="1"
-                   Foreground="{StaticResource LightBrush4}">
+                   Foreground="{StaticResource LightBrush4}"
+                   AutomationProperties.AutomationId="Label38_706ACDBF">
                 <Label.Style>
-                    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                    <Style TargetType="Label"
+                           BasedOn="{StaticResource {x:Type Label}}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{
-                                    Binding CrcSeed,
-                                    Mode=OneWay,
-                                    TargetNullValue=''}"
-                                Value="">
+                            <DataTrigger
+                                    Binding="{                                     Binding CrcSeed,                                     Mode=OneWay,                                     TargetNullValue=''}"
+                                         Value=""
+                                         AutomationProperties.AutomationId="DataTrigger39_706ACDBF">
                                 <Setter Property="Content"
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
                             </DataTrigger>
                         </Style.Triggers>
-                        <Setter Property="Content" Value="{Binding CrcSeed, Mode=OneWay}"/>
+                        <Setter Property="Content"
+                                Value="{Binding CrcSeed, Mode=OneWay}" />
                     </Style>
                 </Label.Style>
             </Label>
         </Grid>
-      </Grid>
-
+    </Grid>
 </operatorMenu:OperatorMenuPage>
-
