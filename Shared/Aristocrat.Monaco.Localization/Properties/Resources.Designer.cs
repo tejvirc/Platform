@@ -13685,6 +13685,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to General Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GeneralInformationPageTitle {
+			get {
+				return ResourceManager.GetString("GeneralInformationPageTitle", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to General Poll.
 		/// </summary>
         /// <remarks>
@@ -48670,6 +48682,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to General Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GeneralInformationPageTitle {
+			get {
+				return "GeneralInformationPageTitle";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to General Poll.
 		/// </summary>
         /// <remarks>
@@ -77771,6 +77795,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		GeneralFailureText,
+		/// <summary>
+		///   Looks up a localized string similar to General Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		GeneralInformationPageTitle,
 		/// <summary>
 		///   Looks up a localized string similar to General Poll.
 		/// </summary>

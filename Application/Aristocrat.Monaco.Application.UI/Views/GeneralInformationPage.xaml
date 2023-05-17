@@ -1,0 +1,180 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.GeneralInformationPage"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                        xmlns:loc="http://monaco.aristocrat.com/localization"
+                        mc:Ignorable="d"
+                        d:DataContext="{d:DesignInstance viewModels:GeneralInformationViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin" Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="TextBlock" x:Name="MonacoTextBlockStyle" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin" Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="ListView" BasedOn="{StaticResource MonacoListView}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Accepted Bills -->
+        <Label Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledDenominationsLabel}}" />
+        <Grid Grid.Row="1" Margin="10,0,0,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding AcceptedDenominations }"/>
+        </Grid>
+
+        <!-- Internal Memory Information -->
+        <Label Grid.Row="2" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DiagnosticResourcesPageTitle}}" />
+        <Grid Grid.Row="3" Margin="10,0,0,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{Binding FreeMemoryLabel }" />
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding FreeMemory }" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="{Binding MonacoPrivateBytesLabel }" />
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MonacoPrivateBytes }" />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="{Binding ClrBytesLabel }" />
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ClrBytes }" />
+        </Grid>
+
+        <!-- G2S Hosts Configuration -->
+        <Label Grid.Row="4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationPageTitle}}" />
+        <ItemsControl Grid.Row="5" ItemsSource="{Binding Path=G2SHosts}" Margin="10,0,0,30">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Style="{DynamicResource MonacoTextBlock}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- GDS Devices -->
+        <Label Grid.Row="6" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardwareLabel}}" />
+        <Grid Grid.Row="7" Margin="0,0,0,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Margin="10 0 0 0">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrinterLabel}}" />
+                <Grid Margin="10 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding PrinterName }" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding PrinterManufacturer }" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding PrinterModel }" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding PrinterState }" />
+                    <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding PrinterFirmwareVersion }" />
+                    <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding PrinterFirmwareRevision }" />
+                    <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding PrinterSerialNumber }" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorLabel}}" />
+                <Grid Margin="10 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding NoteAcceptorName }" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding NoteAcceptorManufacturer }" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding NoteAcceptorModel }" />
+                    <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding NoteAcceptorState }" />
+                    <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding NoteAcceptorFirmwareVersion }" />
+                    <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding NoteAcceptorFirmwareRevision }" />
+                    <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding NoteAcceptorSerialNumber }" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
