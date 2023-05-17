@@ -206,8 +206,9 @@
 
             ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IGameInstaller>());
 
-            var provider = _container.GetInstance<IGameProvider>();
-            ServiceManager.GetInstance().AddService(provider as IService);
+            var provider = _container.GetInstance<IGameProvider>() as IService;
+            provider?.Initialize();
+            ServiceManager.GetInstance().AddService(provider);
             manager.AddPropertyProvider(provider as IPropertyProvider);
         }
 
