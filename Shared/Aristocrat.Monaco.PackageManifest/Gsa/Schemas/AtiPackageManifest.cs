@@ -24,15 +24,31 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     [System.Xml.Serialization.XmlRootAttribute("wagerCategoryItem", Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
     public partial class c_wagerCategoryItem {
         
-        private string wagerCategoryField;
+        private int wagerCategoryField;
         
-        private long theoPaybackPctField;
+        private decimal theoPaybackPctField;
         
         private int minWagerCreditsField;
         
         private int maxWagerCreditsField;
         
         private long maxWinAmountField;
+        
+        private decimal minBaseRtpPctField;
+        
+        private decimal maxBaseRtpPctField;
+        
+        private decimal minSapStartupRtpPctField;
+        
+        private decimal maxSapStartupRtpPctField;
+        
+        private decimal sapIncrementRtpPctField;
+        
+        private decimal minLinkStartupRtpPctField;
+        
+        private decimal maxLinkStartupRtpPctField;
+        
+        private decimal linkIncrementRtpPctField;
         
         public c_wagerCategoryItem() {
             this.minWagerCreditsField = 1;
@@ -1055,9 +1071,9 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private long resetValueField;
         
-        private long incrementRateField;
+        private decimal incrementRateField;
         
-        private long hiddentIncrementRateField;
+        private decimal hiddentIncrementRateField;
         
         private long maxValueField;
         
@@ -2202,9 +2218,9 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string paytableIdField;
         
-        private long maxPaybackPctField;
+        private decimal maxPaybackPctField;
         
-        private long minPaybackPctField;
+        private decimal minPaybackPctField;
         
         private int maxWagerInsideCreditsField;
         
@@ -2261,8 +2277,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private bool basicMaximumWinCreditsFieldSpecified;
         
         public c_gameAttributes() {
-            this.maxPaybackPctField = ((long)(0));
-            this.minPaybackPctField = ((long)(0));
+            this.maxPaybackPctField = ((decimal)(0m));
+            this.minPaybackPctField = ((decimal)(0m));
             this.maxWagerInsideCreditsField = 0;
             this.maxWagerOutsideCreditsField = 0;
             this.supportsForcePlayMaxLinesField = true;
@@ -5686,3 +5702,4 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     public partial class uninstallSeqList : c_uninstallSeqList {
     }
 }
+#pragma warning restore 1591
