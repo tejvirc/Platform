@@ -1773,6 +1773,7 @@
                 }
                 _handCount = value;
                 RaisePropertyChanged(nameof(HandCount));
+                RaisePropertyChanged(nameof(CashOutEnabled));
             }
         }
 
@@ -4638,7 +4639,7 @@
 
             var minimumRequiredCreditsInDollars = (double)minimumRequiredCredits.MillicentsToDollars();
 
-            if (RedeemableCredits < minimumRequiredCreditsInDollars || _handCount == 0)
+            if (RedeemableCredits < minimumRequiredCreditsInDollars || HandCount == 0)
             {
                 return true;
             }
