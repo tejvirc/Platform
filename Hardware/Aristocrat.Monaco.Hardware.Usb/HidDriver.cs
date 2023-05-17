@@ -255,10 +255,11 @@
             if (disposing)
             {
                 DeviceList.Local.Changed -= DevicesChanged;
-                _thread.Interrupt();
+                _thread?.Interrupt();
                 _stream?.Dispose();
                 _stream = null;
-                _thread.Join();
+                _thread?.Join();
+                _thread = null;
             }
 
             _disposed = true;
