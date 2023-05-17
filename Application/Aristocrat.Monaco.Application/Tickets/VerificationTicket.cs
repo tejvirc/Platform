@@ -36,7 +36,7 @@
             _pageNumber = pageNumber;
             _lastCashoutSequence = lastCashoutSequence;
             _title = string.IsNullOrEmpty(titleOverride) ? TicketLocalizer.GetString(ResourceKeys.VerificationTicketTitle) : titleOverride;
-            Title = $"{_title} - PAGE {_pageNumber + 1}";
+            Title = $"{_title} - {TicketLocalizer.GetString(ResourceKeys.PageText).ToUpper(TicketLocalizer.CurrentCulture)} {_pageNumber + 1}";
 
             var configMeters = ConfigurationUtilities.GetConfiguration(MetersExtensionPath, () => new DisplayMetersConfiguration
             {

@@ -460,7 +460,7 @@
   <data name="CashOutImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAANYAAADWCAYAAACt43wuAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
-        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADr4AAA6+AepCscAAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADr0AAA69AUf7kK0AAGQbSURBVHhe7Z0HuB1V1f4n9yY3
         vUJCJ5QAUqSolIA06Z9UpfsHFBArCAKCAh8BBQEBAekiRcQCFkRRBCmCNEURKR9SRUSKFFGwk/1fv5l5
         z11nn33avTeBhJnneXNu5szMmdmzfrPWXrtMFkKoVKnSECu58nVS3zOP3DPtpcd+Pf20Yw9f85M7bfTd
         s/Z6+zPf/tDy/7x2/yVeu+XgRcMvD18o3HfM1PDgcQuGR7+wQHj8lAXC709dMPzxjAWGVE99qdCfzlyw
@@ -1053,7 +1053,7 @@ Do you really want to do full reset????</value>
 Do you really want to do partial reset????</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-	<data name="TotalInLabel" xml:space="preserve">
+  <data name="TotalInLabel" xml:space="preserve">
     <value>???Total In???</value>
   </data>
   <data name="TotalOutLabel" xml:space="preserve">
@@ -1062,217 +1062,226 @@ Do you really want to do partial reset????</value>
   <data name="CashPlayed" xml:space="preserve">
     <value>???Cash Played???</value>
   </data>
-	<data name="CashWonText" xml:space="preserve">
+  <data name="CashWonText" xml:space="preserve">
     <value>???Cash Won???</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
   </data>
-	<data name="MainLabel" xml:space="preserve">
-   <value>???Main???</value>
-</data>
-	<data name="MetersGames" xml:space="preserve">
-   <value>???Games???</value>
-</data>
-	<data name="Denom" xml:space="preserve">
-   <value>???Denom???</value>
-</data>
-	<data name="HardwareLabel" xml:space="preserve">
-   <value>???Hardware???</value>
-</data>
-	<data name="CustomSAPTitle" xml:space="preserve">
-   <value>???Custom SAP???</value>
-</data>
-	<data name="Bonus" xml:space="preserve">
-   <value>???Bonus???</value>
-</data>
-	<data name="MetersBills" xml:space="preserve">
-   <value>???Bills???</value>
-</data>
-	<data name="MetersVouchers" xml:space="preserve">
-   <value>???Vouchers???</value>
-</data>
-	<data name="PeriodClearResetNoGameMessage" xml:space="preserve">
-   <value>???Cannot clear period while game in round???</value>
-</data>
-	<data name="ConfirmClearPeriodMessage" xml:space="preserve">
-   <value>???Confirm Clear Period???</value>
-</data>
-	<data name="DropMessage" xml:space="preserve">
-   <value>???The period meters are cleared on stacker removal.???</value>
-</data>
-	<data name="ClearPeriodButtonText" xml:space="preserve">
-   <value>???Clear All Period Meters???</value>
-</data>
-	<data name="PrintVerificationButtonText" xml:space="preserve">
-   <value>???Print Verification Coupon???</value>
-</data>
-	<data name="PrintPeriodicResetButtonText" xml:space="preserve">
-   <value>???Print Periodic Reset Coupon???</value>
-</data>
-	<data name="PrintAuditTicketButtonText" xml:space="preserve">
-   <value>???Print Audit Ticket???</value>
-</data>
-	<data name="Meter" xml:space="preserve">
-   <value>???Meter???</value>
-</data>
-	<data name="Value" xml:space="preserve">
-   <value>???Value???</value>
-</data>
-	<data name="MasterMeters" xml:space="preserve">
-   <value>???Master Meters???</value>
-</data>
-	<data name="PeriodMeters" xml:space="preserve">
-   <value>???Period Meters???</value>
-</data>
-	<data name="Since" xml:space="preserve">
-   <value>???Since???</value>
-</data>
-	<data name="MasterButtonText" xml:space="preserve">
-   <value>???Master???</value>
-</data>
-	<data name="PeriodText" xml:space="preserve">
-   <value>???Period???</value>
-</data>
-	<data name="MetersScreen" xml:space="preserve">
-   <value>???Meters???</value>
-</data>
-	<data name="PrevButton" xml:space="preserve">
-   <value>???Prev???</value>
-</data>
-	<data name="NextButtonText" xml:space="preserve">
-   <value>???Next???</value>
-</data>
-	<data name="WagerCategoryTitle" xml:space="preserve">
-   <value>???Wager Category Meters???</value>
-</data>
-	<data name="NoProgressiveGamesEnabled" xml:space="preserve">
-   <value>???No Progressive Games Enabled???</value>
-</data>
-	<data name="NoProgressiveMeters" xml:space="preserve">
-   <value>???No Progressive Meters???</value>
-</data>
-	<data name="NoProgressiveLevelsAdded" xml:space="preserve">
-   <value>???No Progressive Levels Added???</value>
-</data>
-	<data name="NoCustomSapLevelsAdded" xml:space="preserve">
-   <value>???No Custom SAP Levels Added???</value>
-</data>
-	<data name="Level" xml:space="preserve">
-   <value>???Level???</value>
-</data>
-	<data name="Hit" xml:space="preserve">
-   <value>???Hit???</value>
-</data>
-	<data name="MachinePaidBonusAwardsLabel" xml:space="preserve">
-   <value>???Machine Paid Bonus Awards???</value>
-</data>
-	<data name="MachinePaidBonusTotalLabel" xml:space="preserve">
-   <value>???Total Machine Paid Bonus???</value>
-</data>
-	<data name="AttendantPaidBonusAwardsLabel" xml:space="preserve">
-   <value>???Attendant Paid Bonus Awards???</value>
-</data>
-	<data name="AttendantPaidBonusTotalLabel" xml:space="preserve">
-   <value>???Total Attendant Paid Bonus???</value>
-</data>
-	<data name="AftCashableBonusLabel" xml:space="preserve">
-   <value>???Cashable Bonus???</value>
-</data>
-	<data name="AftNonCashableBonusLabel" xml:space="preserve">
-   <value>???Non-Cashable Bonus???</value>
-</data>
-	<data name="AftPromotionalBonusLabel" xml:space="preserve">
-   <value>???Promotional Bonus???</value>
-</data>
-	<data name="MjtBonusLabel" xml:space="preserve">
-   <value>???MJT Bonus???</value>
-</data>
-	<data name="WagerMatchBonusLabel" xml:space="preserve">
-   <value>???Wager Match Bonus???</value>
-</data>
-	<data name="SasLegacyBonusTaxDeductibleLabel" xml:space="preserve">
-   <value>???SAS Legacy Bonus Tax Deductible???</value>
-</data>
-	<data name="SasLegacyBonusNonTaxDeductibleLabel" xml:space="preserve">
-   <value>???SAS Legacy Bonus Non-Tax Deductible???</value>
-</data>
-	<data name="BillsRejectedLabel" xml:space="preserve">
-   <value>???Bills Rejected???</value>
-</data>
-	<data name="DocumentsRejectedLabel" xml:space="preserve">
-   <value>???Documents Rejected???</value>
-</data>
-	<data name="ConfirmBillClearance" xml:space="preserve">
-   <value>???Confirm Bill Clearance???</value>
-</data>
-	<data name="Denomination" xml:space="preserve">
-   <value>???Denomination???</value>
-</data>
-	<data name="Count" xml:space="preserve">
-   <value>???Count???</value>
-</data>
-	<data name="ClearBillsPeriodMeters" xml:space="preserve">
-   <value>???Clear Bills Period Meters???</value>
-</data>
-	<data name="Total" xml:space="preserve">
-   <value>???Total???</value>
-</data>
-	<data name="CashableVoucherInLabelContent" xml:space="preserve">
-   <value>???Cashable Voucher In???</value>
-</data>
-	<data name="CashablePromoVoucherInLabelContent" xml:space="preserve">
-   <value>???Cashable Promotional Voucher In???</value>
-</data>
-	<data name="NonCashablePromoVoucherInLabelContent" xml:space="preserve">
-   <value>???Non-Cashable Promotional Voucher In???</value>
-</data>
-	<data name="CashableVoucherOutLabelContent" xml:space="preserve">
-   <value>???Cashable Voucher Out???</value>
-</data>
-	<data name="CashablePromoVoucherOutLabelContent" xml:space="preserve">
-   <value>???Cashable Promotional Voucher Out???</value>
-</data>
-	<data name="NonCashablePromoVoucherOutLabelContent" xml:space="preserve">
-   <value>???Non-Cashable Promotional Voucher Out???</value>
-</data>
-	<data name="VouchersRejectedLabel" xml:space="preserve">
-   <value>???Vouchers Rejected???</value>
-</data>
-	<data name="VoucherInLabelContent" xml:space="preserve">
-   <value>???Total Voucher In???</value>
-</data>
-	<data name="VoucherOutLabelContent" xml:space="preserve">
-   <value>???Total Voucher Out???</value>
-</data>
-	<data name="MainDoorOpenLabel" xml:space="preserve">
+  <data name="MainLabel" xml:space="preserve">
+    <value>???Main???</value>
+  </data>
+  <data name="MetersGames" xml:space="preserve">
+    <value>???Games???</value>
+  </data>
+  <data name="Denom" xml:space="preserve">
+    <value>???Denom???</value>
+  </data>
+  <data name="HardwareLabel" xml:space="preserve">
+    <value>???Hardware???</value>
+  </data>
+  <data name="CustomSAPTitle" xml:space="preserve">
+    <value>???Custom SAP???</value>
+  </data>
+  <data name="Bonus" xml:space="preserve">
+    <value>???Bonus???</value>
+  </data>
+  <data name="MetersBills" xml:space="preserve">
+    <value>???Bills???</value>
+  </data>
+  <data name="MetersVouchers" xml:space="preserve">
+    <value>???Vouchers???</value>
+  </data>
+  <data name="PeriodClearResetNoGameMessage" xml:space="preserve">
+    <value>???Cannot clear period while game in round???</value>
+  </data>
+  <data name="ConfirmClearPeriodMessage" xml:space="preserve">
+    <value>???Confirm Clear Period???</value>
+  </data>
+  <data name="DropMessage" xml:space="preserve">
+    <value>???The period meters are cleared on stacker removal.???</value>
+  </data>
+  <data name="ClearPeriodButtonText" xml:space="preserve">
+    <value>???Clear All Period Meters???</value>
+  </data>
+  <data name="PrintVerificationButtonText" xml:space="preserve">
+    <value>???Print Verification Coupon???</value>
+  </data>
+  <data name="PrintPeriodicResetButtonText" xml:space="preserve">
+    <value>???Print Periodic Reset Coupon???</value>
+  </data>
+  <data name="PrintAuditTicketButtonText" xml:space="preserve">
+    <value>???Print Audit Ticket???</value>
+  </data>
+  <data name="Meter" xml:space="preserve">
+    <value>???Meter???</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>???Value???</value>
+  </data>
+  <data name="MasterMeters" xml:space="preserve">
+    <value>???Master Meters???</value>
+  </data>
+  <data name="PeriodMeters" xml:space="preserve">
+    <value>???Period Meters???</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>???Since???</value>
+  </data>
+  <data name="MasterButtonText" xml:space="preserve">
+    <value>???Master???</value>
+  </data>
+  <data name="PeriodText" xml:space="preserve">
+    <value>???Period???</value>
+  </data>
+  <data name="MetersScreen" xml:space="preserve">
+    <value>???Meters???</value>
+  </data>
+  <data name="PrevButton" xml:space="preserve">
+    <value>???Prev???</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>???Next???</value>
+  </data>
+  <data name="WagerCategoryTitle" xml:space="preserve">
+    <value>???Wager Category Meters???</value>
+  </data>
+  <data name="NoProgressiveGamesEnabled" xml:space="preserve">
+    <value>???No Progressive Games Enabled???</value>
+  </data>
+  <data name="NoProgressiveMeters" xml:space="preserve">
+    <value>???No Progressive Meters???</value>
+  </data>
+  <data name="NoProgressiveLevelsAdded" xml:space="preserve">
+    <value>???No Progressive Levels Added???</value>
+  </data>
+  <data name="NoCustomSapLevelsAdded" xml:space="preserve">
+    <value>???No Custom SAP Levels Added???</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>???Level???</value>
+  </data>
+  <data name="Hit" xml:space="preserve">
+    <value>???Hit???</value>
+  </data>
+  <data name="MachinePaidBonusAwardsLabel" xml:space="preserve">
+    <value>???Machine Paid Bonus Awards???</value>
+  </data>
+  <data name="MachinePaidBonusTotalLabel" xml:space="preserve">
+    <value>???Total Machine Paid Bonus???</value>
+  </data>
+  <data name="AttendantPaidBonusAwardsLabel" xml:space="preserve">
+    <value>???Attendant Paid Bonus Awards???</value>
+  </data>
+  <data name="AttendantPaidBonusTotalLabel" xml:space="preserve">
+    <value>???Total Attendant Paid Bonus???</value>
+  </data>
+  <data name="AftCashableBonusLabel" xml:space="preserve">
+    <value>???Cashable Bonus???</value>
+  </data>
+  <data name="AftNonCashableBonusLabel" xml:space="preserve">
+    <value>???Non-Cashable Bonus???</value>
+  </data>
+  <data name="AftPromotionalBonusLabel" xml:space="preserve">
+    <value>???Promotional Bonus???</value>
+  </data>
+  <data name="MjtBonusLabel" xml:space="preserve">
+    <value>???MJT Bonus???</value>
+  </data>
+  <data name="WagerMatchBonusLabel" xml:space="preserve">
+    <value>???Wager Match Bonus???</value>
+  </data>
+  <data name="SasLegacyBonusTaxDeductibleLabel" xml:space="preserve">
+    <value>???SAS Legacy Bonus Tax Deductible???</value>
+  </data>
+  <data name="SasLegacyBonusNonTaxDeductibleLabel" xml:space="preserve">
+    <value>???SAS Legacy Bonus Non-Tax Deductible???</value>
+  </data>
+  <data name="BillsRejectedLabel" xml:space="preserve">
+    <value>???Bills Rejected???</value>
+  </data>
+  <data name="DocumentsRejectedLabel" xml:space="preserve">
+    <value>???Documents Rejected???</value>
+  </data>
+  <data name="ConfirmBillClearance" xml:space="preserve">
+    <value>???Confirm Bill Clearance???</value>
+  </data>
+  <data name="Denomination" xml:space="preserve">
+    <value>???Denomination???</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>???Count???</value>
+  </data>
+  <data name="ClearBillsPeriodMeters" xml:space="preserve">
+    <value>???Clear Bills Period Meters???</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>???Total???</value>
+  </data>
+  <data name="CashableVoucherInLabelContent" xml:space="preserve">
+    <value>???Cashable Voucher In???</value>
+  </data>
+  <data name="CashablePromoVoucherInLabelContent" xml:space="preserve">
+    <value>???Cashable Promotional Voucher In???</value>
+  </data>
+  <data name="NonCashablePromoVoucherInLabelContent" xml:space="preserve">
+    <value>???Non-Cashable Promotional Voucher In???</value>
+  </data>
+  <data name="CashableVoucherOutLabelContent" xml:space="preserve">
+    <value>???Cashable Voucher Out???</value>
+  </data>
+  <data name="CashablePromoVoucherOutLabelContent" xml:space="preserve">
+    <value>???Cashable Promotional Voucher Out???</value>
+  </data>
+  <data name="NonCashablePromoVoucherOutLabelContent" xml:space="preserve">
+    <value>???Non-Cashable Promotional Voucher Out???</value>
+  </data>
+  <data name="VouchersRejectedLabel" xml:space="preserve">
+    <value>???Vouchers Rejected???</value>
+  </data>
+  <data name="VoucherInLabelContent" xml:space="preserve">
+    <value>???Total Voucher In???</value>
+  </data>
+  <data name="VoucherOutLabelContent" xml:space="preserve">
+    <value>???Total Voucher Out???</value>
+  </data>
+  <data name="MainDoorOpenLabel" xml:space="preserve">
     <value>???Main Door Opened???</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-	<data name="MainDoorOpenPowerOff" xml:space="preserve">
+  <data name="MainDoorOpenPowerOff" xml:space="preserve">
     <value>???Main Door Open Power Off???</value>
   </data>
-	<data name="CashDoorOpenLabel" xml:space="preserve">
+  <data name="CashDoorOpenLabel" xml:space="preserve">
     <value>???Cash Door Open???</value>
   </data>
-	<data name="CashDoorOpenPowerOffLabel" xml:space="preserve">
+  <data name="CashDoorOpenPowerOffLabel" xml:space="preserve">
     <value>???Cash Door Open Power Off???</value>
   </data>
-	<data name="LogicDoorOpen" xml:space="preserve">
+  <data name="LogicDoorOpen" xml:space="preserve">
     <value>???Logic Door Open???</value>
   </data>
-	<data name="LogicDoorOpenPowerOffLabel" xml:space="preserve">
+  <data name="LogicDoorOpenPowerOffLabel" xml:space="preserve">
     <value>???Logic Door Open Power Off???</value>
   </data>
-	<data name="TopBoxDoorOpen" xml:space="preserve">
+  <data name="TopBoxDoorOpen" xml:space="preserve">
     <value>???Top Box Door Open???</value>
   </data>
-	<data name="TopBoxDoorOpenPowerOffLabel" xml:space="preserve">
+  <data name="TopBoxDoorOpenPowerOffLabel" xml:space="preserve">
     <value>???Top Box Door Open Power Off???</value>
   </data>
-	<data name="StackerRemoved" xml:space="preserve">
+  <data name="StackerRemoved" xml:space="preserve">
     <value>???Stacker Removed???</value>
   </data>
-	<data name="PowerResetText" xml:space="preserve">
+  <data name="PowerResetText" xml:space="preserve">
     <value>???Power Reset???</value>
     <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="PageText" xml:space="preserve">
+    <value>???Page???</value>
+  </data>
+  <data name="PeriodicResetTicketTitle" xml:space="preserve">
+    <value>???PERIODIC RESET???</value>
+  </data>
+  <data name="VerificationTicketTitle" xml:space="preserve">
+    <value>???VERIFICATION COUPON???</value>
   </data>
 </root>

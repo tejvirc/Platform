@@ -11937,9 +11937,10 @@ Do you really want to do partial reset????</value>
     <value>All games of this type must use the same package</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-  <data name="GeneralInformationPageTitle" xml:space="preserve">
+	<data name="GeneralInformationPageTitle" xml:space="preserve">
     <value>General Information</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+	</data>
   <data name="ClearSelection" xml:space="preserve">
     <value>Clear Selection</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
