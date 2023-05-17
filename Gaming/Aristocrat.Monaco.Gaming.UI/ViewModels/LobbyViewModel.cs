@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
@@ -545,7 +545,7 @@
 
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
 
-            if(_bank.QueryBalance() == 0 && _gameState.Idle)
+            if(_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
             {
                 IsPrimaryLanguageSelected = true;
             }
