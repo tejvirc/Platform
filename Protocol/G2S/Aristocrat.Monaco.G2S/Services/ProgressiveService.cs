@@ -26,6 +26,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common.Events;
+    using DisableProvider;
     using FMOD;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
@@ -52,6 +53,7 @@
         private readonly IGameHistory _gameHistory;
         private readonly ITransactionHistory _transactionHistory;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IG2SDisableProvider _disableProvider;
         private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _commandBuilder;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveHit> _progressiveHitBuilder;
@@ -60,18 +62,13 @@
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new ConcurrentDictionary<string, IList<ProgressiveInfo>>();
         private readonly object _pendingAwardsLock = new object();
         private readonly bool _g2sProgressivesEnabled;
-
-        private bool _commsDisable = true;
+        
         private bool _disposed;
-        private bool _levelMismatch;
-        private bool _progressiveStateDisable = true;
-        private bool _progressiveValue = true;
         private Timer _progressiveValueUpdateTimer;
         private Timer _progressiveHostOfflineTimer;
         private IList<(string poolName, long amountInPennies)> _pendingAwards;
         private bool _progressiveRecovery;
         private IEnumerable<IViewableLinkedProgressiveLevel> _currentLinkedProgressiveLevelsHit;
-        private string _updateProgressiveMeter;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveService" /> class.
@@ -88,6 +85,7 @@
             IGameHistory gameHistory,
             ITransactionHistory transactionHistory,
             IUnitOfWorkFactory unitOfWorkFactory,
+            IG2SDisableProvider disableProvider,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> statusCommandBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveHit> progressiveHitBuilder,
@@ -109,6 +107,7 @@
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
+            _disableProvider = disableProvider ?? throw new ArgumentNullException(nameof(disableProvider));
             _commandBuilder = statusCommandBuilder ?? throw new ArgumentNullException(nameof(statusCommandBuilder));
             _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
             _progressiveHitBuilder = progressiveHitBuilder ?? throw new ArgumentNullException(nameof(progressiveHitBuilder));
@@ -121,7 +120,7 @@
                 SubscribeEvents();
                 _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfo);
                 _progressiveValueUpdateTimer.Elapsed += EventUpdateTimerElapsed;
-                _progressiveHostOfflineTimer = new Timer(100); //Start it off with a default 100 millisecond interval, once the host comes online it will update below in ResetProgressiveHostOfflineTimer method.
+                _progressiveHostOfflineTimer = new Timer(100); //Start it off with a default 100 millisecond interval, once the host comes online it will update below in ReceiveProgressiveValueUpdate method.
                 _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
                 LastProgressiveUpdateTime = DateTime.UtcNow;
                 _progressiveValueUpdateTimer.Start();
@@ -163,41 +162,6 @@
         public void Initialize()
         {
             Logger.Info("Initializing the G2S VoucherDataService.");
-        }
-
-        /// <summary>
-        ///     Level [Matched/Mismatched] lockup.
-        /// </summary>
-        public void LevelMismatchLockup(bool deviceEnabled, IProgressiveDevice device)
-        {
-            if (!device.HostEnabled && !device.Enabled)
-            {
-                return;
-            }
-
-            if (deviceEnabled)
-            {
-                EnableProgressiveDevice(DeviceDisableReason.LevelMismatch, device);
-            }
-            else
-            {
-                DisableProgressiveDevice(DeviceDisableReason.LevelMismatch, device);
-            }
-        }
-
-        /// <summary>
-        ///     ProgressiveValue Timeout lockup.
-        /// </summary>
-        public void ProgressiveValueTimeoutLockup(bool deviceEnabled, IProgressiveDevice device)
-        {
-            if (deviceEnabled)
-            {
-                EnableProgressiveDevice(DeviceDisableReason.ProgressiveValue, device);
-            }
-            else
-            {
-                DisableProgressiveDevice(DeviceDisableReason.ProgressiveValue, device);
-            }
         }
 
         /// <summary>
@@ -304,7 +268,7 @@
             var denoms = new List<IDenomination>();
             var games = _gameProvider.GetAllGames();
             games.ToList().ForEach(g => g.Denominations.ToList().ForEach(d => denoms.Add(d)));
-;
+
             for (int i = 0; i < devices.Count(); i++)
             {
                 var device = (ProgressiveDevice)devices.ElementAt(i);
@@ -324,7 +288,7 @@
         }
 
         /// <inheritdoc />
-        public void ResetProgressiveHostOfflineTimer()
+        public void ReceiveProgressiveValueUpdate()
         {
             if (_progressiveHostOfflineTimer == null)
             {
@@ -343,49 +307,17 @@
             _progressiveHostOfflineTimer.Interval = interval;
 
             var systemDisableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
-
-            if (systemDisableManager != null)
-            {
-                if (systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
-                {
-                    systemDisableManager.Enable(G2S.Constants.VertexOfflineKey);
-                }
-            }
-
+            
             _progressiveHostOfflineTimer.Start();
-        }
 
-        /// <summary>
-        ///     This method is called when Vertex disables the device
-        /// </summary>
-        private void ProgressiveHostOnline(bool online, string reason)
-        {
-            var systemDisableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
-
-            if (systemDisableManager != null)
-            {
-                if(online)
-                {
-                    if (systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
-                    {
-                        systemDisableManager.Enable(G2S.Constants.VertexOfflineKey);
-                    }
-                }
-                else if(reason.ToLower().Contains("meter rollback")) // THIS IS BEING REFACTORED IN TXARCH-982
-                {
-                    systemDisableManager.Disable(G2S.Constants.VertexMeterRollbackKey, SystemDisablePriority.Immediate, () => reason);
-                }
-                else if (!systemDisableManager.CurrentDisableKeys.Contains(G2S.Constants.VertexOfflineKey))
-                {
-                    systemDisableManager.Disable(G2S.Constants.VertexOfflineKey, SystemDisablePriority.Immediate, () => reason);
-                }
-                
-            }
+            _disableProvider.Enable(G2SDisableStates.CommsOffline);
+            _disableProvider.Enable(G2SDisableStates.ProgressiveValueNotReceived);
+            LastProgressiveUpdateTime = DateTime.UtcNow;
         }
 
         private void ProgressiveHostOfflineTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
-            ProgressiveHostOnline(false, "Progressive Host Is Offline.");
+            _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline, true);
         }
 
         private void EventUpdateTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
@@ -407,11 +339,14 @@
 
                 if (DateTime.UtcNow - LastProgressiveUpdateTime > timeout)
                 {
-                    ProgressiveValueTimeoutLockup(false, device);
+                    _disableProvider.Disable(
+                        SystemDisablePriority.Immediate,
+                        G2SDisableStates.ProgressiveValueNotReceived,
+                        true);
                 }
                 else if (!device.Enabled || !device.HostEnabled)
                 {
-                    ProgressiveValueTimeoutLockup(true, device);
+                    _disableProvider.Enable(G2SDisableStates.ProgressiveValueNotReceived);
                 }
 
                 if (_progressiveValueUpdateTimer != null && timeout.TotalMilliseconds > 0)
@@ -453,7 +388,6 @@
                 if (!matchedProgressives.Any())
                 {
                     progressiveDevice.Enabled = false;
-                    DisableProgressiveDevice(DeviceDisableReason.CommsOnline, progressiveDevice);
                     return;
                 }
 
@@ -474,12 +408,11 @@
 
                 if (!levelsMatched)
                 {
-                    LevelMismatchLockup(false, progressiveDevice);
+                    _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.LevelMismatch, true);
                     return;
                 }
-
-                EnableProgressiveDevice(DeviceDisableReason.CommsOnline, progressiveDevice);
-                LevelMismatchLockup(true, progressiveDevice);
+                
+                _disableProvider.Enable(G2SDisableStates.LevelMismatch);
             }    
         }
 
@@ -663,102 +596,21 @@
         public void SetProgressiveDeviceState(bool state, IProgressiveDevice device, string hostReason = null)
         {
             if (state)
-                EnableProgressiveDevice(DeviceDisableReason.ProgressiveState, device);
-            else
-                DisableProgressiveDevice(DeviceDisableReason.ProgressiveState, device, hostReason);
-        }
-
-        private void DisableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device, string hostReason = null)
-        {
-            switch (reason)
             {
-                case DeviceDisableReason.LevelMismatch:
-                    _levelMismatch = true;
-                    break;
-                case DeviceDisableReason.CommsOnline:
-                    _commsDisable = true;
-                    break;
-                case DeviceDisableReason.ProgressiveState:
-                    _progressiveStateDisable = true;
-                    break;
-                case DeviceDisableReason.ProgressiveValue:
-                    _progressiveValue = true;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(reason), reason, null);
-            }
-
-            SetGamePlayDeviceState(false, device);
-
-            if (hostReason != null)
-            {
-                device.DisableText = hostReason;
-            }
-            else if (_commsDisable)
-            {
-                device.DisableText = Resources.ProgressiveDisconnectText;
-            }
-            else if (_levelMismatch)
-            {
-                device.DisableText = Resources.ProgressiveLevelMismatchText;
-            }
-            else if (_progressiveValue)
-            {
-                device.DisableText = Resources.ProgressiveFaultTypes_ProgUpdateTimeout;
-            }
-
-            Logger.Debug($"Progressive service is disabling the Progressive device: {reason}");
-
-            ProgressiveHostOnline(false, device.DisableText);
-            device.HostEnabled = false;
-
-            var status = new progressiveStatus();
-            _commandBuilder.Build(device, status).Wait();
-
-            _eventLift.Report(device, EventCode.G2S_PGE001, device.DeviceList(status));
-        }
-
-        /// <summary>
-        ///     To online device behalf on reason
-        /// </summary>
-        /// <param name="reason">device online reason</param>
-        private void EnableProgressiveDevice(DeviceDisableReason reason, IProgressiveDevice device)
-        {
-            switch (reason)
-            {
-                case DeviceDisableReason.LevelMismatch:
-                    _levelMismatch = false;
-                    break;
-                case DeviceDisableReason.CommsOnline:
-                    _commsDisable = false;
-                    break;
-                case DeviceDisableReason.ProgressiveState:
-                    _progressiveStateDisable = false;
-                    break;
-                case DeviceDisableReason.ProgressiveValue:
-                    _progressiveValue = false;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(reason), reason, null);
-            }
-
-            SetGamePlayDeviceState(true, device);
-
-            if (!device.HostEnabled)
-            {
-                Logger.Debug($"Progressive service is enabling the Progressive device: {reason}");
-
-                if (!_progressiveStateDisable && !_levelMismatch && !_progressiveValue)
+                SetGamePlayDeviceState(true, device);
+                if (!device.HostEnabled)
                 {
+                    Logger.Debug($"Progressive service is enabling the Progressive device");
+
+                    device.DisableText = string.Empty;
                     device.HostEnabled = true;
                     device.Enabled = true;
 
-                    if(_egm.GetDevices<IProgressiveDevice>().All(d => d.HostEnabled))
+                    if (_egm.GetDevices<IProgressiveDevice>().All(d => d.HostEnabled))
                     {
-                        Task.Run(() => OnTransportUp());
+                        Task.Run(OnTransportUp);
+                        _disableProvider.Enable(G2SDisableStates.ProgressiveState);
                     }
-
-                    ProgressiveHostOnline(true, null);
 
                     var status = new progressiveStatus();
                     _commandBuilder.Build(device, status).Wait();
@@ -766,25 +618,45 @@
                     _eventLift.Report(device, EventCode.G2S_PGE002, device.DeviceList(status));
                 }
             }
+            else
+            {
+                device.DisableText = hostReason;
+                SetGamePlayDeviceState(false, device);
+                device.HostEnabled = false;
 
+                Logger.Debug($"Progressive service is disabling a Progressive device: {hostReason}");
+
+                var status = new progressiveStatus();
+                _commandBuilder.Build(device, status).Wait();
+
+                _eventLift.Report(device, EventCode.G2S_PGE001, device.DeviceList(status));
+
+                G2SDisableStates reason;
+                if (hostReason?.ToLower()?.Contains("meter rollback") == true)
+                {
+                    reason = G2SDisableStates.ProgressiveMeterRollback;
+                }
+                else
+                {
+                    reason = G2SDisableStates.ProgressiveState;
+                }
+                _disableProvider.Disable(
+                    SystemDisablePriority.Immediate,
+                    reason,
+                    true);
+            }
         }
 
         private void CommunicationsStateChanged(IEvent theEvent)
         {
-            CheckProgressiveRecovery();
-            var devices = _egm.GetDevices<IProgressiveDevice>();
-
-            foreach(var device in devices)
+            if (theEvent.GetType() == typeof(TransportUpEvent))
             {
-                if (theEvent.GetType() == typeof(TransportUpEvent))
-                {
-                    EnableProgressiveDevice(DeviceDisableReason.CommsOnline, device);
-                    Task.Run(() => OnTransportUp());
-                }
-                else
-                {
-                    DisableProgressiveDevice(DeviceDisableReason.CommsOnline, device);
-                }
+                _disableProvider.Enable(G2SDisableStates.CommsOffline);
+                Task.Run(OnTransportUp);
+            }
+            else
+            {
+                _disableProvider.Disable(SystemDisablePriority.Immediate,G2SDisableStates.CommsOffline, true);
             }
         }
 
@@ -923,14 +795,6 @@
                         }
                     }
                 });
-        }
-
-        private enum DeviceDisableReason
-        {
-            CommsOnline,
-            ProgressiveState,
-            LevelMismatch,
-            ProgressiveValue
         }
 
         public void HandleProgressiveEvent<T>(T data)
@@ -1177,8 +1041,6 @@
                         levelName,
                         amountInPennies,
                         ProtocolNames.G2S);
-
-                    _updateProgressiveMeter = attributePropertyName;
 
                     scope.Complete();
                 }

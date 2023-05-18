@@ -24845,6 +24845,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Progressive meter rollback.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S
+        /// </remarks>
+		public static string ProgressiveFaultTypes_MeterRollback {
+			get {
+				return ResourceManager.GetString("ProgressiveFaultTypes_MeterRollback", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Minimum Progressive Value Error.
 		/// </summary>
 		public static string ProgressiveFaultTypes_MinimumThresholdNotReached {
@@ -24910,6 +24922,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveFaultTypes_ProgUpdateTimeout {
 			get {
 				return ResourceManager.GetString("ProgressiveFaultTypes_ProgUpdateTimeout", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Progressive State Disabled.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S
+        /// </remarks>
+		public static string ProgressiveFaultTypes_StateDisabled {
+			get {
+				return ResourceManager.GetString("ProgressiveFaultTypes_StateDisabled", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -59479,6 +59503,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Progressive meter rollback.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S
+        /// </remarks>
+		public static string ProgressiveFaultTypes_MeterRollback {
+			get {
+				return "ProgressiveFaultTypes_MeterRollback";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Minimum Progressive Value Error.
 		/// </summary>
 		public static string ProgressiveFaultTypes_MinimumThresholdNotReached {
@@ -59544,6 +59580,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveFaultTypes_ProgUpdateTimeout {
 			get {
 				return "ProgressiveFaultTypes_ProgUpdateTimeout";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Progressive State Disabled.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S
+        /// </remarks>
+		public static string ProgressiveFaultTypes_StateDisabled {
+			get {
+				return "ProgressiveFaultTypes_StateDisabled";
 			}
 		}
 
@@ -83470,6 +83518,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ProgressiveFaultTypes_ExceedMaxRtpValue,
 		/// <summary>
+		///   Looks up a localized string similar to Progressive meter rollback.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S
+        /// </remarks>
+		ProgressiveFaultTypes_MeterRollback,
+		/// <summary>
 		///   Looks up a localized string similar to Minimum Progressive Value Error.
 		/// </summary>
 		ProgressiveFaultTypes_MinimumThresholdNotReached,
@@ -83508,6 +83563,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		ProgressiveFaultTypes_ProgUpdateTimeout,
+		/// <summary>
+		///   Looks up a localized string similar to Progressive State Disabled.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S
+        /// </remarks>
+		ProgressiveFaultTypes_StateDisabled,
 		/// <summary>
 		///   Looks up a localized string similar to Progressives.
 		/// </summary>

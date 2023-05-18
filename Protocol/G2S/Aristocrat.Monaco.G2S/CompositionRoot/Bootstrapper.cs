@@ -23,6 +23,7 @@
     using Common.CertificateManager;
     using Data.Hosts;
     using Data.Profile;
+    using DisableProvider;
     using Gaming.Contracts.Session;
     using Handlers;
     using Handlers.CommConfig;
@@ -67,6 +68,7 @@
 
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             container.Register<IEngine, G2SEngine>(Lifestyle.Singleton);
+            container.Register<IG2SDisableProvider, G2SDisableProvider>(Lifestyle.Singleton);
             container.RegisterAuthenticationService(ConnectionString());
             container.RegisterPackageManager(ConnectionString());
             container.RegisterCertificateManager(ConnectionString());

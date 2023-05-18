@@ -10,6 +10,7 @@
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Aristocrat.Monaco.Gaming.Contracts.Meters;
     using Aristocrat.Monaco.G2S.Data.Model;
+    using Aristocrat.Monaco.G2S.DisableProvider;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Aristocrat.G2S.Protocol.v21;
@@ -34,6 +35,7 @@
         private readonly Mock<IGameHistory> _gameHistoryMock = new Mock<IGameHistory>();
         private readonly Mock<ITransactionHistory> _transactionHistoryMock = new Mock<ITransactionHistory>();
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactoryMock = new Mock<IUnitOfWorkFactory>();
+        private readonly Mock<IG2SDisableProvider> _disableProviderMock = new Mock<IG2SDisableProvider>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>> _progressiveHitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>> _progressiveCommitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>>();
         private readonly Mock<IProtocolProgressiveEventsRegistry> _protocolProgressiveEventsRegistryMock = new Mock<IProtocolProgressiveEventsRegistry>();
@@ -62,6 +64,7 @@
                 _gameHistoryMock.Object,
                 _transactionHistoryMock.Object,
                 _unitOfWorkFactoryMock.Object,
+                _disableProviderMock.Object,
                 _commandBuilderMock.Object,
                 _progressiveStatusBuilderMock.Object,
                 _progressiveHitBuilderMock.Object,

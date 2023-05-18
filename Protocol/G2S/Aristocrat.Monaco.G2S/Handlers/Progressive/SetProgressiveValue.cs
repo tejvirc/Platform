@@ -81,9 +81,7 @@
             var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
             if (progressiveService == null) return;
 
-            progressiveService.ResetProgressiveHostOfflineTimer();
-
-            progressiveService.LastProgressiveUpdateTime = DateTime.UtcNow;
+            progressiveService.ReceiveProgressiveValueUpdate();
 
             List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
             var lvl = levels.FirstOrDefault();
@@ -103,8 +101,8 @@
                     }
                 }
 
-                var progLevel = levels.Where(p => p.ProgressiveId == level.progId && p.LevelId ==
-                                    progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, level.progId, level.levelId)).FirstOrDefault();
+                var progLevel = levels.FirstOrDefault(p => p.ProgressiveId == level.progId && p.LevelId ==
+                                    progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, level.progId, level.levelId));
                 progLevel.CurrentValue = level.progValueAmt;
 
                 ProgressiveValue newValue = new ProgressiveValue();
