@@ -63,6 +63,7 @@
         private TaskCompletionSource<bool> _waitingForPlayersTask;
         private long _lastDenom;
         private BetDetails _lastBetDetail;
+        private IEnumerable<int> _activeGames;
 
         public CentralHandler(
             IEventBus eventBus,
@@ -449,6 +450,7 @@
             IEnumerable<BingoGameDescription> descriptions)
         {
             var newCard = false;
+            var gamesInPlay = new HashSet<int>();
 
             // for multi-game there will be 2 sets of cards, one for main game, and one for secondary game(s)
             // get the cards for each game
@@ -458,11 +460,7 @@
 
                 foreach (var outcome in outcomes.Outcomes.Where(x => x.GameIndex == description.GameIndex))
                 {
-                    if (outcome.GameIndex != description.GameIndex)
-                    {
-                        continue;
-                    }
-
+                    gamesInPlay.Add(outcome.GameIndex);
                     foreach (var cardPlayed in outcome.BingoDetails.CardsPlayed)
                     {
                         var bingoCard = cards.FirstOrDefault(c => c.SerialNumber == cardPlayed.SerialNumber);
@@ -492,7 +490,22 @@
                 }
             }
 
+            DisableCards(gamesInPlay);
+            _activeGames = gamesInPlay;
             return newCard;
+        }
+
+        private void DisableCards(IEnumerable<int> gamesInPlay)
+        {
+            if (_activeGames is null)
+            {
+                return;
+            }
+            foreach (var gameIndex in _activeGames.Where(x => !gamesInPlay.Contains(x)))
+            {
+                Logger.Debug($"Disabling card for out-of-play game index {gameIndex}");
+                _eventBus.Publish(new BingoGameDisableCardEvent(gameIndex));
+            }
         }
 
         private async Task HandleOutcomeRequest(CentralTransaction transaction)
