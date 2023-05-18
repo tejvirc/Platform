@@ -7883,6 +7883,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Host Enabled.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string DeviceManagerHostEnabled {
+			get {
+				return ResourceManager.GetString("DeviceManagerHostEnabled", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Device Id.
 		/// </summary>
         /// <remarks>
@@ -42505,6 +42517,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Host Enabled.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string DeviceManagerHostEnabled {
+			get {
+				return "DeviceManagerHostEnabled";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Device Id.
 		/// </summary>
         /// <remarks>
@@ -73768,6 +73792,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Exit game before saving changes.
 		/// </summary>
 		DeviceManagerExitGame,
+		/// <summary>
+		///   Looks up a localized string similar to Host Enabled.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		DeviceManagerHostEnabled,
 		/// <summary>
 		///   Looks up a localized string similar to Device Id.
 		/// </summary>

@@ -204,6 +204,7 @@
                     Id = d.Id,
                     Owner = d.Owner,
                     Enabled = d.Enabled,
+                    HostEnabled = d.HostEnabled,
                     Active = d.Active,
                     IsHostOriented = d.IsHostOriented()
                 };
@@ -230,6 +231,7 @@
                 DeviceId = device.Id,
                 OwnerId = device.Owner,
                 Enabled = device.Enabled,
+                HostEnabled = device.HostEnabled,
                 Active = device.Active,
             };
 
@@ -405,6 +407,7 @@
         private int _owner;
         private bool _active;
         private bool _enabled;
+        private bool _hostEnabled;
         private bool _isHostOriented;
         private bool _edited;
 
@@ -473,6 +476,19 @@
 
                 _enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
+            }
+        }
+
+        public bool HostEnabled
+        {
+            get => _hostEnabled;
+            set
+            {
+                if (_hostEnabled == value)
+                    return;
+
+                _hostEnabled = value;
+                RaisePropertyChanged(nameof(HostEnabled));
             }
         }
 

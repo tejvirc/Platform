@@ -11700,4 +11700,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>No device detected</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="DeviceManagerHostEnabled" xml:space="preserve">
+    <value>Host Enabled</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
 </root>
