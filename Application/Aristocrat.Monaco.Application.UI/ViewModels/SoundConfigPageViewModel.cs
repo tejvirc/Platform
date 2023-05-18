@@ -48,7 +48,6 @@
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
-            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
         }
 
         private void LoadVolumeSettings()
@@ -76,6 +75,9 @@
 
             IsAlertConfigurable = showMode || PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeConfigurable, IsAlertConfigurableDefault);
             RaisePropertyChanged(nameof(IsAlertConfigurable));
+
+            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            RaisePropertyChanged(nameof(SelectedVolumeLevel));
         }
 
         private bool IsSystemDisabled =>

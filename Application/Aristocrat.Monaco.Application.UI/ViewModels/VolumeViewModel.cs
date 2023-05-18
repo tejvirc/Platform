@@ -73,6 +73,14 @@
 
             _eventBus.Subscribe<EnabledEvent>(this, OnEnabledEvent);
             _eventBus.Subscribe<DisabledEvent>(this, OnDisabledEvent);
+            LoadVolumeSettings();
+        }
+
+        private void LoadVolumeSettings()
+        {
+            // Load volume level
+            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            RaisePropertyChanged(nameof(SelectedVolumeLevel));
         }
 
         public void OnUnloaded()
