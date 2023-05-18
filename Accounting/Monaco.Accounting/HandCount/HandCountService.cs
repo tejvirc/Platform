@@ -14,6 +14,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Timers;
+    using Aristocrat.Monaco.Gaming.Contracts;
 
     /// <summary>
     ///     Definition of the HandCountService class.
@@ -32,6 +33,8 @@
         private readonly IBank _bank;
         private readonly ITransactionHistory _transactions;
         private readonly ITransactionCoordinator _transactionCoordinator;
+
+        private bool _startedWithRecovery = false;
 
 
         private Timer _initResetTimer;
@@ -99,6 +102,18 @@
             _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, x => HandCountResetTimerElapsed(x.ResidualAmount));
 
+            _eventBus.Subscribe<RecoveryStartedEvent>(this, x =>
+            {
+                _startedWithRecovery = true;
+                SuspendResetHandcount();
+            });
+
+            _eventBus.Subscribe<TransferOutStartedEvent>(this, x =>
+            {
+                _startedWithRecovery = true;
+                SuspendResetHandcount();
+            });
+
             _eventBus.Subscribe<OpenEvent>(this, x => SuspendResetHandcount());
             _eventBus.Subscribe<SystemDisabledEvent>(this, x => SuspendResetHandcount());
 
@@ -127,7 +142,10 @@
             SendHandCountChangedEvent();
 
             //Recovery scenario when machine restarted during reset hand count check
-            CheckIfBelowResetThreshold();
+            if (!_startedWithRecovery)
+            {
+                CheckIfBelowResetThreshold();
+            }
         }
 
         private void SuspendResetHandcount()
