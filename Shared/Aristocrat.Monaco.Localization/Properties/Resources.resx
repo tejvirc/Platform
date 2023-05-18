@@ -8250,7 +8250,7 @@ See manual for details</value>
     <comment>Monaco.Accounting</comment>
   </data>
   <data name="VerifiedEKeyRequired" xml:space="preserve">
-    <value>EKey device is required to perform game re-configuration</value>
+    <value>EKey device is required to perform configuration.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="EmployeeCardRequired" xml:space="preserve">
@@ -11814,10 +11814,10 @@ Do you really want to do full reset?</value>
     <value>All games of this type must use the same package</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-	<data name="GeneralInformationPageTitle" xml:space="preserve">
+  <data name="GeneralInformationPageTitle" xml:space="preserve">
     <value>General Information</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
-	</data>
+  </data>
   <data name="ClearSelection" xml:space="preserve">
     <value>Clear Selection</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
@@ -11825,5 +11825,9 @@ Do you really want to do full reset?</value>
   <data name="SelectAll" xml:space="preserve">
     <value>Select All</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="VerifiedEKeyRequiredGameConfiguration" xml:space="preserve">
+    <value>EKey device is required to perform game re-configuration</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>
