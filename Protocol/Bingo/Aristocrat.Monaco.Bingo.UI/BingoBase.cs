@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Reflection;
     using System.Threading;
     using Application.Contracts;
     using Application.Contracts.Localization;
@@ -19,7 +20,9 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using Localization.Properties;
+    using log4net;
     using Monaco.Common;
+    using Monaco.Common.Container;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
 
@@ -32,9 +35,16 @@
     public class BingoBase : BaseRunnable
     {
         private static readonly Guid Initializing = new("{9594364A-7446-4313-B375-92E3EF62E3D9}");
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private Container _container = new();
         private ManualResetEvent _shutdownEvent = new(false);
         private ServiceWaiter _serviceWaiter;
+
+        public BingoBase()
+        {
+            _container.AddResolveUnregisteredType(typeof(BingoBase).FullName, Logger);
+        }
 
         protected override void OnInitialize()
         {
