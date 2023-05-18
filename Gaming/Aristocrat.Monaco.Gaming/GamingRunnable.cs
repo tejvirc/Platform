@@ -9,9 +9,6 @@
     using Application.Contracts.Media;
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.TiltLogger;
-    using Aristocrat.Monaco.Hardware.Contracts.Button;
-    using Aristocrat.Monaco.Hardware.Contracts.Door;
-    using Aristocrat.Monaco.Hardware.Contracts.IO;
     using Common;
     using CompositionRoot;
     using Consumers;
@@ -34,7 +31,6 @@
     using Progressives;
     using Runtime;
     using SimpleInjector;
-    using Vgt.Client12.Testing.Tools;
 
     /// <summary>
     ///     This the base class for all gaming layers.
@@ -51,8 +47,6 @@
         private SharedConsumerContext _sharedConsumerContext;
 
         //private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
-
-        private bool _keepRunning = true;
 
         /// <inheritdoc />
         protected override void OnInitialize()
@@ -80,48 +74,7 @@
 
             //// Keep it running...
             //_shutdownEvent.WaitOne();
-
-            // For Linux research, just sit here waiting for input
-            var disableMgr = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            while (_keepRunning)
-            {
-                Console.WriteLine("\n\n\n\n\n\n");
-                if (disableMgr.IsDisabled)
-                {
-                    foreach (var disable in disableMgr.CurrentDisableKeys)
-                    {
-                        Console.WriteLine($"    {disable}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Enabled");
-                }
-
-                Console.WriteLine();
-                Console.WriteLine("Press:");
-                Console.WriteLine("<1> = insert $1        - debug coin event");
-                Console.WriteLine("<c> = collect          - input event");
-                Console.WriteLine("<a> = open logic door  - input event");
-                Console.WriteLine("<s> = close logic door - input event");
-                Console.WriteLine("<d> = open main door   - input event");
-                Console.WriteLine("<f> = close main door  - input event");
-                Console.WriteLine("<q> = quit             - exit requested event");
-                Console.WriteLine("? ");
-                var key = Console.ReadKey().KeyChar;
-                Console.WriteLine();
-                switch (key)
-                {
-                    case '1': Console.WriteLine("Inserting $1");         eventBus.Publish(new DebugCoinEvent(1000));                     break;
-                    case 'c': Console.WriteLine("Collecting");           eventBus.Publish(new UpEvent((int)ButtonLogicalId.Collect));    break;
-                    case 'a': Console.WriteLine("Opening logic door");   eventBus.Publish(new InputEvent(45, true));                     break;
-                    case 's': Console.WriteLine("Closing logic door");   eventBus.Publish(new InputEvent(45, false));                    break;
-                    case 'd': Console.WriteLine("Opening main door");    eventBus.Publish(new InputEvent(49, true));                     break;
-                    case 'f': Console.WriteLine("Closing main door");    eventBus.Publish(new InputEvent(49, false));                    break;
-                    case 'q': Console.WriteLine("Requesting shutdown");  eventBus.Publish(new ExitRequestedEvent(ExitAction.ShutDown));  break;
-                }
-            }
+            ServiceManager.GetInstance().GetService<Stubs.IStubGamingRunner>().Run();
 
             Console.WriteLine();
             Console.WriteLine("Shutting down...");
@@ -137,7 +90,7 @@
         {
             //// Allow OnRun to exit
             //_shutdownEvent.Set();
-            _keepRunning = false;
+            ServiceManager.GetInstance().GetService<Stubs.IStubGamingRunner>().Stop();
 
             Logger.Info("Gaming Stopped");
         }

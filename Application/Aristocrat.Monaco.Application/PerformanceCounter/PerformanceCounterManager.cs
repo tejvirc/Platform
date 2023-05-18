@@ -164,8 +164,8 @@
             _pollingTimer.Elapsed += OnLoggingTimerElapsed;
             _pollingTimer.Interval = TimeSpan.FromSeconds(_performanceCounterInterval).TotalMilliseconds;
             _pollingTimer.AutoReset = true;
-            _pollingTimer.Enabled = true;
-            _pollingTimer?.Start();
+            //_pollingTimer.Enabled = true;
+            //_pollingTimer?.Start();
         }
 
         private string GetLogFileName(DateTime dateTime)

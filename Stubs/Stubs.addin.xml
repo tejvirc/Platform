@@ -36,4 +36,9 @@
     <IOperatorMenu type="Stubs.StubOperatorMenu" />
   </Extension>
 
+  <!-- Adds an interactive menu after Gaming layer is booted -->
+  <Extension path="/Kernel/Services">
+    <Service type="Stubs.StubGamingRunnable" />
+  </Extension>
+
 </Addin>
