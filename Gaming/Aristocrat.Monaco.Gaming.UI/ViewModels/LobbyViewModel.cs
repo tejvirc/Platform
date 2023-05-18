@@ -570,7 +570,7 @@
 
         public string VbdTitle => GamingConstants.VbdWindowTitle;
 
-        public bool IsTabView => _lobbyStateManager?.IsTabView ?? false;
+        public bool IsTabView => (_lobbyStateManager?.IsTabView ?? false) && !Config.MidKnightLobbyEnabled;
 
         /// <summary>
         ///     Is the current tab hosting extra large game icons
@@ -1649,9 +1649,9 @@
 
         private bool IsIdleTextScrolling => LobbyBannerDisplayMode == BannerDisplayMode.Scrolling;
 
-        public bool IsBlinkingIdleTextVisible => !IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView;
+        public bool IsBlinkingIdleTextVisible => !IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView && !Config.MidKnightLobbyEnabled;
 
-        public bool IsScrollingIdleTextEnabled => IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView;
+        public bool IsScrollingIdleTextEnabled => IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView && !Config.MidKnightLobbyEnabled;
 
         public bool IsIdleTextBlinking => IsInLobby && !IsInState(LobbyState.Disabled);
 

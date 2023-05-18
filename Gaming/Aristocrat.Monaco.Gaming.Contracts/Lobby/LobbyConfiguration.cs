@@ -28,6 +28,8 @@ public partial class LobbyConfiguration {
     
     private bool largeGameIconsEnabledField;
     
+    private bool midKnightLobbyEnabledField;
+    
     private bool hasIdleAttractVideoField;
     
     private bool hasAttractIntroVideoField;
@@ -135,12 +137,12 @@ public partial class LobbyConfiguration {
     private bool removeIdlePaidMessageOnSessionStartField;
     
     private bool disableMalfunctionMessageField;
-
-    /// <remarks/>
+    
     public LobbyConfiguration() {
         this.multiLanguageEnabledField = false;
         this.responsibleGamingTimeLimitEnabledField = false;
         this.largeGameIconsEnabledField = false;
+        this.midKnightLobbyEnabledField = false;
         this.hasIdleAttractVideoField = false;
         this.hasAttractIntroVideoField = false;
         this.bottomAttractVideoEnabledField = false;
@@ -200,6 +202,16 @@ public partial class LobbyConfiguration {
         }
         set {
             this.largeGameIconsEnabledField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public bool MidKnightLobbyEnabled {
+        get {
+            return this.midKnightLobbyEnabledField;
+        }
+        set {
+            this.midKnightLobbyEnabledField = value;
         }
     }
     
@@ -788,8 +800,7 @@ public partial class ResponsibleGamingInfoOptions {
     private int timeoutField;
     
     private ResponsibleGamingInfoButtonPlacement buttonPlacementField;
-
-    /// <remarks/>
+    
     public ResponsibleGamingInfoOptions() {
         this.pagesField = 0;
         this.exitStrategyField = ResponsibleGamingInfoExitStrategy.None;

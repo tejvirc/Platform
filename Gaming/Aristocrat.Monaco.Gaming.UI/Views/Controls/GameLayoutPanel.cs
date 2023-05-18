@@ -129,7 +129,6 @@
         protected override Size ArrangeOverride(Size finalSize)
         {
             var childCount = Children.Count;
-
             var (rows, cols) = GameRowColumnCalculator.CalculateRowColCount(childCount, IsExtraLargeGameIconTabActive);
 
             var gamesInLastRow = childCount > 0 ? childCount % cols : 0;

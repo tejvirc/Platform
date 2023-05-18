@@ -1,0 +1,333 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
+                    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+                    xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
+                    xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls">
+
+    <!-- Apply MahApps.Metro styles to all controls -->
+    <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"/>
+        <!-- Accent and AppTheme setting -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+
+        <ResourceDictionary Source="../../Skins/Styles.xaml"/>
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+
+        <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
+    </ResourceDictionary.MergedDictionaries>
+
+    <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
+    <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True"/>
+    <converters:MarginConverter x:Key="MarginConverter"/>
+    <converters:GameIconImageHeightConverter x:Key="GameIconImageHeightConv"/>
+    <converters:CharacterToResourceImageConverter x:Key="CharacterToResourceImageConv"/>
+
+    <Storyboard x:Key="AttractHaloFadeInStoryboard">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0"
+                         To="1.0"
+                         Duration="0:0:2.0"
+                         BeginTime="0:0:0"
+                         AutoReverse="False">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase EasingMode="EaseInOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="AttractHaloFadeOutStoryboard">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="1.0"
+                         To="0.0"
+                         Duration="0:0:2.0"
+                         BeginTime="0:0:0"
+                         AutoReverse="False">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase EasingMode="EaseInOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="AttractFadeInStoryboard">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0"
+                         To="1.0"
+                         Duration="0:0:0.1"
+                         BeginTime="0:0:0"
+                         AutoReverse="False">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase EasingMode="EaseInOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="AttractFadeOutStoryboard">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="1.0"
+                         To="0.0"
+                         Duration="0:0:0.1"
+                         BeginTime="0:0:0"
+                         AutoReverse="False">
+            <DoubleAnimation.EasingFunction>
+                <QuadraticEase EasingMode="EaseInOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <LinearGradientBrush x:Key="JackpotTextGradient" StartPoint=".5,0" EndPoint=".5,1" Opacity="1">
+        <GradientStop Color="White" Offset="0.25"/>
+        <GradientStop Color="#FFFF00" Offset="1"/>
+    </LinearGradientBrush>
+
+    <DataTemplate x:Key="LobbyViewMidKnightTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
+        <Viewbox>
+            <Grid Width="1920" Height="1080">
+                <Grid.Background>
+                    <ImageBrush ImageSource="{DynamicResource BottomBackground}" Stretch="Fill"/>
+                </Grid.Background>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- **** HEADER **** -->
+                <Image Grid.Row="0"
+                       Grid.Column="1"
+                       Margin="0 25 0 0"
+                       Stretch="None"
+                       Source="{DynamicResource SelectAGame}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"/>
+
+                <!-- **** GAME GRID **** -->
+                <ItemsControl x:Name="GameList"
+                              FocusVisualStyle="{x:Null}"
+                              Margin="0"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              ItemsSource="{Binding Path=DisplayedGameList}"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+                    <ItemsControl.ItemsPanel>
+                        <!-- Swap out the panel that arranges the items -->
+                        <ItemsPanelTemplate>
+                            <controls:GameLayoutPanel Spacing="0 0"
+                                                      IsTabView="{Binding IsTabView}"
+                                                      IsExtraLargeGameIconTabActive="{Binding IsExtraLargeGameIconTabActive}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <!-- Specify the UI to render each item -->
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:GameInfo}">
+                            <Grid x:Name="GameTile"
+                                  VerticalAlignment="Top"
+                                  Margin="4">
+                                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
+                                    <Button x:Name="GameIconButton"
+                                            Style="{StaticResource stlFlatButton}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Tag="{Binding Name}"
+                                            Command="{Binding Path=DataContext.GameSelectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}">
+                                        <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
+                                            <Image x:Name="ButtonImage"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Top"
+                                                   Margin="0"
+                                                   Stretch="None"
+                                                   Source="{Binding ImagePath}"/>
+
+                                            <Image x:Name="SelectedImage"
+                                                   Source="{DynamicResource GameSelectedOverlay}"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Margin="0"
+                                                   Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Top">
+                                                <Image.Visibility>
+                                                    <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
+                                                        <Binding Path="IsSelected"/>
+                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                                 RelativeSource="{RelativeSource AncestorType=ItemsControl}"
+                                                                 Converter="{StaticResource InverseBoolConverter}"/>
+                                                    </MultiBinding>
+                                                </Image.Visibility>
+                                            </Image>
+
+                                            <Image Source="{DynamicResource PlatinumIcon}">
+                                                <Image.Visibility>
+                                                    <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
+                                                        <Binding Path="PlatinumSeries"/>
+                                                        <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                    </MultiBinding>
+                                                </Image.Visibility>
+                                            </Image>
+
+                                            <!-- GRAND banner per game -->
+                                            <ItemsControl Margin="0 0 0 17"
+                                                          ItemsSource="{Binding Path=ProgressiveOrBonusValue}"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Bottom"
+                                                          Visibility="{Binding HasProgressiveOrBonusValue, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Stretch="None" Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=MidKnightGrand}"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <!-- Animated New star at the top left of the icon -->
+                                            <bink:BinkViewerControl HorizontalAlignment="Left"
+                                                                    VerticalAlignment="Top"
+                                                                    Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
+                                                                    Stretch="None"
+                                                                    Filename="{DynamicResource NewStarPath}">
+                                                <bink:BinkViewerControl.Visibility>
+                                                    <MultiBinding Converter="{StaticResource AnimatedIconVisibilityConv}">
+                                                        <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
+                                                        <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                    </MultiBinding>
+                                                </bink:BinkViewerControl.Visibility>
+                                            </bink:BinkViewerControl>
+
+                                            <!-- Tint disabled game buttons to make them look disabled. -->
+                                            <Rectangle Fill="Black"
+                                                       Opacity="0.5"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Width="{Binding ElementName=ButtonImage, Path=ActualWidth}"
+                                                       Height="{Binding ElementName=ButtonImage, Path=ActualHeight}">
+                                                <Rectangle.Visibility>
+                                                    <MultiBinding Converter="{StaticResource LogicalOrTrueCollapsedFalseVisible}">
+                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                    </MultiBinding>
+                                                </Rectangle.Visibility>
+                                                <Rectangle.OpacityMask>
+                                                    <ImageBrush ImageSource="{Binding ImagePath}"/>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+
+                                            <!-- The following needs to come after to prevent double blending disabled look -->
+                                            <!-- Static star is only visible when it is disabled -->
+                                            <Grid x:Name="StaticStarGroup"
+                                                  Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Top">
+                                                <Grid.Visibility>
+                                                    <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
+                                                        <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
+                                                        <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
+                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                    </MultiBinding>
+                                                </Grid.Visibility>
+                                                <Image x:Name="StaticStarImage"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Top"
+                                                       Stretch="None"
+                                                       Source="{DynamicResource StaticStarIcon}"/>
+                                                <Rectangle Fill="Black"
+                                                           Opacity="0.5"
+                                                           Width="{Binding ElementName=StaticStarImage, Path=ActualWidth}"
+                                                           Height="{Binding ElementName=StaticStarImage, Path=ActualHeight}">
+                                                    <Rectangle.OpacityMask>
+                                                        <ImageBrush ImageSource="{DynamicResource StaticStarIcon}"/>
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Grid>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Notification/banner text -->
+                <Grid Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      VerticalAlignment="Bottom"
+                      Margin="19 0 20 15">
+                    <lobby:LobbyBannerView/>
+                    <Border Background="#FF000000"
+                            HorizontalAlignment="Left"
+                            BorderThickness="0"
+                            CornerRadius="10"
+                            Padding="8 4 8 4"
+                            Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding PaidMeterLabel}"
+                                   FontSize="30"
+                                   FontFamily="Impact"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                            <Label Content="{Binding PaidMeterValue}"
+                                   FontSize="30"
+                                   Padding="1 5 5 5"
+                                   FontFamily="Impact"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#FF000000"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            BorderThickness="0"
+                            CornerRadius="6"
+                            Margin="0 4 0 4"
+                            Padding="4 0 4 0"
+                            Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
+                        <Label Content="{Binding CurrentNotificationText}"
+                               FontSize="16"
+                               FontFamily="Impact"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
+
+                <!-- UPI -->
+                <lobby:StandardUpi Grid.Row="2"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="0 0 0 15"
+                                   Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+            </Grid>
+        </Viewbox>
+    </DataTemplate>
+</ResourceDictionary>

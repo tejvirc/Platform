@@ -30,6 +30,18 @@
     <system:Int32 x:Key="DenomA">1</system:Int32>
     <system:Int32 x:Key="DenomB">5</system:Int32>
     <system:Int32 x:Key="DenomC">25</system:Int32>
+
+    <Style x:Key="TextStyle" TargetType="controls:TextPath">
+        <Setter Property="Fill" Value="White"/>
+        <Setter Property="FontFamily" Value="Impact"/>
+        <Setter Property="FontSize" Value="46"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="StrokeThickness" Value="2.0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
     <DataTemplate x:Key="NevadaUpiTemplate"
                   DataType="{x:Type viewModels:LobbyViewModel}">
         <Grid Width="1881"
@@ -1273,207 +1285,27 @@
     </DataTemplate>
 
     <DataTemplate x:Key="GeorgiaCOAMUpiTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
-        <Grid Width="1880">
-            <Image Source="{DynamicResource UpiBackground}">
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding VolumeButtonVisible}" Value="True" />
-                                    <Condition Binding="{Binding ServiceButtonVisible}" Value="True" />
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
-
-            <Image Source="{DynamicResource UpiBackgroundNoService}">
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding VolumeButtonVisible}" Value="True" />
-                                    <Condition Binding="{Binding ServiceButtonVisible}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
-
-            <Image Source="{DynamicResource UpiBackgroundNoVolume}">
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding VolumeButtonVisible}" Value="False" />
-                                    <Condition Binding="{Binding ServiceButtonVisible}" Value="True" />
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
-
-            <Image Source="{DynamicResource UpiBackgroundNoVolumeNoService}">
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding VolumeButtonVisible}" Value="False" />
-                                    <Condition Binding="{Binding ServiceButtonVisible}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
-
+        <Grid Width="1920">
+            <Image Source="{DynamicResource UpiBackgroundNoVolumeNoService}" Stretch="None"/>
             <Canvas>
-                <Grid Canvas.Left="98" Canvas.Top="40" Visibility="{Binding VolumeButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                    <Button x:Name="btnVolume0"
-                            Command="{Binding Volume.VolumeCommand}"
-                            Style="{StaticResource stlFlatButton}"
-                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=0}">>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}" />
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button x:Name="btnVolume1"
-                            Command="{Binding Volume.VolumeCommand}"
-                            Style="{StaticResource stlFlatButton}"
-                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=1}">>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}" />
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button x:Name="btnVolume2"
-                            Command="{Binding Volume.VolumeCommand}"
-                            Style="{StaticResource stlFlatButton}"
-                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=2}">>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}" />
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button x:Name="btnVolume3"
-                            Command="{Binding Volume.VolumeCommand}"
-                            Style="{StaticResource stlFlatButton}"
-                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=3}">>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}" />
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button x:Name="btnVolume4"
-                            Command="{Binding Volume.VolumeCommand}"
-                            Style="{StaticResource stlFlatButton}"
-                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=4}">>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}" />
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button x:Name="btnVolume5"
-                            Command="{Binding Volume.VolumeCommand}"
-                            Style="{StaticResource stlFlatButton}"
-                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=5}">>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=5}" />
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </Grid>
+                <Border Canvas.Left="582"
+                        Canvas.Top="50"
+                        Width="230">
+                    <controls:TextPath Style="{StaticResource TextStyle}" Text="{Binding HandCount}"/>
+                </Border>
 
-                <Button x:Name="btnService"
-                    Canvas.Left = "285"
-                    Canvas.Top = "40"
-                    Visibility="{Binding ServiceButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                    IsEnabled="{Binding Path=VbdServiceButtonDisabled, Converter={StaticResource InverseBoolConverter}}"
-                    Command="{Binding Path=ServiceCommand}"
-                    Style="{StaticResource stlFlatButton}">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Image Name="serviceImage" Source="{DynamicResource ServiceNormal}"/>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter TargetName="serviceImage" Property="Source" Value="{DynamicResource ServiceDisabled}"/>
-                                </Trigger>
-                                <DataTrigger Binding="{Binding IsServiceRequested}" Value="True">
-                                    <Setter TargetName="serviceImage" Property="Source" Value="{DynamicResource ServicePressed}" />
-                                </DataTrigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <StackPanel Orientation="Horizontal" 
-                            Canvas.Left="490"
-                            Canvas.Top="40">
-                    <Label  Height="77"
-                            Content="Hands"
-                            FontFamily="Impact" 
-                            Foreground="White"
-                            FontSize="46" 
-                            HorizontalContentAlignment="Center"
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center">
-                    </Label>
-                    <Label Content="{Binding HandCount}" Height="77"
-                           FontSize="46" 
-                           FontFamily="Impact" 
-                           Foreground="White"
-                           HorizontalContentAlignment="Center"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
-                </StackPanel>
-                <Label 
-                    Canvas.Left="740"
-                    Canvas.Top="44"
-                    Width="400"
-                    Height="77"
-                    Content="{Binding FormattedCredits}" 
-                    FontSize="44" 
-                    FontFamily="Impact" 
-                    Foreground="White"
-                    HorizontalContentAlignment="Center"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center">
-                </Label>
+                <Border Canvas.Left="844"
+                        Canvas.Top="50"
+                        Width="230">
+                    <controls:TextPath Style="{StaticResource TextStyle}" Text="{Binding FormattedCredits}"/>
+                </Border>
+
                 <Button x:Name="btnCashOut"
-                    Canvas.Left="1459"
-                    Canvas.Top="41"
-                    IsEnabled="{Binding Path=CashOutEnabled}"
-                    Command="{Binding Path=CashOutCommand}"
-                    Style="{StaticResource stlFlatButton}">
+                        Canvas.Left="1110"
+                        Canvas.Top="45"
+                        IsEnabled="{Binding Path=CashOutEnabled}"
+                        Command="{Binding Path=CashOutCommand}"
+                        Style="{StaticResource stlFlatButton}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Image Name="cashOutImage" Source="{DynamicResource CashOutNormal}"/>
