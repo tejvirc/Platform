@@ -3007,7 +3007,19 @@
             {
                 // VLT-4326: Do not include all Disabled states here because we handle Replay stuff in the above code block
                 ReplayRecovery.BackgroundOpacity = OpacityFifth;
-                MessageOverlayDisplay.MessageOverlayData.Opacity = _gameHistory.IsGameFatalError || _cashoutDialogHidden ? OpacityFull : OpacityHalf;
+
+                // TXM-11348: Some times it will show black background when cashout for COAM
+                double opacity;
+                if (_systemDisableManager.CurrentImmediateDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey))
+                {
+                    opacity = OpacityHalf;
+                }
+                else
+                {
+                    opacity = _gameHistory.IsGameFatalError || _cashoutDialogHidden ? OpacityFull : OpacityHalf;
+                }
+                MessageOverlayDisplay.MessageOverlayData.Opacity = opacity;
+
                 _rotateTopImageTimer?.Stop();
                 _rotateTopperImageTimer?.Stop();
                 IsVbdCashOutDialogVisible = false;
