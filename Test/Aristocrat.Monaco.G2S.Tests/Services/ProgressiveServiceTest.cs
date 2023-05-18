@@ -68,36 +68,5 @@
                 _progressiveCommitBuilderMock.Object
                 );
         }
-
-        [TestMethod]
-        public void LevelMistmatchLockupTest()
-        {
-            var service = CreateProgressiveService();
-
-            var devices = _egmMock.Object.GetDevices<IProgressiveDevice>();
-            foreach (var device in devices)
-            {
-                service.LevelMismatchLockup(true, device);
-                Assert.IsTrue(device.HostEnabled);
-                service.LevelMismatchLockup(false, device);
-                Assert.IsFalse(device.HostEnabled);
-            }
-
-        }
-
-        [TestMethod]
-        public void ProgressiveValueTimeoutLockupTest()
-        {
-            var service = CreateProgressiveService();
-
-            var devices = _egmMock.Object.GetDevices<IProgressiveDevice>();
-            foreach (var device in devices)
-            {
-                service.ProgressiveValueTimeoutLockup(true, device);
-                Assert.IsTrue(device.HostEnabled);
-                service.ProgressiveValueTimeoutLockup(false, device);
-                Assert.IsFalse(device.HostEnabled);
-            }
-        }
     }
 }

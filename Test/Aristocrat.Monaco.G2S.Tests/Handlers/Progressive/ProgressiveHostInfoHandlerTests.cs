@@ -10,7 +10,10 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.G2S.Handlers.Progressive;
+    using Aristocrat.Monaco.G2S.Services;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Common;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
@@ -113,6 +116,8 @@
         [TestMethod]
         public void WhenHandlerHandledExpectCompletedTask()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProgressiveService>(MockBehavior.Default);
             var deviceMock = new Mock<IProgressiveDevice>();
 
             var egm = HandlerUtilities.CreateMockEgm(deviceMock);

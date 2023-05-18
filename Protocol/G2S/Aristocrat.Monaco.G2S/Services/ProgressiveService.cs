@@ -925,7 +925,7 @@
                 });
         }
 
-        public enum DeviceDisableReason
+        private enum DeviceDisableReason
         {
             CommsOnline,
             ProgressiveState,

@@ -10,6 +10,8 @@
     using Aristocrat.Monaco.G2S.Handlers;
     using Aristocrat.Monaco.G2S.Services;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Common;
     using G2S.Handlers.Progressive;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -18,14 +20,14 @@
     public class SetProgressiveValueTests
     {
         private Mock<IG2SEgm> _egm;
-        private Mock<ICommandBuilder<IProgressiveDevice, progressiveValueAck>> _commandBuilder;
+        private Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>> _commandBuilder;
         private Mock<IProgressiveLevelProvider> _progressiveProvider;
 
         [TestInitialize]
         public void Initialize()
         {
             _egm = new Mock<IG2SEgm>();
-            _commandBuilder = new Mock<ICommandBuilder<IProgressiveDevice, progressiveValueAck>>();
+            _commandBuilder = new Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>>();
             _progressiveProvider = new Mock<IProgressiveLevelProvider>();
         }
 
@@ -33,7 +35,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNoEgmExpectException()
         { 
-            Assert.IsNull(new SetProgressiveValue(null, _commandBuilder.Object, _progressiveProvider.Object));
+            Assert.IsNull(new GetProgressiveStatus(null, _commandBuilder.Object, _progressiveProvider.Object));
         }
 
         [TestMethod]
@@ -47,27 +49,14 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNoProgressiveProviderExpectException()
         {
-            Assert.IsNull(new SetProgressiveValue(_egm.Object, _commandBuilder.Object, null));
-        }
-
-        [TestMethod]
-        public void WhenConstructWithEgmExpectException()
-        {
-            //var progressiveDataService = new Mock<IProgressiveService>();
-            //var jackpotProvider = new Mock<G2SJackpotProvider>();
-
-
-            var handler = new SetProgressiveValue(
-                _egm.Object,
-                _commandBuilder.Object,
-                _progressiveProvider.Object);
-
-            Assert.IsNotNull(handler);
+            Assert.IsNull(new GetProgressiveStatus(_egm.Object, _commandBuilder.Object, null));
         }
 
         [TestMethod]
         public async Task WhenVerifyOwnerExpectSuccess()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProgressiveService>(MockBehavior.Default);
             var device = new Mock<IProgressiveDevice>();
             var egm = HandlerUtilities.CreateMockEgm(device);
             var handler = CreateHandler(egm, _commandBuilder.Object, _progressiveProvider.Object);
@@ -75,11 +64,11 @@
             await VerificationTests.VerifyChecksForOwner(handler);
         }
 
-        private SetProgressiveValue CreateHandler(IG2SEgm egm = null,
-            ICommandBuilder<IProgressiveDevice, progressiveValueAck> commandBuilder = null,
+        private GetProgressiveStatus CreateHandler(IG2SEgm egm = null,
+            ICommandBuilder<IProgressiveDevice, progressiveStatus> commandBuilder = null,
             IProgressiveLevelProvider progressiveProvider = null)
         {
-            var handler = new SetProgressiveValue(egm, commandBuilder, progressiveProvider);
+            var handler = new GetProgressiveStatus(egm, commandBuilder, progressiveProvider);
 
             return handler;
         }

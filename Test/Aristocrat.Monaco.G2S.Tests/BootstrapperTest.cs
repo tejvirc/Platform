@@ -97,6 +97,7 @@
             MoqServiceManager.CreateAndAddService<IOperatorMenuLauncher>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<ICentralProvider>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProtocolLinkedProgressiveAdapter>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProtocolProgressiveEventsRegistry>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProgressiveLevelProvider>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IOSInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IPrinterFirmwareInstaller>(MockBehavior.Default);

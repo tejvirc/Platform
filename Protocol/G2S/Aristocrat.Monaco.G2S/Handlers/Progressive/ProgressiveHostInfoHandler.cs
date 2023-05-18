@@ -53,7 +53,7 @@
                 {
                     if(p.ProgressiveId == hostLevel.progId)
                     {
-                        p.LevelId = progressiveService.LevelIds.GetMonacoProgressiveLevelId(p.GameId, hostLevel.progId, hostLevel.levelId);
+                        p.LevelId = progressiveService.LevelIds == null ? -1 : progressiveService.LevelIds.GetMonacoProgressiveLevelId(p.GameId, hostLevel.progId, hostLevel.levelId);
                         p.LevelType = G2STypeToPlatformType(hostLevel.levelType);                 
                         p.ResetValue = hostLevel.resetValue;
                         p.IncrementRate = hostLevel.incrementRate;

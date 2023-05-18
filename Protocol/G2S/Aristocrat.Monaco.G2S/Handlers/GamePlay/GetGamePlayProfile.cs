@@ -63,7 +63,7 @@
             response.Command.minPaybackPct = game.MinimumPaybackPercent.ToMeter();
 
             int variation = 0;
-            variation = Int32.Parse(game.VariationId);
+            int.TryParse((game.VariationId ?? String.Empty).ToString(), out variation);
             response.Command.variation = variation;
             response.Command.linkThemeId = game.ThemeId;
 

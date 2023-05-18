@@ -4,6 +4,9 @@
     using System.Threading.Tasks;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Common;
     using G2S.Handlers.Progressive;
     using Gaming.Contracts.Progressives;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,6 +18,8 @@
         [TestMethod]
         public async Task WhenBuildExpectSuccess()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProgressiveService>(MockBehavior.Default);
             var progressiveProvider = new Mock<IProgressiveLevelProvider>();
             var builder = new ProgressiveStatusCommandBuilder(progressiveProvider.Object);
             var device = new Mock<IProgressiveDevice>();

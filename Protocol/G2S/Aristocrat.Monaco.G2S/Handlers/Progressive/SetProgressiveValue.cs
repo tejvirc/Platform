@@ -19,7 +19,6 @@
         private readonly IG2SEgm _egm;
         private readonly IProgressiveLevelProvider _progressiveProvider;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveValueAck> _progressiveValueAckCommandBuilder;
-        private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _progressiveStatusCommandBuilder;
 
         /// <summary>
         /// 
@@ -29,15 +28,12 @@
         /// <param name="progressiveProvider">Progressive provider instance</param>
         public SetProgressiveValue(IG2SEgm egm,
             ICommandBuilder<IProgressiveDevice, progressiveValueAck> progressiveValueAckCommandBuilder,
-            IProgressiveLevelProvider progressiveProvider,
-            ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusCommandBuilder = null)
+            IProgressiveLevelProvider progressiveProvider)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
             _progressiveValueAckCommandBuilder = progressiveValueAckCommandBuilder ??
                 throw new ArgumentNullException(nameof(progressiveValueAckCommandBuilder));
-            _progressiveStatusCommandBuilder = progressiveStatusCommandBuilder ??
-                throw new ArgumentNullException(nameof(progressiveStatusCommandBuilder));
         }
 
         /// <inheritdoc />

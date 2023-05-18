@@ -9,6 +9,7 @@
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using Aristocrat.Monaco.G2S.Services;
     using G2S.Consumers;
     using G2S.Handlers;
     using Hardware.Contracts.HardMeter;
@@ -27,6 +28,7 @@
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProgressiveService>(MockBehavior.Default);
         }
 
         [TestCleanup]

@@ -55,11 +55,14 @@
                     response.Command.gameDenomMeters = meterInfo.gameDenomMeters;
                     response.Command.currencyMeters = meterInfo.currencyMeters;
 
-                    var progIndex = Array.FindIndex(cmd.getDeviceMeters, q =>
-                    q.deviceClass.Equals(DeviceClass.G2S_progressive, StringComparison.Ordinal));
-                    response.Command.deviceMeters = progIndex >= 0 ?
-                        GetProgressiveDeviceMeters(cmd.getDeviceMeters[progIndex].deviceId) :
-                        meterInfo.deviceMeters;
+                    if(cmd.getDeviceMeters != null)
+                    { 
+                        var progIndex = Array.FindIndex(cmd.getDeviceMeters, q =>
+                        q.deviceClass.Equals(DeviceClass.G2S_progressive, StringComparison.Ordinal));
+                        response.Command.deviceMeters = progIndex >= 0 ?
+                            GetProgressiveDeviceMeters(cmd.getDeviceMeters[progIndex].deviceId) :
+                            meterInfo.deviceMeters;
+                    }
 
                     response.Command.wagerMeters = meterInfo.wagerMeters;
                 }
