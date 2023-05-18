@@ -460,7 +460,7 @@
   <data name="CashOutImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAANYAAADWCAYAAACt43wuAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
-        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADr0AAA69AUf7kK0AAGQbSURBVHhe7Z0HuB1V1f4n9yY3
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADrwAAA68AZW8ckkAAGQbSURBVHhe7Z0HuB1V1f4n9yY3
         vUJCJ5QAUqSolIA06Z9UpfsHFBArCAKCAh8BBQEBAekiRcQCFkRRBCmCNEURKR9SRUSKFFGwk/1fv5l5
         z11nn33avTeBhJnneXNu5szMmdmzfrPWXrtMFkKoVKnSECu58nVS3zOP3DPtpcd+Pf20Yw9f85M7bfTd
         s/Z6+zPf/tDy/7x2/yVeu+XgRcMvD18o3HfM1PDgcQuGR7+wQHj8lAXC709dMPzxjAWGVE99qdCfzlyw
@@ -1283,5 +1283,13 @@ Do you really want to do partial reset????</value>
   </data>
   <data name="VerificationTicketTitle" xml:space="preserve">
     <value>???VERIFICATION COUPON???</value>
+  </data>
+  <data name="VerifiedEKeyRequired" xml:space="preserve">
+    <value>???EKey device is required to perform configuration.???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="VerifiedEKeyRequiredGameConfiguration" xml:space="preserve">
+    <value>???EKey device is required to perform game re-configuration???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>

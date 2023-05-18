@@ -33749,7 +33749,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///   Looks up a localized string similar to EKey device is required to perform configuration..
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -33757,6 +33757,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VerifiedEKeyRequired {
 			get {
 				return ResourceManager.GetString("VerifiedEKeyRequired", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string VerifiedEKeyRequiredGameConfiguration {
+			get {
+				return ResourceManager.GetString("VerifiedEKeyRequiredGameConfiguration", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -68746,7 +68758,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///		Looks up a localized string similar to EKey device is required to perform configuration..
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -68754,6 +68766,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VerifiedEKeyRequired {
 			get {
 				return "VerifiedEKeyRequired";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to EKey device is required to perform game re-configu....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string VerifiedEKeyRequiredGameConfiguration {
+			get {
+				return "VerifiedEKeyRequiredGameConfiguration";
 			}
 		}
 
@@ -89220,12 +89244,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		VerificationTicketTitle,
 		/// <summary>
-		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///   Looks up a localized string similar to EKey device is required to perform configuration..
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		VerifiedEKeyRequired,
+		/// <summary>
+		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		VerifiedEKeyRequiredGameConfiguration,
 		/// <summary>
 		///   Looks up a localized string similar to Verifying CRC Signatures.
 		/// </summary>

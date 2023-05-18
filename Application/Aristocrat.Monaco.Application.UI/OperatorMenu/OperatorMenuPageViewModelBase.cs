@@ -801,7 +801,7 @@
                     warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequired);
                     return true;
                 case OperatorMenuAccessRestriction.InitialGameConfigNotCompleteOrEKeyVerified:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequired);
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequiredGameConfiguration);
                     return true;
                 case OperatorMenuAccessRestriction.NoHardLockups:
                     warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RemoveAllHardLockupsBeforeChange);
