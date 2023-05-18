@@ -1636,7 +1636,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _isDisabledCountdownMessageSuppressed, value);
         }
 
-        public string PaidMeterLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaidMeterLabel);
+        public string PaidMeterLabel => Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaidMeterLabel);
 
         public ClockTimer ClockTimer { get; }
 
