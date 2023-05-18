@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
@@ -1534,7 +1534,7 @@
         }
 
         private bool ShowAttractMode => IsAttractEnabled()
-                                        && HasZeroCredits
+                                        && _lobbyStateManager.CanAttractModeStart
                                         && !IsIdleTextScrolling
                                         && !MessageOverlayDisplay.ShowVoucherNotification
                                         && !MessageOverlayDisplay.ShowProgressiveGameDisabledNotification
@@ -4932,7 +4932,7 @@
                     return;
                 }
 
-                if (!IsIdleTextScrolling && HasZeroCredits)
+                if (!IsIdleTextScrolling && _lobbyStateManager.CanAttractModeStart)
                 {
                     var interval = _attractMode
                         ? Config.AttractSecondaryTimerIntervalInSeconds
