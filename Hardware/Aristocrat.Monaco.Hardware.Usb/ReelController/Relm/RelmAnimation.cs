@@ -82,5 +82,10 @@
         {
             return _communicator.PrepareControllerNudgeReels(nudgeData, token);
         }
+
+        public Task<bool> RemoveAllAnimations(CancellationToken token)
+        {
+            return _communicator.RemoveAllControllerAnimations(token);
+        }
     }
 }

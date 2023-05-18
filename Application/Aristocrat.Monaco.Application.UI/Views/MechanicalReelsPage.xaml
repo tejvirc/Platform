@@ -410,6 +410,9 @@
                             Height="50"
                             Width="250"
                             AutomationProperties.AutomationId="Button57_EA876383" />
+                    <Button Content="Remove All Animation Test"
+                            Command="{Binding LightTestButtonClicked}"
+                            Width="150"/>
                 </StackPanel>
                 <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"

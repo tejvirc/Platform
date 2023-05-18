@@ -154,11 +154,12 @@
 
                 _communicator = relmCommunicator;
                 await _communicator.Initialize();
-                IsInitialized = _communicator.IsOpen;
-                
+
                 _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                 _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                 _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
+
+                IsInitialized = _communicator.IsOpen;
 
                 return IsInitialized;
             }

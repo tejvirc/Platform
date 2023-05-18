@@ -80,6 +80,12 @@
         /// </summary>
         /// <param name="token">The cancellation token.</param>
         Task<bool> PlayAnimations(CancellationToken token);
+
+        /// <summary>
+        ///     Instructs the controller to remove all animations
+        /// </summary>
+        /// <param name="token">The cancellation token.</param>
+        Task<bool> RemoveAllAnimations(CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to stop playing selected light show animations.

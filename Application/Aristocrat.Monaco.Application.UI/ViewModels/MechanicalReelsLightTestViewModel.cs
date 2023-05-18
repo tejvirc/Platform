@@ -58,7 +58,7 @@
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _reporter = reporter;
 
-            if (_reelController.HasCapability<IReelBrightnessCapabilities>())
+            if (_reelController.HasCapability<IReelLightingCapabilities>())
             {
                 _lightingCapabilities = _reelController.GetCapability<IReelLightingCapabilities>();
             }
@@ -141,7 +141,7 @@
 
         private async void InitializeLightIdList()
         {
-            if (!_reelController.Connected || Initialized)
+            if (!_reelController.Connected || Initialized || _lightingCapabilities is null)
             {
                 return;
             }

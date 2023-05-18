@@ -164,7 +164,7 @@
             }
 
             _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
-            Logger.Debug("Removing all animation files from controller");
+            Logger.Debug($"Removing all animation files from controller");
 
             return Task.FromResult(true);
         }
@@ -298,8 +298,14 @@
 
         public Task<bool> TiltReels()
         {
-            // TODO: Implement tilt reels in driver and wire up
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            _relmCommunicator.SendCommandAsync(new TiltReelController());
+
+            return Task.FromResult(true);
         }
 
         private void Dispose(bool disposing)

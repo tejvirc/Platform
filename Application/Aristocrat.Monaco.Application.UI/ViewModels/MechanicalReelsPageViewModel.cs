@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
@@ -31,6 +32,7 @@
         private const int LightsOffTime = 250;
         
         private readonly IReelBrightnessCapabilities _brightnessCapabilities;
+        private readonly IReelAnimationCapabilities _reelAnimationCapabilities;
         private readonly IEdgeLightingController _edgeLightController;
         private readonly PatternParameters _solidBlackPattern = new SolidColorPatternParameters
         {
@@ -93,8 +95,15 @@
                 _brightnessCapabilities = ReelController.GetCapability<IReelBrightnessCapabilities>();
             }
 
+            if (ReelController.HasCapability<IReelAnimationCapabilities>())
+            {
+                _reelAnimationCapabilities = ReelController.GetCapability<IReelAnimationCapabilities>();
+            }
+
             MinimumBrightness = 1;
             MaximumBrightness = 100;
+
+            LightTestButtonClicked = new ActionCommand<object>(TestRemoveAllAnimations);
         }
 
         public MechanicalReelsLightTestViewModel LightTestViewModel { get; }
@@ -183,6 +192,8 @@
         public ICommand SelfTestClearCommand { get; }
 
         public ICommand ApplyBrightnessCommand { get; }
+
+        public ICommand LightTestButtonClicked { get; }
 
         public bool BrightnessChangePending => InitialBrightness != Brightness;
 
@@ -677,6 +688,7 @@
             }
 
             var connectedReels = ReelController.ConnectedReels;
+
             ReelsEnabled = connectedReels.Count > 0;
         }
 
@@ -722,6 +734,16 @@
             }
 
             ReelController.ReelOffsets = offsets;
+        }
+
+        private void TestRemoveAllAnimations(object sender)
+        {
+            if (_reelAnimationCapabilities is null)
+            {
+                return;
+            }
+
+            _reelAnimationCapabilities.RemoveAllControllerAnimations(new System.Threading.CancellationToken());
         }
     }
 }

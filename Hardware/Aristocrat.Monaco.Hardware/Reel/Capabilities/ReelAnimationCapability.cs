@@ -28,6 +28,11 @@
             return _implementation.LoadAnimationFiles(files, token);
         }
 
+        public Task<bool> RemoveAllControllerAnimations(CancellationToken token)
+        {
+            return _implementation.RemoveAllAnimations(token);
+        }
+
         public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
         {
             return _implementation.PrepareAnimation(file, token);
