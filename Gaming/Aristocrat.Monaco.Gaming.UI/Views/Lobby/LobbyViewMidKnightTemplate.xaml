@@ -134,10 +134,10 @@
                     <!-- Specify the UI to render each item -->
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:GameInfo}">
-                            <Grid x:Name="GameTile"
-                                  VerticalAlignment="Top"
-                                  Margin="4">
-                                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Viewbox x:Name="GameTile" Stretch="Uniform">
+                                <Grid HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
+                                      Height="412">
                                     <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
                                     <Button x:Name="GameIconButton"
                                             Style="{StaticResource stlFlatButton}"
@@ -183,7 +183,7 @@
                                             </Image>
 
                                             <!-- GRAND banner per game -->
-                                            <ItemsControl Margin="0 0 0 17"
+                                            <ItemsControl Margin="0 0 0 22"
                                                           ItemsSource="{Binding Path=ProgressiveOrBonusValue}"
                                                           HorizontalAlignment="Center"
                                                           VerticalAlignment="Bottom"
@@ -267,7 +267,7 @@
                                         </Grid>
                                     </Button>
                                 </Grid>
-                            </Grid>
+                            </Viewbox>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
